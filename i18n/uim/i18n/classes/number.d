@@ -272,13 +272,13 @@ class DNumber {
      * @param Json[string] options See Number.formatter() for possible options.
      */
     protected static NumberFormatter _setAttributes(NumberFormatter formatter, Json[string] options = null) {
-        if (options.hasKey("places"])) {
+        if (options.hasKey("places")) {
             formatter.setAttribute(NumberFormatter.MIN_FRACTION_DIGITS, options["places"]);
         }
-        if (options.hasKey("precision"])) {
+        if (options.hasKey("precision")) {
             formatter.setAttribute(NumberFormatter.MAX_FRACTION_DIGITS, options["precision"]);
         }
-        if (!options.isEmpty("pattern"])) {
+        if (!options.isEmpty("pattern")) {
             formatter.setPattern(options["pattern"]);
         }
         if (!options["useIntlCode"].isEmpty) {

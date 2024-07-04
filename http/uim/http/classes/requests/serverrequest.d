@@ -1232,19 +1232,15 @@ class DServerRequest { // }: IServerRequest {
         return Hash.get(_params, name, default);
     }
     
-    /**
-     * Return an instance with the specified request attribute.
-     * Params:
-     * @param Json aValue The value of the attribute.
-     */
-    static withAttribute(string attributeName, Json aValue) {
-        new = this.clone;
+    // Return an instance with the specified request attribute.
+    static DServerRequest withAttribute(string attributeName, Json aValue) {
+        DServerRequest newRequest = this.clone;
         if (isIn(attributeName, this.emulatedAttributes, true)) {
-            new.{attributeName} = aValue;
+            newRequest.{attributeName} = aValue;
         } else {
-            new.attributes[attributeName] = aValue;
+            newRequest.attributes[attributeName] = aValue;
         }
-        return new;
+        return newRequest;
     }
     
     /**

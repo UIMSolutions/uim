@@ -37,10 +37,7 @@ string __n(string singularText, string pluralText, size_t count, Json[string] ar
    return null;
 }
 
-/**
- * Allows you to override the current domain for a single message lookup.
- * @param Json[string] arguments Array with arguments or multiple arguments in function.
- */
+// Allows you to override the current domain for a single message lookup.
 string __d(string domainName, string messageToTranslate, Json[string] arguments) {
     if (messageToTranslate.isEmpty) {
         return null;

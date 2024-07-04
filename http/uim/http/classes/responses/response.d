@@ -686,7 +686,7 @@ class DResponse : IResponse {
             .withMaxAge(time - time());
     }
     
-    // Create a new instace with the public/private Cache-Control directive set.
+    //Create a new instace with the public/private Cache-Control directive set.
     static withSharable(bool isPublic, int maxAge = 0) {
         IResponse newResponse = this.clone;
         newResponse._cacheDirectivesremove("private", "public");

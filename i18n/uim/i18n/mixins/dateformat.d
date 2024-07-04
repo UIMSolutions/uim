@@ -84,13 +84,10 @@ mixin template TDateFormat() {
      * time = Time.parseDateTime("13 Oct, 2013 13:54", "dd MMM, y H:mm");
      * time = Time.parseDateTime("10/10/2015", [IntlDateFormatter.SHORT, IntlDateFormatter.NONE]);
      * ```
-     * Params:
-     * string atime The time string to parse.
-     * @param array<int>|string aformat Any format accepted by IntlDateFormatter.
      */
 /*     protected static auto _parseDateTime(
-        string atime,
-        string[] aformat,
+        string timeToParse,
+        string[] dateFormat,
         /* DateTimeZone| / string timezone = null
    ) {
  */

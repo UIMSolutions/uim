@@ -193,7 +193,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * When no format is provided, the `toString` format will be used.
      *
      * Unlike DateTime, the time zone of the returned instance is always converted
-     * to `tz` (default time zone if null) even if the `time` string specified a
+     * to `timezone` (default time zone if null) even if the `time` string specified a
      * time zone. This is a limitation of IntlDateFormatter.
      *
      * If it was impossible to parse the provided time, null will be returned.
@@ -205,26 +205,22 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * time = DateTime.parseDateTime("13 Oct, 2013 13:54", "dd MMM, y H:mm");
      * time = DateTime.parseDateTime("10/10/2015", [IntlDateFormatter.SHORT, IntlDateFormatter.NONE]);
      * ```
-     * Params:
-     * string atime The time string to parse.
-     * @param array<int>|string|int format Any format accepted by IntlDateFormatter.
-     * @param \DateTimeZone|string tz The timezone for the instance
      */
     auto parseDateTime(
         string timeToParse,
         int format = null,
-        /* DateTimeZone| */ string tz = null
+        /* DateTimeZone| */ string timezone = null
    ) {
-        return parseDateTime(timeToParse, [to!string(format)], tz);
+        return parseDateTime(timeToParse, [to!string(format)], timezone);
     }
 
     auto parseDateTime(
         string timeToParse,
         string[] format = null,
-        /* DateTimeZone| */ string tz = null
+        /* DateTimeZone| */ string timezone = null
    ) {
         format = format ? format : _toStringFormat;
-        return _parseDateTime(time, format, tz);
+        return _parseDateTime(time, format, timezone);
     }
     
     /**
@@ -429,18 +425,16 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * Params:
      * string|int filter A regex to filter identifier
      * Or one of DateTimeZone class DConstants
-     * @param string country A two-letter ISO 3166-1 compatible country code.
-     * This option is only used when filter is set to DateTimeZone.PER_COUNTRY
-     * @param Json[string]|bool options If true (default value) groups the identifiers list by primary region.
+     * options: If true (default value) groups the identifiers list by primary region.
      * Otherwise, an array containing `group`, `abbr`, `before`, and `after`
      * keys. Setting `group` and `abbr` to true will group results and append
      * timezone abbreviation in the display value. Set `before` and `after`
      * to customize the abbreviation wrapper.
      */
     auto Json[string] listTimezones(
-        string|int filter = null,
+        string|int regexFilter = null,
         string countryCode = null,
-        Json auto options = null
+        Json[string] options = null
    ) {
         if (isBoolean(options)) {
             options = [
@@ -457,16 +451,16 @@ class DateTime /* : Chronos, JsonSerializable */ {
         an anGroup = options["group"];
 
         auto regex = null;
-        if (isString(filter)) {
+        if (isString(regexFilter)) {
             regex = filter;
             filter = null;
         }
         auto filter ? filter : DateTimeZone.ALL;
-         anIdentifiers = DateTimeZone.listIdentifiers(filter, (string)country) ?: [];
+         anIdentifiers = DateTimeZone.listIdentifiers(filter, countryCode) ?: [];
 
         if (regex) {
-            foreach (aKey, tz; anIdentifiers) {
-                if (!preg_match(regex, tz)) {
+            foreach (aKey, timezone; anIdentifiers) {
+                if (!preg_match(regex, timezone)) {
                     anIdentifiers.remove(aKey);
                 }
             }
@@ -476,20 +470,20 @@ class DateTime /* : Chronos, JsonSerializable */ {
             now = time();
             before = options["before"];
             after = options["after"];
-            anIdentifiers.each!((tz) {
+            anIdentifiers.each!((timezone) {
                 string abbr = "";
                 if (options["abbr"]) {
-                    dateTimeZone = new DateTimeZone(tz);
+                    dateTimeZone = new DateTimeZone(timezone);
                     trans = dateTimeZone.getTransitions(now, now);
                     abbr = isSet(trans[0]["abbr"]) ?
                         before ~ trans[0]["abbr"] ~ after :
                         "";
                 }
-                 anItem = split("/", tz, 2);
+                 anItem = split("/", timezone, 2);
                 if (isSet(anItem[1])) {
-                     anGroupedIdentifiers[anItem[0]][tz] = anItem[1] ~ abbr;
+                     anGroupedIdentifiers[anItem[0]][timezone] = anItem[1] ~ abbr;
                 } else {
-                     anGroupedIdentifiers[anItem[0]] = [tz:  anItem[0] ~ abbr];
+                     anGroupedIdentifiers[anItem[0]] = [timezone:  anItem[0] ~ abbr];
                 }
             });
             return anGroupedIdentifiers;
@@ -497,14 +491,11 @@ class DateTime /* : Chronos, JsonSerializable */ {
         return array_combine(anIdentifiers,  anIdentifiers);
     }
     
-    /**
-     * Returns a string that should be serialized when converting this object to Json
-     */
+    // Returns a string that should be serialized when converting this object to Json
     string JsonSerialize() {
-        if (cast(DClosure)_JsonEncodeFormat) {
-            return call_user_func(_JsonEncodeFormat, this);
-        }
-        return _i18nFormat(_JsonEncodeFormat);
+        return cast(DClosure)_JsonEncodeFormat
+            ? call_user_func(_JsonEncodeFormat, this)
+            : _i18nFormat(_JsonEncodeFormat);
     }
  
     override string toString() {

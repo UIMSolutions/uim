@@ -111,20 +111,16 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * Note that server-params are taken precisely as given - no parsing/processing
      * of the given values is performed, and, in particular, no attempt is made to
      * determine the HTTP method or URI, which must be provided explicitly.
-     * Params:
-     * string httpMethod The HTTP method associated with the request.
-     * @param \Psr\Http\Message\IUri|string auri The URI associated with the request. If
-     *   the value is a string, the factory MUST create a IUri
-     *   instance based on it.
      */
-    IServerRequest createServerRequest(string httpMethod, /* IUri */ string uri, Json[string] serverOptions = null) {
-        serverOptions["REQUEST_METHOD"] = method;
-        options = ["environment": serverOptions];
+    IServerRequest createServerRequest(string httpMethod, string uri, Json[string] serverOptions = null) {
+        return createServerRequest(httpMethod, (new UriFactory()).createUri(uri), serverOptions);
+    }
+    
+    IServerRequest createServerRequest(string httpMethod, IUri uri, Json[string] serverOptions = null) {
+        serverOptions.set("REQUEST_METHOD", httpMethod);
+        auto options = ["environment": serverOptions].toJsonMap;
 
-        if (isString(uri)) {
-            uri = (new UriFactory()).createUri(uri);
-        }
-        options["uri"] = uri;
+        options.set("uri", uri);
 
         return new DServerRequest(options);
     }

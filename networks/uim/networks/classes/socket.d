@@ -82,7 +82,7 @@ class DSocket {
      * Connect the socket to the given host and port.
      */
     bool connect() {
-        if (this.connection) {
+        if (_connection) {
             this.disconnect();
         }
         if (configuration.getString("host").contains(": //")) {
@@ -123,21 +123,21 @@ class DSocket {
        );
         restore_error_handler();
 
-        if (this.connection.isNull && (!errorNumber || !errorString)) {
+        if (_connection.isNull && (!errorNumber || !errorString)) {
             setLastError(errorNumber, errorString);
             throw new DSocketException(errorString, errorNumber);
         }
-        if (this.connection.isNull && _connectionErrors) {
+        if (_connection.isNull && _connectionErrors) {
             throw new DSocketException(
                 _connectionErrors.join("\n"),
                 ERRORS.WARNING
            );
         }
-        this.connected = isResource(this.connection);
+        this.connected = isResource(_connection);
         if (this.connected) {
-            assert(this.connection!is null);
+            assert(_connection!is null);
 
-            stream_set_timeout(this.connection, (int) configuration.get("timeout"]);
+            stream_set_timeout(_connection, (int) configuration.get("timeout"]);
         }
         return _connected;
     }
@@ -211,10 +211,10 @@ class DSocket {
         
     // Get the connection context.
         Json[string] context() {
-            if (!this.connection) {
+            if (!_connection) {
                 return null;
             }
-            return stream_context_get_options(this.connection);
+            return stream_context_get_options(_connection);
         }
     
         // Get the host name of the current connection.
@@ -244,20 +244,15 @@ class DSocket {
 
     // Get the last error as a string.
     string lastError() {
-        if (isEmpty(this.lastError)) {
+        if (isEmpty(_lastError)) {
             return null;
         }
         return _lastError.getString("num") ~ ": " ~ _lastError.getString("str");
     }
 
-    /**
-     * Set the last error.
-     * Params:
-     * int errorNumber Error code
-     * @param string errorString Error string
-     */
-    void setLastError(interrNum, string errorString) {
-        this.lastError = ["num": errorNumber, "str": errorString];
+    // Set the last error.
+    void setLastError(int errorNumber, string errorString) {
+        _lastError = ["num": errorNumber, "str": errorString];
     }
 
     /**
@@ -272,9 +267,9 @@ class DSocket {
         auto totalBytes = someData.length;
         auto written = 0;
         while (written < totalBytes) {
-            assert(this.connection!is null);
+            assert(_connection !is null);
 
-            auto rv = fwrite(this.connection, subString(someData, written));
+            auto rv = fwrite(_connection, subString(someData, written));
             if (rv == false || rv == 0) {
                 return written;
             }
@@ -286,28 +281,23 @@ class DSocket {
     /**
      * Read data from the socket. Returns null if no data is available or no connection could be
      * established.
-     * Params:
-     * size_t aLength Optional buffer length to read; defaults to 1024
      */
-    string read(size_t aLength = 1024) {
-        if (length < 0) {
-            throw new DInvalidArgumentException("Length must be greater than `0`");
-        }
+    string read(size_t bufferLength = 1024) {
         if (!this.connected && !this.connect()) {
             return null;
         }
-        assert(this.connection!is null);
-        if (feof(this.connection)) {
+        assert(_connection!is null);
+        if (feof(_connection)) {
             return null;
         }
-        buffer = fread(this.connection, length);
-        anInfo = stream_get_meta_data(this.connection);
+        
+        auto buffer = fread(_connection, bufferLength);
+        auto anInfo = stream_get_meta_data(_connection);
         if (anInfo["timed_out"]) {
             setLastError(ERRORS.WARNING, "Connection timed out");
-
             return null;
         }
-        return buffer == false ? null : buffer;
+        return buffer.isEmpty ? buffer : null;
     }
 
     
@@ -319,16 +309,16 @@ class DSocket {
 
          // Disconnect the socket from the current connection
         >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf bool disconnect() {
-            if (!isResource(this.connection)) {
+            if (!isResource(_connection)) {
                 this.connected = false;
 
                 return true;
             }
             /** @psalm-suppress InvalidPropertyAssignmentValue */
-            this.connected = !fclose(this.connection);
+            this.connected = !fclose(_connection);
 
             if (!this.connected) {
-                this.connection = null;
+                _connection = null;
             }
             return !this.connected;
         }
@@ -383,10 +373,10 @@ class DSocket {
                 method |= STREAM_CRYPTO_METHOD_TLSv1_1_SERVER | STREAM_CRYPTO_METHOD_TLSv1_2_SERVER;
             }
             try {
-                if (this.connection.isNull) {
+                if (_connection.isNull) {
                     throw new DException("You must call connect() first.");
                 }
-                enableCryptoResult = stream_socket_enable_crypto(this.connection, enable, method);
+                enableCryptoResult = stream_socket_enable_crypto(_connection, enable, method);
             } catch (Exception anException) {
                 setLastError(null, anException.getMessage());
                 throw new DSocketException(anException.getMessage(), null, anException);

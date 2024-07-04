@@ -24,9 +24,6 @@ Json htmlAttributeEscape(Json text, bool isDouble = true, string escapingCharset
      * ```
      * list(plugin, name) = pluginSplit(name);
      * ```
-     * Params:
-     * @param bool dotAppend Set to true if you want the plugin to have a '.' appended to it.
-     * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
      */
 Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string pluginName = null) {
     return uimPluginSplit(nameToSplit, dotAppend, pluginName);
@@ -34,7 +31,6 @@ Json[string] pluginSplit(string nameToSplit, bool dotAppend = false, string plug
 
 /**
      * Split the namespace from the classname.
-     *
      * Commonly used like `list(namespace,  classname) = namespaceSplit(classname);`.
      */
 string[] namespaceSplit(string classname) {

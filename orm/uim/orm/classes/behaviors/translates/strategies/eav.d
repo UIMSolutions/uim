@@ -315,10 +315,8 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
     /**
      * Modifies the results from a table find in order to merge the translated fields
      * into each entity for a given locale.
-     *
-     * @param DORMDatasource\IResultset results Results to map.
      */
-    protected DORMcollections rowMapper(results, string localeName) {
+    protected DORMcollections rowMapper(IResultset results, string localeName) {
         return results.map(function (row) use (localeName) {
             /** @var DORMdatasources.IORMEntity|array|null row */
             if (row == null) {

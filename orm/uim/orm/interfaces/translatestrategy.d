@@ -18,12 +18,8 @@ interface ITranslateStrategy : IPropertyMarshal {
      * Note that in case an entity has a `_locale` property set, that locale
      * will win over the locale set via this method (and over the globally
      * configured one for that matter)!
-     *
-     * @param string locale The locale to use for fetching and saving
-     *  records. Pass `null` in order to unset the current locale, and to make
-     *  the behavior fall back to using the globally configured locale.
      */
-    ITranslateStrategy setLocale(string locale);
+    ITranslateStrategy setLocale(string localeName);
 
     /**
      * Returns the current locale.

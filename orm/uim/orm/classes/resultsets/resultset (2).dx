@@ -312,16 +312,13 @@ class DResultset : IResultset {
         _map = map;
     }
 
-    /**
-     * Helper function to fetch the next result from the statement or
-     * seeded results.
-     */
+    // Helper function to fetch the next result from the statement or seeded results.
     protected Json _fetchResult() {
         if (_statement == null) {
             return false;
         }
 
-        row = _statement.fetch("assoc");
+        auto row = _statement.fetch("assoc");
         if (row == false) {
             return row;
         }
@@ -329,14 +326,10 @@ class DResultset : IResultset {
         return _groupResult(row);
     }
 
-    /**
-     * Correctly nests results keys including those coming from associations
-     *
-     * @param Json[string] row Array containing columns and values or false if there is no results
-     */
+    // Correctly nests results keys including those coming from associations
     protected IORMEntity _groupResult(Json[string] row) {
-        defaultAlias = _defaultAlias;
-        results = presentAliases = null;
+        auto defaultAlias = _defaultAlias;
+        auto results = presentAliases = null;
         options = [
             "useSetters": false.toJson,
             "markClean": true.toJson,
@@ -344,7 +337,7 @@ class DResultset : IResultset {
             "guard": false.toJson,
         ];
 
-        foreach (alias: keys; _matchingMapColumns) {
+        foreach (alias, keys; _matchingMapColumns) {
             matching = _matchingMap[aliasName];
             results["_matchingData"][aliasName] = array_combine(
                 keys,

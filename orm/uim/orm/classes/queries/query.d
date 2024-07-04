@@ -161,12 +161,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * If you pass an instance of a `uim\orm.Table` or `uim\orm.Association` class,
      * all the fields in the schema of the table or the association will be added to
      * the select clause.
-     *
-     * @param DORMdatabases.IExpression|DORMTable|DORMAssociation|callable|array|string fields Fields
-     * to be added to the list.
      */
      
-    IQuery select(IExpression anExpression, bool canOverwrite = false) {
+    IQuery select(IExpression /* DORMTable|DORMAssociation|callable|array|string  */anExpression, bool canOverwrite = false) {
         return this;
     }
 

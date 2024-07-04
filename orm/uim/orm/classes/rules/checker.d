@@ -58,20 +58,16 @@ class DRulesChecker { // }: BaseRulesChecker {
      * "message" sets a custom error message.
      * Set "allowNullableNulls" to true to accept composite foreign keys where one or more nullable columns are null.
      * Params:
-     * string[]|string fieldName The field or list of fields to check for existence by
-     * primary key lookup in the other table.
-     * @param Json[string]|string errorMessage The error message to show in case the rule does not pass. Can
-     * also be an array of options. When an array, the "message" key can be used to provide a message.
      */
     DRuleInvoker existsIn(
-        string[] fieldName,
+        string[] /* string */ fieldName,
         DORMTable/* |Association|string */ mytable,
-        string[] errorMessage = null
+        string[] /* string */ errorMessage = null
    ) {
         options = null;
         if (errorMessage.isArray) {
             options = errorMessage ~ ["message": Json(null)];
-            errorMessage = options.get("message"];
+            errorMessage = options.get("message");
             options.remove("message");
         }
         if (!errorMessage) {

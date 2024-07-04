@@ -780,30 +780,23 @@ class DTreeBehavior : DBehavior {
     /**
      * Auxiliary function used to automatically alter the value of both the left and
      * right columns by a certain amount that match the passed conditions
-     *
-     * @param int shift the value to use for operating the left and right columns
-     * @param string dir The operator to use for shifting the value (+/-)
-     * @param string conditions a SQL snipped to be used for comparing left or right
-     * against it.
-     * @param bool mark whether to mark the updated values so that they can not be
-     * modified by future calls to this function.
      */
-    protected void _sync(int shift, string dir, string conditions, bool mark = false) {
+    protected void _sync(int shiftvalue, string dir, string conditions, bool shouldMark = false) {
         auto configData = configuration.data;
 
         foreach ([configuration.get("leftField"), configuration.get("rightField")] as field) {
-            query = _scope(_table.query());
-            exp = query.newExpr();
+            auto query = _scope(_table.query());
+            auto exp = query.newExpr();
 
-            movement = exp.clone;
-            movement.add(field).add(/* (string) */shift).conjunctionType(dir);
+            auto movement = exp.clone;
+            movement.add(field).add(/* (string) */shiftvalue).conjunctionType(dir);
 
-            inverse = exp.clone;
-            movement = mark ?
+            auto inverse = exp.clone;
+            movement = shouldMark ?
                 inverse.add(movement).conjunctionType("*").add("-1") :
                 movement;
 
-            where = clone exp;
+            auto where = exp.clone;
             where.add(field).add(conditions).conjunctionType("");
 
             query.update()
@@ -817,17 +810,15 @@ class DTreeBehavior : DBehavior {
     /**
      * Alters the passed query so that it only returns scoped records as defined
      * in the tree configuration.
-     *
-     * @param DORMQuery query the Query to modify
      */
-    protected DORMQuery _scope(Query query) {
-        scope = this.configuration.get("scope");
+    protected DORMQuery _scope(DORMQuery query) {
+        auto scopeData = this.configuration.get("scope");
 
-        if ((scope.isArray) {
-            return query.where(scope);
+        if (scopeData.isArray) {
+            return query.where(scopeData);
         }
-        if (is_callable(scope)) {
-            return scope(query);
+        if (is_callable(scopeData)) {
+            return scopeData(query);
         }
 
         return query;

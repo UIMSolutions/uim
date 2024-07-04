@@ -245,12 +245,8 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
                                 .groupTranslations(...), queryToModify.PREPEND);
                     }
 
-                    /**
-     * Proxy method calls to strategy class instance.
-     * Params:
-     * @param Json[string] myargs Method arguments.
-    */
-                    Json __call(string methodName, Json[string] myargs) {
+                    // Proxy method calls to strategy class instance.
+                    Json __call(string methodName, Json[string] methodArguments) {
                         return _strategy. {
                             methodName
                         }

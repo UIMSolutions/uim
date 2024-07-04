@@ -112,9 +112,9 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @param string aclassname  The classname that is missing.
      * @param string anAlias The alias of the object.
      */
-    protected Json[string] _getMethods(Behavior instance, string aclassname, string anAlias) {
-        auto finders = array_change_key_case(instance.implementedFinders());
-        auto aMethodNames = array_change_key_case(instance.implementedMethods());
+    protected Json[string] _getMethods(DORMBehavior behavior, string aclassname, string anAlias) {
+        auto finders = array_change_key_case(behavior.implementedFinders());
+        auto aMethodNames = array_change_key_case(behavior.implementedMethods());
 
         foreach (finder, myMethodName; finders) {
             if (isset(_finderMap[finder]) && this.has(_finderMap[finder][0])) {

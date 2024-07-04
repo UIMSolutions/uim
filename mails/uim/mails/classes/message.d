@@ -41,9 +41,9 @@ class DMessage { //: JsonSerializable {
 
         // TODO
         /*
-        this.appCharset = configuration.get("App.encoding");
-        if (this.appCharset !is null) {
-            this.charset = this.appCharset;
+        _appCharset = configuration.get("App.encoding");
+        if (_appCharset !is null) {
+            this.charset = _appCharset;
         }
         this.domain = (string)preg_replace("/\:\d+/", "", /* (string) */enviroment("HTTP_HOST"));
         if (isEmpty(this.domain)) {
@@ -1114,14 +1114,14 @@ class DMessage { //: JsonSerializable {
      * string atext The text to be converted
      * @param string acharset the target encoding
      */
-    protected string encodeString(string atext, string acharset) {
-        if (this.appCharset == charset) {
+    protected string encodeString(string atext, string targetCharset) {
+        if (_appCharset == targetCharset) {
             return text;
         }
-        if (this.appCharset.isNull) {
-            return mb_convert_encoding(text, charset);
+        if (_appCharset.isNull) {
+            return mb_convert_encoding(text, targetCharset);
         }
-        return mb_convert_encoding(text, charset, this.appCharset);
+        return mb_convert_encoding(text, targetCharset, _appCharset);
     }
     
     // Wrap the message to follow the RFC 2822 - 2.1.1
@@ -1131,8 +1131,8 @@ class DMessage { //: JsonSerializable {
         }
         message = message.replace(["\r\n", "\r"], "\n");
         string[] lines = message.split("\n");
-        formatted = null;
-        cut = (wrapLength == LINE_LENGTH_MUST);
+        auto formatted = null;
+        auto cut = (wrapLength == LINE_LENGTH_MUST);
 
         foreach (line; lines) {
             if (isEmpty(line) && line != "0") {
@@ -1260,11 +1260,11 @@ class DMessage { //: JsonSerializable {
      * string atext String to encode
      */
     protected string encodeForHeader(string textToEncode) {
-        if (this.appCharset.isNull) {
+        if (_appCharset.isNull) {
             return textToEncode;
         }
         restore = mb_internal_encoding();
-        mb_internal_encoding(this.appCharset);
+        mb_internal_encoding(_appCharset);
         auto result = mb_encode_mimeheader(textToEncode, getHeaderCharset(), "B");
         mb_internal_encoding(restore);
 
@@ -1277,11 +1277,11 @@ class DMessage { //: JsonSerializable {
      * string atext String to decode
      */
     protected string decodeForHeader(string textToEncode) {
-        if (this.appCharset.isNull) {
+        if (_appCharset.isNull) {
             return textToEncode;
         }
         restore = mb_internal_encoding();
-        mb_internal_encoding(this.appCharset);
+        mb_internal_encoding(_appCharset);
         result = mb_decode_mimeheader(textToEncode);
         mb_internal_encoding(restore);
 

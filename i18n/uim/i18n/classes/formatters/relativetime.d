@@ -10,12 +10,7 @@ import uim.i18n;
  * @internal
  */
 class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
-    /**
-     * Get the difference in a human readable format.
-     * Params:
-     * \UIM\Chronos\DChronosDate|\IDateTime first The datetime to start with.
-     * @param \UIM\Chronos\DChronosDate|\IDateTime|null second The datetime to compare against.
-     */
+    // Get the difference in a human readable format.
     string diffForHumans(
         /* DChronosDate| */
         IDateTime first, /* DChronosDateeee| */

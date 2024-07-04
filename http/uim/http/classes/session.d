@@ -206,27 +206,26 @@ class DSession {
      * or null if none exists.
      * Params:
      * \!SessionHandler|string  classname The session handler to use
-     * @param Json[string] options the options to pass to the SessionHandler constructor
      */
     SessionHandler engine(
-        !SessionHandler | string | null classname = null,
+        /* !SessionHandler | */ string handleClassname = null,
         Json[string] options = null
    ) {
-        if (classname.isNull) {
+        if (handleClassname.isNull) {
             return _engine;
         }
-        if (cast(!SessionHandler) classname) {
-            return _setEngine(classname);
+        if (cast(!SessionHandler) handleClassname) {
+            return _setEngine(handleClassname);
         }
         /** @var class-string<\!SessionHandler>|null  classname */
-        classname = App.classname(classname, "Http/Session");
-        if (classname.isNull) {
+        handleClassname = App.classname(handleClassname, "Http/Session");
+        if (handleClassname.isNull) {
             throw new DInvalidArgumentException(
                 "The class `%s` does not exist and cannot be used as a session engine"
-                    .format(classname)
+                    .format(handleClassname)
            );
         }
-        return _setEngine(new classname(options));
+        return _setEngine(new handleClassname(options));
     }
 
     /**

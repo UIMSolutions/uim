@@ -443,14 +443,9 @@ class DServerRequest { // }: IServerRequest {
        _detectorCache = null;
     }
     
-    /**
-     * Worker for the is() function
-     * Params:
-     * string atype The type of request you want to check.
-     * @param Json[string] someArguments Array of custom detector arguments.
-     */
-    protected bool _is(string atype, Json[string] someArguments) {
-        auto detect = _detectors[type];
+    // Worker for the is() function
+    protected bool _is(string requestType, Json[string] someArguments) {
+        auto detect = _detectors[requestType];
         /* if (cast(DClosure)detect) {
             array_unshift(someArguments, this);
 

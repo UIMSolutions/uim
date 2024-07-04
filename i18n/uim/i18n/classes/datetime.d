@@ -336,12 +336,9 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * You can control the default locale used through `DateTime.setDefaultLocale()`.
      * If empty, the default will be taken from the `intl.default_locale` ini config.
-     * Params:
-     * array<int>|string|int format Format string.
-     * @param string locale The locale name in which the date should be displayed (e.g. pt-BR)
      */
     string i18nFormat(
-        int format = null,
+        /* array<int>|string */int format = null,
         /* DateTimeZone| */string timezone = null,
         string localeName = null
    ) {

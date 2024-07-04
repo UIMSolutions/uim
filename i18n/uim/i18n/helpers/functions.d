@@ -3,12 +3,8 @@ module uim.i18n.helpers.functions;
 import uim.i18n;
 
 @safe:
-/**
- * Returns a translated string if one is found; Otherwise, the submitted message.
- *
- * @param string singular Text to translate.
- * @param Json[string] arguments Array with arguments or multiple arguments in function.
- */
+
+// Returns a translated string if one is found; Otherwise, the submitted message.
 string __(string singularText, Json[string] arguments) {
     if (!singularText) {
         return null;

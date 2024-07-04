@@ -128,9 +128,6 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Finds the index of the first middleware that matches the provided class,
      * and inserts the supplied middleware after it. If the class is not found,
      * this method will behave like add().
-     * Params:
-     * string classname The classname to insert the middleware before.
-     * @param \Psr\Http\Server\IHttpMiddleware|\/*Closure|* / string amiddleware The middleware to insert.
      */
     // auto insertAfter(string classname, IHttpMiddleware middlewareToInsert) {
     // auto insertAfter(string classname, DClosure middlewareToInsert) {

@@ -683,15 +683,11 @@ static string getType(Json value) {
     return type;
 }
 
-/**
-     * Prints out debug information about given variable.
-     *
-     * @param mixed var Variable to show debug information for.
-     */
+// Prints out debug information about given variable.
 static void printVar(Json varToShow, Json[string] location = null, bool showHtml = false) {
-    auto location += ["file": null, "line": null];
-    if (location["file"]) {
-        location["file"] = trimPath((string) location["file"]);
+    location.mergeKeys(["file", "line"]);
+    if (location.hasKey("file") {
+        location.set("file", trimPath(location.getString("file"));
     }
 
     auto debugger = getInstance();

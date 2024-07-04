@@ -664,11 +664,7 @@ class DResponse : IResponse {
             .withHeader("Cache-Control", "no-store, no-cache, must-revalidate, post-check=0, pre-check=0");
     }
     
-    /**
-     * Create a new instance with the headers to enable client caching.
-     * Params:
-     * @param string|int time a valid time for cache expiry
-     */
+    // Create a new instance with the headers to enable client caching.
     static withCache(/* string */ int sinceModified, /* int */ timeExpiry = "+1 day") {
         if (!isInteger(timeExpiry)) {
             timeExpiry = strtotime(timeExpiry);

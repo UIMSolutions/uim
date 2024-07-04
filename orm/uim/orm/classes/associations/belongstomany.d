@@ -128,15 +128,13 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Sets the table instance for the junction relation. If no arguments
      * are passed, the current configured table instance is returned
-     *
-     * @param DORMTable|string table Name or instance for the join table
      */
-    DORMTable junction(DORMTable table = null) {
+    DORMTable junction(DORMTable /* string */ table = null) {
         if (table == null && _junctionTable != null) {
             return _junctionTable;
         }
 
-        tableLocator = getTableLocator();
+        auto tableLocator = getTableLocator();
         if (table == null && _through) {
             table = _through;
         } elseif (table == null) {

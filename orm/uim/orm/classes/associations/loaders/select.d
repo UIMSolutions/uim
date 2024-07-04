@@ -143,11 +143,8 @@ class DSelectLoader {
      * query.contain(["Comments": ["finder": ["translations"]]]);
      * query.contain(["Comments": ["finder": ["translations": Json.emptyArray]]]);
      * query.contain(["Comments": ["finder": ["translations": ["locales": ["en_US"]]]]]);
-     *
-     * @param array|string finderData The finder name or an array having the name as key
-     * and options as value.
      */
-    protected Json[string] _extractFinder(finderData) {
+    protected Json[string] _extractFinder(string[] finderData) {
         finderData = /* (array) */finderData;
 
         if (key(finderData).isNumeric) {

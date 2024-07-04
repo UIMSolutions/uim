@@ -12,9 +12,6 @@ import uim.oop;
 class DTestSession {
     protected Json[string] _session = null;
 
-    /**
-     * @param array|null mysession Session data.
-     */
     this(Json[string] sessionData) {
         _session = sessionData;
     }

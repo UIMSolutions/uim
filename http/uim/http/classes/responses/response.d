@@ -1188,9 +1188,8 @@ class DResponse : IResponse {
      * in the response.
      * Params:
      * \SplFileInfo file The file to set a range on.
-     * @param string ahttpRange The range to use.
      */
-    protected void _fileRange(SplFileInfo file, string ahttpRange) {
+    protected void _fileRange(SplFileInfo file, string httpRange) {
         size_t fileSize = file.getSize();
         lastByte = fileSize - 1;
         string start = 0;

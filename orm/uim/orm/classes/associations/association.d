@@ -639,10 +639,8 @@ class DAssociation : IAssociation {
      * Proxies the update operation to the target table"s updateAll method
      *
      * @param Json[string] fields A hash of field: new value.
-     * @param DORMdatabases.IExpression|\Closure|array|string conditions Conditions to be used, accepts anything Query.where()
-     * can take.
      */
-    size_t updateAll(string[] fieldNames, conditions) {
+    size_t updateAll(string[] fieldNames, /* .IExpression|\Closure|array| */string conditions) {
         expression = this.find()
             .where(conditions)
             .clause("where");

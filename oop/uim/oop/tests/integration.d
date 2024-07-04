@@ -210,11 +210,8 @@ mixin template TIntegrationTest() {
      *
      * You can call this method multiple times to append into
      * the current state.
-     * Params:
-     * string aName The cookie name to use.
-     * @param string avalue The value of the cookie.
      */
-    void cookie(string aName, string avalue) {
+    void cookie(string aName, string value) {
         _cookie[name] = aValue;
     }
 

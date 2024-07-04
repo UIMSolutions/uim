@@ -195,7 +195,7 @@ class DI18n {
      * any manipulation by this class.
     */
     static string getDefaultLocale() {
-        return _defaultLocale ??= Locale.getDefault() ?: DEFAULT_LOCALE;
+        return _defaultLocale.ifNull(Locale.getDefault() ? Locale.getDefault() : DEFAULT_LOCALE);
     }
     
     // Returns the currently configured default formatter.

@@ -17,19 +17,19 @@ class Xml {
      * Building XML from a string:
      *
      * ```
-     * myxml = Xml.build("<example>text</example>");
+     * xmlElement = Xml.build("<example>text</example>");
      * ```
      *
      * Building XML from string (output DOMDocument):
      *
      * ```
-     * myxml = Xml.build("<example>text</example>", ["return": "domdocument"]);
+     * xmlElement = Xml.build("<example>text</example>", ["return": "domdocument"]);
      * ```
      *
      * Building XML from a file path:
      *
      * ```
-     * myxml = Xml.build("/path/to/an/xml/file.xml", ["readFile": true.toJson]);
+     * xmlElement = Xml.build("/path/to/an/xml/file.xml", ["readFile": true.toJson]);
      * ```
      *
      * Building XML from a remote URL:
@@ -39,7 +39,7 @@ class Xml {
      *
      * myhttp = new DClient();
      * myresponse = myhttp.get("http://example.com/example.xml");
-     * myxml = Xml.build(myresponse.body());
+     * xmlElement = Xml.build(myresponse.body());
      * ```
      *
      * Building from an array:
@@ -59,7 +59,7 @@ class Xml {
      *        ]
      *    ]
      * ];
-     * myxml = Xml.build(myValue);
+     * xmlElement = Xml.build(myValue);
      * ```
      *
      * When building XML from an array ensure that there is only one top level element.
@@ -115,10 +115,10 @@ class Xml {
             options,
             auto(inputToLoad, options, myflags) {
             if (options["return"] == "simplexml" || options["return"] == "simplexmlelement") {
-                myflags |= LIBXML_NOCDATA; myxml = new DSimpleXMLElement(inputToLoad, myflags);
+                myflags |= LIBXML_NOCDATA; xmlElement = new DSimpleXMLElement(inputToLoad, myflags);
             } else {
-                myxml = new DOMDocument(); myxml.loadXML(inputToLoad, myflags);}
-                return myxml;}
+                xmlElement = new DOMDocument(); xmlElement.loadXML(inputToLoad, myflags);}
+                return xmlElement;}
                 );
             }
 
@@ -138,10 +138,10 @@ class Xml {
                     inputToLoad,
                     options,
                     auto(inputToLoad, options, myflags) {
-                    myxml = new DOMDocument(); myxml.loadHTML(inputToLoad, myflags); if (
+                    xmlElement = new DOMDocument(); xmlElement.loadHTML(inputToLoad, myflags); if (
                         options["return"] == "simplexml" || options["return"] == "simplexmlelement") {
-                        myxml = simplexml_import_dom(myxml);}
-                        return myxml;}
+                        xmlElement = simplexml_import_dom(xmlElement);}
+                        return xmlElement;}
                         );
                     }
 
@@ -386,15 +386,14 @@ class Xml {
                     /**
      * Recursive method to toArray
      * Params:
-     * \SimpleXMLElement myxml SimpleXMLElement object
      * @param Json[string] myparentData Parent array with data
      * @param string myns Namespace of current child
      */
-                    protected static void _toArray(SimpleXMLElement myxml, Json[string] & myparentData, string myns, string[] namespacesInXML) {
+                    protected static void _toArray(SimpleXMLElement xmlElement, Json[string] & myparentData, string myns, string[] namespacesInXML) {
                         auto mydata = null;
 
                         foreach (mynamespace; namespacesInXML) {
-                            SimpleXMLElement myattributes = myxml.attributes(mynamespace, true);
+                            SimpleXMLElement myattributes = xmlElement.attributes(mynamespace, true);
 
                             // string aKey
                             myattributes.byKeyValue
@@ -405,10 +404,10 @@ class Xml {
                                     }
                                     mydata["@" ~ atKey] = (string) kv.value;
                                 });
-                            myxml.children(mynamespace, true)
+                            xmlElement.children(mynamespace, true)
                                 .each!(child => _toArray(child, mydata, mynamespace, mynamespaces));
                         }
-                        myasString = strip(/* (string) */ myxml);
+                        myasString = strip(/* (string) */ xmlElement);
                         if (isEmpty(mydata)) {
                             mydata = myasString;
                         }
@@ -418,7 +417,7 @@ class Xml {
                         if (!myns.isEmpty) {
                             myns ~= ":";
                         }
-                        myname = myns ~ myxml.name;
+                        myname = myns ~ xmlElement.name;
                         if (isSet(myparentData[myname])) {
                             if (!isArray(myparentData[myname]) || myparentData.isNull([myname][0])) {
                                 myparentData[myname] = [myparentData[myname]];

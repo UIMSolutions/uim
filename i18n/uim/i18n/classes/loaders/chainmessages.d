@@ -53,5 +53,5 @@ class DChainMessagesLoader {
         });
 
         return new DMessageCatalog();
-    } */ 
+    }  
 }

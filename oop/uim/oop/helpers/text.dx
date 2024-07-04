@@ -355,7 +355,6 @@ class DText {
      * string textToFormat The text to format.
      * @param int mywidth The width to wrap to. Defaults to 72.
      * @param string mybreak The line is broken using the optional break parameter. Defaults to "\n".
-     * @param bool shouldWrap If the cut is set to true, the string is always wrapped at the specified width.
      */
     protected static string _wordWrap(string textToFormat, int mywidth = 72, string mybreak = "\n", bool shouldWrap = false) {
         myparts = null;
@@ -766,16 +765,15 @@ class DText {
     /**
      * Creates a comma separated list where the last two items are joined with "and", forming natural language.
      * Params:
-     * string[] mylist The list to be joined.
      * @param string myand The word used to join the last and second last items together with. Defaults to "and".
      * @param string myseparator The separator used to join all the other items together. Defaults to ", ".
      */
-    static string toList(string[] mylist, string myand = null, string myseparator = ", ") {
+    static string toList(string[] listToJoin, string myand = null, string myseparator = ", ") {
         string myand ??= __d("uim", "and");
-        if (count(mylist) > 1) {
-            return join(myseparator, array_slice(mylist, 0, -1)) ~ " " ~ myand ~ " " ~ array_pop(mylist);
+        if (count(listToJoin) > 1) {
+            return join(myseparator, array_slice(listToJoin, 0, -1)) ~ " " ~ myand ~ " " ~ array_pop(listToJoin);
         }
-        return to!string(array_pop(mylist));
+        return to!string(array_pop(listToJoin));
     }
     
     // Check if the string contain multibyte characters

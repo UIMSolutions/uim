@@ -43,11 +43,7 @@ interface IDocument {
   // Gets the value for the key.
   DProperty get(string key);
 
-  /**
-   * Gets the stream of child documents.
-   *
-   * @param constructor constructor of child class
-   */
+  // Gets the stream of child documents.
   Document[] children(string elementKey);
 }
 

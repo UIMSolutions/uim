@@ -20,17 +20,10 @@ class DEventFiredWith : DConstraint {
     // Event data value
     protected Json _dataValue;
 
-    /**
-     * Constructor
-     * Params:
-     * \UIM\Event\EventManager eventManager Event manager to check
-     * @param string key Data key
-     * @param Json someDataValue Data value
-     */
-    this(DEventManager eventManager, string key, Json someDataValue) {
+    this(DEventManager eventManager, string key, Json value) {
        _eventManager = eventManager;
        _dataKey = key;
-       _dataValue = someDataValue;
+       _dataValue = value;
 
         if (_eventManager.getEventList().isNull) {
             throw new AssertionFailedError(

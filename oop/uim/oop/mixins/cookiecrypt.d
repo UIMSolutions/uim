@@ -60,13 +60,7 @@ mixin template TCookieCrypt() {
         return _decode(valueToDecrypt, decryptMode, decryptKey);
     }
 
-    /**
-     * Decodes and decrypts a single value.
-     * Params:
-     * string myvalue The value to decode & decrypt.
-     * @param string encryptionCipher The encryption cipher to use.
-     * @param string securitySalt Used as the security salt if specified.
-     */
+    // Decodes and decrypts a single value.
     protected string[] _decode(string valueToDecode, string encryptionCipher, string securitySalt) {
         if (!encryptionCipher) {
             return _split(valueToDecode);
@@ -75,13 +69,13 @@ mixin template TCookieCrypt() {
         _checkCipher(encryptionCipher);
         
         string myprefix = "Q2FrZQ==.";
-        myprefixLength = myprefix.length;
+        auto prefixLength = myprefix.length;
 
-        if (strncmp(valueToDecode, myprefix, myprefixLength) != 0) {
+        if (strncmp(valueToDecode, myprefix, prefixLength) != 0) {
             return null;
         }
 
-        string valueToDecode = base64_decode(subString(valueToDecode, myprefixLength), true);
+        string valueToDecode = base64_decode(subString(valueToDecode, prefixLength), true);
         if (valueToDecode == false || valueToDecode.isEmpty) {
             return null;
         }

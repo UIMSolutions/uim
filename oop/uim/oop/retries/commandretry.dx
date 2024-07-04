@@ -28,8 +28,8 @@ class DCommandRetry {
      * @param int maxRetries The maximum number of retry attempts allowed
      */
     this(IRetryStrategy strategy, int maxRetries = 1) {
-        this.strategy = strategy;
-        this.maxRetries = maxRetries;
+        _strategy = strategy;
+        _maxRetries = maxRetries;
     }
     
     /**
@@ -44,8 +44,8 @@ class DCommandRetry {
                 return action();
             } catch (Exception  anException) {
                 if (
-                    this.numRetries < this.maxRetries &&
-                    this.strategy.shouldRetry(anException, this.numRetries)
+                    this.numRetries < _maxRetries &&
+                    _strategy.shouldRetry(anException, this.numRetries)
                 ) {
                     this.numRetries++;
                     continue;

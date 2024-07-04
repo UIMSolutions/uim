@@ -76,13 +76,10 @@ class DFixtureHelper {
      * ```
      * auto callback(IConnection aConnection, Json[string] fixtures)
      * ```
-     * Params:
-     * \Closure aCallback Callback run per connection
-     * @param array<\UIM\Datasource\IFixture> fixtures Test fixtures
      */
     // TODO 
     /* 
-    void runPerConnection(DClosure aCallback, Json[string] fixtures) {
+    void runPerConnection(DClosure aCallback, IFixture[] fixtures) {
         auto anGroups = null;
         fixtures
             .each!(fixture => anGroups[fixture.connection()] ~= fixture);

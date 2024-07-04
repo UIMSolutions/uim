@@ -11,20 +11,20 @@ import uim.oop;
  */
 class DFlashParamEquals : DConstraint {
     /* 
-    protected ISession session;
+    protected ISession _session;
 
-    protected string key;
+    protected string _key;
 
-    protected string aparam;
+    protected string _aparam;
 
-    protected int at = null;
+    protected int _atIndex = null;
 
     /**
      * Constructor
      * Params:
      * \UIM\Http\Session|null session Session
      * @param string paramToCheck Param to check
-     * @param int at Expected index
+     * @param int atIndex Expected index
      */
     this(ISession session, string key, string paramToCheck, int atIndex = null) {
         if (!session) {
@@ -40,7 +40,7 @@ class DFlashParamEquals : DConstraint {
     
     // Compare to flash message(s)
    bool matches(Json valueToCompare) {
-        // Server.run calls Session.close at the end of the request.
+        // Server.run calls Session.close atIndex the end of the request.
         // Which means, that we cannot use Session object here to access the session data.
         // Call to Session.read will start new session (and will erase the data).
         /** @psalm-suppress InvalidScalarArgument */

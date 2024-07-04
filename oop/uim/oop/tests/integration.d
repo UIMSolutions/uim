@@ -591,28 +591,28 @@ mixin template TIntegrationTest() {
     // Asserts that the response status code is in the 2xx range.
     void assertResponseOk(string failureMessage = null) {
         auto verboseMessage = this.extractVerboseMessage(failureMessage);
-        this.assertThat(null, new DStatusOk(_response), verboseMessage);
+        assertThat(null, new DStatusOk(_response), verboseMessage);
     }
 
     // Asserts that the response status code is in the 2xx/3xx range.
     void assertResponseSuccess(string failureMessage = null) {
         auto verboseMessage = this.extractVerboseMessage(failureMessage);
-        this.assertThat(null, new DStatusSuccess(_response), verboseMessage);
+        assertThat(null, new DStatusSuccess(_response), verboseMessage);
     }
 
     // Asserts that the response status code is in the 4xx range.
     void assertResponseError(string failureMessage = null) {
-        this.assertThat(null, new DStatusError(_response), failureMessage);
+        assertThat(null, new DStatusError(_response), failureMessage);
     }
 
     // Asserts that the response status code is in the 5xx range.
     void assertResponseFailure(string failureMessage = null) {
-        this.assertThat(null, new DStatusFailure(_response), failureMessage);
+        assertThat(null, new DStatusFailure(_response), failureMessage);
     }
 
     // Asserts a specific response status code.
     void assertResponseCode(int statusCode, string failureMessage = null) {
-        this.assertThat(statusCode, new DStatusCode(_response), failureMessage);
+        assertThat(statusCode, new DStatusCode(_response), failureMessage);
     }
 
     // Asserts that the Location header is correct. Comparison is made against a full URL.
@@ -624,10 +624,10 @@ mixin template TIntegrationTest() {
         auto verboseMessage = extractVerboseMessage(failureMessage);
         // TODO 
         /* 
-        this.assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
+        assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
 
         if (url) {
-            this.assertThat(
+            assertThat(
                 Router.url(url, true),
                 new DHeaderEquals(_response, "Location"),
                 verboseMessage
@@ -642,10 +642,10 @@ mixin template TIntegrationTest() {
         }
 
         auto verboseMessage = this.extractVerboseMessage(failureMessage);
-        this.assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
+        assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
 
         if (urls) {
-            this.assertThat(Router.url(urls), new DHeaderEquals(_response, "Location"), verboseMessage);
+            assertThat(Router.url(urls), new DHeaderEquals(_response, "Location"), verboseMessage);
         }
     }
 
@@ -661,8 +661,8 @@ mixin template TIntegrationTest() {
         }
 
         auto verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
-        this.assertThat(url, new DHeaderContains(_response, "Location"), verboseMessage);
+        assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
+        assertThat(url, new DHeaderContains(_response, "Location"), verboseMessage);
     }
 
     /**
@@ -676,46 +676,34 @@ mixin template TIntegrationTest() {
             this.fail("No response set, cannot assert header.");
         }
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
-        this.assertThat(url, new DHeaderNotContains(_response, "Location"), verboseMessage);
+        assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
+        assertThat(url, new DHeaderNotContains(_response, "Location"), verboseMessage);
     }
 
     // Asserts that the Location header is not set.
     void assertNoRedirect(string failureMessage = null) {
         verboseMessage = this.extractVerboseMessage(failureMessage);
-        this.assertThat(null, new DHeaderNotSet(_response, "Location"), verboseMessage);
+        assertThat(null, new DHeaderNotSet(_response, "Location"), verboseMessage);
     }
 
-    /**
-     * Asserts response headers
-     * Params:
-     * string aheader The header to check
-     * @param string acontent The content to check for.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertHeader(string aheader, string acontent, string amessage = null) {
+    // Asserts response headers
+    void assertHeader(string headerToCheck, string acontent, string failureMessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }
-        verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(null, new DHeaderSet(_response, aHeader), verboseMessage);
-        this.assertThat(content, new DHeaderEquals(_response, aHeader), verboseMessage);
+        auto verboseMessage = this.extractVerboseMessage(failureMessage);
+        assertThat(null, new DHeaderSet(_response, headerToCheck), verboseMessage);
+        assertThat(content, new DHeaderEquals(_response, headerToCheck), verboseMessage);
     }
 
-    /**
-     * Asserts response header contains a string
-     * Params:
-     * string aheader The header to check
-     * @param string acontent The content to check for.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertHeaderContains(string aheader, string acontent, string amessage = null) {
+    // )Asserts response header contains a string
+    void assertHeaderContains(string headerToCheck, string content, string failureMessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }
-        verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(null, new DHeaderSet(_response, aHeader), verboseMessage);
-        this.assertThat(content, new DHeaderContains(_response, aHeader), verboseMessage);
+        auto verboseMessage = this.extractVerboseMessage(failureMessage);
+        assertThat(null, new DHeaderSet(_response, headerToCheck), verboseMessage);
+        assertThat(content, new DHeaderContains(_response, headerToCheck), verboseMessage);
     }
 
     /**
@@ -730,8 +718,8 @@ mixin template TIntegrationTest() {
             this.fail("No response set, cannot assert header.");
         }
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(null, new DHeaderSet(_response, aHeader), verboseMessage);
-        this.assertThat(content, new DHeaderNotContains(_response, aHeader), verboseMessage);
+        assertThat(null, new DHeaderSet(_response, aHeader), verboseMessage);
+        assertThat(content, new DHeaderNotContains(_response, aHeader), verboseMessage);
     }
 
     /**
@@ -742,7 +730,7 @@ mixin template TIntegrationTest() {
      */
     void assertContentType(string atype, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(type, new DContentType(_response), verboseMessage);
+        assertThat(type, new DContentType(_response), verboseMessage);
     }
 
     /**
@@ -753,7 +741,7 @@ mixin template TIntegrationTest() {
      */
     void assertResponseEquals(Json content, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(content, new BodyEquals(_response), verboseMessage);
+        assertThat(content, new BodyEquals(_response), verboseMessage);
     }
 
     /**
@@ -764,7 +752,7 @@ mixin template TIntegrationTest() {
      */
     void assertResponseNotEquals(Json content, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(content, new BodyNotEquals(_response), verboseMessage);
+        assertThat(content, new BodyNotEquals(_response), verboseMessage);
     }
 
     /**
@@ -779,7 +767,7 @@ mixin template TIntegrationTest() {
             this.fail("No response set, cannot assert content.");
         }
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(content, new BodyContains(_response, anIgnoreCase), verboseMessage);
+        assertThat(content, new BodyContains(_response, anIgnoreCase), verboseMessage);
     }
 
     /**
@@ -794,7 +782,7 @@ mixin template TIntegrationTest() {
             this.fail("No response set, cannot assert content.");
         }
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(content, new BodyNotContains(_response, anIgnoreCase), verboseMessage);
+        assertThat(content, new BodyNotContains(_response, anIgnoreCase), verboseMessage);
     }
 
     /**
@@ -805,7 +793,7 @@ mixin template TIntegrationTest() {
      */
     void assertResponseRegExp(string apattern, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(somePattern, new BodyRegExp(_response), verboseMessage);
+        assertThat(somePattern, new BodyRegExp(_response), verboseMessage);
     }
 
     /**
@@ -816,7 +804,7 @@ mixin template TIntegrationTest() {
      */
     void assertResponseNotRegExp(string apattern, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(somePattern, new BodyNotRegExp(_response), verboseMessage);
+        assertThat(somePattern, new BodyNotRegExp(_response), verboseMessage);
     }
 
     /**
@@ -825,7 +813,7 @@ mixin template TIntegrationTest() {
      * string amessage The failure message that will be appended to the generated message.
      */
     void assertResponseNotEmpty(string failureMessage = "") {
-        this.assertThat(null, new BodyNotEmpty(_response), failureMessage);
+        assertThat(null, new BodyNotEmpty(_response), failureMessage);
     }
 
     /**
@@ -834,7 +822,7 @@ mixin template TIntegrationTest() {
      * string amessage The failure message that will be appended to the generated message.
      */
     void assertResponseEmpty(string amessage = null) {
-        this.assertThat(null, new BodyEmpty(_response), message);
+        assertThat(null, new BodyEmpty(_response), message);
     }
 
     /**
@@ -845,7 +833,7 @@ mixin template TIntegrationTest() {
      */
     void assertTemplate(string acontent, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(content, new DTemplateFileEquals(_viewName), verboseMessage);
+        assertThat(content, new DTemplateFileEquals(_viewName), verboseMessage);
     }
 
     /**
@@ -856,7 +844,7 @@ mixin template TIntegrationTest() {
      */
     void assertLayout(string acontent, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(content, new DLayoutFileEquals(_layoutName), verboseMessage);
+        assertThat(content, new DLayoutFileEquals(_layoutName), verboseMessage);
     }
 
     /**
@@ -868,7 +856,7 @@ mixin template TIntegrationTest() {
      */
     void assertSession(Json expected, string aPath, string message = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(expected, new DSessionEquals(somePath), verboseMessage);
+        assertThat(expected, new DSessionEquals(somePath), verboseMessage);
     }
 
     /**
@@ -879,7 +867,7 @@ mixin template TIntegrationTest() {
      */
     void assertSessionHasKey(string aPath, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(somePath, new DSessionHasKey(somePath), verboseMessage);
+        assertThat(somePath, new DSessionHasKey(somePath), verboseMessage);
     }
 
     /**
@@ -890,7 +878,7 @@ mixin template TIntegrationTest() {
      */
     void assertSessionNotHasKey(string aPath, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(somePath, this.logicalNot(new DSessionHasKey(somePath)), verboseMessage);
+        assertThat(somePath, this.logicalNot(new DSessionHasKey(somePath)), verboseMessage);
     }
 
     /**
@@ -902,7 +890,7 @@ mixin template TIntegrationTest() {
      */
     void assertFlashMessage(string aexpected, string aKey = "flash", string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(expected, new DFlashParamEquals(_requestSession, aKey, "message"), verboseMessage);
+        assertThat(expected, new DFlashParamEquals(_requestSession, aKey, "message"), verboseMessage);
     }
 
     /**
@@ -915,7 +903,7 @@ mixin template TIntegrationTest() {
      */
     void assertFlashMessageAt(int at, string aexpected, string aKey = "flash", string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(
+        assertThat(
             expected,
             new DFlashParamEquals(_requestSession, aKey, "message", at),
             verboseMessage
@@ -931,7 +919,7 @@ mixin template TIntegrationTest() {
      */
     void assertFlashElement(string aexpected, string aKey = "flash", string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(
+        assertThat(
             expected,
             new DFlashParamEquals(_requestSession, aKey, "element"),
             verboseMessage
@@ -948,7 +936,7 @@ mixin template TIntegrationTest() {
      */
     void assertFlashElementAt(int at, string aexpected, string aKey = "flash", string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(
+        assertThat(
             expected,
             new DFlashParamEquals(_requestSession, aKey, "element", at),
             verboseMessage
@@ -964,8 +952,8 @@ mixin template TIntegrationTest() {
      */
     void assertCookie(Json expected, string aName, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(name, new DCookieSet(_response), verboseMessage);
-        this.assertThat(expected, new DCookieEquals(_response, name), verboseMessage);
+        assertThat(name, new DCookieSet(_response), verboseMessage);
+        assertThat(expected, new DCookieEquals(_response, name), verboseMessage);
     }
 
     /**
@@ -979,7 +967,7 @@ mixin template TIntegrationTest() {
      */
     void assertCookieIsSet(string aName, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(name, new DCookieSet(_response), verboseMessage);
+        assertThat(name, new DCookieSet(_response), verboseMessage);
     }
 
     /**
@@ -990,7 +978,7 @@ mixin template TIntegrationTest() {
      */
     void assertCookieNotSet(string acookie, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(cookie, new DCookieNotSet(_response), verboseMessage);
+        assertThat(cookie, new DCookieNotSet(_response), verboseMessage);
     }
 
     /**
@@ -1026,10 +1014,10 @@ mixin template TIntegrationTest() {
         string amessage = null
     ) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(name, new DCookieSet(_response), verboseMessage);
+        assertThat(name, new DCookieSet(_response), verboseMessage);
 
         _cookieEncryptionKey = aKey;
-        this.assertThat(
+        assertThat(
             expected,
             new DCookieEncryptedEquals(_response, name, encrypt, _getCookieEncryptionKey())
         );
@@ -1038,8 +1026,8 @@ mixin template TIntegrationTest() {
     // Asserts that a file with the given name was sent in the response
     void assertFileResponse(string filePath, string failureMessage = "") {
         verboseMessage = this.extractVerboseMessage(failureMessage);
-        this.assertThat(null, new DFileSent(_response), verboseMessage);
-        this.assertThat(filePath, new DFileSentAs(_response), verboseMessage);
+        assertThat(null, new DFileSent(_response), verboseMessage);
+        assertThat(filePath, new DFileSentAs(_response), verboseMessage);
 
         if (!_response) {
             return;

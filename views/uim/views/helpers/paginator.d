@@ -159,14 +159,14 @@ class DPaginatorHelper : DHelper {
                                                 protected string _toggledLink(string mytext, bool enabled, Json[string] options, Json[string] templates) {
                                                     auto mytemplate = templates["active"];
                                                         if (!enabled) {
-                                                            mytext = options["disabledTitle"];
+                                                            mytext = options.get("disabledTitle"];
                                                                 mytemplate = templates["disabled"];
                                                         }
                                                     if (!enabled && mytext == false) {
                                                         return null;}
-                                                        Json mytext = options["escape"] ? htmlAttributeEscape(
+                                                        Json mytext = options.get("escape"] ? htmlAttributeEscape(
                                                             mytext) : mytext; mytemplater = this.templater();
-                                                            mynewTemplates = options["templates"] ?  ? false;
+                                                            mynewTemplates = options.get("templates"] ?  ? false;
                                                             if (mynewTemplates) {
                                                                 mytemplater.push();
                                                                     mytemplateMethod = isString(
@@ -385,7 +385,7 @@ class DPaginatorHelper : DHelper {
                                                                     if (
                                                                         !mypaging.isEmpty("sort")) 
                                                                     && !options.isEmpty("sort"])
-                                                                    && !options["sort"].contains(".")
+                                                                    && !options.hasKey("sort"].contains(".")
                                                                ) {
                                                                     mypaging["sort"] = _removeAlias(
                                                                         mypaging["sort"]);
@@ -395,7 +395,7 @@ class DPaginatorHelper : DHelper {
                                                                         "sortDefault"))
                                                                     
                                                                         && !options.isEmpty("sort"])
-                                                                        && !options["sort"].has(
+                                                                        && !options.hasKey("sort"].has(
                                                                             ".")
                                                                    ) {
                                                                     mypaging["sortDefault"] = _removeAlias(
@@ -902,7 +902,7 @@ class DPaginatorHelper : DHelper {
                                                                                 elseif(this.paginated()
                                                                                     .currentPage() > 1 && isString(
                                                                                     myfirst)) {
-                                                                                    myfirst = options["escape"] ? htmlAttributeEscape(
+                                                                                    myfirst = options.get("escape"] ? htmlAttributeEscape(
                                                                                         myfirst)
                                                                                         : myfirst;
                                                                                     result ~= templater().format(
@@ -974,7 +974,7 @@ class DPaginatorHelper : DHelper {
                                                                                     }
                                                                                 elseif(mycurrentPage < mypageCount && isString(
                                                                                     mylast)) {
-                                                                                    mylast = options["escape"] ? htmlAttributeEscape(
+                                                                                    mylast = options.get("escape"] ? htmlAttributeEscape(
                                                                                         mylast)
                                                                                         : mylast;
                                                                                     result ~= this.templater()

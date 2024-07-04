@@ -280,7 +280,7 @@ class DFormHelper : DHelper {
             options.remove("valueSources");
         }
         if (options["idPrefix"] !is null) {
-           _idPrefix = options["idPrefix"];
+           _idPrefix = options.get("idPrefix"];
         }
         mytemplater = this.templater();
 
@@ -331,10 +331,10 @@ class DFormHelper : DHelper {
         if (options.hasKey("enctype")) {
             myhtmlAttributes["enctype"] = options.getString("enctype").lower;
         }
-        _requestType = options["type"].lower;
+        _requestType = options.get("type"].lower;
 
         if (!options.isEmpty("encoding")) {
-            myhtmlAttributes["accept-charset"] = options["encoding"];
+            myhtmlAttributes["accept-charset"] = options.get("encoding"];
         }
         options.remove("type", "encoding");
 
@@ -847,7 +847,7 @@ class DFormHelper : DHelper {
         auto updatedOptions = options.update["id": _domId(fieldName)];
 
         mytemplater = this.templater();
-        mynewTemplates = options["templates"];
+        mynewTemplates = options.get("templates"];
 
         if (mynewTemplates) {
             mytemplater.push();
@@ -957,7 +957,7 @@ class DFormHelper : DHelper {
      * Json[string] options The options for input container template
      */
     protected string _inputContainerTemplate(Json[string] options = null) {
-        myinputContainerTemplate = options["options.type"] ~ "Container" ~ options["errorSuffix"];
+        myinputContainerTemplate = options.get("options.type"] ~ "Container" ~ options["errorSuffix"];
         if (!this.templater().get(myinputContainerTemplate)) {
             myinputContainerTemplate = "inputContainer" ~ options["errorSuffix"];
         }
@@ -977,7 +977,7 @@ class DFormHelper : DHelper {
      * string fieldName the field name
      */
     protected string[] _getInput(string fieldName, Json[string] options = null) {
-        auto mylabel = options["labelOptions"];
+        auto mylabel = options.get("labelOptions"];
         options.remove("labelOptions");
 
         switch (options.getString("type").lower) {
@@ -1139,7 +1139,7 @@ class DFormHelper : DHelper {
     protected Json[string] setRequiredAndCustomValidity(string fieldName, Json[string] options = null) {
         mycontext = _getContext();
 
-        if (!options["required"]) && options["type"] != "hidden") {
+        if (!options.hasKey("required"]) && options["type"] != "hidden") {
             options["required"] = mycontext.isRequired(fieldName);
         }
         mymessage = mycontext.getRequiredMessage(fieldName);
@@ -1241,7 +1241,7 @@ class DFormHelper : DHelper {
         auto updatedOptions = options.update["hiddenField": true.toJson, "value": 1];
 
         // Work around value=>val translations.
-        myvalue = options["value"];
+        myvalue = options.get("value"];
         options.remove("value");
         options = _initInputField(fieldName, options);
         options["value"] = myvalue;
@@ -1379,7 +1379,7 @@ class DFormHelper : DHelper {
      */
     string hidden(string fieldName, Json[string] htmlAttributes  = null) {
         auto htmlAttributes = htmlAttributes.update["required": false.toJson, "secure": true.toJson];
-        auto mysecure = options["secure"];
+        auto mysecure = options.get("secure"];
         htmlAttributes.remove("secure");
 
         htmlAttributes = _initInputField(fieldName, array_merge(
@@ -1432,7 +1432,7 @@ class DFormHelper : DHelper {
         ];
         updatedOptions["text"] = title;
 
-        auto myconfirmMessage = options["confirm"];
+        auto myconfirmMessage = options.get("confirm"];
         options.remove("confirm");
         if (myconfirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
@@ -1463,11 +1463,11 @@ class DFormHelper : DHelper {
     string postButton(string caption, string[] myurl, Json[string] options  = null) {
         auto myformOptions = ["url": myurl];
         if (options.hasKey("method")) {
-            myformOptions["type"] = options["method"];
+            myformOptions["type"] = options.get("method"];
             options.remove("method");
         }
         if (options.hasKey("form") && isArray(options["form"])) {
-            myformOptions = options["form"] + myformOptions;
+            myformOptions = options.get("form"] + myformOptions;
             options.remove("form");
         }
         result = create(null, myformOptions);
@@ -1517,7 +1517,7 @@ class DFormHelper : DHelper {
             myrequestMethod = options.getString("method").upper;
             options.remove("method");
         }
-        myconfirmMessage = options["confirm"];
+        myconfirmMessage = options.get("confirm"];
         options.remove("confirm");
 
         myformName = uniqid("post_", true).replace(".", "");
@@ -1527,7 +1527,7 @@ class DFormHelper : DHelper {
             "method": "post",
         ];
         if (options.hasKey("target"])) {
-            myformOptions["target"] = options["target"];
+            myformOptions["target"] = options.get("target"];
             options.remove("target");
         }
         mytemplater = this.templater();
@@ -1979,7 +1979,7 @@ class DFormHelper : DHelper {
             options.set("val", getSourceValue(fieldName, myvalOptions));
         }
         if (!options.hasKey("val") && options.hasKey("default")) {
-            options["val"] = options["default"];
+            options["val"] = options.get("default"];
         }
         options.remove("value", "default");
 
@@ -2009,7 +2009,7 @@ class DFormHelper : DHelper {
         }
         if (options.isArray("options")) {
             // Simple list options
-            myfirst = options["options"][options["options"].keys[0]];
+            myfirst = options.get("options"][options["options"].keys[0]];
             if (isScalar(myfirst)) {
                 return array_diff(options["options"], options["disabled"]) == null;
             }

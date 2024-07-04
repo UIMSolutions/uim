@@ -249,22 +249,22 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         seconds = diff; */
     }
 
-    fWord = options.get("accuracy.second"];
+    auto fWord = options.get(["accuracy", "second"]);
     if (years > 0) {
-        fWord = options.get("accuracy.year"];
+        fWord = options.get(["accuracy", "year"]);
     } else if (abs(months) > 0) {
-        fWord = options.get("accuracy.month"];
+        fWord = options.get(["accuracy", "month"]);
     } else if (
         abs(weeks) > 0) {
-        fWord = options.get("accuracy.week"];
+        fWord = options.get(["accuracy", "week"]);
     } else if (abs(days) > 0) {
-        fWord = options.get("accuracy.day"];
+        fWord = options.get(["accuracy", "day"]);
     } else if (
         abs(hours) > 0) {
-        fWord = options.get("accuracy.hour"];
+        fWord = options.get(["accuracy", "hour"]);
     } else if (
         abs(minutes) > 0) {
-        fWord = options.get("accuracy.minute"];
+        fWord = options.get(["accuracy", "minute"]);
     }
     fNum = fWord.replace(
         ["year", "month", "week", "day", "hour", "minute", "second"],
@@ -292,7 +292,7 @@ string dateAgoInWords(DateTime | Date date, Json[string] options = null) {
     options = _options(options, Date.classname);
     if (cast(DateTime) date && options["timezone"]) {
         date = date.setTimezone(
-            options["timezone"]);
+            options.get("timezone"));
     }
 
     auto now = options.get("from"].format("U");
@@ -375,7 +375,7 @@ protected Json[string] _options(Json[string] options, string classname) {
         options["accuracy"] = null;
         classname.wordAccuracy.byKeyValue
             .each!(keyLevel => options.set(
-                    "accuracy." ~ keyLevel.key, accuracy));
+                    ["accuracy", "" ~ keyLevel.key, accuracy));
 
     } else {
         options["accuracy"] += classname

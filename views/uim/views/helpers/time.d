@@ -266,9 +266,9 @@ class DTimeHelper : DHelper {
             ];
 
             if (options["element"].isArray) {
-                myelement = options["element"] + myelement;
+                myelement = options.get("element"] + myelement;
             } else {
-                myelement["tag"] = options["element"];
+                myelement["tag"] = options.get("element"];
             }
             options.remove("element"]);
         }

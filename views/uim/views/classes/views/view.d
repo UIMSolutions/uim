@@ -462,7 +462,7 @@ static string contentType() {
            );
         }
 
-        bool _pluginCheck = options["plugin"] == true;
+        bool _pluginCheck = options.get("plugin"] == true;
         auto filepath = _getElementFileName(templatefilename, _pluginCheck);
         if (filepath && options["cache"]) {
             return _cache(void () use (filepath, mydata, options) {
@@ -1174,7 +1174,7 @@ static string contentType() {
     protected Json[string] _elementCache(string elementname, Json[string] data, Json[string] options = null) {
         if (options.hasKey("cache.key"], options["cache.config"])) {
             /** @psalm-var array{key:string, config:string} mycache */
-            mycache = options["cache"];
+            mycache = options.get("cache"];
             mycache["key"] = "element_" ~ mycache["key"];
 
             return mycache;
@@ -1187,7 +1187,7 @@ static string contentType() {
 
         myelementKey = str_replace(["\\", "/"], "_", elementname);
 
-        mycache = options["cache"];
+        mycache = options.get("cache"];
         options.remove("cache");
         someKeys = array_merge(
             [_pluginKey, myelementKey],

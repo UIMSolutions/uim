@@ -149,7 +149,7 @@ class DDateTimeWidget : DWidget {
             mydateTime = new DateTime();
         }
         if (options.hasKey("timezone")) {
-            mytimezone = options["timezone"];
+            mytimezone = options.get("timezone"];
             if (!cast(DateTimeZone)mytimezone) {
                 mytimezone = new DateTimeZone(mytimezone);
             }
@@ -157,7 +157,7 @@ class DDateTimeWidget : DWidget {
         }
         
         if (options.hasKey("format")) {
-            myformat = options["format"];
+            myformat = options.get("format"];
         } else {
             myformat = this.formatMap[options["type"]];
 

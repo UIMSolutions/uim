@@ -80,11 +80,9 @@ class DRulesChecker { // }: BaseRulesChecker {
             options.remove("message");
         }
         if (!errorMessage) {
-            if (_useI18n) {
-                errorMessage = __d("uim", "This value does not exist");
-            } else {
-                errorMessage = "This value does not exist";
-            }
+            errorMessage = _useI18n
+                ? __d("uim", "This value does not exist")
+                : "This value does not exist";
         }
         myerrorField = isString(fieldName) ? fieldName : currentValue(fieldName);
 

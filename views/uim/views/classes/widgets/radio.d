@@ -127,32 +127,32 @@ class DRadioWidget : DWidget {
         Json[string] options,
         IContext formContext
    ) {
-        auto escapeData = options["escape"];
+        auto escapeData = options.get("escape"];
         auto myRadio = mytext.isArray && mytext.hasKeys("text", "value")
             ? mytext
             : ["value": myval, "text": mytext];
 
-        myradio["name"] = options["name"];
+        myradio["name"] = options.get("name"];
 
         myradio["templateVars"] ??= null;
         if (!options.isEmpty("templateVars"])) {
             myradio["templateVars"] = array_merge(options["templateVars"], myradio["templateVars"]);
         }
         if (myradio.isEmpty("id")) {
-            auto idData = options["id"];
+            auto idData = options.get("id"];
             myradio["id"] = !idData.isNull
                 ? idData ~ "-" ~ rstrip(_idSuffix(/* (string) */myradio["value"]), "-")
                 : _id(to!string(myradio["name"]), (string)myradio["value"]);
         }
-        auto valData = options["val"];
+        auto valData = options.get("val"];
         if (!valData.isNull && valData.isBoolean) {
-            options["val"] = options["val"] ? 1 : 0;
+            options["val"] = options.get("val"] ? 1 : 0;
         }
         if (!valData.isNull && /* (string) */valData == /* (string) */myradio["value"]) {
             myradio["checked"] = true;
             myradio["templateVars.activeClass"] = "active";
         }
-        auto labelData = options["label"];
+        auto labelData = options.get("label"];
         if (!isBoolean(labelData) && myradio.hasKey("checked") && myradio["checked"]) {
             myselectedClass = _stringContents.format("selectedClass", []);
             mydoptionsata["label"] = _stringContents.addclassnameToList(labelData, myselectedClass);

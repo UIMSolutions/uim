@@ -22,14 +22,13 @@ class DMarshaller {
      * Build the map of property: marshalling callable.
      * Params:
      * Json[string] data The data being marshalled.
-     * @param Json[string] options List of options containing the "associated" key.
      */
     protected Json[string] _buildPropertyMap(Json[string] data, Json[string] options = null) {
         auto mymap = null;
         auto tableSchema = _table.getSchema();
 
         // Is a concrete column?
-        foreach myprop; (mydata.keys) {
+        foreach (myprop, data.keys) {
             auto myprop = to!string(myprop);
             auto mycolumnType = tableSchema.getColumnType(myprop);
             if (mycolumnType) {
@@ -56,8 +55,8 @@ class DMarshaller {
                 }
                 continue;
             }
-            myassoc = _table.getAssociation(to!string(aKey));
-
+            
+            auto myassoc = _table.getAssociation(to!string(aKey));
             if (options.hasKey("forceNew"])) {
                 mynested["forceNew"] = options.get("forceNew"];
             }

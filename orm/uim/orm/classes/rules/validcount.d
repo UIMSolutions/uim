@@ -9,24 +9,16 @@ class DValidCount {
     // The field to check
     protected string _fieldName;
 
-    /**
-     * @param string fieldName The field to check the count on.
-     */
     this(string fieldName) {
        _fieldName = fieldName;
     }
     
-    /**
-     * Performs the count check
-     * Params:
-     * \UIM\Datasource\IORMEntity myentity The entity from where to extract the fields.
-     * @param Json[string] options Options passed to the check.
-     */
-    bool __invoke(IORMEntity myentity, Json[string] options = null) {
-        myvalue = myentity.{_fieldName};
-        if (!isArray(myvalue) && !cast(DCountable)myvalue) {
+    // Performs the count check
+    bool __invoke(IORMEntity ormEntity, Json[string] options = null) {
+        auto value = ormEntity.{_fieldName};
+        if (!isArray(value) && !cast(DCountable)value) {
             return false;
         }
-        return Validation.comparison(count(myvalue), options["operator"], options["count"]);
+        return Validation.comparison(count(value), options["operator"], options["count"]);
     }
 }

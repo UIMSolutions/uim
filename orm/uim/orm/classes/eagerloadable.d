@@ -160,10 +160,8 @@ class DEagerLoadable {
     /**
      * Sets the list of options to pass to the association object for loading
      * the records.
-     *
-     * @param Json[string] myConfiguration The value to set.
      */
-    void configuration.update(Json myConfiguration) {
+    void configuration.update(Json[string] myConfiguration) {
         configuration = myConfiguration;
     }
 

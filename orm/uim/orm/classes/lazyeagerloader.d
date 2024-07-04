@@ -80,14 +80,11 @@ class DLazyEagerLoader {
     /**
      * Returns a map of property names where the association results should be injected
      * in the top level entities.
-     * Params:
-     * \ORM\Table mysource The table having the top level associations
-     * @param string[] myassociations The name of the top level associations
      */
-    protected string[] _getPropertyMap(Table mysource, Json[string] myassociations) {
+    protected string[] _getPropertyMap(DORMTable sourceTable, Json[string] associations) {
         auto propertyMap = null;
-        auto mycontainer = mysource.associations();
-        foreach (myassoc; myassociations) {
+        auto mycontainer = sourceTable.associations();
+        foreach (myassoc; associations) {
             myassociation = mycontainer.get(myassoc);
             propertyMap[myassoc] = myassociation.getProperty();
         }

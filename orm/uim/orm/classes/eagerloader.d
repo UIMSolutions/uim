@@ -172,7 +172,6 @@ class DEagerLoader {
      * - `fields`: Fields to contain
      * - `negateMatch`: Whether to add conditions negate match on target association
      *
-     * @param string associationPath Dot separated association path, "Name1.Name2.Name3"
      * @param callable|null builder the callback function to be used for setting extra
      * options to the filtering query
      * @param Json[string] options Extra options for the association matching.

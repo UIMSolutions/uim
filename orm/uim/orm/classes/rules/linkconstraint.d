@@ -41,11 +41,8 @@ class DLinkConstraint {
      * Callable handler.
      *
      * Performs the actual link check.
-     * Params:
-     * \UIM\Datasource\IORMEntity myentity The entity involved in the operation.
-     * @param Json[string] options Options passed from the rules checker.
      */
-    bool __invoke(IORMEntity myentity, Json[string] options = null) {
+    bool __invoke(IORMEntity ormEntity, Json[string] options = null) {
         auto mytable = options.get("repository", null);
         if (!(cast(Table)mytable)) {
             throw new DInvalidArgumentException(
@@ -57,17 +54,9 @@ class DLinkConstraint {
             myassociation = mytable.getAssociation(myassociation);
         }
 
-        auto mycount = _countLinks(myassociation, myentity);
-        if (
-            (
-               _requiredLinkState == STATUS_LINKED &&
-                mycount < 1
-           ) ||
-            (
-               _requiredLinkState == STATUS_NOT_LINKED &&
-                mycount != 0
-           )
-       ) {
+        auto mycount = _countLinks(myassociation, ormEntity);
+        if ((_requiredLinkState == STATUS_LINKED && mycount < 1) ||
+            (_requiredLinkState == STATUS_NOT_LINKED && mycount != 0)) {
             return false;
         }
         return true;

@@ -415,8 +415,8 @@ class Hash {
      * @param string myformat Format string into which values will be inserted, see sprintf()
      */
     static string[] format(Json[string] data, Json[string] mypaths, string myformat) {
-        myextracted = null;
-        mycount = count(mypaths);
+        auto myextracted = null;
+        auto mycount = count(mypaths);
 
         if (mycount == 0) {
             return null;
@@ -426,10 +426,10 @@ class Hash {
         }
         result = null;
         /** @var array<mixed, array> data */
-        data = myextracted;
-        mycount = count(data[0]);
+        auto data = myextracted;
+        auto mycount = count(data[0]);
 
-        mycountTwo = count(data);
+        auto mycountTwo = count(data);
         for (myj = 0; myj < mycount; myj++) {
             myargs = null;
             for (myi = 0; myi < mycountTwo; myi++) {

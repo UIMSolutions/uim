@@ -436,11 +436,6 @@ class DFormHelper : DHelper {
      * If mysecureAttributes is set, these HTML attributes will be merged into
      * the hidden input tags generated for the Security Component. This is
      * especially useful to set HTML5 attributes like "form".
-     * Params:
-     * array fieldNames If set specifies the list of fields to be added to
-     *  FormProtector for generating the hash.
-     * @param Json[string] mysecureAttributes will be passed as HTML attributes into the hidden
-     *  input elements generated for the Security Component.
      */
     string secure(Json[string] fieldNames = [], Json[string] mysecureAttributes= null) {
         if (!_formProtector) {

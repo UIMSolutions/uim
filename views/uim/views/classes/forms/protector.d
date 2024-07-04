@@ -328,18 +328,11 @@ class DFormProtector {
         ];
     }
     
-    /**
-     * Generate validation hash.
-     * Params:
-     * Json[string] fields Fields list.
-     * @param string[] unlockedFields Unlocked fields.
-     * @param string url Form URL.
-     * @param string sessionId Session Id.
-     */
+    // Generate validation hash.
     protected string generateHash(string[] fieldNames, Json[string] unlockedFields, string url, string sessionId) {
         hashParts = [
             url,
-            serialize(fields),
+            serialize(fieldNames),
             unlockedFields.join("|"),
             sessionId,
         ];

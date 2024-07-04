@@ -34,7 +34,7 @@ class DBreadcrumbsHelper : DHelper {
     /**
      * Add a crumb to the end of the trail.
      * Params:
-     * string[] mytitle If provided as a string, it represents the title of the crumb.
+     * string[] title If provided as a string, it represents the title of the crumb.
      * Alternatively, if you want to add multiple crumbs at once, you can provide an array, with each values being a
      * single crumb. Arrays are expected to be of this form:
      *
@@ -45,9 +45,9 @@ class DBreadcrumbsHelper : DHelper {
      * string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      */
-    void add(string[] mytitle, string[] myurl = null, Json[string] options  = null) {
-        if (mytitle.isArray) {
-            mytitle.each!(crumb => _crumbs ~= crumb ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
+    void add(string[] title, string[] myurl = null, Json[string] options  = null) {
+        if (title.isArray) {
+            title.each!(crumb => _crumbs ~= crumb ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
             return;
         }
         _crumbs = _crumbs.update(compact("title", "url", "options"));
@@ -56,7 +56,7 @@ class DBreadcrumbsHelper : DHelper {
     /**
      * Prepend a crumb to the start of the queue.
      * Params:
-     * string[] mytitle If provided as a string, it represents the title of the crumb.
+     * string[] title If provided as a string, it represents the title of the crumb.
      * Alternatively, if you want to add multiple crumbs at once, you can provide an array, with each values being a
      * single crumb. Arrays are expected to be of this form:
      *
@@ -73,7 +73,7 @@ class DBreadcrumbsHelper : DHelper {
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     void prepend(string[] titles, string[] myurl = null, Json[string] options  = null) {
-        if (mytitle.isArray) {
+        if (title.isArray) {
             string[] newCrumbs;
             titles.each!(title => newCrumbs ~= title ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
             array_splice(_crumbs, 0, 0, newCrumbs);
@@ -91,7 +91,7 @@ class DBreadcrumbsHelper : DHelper {
      * If the index is out of bounds, an exception will be thrown.
      * Params:
      * int myindex The index to insert at.
-     * @param string mytitle Title of the crumb.
+     * @param string title Title of the crumb.
      * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
@@ -101,7 +101,7 @@ class DBreadcrumbsHelper : DHelper {
      * the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
-    void insertAt(int myindex, string mytitle, string[] myurl = null, Json[string] options  = null) {
+    void insertAt(int myindex, string title, string[] myurl = null, Json[string] options  = null) {
         if (this.crumbs.isNull(myindex) && myindex != count(this.crumbs)) {
             throw new DLogicException(
                 "No crumb could be found at index `%s`.".format(myindex));
@@ -115,8 +115,8 @@ class DBreadcrumbsHelper : DHelper {
      * Finds the index of the first crumb that matches the provided class,
      * and inserts the supplied callable before it.
      * Params:
-     * string mymatchingTitle The title of the crumb you want to insert this one before.
-     * @param string mytitle Title of the crumb.
+     * string matchingTitle The title of the crumb you want to insert this one before.
+     * @param string title Title of the crumb.
      * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
@@ -127,17 +127,17 @@ class DBreadcrumbsHelper : DHelper {
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     auto insertBefore(
-        string mymatchingTitle,
-        string mytitle,
+        string matchingTitle,
+        string title,
         string[] myurl = null,
         Json[string] options  = null
    ) {
-        aKey = this.findCrumb(mymatchingTitle);
+        aKey = this.findCrumb(matchingTitle);
 
         if (aKey.isNull) {
-            throw new DLogicException("No crumb matching `%s` could be found.".format(mymatchingTitle));
+            throw new DLogicException("No crumb matching `%s` could be found.".format(matchingTitle));
         }
-        return _insertAt(aKey, mytitle, myurl, options);
+        return _insertAt(aKey, title, myurl, options);
     }
     
     /**
@@ -146,29 +146,22 @@ class DBreadcrumbsHelper : DHelper {
      * Finds the index of the first crumb that matches the provided class,
      * and inserts the supplied callable before it.
      * Params:
-     * string mymatchingTitle The title of the crumb you want to insert this one after.
-     * @param string mytitle Title of the crumb.
      * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
-     * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
-     * be rendered in (a <li> tag by default). It accepts two special keys:
-     *
-     * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
-     * the link)
-     * - *templateVars*: Specific template vars in case you override the templates provided.
+ 
      */
     auto insertAfter(
-        string mymatchingTitle,
-        string mytitle,
+        string matchingTitle,
+        string title,
         string[] myurl = null,
         Json[string] options  = null
    ) {
-        aKey = this.findCrumb(mymatchingTitle);
+        aKey = this.findCrumb(matchingTitle);
 
         if (aKey.isNull) {
-            throw new DLogicException("No crumb matching `%s` could be found.".format(mymatchingTitle));
+            throw new DLogicException("No crumb matching `%s` could be found.".format(matchingTitle));
         }
-        return _insertAt(aKey + 1, mytitle, myurl, options);
+        return _insertAt(aKey + 1, title, myurl, options);
     }
     
     // Returns the crumb list.
@@ -222,7 +215,7 @@ class DBreadcrumbsHelper : DHelper {
         string mycrumbTrail = "";
         foreach (aKey, mycrumb; mycrumbs) {
             auto myurl = mycrumb["url"] ? this.Url.build(mycrumb["url"]): null;
-            auto mytitle = mycrumb["title"];
+            auto title = mycrumb["title"];
             auto options = mycrumb["options"];
 
             optionsLink = null;
@@ -234,7 +227,7 @@ class DBreadcrumbsHelper : DHelper {
             mytemplateParams = [
                 "attrs": mytemplater.formatAttributes(options, ["templateVars"]),
                 "innerAttrs": mytemplater.formatAttributes(optionsLink),
-                "title": mytitle,
+                "title": title,
                 "url": myurl,
                 "separator": "",
                 "templateVars": options.get("templateVars", null)
@@ -259,11 +252,11 @@ class DBreadcrumbsHelper : DHelper {
      * Search a crumb in the current stack which title matches the one provided as argument.
      * If found, the index of the matching crumb will be returned.
      * Params:
-     * string mytitle Title to find.
+     * string title Title to find.
      */
-    protected int findCrumb(string mytitle) {
+    protected int findCrumb(string title) {
         foreach (aKey: mycrumb; this.crumbs) {
-            if (mycrumb["title"] == mytitle) {
+            if (mycrumb["title"] == title) {
                 return aKey;
             }
         }

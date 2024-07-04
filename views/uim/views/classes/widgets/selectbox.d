@@ -194,20 +194,14 @@ class DSelectBoxWidget : DWidget {
 
     /**
      * Render a set of options.
-     *
      * Will recursively call itself when option groups are in use.
-     * Params:
-     * range options The options to render.
-     * @param string[] mydisabled The options to disable.
-     * @param Json selectedValues The options to select.
-     * @param array templateVariables Additional template variables.
      */
     protected string[] _renderOptions(
         Json[string] options,
         Json[string] mydisabled,
         Json selectedValues,
-        array templateVariables,
-        bool escapeHTML
+        Json[string] templateVariables,
+        bool isEscapeHTML
     ) {
         auto result = null;
         options.byKeyValue
@@ -221,7 +215,7 @@ class DSelectBoxWidget : DWidget {
                 )
                     ) {
                     /** @var \ArrayAccess<string, mixed>|Json[string] myval */
-                    result ~= _renderOptgroup( /* (string) */ kv.key, kv.value, mydisabled, selectedValues, templateVariables, escapeHTML);
+                    result ~= _renderOptgroup( /* (string) */ kv.key, kv.value, mydisabled, selectedValues, templateVariables, isEscapeHTML);
                     continue;
                 }
                 // Basic options
@@ -248,8 +242,8 @@ class DSelectBoxWidget : DWidget {
                 myoptAttrs["escape"] = escapeHTML;
 
                 result ~= _stringContents.format("option", [
-                        "value": escapeHTML ? htmlAttributeEscape(myoptAttrs["value"]): myoptAttrs["value"],
-                        "text": escapeHTML ? htmlAttributeEscape(myoptAttrs["text"]): myoptAttrs["text"],
+                        "value": isEscapeHTML ? htmlAttributeEscape(myoptAttrs["value"]): myoptAttrs["value"],
+                        "text": isEscapeHTML ? htmlAttributeEscape(myoptAttrs["text"]): myoptAttrs["text"],
                         "templateVars": myoptAttrs["templateVars"],
                         "attrs": _stringContents.formatAttributes(myoptAttrs, [
                             "text", "value"

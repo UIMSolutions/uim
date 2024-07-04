@@ -406,21 +406,19 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * in the parent will have the same values in the nested validator when rules are evaluated.
      * Params:
      * string rootfieldName The root field for the nested validator.
-     * @param \UIM\Validation\Validator myvalidator The nested validator.
-     * @param string message The error message when the rule fails.
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
     void addNestedMany(
         string rootfieldName,
         DValidator myvalidator,
-        string message = null, /*Closure|*/
+        string errorMessage = null, /*Closure|*/
         string mywhen = null
     ) {
-        /* Json[string] myextra = array_filter(["message": message, "on": mywhen]);
+        /* Json[string] myextra = array_filter(["message": errorMessage, "on": mywhen]);
 
         auto myvalidationSet = this.field(rootfieldName); */
-        /*         myvalidationSet.add(NESTED, myextra ~ ["rule": auto (myvalue, mycontext) use (myvalidator, message) {
+        /*         myvalidationSet.add(NESTED, myextra ~ ["rule": auto (myvalue, mycontext) use (myvalidator, errorMessage) {
             if (!isArray(myvalue)) { return false; }
 
             this.providers().each!((name) {
@@ -438,9 +436,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     myerrors[myi] = mycheck;
                 }
             }
-            message = message ? [NESTED: message] : [];
-
-            return myerrors.isEmpty ? true : myerrors + message;
+            errorMessage = errorMessage ? [NESTED: errorMessage] : [];
+            return myerrors.isEmpty ? true : myerrors + errorMessage;
         }]);
  */
     }

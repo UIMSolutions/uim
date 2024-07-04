@@ -353,13 +353,8 @@ class DViewBuilder { // }: DJsonSerializable {
         });
     }
     
-    /**
-     * Iterates through hash to clean up and normalize.
-     * Params:
-     * Json myitem Reference to the view var value.
-     * @param string aKey View var key.
-     */
-    protected void _checkViewVars(Json &myitem, string aKey) {
+    // Iterates through hash to clean up and normalize.
+    protected void _checkViewVars(Json &myitem, string key) {
         if (cast(Exception)myitem) {
             myitem = to!string(myitem);
         }
@@ -372,7 +367,7 @@ class DViewBuilder { // }: DJsonSerializable {
                 "Failed serializing the `%s` %s in the `%s` view var"
                 .format(isResource(myitem) ? get_resource_type(myitem): myitem.classname,
                 isResource(myitem) ? "resource" : "object",
-                aKey
+                key
            ));
         }
     }

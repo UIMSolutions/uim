@@ -596,15 +596,15 @@ class DHtmlHelper : DHelper {
      * Params:
      * array views Array of tablenames. Each tablename can be string, or array with name and an array with a set
      *   of attributes to its specific tag
-     * @param Json[string]|null mytrOptions HTML options for TR elements.
-     * @param Json[string]|null mythOptions HTML options for TH elements.
+     * @param Json[string]|null trOptions HTML options for TR elements.
+     * @param Json[string]|null thOptions HTML options for TH elements.
      */
-    string tableHeaders(Json[string] views, Json[string] mytrOptions = null, Json[string] mythOptions = null) {
+    string tableHeaders(Json[string] views, Json[string] trOptions = null, Json[string] thOptions = null) {
         string result = null;
         foreach (myarg; views) {
             if (!isArray(myarg)) {
                 mycontent = myarg;
-                myattrs = mythOptions;
+                myattrs = thOptions;
             } elseif (myarg.has(0) && myarg.has(1)) {
                 mycontent = myarg[0];
                 myattrs = myarg[1];
@@ -617,7 +617,7 @@ class DHtmlHelper : DHelper {
                 "content": mycontent,
             ]);
         }
-        return _tableRow(result.join(" "), (array)mytrOptions);
+        return _tableRow(result.join(" "), (array)trOptions);
     }
     
     /**

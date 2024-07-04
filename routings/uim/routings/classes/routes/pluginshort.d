@@ -28,19 +28,14 @@ class DPluginShortRoute : DInflectedRoute {
     /**
      * Reverses route plugin shortcut URLs. If the plugin and controller
      * are not the same the match is an auto fail.
-     * Params:
-     * Json[string] url Array of parameters to convert to a string.
-     * @param Json[string] mycontext An array of the current request context.
-     * Contains information such as the current host, scheme, port, and base
-     * directory.
      */
-    string match(Json[string] url, Json[string] mycontext= null) {
+    string match(Json[string] url, Json[string] context = null) {
         if (isSet(url["controller"], url["plugin"]) && url["plugin"] != url["controller"]) {
             return null;
         }
-        this.defaults["controller"] = url["controller"];
-        result = super.match(url, mycontext);
-        remove(this.defaults["controller"]);
+        _defaults["controller"] = url["controller"];
+        result = super.match(url, context);
+        remove(_defaults["controller"]);
 
         return result;
     }

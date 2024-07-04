@@ -609,11 +609,9 @@ class DEagerLoader {
      * An internal method to build a map which is used for the return value of the
      * associationsMap() method.
      *
-     * @param Json[string] map An initial array for the map.
-     * @param array<DORMEagerLoadable> level An array of EagerLoadable instances.
      * @param bool matching Whether it is an association loaded through `matching()`.
      */
-    protected Json[string] _buildAssociationsMap(Json[string] map, Json[string] level, bool matching = false) {
+    protected Json[string] _buildAssociationsMap(Json[string] map, DORMEagerLoadable[] level, bool ismatching = false) {
         foreach (level as assoc: meta) {
             canBeJoined = meta.canBeJoined();
             instance = meta.instance();
@@ -625,11 +623,11 @@ class DEagerLoader {
                 "canBeJoined": canBeJoined,
                 "entityClass": instance.getTarget().getEntityClass(),
                 "nestKey": canBeJoined ? assoc : meta.aliasPath(),
-                "matching": forMatching ?? matching,
+                "matching": forMatching ?? isMatching,
                 "targetProperty": meta.targetProperty(),
             ];
             if (canBeJoined && associations) {
-                map = _buildAssociationsMap(map, associations, matching);
+                map = _buildAssociationsMap(map, associations, isMatching);
             }
         }
 

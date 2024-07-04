@@ -248,13 +248,8 @@ class DHasManyAssociation : DAssociation {
      * ```
      *
      * `article.get("articles")` will contain only `[article4]` after deleting in the database
-     *
-     * @param DORMDatasource\IORMEntity sourceEntity an entity persisted in the source table for
-     * this association
-     * @param Json[string] myTargetEntities list of entities persisted in the target table for
-     * this association
      */
-    void unlink(IORMEntity sourceEntity, Json[string] myTargetEntities, options = null) {
+    void unlink(IORMEntity sourceEntity, Json[string] TargetEntities, Json[string] options = null) {
         if (isBoolean(options)) {
             options = [
                 "cleanProperty": options,

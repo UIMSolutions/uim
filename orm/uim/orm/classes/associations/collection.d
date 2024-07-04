@@ -233,10 +233,8 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Returns an associative array of association names out a mixed
      * array. If true is passed, then it returns all association names
      * in this collection.
-     *
-     * @param Json keys the list of association names to normalize
      */
-    Json[string] normalizeKeys(keys) {
+    Json[string] normalizeKeys(string[] keys) {
         if (keys == true) {
             keys = keys();
         }

@@ -345,7 +345,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     }
 
     string i18nFormat(
-        string[] format;
+        string[] format,
         /* DateTimeZone| */ string timezone = null,
         string localeName
    ) {

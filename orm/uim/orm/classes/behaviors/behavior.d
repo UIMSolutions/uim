@@ -159,12 +159,8 @@ class DBehavior : DEventListener {
         return _table;
     }
 
-    /**
-     * Removes aliased methods that would otherwise be duplicated by userland configuration.
-     *
-     * @param Json[string] myConfiguration The customized method mappings.
-     */
-    protected Json[string] _resolveMethodAliases(string key, Json[string] defaultMethodMap, Json myConfiguration) {
+    // Removes aliased methods that would otherwise be duplicated by userland configuration.
+    protected Json[string] _resolveMethodAliases(string key, Json[string] defaultMethodMap, Json[string] myConfiguration) {
         if (defaultMethodMap.isNull(key) && configuration.isNull(key)) {
             return configuration;
         }

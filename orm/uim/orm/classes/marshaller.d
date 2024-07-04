@@ -252,9 +252,6 @@ class DMarshaller {
      * - forceNew: When enabled, belongsToMany associations will have "new" entities created
      * when primary key values are set, and a record does not already exist. Normally primary key
      * on missing entities would be ignored. Defaults to false.
-     * Params:
-     * Json[string] data The data to hydrate.
-     * @param Json[string] options List of options
      */
         IORMEntity[] many(Json[string] data, Json[string] options = null) {
             auto myoutput = null;

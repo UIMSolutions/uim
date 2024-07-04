@@ -233,14 +233,13 @@ class DEagerLoader {
      * in the array. This auto merges the original associations array with
      * the new associations provided.
      * Params:
-     * Json[string] myassociations User provided containments array.
      * @param Json[string] myoriginal The original containments array to merge
      * with the new one.
      */
-    protected Json[string] _reformatContain(Json[string] myassociations, Json[string] myoriginal) {
+    protected Json[string] _reformatContain(Json[string] associations, Json[string] myoriginal) {
         auto result = myoriginal;
 
-        foreach (mytable,  options; myassociations) {
+        foreach (mytable,  options; associations) {
             auto mypointer = &result;
             if (isInteger(mytable)) {
                 mytable = options;
@@ -280,7 +279,7 @@ class DEagerLoader {
             if (options.hasKey("queryBuilder"], mypointer[mytable]["queryBuilder"])) {
                 myfirst = mypointer[mytable]["queryBuilder"];
                 mysecond = options.get("queryBuilder"];
-                // TODO options["queryBuilder"] = fn (myquery): mysecond(myfirst(myquery));
+                // TODO options["queryBuilder"] = fn (selectQuery): mysecond(myfirst(selectQuery));
             }
             if (!isArray(options)) {
                 /** @psalm-suppress InvalidArrayOffset */
@@ -330,8 +329,8 @@ class DEagerLoader {
      * with UIM\ORM\EagerLoadable objects.
      */
     DEagerLoadable[] attachableAssociations(DORMTable repository) {
-        mycontain = this.normalized(repository);
-        mymatching = _matching ? _matching.normalized(repository): [];
+        auto mycontain = normalized(repository);
+        auto mymatching = _matching ? _matching.normalized(repository): [];
        _fixStrategies();
        _loadExternal = null;
 
@@ -346,7 +345,7 @@ class DEagerLoader {
         if (_loadExternal) {
             return _loadExternal;
         }
-        this.attachableAssociations(repository);
+        attachableAssociations(repository);
 
         return _loadExternal;
     }
@@ -357,26 +356,25 @@ class DEagerLoader {
      * Params:
      * \ORM\Table myparent Owning side of the association.
      * @param string aliasName Name of the association to be loaded.
-     * @param Json[string] options List of extra options to use for this association.
-     * @param Json[string] mypaths An array with two values, the first one is a list of dot
+     * @param Json[string] paths An array with two values, the first one is a list of dot
      * separated strings representing associations that lead to this `aliasName` in the
      * chain of associations to be loaded. The second value is the path to follow in
      * entities" properties to fetch a record of the corresponding association.
      */
-    protected DEagerLoadable _normalizeContain(Table myparent, string aliasName, Json[string] options, Json[string] mypaths) {
-        mydefaults = _containOptions;
-        myinstance = myparent.getAssociation(aliasName);
+    protected DEagerLoadable _normalizeContain(Table myparent, string aliasName, Json[string] options, Json[string] paths) {
+        auto mydefaults = _containOptions;
+        auto myinstance = myparent.getAssociation(aliasName);
 
-        mypaths += ["aliasPath": "", "propertyPath": "", "root": aliasName];
-        mypaths["aliasPath"] ~= "." ~ aliasName;
+        paths += ["aliasPath": "", "propertyPath": "", "root": aliasName];
+        paths["aliasPath"] ~= "." ~ aliasName;
 
         if (
             options.hasKey("matching"]) &&
             options["matching"] == true
        ) {
-            mypaths["propertyPath"] = "_matchingData." ~ aliasName;
+            paths["propertyPath"] = "_matchingData." ~ aliasName;
         } else {
-            mypaths["propertyPath"] ~= "." ~ myinstance.getProperty();
+            paths["propertyPath"] ~= "." ~ myinstance.getProperty();
         }
         mytable = myinstance.getTarget();
 
@@ -385,23 +383,23 @@ class DEagerLoader {
             "associations": Json.emptyArray,
             "instance": myinstance,
             "config": array_diffinternalKey(options, myextra),
-            "aliasPath": strip(mypaths["aliasPath"], "."),
-            "propertyPath": strip(mypaths["propertyPath"], "."),
+            "aliasPath": strip(paths["aliasPath"], "."),
+            "propertyPath": strip(paths["propertyPath"], "."),
             "targetProperty": myinstance.getProperty(),
         ];
         configuration.get("canBeJoined"] = myinstance.canBeJoined(configuration.get("config"]);
         myeagerLoadable = new DEagerLoadable(aliasName, configData);
 
-        if (configuration.hasKey("canBeJoined"]) {
-           _aliasList[mypaths["root"]][aliasName] ~= myeagerLoadable;
+        if (configuration.hasKey("canBeJoined")) {
+           _aliasList[paths["root"]][aliasName] ~= myeagerLoadable;
         } else {
-            mypaths["root"] = configuration.get("aliasPath"];
+            paths["root"] = configuration.get("aliasPath");
         }
         myextra.byKeyValue
             .each!((tAssoc) {
                 myeagerLoadable.addAssociation(
                     tAssoc.key,
-                    _normalizeContain(mytable, tAssoc.key, tAssoc.value, mypaths)
+                    _normalizeContain(mytable, tAssoc.key, tAssoc.value, paths)
                );
             });
         return myeagerLoadable;
@@ -437,13 +435,12 @@ class DEagerLoader {
      */
     protected void _correctStrategy(EagerLoadable myloadable) {
         configData = myloadable.configuration.data;
-        mycurrentStrategy = configuration.get("strategy"] ??
-            "join";
+        string currentStrategy = configuration.getString("strategy", "join");
 
-        if (!myloadable.canBeJoined() || mycurrentStrategy != "join") {
+        if (!myloadable.canBeJoined() || currentStrategy != "join") {
             return;
         }
-        configuration.get("strategy"] = Association.STRATEGY_SELECT;
+        configuration.set("strategy", Association.STRATEGY_SELECT);
         myloadable.configuration.update(configData);
         myloadable.setCanBeJoined(false);
     }
@@ -452,16 +449,16 @@ class DEagerLoader {
      * Helper auto used to compile a list of all associations that can be
      * joined in the query.
      * Params:
-     * array<\ORM\EagerLoadable> myassociations List of associations from which to obtain joins.
+     * array<\ORM\EagerLoadable> associations List of associations from which to obtain joins.
      * @param array<\ORM\EagerLoadable> mymatching List of associations that should be forcibly joined.
      */
-    protected DEagerLoadable[] _resolveJoins(Json[string] myassociations, Json[string] mymatching= null) {
+    protected DEagerLoadable[] _resolveJoins(Json[string] associations, Json[string] mymatching = null) {
         auto result;
-        foreach (mymatching as mytable: myloadable) {
+        foreach (mytable, myloadable; mymatching) {
             result[mytable] = myloadable;
             result += _resolveJoins(myloadable.associations(), []);
         }
-        foreach (myassociations as mytable: myloadable) {
+        foreach (associations as mytable: myloadable) {
             auto myinMatching = mymatching.hasKey(mytable);
             if (!myinMatching && myloadable.canBeJoined()) {
                 result[mytable] = myloadable;
@@ -477,25 +474,20 @@ class DEagerLoader {
         return result;
     }
     
-    /**
-     * Inject data from associations that cannot be joined directly.
-     * Params:
-     * \ORM\Query\SelectQuery myquery The query for which to eager load external.
-     * associations.
-     * @param Json[string] results Results array.
-     */
-    array loadExternal(SelectQuery myquery, Json[string] results) {
+    // Inject data from associations that cannot be joined directly.
+    Json[string] loadExternal(DSelectQuery selectQuery, Json[string] results) {
         if (isEmpty(results)) {
             return results;
         }
-        mytable = myquery.getRepository();
-        myexternal = this.externalAssociations(mytable);
-        if (isEmpty(myexternal)) {
+
+        auto mytable = selectQuery.getRepository();
+        auto externalAssociations = externalAssociations(mytable);
+        if (myexternal.isEmpty) {
             return results;
         }
-        mycollected = _collectKeys(myexternal, myquery, results);
 
-        foreach (mymeta; myexternal) {
+        auto mycollected = _collectKeys(myexternal, selectQuery, results);
+        foreach (mymeta; externalAssociations) {
             auto mycontain = mymeta.associations();
             auto myinstance = mymeta.instance();
             auto configData = mymeta.configuration.data();
@@ -522,7 +514,7 @@ class DEagerLoader {
             someKeys = mycollected.get(mypath~"."~aliasName, null);
             mycallback = myinstance.eagerLoader(
                 configData.update([
-                    "query": myquery,
+                    "query": selectQuery,
                     "contain": mycontain,
                     "keys": someKeys,
                     "nestKey": mymeta.aliasPath(),
@@ -556,7 +548,7 @@ class DEagerLoader {
         assert(_matching !is null, "EagerLoader not available");
 
         mymap = _buildAssociationsMap(mymap, _matching.normalized(mytable), true);
-        mymap = _buildAssociationsMap(mymap, this.normalized(mytable));
+        mymap = _buildAssociationsMap(mymap, normalized(mytable));
 
         return _buildAssociationsMap(mymap, _joinsMap);
     }
@@ -567,25 +559,24 @@ class DEagerLoader {
      * Params:
      * Json[string] mymap An initial array for the map.
      * @param array<\ORM\> mylevel An array of EagerLoadable instances.
-     * @param bool mymatching Whether it is an association loaded through `matching()`.
      */
-    protected DEagerLoadable[] _buildAssociationsMap(Json[string] initialData, Json[string] mylevel, bool mymatching = false) {
-        foreach (myassoc, mymeta; mylevel) {
-            mycanBeJoined = mymeta.canBeJoined();
-            myinstance = mymeta.instance();
-            myassociations = mymeta.associations();
-            myforMatching = mymeta.forMatching();
+    protected DEagerLoadable[] _buildAssociationsMap(Json[string] initialData, Json[string] mylevel, bool isMatching = false) {
+        foreach (association, mymeta; mylevel) {
+            auto mycanBeJoined = mymeta.canBeJoined();
+            auto myinstance = mymeta.instance();
+            auto myassociations = mymeta.associations();
+            auto myforMatching = mymeta.forMatching();
             auto updatedData = initialData.merge([
-                "alias": myassoc,
+                "alias": association,
                 "instance": myinstance,
                 "canBeJoined": mycanBeJoined,
                 "entityClass": myinstance.getTarget().getEntityClass(),
-                "nestKey": mycanBeJoined ? myassoc : mymeta.aliasPath(),
-                "matching": myforMatching ?? mymatching,
+                "nestKey": mycanBeJoined ? association : mymeta.aliasPath(),
+                "matching": myforMatching ?? isMatching,
                 "targetProperty": mymeta.targetProperty(),
             ]);
             if (mycanBeJoined && myassociations) {
-                updatedData = _buildAssociationsMap(updatedData, myassociations, mymatching);
+                updatedData = _buildAssociationsMap(updatedData, myassociations, isMatching);
             }
         }
         return updatedData;
@@ -597,40 +588,31 @@ class DEagerLoader {
      * from such joined table.
      * Params:
      * string aliasName The table alias as it appears in the query.
-     * @param \ORM\Association myassoc The association object the alias represents;
-     * will be normalized.
-     * @param bool myasMatching Whether this join results should be treated as a
-     * "matching" association.
-     * @param string mytargetProperty The property name where the results of the join should be nested at.
-     * If not passed, the default property for the association will be used.
      */
     void addToJoinsMap(
         string aliasName,
-        DAssociation myassoc,
-        bool myasMatching = false,
-        string mytargetProperty = null
+        DAssociation association,
+        bool treatAsMatching = false,
+        string targetProperty = null
    ) {
        _joinsMap[aliasName] = new DEagerLoadable(aliasName, [
             "aliasPath": aliasName,
-            "instance": myassoc,
+            "instance": association,
             "canBeJoined": true.toJson,
-            "forMatching": myasMatching,
-            "targetProperty": mytargetProperty ?: myassoc.getProperty(),
+            "forMatching": treatAsMatching,
+            "targetProperty": targetProperty.ifEmpty(association.getProperty()),
         ]);
     }
     
     /**
      * Helper auto used to return the keys from the query records that will be used
      * to eagerly load associations.
-     * Params:
-     * array<\ORM\EagerLoadable> myexternal The list of external associations to be loaded.
-     * @param \ORM\Query\SelectQuery myquery The query from which the results where generated.
      */
-    protected Json[string] _collectKeys(Json[string] myexternal, SelectQuery selectQuery, Json[string] results) {
+    protected Json[string] _collectKeys(DORMEagerLoadable[] externalAssociations, DSelectQuery selectQuery, Json[string] results) {
         auto mycollectKeys = null;
-        foreach (mymeta; myexternal) {
-            auto myinstance = mymeta.instance();
-            if (!myinstance.requiresKeys(mymeta.configuration.data)) {
+        foreach (association; externalAssociations) {
+            auto myinstance = association.instance();
+            if (!myinstance.requiresKeys(association.configuration.data)) {
                 continue;
             }
             auto mysource = myinstance.source();
@@ -642,7 +624,7 @@ class DEagerLoader {
             auto mypkFields = someKeys
                 .map!(id => key(selectQuery.aliasField(id, aliasName))).array;
 
-            mycollectKeys[mymeta.aliasPath()] = [aliasName, mypkFields, count(mypkFields) == 1];
+            mycollectKeys[association.aliasPath()] = [aliasName, mypkFields, count(mypkFields) == 1];
         }
         if (mycollectKeys.isEmpty) {
             return null;

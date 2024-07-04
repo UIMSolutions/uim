@@ -19,7 +19,7 @@ class DException : Exception {
     string file = __FILE__,
     ulong line = cast(ulong) __LINE__,
     Throwable nextInChain = null
- ) {
+  ) {
     super(msg, file, line, nextInChain);
     this.initialize;
   }
@@ -93,12 +93,12 @@ class DException : Exception {
      *
      * Allows you to create exceptions that are treated as framework errors and disabled
      * when // debugmode is off.
-     */
-/* this(/* string[] */ string myMessage = "", int errorCode = null, Throwable previousException = null) {
-      if (myMessage.isArray) {
-        _attributes = myMessage;
-        myMessage = vsprintf(_messageTemplate, myMessage);
-      }
-      super(myMessage, errorCode ?? _defaultCode, previousException);
-    } 
-
+     * /
+this( /* string[] * / string myMessage = "", int errorCode = null, Throwable previousException = null) {
+  if (myMessage.isArray) {
+    _attributes = myMessage;
+    myMessage = vsprintf(_messageTemplate, myMessage);
+  }
+  super(myMessage, errorCode ?  ? _defaultCode, previousException);
+}
+*/

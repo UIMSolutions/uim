@@ -234,8 +234,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         seconds = diff; */
     }
 
-    auto fWord = options.get(
-        ["accuracy", "second"]);
+    auto fWord = options.get(["accuracy", "second"]);
     if (years > 0) {
         fWord = options.get(["accuracy", "year"]);
     }

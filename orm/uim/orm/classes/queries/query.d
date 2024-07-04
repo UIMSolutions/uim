@@ -1192,8 +1192,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * By default calling select() will disable auto-fields. You can re-enable
      * auto-fields with this method.
-     *
-     * @param bool value Set true to enable, false to disable.
      */
     void enableAutoFields(bool value = true) {
         _autoFields = value;

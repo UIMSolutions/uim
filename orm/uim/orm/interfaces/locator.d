@@ -17,12 +17,9 @@ interface ILocator { // }: BaseILocator {
     /**
      * Stores a list of options to be used when instantiating an object
      * with a matching alias.
-     * Params:
-     * Json[string]|string aliasName Name of the alias or array to completely
-     * overwrite current config.
-     * @param Json[string]|null options list of options for the alias
      */
-    ILocator configuration.update(string[] aliasNames...);
+    // ILocator configuration.update(string[] aliasNames...);
+    // ILocator configuration.update(string aliasName, Json[string] options = null);
     ILocator configuration.update(string[] aliasNames, Json[string] options = null);
 
     /**

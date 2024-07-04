@@ -196,14 +196,9 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         return new myclass(options);
     }
     
-    /**
-     * Set a Table instance.
-     * Params:
-     * string aliasName The alias to set.
-     * @param \ORM\Table myrepository The Table to set.
-     */
-    Table set(string aliasName, IRepository myrepository) {
-        return _instances[aliasName] = myrepository;
+    // Set a Table instance.
+    Table set(string aliasName, IRepository repository) {
+        return _instances[aliasName] = repository;
     }
  
     void clear() {

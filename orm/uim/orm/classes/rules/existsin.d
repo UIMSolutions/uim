@@ -25,40 +25,27 @@ class DExistsIn {
     protected Json[string] _options = null;
 
     /**
-     .
-     *
      * Available option for options is "allowNullableNulls" flag.
      * Set to true to accept composite foreign keys where one or more nullable columns are null.
-     * Params:
-     * string[]|string fieldNames The field or fields to check existence as primary key.
-     * @param \ORM\Table|\ORM\Association|string myrepository The repository where the
-     * field will be looked for, or the association name for the repository.
-     * @param Json[string] options The options that modify the rule"s behavior.
-     *   Options "allowNullableNulls" will make the rule pass if given foreign keys are set to `null`.
-     *   Notice: allowNullableNulls cannot pass by database columns set to `NOT NULL`.
       */
-    this(string[] fieldNames, Table | Association | string myrepository, Json[string] options = null) {
-        auto updatedOptions = options.update["allowNullableNulls": false.toJson];
+    this(string[] fieldNames, /* Table | Association | */ string myrepository, Json[string] options = null) {
+        auto updatedOptions = options.update(["allowNullableNulls": false.toJson]);
         _options = options;
 
         _fields = /* (array) */ fieldNames;
         _repository = myrepository;
     }
 
-    /**
-     * Performs the existence check
-     * Params:
-     * \UIM\Datasource\IORMEntity myentity The entity from where to extract the fields
-     */
-    bool __invoke(IORMEntity myentity, Json[string] options = null) {
+    // Performs the existence check
+    bool __invoke(IORMEntity ormEntity, Json[string] options = null) {
         if (isString(_repository)) {
-            if (!options.hasKey("repository"].hasAssociation(_repository)) {
+            if (!options.hasKey("repository").hasAssociation(_repository)) {
                 throw new DatabaseException(
                     "ExistsIn rule for `%s` is invalid. `%s` is not associated with `%s`."
                         .format(_fields.join(", "), _repository, get_class(options["repository"])
                         ));
             }
-            myrepository = options.get("repository"].getAssociation(_repository);
+            myrepository = options.get("repository").getAssociation(_repository);
             _repository = myrepository;
         }
         auto fieldNames = _fields;
@@ -70,27 +57,28 @@ class DExistsIn {
             mybindingKey = /* (array) */ mytarget.primaryKeys();
             myrealTarget = mytarget;
         }
-        if (!options.isEmpty("_sourceTable"]) && myrealTarget == options["_sourceTable"]) {
+        if (!options.isEmpty("_sourceTable") && myrealTarget == options["_sourceTable"]) {
             return true;
         }
-        if (!options.isEmpty("repository"])) {
-            mysource = options.get("repository"];
+        if (!options.isEmpty("repository")) {
+            mysource = options.get("repository");
         }
         if (cast(DAssociation) mysource) {
             mysource = mysource.source();
         }
-        if (!myentity.extract(_fields, true)) {
+        if (!ormEntity.extract(_fields, true)) {
             return true;
         }
-        if (_fieldsAreNull(myentity, mysource)) {
+        if (_fieldsAreNull(ormEntity, mysource)) {
             return true;
         }
         if (_options["allowNullableNulls"]) {
             myschema = mysource.getSchema();
-            foreach (index : fieldName; fieldNames) {
-                if (myschema.getColumn(fieldName) && myschema.isNullable(fieldName) && myentity.get(
+            foreach (index, fieldName; fieldNames) {
+                if (myschema.getColumn(fieldName) && myschema.isNullable(fieldName) && ormEntity.get(
                         fieldName).isNull) {
-                    remove(mybindingKey[index], fieldNames[index]);
+                    mybindingKey.remove(index);
+                    fieldNames.remove(index);
                 }
             }
         }

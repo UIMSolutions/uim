@@ -233,16 +233,16 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Json[string] fieldNames The fields to alias
      * @param string mydefaultAlias The default alias
      */
-    STRINGAA aliasFields(Json[string] fieldNames, string mydefaultAlias = null) {
-        myaliased = null;
-        foreach (fieldNames as aliasName: fieldName) {
+    STRINGAA aliasFields(Json[string] fieldNames, string defaultAlias = null) {
+        STRINGAA aliased = null;
+        foreach (aliasName, fieldName; fieldNames) {
             if (isNumeric(aliasName) && isString(fieldName)) {
-                myaliased += this.aliasField(fieldName, mydefaultAlias);
+                aliased += aliasField(fieldName, defaultAlias);
                 continue;
             }
-            myaliased[aliasName] = fieldName;
+            aliased[aliasName] = fieldName;
         }
-        return myaliased;
+        return aliased;
     }
     
     /**

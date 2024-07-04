@@ -26,17 +26,15 @@ class DLinkConstraint {
      .
      * Params:
      * \ORM\Association|string myassociation The alias of the association that should be checked.
-     * @param string myrequiredLinkStatus The link status that is required to be present in order for the check to
-     * succeed.
      */
-    this(Association|string myassociation, string myrequiredLinkStatus) {
-        if (!isIn(myrequiredLinkStatus, [STATUS_LINKED, STATUS_NOT_LINKED], true)) {
+    this(Association|string myassociation, string requiredLinkStatus) {
+        if (!isIn(requiredLinkStatus, [STATUS_LINKED, STATUS_NOT_LINKED], true)) {
             throw new DInvalidArgumentException(
                 "Argument 2 is expected to match one of the `\ORM\Rule\LinkConstraint.STATUS_*` constants."
            );
         }
        _association = myassociation;
-       _requiredLinkState = myrequiredLinkStatus;
+       _requiredLinkState = requiredLinkStatus;
     }
     
     /**

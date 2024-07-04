@@ -261,20 +261,13 @@ class DResultset : IResultset {
 
     /**
      * Unserializes a resultset.
-     *
      * Part of Serializable interface.
-     *
-     * @param string serialized Serialized object
      */
-    void unserialize(serialized) {
+    void unserialize(string serialized) {
         __unserialize((array)(unserialize(serialized) ?: []));
     }
 
-    /**
-     * Unserializes a resultset.
-     *
-     * @param Json[string] data Data array.
-     */
+    // Unserializes a resultset.
     void __unserialize(Json[string] data) {
         _results = SplFixedArray.fromArray(data);
         _useBuffering = true;

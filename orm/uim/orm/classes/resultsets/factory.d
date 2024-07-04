@@ -14,13 +14,7 @@ import uim.orm;
  * @template T of array|\UIM\Datasource\IORMEntity
  */
 class DResultsetFactory {
-    /**
-     
-     * Params:
-     * \ORM\Query\SelectQuery<T> myquery Query from where results came.
-     * @param Json[string] results Results array.
-     */
-    IResultset createResultset(SelectQuery resultQuery, Json[string] results) {
+    IResultset createResultset(DSelectQuery resultQuery, Json[string] results) {
         auto collectData = collectData(resultQuery);
 
         foreach (i, row; results) {
@@ -29,12 +23,7 @@ class DResultsetFactory {
         return new DResultset(results);
     }
     
-    /**
-     * Get repository and it"s associations data for nesting results key and
-     * entity hydration.
-     * Params:
-     * \ORM\Query\SelectQuery myquery The query from where to derive the data.
-     */
+    // Get repository and it"s associations data for nesting results key and entity hydration.
     protected Json[string] collectData(DSelectQuery myquery) {
         auto myprimaryTable = myquery.getRepository();
         auto mydata = [

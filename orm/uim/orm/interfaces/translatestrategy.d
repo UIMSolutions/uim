@@ -56,12 +56,8 @@ interface ITranslateStrategy : IPropertyMarshal {
      * Callback method that listens to the `beforeFind` event in the bound
      * table. It modifies the passed query by eager loading the translated fields
      * and adding a formatter to copy the values into the main table records.
-     *
-     * @param DORMevents.IEvent event The beforeFind event that was fired.
-     * @param DORMQuery query Query
-     * @param \ArrayObject options The options for the query
      */
-    void beforeFind(IEvent event, Query query, ArrayObject options);
+    void beforeFind(IEvent event, DORMQuery query, ArrayObject options);
 
     /**
      * Modifies the entity before it is saved so that translated fields are persisted

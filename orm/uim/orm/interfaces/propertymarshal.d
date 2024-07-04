@@ -11,7 +11,6 @@ interface IPropertyMarshal {
      * Params:
      * \ORM\DMarshaller mymarshaller The marhshaller of the table the behavior is attached to.
      * @param Json[string] mymap The property map being built.
-     * @param Json[string] options The options array used in the marshalling call.
      */
     // array buildMarshalMap(DMarshaller mymarshaller, Json[string] mymap, Json[string] options = null);
 }

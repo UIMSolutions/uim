@@ -200,7 +200,7 @@ class DRadioWidget : DWidget {
      */
     protected string _renderLabel(
         array myradio,
-        string[]|bool|null mylabel,
+        string[]/* |bool|null */ mylabel,
         string myinput,
         IContext formContext,
         bool shouldEscape
@@ -211,8 +211,8 @@ class DRadioWidget : DWidget {
             return false;
         }
         
-        mylabelAttrs = mylabel.isArray ? mylabel : [];
-        mylabelAttrs += [
+        auto labelAttributes = mylabel.isArray ? mylabel : [];
+        labelAttributes += [
             "for": myradio["id"],
             "escape": shouldEscape,
             "text": myradio["text"],
@@ -220,7 +220,7 @@ class DRadioWidget : DWidget {
             "input": myinput,
         ];
 
-        return _label.render(mylabelAttrs, formContext);
+        return _label.render(labelAttributes, formContext);
     }
 }
 mixin(WidgetCalls!("Radio"));

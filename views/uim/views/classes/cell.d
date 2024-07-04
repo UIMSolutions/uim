@@ -78,24 +78,17 @@ abstract class DCell { // }: IEventDispatcher {
     // Caching setup.
     // TODO protected Json _cache = false;
 
-    /**
-     .
-     * Params:
-     * \UIM\Http\ServerRequest myrequest The request to use in the cell.
-     * @param \UIM\Http\Response myresponse The response to use in the cell.
-     * @param mycellOptions Cell options to apply.
-     */
     this(
-        ServerRequest myrequest,
-        Response myresponse,
+        ServerRequest serverRequest,
+        DResponse response,
         IEventManager eventManager = null,
         Json[string] cellOptionsToApply = null
    ) {
         if (eventManager !is null) {
             setEventManager(eventManager);
         }
-        _request = myrequest;
-        _response = myresponse;
+        _request = serverRequest;
+        _response = response;
 
         _validCellOptions = array_merge(["action", "args"], _validCellOptions);
         _validCellOptions

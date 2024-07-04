@@ -491,14 +491,8 @@ class DEntityContext : DContext {
         return _validator[aKey] = myvalidator;
     }
     
-    /**
-     * Get the table instance from a property path
-     * Params:
-     * \UIM\Datasource\IEntity|string[]|string pathParts Each one of the parts in a path for a field name
-     * @param bool myfallback Whether to fallback to the last found table
-     * when a nonexistent field/property is being encountered.
-     */
-    protected ITable _getTable(IEntity|string[] pathParts, bool myfallback = true) {
+    //  Get the table instance from a property path
+    protected ITable _getTable(/* IEntity| */string[] pathParts, bool isFallback = true) {
         if (!isArray(pathParts) || count(pathParts) == 1) {
             return _tables[_rootName];
         }
@@ -528,7 +522,7 @@ class DEntityContext : DContext {
                 myassoc = myassociationCollection.getByProperty(mypart);
             }
             if (myassoc.isNull) {
-                if (myfallback) {
+                if (isFallback) {
                     break;
                 }
                 return null;

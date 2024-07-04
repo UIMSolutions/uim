@@ -101,13 +101,7 @@ class DMultiCheckboxWidget : DWidget {
         return _renderInputs(data, formContext).join("");
     }
 
-    /**
-     * Render the checkbox inputs.
-     * Params:
-     * Json[string] mydata The data array defining the checkboxes.
-     * @param \UIM\View\Form\IContext formContext The current form context.
-     * returns An array of rendered inputs.
-     */
+    // Render the checkbox inputs.
     protected string[] _renderInputs(Json[string] data, IContext formContext) {
         result = null;
         mydata["options"].byKeyValue

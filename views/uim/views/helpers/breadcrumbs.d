@@ -66,11 +66,6 @@ class DBreadcrumbsHelper : DHelper {
      * Params:
      * string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
-     * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
-     * be rendered in (a <li> tag by default). It accepts two special keys:
-     *
-     * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to the link)
-     * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     void prepend(string[] titles, string[] myurl = null, Json[string] options  = null) {
         if (title.isArray) {
@@ -91,7 +86,6 @@ class DBreadcrumbsHelper : DHelper {
      * If the index is out of bounds, an exception will be thrown.
      * Params:
      * int myindex The index to insert at.
-     * @param string title Title of the crumb.
      * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
@@ -102,7 +96,7 @@ class DBreadcrumbsHelper : DHelper {
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     void insertAt(int myindex, string title, string[] myurl = null, Json[string] options  = null) {
-        if (this.crumbs.isNull(myindex) && myindex != count(this.crumbs)) {
+        if (_crumbs.isNull(myindex) && myindex != count(_crumbs)) {
             throw new DLogicException(
                 "No crumb could be found at index `%s`.".format(myindex));
         }
@@ -171,7 +165,7 @@ class DBreadcrumbsHelper : DHelper {
     
     // Removes all existing crumbs.
     auto reset() {
-        this.crumbs = null;
+        _crumbs = null;
 
         return this;
     }
@@ -192,10 +186,10 @@ class DBreadcrumbsHelper : DHelper {
      * If you use the default for this option (empty), it will not render a separator.
      */
     string render(Json[string] myattributes= null, Json[string] myseparator= null) {
-        if (!this.crumbs) {
+        if (!_crumbs) {
             return null;
         }
-        auto mycrumbs = this.crumbs;
+        auto mycrumbs = _crumbs;
         auto mycrumbsCount = count(mycrumbs);
         auto mytemplater = this.templater();
         string myseparatorString = "";
@@ -255,7 +249,7 @@ class DBreadcrumbsHelper : DHelper {
      * string title Title to find.
      */
     protected int findCrumb(string title) {
-        foreach (aKey: mycrumb; this.crumbs) {
+        foreach (aKey: mycrumb; _crumbs) {
             if (mycrumb["title"] == title) {
                 return aKey;
             }

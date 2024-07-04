@@ -198,18 +198,12 @@ class DFormHelper : DHelper {
        _locator = myinstance;
     }
     
-    /**
-     * Set the context factory the helper will use.
-     * Params:
-     * \UIM\View\Form\ContextFactory|null myinstance The context factory instance to set.
-     * @param array mycontexts An array of context providers.
-     */
-    DContextFactory contextFactory(?ContextFactory myinstance = null, Json[string] mycontexts= null) {
-        if (myinstance.isNull) {
-            return _contextFactory ??= DContextFactory.createWithDefaults(mycontexts);
+    // Set the context factory the helper will use.
+    DContextFactory contextFactory(DContextFactory factory = null, Json[string] contexts= null) {
+        if (factory.isNull) {
+            return _contextFactory ? _contextFactory : DContextFactory.createWithDefaults(contexts);
         }
-       _contextFactory = myinstance;
-
+       _contextFactory = factory;
         return _contextFactory;
     }
     

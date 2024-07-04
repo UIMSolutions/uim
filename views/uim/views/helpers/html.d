@@ -208,10 +208,9 @@ class DHtmlHelper : DHelper {
      * Can be an array if myurl.isNull. If myurl.isNull, mytitle will be used as both the URL and title.
      * @param string[] myurl uim-relative URL or array of URL parameters, or
      * external URL (starts with http://)
-     * @param Json[string] htmlAttributes Array of options and HTML attributes.
       */
     string link(string[] mytitle, string[] myurl = null, Json[string] htmlAttributes = null) {
-        myescapeTitle = true;
+        auto myescapeTitle = true;
         if (!myurl.isNull) {
             myurl = _Url.build(myurl, htmlAttributes);
             htmlAttributes.remove("fullBase");

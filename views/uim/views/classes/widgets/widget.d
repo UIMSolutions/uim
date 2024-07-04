@@ -120,11 +120,7 @@ class DWidget : IWidget {
     return data;
   }
 
-  /**
-     * Set value for "step" attribute if applicable.
-     * Params:
-     * @param \UIM\View\Form\IContext formContext DContext instance.
-     */
+  // Set value for "step" attribute if applicable.
   protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {
     auto mydbType = formContext.type(fieldName);
     auto fieldNameDef = formContext.attributes(fieldName);

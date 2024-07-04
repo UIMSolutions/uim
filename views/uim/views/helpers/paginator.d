@@ -156,20 +156,20 @@ class DPaginatorHelper : DHelper {
     /**
      * Generate an active/inactive link for next/prev methods.
      * Params:
-     * string mytext The enabled text for the link.
+     * string linkText The enabled text for the link.
      * @param templates An array of templates with the "active" and "disabled" keys.
      */
-    protected string _toggledLink(string mytext, bool enabled, Json[string] options, Json[string] templates) {
+    protected string _toggledLink(string linkText, bool enabled, Json[string] options, Json[string] templates) {
         auto mytemplate = templates["active"];
         if (!enabled) {
-            mytext = options.get("disabledTitle");
+            linkText = options.get("disabledTitle");
             mytemplate = templates["disabled"];
         }
-        if (!enabled && mytext == false) {
+        if (!enabled && linkText == false) {
             return null;
         }
-        Json mytext = options.get("escape") ? htmlAttributeEscape(
-            mytext) : mytext;
+        Json linkText = options.get("escape") ? htmlAttributeEscape(
+            linkText) : linkText;
         mytemplater = this.templater();
         mynewTemplates = options.get("templates") ?  ? false;
         if (mynewTemplates) {
@@ -183,7 +183,7 @@ class DPaginatorHelper : DHelper {
         }
         if (!enabled) {
             result = mytemplater.format(mytemplate, [
-                    "text": mytext,
+                    "text": linkText,
                 ]);
             if (mynewTemplates) {
                 mytemplater.pop();
@@ -199,7 +199,7 @@ class DPaginatorHelper : DHelper {
         );
         result = mytemplater.format(mytemplate, [
                 "url": myurl,
-                "text": mytext,
+                "text": linkText,
             ]);
         if (mynewTemplates) {
             mytemplater.pop();

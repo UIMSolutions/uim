@@ -108,12 +108,11 @@ class DRadioWidget : DWidget {
     /**
      * Renders a single radio input and label.
      * Params:
-     * string|int myval The value of the radio input.
      * @param Json[string]|string|int mytext The label text, or complex radio type.
      * @param Json[string] mydata Additional options for input generation.
      */
     protected string _renderInput(
-        string/* |int */ myval,
+        string/* |int */ value,
         string[]/* |int */ labelText,
         Json[string] options,
         IContext formContext
@@ -121,7 +120,7 @@ class DRadioWidget : DWidget {
         auto escapeData = options.get("escape");
         auto myRadio = mytext.isArray && mytext.hasKeys("text", "value")
             ? mytext
-            : ["value": myval, "text": labelText];
+            : ["value": value, "text": labelText];
 
         myradio["name"] = options.get("name");
 

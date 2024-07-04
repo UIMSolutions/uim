@@ -420,7 +420,6 @@ static string contentType() {
      * string templatefilename Name of template file in the `templates/element/` folder,
      * or `_plugin.template` to use the template element from _plugin. If the element
      * is not found in the plugin, the normal view path cascade will be searched.
-     * @param Json[string] data Array of data to be made available to the rendered view (i.e. the Element)
      */
     string element(string templatefilename, Json[string] data = null, Json[string] options  = null) {
         auto updatedOptions = options.update["callbacks": false.toJson, "cache": Json(null), "plugin": Json(null), "ignoreMissing": false.toJson];

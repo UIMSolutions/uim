@@ -526,10 +526,8 @@ class DFormHelper : DHelper {
      * - `escape` boolean - Whether to html escape the contents of the error.
      * Params:
      * string fieldName A field name, like "modelname.fieldname"
-     * @param string[] mytext Error message as string or array of messages. If an array,
-     * it should be a hash of key names: messages.
      */
-    string error(string fieldName, string[] mytext = null, Json[string] options  = null) {
+    string error(string fieldName, string[] text = null, Json[string] options  = null) {
         if (fieldName.endsWith("._ids")) {
             fieldName = subString(fieldName, 0, -5);
         }
@@ -540,21 +538,21 @@ class DFormHelper : DHelper {
         }
 
         auto myerror = formContext.error(fieldName);
-        if (mytext.isArray) {
+        if (text.isArray) {
             mytmp = null;
-            foreach (key: mye; myerror) {
-                if (mytext.hascorrectKey(key)) {
-                    mytmp ~= mytext[key];
+            foreach (key, mye; myerror) {
+                if (text.hascorrectKey(key)) {
+                    mytmp ~= text[key];
                 } elseif (mytextm.hasKey(ye)) {
-                    mytmp ~= mytext[mye];
+                    mytmp ~= text[mye];
                 } else {
                     mytmp ~= mye;
                 }
             }
-            mytext = mytmp;
+            text = mytmp;
         }
-        if (mytext !is null) {
-            myerror = mytext;
+        if (text !is null) {
+            myerror = text;
         }
         if (updatedOptions["escape"]) {
             Json myerror = htmlAttributeEscape(myerror);
@@ -626,28 +624,22 @@ class DFormHelper : DHelper {
      * ]);
      * <label for="post-publish">Publish <input type="text" name="published"></label>
      * ```
-     *
      * If you want to nest inputs in the labels, you will need to modify the default templates.
-     * Params:
-     * string fieldName This should be "modelname.fieldname"
-     * @param string mytext Text that will appear in the label field. If
-     * mytext is left undefined the text will be inflected from the
-     * fieldName.
      */
-    string label(string fieldName, string mytext = null, Json[string] htmlAttributes  = null) {
-        if (mytext.isNull) {
-            mytext = fieldName;
-            if (mytext.endsWith("._ids")) {
-                mytext = subString(mytext, 0, -5);
+    string label(string fieldName, string text = null, Json[string] htmlAttributes  = null) {
+        if (text.isNull) {
+            text = fieldName;
+            if (text.endsWith("._ids")) {
+                text = subString(text, 0, -5);
             }
-            if (mytext.contains(".")) {
-                string[] fieldNameElements = mytext.split(".");
-                mytext = array_pop(fieldNameElements);
+            if (text.contains(".")) {
+                string[] fieldNameElements = text.split(".");
+                text = array_pop(fieldNameElements);
             }
-            if (mytext.endsWith("_id")) {
-                mytext = subString(mytext, 0, -3);
+            if (text.endsWith("_id")) {
+                text = subString(text, 0, -3);
             }
-            mytext = __(Inflector.humanize(Inflector.underscore(mytext)));
+            text = __(Inflector.humanize(Inflector.underscore(text)));
         }
         if (htmlAttributes.hasKey("for")) {
             mylabelFor = htmlAttributes["for"];
@@ -655,17 +647,18 @@ class DFormHelper : DHelper {
         } else {
             mylabelFor = _domId(fieldName);
         }
-        myattrs = htmlAttributes ~ [
+
+        auto attributes = htmlAttributes ~ [
             "for": mylabelFor,
-            "text": mytext,
+            "text": text,
         ];
         if (htmlAttributes.hasKey("input")) {
             if (isArray(htmlAttributes["input"])) {
-                myattrs = htmlAttributes["input"] + myattrs;
+                attributes = htmlAttributes["input"] + attributes;
             }
-            return _widget("nestingLabel", myattrs);
+            return _widget("nestingLabel", attributes);
         }
-        return _widget("label", myattrs);
+        return _widget("label", attributes);
     }
     
     /**

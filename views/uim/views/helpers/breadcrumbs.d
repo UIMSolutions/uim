@@ -86,8 +86,6 @@ class DBreadcrumbsHelper : DHelper {
      * If the index is out of bounds, an exception will be thrown.
      * Params:
      * int myindex The index to insert at.
-     * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
-     * Url.build() or null / empty if the crumb does not have a link.
      * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
      * be rendered in (a <li> tag by default). It accepts two special keys:
      *
@@ -95,12 +93,12 @@ class DBreadcrumbsHelper : DHelper {
      * the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
-    void insertAt(int myindex, string title, string[] myurl = null, Json[string] options  = null) {
-        if (_crumbs.isNull(myindex) && myindex != count(_crumbs)) {
+    void insertAt(int index, string title, string[] url = null, Json[string] options  = null) {
+        if (_crumbs.isNull(myindex) && index != count(_crumbs)) {
             throw new DLogicException(
-                "No crumb could be found at index `%s`.".format(myindex));
+                "No crumb could be found at index `%s`.".format(index));
         }
-        array_splice(_crumbs, myindex, 0, [compact("title", "url", "options")]);
+        array_splice(_crumbs, index, 0, [compact("title", "url", "options")]);
     }
     
     /**

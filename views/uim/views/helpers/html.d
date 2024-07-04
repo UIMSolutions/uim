@@ -101,34 +101,33 @@ class DHtmlHelper : DHelper {
      * Params:
      * Json[string]|string mytype The title of the external resource, Or an array of attributes for a
      * custom meta tag.
-     * @param string[] mycontent The address of the external resource or string for content attribute
      */
-    string meta(string[] mytype, string[] mycontent = null, Json[string] htmlAttributes = null) {
+    string meta(string[] mytype, string[] content = null, Json[string] htmlAttributes = null) {
         if (!mytype.isArray) {
             mytypes = [
-                "rss": ["type": "application/rss+xml", "rel": "alternate", "title": mytype, "link": mycontent],
-                "atom": ["type": "application/atom+xml", "title": mytype, "link": mycontent],
-                "icon": ["type": "image/x-icon", "rel": "icon", "link": mycontent],
-                "keywords": ["name": "keywords", "content": mycontent],
-                "description": ["name": "description", "content": mycontent],
-                "robots": ["name": "robots", "content": mycontent],
-                "viewport": ["name": "viewport", "content": mycontent],
-                "canonical": ["rel": "canonical", "link": mycontent],
-                "next": ["rel": "next", "link": mycontent],
-                "prev": ["rel": "prev", "link": mycontent],
-                "first": ["rel": "first", "link": mycontent],
-                "last": ["rel": "last", "link": mycontent],
+                "rss": ["type": "application/rss+xml", "rel": "alternate", "title": mytype, "link": content],
+                "atom": ["type": "application/atom+xml", "title": mytype, "link": content],
+                "icon": ["type": "image/x-icon", "rel": "icon", "link": content],
+                "keywords": ["name": "keywords", "content": content],
+                "description": ["name": "description", "content": content],
+                "robots": ["name": "robots", "content": content],
+                "viewport": ["name": "viewport", "content": content],
+                "canonical": ["rel": "canonical", "link": content],
+                "next": ["rel": "next", "link": content],
+                "prev": ["rel": "prev", "link": content],
+                "first": ["rel": "first", "link": content],
+                "last": ["rel": "last", "link": content],
             ];
 
-            if (mytype == "icon" && mycontent.isNull) {
+            if (mytype == "icon" && content.isNull) {
                 mytypes.set("icon.link", "favicon.ico");
             }
             if (mytypes.hasKey(mytype)) {
                 mytype = mytypes[mytype];
-            } elseif (!htmlAttributes.hasKey("type") && mycontent !is null) {
-                mytype = isArray(mycontent) && mycontent.hasKey("_ext")
-                    ? mytypes[mycontent.getString("_ext")]
-                    : ["name": mytype, "content": mycontent];
+            } elseif (!htmlAttributes.hasKey("type") && content !is null) {
+                mytype = isArray(content) && content.hasKey("_ext")
+                    ? mytypes[content.getString("_ext")]
+                    : ["name": mytype, "content": content];
 
             } elseif (htmlAttributes.hasKey("type") && mytypes.hasKey(htmlAttributes.getString("type"))) {
                 mytype = mytypes[htmlAttributes["type"]];
@@ -600,18 +599,18 @@ class DHtmlHelper : DHelper {
         string result = null;
         foreach (myarg; views) {
             if (!isArray(myarg)) {
-                mycontent = myarg;
+                content = myarg;
                 myattrs = thOptions;
             } elseif (myarg.has(0) && myarg.has(1)) {
-                mycontent = myarg[0];
+                content = myarg[0];
                 myattrs = myarg[1];
             } else {
-                mycontent = key(myarg);
+                content = key(myarg);
                 myattrs = currentValue(myarg);
             }
             result ~= this.formatTemplate("tableheader", [
                 "attrs": templater().formatAttributes(myattrs),
-                "content": mycontent,
+                "content": content,
             ]);
         }
         return _tableRow(result.join(" "), (array)trOptions);
@@ -697,26 +696,21 @@ class DHtmlHelper : DHelper {
     /**
      * Renders a single table row (A TR with attributes).
      * Params:
-     * string mycontent The content of the row.
+     * string content The content of the row.
      * @param Json[string] htmlAttributes HTML attributes.
      */
-    string tableRow(string mycontent, Json[string] htmlAttributes = null) {
+    string tableRow(string content, Json[string] htmlAttributes = null) {
         return _formatTemplate("tablerow", [
             "attrs": templater().formatAttributes(htmlAttributes),
-            "content": mycontent,
+            "content": content,
         ]);
     }
     
-    /**
-     * Renders a single table cell (A TD with attributes).
-     * Params:
-     * string mycontent The content of the cell.
-     * @param Json[string] htmlAttributes HTML attributes.
-     */
-    string tableCell(string mycontent, Json[string] htmlAttributes = null) {
+    // Renders a single table cell (A TD with attributes).
+    string tableCell(string content, Json[string] htmlAttributes = null) {
         return _formatTemplate("tablecell", [
             "attrs": templater().formatAttributes(htmlAttributes),
-            "content": mycontent,
+            "content": content,
         ]);
     }
     

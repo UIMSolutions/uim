@@ -169,7 +169,7 @@ class DSelectBoxWidget : DWidget {
      */
     protected string _renderOptgroup(
         string labelText,
-        ArrayAccess | array myoptgroup,
+        /* ArrayAccess | array */ Json[string] myoptgroup,
         Json[string] mydisabled,
         Json selectedValues,
         Json[string] templateVariables,

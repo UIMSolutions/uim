@@ -293,16 +293,13 @@ class DViewBuilder { // }: DJsonSerializable {
      *
      * If classname().isNull, App\View\AppView will be used.
      * If that class does not exist, then {@link \UIM\View\View} will be used.
-     * Params:
-     * \UIM\Http\ServerRequest|null myrequest The request to use.
-     * @param \UIM\Event\IEventManager|null myevents The event manager to use.
      */
-    View build(
-        DServerRequest myrequest = null,
+    DView build(
+        DServerRequest serverRequest = null,
         DResponse response = null,
         IEventManager myevents = null
    ) {
-        string viewClassname = _classname ?? App.classname("App", "View", "View") ?? View.classname;
+        string viewClassname = _classname ? viewClassname : (App.classname("App", "View", "View") ?? View.classname;
         viewClassname = viewClassname == "View"
             ? App.classname(myclassname, "View")
             : App.classname(myclassname, "View", "View");
@@ -324,7 +321,7 @@ class DViewBuilder { // }: DJsonSerializable {
         ];
         mydata += _options;
 
-        return new myclassname(myrequest, response, myevents, mydata);
+        return new myclassname(serverRequest, response, myevents, mydata);
     }
     
     /**

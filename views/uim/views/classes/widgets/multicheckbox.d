@@ -193,22 +193,17 @@ protected string _renderInput(Json[string] checkboxData, IContext formContext) {
         ]);
 }
 
-/**
-     * Helper method for deciding what options are selected.
-     * Params:
-     * string key The key to test.
-     * @param string[]|string|int|false|null myselected The selected values.
-     */
-protected bool _isSelected(string key, string[] | int | false | null myselected) {
-    if (myselected.isNull) {
+// Helper method for deciding what options are selected.
+protected bool _isSelected(string key, string[] /* | int | false | null */ selectedValues) {
+    if (selectedValues.isNull) {
         return false;
     }
 
-    if (!myselected.isArray) {
-        return key == to!string(myselected);
+    if (!selectedValues.isArray) {
+        return key == to!string(selectedValues);
     }
 
-    return isIn(key, myselected, !key.isNumeric);
+    return isIn(key, selectedValues, !key.isNumeric);
 }
 
 // Helper method for deciding what options are disabled.

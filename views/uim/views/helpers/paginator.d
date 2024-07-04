@@ -190,7 +190,7 @@ class DPaginatorHelper : DHelper {
             }
             return result;
         }
-        myurl = this.generateUrl(
+        url = this.generateUrl(
             [
                 "page": this.paginated()
                 .currentPage() + options["step"]
@@ -198,7 +198,7 @@ class DPaginatorHelper : DHelper {
             options["url"]
         );
         result = mytemplater.format(mytemplate, [
-                "url": myurl,
+                "url": url,
                 "text": linkText,
             ]);
         if (mynewTemplates) {
@@ -290,7 +290,7 @@ class DPaginatorHelper : DHelper {
                 "url": Json.emptyArray,
                 "escape": true.toJson
             ]);
-        auto myurl = updatedOptions["url"];
+        auto url = updatedOptions["url"];
         updatedOptions.remove("url");
 
         if (linkTitle.isEmpty) {
@@ -346,7 +346,7 @@ class DPaginatorHelper : DHelper {
         ];
         myvars = [
             "text": options["escape"] ? htmlAttributeEscape(mytitle): mytitle,
-            "url": this.generateUrl(mypaging, myurl),
+            "url": this.generateUrl(mypaging, url),
         ];
         return _templater().format(mytemplate, myvars);
     }
@@ -375,15 +375,9 @@ class DPaginatorHelper : DHelper {
         return _Url.build(this.generateUrlParams(paginationOptions, url), myurlOptions);
     }
 
-    /**
-     * Merges passed URL options with current pagination state to generate a pagination URL.
-     * Params:
-     * Json[string] options Pagination/URL options array
-     * @param Json[string] myurl URL.
-     */
-    Json[string] generateUrlParams(Json[string] options = null, Json[string] myurl = [
-        ]) {
-        mypaging = this.params();
+    // Merges passed URL options with current pagination state to generate a pagination URL.
+    Json[string] generateUrlParams(Json[string] options = null, Json[string] url = null) {
+        auto mypaging = this.params();
         mypaging += [
             "currentPage": Json(null),
             "sort": Json(null),
@@ -457,26 +451,26 @@ class DPaginatorHelper : DHelper {
             ];
         }
         if (!mybaseUrl.isEmpty) {
-            myurl = Hash.merge(myurl, mybaseUrl);
+            url = Hash.merge(url, mybaseUrl);
         }
-        myurl["?"] ?  ?  = null;
+        url["?"] ?  ?  = null;
 
         if (!configuration.hasKey(
                 "options.routePlaceholders")) {
             myplaceholders = array_flip(
                 configuration.get(
                     "options.routePlaceholders"]);
-            myurl += array_intersectinternalKey(
+            url += array_intersectinternalKey(
                 options, myplaceholders);
-            myurl["?"] += array_diffinternalKey(
+            url["?"] += array_diffinternalKey(
                 options, myplaceholders);
         } else {
-            myurl["?"] += options;
+            url["?"] += options;
         }
-        myurl["?"] = Hash.filter(
-            myurl["?"]);
+        url["?"] = Hash.filter(
+            url["?"]);
 
-        return myurl;
+        return url;
     }
 
     // Remove alias if needed.

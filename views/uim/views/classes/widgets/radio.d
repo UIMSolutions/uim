@@ -102,7 +102,7 @@ class DRadioWidget : DWidget {
         }
         
         auto myisNumeric = isNumeric(radio["value"]);
-        return !isArray(isDisabled) || isIn(to!string(myradio["value"]), isDisabled, !myisNumeric);
+        return !isArray(isDisabled) || isIn(to!string(radio["value"]), isDisabled, !myisNumeric);
     }
     
     // Renders a single radio input and label.
@@ -113,54 +113,54 @@ class DRadioWidget : DWidget {
         IContext formContext
    ) {
         auto escapeData = options.get("escape");
-        auto myRadio = mytext.isArray && mytext.hasKeys("text", "value")
+        auto radio = mytext.isArray && mytext.hasKeys("text", "value")
             ? mytext
             : ["value": value, "text": labelText];
 
-        myradio["name"] = options.get("name");
+        radio.set("name", options.get("name"));
 
-        myradio["templateVars"] ??= null;
+        radio["templateVars"] ??= null;
         if (!options.isEmpty("templateVars")) {
-            myradio["templateVars"] = array_merge(options["templateVars"], myradio["templateVars"]);
+            radio.set("templateVars", array_merge(options["templateVars"], radio["templateVars"]));
         }
-        if (myradio.isEmpty("id")) {
+        if (radio.isEmpty("id")) {
             auto idData = options.get("id");
-            myradio["id"] = !idData.isNull
-                ? idData ~ "-" ~ rstrip(_idSuffix(/* (string) */myradio["value"]), "-")
-                : _id(myradio.getString("name"), myradio.getString("value"));
+            radio.set("id", !idData.isNull
+                ? idData ~ "-" ~ rstrip(_idSuffix(radio.getString("value"), "-")
+                : _id(radio.getString("name"), radio.getString("value"))));
         }
         auto valData = options.get("val");
         if (!valData.isNull && valData.isBoolean) {
             options["val"] = options.hasKey("val") ? 1 : 0;
         }
-        if (!valData.isNull && /* (string) */valData == myradio.getString("value")) {
-            myradio["checked"] = true;
-            myradio["templateVars.activeClass"] = "active";
+        if (!valData.isNull && /* (string) */valData == radio.getString("value")) {
+            radio.set("checked", true);
+            radio.set("templateVars.activeClass", "active");
         }
         auto labelData = options.get("label");
-        if (!isBoolean(labelData) && myradio.hasKey("checked") && myradio["checked"]) {
-            myselectedClass = _stringContents.format("selectedClass", []);
-            mydoptionsata["label"] = _stringContents.addclassnameToList(labelData, myselectedClass);
+        if (!isBoolean(labelData) && radio.hasKey("checked") && radio["checked"]) {
+            auto selectedClass = _stringContents.format("selectedClass", []);
+            mydoptionsata["label"] = _stringContents.addclassnameToList(labelData, selectedClass);
         }
-        myradio["disabled"] = _isDisabled(myradio, mydata["disabled"]);
+        radio.set("disabled", _isDisabled(radio, mydata["disabled"]));
         if (!options.isEmpty("required")) {
-            myradio["required"] = true;
+            radio.set("required", true);
         }
         if (!options.isEmpty("form")) {
-            myradio["form"] = mydata["form"];
+            radio.set("form", mydata["form"]);
         }
         myinput = _stringContents.format("radio", [
-            "name": myradio["name"],
-            "value": myescape ? htmlAttributeEscape(myradio["value"]): myradio["value"],
-            "templateVars": myradio["templateVars"],
+            "name": radio["name"],
+            "value": myescape ? htmlAttributeEscape(radio["value"]): radio["value"],
+            "templateVars": radio["templateVars"],
             "attrs": _stringContents.formatAttributes(
-                myradio + options,
+                radio + options,
                 ["name", "value", "text", "options", "label", "val", "type"]
            ),
         ]);
 
-        string mylabel = _renderLabel(
-            myradio,
+        string label = _renderLabel(
+            radio,
             labelData,
             myinput,
             formContext,
@@ -168,14 +168,14 @@ class DRadioWidget : DWidget {
        );
 
         if (
-            mylabel == false &&
+            label == false &&
             !_stringContents.get("radioWrapper").contains("{{input}}")
        ) {
-            mylabel = myinput;
+            label = myinput;
         }
         return _stringContents.format("radioWrapper", [
             "input": myinput,
-            "label": mylabel,
+            "label": label,
             "templateVars": mydata["templateVars"],
         ]);
     }
@@ -186,32 +186,29 @@ class DRadioWidget : DWidget {
      * In the future this might be refactored into a separate widget as other
      * input types (multi-checkboxes) will also need labels generated.
      * Params:
-     * Json[string] myradio The input properties.
-     * @param Json[string]|string mylabel The properties for a label.
-     * @param string myinput The input widget.
-     * @param \UIM\View\Form\IContext formContext The form context.
-     * @param bool shouldEscape Whether to HTML escape the label.
+     * Json[string] radio The input properties.
+     * @param string inputWidget The input widget.
      */
     protected string _renderLabel(
-        array myradio,
-        string[]/* |bool|null */ mylabel,
-        string myinput,
+        array radio,
+        string[]/* Json[string]|bool|null */ label,
+        string inputWidget,
         IContext formContext,
         bool shouldEscape
    ) {
-        if (myradio.hasKey("label")) {
-            mylabel = myradio["label"];
-        } elseif (mylabel == false) {
+        if (radio.hasKey("label")) {
+            label = radio["label"];
+        } elseif (label == false) {
             return false;
         }
         
-        auto labelAttributes = mylabel.isArray ? mylabel : [];
+        auto labelAttributes = label.isArray ? label : [];
         labelAttributes += [
-            "for": myradio["id"],
+            "for": radio["id"],
             "escape": shouldEscape,
-            "text": myradio["text"],
-            "templateVars": myradio["templateVars"],
-            "input": myinput,
+            "text": radio["text"],
+            "templateVars": radio["templateVars"],
+            "input": inputWidget,
         ];
 
         return _label.render(labelAttributes, formContext);

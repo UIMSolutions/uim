@@ -340,36 +340,37 @@ class DFormProtector {
     /**
      * Create a message for humans to understand why Security token is not matching
      * Params:
-     * Json[string] formData Data.
      * @param Json[string] hashParts Elements used to generate the Token hash
      */
     protected string debugTokenNotMatching(Json[string] formData, Json[string] hashParts) {
-        messages = null;
+        auto messages = null;
         if (formData.isNull("_Token.debug")) {
             return "Form protection debug token not found.";
         }
-        expectedParts = Json_decode(urldecode(formData["_Token.debug"]), true);
+        
+        auto expectedParts = Json_decode(urldecode(formData["_Token.debug"]), true);
         if (!isArray(expectedParts) || count(expectedParts) != 3) {
             return "Invalid form protection debug token.";
         }
-        expectedUrl = Hash.get(expectedParts, 0);
-        url = Hash.get(hashParts, "url");
+        
+        auto expectedUrl = Hash.get(expectedParts, 0);
+        auto url = Hash.get(hashParts, "url");
         if (expectedUrl != url) {
             messages ~= "URL mismatch in POST data (expected `%s` but found `%s`)"
                 .format(expectedUrl, url);
         }
-        expectedFields = Hash.get(expectedParts, 1);
-        someDataFields = Hash.get(hashParts, "fields") ?: [];
-        fieldsMessages = this.debugCheckFields(
+        auto expectedFields = Hash.get(expectedParts, 1);
+        auto someDataFields = Hash.get(hashParts, "fields") ?: [];
+        auto fieldsMessages = this.debugCheckFields(
             (array)someDataFields,
             expectedFields,
             "Unexpected field `%s` in POST data",
             "Tampered field `%s` in POST data (expected value `%s` but found `%s`)",
             "Missing field `%s` in POST data"
        );
-        expectedUnlockedFields = Hash.get(expectedParts, 2);
-        someDataUnlockedFields = Hash.get(hashParts, "unlockedFields") ?: [];
-        unlockFieldsMessages = this.debugCheckFields(
+        auto expectedUnlockedFields = Hash.get(expectedParts, 2);
+        auto someDataUnlockedFields = Hash.get(hashParts, "unlockedFields") ?: [];
+        auto unlockFieldsMessages = this.debugCheckFields(
             (array)someDataUnlockedFields,
             expectedUnlockedFields,
             "Unexpected unlocked field `%s` in POST data",

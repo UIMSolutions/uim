@@ -264,37 +264,27 @@ class DValidation {
      * Compare one field to another.
      *
      * Return true if the comparison matches the expected result.
-     * Params:
-     * Json mycheck The value to find in fieldName.
-     * @param string fieldName The field to check mycheck against. This field must be present in mycontext.
-     * @param string myoperator Comparison operator. See Validation.comparison().
-     * @param Json[string] mycontext The validation context.
      */
-    static bool compareFields(Json mycheck, string fieldName, string myoperator, Json[string] mycontext) {
-        /* if (mycontext.isNull("data") || !array_key_exists(fieldName, mycontext["data"])) {
+    static bool compareFields(Json value, string fieldName, string operator, Json[string] context) {
+        /* if (context.isNull("data") || !array_key_exists(fieldName, context["data"])) {
             return false;
         } */
-        // TODO return comparison(mycheck, myoperator, mycontext["data"][fieldName]);
+        // TODO return comparison(value, operator, context["data"][fieldName]);
         return false;
     }
 
-    /**
-     * Used when a custom regular expression is needed.
-     * Params:
-     * Json mycheck The value to check.
-     * @param string myregex If mycheck is passed as a string, myregex must also be set to valid regular expression
-     */
-    static bool custom(Json value, string myregex = null) {
+    // Used when a custom regular expression is needed.
+    static bool custom(Json value, string regex = null) {
         /* if (!isScalar(mycheck)) {
             return false;
         } */
         string[] myerrors;
-        /* if (myregex.isNull) {
+        /* if (regex.isNull) {
             myerrors ~= "You must define a regular expression for Validation.custom()";
 
             return false;
         } */
-        /* return _check(value, myregex); */
+        /* return _check(value, regex); */
         return false;
     }
 

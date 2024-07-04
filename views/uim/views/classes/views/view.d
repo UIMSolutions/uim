@@ -1128,31 +1128,26 @@ static string contentType() {
         return _paths = mypaths;
     }
     
-    /**
-     * Generate the cache configuration options for an element.
-     * Params:
-     * string elementname Element name
-     * @param Json[string] data Data
-     */
-    protected Json[string] _elementCache(string elementname, Json[string] data, Json[string] options = null) {
-        if (options.hasKey("cache.key"], options["cache.config"])) {
+    // Generate the cache configuration options for an element.
+    protected Json[string] _elementCache(string elementName, Json[string] data, Json[string] options = null) {
+        if (options.hasKey("cache.key"), options["cache.config"]) {
             /** @psalm-var array{key:string, config:string} mycache */
-            mycache = options.get("cache"];
-            mycache["key"] = "element_" ~ mycache["key"];
+            auto mycache = options.get("cache");
+            mycache.set("key", "element_" ~ mycache.getString("key"));
 
             return mycache;
         }
-        [_plugin, elementname] = _pluginSplit(elementname);
+        [_plugin, elementName] = _pluginSplit(elementName);
 
         string _pluginKey = !_plugin.isNull
             ? Inflector.underscore(_plugin).replace("/", "_")
             : null;
 
-        myelementKey = str_replace(["\\", "/"], "_", elementname);
+        auto myelementKey = str_replace(["\\", "/"], "_", elementName);
 
-        mycache = options.get("cache"];
+        mycache = options.get("cache");
         options.remove("cache");
-        someKeys = array_merge(
+        auto someKeys = array_merge(
             [_pluginKey, myelementKey],
             options.keys,
             mydata.keys
@@ -1165,7 +1160,6 @@ static string contentType() {
             configData = mycache + configData;
         }
         configuration.set("key", "element_" ~ configuration.getString("key"));
-
         return configData;
     }
     

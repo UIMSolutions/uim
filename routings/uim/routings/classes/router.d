@@ -374,13 +374,6 @@ class DRouter {
      * Returns a bool if the url exists
      *
      * ### Usage
-     *
-     * @param string[] url An array specifying any of the following:
-     * "controller", "action", "plugin" additionally, you can provide routed
-     * elements or query string parameters. If string it can be name any valid url
-     * string.
-     * @param bool isFull If true, the full base URL will be prepended to the result.
-     * Default is false.
      */
     static bool routeExists(string[] url = null, bool isFull = false) {
         try {

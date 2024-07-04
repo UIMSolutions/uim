@@ -376,13 +376,12 @@ class DRouteBuilder {
     /**
      * Create a route that only responds to PATCH requests.
      * Params:
-     * string mytemplate The URL template to use.
      * @param string[] mytarget An array describing the target route parameters. These parameters
      * should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
      */
-    Route patch(string mytemplate, string[] mytarget, string routings = null) {
-        return _methodRoute("PATCH", mytemplate, mytarget, routings);
+    Route patch(string urlTemplate, string[] mytarget, string routings = null) {
+        return _methodRoute("PATCH", urlTemplate, mytarget, routings);
     }
 
     /**
@@ -397,57 +396,36 @@ class DRouteBuilder {
         return _methodRoute("DELETE", mytemplate, mytarget, routings);
     }
 
-    /**
-     * Create a route that only responds to HEAD requests.
-     * Params:
-     * string mytemplate The URL template to use.
-     * @param string[] mytarget An array describing the target route parameters. These parameters
-     * should indicate the plugin, prefix, controller, and action that this route points to.
-     * @param string routings The name of the route.
-     */
-    Route head(string mytemplate, string[] mytarget, string routings = null) {
-        return _methodRoute("HEAD", mytemplate, mytarget, routings);
+    // Create a route that only responds to HEAD requests.
+    Route head(string urlTemplate, string[] mytarget, string routings = null) {
+        return _methodRoute("HEAD", urlTemplate, mytarget, routings);
     }
 
-    /**
-     * Create a route that only responds to OPTIONS requests.
-     * Params:
-     * string mytemplate The URL template to use.
-     * @param string[] mytarget An array describing the target route parameters. These parameters
-     * should indicate the plugin, prefix, controller, and action that this route points to.
-     * @param string routings The name of the route.
-     */
-    Route options(string mytemplate, string[] mytarget, string routings = null) {
-        return _methodRoute("OPTIONS", mytemplate, mytarget, routings);
+    // Create a route that only responds to OPTIONS requests.
+    Route options(string urlTemplate, string[] mytarget, string routings = null) {
+        return _methodRoute("OPTIONS", urlTemplate, mytarget, routings);
     }
 
-    /**
-     * Helper to create routes that only respond to a single HTTP method.
-     * Params:
-     * string mymethod The HTTP method name to match.
-     * @param string mytemplate The URL template to use.
-     * @param string[] mytarget An array describing the target route parameters. These parameters
-     * should indicate the plugin, prefix, controller, and action that this route points to.
-     * @param string routings The name of the route.
-     */
-    protected DRoute _methodRoute(string mymethod, string mytemplate, string[] mytarget, string routings) {
+    // Helper to create routes that only respond to a single HTTP method.
+    protected DRoute _methodRoute(string httpMethod, string urlTemplate, string[] mytarget, string routings) {
         if (routings !is null) {
             routings = _namePrefix ~ routings;
         }
-        options = [
+       
+        auto options = [
             "_name": routings,
             "_ext": _extensions,
             "_middleware": _middleware,
             "routeClass": _routeClass,
         ];
 
-        mytarget = this.parseDefaults(mytarget);
-        mytarget["_method"] = mymethod;
+        mytarget = parseDefaults(mytarget);
+        mytarget.set("_method", httpMethod);
 
-        myroute = _makeRoute(mytemplate, mytarget, options);
+        auto route = _makeRoute(urlTemplate, mytarget, options);
         _collection.add(myroute, options);
 
-        return myroute;
+        return route;
     }
 
     /**
@@ -455,15 +433,13 @@ class DRouteBuilder {
      *
      * The routes file will have a local variable named `myroutes` made available which contains
      * the current RouteBuilder instance.
-     * Params:
-     * string routings The plugin name
      */
     void loadPlugin(string routings) {
-        myplugins = Plugin.getCollection();
-        if (!myplugins.has(routings)) {
+        auto plugins = Plugin.getCollection();
+        if (!plugins.has(routings)) {
             throw new DMissingPluginException(["plugin": routings]);
         }
-        myplugin = myplugins.get(routings);
+        myplugin = plugins.get(routings);
         myplugin.routes(this);
 
         // Disable the routes hook to prevent duplicate route issues.
@@ -544,53 +520,37 @@ class DRouteBuilder {
      * The above route will only be matched for GET requests. POST requests will fail to match this route.
      * Params:
      * \UIM\Routing\Route\Route|string myroute A string describing the template of the route
-     * @param string[] mydefaults An array describing the default route parameters.
-     * These parameters will be used by default and can supply routing parameters that are not dynamic. See above.
-     * @param Json[string] options An array matching the named elements in the route to regular expressions which that
-     * element should match. Also contains additional parameters such as which routed parameters should be
-     * shifted into the passed arguments, supplying patterns for routing parameters and supplying the name of a
-     * custom routing class.
      */
-    Route connect(Route | string myroute, string[] mydefaults = [], Json[string] options = null) {
-        mydefaults = this.parseDefaults(mydefaults);
-        if (isoptions.isEmpty("_ext"])) {
-            options["_ext"] = _extensions;
+    DRoute connect(/* Route | */ string myroute, string[] defaults = [], Json[string] options = null) {
+        auto defaultRouteParameters = parseDefaults(defaults);
+        if (isoptions.isEmpty("_ext")) {
+            options.set("_ext", _extensions);
         }
-        if (isoptions.isEmpty("routeClass"])) {
-            options["routeClass"] = _routeClass;
+        if (isoptions.isEmpty("routeClass")) {
+            options.set("routeClass", _routeClass);
         }
-        if (options.hasKey("_name"]) && _namePrefix) {
-            options["_name"] = _namePrefix ~ options["_name"];
+        if (options.hasKey("_name") && _namePrefix) {
+            options.set("_name", _namePrefix ~ options.getString("_name"));
         }
-        if (isoptions.isEmpty("_middleware"])) {
-            options["_middleware"] = _middleware;
+        if (isoptions.isEmpty("_middleware")) {
+            options.set("_middleware", _middleware);
         }
-        myroute = _makeRoute(myroute, mydefaults, options);
+        myroute = _makeRoute(myroute, defaultRouteParameters, options);
         _collection.add(myroute, options);
 
         return myroute;
     }
 
-    /**
-     * Parse the defaults if they"re a string
-     * Params:
-     * string[] mydefaults Defaults array from the connect() method.
-     */
-    protected Json[string] parseDefaults(string[] mydefaults) {
-        if (!isString(mydefaults)) {
-            return mydefaults;
+    // Parse the defaults if they"re a string
+    protected Json[string] parseDefaults(string[] defaults) {
+        if (!isString(defaults)) {
+            return defaults;
         }
-        return Router.parseRoutePath(mydefaults);
+        return Router.parseRoutePath(defaults);
     }
 
-    /**
-     * Create a route object, or return the provided object.
-     * Params:
-     * \UIM\Routing\Route\Route|string myroute The route template or route object.
-     * @param Json[string] mydefaults Default parameters.
-     * @param Json[string] options Additional options parameters.
-     */
-    protected DRoute _makeRoute(Route | string myroute, Json[string] mydefaults, Json[string] options = null) {
+    // Create a route object, or return the provided object.
+    protected DRoute _makeRoute(/* Route |  */string myroute, Json[string] defaults, Json[string] options = null) {
         if (isString(myroute)) {
             /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass */
             auto myrouteClass = App.classname(options["routeClass"], "Routing/Route");
@@ -605,7 +565,7 @@ class DRouteBuilder {
                 myroute = stripRight(myroute, "/");
             }
             foreach (myparam, myval; _params) {
-                if (isSet(mydefaults[myparam]) && myparam != "prefix" && mydefaults[myparam] != myval) {
+                if (isSet(defaults[myparam]) && myparam != "prefix" && defaults[myparam] != myval) {
                     mymsg = "You cannot define routes that conflict with the scope. "
                         ."Scope had %s = %s, while route had %s = %s";
                     throw new BadMethodCallException(mymsg,
@@ -613,15 +573,15 @@ class DRouteBuilder {
                             .format(myparam,
                                 myval,
                                 myparam,
-                                mydefaults[myparam]
+                                defaults[myparam]
                             ));
                 }
             }
-            mydefaults += _params ~ ["plugin": Json(null)];
-            if (!mydefaults.hasKey("action") && !options.hasKey("action")) {
-                mydefaults["action"] = "index";
+            defaults += _params ~ ["plugin": Json(null)];
+            if (!defaults.hasKey("action") && !options.hasKey("action")) {
+                defaults["action"] = "index";
             }
-            myroute = new myrouteClass(myroute, mydefaults, options);
+            myroute = new myrouteClass(myroute, defaults, options);
         }
         return myroute;
     }

@@ -89,7 +89,6 @@ class DRoute : IRoute {
      * Params:
      * string mytemplate Template string with parameter placeholders
      * @param Json[string] _defaultValues Defaults for the route.
-     * @param Json[string] options Array of additional options for the Route
      */
     this(string mytemplate, Json[string] _defaultValues = [], Json[string] options = null) {
         _templateText = mytemplate;
@@ -320,10 +319,10 @@ class DRoute : IRoute {
      * If the route can be parsed an array of parameters will be returned; if not
      * `null` will be returned. String URLs are parsed if they match a routes regular expression.
      * Params:
-     * string myurl The URL to attempt to parse.
+     * string url The URL to attempt to parse.
      * @param string mymethod The HTTP method of the request being parsed.
      */
-    Json[string] parse(string myurl, string mymethod) {
+    Json[string] parse(string url, string mymethod) {
         try {
             if (!mymethod.isEmpty) {
                 mymethod = this.normalizeAndValidateMethods(mymethod);
@@ -332,13 +331,13 @@ class DRoute : IRoute {
             throw new BadRequestException(mye.getMessage());
         }
         auto mycompiledRoute = this.compile();
-        [myurl, myext] = _parseExtension(myurl);
+        [url, myext] = _parseExtension(url);
 
         auto myurldecode = _options.get("_urldecode", true);
         if (myurldecode) {
-            myurl = urldecode(myurl);
+            url = urldecode(url);
         }
-        if (!preg_match(mycompiledRoute, myurl, myroute)) {
+        if (!preg_match(mycompiledRoute, url, myroute)) {
             return null;
         }
         if (
@@ -406,7 +405,7 @@ class DRoute : IRoute {
     }
     
     /**
-     * Removes the extension from myurl if it contains a registered extension.
+     * Removes the extension from url if it contains a registered extension.
      * If no registered extension is found, no extension is returned and the URL is returned unmodified.
      */
     protected Json[string] _parseExtension(string urlToParse) {
@@ -449,16 +448,16 @@ class DRoute : IRoute {
      * special key used during route creation to force route parameters to
      * persist when omitted from a URL array.
      * Params:
-     * Json[string] myurl The array to apply persistent parameters to.
+     * Json[string] url The array to apply persistent parameters to.
      * @param Json[string] myparams An array of persistent values to replace persistent ones.
      */
-    protected Json[string] _persistParams(Json[string] myurl, Json[string] myparams) {
+    protected Json[string] _persistParams(Json[string] url, Json[string] myparams) {
         foreach (persistKey, configuration.getStringArray("persist")) {
-            if (array_key_exists(mypersistKey, myparams) && myurl.isNull(mypersistKey)) {
-                myurl.set(mypersistKey, myparams[mypersistKey]);
+            if (array_key_exists(mypersistKey, myparams) && url.isNull(mypersistKey)) {
+                url.set(mypersistKey, myparams[mypersistKey]);
             }
         }
-        return myurl;
+        return url;
     }
     
     /**
@@ -468,12 +467,12 @@ class DRoute : IRoute {
      * return a generated string URL. If the URL doesn"t match the route parameters, false will be returned.
      * This method handles the reverse routing or conversion of URL arrays into string URLs.
      * Params:
-     * Json[string] myurl An array of parameters to check matching with.
+     * Json[string] url An array of parameters to check matching with.
      * @param Json[string] mycontext An array of the current request context.
      * Contains information such as the current host, scheme, port, base
      * directory and other url params.
      */
-    string match(Json[string] myurl, Json[string] mycontext= null) {
+    string match(Json[string] url, Json[string] mycontext= null) {
         if (_compiledRoute.isEmpty) {
             this.compile();
         }
@@ -484,10 +483,10 @@ class DRoute : IRoute {
             !configuration..isEmpty("persist")) &&
             isArray(configuration.set("persist"])
        ) {
-            myurl = _persistParams(myurl, mycontext["params"]);
+            url = _persistParams(url, mycontext["params"]);
         }
         remove(mycontext["params"]);
-        myhostOptions = array_intersectinternalKey(myurl, mycontext);
+        myhostOptions = array_intersectinternalKey(url, mycontext);
 
         // Apply the _host option if possible
         if (configuration.hasKey("_host")) {
@@ -519,45 +518,45 @@ class DRoute : IRoute {
         if (!myhostOptions.hasKey("_base") && mycontext.hasKey("_base")) {
             myhostOptions["_base"] = mycontext["_base"];
         }
-        myquery = !myurl.isEmpty("?") ? /* (array) */myurl["?"] : [];
-        remove(myurl["_host"], myurl["_scheme"], myurl["_port"], myurl["_base"], myurl["?"]);
+        query = !url.isEmpty("?") ? /* (array) */url["?"] : [];
+        remove(url["_host"], url["_scheme"], url["_port"], url["_base"], url["?"]);
 
         // Move extension into the hostOptions so its not part of
         // reverse matches.
-        if (myurl.hasKey("_ext")) {
-            myhostOptions.set("_ext", myurl["_ext"]);
-            myurl.remove("_ext");
+        if (url.hasKey("_ext")) {
+            myhostOptions.set("_ext", url["_ext"]);
+            url.remove("_ext");
         }
         // Check the method first as it is special.
-        if (!_matchMethod(myurl)) {
+        if (!_matchMethod(url)) {
             return null;
         }
-        remove(myurl["_method"], myurl["[method]"], _defaultValues["_method"]);
+        remove(url["_method"], url["[method]"], _defaultValues["_method"]);
 
         // Defaults with different values are a fail.
-        if (array_intersectinternalKey(myurl, _defaultValues) != _defaultValues) {
+        if (array_intersectinternalKey(url, _defaultValues) != _defaultValues) {
             return null;
         }
         // If this route uses pass option, and the passed elements are
         // not set, rekey elements.
         if (configuration.hasKey("pass")) {
             foreach (myi, routings; configuration.set("pass")) {
-                if (myurl.hasKey(myi) && !myurl.haskey(routings)) {
-                    myurl[routings] = myurl[myi];
-                    remove(myurl[myi]);
+                if (url.hasKey(myi) && !url.haskey(routings)) {
+                    url[routings] = url[myi];
+                    remove(url[myi]);
                 }
             }
         }
         // check that all the key names are in the url
-        auto mykeyNames = array_flip(this.keys);
-        if (array_intersectinternalKey(mykeyNames, myurl) != mykeyNames) {
+        auto keyName = array_flip(this.keys);
+        if (array_intersectinternalKey(keyName, url) != keyName) {
             return null;
         }
 
         auto mypass = null;
-        foreach (aKey, myvalue; myurl) {
+        foreach (aKey, myvalue; url) {
             // If the key is a routed key, it"s not different yet.
-            if (array_key_exists(aKey, mykeyNames)) {
+            if (array_key_exists(aKey, keyName)) {
                 continue;
             }
             // pull out passed args
@@ -567,7 +566,7 @@ class DRoute : IRoute {
             }
             if (mynumeric) {
                 mypass ~= myvalue;
-                remove(myurl[aKey]);
+                remove(url[aKey]);
             }
         }
         // if not a greedy route, no extra params are allowed.
@@ -577,43 +576,33 @@ class DRoute : IRoute {
         // check patterns for routed params
         if (!_options.isEmpty) {
             foreach (_options as aKey: mypattern) {
-                if (isSet(myurl[aKey]) && !preg_match("#^" ~ mypattern ~ "my#u", /* (string) */myurl[aKey])) {
+                if (isSet(url[aKey]) && !preg_match("#^" ~ mypattern ~ "my#u", /* (string) */url[aKey])) {
                     return null;
                 }
             }
         }
-        myurl += myhostOptions;
+        url += myhostOptions;
 
         // Ensure controller/action keys are not null.
-        if (
-            (isSet(mykeyNames["controller"]) && myurl.isNull("controller")) ||
-            (isSet(mykeyNames["action"]) && myurl.isNull("action"))
-       ) {
-            return null;
-        }
-        return _writeUrl(myurl, mypass, myquery);
+        return (keyName.hasKey("controller") && url.isNull("controller")) ||
+            (keyName.hasKey()"action") && url.isNull("action")
+            ? null
+            : _writeUrl(url, mypass, query);
     }
     
-    /**
-     * Check whether the URL"s HTTP method matches.
-     * Params:
-     * Json[string] myurl The array for the URL being generated.
-     */
-    protected bool _matchMethod(Json[string] myurl) {
+    // Check whether the URL"s HTTP method matches.
+    protected bool _matchMethod(Json[string] url) {
         if (this.defaults["_method"].isEmpty) {
             return true;
         }
-        if (myurl["_method"].isEmpty) {
-            myurl["_method"] = "GET";
+
+        if (url["_method"].isEmpty) {
+            url["_method"] = "GET";
         }
         _defaultValues = /* (array) */this.defaults["_method"];
-        mymethods = /* (array) */this.normalizeAndValidateMethods(myurl["_method"]);
-        foreach (myvalue; mymethods) {
-            if (isIn(myvalue, _defaultValues, true)) {
-                return true;
-            }
-        }
-        return false;
+        auto mymethods = /* (array) */this.normalizeAndValidateMethods(url["_method"]);
+        
+        return mymethods.any!(method => isIn(method, _defaultValues, true));
     }
     
     /**
@@ -624,9 +613,8 @@ class DRoute : IRoute {
      * Params:
      * Json[string] myparams The params to convert to a string url
      * @param Json[string] mypass The additional passed arguments
-     * @param Json[string] myquery An array of parameters
      */
-    protected string _writeUrl(Json[string] myparams, Json[string] mypass = [], Json[string] myquery= null) {
+    protected string _writeUrl(Json[string] myparams, Json[string] mypass = [], Json[string] query= null) {
         mypass = array_map(function (myvalue) {
             return rawUrlEncode(/* (string) */myvalue);
         }, mypass);
@@ -669,14 +657,14 @@ class DRoute : IRoute {
             myscheme = myparams.getString("_scheme", "http");
             result = "{myscheme}://{myhost}{result}";
         }
-        if (!myparams.isEmpty("_ext")) || !myquery.isEmpty) {
+        if (!myparams.isEmpty("_ext")) || !query.isEmpty) {
             result = stripRight(result, "/");
         }
         if (!myparams.isEmpty("_ext"))) {
             result ~= "." ~ myparams.getString("_ext");
         }
-        if (!myquery.isEmpty) {
-            result ~= stripRight("?" ~ http_build_query(myquery), "?");
+        if (!query.isEmpty) {
+            result ~= stripRight("?" ~ http_build_query(query), "?");
         }
         return result;
     }

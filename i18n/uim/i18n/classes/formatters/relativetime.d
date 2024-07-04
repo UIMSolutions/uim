@@ -238,7 +238,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             days -= weeks * 7;
         }
     } else {
-        years = months = weeks = 0;
+       /*  years = months = weeks = 0;
         days = floor(diff / 86400);
 
         diff -= days * 86400;
@@ -246,7 +246,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         diff -= hours * 3600;
         minutes = floor(diff / 60);
         diff -= minutes * 60;
-        seconds = diff;
+        seconds = diff; */
     }
 
     fWord = options["accuracy.second"];

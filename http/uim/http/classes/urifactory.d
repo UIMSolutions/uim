@@ -40,26 +40,21 @@ class UriFactory { // }: IUriFactory {
     return ["uri": anUri, "base": base, "webroot": webroot];
 }
 
-/**
-     * Updates the request URI to remove the base directory.
-     * Params:
-     * string abase The base path to remove.
-     * @param \Psr\Http\Message\IUri anUri The uri to update.
-     */
-protected static IUri updatePath(string basePath, IUri anUri) {
-    auto uriPath = anUri.getPath();
+// Updates the request URI to remove the base directory.
+protected static IUri updatePath(string basePath, IUri uriToUpdate) {
+    auto uriPath = uriToUpdate.getPath();
     if (!basePath.isEmpty && uriPath.startWith(basePath)) {
         uriPath = uriPath[0 .. basePath.length];
     }
-    if (uriPath == "/index.d" && anUri.getQuery()) {
+    if (uriPath == "/index.d" && uriToUpdate.getQuery()) {
         uriPath = anUri.getQuery();
     }
     if (uriPath.isEmpty || uriPath.isAny("/", "//", "/index.d")) {
         uriPath = "/";
     }
 
-    auto endsWithIndex = "/" ~ (configuration.get("App.webroot") ?  : "webroot")~"/index.d";
-    auto endsWithLength = endsWithIndex.length;
+    string endsWithIndex = "/" ~ (configuration.get("App.webroot") ?  : "webroot")~"/index.d";
+    size_t endsWithLength = endsWithIndex.length;
     if (
         uriPath.length >= endsWithLength &&
         subString(uriPath, -endsWithLength) == endsWithIndex
@@ -71,11 +66,7 @@ protected static IUri updatePath(string basePath, IUri anUri) {
 
 // Calculate the base directory and webroot directory.
 protected static Json[string] getBase(IUri uri, Json[string] serverData) {
-    auto configData = configuration.getMap("App").merge([
-        "base": Json(null),
-        "webroot": Json(null),
-        "baseUrl": Json(null),
-    ]);
+    auto configData = configuration.getMap("App").merge(["base", "webroot", "baseUrl"]),
 
     string base = configuration.getString("base");
     auto baseUrl = configuration.get("baseUrl");

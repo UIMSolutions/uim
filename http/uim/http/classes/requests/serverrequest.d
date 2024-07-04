@@ -394,22 +394,17 @@ class DServerRequest { // }: IServerRequest {
         return ref;
     }
     
-    /**
-     * Missing method handler, handles wrapping older style isAjax() type methods
-     * Params:
-     * string aName The method called
-     * @param Json[string] params Array of parameters for the method call
-     */
-    bool __call(string aName, Json[string] params) {
+    // Missing method handler, handles wrapping older style isAjax() type methods
+    bool __call(string methodName, Json[string] params) {
         if (name.startWith("is")) {
-            type = subString(name, 2).lower;
+            auto type = subString(methodName, 2).lower;
 
             array_unshift(params, type);
 
             return _is(...params);
         }
         throw new BadMethodCallException("Method `%s()` does not exist."
-        .format(name));
+        .format(methodName));
     }
     
     /**

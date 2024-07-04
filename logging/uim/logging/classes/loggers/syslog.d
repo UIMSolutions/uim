@@ -86,10 +86,6 @@ class DSysLogger : DLogger {
     /**
      * Extracts the call to openlog() in order to run unit tests on it. This function
      * will initialize the connection to the system logger
-     * Params:
-     * string aident the prefix to add to all messages logged
-     * @param int options the options flags to be used for logged messages
-     * @param int facility the stream or facility to log to
      */
     protected void _open(string idPrefix, uLong optionFlags, int facility) {
         openlog(idPrefix, optionFlags, facility);

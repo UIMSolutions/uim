@@ -97,23 +97,17 @@ string __x(string acontext, string asingular, Json[string] arguments)
  * Some languages have more than one form for plural messages dependent on the count.
  * The context is a unique identifier for the translations string that makes it unique
  * within the same domain.
- *
- * @param string acontext DContext of the text.
- * @param string asingular Singular text to translate.
- * @param string aplural Plural text.
- * @param int count Count.
- * @param Json[string] arguments Array with arguments or multiple arguments in function.
  */
-string __xn(string acontext, string asingular, string aplural, int count, Json[string] arguments) {
-    if (!singular) {
+string __xn(string context, string singularText, string pluralText, size_t count, Json[string] arguments) {
+    if (!singularText) {
         return null;
     }
     if (isSet(someArguments[0]) && isArray(someArguments[0])) {
         someArguments = someArguments[0];
     }
     return I18n.getTranslator().translate(
-        plural,
-        ["_count": count, "_singular": singular, "_context": context] + someArguments
+        pluralText,
+        ["_count": count, "_singular": singularText, "_context": context] + someArguments
    );
 }
 

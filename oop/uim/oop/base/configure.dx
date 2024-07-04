@@ -348,20 +348,14 @@ class DFileConfigEngine {
      * Used to write runtime configuration into Cache. Stored runtime configuration can be
      * restored using `Configure.restore()`. These methods can be used to enable configuration managers
      * frontends, or other GUI type interfaces for configuration.
-     * Params:
-     * string aName The storage name for the saved configuration.
-     * @param string acacheConfig The cache configuration to save into. Defaults to "default"
-     * @param array|null someData Either an array of data to store, or leave empty to store all values.
      */
-    static bool store(string aName, string acacheConfig = "default",  Json[string] data = null) {
-        // TODO 
-        /* someData ?  ?  = _values;
+    static bool store(string storageName, string cacheConfig = "default",  Json[string] data = null) {
+        data = data ?  data : _values;
 
         if (!class_exists(Cache.classname)) {
             throw new DException("You must install UIM/cache to use Configure.store()");
         }
-        return Cache.write(name, someData, cacheConfig); */
-        return false;
+        return Cache.write(storageName, someData, cacheConfig); */
     }
 
     /**

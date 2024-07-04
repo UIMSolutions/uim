@@ -138,18 +138,17 @@ class DDebugger {
     /**
      * Read or write configuration options for the Debugger instance.
      * Params:
-     * Json[string]|string aKey The key to get/set, or a complete array of configs.
-     * @param mixed|null aValue The value to set.
+     * Json[string]|string key The key to get/set, or a complete array of configs.
      */
-    static Json[string] configSettings = nullInstance(string[] aKey = null, Json aValue = null, bool shouldMerge = true) {
-        if (aKey.isNull) {
-            return getInstance().configuration.get(aKey);
+    static Json[string] configSettings = nullInstance(string[] key = null, Json aValue = null, bool shouldMerge = true) {
+        if (key.isNull) {
+            return getInstance().configuration.get(key);
         }
 
-        if (isArray(aKey) || func_num_args() >= 2) {
-            return getInstance().setConfig(aKey, aValue, shouldMerge);
+        if (isArray(key) || func_num_args() >= 2) {
+            return getInstance().setConfig(key, aValue, shouldMerge);
         }
-        return getInstance().configuration.get(aKey);
+        return getInstance().configuration.get(key);
     }
 
     // Reads the current output masking.
@@ -501,14 +500,14 @@ class DDebugger {
      * - schema
      */
     protected static ArrayNode exportArray(Json[string] exportValues, DDebugContext dumpContext) {
-        someItems = null;
+        auto someItems = null;
 
-        remaining = dumpContext.remainingDepth();
+        auto remaining = dumpContext.remainingDepth();
         if (remaining >= 0) {
             outputMask = outputMask();
-            foreach (aKey : val; exportValues) {
-                if (array_key_exists(aKey, outputMask)) {
-                    node = new DScalarNode("string", outputMask[aKey]);
+            foreach (key : val; exportValues) {
+                if (array_key_exists(key, outputMask)) {
+                    node = new DScalarNode("string", outputMask[key]);
                 } else if (val != exportValues) {
                     // Dump all the items without increasing depth.
                     node = export_(val, dumpContext);
@@ -516,7 +515,7 @@ class DDebugger {
                     // Likely recursion, so we increase depth.
                     node = export_(val, dumpContext.withAddedDepth());
                 }
-                someItems ~= new ArrayItemNode(export_(aKey, dumpContext), node);
+                someItems ~= new ArrayItemNode(export_(key, dumpContext), node);
             }
         } else {
             someItems ~= new ArrayItemNode(
@@ -536,14 +535,14 @@ class DDebugger {
         if (isRef) {
             return new DReferenceNode(classname, refNum);
         }
-        node = new DClassNode(classname, refNum);
 
-        remaining = dumpContext.remainingDepth();
+        auto node = new DClassNode(classname, refNum);
+        auto remaining = dumpContext.remainingDepth();
         if (remaining > 0) {
             if (method_exists(objToConvert, "__debugInfo")) {
                 try {
-                    foreach (aKey, val; /* (array) */ objToConvert.__debugInfo()) {
-                        node.addProperty(new DPropertyNode("'{aKey}'", null, export_(val, dumpContext)));
+                    foreach (key, val; /* (array) */ objToConvert.__debugInfo()) {
+                        node.addProperty(new DPropertyNode("'{key}'", null, export_(val, dumpContext)));
                     }
                     return node;
                 } catch (Exception anException) {

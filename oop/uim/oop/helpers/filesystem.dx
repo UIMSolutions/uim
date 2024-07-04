@@ -42,14 +42,14 @@ class HFilesystem {
      * string mypath Directory path.
      * `RegexIterator`, if callable will be as callback for `CallbackFilterIterator`.
      * Hidden directories (starting with dot e.g. .git) are always skipped.
-     * @param int myflags Flags for FilesystemIterator.__construct();
+     * @param int flags Flags for FilesystemIterator.__construct();
      */
-    Iterator findRecursive(string mypath, /* Closure */ string regexFilter = null, int myflags = null) {
-        myflags ??= FilesystemIterator.KEY_AS_PATHNAME
+    Iterator findRecursive(string mypath, /* Closure */ string regexFilter = null, int flags = null) {
+        flags = flags ? flags : FilesystemIterator.KEY_AS_PATHNAME
             | FilesystemIterator.CURRENT_AS_FILEINFO
             | FilesystemIterator.SKIP_DOTS;
-        mydirectory = new DRecursiveDirectoryIterator(mypath, myflags);
-        mydirFilter = new DRecursiveCallbackFilterIterator(
+        auto mydirectory = new DRecursiveDirectoryIterator(mypath, myflags);
+        auto mydirFilter = new DRecursiveCallbackFilterIterator(
             mydirectory,
             auto (SplFileInfo mycurrent) {
                 return mycurrent.getFilename()[0] == "." && mycurrent.isDir()
@@ -57,7 +57,7 @@ class HFilesystem {
             }
         );
 
-        myflatten = new DRecursiveIteratorIterator(
+        auto myflatten = new DRecursiveIteratorIterator(
             mydirFilter,
             RecursiveIteratorIterator.CHILD_FIRST
         );

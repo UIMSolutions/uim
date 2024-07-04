@@ -513,15 +513,11 @@ class DClient { // }: IClient {
      *
      * Uses the authentication type to choose the correct strategy
      * and use its methods to add headers.
-     * Params:
-     * \UIM\Http\Client\Request  requestToModify The request to modify.
-     * @param Json[string] options Array of options containing the 'proxy' key.
      */
   protected DRequest _addProxy(Request requestToModify, Json[string] options = null) {
-    myauth = options["proxy"];
-    Http\Client\Auth\Basic myadapter = _createAuth(myauth, options);
-
-    return myadapter.proxyAuthentication(requestToModify, options["proxy"]);
+    auto myauth = options.get("proxy");
+    auto adapter = _createAuth(myauth, options);
+    return adapter.proxyAuthentication(requestToModify, options.get("proxy"));
   }
 
   /**
@@ -530,9 +526,8 @@ class DClient { // }: IClient {
      * Use the configuration options to create the correct
      * authentication strategy handler.
      * Params:
-     * Json[string] myauth The authentication options to use.
      */
-  protected object _createAuth(Json[string] myauth, Json[string] requestOptions = null) :  {
+  protected auto _createAuth(Json[string] myauth, Json[string] requestOptions = null)  {
     if (isEmpty(myauth["type"])) {
       myauth["type"] = "basic";
     }
@@ -544,5 +539,5 @@ class DClient { // }: IClient {
      );
     }
     return new myclass(this, requestOptions);
-  } */
+  } 
 }

@@ -59,7 +59,7 @@ class DMarshaller {
             myassoc = _table.getAssociation(to!string(aKey));
 
             if (options.hasKey("forceNew"])) {
-                mynested["forceNew"] = options["forceNew"];
+                mynested["forceNew"] = options.get("forceNew"];
             }
             if (options.hasKey("isMerge"])) {
                 mycallback = auto(myvalue, IORMEntity myentity) use(myassoc, mynested) {

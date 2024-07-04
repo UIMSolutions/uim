@@ -248,7 +248,7 @@ class DAssociation : IAssociation {
         ];
         foreach (property; defaults) {
             if (property in options) {
-                this. {"_" ~ property} = options[property];
+                this. {"_" ~ property} = options.get(property];
             }
         }
 
@@ -501,7 +501,7 @@ class DAssociation : IAssociation {
             .eagerLoaded(true);
 
         if (!options.isEmpty("queryBuilder")) {
-            dummy = options["queryBuilder"](dummy);
+            dummy = options.get("queryBuilder"](dummy);
             if (!cast(Query)dummy) {
                 throw new DRuntimeException(format(
                     "Query builder for association '%s' did not return a query",
@@ -670,7 +670,7 @@ class DAssociation : IAssociation {
      * @param Json[string] options The options containing the strategy to be used.
      */
     bool requiresKeys(Json[string] options = null) {
-        strategy = options["strategy"] ?  ? getStrategy();
+        strategy = options.get("strategy"] ?  ? getStrategy();
 
         return strategy == STRATEGY_SELECT;
     }
@@ -729,7 +729,7 @@ class DAssociation : IAssociation {
             return;
         }
 
-        auto property = options["propertyPath"];
+        auto property = options.get("propertyPath"];
         // TODO auto propertyPath = explode(".", property);
         // TODO
         /* 

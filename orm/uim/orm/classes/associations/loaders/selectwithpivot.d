@@ -35,10 +35,10 @@ class DSelectWithPivotLoader : DSelectLoader {
     /*
     this(Json[string] options = null) {
         super((options);
-        this.junctionAssociationName = options["junctionAssociationName"];
-        _junctionProperty = options["junctionProperty"];
-        this.junctionAssoc = options["junctionAssoc"];
-        this.junctionConditions = options["junctionConditions"];
+        this.junctionAssociationName = options.get("junctionAssociationName"];
+        _junctionProperty = options.get("junctionProperty"];
+        this.junctionAssoc = options.get("junctionAssoc"];
+        this.junctionConditions = options.get("junctionConditions"];
     }
 
     /**
@@ -54,7 +54,7 @@ class DSelectWithPivotLoader : DSelectLoader {
         queryBuilder = false;
 
         if (!options.isEmpty("queryBuilder"])) {
-            queryBuilder = options["queryBuilder"];
+            queryBuilder = options.get("queryBuilder"];
             options.remove("queryBuilder"]);
         }
 

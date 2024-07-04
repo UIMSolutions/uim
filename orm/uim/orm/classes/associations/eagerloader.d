@@ -288,7 +288,7 @@ class DEagerLoader {
 
             if (options.hasKey("queryBuilder"], mypointer[mytable]["queryBuilder"])) {
                 myfirst = mypointer[mytable]["queryBuilder"];
-                mysecond = options["queryBuilder"];
+                mysecond = options.get("queryBuilder"];
                 // TODO options["queryBuilder"] = fn (myquery): mysecond(myfirst(myquery));
             }
             if (!isArray(options)) {

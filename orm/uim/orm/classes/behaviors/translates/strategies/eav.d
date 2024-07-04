@@ -190,7 +190,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
            );
 
             if (changeFilter) {
-                filter = options["filterByCurrentLocale"]
+                filter = options.get("filterByCurrentLocale"]
                     ? Query.JOIN_TYPE_INNER
                     : Query.JOIN_TYPE_LEFT;
                 contain[name]["joinType"] = filter;

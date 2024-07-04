@@ -358,7 +358,7 @@ class DBelongsToManyAssociation : DAssociation {
             .where(options["conditions"]);
 
         if (!options.isEmpty("queryBuilder"])) {
-            subquery = options["queryBuilder"](subquery);
+            subquery = options.get("queryBuilder"](subquery);
         }
 
         subquery = _appendJunctionJoin(subquery);
@@ -534,7 +534,7 @@ class DBelongsToManyAssociation : DAssociation {
         auto joinAssociations = false;
         if (options.hasKey("associated"]) && options["associated"].isArray) {
             if (!options.isEmpty("associated"][_junctionProperty]["associated"])) {
-                joinAssociations = options["associated"][_junctionProperty]["associated"];
+                joinAssociations = options.get("associated"][_junctionProperty]["associated"];
             }
             options.remove("associated"][_junctionProperty]);
         }

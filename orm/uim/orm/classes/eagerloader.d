@@ -307,7 +307,7 @@ class DEagerLoader {
 
             if (options.hasKey("queryBuilder"], pointer[table]["queryBuilder"])) {
                 first = pointer[table]["queryBuilder"];
-                second = options["queryBuilder"];
+                second = options.get("queryBuilder"];
                 options["queryBuilder"] = function (query) use (first, second) {
                     return second(first(query));
                 };

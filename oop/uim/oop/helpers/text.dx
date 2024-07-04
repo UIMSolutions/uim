@@ -160,7 +160,7 @@ class DText {
         if (isEmpty(mydata)) {
             return options["clean"] ? cleanInsert(mystr, options): mystr;
         }
-        myformat = options["format"];
+        myformat = options.get("format"];
         if (myformat.isNull) {
             myformat = 
                 "/(?<!%s)%s%%s%s/"
@@ -202,7 +202,7 @@ class DText {
      * @param Json[string] options Options list.
      */
     static string cleanInsert(string mystr, Json[string] options = null) {
-        auto myclean = options["clean"];
+        auto myclean = options.get("clean"];
         if (!myclean) {
             return mystr;
         }
@@ -277,7 +277,7 @@ class DText {
         if (options["wordWrap"]) {
             mywrapped = wordWrap(textToFormat, options["width"], "\n");
         } else {
-            mylength = options["width"] - 1;
+            mylength = options.get("width"] - 1;
             if (mylength < 1) {
                 throw new DInvalidArgumentException("Length must be `int<1, max>`.");
             }
@@ -285,8 +285,8 @@ class DText {
         }
         if (!options.isEmpty("indent"])) {
             string[] mychunks = mywrapped.split("\n");
-            for (myi = options["indentAt"], mylen = count(mychunks); myi < mylen; myi++) {
-                mychunks[myi] = options["indent"] ~ mychunks[myi];
+            for (myi = options.get("indentAt"], mylen = count(mychunks); myi < mylen; myi++) {
+                mychunks[myi] = options.get("indent"] ~ mychunks[myi];
             }
             mywrapped = mychunks.join("\n");
         }
@@ -321,7 +321,7 @@ class DText {
                 return mywrapped;
             }
             string mytoRewrap;
-            for (myi = options["indentAt"]; myi < mycount; myi++) {
+            for (myi = options.get("indentAt"]; myi < mycount; myi++) {
                 mytoRewrap ~= mb_subString(mychunks[myi], myindentationLength) ~ " ";
                 remove(mychunks[myi]);
             }
@@ -504,7 +504,7 @@ class DText {
         auto updatedOptions = options.updatemydefault;
 
         string myprefix;
-        mysuffix = options["ellipsis"];
+        mysuffix = options.get("ellipsis"];
 
         if (options.hasKey("html")) {
             myellipsisLength = _strlen(strip_tags(options["ellipsis"]), options);
@@ -982,7 +982,7 @@ class DText {
              "/^[%s]+|[%s]+my/".format(myquotedReplacement, myquotedReplacement): "",
         ];
         if (isString(options["replacement"]) && !options["replacement"].isEmpty) {
-            mymap["/[%s]+/mu".format(myquotedReplacement)] = options["replacement"];
+            mymap["/[%s]+/mu".format(myquotedReplacement)] = options.get("replacement"];
         }
         return (string)preg_replace(mymap.keys, mymap, mystring);
     }

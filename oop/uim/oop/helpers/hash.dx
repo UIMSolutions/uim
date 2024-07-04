@@ -1050,7 +1050,7 @@ class Hash {
         if (!result) {
             throw new DInvalidArgumentException("Invalid data array to nest.");
         }
-        myroot = options["root"]
+        myroot = options.get("root"]
             ? options["root"]
             : get(result[0], myparentKeys);
 

@@ -85,8 +85,8 @@ class DSelectLoader {
      */
     protected DORMQuery _buildQuery(Json[string] options = null) {
         auto key = _linkField(options);
-        auto filter = options["keys"];
-        auto useSubquery = options["strategy"] == Association.STRATEGY_SUBQUERY;
+        auto filter = options.get("keys"];
+        auto useSubquery = options.get("strategy"] == Association.STRATEGY_SUBQUERY;
         auto finder = this.finder;
         options["fields"] = options.get("fields", null);
 
@@ -124,7 +124,7 @@ class DSelectLoader {
         }
 
         if (!options.isEmpty("queryBuilder")) {
-            fetchQuery = options["queryBuilder"](fetchQuery);
+            fetchQuery = options.get("queryBuilder"](fetchQuery);
         }
 
         _assertFieldsPresent(fetchQuery, (array)key);
@@ -400,7 +400,7 @@ class DSelectLoader {
             someSourceKeys ~= key(f);
         }
 
-        auto nestKey = options["nestKey"];
+        auto nestKey = options.get("nestKey"];
         if (count(someSourceKeys) > 1) {
             return _multiKeysInjector(resultMap, someSourceKeys, nestKey);
         }

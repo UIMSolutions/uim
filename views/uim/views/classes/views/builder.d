@@ -254,14 +254,10 @@ class DViewBuilder { // }: DJsonSerializable {
     
     /**
      * Sets additional options for the view.
-     *
      * This lets you provide custom constructor arguments to application/plugin view classes.
-     * Params:
-     * Json[string] options An array of options.
-     * @param bool mymerge Whether to merge existing data with the new data.
      */
-    auto setOptions(Json[string] options, bool mymerge = true) {
-        if (mymerge) {
+    auto setOptions(Json[string] options, bool shouldMerge = true) {
+        if (shouldMerge) {
             auto updatedOptions = options.update_options;
         }
        _options = options;
@@ -269,9 +265,7 @@ class DViewBuilder { // }: DJsonSerializable {
         return this;
     }
     
-    /**
-     * Gets additional options for the view.
-     */
+    // Gets additional options for the view.
     Json[string] getOptions() {
         return _options;
     }
@@ -284,18 +278,12 @@ class DViewBuilder { // }: DJsonSerializable {
      * Accepts either a short name (Ajax) a plugin name (MyPlugin.Ajax)
      * or a fully namespaced name (App\View\AppView) or null to use the
      * View class provided by UIM.
-     * Params:
-     * string views The class name for the view.
      */
-    auto setclassname(string views) {
-       _classname = views;
-
-        return this;
+    void setclassname(string viewClassname) {
+       _classname = viewClassname;
     }
     
-    /**
-     * Gets the view classname.
-     */
+    // Gets the view classname.
     string getclassname() {
         return _classname;
     }
@@ -311,20 +299,19 @@ class DViewBuilder { // }: DJsonSerializable {
      * @param \UIM\Event\IEventManager|null myevents The event manager to use.
      */
     View build(
-        ServerRequest myrequest = null,
-        Response myresponse = null,
+        DServerRequest myrequest = null,
+        DResponse myresponse = null,
         IEventManager myevents = null
    ) {
-        myclassname = _classname ?? App.classname("App", "View", "View") ?? View.classname;
-        if (myclassname == "View") {
-            myclassname = App.classname(myclassname, "View");
-        } else {
-            myclassname = App.classname(myclassname, "View", "View");
-        }
+        string viewClassname = _classname ?? App.classname("App", "View", "View") ?? View.classname;
+        viewClassname = viewClassname == "View"
+            ? App.classname(myclassname, "View")
+            : App.classname(myclassname, "View", "View");
+
         if (myclassname.isNull) {
             throw new DMissingViewException(["class": _classname]);
         }
-        mydata = [
+        auto mydata = [
             "name": _name,
             "templatePath": _templatePath,
             "template": _template,

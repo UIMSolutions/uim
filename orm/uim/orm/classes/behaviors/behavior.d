@@ -162,29 +162,28 @@ class DBehavior : DEventListener {
     /**
      * Removes aliased methods that would otherwise be duplicated by userland configuration.
      *
-     * @param string aKey The keyToFilter to filter.
      * @param Json[string] myConfiguration The customized method mappings.
      */
-    protected Json[string] _resolveMethodAliases(string keyToFilter, Json[string] defaultMethodMap, Json myConfiguration) {
-        if (defaultMethodMap.isNull(keyToFilter) && configuration.isNull(keyToFilter)) {
+    protected Json[string] _resolveMethodAliases(string key, Json[string] defaultMethodMap, Json myConfiguration) {
+        if (defaultMethodMap.isNull(key) && configuration.isNull(key)) {
             return configuration;
         }
-        if (configuration.hasKey(keyToFilter) && configuration.isEmpty(keyToFilter)) {
-            configuration.update(keyToFilter, [], false);
-            configuration.remove(keyToFilter);
+        if (configuration.hasKey(key) && configuration.isEmpty(key)) {
+            configuration.update(key, [], false);
+            configuration.remove(key);
 
             return configuration;
         }
 
-        auto indexed = array_flip(defaultMethodMap[keyToFilter]);
-        auto indexedCustom = array_flip(configuration.get(keyToFilter));
+        auto indexed = array_flip(defaultMethodMap[key]);
+        auto indexedCustom = array_flip(configuration.get(key));
         indexed.byKeyValue.each!((methodAlias) {
             if (!indexedCustom.hasKey(methodAlias.key)) {
                 indexedCustom[methodAlias.key] = methodAlias.value;
             }
         });
-        configuration.update(keyToFilter, array_flip(indexedCustom), false);
-        configuration.remove(keyToFilter);
+        configuration.update(key, array_flip(indexedCustom), false);
+        configuration.remove(key);
 
         return configuration;
     }

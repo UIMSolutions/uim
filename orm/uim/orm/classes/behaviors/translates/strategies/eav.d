@@ -331,10 +331,9 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * into each entity for a given locale.
      *
      * @param DORMDatasource\IResultset results Results to map.
-     * @param string locale Locale string
      */
-    protected DORMcollections rowMapper(results, stringlocale) {
-        return results.map(function (row) use (locale) {
+    protected DORMcollections rowMapper(results, string localeName) {
+        return results.map(function (row) use (localeName) {
             /** @var DORMdatasources.IORMEntity|array|null row */
             if (row == null) {
                 return row;

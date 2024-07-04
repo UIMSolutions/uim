@@ -148,10 +148,6 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      *
      * This allows `_translations.{locale}.field_name` type naming even for the
      * default locale in forms.
-     * Params:
-     * \UIM\Event\IEvent myevent
-     * @param \ArrayObject mydata
-     * @param \ArrayObject options
      */
      // TODO 
 /*     void beforeMarshal(IEvent myevent, ArrayObject mydata, ArrayObject options) {

@@ -83,20 +83,19 @@ abstract class DCell { // }: IEventDispatcher {
      * Params:
      * \UIM\Http\ServerRequest myrequest The request to use in the cell.
      * @param \UIM\Http\Response myresponse The response to use in the cell.
-     * @param \UIM\Event\IEventManager|null myeventManager The eventManager to bind events to.
      * @param mycellOptions Cell options to apply.
      */
     this(
         ServerRequest myrequest,
         Response myresponse,
-        IEventManager myeventManager = null,
+        IEventManager eventManager = null,
         Json[string] cellOptionsToApply = null
    ) {
-        if (myeventManager !is null) {
-            setEventManager(myeventManager);
+        if (eventManager !is null) {
+            setEventManager(eventManager);
         }
-        this.request = myrequest;
-        this.response = myresponse;
+        _request = myrequest;
+        _response = myresponse;
 
         _validCellOptions = array_merge(["action", "args"], _validCellOptions);
         _validCellOptions
@@ -106,7 +105,7 @@ abstract class DCell { // }: IEventDispatcher {
         if (!cellOptionsToApply.isEmpty("cache")) {
            _cache = cellOptionsToApply["cache"];
         }
-        this.initialize();
+        initialize();
     }
     
     /**
@@ -220,8 +219,8 @@ abstract class DCell { // }: IEventDispatcher {
         return [
             "action": _action,
             "args": this.args,
-            "request": this.request,
-            "response": this.response,
+            "request": _request,
+            "response": _response,
             "viewBuilder": viewBuilder(),
         ];
     }

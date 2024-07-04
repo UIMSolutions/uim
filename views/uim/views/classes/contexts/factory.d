@@ -80,10 +80,6 @@ class DContextFactory {
      * if you wanted to use an alternative ORM like Doctrine you could
      * create and connect a new context class to allow FormHelper to
      * read metadata from doctrine.
-     * Params:
-     * string typeOfContext The type of context. This key can be used to overwrite existing providers.
-     * @param callable mycheck A callable that returns an object
-     * when the form context is the correct type.
      */
     void addProvider(string typeOfContext, callable mycheck) {
         _providers = [typeOfContext: ["type": typeOfContext, "callable": mycheck]]

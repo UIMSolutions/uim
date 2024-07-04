@@ -228,19 +228,17 @@ class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * string[] aName The key to write, can be a dot notation value.
      * Alternatively can be an array containing key(s) and value(s).
-     * @param Json aValue Value to set for var
      */
-    void set(string aName, Json aValue = null) {
-        set([aName: aValue]);
+    void set(/* string[] */ string name, Json value = null) {
+        set([name: value]);
     }
-    
 
     // Get the printable version of a Form instance.
     Json[string] debugInfo() {
         special = [
-            '_schema": getSchema().__debugInfo(),
-            '_errors": getErrors(),
-            '_validator": getValidator().__debugInfo(),
+            "_schema": getSchema().__debugInfo(),
+            "_errors": getErrors(),
+            "_validator": getValidator().__debugInfo(),
         ];
 
         return special + get_object_vars(this);

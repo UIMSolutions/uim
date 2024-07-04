@@ -293,13 +293,8 @@ class DFormProtector {
             : null;        
     }
     
-    /**
-     * Generate the token data.
-     * Params:
-     * string aurl Form URL.
-     * @param string sessionId Session Id.
-     */
-    STRINGAA buildTokenData(string aurl = "", string sessionId= null) {
+    // Generate the token data.
+    STRINGAA buildTokenData(string url = "", string sessionId = null) {
         auto fields = _fields.dup;
         auto unlockedFields = _unlockedFields.dup;
 
@@ -338,10 +333,10 @@ class DFormProtector {
      * Params:
      * Json[string] fields Fields list.
      * @param string[] unlockedFields Unlocked fields.
-     * @param string aurl Form URL.
+     * @param string url Form URL.
      * @param string sessionId Session Id.
      */
-    protected string generateHash(string[] fieldNames, Json[string] unlockedFields, string aurl, string sessionId) {
+    protected string generateHash(string[] fieldNames, Json[string] unlockedFields, string url, string sessionId) {
         hashParts = [
             url,
             serialize(fields),

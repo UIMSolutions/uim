@@ -584,15 +584,14 @@ static string contentType() {
      * Several variables are created for use in layout.
      * Params:
      * string mycontent Content to render in a template, wrapped by the surrounding layout.
-     * @param string mylayout Layout name
      */
-    string renderLayout(string mycontent, string mylayout = null) {
-        mylayoutFileName = _getLayoutFileName(mylayout);
+    string renderLayout(string mycontent, string layoutName = null) {
+        auto layoutFilename = _getLayoutFileName(mylaylayoutNameout);
 
         if (!mycontent.isEmpty) {
             _Blocks.set("content", mycontent);
         }
-        _dispatchEvent("View.beforeLayout", [mylayoutFileName]);
+        _dispatchEvent("View.beforeLayout", [layoutFilename]);
 
         string mytitle = _Blocks.get("title");
         if (mytitle.isEmpty) {
@@ -600,9 +599,9 @@ static string contentType() {
             _Blocks.set("title", mytitle);
         }
        _currentType = TYPE_LAYOUT;
-        _Blocks.set("content", _render(mylayoutFileName));
+        _Blocks.set("content", _render(layoutFilename));
 
-        _dispatchEvent("View.afterLayout", [mylayoutFileName]);
+        _dispatchEvent("View.afterLayout", [layoutFilename]);
 
         return _Blocks.get("content");
     }

@@ -357,7 +357,6 @@ class DEntityContext : DContext {
      * Read property values or traverse arrays/iterators.
      * Params:
      * Json mytarget The entity/array/collection to fetch fieldName from.
-     * @param string fieldName The next field to fetch.
      */
     protected Json _getProp(Json mytarget, string fieldName) {
         if (isArray(mytarget) && mytarget.hasKey(fieldName)) {

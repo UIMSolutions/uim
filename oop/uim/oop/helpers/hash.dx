@@ -15,7 +15,7 @@ import uim.oop;
  */
 class Hash {
     /**
-     * Get a single value specified by mypath out of mydata.
+     * Get a single value specified by path out of mydata.
      * Does not support the full dot notation feature set,
      * but is faster for simple read operations.
      * Params:
@@ -207,13 +207,13 @@ class Hash {
     }
     
     /**
-     * Insert myvalues into an array with the given mypath. You can use
+     * Insert myvalues into an array with the given path. You can use
      * `{n}` and `{s}` elements to insert mydata multiple times.
      */
     static Json[string] insert(Json[string] dataToInsert, string pathToInsert, Json valuesToInsert = null) {
-        auto mynoTokens = !mypath.contains("[");
-        if (mynoTokens && !mypath.contains(".")) {
-            mydata[mypath] = valuesToInsert;
+        auto mynoTokens = !path.contains("[");
+        if (mynoTokens && !path.contains(".")) {
+            mydata[path] = valuesToInsert;
 
             return mydata;
         }
@@ -222,7 +222,7 @@ class Hash {
             ? pathToInsert.split(".")
             : Text.tokenize(pathToInsert, ".", "[", "]");
 
-        if (mynoTokens && !mypath.contains("{")) {
+        if (mynoTokens && !path.contains("{")) {
             return _simpleOp("insert", dataToInsert, mytokens, valuesToInsert);
         }
 
@@ -282,12 +282,9 @@ class Hash {
     }
     
     /**
-     * Remove data matching mypath from the mydata array.
+     * Remove data matching path from the mydata array.
      * You can use `{n}` and `{s}` to remove multiple elements
      * from mydata.
-     * Params:
-     * Json[string] data The data to operate on
-     * @param string mypath A path expression to use to remove.
      */
     static Json[string] remove(Json[string] data, string path) {
         mynoTokens = !path.contains("[");
@@ -298,7 +295,7 @@ class Hash {
             return data;
         }
 
-        string[] mytokens = mynoTokens ? myPath.split("."): Text.tokenize(mypath, ".", "[", "]");
+        string[] mytokens = mynoTokens ? myPath.split("."): Text.tokenize(path, ".", "[", "]");
         if (mynoExpansion && mynoTokens) {
             return _simpleOp("remove", data, mytokens);
         }
@@ -336,14 +333,9 @@ class Hash {
      * `valuePath` as path to get the values. If `valuePath` is not specified, all values will be initialized
      * to null (useful for Hash.merge). You can optionally group the values by what is obtained when
      * following the path specified in `groupPath`.
-     * Params:
-     * Json[string] data Array from where to extract keys and values
-     * @param string[]|string keyPath A dot-separated string.
-     * @param string[]|string valuePath A dot-separated string.
-     * @param string groupPath A dot-separated string.
      */
     static Json[string] combine(
-        array data,
+        Json[string]  data,
         string[] keyPath,
         string[] valuePath = null,
         string groupPath = null
@@ -535,7 +527,7 @@ class Hash {
     static Json[string] flatten(Json[string] data, string myseparator = ".") {
         auto result;
         mystack = null;
-        auto mypath = "";
+        auto path = "";
 
         reset(mydata);
         while (!mydata.isEmpty) {
@@ -545,16 +537,16 @@ class Hash {
 
             if (isArray(myelement) && !empty(myelement)) {
                 if (!empty(mydata)) {
-                    mystack ~= [mydata, mypath];
+                    mystack ~= [mydata, path];
                 }
                 mydata = myelement;
                 reset(mydata);
-                mypath ~= aKey ~ myseparator;
+                path ~= aKey ~ myseparator;
             } else {
-                result[mypath ~ aKey] = myelement;
+                result[path ~ aKey] = myelement;
             }
             if (isEmpty(mydata) && !empty(mystack)) {
-                [mydata, mypath] = array_pop(mystack);
+                [mydata, path] = array_pop(mystack);
                 reset(mydata);
             }
         }
@@ -574,10 +566,10 @@ class Hash {
      */
     static Json[string] expand(Json[string] data, string myseparator = ".") {
         myhash = null;
-        foreach (mypath: myvalue; mydata) {
-            someKeys = to!string(mypath).split(myseparator);
+        foreach (path: myvalue; mydata) {
+            someKeys = to!string(path).split(myseparator);
             if (count(someKeys) == 1) {
-                myhash[mypath] = myvalue;
+                myhash[path] = myvalue;
                 continue;
             }
             myvalueKey = end(someKeys);
@@ -714,11 +706,11 @@ class Hash {
      * Can be provided a path to only modify slices of the set.
      * Params:
      * Json[string] data The data to map over, and extract data out of.
-     * @param string mypath The path to extract for mapping over.
+     * @param string path The path to extract for mapping over.
      * @param callable myfunction The auto to call on each extracted value.
      */
-    static Json[string] map(Json[string] data, string mypath, callable myfunction) {
-        myvalues = /* (array) */extract(mydata, mypath);
+    static Json[string] map(Json[string] data, string path, callable myfunction) {
+        myvalues = /* (array) */extract(mydata, path);
 
         return array_map(myfunction, myvalues);
     }
@@ -727,11 +719,11 @@ class Hash {
      * Reduce a set of extracted values using `myfunction`.
      * Params:
      * Json[string] data The data to reduce.
-     * @param string mypath The path to extract from mydata.
+     * @param string path The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
      */
-    static Json reduce(Json[string] data, string mypath, callable myfunction) {
-        myvalues = /* (array) */extract(mydata, mypath);
+    static Json reduce(Json[string] data, string path, callable myfunction) {
+        myvalues = /* (array) */extract(mydata, path);
 
         return array_reduce(myvalues, myfunction);
     }
@@ -756,11 +748,11 @@ class Hash {
      * ```
      * Params:
      * Json[string] data The data to reduce.
-     * @param string mypath The path to extract from mydata.
+     * @param string path The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
      */
-    static Json apply(Json[string] data, string mypath, callable myfunction) {
-        myvalues = /* (array) */extract(mydata, mypath);
+    static Json apply(Json[string] data, string path, callable myfunction) {
+        myvalues = /* (array) */extract(mydata, path);
 
         return myfunction(myvalues);
     }
@@ -792,13 +784,13 @@ class Hash {
      * defaults to `false`.
      * Params:
      * Json[string] data An array of data to sort
-     * @param string mypath A Set-compatible path to the array value
+     * @param string path A Set-compatible path to the array value
      * @param string|int mydir See directions above. Defaults to "asc".
      * @param Json[string]|string mytype See direction types above. Defaults to "regular".
      */
     static Json[string] sort(
         array data,
-        string mypath,
+        string path,
         string|int mydir = "asc",
         string[] mytype = "regular"
     ) {
@@ -810,7 +802,7 @@ class Hash {
         if (mynumeric) {
             mydata = mydata.values;
         }
-        mysortValues = extract(mydata, mypath);
+        mysortValues = extract(mydata, path);
         assert(isArray(mysortValues));
         mydataCount = count(mydata);
 
@@ -819,7 +811,7 @@ class Hash {
         mymissingData = count(mysortValues) < mydataCount;
         if (mymissingData && mynumeric) {
             // Get the path without the leading "{n}."
-            myitemPath = subString(mypath, 4);
+            myitemPath = subString(path, 4);
             mydata.byKeyValue
                 .each!(kv => mysortValues[kv.key] = get(kv.value, myitemPath));
         } else if (mymissingData) {

@@ -285,13 +285,6 @@ class DLog {
      * If no configured logger can handle a log message (because of level or scope restrictions)
      * then the logged message will be ignored and silently dropped. You can check if this has happened
      * by inspecting the return of write(). If false the message was not handled.
-     * Params:
-     * string|int level The severity level of the message being written.
-     *  The value must be an integer or string matching a known level.
-     * @param string[] contextData Additional data to be used for logging the message.
-     * The special `scope` key can be passed to be used for further filtering of the
-     * log engines to be used. If a string or a numerically index array is passed, it
-     * will be treated as the `scope` key.
      */
     static bool write(int severityLevel, string messageToLog, string[] contextData = null) {
         return isIn(severityLevel, _levelMap, true)

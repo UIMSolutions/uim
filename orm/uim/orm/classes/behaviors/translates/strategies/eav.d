@@ -199,9 +199,6 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
     /**
      * Modifies the entity before it is saved so that translated fields are persisted
      * in the database too.
-     *
-     * @param DORMevents.IEvent event The beforeSave event that was fired
-     * @param \Json[string] options the options passed to the save method
      */
     void beforeSave(IEvent event, IORMEntity ormEntity, Json[string] options) {
         auto locale = ormEntity.get("_locale") ?: locale();

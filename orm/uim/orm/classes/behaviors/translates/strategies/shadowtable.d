@@ -130,17 +130,11 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
              */
     }
 
-    /**
-     * Create a hasOne association for record with required locale.
-     *
-     * @param string locale Locale
-     * @param \Json[string] options Find options
-     */
-    protected void setupHasOneAssociation(string locale, Json[string] options) {
+    // Create a hasOne association for record with required locale.
+    protected void setupHasOneAssociation(string localeName, Json[string] options) {
         auto configData = configuration.data;
         [plugin] = pluginSplit(
-            configuration.get(
-                "translationTable"));
+            configuration.get("translationTable"));
         hasOneTargetAlias = plugin 
             ? (plugin ~ "." ~ configuration.getString("hasOneAlias")) 
             : configuration.get("hasOneAlias");
@@ -156,9 +150,9 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
            );
         }
 
-        string joinType = options.hasKey("filterByCurrentLocale")
-            ? (options["filterByCurrentLocale"] ? "INNER" : "LEFT") : (
-                configuration.getString("onlyTranslated") ? "INNER" : "LEFT");
+        string joinType = options.hasKey("filterByCurrentLocale") 
+            ? (options.hasKey("filterByCurrentLocale") ? "INNER" : "LEFT") 
+            : (configuration.getString("onlyTranslated") ? "INNER" : "LEFT");
 
         _table.hasOne(configuration.get("hasOneAlias"), [
                 "foreignKeys": ["id"],
@@ -166,7 +160,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 "propertyName": "translation",
                 "classname": configuration.getString("translationTable"),
                 "conditions": [
-                    configuration.getString("hasOneAlias") ~ ".locale": locale,
+                    configuration.getString("hasOneAlias") ~ ".locale": localeName,
 
                 
 

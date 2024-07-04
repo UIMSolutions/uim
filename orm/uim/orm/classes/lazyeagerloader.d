@@ -20,9 +20,8 @@ class DLazyEagerLoader {
      * Params:
      * \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity> myentities a single entity or list of entities
      * @param Json[string] mycontain A `contain()` compatible array.
-     * @param \ORM\Table sourceTable The table to use for fetching the top level entities
      */
-    IORMEntity[] loadInto(IORMEntity|array myentities, Json[string] mycontain, Table sourceTable) {
+    IORMEntity[] loadInto(IORMEntity|array myentities, Json[string] mycontain, DORMTable sourceTable) {
         auto resultSingle = false;
 
         if (cast(IORMEntity)myentities) {

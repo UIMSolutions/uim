@@ -164,7 +164,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @param DORMdatabases.IExpression|DORMTable|DORMAssociation|callable|array|string fields Fields
      * to be added to the list.
-     * @param bool canOverwrite whether to reset fields with passed list or not
      */
      
     IQuery select(IExpression anExpression, bool canOverwrite = false) {

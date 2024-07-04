@@ -398,13 +398,7 @@ mixin template TIntegrationTest() {
         _response = anInstance.render();
     }
 
-    /**
-     * Creates a request object with the configured options and parameters.
-     * Params:
-     * string aurl The URL
-     * @param string httpMethod The HTTP method
-     * @param string[] adata The request data.
-     */
+    // Creates a request object with the configured options and parameters.
     protected Json[string] _buildRequest(string url, string httpMethod, string[] requestData = null) {
         auto sessionConfig = configuration.data("Session").update([
             "defaults": "D".toJson,

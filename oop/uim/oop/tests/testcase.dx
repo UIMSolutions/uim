@@ -330,10 +330,6 @@ abstract class DTestCase : DBaseTestCase {
     /**
      * Assert that a string contains another string, ignoring differences in newlines.
      * Helpful for doing cross platform tests of blocks of text.
-     * Params:
-     * string aneedle The string to search for.
-     * @param string ahaystack The string to search through.
-     * @param string message The message to display on failure.
      */
     void assertTextContains(
         string needle,
@@ -354,25 +350,20 @@ abstract class DTestCase : DBaseTestCase {
     /**
      * Assert that a text doesn"t contain another text, ignoring differences in newlines.
      * Helpful for doing cross platform tests of blocks of text.
-     * Params:
-     * string aneedle The string to search for.
-     * @param string ahaystack The string to search through.
-     * @param string message The message to display on failure.
-     * @param bool anIgnoreCase Whether the search should be case-sensitive.
      */
     void assertTextNotContains(
-        string aneedle,
-        string ahaystack,
-        string message = "",
-        bool anIgnoreCase = false
+        string needle,
+        string haystack,
+        string failureMessage = "",
+        bool shouldIgnoreCase = false
     ) {
         needle = needle.replace(["\r\n", "\r"], "\n");
         haystack = str_replace(["\r\n", "\r"], "\n", haystack);
 
-        if (anIgnoreCase) {
-            this.assertStringNotContainsStringIgnoringCase(needle, haystack, message);
+        if (shouldIgnoreCase) {
+            this.assertStringNotContainsStringIgnoringCase(needle, haystack, failureMessage);
         } else {
-            this.assertStringNotContainsString(needle, haystack, message);
+            this.assertStringNotContainsString(needle, haystack, failureMessage);
         }
     }
     

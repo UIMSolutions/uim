@@ -208,7 +208,7 @@ class DSelectLoader {
      * target table query given a filter key and some filtering values when the
      * filtering needs to be done using a subquery.
      */
-    protected DORMQuery _addFilteringJoin(DORMQuery query, /* string[]| */stringkey, DORMQuery filteringQuery) {
+    protected DORMQuery _addFilteringJoin(DORMQuery query, /* string[]| */ stringkey, DORMQuery filteringQuery) {
         auto filter = null;
         auto aliasedTable = this
             .sourceAlias;
@@ -246,21 +246,23 @@ class DSelectLoader {
      * Appends any conditions required to load the relevant set of records in the
      * target table query given a filter key and some filtering values.
      *
-     * @param DORMQuery query Target table"s query
+     * @param DORMQuery  Target table"s query
      * @param string[]|string aKey The fields that should be used for filtering
      * @param mixed filter The value that should be used to match for key
      */
-    protected DORMQuery _addFilteringCondition(
-        Query query, key, filter) {
-        if ((key.isArray) {
-                conditions = _createTupleCondition(
-                    query, key, filter, "IN"); } else {
-                    conditions = [key ~ " IN": filter]; }
+    protected DORMQuery _addFilteringCondition(DORMQuery query, key, filter) {
+        if (key.isArray) {
+            conditions = _createTupleCondition(
+                query, key, filter, "IN");
+        } else {
+            conditions = [key ~ " IN": filter];
+        }
 
-                    return query.andWhere(
-                        conditions); }
+        return query.andWhere(
+            conditions);
+    }
 
-                    /**
+    /**
      * Returns a TupleComparison object that can be used for matching all the fields
      * from keys with the tuple values in filter using the provided operator.
      *
@@ -269,79 +271,97 @@ class DSelectLoader {
      * @param mixed filter the value that should be used to match for key
      * @param string operator The operator for comparing the tuples
      */
-                    protected TupleComparison _createTupleCondition(
-                        DQuery query, Json[string] keys, Json filter, string operator) {
-                        auto types = null; auto defaults = query
-                            .getDefaultTypes(); foreach (
-                                key; keys) {
-                                if (defaults.hascorrectKey(
-                                    key)) {
-                                    types ~= defaults[key]; }
-                                }
+    protected TupleComparison _createTupleCondition(
+        DQuery query, Json[string] keys, Json filter, string operator) {
+        auto types = null;
+        auto defaults = query
+            .getDefaultTypes();
+        foreach (
+            key; keys) {
+            if (defaults.hascorrectKey(
+                    key)) {
+                types ~= defaults[key];
+            }
+        }
 
-                                return new DTupleComparison(keys, filter, types, operator);
-                            }
+        return new DTupleComparison(keys, filter, types, operator);
+    }
 
-                        /**
+    /**
      * Generates a string used as a table field that contains the values upon
      * which the filter should be applied
      */
-                        protected string[] _linkField(
-                            Json[string] options = null) {
-                            auto links = null; auto name = _aliasName; if (options.get(
-                                "foreignKeys") == false && this.associationType == Association
-                            .ONE_TO_MANY) {
-                                auto message = "Cannot have foreignKeys = false for hasMany associations~ " ~
-                                    "You must provide a foreignKeys column."; throw new DRuntimeException(
-                                        message); }
+    protected string[] _linkField(
+        Json[string] options = null) {
+        auto links = null;
+        auto name = _aliasName;
+        if (options.get(
+                "foreignKeys") == false && this.associationType == Association
+            .ONE_TO_MANY) {
+            auto message = "Cannot have foreignKeys = false for hasMany associations~ " ~
+                "You must provide a foreignKeys column.";
+            throw new DRuntimeException(
+                message);
+        }
 
-                                auto keys = isIn(
-                                    this.associationType, [
-                                        Association.ONE_TO_ONE,
-                                        Association
-                                        .ONE_TO_MANY
-                                    ], true) ?
-                            _foreignKeys : _bindingKeys; foreach (key; keys) {
-                                        links ~= "%s.%s".format(name, key); }
+        auto keys = isIn(
+            this.associationType, [
+                Association.ONE_TO_ONE,
+                Association
+                .ONE_TO_MANY
+            ], true) ?
+    _foreignKeys : _bindingKeys;
+        foreach (key; keys) {
+            links ~= "%s.%s".format(name, key);
+        }
 
-                                        if (
-                                            count(links) == 1) {
-                                            return links[0]; }
+        if (
+            count(links) == 1) {
+            return links[0];
+        }
 
-                                            return links; }
+        return links;
+    }
 
-                                            /**
+    /**
      * Builds a query to be used as a condition for filtering records in the
      * target table, it is constructed by cloning the original query that was used
      * to load records in the source table.
      */
-                                            protected DORMQuery _buildSubquery(
-                                                DORMQuery query) {
-                                                auto filterQuery = query
-                                                    .clone; filterQuery.disableAutoFields();
-                                                filterQuery.mapReduce(null, null, true);
-                                                    filterQuery.formatResults(null, true);
-                                                    filterQuery.contain([
-                                                        ], true); filterQuery.setValueBinder(
-                                                        new DValueBinder()); // Ignore limit if there is no order since we need all rows to find matches
-                                                    if (!filterQuery.clause(
-                                                        "limit") || !filterQuery
-                                                    .clause(
-                                                    "order")) {
-                                                        filterQuery.limit(
-                                                            null); filterQuery.order([
-                                                        ], true); filterQuery.offset(
-                                                            null); }
+    protected DORMQuery _buildSubquery(
+        DORMQuery query) {
+        auto filterQuery = query
+            .clone;
+        filterQuery.disableAutoFields();
+        filterQuery.mapReduce(null, null, true);
+        filterQuery.formatResults(null, true);
+        filterQuery.contain([
+            ], true);
+        filterQuery.setValueBinder(
+            new DValueBinder()); // Ignore limit if there is no order since we need all rows to find matches
+        if (!filterQuery.clause(
+                "limit") || !filterQuery
+            .clause(
+                "order")) {
+            filterQuery.limit(
+                null);
+            filterQuery.order([
+                ], true);
+            filterQuery.offset(
+                null);
+        }
 
-                                                        auto fields = _subqueryFields(
-                                                            query); filterQuery.select(
-                                                            fields["select"], true)
-                                                            .group(
-                                                                fields["group"]);
+        auto fields = _subqueryFields(
+            query);
+        filterQuery.select(
+            fields["select"], true)
+            .group(
+                fields["group"]);
 
-                                                        return filterQuery; }
+        return filterQuery;
+    }
 
-                                                        /**
+    /**
      * Calculate the fields that need to participate in a subquery.
      *
      * Normally this includes the binding key columns. If there is a an ORDER BY,
@@ -350,84 +370,87 @@ class DSelectLoader {
      *
      * @param DORMQuery query The query to get fields from.
      */
-                                                        protected Json[string] _subqueryFields(
-                                                            Query query) {
-                                                            string[] keys = _bindingKeys;
+    protected Json[string] _subqueryFields(
+        Query query) {
+        string[] keys = _bindingKeys;
 
-                                                                if (
-                                                                    this.associationType == Association
-                                                                .MANY_TO_ONE) {
-                                                                    keys = (
-                                                                        array) _foreignKeys;
-                                                                }
+        if (
+            this.associationType == Association
+            .MANY_TO_ONE) {
+            keys = (
+                array) _foreignKeys;
+        }
 
-                                                            auto fields = query.aliasFields(
-                                                                keys, this
-                                                                .sourceAlias); auto group = fields = array_values(
-                                                                fields); auto order = query.clause(
-                                                                "order"); if (order) {
-                                                                auto columns = query.clause(
-                                                                    "select"); /* order.iterateParts(void (direction, field) use (&fields, columns) {
+        auto fields = query.aliasFields(
+            keys, this
+                .sourceAlias);
+        auto group = fields = array_values(
+            fields);
+        auto order = query.clause(
+            "order");
+        if (order) {
+            auto columns = query.clause(
+                "select"); /* order.iterateParts(void (direction, field) use (&fields, columns) {
                 if (columns.hasKey(field)) {
                     fields[field] = columns[field];
                 }
             }); */
-                                                            }
+        }
 
-                                                            return [
-                                                                "select": fields,
-                                                                "group": group
-                                                            ]; }
+        return [
+            "select": fields,
+            "group": group
+        ];
+    }
 
-                                                            /**
+    /**
      * Builds an array containing the results from fetchQuery indexed by
      * the foreignKeys value corresponding to this association.
      *
      * @param DORMQuery fetchQuery The query to get results from
      * @param Json[string] options The options passed to the eager loader
      */
-                                                            protected Json[string] _buildResultMap(
-                                                                Query fetchQuery, Json[string] options = null) {
-                                                                auto resultMap = null;
-                                                                    auto singleResult = isIn(
-                                                                        this.associationType, [
-                                                                            Association
-                                                                            .MANY_TO_ONE,
-                                                                            Association
-                                                                            .ONE_TO_ONE
-                                                                        ], true);
-                                                                    auto keys = isIn(
-                                                                        this.associationType, [
-                                                                            Association.ONE_TO_ONE,
-                                                                            Association
-                                                                            .ONE_TO_MANY
-                                                                        ], true)
-                                                                    ? _foreignKeys : _bindingKeys;
-                                                                    string[] someKeys = (
-                                                                        array) keys;
+    protected Json[string] _buildResultMap(
+        Query fetchQuery, Json[string] options = null) {
+        auto resultMap = null;
+        auto singleResult = isIn(
+            this.associationType, [
+                Association
+                .MANY_TO_ONE,
+                Association
+                .ONE_TO_ONE
+            ], true);
+        auto keys = isIn(
+            this.associationType, [
+                Association.ONE_TO_ONE,
+                Association
+                .ONE_TO_MANY
+            ], true)
+            ? _foreignKeys : _bindingKeys;
+        string[] someKeys = (
+            array) keys;
 
-                                                                    foreach (
-                                                                        result; fetchQuery.all()) {
-                                                                        string[] values = null;
-                                                                            foreach (
-                                                                                key;
-                                                                            someKeys) {
-                                                                                values ~= result[key];
-                                                                            }
-                                                                        if (
-                                                                            singleResult) {
-                                                                            resultMap[values.join(
-                                                                                    ";")] = result;
-                                                                        } else {
-                                                                            resultMap[values.join(
-                                                                                    ";")] ~= result;
-                                                                        }
-                                                                    }
+        foreach (
+            result; fetchQuery.all()) {
+            string[] values = null;
+            foreach (
+                key; someKeys) {
+                values ~= result[key];
+            }
+            if (
+                singleResult) {
+                resultMap[values.join(
+                        ";")] = result;
+            } else {
+                resultMap[values.join(
+                        ";")] ~= result;
+            }
+        }
 
-                                                                return resultMap;
-                                                            }
+        return resultMap;
+    }
 
-                                                            /**
+    /**
      * Returns a callable to be used for each row in a query result set
      * for injecting the eager loaded rows
      *
@@ -435,8 +458,8 @@ class DSelectLoader {
      * @param Json[string] resultMap an array with the foreignKeys as keys and
      * the corresponding target table results as value.
      */
-                                                            // TODO
-                                                            /* protected Closure _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] options = null) {
+    // TODO
+    /* protected Closure _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] options = null) {
         keys = this.associationType == Association.MANY_TO_ONE ?
             _foreignKeys :
             _bindingKeys;
@@ -462,7 +485,7 @@ class DSelectLoader {
         };
     } */
 
-                                                            /**
+    /**
      * Returns a callable to be used for each row in a query result set
      * for injecting the eager loaded rows when the matching needs to
      * be done with multiple foreign keys
@@ -471,10 +494,10 @@ class DSelectLoader {
      * someSourceKeys - An array with aliased keys to match
      * @param string nestKey The key under which results should be nested
      */
-                                                            protected DClosure _multiKeysInjector(
-                                                                Json[string] resultMap, string[] someSourceKeys, string nestKey) {
-                                                                // TODO 
-                                                                /* return function (row) use (resultMap, someSourceKeys, nestKey) {
+    protected DClosure _multiKeysInjector(
+        Json[string] resultMap, string[] someSourceKeys, string nestKey) {
+        // TODO 
+        /* return function (row) use (resultMap, someSourceKeys, nestKey) {
             string[] values = someSourceKeys.map!(key => row[key]).array;
 
             string key = values.join(";");
@@ -484,5 +507,6 @@ class DSelectLoader {
 
             return row;
         }; */
-                                                                return null; }
-                                                            }
+        return null;
+    }
+}

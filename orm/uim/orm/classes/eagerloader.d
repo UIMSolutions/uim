@@ -317,13 +317,12 @@ class DEagerLoader {
      * This method will not modify the query for loading external associations, i.e.
      * those that cannot be loaded without executing a separate query.
      *
-     * @param DORMQuery query The query to be modified
      * @param DORMTable repository The repository containing the associations
      * @param bool includeFields whether to append all fields from the associations
      * to the passed query. This can be overridden according to the settings defined
      * per association in the containments array
      */
-    void attachAssociations(Query query, Table repository, bool includeFields) {
+    void attachAssociations(Query DORMQuery, Table repository, bool includeFields) {
         if (_containments.isEmpty && _matching == null) {
             return;
         }

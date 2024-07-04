@@ -75,9 +75,6 @@ class DTimeHelper : DHelper {
 
     /**
      * Returns true, if the given datetime string is in the past.
-     * Params:
-     * \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
-     * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
      */
     bool isPast(
         /* DChronosDate |  */Json dateString,

@@ -90,7 +90,11 @@ class DBreadcrumbsHelper : DHelper {
             throw new DLogicException(
                 "No crumb could be found at index `%s`.".format(index));
         }
-        array_splice(_crumbs, index, 0, [compact("title", "url", "options")]);
+        array_splice(_crumbs, index, 0, [
+            [   "title": title, 
+                "url": url, 
+                "options": options]
+            ]);
     }
     
     /**
@@ -98,16 +102,6 @@ class DBreadcrumbsHelper : DHelper {
      *
      * Finds the index of the first crumb that matches the provided class,
      * and inserts the supplied callable before it.
-     * Params:
-     * string matchingTitle The title of the crumb you want to insert this one before.
-     * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
-     * Url.build() or null / empty if the crumb does not have a link.
-     * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
-     * be rendered in (a <li> tag by default). It accepts two special keys:
-     *
-     * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
-     * the link)
-     * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     auto insertBefore(
         string matchingTitle,
@@ -127,14 +121,11 @@ class DBreadcrumbsHelper : DHelper {
      *
      * Finds the index of the first crumb that matches the provided class,
      * and inserts the supplied callable before it.
-     * Params:
-     * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
-     * Url.build() or null / empty if the crumb does not have a link.
      */
     auto insertAfter(
         string matchingTitle,
         string title,
-        string[] myurl = null,
+        string[] url = null,
         Json[string] options  = null
    ) {
         key = findCrumb(matchingTitle);
@@ -157,40 +148,25 @@ class DBreadcrumbsHelper : DHelper {
         return this;
     }
     
-    /**
-     * Renders the breadcrumbs trail.
-     * Params:
-     * Json[string] myattributes Array of attributes applied to the `wrapper` template. Accepts the `templateVars` key to
-     * allow the insertion of custom template variable in the template.
-     * @param Json[string] myseparator Array of attributes for the `separator` template.
-     * Possible properties are :
-     *
-     * - *separator* The string to be displayed as a separator
-     * - *templateVars* Allows the insertion of custom template variable in the template
-     * - *innerAttrs* To provide attributes in case your separator is divided in two elements.
-     *
-     * All other properties will be converted as HTML attributes and will replace the *attrs* key in the template.
-     * If you use the default for this option (empty), it will not render a separator.
-     */
-    string render(Json[string] myattributes= null, Json[string] myseparator= null) {
+    // Renders the breadcrumbs trail.
+    string render(Json[string] matributes = null, Json[string] separator = null) {
         if (!_crumbs) {
             return null;
         }
         auto mycrumbs = _crumbs;
         auto mycrumbsCount = count(mycrumbs);
         auto mytemplater = this.templater();
-        string myseparatorString = "";
+        string separatorString = "";
 
-        if (myseparator) {
-            if (myseparator.hasKey("innerAttrs")) {
-                myseparator.set("innerAttrs", mytemplater.formatAttributes(myseparator["innerAttrs"]));
+        if (separator) {
+            if (separator.hasKey("innerAttrs")) {
+                separator.set("innerAttrs", mytemplater.formatAttributes(separator["innerAttrs"]));
             }
-            myseparator["attrs"] = mytemplater.formatAttributes(
-                myseparator,
+            separator["attrs"] = mytemplater.formatAttributes(
+                separator,
                 ["innerAttrs", "separator"]
            );
-
-            myseparatorString = formatTemplate("separator", myseparator);
+            separatorString = formatTemplate("separator", separator);
         }
         
         string mycrumbTrail = "";
@@ -232,12 +208,10 @@ class DBreadcrumbsHelper : DHelper {
     /**
      * Search a crumb in the current stack which title matches the one provided as argument.
      * If found, the index of the matching crumb will be returned.
-     * Params:
-     * string title Title to find.
      */
     protected int findCrumb(string title) {
-        foreach (key: mycrumb; _crumbs) {
-            if (mycrumb["title"] == title) {
+        foreach (key, crumb; _crumbs) {
+            if (crumb.getString("title") == title) {
                 return key;
             }
         }

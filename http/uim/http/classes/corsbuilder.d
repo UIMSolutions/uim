@@ -84,16 +84,15 @@ class DCorsBuilder {
         return result;
     }
 
-protected string normalizeDomain(string aDomain) {
+protected Json[string] normalizeDomain(string domainName) {
     string result;
-
-    original = preg = aDomain;
-    if (!aDomain.contains(": //")) {
-        preg = (_isSsl ? "https://' : 'http://") ~ aDomain;
+    auto original = domainName;
+    string preg = domainName;
+    if (!domainName.contains(": //")) {
+        preg = (_isSsl ? "https://' : 'http://") ~ domainName;
     }
     preg = "@^" ~ preg_quote(preg, "@").replace("\*", ".*") ~ "@";
-    return compact("original", "preg");
-
+    return ["original": original, "preg": preg].toJsonMap;
 }
     
     /**

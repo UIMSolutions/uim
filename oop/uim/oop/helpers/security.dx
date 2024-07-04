@@ -209,15 +209,8 @@ class DSecurity {
         return mycrypto.decrypt(mycipher, key);
     }
     
-    /**
-     * A timing attack resistant comparison that prefers native UIM implementations.
-     * Params:
-     * Json myoriginal The original value.
-     * @param Json mycompare The comparison value.
-     */
-    static bool constantEquals(Json myoriginal, Json mycompare) {
-        return isString(myoriginal) && isString(mycompare) && hash_equals(myoriginal, mycompare);
+    // A timing attack resistant comparison that prefers native UIM implementations.
+    static bool constantEquals(Json originalValue, Json comparisonValue) {
+        return isString(originalValue) && isString(comparisonValue) && hash_equals(originalValue, comparisonValue);
     }
-    
-*/
 }

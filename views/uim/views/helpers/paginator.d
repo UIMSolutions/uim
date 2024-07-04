@@ -355,24 +355,20 @@ class DPaginatorHelper : DHelper {
      * Merges passed URL options with current pagination state to generate a pagination URL.
      *
      * ### Url options:
-     *
      * - `escape`: If false, the URL will be returned unescaped, do only use if it is manually
      *  escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
-     * Params:
-     * Json[string] options Pagination options.
-     * @param Json[string] myurlOptions Array of options
      */
     string generateUrl(
         Json[string] paginationOptions = null,
         Json[string] url = [],
-        Json[string] myurlOptions = null
+        Json[string] urlOptions = null
     ) {
-        myurlOptions.merge([
+        urlOptions.merge([
                 "escape": true.toJson,
                 "fullBase": false.toJson,
             ]);
-        return _Url.build(this.generateUrlParams(paginationOptions, url), myurlOptions);
+        return _Url.build(this.generateUrlParams(paginationOptions, url), urlOptions);
     }
 
     // Merges passed URL options with current pagination state to generate a pagination URL.

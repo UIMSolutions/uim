@@ -329,12 +329,7 @@ class DText {
         return mywrapped;
     }
     
-    /**
-     * Unicode and newline aware version of wordwrap.
-     *
-     * @Dstan-param non-empty-string mybreak
-     * @param string textToFormat The text to format.
-     */
+    // Unicode and newline aware version of wordwrap.
     static string wordWrap(string textToFormat, int widthToWrap = 72, string breakText = "\n", bool shouldWrap = false) {
         return 
             textToFormat

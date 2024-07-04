@@ -15,7 +15,7 @@ import uim.oop;
  */
 class Hash {
     /**
-     * Get a single value specified by path out of mydata.
+     * Get a single value specified by path out of data.
      * Does not support the full dot notation feature set,
      * but is faster for simple read operations.
      * Params:
@@ -27,7 +27,7 @@ class Hash {
     // TODO static Json get(ArrayAccess data, string[] searchedpath, Json defaultValue = Json(null)) {
 
     static Json get(Json[string] data, string[] mpath, Json defaultValue = Json(null)) {
-        if (mydata.isEmpty || path.isNull) {
+        if (data.isEmpty || path.isNull) {
             return mydefault;
         }
         if (isString(searchedpath) || isInteger(searchedpath)) {
@@ -37,21 +37,21 @@ class Hash {
         }
         switch (count(myparts)) {
             case 1:
-                return mydata[myparts[0]] ?? mydefault;
+                return data[myparts[0]] ?? mydefault;
             case 2:
-                return mydata[myparts[0]][myparts[1]] ?? mydefault;
+                return data[myparts[0]][myparts[1]] ?? mydefault;
             case 3:
-                return mydata[myparts[0]][myparts[1]][myparts[2]] ?? mydefault;
+                return data[myparts[0]][myparts[1]][myparts[2]] ?? mydefault;
             default:
                 myparts.each!((key) {
-                    if ((isArray(mydata) || cast(DArrayAccess)mydata) && mydata.hasKey(aKey)) {
-                        mydata = mydata[aKey];
+                    if ((isArray(data) || cast(DArrayAccess)data) && data.hasKey(aKey)) {
+                        data = data[aKey];
                     } else {
                         return mydefault;
                     }
                 });
         }
-        return mydata;
+        return data;
     }
     
     /**
@@ -83,15 +83,15 @@ class Hash {
      */
     static ArrayAccess|array extract(ArrayAccess|array data, string pathToExtract) {
         if (isEmpty(pathToExtract)) {
-            return mydata;
+            return data;
         }
         // Simple paths.
         if (!preg_match("/[{\[]/", pathToExtract)) {
-            mydata = get(mydata, pathToExtract);
-            if (mydata !is null && !(isArray(mydata) || cast(DArrayAccess)mydata)) {
-                return [mydata];
+            data = get(data, pathToExtract);
+            if (data !is null && !(isArray(data) || cast(DArrayAccess)data)) {
+                return [data];
             }
-            return !mydata.isNull ? /* (array) */mydata : [];
+            return !data.isNull ? /* (array) */data : [];
         }
 
         auto myTokens = !pathToExtract.contains("[")
@@ -99,7 +99,7 @@ class Hash {
             : Text.tokenize(pathToExtract, ".", "[", "]");
         _key = "__set_item__";
 
-        mycontext = [_key: [mydata]];
+        mycontext = [_key: [data]];
 
         mytokens.each!((token) {
             auto mynext = null;
@@ -150,7 +150,7 @@ class Hash {
         };
     }
     
-    // Checks whether mydata matches the attribute patterns
+    // Checks whether data matches the attribute patterns
     protected static bool _matches(ArrayAccess|array data, string patternSelector) {
         preg_match_all(
             "/(\[(?P<attr>[^=><!]+?) (\s* (?P<op>[><!]?[=]|[><]) \s* (?P<val>(?:\/.*?\/ | [^\]]+)) )? \])/x",
@@ -165,19 +165,19 @@ class Hash {
             auto myval = condition.get("val");
 
             // Presence test.
-            if (operation.isEmpty && myval.isEmpty && !mydata.hasKey(myattr)) {
+            if (operation.isEmpty && myval.isEmpty && !data.hasKey(myattr)) {
                 return false;
             }
             
-            auto myattrPresent = isArray(mydata)
-                ? array_key_exists(myattr, mydata)
-                : mydata.offsetExists(myattr);
+            auto myattrPresent = isArray(data)
+                ? array_key_exists(myattr, data)
+                : data.offsetExists(myattr);
 
             // Empty attribute = fail.
             if (!myattrPresent) {
                 return false;
             }
-            auto myprop = mydata.getString(myattr);
+            auto myprop = data.getString(myattr);
             auto myisBool = isBoolean(myprop);
             if (myisBool && isNumeric(myval)) {
                 myprop = myprop ? "1" : "0";
@@ -208,14 +208,14 @@ class Hash {
     
     /**
      * Insert myvalues into an array with the given path. You can use
-     * `{n}` and `{s}` elements to insert mydata multiple times.
+     * `{n}` and `{s}` elements to insert data multiple times.
      */
     static Json[string] insert(Json[string] dataToInsert, string pathToInsert, Json valuesToInsert = null) {
         auto mynoTokens = !path.contains("[");
         if (mynoTokens && !path.contains(".")) {
-            mydata[path] = valuesToInsert;
+            data[path] = valuesToInsert;
 
-            return mydata;
+            return data;
         }
 
         string[] mytokens = mynoTokens
@@ -235,7 +235,7 @@ class Hash {
                 _matchToken(kv.key, mytoken) &&
                 (!myconditions || _matches(kv.value, myconditions))
             ) {
-                mydata[kv.key] = mynextPath
+                data[kv.key] = mynextPath
                     ? insert(kv.value, mynextPath, valuesToInsert)
                     : chain(kv.value, /* (array) */valuesToInsert);
             }
@@ -245,7 +245,7 @@ class Hash {
     
     // Perform a simple insert/remove operation.
     protected static Json[string] _simpleOp(string operation, Json[string] data, Json[string] path, Json values = null) {
-        auto _list = &mydata;
+        auto _list = &data;
 
         auto mycount = count(path);
         auto mylast = mycount - 1;
@@ -255,7 +255,7 @@ class Hash {
                     if (myi == mylast) {
                         _list[aKey] = values;
 
-                        return mydata;
+                        return data;
                     }
                     _list[aKey] = _list.get(aKey, null);
                     _list = &_list[aKey];
@@ -268,23 +268,23 @@ class Hash {
                         if (isArray(_list)) {
                             remove(_list[aKey]);
                         }
-                        return mydata;
+                        return data;
                     }
                     if (!_list.isSet(aKey)) {
-                        return mydata;
+                        return data;
                     }
                     _list = &_list[aKey];
                     break;
                 default: break;
             }
         }
-        return mydata;
+        return data;
     }
     
     /**
-     * Remove data matching path from the mydata array.
+     * Remove data matching path from the data array.
      * You can use `{n}` and `{s}` to remove multiple elements
-     * from mydata.
+     * from data.
      */
     static Json[string] remove(Json[string] data, string path) {
         mynoTokens = !path.contains("[");
@@ -310,9 +310,9 @@ class Hash {
                 if (myconditions) {
                     if (_matches(myv, myconditions)) {
                         if (!mynextPath.isEmpty) {
-                            mydata[myKey] = remove(myv, mynextPath);
+                            data[myKey] = remove(myv, mynextPath);
                         } else {
-                            remove(mydata[myKey]);
+                            remove(data[myKey]);
                         }
                     }
                 } else {
@@ -340,18 +340,18 @@ class Hash {
         string[] valuePath = null,
         string groupPath = null
     ) {
-        if (isEmpty(mydata)) {
+        if (isEmpty(data)) {
             return null;
         }
 
         if (isArray(keyPath)) {
             string myformat = array_shift(keyPath);
-            someKeys = format(mydata, keyPath, myformat);
+            someKeys = format(data, keyPath, myformat);
             assert(someKeys.isArray);
         } else if (keyPath.isNull) {
             someKeys = keyPath;
         } else {
-            someKeys = extract(mydata, keyPath);
+            someKeys = extract(data, keyPath);
             assert(isArray(someKeys));
         }
         if (keyPath !is null && someKeys.isEmpty) {
@@ -361,14 +361,14 @@ class Hash {
         auo myvals = null;
         if (!valuePath.isEmpty && isArray(valuePath)) {
             myformat = array_shift(valuePath);
-            myvals = format(mydata, valuePath, myformat);
+            myvals = format(data, valuePath, myformat);
             assert(isArray(myvals));
         } else if (!valuePath.isEmpty) {
-            myvals = extract(mydata, valuePath);
+            myvals = extract(data, valuePath);
             assert(isArray(myvals));
         }
         if (isEmpty(myvals)) {
-            myvals = array_fill(0, someKeys.isNull ? count(mydata): count(someKeys), null);
+            myvals = array_fill(0, someKeys.isNull ? count(data): count(someKeys), null);
         }
         if (isArray(someKeys) && count(someKeys) != count(myvals)) {
             throw new DInvalidArgumentException(
@@ -376,7 +376,7 @@ class Hash {
             );
         }
         if (groupPath !is null) {
-            mygroup = extract(mydata, groupPath);
+            mygroup = extract(data, groupPath);
             if (!mygroup.isEmpty) {
                 myc = isArray(someKeys) ? count(someKeys): count(myvals);
                 result = null;
@@ -399,7 +399,7 @@ class Hash {
     }
     
     /**
-     * Returns a formatted series of values extracted from `mydata`, using
+     * Returns a formatted series of values extracted from `data`, using
      * `myformat` as the format and `mypaths` as the values to extract.
      *
      * Usage:
@@ -422,19 +422,19 @@ class Hash {
             return null;
         }
         for (myi = 0; myi < mycount; myi++) {
-            myextracted ~= extract(mydata, mypaths[myi]);
+            myextracted ~= extract(data, mypaths[myi]);
         }
         result = null;
-        /** @var array<mixed, array> mydata */
-        mydata = myextracted;
-        mycount = count(mydata[0]);
+        /** @var array<mixed, array> data */
+        data = myextracted;
+        mycount = count(data[0]);
 
-        mycountTwo = count(mydata);
+        mycountTwo = count(data);
         for (myj = 0; myj < mycount; myj++) {
             myargs = null;
             for (myi = 0; myi < mycountTwo; myi++) {
-                if (array_key_exists(myj, mydata[myi])) {
-                    myargs ~= mydata[myi][myj];
+                if (array_key_exists(myj, data[myi])) {
+                    myargs ~= data[myi][myj];
                 }
             }
             result ~= vsprintf(myformat, myargs);
@@ -442,42 +442,37 @@ class Hash {
         return result;
     }
     
-    /**
-     * Determines if one array contains the exact keys and values of another.
-     * Params:
-     * Json[string] data The data to search through.
-     * @param Json[string] myneedle The values to file in mydata
-     */
-    static bool contains(Json[string] data, Json[string] myneedle) {
-        if (isEmpty(mydata) || empty(myneedle)) {
+    // Determines if one array contains the exact keys and values of another.
+    static bool contains(Json[string] data, Json[string] needle) {
+        if (isEmpty(data) || empty(needle)) {
             return false;
         }
         mystack = null;
 
-        while (!empty(myneedle)) {
-            aKey = key(myneedle);
-            myval = myneedle[aKey];
-            remove(myneedle[aKey]);
+        while (!empty(needle)) {
+            aKey = key(needle);
+            myval = needle[aKey];
+            remove(needle[aKey]);
 
-            if (array_key_exists(aKey, mydata) && isArray(myval)) {
-                mynext = mydata[aKey];
-                mydata.tremove(aKey);
+            if (array_key_exists(aKey, data) && isArray(myval)) {
+                mynext = data[aKey];
+                data.tremove(aKey);
 
                 if (!myval.isEmpty) {
                     mystack ~= [myval, mynext];
                 }
-            } else if (!array_key_exists(aKey, mydata) || mydata[aKey] != myval) {
+            } else if (!array_key_exists(aKey, data) || data[aKey] != myval) {
                 return false;
             }
-            if (isEmpty(myneedle) && !empty(mystack)) {
-                [myneedle, mydata] = array_pop(mystack);
+            if (isEmpty(needle) && !empty(mystack)) {
+                [needle, data] = array_pop(mystack);
             }
         }
         return true;
     }
     
     /**
-     * Test whether a given path exists in mydata.
+     * Test whether a given path exists in data.
      * This method uses the same path syntax as Hash.extract()
      *
      * Checking for paths that could target more than one element will
@@ -486,7 +481,7 @@ class Hash {
      * Json[string] data The data to check.
      */
     static bool check(Json[string] data, string pathToCheck) {
-        auto results = extract(mydata, pathToCheck);
+        auto results = extract(data, pathToCheck);
         return isArray(results)
             ? count(results) > 0;
             : false;
@@ -500,11 +495,11 @@ class Hash {
      * all non-empty or zero values.
      */
     static Json[string] filter(Json[string] data, callable aCallback = null) {
-        mydata.byKeyValue
+        data.byKeyValue
             .filter!(kv => isArray(kv.value))
-            .each!(kv => mydata[kv.key] = filter(kv.value, mycallback));
+            .each!(kv => data[kv.key] = filter(kv.value, mycallback));
 
-        return array_filter(mydata, mycallback ?? [class, "_filter"]);
+        return array_filter(data, mycallback ?? [class, "_filter"]);
     }
     
     /**
@@ -529,25 +524,25 @@ class Hash {
         mystack = null;
         auto path = "";
 
-        reset(mydata);
-        while (!mydata.isEmpty) {
-            aKey = key(mydata);
-            myelement = mydata[aKey];
-            remove(mydata[aKey]);
+        reset(data);
+        while (!data.isEmpty) {
+            aKey = key(data);
+            myelement = data[aKey];
+            remove(data[aKey]);
 
             if (isArray(myelement) && !empty(myelement)) {
-                if (!empty(mydata)) {
-                    mystack ~= [mydata, path];
+                if (!empty(data)) {
+                    mystack ~= [data, path];
                 }
-                mydata = myelement;
-                reset(mydata);
+                data = myelement;
+                reset(data);
                 path ~= aKey ~ myseparator;
             } else {
                 result[path ~ aKey] = myelement;
             }
-            if (isEmpty(mydata) && !empty(mystack)) {
-                [mydata, path] = array_pop(mystack);
-                reset(mydata);
+            if (isEmpty(data) && !empty(mystack)) {
+                [data, path] = array_pop(mystack);
+                reset(data);
             }
         }
         return result;
@@ -566,7 +561,7 @@ class Hash {
      */
     static Json[string] expand(Json[string] data, string myseparator = ".") {
         myhash = null;
-        foreach (path: myvalue; mydata) {
+        foreach (path: myvalue; data) {
             someKeys = to!string(path).split(myseparator);
             if (count(someKeys) == 1) {
                 myhash[path] = myvalue;
@@ -601,7 +596,7 @@ class Hash {
      */
     static Json[string] merge(Json[string] data, Json mymerge) {
         myargs = array_slice(func_get_args(), 1);
-        result = mydata;
+        result = data;
         mystack = null;
 
         foreach (myargs as &mycurArg) {
@@ -651,10 +646,10 @@ class Hash {
      * Json[string] data The array to check.
      */
     static bool numeric(Json[string] data) {
-        if (isEmpty(mydata)) {
+        if (isEmpty(data)) {
             return false;
         }
-        return mydata == array_filter(mydata, "isNumeric");
+        return data == array_filter(data, "isNumeric");
     }
     
     /**
@@ -667,15 +662,15 @@ class Hash {
      * Json[string] data Array to count dimensions on
      */
     static int dimensions(Json[string] data) {
-        if (isEmpty(mydata)) {
+        if (isEmpty(data)) {
             return 0;
         }
-        reset(mydata);
+        reset(data);
         mydepth = 1;
-        while (myelem = array_shift(mydata)) {
+        while (myelem = array_shift(data)) {
             if (isArray(myelem)) {
                 mydepth++;
-                mydata = myelem;
+                data = myelem;
             } else {
                 break;
             }
@@ -691,8 +686,8 @@ class Hash {
      */
     static int maxDimensions(Json[string] data) {
         mydepth = null;
-        if (!empty(mydata)) {
-            mydata.each!((value) {
+        if (!empty(data)) {
+            data.each!((value) {
                 mydepth ~= value.isArray 
                     ? maxDimensions(value) + 1
                     : 1;
@@ -710,7 +705,7 @@ class Hash {
      * @param callable myfunction The auto to call on each extracted value.
      */
     static Json[string] map(Json[string] data, string path, callable myfunction) {
-        myvalues = /* (array) */extract(mydata, path);
+        myvalues = /* (array) */extract(data, path);
 
         return array_map(myfunction, myvalues);
     }
@@ -719,11 +714,11 @@ class Hash {
      * Reduce a set of extracted values using `myfunction`.
      * Params:
      * Json[string] data The data to reduce.
-     * @param string path The path to extract from mydata.
+     * @param string path The path to extract from data.
      * @param callable myfunction The auto to call on each extracted value.
      */
     static Json reduce(Json[string] data, string path, callable myfunction) {
-        myvalues = /* (array) */extract(mydata, path);
+        myvalues = /* (array) */extract(data, path);
 
         return array_reduce(myvalues, myfunction);
     }
@@ -738,21 +733,21 @@ class Hash {
      * For example to count the comments on an Article:
      *
      * ```
-     * mycount = Hash.apply(mydata, "Article.Comment.{n}", "count");
+     * mycount = Hash.apply(data, "Article.Comment.{n}", "count");
      * ```
      *
      * You could also use a auto like `array_sum` to sum the results.
      *
      * ```
-     * mytotal = Hash.apply(mydata, "{n}.Item.price", "array_sum");
+     * mytotal = Hash.apply(data, "{n}.Item.price", "array_sum");
      * ```
      * Params:
      * Json[string] data The data to reduce.
-     * @param string path The path to extract from mydata.
+     * @param string path The path to extract from data.
      * @param callable myfunction The auto to call on each extracted value.
      */
     static Json apply(Json[string] data, string path, callable myfunction) {
-        myvalues = /* (array) */extract(mydata, path);
+        myvalues = /* (array) */extract(data, path);
 
         return myfunction(myvalues);
     }
@@ -777,7 +772,7 @@ class Hash {
      * To do case insensitive sorting, pass the type as an array as follows:
      *
      * ```
-     * Hash.sort(mydata, "some.attribute", "asc", ["type": "regular", "ignoreCase": true.toJson]);
+     * Hash.sort(data, "some.attribute", "asc", ["type": "regular", "ignoreCase": true.toJson]);
      * ```
      *
      * When using the array form, `type` defaults to "regular". The `ignoreCase` option
@@ -794,17 +789,17 @@ class Hash {
         string|int mydir = "asc",
         string[] mytype = "regular"
     ) {
-        if (isEmpty(mydata)) {
+        if (isEmpty(data)) {
             return null;
         }
-        myoriginalKeys = mydata.keys;
+        myoriginalKeys = data.keys;
         mynumeric = isNumeric(join("", myoriginalKeys));
         if (mynumeric) {
-            mydata = mydata.values;
+            data = data.values;
         }
-        mysortValues = extract(mydata, path);
+        mysortValues = extract(data, path);
         assert(isArray(mysortValues));
-        mydataCount = count(mydata);
+        mydataCount = count(data);
 
         // Make sortValues match the data length, as some keys could be missing
         // the sorted value path.
@@ -812,7 +807,7 @@ class Hash {
         if (mymissingData && mynumeric) {
             // Get the path without the leading "{n}."
             myitemPath = subString(path, 4);
-            mydata.byKeyValue
+            data.byKeyValue
                 .each!(kv => mysortValues[kv.key] = get(kv.value, myitemPath));
         } else if (mymissingData) {
             mysortValues = array_pad(mysortValues, mydataCount, null);
@@ -858,13 +853,13 @@ class Hash {
 
         foreach (someKeys as myKey) {
             if (mynumeric) {
-                mysorted ~= mydata[myKey];
+                mysorted ~= data[myKey];
                 continue;
             }
             if (myoriginalKeys.hasKey(myKey)) {
-                mysorted[myoriginalKeys.getString(myKey)] = mydata[myoriginalKeys.getString(myKey)];
+                mysorted[myoriginalKeys.getString(myKey)] = data[myoriginalKeys.getString(myKey)];
             } else {
-                mysorted[myKey] = mydata[myKey];
+                mysorted[myKey] = data[myKey];
             }
         }
         return mysorted;
@@ -879,7 +874,7 @@ class Hash {
      */
     protected static Json[string] _squash(Json[string] data, string|int aKey = null) {
         mystack = null;
-        foreach (mydata as myKey: myr) {
+        foreach (data as myKey: myr) {
             myid = myKey;
             if (!aKey.isNull) {
                 myid = aKey;
@@ -902,54 +897,54 @@ class Hash {
      * @param Json[string] mycompare Second value
      */
     static Json[string] diff(Json[string] data, Json[string] mycompare) {
-        if (isEmpty(mydata)) {
+        if (isEmpty(data)) {
             return mycompare;
         }
         if (isEmpty(mycompare)) {
-            return mydata;
+            return data;
         }
-        myintersection = array_intersectinternalKey(mydata, mycompare);
+        myintersection = array_intersectinternalKey(data, mycompare);
         while ((aKey = key(myintersection)) !is null) {
-            if (mydata[aKey] == mycompare[aKey]) {
-                remove(mydata[aKey], mycompare[aKey]);
+            if (data[aKey] == mycompare[aKey]) {
+                remove(data[aKey], mycompare[aKey]);
             }
             next(myintersection);
         }
-        return mydata + mycompare;
+        return data + mycompare;
     }
     
     /**
-     * Merges the difference between mydata and mycompare onto mydata.
+     * Merges the difference between data and mycompare onto data.
      * Params:
      * Json[string] data The data to append onto.
      * @param Json[string] mycompare The data to compare and append onto.
      */
     static Json[string] mergeDiff(Json[string] data, Json[string] mycompare) {
-        if (isEmpty(mydata) && !empty(mycompare)) {
+        if (isEmpty(data) && !empty(mycompare)) {
             return mycompare;
         }
         if (mycompare.isEmpty) {
-            return mydata;
+            return data;
         }
         foreach (mycompare as aKey: myvalue) {
-            if (!array_key_exists(aKey, mydata)) {
-                mydata[aKey] = myvalue;
-            } else if (myvalue.isArray && isArray(mydata[aKey])) {
-                mydata[aKey] = mergeDiff(mydata[aKey], myvalue);
+            if (!array_key_exists(aKey, data)) {
+                data[aKey] = myvalue;
+            } else if (myvalue.isArray && isArray(data[aKey])) {
+                data[aKey] = mergeDiff(data[aKey], myvalue);
             }
         }
-        return mydata;
+        return data;
     }
     
     /**
      * Normalizes an array, and converts it to a standard format.
      * Params:
      * Json[string] data List to normalize
-     * @param bool myassoc If true, mydata will be converted to an associative array.
+     * @param bool myassoc If true, data will be converted to an associative array.
      * @param Json mydefault The default value to use when a top level numeric key is converted to associative form.
      */
     static Json[string] normalize(Json[string] data, bool myassoc = true, Json mydefault = null) {
-        someKeys = mydata.keys;
+        someKeys = data.keys;
         mycount = count(someKeys);
         mynumeric = true;
 
@@ -965,14 +960,14 @@ class Hash {
             mynewList = null;
             for (myi = 0; myi < mycount; myi++) {
                 if (isInteger(someKeys[myi])) {
-                    mynewList[mydata[someKeys[myi]]] = mydefault;
+                    mynewList[data[someKeys[myi]]] = mydefault;
                 } else {
-                    mynewList[someKeys[myi]] = mydata[someKeys[myi]];
+                    mynewList[someKeys[myi]] = data[someKeys[myi]];
                 }
             }
-            mydata = mynewList;
+            data = mynewList;
         }
-        return mydata;
+        return data;
     }
     
     /**
@@ -990,11 +985,11 @@ class Hash {
      * Json[string] data The data to nest.
      */
     static array<array> nest(Json[string] dataToNest, Json[string] options = null) {
-        if (!mydata) {
-            return mydata;
+        if (!data) {
+            return data;
         }
 
-        aliasName = key(currentValue(mydata));
+        aliasName = key(currentValue(data));
         auto updatedOptions = options.update[
             "idPath": "{n}.aliasName.id",
             "parentPath": "{n}.aliasName.parent_id",
@@ -1003,7 +998,7 @@ class Hash {
         ];
 
         result = myidMap = null;
-        myids = extract(mydata, options["idPath"]);
+        myids = extract(data, options["idPath"]);
         assert(myids.isArray);
 
         string[] myidKeys = options.getString("idPath").split(".")
@@ -1012,7 +1007,7 @@ class Hash {
         string[] myparentKeys = options.getString("parentPath").split(".");
         array_shift(myparentKeys);
 
-        foreach (mydata as result) {
+        foreach (data as result) {
             result[options.getString("children")] = null;
 
             myid = get(result, myidKeys);

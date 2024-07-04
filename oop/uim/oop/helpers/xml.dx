@@ -296,8 +296,14 @@ class Xml {
                                     if (isNumeric(myValue.keys.join(""))) {
                                         // List
                                         myValue.each!((item) {
-                                            auto itemData = compact("dom", "node", "key", "format");
-                                            itemData["value"] = item; _createChild(itemData);
+                                            auto itemData = [
+                                                "dom": dom, 
+                                                "node": node, 
+                                                "key": key, 
+                                                "format": format].toJsonMap;
+
+                                            itemData.set("value", item); 
+                                            _createChild(itemData);
                                         });
                                     } else {
                                         // Struct
@@ -310,12 +316,7 @@ class Xml {
                         }
                     }
 
-                    /**
-     * Helper to _fromArray(). It will create children of arrays
-     * Params:
-     * Json[string] data Array with information to create children
-     * @psalm-param {dom: \DOMDocument, node: \DOMDocument|\DOMElement, key: string, format: string, value: Json } data
-     */
+                    // Helper to _fromArray(). It will create children of arrays
                     protected static void _createChild(Json[string] data) {
                         data += [
                             "value": Json(null),
@@ -363,12 +364,8 @@ class Xml {
                         dataNode.appendChild(mychild);
                     }
 
-                    /**
-     * Returns this XML structure as an array.
-     * Params:
-     * \SimpleXMLElement|\DOMNode myobj SimpleXMLElement, DOMNode instance
-     */
-                    static Json[string] toArray(SimpleXMLElement | DOMNode myobj) {
+                    // Returns this XML structure as an array.
+                    static Json[string] toArray(DSimpleXMLElement/* | DOMNode myobj*/) {
                         if (cast(DOMNode) myobj) {
                             myobj = simplexml_import_dom(myobj);
                         }

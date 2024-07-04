@@ -56,24 +56,24 @@ class DMarshaller {
                 continue;
             }
             
-            auto myassoc = _table.getAssociation(to!string(aKey));
+            auto association = _table.getAssociation(to!string(aKey));
             if (options.hasKey("forceNew"])) {
                 mynested["forceNew"] = options.get("forceNew"];
             }
             if (options.hasKey("isMerge"])) {
-                mycallback = auto(myvalue, IORMEntity myentity) use(myassoc, mynested) {
-                    options = mynested ~ ["associated": Json.emptyArray, "association": myassoc];
+                mycallback = auto(myvalue, IORMEntity myentity) use(association, mynested) {
+                    options = mynested ~ ["associated": Json.emptyArray, "association": association];
 
-                    return _mergeAssociation(myentity.get(myassoc.getProperty()), myassoc, myvalue, options);
+                    return _mergeAssociation(myentity.get(association.getProperty()), association, myvalue, options);
                 };
             } else {
-                mycallback = auto(myvalue, myentity) use(myassoc, mynested) {
+                mycallback = auto(myvalue, myentity) use(association, mynested) {
                     options = mynested ~ ["associated": Json.emptyArray];
 
-                    return _marshalAssociation(myassoc, myvalue, options);
+                    return _marshalAssociation(association, myvalue, options);
                 };
             }
-            mymap[myassoc.getProperty()] = mycallback;
+            mymap[association.getProperty()] = mycallback;
         }
         mybehaviors = _table.behaviors();
         foreach (myname; mybehaviors.loaded()) {
@@ -188,14 +188,16 @@ class DMarshaller {
         protected Json[string] _prepareDataAndOptions(Json[string] data, Json[string] options = null) {
             auto updatedOptions = options.update["validate": true.toJson];
 
-            mytableName = _table.aliasName();
+            auto mytableName = _table.aliasName();
             if (mydata.hasKey(mytableName) && isArray(mydata.hasKey(mytableName))) {
                 mydata += mydata[mytableName];
                 remove(mydata[mytableName]);
             }
-            mydata = new Json[string](mydata);
+            auto mydata = new Json[string](mydata);
             options = new Json[string](options);
-            _table.dispatchEvent("Model.beforeMarshal", compact("data", "options"));
+            _table.dispatchEvent("Model.beforeMarshal", [
+                "data": data, 
+                "options": options].toJsonMap);
 
             return [(array) mydata, (array) options];
         }
@@ -203,18 +205,17 @@ class DMarshaller {
         /**
      * Create a new sub-marshaller and marshal the associated data.
      * Params:
-     * \ORM\Association myassoc The association to marshall
+     * \ORM\Association association The association to marshall
      * @param Json aValue The data to hydrate. If not an array, this method will return null.
-     * @param Json[string] options List of options.
      */
-        protected IORMEntity[] _marshalAssociation(DORMAssociation myassoc, Json aValue, Json[string] options = null) {
+        protected IORMEntity[] _marshalAssociation(DORMAssociation association, Json aValue, Json[string] options = null) {
             if (!isArray(myvalue)) {
                 return null;
             }
-            auto mytargetTable = myassoc.getTarget();
+            auto mytargetTable = association.getTarget();
             auto mymarshaller = mytargetTable.marshaller();
             auto mytypes = [Association.ONE_TO_ONE, Association.MANY_TO_ONE];
-            auto mytype = myassoc.type();
+            auto mytype = association.type();
             if (isIn(mytype, mytypes, true)) {
                 return mymarshaller.one(myvalue, options);
             }
@@ -223,16 +224,16 @@ class DMarshaller {
                 myonlyIds = array_key_exists("onlyIds", options) && options["onlyIds"];
 
                 if (myhasIds && isArray(myvalue["_ids"])) {
-                    return _loadAssociatedByIds(myassoc, myvalue["_ids"]);
+                    return _loadAssociatedByIds(association, myvalue["_ids"]);
                 }
                 if (myhasIds || myonlyIds) {
                     return null;
                 }
             }
             if (mytype == Association.MANY_TO_MANY) {
-                assert(cast(BelongsToMany) myassoc);
+                assert(cast(BelongsToMany) association);
 
-                return mymarshaller._belongsToMany(myassoc, myvalue, options);
+                return mymarshaller._belongsToMany(association, myvalue, options);
             }
             return mymarshaller.many(myvalue, options);
         }
@@ -271,21 +272,17 @@ class DMarshaller {
      *
      * Builds the related entities and handles the special casing
      * for junction table entities.
-     * Params:
-     * \ORM\Association\BelongsToMany myassoc The association to marshal.
-     * @param Json[string] data The data to convert into entities.
-     * @param Json[string] options List of options.
      */
-        protected IORMEntity[] _belongsToMany(BelongsToMany myassoc, Json[string] data, Json[string] options = null) {
+        protected IORMEntity[] _belongsToMany(BelongsToMany association, Json[string] data, Json[string] options = null) {
             auto myassociated = options.getArray("associated");
             auto myforceNew = options.get("forceNew", false);
             auto mydata = mydata.values;
-            auto mytarget = myassoc.getTarget();
+            auto mytarget = association.getTarget();
             auto myprimaryKey = array_flip(mytarget.primaryKeys());
             auto myrecords = myconditions = null;
             auto myprimaryCount = count(myprimaryKey);
 
-            foreach (index : myrow; mydata) {
+            foreach (index, myrow; mydata) {
                 if (!isArray(myrow)) {
                     continue;
                 }
@@ -330,7 +327,7 @@ class DMarshaller {
                     }
                 }
             }
-            myjointMarshaller = myassoc.junction().marshaller();
+            myjointMarshaller = association.junction().marshaller();
 
             mynested = null;
             if (isSet(myassociated.hasKey()"_joinData"])) {
@@ -349,14 +346,14 @@ class DMarshaller {
         /**
      * Loads a list of belongs to many from ids.
      * Params:
-     * \ORM\Association myassoc The association class for the belongsToMany association.
+     * \ORM\Association association The association class for the belongsToMany association.
      * @param Json[string] myids The list of ids to load.
      */
-        protected IORMEntity[] _loadAssociatedByIds(Association myassoc, Json[string] myids) {
+        protected IORMEntity[] _loadAssociatedByIds(Association association, Json[string] myids) {
             if (isEmpty(myids)) {
                 return null;
             }
-            auto mytarget = myassoc.getTarget();
+            auto mytarget = association.getTarget();
             auto myprimaryKey = (array) mytarget.primaryKeys();
             auto mymulti = count(myprimaryKey) > 1;
             auto myprimaryKey = array_map([mytarget, "aliasField"], myprimaryKey);
@@ -598,26 +595,26 @@ class DMarshaller {
      * Creates a new sub-marshaller and merges the associated data.
      * Params:
      * \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity>|null myoriginal The original entity
-     * @param \ORM\Association myassoc The association to merge
+     * @param \ORM\Association association The association to merge
      * @param Json aValue The array of data to hydrate. If not an array, this method will return null.
      * @param Json[string] options List of options.
      */
         protected IORMEntity[] _mergeAssociation(
             IORMEntity | array | null myoriginal,
-            Association myassoc,
+            Association association,
             Json aValue,
             Json[string] options
         ) {
             if (!myoriginal) {
-                return _marshalAssociation(myassoc, myvalue, options);
+                return _marshalAssociation(association, myvalue, options);
             }
             if (!isArray(myvalue)) {
                 return null;
             }
-            auto mytargetTable = myassoc.getTarget();
+            auto mytargetTable = association.getTarget();
             auto mymarshaller = mytargetTable.marshaller();
             auto mytypes = [Association.ONE_TO_ONE, Association.MANY_TO_ONE];
-            auto mytype = myassoc.type();
+            auto mytype = association.type();
             if (isIn(mytype, mytypes, true)) {
                 /** @var \UIM\Datasource\IORMEntity myoriginal */
                 return mymarshaller.merge(myoriginal, myvalue, options);
@@ -625,15 +622,15 @@ class DMarshaller {
             if (mytype == Association.MANY_TO_MANY) {
                 /**
              * @var array<\UIM\Datasource\IORMEntity> myoriginal
-             * @var \ORM\Association\BelongsToMany myassoc
+             * @var \ORM\Association\BelongsToMany association
              */
-                return mymarshaller._mergeBelongsToMany(myoriginal, myassoc, myvalue, options);
+                return mymarshaller._mergeBelongsToMany(myoriginal, association, myvalue, options);
             }
             if (mytype == Association.ONE_TO_MANY) {
                 myhasIds = array_key_exists("_ids", myvalue);
                 myonlyIds = array_key_exists("onlyIds", options) && options["onlyIds"];
                 if (myhasIds && isArray(myvalue["_ids"])) {
-                    return _loadAssociatedByIds(myassoc, myvalue["_ids"]);
+                    return _loadAssociatedByIds(association, myvalue["_ids"]);
                 }
                 if (myhasIds || myonlyIds) {
                     return null;
@@ -650,7 +647,7 @@ class DMarshaller {
      * association.
      * Params:
      * myoriginal = The original entities list.
-     * @param \ORM\Association\BelongsToMany myassoc The association to marshall
+     * @param \ORM\Association\BelongsToMany association The association to marshall
      * @param Json[string] myvalue The data to hydrate
      * @param Json[string] options List of options.
      */
@@ -675,11 +672,11 @@ class DMarshaller {
      * Merge the special _joinData property into the entity set.
      * Params:
      * array<\UIM\Datasource\IORMEntity> myoriginal The original entities list.
-     * @param \ORM\Association\BelongsToMany myassoc The association to marshall
+     * @param \ORM\Association\BelongsToMany association The association to marshall
      * @param Json[string] myvalue The data to hydrate
      * @param Json[string] options List of options.
      */
-        protected IORMEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany myassoc, Json[string] myvalue, Json[string] options = null) {
+        protected IORMEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany association, Json[string] myvalue, Json[string] options = null) {
             auto myassociated = options.getArray("associated");
             Json[string] myextra = null;
             foreach (myentity; myoriginal) {
@@ -691,7 +688,7 @@ class DMarshaller {
                     myextra[spl_object_hash(myentity)] = myjoinData;
                 }
             }
-            auto myjoint = myassoc.junction();
+            auto myjoint = association.junction();
             auto mymarshaller = myjoint.marshaller();
 
             auto mynested = null;

@@ -141,12 +141,9 @@ class UrlHelper : DHelper {
      * Adds a timestamp to a file based resource based on the value of `Asset.timestamp` in
      * Configure. If Asset.timestamp is true and debug is true, or Asset.timestamp == "force"
      * a timestamp will be added.
-     * Params:
-     * string mypath The file path to timestamp, the path must be inside `App.wwwRoot` in Configure.
-     * @param string mytimestamp If set will overrule the value of `Asset.timestamp` in Configure.
      */
-    string assetTimestamp(string mypath, string mytimestamp = null) {
-        return htmlAttributeEscape(_assetUrlclassname.assetTimestamp(mypath, mytimestamp));
+    string assetTimestamp(string path, string timestamp = null) {
+        return htmlAttributeEscape(_assetUrlclassname.assetTimestamp(path, timestamp));
     }
     
     /**

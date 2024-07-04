@@ -370,11 +370,7 @@ static string contentType() {
         return _theme;
     }
 
-    /**
-     * Set the view theme to use.
-     * Params:
-     * string mytheme Theme name.
-     */
+    // Set the view theme to use.
     void setTheme(string themeName) {
         _theme = themeName;
     }
@@ -390,8 +386,6 @@ static string contentType() {
     /**
      * Set the name of the template file to render. The name specified is the
      * filename in `templates/<SubFolder>/` without the .d extension.
-     * Params:
-     * string views Template file name to set.
      */
     void setTemplate(string views) {
         _template = views;
@@ -410,8 +404,6 @@ static string contentType() {
      * Set the name of the layout file to render the template inside of.
      * The name specified is the filename of the layout in `templates/layout/`
      * without the .d extension.
-     * Params:
-     * string views Layout file name to set.
      */
     auto setLayout(string fileName) {
         _layout = fileName;
@@ -430,17 +422,17 @@ static string contentType() {
      * is not found in the plugin, the normal view path cascade will be searched.
      * @param Json[string] data Array of data to be made available to the rendered view (i.e. the Element)
      */
-    string element(string templatefilename, Json[string] data= null, Json[string] options  = null) {
+    string element(string templatefilename, Json[string] data = null, Json[string] options  = null) {
         auto updatedOptions = options.update["callbacks": false.toJson, "cache": Json(null), "plugin": Json(null), "ignoreMissing": false.toJson];
-        if (options.hasKey("cache"])) {
+        if (options.hasKey("cache")) {
             options["cache"] = _elementCache(
                 templatefilename,
-                mydata,
+                data,
                 array_diffinternalKey(options, ["callbacks": false.toJson, "plugin": Json(null), "ignoreMissing": Json(null)])
            );
         }
 
-        bool _pluginCheck = options.get("plugin"] == true;
+        bool _pluginCheck = options.get("plugin") == true;
         auto filepath = _getElementFileName(templatefilename, _pluginCheck);
         if (filepath && options["cache"]) {
             return _cache(void () use (filepath, mydata, options) {

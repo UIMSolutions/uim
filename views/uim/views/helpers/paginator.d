@@ -361,19 +361,18 @@ class DPaginatorHelper : DHelper {
      * - `fullBase`: If true, the full base URL will be prepended to the result
      * Params:
      * Json[string] options Pagination options.
-     * @param Json[string] myurl URL.
      * @param Json[string] myurlOptions Array of options
      */
     string generateUrl(
         Json[string] paginationOptions = null,
-        array myurl = [],
+        Json[string] url = [],
         Json[string] myurlOptions = null
     ) {
         myurlOptions.merge([
                 "escape": true.toJson,
                 "fullBase": false.toJson,
             ]);
-        return _Url.build(this.generateUrlParams(paginationOptions, myurl), myurlOptions);
+        return _Url.build(this.generateUrlParams(paginationOptions, url), myurlOptions);
     }
 
     /**

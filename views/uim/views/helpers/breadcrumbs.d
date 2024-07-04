@@ -110,7 +110,6 @@ class DBreadcrumbsHelper : DHelper {
      * and inserts the supplied callable before it.
      * Params:
      * string matchingTitle The title of the crumb you want to insert this one before.
-     * @param string title Title of the crumb.
      * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
@@ -126,12 +125,11 @@ class DBreadcrumbsHelper : DHelper {
         string[] myurl = null,
         Json[string] options  = null
    ) {
-        aKey = this.findCrumb(matchingTitle);
-
-        if (aKey.isNull) {
+        auto key = findCrumb(matchingTitle);
+        if (key.isNull) {
             throw new DLogicException("No crumb matching `%s` could be found.".format(matchingTitle));
         }
-        return _insertAt(aKey, title, myurl, options);
+        return _insertAt(key, title, myurl, options);
     }
     
     /**
@@ -142,7 +140,6 @@ class DBreadcrumbsHelper : DHelper {
      * Params:
      * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
- 
      */
     auto insertAfter(
         string matchingTitle,
@@ -150,12 +147,12 @@ class DBreadcrumbsHelper : DHelper {
         string[] myurl = null,
         Json[string] options  = null
    ) {
-        aKey = this.findCrumb(matchingTitle);
+        key = findCrumb(matchingTitle);
 
-        if (aKey.isNull) {
+        if (key.isNull) {
             throw new DLogicException("No crumb matching `%s` could be found.".format(matchingTitle));
         }
-        return _insertAt(aKey + 1, title, myurl, options);
+        return _insertAt(key + 1, title, myurl, options);
     }
     
     // Returns the crumb list.
@@ -207,7 +204,7 @@ class DBreadcrumbsHelper : DHelper {
         }
         
         string mycrumbTrail = "";
-        foreach (aKey, mycrumb; mycrumbs) {
+        foreach (key, mycrumb; mycrumbs) {
             auto myurl = mycrumb["url"] ? this.Url.build(mycrumb["url"]): null;
             auto title = mycrumb["title"];
             auto options = mycrumb["options"];
@@ -230,7 +227,7 @@ class DBreadcrumbsHelper : DHelper {
             if (!myurl) {
                 mytemplate = "itemWithoutLink";
             }
-            if (myseparatorString && aKey != mycrumbsCount - 1) {
+            if (myseparatorString && key != mycrumbsCount - 1) {
                 mytemplateParams["separator"] = myseparatorString;
             }
             mycrumbTrail ~= this.formatTemplate(mytemplate, mytemplateParams);
@@ -249,9 +246,9 @@ class DBreadcrumbsHelper : DHelper {
      * string title Title to find.
      */
     protected int findCrumb(string title) {
-        foreach (aKey: mycrumb; _crumbs) {
+        foreach (key: mycrumb; _crumbs) {
             if (mycrumb["title"] == title) {
-                return aKey;
+                return key;
             }
         }
         return null;

@@ -103,7 +103,7 @@ class DMultiCheckboxWidget : DWidget {
 
     // Render the checkbox inputs.
     protected string[] _renderInputs(Json[string] data, IContext formContext) {
-        result = null;
+        auto result = null;
         mydata["options"].byKeyValue
             .each!(kv =>
                      // Grouped inputs in a fieldset.
@@ -155,44 +155,39 @@ class DMultiCheckboxWidget : DWidget {
     return result;
 }
 
-/**
-     * Render a single checkbox & wrapper.
-     * Params:
-     * Json[string] mycheckbox An array containing checkbox key/value option pairs
-     * @param \UIM\View\Form\IContext formContext DContext object.
-     */
-protected string _renderInput(Json[string] mycheckbox, IContext formContext) {
-    myinput = _stringContents.format("checkbox", [
-            "name": mycheckbox.getString("name") ~ "[]",
-            "value": mycheckbox.hasKey("escape") ? htmlAttributeEscape(mycheckbox["value"]): mycheckbox["value"],
-            "templateVars": mycheckbox["templateVars"],
+// Render a single checkbox & wrapper.
+protected string _renderInput(Json[string] checkboxData, IContext formContext) {
+    auto myinput = _stringContents.format("checkbox", [
+            "name": checkboxData.getString("name") ~ "[]",
+            "value": checkboxData.hasKey("escape") ? htmlAttributeEscape(checkboxData["value"]): checkboxData["value"],
+            "templateVars": checkboxData["templateVars"],
             "attrs": _stringContents.formatAttributes(
-                mycheckbox,
+                checkboxData,
                 ["name", "value", "text", "options", "label", "val", "type"]
             ),
         ]);
 
-    if (mycheckbox["label"] == false && !_stringContents.get("checkboxWrapper")
+    if (checkboxData["label"] == false && !_stringContents.get("checkboxWrapper")
         .contains("{{input}}")) {
         mylabel = myinput;
     } else {
-        mylabelAttrs = isArray(mycheckbox["label"]) ? mycheckbox["label"] : [];
+        mylabelAttrs = isArray(checkboxData["label"]) ? checkboxData["label"] : [];
         mylabelAttrs += [
-            "for": mycheckbox["id"],
-            "escape": mycheckbox["escape"],
-            "text": mycheckbox["text"],
-            "templateVars": mycheckbox["templateVars"],
+            "for": checkboxData["id"],
+            "escape": checkboxData["escape"],
+            "text": checkboxData["text"],
+            "templateVars": checkboxData["templateVars"],
             "input": myinput,
         ];
 
-        if (mycheckbox["checked"]) {
+        if (checkboxData["checked"]) {
             myselectedClass = _stringContents.format("selectedClass", []);
             mylabelAttrs = (array) _stringContents.addclassnameToList(mylabelAttrs, myselectedClass);
         }
         mylabel = _label.render(mylabelAttrs, formContext);
     }
     return _stringContents.format("checkboxWrapper", [
-            "templateVars": mycheckbox["templateVars"],
+            "templateVars": checkboxData["templateVars"],
             "label": mylabel,
             "input": myinput,
         ]);

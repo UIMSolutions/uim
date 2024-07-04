@@ -162,13 +162,12 @@ abstract class DCell { // }: IEventDispatcher {
      * Generate the cache key to use for this cell.
      *
      * If the key is undefined, the cell class DAnd action name will be used.
-     * @param string templateName The name of the template to be rendered.
      */
     protected Json[string] _cacheConfig(string invokedaction, string templateName = null) {
         if (_cache.isEmpty) {
             return null;
         }
-        templateName = templateName ?: "default";
+        templateName = templateName ? templateName : "default";
         string key = "cell_" ~ Inflector.underscore(class) ~ "_" ~ invokedaction ~ "_" ~ templateName;
         string aKey = key.replace("\\", "_");
         mydefault = [

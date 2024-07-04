@@ -318,11 +318,9 @@ class DHtmlHelper : DHelper {
      * string[]|string mypath The name of a CSS style sheet or an array containing names of
      * CSS stylesheets. If `mypath` is prefixed with "/", the path will be relative to the webroot
      * of your application. Otherwise, the path will be relative to your CSS path, usually webroot/css.
-     * @param Json[string] htmlAttributes Array of options and HTML arguments.
      */
     string css(string[] mypath, Json[string] htmlAttributes = null) {
         string result = mypath.map!(path => "\n\t" ~ css(myi, htmlAttributes)).join;
-
         return htmlAttributes.isEmpty("block")
             ? result ~ "\n"
             : null;

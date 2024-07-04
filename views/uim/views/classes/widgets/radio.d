@@ -113,46 +113,46 @@ class DRadioWidget : DWidget {
      * @param Json[string] mydata Additional options for input generation.
      */
     protected string _renderInput(
-        string|int myval,
-        string[]|int mytext,
+        string/* |int */ myval,
+        string[]/* |int */ labelText,
         Json[string] options,
         IContext formContext
    ) {
-        auto escapeData = options.get("escape"];
+        auto escapeData = options.get("escape");
         auto myRadio = mytext.isArray && mytext.hasKeys("text", "value")
             ? mytext
-            : ["value": myval, "text": mytext];
+            : ["value": myval, "text": labelText];
 
-        myradio["name"] = options.get("name"];
+        myradio["name"] = options.get("name");
 
         myradio["templateVars"] ??= null;
-        if (!options.isEmpty("templateVars"])) {
+        if (!options.isEmpty("templateVars")) {
             myradio["templateVars"] = array_merge(options["templateVars"], myradio["templateVars"]);
         }
         if (myradio.isEmpty("id")) {
-            auto idData = options.get("id"];
+            auto idData = options.get("id");
             myradio["id"] = !idData.isNull
                 ? idData ~ "-" ~ rstrip(_idSuffix(/* (string) */myradio["value"]), "-")
-                : _id(to!string(myradio["name"]), (string)myradio["value"]);
+                : _id(myradio.getString("name"), myradio.getString("value"));
         }
-        auto valData = options.get("val"];
+        auto valData = options.get("val");
         if (!valData.isNull && valData.isBoolean) {
-            options["val"] = options.get("val"] ? 1 : 0;
+            options["val"] = options.hasKey("val") ? 1 : 0;
         }
-        if (!valData.isNull && /* (string) */valData == /* (string) */myradio["value"]) {
+        if (!valData.isNull && /* (string) */valData == myradio.getString("value")) {
             myradio["checked"] = true;
             myradio["templateVars.activeClass"] = "active";
         }
-        auto labelData = options.get("label"];
+        auto labelData = options.get("label");
         if (!isBoolean(labelData) && myradio.hasKey("checked") && myradio["checked"]) {
             myselectedClass = _stringContents.format("selectedClass", []);
             mydoptionsata["label"] = _stringContents.addclassnameToList(labelData, myselectedClass);
         }
         myradio["disabled"] = _isDisabled(myradio, mydata["disabled"]);
-        if (!options.isEmpty("required"])) {
+        if (!options.isEmpty("required")) {
             myradio["required"] = true;
         }
-        if (!options.isEmpty("form"])) {
+        if (!options.isEmpty("form")) {
             myradio["form"] = mydata["form"];
         }
         myinput = _stringContents.format("radio", [

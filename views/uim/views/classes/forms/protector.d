@@ -72,11 +72,10 @@ class DFormProtector {
      * Params:
      * string[]|string fieldName Reference to field to be secured. Can be dot
      * separated string to indicate nesting or array of fieldname parts.
-     * @param bool lock Whether this field should be part of the validation
+     * @param bool shouldLock Whether this field should be part of the validation
      * or excluded as part of the unlockedFields. Default `true`.
-     * @param Json aValue Field value, if value should not be tampered with.
      */
-    auto addField(string[] afield, bool lock = true, Json aValue = null) {
+    auto addField(string[] afield, bool shouldLock = true, Json value = null) {
         if (isString(field)) {
             field = getFieldNameArray(field);
         }
@@ -92,10 +91,10 @@ class DFormProtector {
         field = field.join(".");
         field = to!string(preg_replace("/(\.\d+)+/", "", field));
 
-        if (lock) {
+        if (shouldLock) {
             if (!isIn(field, this.fields, true)) {
-                if (aValue !is null) {
-                    _fields[field] = aValue;
+                if (value !is null) {
+                    _fields[field] = value;
 
                     return this;
                 }

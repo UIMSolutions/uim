@@ -689,13 +689,6 @@ class DFormHelper : DHelper {
      * Params:
      * array fieldNames An array of customizations for the fields that will be
      * generated. This array allows you to set custom types, labels, or other options.
-     * @param Json[string] options Options array. Valid keys are:
-     *
-     * - `fieldset` Set to false to disable the fieldset. You can also pass an array of params to be
-     *  applied as HTML attributes to the fieldset tag. If you pass an empty array, the fieldset will
-     *  be enabled
-     * - `legend` Set to false to disable the legend for the generated control set. Or supply a string
-     *  to customize the legend text.
      */
     string allControls(Json[string] fieldNames = [], Json[string] options  = null) {
         auto mycontext = _getContext();

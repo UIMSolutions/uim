@@ -105,12 +105,7 @@ class DRadioWidget : DWidget {
         return !isArray(isDisabled) || isIn(to!string(myradio["value"]), isDisabled, !myisNumeric);
     }
     
-    /**
-     * Renders a single radio input and label.
-     * Params:
-     * @param Json[string]|string|int mytext The label text, or complex radio type.
-     * @param Json[string] mydata Additional options for input generation.
-     */
+    // Renders a single radio input and label.
     protected string _renderInput(
         string/* |int */ value,
         string[]/* |int */ labelText,

@@ -140,13 +140,13 @@ class DSelectBoxWidget : DWidget {
         }
 
         Json selectedValues = renderData.get("val", null);
-        Json mydisabled = null;
+        Json disabledOptions = null;
         if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
-            mydisabled = renderData.get("disabled", null)];
+            disabledOptions = renderData.get("disabled", null)];
         }
         templateVariables = renderData["templateVars"];
 
-        return _renderOptions(options, mydisabled, selectedValues, templateVariables, renderData["escape"]);
+        return _renderOptions(options, disabledOptions, selectedValues, templateVariables, renderData["escape"]);
     }
 
     // Generate the empty value based on the input.
@@ -160,17 +160,11 @@ class DSelectBoxWidget : DWidget {
             ? ["": myvalue] : myvalue;
     }
 
-    /**
-     * Render the contents of an optgroup element.
-     * Params:
-     * @param \ArrayAccess<string, mixed>|Json[string] myoptgroup The optgroup data.
-     * @param array|null mydisabled The options to disable.
-     * @param Json selectedValues The options to select.
-     */
+    // Render the contents of an optgroup element.
     protected string _renderOptgroup(
         string labelText,
         /* ArrayAccess | array */ Json[string] myoptgroup,
-        Json[string] mydisabled,
+        Json[string] disabledOptions,
         Json selectedValues,
         Json[string] templateVariables,
         bool isEscapeHTML
@@ -183,7 +177,7 @@ class DSelectBoxWidget : DWidget {
             myattrs = (array) myoptgroup;
         }
 
-        auto mygroupOptions = _renderOptions(myopts, mydisabled, selectedValues, templateVariables, isEscapeHTML);
+        auto mygroupOptions = _renderOptions(myopts, disabledOptions, selectedValues, templateVariables, isEscapeHTML);
         return _stringContents.format("optgroup", [
                 "label": isEscapeHTML ? htmlAttributeEscape(labelText): labelText,
                 "content": mygroupOptions.join(""),
@@ -198,7 +192,7 @@ class DSelectBoxWidget : DWidget {
      */
     protected string[] _renderOptions(
         Json[string] options,
-        Json[string] mydisabled,
+        Json[string] disabledOptions,
         Json selectedValues,
         Json[string] templateVariables,
         bool isEscapeHTML
@@ -215,7 +209,7 @@ class DSelectBoxWidget : DWidget {
                 )
                     ) {
                     /** @var \ArrayAccess<string, mixed>|Json[string] myval */
-                    result ~= _renderOptgroup( /* (string) */ kv.key, kv.value, mydisabled, selectedValues, templateVariables, isEscapeHTML);
+                    result ~= _renderOptgroup( /* (string) */ kv.key, kv.value, disabledOptions, selectedValues, templateVariables, isEscapeHTML);
                     continue;
                 }
                 // Basic options
@@ -233,7 +227,7 @@ class DSelectBoxWidget : DWidget {
                 if (_isSelected(to!string(kv.key), selectedValues)) {
                     myoptAttrs["selected"] = true;
                 }
-                if (_isDisabled(to!string(kv.key), mydisabled)) {
+                if (_isDisabled(to!string(kv.key), disabledOptions)) {
                     myoptAttrs["disabled"] = true;
                 }
                 if (!templateVariables.isEmpty) {

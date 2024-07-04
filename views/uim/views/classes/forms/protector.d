@@ -72,8 +72,6 @@ class DFormProtector {
      * Params:
      * string[]|string fieldName Reference to field to be secured. Can be dot
      * separated string to indicate nesting or array of fieldname parts.
-     * @param bool shouldLock Whether this field should be part of the validation
-     * or excluded as part of the unlockedFields. Default `true`.
      */
     auto addField(string[] afield, bool shouldLock = true, Json value = null) {
         if (isString(field)) {

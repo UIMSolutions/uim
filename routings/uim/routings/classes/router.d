@@ -184,7 +184,7 @@ class DRouter {
      *
      * Callback functions should expect the following parameters:
      *
-     * - `myparams` The URL params being processed.
+     * - `params` The URL params being processed.
      * - `myrequest` The current request.
      *
      * The URL filter auto should *always* return the params even if unmodified.
@@ -194,11 +194,11 @@ class DRouter {
      * URL filters allow you to easily implement features like persistent parameters.
      *
      * ```
-     * Router.addUrlFilter(function (myparams, myrequest) {
-     * if (myrequest.getParam("lang") && !myparams.hasKey("lang")) {
-     *  myparams["lang"] = myrequest.getParam("lang");
+     * Router.addUrlFilter(function (params, myrequest) {
+     * if (myrequest.getParam("lang") && !params.hasKey("lang")) {
+     *  params["lang"] = myrequest.getParam("lang");
      * }
-     * return myparams;
+     * return params;
      * });
      * ```
      * Params:
@@ -276,14 +276,14 @@ class DRouter {
             }
             return myoutput;
         }
-        myparams = [
+        params = [
             "plugin": Json(null),
             "controller": Json(null),
             "action": "index",
             "_ext": Json(null),
         ];
         if (!mycontext.isEmpty("params"))) {
-            myparams = context["params"];
+            params = context["params"];
         }
         
         string myfrag;
@@ -310,18 +310,18 @@ class DRouter {
                     url.isEmpty("action")) &&
                     (
                         url.isEmpty("controller")) ||
-                        myparams["controller"] == url["controller"]
+                        params["controller"] == url["controller"]
                    )
                ) {
-                    url["action"] = myparams["action"];
+                    url["action"] = params["action"];
                 }
                 // Keep the current prefix around if none set.
-                if (isSet(myparams["prefix"]) && !url.hasKey("prefix"])) {
-                    url["prefix"] = myparams["prefix"];
+                if (isSet(params["prefix"]) && !url.hasKey("prefix"])) {
+                    url["prefix"] = params["prefix"];
                 }
                 url += [
-                    "plugin": myparams["plugin"],
-                    "controller": myparams["controller"],
+                    "plugin": params["plugin"],
+                    "controller": params["controller"],
                     "action": "index",
                     "_ext": Json(null),
                 ];
@@ -331,7 +331,7 @@ class DRouter {
             if (isFull && isSet(url["_scheme"]) && !url.hasKey("_host")) {
                 url["_host"] = mycontext["_host"];
             }
-            mycontext["params"] = myparams;
+            mycontext["params"] = params;
 
             myoutput = _collection.match(url, mycontext);
         } else {
@@ -363,13 +363,9 @@ class DRouter {
      * - Admin/Bookmarks.view
      * - Cms.Articles.edit
      * - Vendor/Cms.Management/Admin/Articles.view
-     * Params:
-     * string mypath Route path specifying controller and action, optionally with plugin and prefix.
-     * @param Json[string] myparams An array specifying any additional parameters.
-     * Can be also any special parameters supported by `Router.url()`.
      */
-    static string pathUrl(string mypath, Json[string] myparams = [], bool isFull = false) {
-        return url(["_path": mypath] + myparams, isFull);
+    static string pathUrl(string path, Json[string] params = [], bool isFull = false) {
+        return url(["_path": path] + params, isFull);
     }
     
     /**
@@ -453,27 +449,27 @@ class DRouter {
      * keys like "pass", "_matchedRoute" etc. those keys need to be specially
      * handled in order to reverse a params array into a string URL.
      * Params:
-     * \UIM\Http\ServerRequest|array myparams The params array or
+     * \UIM\Http\ServerRequest|array params The params array or
      *   {@link \UIM\Http\ServerRequest} object that needs to be reversed.
      */
-    static Json[string] reverseToArray(ServerRequest|array myparams) {
+    static Json[string] reverseToArray(ServerRequest|array params) {
         auto myroute = null;
-        if (cast(DServerRequest)myparams) {
-            myroute = myparams.getAttribute("route");
+        if (cast(DServerRequest)params) {
+            myroute = params.getAttribute("route");
             assert(myroute.isNull || cast(Route)myroute);
 
-            myqueryString = myparams.queryArguments();
-            myparams = myparams.getAttribute("params");
-            assert(isArray(myparams));
-            myparams["?"] = myqueryString;
+            myqueryString = params.queryArguments();
+            params = params.getAttribute("params");
+            assert(isArray(params));
+            params["?"] = myqueryString;
         }
-        auto mypass = myparams.getArray("pass");
+        auto mypass = params.getArray("pass");
 
-        auto mytemplate = myparams.get("_matchedRoute", null);
+        auto mytemplate = params.get("_matchedRoute", null);
         remove(
-            myparams["pass"],
-            myparams["_matchedRoute"],
-            myparams["_name"]
+            params["pass"],
+            params["_matchedRoute"],
+            params["_name"]
        );
         if (!myroute && mytemplate) {
             // Locate the route that was used to match this route
@@ -490,7 +486,7 @@ class DRouter {
             myroutePass = myroute.options.getArray("pass", null);
             mypass = array_slice(mypass, count(myroutePass));
         }
-        return array_merge(myparams, mypass);
+        return array_merge(params, mypass);
     }
     
     /**
@@ -573,16 +569,16 @@ class DRouter {
     /**
      * Create a RouteBuilder for the provided path.
      * Params:
-     * string mypath The path to set the builder to.
+     * string path The path to set the builder to.
      */
-    static RouteBuilder createRouteBuilder(string mypath, Json[string] options = null) {
+    static RouteBuilder createRouteBuilder(string path, Json[string] options = null) {
         Json[string] defaults = [
             "routeClass": Json(defaultRouteClass()),
             "extensions": Json(_defaultExtensions),
         ];
         Json[string] updatedOptions = options.merge(defaults);
 
-        return new DRouteBuilder(_collection, mypath, [], [
+        return new DRouteBuilder(_collection, path, [], [
             "routeClass": updatedOptions["routeClass"],
             "extensions": updatedOptions["extensions"],
         ]);

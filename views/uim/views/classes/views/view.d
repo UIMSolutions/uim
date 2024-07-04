@@ -829,16 +829,11 @@ static string contentType() {
         return _helpers ??= new DHelperRegistry(this);
     }
 
-    /**
-     * Adds a helper from within `initialize()` method.
-     * Params:
-     * string myhelper Helper.
-     * @param Json[string] configData Config.
-     */
-    protected void addHelper(string myhelper, Json[string] configData = null) {
-        [_plugin, views] = pluginSplit(myhelper);
+    // Adds a helper from within `initialize()` method.
+    protected void addHelper(string helper, Json[string] configData = null) {
+        [_plugin, views] = pluginSplit(helper);
         if (_plugin) {
-            configuration.get("classname"] = myhelper;
+            configuration.set("classname", helper);
         }
         _helpers[views] = configData;
     }

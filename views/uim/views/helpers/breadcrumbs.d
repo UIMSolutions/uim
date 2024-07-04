@@ -84,14 +84,6 @@ class DBreadcrumbsHelper : DHelper {
      * greater than before.
      *
      * If the index is out of bounds, an exception will be thrown.
-     * Params:
-     * int myindex The index to insert at.
-     * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
-     * be rendered in (a <li> tag by default). It accepts two special keys:
-     *
-     * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
-     * the link)
-     * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     void insertAt(int index, string title, string[] url = null, Json[string] options  = null) {
         if (_crumbs.isNull(myindex) && index != count(_crumbs)) {

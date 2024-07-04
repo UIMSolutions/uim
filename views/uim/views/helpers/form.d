@@ -771,7 +771,7 @@ class DFormHelper : DHelper {
      * ### Options
      *
      * See each field type method for more information. Any options that are part of
-     * myattributes or options for the different **type** methods can be included in `options` for control().
+     * attributes or options for the different **type** methods can be included in `options` for control().
      * Additionally, any unknown keys that are not in the list below, or part of the selected type"s options
      * will be treated as a regular HTML attribute for the generated input.
      *
@@ -1252,35 +1252,35 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName Name of a field, like this "modelname.fieldname"
      * @param range options Radio button options array.
-     * @param Json[string] myattributes Array of attributes.
+     * @param Json[string] attributes Array of attributes.
      */
-    string radio(string fieldName, range options = [], Json[string] myattributes= null) {
-        myattributes["options"] = options;
-        myattributes["idPrefix"] = _idPrefix;
+    string radio(string fieldName, range options = [], Json[string] attributes= null) {
+        attributes["options"] = options;
+        attributes["idPrefix"] = _idPrefix;
 
         mygeneratedHiddenId = false;
-        if (!myattributes.hasKey("id")) {
-            myattributes["id"] = true;
+        if (!attributes.hasKey("id")) {
+            attributes["id"] = true;
             mygeneratedHiddenId = true;
         }
-        myattributes = _initInputField(fieldName, myattributes);
+        attributes = _initInputField(fieldName, attributes);
 
-        myhiddenField = myattributes.get("hiddenField", true);
-        remove(myattributes["hiddenField"]);
+        myhiddenField = attributes.get("hiddenField", true);
+        remove(attributes["hiddenField"]);
 
         myhidden = "";
         if (myhiddenField == true && isScalar(myhiddenField)) {
             myhidden = hidden(fieldName, [
                 "value": myhiddenField == true ? "" : to!string(myhiddenField),
-                "form": myattributes["form"].ifNull(null),
-                "name": myattributes["name"],
-                "id": myattributes["id"],
+                "form": attributes["form"].ifNull(null),
+                "name": attributes["name"],
+                "id": attributes["id"],
             ]);
         }
         if (mygeneratedHiddenId) {
-            remove(myattributes["id"]);
+            remove(attributes["id"]);
         }
-        myradio = this.widget("radio", myattributes);
+        myradio = this.widget("radio", attributes);
 
         return myhidden ~ myradio;
     }
@@ -1684,10 +1684,10 @@ class DFormHelper : DHelper {
      * string fieldName Name attribute of the SELECT
      * @param range options Array of the OPTION elements (as "value"=>"Text" pairs) to be used in the
      * SELECT element
-     * @param Json[string] myattributes The HTML attributes of the select element.
+     * @param Json[string] attributes The HTML attributes of the select element.
      */
-    string select(string fieldName, range options = [], Json[string] myattributes= null) {
-        myattributes += [
+    string select(string fieldName, range options = [], Json[string] attributes= null) {
+        attributes += [
             "disabled": Json(null),
             "escape": true.toJson,
             "hiddenField": true.toJson,
@@ -1696,43 +1696,43 @@ class DFormHelper : DHelper {
             "empty": Json(null),
         ];
 
-        if (myattributes["empty"].isNull && myattributes["multiple"] != "checkbox") {
+        if (attributes["empty"].isNull && attributes["multiple"] != "checkbox") {
             myrequired = _getContext().isRequired(fieldName);
-            myattributes["empty"] = myrequired.isNull ? false : !myrequired;
+            attributes["empty"] = myrequired.isNull ? false : !myrequired;
         }
-        if (myattributes["multiple"] == "checkbox") {
-            remove(myattributes["multiple"], myattributes["empty"]);
+        if (attributes["multiple"] == "checkbox") {
+            remove(attributes["multiple"], attributes["empty"]);
 
-            return _multiCheckbox(fieldName, options, myattributes);
+            return _multiCheckbox(fieldName, options, attributes);
         }
-        myattributes.remove("label");
+        attributes.remove("label");
 
         // Secure the field if there are options, or it"s a multi select.
         // Single selects with no options don"t submit, but multiselects do.
         if (
-            myattributes["secure"] &&
+            attributes["secure"] &&
             options.isEmpty &&
-            myattributes.isEmpty("empty")) &&
-            myattributes.isEmpty("multiple")
+            attributes.isEmpty("empty")) &&
+            attributes.isEmpty("multiple")
        ) {
-            myattributes["secure"] = false;
+            attributes["secure"] = false;
         }
-        myattributes = _initInputField(fieldName, myattributes);
-        myattributes["options"] = options;
+        attributes = _initInputField(fieldName, attributes);
+        attributes["options"] = options;
 
         myhidden = "";
-        if (myattributes["multiple"] && myattributes["hiddenField"]) {
+        if (attributes["multiple"] && attributes["hiddenField"]) {
             myhiddenAttributes = [
-                "name": myattributes["name"],
+                "name": attributes["name"],
                 "value": "",
-                "form": myattributes.get("form"),
+                "form": attributes.get("form"),
                 "secure": false.toJson,
             ];
             myhidden = hidden(fieldName, myhiddenAttributes);
         }
-        remove(myattributes["hiddenField"], myattributes["type"]);
+        remove(attributes["hiddenField"], attributes["type"]);
 
-        return myhidden ~ this.widget("select", myattributes);
+        return myhidden ~ this.widget("select", attributes);
     }
     
     /**
@@ -1756,10 +1756,10 @@ class DFormHelper : DHelper {
      * string fieldName Name attribute of the SELECT
      * @param range options Array of the OPTION elements
      * (as "value"=>"Text" pairs) to be used in the checkboxes element.
-     * @param Json[string] myattributes The HTML attributes of the select element.
+     * @param Json[string] attributes The HTML attributes of the select element.
      */
-    string multiCheckbox(string fieldName, range options, Json[string] myattributes= null) {
-        myattributes += [
+    string multiCheckbox(string fieldName, range options, Json[string] attributes= null) {
+        attributes += [
             "disabled": Json(null),
             "escape": true.toJson,
             "hiddenField": true.toJson,
@@ -1767,31 +1767,31 @@ class DFormHelper : DHelper {
         ];
 
         mygeneratedHiddenId = false;
-        if (!myattributes.hasKey("id")) {
-            myattributes["id"] = true;
+        if (!attributes.hasKey("id")) {
+            attributes["id"] = true;
             mygeneratedHiddenId = true;
         }
-        myattributes = _initInputField(fieldName, myattributes);
-        myattributes["options"] = options;
-        myattributes["idPrefix"] = _idPrefix;
+        attributes = _initInputField(fieldName, attributes);
+        attributes["options"] = options;
+        attributes["idPrefix"] = _idPrefix;
 
         myhidden = "";
-        if (myattributes["hiddenField"]) {
+        if (attributes["hiddenField"]) {
             myhiddenAttributes = [
-                "name": myattributes["name"],
+                "name": attributes["name"],
                 "value": "",
                 "secure": false.toJson,
-                "disabled": myattributes["disabled"] == true || myattributes["disabled"] == "disabled",
-                "id": myattributes["id"],
+                "disabled": attributes["disabled"] == true || attributes["disabled"] == "disabled",
+                "id": attributes["id"],
             ];
             myhidden = hidden(fieldName, myhiddenAttributes);
         }
-        remove(myattributes["hiddenField"]);
+        remove(attributes["hiddenField"]);
 
         if (mygeneratedHiddenId) {
-            remove(myattributes["id"]);
+            remove(attributes["id"]);
         }
-        return myhidden ~ this.widget("multicheckbox", myattributes);
+        return myhidden ~ this.widget("multicheckbox", attributes);
     }
     
     /**

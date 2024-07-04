@@ -557,15 +557,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|* / string mywhen Indicates when the field is allowed to be empty
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
-     * @param string message The message to show if the field is not
      */
     void allowEmptyFor(
         string fieldName,
-        int myflags = 0, /*Closure|*/
-        string mywhen = null  /*  = true */ ,
+        ulong flags = 0, /*Closure|*/
+        string when = null  /*  = true */ ,
         string message = null
     ) {
-        field(fieldName).allowEmpty(mywhen);
+        field(fieldName).allowEmpty(when);
         if (message) {
             _allowEmptyMessages[fieldName] = message;
         }

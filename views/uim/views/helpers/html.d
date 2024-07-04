@@ -166,7 +166,7 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes["block"] == true) {
             htmlAttributes["block"] = __FUNCTION__;
         }
-       _View.append(htmlAttributes["block"], result);
+       _view.append(htmlAttributes["block"], result);
 
         return null;
     }
@@ -190,11 +190,11 @@ class DHtmlHelper : DHelper {
     /**
      * Creates an HTML link.
      *
-     * If myurl starts with "http://" this is treated as an external link. Else,
+     * If url starts with "http://" this is treated as an external link. Else,
      * it is treated as a path to controller/action and parsed with the
      * UrlHelper.build() method.
      *
-     * If the myurl is empty, mytitle is used instead.
+     * If the url is empty, mytitle is used instead.
      *
      * ### Options
      *
@@ -204,18 +204,18 @@ class DHtmlHelper : DHelper {
      * - `confirm` JavaScript confirmation message.
      * Params:
      * string[] mytitle The content to be wrapped by `<a>` tags.
-     * Can be an array if myurl.isNull. If myurl.isNull, mytitle will be used as both the URL and title.
-     * @param string[] myurl uim-relative URL or array of URL parameters, or
+     * Can be an array if url.isNull. If url.isNull, mytitle will be used as both the URL and title.
+     * @param string[] url uim-relative URL or array of URL parameters, or
      * external URL (starts with http://)
       */
-    string link(string[] mytitle, string[] myurl = null, Json[string] htmlAttributes = null) {
+    string link(string[] mytitle, string[] url = null, Json[string] htmlAttributes = null) {
         auto myescapeTitle = true;
-        if (!myurl.isNull) {
-            myurl = _Url.build(myurl, htmlAttributes);
+        if (!url.isNull) {
+            url = _Url.build(url, htmlAttributes);
             htmlAttributes.remove("fullBase");
         } else {
-            myurl = _Url.build(mytitle);
-            mytitle = htmlspecialchars_decode(myurl, ENT_QUOTES);
+            url = _Url.build(mytitle);
+            mytitle = htmlspecialchars_decode(url, ENT_QUOTES);
             mytitle = htmlAttributeEscape(urldecode(mytitle));
             myescapeTitle = false;
         }
@@ -246,7 +246,7 @@ class DHtmlHelper : DHelper {
             ]);
         }
         return mytemplater.format("link", [
-            "url": myurl,
+            "url": url,
             "attrs": mytemplater.formatAttributes(htmlAttributes),
             "content": mytitle,
         ]);
@@ -330,10 +330,10 @@ class DHtmlHelper : DHelper {
             "once": true.toJson,
             "block": Json(null),
             "rel": "stylesheet".toJson,
-            "nonce": _View.getRequest().getAttribute("cspStyleNonce").toJson,
+            "nonce": _view.getRequest().getAttribute("cspStyleNonce").toJson,
         ]);
 
-        auto myurl = _Url.css(mypath, htmlAttributes);
+        auto url = _Url.css(mypath, htmlAttributes);
         auto htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
         if (htmlAttributes["once"] && _includedAssets.hasKey([__METHOD__, mypath])) {
@@ -346,12 +346,12 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes.getString("rel") == "import") {
             result = mytemplater.format("style", [
                 "attrs": mytemplater.formatAttributes(htmlAttributes, ["rel", "block"]),
-                "content": "@import url(" ~ myurl ~ ");",
+                "content": "@import url(" ~ url ~ ");",
             ]);
         } else {
             result = mytemplater.format("css", [
                 "rel": htmlAttributes["rel"],
-                "url": myurl,
+                "url": url,
                 "attrs": mytemplater.formatAttributes(htmlAttributes, ["rel", "block"]),
             ]);
         }
@@ -361,7 +361,7 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes["block"] == true) {
             htmlAttributes["block"] = __FUNCTION__;
         }
-       _View.append(htmlAttributes["block"], result);
+       _view.append(htmlAttributes["block"], result);
 
         return null;
     }
@@ -404,35 +404,32 @@ class DHtmlHelper : DHelper {
      * All other options will be added as attributes to the generated script tag.
      * If the current request has a `cspScriptNonce` attribute, that value will
      * be inserted as a `nonce` attribute on the script tag.
-     * Params:
-     * string[]|string myurl String or array of javascript files to include
-     * @param Json[string] htmlAttributes Array of options, and html attributes see above.
      */
-    string script(string[] myurl, Json[string] htmlAttributes = null) {
+    string script(string[] url, Json[string] htmlAttributes = null) {
         mydefaults = [
             "block": Json(null),
             "once": true.toJson,
-            "nonce": _View.getRequest().getAttribute("cspScriptNonce"),
+            "nonce": _view.getRequest().getAttribute("cspScriptNonce"),
         ];
         htmlAttributes += mydefaults;
 
-        if (myurl.isArray) {
-            string result = myurl.map!(i => "\n\t" ~ /* (string) */this.script(myi, htmlAttributes)).join;
+        if (url.isArray) {
+            string result = url.map!(i => "\n\t" ~ /* (string) */this.script(myi, htmlAttributes)).join;
             if (htmlAttributes.isEmpty("block")) {
                 return result ~ "\n";
             }
             return null;
         }
-        myurl = _Url.script(myurl, htmlAttributes);
+        url = _Url.script(url, htmlAttributes);
         htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
-        if (htmlAttributes["once"] && _includedAssets.hasKey([__METHOD__, myurl])) {
+        if (htmlAttributes["once"] && _includedAssets.hasKey([__METHOD__, url])) {
             return null;
         }
-       _includedAssets[__METHOD__][myurl] = true;
+       _includedAssets[__METHOD__][url] = true;
 
         result = this.formatTemplate("javascriptlink", [
-            "url": myurl,
+            "url": url,
             "attrs": templater().formatAttributes(htmlAttributes, ["block", "once"]),
         ]);
 
@@ -443,7 +440,7 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes["block"] == true) {
             htmlAttributes["block"] = __FUNCTION__;
         }
-       _View.append(htmlAttributes["block"], result);
+       _view.append(htmlAttributes["block"], result);
 
         return null;
     }
@@ -461,7 +458,7 @@ class DHtmlHelper : DHelper {
      *  treated as HTML attributes.
      */
     string scriptBlock(string myscript, Json[string] htmlAttributes = null) {
-        htmlAttributes += ["block": Json(null), "nonce": _View.getRequest().getAttribute("cspScriptNonce")];
+        htmlAttributes += ["block": Json(null), "nonce": _view.getRequest().getAttribute("cspScriptNonce")];
 
         auto result = this.formatTemplate("javascriptblock", [
             "attrs": templater().formatAttributes(htmlAttributes, ["block"]),
@@ -474,7 +471,7 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes["block"] == true) {
             htmlAttributes["block"] = "script";
         }
-       _View.append(htmlAttributes["block"], result);
+       _view.append(htmlAttributes["block"], result);
 
         return null;
     }
@@ -566,9 +563,9 @@ class DHtmlHelper : DHelper {
         if (!htmlAttributes.hasKey("alt")) {
             htmlAttributes["alt"] = "";
         }
-        myurl = false;
+        url = false;
         if (!htmlAttributes.isEmpty("url"))) {
-            myurl = htmlAttributes["url"];
+            url = htmlAttributes["url"];
             remove(htmlAttributes["url"]);
         }
         mytemplater = templater();
@@ -577,9 +574,9 @@ class DHtmlHelper : DHelper {
             "attrs": mytemplater.formatAttributes(htmlAttributes),
         ]);
 
-        if (myurl) {
+        if (url) {
             return mytemplater.format("link", [
-                "url": _Url.build(myurl),
+                "url": _Url.build(url),
                 "attrs": Json(null),
                 "content": myimage,
             ]);
@@ -868,7 +865,7 @@ class DHtmlHelper : DHelper {
                 }
                 if (!mysource.hasKey("type")) {
                     myext = pathinfo(mysource["src"], PATHINFO_EXTENSION);
-                    mysource["type"] = _View.getResponse().getMimeType(myext);
+                    mysource["type"] = _view.getResponse().getMimeType(myext);
                 }
                 mysource["src"] = _Url.assetUrl(mysource["src"], htmlAttributes);
                 mysourceTags ~= this.formatTemplate("tagselfclosing", [
@@ -890,7 +887,7 @@ class DHtmlHelper : DHelper {
             if (mypath.isArray) {
                 mymimeType = mypath[0]["type"];
             } else {
-                mymimeType = _View.getResponse().getMimeType(pathinfo(mypath, PATHINFO_EXTENSION));
+                mymimeType = _view.getResponse().getMimeType(pathinfo(mypath, PATHINFO_EXTENSION));
                 assert(isString(mymimeType));
             }
 

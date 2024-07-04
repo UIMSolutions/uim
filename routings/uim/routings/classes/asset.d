@@ -49,23 +49,12 @@ class DAsset {
      *
      * Depending on options passed provides full URL with domain name. Also calls
      * `Asset.assetTimestamp()` to add timestamp to local files.
-     * Params:
-     * string aPath Path string.
-     * @param Json[string] options Options array. Possible keys:
-     * `fullBase` Return full URL with domain name
-     * `pathPrefix` Path prefix for relative URLs
-     * `ext` Asset extension to append
-     * `plugin` False value will prevent parsing path as a plugin
-     * `timestamp` Overrides the value of `Asset.timestamp` in Configure.
-     *      Set to false to skip timestamp generation.
-     *      Set to true to apply timestamps when debug is true. Set to "force" to always
-     *      enable timestamping regardless of debug value.
      */
-    static string scriptUrl(string aPath, Json[string] options = null) {
-        somePathPrefix = configuration.get("App.jsBaseUrl");
+    static string scriptUrl(string path, Json[string] options = null) {
+        auto pathPrefix = configuration.get("App.jsBaseUrl");
         auto assetExtension = ".js";
 
-        return url(somePath, options + compact("pathPrefix", assetExtension));
+        return url(path, options + compact("pathPrefix", assetExtension));
     }
     
     /**

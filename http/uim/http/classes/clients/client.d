@@ -422,7 +422,7 @@ class DClient { // }: IClient {
       fullUrl ~= isString(queryData) ? queryData : http_build_query(queryData, "", "&", UIM_QUERY_RFC3986);
     }
     if (options["protocolRelative"] && fullUrl.startWith("//")) {
-      fullUrl = options["scheme"] ~ ": " ~ fullUrl;
+      fullUrl = options.get("scheme"] ~ ": " ~ fullUrl;
     }
     if (preg_match("#^https?://#", fullUrl)) {
       return fullUrl;
@@ -458,7 +458,7 @@ class DClient { // }: IClient {
     }
     auto myrequest = new DRequest(url, httpMethod, myheaders, requestBody);
     myrequest = myrequest.withProtocolVersion(_configData.hasKey("protocolVersion"));
-    mycookies = options["cookies"] ?  ? [];
+    mycookies = options.get("cookies"] ?  ? [];
     /** @var \UIM\Http\Client\Request  myrequest */
     myrequest = _cookies.addToRequest(myrequest, mycookies);
     if (options.hasKey("auth")) {

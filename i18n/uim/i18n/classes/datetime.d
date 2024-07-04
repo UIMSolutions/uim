@@ -175,12 +175,10 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * Alternatively, the format can provide a callback. In this case, the callback
      * can receive this datetime object and return a formatted string.
-     *
-     * @param \/*Closure|*/ string[]|int format Format.
      */
     // void setJsonEncodeFormat(Closure  format) {
     // void setJsonEncodeFormat(string[]|int format) {
-    void setJsonEncodeFormat(/* Closure */ string[]|int format) {
+    void setJsonEncodeFormat(/* Closure */ string[]/* |int */ format) {
         _JsonEncodeFormat = format;
     }
     
@@ -448,7 +446,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
             "after": Json(null),
         ];
         auto updatedOptions = options.updatedefaults;
-        an anGroup = options["group"];
+        an anGroup = options.get("group"];
 
         auto regex = null;
         if (isString(regexFilter)) {
@@ -468,8 +466,8 @@ class DateTime /* : Chronos, JsonSerializable */ {
         if (anGroup) {
              anGroupedIdentifiers = null;
             now = time();
-            before = options["before"];
-            after = options["after"];
+            before = options.get("before"];
+            after = options.get("after"];
             anIdentifiers.each!((timezone) {
                 string abbr = "";
                 if (options["abbr"]) {

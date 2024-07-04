@@ -71,11 +71,11 @@ class DFlashMessage {
         auto auto updatedOptions = options.update(this.configuration.data);
 
         if (options.hasKey("escape"]) && !options.hasKey("params.escape"])) {
-            options["params.escape"] = options["escape"];
+            options["params.escape"] = options.get("escape"];
         }
         [plugin, anElement] = pluginSplit(options["element"]);
         if (options["plugin"]) {
-            plugin = options["plugin"];
+            plugin = options.get("plugin"];
         }
 
         options["element"] = plugin 

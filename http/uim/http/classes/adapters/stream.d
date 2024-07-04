@@ -125,7 +125,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
        _contextOptions["ignore_errors"] = true;
 
         if (options.hasKey("timeout")) {
-           _contextOptions["timeout"] = options["timeout"];
+           _contextOptions["timeout"] = options.get("timeout"];
         }
         // Redirects are handled in the client layer because of cookie handling issues.
        _contextOptions["max_redirects"] = 0;
@@ -159,7 +159,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         sslOptions.each!((key) {
             if (options.asKey(aKey)) {
                 name = subString(aKey, 4);
-               _sslContextOptions[name] = options[aKey];
+               _sslContextOptions[name] = options.get(aKey];
             }
         });
     }

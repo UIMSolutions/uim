@@ -385,7 +385,7 @@ class DResponse : IResponse {
             if (!cast(IStream)options["stream"]) {
                 throw new DInvalidArgumentException("Stream option must be an object that : IStream");
             }
-            _stream = options["stream"];
+            _stream = options.get("stream"];
         } else {
            _createStream();
         }
@@ -398,7 +398,7 @@ class DResponse : IResponse {
         if (!options.hasKey("charset")) {
             options["charset"] = configuration.get("App.encoding");
         }
-       _charset = options["charset"];
+       _charset = options.get("charset"];
         auto type = "text/html";
         if (options.hasKey("type")) {
             type = this.resolveType(options["type"]);

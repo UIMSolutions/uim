@@ -405,7 +405,7 @@ mixin template TCollection() {
 
                 return null;
             }
-            aKey = options["groupPath"](myvalue, aKey);
+            aKey = options.get("groupPath"](myvalue, aKey);
             if (aKey.isNull) {
                 throw new DInvalidArgumentException(
                     'Cannot group by path that does not exist or contains a null value. ' .

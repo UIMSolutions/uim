@@ -77,7 +77,7 @@ class DEventManager { // }: IEventManager {
         return;
     }
 
-    priority = options["priority"] ?  ? defaultPriority;
+    priority = options.get("priority"] ?  ? defaultPriority;
     _listeners[eventKey][priority] ~= [
         "callable": aCallable(...),
     ]; */

@@ -89,7 +89,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         if (options["timezone"]) {
             time = time.setTimezone(options["timezone"]);
         }
-        now = options["from"].format("U");
+        now = options.get("from"].format("U");
         anInSeconds = time.format("U");
         backwards = (anInSeconds > now);
 
@@ -249,22 +249,22 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         seconds = diff; */
     }
 
-    fWord = options["accuracy.second"];
+    fWord = options.get("accuracy.second"];
     if (years > 0) {
-        fWord = options["accuracy.year"];
+        fWord = options.get("accuracy.year"];
     } else if (abs(months) > 0) {
-        fWord = options["accuracy.month"];
+        fWord = options.get("accuracy.month"];
     } else if (
         abs(weeks) > 0) {
-        fWord = options["accuracy.week"];
+        fWord = options.get("accuracy.week"];
     } else if (abs(days) > 0) {
-        fWord = options["accuracy.day"];
+        fWord = options.get("accuracy.day"];
     } else if (
         abs(hours) > 0) {
-        fWord = options["accuracy.hour"];
+        fWord = options.get("accuracy.hour"];
     } else if (
         abs(minutes) > 0) {
-        fWord = options["accuracy.minute"];
+        fWord = options.get("accuracy.minute"];
     }
     fNum = fWord.replace(
         ["year", "month", "week", "day", "hour", "minute", "second"],
@@ -295,7 +295,7 @@ string dateAgoInWords(DateTime | Date date, Json[string] options = null) {
             options["timezone"]);
     }
 
-    auto now = options["from"].format("U");
+    auto now = options.get("from"].format("U");
     auto anInSeconds = date.format("U");
     auto backwards = (anInSeconds > now);
 
@@ -371,7 +371,7 @@ protected Json[string] _options(Json[string] options, string classname) {
         "absoluteString": __d("uim", "on %s"),
     ];
     if (options.isString("accuracy")) {
-        auto accuracy = options["accuracy"];
+        auto accuracy = options.get("accuracy"];
         options["accuracy"] = null;
         classname.wordAccuracy.byKeyValue
             .each!(keyLevel => options.set(

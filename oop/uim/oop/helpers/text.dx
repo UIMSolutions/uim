@@ -52,9 +52,6 @@ class DText {
     /**
      * Tokenizes a string using myseparator, ignoring any instance of myseparator that appears between
      * leftBound and myrightBound.
-     * Params:
-     * @param string leftBound The left boundary to ignore separators in.
-     * @param string myrightBound The right boundary to ignore separators in.
      */
     static string[] tokenize(string dataToTokenize, string separator = ",", string leftBound = "(", string rightBound = ")") {
         if (data.isEmpty) {

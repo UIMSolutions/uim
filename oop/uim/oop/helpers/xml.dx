@@ -239,19 +239,19 @@ class Xml {
      * Params:
      * \DOMDocument domDocument Handler to DOMDocument
      * @param \DOMDocument|\DOMElement mynode Handler to DOMElement (child)
-     * @param Json mydata Array of data to append to the mynode.
+     * @param Json data Array of data to append to the mynode.
      * @param string myformat Either "attributes" or "tags". This determines where nested keys go.
      */
                     protected static void _fromArray(
                     DOMDocument domDocument,
                     DOMDocument | DOMElement mynode,
-                    Json mydata,
+                    Json data,
                     string myformat
                     ) {
-                        if (mydata.isEmpty || !isArray(mydata)) {
+                        if (data.isEmpty || !isArray(data)) {
                             return;
                         }
-                        foreach (key : myValue; mydata) {
+                        foreach (key : myValue; data) {
                             string myValue;
                             if (isString(key)) {
                                 if (isObject(myValue) && method_exists(myValue, "toArray") && isCallable([myValue, "toArray"])) {
@@ -314,23 +314,23 @@ class Xml {
                     /**
      * Helper to _fromArray(). It will create children of arrays
      * Params:
-     * Json[string] mydata Array with information to create children
-     * @psalm-param {dom: \DOMDocument, node: \DOMDocument|\DOMElement, key: string, format: string, value: Json } mydata
+     * Json[string] data Array with information to create children
+     * @psalm-param {dom: \DOMDocument, node: \DOMDocument|\DOMElement, key: string, format: string, value: Json } data
      */
                     protected static void _createChild(Json[string] data) {
-                        mydata += [
+                        data += [
                             "value": Json(null),
                         ];
 
-                        string dataKey = mydata.getString("key");
+                        string dataKey = data.getString("key");
                         if (dataKey.isNull) {
                             return;
                         }
 
-                        auto dataFormat = mydata.get("format", null);
-                        auto dataValue = mydata.get("value", null);
-                        auto dataDom = mydata.get("dom", null);
-                        auto dataNode = mydata.get("node");
+                        auto dataFormat = data.get("format", null);
+                        auto dataValue = data.get("value", null);
+                        auto dataDom = data.get("dom", null);
+                        auto dataNode = data.get("node");
 
                         auto mychildNS = null;
                         auto mychildValue = null;
@@ -387,10 +387,10 @@ class Xml {
      * Recursive method to toArray
      * Params:
      * @param Json[string] myparentData Parent array with data
-     * @param string myns Namespace of current child
+     * @param string namespace Namespace of current child
      */
-                    protected static void _toArray(SimpleXMLElement xmlElement, Json[string] & myparentData, string myns, string[] namespacesInXML) {
-                        auto mydata = null;
+                    protected static void _toArray(SimpleXMLElement xmlElement, Json[string] & myparentData, string namespace, string[] namespacesInXML) {
+                        auto data = null;
 
                         foreach (mynamespace; namespacesInXML) {
                             SimpleXMLElement myattributes = xmlElement.attributes(mynamespace, true);
@@ -402,29 +402,29 @@ class Xml {
                                     if (!mynamespace.isEmpty) {
                                         atKey = mynamespace ~ ":" ~ kv.key;
                                     }
-                                    mydata["@" ~ atKey] = (string) kv.value;
+                                    data["@" ~ atKey] = (string) kv.value;
                                 });
                             xmlElement.children(mynamespace, true)
-                                .each!(child => _toArray(child, mydata, mynamespace, mynamespaces));
+                                .each!(child => _toArray(child, data, mynamespace, mynamespaces));
                         }
                         myasString = strip(/* (string) */ xmlElement);
-                        if (isEmpty(mydata)) {
-                            mydata = myasString;
+                        if (isEmpty(data)) {
+                            data = myasString;
                         }
                         else if(!myasString.isEmpty) {
-                            mydata["@"] = myasString;
+                            data["@"] = myasString;
                         }
-                        if (!myns.isEmpty) {
-                            myns ~= ":";
+                        if (!namespace.isEmpty) {
+                            namespace ~= ":";
                         }
-                        myname = myns ~ xmlElement.name;
+                        myname = namespace ~ xmlElement.name;
                         if (isSet(myparentData[myname])) {
                             if (!isArray(myparentData[myname]) || myparentData.isNull([myname][0])) {
                                 myparentData[myname] = [myparentData[myname]];
                             }
-                            myparentData[myname] ~= mydata;
+                            myparentData[myname] ~= data;
                         } else {
-                            myparentData[myname] = mydata;
+                            myparentData[myname] = data;
                         }
                     }
 }

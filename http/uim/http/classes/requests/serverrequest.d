@@ -1214,7 +1214,7 @@ class DServerRequest { // }: IServerRequest {
     // Return an instance with the specified request attribute.
     static DServerRequest withAttribute(string attributeName, Json aValue) {
         DServerRequest newRequest = this.clone;
-        if (isIn(attributeName, this.emulatedAttributes, true)) {
+        if (isIn(attributeName, _emulatedAttributes, true)) {
             newRequest.{attributeName} = aValue;
         } else {
             newRequest.attributes[attributeName] = aValue;
@@ -1229,7 +1229,7 @@ class DServerRequest { // }: IServerRequest {
      */
     static auto withoutAttribute(string aName) {
         new = this.clone;
-        if (isIn(name, this.emulatedAttributes, true)) {
+        if (isIn(name, _emulatedAttributes, true)) {
             throw new DInvalidArgumentException(
                 "You cannot unset 'name'. It is a required UIM attribute."
            );
@@ -1239,21 +1239,16 @@ class DServerRequest { // }: IServerRequest {
         return new;
     }
     
-    /**
-     * Read an attribute from the request, or get the default
-     * Params:
-     * string aName The attribute name.
-     * @param Json defaultValue The default value if the attribute has not been set.
-     */
-    Json getAttribute(string aName, Json defaultValue = Json(null)) {
-        if (isIn(name, this.emulatedAttributes, true)) {
-            if (name == "here") {
+    // Read an attribute from the request, or get the default
+    Json getAttribute(string attributeName, Json defaultValue = Json(null)) {
+        if (isIn(attributeName, _emulatedAttributes, true)) {
+            if (namattributeNamee == "here") {
                 return _base ~ this.uri.getPath();
             }
-            return _{name};
+            return _{attributeName};
         }
-        if (array_key_exists(name, this.attributes)) {
-            return _attributes[name];
+        if (array_key_exists(attributeName, this.attributes)) {
+            return _attributes[attributeName];
         }
         return default;
     }
@@ -1264,7 +1259,7 @@ class DServerRequest { // }: IServerRequest {
      * This will include the params, webroot, base, and here attributes that UIM provides.
      */
     Json[string] getAttributes() {
-        emulated = [
+        auto emulated = [
             "params": _params,
             "webroot": this.webroot,
             "base": this.base,

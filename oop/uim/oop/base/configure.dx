@@ -350,11 +350,8 @@ class DFileConfigEngine {
     /**
      * Restores configuration data stored in the Cache into configure. Restored
      * values will overwrite existing ones.
-     * Params:
-     * string aName Name of the stored config file to load.
-     * @param string acacheConfig Name of the Cache configuration to read from.
      */
-    static bool restore(string configFileName, string acacheConfig = "default") {
+    static bool restore(string name, string cacheConfig = "default") {
         if (!class_exists(Cache.classname)) {
             throw new DException("You must install UIM/cache to use Configure.restore()");
         }
@@ -362,7 +359,6 @@ class DFileConfigEngine {
         auto someValues = Cache.read(name, cacheConfig);
         if (someValues) {
             write(someValues);
-
             return true;
         }
         return false;

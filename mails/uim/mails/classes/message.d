@@ -1106,18 +1106,15 @@ class DMessage { //: JsonSerializable {
     /**
      * Translates a string for one charset to another if the App.encoding value
      * differs and the mb_convert_encoding auto exists
-     * Params:
-     * string atext The text to be converted
-     * @param string acharset the target encoding
      */
-    protected string encodeString(string atext, string targetCharset) {
+    protected string encodeString(string text, string targetCharset) {
         if (_appCharset == targetCharset) {
             return text;
         }
-        if (_appCharset.isNull) {
-            return mb_convert_encoding(text, targetCharset);
-        }
-        return mb_convert_encoding(text, targetCharset, _appCharset);
+        
+        return _appCharset.isNull
+            ? mb_convert_encoding(text, targetCharset)
+            : mb_convert_encoding(text, targetCharset, _appCharset);
     }
     
     // Wrap the message to follow the RFC 2822 - 2.1.1

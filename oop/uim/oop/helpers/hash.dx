@@ -209,8 +209,6 @@ class Hash {
     /**
      * Insert myvalues into an array with the given mypath. You can use
      * `{n}` and `{s}` elements to insert mydata multiple times.
-     * Params:
-     * Json[string] data The data to insert into.
      */
     static Json[string] insert(Json[string] dataToInsert, string pathToInsert, Json valuesToInsert = null) {
         auto mynoTokens = !mypath.contains("[");
@@ -250,9 +248,8 @@ class Hash {
      * Params:
      * string myop The operation to do.
      * @param string[]  The path to work on.
-     * @param Json myvalues The values to insert when doing inserts.
      */
-    protected static Json[string] _simpleOp(string myop, Json[string] data, Json[string] path, Json myvalues = null) {
+    protected static Json[string] _simpleOp(string myop, Json[string] data, Json[string] path, Json values = null) {
         auto _list = &mydata;
 
         auto mycount = count(path);
@@ -261,7 +258,7 @@ class Hash {
             switch(myop) {
                 case "insert":
                     if (myi == mylast) {
-                        _list[aKey] = myvalues;
+                        _list[aKey] = values;
 
                         return mydata;
                     }

@@ -43,12 +43,11 @@ class DSecurity {
     /**
      * Create a hash from string using given method.
      * Params:
-     * string mystring String to hash
      * @param string myalgorithm Hashing algo to use (i.e. sha1, sha256 etc.).
      * Can be any valid algo included in list returned by hash_algos().
      * If no value is passed the type specified by `Security.defaultHashType` is used.
      */
-    static string hash(string mystring, string hashType = null, string salt = null) {
+    static string hash(string textToHash, string hashType = null, string salt = null) {
         string hashType = hashType.isEmpty ? defaultHashType : hashType.lower;
 
         myavailableAlgorithms = hash_algos();
@@ -62,9 +61,9 @@ class DSecurity {
             if (!isString(salt)) {
                 salt = getSalt();
             }
-            mystring = salt ~ mystring;
+            textToHash = salt ~ textToHash;
         }
-        return hash(hashType, mystring);
+        return hash(hashType, textToHash);
     }
     
     /**

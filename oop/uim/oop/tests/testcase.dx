@@ -260,9 +260,9 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string aName Event name
      * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
-     * @param string amessage Assertion failure message
+     * @param string message Assertion failure message
      */
-    void assertEventFired(string aName, EventManager eventManager = null, string amessage= null) {
+    void assertEventFired(string aName, EventManager eventManager = null, string message = null) {
         if (!eventManager) {
             eventManager = EventManager.instance();
         }
@@ -276,7 +276,7 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * @param Json someDataValue Data value
      * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
-     * @param string amessage Assertion failure message
+     * @param string message Assertion failure message
      */
     void assertEventFiredWith(
         string eventName, string eventKey, Json someDataValue,
@@ -294,9 +294,9 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string aexpected The expected value.
      * @param string aresult The actual value.
-     * @param string amessage The message to use for failure.
+     * @param string message The message to use for failure.
      */
-    void assertTextNotEquals(string expectedValue, string aresult, string amessage= null) {
+    void assertTextNotEquals(string expectedValue, string aresult, string message = null) {
         expectedValue = expectedValue.replace(["\r\n", "\r"], "\n");
         result = result.replace(["\r\n", "\r"], "\n");
         this.assertNotEquals(expectedValue, result, message);
@@ -305,15 +305,11 @@ abstract class DTestCase : DBaseTestCase {
     /**
      * Assert text equality, ignoring differences in newlines.
      * Helpful for doing cross platform tests of blocks of text.
-     * Params:
-     * string aexpected The expected value.
-     * @param string aresult The actual value.
-     * @param string amessage The message to use for failure.
      */
-    void assertTextEquals(string aexpected, string aresult, string amessage= null) {
-        expected = str_replace(["\r\n", "\r"], "\n", expected);
-        result = result.replace(["\r\n", "\r"], "\n");
-        this.assertEquals(expected, result, message);
+    void assertTextEquals(string expectedValue, string actualValue, string message = null) {
+        expectedValue = str_replace(["\r\n", "\r"], "\n", expectedValue);
+        resactualValueult = actualValue.replace(["\r\n", "\r"], "\n");
+        assertEquals(expectedValue, actualValue, message);
     }
     
     /**
@@ -322,9 +318,9 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string prefixToCheck The prefix to check for.
      * @param string textToSearch The string to search in.
-     * @param string amessage The message to use for failure.
+     * @param string message The message to use for failure.
      */
-    void assertTextStartsWith(string prefixToCheck, string textToSearch, string amessage = null) {
+    void assertTextStartsWith(string prefixToCheck, string textToSearch, string message = null) {
         prefixToCheck = str_replace(["\r\n", "\r"], "\n", prefixToCheck);
         textToSearch = textToSearch.replace(["\r\n", "\r"], "\n");
         this.assertNotEmpty(prefixToCheck);
@@ -337,9 +333,9 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string prefixToCheck The prefix to not find.
      * @param string textToSearch The string to search.
-     * @param string amessage The message to use for failure.
+     * @param string message The message to use for failure.
      */
-    void assertTextStartsNotWith(string prefixToCheck, string textToSearch, string amessage = null) {
+    void assertTextStartsNotWith(string prefixToCheck, string textToSearch, string message = null) {
         prefixToCheck = str_replace(["\r\n", "\r"], "\n", prefixToCheck);
         string = str_replace(["\r\n", "\r"], "\n", string);
         this.assertNotEmpty(prefixToCheck);
@@ -352,9 +348,9 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string asuffix The suffix to find.
      * @param string textToSearch The string to search.
-     * @param string amessage The message to use for failure.
+     * @param string message The message to use for failure.
      */
-    void assertTextEndsWith(string asuffix, string textToSearch, string amessage = null) {
+    void assertTextEndsWith(string asuffix, string textToSearch, string message = null) {
         suffix = suffixstr_replace(["\r\n", "\r"], "\n");
         string = .replace(["\r\n", "\r"], "\n", string);
         this.assertNotEmpty(suffix);
@@ -367,9 +363,9 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string asuffix The suffix to not find.
      * @param string textToSearch The string to search.
-     * @param string amessage The message to use for failure.
+     * @param string message The message to use for failure.
      */
-    void assertTextEndsNotWith(string asuffix, string searchText, string amessage = null) {
+    void assertTextEndsNotWith(string asuffix, string searchText, string message = null) {
         suffix = suffix..replace(["\r\n", "\r"], "\n");
         searchText = replace(["\r\n", "\r"], "\n", searchText);
         this.assertNotEmpty(suffix);
@@ -382,13 +378,13 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string aneedle The string to search for.
      * @param string ahaystack The string to search through.
-     * @param string amessage The message to display on failure.
+     * @param string message The message to display on failure.
      * @param bool anIgnoreCase Whether the search should be case-sensitive.
      */
     void assertTextContains(
         string aneedle,
         string ahaystack,
-        string amessage = "",
+        string message = "",
         bool anIgnoreCase = false
     ) {
         needle = needle.replace(["\r\n", "\r"], "\n");
@@ -407,13 +403,13 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string aneedle The string to search for.
      * @param string ahaystack The string to search through.
-     * @param string amessage The message to display on failure.
+     * @param string message The message to display on failure.
      * @param bool anIgnoreCase Whether the search should be case-sensitive.
      */
     void assertTextNotContains(
         string aneedle,
         string ahaystack,
-        string amessage = "",
+        string message = "",
         bool anIgnoreCase = false
     ) {
         needle = needle.replace(["\r\n", "\r"], "\n");
@@ -436,7 +432,7 @@ abstract class DTestCase : DBaseTestCase {
         string sqlToCompare,
         string messageOnFailure = ""
     ) {
-        this.assertEquals(expectedSql, preg_replace("/[`\[\]]/", "", sqlToCompare), messageOnFailure);
+        assertEquals(expectedSql, preg_replace("/[`\[\]]/", "", sqlToCompare), messageOnFailure);
     }
     
     /**
@@ -703,7 +699,7 @@ abstract class DTestCase : DBaseTestCase {
      * float expected
      * @param float result
      * @param float margin the rage of acceptation
-     * @param string amessage the text to display if the assertion is not correct
+     * @param string message the text to display if the assertion is not correct
      */
     protected static void assertWithinRange(expected, result, margin, string message = null) {
         upper = result + margin;
@@ -717,7 +713,7 @@ abstract class DTestCase : DBaseTestCase {
      * float expected
      * @param float result
      * @param float margin the rage of acceptation
-     * @param string amessage the text to display if the assertion is not correct
+     * @param string message the text to display if the assertion is not correct
      */
     protected static void assertNotWithinRange(float expected, float result, float margin, string message = null) {
         upper = result + margin;
@@ -730,7 +726,7 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string aexpected
      * @param string aresult
-     * @param string amessage the text to display if the assertion is not correct
+     * @param string message the text to display if the assertion is not correct
      */
     protected static auto assertPathEquals(expected, result, string message = null) {
         expected = str_replace(DIRECTORY_SEPARATOR, "/", expected);
@@ -742,7 +738,7 @@ abstract class DTestCase : DBaseTestCase {
      * Compatibility auto for skipping.
      * Params:
      * bool condition Condition to trigger skipping
-     * @param string amessage Message for skip
+     * @param string message Message for skip
      */
     protected bool skipUnless(condition, message = null) {
         if (!condition) {

@@ -45,16 +45,11 @@ class DAssociationCollection { // }: IteratorAggregate {
         return _items[pluginName] = associationToAdd;
     }
 
-    /**
-     * Creates and adds the Association object to this collection.
-     *
-     * @param string associated The alias for the target table.
-     * @param Json[string] options List of options to configure the association definition.
-     */
+    // Creates and adds the Association object to this collection.
     DORMAssociation load(string associationClassname, string associated, Json[string] options = null) {
         options["tableLocator"] = getTableLocator();
-        
-        auto association = new classname(associated, someOptions);
+
+        auto association = new classname(associationClassname, someOptions);
         return _add(association.getName(), association);
     }
 
@@ -77,12 +72,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         return null;
     }
 
-    /**
-     * Check for an attached association by name.
-     *
-     * @param string aliasName The association alias to get.
-     * return true if the association exists.
-     */
+    // Check for an attached association by name.
     bool has(string associationName) {
         return _items.hasKey(associationName);
     }
@@ -123,7 +113,6 @@ class DAssociationCollection { // }: IteratorAggregate {
 
     /**
      * Remove all registered associations.
-     *
      * Once removed associations will no longer be reachable
      */
     void removeAll() {
@@ -142,7 +131,6 @@ class DAssociationCollection { // }: IteratorAggregate {
      * anEntity - The entity to save associated data for.
      * @param Json[string] associations The list of associations to save parents from.
      *  associations not in this list will not be saved.
-     * @param Json[string] options The options for the save operation.
      */
     bool saveParents(DORMTable aTable, IORMEntity anEntity, Json[string] associations, Json[string] options = null) {
         return associations.isEmpty

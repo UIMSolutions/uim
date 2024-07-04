@@ -85,12 +85,12 @@ class DAssociation : IAssociation {
 
     // The class name of the target table object
     protected string _classname;
+
    /**
      * Sets the class name of the target table object.
-     *
      * @param string anclassname Class name to set.
      */
-    void setclassname(string nameToSet) {
+    void setClassname(string nameToSet) {
         if (
             _targetTable != null &&
             get_class(_targetTable) != App

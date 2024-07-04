@@ -165,20 +165,16 @@ class DEagerLoader {
      * - `joinType`: INNER, OUTER, ...
      * - `fields`: Fields to contain
      * - `negateMatch`: Whether to add conditions negate match on target association
-     * Params:
-     * string myassociationPath Dot separated association path, "Name1.Name2.Name3".
-     * @param \Closure|null mybuilder the callback auto to be used for setting extra
-     * options to the filtering query.
      */
-    void setMatching(string myassociationPath, Closure mybuilder = null, Json[string] options = null) {
-       _matching ??= new static();
+    void setMatching(string associationPath(, DClosure mybuilder = null, Json[string] options = null) {
+       _matching ? _matching : new static();
 
         auto updatedOptions = options.update["joinType": SelectQuery.JOIN_TYPE_INNER];
-        mysharedOptions = ["negateMatch": false.toJson, "matching": true.toJson] + options;
+        auto mysharedOptions = ["negateMatch": false.toJson, "matching": true.toJson] + options;
 
-        mycontains = null;
-        mynested = &mycontains;
-        myassociationPath.split(".")
+        auto mycontains = null;
+        auto mynested = &mycontains;
+        associationPath(.split(".")
             .each!((association) {
                 // Add contain to parent contain using association name as key
                 mynested[association] = mysharedOptions;

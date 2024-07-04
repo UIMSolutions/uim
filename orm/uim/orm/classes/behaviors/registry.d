@@ -87,18 +87,14 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * Part of the template method for uim\Core\ObjectRegistry.load()
      * Enabled behaviors will be registered with the event manager.
-     *
-     * @param string aclassname  The classname that is missing.
-     * @param string anAlias The alias of the object.
-     * @param Json[string] myConfiguration An array of config to use for the behavior.
      */
-    protected IBehavior _create(class, string anAlias, Json myConfiguration) {
+    protected IBehavior _create(string classname, string aliasname, Json[string] myConfiguration) {
         DORMBehavior instance = new class(_table, myConfiguration);
         if (configuration.getBoolean("enabled", true)) {
             getEventManager().on(instance);
         }
 
-        auto methodNames = _getMethods(instance, class, alias);
+        auto methodNames = _getMethods(instance, classname, aliasname);
         _methodMap ~= methodNames["methods"];
         _finderMap ~= methodNames["finders"];
 

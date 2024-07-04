@@ -94,17 +94,14 @@ class DTimestampBehavior : DBehavior {
      * Set the timestamp to the given DateTime object, or if not passed a new DateTime object
      * If an explicit date time is passed, the config option `refreshTimestamp` is
      * automatically set to false.
-     * Params:
-     * \IDateTime|null myts Timestamp
-     * @param bool myrefreshTimestamp If true timestamp is refreshed.
      */
-    DateTime timestamp(IDateTime myts = null, bool myrefreshTimestamp = false) {
-        if (myts) {
+    DateTime timestamp(IDateTime timestamp = null, bool isRefreshedTimestamp = false) {
+        if (timestamp) {
             if (configuration.hasKey("refreshTimestamp")) {
                configuration.set("refreshTimestamp", false);
             }
-           _ts = new DateTime(myts);
-        } else if (_ts.isNull || myrefreshTimestamp) {
+           _ts = new DateTime(timestamp);
+        } else if (_ts.isNull || isRefreshedTimestamp) {
            _ts = new DateTime();
         }
         return _ts;

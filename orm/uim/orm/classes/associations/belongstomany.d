@@ -223,11 +223,8 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * You can override these generated associations by defining associations
      * with the correct aliases.
-     *
-     * @param DORMTable junctionTable The junction table.
-     * @param DORMTable source The source table.
      */
-    protected void _generateSourceAssociations(DORMTable junctionTable, Table source) {
+    protected void _generateSourceAssociations(DORMTable junctionTable, DORMTable sourceTable) {
         string junctionAlias = junctionTable.aliasName();
         string sourceAlias = source.aliasName();
 

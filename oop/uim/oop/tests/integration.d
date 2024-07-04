@@ -263,8 +263,6 @@ mixin template TIntegrationTest() {
      *
      * The response of the dispatched request will be stored as
      * a property. You can use various assert methods to check the response.
-     * Params:
-     * @param string[] adata The data for the request.
      */
     void patch(string[] urlToRequest, string[] data = null) {
         _sendRequest(urlToRequest, "PATCH", data);

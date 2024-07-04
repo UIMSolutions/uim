@@ -210,9 +210,8 @@ class DSelectLoader {
      *
      * @param DORMQuery query Target table"s query
      * @param string[]|string aKey the fields that should be used for filtering
-     * @param DORMQuery subquery The Subquery to use for filtering
      */
-    protected DORMQuery _addFilteringJoin(Query query, key, DORMQuery filteringQuery) {
+    protected DORMQuery _addFilteringJoin(DORMQuery query, key, DORMQuery filteringQuery) {
         auto filter = null;
         auto aliasedTable = this
             .sourceAlias;

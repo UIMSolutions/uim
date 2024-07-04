@@ -19,29 +19,24 @@ class DEntityRoute : DRoute {
      * Match by entity and map its fields to the URL pattern by comparing the
      * field names with the template vars.
      *
-     * If a routing key is defined in both `myurl` and the entity, the value defined
-     * in `myurl` will be preferred.
-     * Params:
-     * Json[string] myurl Array of parameters to convert to a string.
-     * @param Json[string] mycontext An array of the current request context.
-     * Contains information such as the current host, scheme, port, and base
-     * directory.
+     * If a routing key is defined in both `url` and the entity, the value defined
+     * in `url` will be preferred.
      */
-    string match(Json[string] myurl, Json[string] mycontext= null) {
+    string match(Json[string] url, Json[string] context= null) {
         if (_compiledRoute.isEmpty) {
             this.compile();
         }
-        if (myurl.hasKey("_entity")) {
-            myentity = myurl["_entity"];
+        if (url.hasKey("_entity")) {
+            myentity = url["_entity"];
            _checkEntity(myentity);
 
             _keys
-                .filter!(field => !myurl.hasKey(field) && myentity.isSetfield)
-                .each!(field => myurl[field] = myentity[field]);
+                .filter!(field => !url.hasKey(field) && myentity.isSetfield)
+                .each!(field => url[field] = myentity[field]);
 
             }
         }
-        return super.match(myurl, mycontext);
+        return super.match(url, context);
     }
     
     /**

@@ -263,17 +263,15 @@ class DRouter {
      * "controller", "action", "plugin" additionally, you can provide routed
      * elements or query string parameters. If string it can be name any valid url
      * string or it can be an IUri instance.
-     * @param bool myfull If true, the full base URL will be prepended to the result.
-     * Default is false.
      */
-    static string url(IUri|string[] myurl = null, bool myfull = false) {
+    static string url(/* IUri| */string[] myurl = null, bool isFull = false) {
         auto context = _requestContext;
         context["_base"] ??= "";
 
         if (myurl.isEmpty) {
             string myhere = getRequest()?.getRequestTarget() ?? "/";
             string myoutput = context.getString("_base") ~ myhere;
-            if (myfull) {
+            if (isFull) {
                 myoutput = fullBaseUrl() ~ myoutput;
             }
             return myoutput;
@@ -297,7 +295,7 @@ class DRouter {
                 myurl["_scheme"] = myurl["_https"] == true ? "https" : "http";
             }
             if (myurl.hasKey("_full") && myurl["_full"] == true) {
-                myfull = true;
+                isFull = true;
             }
             if (myurl.hasKey("#")) {
                 myfrag = "#" ~ myurl["#"];
@@ -330,7 +328,7 @@ class DRouter {
             }
             // If a full URL is requested with a scheme the host should default
             // to App.fullBaseUrl to avoid corrupt URLs
-            if (myfull && isSet(myurl["_scheme"]) && !myurl.hasKey("_host")) {
+            if (isFull && isSet(myurl["_scheme"]) && !myurl.hasKey("_host")) {
                 myurl["_host"] = mycontext["_host"];
             }
             mycontext["params"] = myparams;
@@ -350,7 +348,7 @@ class DRouter {
         auto myprotocol = preg_match("#^[a-z][a-z0-9+\-.]*\://#i", myoutput);
         if (myprotocol == 0) {
             myoutput = ("/" ~ myoutput).replace("//", "/");
-            if (myfull) {
+            if (isFull) {
                 myoutput = fullBaseUrl() ~ myoutput;
             }
         }
@@ -369,11 +367,9 @@ class DRouter {
      * string mypath Route path specifying controller and action, optionally with plugin and prefix.
      * @param Json[string] myparams An array specifying any additional parameters.
      * Can be also any special parameters supported by `Router.url()`.
-     * @param bool myfull If true, the full base URL will be prepended to the result.
-     * Default is false.
      */
-    static string pathUrl(string mypath, Json[string] myparams = [], bool myfull = false) {
-        return url(["_path": mypath] + myparams, myfull);
+    static string pathUrl(string mypath, Json[string] myparams = [], bool isFull = false) {
+        return url(["_path": mypath] + myparams, isFull);
     }
     
     /**
@@ -387,12 +383,12 @@ class DRouter {
      * "controller", "action", "plugin" additionally, you can provide routed
      * elements or query string parameters. If string it can be name any valid url
      * string.
-     * @param bool myfull If true, the full base URL will be prepended to the result.
+     * @param bool isFull If true, the full base URL will be prepended to the result.
      * Default is false.
      */
-    static bool routeExists(string[] myurl = null, bool myfull = false) {
+    static bool routeExists(string[] myurl = null, bool isFull = false) {
         try {
-            url(myurl, myfull);
+            url(myurl, isFull);
 
             return true;
         } catch (MissingRouteException) {
@@ -506,13 +502,13 @@ class DRouter {
      * Params:
      * \UIM\Http\ServerRequest|array myparams The params array or
      *   {@link \UIM\Http\ServerRequest} object that needs to be reversed.
-     * @param bool myfull Set to true to include the full URL including the
+     * @param bool isFull Set to true to include the full URL including the
      *   protocol when reversing the URL.
      */
-    static string reverse(ServerRequest|array myparams, bool myfull = false) {
+    static string reverse(ServerRequest|array myparams, bool isFull = false) {
         myparams = reverseToArray(myparams);
 
-        return url(myparams, myfull);
+        return url(myparams, isFull);
     }
     
     /**

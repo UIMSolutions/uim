@@ -121,15 +121,9 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         _stopOnFailure = mystopOnFailure;
     }
 
-    /**
-     * Validates and returns an array of failed fields and their error messages.
-     * Params:
-     * Json[string] data The data to be checked for errors
-     * @param bool mynewRecord whether the data to be validated is new or to be updated.
-     * /
-    array<array> validate(Json[string] data, bool mynewRecord = true) {
+    // Validates and returns an array of failed fields and their error messages.
+    array<array> validate(Json[string] data, bool isNewRecord = true) {
         auto myerrors = null;
-
         foreach (myname, fieldName; _fields) {
             myname = to!string(myname);
             mykeyPresent = array_key_exists(myname, mydata);
@@ -159,7 +153,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             if (myisEmpty) {
                 continue;
             }
-            result = _processRules(myname, fieldName, mydata, mynewRecord);
+            result = _processRules(myname, fieldName, mydata, isNewRecord);
             if (result) {
                 myerrors[myname] = result;
             }
@@ -2482,9 +2476,9 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * record.
      * Params:
      * string fieldName Field name.
-     * @param bool mynewRecord whether the data to be validated is new or to be updated.
+     * @param bool isNewRecord whether the data to be validated is new or to be updated.
      */
-    bool isEmptyAllowed(string fieldName, bool mynewRecord) {
+    bool isEmptyAllowed(string fieldName, bool isNewRecord) {
         auto myproviders = _providers;
         // auto mydata = null;
         // auto mycontext = compact("data", "newRecord", "field", "providers");
@@ -2498,9 +2492,9 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * record.
      * Params:
      * string fieldName Field name.
-     * @param bool mynewRecord Whether the data to be validated is new or to be updated.
+     * @param bool isNewRecord Whether the data to be validated is new or to be updated.
      */
-    bool isPresenceRequired(string fieldName, bool mynewRecord) {
+    bool isPresenceRequired(string fieldName, bool isNewRecord) {
         /*  myproviders = _providers;
         mydata = null;
         mycontext = compact("data", "newRecord", "field", "providers");
@@ -2579,10 +2573,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             return !myrequired(mycontext);
         } */
 
-        /* auto mynewRecord = mycontext["newRecord"];
+        /* auto isNewRecord = mycontext["newRecord"];
         if (myrequired.isIn([WHEN_CREATE, WHEN_UPDATE])) {
-            return (myrequired == WHEN_CREATE && !mynewRecord) ||
-                (myrequired == WHEN_UPDATE && mynewRecord);
+            return (myrequired == WHEN_CREATE && !isNewRecord) ||
+                (myrequired == WHEN_UPDATE && isNewRecord);
         }
         return !myrequired; */
         return false;
@@ -2600,10 +2594,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             return myallowed(mycontext);
         } */
 
-        /* auto mynewRecord = mycontext["newRecord"];
+        /* auto isNewRecord = mycontext["newRecord"];
         if (myallowed.isIn([WHEN_CREATE, WHEN_UPDATE])) {
-            myallowed = (myallowed == WHEN_CREATE && mynewRecord) ||
-                (myallowed == WHEN_UPDATE && !mynewRecord);
+            myallowed = (myallowed == WHEN_CREATE && isNewRecord) ||
+                (myallowed == WHEN_UPDATE && !isNewRecord);
         }
         return !myallowed.isEmpty */
         return false;
@@ -2655,9 +2649,9 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string fieldName The name of the field that is being processed
      * @param \UIM\Validation\ValidationSet myrules the list of rules for a field
      * @param Json[string] data the full data passed to the validator
-     * @param bool mynewRecord whether is it a new record or an existing one
+     * @param bool isNewRecord whether is it a new record or an existing one
      */
-    protected Json[string] _processRules(string fieldName, DValidationSet myrules, Json[string] data, bool mynewRecord) {
+    protected Json[string] _processRules(string fieldName, DValidationSet myrules, Json[string] data, bool isNewRecord) {
         Json[string] myerrors = null;
         // Loading default provider in case there is none
         getProvider("default");

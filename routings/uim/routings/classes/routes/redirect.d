@@ -30,12 +30,7 @@ class DRedirectRoute : DRoute {
         _redirect = mydefaults;
     }
 
-    /**
-     * Parses a string URL into an array. Parsed URLs will result in an automatic
-     * redirection.
-     * Params:
-     * @param string mymethod The HTTP method being used.
-     */
+    // Parses a string URL into an array. Parsed URLs will result in an automatic redirection.
     Json[string] parse(string urlToParse, string httpMethod = null) {
         auto myparams = super.parse(urlToParse, httpMethod);
         if (!myparams) {

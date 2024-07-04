@@ -50,21 +50,11 @@ class DValidationRule {
      * Dispatches the validation rule to the given validator method and returns
      * a boolean indicating whether the rule passed or not. If a string is returned
      * it is assumed that the rule failed and the error message was given as a result.
-     * Params:
-     * Json aValue The data to validate
-     * @param Json[string] myproviders Associative array with objects or class names that will
-     * be passed as the last argument for the validation method
-     * @param Json[string] mycontext A key value list of data that could be used as context
-     * during validation. Recognized keys are:
-     * - newRecord: (boolean) whether the data to be validated belongs to a
-     * new record
-     * - data: The full data that was passed to the validation process
-     * - field: The name of the field that is being processed
      */
-    string[] process(Json aValue, Json[string] myproviders, Json[string] mycontext= null) {
-        /* auto mycontext += ["data": Json.emptyArray, "newRecord": true.toJson, "providers": myproviders];
+    string[] process(Json value, Json[string] myproviders, Json[string] context= null) {
+        /* auto context += ["data": Json.emptyArray, "newRecord": true.toJson, "providers": myproviders];
 
-        if (_skip(mycontext)) {
+        if (_skip(context)) {
             return true;
         }
         if (isString(_rule)) {
@@ -83,15 +73,15 @@ class DValidationRule {
                 "Unable to call method `%s` in `%s` provider for field `%s`"
                 .format(mymethod,
                _provider,
-                mycontext["field"]
+                context["field"]
            );
             throw new DInvalidArgumentException(mymessage);
         } */
 /*         if (_pass) {
-            myargs = array_merge([myvalue], _pass, [mycontext]).values;
+            myargs = array_merge([myvalue], _pass, [context]).values;
             result = mycallable(...myargs);
         } else {
-            result = mycallable(myvalue, mycontext);
+            result = mycallable(myvalue, context);
         } */
 /*         if (result == false) {
             return _message ?: false;
@@ -103,7 +93,7 @@ class DValidationRule {
     /**
      * Checks if the validation rule should be skipped
      * Params:
-     * Json[string] mycontext A key value list of data that could be used as context
+     * Json[string] context A key value list of data that could be used as context
      * during validation. Recognized keys are:
      * - newRecord: (boolean) whether the data to be validated belongs to a
      * new record
@@ -111,9 +101,9 @@ class DValidationRule {
      * - providers associative array with objects or class names that will
      * be passed as the last argument for the validation method
      */
-    protected bool _skip(Json[string] mycontext) {
+    protected bool _skip(Json[string] context) {
 /*         if (isString(_on)) {
-            mynewRecord = mycontext["newRecord"];
+            mynewRecord = context["newRecord"];
 
             return (_on == Validator.WHEN_CREATE && !mynewRecord)
                 || (_on == Validator.WHEN_UPDATE && mynewRecord);
@@ -121,7 +111,7 @@ class DValidationRule {
         if (_on !is null) {
             myfunction = _on;
 
-            return !myfunction(mycontext);
+            return !myfunction(context);
         } */
         return false;
     }

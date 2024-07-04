@@ -63,14 +63,9 @@ class DDashedRoute : DRoute {
     /**
      * Dasherizes the controller, action and plugin params before passing them on
      * to the parent class.
-     * Params:
-     * Json[string] myurl Array of parameters to convert to a string.
-     * @param Json[string] mycontext An array of the current request context.
-     * Contains information such as the current host, scheme, port, and base
-     * directory.
      */
-    string match(Json[string] myurl, Json[string] mycontext= null) {
-        auto myurl = _dasherize(myurl);
+    string match(Json[string] url, Json[string] context= null) {
+        auto url = _dasherize(url);
         if (_inflectedDefaults.isNull) {
             this.compile();
            _inflectedDefaults = _dasherize(this.defaults);
@@ -80,17 +75,13 @@ class DDashedRoute : DRoute {
         try {
             this.defaults = _inflectedDefaults;
 
-            return super.match(myurl, mycontext);
+            return super.match(url, context);
         } finally {
             this.defaults = myrestore;
         }
     }
     
-    /**
-     * Helper method for dasherizing keys in a URL array.
-     * Params:
-     * Json[string] myurl An array of URL keys.
-     */
+    // Helper method for dasherizing keys in a URL array.
     protected Json[string] _dasherize(Json[string] urlKeys) {
         ["controller", "plugin", "action"]
             .filter!(element => !urlKeys[myelement].isEmpty)

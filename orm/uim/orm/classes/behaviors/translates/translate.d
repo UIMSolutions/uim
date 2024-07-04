@@ -155,7 +155,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      */
      // TODO 
 /*     void beforeMarshal(IEvent myevent, ArrayObject mydata, ArrayObject options) {
-        if (options.hasKey("translations") && !options["translations"]) {
+        if (options.hasKey("translations") && !options.hasKey("translations"]) {
             return;
         }
         mydefaultLocale = configuration.getString("defaultLocale");

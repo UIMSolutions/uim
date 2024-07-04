@@ -83,10 +83,10 @@ class DFlashMessage {
             : "flash/" ~ anElement;
 
         auto messages = null;
-        if (!options["clear"]) {
+        if (!options.hasKey("clear"]) {
             messages = (array)this.session.read("Flash." ~ options["key"]);
         }
-        if (!options["duplicate"]) {
+        if (!options.hasKey("duplicate"]) {
             foreach (existingMessage; messages) {
                 if (existingMessage["message"] == messageToBeFlashed) {
                     return;

@@ -80,7 +80,7 @@ class DNumber {
      */
     static string toPercentage(Json aValue, int precision = 2, Json[string] options = null) {
         auto updatedOptions = options.update["multiply": false.toJson, "type": NumberFormatter.PERCENT];
-        if (!options["multiply"]) {
+        if (!options.hasKey("multiply"]) {
             aValue = aValue.getDouble / 100;
         }
         return precision(aValue, precision, options);
@@ -169,7 +169,7 @@ class DNumber {
 
         auto formatter = formatter(["type": getDefaultCurrencyFormat()] + options);
         auto abs = abs(doubleValue);
-        if (!options["fractionSymbol"].isEmpty && abs > 0 && abs < 1) {
+        if (!options.hasKey("fractionSymbol"].isEmpty && abs > 0 && abs < 1) {
             doubleValue *= 100;
             string pos = options.get("fractionPosition", "after");
 
@@ -281,7 +281,7 @@ class DNumber {
         if (!options.isEmpty("pattern")) {
             formatter.setPattern(options["pattern"]);
         }
-        if (!options["useIntlCode"].isEmpty) {
+        if (!options.hasKey("useIntlCode"].isEmpty) {
             // One of the odd things about ICU is that the currency marker in patterns
             // is denoted with ¤, whereas the international code is marked with ¤¤,
             // in order to use the code we need to simply duplicate the character wherever

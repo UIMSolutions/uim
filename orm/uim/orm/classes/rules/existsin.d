@@ -52,7 +52,7 @@ class DExistsIn {
      */
     bool __invoke(IORMEntity myentity, Json[string] options = null) {
         if (isString(_repository)) {
-            if (!options["repository"].hasAssociation(_repository)) {
+            if (!options.hasKey("repository"].hasAssociation(_repository)) {
                 throw new DatabaseException(
                     "ExistsIn rule for `%s` is invalid. `%s` is not associated with `%s`."
                         .format(_fields.join(", "), _repository, get_class(options["repository"])

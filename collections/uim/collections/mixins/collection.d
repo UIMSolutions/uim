@@ -393,7 +393,7 @@ mixin template TCollection() {
             auto myrowKey = options.get("keyPath");
             auto myrowVal = options.get("valuePath");
 
-            if (!options["groupPath"]) {
+            if (!options.hasKey("groupPath"]) {
                 mymapKey = myrowKey(myvalue, aKey);
                 if (mymapKey.isNull) {
                     throw new DInvalidArgumentException(

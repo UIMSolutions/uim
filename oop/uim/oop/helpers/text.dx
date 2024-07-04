@@ -470,7 +470,7 @@ class DText {
             return textToTruncate;
         }
         mytruncate = mb_subString(textToTruncate, mb_strlen(textToTruncate) - mylength + mb_strlen(myellipsis));
-        if (!options["exact"]) {
+        if (!options.hasKey("exact"]) {
             myspacepos = mb_indexOf(mytruncate, " ");
             mytruncate = myspacepos == false ? "" : strip(mb_subString(mytruncate, myspacepos));
         }
@@ -567,7 +567,7 @@ class DText {
         }
         string result = _subString(textToTruncate, 0, mylength - myellipsisLength, options);
 
-        if (!options["exact"]) {
+        if (!options.hasKey("exact"]) {
             if (_subString(textToTruncate, mylength - myellipsisLength, 1, options) != " ") {
                 result = _removeLastWord(result);
             }
@@ -981,7 +981,7 @@ class DText {
             "/[" ~ myregex ~ "]/mu": options["replacement"],
              "/^[%s]+|[%s]+my/".format(myquotedReplacement, myquotedReplacement): "",
         ];
-        if (isString(options["replacement"]) && !options["replacement"].isEmpty) {
+        if (isString(options["replacement"]) && !options.hasKey("replacement"].isEmpty) {
             mymap["/[%s]+/mu".format(myquotedReplacement)] = options.get("replacement"];
         }
         return (string)preg_replace(mymap.keys, mymap, mystring);

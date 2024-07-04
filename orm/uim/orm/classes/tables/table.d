@@ -1733,7 +1733,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (options["atomic"] && !getConnection().inTransaction()) {
             throw new DRolledbackTransactionException(["table": class]);
         }
-        if (!options["atomic"] && !options["_primary"]) {
+        if (!options.hasKey("atomic"] && !options.hasKey("_primary"]) {
             entityToSave.clean();
             entityToSave.setNew(false);
             entityToSave.setSource(this.registryKey());

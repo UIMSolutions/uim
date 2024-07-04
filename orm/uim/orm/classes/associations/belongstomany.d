@@ -732,7 +732,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         /** @var array<DORMDatasource\IORMEntity> existing */
         auto existing = sourceEntity.get(property) ?: [];
-        if (!options["cleanProperty"] || existing.isEmpty) {
+        if (!options.hasKey("cleanProperty"] || existing.isEmpty) {
             return true;
         }
 

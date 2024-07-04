@@ -97,13 +97,13 @@ class DRouteBuilder {
         _path = mypath;
         _params = myparams;
         if (options.hasKey("routeClass")) {
-            _routeClass = options["routeClass"];
+            _routeClass = options.get("routeClass"];
         }
         if (options.hasKey("extensions")) {
-            _extensions = options["extensions"];
+            _extensions = options.get("extensions"];
         }
         if (options.hasKey("namePrefix")) {
-            _namePrefix = options["namePrefix"];
+            _namePrefix = options.get("namePrefix"];
         }
         if (options.hasKey("middleware")) {
             _middleware = (array) options["middleware"];
@@ -292,11 +292,11 @@ class DRouteBuilder {
         }
         myext = null;
         if (!options.isEmpty("_ext")) {
-            myext = options["_ext"];
+            myext = options.get("_ext"];
         }
-        myconnectOptions = options["connectOptions"];
+        myconnectOptions = options.get("connectOptions"];
         if (options.isEmpty("path")) {
-            mymethod = options["inflect"];
+            mymethod = options.get("inflect"];
             options["path"] = Inflector.mymethod(routings);
         }
         myresourceMap = chain(_resourceMap, options["map"]);
@@ -314,7 +314,7 @@ class DRouteBuilder {
             if (!isIn(mymethod, myonly, true)) {
                 continue;
             }
-            myaction = options["actions"].get(mymethod, myparams["action"]);
+            myaction = options.get("actions"].get(mymethod, myparams["action"]);
 
             string myurl = "/" ~ join("/", array_filter([
                     options["path"], myparams["path"]

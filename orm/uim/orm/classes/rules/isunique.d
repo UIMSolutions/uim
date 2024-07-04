@@ -38,7 +38,7 @@ class DIsUnique {
         if (_options["allowMultipleNulls"] && array_filter(fieldNames, "is_null")) {
             return true;
         }
-        auto aliasName = options["repository"].aliasName();
+        auto aliasName = options.get("repository"].aliasName();
         
         auto myconditions = _alias(aliasName, fieldNames);
         if (entity.isNew() == false) {

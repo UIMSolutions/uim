@@ -207,7 +207,7 @@ class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
         if (options["validate"] == false) {
             return _execute(someData);
         }
-        validator = options["validate"] == true ? DEFAULT_VALIDATOR : options["validate"];
+        validator = options.get("validate"] == true ? DEFAULT_VALIDATOR : options["validate"];
 
         return _validate(someData, validator) ? _execute(someData): false;
     }

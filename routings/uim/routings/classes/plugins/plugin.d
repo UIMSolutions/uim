@@ -83,7 +83,7 @@ class DPlugin : IPlugin {
         }
         ["name", "path", "classPath", "configPath", "templatePath"]
             .each!(path => if (options.hasKey(path)) {
-                this.{path} = options[path];
+                this.{path} = options.get(path];
             });
 
         this.initialize();

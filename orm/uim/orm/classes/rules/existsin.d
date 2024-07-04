@@ -58,7 +58,7 @@ class DExistsIn {
                         .format(_fields.join(", "), _repository, get_class(options["repository"])
                         ));
             }
-            myrepository = options["repository"].getAssociation(_repository);
+            myrepository = options.get("repository"].getAssociation(_repository);
             _repository = myrepository;
         }
         auto fieldNames = _fields;
@@ -74,7 +74,7 @@ class DExistsIn {
             return true;
         }
         if (!options.isEmpty("repository"])) {
-            mysource = options["repository"];
+            mysource = options.get("repository"];
         }
         if (cast(DAssociation) mysource) {
             mysource = mysource.source();

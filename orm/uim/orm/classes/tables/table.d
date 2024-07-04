@@ -1195,7 +1195,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 continue;
             }
             
-            auto fieldNames = options[field];
+            auto fieldNames = options.get(field];
             auto myglue = isIn(field, ["keyField", "parentField"], true) ? ";" : options["valueSeparator"];
             options[field] = auto (myrow) use (fieldNames, myglue) {
                 auto mymatches = fieldNames.each!(fld => myrow[fld]).array;

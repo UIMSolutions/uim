@@ -145,10 +145,10 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         }
         if (isoptions.isEmpty("connection")) {
             if (!options.isEmpty("connectionName")) {
-                myconnectionName = options["connectionName"];
+                myconnectionName = options.get("connectionName"];
             } else {
                 /** @var \ORM\Table myclassname */
-                myclassname = options["classname"];
+                myclassname = options.get("classname"];
                 myconnectionName = myclassname.defaultConnectionName();
             }
             options["connection"] = ConnectionManager.get(myconnectionName);
@@ -192,7 +192,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     
     // Wrapper for creating table instances
     protected ITable _create(Json[string] options = null) {
-        auto myclass = options["classname"];
+        auto myclass = options.get("classname"];
         return new myclass(options);
     }
     

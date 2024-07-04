@@ -119,7 +119,7 @@ class DAsset {
             [plugin, somePath] = pluginSplit(somePath);
         }
         if (!options.isEmpty("pathPrefix") && somePath[0] != "/") {
-            somePathPrefix = options["pathPrefix"];
+            somePathPrefix = options.get("pathPrefix"];
             placeHolderVal = "";
             if (!options.isEmpty("theme")) {
                 placeHolderVal = inflectString(options["theme"]) ~ "/";
@@ -144,7 +144,7 @@ class DAsset {
         }
         auto optionTimestamp = null;
         if (array_key_exists("timestamp", options)) {
-            optionTimestamp = options["timestamp"];
+            optionTimestamp = options.get("timestamp"];
         }
         auto webPath = assetTimestamp(
             webroot(somePath, options),

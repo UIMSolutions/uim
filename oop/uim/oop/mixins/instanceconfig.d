@@ -38,16 +38,13 @@ mixin template TInstanceConfig() {
      * ```
      * configuration.update(["one": 'value", "another": 'value"]);
      * ```
-     * Params:
-     * Json[string]|string keyToSet The key to set, or a complete array of configs.
-     * @param mixed|null valueToSet The value to set.
      */
-    void setConfig(string[] keyToSet, Json valueToSet = null, bool shouldMerge = true) {
+    void setConfig(string[] keysToSet, Json valueToSet = null, bool shouldMerge = true) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
            _configInitialized = true;
         }
-       _configWrite(keyToSet, valueToSet, shouldMerge);
+       _configWrite(keysToSet, valueToSet, shouldMerge);
     }
     
     /**
@@ -157,21 +154,15 @@ mixin template TInstanceConfig() {
         return result;
     }
     
-    /**
-     * Writes a config key.
-     * Params:
-     * Json[string]|string keyToWrite Key to write to.
-     * @param string shouldMerge True to shouldMerge recursively, "shallow' for simple shouldMerge,
-     * false to overwrite, defaults to false.
-     */
-    protected void _configWrite(string[] keyToWrite, Json valueToWrite, string shouldMerge = false) {
-        if (isString(keyToWrite) && valueToWrite.isNull) {
-           _configDelete(keyToWrite);
+    // Writes a config key.
+    protected void _configWrite(string[] keysToWrite, Json valueToWrite, string shouldMerge = false) {
+        if (isString(keysToWrite) && valueToWrite.isNull) {
+           _configDelete(keysToWrite);
 
             return;
         }
         if (shouldMerge) {
-            update = isArray(keyToWrite) ? keyToWrite : [keyToWrite: valueToWrite];
+            update = isArray(keysToWrite) ? keysToWrite : [keysToWrite: valueToWrite];
 
             _config = shouldMerge == "shallow"
                 ? chain(_config, Hash.expand(update))
@@ -179,22 +170,22 @@ mixin template TInstanceConfig() {
 
             return;
         }
-        if (isArray(keyToWrite)) {
-            keyToWrite.byKeyValue
+        if (isArray(keysToWrite)) {
+            keysToWrite.byKeyValue
                 .each!(kv => _configWrite(kv.key, kv.value));
             return;
         }
-        if (!keyToWrite.contains(".")) {
-           configuration.set(keyToWrite, valueToWrite);
+        if (!keysToWrite.contains(".")) {
+           configuration.set(keysToWrite, valueToWrite);
             return;
         }
 
         auto update = &_config;
 
-        string[] stack = keyToWrite.split(".");
+        string[] stack = keysToWrite.split(".");
         stack.each!((key) {
             if (!isArray(update)) {
-                throw new DException("Cannot set `%s` value.".format(keyToWrite));
+                throw new DException("Cannot set `%s` value.".format(keysToWrite));
             }
             update[key] = update.get(key, null);
             update = &update[key];

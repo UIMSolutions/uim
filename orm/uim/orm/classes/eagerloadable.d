@@ -94,13 +94,10 @@ class DEagerLoadable {
      * - targetProperty
      *
      * The keys maps to the settable properties in this class.
-     *
-     * @param string aName The Association name.
-     * @param Json[string] myConfiguration The list of properties to set.
      */
-    this(string aName, Json[string] configData) {
-        _name = name;
-        allowed = [
+    this(string associationName, Json[string] configData) {
+        _name = associationName;
+        string[] allowed = [
             "associations", "instance", "config", "canBeJoined",
             "aliasPath", "propertyPath", "forMatching", "targetProperty",
         ];

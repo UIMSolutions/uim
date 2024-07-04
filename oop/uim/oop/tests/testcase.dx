@@ -273,7 +273,7 @@ abstract class DTestCase : DBaseTestCase {
         if (!eventManager) {
             eventManager = EventManager.instance();
         }
-        this.assertThat(name, new DEventFired(eventManager), message);
+        assertThat(name, new DEventFired(eventManager), message);
     }
     
     /**
@@ -281,21 +281,18 @@ abstract class DTestCase : DBaseTestCase {
      *
      * If a third argument is passed, that value is used to compare with the value in someDataKey
      * Params:
-     * string aName Event name
-     * @param string adataKey Data key
      * @param Json someDataValue Data value
      * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
      * @param string amessage Assertion failure message
      */
     void assertEventFiredWith(
-        string aName, string adataKey, Json someDataValue,
-        ?EventManager eventManager = null,
-        string amessage = null
+        string eventName, string eventKey, Json someDataValue,
+        DEventManager eventManager = null, string failureMessage = null
     ) {
         if (!eventManager) {
             eventManager = EventManager.instance();
         }
-        this.assertThat(name, new DEventFiredWith(eventManager, someDataKey, someDataValue), message);
+        assertThat(eventName, new DEventFiredWith(eventManager, eventKey, someDataValue), failureMessage);
     }
     
     /**

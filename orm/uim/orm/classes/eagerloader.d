@@ -112,14 +112,10 @@ class DEagerLoader {
      * - joinType: For joinable associations, the SQL join type to use.
      * - strategy: The loading strategy to use (join, select, subquery)
      *
-     * @param array|string associations list of table aliases to be queried.
-     * When this method is called multiple times it will merge previous list with
-     * the new one.
-     * @param callable|null queryBuilder The query builder callable
      */
-    Json[string] contain(associations, callable queryBuilder = null) {
+    Json[string] contain(/* array| */string associations, callable queryBuilder = null) {
         if (queryBuilder) {
-            if (!(associations.isString) {
+            if (!associations.isString) {
                 throw new DInvalidArgumentException(
                     "Cannot set containments. To use queryBuilder, associations must be a string"
                );
@@ -144,8 +140,7 @@ class DEagerLoader {
     /**
      * Gets the list of associations that should be eagerly loaded along for a
      * specific table using when a query is provided. The list of associated tables
-     * passed to this method must have been previously set as associations using the
-     * Table API.
+     * passed to this method must have been previously set as associations using the Table API.
      */
     Json[string] getContain() {
         return _containments;
@@ -187,12 +182,12 @@ class DEagerLoader {
             _matching = new static();
         }
 
-        auto updatedOptions = options.update["joinType": Query.JOIN_TYPE_INNER];
+        auto updatedOptions = options.update(["joinType": Query.JOIN_TYPE_INNER]);
         auto sharedOptions = ["negateMatch": false.toJson, "matching": true.toJson] + options;
 
         auto contains = null;
         nested = &contains;
-        foreach (explode(".", associationPath) as association) {
+        foreach (association; explode(".", associationPath)) {
             // Add contain to parent contain using association name as key
             nested[association] = sharedOptions;
             // Set to next nested level
@@ -224,18 +219,15 @@ class DEagerLoader {
      *
      * Additionally, it will set an "instance" key per association containing the
      * association instance from the corresponding source table
-     *
-     * @param DORMTable repository The table containing the association that
-     * will be normalized
      */
-    array normalized(Table repository) {
+    auto normalized(DORMTable repository) {
         if (_normalized != null || _containments.isEmpty) {
             return /* (array) */_normalized;
         }
 
         contain = null;
         foreach (_containments as alias: options) {
-            if (!options.isEmpty("instance"])) {
+            if (!options.isEmpty("instance")) {
                 contain = _containments;
                 break;
             }
@@ -264,7 +256,7 @@ class DEagerLoader {
 
         foreach (associations as table: options) {
             pointer = &result;
-            if (is_int(table)) {
+            if (isInteger(table)) {
                 table = options;
                 options = null;
             }

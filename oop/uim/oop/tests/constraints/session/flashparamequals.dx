@@ -19,13 +19,6 @@ class DFlashParamEquals : DConstraint {
 
     protected int _atIndex = null;
 
-    /**
-     * Constructor
-     * Params:
-     * \UIM\Http\Session|null session Session
-     * @param string paramToCheck Param to check
-     * @param int atIndex Expected index
-     */
     this(ISession session, string key, string paramToCheck, int atIndex = null) {
         if (!session) {
             string message = "There is no stored session data. Perhaps you need to run a request?";

@@ -120,7 +120,6 @@ class DMarshaller {
      * ```
      * Params:
      * Json[string] mydata The data to hydrate.
-     * @param Json[string] options List of options
      */
     IORMEntity one(Json[string] data, Json[string] options = null) {
         [mydata, options] = _prepareDataAndOptions(mydata, options);

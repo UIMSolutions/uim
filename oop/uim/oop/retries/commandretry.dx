@@ -17,16 +17,11 @@ class DCommandRetry {
     // The strategy to follow should the executed action fail.
     protected IRetryStrategy strategy;
 
-    protected int maxRetries;
+    protected int _maxRetries;
 
-    protected int numRetries;
+    protected int _numRetries;
 
-    /**
-     * Creates the CommandRetry object with the given strategy and retry count
-     * Params:
-     * \UIM\Core\Retry\IRetryStrategy strategy The strategy to follow should the action fail
-     * @param int maxRetries The maximum number of retry attempts allowed
-     */
+    // Creates the CommandRetry object with the given strategy and retry count
     this(IRetryStrategy strategy, int maxRetries = 1) {
         _strategy = strategy;
         _maxRetries = maxRetries;

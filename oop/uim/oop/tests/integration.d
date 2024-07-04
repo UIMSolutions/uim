@@ -225,12 +225,6 @@ mixin template TIntegrationTest() {
      *
      * The difference from cookie() is this encrypts the cookie
      * value like the CookieComponent.
-     * Params:
-     * string aName The cookie name to use.
-     * @param string[] avalue The value of the cookie.
-     * @param string encrypt Encryption mode to use.
-     * @param string aKey Encryption key used. Defaults
-     * to Security.salt.
      */
     void cookieEncrypted(
         string cookieName,

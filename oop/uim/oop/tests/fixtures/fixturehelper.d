@@ -196,21 +196,16 @@ class DFixtureHelper {
         return chain(unconstrained, array_column(constrained, "fixture"));
     } */
     
-    /**
-     * Gets array of foreign references for fixtures table.
-     * Params:
-     * \UIM\Database\Connection aConnection Database connection
-     * @param \UIM\Datasource\IFixture fixture Database fixture
-     */
+    // Gets array of foreign references for fixtures table.
     // TODO 
     /*
-    protected string[] getForeignReferences(Connection aConnection, IFixture fixture) {
+    protected string[] getForeignReferences(Connection dbConnection, IFixture fixture) {
         static TableISchema[] schemas = null;
 
         // Get and cache off the schema since TestFixture generates a fake schema based on fields
         aTableName = fixture.sourceName();
         if (!schemas.hasKey(aTableName)) {
-            schemas[aTableName] = aConnection.getSchemaCollection().describe(aTableName);
+            schemas[aTableName] = dbConnection.getSchemaCollection().describe(aTableName);
         }
         tableSchema = schemas[aTableName];
 

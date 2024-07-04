@@ -13,25 +13,16 @@ import uim.oop;
  * application uses.
  */
 mixin template TContainerStub() {
-    /**
-     * The customized application class name.
-     */
+    // The customized application class name.
     protected string _appClass = null;
 
-    /**
-     * The customized application constructor arguments.
-     */
+    // The customized application constructor arguments.
     protected Json[string] _appArgs = null;
 
     // The collection of container services.
     private array containerServices = null;
 
-    /**
-     * Configure the application class to use in integration tests.
-     * Params:
-     * @param array|null constructorArgs The constructor arguments for your application class.
-     * @psalm-param class-string<\UIM\Core\IHttpApplication>|class-string<\UIM\Core\IConsoleApplication>  classname
-     */
+    // Configure the application class to use in integration tests.
     void configApplication(string classname, Json[string] constructorArgs) {
        _appClass = classname;
        _appArgs = constructorArgs;

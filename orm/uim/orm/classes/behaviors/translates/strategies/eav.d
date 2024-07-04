@@ -201,19 +201,18 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * in the database too.
      *
      * @param DORMevents.IEvent event The beforeSave event that was fired
-     * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved
      * @param \ArrayObject options the options passed to the save method
      */
-    void beforeSave(IEvent event, IORMEntity anEntity, ArrayObject options) {
-        locale = entity.get("_locale") ?: locale();
-        newOptions = [this.translationTable.aliasName(): ["validate": false.toJson]];
+    void beforeSave(IEvent event, IORMEntity ormEntity, ArrayObject options) {
+        auto locale = ormEntity.get("_locale") ?: locale();
+        auto newOptions = [this.translationTable.aliasName(): ["validate": false.toJson]];
         options["associated"] = newOptions + options["associated"];
 
         // Check early if empty translations are present in the entity.
         // If this is the case, unset them to prevent persistence.
         // This only applies if configuration.get("allowEmptyTranslations"] is false
         if (!configuration.getBoolean("allowEmptyTranslations")) {
-            unsetEmptyFields(entity);
+            unsetEmptyFields(ormEntity);
         }
 
         bundleTranslatedFields(entity);

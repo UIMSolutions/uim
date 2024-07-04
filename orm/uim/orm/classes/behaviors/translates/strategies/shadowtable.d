@@ -264,22 +264,18 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * The objective here is to transparently prevent ambiguous field errors by
      * prefixing fields with the appropriate table alias. This method currently
      * expects to receive a where clause only.
-     *
-     * @param DORMQuery query the query to check.
-     * @param string aName The clause name.
-     * @param Json[string] myConfiguration The config to use for adding fields.
      */
-    protected bool traverseClause(DORMQuery query, name = "", myConfiguration = null) {
-        auto clause = queryToCheck.clause(name);
+    protected bool traverseClause(DORMQuery queryToCheck, string clauseName = "", Json[string] myConfiguration = null) {
+        auto clause = queryToCheck.clause(clauseName);
         if (!clause || !clause.count()) {
             return false;
         }
 
         string aliasName = configuration.getString("hasOneAlias");
         string[] fields = translatedFields();
-        mainTableAlias = configuration.get("mainTableAlias");
-        mainTableFields = this.mainFields();
-        joinRequired = false;
+        auto mainTableAlias = configuration.get("mainTableAlias");
+        auto mainTableFields = this.mainFields();
+        auto joinRequired = false;
         clause.traverse(
             function(
                 expression) use(

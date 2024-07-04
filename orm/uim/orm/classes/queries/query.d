@@ -484,12 +484,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
      *
-     * @param string assoc The association to filter by
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void matching(string assoc, callable builder = null) {
-        result = getEagerLoader().setMatching(assoc, builder).getMatching();
+    void matching(string associationName, callable builder = null) {
+        auto result = getEagerLoader().setMatching(associationName, builder).getMatching();
         _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
         _isChanged();
     }
@@ -556,9 +555,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void leftJoinWith(string assoc, callable builder = null) {
-        result = getEagerLoader()
-            .setMatching(assoc, builder, [
+    void leftJoinWith(string associationName, callable builder = null) {
+        auto result = getEagerLoader()
+            .setMatching(associationName, builder, [
                 "joinType": Query.JOIN_TYPE_LEFT,
                 "fields": false.toJson,
             ])
@@ -600,9 +599,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void innerJoinWith(string assoc, callable builder = null) {
-        result = getEagerLoader()
-            .setMatching(assoc, builder, [
+    void innerJoinWith(string associationName, callable builder = null) {
+        auto result = getEagerLoader()
+            .setMatching(associationName, builder, [
                 "joinType": Query.JOIN_TYPE_INNER,
                 "fields": false.toJson,
             ])
@@ -660,9 +659,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void notMatching(string assoc, callable builder = null) {
-        result = getEagerLoader()
-            .setMatching(assoc, builder, [
+    void notMatching(string associationName, callable builder = null) {
+        auto result = getEagerLoader()
+            .setMatching(associationName, builder, [
                 "joinType": Query.JOIN_TYPE_LEFT,
                 "fields": false.toJson,
                 "negateMatch": true.toJson,

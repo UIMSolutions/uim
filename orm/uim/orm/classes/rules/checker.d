@@ -22,10 +22,6 @@ class DRulesChecker { // }: BaseRulesChecker {
      * ### Options
      *
      * - `allowMultipleNulls` Allows any field to have multiple null values. Defaults to false.
-     * Params:
-     * string[] fieldNames The list of fields to check for uniqueness.
-     * @param Json[string]|string errorMessage The error message to show in case the rule does not pass. Can
-     * also be an array of options. When an array, the "message" key can be used to provide a message.
      */
     RuleInvoker isUnique(Json[string] fieldNames, string[] errorMessage = null) {
         auto options = isArray(errorMessage) ? errorMessage : ["message": errorMessage];

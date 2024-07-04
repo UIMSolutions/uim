@@ -20,19 +20,19 @@ class DLazyEagerLoader {
      * Params:
      * \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity> myentities a single entity or list of entities
      * @param Json[string] mycontain A `contain()` compatible array.
-     * @param \ORM\Table mysource The table to use for fetching the top level entities
+     * @param \ORM\Table sourceTable The table to use for fetching the top level entities
      */
-    IORMEntity[] loadInto(IORMEntity|array myentities, Json[string] mycontain, Table mysource) {
+    IORMEntity[] loadInto(IORMEntity|array myentities, Json[string] mycontain, Table sourceTable) {
         auto resultSingle = false;
 
         if (cast(IORMEntity)myentities) {
             myentities = [myentities];
             resultSingle = true;
         }
-        auto myquery = _getQuery(myentities, mycontain, mysource);
+        auto myquery = _getQuery(myentities, mycontain, sourceTable);
         auto myassociations = myquery.getContain().keys;
 
-        auto myentities = _injectResults(myentities, myquery, myassociations, mysource);
+        auto myentities = _injectResults(myentities, myquery, myassociations, sourceTable);
 
         /** @var \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity> */
         return resultSingle ? array_shift(myentities): myentities;
@@ -43,33 +43,32 @@ class DLazyEagerLoader {
      * associations specified in mycontain.
      * Params:
      * @param Json[string] mycontain The associations to be loaded
-     * @param \ORM\Table mysource The table to use for fetching the top level entities
      */
-    protected ISelectQuery _getQuery(IORMEntity[] myentities, Json[string] mycontain, Table mysource) {
-        auto myprimaryKey = mysource.primaryKeys();
+    protected ISelectQuery _getQuery(IORMEntity[] myentities, Json[string] mycontain, DORMTable sourceTable) {
+        auto myprimaryKey = sourceTable.primaryKeys();
         auto mymethod = isString(myprimaryKey) ? "get" : "extract";
 
         auto someKeys = Hash.map(myentities, "{*}", fn (IORMEntity myentity): myentity.{mymethod}(myprimaryKey));
 
-        auto myquery = mysource
+        auto myquery = sourceTable
             .find()
             .select(/* (array) */myprimaryKey)
-            .where(function (QueryExpression myexp, SelectQuery myq) use (myprimaryKey, someKeys, mysource) {
+            .where(function (QueryExpression myexp, SelectQuery myq) use (myprimaryKey, someKeys, sourceTable) {
                 if (isArray(myprimaryKey) && count(myprimaryKey) == 1) {
                     myprimaryKey = currentValue(myprimaryKey);
                 }
                 if (isString(myprimaryKey)) {
-                    return myexp.in(mysource.aliasField(myprimaryKey), someKeys);
+                    return myexp.in(sourceTable.aliasField(myprimaryKey), someKeys);
                 }
                 mytypes = array_intersectinternalKey(myq.getDefaultTypes(), array_flip(myprimaryKey));
-                myprimaryKey = array_map([mysource, "aliasField"], myprimaryKey);
+                myprimaryKey = array_map([sourceTable, "aliasField"], myprimaryKey);
 
                 return new DTupleComparison(myprimaryKey, someKeys, mytypes, "IN");
             })
             .enableAutoFields()
             .contain(mycontain);
 
-        foreach (myquery.getEagerLoader().attachableAssociations(mysource) as myloadable) {
+        foreach (myquery.getEagerLoader().attachableAssociations(sourceTable) as myloadable) {
             configData = myloadable.configuration.data;
             configuration.get("includeFields"] = true;
             myloadable.configuration.update(configData);
@@ -98,17 +97,17 @@ class DLazyEagerLoader {
      * array<\UIM\Datasource\IORMEntity> myentities The original list of entities
      * @param \ORM\Query\SelectQuery myquery The query to load results
      * @param string[] myassociations The top level associations that were loaded
-     * @param \ORM\Table mysource The table where the entities came from
+     * @param \ORM\Table sourceTable The table where the entities came from
      */
     protected IORMEntity[] _injectResults(
         Json[string]myentities,
         SelectQuery myquery,
         Json[string] myassociations,
-        Table mysource
+        Table sourceTable
    ) {
         myinjected = null;
-        myproperties = _getPropertyMap(mysource, myassociations);
-        myprimaryKey = /* (array) */mysource.primaryKeys();
+        myproperties = _getPropertyMap(sourceTable, myassociations);
+        myprimaryKey = /* (array) */sourceTable.primaryKeys();
         /** @var array<\UIM\Datasource\IORMEntity> results */
         results = myquery
             .all()

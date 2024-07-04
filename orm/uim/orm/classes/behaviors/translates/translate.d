@@ -230,34 +230,29 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      *
      * If the `locales` array is not passed, it will bring all translations found
      * for each record.
-     * Params:
-     * \ORM\Query\SelectQuery myquery The original query to modify
-     * @param string[] mylocales A list of locales or options with the `locales` key defined
      */
-    SelectQuery findTranslations(SelectQuery myquery, Json[string] mylocales= null) {
-        mytargetAlias = getStrategy().getTranslationTable().aliasName();
-
-        return myquery
-            .contain([mytargetAlias: auto(IQuery myquery) use(mylocales, mytargetAlias) {
-                        if (mylocales) {
-                            myquery.where(["mytargetAlias.locale IN": mylocales]);
+    SelectQuery findTranslations(DSelectQuery queryToModify, Json[string] locales= null) {
+        auto mytargetAlias = getStrategy().getTranslationTable().aliasName();
+        return queryToModify
+            .contain([mytargetAlias: auto(IQuery queryToModify) use(mylocales, mytargetAlias) {
+                        if (locales) {
+                            queryToModify.where(["mytargetAlias.locale IN": mylocales]);
                         }
-                        return myquery;}
+                        return queryToModify;}
 
                         ])
                             .formatResults(getStrategy()
-                                .groupTranslations(...), myquery.PREPEND);
+                                .groupTranslations(...), queryToModify.PREPEND);
                     }
 
                     /**
      * Proxy method calls to strategy class instance.
      * Params:
-     * string mymethod Method name.
      * @param Json[string] myargs Method arguments.
     */
-                    Json __call(string mymethod, Json[string] myargs) {
+                    Json __call(string methodName, Json[string] myargs) {
                         return _strategy. {
-                            mymethod
+                            methodName
                         }
                         (...myargs);
                     }

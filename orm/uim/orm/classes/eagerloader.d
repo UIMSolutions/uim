@@ -171,10 +171,6 @@ class DEagerLoader {
      * - `joinType`: INNER, OUTER, ...
      * - `fields`: Fields to contain
      * - `negateMatch`: Whether to add conditions negate match on target association
-     *
-     * @param callable|null builder the callback function to be used for setting extra
-     * options to the filtering query
-     * @param Json[string] options Extra options for the association matching.
      */
     void setMatching(string associationPath, callable builder = null, Json[string] options = null) {
         if (_matching == null) {

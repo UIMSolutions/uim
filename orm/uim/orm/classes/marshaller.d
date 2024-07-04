@@ -184,12 +184,7 @@ class DMarshaller {
             return _table.getValidator(validatorName).validate(mydata, isNew);
         }
 
-        /**
-     * Returns data and options prepared to validate and marshall.
-     * Params:
-     * Json[string] mydata The data to prepare.
-     * @param Json[string] options The options passed to this marshaller.
-     */
+        // Returns data and options prepared to validate and marshall.
         protected Json[string] _prepareDataAndOptions(Json[string] data, Json[string] options = null) {
             auto updatedOptions = options.update["validate": true.toJson];
 

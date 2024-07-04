@@ -18,7 +18,6 @@ import uim.orm;
 class DResultset : IResultset {
     mixin TCollection;
 
-    /* 
     // Database statement holding the results
     protected DDBStatementInterface _statement;
 
@@ -35,18 +34,14 @@ class DResultset : IResultset {
     // Default table instance
     protected DORMTable _defaultTable;
 
-    /**
-     * The default table alias
-     */
+    // The default table alias
     protected string _defaultAlias;
 
     /**
      * List of associations that should be placed under the `_matchingData`
      * result key.
-     *
-     * @var Json[string]
      */
-    protected _matchingMap = null;
+    protected Json[string] _matchingMap = null;
 
     /**
      * List of associations that should be eager loaded.
@@ -58,18 +53,11 @@ class DResultset : IResultset {
     /**
      * Map of fields that are fetched from the statement with
      * their type and the table they belong to
-     *
-     * @var Json[string]
      */
-    protected _map = null;
+    protected Json[string] _map = null;
 
-    /**
-     * List of matching associations and the column keys to expect
-     * from each of them.
-     *
-     * @var Json[string]
-     */
-    protected _matchingMapColumns = null;
+    // List of matching associations and the column keys to expect from each of them.
+    protected Json[string] _matchingMapColumns = null;
 
     /**
      * Results that have been fetched or hydrated into the results.
@@ -83,26 +71,16 @@ class DResultset : IResultset {
      */
     protected bool _hydrate = true;
 
-    /**
-     * Tracks value of _autoFields property of query passed to constructor.
-     *
-     * @var bool|null
-     */
-    protected _autoFields;
+    // Tracks value of _autoFields property of query passed to constructor.
+    protected bool _autoFields;
 
-    /**
-     * The fully namespaced name of the class to use for hydrating results
+    // The fully namespaced name of the class to use for hydrating results
      */
-    protected string _entityClass;
 
-    /**
-     * Whether to buffer results fetched from the statement
-     */
+    // Whether to buffer results fetched from the statement
     protected bool _useBuffering = true;
 
-    /**
-     * Holds the count of records in this result set
-     */
+    // Holds the count of records in this result set
     protected int _count;
 
     /**
@@ -114,13 +92,7 @@ class DResultset : IResultset {
      */
     protected _driver;
 
-    /**
-     * Constructor
-     *
-     * @param DORMQuery query Query from where results come
-     * @param DORMdatabases.StatementInterface statement The statement to fetch from
-     */
-    this(Query query, StatementInterface statement) {
+    this(DORMQuery query, IStatement statement) {
         repository = query.getRepository();
         _statement = statement;
         _driver = query.getConnection().getDriver();

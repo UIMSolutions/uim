@@ -57,17 +57,14 @@ class DTreeBehavior : DBehavior {
      * Before save listener.
      * Transparently manages setting the lft and rght fields if the parent field is
      * included in the parameters to be saved.
-     *
-     * @param DORMevents.IEvent event The beforeSave event that was fired
-     * @param DORMDatasource\IORMEntity anEntity the entity that is going to be saved
      */
-    void beforeSave(IEvent event, IORMEntity anEntity) {
-        isNew = entity.isNew();
+    void beforeSave(IEvent event, IORMEntity ormEntity) {
+        auto isNew = entity.isNew();
         auto configData = configuration.data;
-        parent = entity.get(configuration.get("parent"));
-        primaryKeys = primaryKeys();
-        dirty = entity.isChanged(configuration.get("parent"));
-        level = configuration.get("level");
+        auto parent = entity.get(configuration.get("parent"));
+        auto primaryKeys = primaryKeys();
+        auto dirty = entity.isChanged(configuration.get("parent"));
+        auto level = configuration.get("level");
 
         if (parent && entity.get(primaryKeys) == parent) {
             throw new DRuntimeException("Cannot set a node's parent as itself");
@@ -83,7 +80,6 @@ class DTreeBehavior : DBehavior {
             if (level) {
                 entity.set(level, parentNode[level] + 1);
             }
-
             return;
         }
 
@@ -95,7 +91,6 @@ class DTreeBehavior : DBehavior {
             if (level) {
                 entity.set(level, 0);
             }
-
             return;
         }
 
@@ -106,7 +101,6 @@ class DTreeBehavior : DBehavior {
                 parentNode = _getNode(parent);
                 entity.set(level, parentNode[level] + 1);
             }
-
             return;
         }
 
@@ -137,9 +131,9 @@ class DTreeBehavior : DBehavior {
     /**
      * Set level for descendants.
      *
-     * @param DORMDatasource\IORMEntity anEntity The entity whose descendants need to be updated.
+     * @param DORMDatasource\IORMEntity ormEntity The entity whose descendants need to be updated.
      */
-    protected void _setChildrenLevel(IORMEntity anEntity) {
+    protected void _setChildrenLevel(IORMEntity ormEntity) {
         auto configData = configuration.data;
 
         if (entity.get(configuration.get("left")) + 1 == entity.get(configuration.get("right"))) {
@@ -173,9 +167,9 @@ class DTreeBehavior : DBehavior {
      * Also deletes the nodes in the subtree of the entity to be delete
      *
      * @param DORMevents.IEvent event The beforeDelete event that was fired
-     * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved
+     * @param DORMDatasource\IORMEntity ormEntity The entity that is going to be saved
      */
-    void beforeremove(IEvent event, IORMEntity anEntity) {
+    void beforeremove(IEvent event, IORMEntity ormEntity) {
         auto configData = configuration.data;
         _ensureFields(entity);
         left = entity.get(configuration.get("left"));
@@ -210,10 +204,10 @@ class DTreeBehavior : DBehavior {
      * updated to a new parent. It also makes the hole in the tree so the node
      * move can be done without corrupting the structure.
      *
-     * @param DORMDatasource\IORMEntity anEntity The entity to re-parent
+     * @param DORMDatasource\IORMEntity ormEntity The entity to re-parent
      * @param mixed parent the id of the parent to set
      */
-    protected void _setParent(IORMEntity anEntity, parent) {
+    protected void _setParent(IORMEntity ormEntity, parent) {
         auto configData = configuration.data;
         parentNode = _getNode(parent);
         _ensureFields(entity);
@@ -269,9 +263,9 @@ class DTreeBehavior : DBehavior {
      * a new root in the tree. It also modifies the ordering in the rest of the tree
      * so the structure remains valid
      *
-     * @param DORMDatasource\IORMEntity anEntity The entity to set as a new root
+     * @param DORMDatasource\IORMEntity ormEntity The entity to set as a new root
      */
-    protected void _setAsRoot(IORMEntity anEntity) {
+    protected void _setAsRoot(IORMEntity ormEntity) {
         auto configData = configuration.data;
         auto edge = _getMax();
         _ensureFields(entity);
@@ -843,9 +837,9 @@ class DTreeBehavior : DBehavior {
      * Ensures that the provided entity contains non-empty values for the left and
      * right fields
      *
-     * @param DORMDatasource\IORMEntity anEntity The entity to ensure fields for
+     * @param DORMDatasource\IORMEntity ormEntity The entity to ensure fields for
      */
-    protected void _ensureFields(IORMEntity anEntity) {
+    protected void _ensureFields(IORMEntity ormEntity) {
         auto configData = configuration.data;
         fields = [configuration.get("left"), configuration.get("right")];
         values = array_filter(entity.extract(fields));

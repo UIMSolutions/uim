@@ -232,60 +232,57 @@ class DEagerLoader {
      * Formats the containments array so that associations are always set as keys
      * in the array. This auto merges the original associations array with
      * the new associations provided.
-     * Params:
-     * @param Json[string] myoriginal The original containments array to merge
-     * with the new one.
      */
-    protected Json[string] _reformatContain(Json[string] associations, Json[string] myoriginal) {
-        auto result = myoriginal;
+    protected Json[string] _reformatContain(Json[string] associations, Json[string] originalData) {
+        auto result = originalData;
 
-        foreach (mytable,  options; associations) {
+        foreach (ormtable,  options; associations) {
             auto mypointer = &result;
-            if (isInteger(mytable)) {
-                mytable = options;
+            if (isInteger(ormtable)) {
+                ormtable = options;
                 options = null;
             }
             if (cast(EagerLoadable)options) {
                 options = options.asContainArray();
-                mytable = key(options);
+                ormtable = key(options);
                 options = currentValue(options);
             }
-            if (isSet(_containOptions[mytable])) {
-                mypointer[mytable] = options;
+            if (isSet(_containOptions[ormtable])) {
+                mypointer[ormtable] = options;
                 continue;
             }
-            if (mytable.contains(".")) {
-                string[] mypath = mytable.split(".");
-                mytable = array_pop(mypath);
+            if (ormtable.contains(".")) {
+                string[] mypath = ormtable.split(".");
+                ormtable = array_pop(mypath);
                 mypath.each!((t) {
                     mypointer += [t: []];
                     mypointer = &mypointer[t];
                 });
             }
             if (isArray(options)) {
-                options = options.hasKey()"config") ?
+                options = options.hasKey("config") ?
                     options["config"] + options["associations"] :
                     options;
                 options = _reformatContain(
                     options,
-                    mypointer.get(mytable)
+                    mypointer.get(ormtable)
                );
             }
             if (cast(DClosure)options) {
                 options = ["queryBuilder": options];
             }
-            mypointer += [mytable: []];
+            mypointer += [ormtable: []];
 
-            if (options.hasKey("queryBuilder"], mypointer[mytable]["queryBuilder"])) {
-                myfirst = mypointer[mytable]["queryBuilder"];
-                mysecond = options.get("queryBuilder"];
+            if (options.hasKey("queryBuilder"), mypointer[ormtable]["queryBuilder"]) {
+                myfirst = mypointer[ormtable]["queryBuilder"];
+                mysecond = options.get("queryBuilder");
                 // TODO options["queryBuilder"] = fn (selectQuery): mysecond(myfirst(selectQuery));
             }
             if (!isArray(options)) {
                 /** @psalm-suppress InvalidArrayOffset */
                 options = [options: []];
             }
-            mypointer[mytable] = options + mypointer[mytable];
+            mypointer[ormtable] = options + mypointer[ormtable];
         }
         return result;
     }
@@ -350,18 +347,8 @@ class DEagerLoader {
         return _loadExternal;
     }
     
-    /**
-     * Auxiliary auto responsible for fully normalizing deep associations defined
-     * using `contain()`.
-     * Params:
-     * \ORM\Table myparent Owning side of the association.
-     * @param string aliasName Name of the association to be loaded.
-     * @param Json[string] paths An array with two values, the first one is a list of dot
-     * separated strings representing associations that lead to this `aliasName` in the
-     * chain of associations to be loaded. The second value is the path to follow in
-     * entities" properties to fetch a record of the corresponding association.
-     */
-    protected DEagerLoadable _normalizeContain(Table myparent, string aliasName, Json[string] options, Json[string] paths) {
+    // Auxiliary auto responsible for fully normalizing deep associations defined using `contain()`.
+    protected DEagerLoadable _normalizeContain(DORMTable myparent, string aliasName, Json[string] options, Json[string] paths) {
         auto mydefaults = _containOptions;
         auto myinstance = myparent.getAssociation(aliasName);
 
@@ -369,14 +356,14 @@ class DEagerLoader {
         paths["aliasPath"] ~= "." ~ aliasName;
 
         if (
-            options.hasKey("matching"]) &&
+            options.hasKey("matching") &&
             options["matching"] == true
        ) {
             paths["propertyPath"] = "_matchingData." ~ aliasName;
         } else {
             paths["propertyPath"] ~= "." ~ myinstance.getProperty();
         }
-        mytable = myinstance.getTarget();
+        ormtable = myinstance.getTarget();
 
         Json[string] myextra = array_diffinternalKey(options, mydefaults);
         configData = [
@@ -387,7 +374,7 @@ class DEagerLoader {
             "propertyPath": strip(paths["propertyPath"], "."),
             "targetProperty": myinstance.getProperty(),
         ];
-        configuration.get("canBeJoined"] = myinstance.canBeJoined(configuration.get("config"]);
+        configuration.set("canBeJoined", myinstance.canBeJoined(configuration.get("config")));
         myeagerLoadable = new DEagerLoadable(aliasName, configData);
 
         if (configuration.hasKey("canBeJoined")) {
@@ -399,7 +386,7 @@ class DEagerLoader {
             .each!((tAssoc) {
                 myeagerLoadable.addAssociation(
                     tAssoc.key,
-                    _normalizeContain(mytable, tAssoc.key, tAssoc.value, paths)
+                    _normalizeContain(ormtable, tAssoc.key, tAssoc.value, paths)
                );
             });
         return myeagerLoadable;
@@ -413,11 +400,11 @@ class DEagerLoader {
      * _normalizeContain() function.
      */
     protected void _fixStrategies() {
-        foreach (_aliasList as myaliases) {
+        foreach (myaliases; _aliasList) {
             myaliases
                 .filter!(confifData => count(configData) > 1)
                 .each!((configData) {
-                    foreach (configData as myloadable) {
+                    foreach (myloadable; configData) {
                         assert(cast(DEagerLoadable)myloadable);
                         if (myloadable.aliasPath().contains(".")) {
                         _correctStrategy(myloadable);
@@ -430,10 +417,8 @@ class DEagerLoader {
     /**
      * Changes the association fetching strategy if required because of duplicate
      * under the same direct associations chain.
-     * Params:
-     * \ORM\EagerLoadable myloadable The association config.
      */
-    protected void _correctStrategy(EagerLoadable myloadable) {
+    protected void _correctStrategy(DEagerLoadable myloadable) {
         configData = myloadable.configuration.data;
         string currentStrategy = configuration.getString("strategy", "join");
 
@@ -449,19 +434,18 @@ class DEagerLoader {
      * Helper auto used to compile a list of all associations that can be
      * joined in the query.
      * Params:
-     * array<\ORM\EagerLoadable> associations List of associations from which to obtain joins.
-     * @param array<\ORM\EagerLoadable> mymatching List of associations that should be forcibly joined.
+     * array<\ORM\> associations List of associations from which to obtain joins.
      */
-    protected DEagerLoadable[] _resolveJoins(Json[string] associations, Json[string] mymatching = null) {
+    protected DEagerLoadable[] _resolveJoins(DEagerLoadable[] associations, DEagerLoadable[] mymatching = null) {
         auto result;
-        foreach (mytable, myloadable; mymatching) {
-            result[mytable] = myloadable;
+        foreach (ormtable, myloadable; mymatching) {
+            result[ormtable] = myloadable;
             result += _resolveJoins(myloadable.associations(), []);
         }
-        foreach (associations as mytable: myloadable) {
-            auto myinMatching = mymatching.hasKey(mytable);
+        foreach (associations as ormtable: myloadable) {
+            auto myinMatching = mymatching.hasKey(ormtable);
             if (!myinMatching && myloadable.canBeJoined()) {
-                result[mytable] = myloadable;
+                result[ormtable] = myloadable;
                 result += _resolveJoins(myloadable.associations(), []);
                 continue;
             }
@@ -480,8 +464,8 @@ class DEagerLoader {
             return results;
         }
 
-        auto mytable = selectQuery.getRepository();
-        auto externalAssociations = externalAssociations(mytable);
+        auto ormtable = selectQuery.getRepository();
+        auto externalAssociations = externalAssociations(ormtable);
         if (myexternal.isEmpty) {
             return results;
         }
@@ -526,20 +510,9 @@ class DEagerLoader {
     }
     
     /**
-     * Returns an array having as keys a dotted path of associations that participate
-     * in this eager loader. The values of the array will contain the following keys:
-     *
-     * - `alias`: The association alias
-     * - `instance`: The association instance
-     * - `canBeJoined`: Whether the association will be loaded using a JOIN
-     * - `entityClass`: The entity that should be used for hydrating the results
-     * - `nestKey`: A dotted path that can be used to correctly insert the data into the results.
-     * - `matching`: Whether it is an association loaded through `matching()`.
-     * Params:
-     * \ORM\Table mytable The table containing the association that
-     * will be normalized.
+     * Returns an array having as keys a dotted path of associations that participate in this eager loader. 
      */
-    Json[string] associationsMap(Table mytable) {
+    Json[string] associationsMap(DORMTable ormtable) {
         mymap = null;
 
         if (!getMatching() && !getContain() && _joinsMap.isEmpty) {
@@ -547,8 +520,8 @@ class DEagerLoader {
         }
         assert(_matching !is null, "EagerLoader not available");
 
-        mymap = _buildAssociationsMap(mymap, _matching.normalized(mytable), true);
-        mymap = _buildAssociationsMap(mymap, normalized(mytable));
+        mymap = _buildAssociationsMap(mymap, _matching.normalized(ormtable), true);
+        mymap = _buildAssociationsMap(mymap, normalized(ormtable));
 
         return _buildAssociationsMap(mymap, _joinsMap);
     }

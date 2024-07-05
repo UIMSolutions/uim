@@ -258,20 +258,20 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMTable source The source table.
      * @param DORMTable target The target table.
      */
-    protected void _generateJunctionAssociations(Table junctionTable, Table source, Table target) {
-        tAlias = target.aliasName();
+    protected void _generateJunctionAssociations(Table junctionTable, DORMTable source, DORMTable targetTable) {
+        tAlias = targetTable.aliasName();
         sourceAlias = source.aliasName();
 
         if (!junctionTable.hasAssociation(tAlias)) {
             junctionTable.belongsTo(tAlias, [
                 "foreignKeys": tarforeignKeys(),
-                "targetTable": target,
+                "targetTable": targetTable,
             ]);
         } else {
             belongsTo = junctionTable.getAssociation(tAlias);
             if (
                 tarforeignKeys() != belongsTo.foreignKeys() ||
-                target != belongsTo.getTarget()
+                targetTable != belongsTo.getTarget()
            ) {
                 throw new DInvalidArgumentException(
                     "The existing `{tAlias}` association on `{junctionTable.aliasName()}` " ~
@@ -301,26 +301,24 @@ class DBelongsToManyAssociation : DAssociation {
      * - conditions: array with a list of conditions to filter the join with
      * - fields: a list of fields in the target table to include in the result
      * - type: The type of join to be used (e.g. INNER)
-     *
-     * @param DORMQuery query the query to be altered to include the target table data
      */
-    void attachTo(Query query, Json[string] options = null) {
+    void attachTo(DORMQuery query, Json[string] options = null) {
         if (!options.isEmpty("negateMatch")) {
             _appendNotMatching(query, options);
 
             return;
         }
 
-        junction = this.junction();
-        belongsTo = junction.getAssociation(source().aliasName());
-        cond = belongsTo._joinCondition(["foreignKeys": belongsTo.foreignKeys()]);
+        auto junction = this.junction();
+        auto belongsTo = junction.getAssociation(source().aliasName());
+        auto cond = belongsTo._joinCondition(["foreignKeys": belongsTo.foreignKeys()]);
         cond += this.junctionConditions();
 
         includeFields = options.get("includeFields", null);
 
         // Attach the junction table as well we need it to populate _joinData.
-        assoc = _targetTable.getAssociation(junction.aliasName());
-        newOptions = array_intersectinternalKey(options, ["joinType": 1, "fields": 1]);
+        auto assoc = _targetTable.getAssociation(junction.aliasName());
+        auto newOptions = array_intersectinternalKey(options, ["joinType": 1, "fields": 1]);
         newOptions += [
             "conditions": cond,
             "includeFields": includeFields,
@@ -350,8 +348,8 @@ class DBelongsToManyAssociation : DAssociation {
             .select(array_values(conds))
             .where(options["conditions"]);
 
-        if (!options.isEmpty("queryBuilder"])) {
-            subquery = options.get("queryBuilder"](subquery);
+        if (!options.isEmpty("queryBuilder")) {
+            subquery = options.get("queryBuilder")(subquery);
         }
 
         subquery = _appendJunctionJoin(subquery);

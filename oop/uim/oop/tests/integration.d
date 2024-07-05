@@ -524,7 +524,7 @@ mixin template TIntegrationTest() {
     }
 
     // Creates a valid request url and parameter array more like Request._url()
-    protected Json[string] _url(string aurl) {
+    protected Json[string] _url(string url) {
         anUri = new Uri(url);
         somePath = anUri.getPath();
         aQuery = anUri.getQuery();
@@ -620,10 +620,10 @@ mixin template TIntegrationTest() {
     /**
      * Asserts that the Location header contains a substring
      * Params:
-     * string aurl The URL you expected the client to go to.
+     * string url The URL you expected the client to go to.
      * @param string amessage The failure message that will be appended to the generated message.
      */
-    void assertRedirectContains(string aurl, string message = null) {
+    void assertRedirectContains(string url, string message = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }
@@ -633,17 +633,12 @@ mixin template TIntegrationTest() {
         assertThat(url, new DHeaderContains(_response, "Location"), verboseMessage);
     }
 
-    /**
-     * Asserts that the Location header does not contain a substring
-     * Params:
-     * string aurl The URL you expected the client to go to.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertRedirectNotContains(string aurl, string amessage = null) {
+    // Asserts that the Location header does not contain a substring
+    void assertRedirectNotContains(string url, string failureMessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }
-        verboseMessage = this.extractVerboseMessage(message);
+        auto verboseMessage = this.extractVerboseMessage(failureMessage);
         assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
         assertThat(url, new DHeaderNotContains(_response, "Location"), verboseMessage);
     }

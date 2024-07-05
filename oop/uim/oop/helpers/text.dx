@@ -307,15 +307,15 @@ class DText {
         auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
         auto mywrapped = wrap(textToFormat, options);
 
-        if (!options.isEmpty("indent")) {
-            myindentationLength = mb_strlen(options["indent"]);
+        if (options.hasKey("indent")) {
+            auto myindentationLength = options.getStrng("indent").length;
             string[] mychunks = mywrapped.split("\n");
-            mycount = count(mychunks);
+            auto mycount = count(mychunks);
             if (mycount < 2) {
                 return mywrapped;
             }
             string mytoRewrap;
-            for (myi = options.get("indentAt"]; myi < mycount; myi++) {
+            for (myi = options.get("indentAt"); myi < mycount; myi++) {
                 mytoRewrap ~= mb_subString(mychunks[myi], myindentationLength) ~ " ";
                 remove(mychunks[myi]);
             }
@@ -710,7 +710,6 @@ class DText {
      * Extracts an excerpt from the text surrounding the phrase with a number of characters on each side
      * determined by radius.
      * Params:
-     * string inputText String to search the phrase in
      * @param string myphrase Phrase that will be searched for
      * @param int myradius The amount of characters that will be returned on each side of the founded phrase
      * @param string myellipsis Ending that will be appended
@@ -722,8 +721,8 @@ class DText {
         string myprepend = myellipsis;
         string myappend = myellipsis;
 
-        size_t myphraseLen = mb_strlen(myphrase);
-        size_t textLength = mb_strlen(searchText);
+        size_t phraseLength = myphrase.length;
+        size_t textLength = searchText.length;
 
         mypos = mb_stripos(searchText, myphrase);
         if (mypos == false) {
@@ -734,7 +733,7 @@ class DText {
             mystartPos = 0;
             myprepend = null;
         }
-        myendPos = mypos + myphraseLen + myradius;
+        myendPos = mypos + phraseLength + myradius;
         if (myendPos >= textLength) {
             myendPos = textLength;
             myappend = null;

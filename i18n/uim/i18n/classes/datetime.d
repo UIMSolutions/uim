@@ -12,7 +12,9 @@ class DateTime /* : Chronos, JsonSerializable */ {
     mixin TConfigurable;
     // TODO mixin TDateFormat;
 
-    this() { initialize; }
+    this() {
+        initialize;
+    }
 
     bool initialize(Json[string] initData = null) {
         return true;
@@ -48,7 +50,9 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * @var array<int>|string|int
      */
-    protected string[] _toStringFormat = [IntlDateFormatter.SHORT, IntlDateFormatter.SHORT];
+    protected string[] _toStringFormat = [
+        IntlDateFormatter.SHORT, IntlDateFormatter.SHORT
+    ];
 
     /**
      * The format to use when converting this object to Json.
@@ -63,7 +67,9 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * @var \Closure|array<int>|string|int
      */
-    protected auto/* Closure */ string[]/* |int */ _JsonEncodeFormat = ["yyyy-MM-dd'T'HH':'mm':'ssxxx'"];
+    protected auto  /* Closure */ string[] /* |int */ _JsonEncodeFormat = [
+        "yyyy-MM-dd'T'HH':'mm':'ssxxx'"
+    ];
 
     /**
      * The format to use when formatting a time using `UIM\I18n\DateTime.nice()`
@@ -112,7 +118,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     auto string getDefaultLocale() {
         return defaultLocale;
     }
-    
+
     /**
      * Sets the default locale.
      *
@@ -121,22 +127,22 @@ class DateTime /* : Chronos, JsonSerializable */ {
     void setDefaultLocale(string localeName = null) {
         defaultLocale = localeName;
     }
-    
+
     // Gets whether locale format parsing is set to lenient.
     bool lenientParsingEnabled() {
         return _lenientParsing;
     }
-    
+
     // Enables lenient parsing for locale formats.
     void enableLenientParsing() {
         _lenientParsing = true;
     }
-    
+
     // Enables lenient parsing for locale formats.
     void disableLenientParsing() {
         _lenientParsing = false;
     }
-    
+
     /**
      * Sets the default format used when type converting instances of this type to string
      *
@@ -153,7 +159,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     void setToStringFormat(format) {
         _toStringFormat = format;
     }
-    
+
     /**
      * Resets the format used to the default when converting an instance of this type to
      * a string
@@ -161,7 +167,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     void resetToStringFormat() {
         setToStringFormat([IntlDateFormatter.SHORT, IntlDateFormatter.SHORT]);
     }
-    
+
     /**
      * Sets the default format used when converting this object to Json
      *
@@ -178,10 +184,10 @@ class DateTime /* : Chronos, JsonSerializable */ {
      */
     // void setJsonEncodeFormat(Closure  format) {
     // void setJsonEncodeFormat(string[]|int format) {
-    void setJsonEncodeFormat(/* Closure */ string[]/* |int */ format) {
+    void setJsonEncodeFormat( /* Closure */ string[] /* |int */ format) {
         _JsonEncodeFormat = format;
     }
-    
+
     /**
      * Returns a new DTime object after parsing the provided time string based on
      * the passed or configured date time format. This method is locale dependent,
@@ -206,21 +212,21 @@ class DateTime /* : Chronos, JsonSerializable */ {
      */
     auto parseDateTime(
         string timeToParse,
-        int format = null,
-        /* DateTimeZone| */ string timezone = null
-   ) {
+        int format = null, /* DateTimeZone| */
+        string timezone = null
+    ) {
         return parseDateTime(timeToParse, [to!string(format)], timezone);
     }
 
     auto parseDateTime(
         string timeToParse,
-        string[] format = null,
-        /* DateTimeZone| */ string timezone = null
-   ) {
+        string[] format = null, /* DateTimeZone| */
+        string timezone = null
+    ) {
         format = format ? format : _toStringFormat;
         return _parseDateTime(time, format, timezone);
     }
-    
+
     /**
      * Returns a new DTime object after parsing the provided date string based on
      * the passed or configured date time format. This method is locale dependent,
@@ -248,9 +254,9 @@ class DateTime /* : Chronos, JsonSerializable */ {
             format = [format, IntlDateFormatter.NONE];
         }
         return parseDateTime(date, format); */
-        return null; 
+        return null;
     }
-    
+
     /**
      * Returns a new DTime object after parsing the provided time string based on
      * the passed or configured date time format. This method is locale dependent,
@@ -271,24 +277,28 @@ class DateTime /* : Chronos, JsonSerializable */ {
         auto myFormat = [IntlDateFormatter.NONE, to!string(format)];
         return parseTime(timeToParse, myFormat);
     }
+
     auto parseTime(string atitimeToParseme, string[] format = null) {
-        format = format ? format : [IntlDateFormatter.NONE, IntlDateFormatter.SHORT];
+        format = format ? format : [
+            IntlDateFormatter.NONE, IntlDateFormatter.SHORT
+        ];
 
         return parseDateTime(timeToParse, format);
     }
-    
+
     // Get the difference formatter instance.
     auto RelativeTimeFormatter diffFormatter(DifferenceII18NFormatter formatter = null) {
         if (formatter) {
-            if (!cast(RelativeTimeFormatter)formatter) {
-                throw new DInvalidArgumentException("Formatter for I18n must extend RelativeTimeFormatter.");
+            if (!cast(RelativeTimeFormatter) formatter) {
+                throw new DInvalidArgumentException(
+                    "Formatter for I18n must extend RelativeTimeFormatter.");
             }
             return diffFormatter = formatter;
         }
         formatter = diffFormatter ? diffFormatter : new DRelativeTimeFormatter();
         return formatter;
     }
-    
+
     /**
      * Returns a formatted string for this time object using the preferred format and
      * language for the specified locale.
@@ -336,23 +346,24 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * If empty, the default will be taken from the `intl.default_locale` ini config.
      */
     string i18nFormat(
-        /* array<int>|string */int format = null,
-        /* DateTimeZone| */string timezone = null,
+        /* array<int>|string */
+        int format = null, /* DateTimeZone| */
+        string timezone = null,
         string localeName = null
-   ) {
+    ) {
         string[] myFormat = [to!string(format), to!string(format)];
         return i18nFormat(myFormat, timezone, localeName);
     }
 
     string i18nFormat(
-        string[] format,
-        /* DateTimeZone| */ string timezone = null,
+        string[] format, /* DateTimeZone| */
+        string timezone = null,
         string localeName
-   ) {
+    ) {
         if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
             return _getTimestamp();
         }
-        
+
         auto time = this;
         if (timezone) {
             time = time.setTimezone(timezone);
@@ -362,16 +373,16 @@ class DateTime /* : Chronos, JsonSerializable */ {
 
         return _formatObject(time, format, localeName);
     }
-    
+
     /**
      * Returns a nicely formatted date string for this object.
      *
      * The format to be used is stored in the auto property `DateTime.niceFormat`.
      */
-    string nice(DateTimeZone|string timezone = null, string localeName = null) {
-        return (string)this.i18nFormat(niceFormat, timezone, localeName);
+    string nice(/* DateTimeZone |  */string timezone = null, string localeName = null) {
+        return/*  (string) */ this.i18nFormat(niceFormat, timezone, localeName);
     }
-    
+
     /**
      * Returns either a relative or a formatted absolute date depending
      * on the difference between the current time and this object.
@@ -409,7 +420,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     string timeAgoInWords(Json[string] options = null) {
         return diffFormatter().timeAgoInWords(this, options);
     }
-    
+
     /**
      * Get list of timezone identifiers
      * Params:
@@ -422,10 +433,10 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * to customize the abbreviation wrapper.
      */
     auto Json[string] listTimezones(
-        string/* |int */ regexFilter = null,
+        string /* |int */ regexFilter = null,
         string countryCode = null,
         Json[string] options = null
-   ) {
+    ) {
         if (isBoolean(options)) {
             options = [
                 "group": options,
@@ -438,15 +449,14 @@ class DateTime /* : Chronos, JsonSerializable */ {
             "after": Json(null),
         ];
         auto updatedOptions = options.updatedefaults;
-        auto anGroup = options.get("group"];
-
+        auto anGroup = options.get("group");
         auto regex = null;
         if (isString(regexFilter)) {
             regex = filter;
             filter = null;
         }
         auto filter ? filter : DateTimeZone.ALL;
-         anIdentifiers = DateTimeZone.listIdentifiers(filter, countryCode) ?: [];
+        anIdentifiers = DateTimeZone.listIdentifiers(filter, countryCode) ?  : [];
 
         if (regex) {
             foreach (aKey, timezone; anIdentifiers) {
@@ -456,40 +466,42 @@ class DateTime /* : Chronos, JsonSerializable */ {
             }
         }
         if (anGroup) {
-             anGroupedIdentifiers = null;
-            now = time();
-            before = options.get("before"];
-            after = options.get("after"];
-            anIdentifiers.each!((timezone) {
+            auto anGroupedIdentifiers = null;
+            auto now = time();
+            auto before = options.get(
+                "before");
+            auto after = options.get("after");
+            anIdentifiers.each!(
+                (timezone) {
                 string abbr = "";
                 if (options["abbr"]) {
                     dateTimeZone = new DateTimeZone(timezone);
                     trans = dateTimeZone.getTransitions(now, now);
                     abbr = isSet(trans[0]["abbr"]) ?
-                        before ~ trans[0]["abbr"] ~ after :
-                        "";
+                        before ~ trans[0]["abbr"] ~ after : "";
                 }
-                 anItem = split("/", timezone, 2);
+                anItem = split("/", timezone, 2);
                 if (isSet(anItem[1])) {
-                     anGroupedIdentifiers[anItem[0]][timezone] = anItem[1] ~ abbr;
+                    anGroupedIdentifiers[anItem[0]][timezone] = anItem[1] ~ abbr;
                 } else {
-                     anGroupedIdentifiers[anItem[0]] = [timezone:  anItem[0] ~ abbr];
+                    anGroupedIdentifiers[anItem[0]] = [
+                        timezone: anItem[0] ~ abbr
+                    ];
                 }
             });
             return anGroupedIdentifiers;
         }
-        return array_combine(anIdentifiers,  anIdentifiers);
+        return array_combine(anIdentifiers, anIdentifiers);
     }
-    
+
     // Returns a string that should be serialized when converting this object to Json
     string JsonSerialize() {
-        return cast(DClosure)_JsonEncodeFormat
-            ? call_user_func(_JsonEncodeFormat, this)
-            : _i18nFormat(_JsonEncodeFormat);
+        return cast(DClosure) _JsonEncodeFormat
+            ? call_user_func(_JsonEncodeFormat, this) : _i18nFormat(
+                _JsonEncodeFormat);
     }
- 
+
     override string toString() {
-        return (string)this.i18nFormat();
+        return (string) this.i18nFormat();
     }
 }
-

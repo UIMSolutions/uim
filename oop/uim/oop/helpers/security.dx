@@ -40,21 +40,15 @@ class DSecurity {
     // The crypto implementation to use.
     protected static Object _instance = null;
 
-    /**
-     * Create a hash from string using given method.
-     * Params:
-     * @param string myalgorithm Hashing algo to use (i.e. sha1, sha256 etc.).
-     * Can be any valid algo included in list returned by hash_algos().
-     * If no value is passed the type specified by `Security.defaultHashType` is used.
-     */
+    // Create a hash from string using given method.
     static string hash(string textToHash, string hashType = null, string salt = null) {
         string hashType = hashType.isEmpty ? defaultHashType : hashType.lower;
 
-        myavailableAlgorithms = hash_algos();
-        if (!isIn(hashType, myavailableAlgorithms, true)) {
+        auto availableAlgorithms = hash_algos();
+        if (!isIn(hashType, availableAlgorithms, true)) {
             throw new DInvalidArgumentException(
                 "The hash type `%s` was not found. Available algorithms are: `%s`."
-                .format(hashType, join(", ", myavailableAlgorithms)
+                .format(hashType, join(", ", availableAlgorithms)
             ));
         }
         if (salt) {
@@ -182,7 +176,6 @@ class DSecurity {
      * Params:
      * string mycipher The ciphertext to decrypt.
      * @param string key The 256 bit/32 byte key to use as a cipher key.
-     * @param string hmacSalt The salt to use for the HMAC process.
      * Leave null to use value of Security.getSalt().
      */
     static string decrypt(string mycipher, string key, string hmacSalt = null) {
@@ -190,17 +183,17 @@ class DSecurity {
         if (mycipher.isEmpty) {
             throw new DInvalidArgumentException("The data to decrypt cannot be empty.");
         }
-        hmacSalt ??= getSalt();
+        hmacSalt = hmacSalt.ifEmpty(getSalt());
 
         // Generate the encryption and hmac key.
-        key = mb_subString(hash("sha256", key ~ hmacSalt), 0, 32, "8bit");
+        auto key = mb_subString(hash("sha256", key ~ hmacSalt), 0, 32, "8bit");
 
         // Split out hmac for comparison
-        mymacSize = 64;
-        myhmac = mb_subString(mycipher, 0, mymacSize, "8bit");
-        mycipher = mb_subString(mycipher, mymacSize, null, "8bit");
+        auto mymacSize = 64;
+        auto myhmac = mb_subString(mycipher, 0, mymacSize, "8bit");
+        auto mycipher = mb_subString(mycipher, mymacSize, null, "8bit");
 
-        mycompareHmac = hash_hmac("sha256", mycipher, key);
+        auto mycompareHmac = hash_hmac("sha256", mycipher, key);
         if (!constantEquals(myhmac, mycompareHmac)) {
             return null;
         }

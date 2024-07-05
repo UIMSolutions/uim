@@ -364,10 +364,8 @@ class DAssociation : IAssociation {
     /**
      * Sets the property name that should be filled with data from the target table
      * in the source table record.
-     *
-     * @param string aName The name of the association property. Use null to read the current value.
      */
-    void setProperty(string aName) {
+    void setProperty(string name) {
         _propertyName = name;
     }
 

@@ -717,9 +717,8 @@ class Hash {
      * @param string path The path to extract from data.
      * @param callable myfunction The auto to call on each extracted value.
      */
-    static Json reduce(Json[string] data, string path, callable myfunction) {
-        myvalues = /* (array) */extract(data, path);
-
+    static Json reduce(Json[string] data, string extractPath, callable myfunction) {
+        auto myvalues = /* (array) */extract(data, extractPath);
         return array_reduce(myvalues, myfunction);
     }
     

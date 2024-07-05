@@ -261,14 +261,9 @@ class DSelectLoader {
     /**
      * Returns a TupleComparison object that can be used for matching all the fields
      * from keys with the tuple values in filter using the provided operator.
-     *
-     * @param DORMQuery query Target table"s query
-     * @param string[] keys the fields that should be used for filtering
-     * @param mixed filter the value that should be used to match for key
-     * @param string operator The operator for comparing the tuples
      */
     protected TupleComparison _createTupleCondition(
-        DQuery query, Json[string] keys, Json filter, string operator) {
+        DORMQuery query, string[] keys, Json filter, string operator) {
         auto types = null;
         auto defaults = query
             .getDefaultTypes();

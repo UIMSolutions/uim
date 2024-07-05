@@ -52,8 +52,7 @@ string __d(string domainName, string messageToTranslate, Json[string] arguments)
  * Returns correct plural form of message identified by singular and plural for count count
  * from domain domain.
  */
-string __dn(string domainName, string singularText, string pluralText, int count, Json[string] arguments): 
-{
+string __dn(string domainName, string singularText, string pluralText, int count, Json[string] arguments) {
     if (singular.isEmpty) {
         return null;
     }
@@ -140,4 +139,4 @@ string __dxn(
         plural,
         ["_count": count, "_singular": singularText, "_context": context] + someArguments
    ); 
-} */
+} 

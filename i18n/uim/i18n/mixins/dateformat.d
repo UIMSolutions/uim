@@ -17,7 +17,7 @@ mixin template TDateFormat() {
         IDateTime date,
         string[] aformat,
         string localName
-   ) {
+    ) {
         string somePattern = "";
 
         if (isArray(format)) {
@@ -27,13 +27,12 @@ mixin template TDateFormat() {
             dateFormat = timeFormat = IntlDateFormatter.FULL;
             somePattern = format;
         }
-        
+
         auto localName = localName.ifEmpty(I18n.locale());
         auto calendar = preg_match(
-                "/@calendar=(japanese|buddhist|chinese|persian|indian|islamic|hebrew|coptic|ethiopic)/",
-                localName) 
-                ? IntlDateFormatter.TRADITIONAL
-                : IntlDateFormatter.GREGORIAN;
+            "/@calendar=(japanese|buddhist|chinese|persian|indian|islamic|hebrew|coptic|ethiopic)/",
+            localName)
+            ? IntlDateFormatter.TRADITIONAL : IntlDateFormatter.GREGORIAN;
 
         timezone = date.getTimezone().name;
         aKey = "{localName}.{dateFormat}.{timeFormat}.{timezone}.{calendar}.{ somePattern}";
@@ -51,20 +50,20 @@ mixin template TDateFormat() {
                 timeFormat,
                 timezone,
                 calendar,
-                 somePattern
-           );
+                somePattern
+            );
 
             if (!formatter) {
                 throw new DException(
                     "Your version of icu does not support creating a date formatter for " ~
-                    "`aKey`. You should try to upgrade libicu and the intl extension."
-               );
+                        "`aKey`. You should try to upgrade libicu and the intl extension."
+                );
             }
             formatters[aKey] = formatter;
         }
         return to!string(formatters[aKey].format(date.format("U")));
     }
-    
+
     /**
      * Returns a new DTime object after parsing the provided time string based on
      * the passed or configured date time format. This method is locale dependent,
@@ -85,7 +84,7 @@ mixin template TDateFormat() {
      * time = Time.parseDateTime("10/10/2015", [IntlDateFormatter.SHORT, IntlDateFormatter.NONE]);
      * ```
      */
-/*     protected static auto _parseDateTime(
+    /*     protected static auto _parseDateTime(
         string timeToParse,
         string[] dateFormat,
         /* DateTimeZone| / string timezone = null
@@ -94,27 +93,27 @@ mixin template TDateFormat() {
 
     protected static auto _parseDateTime(
         string atime,
-        string[] aformat,
-        /* DateTimeZone| */ string tz = null
-   ) {
+        string[] aformat,/* DateTimeZone| */
+        string tz = null
+    ) {
         string somePattern = "";
 
         if (isArray(format)) {
             [dateFormat, timeFormat] = format;
         } else {
             dateFormat = timeFormat = IntlDateFormatter.FULL;
-             somePattern = format;
+            somePattern = format;
         }
-        auto localName = DateTime.getDefaultLocale() ?? I18n.locale();
+        /* auto localName = DateTime.getDefaultLocale() ?  ? I18n.locale();
         auto formatter = datefmt_create(
             localName,
             dateFormat,
             timeFormat,
             tz,
             null,
-             somePattern
-       );
-        if (!formatter) {
+            somePattern
+        ); */
+        /* if (!formatter) {
             throw new DException("Unable to create IntlDateFormatter instance");
         }
         formatter.setLenient(DateTime.lenientParsingEnabled());
@@ -125,10 +124,10 @@ mixin template TDateFormat() {
         }
         dateTime = new DateTimeImmutable("@" ~ time);
 
-        if (!cast(DateTimeZone)tz) {
+        if (!cast(DateTimeZone) tz) {
             tz = new DateTimeZone(tz.ifNull(date_default_timezone_get()));
         }
-        dateTime = dateTime.setTimezone(tz);
+        dateTime = dateTime.setTimezone(tz); */
 
         return null; // TODO new static(dateTime);
     }

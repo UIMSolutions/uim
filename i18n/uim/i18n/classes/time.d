@@ -5,9 +5,7 @@ import uim.i18n;
 @safe:
 
 /**
- * : time class provided by Chronos.
- *
- * Adds handy methods and locale-aware formatting helpers.
+ * Time class - Adds handy methods and locale-aware formatting helpers.
  */
 class DTime { // : ChronosTime, JsonSerializable {
     mixin TConfigurable;
@@ -25,17 +23,8 @@ class DTime { // : ChronosTime, JsonSerializable {
     }
 
     // #region StringFormat
-    /*
-    /**
-     * Sets the default format used when type converting instances of this type to string
-     *
-     * The format should be either the formatting constants from IntlDateFormatter as
-     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
-     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
-     * Params:
-     * string|int format Format.
-     */
-    static void setToStringFormat(string format) {
+    // Sets the default format used when type converting instances of this type to string
+    static void setToStringFormat(string /* int */ format) {
         _toStringFormat = format;
     }
     
@@ -46,16 +35,9 @@ class DTime { // : ChronosTime, JsonSerializable {
     // #endregion StringFormat
 
     /**
-     * The format to use when formatting a time using `UIM\I18n\Time.i18nFormat()`
-     * and `__toString`.
-     *
-     * The format should be either the formatting constants from IntlDateFormatter as
-     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
-     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
-     *
-     * @var string|int
+     * The format to use when formatting a time using `UIM\I18n\Time.i18nFormat()` and `__toString`.
      */
-    protected static string|int _toStringFormat = IntlDateFormatter.SHORT;
+    protected static string/* |int */ _toStringFormat = IntlDateFormatter.SHORT;
 
     /**
      * The format to use when converting this object to Json.
@@ -64,7 +46,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      */
-    protected static /*Closure|*/ string|int _JsonEncodeFormat = "HH':'mm':'ss";
+    protected static /*Closure|*/ string/* |int */ _JsonEncodeFormat = "HH':'mm':'ss";
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.nice()`
@@ -75,7 +57,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      *
      * @var string|int
      */
-    static string|int niceFormat = IntlDateFormatter.MEDIUM;
+    static string/* |int */ niceFormat = IntlDateFormatter.MEDIUM;
     
     /**
      * Sets the default format used when converting this object to Json
@@ -156,14 +138,15 @@ class DTime { // : ChronosTime, JsonSerializable {
         string /* int */ format = null,
         string localName = null
    ) {
-        if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
+        /* if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
             throw new DInvalidArgumentException("UNIT_TIMESTAMP_FORMAT is not supported for Time.");
         }
         format ??= _toStringFormat;
         format = isInteger(format) ? [IntlDateFormatter.NONE, format] : format;
         localName = localName ?: DateTime.getDefaultLocale();
 
-        return _formatObject(toNative(), format, localName);
+        return _formatObject(toNative(), format, localName); */
+        return null; 
     }
     
     /**

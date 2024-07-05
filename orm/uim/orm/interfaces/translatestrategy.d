@@ -7,7 +7,7 @@ import uim.orm;
 // This interface describes the methods for translate behavior strategies.
 interface ITranslateStrategy : IPropertyMarshal {
     // Return translation table instance.
-    // TODO DORMTable getTranslationTable();
+    DORMTable getTranslationTable();
 
     /**
      * Sets the locale to be used.
@@ -43,10 +43,8 @@ interface ITranslateStrategy : IPropertyMarshal {
     /**
      * Modifies the results from a table find in order to merge full translation records
      * into each entity under the `_translations` key
-     *
-     * @param DORMDatasource\IResultset results Results to modify.
      */
-    IORMCollection groupTranslations(results);
+    IORMCollection groupTranslations(IResultset results);
 
     /**
      * Callback method that listens to the `beforeFind` event in the bound
@@ -58,18 +56,9 @@ interface ITranslateStrategy : IPropertyMarshal {
     /**
      * Modifies the entity before it is saved so that translated fields are persisted
      * in the database too.
-     *
-     * @param DORMevents.IEvent event The beforeSave event that was fired
-     * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved
-     * @param \Json[string] options the options passed to the save method
      */
     void beforeSave(IEvent event, IORMEntity anEntity, Json[string] options);
 
-    /**
-     * Unsets the temporary `_i18n` property after the entity has been saved
-     *
-     * @param DORMevents.IEvent event The beforeSave event that was fired
-     * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved
-     */
-    // TODO void afterSave(IEvent event, IORMEntity anEntity);
+    // Unsets the temporary `_i18n` property after the entity has been saved
+    void afterSave(IEvent event, IORMEntity anEntity);
 }

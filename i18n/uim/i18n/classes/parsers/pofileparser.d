@@ -86,7 +86,7 @@ class DPoFileParser {
         }
 
         // save last item
-        addMessage(messages, anItem);
+        // addMessage(messages, anItem);
         fclose(fileStream);
 
         return messages;

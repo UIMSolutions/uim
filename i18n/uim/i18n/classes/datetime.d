@@ -437,7 +437,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
         string countryCode = null,
         Json[string] options = null
     ) {
-        if (isBoolean(options)) {
+        /* if (isBoolean(options)) {
             options = [
                 "group": options,
             ];
@@ -491,7 +491,8 @@ class DateTime /* : Chronos, JsonSerializable */ {
             });
             return anGroupedIdentifiers;
         }
-        return array_combine(anIdentifiers, anIdentifiers);
+        return array_combine(anIdentifiers, anIdentifiers); */
+        return null; 
     }
 
     // Returns a string that should be serialized when converting this object to Json
@@ -502,6 +503,6 @@ class DateTime /* : Chronos, JsonSerializable */ {
     }
 
     override string toString() {
-        return (string) this.i18nFormat();
+        return /* (string) */ this.i18nFormat();
     }
 }

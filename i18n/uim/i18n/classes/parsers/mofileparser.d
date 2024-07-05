@@ -124,15 +124,12 @@ class MoFileParser {
         return null; 
     }
 
-    /**
-     * Reads an unsigned long from stream respecting endianess.
-     * Params:
-     * resource stream The File being read.
-     */
-    protected int _readLong(stream, bool isBigEndian) {
-        string result = unpack(isBigEndian ? "N1" : "V1", (string) fread(stream, 4));
+    // Reads an unsigned long from stream respecting endianess.
+    // TODO protected int _readLong(stream, bool isBigEndian) {
+        /* string result = unpack(isBigEndian ? "N1" : "V1", (string) fread(stream, 4));
         result = currentValue(result);
 
-        return to!int(subString(/* (string) */ result,  - 8));
-    }
+        return to!int(subString(/* (string) * / result,  - 8)); */
+        // return 0;
+    // }
 }

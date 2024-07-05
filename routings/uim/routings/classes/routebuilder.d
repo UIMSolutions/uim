@@ -87,10 +87,10 @@ class DRouteBuilder {
      * - `namePrefix` - The prefix to prepend to all route names.
      * - `middleware` - The names of the middleware routes should have applied.
      */
-    this(RouteCollection routeCollection, string path, Json[string] myparams = [], Json[string] options = null) {
+    this(RouteCollection routeCollection, string path, Json[string] params = [], Json[string] options = null) {
         _collection = routeCollection;
         _path = path;
-        _params = myparams;
+        _params = params;
         if (options.hasKey("routeClass")) {
             _routeClass = options.get("routeClass");
         }
@@ -263,12 +263,12 @@ class DRouteBuilder {
      * Params:
      * string routings A controller name to connect resource routes for.
      * @param \Closure|Json[string] options Options to use when generating REST routes, or a callback.
-     * @param \Closure|null mycallback An optional callback to be executed in a nested scope. Nested
+     * @param \Closure|null callbackClosure An optional callback to be executed in a nested scope. Nested
      * scopes inherit the existing path and "id" parameter.
      */
-    auto resources(string routings, Closure | Json[string] options = null, Closure mycallback = null) {
+    auto resources(string routings, Closure | Json[string] options = null, DClosure nestedCallback = null) {
         if (!options.isArray) {
-            mycallback = options;
+            nestedCallback = options;
             options = null;
         }
 
@@ -306,34 +306,34 @@ class DRouteBuilder {
         if (_params.hasKey("prefix") && myprefix) {
             myprefix = _params["prefix"] ~ "/" ~ myprefix;
         }
-        foreach (myresourceMap as mymethod : myparams) {
+        foreach (myresourceMap as mymethod : params) {
             if (!isIn(mymethod, myonly, true)) {
                 continue;
             }
-            myaction = options.get("actions"].get(mymethod, myparams["action"]);
+            myaction = options.get("actions"].get(mymethod, params["action"]);
 
             string myurl = "/" ~ join("/", array_filter([
-                    options["path"], myparams["path"]
+                    options["path"], params["path"]
                 ]));
-            auto myparams = [
+            auto params = [
                 "controller": routings,
                 "action": myaction,
-                "_method": myparams["method"],
+                "_method": params["method"],
             ];
             if (myprefix) {
-                myparams["prefix"] = myprefix;
+                params["prefix"] = myprefix;
             }
             myrouteOptions = myconnectOptions ~ [
                 "id": options.get("id"),
                 "pass": ["id"],
                 "_ext": myext,
             ];
-            this.connect(myurl, myparams, myrouteOptions);
+            this.connect(myurl, params, myrouteOptions);
         }
-        if (mycallback !is null) {
+        if (nestedCallback !is null) {
             auto myidName = Inflector.singularize(Inflector.underscore(routings)) ~ "_id";
             auto path = "/" ~ options.getString("path") ~ "/{" ~ myidName ~ "}";
-            this.scope (path, [], mycallback);
+            this.scope (path, [], nestedCallback);
         }
         return this;
     }
@@ -642,7 +642,7 @@ class DRouteBuilder {
      * to the `Controller\Admin\Api\` namespace.
      *
      * If you need to have prefix with dots, eg: "/api/v1.0", use "path" key
-     * for myparams argument:
+     * for params argument:
      *
      * ```
      * myroute.prefix("Api", function(myroute) {
@@ -653,28 +653,27 @@ class DRouteBuilder {
      * ```
      * Params:
      * string routings The prefix name to use.
-     * @param \Closure|array myparams An array of routing defaults to add to each connected route.
+     * @param \Closure|Json[string] params An array of routing defaults to add to each connected route.
      * If you have no parameters, this argument can be a Closure.
-     * @param \Closure|null mycallback The callback to invoke that builds the prefixed routes.
      */
-    void prefix(string routings, Closure | array myparams = null, Closure mycallback = null) {
-        if (!myparams.isArray) {
-            mycallback = myparams;
-            myparams = null;
+    void prefix(string routings, /* Closure |  */Json[string] params = null, DClosure callbackClosure = null) {
+        if (!params.isArray) {
+            callbackClosure = params;
+            params = null;
         }
 
         string path = "/" ~ Inflector.dasherize(routings);
         string routings = Inflector.camelize(routings);
-        if (myparams.hasKey("path")) {
-            path = myparams["path"];
-            myparams.remove("path");
+        if (params.hasKey("path")) {
+            path = params["path"];
+            params.remove("path");
         }
 
         if (_params.hasKey("prefix")) {
             routings = _params.getString("prefix") ~ "/" ~ routings;
         }
-        myparams = array_merge(myparams, ["prefix": routings]);
-        scope (path, myparams, mycallback);
+        params = array_merge(params, ["prefix": routings]);
+        scope (path, params, callbackClosure);
     }
 
     /**
@@ -697,18 +696,18 @@ class DRouteBuilder {
      * Params:
      * string routings The plugin name to build routes for
      * @param \Closure|Json[string] options Either the options to use, or a callback to build routes.
-     * @param \Closure|null mycallback The callback to invoke that builds the plugin routes
+     * @param \Closure|null callbackClosure The callback to invoke that builds the plugin routes
      * Only required when options is defined.
      */
-    auto plugin(string routings, /* Closure| */ Json[string] options = null, Closure mycallback = null) {
+    auto plugin(string routings, /* Closure| */ Json[string] options = null, Closure callbackClosure = null) {
         if (!isArray(options)) {
-            mycallback = options;
+            callbackClosure = options;
             options = null;
         }
         path = options.getString("path", "/" ~ Inflector.dasherize(routings));
         options.remove("path"]);
         options = ["plugin": routings] + options;
-        this.scope (path, options, mycallback);
+        this.scope (path, options, callbackClosure);
 
         return this;
     }
@@ -720,41 +719,41 @@ class DRouteBuilder {
      * added to. This means that both the current path and parameters will be appended
      * to the supplied parameters.
      *
-     * ### Special Keys in myparams
+     * ### Special Keys in params
      *
      * - `_namePrefix` Set a prefix used for named routes. The prefix is prepended to the
      * name of any route created in a scope callback.
      * Params:
      * string path The path to create a scope for.
-     * @param \Closure|array myparams Either the parameters to add to routes, or a callback.
-     * @param \Closure|null mycallback The callback to invoke that builds the plugin routes.
-     * Only required when myparams is defined.
+     * @param \Closure|Json[string] params Either the parameters to add to routes, or a callback.
+     * @param \Closure|null callbackClosure The callback to invoke that builds the plugin routes.
+     * Only required when params is defined.
      */
-    void scope (string path, Closure | array myparams, Closure mycallback = null) {
-        if (cast(DClosure) myparams) {
-            mycallback = myparams;
-            myparams = null;
+    void scope (string path, Closure | Json[string] params, Closure callbackClosure = null) {
+        if (cast(DClosure) params) {
+            callbackClosure = params;
+            params = null;
         }
-        if (mycallback.isNull) {
+        if (callbackClosure.isNull) {
             throw new DInvalidArgumentException("Need a valid Closure to connect routes.");
         }
         if (_path != "/") {
             path = _path ~ path;
         }
         routingsPrefix = _namePrefix;
-        if (myparams.hasKey("_namePrefix")) {
-            routingsPrefix ~= myparams["_namePrefix"];
+        if (params.hasKey("_namePrefix")) {
+            routingsPrefix ~= params["_namePrefix"];
         }
-        remove(myparams["_namePrefix"]);
+        remove(params["_namePrefix"]);
 
-        myparams += _params;
-        mybuilder = new static(_collection, path, myparams, [
+        params += _params;
+        mybuilder = new static(_collection, path, params, [
                 "routeClass": _routeClass,
                 "extensions": _extensions,
                 "namePrefix": routingsPrefix,
                 "middleware": _middleware,
             ]);
-        mycallback(mybuilder);
+        callbackClosure(mybuilder);
     }
 
     /**

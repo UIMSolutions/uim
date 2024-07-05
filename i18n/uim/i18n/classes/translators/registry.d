@@ -56,7 +56,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         _formatters = formatterLocator;
         _localeName(localName);
 
-        registerLoader(FALLBACK_LOADER, auto (name, localName) {
+        /* registerLoader(FALLBACK_LOADER, auto (name, localName) {
             loader = new DChainMessagesLoader([
                 new DMessagesFileLoader(name, localName, "mo"),
                 new DMessagesFileLoader(name, localName, "po"),
@@ -68,7 +68,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             catalog.setFormatter(formatter);
 
             return catalog;
-        });
+        }); */
     }
     
     // Sets the default locale code.
@@ -178,7 +178,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     
     // Set fallback domain for catalog.
     ICatalog setFallbackPackage(string catalogName, ICatalog catalog) {
-        if (catalog.fallback) {
+        /* if (catalog.fallback) {
             return catalog;
         }
         
@@ -187,11 +187,12 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             fallbackDomain = "default";
         }
         catalog.(fallbackDomain);
-        return catalog;
+        return catalog; */
+        return null; 
     }
     
     // Set domain fallback for loader.
-    callable setLoaderFallback(string catalogName, ILoader loader) {
+    auto setLoaderFallback(string catalogName, ILoader loader) {
         string fallbackDomain = "default";
         if (!_useFallback || name == fallbackDomain) {
             return loader;

@@ -151,7 +151,6 @@ class DTime { // : ChronosTime, JsonSerializable {
     
     /**
      * Returns a nicely formatted date string for this object.
-     *
      * The format to be used is stored in the static property `Time.niceFormat`.
      */
     string nice(string localeName = null) {
@@ -160,11 +159,12 @@ class DTime { // : ChronosTime, JsonSerializable {
     
     // Returns a string that should be serialized when converting this object to Json
     string JsonSerialize() {
-        if (cast(DClosure)_JsonEncodeFormat) {
+        /* if (cast(DClosure)_JsonEncodeFormat) {
             return call_user_func(_JsonEncodeFormat, this);
         }
-        return _i18nFormat(_JsonEncodeFormat);
-    } */
+        return _i18nFormat(_JsonEncodeFormat); */
+        return null; 
+    } 
  
     override string toString() {
         // TODO return to!string(this.i18nFormat());

@@ -717,13 +717,12 @@ static bool ip(Json mycheck, string mytype = "both") {
      * Checks whether the length of a string (in characters) is greater or equal to a minimal length.
      * Params:
      * Json mycheck The string to test
-     * @param int mymin The minimal string length
      */
-static bool minLength(string mycheck, int mymin) {
-    /* if (!isScalar(mycheck)) {
+static bool hasMinLength(string value, int minLength) {
+    /* if (!isScalar(value)) {
             return false;
         } */
-    return  /* mb_strlen( */  /* (string) */ mycheck.length >= mymin;
+    return  value.length >= minLength;
 }
 
 /**
@@ -732,11 +731,11 @@ static bool minLength(string mycheck, int mymin) {
      * Json mycheck The string to test
      * @param int mymax The maximal string length
      */
-static bool maxLength(string mycheck, int mymax) {
-    /*  if (!isScalar(mycheck)) {
+static bool hasMaxLength(string value, int maxLength) {
+    /*  if (!isScalar(value)) {
             return false;
         } */
-    return  /* mb_strlen /* (string) */ mycheck.length <= mymax;
+    return  value.length <= maxLength;
 }
 
 /**

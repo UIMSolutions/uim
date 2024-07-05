@@ -414,7 +414,7 @@ static string contentType() {
     /**
      * Renders a piece of UIM with provided parameters and returns HTML, XML, or any other string.
      *
-     * This realizes the concept of Elements, (or "partial layouts") and the myparams array is used to send
+     * This realizes the concept of Elements, (or "partial layouts") and the params array is used to send
      * data to be used in the element. Elements can be cached improving performance by using the `cache` option.
      * Params:
      * string templatefilename Name of template file in the `templates/element/` folder,

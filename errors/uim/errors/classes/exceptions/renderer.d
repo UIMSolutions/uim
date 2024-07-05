@@ -111,11 +111,11 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
         myErrorOccured = false;
         try {
-            myParams = myRequest.getAttribute("params");
-            myParams["controller"] = "Error";
+            params = myRequest.getAttribute("params");
+            params["controller"] = "Error";
 
             factory = new DControllerFactory(new DContainer());
-            myClass = factory.getControllerClass(myRequest.withAttribute("params", myParams));
+            myClass = factory.getControllerClass(myRequest.withAttribute("params", params));
 
             if (!myClass) {
                 /** @var string myClass */

@@ -1703,7 +1703,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
-    auto minLength(string fieldName, int requiredMinLength, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto hasMinLength(string fieldName, int requiredMinLength, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be at least '{0}' characters long", mymin)`

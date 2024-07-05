@@ -1292,16 +1292,16 @@ class DFormHelper : DHelper {
      * The second argument should always be an array of attributes for the input.
      * Params:
      * string mymethod Method name / input type to make.
-     * @param array myparams Parameters for the method call
+     * @param Json[string] params Parameters for the method call
      */
-    string|int|false __call(string mymethod, Json[string] myparams) {
-        if (isEmpty(myparams)) {
+    string|int|false __call(string mymethod, Json[string] params) {
+        if (isEmpty(params)) {
             throw new DException(
                 "Missing field name for `FormHelper.%s`.".format(mymethod));
         }
-        options = myparams[1] ? myparams[1] : [];
+        options = params[1] ? params[1] : [];
         options.set("type", options.get("type", mymethod));
-        options = _initInputField(myparams[0], options);
+        options = _initInputField(params[0], options);
 
         return _widget(options["type"], options);
     }

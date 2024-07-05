@@ -22,8 +22,8 @@ class DNumberHelper : DHelper {
     }
 
     // Call methods from UIM\I18n\Number utility class
-    Json __call(string methodName, Json[string] myparams) {
-        return Number.{methodName}(...myparams);
+    Json __call(string methodName, Json[string] params) {
+        return Number.{methodName}(...params);
     }
     
     /**

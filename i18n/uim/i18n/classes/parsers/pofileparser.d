@@ -59,7 +59,7 @@ class DPoFileParser {
      * Items with an empty id are ignored.
      */
     Json[string] parse(string resourceFilepath) {
-        if (!exists(resourceFilepath)){
+        /* if (!exists(resourceFilepath)){
             throw new DException("Not found file `%s`".format(resourceFilepath));
         }
 
@@ -83,13 +83,14 @@ class DPoFileParser {
                 messages ~= message;
                 message = null;
             }
-        }
+        } */
 
         // save last item
         // addMessage(messages, anItem);
-        fclose(fileStream);
+        /// fclose(fileStream);
 
-        return messages;
+        // return messages;
+        return null; 
     }
 
     PoMessage parseByLine(string line, Json[] messages, PoMessage message) {

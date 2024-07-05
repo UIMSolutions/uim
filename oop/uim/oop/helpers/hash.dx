@@ -560,7 +560,7 @@ class Hash {
      * @param string myseparator The delimiter used
      */
     static Json[string] expand(Json[string] data, string myseparator = ".") {
-        myhash = null;
+        auto myhash = null;
         foreach (path: myvalue; data) {
             someKeys = to!string(path).split(myseparator);
             if (count(someKeys) == 1) {

@@ -143,7 +143,7 @@ class DNumber {
      * Params:
      */
     static string formatDelta(Json value, Json[string] options = null) {
-        auto updatedOptions = options.update["places": 0];
+        auto updatedOptions = options.set("places", 0);
         auto doubleValue = number_format(
             value.getDouble, updatedOptions["places"], ".", "");
         string sign = doubleValue > 0 ? "+" : "";
@@ -181,7 +181,7 @@ class DNumber {
             ["type": getDefaultCurrencyFormat()] + options);
         auto abs = abs(doubleValue);
         if (
-            !options.hasKey("fractionSymbol"].isEmpty && abs > 0 && abs < 1) {
+            !options.isEmpty("fractionSymbol") && abs > 0 && abs < 1) {
                 doubleValue *= 100; string pos = options.get(
                     "fractionPosition", "after"); return format(doubleValue, [
                         "precision": 0,

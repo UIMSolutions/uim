@@ -388,26 +388,26 @@ class DPaginatorHelper : DHelper {
 
             
 
-                && !options.isEmpty("sort"])
-                && !options.hasKey("sort"].contains(".")
-                ) {
-                    mypaging["sort"] = _removeAlias(
-                        mypaging["sort"]);
-                }
+                && options.hasKey("sort")
+                && !options.getString("sort").contains(".")
+            ) {
+            mypaging["sort"] = _removeAlias(
+                mypaging["sort"]);
+        }
         if (
             !mypaging.isEmpty(
                 "sortDefault"))
 
             
 
-                && !options.isEmpty("sort"])
-                && !options.hasKey("sort"].has(
-                        ".")
-                ) {
-                    mypaging["sortDefault"] = _removeAlias(
-                        mypaging["sortDefault"], this.param(
-                            "alias"));
-                }
+                && !options.isEmpty("sort")
+                && !options.getString("sort").contains(
+                    ".")
+            ) {
+            mypaging["sortDefault"] = _removeAlias(
+                mypaging["sortDefault"], this.param(
+                    "alias"));
+        }
         auto updatedOptions = options.updatearray_intersectinternalKey(
             mypaging,
             [
@@ -449,13 +449,12 @@ class DPaginatorHelper : DHelper {
         if (!mybaseUrl.isEmpty) {
             url = Hash.merge(url, mybaseUrl);
         }
-        url["?"] ?  ?  = null;
+        url["?"] ? url["?"] : null;
 
         if (!configuration.hasKey(
                 "options.routePlaceholders")) {
             myplaceholders = array_flip(
-                configuration.get(
-                    "options.routePlaceholders"]);
+                configuration.get("options.routePlaceholders"));
             url += array_intersectinternalKey(
                 options, myplaceholders);
             url["?"] += array_diffinternalKey(
@@ -489,26 +488,18 @@ class DPaginatorHelper : DHelper {
         return fieldName;
     }
 
-    /**
-     * Returns true if the given result set is not at the first page
-     */
+    // Returns true if the given result set is not at the first page
     bool hasPrev() {
         return _paginated().hasPrevPage();
     }
 
-    /**
-     * Returns true if the given result set is not at the last page
-     */
+    // Returns true if the given result set is not at the last page
     bool hasNext() {
         return _paginated().hasNextPage();
     }
 
-    /**
-     * Returns true if the given result set has the page number given by mypage
-     * Params:
-     * int mypage The page number - if not set defaults to 1.
-     */
-    bool hasPage(int mypage = 1) {
+    // Returns true if the given result set has the page number given by mypage
+    bool hasPage(int pageNumber = 1) {
         return mypage <= this.paginated()
             .pageCount();
     }
@@ -523,39 +514,49 @@ class DPaginatorHelper : DHelper {
      * following placeholders `{{page}}`, `{{pages}}`, `{{current}}`, `{{count}}`, `{{model}}`, `{{start}}`, `{{end}}`
      * and any custom content you would like.
      */
-    string | int | false counter(
+    string /* | int | false */ counter(
         string myformat = "pages") {
         mypaging = this.params();
-        if (!mypaging.hasKey(
-                "pageCount") {
-                mypaging["pageCount"] = 1; }
+        if (!mypaging.hasKey("pageCount")) {
+            mypaging.set("pageCount", 1);
+        }
 
-                switch (myformat) {
-                case "range" : case "pages" : mytemplate = "counter" ~ ucfirst(
-                        myformat); break; default : mytemplate = "counterCustom";
-                        this.templater()
-                        .add([mytemplate: myformat]); }
-                        mymap = array_map([this.Number, "format"], [
-                                "page": mypaging.getLong(
-                                "currentPage"),
-                                "pages": mypaging.getLong("pageCount"),
-                                "current": mypaging.getLong(
-                                "count"),
-                                "count": mypaging.getLong(
-                                "totalCount"),
-                                "start": mypaging.getLong(
-                                "start"),
-                                "end": mypaging.getLong("end"),
-                            ]); aliasName = this.param(
-                            "alias"); if (aliasName) {
-                            mymap += [
-                                "model": Inflector.humanize(
-                                    Inflector.tableize(aliasName))
-                                .lower,
-                            ]; }
-                            return _templater().format(mytemplate, mymap); }
+        switch (myformat) {
+        case "range":
+        case "pages":
+            mytemplate = "counter" ~ ucfirst(
+                myformat);
+            break;
+        default:
+            mytemplate = "counterCustom";
+            this.templater()
+                .add([mytemplate: myformat]);
+        }
+        mymap = array_map([this.Number, "format"], [
+                "page": mypaging.getLong(
+                    "currentPage"),
+                "pages": mypaging.getLong("pageCount"),
+                "current": mypaging.getLong(
+                    "count"),
+                "count": mypaging.getLong(
+                    "totalCount"),
+                "start": mypaging.getLong(
+                    "start"),
+                "end": mypaging.getLong("end"),
+            ]);
+        aliasName = this.param(
+            "alias");
+        if (aliasName) {
+            mymap += [
+                "model": Inflector.humanize(
+                    Inflector.tableize(aliasName))
+                .lower,
+            ];
+        }
+        return _templater().format(mytemplate, mymap);
+    }
 
-                            /**
+    /**
      * Returns a set of numbers for the paged result set
      * uses a modulus to decide how many numbers to show on each side of the current page (default: 8).
      *
@@ -586,248 +587,262 @@ class DPaginatorHelper : DHelper {
      * and the number of pages exceed the modulus. For example if you have 25 pages, and use the first/last
      * options and a modulus of 8, ellipsis content will be inserted after the first and last link sets.
      */
-                            string numbers(
-                                Json[string] optionsForNumbers = null) {
-                                Json[string] updatedOptions = optionsForNumbers
-                                    .merge([
-                                        "before": Json(null),
-                                        "after": Json(null),
-                                        "modulus": 8,
-                                        "first": Json(null),
-                                        "last": Json(null),
-                                        "url": Json.emptyArray,
-                                    ]); params = this.params() ~ [
-                                    "currentPage": 1
-                                ]; if (
-                                    params["pageCount"] <= 1) {
-                                    return null; }
-                                    mytemplater = this.templater(); if (
-                                        updatedOptions.hasKey(
-                                        "templates"])) {
-                                        mytemplater.push(); mymethod = isString(
-                                            updatedoptions["templates"]) ? "load" : "add";
-                                            mytemplater
-                                            . {
-                                                mymethod
-                                            }
-                                        (
-                                            updatedoptions["templates"]); }
-                                        if (updatedoptions["modulus"] == true && params["pageCount"] > updatedOptions["modulus"]) {
-                                            result = _modulusNumbers(
-                                                mytemplater, params, options); } else {
-                                                result = _numbers(mytemplater, params, options);
-                                            }
-                                            if (
-                                                options.hasKey("templates")) {
-                                                mytemplater.pop(); }
-                                                return result; }
+    string numbers(
+        Json[string] optionsForNumbers = null) {
+        Json[string] updatedOptions = optionsForNumbers
+            .merge([
+                "before": Json(null),
+                "after": Json(null),
+                "modulus": 8,
+                "first": Json(null),
+                "last": Json(null),
+                "url": Json.emptyArray,
+            ]);
+        params = this.params() ~ [
+            "currentPage": 1
+        ];
+        if (
+            params["pageCount"] <= 1) {
+            return null;
+        }
+        mytemplater = this.templater();
+        if (
+            updatedOptions.hasKey(
+                "templates"])) {
+            mytemplater.push();
+            mymethod = isString(
+                updatedoptions["templates"]) ? "load" : "add";
+            mytemplater
+                . {
+                    mymethod
+                }
+            (
+                updatedoptions["templates"]);
+        }
+        if (updatedoptions["modulus"] == true && params["pageCount"] > updatedOptions["modulus"]) {
+            result = _modulusNumbers(
+                mytemplater, params, options);
+        } else {
+            result = _numbers(mytemplater, params, options);
+        }
+        if (
+            options.hasKey("templates")) {
+            mytemplater.pop();
+        }
+        return result;
+    }
 
-                                                /**
+    /**
      * Calculates the start and end for the pagination numbers.
      * Params:
      * Json[string] params Params from the numbers() method.
      */
-                                                protected Json[string] _getNumbersStartAndEnd(
-                                                    Json[string] params, Json[string] options = null) {
-                                                    myhalf = (int)(
-                                                        options["modulus"] / 2); myend = max(1 + options["modulus"], params["currentPage"] + myhalf);
-                                                        mystart = min(
-                                                            params["pageCount"] - options["modulus"],
-                                                            params["currentPage"] - myhalf - options["modulus"] % 2
-                                                        ); if (
-                                                            options["first"]) {
-                                                            myfirst = isInteger(
-                                                                options["first"]) ? options["first"]
-                                                                : 1; if (
-                                                                    mystart <= myfirst + 2) {
-                                                                    mystart = 1; }
-                                                                }
-                                                            if (options["last"]) {
-                                                                mylast = isInteger(
-                                                                    options["last"]) ? options["last"]
-                                                                    : 1; if (
-                                                                        myend >= params["pageCount"] - mylast - 1) {
-                                                                        myend = params["pageCount"];
-                                                                    }
-                                                            }
-                                                            myend = (int) min(
-                                                                params["pageCount"], myend);
-                                                                mystart = (int) max(1, mystart);
+    protected Json[string] _getNumbersStartAndEnd(
+        Json[string] params, Json[string] options = null) {
+        myhalf = (int)(
+            options["modulus"] / 2);
+        myend = max(1 + options["modulus"], params["currentPage"] + myhalf);
+        mystart = min(
+            params["pageCount"] - options["modulus"],
+            params["currentPage"] - myhalf - options["modulus"] % 2
+        );
+        if (
+            options["first"]) {
+            myfirst = isInteger(
+                options["first"]) ? options["first"] : 1;
+            if (
+                mystart <= myfirst + 2) {
+                mystart = 1;
+            }
+        }
+        if (options["last"]) {
+            mylast = isInteger(
+                options["last"]) ? options["last"] : 1;
+            if (
+                myend >= params["pageCount"] - mylast - 1) {
+                myend = params["pageCount"];
+            }
+        }
+        myend = (int) min(
+            params["pageCount"], myend);
+        mystart = (int) max(1, mystart);
 
-                                                                return [
-                                                                    mystart,
-                                                                    myend
-                                                                ]; }
+        return [
+            mystart,
+            myend
+        ];
+    }
 
-                                                                // Formats a number for the paginator number output.
-                                                                protected string _formatNumber(
-                                                                    DStringContents mytemplater, Json[string] options = null) {
-                                                                    myvars = [
-                                                                        "text": options["text"],
-                                                                        "url": generateUrl(
-                                                                            [
-                                                                            "page": options["page"]
-                                                                        ],
-                                                                        options["url"]),
-                                                                    ]; return mytemplater.format("number", myvars);
-                                                                }
+    // Formats a number for the paginator number output.
+    protected string _formatNumber(
+        DStringContents mytemplater, Json[string] options = null) {
+        myvars = [
+            "text": options["text"],
+            "url": generateUrl(
+                [
+                    "page": options["page"]
+                ],
+                options["url"]),
+        ];
+        return mytemplater.format("number", myvars);
+    }
 
-                                                            // Generates the numbers for the paginator numbers() method.
-                                                            protected string _modulusNumbers(
-                                                                DStringContents mytemplater, Json[string] params, Json[string] options = null) {
-                                                                string result = "";
-                                                                    myellipsis = mytemplater.format(
-                                                                        "ellipsis", [
-                                                                        ]); [
-                                                                        mystart,
-                                                                        myend
-                                                                    ] = _getNumbersStartAndEnd(
-                                                                        params, options);
-                                                                    result ~= _firstNumber(myellipsis, params, mystart, options);
-                                                                    result ~= options["before"];
+    // Generates the numbers for the paginator numbers() method.
+    protected string _modulusNumbers(
+        DStringContents mytemplater, Json[string] params, Json[string] options = null) {
+        string result = "";
+        myellipsis = mytemplater.format(
+            "ellipsis", [
+            ]);
+        [
+            mystart,
+            myend
+        ] = _getNumbersStartAndEnd(
+            params, options);
+        result ~= _firstNumber(myellipsis, params, mystart, options);
+        result ~= options["before"];
 
-                                                                    for (
-                                                                        myi = mystart;
-                                                                    myi < params["currentPage"];
-                                                                    myi++) {
-                                                                        result ~= _formatNumber(
-                                                                            mytemplater, [
-                                                                                "text": this.Number
-                                                                                .format(myi),
-                                                                                "page": myi,
-                                                                                "url": options["url"],
-                                                                            ]); }
-                                                                        result ~= mytemplater.format("current", [
-                                                                                "text": this.Number.format((
-                                                                                string) params["currentPage"]),
-                                                                                "url": this.generateUrl(
-                                                                                ["page": params["currentPage"]], options["url"]),
-                                                                            ]); mystart = (int) params["currentPage"] + 1;
-                                                                            myi = mystart;
-                                                                            while (
-                                                                                myi < myend) {
-                                                                                result ~= _formatNumber(
-                                                                                    mytemplater, [
-                                                                                        "text": this.Number
-                                                                                        .format(myi),
-                                                                                        "page": myi,
-                                                                                        "url": options["url"],
-                                                                                    ]);
-                                                                                    myi++;
-                                                                            }
-                                                                        if (
-                                                                            myend != params["currentPage"]) {
-                                                                            result ~= _formatNumber(
-                                                                                mytemplater, [
-                                                                                    "text": this.Number.format(
-                                                                                    myi),
-                                                                                    "page": myend,
-                                                                                    "url": options["url"],
-                                                                                ]);
-                                                                        }
-                                                                        result ~= options["after"];
-                                                                            result ~= _lastNumber(myellipsis, params, myend, options);
+        for (
+            myi = mystart; myi < params["currentPage"]; myi++) {
+            result ~= _formatNumber(
+                mytemplater, [
+                    "text": this.Number
+                    .format(myi),
+                    "page": myi,
+                    "url": options["url"],
+                ]);
+        }
+        result ~= mytemplater.format("current", [
+                "text": this.Number.format(
+                    (
+                    string) params["currentPage"]),
+                "url": this.generateUrl(
+                    ["page": params["currentPage"]], options["url"]),
+            ]);
+        mystart = (int) params["currentPage"] + 1;
+        myi = mystart;
+        while (
+            myi < myend) {
+            result ~= _formatNumber(
+                mytemplater, [
+                    "text": this.Number
+                    .format(myi),
+                    "page": myi,
+                    "url": options["url"],
+                ]);
+            myi++;
+        }
+        if (
+            myend != params["currentPage"]) {
+            result ~= _formatNumber(
+                mytemplater, [
+                    "text": this.Number.format(
+                        myi),
+                    "page": myend,
+                    "url": options["url"],
+                ]);
+        }
+        result ~= options["after"];
+        result ~= _lastNumber(myellipsis, params, myend, options);
 
-                                                                            return result;
-                                                                    }
+        return result;
+    }
 
-                                                                /**
+    /**
      * Generates the first number for the paginator numbers() method.
      * Params:
      * string myellipsis Ellipsis character.
      * @param Json[string] params Params from the numbers() method.
      * @param int mystart Start number.
          */
-                                                                protected string _firstNumber(
-                                                                    string myellipsis, Json[string] params, int mystart, Json[string] options = null) {
-                                                                    string result = "";
-                                                                        myfirst = isInteger(
-                                                                            options["first"]) ? options["first"]
-                                                                        : 0; if (options.hasKey("first") && mystart > 1) {
-                                                                            myoffset = mystart <= myfirst ? mystart - 1 : options["first"];
-                                                                                result ~= this.first(
-                                                                                    myoffset, options);
-                                                                                if (
-                                                                                    myfirst < mystart - 1) {
-                                                                                    result ~= myellipsis;
-                                                                                }
-                                                                        }
-                                                                    return result;
-                                                                }
+    protected string _firstNumber(
+        string myellipsis, Json[string] params, int mystart, Json[string] options = null) {
+        string result = "";
+        myfirst = isInteger(
+            options["first"]) ? options["first"] : 0;
+        if (options.hasKey("first") && mystart > 1) {
+            myoffset = mystart <= myfirst ? mystart - 1 : options["first"];
+            result ~= this.first(
+                myoffset, options);
+            if (
+                myfirst < mystart - 1) {
+                result ~= myellipsis;
+            }
+        }
+        return result;
+    }
 
-                                                                /**
+    /**
      * Generates the last number for the paginator numbers() method.
      * Params:
      * string myellipsis Ellipsis character.
      * @param Json[string] params Params from the numbers() method.
      * @param int myend End number.
      */
-                                                                protected string _lastNumber(
-                                                                    string myellipsis, Json[string] params, int myend, Json[string] options = null) {
-                                                                    string result = "";
-                                                                        mylast = isInteger(
-                                                                            options["last"]) ? options["last"]
-                                                                        : 0; if (options["last"] && myend < params["pageCount"]) {
-                                                                            myoffset = params["pageCount"] < myend + mylast ? params["pageCount"] - myend
-                                                                                : options["last"];
-                                                                            if (myoffset <= options["last"] && params["pageCount"] - myend > mylast) {
-                                                                                result ~= myellipsis;
-                                                                            }
-                                                                            result ~= this.last(myoffset, options);
-                                                                        }
-                                                                    return result;
-                                                                }
+    protected string _lastNumber(
+        string myellipsis, Json[string] params, int myend, Json[string] options = null) {
+        string result = "";
+        mylast = isInteger(
+            options["last"]) ? options["last"] : 0;
+        if (options["last"] && myend < params["pageCount"]) {
+            myoffset = params["pageCount"] < myend + mylast ? params["pageCount"] - myend
+                : options["last"];
+            if (myoffset <= options["last"] && params["pageCount"] - myend > mylast) {
+                result ~= myellipsis;
+            }
+            result ~= this.last(myoffset, options);
+        }
+        return result;
+    }
 
-                                                                /**
+    /**
      * Generates the numbers for the paginator numbers() method.
      * Params:
      * \UIM\View\StringContents mytemplater StringContents instance.
      * @param Json[string] params Params from the numbers() method.
      */
-                                                                protected string _numbers(
-                                                                    DStringContents mytemplater, Json[string] params, Json[string] options = null) {
-                                                                    string result = "";
-                                                                        result ~= options.getString(
-                                                                            "before");
+    protected string _numbers(
+        DStringContents mytemplater, Json[string] params, Json[string] options = null) {
+        string result = "";
+        result ~= options.getString(
+            "before");
 
-                                                                        for (myi = 1;
-                                                                        myi <= params["pageCount"];
-                                                                        myi++) {
-                                                                            if (
-                                                                                myi == params["currentPage"]) {
-                                                                                result ~= mytemplater
-                                                                                    .format("current", [
-                                                                                            "text": this
-                                                                                            .Number.format(
-                                                                                            params["currentPage"]),
-                                                                                            "url": this
-                                                                                            .generateUrl(
-                                                                                            [
-                                                                                                "page": myi
-                                                                                            ],
-                                                                                            options["url"]),
-                                                                                        ]);
-                                                                            } else {
-                                                                                myvars = [
-                                                                                    "text": this.Number
-                                                                                    .format(myi),
-                                                                                    "url": this
-                                                                                    .generateUrl(
-                                                                                        [
-                                                                                        "page": myi
-                                                                                    ],
-                                                                                    options["url"]),
-                                                                                ];
-                                                                                    result ~= mytemplater
-                                                                                    .format("number", myvars);
-                                                                            }
-                                                                        }
-                                                                    result ~= options["after"];
+        for (myi = 1; myi <= params["pageCount"]; myi++) {
+            if (
+                myi == params["currentPage"]) {
+                result ~= mytemplater
+                    .format("current", [
+                            "text": this
+                            .Number.format(
+                                params["currentPage"]),
+                            "url": this
+                            .generateUrl(
+                                [
+                                    "page": myi
+                                ],
+                                options["url"]),
+                        ]);
+            } else {
+                myvars = [
+                    "text": this.Number
+                    .format(myi),
+                    "url": this
+                    .generateUrl(
+                        [
+                            "page": myi
+                        ],
+                        options["url"]),
+                ];
+                result ~= mytemplater
+                    .format("number", myvars);
+            }
+        }
+        result ~= options["after"];
 
-                                                                        return result;
-                                                                }
+        return result;
+    }
 
-                                                                /**
+    /**
      * Returns a first or set of numbers for the first pages.
      *
      * ```
@@ -851,50 +866,51 @@ class DPaginatorHelper : DHelper {
      * string|int myfirst if string use as label for the link. If numeric, the number of page links
      * you want at the beginning of the range.
      */
-                                                                string first(
-                                                                    string | int myfirst = "<< first", Json[string] options = null) {
-                                                                    auto updatedOptions = options
-                                                                        .updatetions.update[
-                                                                            "url": Json.emptyArray,
-                                                                            "escape": true.toJson,
-                                                                        ]; if (this.paginated()
-                                                                        .pageCount() <= 1) {
-                                                                            return null;
-                                                                        }
-                                                                    string result = "";
+    string first(
+        string | int myfirst = "<< first", Json[string] options = null) {
+        auto updatedOptions = options
+            .updatetions.update[
+                "url": Json.emptyArray,
+                "escape": true.toJson,
+            ];
+        if (this.paginated()
+            .pageCount() <= 1) {
+            return null;
+        }
 
-                                                                        if (isInteger(myfirst) && this.paginated()
-                                                                        .currentPage() >= myfirst) {
-                                                                            for (myi = 1;
-                                                                            myi <= myfirst;
-                                                                            myi++) {
-                                                                                result ~= this.templater()
-                                                                                    .format("number", [
-                                                                                            "url": this.generateUrl(
-                                                                                            ["page": myi], options["url"]),
-                                                                                            "text": this
-                                                                                            .Number
-                                                                                            .format(
-                                                                                            myi),
-                                                                                        ]);
-                                                                            }
-                                                                        }
-                                                                    elseif(this.paginated()
-                                                                        .currentPage() > 1 && isString(
-                                                                        myfirst)) {
-                                                                        myfirst = options.get(
-                                                                            "escape"] ? htmlAttributeEscape(
-                                                                            myfirst) : myfirst;
-                                                                            result ~= templater().format(
-                                                                            "first", [
-                                                                                "url": generateUrl(
-                                                                                ["page": 1], options["url"]),
-                                                                                "text": myfirst,
-                                                                            ]); }
-                                                                            return result;
-                                                                    }
+        string result = "";
 
-                                                                    /**
+        if (isInteger(myfirst) && this.paginated()
+            .currentPage() >= myfirst) {
+            for (myi = 1; myi <= myfirst; myi++) {
+                result ~= this.templater()
+                    .format("number", [
+                            "url": this.generateUrl(
+                                ["page": myi], options["url"]),
+                            "text": this
+                            .Number
+                            .format(
+                                myi),
+                        ]);
+            }
+        }
+        elseif(this.paginated()
+                .currentPage() > 1 && isString(
+                    myfirst)) {
+            myfirst = options.get(
+                "escape"] ? htmlAttributeEscape(
+                    myfirst) : myfirst;
+            result ~= templater().format(
+                "first", [
+                    "url": generateUrl(
+                        ["page": 1], options["url"]),
+                    "text": myfirst,
+                ]);
+        }
+        return result;
+    }
+
+    /**
      * Returns a last or set of numbers for the last pages.
      *
      * ```
@@ -916,55 +932,54 @@ class DPaginatorHelper : DHelper {
      * Params:
      * string|int mylast if string use as label for the link, if numeric print page numbers
      */
-                                                                    string last(string | int mylast = "last >>", Json[string] options = null) {
-                                                                        auto updatedOptions = options
-                                                                            .updatetions.update[
-                                                                                "escape": true.toJson,
-                                                                                "url": Json.emptyArray,
-                                                                            ]; mypageCount = (int)this.paginated()
-                                                                            .pageCount();
-                                                                        if (mypageCount <= 1) {
-                                                                            return null;
-                                                                        }
-                                                                        mycurrentPage = this.paginated()
-                                                                            .currentPage();
+    string last(string | int mylast = "last >>", Json[string] options = null) {
+        auto updatedOptions = options
+            .updatetions.update[
+                "escape": true.toJson,
+                "url": Json.emptyArray,
+            ];
+        mypageCount = (int) this.paginated()
+            .pageCount();
+        if (mypageCount <= 1) {
+            return null;
+        }
+        mycurrentPage = this.paginated()
+            .currentPage();
 
-                                                                        string result = "";
-                                                                            mylower = mypageCount - (
-                                                                                int) mylast + 1;
+        string result = "";
+        mylower = mypageCount - (
+            int) mylast + 1;
 
-                                                                            if (isInteger(mylast) && mycurrentPage <= mylower) {
-                                                                                for (
-                                                                                    myi = mylower;
-                                                                                myi <= mypageCount;
-                                                                                myi++) {
-                                                                                    result ~= this.templater()
-                                                                                        .format("number", [
-                                                                                                "url": this.generateUrl(
-                                                                                                ["page": myi], options["url"]),
-                                                                                                "text": this
-                                                                                                .Number
-                                                                                                .format(
-                                                                                                myi),
-                                                                                            ]);
-                                                                                }
-                                                                            }
-                                                                        elseif(mycurrentPage < mypageCount && isString(
-                                                                            mylast)) {
-                                                                            mylast = options.get(
-                                                                                "escape"] ? htmlAttributeEscape(
-                                                                                mylast) : mylast;
-                                                                                result ~= this.templater()
-                                                                                .format("last", [
-                                                                                    "url": this.generateUrl(
-                                                                                    ["page": mypageCount], options["url"]),
-                                                                                    "text": mylast,
-                                                                                ]);
-                                                                        }
-                                                                        return result;
-                                                                    }
+        if (isInteger(mylast) && mycurrentPage <= mylower) {
+            for (
+                myi = mylower; myi <= mypageCount; myi++) {
+                result ~= this.templater()
+                    .format("number", [
+                            "url": this.generateUrl(
+                                ["page": myi], options["url"]),
+                            "text": this
+                            .Number
+                            .format(
+                                myi),
+                        ]);
+            }
+        }
+        elseif(mycurrentPage < mypageCount && isString(
+                mylast)) {
+            mylast = options.get(
+                "escape"] ? htmlAttributeEscape(
+                    mylast) : mylast;
+            result ~= this.templater()
+                .format("last", [
+                        "url": this.generateUrl(
+                            ["page": mypageCount], options["url"]),
+                        "text": mylast,
+                    ]);
+        }
+        return result;
+    }
 
-                                                                    /**
+    /**
      * Returns the meta-links for a paginated result set.
      *
      * ```
@@ -990,101 +1005,103 @@ class DPaginatorHelper : DHelper {
      * Params:
      * Json[string] options Array of options
      */
-                                                                    string meta(
-                                                                        Json[string] options = null) {
-                                                                        auto updatedOptions = options
-                                                                            .updatetions.update[
-                                                                                "block": false.toJson,
-                                                                                "prev": true.toJson,
-                                                                                "next": true.toJson,
-                                                                                "first": false.toJson,
-                                                                                "last": false.toJson,
-                                                                            ]; mylinks = null;
+    string meta(
+        Json[string] options = null) {
+        auto updatedOptions = options
+            .updatetions.update[
+                "block": false.toJson,
+                "prev": true.toJson,
+                "next": true.toJson,
+                "first": false.toJson,
+                "last": false.toJson,
+            ];
+        mylinks = null;
 
-                                                                        if (options["prev"] && this.hasPrev()) {
-                                                                            mylinks ~= this.Html.meta(
-                                                                                "prev",
-                                                                                this.generateUrl(
-                                                                                [
-                                                                                    "page": this.paginated()
-                                                                                    .currentPage() - 1
-                                                                                ],
-                                                                                [
-                                                                                ],
-                                                                                [
-                                                                                    "escape": false.toJson,
-                                                                                    "fullBase": true
-                                                                                    .toJson
-                                                                                ]
-                                                                            )
-                                                                            ); }
-                                                                            if (options["next"] && this.hasNext()) {
-                                                                                mylinks ~= this.Html.meta(
-                                                                                    "next",
-                                                                                    this.generateUrl(
-                                                                                    [
-                                                                                        "page": this.paginated()
-                                                                                        .currentPage() + 1
-                                                                                    ],
-                                                                                    [
-                                                                                    ],
-                                                                                    [
-                                                                                        "escape": false.toJson,
-                                                                                        "fullBase": true
-                                                                                        .toJson
-                                                                                    ]
-                                                                                )
-                                                                                );
-                                                                            }
-                                                                            if (
-                                                                                options["first"]) {
-                                                                                mylinks ~= this.Html.meta(
-                                                                                    "first",
-                                                                                    this.generateUrl([
-                                                                                        "page": 1
-                                                                                    ], [
-                                                                                    ], [
-                                                                                        "escape": false.toJson,
-                                                                                        "fullBase": true
-                                                                                        .toJson
-                                                                                    ])
-                                                                                );
-                                                                            }
-                                                                            if (options["last"]) {
-                                                                                mylinks ~= this.Html.meta(
-                                                                                    "last",
-                                                                                    this.generateUrl(
-                                                                                    [
-                                                                                        "page": this.paginated()
-                                                                                        .pageCount()
-                                                                                    ],
-                                                                                    [
-                                                                                    ],
-                                                                                    [
-                                                                                        "escape": false.toJson,
-                                                                                        "fullBase": true
-                                                                                        .toJson
-                                                                                    ]
-                                                                                )
-                                                                                );
-                                                                            }
-                                                                            string result = join(
-                                                                                mylinks);
+        if (options["prev"] && this.hasPrev()) {
+            mylinks ~= this.Html.meta(
+                "prev",
+                this.generateUrl(
+                    [
+                        "page": this.paginated()
+                        .currentPage() - 1
+                    ],
+                    [
+                    ],
+                    [
+                        "escape": false.toJson,
+                        "fullBase": true
+                        .toJson
+                    ]
+            )
+            );
+        }
+        if (options["next"] && this.hasNext()) {
+            mylinks ~= this.Html.meta(
+                "next",
+                this.generateUrl(
+                    [
+                        "page": this.paginated()
+                        .currentPage() + 1
+                    ],
+                    [
+                    ],
+                    [
+                        "escape": false.toJson,
+                        "fullBase": true
+                        .toJson
+                    ]
+            )
+            );
+        }
+        if (
+            options["first"]) {
+            mylinks ~= this.Html.meta(
+                "first",
+                this.generateUrl([
+                        "page": 1
+                    ], [
+                    ], [
+                        "escape": false.toJson,
+                        "fullBase": true
+                        .toJson
+                    ])
+            );
+        }
+        if (options["last"]) {
+            mylinks ~= this.Html.meta(
+                "last",
+                this.generateUrl(
+                    [
+                        "page": this.paginated()
+                        .pageCount()
+                    ],
+                    [
+                    ],
+                    [
+                        "escape": false.toJson,
+                        "fullBase": true
+                        .toJson
+                    ]
+            )
+            );
+        }
+        string result = join(
+            mylinks);
 
-                                                                                if (
-                                                                                    options["block"] == true) {
-                                                                                    options["block"] = __FUNCTION__;
-                                                                                }
-                                                                            if (
-                                                                                options["block"]) {
-                                                                                _view.append(options["block"], result);
+        if (
+            options["block"] == true) {
+            options["block"] = __FUNCTION__;
+        }
+        if (
+            options["block"]) {
+            _view.append(options["block"], result);
 
-                                                                                    return null;
-                                                                            }
-                                                                            return result;
-                                                                        }
+            return null;
+        }
+        return result;
+    }
 
-                                                                        /**
+    /**
      * Dropdown select for pagination limit.
      * This will generate a wrapping form.
      * Params:
@@ -1092,39 +1109,40 @@ class DPaginatorHelper : DHelper {
      * @param int mydefault Default option for pagination limit. Defaults to `this.param("perPage")`.
      * @param Json[string] options Options for Select tag attributes like class, id or event
      */
-                                                                        string limitControl(
-                                                                            Json[string] mylimits = [
-                                                                            ], int mydefault = null, Json[string] options = null) {
-                                                                            mylimits = mylimits ?  : [
-                                                                                "20": "20",
-                                                                                "50": "50",
-                                                                                "100": "100",
-                                                                            ]; mydefault ?  ?  = this.paginated()
-                                                                                .perPage();
-                                                                            myscope = this.param(
-                                                                                "scope");
-                                                                                assert(myscope.isNull || isString(
-                                                                                    myscope));
-                                                                                if (myscope) {
-                                                                                    myscope ~= ".";
-                                                                                }
+    string limitControl(
+        Json[string] mylimits = [
+        ], int mydefault = null, Json[string] options = null) {
+        mylimits = mylimits ?  : [
+            "20": "20",
+            "50": "50",
+            "100": "100",
+        ];
+        mydefault ?  ?  = this.paginated()
+            .perPage();
+        myscope = this.param(
+            "scope");
+        assert(myscope.isNull || isString(
+                myscope));
+        if (myscope) {
+            myscope ~= ".";
+        }
 
-                                                                            string result = this.Form.create(null, [
-                                                                                    "type": "get"
-                                                                                ]);
-                                                                                result ~= this.Form.control(
-                                                                                    myscope ~ "limit", options ~ [
-                                                                                        "type": "select",
-                                                                                        "label": __(
-                                                                                        "View"),
-                                                                                        "default": mydefault,
-                                                                                        "value": _view.getRequest()
-                                                                                        .getQuery("limit"),
-                                                                                        "options": mylimits,
-                                                                                        "onChange": "this.form.submit()",
-                                                                                    ]);
-                                                                                result ~= this.Form.end();
+        string result = this.Form.create(null, [
+                "type": "get"
+            ]);
+        result ~= this.Form.control(
+            myscope ~ "limit", options ~ [
+                "type": "select",
+                "label": __(
+                    "View"),
+                "default": mydefault,
+                "value": _view.getRequest()
+                .getQuery("limit"),
+                "options": mylimits,
+                "onChange": "this.form.submit()",
+            ]);
+        result ~= this.Form.end();
 
-                                                                                return result;
-                                                                        }
-                                                                    }
+        return result;
+    }
+}

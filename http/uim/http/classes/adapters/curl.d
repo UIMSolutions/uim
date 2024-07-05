@@ -83,11 +83,11 @@ class DCurl { // }: IAdapter {
         if (result[CURLOPT_POSTFIELDS] != "" && result.hasKey(CURLOPT_HTTPGET))) {
             result.set(URLOPT_CUSTOMREQUEST, "get");
         }
-        if (result[CURLOPT_POSTFIELDS].isEmpty) {
+        if (result.isEmpty(CURLOPT_POSTFIELDS)) {
             result.remove(CURLOPT_POSTFIELDS);
         }
         if (clientOptions.isEmpty("ssl_cafile")) {
-            clientOptions["ssl_cafile"] = CaBundle.getBundledCaBundlePath();
+            clientOptions.set("ssl_cafile", CaBundle.getBundledCaBundlePath());
         }
         if (!clientOptions.isEmpty("ssl_verify_host"))) {
             // Value of 1 or true is deprecated. Only 2 or 0 should be used now.

@@ -198,13 +198,14 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         if (!_useFallback || name == fallbackDomain) {
             return loader;
         }
-        return ICatalog () use (loader, fallbackDomain) {
+        /* return ICatalog () use (loader, fallbackDomain) {
             ICatalog catalog = loader.catalog();
             if (!catalog.fallback) {
                 catalog.(fallbackDomain);
             }
             return catalog;
-        };
+        }; */
+        return null; 
     }
 }
 

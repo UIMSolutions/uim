@@ -65,7 +65,7 @@ mixin template TStaticConfig() {
             configuration.remove("url");
             configData = parsed + configData;
         }
-        if (configData.hasKey("engine") && configData["classname"].isEmpty) {
+        if (configData.hasKey("engine") && configData.isEmpty("classname")) {
             configuration.set("classname", configuration.get("engine"));
             configuration.remove("engine");
         }

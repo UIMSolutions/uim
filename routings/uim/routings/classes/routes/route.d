@@ -588,11 +588,11 @@ class DRoute : IRoute {
     
     // Check whether the URL"s HTTP method matches.
     protected bool _matchMethod(Json[string] url) {
-        if (_defaults["_method"].isEmpty) {
+        if (_defaults.isEmpty("_method")) {
             return true;
         }
 
-        if (url["_method"].isEmpty) {
+        if (url.isEmpty("_method")) {
             url["_method"] = "GET";
         }
         _defaultValues = /* (array) */_defaults["_method"];
@@ -653,10 +653,10 @@ class DRoute : IRoute {
             myscheme = options.getString("_scheme", "http");
             result = "{myscheme}://{myhost}{result}";
         }
-        if (!options.isEmpty("_ext")) || !query.isEmpty) {
+        if (!options.isEmpty("_ext") || !query.isEmpty) {
             result = stripRight(result, "/");
         }
-        if (!options.isEmpty("_ext"))) {
+        if (!options.isEmpty("_ext")) {
             result ~= "." ~ options.getString("_ext");
         }
         if (!query.isEmpty) {

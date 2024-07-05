@@ -220,16 +220,16 @@ class DConsoleOptionParser {
      */
     static auto buildFromArray(Json[string] sepcData, bool isVerboseAndQuiet = true) {
         /* auto aParser = new static(sepcData["command"], isVerboseAndQuiet);
-        if (!sepcData["arguments"].isEmpty) {
+        if (!sepcData.isEmpty("arguments")) {
             aParser.addArguments(sepcData["arguments"]);
         }
-        if (!sepcData["options"].isEmpty) {
+        if (!sepcData.isEmpty("options")) {
             aParser.addOptions(sepcData["options"]);
         }
-        if (!sepcData["description"].isEmpty) {
+        if (!sepcData.isEmpty("description") {
             aParser.description(sepcData["description"]);
         }
-        if (!sepcData["epilog"].isEmpty) {
+        if (!sepcData.isEmpty("epilog")) {
             aParser.setEpilog(sepcData["epilog"]);
         }
         return aParser; */

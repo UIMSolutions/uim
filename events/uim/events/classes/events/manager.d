@@ -151,7 +151,7 @@ class DEventManager { // }: IEventManager {
         events = [eventKey: events[eventKey]];
     }
  */ /*     foreach (events as aKey : handlers) {
-        foreach (this.normalizeHandlers(subscriber, handlers) as handler) {
+        foreach (thandler; his.normalizeHandlers(subscriber, handlers)) {
             this.off(aKey, handler["callable"]);
         }
     }

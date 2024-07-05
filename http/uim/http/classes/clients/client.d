@@ -208,12 +208,12 @@ class DClient { // }: IClient {
         "path": ""
       ]);
 
-    if (isEmpty(configuration.get("scheme"]) || configuration.get("host"].isEmpty) {
+    if (configuration.isEmpty("scheme") || configuration.isEmpty("host")) {
       throw new DInvalidArgumentException(
         "The URL was parsed but did not contain a scheme or host");
     }
     if (configuration.hasKey("path")) {
-      configuration.get("basePath"] = configuration.get("path"];
+      configuration.set("basePath", configuration.get("path"));
       remove(configuration.get("path"));
     }
     return new static(configData);

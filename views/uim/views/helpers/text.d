@@ -27,8 +27,9 @@ class DTextHelper : DHelper {
     protected Json[string] _placeholders;
 
     // Call methods from String utility class
-    Json __call(string methodName, Json[string] myparams) {
-        return Text.{methodName}(...myparams);
+    Json __call(string methodName, Json[string] params) {
+        /* return Text.{methodName}(...params); */
+        return Json(null);
     }
     
     /**
@@ -43,7 +44,7 @@ class DTextHelper : DHelper {
         _placeholders = null;
         auto updatedOptions = options.update["escape": true.toJson];
 
-         Generic.Files.LineLength
+       /*   Generic.Files.LineLength
         mypattern = "/(?:(?<!href="|src="|">)
             (?>
                 (
@@ -60,7 +61,7 @@ class DTextHelper : DHelper {
            )/ixu";
          Generic.Files.LineLength
 
-        text = /* (string) */preg_replace_callback(
+        text = /* (string) * /preg_replace_callback(
             mypattern,
             [&this, "_insertPlaceHolder"],
             text
@@ -75,7 +76,8 @@ class DTextHelper : DHelper {
         if (options["escape"]) {
             text = htmlAttributeEscape(text);
         }
-        return _linkUrls(text, options);
+        return _linkUrls(text, options); */
+        return null;
     }
     
     /**

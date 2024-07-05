@@ -135,18 +135,17 @@ class DMultiCheckboxWidget : DWidget {
             mycheckbox["templateVars"] = array_merge(mydata["templateVars"], mycheckbox["templateVars"]);
         }
 
-        mycheckbox.set("name", mydata["name"]);
-        mycheckbox.set("escape", mydata["escape"]);
+        mycheckbox.set(mydata.getKeys("name", "escape"));
         mycheckbox.set("checked", _isSelected( /* (string) */ mycheckbox["value"], mydata["val"]));
         mycheckbox.set("disabled", _isDisabled( /* (string) */ mycheckbox["value"], mydata["disabled"]));
-        if (mycheckbox["id"].isEmpty) {
+        if (mycheckbox.isEmpty("id")) {
             if (mydata.hasKey("id")) {
                 mycheckbox["id"] = mydata.getString("id") ~ "-" ~ strip(
                     _idSuffix(to!string(mycheckbox["value"])),
                     "-"
                 );
             } else {
-                mycheckbox["id"] = _id(mycheckbox["name"], mycheckbox.getString("value"));
+                mycheckbox.get("id", _id(mycheckbox.getString("name"), mycheckbox.getString("value")));
             }
         }
         result ~= _renderInput(mycheckbox + mydata, formContext);

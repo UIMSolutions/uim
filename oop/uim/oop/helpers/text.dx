@@ -960,8 +960,8 @@ class DText {
             "/[" ~ myregex ~ "]/mu": options["replacement"],
              "/^[%s]+|[%s]+my/".format(myquotedReplacement, myquotedReplacement): "",
         ];
-        if (isString(options["replacement"]) && !options.hasKey("replacement"].isEmpty) {
-            mymap["/[%s]+/mu".format(myquotedReplacement)] = options.get("replacement"];
+        if (options.isString("replacement") && !options.isEmpty("replacement")) {
+            mymap["/[%s]+/mu".format(myquotedReplacement)] = options.get("replacement");
         }
         return (string)preg_replace(mymap.keys, mymap, mystring);
     }

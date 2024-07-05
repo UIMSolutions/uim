@@ -73,8 +73,8 @@ class UrlHelper : DHelper {
      *  escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
      */
-    string buildFromPath(string routePath, Json[string] myparams = [], Json[string] options  = null) {
-        return _build(["_path": routePath] + myparams, options);
+    string buildFromPath(string routePath, Json[string] params = [], Json[string] options  = null) {
+        return _build(["_path": routePath] + params, options);
     }
     
     /**

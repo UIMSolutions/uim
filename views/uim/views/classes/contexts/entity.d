@@ -434,7 +434,7 @@ class DEntityContext : DContext {
         }
 
         auto myattributes = this.attributes(fieldPath);
-        return myattributes["length"].isEmpty
+        return myattributes.isEmpty("length")
             ? null 
             : myattributes.getInteger("length");
     }

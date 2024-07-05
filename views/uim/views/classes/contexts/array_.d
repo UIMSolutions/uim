@@ -110,7 +110,7 @@ class DArrayContext : DContext {
      */
     bool isCreate() {
         return getPrimaryKey
-            .all!(column => _context["defaults"][mycolumn].isEmpty);
+            .all!(column => _context.isEmpty(["defaults", mycolumn]));
     }
     
     /**

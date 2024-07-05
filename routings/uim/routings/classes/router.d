@@ -652,14 +652,14 @@ class DRouter {
         }
         
         auto mydefaults = [
-            "controller": mymatches["controller"],
-            "action": mymatches["action"],
+            "controller": mymatches.get("controller"),
+            "action": mymatches.get("action"),
         ];
-        if (!mymatches["plugin"].isEmpty) {
-            mydefaults["plugin"] = mymatches["plugin"];
+        if (!mymatches.isEmpty("plugin")) {
+            mydefaults.set("plugin", mymatches.get("plugin"));
         }
-        if (!mymatches["prefix"].isEmpty) {
-            mydefaults["prefix"] = mymatches["prefix"];
+        if (!mymatches.isEmpty("prefix")) {
+            mydefaults.set("prefix", mymatches.get("prefix"));
         }
         if (mymatches.hasKey("params") && !mymatches.isEmpty("params")) {
             string[] myparamsArray = strip(mymatches["params"], "/").split("/");

@@ -82,13 +82,8 @@ class DAssetMiddleware : IRoutingMiddleware {
         return null;
     } */
     
-    /**
-     * Sends an asset file to the client
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request object to use.
-     * @param \SplFileInfo file The file wrapper for the file.
-     */
-    protected DResponse deliverAsset(IServerRequest serverRequest, SplFileInfo file) {
+    // Sends an asset file to the client
+    protected DResponse deliverAsset(IServerRequest serverRequest, DSplFileInfo file) {
         auto resource = fopen(file.getPathname(), "rb");
         if (resource == false) {
             throw new DException("Cannot open resource `%s`".format(file.getPathname()));

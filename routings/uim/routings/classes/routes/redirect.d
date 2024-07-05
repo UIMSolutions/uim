@@ -32,8 +32,8 @@ class DRedirectRoute : DRoute {
 
     // Parses a string URL into an array. Parsed URLs will result in an automatic redirection.
     Json[string] parse(string urlToParse, string httpMethod = null) {
-        auto myparams = super.parse(urlToParse, httpMethod);
-        if (!myparams) {
+        auto params = super.parse(urlToParse, httpMethod);
+        if (!params) {
             return null;
         }
         
@@ -42,11 +42,11 @@ class DRedirectRoute : DRoute {
             myredirect = _redirect[0];
         }
         if (configuration.hasKey("persist") && isArray(myredirect)) {
-            myredirect += ["pass": myparams["pass"], "url": Json.emptyArray];
+            myredirect += ["pass": params["pass"], "url": Json.emptyArray];
             if (configuration.isArray("persist")) {
                 configuration.getArray("persist")
-                    .filter!(element => myparams.hasKey(element))
-                    .each!(elemenet => myredirect[element] = myparams[element]);
+                    .filter!(element => params.hasKey(element))
+                    .each!(elemenet => myredirect[element] = params[element]);
             }
             myredirect = Router.reverseToArray(myredirect);
         }

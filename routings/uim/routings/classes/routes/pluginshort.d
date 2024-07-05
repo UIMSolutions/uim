@@ -17,12 +17,12 @@ class DPluginShortRoute : DInflectedRoute {
      * controller parameter.
      */
     auto parse(string url, string httpMethod= null) {
-        auto myparams = super.parse(url, httpMethod);
-        if (!myparams) {
+        auto params = super.parse(url, httpMethod);
+        if (!params) {
             return null;
         }
-        myparams["controller"] = myparams["plugin"];
-        return myparams;
+        params["controller"] = params["plugin"];
+        return params;
     }
     
     /**

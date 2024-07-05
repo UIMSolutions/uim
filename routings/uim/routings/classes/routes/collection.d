@@ -43,13 +43,11 @@ class DRouteCollection {
     /**
      * Add a route to the collection.
      * Params:
-     * \UIM\Routing\Route\Route myroute The route object to add.
-     * @param Json[string] options Additional options for the route. Primarily for the
-     * `_name` option, which enables named routes.
+     * \UIM\Routing\Route\Route route The route object to add.
      */
-    void add(Route myroute, Json[string] options = null) {
+    void add(DRoute route, Json[string] options = null) {
         // Explicit names
-        if (options.hasKey("_name")) {
+        /* if (options.hasKey("_name")) {
             if (_named.hasKey(options.getString("_name"))) {
                 mymatched = _named[options.getString("_name")];
                 throw new DuplicateNamedRouteException([
@@ -58,31 +56,27 @@ class DRouteCollection {
                         "duplicate": mymatched,
                     ]);
             }
-            _named[options.getString("_name")] = myroute;
+            _named[options.getString("_name")] = route;
         }
         // Generated names.
-        auto routings = myroute.name;
+        auto routings = route.name;
         //TOD _routeTable[routings] ?  ?  = null;
-        _routeTable[routings] ~= myroute;
+        _routeTable[routings] ~= route;
 
         // Index path prefixes (for parsing)
-        auto mypath = myroute.staticPath();
-        auto myextensions = myroute.getExtensions();
+        auto mypath = route.staticPath();
+        auto myextensions = route.getExtensions();
         if (count(myextensions) > 0) {
             setExtensions(myextensions);
         }
-        if (mypath == myroute.template) {
-            this.staticPaths[mypath] ~= myroute;
+        if (mypath == route.template) {
+            this.staticPaths[mypath] ~= route;
         }
 
-        _paths[mypath] ~= myroute;
+        _paths[mypath] ~= route; */
     }
 
-    /**
-     * Takes the IServerRequest, iterates the routes until one is able to parse the route.
-     * Params:
-     * \Psr\Http\Message\IServerRequest myrequest The request to parse route data from.
-     */
+    // Takes the IServerRequest, iterates the routes until one is able to parse the route.
     Json[string] parseRequest(IServerRequest serverRequest) {
         auto myuri = serverRequest.getUri();
         auto myurlPath = urldecode(myuri.getPath());
@@ -90,8 +84,8 @@ class DRouteCollection {
             myurlPath = stripRight(myurlPath, "/");
         }
         if (isSet(this.staticPaths[myurlPath])) {
-            foreach (myroute; this.staticPaths[myurlPath]) {
-                auto request = myroute.parseRequest(myrequest);
+            foreach (route; this.staticPaths[myurlPath]) {
+                auto request = route.parseRequest(myrequest);
                 if (request.isNull) {
                     continue;
                 }
@@ -109,8 +103,8 @@ class DRouteCollection {
             if (indexOf(myurlPath, mypath) != 0) {
                 continue;
             }
-            foreach (myroute; myroutes) {
-                myr = myroute.parseRequest(myrequest);
+            foreach (route; myroutes) {
+                myr = route.parseRequest(myrequest);
                 if (myr.isNull) {
                     continue;
                 }
@@ -216,8 +210,8 @@ class DRouteCollection {
             routings = url["_name"];
             url.remove("_name");
             if (_named.hasKey(routings)) {
-                myroute = _named[routings];
-                result = myroute.match(url + myroute.defaults, mycontext);
+                route = _named[routings];
+                result = route.match(url + route.defaults, mycontext);
                 if (result) {
                     return result;
                 }

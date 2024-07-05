@@ -24,22 +24,22 @@ class DInflectedRoute : DRoute {
      * plugin keys to their camelized form.
      */
     Json[string]parse(string url, string httpMethod= null) {
-        auto myparams = super.parse(url, mymethod);
-        if (!myparams) {
+        auto params = super.parse(url, mymethod);
+        if (!params) {
             return null;
         }
-        if (!myparams.isEmpty"controller"])) {
-            myparams["controller"] = Inflector.camelize(myparams["controller"]);
+        if (!params.isEmpty"controller"])) {
+            params["controller"] = Inflector.camelize(params["controller"]);
         }
-        if (!myparams.isEmpty"plugin"])) {
-            if (!myparams["plugin"].contains("/")) {
-                myparams["plugin"] = Inflector.camelize(myparams["plugin"]);
+        if (!params.isEmpty"plugin"])) {
+            if (!params["plugin"].contains("/")) {
+                params["plugin"] = Inflector.camelize(params["plugin"]);
             } else {
-                [myvendor, myplugin] = split("/", myparams["plugin"], 2);
-                myparams["plugin"] = Inflector.camelize(myvendor) ~ "/" ~ Inflector.camelize(myplugin);
+                [myvendor, myplugin] = split("/", params["plugin"], 2);
+                params["plugin"] = Inflector.camelize(myvendor) ~ "/" ~ Inflector.camelize(myplugin);
             }
         }
-        return myparams;
+        return params;
     }
     
     /**

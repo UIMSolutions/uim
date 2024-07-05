@@ -747,10 +747,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * are the aliases, and the values are association config data. If numeric
      * keys are used the values will be treated as association aliases.
      * Params:
-     * Json[string] myparams Set of associations to bind (indexed by association type)
+     * Json[string] params Set of associations to bind (indexed by association type)
      */
-    void addAssociations(Json[string] myparams) {
-        foreach (myassocType: mytables; myparams) {
+    void addAssociations(Json[string] params) {
+        foreach (myassocType: mytables; params) {
             foreach (myassociated: options; mytables) {
                 if (isNumeric(myassociated)) {
                     myassociated = options;
@@ -2162,8 +2162,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      */
     SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string] myargs) {
         auto myreflected = new DReflectionFunction(mycallable);
-        auto myparams = myreflected.getParameters();
-        auto mysecondParam = myparams[1] ?? null;
+        auto params = myreflected.getParameters();
+        auto mysecondParam = params[1] ?? null;
         auto mysecondParamType = null;
 
         if (myargs is null || isSet(myargs[0])) {
@@ -2172,7 +2172,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             // Backwards compatibility of 4.x style finders with signature `findFoo(SelectQuery myquery, Json[string] options = null)`
             // called as `find("foo")` or `find("foo", [..])`
             if (
-                count(myparams) == 2 &&
+                count(params) == 2 &&
                 mysecondParam?.name == "options" &&
                 !mysecondParam.isVariadic() &&
                 (mysecondParamType.isNull || mysecondParamTypeName == "array")
@@ -2207,12 +2207,12 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             // Fetch custom args without the query options.
             myargs = myquery.getOptions();
 
-            remove(myparams[0]);
-            mylastParam = end(myparams);
-            reset(myparams);
+            remove(params[0]);
+            mylastParam = end(params);
+            reset(params);
 
             if (mylastParam == false || !mylastParam.isVariadic()) {
-                string[] myparamNames = myparams.map!(param => myparam.name).array;
+                string[] myparamNames = params.map!(param => myparam.name).array;
                 myargs.byKeyValue
                     .filter(kv => isString(kv.key) && !myparamNames.has(kv.key))
                     .each!(kv => remove(myargs[kv.key]));

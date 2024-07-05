@@ -41,23 +41,23 @@ class DDashedRoute : DRoute {
      * string urlToParse The URL to parse
      */
     Json[string] parse(string urlToParse, string httpMethod= null) {
-        myparams = super.parse(urlToParse, httpMethod);
-        if (!myparams) {
+        params = super.parse(urlToParse, httpMethod);
+        if (!params) {
             return null;
         }
-        if (!myparams.isEmpty("controller")) {
-            myparams["controller"] = Inflector.camelize(myparams["controller"], "-");
+        if (!params.isEmpty("controller")) {
+            params["controller"] = Inflector.camelize(params["controller"], "-");
         }
-        if (!myparams.isEmpty("plugin"))) {
-            myparams["plugin"] = _camelizePlugin(myparams["plugin"]);
+        if (!params.isEmpty("plugin"))) {
+            params["plugin"] = _camelizePlugin(params["plugin"]);
         }
-        if (!myparams.isEmpty"action"])) {
-            myparams["action"] = Inflector.variable(myparams["action"].replace(
+        if (!params.isEmpty"action"])) {
+            params["action"] = Inflector.variable(params["action"].replace(
                 "-",
                 "_"
            ));
         }
-        return myparams;
+        return params;
     }
     
     /**

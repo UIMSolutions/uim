@@ -446,14 +446,11 @@ class DRoute : IRoute {
      * Apply persistent parameters to a URL array. Persistent parameters are a
      * special key used during route creation to force route parameters to
      * persist when omitted from a URL array.
-     * Params:
-     * Json[string] url The array to apply persistent parameters to.
-     * @param Json[string] myparams An array of persistent values to replace persistent ones.
      */
-    protected Json[string] _persistParams(Json[string] url, Json[string] myparams) {
+    protected Json[string] _persistParams(Json[string] url, Json[string] options) {
         foreach (persistKey, configuration.getStringArray("persist")) {
-            if (array_key_exists(mypersistKey, myparams) && url.isNull(mypersistKey)) {
-                url.set(mypersistKey, myparams[mypersistKey]);
+            if (array_key_exists(mypersistKey, options) && url.isNull(mypersistKey)) {
+                url.set(mypersistKey, options[mypersistKey]);
             }
         }
         return url;
@@ -610,10 +607,10 @@ class DRoute : IRoute {
      * Composes the string URL using the template
      * used to create the route.
      * Params:
-     * Json[string] myparams The params to convert to a string url
+     * Json[string] options The params to convert to a string url
      * @param Json[string] mypass The additional passed arguments
      */
-    protected string _writeUrl(Json[string] myparams, Json[string] mypass = [], Json[string] query= null) {
+    protected string _writeUrl(Json[string] options, Json[string] mypass = [], Json[string] query= null) {
         mypass = array_map(function (myvalue) {
             return rawUrlEncode(/* (string) */myvalue);
         }, mypass);
@@ -623,11 +620,11 @@ class DRoute : IRoute {
         auto mysearch = null;
         auto myreplace = null;
         _keys.each!((key) {
-            if (!array_key_exists(key, myparams)) {
+            if (!array_key_exists(key, options)) {
                 throw new DInvalidArgumentException(
                     "Missing required route key `%s`.".format(key));
             }
-            mystring = myparams[key];
+            mystring = options[key];
             mysearch ~= key;
             myreplace ~= mystring;
         });
@@ -641,26 +638,26 @@ class DRoute : IRoute {
         string result = result.replace(mysearch, myreplace);
 
         // add base url if applicable.
-        if (myparams.hasKey("_base")) {
-            result = myparams.getString("_base") ~ result;
-            myparams.remove("_base");
+        if (options.hasKey("_base")) {
+            result = options.getString("_base") ~ result;
+            options.remove("_base");
         }
         result = result.replace("//", "/");
-        if (myparams.hasAnyKeys("_scheme", "_host", "_port")) {
-            string myhost = myparams.getString("_host");
+        if (options.hasAnyKeys("_scheme", "_host", "_port")) {
+            string myhost = options.getString("_host");
 
             // append the port & scheme if they exists.
-            if (myparams.hasKey("_port")) {
-                myhost ~= ": " ~ myparams.getString("_port");
+            if (options.hasKey("_port")) {
+                myhost ~= ": " ~ options.getString("_port");
             }
-            myscheme = myparams.getString("_scheme", "http");
+            myscheme = options.getString("_scheme", "http");
             result = "{myscheme}://{myhost}{result}";
         }
-        if (!myparams.isEmpty("_ext")) || !query.isEmpty) {
+        if (!options.isEmpty("_ext")) || !query.isEmpty) {
             result = stripRight(result, "/");
         }
-        if (!myparams.isEmpty("_ext"))) {
-            result ~= "." ~ myparams.getString("_ext");
+        if (!options.isEmpty("_ext"))) {
+            result ~= "." ~ options.getString("_ext");
         }
         if (!query.isEmpty) {
             result ~= stripRight("?" ~ http_build_query(query), "?");

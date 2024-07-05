@@ -38,20 +38,16 @@ class DRoutingMiddleware : IRoutingMiddleware {
     /**
      * Apply routing and update the request.
      *
-     * Any route/path specific middleware will be wrapped around next and then the new middleware stack will be
-     * invoked.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request.
-     * @param \Psr\Http\Server\IRequestHandler handler The request handler.
+     * Any route/path specific middleware will be wrapped around next and then the new middleware stack will be invoked.
      */
-    IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
+    IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
         this.loadRoutes();
         try {
             assert(cast(DServerRequest)serverRequest);
             Router.setRequest(serverRequest);
-            auto params = (array)serverRequest.getAttribute("params", []);
+            auto params = /* (array) */serverRequest.getAttribute("params", []);
             auto middleware = null;
-            if (isEmpty(params["controller"])) {
+            if (params.isEmpty("controller")) {
                 params = Router.parseRequest(serverRequest) + params;
                 if (params.hasKey("_middleware")) {
                     middleware = params["_middleware"];
@@ -72,16 +68,16 @@ class DRoutingMiddleware : IRoutingMiddleware {
                  anException.getHeaders()
            );
         }
-        matching = Router.getRouteCollection().getMiddleware(middleware);
+        auto matching = Router.getRouteCollection().getMiddleware(middleware);
         if (!matching) {
-            return handler.handle(request);
+            return requestHandler.handle(request);
         }
-        container = cast(IContainerApplication)this.app
+        auto container = cast(IContainerApplication)this.app
             ? _app.getContainer()
             : null;
-        middleware = new DMiddlewareQueue(matching, container);
-        runner = new DRunner();
+        auto middleware = new DMiddlewareQueue(matching, container);
+        auto runner = new DRunner();
 
-        return runner.run(middleware, request, handler);
+        return runner.run(middleware, request, requestHandler);
     }
 }

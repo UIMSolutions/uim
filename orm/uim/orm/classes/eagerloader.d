@@ -535,7 +535,7 @@ class DEagerLoader {
 
                 // If the association foreign keys are missing skip loading
                 // as the association could be optional.
-                if (collected[path][aliasName].isEmpty)) {
+                if (collected.isEmpty([path, aliasName])) {
                     continue;
                 }
             }

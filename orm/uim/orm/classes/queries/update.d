@@ -7,12 +7,7 @@ import uim.orm;
 class DUpdateQuery : DQuery {
     // mixin TCommonQuery();
 
-    /**
-     
-     * Params:
-     * \ORM\Table mytable The table this query is starting on
-     */
-    this(DTTable aTable) {
+    this(DORMTable aTable) {
         super(aTable.getConnection());
 
         setRepository(aTable);
@@ -20,9 +15,8 @@ class DUpdateQuery : DQuery {
     }
  
     string sql(DValueBinder mybinder = null) {
-        if (!_parts.hasKey("update") || _parts["update"].isEmpty) {
-            myrepository = getRepository();
-            this.update(myrepository.getTable());
+        if (!_parts.hasKey("update") || _parts.isEmpty("update")) {
+            update(getRepository().getTable());
         }
         return super.sql(mybinder);
     }

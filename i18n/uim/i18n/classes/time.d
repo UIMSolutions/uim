@@ -89,8 +89,8 @@ class DTime { // : ChronosTime, JsonSerializable {
      * time = Time.parseTime("11:23pm");
      * ```
      */
-    static static parseTime(string timeToParse, string /* |int */ format = null) {
-        format = format.ifEmpty([IntlDateFormatter.NONE, IntlDateFormatter.SHORT]);
+    static DTime parseTime(string timeToParse, string /* |int */ format = null) {
+        auto format = format.ifEmpty([IntlDateFormatter.NONE, IntlDateFormatter.SHORT]);
         if (isInteger(format)) {
             format = [IntlDateFormatter.NONE, format];
         }

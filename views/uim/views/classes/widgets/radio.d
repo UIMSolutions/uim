@@ -71,12 +71,11 @@ class DRadioWidget : DWidget {
                auto updatedData = renderData.merge(formContext.data);
 
 
-        if (cast(Traversable)mydata["options"]) {
-            options = iterator_to_array(mydata["options"]);
-        } else {
-            options = (array)mydata["options"];
+        options = cast(Traversable)mydata["options"]
+            ? iterator_to_array(mydata["options"])
+            : /* (array) */mydata["options"];
         }
-        if (!mydata["empty"].isEmpty) {
+        if (!mydata.isEmpty("empty")) {
             myempty = mydata.contains("empty") ? "empty" : mydata["empty"];
             options = ["": myempty] + options;
         }

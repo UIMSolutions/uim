@@ -120,18 +120,18 @@ class DEventManager { // }: IEventManager {
     }
  */
         /*     if (aCallable.isNull) {
-        remove(_listeners[eventKey]);
+        _listeners.remove(eventKey);
 
         return this;
     } */
-        /*     if (_listeners[eventKey].isEmpty) {
+        /*     if (_listeners.isEmpty(eventKey)) {
         return this;
     }
  */ /*     aCallable = aCallable(...);
     foreach (_listeners[eventKey] as priority : aCallables) {
         foreach (aCallables as myKey : aCallback) {
             if (aCallback["callable"] == aCallable) {
-                remove(_listeners[eventKey][priority][myKey]);
+                _listeners.remove([eventKey, priority, myKey]);
                 break;
             }
         }

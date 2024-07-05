@@ -1739,7 +1739,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
         if (count(primaryKeys) > 1) {
             myschema = getSchema();
-            foreach (myKey: myv; myprimary) {
+            foreach (myKey, myv; myprimary) {
                 if (!mydata.hasKey(myKey) && myschema.getColumn(myKey)["autoIncrement"].isEmpty) {
                     mymsg = "Cannot insert row, some of the primary key values are missing. ";
                     mymsg ~= 

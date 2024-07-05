@@ -92,13 +92,13 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * @var array<int>|string|int
      */
-    auto string[] wordFormat = [IntlDateFormatter.SHORT, IntlDateFormatter.NONE];
+    string[] wordFormat = [IntlDateFormatter.SHORT, IntlDateFormatter.NONE];
 
     /**
      * The format to use when formatting a time using `DateTime.timeAgoInWords()`
      * and the difference is less than `DateTime.wordEnd`
      */
-    auto STRINGAA wordAccuracy = [
+    STRINGAA wordAccuracy = [
         "year": "day",
         "month": "day",
         "week": "day",
@@ -109,13 +109,13 @@ class DateTime /* : Chronos, JsonSerializable */ {
     ];
 
     // The end of relative time telling
-    auto string awordEnd = "+1 month";
+    string awordEnd = "+1 month";
 
     // serialise the value as a Unix Timestamp
     const string UNIX_TIMESTAMP_FORMAT = "unixTimestampFormat";
 
     // Gets the default locale.
-    auto string getDefaultLocale() {
+    string getDefaultLocale() {
         return defaultLocale;
     }
 

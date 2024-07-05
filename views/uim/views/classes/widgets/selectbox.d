@@ -111,7 +111,7 @@ class DSelectBoxWidget : DWidget {
             renderData.remove("disabled");
         }
         auto mytemplate = "select";
-        if (!renderData["multiple"].isEmpty) {
+        if (!renderData.isEmpty("multiple")) {
             mytemplate = "selectMultiple";
             renderData.remove("multiple");
         }

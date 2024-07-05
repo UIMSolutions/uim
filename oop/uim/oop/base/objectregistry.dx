@@ -241,7 +241,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * string aName The name of the object to remove from the registry.
      */
   void unload(string aName) {
-    if (_loaded[name].isEmpty) {
+    if (_loaded.isEmpty(name)) {
       [plugin, name] = pluginSplit(name);
       _throwMissingClassError(name, plugin);
     }
@@ -250,7 +250,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
         IEventListener) object) {
       getEventManager().off(object);
     }
-    remove(_loaded[name]);
+    _loaded.remove(name);
   }
 
   // Returns an array iterator.

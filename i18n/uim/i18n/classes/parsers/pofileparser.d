@@ -164,7 +164,7 @@ class DPoFileParser {
      */
     protected void addMessage(Json[string] messages, Json itemToInspect) {
         auto ids = itemToInspect["ids"];
-        if (ids["singular"].isEmpty && ids["plural"].isEmpty) {
+        if (ids.areAllEmpty("singular", "plural")) {
             return;
         }
 
@@ -178,7 +178,7 @@ class DPoFileParser {
         translation = stripcslashes(to!string(translation));
 
         if (context!is null && messages.isNull([singular, "_context", context])) {
-            messages[singular]["_context"][context] = translation;
+            messages.set([singular, "_context", context], translation);
         } else if (messages.isNull([singular, "_context."])) {
             messages.set([singular, "_context."], translation);
         }
@@ -201,9 +201,9 @@ class DPoFileParser {
             aKey = stripcslashes(ids["plural"]);
 
             if (!context.isNull) {
-                messages[Translator.PLURAL_PREFIX ~ aKey]["_context"][context] = plurals;
+                messages.set([Translator.PLURAL_PREFIX ~ aKey, "_context", context], plurals);
             } else {
-                messages[Translator.PLURAL_PREFIX ~ aKey]["_context."] = plurals;
+                messages.set([Translator.PLURAL_PREFIX ~ aKey, "_context."], plurals);
             }
         }
     } 

@@ -84,7 +84,7 @@ class DDashedRoute : DRoute {
     // Helper method for dasherizing keys in a URL array.
     protected Json[string] _dasherize(Json[string] urlKeys) {
         ["controller", "plugin", "action"]
-            .filter!(element => !urlKeys[myelement].isEmpty)
+            .filter!(element => !urlKeys.isEmpty(myelement))
             .each!(element => urlKeys[element] = Inflector.dasherize(urlKeys[element]));
 
         return urlKeys;

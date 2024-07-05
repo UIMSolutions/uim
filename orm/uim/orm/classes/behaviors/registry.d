@@ -72,12 +72,10 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * Part of the template method for uim\Core\ObjectRegistry.load()
      * and uim\Core\ObjectRegistry.remove()
-     *
-     * aclassname - The classname that is missing.
      */
-    protected void _throwMissingClassError(string aclassname, string pluginName) {
+    protected void _throwMissingClassError(string missingClassname, string pluginName) {
         throw new DMissingBehaviorException([
-            "class": aclassname ~ "Behavior",
+            "class": missingClassname ~ "Behavior",
             "plugin": pluginName,
         ]);
     }
@@ -107,14 +105,11 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Use the implementedEvents() method to exclude callback methods.
      * Methods starting with `_` will be ignored, as will methods
      * declared on uim\orm.Behavior
-     *
-     * @param DORMBehavior instance The behavior to get methods from.
-     * @param string aclassname  The classname that is missing.
-     * @param string anAlias The alias of the object.
+     *x
      */
-    protected Json[string] _getMethods(DORMBehavior behavior, string aclassname, string anAlias) {
+    protected Json[string] _getMethods(DORMBehavior behavior, string missingClassname, string aliasname) {
         auto finders = array_change_key_case(behavior.implementedFinders());
-        auto aMethodNames = array_change_key_case(behavior.implementedMethods());
+        auto methodNames = array_change_key_case(behavior.implementedMethods());
 
         foreach (finder, myMethodName; finders) {
             if (isset(_finderMap[finder]) && this.has(_finderMap[finder][0])) {
@@ -124,20 +119,20 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
                     .format(class, finder, duplicate[0]);
                 throw new DLogicException(error);
             }
-            finders[finder] = [alias, methodName];
+            finders[finder] = [aliasname, methodName];
         }
 
         foreach (myMethodKey, methodName; methods) {
             if (_methodMap.hasKey(myMethodKey) && this.has(_methodMap[myMethodKey][0])) {
                 duplicate = _methodMap[myMethodKey];
                 auto error =
-                    "%s contains duplicate method '%s' which is already provided by '%s'".format(aclassname,
+                    "%s contains duplicate method '%s' which is already provided by '%s'".format(missingClassname,
                         method,
                         duplicate[0]
                     );
                 throw new DLogicException(error);
             }
-            methods[myMethodKey] = [alias, methodName];
+            methods[myMethodKey] = [aliasname, methodName];
         }
 
         return compact("methods", "finders");

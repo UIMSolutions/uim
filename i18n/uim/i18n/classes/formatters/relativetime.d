@@ -162,7 +162,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     protected Json[string] _diffData(string /* |int */ futureTime, int pastTime, bool isBackwards, Json[string] options = null) {
         auto diff = futureTime - pastTime; // If more than a week, then take into account the length of months
         if (diff >= 604800) {
-            auto future = null;
+            /* auto future = null;
             [
                 future["H"],
                 future["i"],
@@ -179,7 +179,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
                 past["d"],
                 past["m"],
                 past["Y"],
-            ] = split("/", date("H/i/s/d/m/Y", pastTime)); */
+            ] = split("/", date("H/i/s/d/m/Y", pastTime));  * /
             auto weeks = days = hours = minutes = seconds = 0;
             auto years = To!int(future["Y"]) - To!int(
                 past["Y"]);
@@ -197,8 +197,8 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             if (future.getLong("d") >= past.getLong("d")) {
                 days = future.getLong("d") - past.getLong("d");
             } else {
-                auto daysInPastMonth = (int) date("t", pastTime);
-                auto daysInFutureMonth =  /* (int) */ date("t", /* (int) */ mktime(0, 0, 0, future.getLong("m") - 1, 1, future
+                auto daysInPastMonth = /* (int)  * /date("t", pastTime);
+                auto daysInFutureMonth =  /* (int) * / date("t", /* (int) * / mktime(0, 0, 0, future.getLong("m") - 1, 1, future
                             .getLong("Y")));
                 auto days = !backwards
                     ? daysInPastMonth - past.getLong("d") + future.getLong(
@@ -220,7 +220,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         if (days >= 7) {
             weeks = floor(days / 7);
             days -= weeks * 7;
-        }
+        } */
     } else {
         /*  years = months = weeks = 0;
         days = floor(diff / 86400);
@@ -233,7 +233,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         seconds = diff; */
     }
 
-    auto fWord = options.get(["accuracy", "second"]);
+    /* auto fWord = options.get(["accuracy", "second"]);
     if (years > 0) {
         fWord = options.get(["accuracy", "year"]);
     }
@@ -259,8 +259,8 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     fNum = fWord.replace(
         ["year", "month", "week", "day", "hour", "minute", "second"],
         ["1", "2", "3", "4", "5", "6", "7"]
-    );
-    return [
+    ); */
+    /* return [
         fNum,
         fWord,
         to!int(years),
@@ -270,7 +270,8 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         to!int(hours),
         to!int(minutes),
         to!int(seconds),
-    ];
+    ]; */
+    return null; 
 }
 
 // Format a into a relative date string.

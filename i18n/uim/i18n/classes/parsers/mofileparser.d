@@ -37,7 +37,7 @@ class MoFileParser {
      * was created on. Both 32bit and 64bit systems are supported.
      */
     Json[string] parse(string filetoParsed) {
-        auto stream = fopen(filetoParsed, "rb");
+        /* auto stream = fopen(filetoParsed, "rb");
         if (stream.isNull) {
             throw new DException("Cannot open resource `%s`".format(filetoParsed));
         }
@@ -66,13 +66,14 @@ class MoFileParser {
         // Offset to start of translations
         fread(stream, 8);
 
-        messages = null;
-        for (anI = 0; anI < count; anI++) {
-            pluralId = null;
+        messages = null; */
+        size_t count = 0;
+        for (index = 0; index < count; index++) {
+            /* pluralId = null;
             context = null;
             plurals = null;
 
-            fseek(stream, offsetId + anI * 8);
+            fseek(stream, offsetId + index * 8);
 
             size_t length = _readLong(stream, isBigEndian);
             auto anOffset = _readLong(stream, isBigEndian);
@@ -88,7 +89,7 @@ class MoFileParser {
             if (singularId.contains("\000")) {
                 [singularId, pluralId] = singularId.split("\000");
             }
-            fseek(stream, offsetTranslated + anI * 8);
+            fseek(stream, offsetTranslated + index * 8);
             length = _readLong(stream, isBigEndian);
             if (length < 0) {
                 throw new DException("Length must be > 0");
@@ -115,11 +116,12 @@ class MoFileParser {
             messages[singularId]["_context."] = singular;
             if (pluralId!is null) {
                 messages[pluralId]["_context."] = plurals;
-            }
+            } */
         }
-        fclose(stream);
+        // fclose(stream);
 
-        return messages;
+        // return messages;
+        return null; 
     }
 
     /**
@@ -131,6 +133,6 @@ class MoFileParser {
         string result = unpack(isBigEndian ? "N1" : "V1", (string) fread(stream, 4));
         result = currentValue(result);
 
-        return to!int(subString((string) result,  - 8));
+        return to!int(subString(/* (string) */ result,  - 8));
     }
 }

@@ -61,7 +61,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      */
     DRuleInvoker existsIn(
         string[] /* string */ fieldName,
-        DORMTable/* |Association|string */ mytable,
+        DORMTable/* |/*Association|*/ string */ mytable,
         string[] /* string */ errorMessage = null
    ) {
         options = null;
@@ -91,19 +91,14 @@ class DRulesChecker { // }: BaseRulesChecker {
      *
      * On a `Comments` table that has a `belongsTo Articles` association, this check would ensure that comments
      * can only be edited as long as they are associated to an existing article.
-     * Params:
-     * \ORM\Association|string myassociation The association to check for links.
-     * @param string fieldName The name of the association property. When supplied, this is the name used to set
-     * possible errors. When absent, the name is inferred from `myassociation`.
-     * @param string errorMessage The error message to show in case the rule does not pass.
      */
     RuleInvoker isLinkedTo(
-        Association|string myassociation,
+        /* Association| */string association,
         string fieldName = null,
         string errorMessage = null
    ) {
         return _addLinkConstraintRule(
-            myassociation,
+            association,
             fieldName,
             errorMessage,
             LinkConstraint.STATUS_LINKED,
@@ -122,18 +117,14 @@ class DRulesChecker { // }: BaseRulesChecker {
      *
      * On a `Articles` table that has a `hasMany Comments` association, this check would ensure that articles
      * can only be deleted when no associated comments exist.
-     * Params:
-     * \ORM\Association|string myassociation The association to check for links.
-     * @param string fieldName The name of the association property. When supplied, this is the name used to set
-     * possible errors. When absent, the name is inferred from `myassociation`.
      */
-    RuleInvoker isNotLinkedTo(
-        Association|string myassociation,
+    DRuleInvoker isNotLinkedTo(
+        /*Association|*/ string association,
         string fieldName = null,
         string errorMessage = null
    ) {
         return _addLinkConstraintRule(
-            myassociation,
+            association,
             fieldName,
             errorMessage,
             LinkConstraint.STATUS_NOT_LINKED,
@@ -141,34 +132,27 @@ class DRulesChecker { // }: BaseRulesChecker {
        );
     }
     
-    /**
-     * Adds a link constraint rule.
-     * Params:
-     * \ORM\Association|string myassociation The association to check for links.
-     * @param string myerrorField The name of the property to use for setting possible errors. When absent,
-     * the name is inferred from `myassociation`.
-     * @param string mylinkStatus The ink status required for the check to pass.
-     */
+    // Adds a link constraint rule.
     protected DRuleInvoker _addLinkConstraintRule(
-        /* Association| */string myassociation,
+        /* Association| */string association,
         string myerrorField,
         string errorMessage,
         string mylinkStatus,
         string ruleName
    ) {
-        if (cast(DAssociation)myassociation) {
-            myassociationAlias = myassociation.name;
-            myerrorField ??= myassociation.getProperty();
+        if (cast(DAssociation)association) {
+            myassociationAlias = association.name;
+            myerrorField ??= association.getProperty();
         } else {
-            myassociationAlias = myassociation;
+            myassociationAlias = association;
 
             if (myerrorField.isNull) {
                 myrepository = _options.get("repository", null;
                 if (cast(Table)myrepository) {
-                    myassociation = myrepository.getAssociation(myassociation);
-                    myerrorField = myassociation.getProperty();
+                    association = myrepository.getAssociation(association);
+                    myerrorField = association.getProperty();
                 } else {
-                    myerrorField = Inflector.underscore(myassociation);
+                    myerrorField = Inflector.underscore(association);
                 }
             }
         }
@@ -183,7 +167,7 @@ class DRulesChecker { // }: BaseRulesChecker {
                     .format(myassociationAlias);
         }
         myrule = new DLinkConstraint(
-            myassociation,
+            association,
             mylinkStatus
        );
 

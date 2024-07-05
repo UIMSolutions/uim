@@ -327,7 +327,7 @@ class DEagerLoader {
             return;
         }
 
-        attachable = this.attachableAssociations(repository);
+        attachable = attachableAssociations(repository);
         processed = null;
         do {
             foreach (attachable as alias: loadable) {
@@ -340,7 +340,7 @@ class DEagerLoader {
                 processed[aliasName] = true;
             }
 
-            newAttachable = this.attachableAssociations(repository);
+            newAttachable = attachableAssociations(repository);
             attachable = array_diffinternalKey(newAttachable, processed);
         } while (!attachable.isEmpty);
     }
@@ -365,32 +365,18 @@ class DEagerLoader {
     /**
      * Returns an array with the associations that need to be fetched using a
      * separate query, each array value will contain a {@link DORMEagerLoadable} object.
-     *
-     * @param DORMTable repository The table containing the associations
-     * to be loaded
      */
-    DORMEagerLoadable[] externalAssociations(Table repository) {
+    DORMEagerLoadable[] externalAssociations(DORMTable repository) {
         if (_loadExternal) {
             return _loadExternal;
         }
 
-        this.attachableAssociations(repository);
+        attachableAssociations(repository);
 
         return _loadExternal;
     }
 
-    /**
-     * Auxiliary function responsible for fully normalizing deep associations defined
-     * using `contain()`
-     *
-     * @param DORMTable parent owning side of the association
-     * @param string anAliasName name of the association to be loaded
-     * @param Json[string] options list of extra options to use for this association
-     * @param Json[string] paths An array with two values, the first one is a list of dot
-     * separated strings representing associations that lead to this `alias` in the
-     * chain of associations to be loaded. The second value is the path to follow in
-     * entities" properties to fetch a record of the corresponding association.
-     */
+    // Auxiliary function responsible for fully normalizing deep associations defined using `contain()`
     protected DEagerLoadable _normalizeContain(DORMTable parent, string aliasName, Json[string] options, Json[string] paths) {
         auto defaults = _containOptions;
         auto instance = parent.getAssociation(aliasName);
@@ -407,9 +393,8 @@ class DEagerLoader {
             paths["propertyPath"] ~= "." ~ instance.getProperty();
         }
 
-        table = instance.getTarget();
-
-        extra = array_diffinternalKey(options, defaults);
+        auto table = instance.getTarget();
+        auto extra = array_diffinternalKey(options, defaults);
         myConfiguration = [
             "associations": Json.emptyArray,
             "instance": instance,
@@ -418,16 +403,16 @@ class DEagerLoader {
             "propertyPath": strip(paths["propertyPath"], "."),
             "targetProperty": instance.getProperty(),
         ];
-        configuration.get("canBeJoined"] = instance.canBeJoined(configuration.get("config"]);
+        configuration.set("canBeJoined", instance.canBeJoined(configuration.get("config")));
         eagerLoadable = new DEagerLoadable(aliasName, myConfiguration);
 
-        if (configuration.hasKey("canBeJoined"]) {
+        if (configuration.hasKey("canBeJoined")) {
             _aliasList[paths["root"]][aliasName] ~= eagerLoadable;
         } else {
             paths["root"] = configuration.get("aliasPath");
         }
 
-        foreach (extra as t: assoc) {
+        foreach (t, assoc; extra) {
             eagerLoadable.addAssociation(
                 t,
                 _normalizeContain(table, t, assoc, paths)
@@ -445,13 +430,13 @@ class DEagerLoader {
      * _normalizeContain() function.
      */
     protected void _fixStrategies() {
-        foreach (_aliasList as aliases) {
-            foreach (aliases as configs) {
+        foreach (aliases; _aliasList) {
+            foreach (configs; aliases) {
                 if (count(configs) < 2) {
                     continue;
                 }
                 /** @var DORMEagerLoadable loadable */
-                foreach (configs as loadable) {
+                foreach (loadable; configs) {
                     if (indexOf(loadable.aliasPath(), ".")) {
                         _correctStrategy(loadable);
                     }
@@ -463,37 +448,30 @@ class DEagerLoader {
     /**
      * Changes the association fetching strategy if required because of duplicate
      * under the same direct associations chain
-     *
-     * @param DORMEagerLoadable loadable The association config
      */
-    protected void _correctStrategy(EagerLoadable loadable) {
-        myConfiguration = loadable.configuration.data;
-        currentStrategy = configuration.get("strategy"] ??
-            "join";
+    protected void _correctStrategy(DORMEagerLoadable loadable) {
+        auto myConfiguration = loadable.configuration.data;
+        auto currentStrategy = configuration.getString("strategy", "join");
 
         if (!loadable.canBeJoined() || currentStrategy != "join") {
             return;
         }
 
-        configuration.get("strategy"] = Association.STRATEGY_SELECT;
+        configuration.set("strategy", Association.STRATEGY_SELECT);
         loadable.configuration.update(myConfiguration);
         loadable.setCanBeJoined(false);
     }
 
     /**
-     * Helper function used to compile a list of all associations that can be
-     * joined in the query.
-     *
-     * @param array<DORMEagerLoadable> associations list of associations from which to obtain joins.
-     * @param array<DORMEagerLoadable> matching list of associations that should be forcibly joined.
+     * Helper function used to compile a list of all associations that can be joined in the query.
      */
-    protected DORMEagerLoadable[] _resolveJoins(Json[string] associations, Json[string] matching = null) {
+    protected DORMEagerLoadable[] _resolveJoins(DORMEagerLoadable[] associations, DORMEagerLoadable[] matching = null) {
         auto result = null;
         foreach (matching as table: loadable) {
             result[table] = loadable;
             result += _resolveJoins(loadable.associations(), []);
         }
-        foreach (associations as table: loadable) {
+        foreach (table, loadable; associations) {
             bool inMatching = matching.hasKey(table);
             if (!inMatching && loadable.canBeJoined()) {
                 result[table] = loadable;

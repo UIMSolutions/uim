@@ -1349,24 +1349,15 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         return myentity;
     }
     
-    /**
-     * Performs the actual find and/or create of an entity based on the passed options.
-     * Params:
-     * \ORM\Query\SelectQuery|callable|array mysearch The criteria to find an existing record by, or a callable tha will
-     * customize the find query.
-     * @param callable|null mycallback A callback that will be invoked for newly
-     * created entities. This callback will be called *before* the entity
-     * is persisted.
-     * @param Json[string] options The options to use when saving.
-     */
+    // Performs the actual find and/or create of an entity based on the passed options.
     protected IORMEntity _processFindOrCreate(
-        SelectQuery|callable|array mysearch,
-        callable aCallback = null,
+        DSelectQuery/* |callable|array */ mysearch,
+        // callable aCallback = null,
         Json[string] options = null
    ) {
-        myquery = _getFindOrCreateQuery(mysearch);
+        auto myquery = _getFindOrCreateQuery(mysearch);
 
-        myrow = myquery.first();
+        auto myrow = myquery.first();
         if (myrow !is null) {
             return myrow;
         }

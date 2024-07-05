@@ -136,7 +136,8 @@ class DPluralRules {
         if (!_rulesMap.hasKey(localName)) {
             return 0;
         }
-        return match (_rulesMap[localName]) {
+        return 0;
+        /* return match (_rulesMap[localName]) {
             0: 0,
             1: ruleNumber == 1 ? 0 : 1,
             2: ruleNumber > 1 ? 1 : 0,
@@ -169,6 +170,6 @@ class DPluralRules {
                     (ruleNumber != 8 && ruleNumber != 11 ? 2 : 3)),
             15: ruleNumber % 10 != 1 || ruleNumber % 100 == 11 ? 1 : 0,
             default: throw new DException("Unable to find plural rule number."),
-        };
+        }; */
     }
 }

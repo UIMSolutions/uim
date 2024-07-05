@@ -82,26 +82,18 @@ class DLazyEagerLoader {
         return propertyMap;
     }
     
-    /**
-     * Injects the results of the eager loader query into the original list of
-     * entities.
-     * Params:
-     * array<\UIM\Datasource\IORMEntity> myentities The original list of entities
-     * @param \ORM\Query\SelectQuery myquery The query to load results
-     * @param string[] myassociations The top level associations that were loaded
-     * @param \ORM\Table sourceTable The table where the entities came from
-     */
+    // Injects the results of the eager loader query into the original list of entities.
     protected IORMEntity[] _injectResults(
-        Json[string]myentities,
+        IORMEntity[] myentities,
         DSelectQuery selectQuery,
         Json[string] myassociations,
-        Table sourceTable
+        DORMTable sourceTable
    ) {
         auto myinjected = null;
         auto myproperties = _getPropertyMap(sourceTable, myassociations);
         auto myprimaryKey = /* (array) */sourceTable.primaryKeys();
         /** @var array<\UIM\Datasource\IORMEntity> results */
-        auto results = selectQuery
+        /* auto results = selectQuery
             .all()
             .indexBy(IORMEntity mye => mye.extract(myprimaryKey).join(";"))
             .toJString();
@@ -122,6 +114,7 @@ class DLazyEagerLoader {
             myinjected[myKey] = myobject;
         });
 
-        return myinjected;
+        return myinjected; */
+        return null; 
     }
 }

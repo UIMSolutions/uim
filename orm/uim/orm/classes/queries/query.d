@@ -190,12 +190,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * After the first call to this method, a second call cannot be used to remove fields that have already
      * been added to the query by the first. If you need to change the list after the first call,
      * pass overwrite boolean true which will reset the select clause removing all previous additions.
-     *
-     * @param DORMTable|DORMAssociation table The table to use to get an array of columns
-     * @param string[] excludedFields The un-aliased column names you do not want selected from table
-     * @param bool canOverwrite Whether to reset/remove previous selected fields
      */
-    IQuery selectAllExcept(table, Json[string] excludedFields, bool canOverwrite = false) {
+    IQuery selectAllExcept(DORMTable/* |DORMAssociation */ table, Json[string] excludedFields, bool canOverwrite = false) {
         if (cast(Association)table) {
             table = table.getTarget();
         }
@@ -219,15 +215,13 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * themselves when specifying conditions.
      *
      * This method returns the same query object for chaining.
-     *
-     * @param DORMDORMTable aTable The table to pull types from
      */
     void addDefaultTypes(DORMTable aTable) {
         auto aliasName = table.aliasName();
         auto map = table.getSchema().typeMap();
         auto fields = null;
-        foreach (f: type; map) {
-            fields[f] = fields[alias ~ "." ~ f] = fields[alias ~ "__" ~ f] = type;
+        foreach (name, type; map) {
+            fields[name] = fields[aliasName ~ "." ~ name] = fields[aliasName ~ "__" ~ name] = type;
         }
         getTypeMap().addDefaults(fields);
     }

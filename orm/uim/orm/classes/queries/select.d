@@ -396,21 +396,18 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *   });
      * });
      * ```
-     * Params:
-     * \Closure|null myformatter The formatting function
-     * @param int|bool mymode Whether to overwrite, append or prepend the formatter.
      */
-    void formatResults(Closure myformatter = null, int|bool mymode = APPEND) {
-        if (mymode == OVERWRITE) {
+    void formatResults(DClosure myformatter = null, int/* |bool */ formatterMode = APPEND) {
+        if (formatterMode == OVERWRITE) {
            _formatters = null;
         }
         if (myformatter.isNull) {
-            if (mymode != OVERWRITE) {
-                throw new DInvalidArgumentException("myformatter can be null only when mymode is overwrite.");
+            if (formatterMode != OVERWRITE) {
+                throw new DInvalidArgumentException("myformatter can be null only when formatterMode is overwrite.");
             }
             return;
         }
-        if (mymode == PREPEND) {
+        if (formatterMode == PREPEND) {
             array_unshift(_formatters, myformatter);
 
             return 
@@ -418,9 +415,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
        _formatters ~= myformatter;
     }
     
-    /**
-     * Returns the list of previously registered format routines.
-     */
+    // Returns the list of previously registered format routines.
     Closure[] getResultFormatters() {
         return _formatters;
     }

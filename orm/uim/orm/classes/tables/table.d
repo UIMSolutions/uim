@@ -1725,8 +1725,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 .format(getTable());
             throw new DatabaseException(mymsg);
         }
-        someKeys = array_fill(0, count(primaryKeys), null);
-        myid = (array)_newId(primaryKeys) + someKeys;
+        auto someKeys = array_fill(0, count(primaryKeys), null);
+        auto myid = (array)_newId(primaryKeys) + someKeys;
 
         // Generate primary keys preferring values in mydata.
         primaryKeys = array_combine(primaryKeys, myid);
@@ -1740,13 +1740,13 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (count(primaryKeys) > 1) {
             myschema = getSchema();
             foreach (myKey, myv; myprimary) {
-                if (!mydata.hasKey(myKey) && myschema.getColumn(myKey)["autoIncrement"].isEmpty) {
-                    mymsg = "Cannot insert row, some of the primary key values are missing. ";
-                    mymsg ~= 
+                if (!mydata.hasKey(myKey) && myschema.getColumn(myKey).isEmpty("autoIncrement")) {
+                    auto message = "Cannot insert row, some of the primary key values are missing. ";
+                    message ~= 
                         "Got (%s), expecting (%s)"
                         .format(
-                        join(", ", myfilteredKeys + myentity.extract(myprimary.keys)),
-                        join(", ", myprimary.keys)
+                        myfilteredKeys + myentity.extract(myprimary.keys).join(", "),
+                        myprimary.keys.join(", ")
                    );
                     throw new DatabaseException(mymsg);
                 }

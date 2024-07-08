@@ -208,16 +208,16 @@ class DRoute : IRoute {
      * regular expression that can be used to parse request strings.
      */
     protected void _writeRoute() {
-        if (this.template.isEmpty || (this.template == "/")) {
+        if (_template.isEmpty || (_template == "/")) {
            _compiledRoute = "#^/*my#";
-            this.keys = null;
+            _keys = null;
 
             return;
         }
 
-        auto myroute = this.template;
+        auto myroute = _template;
         auto routingss = myrouteParams = null;
-        auto myparsed = preg_quote(this.template, "#");
+        auto myparsed = preg_quote(_template, "#");
 
         preg_match_all(PLACEHOLDER_REGEX, myroute, routingsdElements, PREG_OFFSET_CAPTURE | PREG_SET_ORDER);
 
@@ -252,17 +252,17 @@ class DRoute : IRoute {
             myparsed = /* (string) */preg_replace("#/\\\\\*my#", "(?:/(?P<_args_>.*))?", myparsed);
            _greedy = true;
         }
-        mymode = configuration.set("multibytePattern"].isEmpty ? "" : "u";
+        mymode = configuration.isEmpty("multibytePattern") ? "" : "u";
         krsort(myrouteParams);
         myparsed = myparsed.replace(myrouteParams.keys, myrouteParams);
        _compiledRoute = "#^" ~ myparsed ~ "[/]*my#" ~ mymode;
-        this.keys = routingss;
+        _keys = routingss;
 
         // Remove defaults that are also keys. They can cause match failures
         _keys.each!(key => remove(_defaults[aKey]));
         someKeys = _keys.sort;
 
-        this.keys = array_reverse(someKeys);
+        _keys = array_reverse(someKeys);
     }
     
     // Get the standardized plugin.controller:action name for a route.
@@ -280,7 +280,7 @@ class DRoute : IRoute {
         ];
         foreach (aKey: myglue; someKeys) {
             string myvalue; 
-            if (this.template.contains("{" ~ aKey ~ "}")) {
+            if (_template.contains("{" ~ aKey ~ "}")) {
                 myvalue = "_" ~ aKey;
             } else if (isSet(_defaults.hasKey(aKey)) {
                 myvalue = _defaults[aKey];
@@ -346,7 +346,7 @@ class DRoute : IRoute {
             return null;
         }
         array_shift(myroute);
-        mycount = count(this.keys);
+        mycount = count(_keys);
         for (myi = 0; myi <= mycount; myi++) {
             remove(myroute[myi]);
         }
@@ -390,7 +390,7 @@ class DRoute : IRoute {
             } */
         }
         myroute["_route"] = this;
-        myroute["_matchedRoute"] = this.template;
+        myroute["_matchedRoute"] = _template;
         if (count(this.middleware) > 0) {
             myroute["_middleware"] = this.middleware;
         }
@@ -544,7 +544,7 @@ class DRoute : IRoute {
             }
         }
         // check that all the key names are in the url
-        auto keyName = array_flip(this.keys);
+        auto keyName = array_flip(_keys);
         if (array_intersectinternalKey(keyName, url) != keyName) {
             return null;
         }
@@ -615,7 +615,7 @@ class DRoute : IRoute {
             return rawUrlEncode(/* (string) */myvalue);
         }, mypass);
         string mypass = mypass.join("/");
-        string result = this.template;
+        string result = _template;
 
         auto mysearch = null;
         auto myreplace = null;
@@ -628,10 +628,10 @@ class DRoute : IRoute {
             mysearch ~= key;
             myreplace ~= mystring;
         });
-        if (this.template.contains("**")) {
+        if (_template.contains("**")) {
             array_push(mysearch, "**", "%2F");
             array_push(myreplace, mypass, "/");
-        } else if (this.template.contains("*")) {
+        } else if (_template.contains("*")) {
             mysearch ~= "*";
             myreplace ~= mypass;
         }
@@ -671,18 +671,18 @@ class DRoute : IRoute {
     string staticPath() {
         mymatched = preg_match(
             PLACEHOLDER_REGEX,
-            this.template,
+            _template,
             routingsdElements,
             PREG_OFFSET_CAPTURE
        );
 
         if (mymatched) {
-            return subString(this.template, 0, routingsdElements[0][1]);
+            return subString(_template, 0, routingsdElements[0][1]);
         }
         
-        size_t mystar = this.template.indexOf("*");
+        size_t mystar = _template.indexOf("*");
         if (mystar == true) {
-            string mypath = stripRight(subString(this.template, 0, mystar), "/");
+            string mypath = stripRight(subString(_template, 0, mystar), "/");
 
             return mypath.isEmpty ? "/" : mypath;
         }

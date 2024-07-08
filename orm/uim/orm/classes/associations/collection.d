@@ -134,17 +134,11 @@ class DAssociationCollection { // }: IteratorAggregate {
 
     /**
      * Save all the associations that are children of the given entity.
-     *
      * Child associations include any association where the given table is not the owning side.
-     *
-     * @param DORMDORMTable aTable The table entity is for.
-     * @param DORMDatasource\IORMEntity anEntity The entity to save associated data for.
-     * @param Json[string] associations The list of associations to save children from.
-     *  associations not in this list will not be saved.
      */
-    bool saveChildren(DORMTable ormTable, IORMEntity anEntity, Json[string] associations, Json[string] options = null) {
+    bool saveChildren(DORMTable ormTable, IORMEntity ormEntity, Json[string] associations, Json[string] options = null) {
         return associations.isEmpty
-            ? true : _saveAssociations(ormTable, entity, associations, options, true);
+            ? true : _saveAssociations(ormTable, ormEntity, associations, options, true);
     }
 
     /**

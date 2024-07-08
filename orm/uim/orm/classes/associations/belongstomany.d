@@ -187,11 +187,11 @@ class DBelongsToManyAssociation : DAssociation {
     protected void _generateTargetAssociations(DORMTable junction, DORMTable source, DORMTable target) {
         string junctionAlias = junction.aliasName();
         string sourceAlias = source.aliasName();
-        string tAlias = target.aliasName();
+        string targetAlias = target.aliasName();
 
         auto targetBindingKey = null;
-        if (junction.hasAssociation(tAlias)) {
-            targetBindingKey = junction.getAssociation(tAlias).getBindingKey();
+        if (junction.hasAssociation(targetAlias)) {
+            targetBindingKey = junction.getAssociation(targetAlias).getBindingKey();
         }
 
         if (!target.hasAssociation(junctionAlias)) {
@@ -258,23 +258,23 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMTable source The source table.
      * @param DORMTable target The target table.
      */
-    protected void _generateJunctionAssociations(Table junctionTable, DORMTable source, DORMTable targetTable) {
-        tAlias = targetTable.aliasName();
-        sourceAlias = source.aliasName();
+    protected void _generateJunctionAssociations(DORMTable junctionTable, DORMTable source, DORMTable targetTable) {
+        auto targetAlias = targetTable.aliasName();
+        auto sourceAlias = source.aliasName();
 
-        if (!junctionTable.hasAssociation(tAlias)) {
-            junctionTable.belongsTo(tAlias, [
+        if (!junctionTable.hasAssociation(targetAlias)) {
+            junctionTable.belongsTo(targetAlias, [
                 "foreignKeys": tarforeignKeys(),
                 "targetTable": targetTable,
             ]);
         } else {
-            belongsTo = junctionTable.getAssociation(tAlias);
+            belongsTo = junctionTable.getAssociation(targetAlias);
             if (
                 tarforeignKeys() != belongsTo.foreignKeys() ||
                 targetTable != belongsTo.getTarget()
            ) {
                 throw new DInvalidArgumentException(
-                    "The existing `{tAlias}` association on `{junctionTable.aliasName()}` " ~
+                    "The existing `{targetAlias}` association on `{junctionTable.aliasName()}` " ~
                     "is incompatible with the `{getName()}` association on `{source.aliasName()}`"
                );
             }

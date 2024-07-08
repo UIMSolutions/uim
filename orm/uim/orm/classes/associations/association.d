@@ -389,9 +389,7 @@ class DAssociation : IAssociation {
         return _propertyName;
     }
 
-    /**
-     * Returns default property name based on association name.
-     */
+    // Returns default property name based on association name.
     protected string _propertyName() {
         [, name] = pluginSplit(_name);
 
@@ -402,17 +400,15 @@ class DAssociation : IAssociation {
      * Sets the strategy name to be used to fetch associated records. Keep in mind
      * that some association types might not implement but a default strategy,
      * rendering any changes to this setting void.
-     *
-     * @param string aName The strategy type. Use null to read the current value.
      */
-    void setStrategy(string aName) {
-        if (!isIn(name, _validStrategies, true)) {
+    void setStrategy(string strategyName) {
+        if (!isIn(strategyName, _validStrategies, true)) {
             throw new DInvalidArgumentException(
                 "Invalid strategy '%s' was provided. Valid options are (%s)."
-                    .format(name, _validStrategies.join(", "));
+                    .format(strategyName, _validStrategies.join(", "));
            );
         }
-        _strategy = name;
+        _strategy = strategyName;
     }
 
     /**

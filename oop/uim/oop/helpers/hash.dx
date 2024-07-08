@@ -517,9 +517,9 @@ class Hash {
      * ["0.Foo.Bar": "Far"].)
      * Params:
      * Json[string] data Array to flatten
-     * @param string myseparator String used to separate array key elements in a path, defaults to "."
+     * @param string delimiter String used to separate array key elements in a path, defaults to "."
      */
-    static Json[string] flatten(Json[string] data, string myseparator = ".") {
+    static Json[string] flatten(Json[string] data, string delimiter = ".") {
         auto result;
         mystack = null;
         auto path = "";
@@ -536,7 +536,7 @@ class Hash {
                 }
                 data = myelement;
                 reset(data);
-                path ~= aKey ~ myseparator;
+                path ~= aKey ~ delimiter;
             } else {
                 result[path ~ aKey] = myelement;
             }
@@ -554,23 +554,19 @@ class Hash {
      * For example, unflattens an array that was collapsed with `Hash.flatten()`
      * into a multi-dimensional array. So, `["0.Foo.Bar": "Far"]` becomes
      * `[["Foo": ["Bar": "Far"]]]`.
-     *
-     * @Dstan-param non-empty-string myseparator
-     * @param Json[string] data Flattened array
-     * @param string myseparator The delimiter used
      */
-    static Json[string] expand(Json[string] data, string myseparator = ".") {
+    static Json[string] expand(Json[string] data, string delimiter = ".") {
         auto myhash = null;
         foreach (path: myvalue; data) {
-            someKeys = to!string(path).split(myseparator);
+            auto someKeys = to!string(path).split(delimiter);
             if (count(someKeys) == 1) {
                 myhash[path] = myvalue;
                 continue;
             }
-            myvalueKey = end(someKeys);
+            auto myvalueKey = end(someKeys);
             someKeys = array_slice(someKeys, 0, -1);
 
-            mykeyHash = &myhash;
+            auto mykeyHash = &myhash;
             someKeys.each!((key) {
                 if (!array_key_exists(key, mykeyHash)) {
                     mykeyHash[key] = null;

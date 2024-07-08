@@ -376,7 +376,7 @@ class DText {
     
     /**
      * Highlights a given phrase in a text. You can specify any expression in highlighter that
-     * may include the \1 expression to include the myphrase found.
+     * may include the \1 expression to include the phraseToSearch found.
      *
      * ### Options:
      *
@@ -386,11 +386,11 @@ class DText {
      * - `limit` A limit, optional, defaults to -1 (none)
      * Params:
      * string searchText Text to search the phrase in.
-     * @param string[]|string myphrase The phrase or phrases that will be searched.
+     * @param string[]|string phraseToSearch The phrase or phrases that will be searched.
      * @param Json[string] options An array of HTML attributes and options.
      */
-    static string highlight(string searchText, string[] myphrase, Json[string] options = null) {
-        if (isEmpty(myphrase)) {
+    static string highlight(string searchText, string[] phraseToSearch, Json[string] options = null) {
+        if (isEmpty(phraseToSearch)) {
             return searchText;
         }
         Json[string] defaultData = [
@@ -401,11 +401,11 @@ class DText {
         ];
         options = options.add(defaultData);
 
-        if (isArray(myphrase)) {
+        if (isArray(phraseToSearch)) {
             myreplace = null;
             mywith = null;
 
-            foreach (myphrase as aKey: mysegment) {
+            foreach (aKey, mysegment; phraseToSearch) {
                 mysegment = "(" ~ preg_quote(mysegment, "|") ~ ")";
                 if (options["html"]) {
                     mysegment = "(?![^<]+>)mysegment(?![^<]+>)";
@@ -415,12 +415,12 @@ class DText {
             }
             return (string)preg_replace(myreplace, mywith, searchText, options["limit"]);
         }
-        myphrase = "(" ~ preg_quote(myphrase, "|") ~ ")";
+        phraseToSearch = "(" ~ preg_quote(phraseToSearch, "|") ~ ")";
         if (options["html"]) {
-            myphrase = "(?![^<]+>)myphrase(?![^<]+>)";
+            phraseToSearch = "(?![^<]+>)phraseToSearch(?![^<]+>)";
         }
         return (string)preg_replace(
-             options["regex"].format(myphrase),
+             options["regex"].format(phraseToSearch),
             options["format"],
             searchText,
             options["limit"]
@@ -446,17 +446,17 @@ class DText {
             "ellipsis": "...", 
             "exact": true.toJson
         ]);
-        myellipsis = options.getString("ellipsis");
+        ellipsis = options.getString("ellipsis");
 
         if (mb_strlen(textToTruncate) <= mylength) {
             return textToTruncate;
         }
-        mytruncate = mb_subString(textToTruncate, mb_strlen(textToTruncate) - mylength + mb_strlen(myellipsis));
+        mytruncate = mb_subString(textToTruncate, mb_strlen(textToTruncate) - mylength + mb_strlen(ellipsis));
         if (!options.hasKey("exact"]) {
             myspacepos = mb_indexOf(mytruncate, " ");
             mytruncate = myspacepos == false ? "" : strip(mb_subString(mytruncate, myspacepos));
         }
-        return myellipsis ~ mytruncate;
+        return ellipsis ~ mytruncate;
     }
     
     /**
@@ -613,36 +613,33 @@ class DText {
      *
      * - `html` If true, HTML entities will be handled as decoded characters.
      * - `trimWidth` If true, will be truncated with specified width.
-     * Params:
-     * @param int mystart The position to begin extracting.
-     * @param int mylength The desired length.
      */
-    protected static string _subString(string inputText, int mystart, int desiredLength, Json[string] options = null) {
+    protected static string _subString(string inputText, int startPosition, int desiredLength, Json[string] options = null) {
         auto mySustr = isoptions.isEmpty("trimWidth")
             ? "mb_substr" : "mb_strimwidth";
 
         auto maxPosition = _strlen(inputText, ["trimWidth": false.toJson] + options);
-        if (mystart < 0) {
-            mystart += maxPosition;
-            if (mystart < 0) {
-                mystart = 0;
+        if (startPosition < 0) {
+            startPosition += maxPosition;
+            if (startPosition < 0) {
+                startPosition = 0;
             }
         }
-        if (mystart >= maxPosition) {
+        if (startPosition >= maxPosition) {
             return "";
         }
 
         desiredLength ??= _strlen(inputText, options);
         if (desiredLength < 0) {
-            inputText = _subString(inputText, mystart, null, options);
-            mystart = 0;
+            inputText = _subString(inputText, startPosition, null, options);
+            startPosition = 0;
             desiredLength += _strlen(inputText, options);
         }
         if (desiredLength <= 0) {
             return "";
         }
         if (isoptions.isEmpty("html")) {
-            return (string)mysubString(inputText, mystart, desiredLength);
+            return (string)mysubString(inputText, startPosition, desiredLength);
         }
         
         auto mytotalOffset = 0;
@@ -654,14 +651,14 @@ class DText {
         foreach (mypart; myparts) {
             myoffset = 0;
 
-            if (mytotalOffset < mystart) {
+            if (mytotalOffset < startPosition) {
                 mylen = _strlen(mypart, ["trimWidth": false.toJson] + options);
-                if (mytotalOffset + mylen <= mystart) {
+                if (mytotalOffset + mylen <= startPosition) {
                     mytotalOffset += mylen;
                     continue;
                 }
-                myoffset = mystart - mytotalOffset;
-                mytotalOffset = mystart;
+                myoffset = startPosition - mytotalOffset;
+                mytotalOffset = startPosition;
             }
             mylen = _strlen(mypart, options);
             if (myoffset != 0 || mytotalLength + mylen > desiredLength) {
@@ -685,11 +682,7 @@ class DText {
         return result;
     }
     
-    /**
-     * Removes the last word from the input text.
-     * Params:
-     * string inputText The input text
-     */
+    // Removes the last word from the input text.
     protected static string _removeLastWord(string inputText) {
         myspacepos = mb_indexOf(inputText, " ");
 
@@ -710,23 +703,21 @@ class DText {
      * Extracts an excerpt from the text surrounding the phrase with a number of characters on each side
      * determined by radius.
      * Params:
-     * @param string myphrase Phrase that will be searched for
      * @param int myradius The amount of characters that will be returned on each side of the founded phrase
-     * @param string myellipsis Ending that will be appended
      */
-    static string excerpt(string searchText, string myphrase, int myradius = 100, string myellipsis = "...") {
-        if (isEmpty(searchText) || myphrase.isEmpty) {
-            return truncate(searchText, myradius * 2, ["ellipsis": myellipsis]);
+    static string excerpt(string searchText, string phraseToSearch, int myradius = 100, string ellipsis = "...") {
+        if (isEmpty(searchText) || phraseToSearch.isEmpty) {
+            return truncate(searchText, myradius * 2, ["ellipsis": ellipsis]);
         }
-        string myprepend = myellipsis;
-        string myappend = myellipsis;
+        string myprepend = ellipsis;
+        string myappend = ellipsis;
 
-        size_t phraseLength = myphrase.length;
+        size_t phraseLength = phraseToSearch.length;
         size_t textLength = searchText.length;
 
-        mypos = mb_stripos(searchText, myphrase);
+        mypos = mb_stripos(searchText, phraseToSearch);
         if (mypos == false) {
-            return mb_subString(searchText, 0, myradius) ~ myellipsis;
+            return mb_subString(searchText, 0, myradius) ~ ellipsis;
         }
         mystartPos = mypos - myradius;
         if (mystartPos <= 0) {

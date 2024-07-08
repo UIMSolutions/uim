@@ -225,7 +225,7 @@ class Xml {
                         if (options["pretty"]) {
                             domDocument.formatOutput = true;
                         }
-                        self._fromArray(domDocument, domDocument, myinput, options["format"]);
+                        _fromArray(domDocument, domDocument, myinput, options["format"]);
 
                         options.set("return", options.getString("return").lower);
                         if (options.getString("return") == "simplexml" || options.getString("return") == "simplexmlelement") {

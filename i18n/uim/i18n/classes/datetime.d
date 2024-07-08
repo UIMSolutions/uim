@@ -212,7 +212,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      */
     auto parseDateTime(
         string timeToParse,
-        int format = null, /* DateTimeZone| */
+        int format = 0, /* DateTimeZone| */
         string timezone = null
     ) {
         return parseDateTime(timeToParse, [to!string(format)], timezone);

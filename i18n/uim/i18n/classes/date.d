@@ -104,7 +104,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * Alternatively, the format can provide a callback. In this case, the callback
      * can receive this object and return a formatted string.
      */
-    static void setJsonEncodeFormat(Closure format) {
+    static void setJsonEncodeFormat(DClosure format) {
         _jsonEncodeFormat = format;
     }
 

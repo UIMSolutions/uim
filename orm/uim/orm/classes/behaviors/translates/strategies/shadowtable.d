@@ -68,7 +68,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             .get(
                 configuration.get("translationTable"),
                 ["allowFallbackClass": true.toJson]
-           );
+            );
         setupAssociations();
     }
 
@@ -94,10 +94,6 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * Callback method that listens to the `beforeFind` event in the bound
      * table. It modifies the passed query by eager loading the translated fields
      * and adding a formatter to copy the values into the main table records.
-     *
-     * @param DORMevents.IEvent event The beforeFind event that was fired.
-     * @param DORMQuery query Query.
-     * @param \Json[string] options The options for the query.
      */
     void beforeFind(IEvent event, Query query, Json[string] options) {
         auto locale = Hash.get(options, "locale", locale());
@@ -108,14 +104,11 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         }
 
         setupHasOneAssociation(locale, options);
-        fieldsAdded = this.addFieldsToQuery(
-            query, myConfiguration);
-        orderByTranslatedField = this.iterateClause(query, "order", myConfiguration);
-        filteredByTranslatedField =
+        auto fieldsAdded = this.addFieldsToQuery(query, myConfiguration);
+        auto orderByTranslatedField = this.iterateClause(query, "order", myConfiguration);
+        auto filteredByTranslatedField =
             traverseClause(query, "where", myConfiguration) ||
-            configuration.hasKey(
-                "onlyTranslated") ||
-            (options["filterByCurrentLocale"] ?  ? null);
+            configuration.hasKeys("onlyTranslated", "filterByCurrentLocale");
         if (!fieldsAdded && !orderByTranslatedField && !filteredByTranslatedField) {
             return;
         }
@@ -135,9 +128,9 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         auto configData = configuration.data;
         [plugin] = pluginSplit(
             configuration.get("translationTable"));
-        hasOneTargetAlias = plugin 
-            ? (plugin ~ "." ~ configuration.getString("hasOneAlias")) 
-            : configuration.get("hasOneAlias");
+        hasOneTargetAlias = plugin
+            ? (plugin ~ "." ~ configuration.getString("hasOneAlias")) : configuration.get(
+                "hasOneAlias");
         if (!getTableLocator()
             .exists(hasOneTargetAlias)) {
             // Load table before hand with fallback class usage enabled
@@ -147,12 +140,12 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                     "classname": configuration.get("translationTable"),
                     "allowFallbackClass": true.toJson,
                 ]
-           );
+            );
         }
 
-        string joinType = options.hasKey("filterByCurrentLocale") 
-            ? (options.hasKey("filterByCurrentLocale") ? "INNER" : "LEFT") 
-            : (configuration.getString("onlyTranslated") ? "INNER" : "LEFT");
+        string joinType = options.hasKey("filterByCurrentLocale")
+            ? (options.hasKey("filterByCurrentLocale") ? "INNER" : "LEFT") : (
+                configuration.getString("onlyTranslated") ? "INNER" : "LEFT");
 
         _table.hasOne(configuration.get("hasOneAlias"), [
                 "foreignKeys": ["id"],
@@ -248,7 +241,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
         
 
-       );
+        );
         return joinRequired;
     }
 
@@ -297,7 +290,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                     "mainTableAlias.field");
             }
         }
-       );
+        );
         return joinRequired;
     }
 
@@ -409,7 +402,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                         "markNew": true
                         .toJson,
                     ]
-               );
+                );
         }
 
         entity.set("_i18n", array_merge(
@@ -458,12 +451,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
     /**
      * Modifies the results from a table find in order to merge the translated
      * fields into each entity for a given locale.
-     *
-     * @param DORMDatasource\IResultset results Results to map.
-     * @param string locale Locale string
      */
-    protected ICollection rowMapper(
-        results, locale) {
+    protected ICollection rowMapper(IResultset results, string locale) {
         allowEmpty = configuration
             .get(
                 "allowEmptyTranslations");

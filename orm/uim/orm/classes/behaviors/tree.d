@@ -163,18 +163,13 @@ class DTreeBehavior : DBehavior {
         }
     }
 
-    /**
-     * Also deletes the nodes in the subtree of the entity to be delete
-     *
-     * @param DORMevents.IEvent event The beforeDelete event that was fired
-     * @param DORMDatasource\IORMEntity ormEntity The entity that is going to be saved
-     */
+    // Also deletes the nodes in the subtree of the entity to be delete
     void beforeremove(IEvent event, IORMEntity ormEntity) {
         auto configData = configuration.data;
         _ensureFields(entity);
-        left = entity.get(configuration.get("left"));
-        right = entity.get(configuration.get("right"));
-        diff = right - left + 1;
+        auto left = entity.get(configuration.get("left"));
+        auto right = entity.get(configuration.get("right"));
+        auto diff = right - left + 1;
 
         if (diff > 2) {
             query = _scope(_table.query())
@@ -420,13 +415,10 @@ class DTreeBehavior : DBehavior {
      * - valuePath: A dot separated path to fetch the field to use for the array value, or a closure to
      *  return the value out of the provided row.
      * - spacer: A string to be used as prefix for denoting the depth in the tree for each item
-     *
-     * @param DORMQuery query Query.
      */
-    DORMQuery findTreeList(Query query, Json[string] options = null) {
-        left = _table.aliasField(this.configuration.get("left"));
-
-        results = _scope(query)
+    DORMQuery findTreeList(DORMQuery query, Json[string] options = null) {
+        auto left = _table.aliasField(this.configuration.get("left"));
+        auto results = _scope(query)
             .find("threaded", [
                 "parentField": this.configuration.get("parent"),
                 "order": [left: "ASC"],

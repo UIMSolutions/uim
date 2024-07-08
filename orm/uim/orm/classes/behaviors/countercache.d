@@ -99,21 +99,21 @@ class DCounterCacheBehavior : DBehavior {
         if (options.hasKey("ignoreCounterCache") && options["ignoreCounterCache"] == true) {
             return;
         }
-        foreach (myassoc, mysettings; configuration) {
-            myassoc = _table.getAssociation(myassoc);
+        foreach (association, mysettings; configuration) {
+            association = _table.getAssociation(association);
             /** @var string|int fieldName */
             foreach fieldName, configData; mysettings) {
                 if (isInteger(fieldName)) {
                     continue;
                 }
 
-                auto myregistryAlias = myassoc.getTarget().registryKey();
-                auto myentityAlias = myassoc.getProperty();
+                auto myregistryAlias = association.getTarget().registryKey();
+                auto myentityAlias = association.getProperty();
                 if (
                     !isCallable(configData) &&
                     configuration.hasKey("ignoreDirty") &&
                     configuration.get("ignoreDirty") == true &&
-                    myentity.myentityAlias.isChanged(fieldName)
+                    ormEntity.myentityAlias.isChanged(fieldName)
                ) {
                    _ignoreDirty[myregistryAlias][fieldName] = true;
                 }
@@ -154,23 +154,16 @@ class DCounterCacheBehavior : DBehavior {
             });
     }
     
-    /**
-     * Updates counter cache for a single association
-     * Params:
-     * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
-     * @param \UIM\Datasource\IORMEntity myentity Entity
-     * @param \ORM\Association myassoc The association object
-     * @param Json[string] mysettings The settings for counter cache for this association
-     */
+    // Updates counter cache for a single association
     protected void _processAssociation(
         IEvent myevent,
-        IORMEntity myentity,
-        DAssociation myassoc,
+        IORMEntity ormEntity,
+        DAssociation association,
         Json[string] mysettings
    ) {
         /** @var string[] myforeignKeys */
-        myforeignKeys = /* (array) */myassoc.foreignKeys();
-        mycountConditions = myentity.extract(myforeignKeys);
+        myforeignKeys = /* (array) */association.foreignKeys();
+        mycountConditions = ormEntity.extract(myforeignKeys);
 
         foreach (fieldName, myvalue; mycountConditions) {
             if (myvalue.isNull) {
@@ -179,9 +172,9 @@ class DCounterCacheBehavior : DBehavior {
             }
         }
         
-        auto myprimaryKeys = /* (array) */ myassoc.getBindingKey();
+        auto myprimaryKeys = /* (array) */ association.getBindingKey();
         auto myupdateConditions = array_combine(myprimaryKeys, mycountConditions);
-        auto mycountOriginalConditions = myentity.extractOriginalChanged(myforeignKeys);
+        auto mycountOriginalConditions = ormEntity.extractOriginalChanged(myforeignKeys);
         if (mycountOriginalConditions !is null) {
             myupdateOriginalConditions = array_combine(myprimaryKeys, mycountOriginalConditions);
         }
@@ -193,55 +186,46 @@ class DCounterCacheBehavior : DBehavior {
                     fieldData.value = null;
                 }
                 if (
-                    isSet(_ignoreDirty[myassoc.getTarget().registryKey()][fieldName]) &&
-                _ignoreDirty[myassoc.getTarget().registryKey()][fieldName] == true
+                    isSet(_ignoreDirty[association.getTarget().registryKey()][fieldName]) &&
+                _ignoreDirty[association.getTarget().registryKey()][fieldName] == true
                ) {
                     continue;
                 }
                 if (_shouldUpdateCount(myupdateConditions)) {
                     mycount = cast(DClosure)fieldData.value
-                        ? fieldData.value(myevent, myentity, _table, false)
+                        ? fieldData.value(myevent, ormEntity, _table, false)
                         : _getCount(fieldData.value, mycountConditions);
 
                     if (mycount == true) {
-                        myassoc.getTarget().updateAll([fieldName: mycount], myupdateConditions);
+                        association.getTarget().updateAll([fieldName: mycount], myupdateConditions);
                     }
                 }
                 if (isSet(myupdateOriginalConditions) && _shouldUpdateCount(myupdateOriginalConditions)) {
                     mycount = cast(DClosure)fieldData.value
-                        ? fieldData.value(myevent, myentity, _table, true)
+                        ? fieldData.value(myevent, ormEntity, _table, true)
                         : _getCount(fieldData.value, mycountOriginalConditions);
 
                     if (mycount == true) {
-                        myassoc.getTarget().updateAll([fieldName: mycount], myupdateOriginalConditions);
+                        association.getTarget().updateAll([fieldName: mycount], myupdateOriginalConditions);
                     }
                 }
         });
     }
     
-    /**
-     * Checks if the count should be updated given a set of conditions.
-     * Params:
-     * Json[string] myconditions Conditions to update count.
-     */
-    protected bool _shouldUpdateCount(Json[string] myconditions) {
-        return !empty(array_filter(myconditions, auto (myvalue) {
+    // Checks if the count should be updated given a set of conditions.
+    protected bool _shouldUpdateCount(Json[string] conditions) {
+        return !empty(array_filter(conditions, auto (myvalue) {
             return myvalue !is null;
         }));
     }
     
-    /**
-     * Fetches and returns the count for a single field in an association
-     * Params:
-     * Json[string] configData The counter cache configuration for a single field
-     * @param Json[string] myconditions Additional conditions given to the query
-     */
-    protected int _getCount(Json[string] configData, Json[string] myconditions) {
+    // Fetches and returns the count for a single field in an association
+    protected int _getCount(Json[string] configData, Json[string] conditions) {
         string myfinder = "all";
         if (!configData.isEmpty("finder")) {
             remove(configuration.getString("finder"));
         }
-        // TODO configuration.set("conditions", chain(myconditions, configuration.getArray("conditions"));
+        // TODO configuration.set("conditions", chain(conditions, configuration.getArray("conditions"));
         // myquery = _table.find(myfinder, ...configData); */
 
         return 0; //TODO myquery.count();

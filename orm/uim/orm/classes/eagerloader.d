@@ -412,10 +412,10 @@ class DEagerLoader {
             paths["root"] = configuration.get("aliasPath");
         }
 
-        foreach (t, assoc; extra) {
+        foreach (t, association; extra) {
             eagerLoadable.addAssociation(
                 t,
-                _normalizeContain(table, t, assoc, paths)
+                _normalizeContain(table, t, association, paths)
            );
         }
 
@@ -590,17 +590,17 @@ class DEagerLoader {
      * @param bool matching Whether it is an association loaded through `matching()`.
      */
     protected Json[string] _buildAssociationsMap(Json[string] map, DORMEagerLoadable[] level, bool ismatching = false) {
-        foreach (level as assoc: meta) {
+        foreach (level as association: meta) {
             canBeJoined = meta.canBeJoined();
             instance = meta.instance();
             associations = meta.associations();
             forMatching = meta.forMatching();
             map ~= [
-                "alias": assoc,
+                "alias": association,
                 "instance": instance,
                 "canBeJoined": canBeJoined,
                 "entityClass": instance.getTarget().getEntityClass(),
-                "nestKey": canBeJoined ? assoc : meta.aliasPath(),
+                "nestKey": canBeJoined ? association : meta.aliasPath(),
                 "matching": forMatching ?? isMatching,
                 "targetProperty": meta.targetProperty(),
             ];
@@ -618,7 +618,7 @@ class DEagerLoader {
      * from such joined table.
      *
      * @param string anAliasName The table alias as it appears in the query.
-     * @param DORMAssociation assoc The association object the alias represents;
+     * @param DORMAssociation association The association object the alias represents;
      * will be normalized
      * @param bool asMatching Whether this join results should be treated as a
      * "matching" association.
@@ -627,16 +627,16 @@ class DEagerLoader {
      */
     void addToJoinsMap(
         string anAliasName,
-        Association assoc,
+        DORMAssociation association,
         bool asMatching = false,
         string targetProperty = null
    ) {
         _joinsMap[aliasName] = new DEagerLoadable(alias, [
             "aliasPath": alias,
-            "instance": assoc,
+            "instance": association,
             "canBeJoined": true.toJson,
             "forMatching": asMatching,
-            "targetProperty": targetProperty ?: assoc.getProperty(),
+            "targetProperty": targetProperty ?: association.getProperty(),
         ]);
     }
 
@@ -684,7 +684,7 @@ class DEagerLoader {
      */
     protected Json[string] _groupKeys(BufferedStatement statement, Json[string] collectKeys) {
         auto keys = null;
-        foreach ((statement.fetchAll("assoc") ?: []) as result) {
+        foreach ((statement.fetchAll("association") ?: []) as result) {
             foreach (collectKeys as nestKey: parts) {
                 if (parts[2] == true) {
                     // Missed joins will have null in the results.

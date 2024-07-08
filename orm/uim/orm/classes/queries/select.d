@@ -839,23 +839,15 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         return this;
     }
     
-    /**
-     * Used to recursively add contained association column types to
-     * the query.
-     * Params:
-     * \ORM\Table mytable The table instance to pluck associations from.
-     * @param \UIM\Database\TypeMap mytypeMap The typemap to check for columns in.
-     * This typemap is indirectly mutated via {@link \ORM\Query\SelectQuery.addDefaultTypes()}
-     * @param array<string, array> myassociations The nested tree of associations to walk.
-     */
-    protected void _addAssociationsToTypeMap(Table mytable, TypeMap mytypeMap, Json[string] myassociations) {
-        foreach (myassociations as myname: mynested) {
+    // Used to recursively add contained association column types to the query.
+    protected void _addAssociationsToTypeMap(DORMTable mytable, TypeMap mytypeMap, Json[string] myassociations) {
+        foreach (myname, mynested; myassociations) {
             if (!mytable.hasAssociation(myname)) {
                 continue;
             }
-            myassociation = mytable.getAssociation(myname);
-            mytarget = myassociation.getTarget();
-            myprimary = (array)mytarget.primaryKeys();
+            auto myassociation = mytable.getAssociation(myname);
+            auto mytarget = myassociation.getTarget();
+            auto myprimary = (array)mytarget.primaryKeys();
             if (isEmpty(myprimary) || mytypeMap.type(mytarget.aliasField(myprimary[0])).isNull) {
                 this.addDefaultTypes(mytarget);
             }
@@ -911,10 +903,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * add more complex clauses you can do it directly in the main query.
      * Params:
      * string myassoc The association to filter by
-     * @param \Closure|null mybuilder a auto that will receive a pre-made query object
-     * that can be used to add custom conditions or selecting some fields
      */
-    void matching(string myassoc, IClosure mybuilder = null) {
+    void matching(string association, DClosure mybuilder = null) {
         result = getEagerLoader().setMatching(myassoc, mybuilder).getMatching();
        _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
        _isChanged();

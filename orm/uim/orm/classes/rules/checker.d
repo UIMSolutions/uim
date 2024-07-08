@@ -174,16 +174,10 @@ class DRulesChecker { // }: BaseRulesChecker {
         return _addError(myrule, ruleName, compact("errorField", "message"));
     }
     
-    /**
-     * Validates the count of associated records.
-     * Params:
-     * string fieldName The field to check the count on.
-     * @param int mycount The expected count.
-     * @param string myoperator The operator for the count comparison.
-     */
+    // Validates the count of associated records.
     RuleInvoker validCount(
         string fieldName,
-        int mycount = 0,
+        size_t mycount = 0,
         string myoperator = ">",
         string errorMessage = null
    ) {

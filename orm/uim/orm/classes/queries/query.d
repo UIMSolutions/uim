@@ -391,26 +391,15 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         return _getEagerLoader().getContain();
     }
 
-    /**
-     * Clears the contained associations from the current query.
-     *
-     * @return this
-     */
-    function clearContain() {
+    // Clears the contained associations from the current query.
+    void clearContain() {
         getEagerLoader().clearContain();
         _isChanged();
-
-        return this;
     }
 
     /**
      * Used to recursively add contained association column types to
      * the query.
-     *
-     * @param DORMDORMTable aTable The table instance to pluck associations from.
-     * @param DORMdatabases.TypeMap typeMap The typemap to check for columns in.
-     *  This typemap is indirectly mutated via {@link DORMQuery.addDefaultTypes()}
-     * @param array<string, array> associations The nested tree of associations to walk.
      */
     protected void _addAssociationsToTypeMap(DORMTable aTable, TypeMap typeMap, Json[string] associations) {
         foreach (name, nested; associations) {

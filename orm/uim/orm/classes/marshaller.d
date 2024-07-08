@@ -401,10 +401,6 @@ class DMarshaller {
      * "associated": ["Tags": ["onlyIds": true.toJson]]
      * ]);
      * ```
-     * Params:
-     * \UIM\Datasource\IORMEntity myentity the entity that will get the data merged in
-     * @param Json[string] data key value list of fields to be merged into the entity
-     * @param Json[string] options List of options.
      */
         IORMEntity merge(IORMEntity myentity, Json[string] data, Json[string] options = null) {
             [mydata, options] = _prepareDataAndOptions(mydata, options);

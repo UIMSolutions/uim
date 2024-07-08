@@ -81,16 +81,13 @@ class DFlashComponent : DComponent {
         return _flash().configuration.get(aKey, default);
     }
 
-    /**
-     * Proxy method to FlashMessage instance.
+    // Proxy method to FlashMessage instance.
     Json getConfigOrFail(string aKey) {
-        return _flash().getConfigOrFail(aKey);
+        // return _flash().getConfigOrFail(aKey);
+        return Json(null);
     }
     
     //  Proxy method to FlashMessage instance.
-     * Params:
-     * Json[string]|string aKey The key to set, or a complete array of configs.
-     */
     void configShallow(string aKey, Json valueToSet = null) {
         flash().configShallow(aKey, valueToSet);
     }
@@ -125,9 +122,9 @@ class DFlashComponent : DComponent {
         auto options = ["element": anElement];
 
         if (!someArguments[1].isEmpty) {
-            if (!someArguments[1]["plugin"].isEmpty)) {
+            if (!someArguments[1].isEmpty("plugin")) {
                 options = [
-                    "element": someArguments[1]["plugin"] ~ "." ~ anElement
+                    "element": someArguments[1].getString("plugin") ~ "." ~ anElement
                 ];
                 someArguments[1].remove("plugin");
             }

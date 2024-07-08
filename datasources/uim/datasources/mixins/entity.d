@@ -976,12 +976,10 @@ mixin template TEntity() {
   bool isAccessible(string fieldName) {
     auto aValue = _accessible.ifNull(fieldName, null);
 
-    return (aValue.isNull && !_accessible["*"].isEmpty) || aValue;
+    return (aValue.isNull && !_accessible.isEmpty("*") || aValue);
   }
 
-  /**
-     * Returns the alias of the repository from which this entity came from.
-    */
+  // Returns the alias of the repository from which this entity came from.
   string source() {
     return _registryAlias;
   }
@@ -997,17 +995,12 @@ mixin template TEntity() {
     return this;
   }
 
-  /**
-     * Returns a string representation of this object in a human readable format.
-    */
+  // Returns a string representation of this object in a human readable format.
   override string toString() {
     return to!string(Json_encode(this, Json_PRETTY_PRINT));
   }
 
-  /**
-     * Returns an array that can be used to describe the internal state of this
-     * object.
-    */
+  // Returns an array that can be used to describe the internal state of this object.
   Json[string] debugInfo() {
     fields = _fields;
     foreach (_virtual asfield) {

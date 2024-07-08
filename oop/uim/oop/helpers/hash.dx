@@ -103,7 +103,7 @@ class Hash {
 
         mytokens.each!((token) {
             auto mynext = null;
-            [mytoken, myconditions] = self._splitConditions(mytoken);
+            [mytoken, myconditions] = _splitConditions(mytoken);
 
             mycontext[_key].each!((item) {
                 if (isObject(item) && method_exists(item, "toArray")) {
@@ -303,7 +303,7 @@ class Hash {
         string mytoken = array_shift(mytokens);
         string mynextPath = join(".", mytokens);
 
-        [mytoken, myconditions] = self._splitConditions(mytoken);
+        [mytoken, myconditions] = _splitConditions(mytoken);
         foreach (myKey: myv; data) {
             mymatch = _matchToken(myKey, mytoken);
             if (mymatch && isArray(myv)) {
@@ -318,7 +318,7 @@ class Hash {
                 } else {
                     data[myKey] = remove(myv, mynextPath);
                 }
-                if (data[myKey].isEmpty) {
+                if (data.isEmpty(myKey)) {
                     data.remove(myKey);
                 }
             } else if (mymatch && mynextPath.isEmpty) {
@@ -710,15 +710,9 @@ class Hash {
         return array_map(myfunction, myvalues);
     }
     
-    /**
-     * Reduce a set of extracted values using `myfunction`.
-     * Params:
-     * Json[string] data The data to reduce.
-     * @param string path The path to extract from data.
-     * @param callable myfunction The auto to call on each extracted value.
-     */
-    static Json reduce(Json[string] data, string extractPath, callable myfunction) {
-        auto myvalues = /* (array) */extract(data, extractPath);
+    // Reduce a set of extracted values using `myfunction`.
+    static Json reduce(Json[string] dataToReduce, string extractPath, callable myfunction) {
+        auto myvalues = /* (array) */extract(dataToReduce, extractPath);
         return array_reduce(myvalues, myfunction);
     }
     

@@ -49,9 +49,9 @@ class DPostgresDriver : DDriver {
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ]);
 
-        string dsn = configuration.get("unix_socket"].isEmpty
-            ? `pgsql:host={configuration.get("host"]};port={configuration.get("port"]};dbname={configuration.get("database"]}`
-            : `pgsql:dbname={configuration.get("database"]}`;
+        string dsn = configuration.isEmpty("unix_socket")
+            ? "pgsql:host={configuration.get("host"]};port={configuration.get("port"]};dbname={configuration.get("database"]}""
+            : "pgsql:dbname={configuration.get("database"]}"";
     }
 
     _pdo = this.createPdo(dsn, configData);
@@ -63,10 +63,9 @@ class DPostgresDriver : DDriver {
         setSchema(configuration.get("schema"));
     }
     if (!configuration.isEmpty("timezone")) {
-        configuration.get("init"] ~= "SET timezone = %s".format(getPdo()
-                .quote(configuration.get("timezone")));
+        configuration.get("init"] ~= "SET timezone = %s".format(getPdo().quote(configuration.get("timezone")));
     }
-    configuration.get("init"].each!(command => getPdo().exec(command));
+    configuration.get("init").each!(command => getPdo().exec(command));
 }
 
 

@@ -71,25 +71,28 @@ class DTableHelper : UIMObject { // }: Helper {
 
     string outputResult = "";
     foreach (index : value; row.values) {
-      string column = to!string(value);
-      pad = columnWidths[index] - _cellWidth(column);
-      if (!optionsToPass.isEmpty("style")) {
-        column = _addStyle(column, optionsToPass["style"]);
-      }
-      if (column != "" && preg_match("#(.*)<text-right>.+</text-right>(.*)#", column, matches)) {
-        if (matches[1] != "" || !matches[2].isEmpty) {
-          throw new DUnexpectedValueException(
-            "You cannot include text before or after the text-right tag.");
-        }
-        column = column.replace(["<text-right>", "</text-right>"], "");
-        outputResult ~= "| " ~ str_repeat(" ", pad) ~ column ~ " ";
-      } else {
-        outputResult ~= "| " ~ column ~ str_repeat(" ", pad) ~ " ";
-      }
+      outputResult ~=_renderColumn(to!string(value), columnWidths[index], optionsToPass)
     }
     outputResult ~= "|";
     _io.
     out (outputResult);
+  }
+
+  protected void _renderColumn(string column, int columnWidth, Json[string] optionsToPass = null) {
+    auto pad = columnWidth - _cellWidth(column);
+    if (!optionsToPass.isEmpty("style")) {
+      column = _addStyle(column, optionsToPass.get("style"));
+    }
+    if (column != "" && preg_match("#(.*)<text-right>.+</text-right>(.*)#", column, matches)) {
+      if (matches[1] != "" || !matches[2].isEmpty) {
+        throw new DUnexpectedValueException(
+          "You cannot include text before or after the text-right tag.");
+      }
+      column = column.replace(["<text-right>", "</text-right>"], "");
+      return "| " ~ str_repeat(" ", pad) ~ column ~ " ";
+    } else {
+      return "| " ~ column ~ str_repeat(" ", pad) ~ " ";
+    }
   }
 
   /**

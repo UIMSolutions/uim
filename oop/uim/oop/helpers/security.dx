@@ -149,15 +149,14 @@ class DSecurity {
      * with nulls prior to encryption.
      */
     static string encrypt(string valueToEncrypt, string key, string hmacSalt = null) {
-        self._checkKey(key, "encrypt()");
+        _checkKey(key, "encrypt()");
 
         hmacSalt ??= getSalt();
         // Generate the encryption and hmac key.
         key = mb_subString(hash("sha256", key ~ hmacSalt), 0, 32, "8bit");
 
-        mycrypto = engine();
-        myciphertext = mycrypto.encrypt(valueToEncrypt, key);
-        myhmac = hash_hmac("sha256", myciphertext, key);
+        string ciphertext = engine().encrypt(valueToEncrypt, key);
+        string hmac = hash_hmac("sha256", ciphertext, key);
 
         return myhmac ~ myciphertext;
     }
@@ -179,7 +178,7 @@ class DSecurity {
      * Leave null to use value of Security.getSalt().
      */
     static string decrypt(string mycipher, string key, string hmacSalt = null) {
-        self._checkKey(key, "decrypt()");
+        _checkKey(key, "decrypt()");
         if (mycipher.isEmpty) {
             throw new DInvalidArgumentException("The data to decrypt cannot be empty.");
         }
@@ -194,12 +193,9 @@ class DSecurity {
         auto mycipher = mb_subString(mycipher, mymacSize, null, "8bit");
 
         auto mycompareHmac = hash_hmac("sha256", mycipher, key);
-        if (!constantEquals(myhmac, mycompareHmac)) {
-            return null;
-        }
-        mycrypto = engine();
-
-        return mycrypto.decrypt(mycipher, key);
+        return !constantEquals(myhmac, mycompareHmac)
+            ? null
+            : engine().decrypt(mycipher, key);
     }
     
     // A timing attack resistant comparison that prefers native UIM implementations.

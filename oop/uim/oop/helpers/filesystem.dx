@@ -126,7 +126,7 @@ class HFilesystem {
         bool result = true;
         myiterator.each!((fileInfo) {
             myisWindowsLink = DIRECTORY_SEPARATOR == "\\" && fileInfo.getType() == "link";
-            if (fileInfo.getType() == self.TYPE_DIR || myisWindowsLink) {
+            if (fileInfo.getType() == TYPE_DIR || myisWindowsLink) {
                 // Dcs:ignore
                 result = result && @rmdir(fileInfo.getPathname());
                 remove(fileInfo);

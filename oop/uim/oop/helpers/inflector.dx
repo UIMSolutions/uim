@@ -159,7 +159,7 @@ class DInflector {
      */
   static void reset() {
     if (_initialState.isEmpty) {
-      static._initialState = get_class_vars(self.classname);
+      static._initialState = get_class_vars(classname);
 
       return;
     }

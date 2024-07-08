@@ -1190,7 +1190,7 @@ class DResponse : IResponse {
         preg_match("/^bytes\s*=\s*(\d+)?\s*-\s*(\d+)?/", httpRange, matches);
         if (matches) {
             start = matches[1];
-            end = !matches[2].isEmpty ? matches[2] : "";
+            end = !matches[2].ifEmpty("");
         }
         if (start.isEmpty) {
             start = fileSize - (int)end;

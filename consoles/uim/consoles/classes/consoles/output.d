@@ -202,16 +202,17 @@ class DConsoleOutput {
      * matchesToReplace - Array of matches to replace.
      */
     protected string _replaceTags(STRINGAA matchesToReplace) {
-       /*  auto style = getStyle(matchesToReplace["tag"]);
+       /*  auto style = getStyle(matchesToReplace.get("tag"));
         if (style.isEmpty) {
-            return "<" ~ matchesToReplace.get("tag") ~ ">" ~ matchesToReplace.get("text") ~ "</" ~ matchesToReplace.get("tag") ~ ">";
+            return "<" ~ matchesToReplace.getString("tag") ~ ">" ~ matchesToReplace.getStringget("text") ~ "</" ~ matchesToReplace.getString("tag") ~ ">";
         }
-        styleInfo = null;
-        if (!style["text"].isEmpty) && _foregroundColors.hasKey(style.getString("text")) {
-            styleInfo ~= _foregroundColors[style["text"]];
+        
+        auto styleInfo = null;
+        if (!style.isEmpty("text") && _foregroundColors.hasKey(style.getString("text")) {
+            styleInfo ~= _foregroundColors.get(style.getString("text"));
         }
-        if (!style.isEmpty("background")) && _backgroundColors.hasKey(style["background"])) {
-            styleInfo ~= _backgroundColors[style["background"]];
+        if (!style.isEmpty("background")) && _backgroundColors.hasKey(style.getString("background")) {
+            styleInfo ~= _backgroundColors.get(style.getString("background"));
         }
         style.remove("text", "background");
         style.byKeyValue

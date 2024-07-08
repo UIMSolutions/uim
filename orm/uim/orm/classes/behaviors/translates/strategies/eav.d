@@ -354,8 +354,6 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
     /**
      * Modifies the results from a table find in order to merge full translation
      * records into each entity under the `_translations` key.
-     *
-     * @param DORMDatasource\ results Results to modify.
      */
     ICollection groupTranslations(IResultset resultsToModify) {
         return null;

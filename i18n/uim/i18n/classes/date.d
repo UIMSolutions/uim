@@ -139,7 +139,7 @@ class Date { // }: DChronosDate, JsonSerializable {
     }
     
     // Get the difference formatter instance.
-    static RelativeTimeFormatter diffFormatter(DifferenceII18NFormatter differenceFormatter = null) {
+    static DRelativeTimeFormatter diffFormatter(DDifferenceII18NFormatter differenceFormatter = null) {
         if (differenceFormatter) {
             if (!cast(RelativeTimeFormatter)differenceFormatter) {
                 throw new DInvalidArgumentException("Formatter for I18n must extend RelativeTimeFormatter.");

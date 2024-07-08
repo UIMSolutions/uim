@@ -147,8 +147,6 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param DORMDORMTable aTable The table the save is currently operating on
      * @param DORMDatasource\IORMEntity anEntity The entity to save
      * @param Json[string] associations Array of associations to save.
-     * @param Json[string] options Original options
-     * returns True if Success
      */
     protected bool _saveAssociations(
         DORMTable ormTable,

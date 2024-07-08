@@ -92,7 +92,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     }
     
     // Sets the CacheEngine instance used to remember translators across requests.
-    void cacher(/* ICache */ ICacheEngine cacher) {
+    void cacher(/* ICache */ DCacheEngine cacher) {
        _cacher = cacher;
     }
     

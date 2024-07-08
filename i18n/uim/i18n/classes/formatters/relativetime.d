@@ -13,8 +13,8 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     // Get the difference in a human readable format.
     string diffForHumans(
         /* DChronosDate| */
-        IDateTime first, /* DChronosDateeee| */
-        IDateTime second = null,
+        DDateTime first, /* DChronosDateeee| */
+        DDateTime second = null,
         bool isAbsoluteTime = false
     ) {
         auto isNow = second.isNull;

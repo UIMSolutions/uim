@@ -287,7 +287,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     }
 
     // Get the difference formatter instance.
-    auto RelativeTimeFormatter diffFormatter(DifferenceII18NFormatter formatter = null) {
+    auto DRelativeTimeFormatter diffFormatter(DDifferenceII18NFormatter formatter = null) {
         if (formatter) {
             if (!cast(RelativeTimeFormatter) formatter) {
                 throw new DInvalidArgumentException(

@@ -292,13 +292,8 @@ class DEagerLoader {
      * in order to eager load the associations described in the `contain` array.
      * This method will not modify the query for loading external associations, i.e.
      * those that cannot be loaded without executing a separate query.
-     * Params:
-     * \ORM\Query\SelectQuery myquery The query to be modified.
-     * @param bool myincludeFields whether to append all fields from the associations
-     * to the passed query. This can be overridden according to the settings defined
-     * per association in the containments array.
      */
-    void attachAssociations(SelectQuery myquery, DORMTable repository, bool myincludeFields) {
+    void attachAssociations(SelectQuery selectQuery, DORMTable repository, bool shouldAppendFields) {
         if (isEmpty(_containments) && _matching.isNull) {
             return;
         }
@@ -310,9 +305,9 @@ class DEagerLoader {
                 configData = myloadable.configuration.data ~ [
                     "aliasPath": myloadable.aliasPath(),
                     "propertyPath": myloadable.propertyPath(),
-                    "includeFields": myincludeFields,
+                    "includeFields": shouldAppendFields,
                 ];
-                myloadable.instance().attachTo(myquery, configData);
+                myloadable.instance().attachTo(selectQuery, configData);
                 myprocessed[aliasName] = true;
             }
             mynewAttachable = attachableAssociations(repository);

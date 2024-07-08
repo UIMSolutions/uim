@@ -93,12 +93,7 @@ class DCounterCacheBehavior : DBehavior {
 
     /**
      * beforeSave callback.
-     *
      * Check if a field, which should be ignored, is dirty
-     * Params:
-     * \UIM\Event\IEvent<\ORM\Table> myevent The beforeSave event that was fired
-     * @param \UIM\Datasource\IORMEntity myentity The entity that is going to be saved
-     * @param \Json[string]<string, mixed> options The options for the query
      */
     void beforeSave(IEvent myevent, IORMEntity ormEntity, Json[string] options) {
         if (options.hasKey("ignoreCounterCache") && options["ignoreCounterCache"] == true) {
@@ -128,7 +123,6 @@ class DCounterCacheBehavior : DBehavior {
     
     /**
      * afterSave callback.
-     *
      * Makes sure to update counter cache when a new record is created or updated.
      */
     void afterSave(IEvent firedEvent, IORMEntity entity, Json[string] queryOptions) {
@@ -143,30 +137,21 @@ class DCounterCacheBehavior : DBehavior {
      * afterDelete callback.
      *
      * Makes sure to update counter cache when a record is deleted.
-     * Params:
-     * \UIM\Event\IEvent<\ORM\Table> myevent The afterDelete event that was fired.
-     * @param \UIM\Datasource\IORMEntity myentity The entity that was deleted.
-     * @param \Json[string]<string, mixed> options The options for the query
      */
-    void afterremove(IEvent myevent, IORMEntity myentity, Json[string] options) {
-        if (options.hasKey("ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
+    void afterremove(IEvent event, IORMEntity ormEntity, Json[string] options) {
+        if (options.getBoolean("ignoreCounterCache")) {
             return;
         }
-       _processAssociations(myevent, myentity);
+       _processAssociations(event, ormEntity);
     }
     
-    /**
-     * Iterate all associations and update counter caches.
-     * Params:
-     * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
-     * @param \UIM\Datasource\IORMEntity myentity Entity.
-     */
-    protected void _processAssociations(IEvent anEvent, IORMEntity anEntity) {
+    // Iterate all associations and update counter caches.
+    protected void _processAssociations(IEvent event, IORMEntity ormEntity) {
         configuration.byKeyValue
             .each!((assocSettings) {
-                auto newAssoc = _table.getAssociation(assocSettings.key);
-                _processAssociation(anEvent, anEntity, newAssoc, assocSettings.value);
-            }
+                auto tableAssociation = _table.getAssociation(assocSettings.key);
+                _processAssociation(event, ormEntity, tableAssociation, assocSettings.value);
+            });
     }
     
     /**

@@ -411,12 +411,12 @@ class DHasManyAssociation : DAssociation {
      * targets and also on foreign key nullability.
      *
      * @param Json[string] foreignKeys array of foreign key properties
-     * @param DORMTable myTarget The associated table
+     * @param DORMTable targetTable The associated table
      * @param Json[string] conditions The conditions that specifies what are the objects to be unlinked
      */
-    protected bool _unlink(Json[string] foreignKeys, DORMTable myTarget, Json[string] conditions = null, Json[string] options = null) {
+    protected bool _unlink(Json[string] foreignKeys, DORMTable targetTable, Json[string] conditions = null, Json[string] options = null) {
         mustBeDependent = (!_foreignKeyAcceptsNull(
-                myTarget, foreignKeys) || getDependent());
+                targetTable, foreignKeys) || getDependent());
 
         if (mustBeDependent) {
             if (
@@ -426,14 +426,14 @@ class DHasManyAssociation : DAssociation {
                 /* 
                     conditions.traverse(
                         void(entry) use(
-                            myTarget) {
+                            targetTable) {
                         if (cast(IField) entry) {
                             myField = entry
                                 .getField(); if (
                                     myField
                                 .isString) {
                                     entry.setField(
-                                        myTarget
+                                        targetTable
                                         .aliasField(
                                         myField));}
                                 }
@@ -444,7 +444,7 @@ class DHasManyAssociation : DAssociation {
                         ok = true;
                         foreach (
                             myQuery as assoc) {
-                            ok = ok && myTarget.remove(
+                            ok = ok && targetTable.remove(
                                 assoc, options);
                         }
 

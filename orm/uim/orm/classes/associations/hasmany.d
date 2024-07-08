@@ -409,10 +409,6 @@ class DHasManyAssociation : DAssociation {
      *
      * The action which is taken depends on the dependency between source and
      * targets and also on foreign key nullability.
-     *
-     * @param Json[string] foreignKeys array of foreign key properties
-     * @param DORMTable targetTable The associated table
-     * @param Json[string] conditions The conditions that specifies what are the objects to be unlinked
      */
     protected bool _unlink(Json[string] foreignKeys, DORMTable targetTable, Json[string] conditions = null, Json[string] options = null) {
         mustBeDependent = (!_foreignKeyAcceptsNull(

@@ -779,12 +779,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return mywhen;
     }
 
-    /**
-     * Add a notBlank rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a notBlank rule to a field.
     auto notBlank(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         string message;
         if (errorMessage.isNull) {
@@ -801,12 +796,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     }
 
-    /**
-     * Add an alphanumeric rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add an alphanumeric rule to a field.
     auto alphaNumeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
@@ -822,12 +812,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     }
 
-    /**
-     * Add a non-alphanumeric rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a non-alphanumeric rule to a field.
     auto notAlphaNumeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
@@ -843,12 +828,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     }
 
-    /**
-     * Add an ascii-alphanumeric rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add an ascii-alphanumeric rule to a field.
     auto asciiAlphaNumeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n

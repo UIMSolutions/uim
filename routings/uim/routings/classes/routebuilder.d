@@ -338,76 +338,43 @@ class DRouteBuilder {
         return this;
     }
 
-    /**
-     * Create a route that only responds to GET requests.
-     * Params:
-     * string mytemplate The URL template to use.
-     * @param string[] mytarget An array describing the target route parameters. These parameters
-     * should indicate the plugin, prefix, controller, and action that this route points to.
-     */
-    Route get(string mytemplate, string[] mytarget, string routings = null) {
-        return _methodRoute("GET", mytemplate, mytarget, routings);
+    // Create a route that only responds to GET requests.
+    Route get(string urlTemplate, string[] targetRouteParameters, string routings = null) {
+        return _methodRoute("GET", urlTemplate, targetRouteParameters, routings);
     }
 
-    /**
-     * Create a route that only responds to POST requests.
-     * Params:
-     * string mytemplate The URL template to use.
-     * @param string[] mytarget An array describing the target route parameters. These parameters
-     * should indicate the plugin, prefix, controller, and action that this route points to.
-     * @param string routings The name of the route.
-     */
-    Route post(string mytemplate, string[] mytarget, string routings = null) {
-        return _methodRoute("POST", mytemplate, mytarget, routings);
+    // Create a route that only responds to POST requests.
+    Route post(string urlTemplate, string[] targetRouteParameters, string routings = null) {
+        return _methodRoute("POST", urlTemplate, targetRouteParameters, routings);
     }
 
-    /**
-     * Create a route that only responds to PUT requests.
-     * Params:
-     * string mytemplate The URL template to use.
-     * @param string[] mytarget An array describing the target route parameters. These parameters
-     * should indicate the plugin, prefix, controller, and action that this route points to.
-     * @param string routings The name of the route.
-     */
-    Route put(string mytemplate, string[] mytarget, string routings = null) {
-        return _methodRoute("PUT", mytemplate, mytarget, routings);
+    // Create a route that only responds to PUT requests.
+    Route put(string urlTemplate, string[] targetRouteParameters, string routeName = null) {
+        return _methodRoute("PUT", urlTemplate, targetRouteParameters, routeName);
     }
 
-    /**
-     * Create a route that only responds to PATCH requests.
-     * Params:
-     * @param string[] mytarget An array describing the target route parameters. These parameters
-     * should indicate the plugin, prefix, controller, and action that this route points to.
-     * @param string routings The name of the route.
-     */
-    Route patch(string urlTemplate, string[] mytarget, string routings = null) {
-        return _methodRoute("PATCH", urlTemplate, mytarget, routings);
+    // Create a route that only responds to PATCH requests.
+    Route patch(string urlTemplate, string[] targetRouteParameters, string routeName = null) {
+        return _methodRoute("PATCH", urlTemplate, targetRouteParameters, routeName);
     }
 
-    /**
-     * Create a route that only responds to DELETE requests.
-     * Params:
-     * string mytemplate The URL template to use.
-     * @param string[] mytarget An array describing the target route parameters. These parameters
-     * should indicate the plugin, prefix, controller, and action that this route points to.
-     * @param string routings The name of the route.
-     */
-    Route remove(string mytemplate, string[] mytarget, string routings = null) {
-        return _methodRoute("DELETE", mytemplate, mytarget, routings);
+    // Create a route that only responds to DELETE requests.
+    Route remove(string urlTemplate, string[] targetRouteParameters, string routeName = null) {
+        return _methodRoute("DELETE", urlTemplate, targetRouteParameters, routeName);
     }
 
     // Create a route that only responds to HEAD requests.
-    Route head(string urlTemplate, string[] mytarget, string routings = null) {
-        return _methodRoute("HEAD", urlTemplate, mytarget, routings);
+    Route head(string urlTemplate, string[] targetRouteParameters, string routings = null) {
+        return _methodRoute("HEAD", urlTemplate, targetRouteParameters, routings);
     }
 
     // Create a route that only responds to OPTIONS requests.
-    Route options(string urlTemplate, string[] mytarget, string routings = null) {
-        return _methodRoute("OPTIONS", urlTemplate, mytarget, routings);
+    Route options(string urlTemplate, string[] targetRouteParameters, string routings = null) {
+        return _methodRoute("OPTIONS", urlTemplate, targetRouteParameters, routings);
     }
 
     // Helper to create routes that only respond to a single HTTP method.
-    protected DRoute _methodRoute(string httpMethod, string urlTemplate, string[] mytarget, string routings) {
+    protected DRoute _methodRoute(string httpMethod, string urlTemplate, string[] targetRouteParameters, string routings) {
         if (routings !is null) {
             routings = _namePrefix ~ routings;
         }
@@ -419,10 +386,10 @@ class DRouteBuilder {
             "routeClass": _routeClass,
         ];
 
-        mytarget = parseDefaults(mytarget);
-        mytarget.set("_method", httpMethod);
+        targetRouteParameters = parseDefaults(targetRouteParameters);
+        targetRouteParameters.set("_method", httpMethod);
 
-        auto route = _makeRoute(urlTemplate, mytarget, options);
+        auto route = _makeRoute(urlTemplate, targetRouteParameters, options);
         _collection.add(myroute, options);
 
         return route;

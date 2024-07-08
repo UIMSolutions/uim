@@ -314,10 +314,8 @@ class DTreeBehavior : DBehavior {
      * Custom finder method which can be used to return the list of nodes from the root
      * to a specific node in the tree. This custom finder requires that the key "for"
      * is passed in the options containing the id of the node to get its path for.
-     *
-     * @param DORMQuery query The constructed query to modify
      */
-    DORMQuery findPath(Query query, Json[string] options = null) {
+    DORMQuery findPath(DORMQuery query, Json[string] options = null) {
         if (options.isEmpty("for")) {
             throw new DInvalidArgumentException("The 'for' key is required for find('path')");
         }

@@ -1214,7 +1214,7 @@ class DFormHelper : DHelper {
         if (options.getString("hiddenField") == "_split") {
             options.remove("hiddenField", "type");
 
-            return ["hidden": myoutput, "input": this.widget("checkbox", options)];
+            return ["hidden": myoutput, "input": widget("checkbox", options)];
         }
         options.remove("hiddenField", "type");
 
@@ -1240,11 +1240,10 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName Name of a field, like this "modelname.fieldname"
      * @param range options Radio button options array.
-     * @param Json[string] attributes Array of attributes.
      */
-    string radio(string fieldName, range options = [], Json[string] attributes= null) {
-        attributes["options"] = options;
-        attributes["idPrefix"] = _idPrefix;
+    string radio(string fieldName, Json[string] options = [], Json[string] attributes= null) {
+        attributes.set("options", options);
+        attributes.set("idPrefix", _idPrefix);
 
         mygeneratedHiddenId = false;
         if (!attributes.hasKey("id")) {
@@ -1253,10 +1252,10 @@ class DFormHelper : DHelper {
         }
         attributes = _initInputField(fieldName, attributes);
 
-        myhiddenField = attributes.get("hiddenField", true);
+        auto myhiddenField = attributes.get("hiddenField", true);
         remove(attributes["hiddenField"]);
 
-        myhidden = "";
+        auto myhidden = "";
         if (myhiddenField == true && isScalar(myhiddenField)) {
             myhidden = hidden(fieldName, [
                 "value": myhiddenField == true ? "" : to!string(myhiddenField),
@@ -1268,8 +1267,7 @@ class DFormHelper : DHelper {
         if (mygeneratedHiddenId) {
             remove(attributes["id"]);
         }
-        myradio = this.widget("radio", attributes);
-
+        string myradio = widget("radio", attributes);
         return myhidden ~ myradio;
     }
     
@@ -1720,7 +1718,7 @@ class DFormHelper : DHelper {
         }
         remove(attributes["hiddenField"], attributes["type"]);
 
-        return myhidden ~ this.widget("select", attributes);
+        return myhidden ~ widget("select", attributes);
     }
     
     /**
@@ -1779,7 +1777,7 @@ class DFormHelper : DHelper {
         if (mygeneratedHiddenId) {
             remove(attributes["id"]);
         }
-        return myhidden ~ this.widget("multicheckbox", attributes);
+        return myhidden ~ widget("multicheckbox", attributes);
     }
     
     /**

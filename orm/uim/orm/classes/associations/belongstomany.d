@@ -253,14 +253,10 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * You can override these generated associations by defining associations
      * with the correct aliases.
-     *
-     * @param DORMTable junction The junction table.
-     * @param DORMTable source The source table.
-     * @param DORMTable target The target table.
      */
-    protected void _generateJunctionAssociations(DORMTable junctionTable, DORMTable source, DORMTable targetTable) {
+    protected void _generateJunctionAssociations(DORMTable junctionTable, DORMTable sourceTable, DORMTable targetTable) {
         auto targetAlias = targetTable.aliasName();
-        auto sourceAlias = source.aliasName();
+        auto sourceAlias = sourceTable.aliasName();
 
         if (!junctionTable.hasAssociation(targetAlias)) {
             junctionTable.belongsTo(targetAlias, [
@@ -284,7 +280,7 @@ class DBelongsToManyAssociation : DAssociation {
             junctionTable.belongsTo(sourceAlias, [
                 "bindingKey": getBindingKey(),
                 "foreignKeys": foreignKeys(),
-                "targetTable": source,
+                "targetTable": sourceTable,
             ]);
         }
     }

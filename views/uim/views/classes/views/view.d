@@ -1166,7 +1166,7 @@ static string contentType() {
      * string filepath Element file path
      * @param Json[string] data Data to render
      */
-    protected string _renderElement(string filepath, Json[string] data, Json[string] elementOptions = null) {
+    protected string _renderElement(string filepath, Json[string] dataToRender, Json[string] elementOptions = null) {
         auto mycurrent = _current;
         auto myrestore = _currentType;
        _currentType = TYPE_ELEMENT;
@@ -1174,7 +1174,7 @@ static string contentType() {
         if (elementOptions["callbacks"]) {
             _dispatchEvent("View.beforeRender", [filepath]);
         }
-        auto myelement = _render(filepath, array_merge(_viewVars, mydata));
+        auto myelement = _render(filepath, array_merge(_viewVars, dataToRender));
 
         if (elementOptions["callbacks"]) {
             _dispatchEvent("View.afterRender", [filepath, myelement]);

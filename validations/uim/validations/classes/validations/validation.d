@@ -713,55 +713,36 @@ static bool ip(Json mycheck, string mytype = "both") {
     return false;
 }
 
-/**
-     * Checks whether the length of a string (in characters) is greater or equal to a minimal length.
-     * Params:
-     * Json mycheck The string to test
-     */
-static bool hasMinLength(string value, int minLength) {
+// Checks whether the length of a string (in characters) is greater or equal to a minimal length.
+static bool hasMinLength(string value, int minimalLength) {
     /* if (!isScalar(value)) {
             return false;
         } */
-    return  value.length >= minLength;
+    return  value.length >= minimalLength;
 }
 
-/**
-     * Checks whether the length of a string (in characters) is smaller or equal to a maximal length.
-     * Params:
-     * Json mycheck The string to test
-     * @param int mymax The maximal string length
-     */
-static bool hasMaxLength(string value, int maxLength) {
+// Checks whether the length of a string (in characters) is smaller or equal to a maximal length.
+static bool hasMaxLength(string value, int maximalLength) {
     /*  if (!isScalar(value)) {
             return false;
         } */
-    return  value.length <= maxLength;
+    return  value.length <= maximalLength;
 }
 
-/**
-     * Checks whether the length of a string (in bytes) is greater or equal to a minimal length.
-     * Params:
-     * Json mycheck The string to test
-     * @param int mymin The minimal string length (in bytes)
-     */
-static bool minLengthBytes(string mycheck, int mymin) {
+// Checks whether the length of a string (in bytes) is greater or equal to a minimal length.
+static bool minLengthBytes(string mycheck, int minimalLength) {
     /* if (!isScalar(mycheck)) {
             return false;
         } */
-    return  /* (to!string( */ mycheck.length >= mymin;
+    return  /* (to!string( */ mycheck.length >= minimalLength;
 }
 
-/**
-     * Checks whether the length of a string (in bytes) is smaller or equal to a maximal length.
-     * Params:
-     * Json mycheck The string to test
-     * @param int mymax The maximal string length
-     */
-static bool maxLengthBytes(Json mycheck, int mymax) {
+// Checks whether the length of a string (in bytes) is smaller or equal to a maximal length.
+static bool maxLengthBytes(Json mycheck, int maximalLengthmymax) {
     if (!isScalar(mycheck)) {
         return false;
     }
-    return  /* (string) */ mycheck.length <= mymax;
+    return  /* (string) */ mycheck.length <= maximalLength;
 }
 
 /**

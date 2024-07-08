@@ -590,13 +590,13 @@ abstract class DTestCase : DBaseTestCase {
     /**
      * Check the attributes as part of an assertTags() check.
      * Params:
-     * @param string[] aregex Full regexp from `assertHtml`
+     * @param string[] regex Full regexp from `assertHtml`
      */
     protected string _assertAttributes(
         Json[string] assertions,
         string mlTextToCheck,
         bool shouldFullDebug = false,
-        string[] aregex = ""
+        string[] regex = ""
     ) {
         auto asserts = assertions["attrs"];
         auto explains = assertions["explains"];
@@ -775,43 +775,26 @@ abstract class DTestCase : DBaseTestCase {
     }
     
     /**
-     * @param string aregex A regex to match against the warning message
+     * @param string regex A regex to match against the warning message
      * @param \Closure aCallable Callable which should trigger the warning
      */
-    void expectNoticeMessageMatches(string aregex, Closure aCallable) {
+    void expectNoticeMessageMatches(string regex, Closure aCallable) {
         this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_NOTICE);
     }
     
-    /**
-     * @param string aregex A regex to match against the deprecation message
-     * @param \Closure aCallable Callable which should trigger the warning
-     */
-    void expectDeprecationMessageMatches(string aregex, Closure aCallable) {
+    void expectDeprecationMessageMatches(string regex, Closure aCallable) {
         this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_DEPRECATED);
     }
     
-    /**
-     * @param string aregex A regex to match against the warning message
-     * @param \Closure aCallable Callable which should trigger the warning
-     */
-    void expectWarningMessageMatches(string aregex, Closure aCallable) {
+    void expectWarningMessageMatches(string regex, Closure aCallable) {
         this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_WARNING);
     }
     
-    /**
-     * @param string aregex A regex to match against the error message
-     * @param \Closure aCallable Callable which should trigger the warning
-     */
-    void expectErrorMessageMatches(string aregex, Closure aCallable) {
+    void expectErrorMessageMatches(string regex, Closure aCallable) {
         this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.ERROR | ERRORS.USER_ERROR);
     }
     
-    /**
-     * @param string aregex A regex to match against the warning message
-     * @param \Closure aCallable Callable which should trigger the warning
-     * @param int errorLevel The error level to listen to
-     */
-    protected void expectErrorHandlerMessageMatches(string aregex, Closure aCallable, int errorLevel) {
+    protected void expectErrorHandlerMessageMatches(string regex, Closure aCallable, int errorLevel) {
         set_error_handler(static auto (int errno, string aerrstr): never {
             throw new DException(errstr, errno);
         }, errorLevel);
@@ -823,5 +806,5 @@ abstract class DTestCase : DBaseTestCase {
         } finally {
             restore_error_handler();
         }
-    } */ 
+    } 
 }

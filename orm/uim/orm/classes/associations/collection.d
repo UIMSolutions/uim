@@ -201,9 +201,6 @@ class DAssociationCollection { // }: IteratorAggregate {
     /**
      * Cascade a delete across the various associations.
      * Cascade first across associations for which cascadeCallbacks is true.
-     *
-     * @param DORMDatasource\IORMEntity anEntity The entity to delete associations for.
-     * @param Json[string] options The options used in the delete operation.
      */
     bool cascadeRemove(IORMEntity ormEntity, Json[string] deleteOptions) {
         auto noCascade = null;
@@ -222,9 +219,8 @@ class DAssociationCollection { // }: IteratorAggregate {
     }
 
     /**
-     * Returns an associative array of association names out a mixed
-     * array. If true is passed, then it returns all association names
-     * in this collection.
+     * Returns an associative array of association names out a mixed array. 
+     * If true is passed, then it returns all association names in this collection.
      */
     Json[string] normalizeKeys(string[] keys) {
         if (keys == true) {

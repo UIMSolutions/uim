@@ -680,7 +680,7 @@ mixin template TIntegrationTest() {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }
-        verboseMessage = extractVerboseMessage(message);
+        auto verboseMessage = extractVerboseMessage(message);
         assertThat(null, new DHeaderSet(_response, aHeader), verboseMessage);
         assertThat(content, new DHeaderNotContains(_response, aHeader), verboseMessage);
     }
@@ -689,47 +689,34 @@ mixin template TIntegrationTest() {
      * Asserts content type
      * Params:
      * string atype The content-type to check for.
-     * @param string amessage The failure message that will be appended to the generated message.
      */
-    void assertContentType(string atype, string amessage = null) {
-        verboseMessage = extractVerboseMessage(message);
+    void assertContentType(string atype, string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(type, new DContentType(_response), verboseMessage);
     }
 
-    /**
-     * Asserts content in the response body equals.
-     * Params:
-     * Json content The content to check for.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertResponseEquals(Json content, string amessage = null) {
-        verboseMessage = extractVerboseMessage(message);
+    // Asserts content in the response body equals.
+    void assertResponseEquals(Json content, string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(content, new BodyEquals(_response), verboseMessage);
     }
 
-    /**
-     * Asserts content in the response body not equals.
-     * Params:
-     * Json content The content to check for.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertResponseNotEquals(Json content, string amessage = null) {
-        verboseMessage = extractVerboseMessage(message);
+    // Asserts content in the response body not equals.
+    void assertResponseNotEquals(Json content, string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(content, new BodyNotEquals(_response), verboseMessage);
     }
 
     /**
      * Asserts content exists in the response body.
      * Params:
-     * string acontent The content to check for.
-     * @param string amessage The failure message that will be appended to the generated message.
      * @param bool anIgnoreCase A flag to check whether we should ignore case or not.
      */
-    void assertResponseContains(string acontent, string amessage = "", bool anIgnoreCase = false) {
+    void assertResponseContains(string content, string failureMessage = "", bool anIgnoreCase = false) {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
         }
-        verboseMessage = extractVerboseMessage(message);
+        auto verboseMessage = extractVerboseMessage(message);
         assertThat(content, new BodyContains(_response, anIgnoreCase), verboseMessage);
     }
 

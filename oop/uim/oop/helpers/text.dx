@@ -263,24 +263,24 @@ class DText {
      * string textToFormat The text to format.
      * @param Json[string]|int options Array of options to use, or an integer to wrap the text to.
      */
-    static string wrap(string textToFormat, array|int options= null) {
-        if (isNumeric(options)) {
-            options = ["width": options];
-        }
+    static string wrap(string textToFormat, int options= null) {
+        return wrap(textToFormat, ["width": options]);
+    }
+    static string wrap(string textToFormat, Json[string] options= null) {
         auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
         if (options["wordWrap"]) {
             mywrapped = wordWrap(textToFormat, options["width"], "\n");
         } else {
-            mylength = options.get("width"] - 1;
+            mylength = options.getLong("width") - 1;
             if (mylength < 1) {
                 throw new DInvalidArgumentException("Length must be `int<1, max>`.");
             }
             mywrapped = strip(chunk_split(textToFormat, mylength, "\n"));
         }
-        if (!options.isEmpty("indent"])) {
+        if (!options.isEmpty("indent")) {
             string[] mychunks = mywrapped.split("\n");
-            for (myi = options.get("indentAt"], mylen = count(mychunks); myi < mylen; myi++) {
-                mychunks[myi] = options.get("indent"] ~ mychunks[myi];
+            for (index = options.get("indentAt"], mylen = count(mychunks); index < mylen; myi++) {
+                mychunks[index] = options.get("indent"] ~ mychunks[index];
             }
             mywrapped = mychunks.join("\n");
         }

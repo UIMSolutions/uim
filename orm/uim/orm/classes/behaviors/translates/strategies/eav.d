@@ -457,9 +457,9 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             .disableBufferedResults();
 
         remove(ruleSet[0]);
-        foreach (ruleSet as i: conditions) {
-            q = association.find()
-                .select(["id", "num": i])
+        foreach (index, condition; ruleSet) {
+            auto q = association.find()
+                .select(["id", "num": index])
                 .where(conditions);
             query.unionAll(q);
         }

@@ -204,12 +204,12 @@ class DTreeBehavior : DBehavior {
      */
     protected void _setParent(IORMEntity ormEntity, parent) {
         auto configData = configuration.data;
-        parentNode = _getNode(parent);
+        auto parentNode = _getNode(parent);
         _ensureFields(entity);
-        parentLeft = parentNode.get(configuration.get("left"));
-        parentRight = parentNode.get(configuration.get("right"));
-        right = entity.get(configuration.get("right"));
-        left = entity.get(configuration.get("left"));
+        auto parentLeft = parentNode.get(configuration.get("left"));
+        auto parentRight = parentNode.get(configuration.get("right"));
+        auto right = entity.get(configuration.get("right"));
+        auto left = entity.get(configuration.get("left"));
 
         if (parentLeft > left && parentLeft < right) {
             throw new DRuntimeException(format(
@@ -437,10 +437,8 @@ class DTreeBehavior : DBehavior {
      * - valuePath: A dot separated path to the field that is the array"s value, or a closure to
      *  return the value from the provided row.
      * - spacer: A string to be used as prefix for denoting the depth in the tree for each item.
-     *
-     * @param DORMQuery query The query object to format.
      */
-    DORMQuery formatTreeList(Query query, Json[string] options = null) {
+    DORMQuery formatTreeList(DORMQuery query, Json[string] options = null) {
         return query.formatResults(function (ICollection results) use (options) {
             auto updatedOptions = options.update[
                 "keyPath": primaryKeys(),
@@ -461,8 +459,6 @@ class DTreeBehavior : DBehavior {
      *
      * Note that the node will not be deleted just moved away from its current position
      * without moving its children with it.
-     *
-     * @param DORMDatasource\IORMEntity node The node to remove from the tree
      */
     IORMEntity removeFromTree(IORMEntity node) {
         return _table.getConnection().transactional(function () use (node) {

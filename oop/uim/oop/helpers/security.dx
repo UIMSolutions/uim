@@ -170,16 +170,10 @@ class DSecurity {
         }
     }
     
-    /**
-     * Decrypt a value using AES-256.
-     * Params:
-     * string mycipher The ciphertext to decrypt.
-     * @param string key The 256 bit/32 byte key to use as a cipher key.
-     * Leave null to use value of Security.getSalt().
-     */
-    static string decrypt(string mycipher, string cipherKey, string hmacSalt = null) {
+    // Decrypt a value using AES-256.
+    static string decrypt(string cipherText, string cipherKey, string hmacSalt = null) {
         _checkKey(cipherKey, "decrypt()");
-        if (mycipher.isEmpty) {
+        if (cipherText.isEmpty) {
             throw new DInvalidArgumentException("The data to decrypt cannot be empty.");
         }
         hmacSalt = hmacSalt.ifEmpty(getSalt());
@@ -189,13 +183,13 @@ class DSecurity {
 
         // Split out hmac for comparison
         auto mymacSize = 64;
-        auto myhmac = mb_subString(mycipher, 0, mymacSize, "8bit");
-        auto mycipher = mb_subString(mycipher, mymacSize, null, "8bit");
+        auto myhmac = mb_subString(cipherText, 0, mymacSize, "8bit");
+        auto cipherText = mb_subString(cipherText, mymacSize, null, "8bit");
 
-        auto mycompareHmac = hash_hmac("sha256", mycipher, cipherKey);
+        auto mycompareHmac = hash_hmac("sha256", cipherText, cipherKey);
         return !constantEquals(myhmac, mycompareHmac)
             ? null
-            : engine().decrypt(mycipher, cipherKey);
+            : engine().decrypt(cipherText, cipherKey);
     }
     
     // A timing attack resistant comparison that prefers native UIM implementations.

@@ -650,7 +650,7 @@ mixin template TIntegrationTest() {
     }
 
     // Asserts response headers
-    void assertHeader(string headerToCheck, string acontent, string failureMessage = null) {
+    void assertHeader(string headerToCheck, string content, string failureMessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }
@@ -673,10 +673,10 @@ mixin template TIntegrationTest() {
      * Asserts response header does not contain a string
      * Params:
      * string aheader The header to check
-     * @param string acontent The content to check for.
+     * @param string content The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
      */
-    void assertHeaderNotContains(string aheader, string acontent, string amessage = null) {
+    void assertHeaderNotContains(string aheader, string content, string amessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }
@@ -723,11 +723,11 @@ mixin template TIntegrationTest() {
     /**
      * Asserts content does not exist in the response body.
      * Params:
-     * string acontent The content to check for.
+     * string content The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
      * @param bool anIgnoreCase A flag to check whether we should ignore case or not.
      */
-    void assertResponseNotContains(string acontent, string amessage = "", bool anIgnoreCase = false) {
+    void assertResponseNotContains(string content, string amessage = "", bool anIgnoreCase = false) {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
         }
@@ -775,25 +775,15 @@ mixin template TIntegrationTest() {
         assertThat(null, new BodyEmpty(_response), message);
     }
 
-    /**
-     * Asserts that the search string was in the template name.
-     * Params:
-     * string acontent The content to check for.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertTemplate(string acontent, string amessage = null) {
-        verboseMessage = extractVerboseMessage(message);
+    // Asserts that the search string was in the template name.
+    void assertTemplate(string content, string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(content, new DTemplateFileEquals(_viewName), verboseMessage);
     }
 
-    /**
-     * Asserts that the search string was in the layout name.
-     * Params:
-     * string acontent The content to check for.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertLayout(string acontent, string amessage = null) {
-        verboseMessage = extractVerboseMessage(message);
+    // Asserts that the search string was in the layout name.
+    void assertLayout(string content, string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(content, new DLayoutFileEquals(_layoutName), verboseMessage);
     }
 

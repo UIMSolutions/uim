@@ -141,17 +141,11 @@ class DAssociationCollection { // }: IteratorAggregate {
             ? true : _saveAssociations(ormTable, ormEntity, associations, options, true);
     }
 
-    /**
-     * Helper method for saving an association"s data.
-     *
-     * @param DORMDORMTable aTable The table the save is currently operating on
-     * @param DORMDatasource\IORMEntity anEntity The entity to save
-     * @param Json[string] associations Array of associations to save.
-     */
+    // Helper method for saving an association"s data.
     protected bool _saveAssociations(
         DORMTable ormTable,
-        IORMEntity anEntity,
-        array associations,
+        IORMEntity ormEntity,
+        Json[string] associations,
         Json[string] options,
         bool isOwningSide
    ) {
@@ -227,11 +221,9 @@ class DAssociationCollection { // }: IteratorAggregate {
             keys = keys();
         }
 
-        if (keys.isEmpty) {
-            return [];
-        }
-
-        return _normalizeAssociations(keys);
+        return keys.isEmpty
+            ? []
+            : _normalizeAssociations(keys);
     }
 
     // Allow looping through the associations

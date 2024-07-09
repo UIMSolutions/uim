@@ -588,13 +588,11 @@ class DMarshaller {
      * Creates a new sub-marshaller and merges the associated data.
      * Params:
      * \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity>|null myoriginal The original entity
-     * @param \ORM\Association association The association to merge
      * @param Json aValue The array of data to hydrate. If not an array, this method will return null.
-     * @param Json[string] options List of options.
      */
         protected IORMEntity[] _mergeAssociation(
             IORMEntity | array | null myoriginal,
-            Association association,
+            DAssociation association,
             Json aValue,
             Json[string] options
         ) {

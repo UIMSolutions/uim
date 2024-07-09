@@ -269,7 +269,7 @@ class DSelectLoader {
             .getDefaultTypes();
         foreach (
             key; keys) {
-            if (defaults.hascorrectKey(
+            if (defaults.hasKey(
                     key)) {
                 types ~= defaults[key];
             }
@@ -455,18 +455,18 @@ class DSelectLoader {
             _foreignKeys :
             _bindingKeys;
 
-        auto someSourceKeys = null;
+        auto sourceKeys = null;
         foreach (key; keys) {
             f = fetchQuery.aliasField(key, this.sourceAlias);
-            someSourceKeys ~= key(f);
+            sourceKeys ~= key(f);
         }
 
         auto nestKey = options.get("nestKey"];
-        if (count(someSourceKeys) > 1) {
-            return _multiKeysInjector(resultMap, someSourceKeys, nestKey);
+        if (count(sourceKeys) > 1) {
+            return _multiKeysInjector(resultMap, sourceKeys, nestKey);
         }
 
-        auto sourceKey = someSourceKeys[0];
+        auto sourceKey = sourceKeys[0];
         return function (row) use (resultMap, sourceKey, nestKey) {
             if (row.hasKey(sourceKey) && resultMap.hasKey(row[sourceKey])) {
                 row[nestKey] = resultMap[row[sourceKey]];
@@ -480,19 +480,15 @@ class DSelectLoader {
      * Returns a callable to be used for each row in a query result set
      * for injecting the eager loaded rows when the matching needs to
      * be done with multiple foreign keys
-     *
-     * @param Json[string] resultMap A keyed arrays containing the target table
-     * someSourceKeys - An array with aliased keys to match
-     * @param string nestKey The key under which results should be nested
      */
     protected DClosure _multiKeysInjector(
-        Json[string] resultMap, string[] someSourceKeys, string nestKey) {
+        Json[string] resultMap, string[] sourceKeys, string nestKey) {
         // TODO 
-        /* return function (row) use (resultMap, someSourceKeys, nestKey) {
-            string[] values = someSourceKeys.map!(key => row[key]).array;
+        /* return function (row) use (resultMap, sourceKeys, nestKey) {
+            string[] values = sourceKeys.map!(key => row[key]).array;
 
             string key = values.join(";");
-            if (resultMap.hascorrectKey(key)) {
+            if (resultMap.hasKey(key)) {
                 row[nestKey] = resultMap.get(key);
             }
 

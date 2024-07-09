@@ -50,7 +50,7 @@ class DText {
     }
     
     /**
-     * Tokenizes a string using myseparator, ignoring any instance of myseparator that appears between
+     * Tokenizes a string using separator, ignoring any instance of separator that appears between
      * leftBound and myrightBound.
      */
     static string[] tokenize(string dataToTokenize, string separator = ",", string leftBound = "(", string rightBound = ")") {
@@ -81,7 +81,7 @@ class DText {
             if (mytmpOffset != -1) {
                 string mybuffer ~= dataToTokenize[myoffset..mytmpOffset - myoffset];
                 string mychar = mb_subString(dataToTokenize, mytmpOffset, 1);
-                if (!mydepth && mychar == myseparator) {
+                if (!mydepth && mychar == separator) {
                     results ~= mybuffer;
                     mybuffer = "";
                 } else {
@@ -297,13 +297,12 @@ class DText {
      * - `wordWrap` Only wrap on words breaks (spaces) Defaults to true.
      * - `indent` String to indent with. Defaults to null.
      * - `indentAt` 0 based index to start indenting at. Defaults to 0.
-     * Params:
      * @param Json[string]|int options Array of options to use, or an integer to wrap the text to.
      */
-    static string wrapBlock(string textToFormat, array|int options= null) {
-        if (isNumeric(options)) {
-            options = ["width": options];
-        }
+    static string wrapBlock(string textToFormat, int options) {
+        return wrapBlock(textToFormat, ["width": options])
+    }
+    static string wrapBlock(string textToFormat, Json[string]|int options= null) {
         auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
         auto mywrapped = wrap(textToFormat, options);
 
@@ -737,15 +736,14 @@ class DText {
     /**
      * Creates a comma separated list where the last two items are joined with "and", forming natural language.
      * Params:
-     * @param string myand The word used to join the last and second last items together with. Defaults to "and".
-     * @param string myseparator The separator used to join all the other items together. Defaults to ", ".
+     * @param string andWord The word used to join the last and second last items together with. Defaults to "and".
      */
-    static string toList(string[] listToJoin, string myand = null, string myseparator = ", ") {
-        string myand ??= __d("uim", "and");
-        if (count(listToJoin) > 1) {
-            return join(myseparator, array_slice(listToJoin, 0, -1)) ~ " " ~ myand ~ " " ~ array_pop(listToJoin);
-        }
-        return to!string(array_pop(listToJoin));
+    static string toList(string[] listToJoin, string andWord = null, string separator = ", ") {
+        string andWord ??= __d("uim", "and");
+        
+        return count(listToJoin) > 1
+            ? join(separator, array_slice(listToJoin, 0, -1)) ~ " " ~ andWord ~ " " ~ array_pop(listToJoin)
+            : to!string(array_pop(listToJoin));
     }
     
     // Check if the string contain multibyte characters
@@ -817,33 +815,28 @@ class DText {
         return myascii;
     }
     
-    /**
-     * Converts filesize from human readable string to bytes
-     * Params:
-     * string mysize Size in human readable string like "5MB", "5M", "500B", "50kb" etc.
-     * @param Json mydefault Value to be returned when invalid size was used, for example "Unknown type"
-     */
-    static Json parseFileSize(string mysize, Json defaultValue = false) {
-        if (ctype_digit(mysize)) {
-            return (int)mysize;
+    // Converts filesize from human readable string to bytes
+    static Json parseFileSize(string sizeText, Json defaultValue = false) {
+        if (ctype_digit(sizeText)) {
+            return (int)sizeText;
         }
 
-        string mysize = mysize.upper;
+        string sizeText = sizeText.upper;
         myl = -2;
-        myi = array_search(subString(mysize, -2), ["KB", "MB", "GB", "TB", "PB"], true);
+        myi = array_search(subString(sizeText, -2), ["KB", "MB", "GB", "TB", "PB"], true);
         if (myi == false) {
             myl = -1;
-            myi = array_search(subString(mysize, -1), ["K", "M", "G", "T", "P"], true);
+            myi = array_search(subString(sizeText, -1), ["K", "M", "G", "T", "P"], true);
         }
         if (myi == true) {
-            mysize = (float)subString(mysize, 0, myl);
+            sizeText = (float)subString(sizeText, 0, myl);
 
-            return (int)(mysize * pow(1024, myi + 1));
+            return (int)(sizeText * pow(1024, myi + 1));
         }
-        if (mysize.endsWith("B") && ctype_digit(subString(mysize, 0, -1))) {
-            mysize = subString(mysize, 0, -1);
+        if (sizeText.endsWith("B") && ctype_digit(subString(sizeText, 0, -1))) {
+            sizeText = subString(sizeText, 0, -1);
 
-            return (int)mysize;
+            return (int)sizeText;
         }
         if (defaultValue == true) {
             return defaultValue;

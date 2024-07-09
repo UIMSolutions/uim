@@ -665,22 +665,16 @@ class DAssociation : IAssociation {
     /**
      * Triggers beforeFind on the target table for the query this association is
      * attaching to
-     *
-     * @param DORMQuery query the query this association is attaching itself to
      */
-    protected void _dispatchBeforeFind(Query query) {
+    protected void _dispatchBeforeFind(DORMQuery query) {
         query.triggerBeforeFind();
     }
 
     /**
      * Helper function used to conditionally append fields to the select clause of
      * a query from the fields found in another query object.
-     *
-     * @param DORMQuery query the query that will get the fields appended to
-     * @param DORMQuery surrogate the query having the fields to be copied from
-     * @param Json[string] options options passed to the method `attachTo`
      */
-    protected void _appendFields(Query query, Query surrogate, Json[string] options = null) {
+    protected void _appendFields(DORMQuery query, DORMQuery surrogate, Json[string] options = null) {
         if (query.getEagerLoader().isAutoFieldsEnabled() == false) {
             return;
         }
@@ -708,7 +702,6 @@ class DAssociation : IAssociation {
      * @param DORMQuery query the query that will get the formatter applied to
      * @param DORMQuery surrogate the query having formatters for the associated
      * target table.
-     * @param Json[string] options options passed to the method `attachTo`
      */
     protected void _formatAssociationResults(Query query, Query surrogate, Json[string] options = null) {
         auto formatters = surrogate.getResultFormatters();

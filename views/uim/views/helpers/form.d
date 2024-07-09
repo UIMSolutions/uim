@@ -1692,10 +1692,9 @@ class DFormHelper : DHelper {
         if (
             attributes["secure"] &&
             options.isEmpty &&
-            attributes.isEmpty("empty")) &&
-            attributes.isEmpty("multiple")
+            attributes.isAllEmpty("empty", "multiple")
        ) {
-            attributes["secure"] = false;
+            attributes.set("secure", false);
         }
         attributes = _initInputField(fieldName, attributes);
         attributes["options"] = options;

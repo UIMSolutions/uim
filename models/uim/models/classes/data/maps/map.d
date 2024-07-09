@@ -37,7 +37,7 @@ class DMapData : DData {
   void opIndexAssign(UUID value, string key) {
     // TODO
     /*
-    if (containscorrectKey(key)) {
+    if (hasKey(key)) {
       _items[key].set(value.toString);
     } else {
       _items[key] = new DUUIDData(value);
@@ -47,7 +47,7 @@ class DMapData : DData {
   void opIndexAssign(IData[] values, string key) {
     // TODO
     /*
-    if (containscorrectKey(key)) {
+    if (hasKey(key)) {
       _items[key] = new DArrayData(values);
     } else {
       _items[key] = new DArrayData(values);

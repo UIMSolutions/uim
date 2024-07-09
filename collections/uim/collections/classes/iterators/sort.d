@@ -51,13 +51,13 @@ class DSortIterator : DCollection {
       if (isDateTime && sortType == SORT_NUMERIC) {
         callbackValue = callbackValue.format("U");
       }
-      myResults[kv.key] = callbackValue;
+      myResults.set(kv.key, callbackValue);
     });
     sortDirection == SORT_DESC
       ? arsort(myResults, sortType) : asort(myResults, sortType);
 
     myResults.keys
-      .each!(key => myResults[key] = someItems[key]);
+      .each!(key => myResults.set(key, someItems.get(key));
 
   super(myResults);
 }

@@ -155,7 +155,7 @@ class DCache : UIMObject, ICache {
         /*         if (!configuration.isEmpty("groups")) {
             (cast(DArrayData)configuration.get("groups")).values.each!((groupName) {
                 _groups[groupName] ~= configName;
-                _groups[groupName] = array_unique(_groups[groupName]);
+                _groups.set(groupName, array_unique(_groups[groupName]));
                 _groups[groupName].sort;
             });
         } */

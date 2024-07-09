@@ -6,7 +6,7 @@ import uim.oop;
 template ValueMapWrapper() {
   bool containsValue(string key) {
     if (this.values) { // has values
-      return _values.containscorrectKey(key);
+      return _values.hasKey(key);
     }
     return false;
   }

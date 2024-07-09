@@ -16,7 +16,7 @@ class DStringDataMap : DData, IMap {
   // Todo
   /*
   void opIndexAssign(DData value, string key) {
-    if (containscorrectKey(key)) {
+    if (hasKey(key)) {
       _items[key] = value; 
     } else {
       _items[key] = value; }
@@ -25,7 +25,7 @@ class DStringDataMap : DData, IMap {
   }
 
   void opIndexAssign(bool value, string key) {
-    if (containscorrectKey(key)) {
+    if (hasKey(key)) {
       _items[key].set(value ? "true" : "false"); 
     } else {
     _items[key] = new DBooleanData(value); }
@@ -33,7 +33,7 @@ class DStringDataMap : DData, IMap {
   }
 
   void opIndexAssign(int value, string key) {
-    if (containscorrectKey(key)) {
+    if (hasKey(key)) {
       _items[key].set(to!string(value)); 
     } else {
     _items[key] = new DIntegerData(value); }
@@ -41,15 +41,15 @@ class DStringDataMap : DData, IMap {
   }
 
   void opIndexAssign(double value, string key) {
-    if (containscorrectKey(key)) {
-      _items[key].set(to!string(value)); 
+    if (hasKey(key)) {
+      _items.set(key, to!string(value)); 
     } else {
-    _items[key] = new DDoubleData(value); }
+    _items.set(key, new DDoubleData(value)); }
     
   }
 
   void opIndexAssign(string value, string key) {    
-     if (containscorrectKey(key)) {
+     if (hasKey(key)) {
       _items[key].set(value); 
     } else {
      _items[key] = new DStringData(value); }
@@ -57,7 +57,7 @@ class DStringDataMap : DData, IMap {
   }
 
   void opIndexAssign(UUID value, string key) {
-    if (containscorrectKey(key)) {
+    if (hasKey(key)) {
       _items[key].set(value.toString); 
     } else {
       _items[key] = new DUUIDData(value); }
@@ -65,7 +65,7 @@ class DStringDataMap : DData, IMap {
   }
 
   void opIndexAssign(IData[] values, string key) {
-    _items[key] = containscorrectKey(key)
+    _items[key] = hasKey(key)
       ? new DArrayData(values)
       : new DArrayData(values);
 

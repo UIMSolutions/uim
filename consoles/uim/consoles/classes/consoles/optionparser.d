@@ -566,9 +566,9 @@ class DConsoleOptionParser {
         option.validChoice(aValue);
         
         if (option.acceptsMultiple()) {
-            params[nameToParse] ~= aValue;
+            params.append(nameToParse, aValue);
         } else {
-            params[nameToParse] = aValue;
+            params.set(nameToParse, aValue);
         }
         return params;
     }

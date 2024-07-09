@@ -669,20 +669,14 @@ mixin template TIntegrationTest() {
         assertThat(content, new DHeaderContains(_response, headerToCheck), verboseMessage);
     }
 
-    /**
-     * Asserts response header does not contain a string
-     * Params:
-     * string aheader The header to check
-     * @param string content The content to check for.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertHeaderNotContains(string aheader, string content, string amessage = null) {
+    //  Asserts response header does not contain a string
+    void assertHeaderNotContains(string header, string content, string failureMessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }
-        auto verboseMessage = extractVerboseMessage(message);
-        assertThat(null, new DHeaderSet(_response, aHeader), verboseMessage);
-        assertThat(content, new DHeaderNotContains(_response, aHeader), verboseMessage);
+        auto verboseMessage = extractVerboseMessage(failureMessage);
+        assertThat(null, new DHeaderSet(_response, header), verboseMessage);
+        assertThat(content, new DHeaderNotContains(_response, header), verboseMessage);
     }
 
     /**

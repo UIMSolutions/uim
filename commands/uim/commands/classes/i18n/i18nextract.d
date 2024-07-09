@@ -199,16 +199,16 @@ class DI18nExtractCommand : DCommand {
         auto context = contextData.get("msgctxt", "");
 
         if (isEmpty(_translations[domainName][messageId][context])) {
-           _translations[domainName][messageId][context] = [
+           _translations.set([domainName, messageId, context], [
                 "msgid_plural": false.toJson,
-            ];
+            ]);
         }
         if (contextData.hasKey("msgid_plural")) {
-           _translations[domainName][messageId][context]["msgid_plural"] = contextData["msgid_plural"];
+           _translations.set([domainName, messageId, context, "msgid_plural"], contextData["msgid_plural"]);
         }
         if (contextData.hasKey("file")) {
-            auto line = contextData.hetInt("line", 0);
-           _translations[domainName][messageId][context]["references"][contextData["file"]] ~= line;
+            auto line = contextData.getLong("line", 0);
+           _translations.append([domainName, messageId, context, "references", contextData["file"]], line);
         }
     }
     

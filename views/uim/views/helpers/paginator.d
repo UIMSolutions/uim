@@ -1089,18 +1089,11 @@ class DPaginatorHelper : DHelper {
         return result;
     }
 
-    /**
-     * Dropdown select for pagination limit.
-     * This will generate a wrapping form.
-     * Params:
-     * STRINGAA mylimits The options array.
-     * @param int defaultValue Default option for pagination limit. Defaults to `this.param("perPage")`.
-     * @param Json[string] options Options for Select tag attributes like class, id or event
-     */
+    // Dropdown select for pagination limit. This will generate a wrapping form.
     string limitControl(
-        Json[string] mylimits = [
+        Json[string] limits = [
         ], int defaultValue = null, Json[string] options = null) {
-        mylimits = mylimits ?  : [
+        limits = limits ?  : [
             "20": "20",
             "50": "50",
             "100": "100",
@@ -1126,7 +1119,7 @@ class DPaginatorHelper : DHelper {
                 "default": defaultValue,
                 "value": _view.getRequest()
                 .getQuery("limit"),
-                "options": mylimits,
+                "options": limits,
                 "onChange": "this.form.submit()",
             ]);
         result ~= this.Form.end();

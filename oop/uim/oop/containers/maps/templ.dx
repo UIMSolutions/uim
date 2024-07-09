@@ -34,8 +34,8 @@ class DMapTempl(K, V): DMap {
 	// has is Shortcaut for hasKey
 	bool has(K key) { return (key in _items) ? true : false; }
 
-	bool hasAnyKeys(K[] keys...) { return keys.any!(key => hascorrectKey(key)) }
-	bool hasAllKeys(K[] keys...) { return keys.all!(key => hascorrectKey(key)) }
+	bool hasAnyKeys(K[] keys...) { return keys.any!(key => hasKey(key)) }
+	bool hasAllKeys(K[] keys...) { return keys.all!(key => hasKey(key)) }
 	bool hasKey(K key) { return (key in _items) ? true : false; }
 
 	bool hasAnyValues(V[] values...) { return values.any!(value => hasValue(value)) }

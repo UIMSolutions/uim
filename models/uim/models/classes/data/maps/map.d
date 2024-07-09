@@ -62,7 +62,7 @@ class DMapData : DData {
     // TODO
     /*
     return checkData.byKeyValue
-      .all!(kv => hascorrectKey(key) && data(kv.key).isEqual(kv.value)); * /
+      .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value)); * /
   } */
 
   /*   override bool isEqual(IData checkData) {
@@ -72,7 +72,7 @@ class DMapData : DData {
   /*   override bool isEqual(Json checkValue) {
     if (checkValue.isObject) {
       return checkValue.byKeyValue
-        .all!(kv => hascorrectKey(key) && data(kv.key).isEqual(kv.value));
+        .all!(kv => hasKey(key) && data(kv.key).isEqual(kv.value));
     }
     return false;
   }

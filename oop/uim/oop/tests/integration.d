@@ -831,15 +831,9 @@ mixin template TIntegrationTest() {
         assertThat(somePath, this.logicalNot(new DSessionHasKey(somePath)), verboseMessage);
     }
 
-    /**
-     * Asserts a flash message was set
-     * Params:
-     * string aexpected Expected message
-     * @param string aKey Flash key
-     * @param string amessage Assertion failure message
-     */
-    void assertFlashMessage(string aexpected, string flashKey = "flash", string amessage = null) {
-        verboseMessage = extractVerboseMessage(message);
+    // Asserts a flash message was set
+    void assertFlashMessage(string aexpected, string flashKey = "flash", string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(expected, new DFlashParamEquals(_requestSession, flashKey, "message"), verboseMessage);
     }
 
@@ -848,11 +842,9 @@ mixin template TIntegrationTest() {
      * Params:
      * int at Flash index
      * @param string aexpected Expected message
-     * @param string flashKey Flash key
-     * @param string amessage Assertion failure message
      */
-    void assertFlashMessageAt(int at, string aexpected, string flashKey = "flash", string amessage = "") {
-        verboseMessage = extractVerboseMessage(message);
+    void assertFlashMessageAt(int at, string aexpected, string flashKey = "flash", string amefailureMessagessage = "") {
+        verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(
             expected,
             new DFlashParamEquals(_requestSession, flashKey, "message", at),

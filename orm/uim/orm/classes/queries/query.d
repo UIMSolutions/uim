@@ -529,11 +529,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Please note that the query passed to the closure will only accept calling
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
-     *
-     * @param string assoc The association to join with
-     * @param callable|null builder a function that will receive a pre-made query object
-     * that can be used to add custom conditions or selecting some fields
-     */
+    */
     void leftJoinWith(string associationName, callable builder = null) {
         auto result = getEagerLoader()
             .setMatching(associationName, builder, [

@@ -602,7 +602,7 @@ class DPaginatorHelper : DHelper {
             "currentPage": 1
         ];
         if (
-            params["pageCount"] <= 1) {
+            params.getLong("pageCount") <= 1) {
             return null;
         }
         mytemplater = this.templater();
@@ -619,7 +619,7 @@ class DPaginatorHelper : DHelper {
             (
                 updatedoptions["templates"]);
         }
-        if (updatedoptions["modulus"] == true && params["pageCount"] > updatedOptions["modulus"]) {
+        if (updatedoptions["modulus"] == true && params.getLong("pageCount") > updatedOptions["modulus"]) {
             result = _modulusNumbers(
                 mytemplater, params, options);
         } else {
@@ -643,7 +643,7 @@ class DPaginatorHelper : DHelper {
             options["modulus"] / 2);
         myend = max(1 + options["modulus"], params["currentPage"] + myhalf);
         mystart = min(
-            params["pageCount"] - options["modulus"],
+            params.getLong("pageCount") - options["modulus"],
             params["currentPage"] - myhalf - options["modulus"] % 2
         );
         if (
@@ -659,12 +659,12 @@ class DPaginatorHelper : DHelper {
             mylast = isInteger(
                 options["last"]) ? options["last"] : 1;
             if (
-                myend >= params["pageCount"] - mylast - 1) {
-                myend = params["pageCount"];
+                myend >= params.getLong("pageCount") - mylast - 1) {
+                myend = params.getLong("pageCount");
             }
         }
         myend = (int) min(
-            params["pageCount"], myend);
+            params.getLong("pageCount"), myend);
         mystart = (int) max(1, mystart);
 
         return [
@@ -691,7 +691,7 @@ class DPaginatorHelper : DHelper {
     protected string _modulusNumbers(
         DStringContents mytemplater, Json[string] params, Json[string] options = null) {
         string result = "";
-        myellipsis = mytemplater.format(
+        ellipsis = mytemplater.format(
             "ellipsis", [
             ]);
         [
@@ -699,7 +699,7 @@ class DPaginatorHelper : DHelper {
             myend
         ] = _getNumbersStartAndEnd(
             params, options);
-        result ~= _firstNumber(myellipsis, params, mystart, options);
+        result ~= _firstNumber(ellipsis, params, mystart, options);
         result ~= options["before"];
 
         for (
@@ -743,7 +743,7 @@ class DPaginatorHelper : DHelper {
                 ]);
         }
         result ~= options["after"];
-        result ~= _lastNumber(myellipsis, params, myend, options);
+        result ~= _lastNumber(ellipsis, params, myend, options);
 
         return result;
     }
@@ -751,12 +751,12 @@ class DPaginatorHelper : DHelper {
     /**
      * Generates the first number for the paginator numbers() method.
      * Params:
-     * string myellipsis Ellipsis character.
+     * string ellipsis Ellipsis character.
      * @param Json[string] params Params from the numbers() method.
      * @param int mystart Start number.
          */
     protected string _firstNumber(
-        string myellipsis, Json[string] params, int mystart, Json[string] options = null) {
+        string ellipsis, Json[string] params, int mystart, Json[string] options = null) {
         string result = "";
         myfirst = isInteger(
             options["first"]) ? options["first"] : 0;
@@ -766,7 +766,7 @@ class DPaginatorHelper : DHelper {
                 myoffset, options);
             if (
                 myfirst < mystart - 1) {
-                result ~= myellipsis;
+                result ~= ellipsis;
             }
         }
         return result;
@@ -775,20 +775,19 @@ class DPaginatorHelper : DHelper {
     /**
      * Generates the last number for the paginator numbers() method.
      * Params:
-     * string myellipsis Ellipsis character.
+     * string ellipsis Ellipsis character.
      * @param Json[string] params Params from the numbers() method.
      * @param int myend End number.
      */
     protected string _lastNumber(
-        string myellipsis, Json[string] params, int myend, Json[string] options = null) {
+        string ellipsis, Json[string] params, int myend, Json[string] options = null) {
         string result = "";
-        mylast = isInteger(
-            options["last"]) ? options["last"] : 0;
-        if (options["last"] && myend < params["pageCount"]) {
-            myoffset = params["pageCount"] < myend + mylast ? params["pageCount"] - myend
+        long mylast = options.getLong("last", 0);
+        if (options["last"] && myend < params.getLong("pageCount")) {
+            myoffset = params.getLong("pageCount") < myend + mylast ? params.getLong("pageCount") - myend
                 : options["last"];
-            if (myoffset <= options["last"] && params["pageCount"] - myend > mylast) {
-                result ~= myellipsis;
+            if (myoffset <= options["last"] && params.getLong("pageCount") - myend > mylast) {
+                result ~= ellipsis;
             }
             result ~= this.last(myoffset, options);
         }
@@ -807,7 +806,7 @@ class DPaginatorHelper : DHelper {
         result ~= options.getString(
             "before");
 
-        for (myi = 1; myi <= params["pageCount"]; myi++) {
+        for (myi = 1; myi <= params.getLong("pageCount"); myi++) {
             if (
                 myi == params["currentPage"]) {
                 result ~= mytemplater

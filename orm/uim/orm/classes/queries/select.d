@@ -288,15 +288,15 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * \Closure|null mymapper The mapper function
      * @param \Closure|null myreducer The reducing function
-     * @param bool myoverwrite Set to true to overwrite existing map + reduce functions.
+     * @param bool shouldOverwrite Set to true to overwrite existing map + reduce functions.
      */
-    void mapReduce(Closure mymapper = null, Closure myreducer = null, bool myoverwrite = false) {
-        if (myoverwrite) {
+    void mapReduce(Closure mymapper = null, Closure myreducer = null, bool shouldOverwrite = false) {
+        if (shouldOverwrite) {
            _mapReduce = null;
         }
         if (mymapper.isNull) {
-            if (!myoverwrite) {
-                throw new DInvalidArgumentException("mymapper can be null only when myoverwrite is true.");
+            if (!shouldOverwrite) {
+                throw new DInvalidArgumentException("mymapper can be null only when shouldOverwrite is true.");
             }
             return;
         }
@@ -617,11 +617,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\/* Closure */ string[] fieldNames Fields
      * to be added to the list.
-     * @param bool myoverwrite whether to reset fields with passed list or not
+     * @param bool shouldOverwrite whether to reset fields with passed list or not
      */
     auto select(
         IExpression|Table|Association|/* Closure */ string[] fieldNames = [],
-        bool myoverwrite = false
+        bool shouldOverwrite = false
    ) {
         if (cast(DAssociation)fieldNames) {
             fieldNames = fieldNames.getTarget();
@@ -633,7 +633,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
                 fieldNames = fieldNames.getSchema().columns();
             }
         }
-        return super.select(fieldNames, myoverwrite);
+        return super.select(fieldNames, shouldOverwrite);
     }
     
     /**
@@ -663,9 +663,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Params:
      * \ORM\Table|\ORM\Association mytable The table to use to get an array of columns
      * @param string[] myexcludedFields The un-aliased column names you do not want selected from mytable
-     * @param bool myoverwrite Whether to reset/remove previous selected fields
      */
-    auto selectAllExcept(Table|Association mytable, Json[string] myexcludedFields, bool myoverwrite = false) {
+    auto selectAllExcept(Table|Association mytable, Json[string] myexcludedFields, bool shouldOverwrite = false) {
         if (cast(DAssociation)mytable) {
             mytable = mytable.getTarget();
         }
@@ -673,7 +672,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         if (this.aliasingEnabled) {
             fieldNames = this.aliasFields(fieldNames);
         }
-        return _select(fieldNames, myoverwrite);
+        return _select(fieldNames, shouldOverwrite);
     }
     
     /**

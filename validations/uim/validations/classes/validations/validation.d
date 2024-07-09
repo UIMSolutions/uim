@@ -1174,14 +1174,13 @@ static bool imageSize(Json fileData, Json[string] options = null) {
      * Validates the image width.
      * Params:
      * Json myfile The uploaded file data from D.
-     * @param string myoperator Comparison operator.
      * @param int mywidth Min or max width.
      */
-static bool imageWidth(Json myfile, string myoperator, int mywidth) {
+static bool imageWidth(Json myfile, string comparisonOperator, int minmaxwidth) {
     /* return imageSize(myfile, [
             "width": [
-                myoperator,
-                mywidth,
+                comparisonoperator,
+                minmaxwidth,
             ],
         ]); */
     return false;
@@ -1191,13 +1190,13 @@ static bool imageWidth(Json myfile, string myoperator, int mywidth) {
      * Validates the image height.
      * Params:
      * Json myfile The uploaded file data from D.
-     * @param string myoperator Comparison operator.
+     * @param string comparisonoperator Comparison operator.
      * @param int myheight Min or max height.
      */
-static bool imageHeight(Json myfile, string myoperator, int myheight) {
+static bool imageHeight(Json myfile, string comparisonoperator, int myheight) {
     /* return imageSize(myfile, [
             "height": [
-                myoperator,
+                comparisonoperator,
                 myheight,
             ],
         ]); */

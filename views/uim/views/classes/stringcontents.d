@@ -268,7 +268,7 @@ class DStringContents {
         }
 
         string key = attributeKey; 
-        bool isMinimized = _compactAttributes.hascorrectKey(key);
+        bool isMinimized = _compactAttributes.hasKey(key);
         if (!matchFirst(key, r"/\A(\w|[.-])+\z/")) {
             key = htmlAttributeEscape(key);
         }

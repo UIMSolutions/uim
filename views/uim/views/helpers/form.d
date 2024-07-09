@@ -541,7 +541,7 @@ class DFormHelper : DHelper {
         if (text.isArray) {
             mytmp = null;
             foreach (key, mye; myerror) {
-                if (text.hascorrectKey(key)) {
+                if (text.hasKey(key)) {
                     mytmp ~= text[key];
                 } elseif (mytextm.hasKey(ye)) {
                     mytmp ~= text[mye];
@@ -783,9 +783,6 @@ class DFormHelper : DHelper {
      * - `labelOptions` - Either `false` to disable label around nestedWidgets e.g. radio, multicheckbox or an array
      * of attributes for the label tag. `selected` will be added to any classes e.g. `class: "myclass"` where
      * widget is checked
-     * Params:
-     * string fieldName This should be "modelname.fieldname"
-     * @param Json[string] options Each type of input takes different options.
      */
     string control(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.update[

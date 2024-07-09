@@ -1290,10 +1290,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Checks if the caller would have executed a commit on a transaction.
      * Params:
      * bool myatomic True if an atomic transaction was used.
-     * @param bool myprimary True if a primary was used.
+     * @param bool isPrimary True if a primary was used.
      */
-    protected bool _transactionCommitted(bool myatomic, bool myprimary) {
-        return !getConnection().inTransaction() && (myatomic || myprimary);
+    protected bool _transactionCommitted(bool myatomic, bool isPrimary) {
+        return !getConnection().inTransaction() && (myatomic || isPrimary);
     }
     
     /**
@@ -1704,7 +1704,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (options["atomic"] && !getConnection().inTransaction()) {
             throw new DRolledbackTransactionException(["table": class]);
         }
-        if (!options.hasKey("atomic"] && !options.hasKey("_primary"]) {
+        if (!options.hasKey("atomic") && !options.hasKey("_primary") {
             entityToSave.clean();
             entityToSave.setNew(false);
             entityToSave.setSource(this.registryKey());
@@ -1732,15 +1732,15 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         primaryKeys = array_combine(primaryKeys, myid);
         primaryKeys = array_intersectinternalKey(mydata, primaryKeys) + primaryKeys;
 
-        myfilteredKeys = array_filter(primaryKeys, auto (myv) {
-            return myv !is null;
+        myfilteredKeys = array_filter(primaryKeys, auto (value) {
+            return value !is null;
         });
         mydata += myfilteredKeys;
 
         if (count(primaryKeys) > 1) {
             myschema = getSchema();
-            foreach (myKey, myv; myprimary) {
-                if (!mydata.hasKey(myKey) && myschema.getColumn(myKey).isEmpty("autoIncrement")) {
+            foreach (key, value; myprimary) {
+                if (!mydata.hasKey(key) && myschema.getColumn(key).isEmpty("autoIncrement")) {
                     auto message = "Cannot insert row, some of the primary key values are missing. ";
                     message ~= 
                         "Got (%s), expecting (%s)"
@@ -1765,7 +1765,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             myentity.set(myfilteredKeys, ["guard": false.toJson]);
             myschema = getSchema();
             mydriver = getConnection().getDriver();
-            foreach (aKey: myv; myprimary) {
+            foreach (aKey: value; myprimary) {
                 if (!mydata.hasKey(aKey)) {
                     myid = mystatement.lastInsertId(getTable(), aKey);
                     mytype = myschema.getColumnType(aKey);
@@ -1842,11 +1842,11 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * error.
      */
     IORMEntity[] saveMany(
-        IORMEntity[] myentities,
+        IORMEntity[] entities,
         Json[string] options = null
    ) {
         try {
-            return _saveMany(myentities, options);
+            return _saveMany(entities, options);
         } catch (PersistenceFailedException myexception) {
             return false;
         }
@@ -1859,19 +1859,19 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * any one of the records fails to save due to failed validation or database
      * error.
      * Params:
-     * iterable<\UIM\Datasource\IORMEntity> myentities Entities to save.
+     * iterable<\UIM\Datasource\IORMEntity> entities Entities to save.
      * @param Json[string] options Options used when calling Table.save() for each entity.
      */
-    iterable<\UIM\Datasource\IORMEntity> saveManyOrFail(Json[string] myentities, Json[string] options = null) {
-        return _saveMany(myentities, options);
+    iterable<\UIM\Datasource\IORMEntity> saveManyOrFail(Json[string] entities, Json[string] options = null) {
+        return _saveMany(entities, options);
     }
     
     /**
-     * @param iterable<\UIM\Datasource\IORMEntity> myentities Entities to save.
+     * @param iterable<\UIM\Datasource\IORMEntity> entities Entities to save.
      * @param Json[string] options Options used when calling Table.save() for each entity.
      */
     protected IORMEntity[] _saveMany(
-        range myentities,
+        range entities,
         Json[string] options = null
    ): range {
         options = new Json[string](
@@ -1884,8 +1884,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         options["_cleanOnSuccess"] = false;
 
         bool[] myisNew;
-        mycleanupOnFailure = void (myentities) use (&myisNew) {
-            foreach (myentities as aKey: myentity) {
+        mycleanupOnFailure = void (entities) use (&myisNew) {
+            foreach (entities as aKey: myentity) {
                 if (isSet(myisNew[aKey]) && myisNew[aKey]) {
                     myentity.remove(this.primaryKeys());
                     myentity.setNew(true);
@@ -1896,10 +1896,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         myfailed = null;
         try {
             getConnection()
-                .transactional(function () use (myentities, options, &myisNew, &myfailed) {
+                .transactional(function () use (entities, options, &myisNew, &myfailed) {
                     // Cache array cast since options are the same for each entity
                     options = (array)options;
-                    foreach (myentities as aKey: myentity) {
+                    foreach (entities as aKey: myentity) {
                         myisNew[aKey] = myentity.isNew();
                         if (this.save(myentity, options) == false) {
                             myfailed = myentity;
@@ -1909,12 +1909,12 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                     }
                 });
         } catch (Exception mye) {
-            mycleanupOnFailure(myentities);
+            mycleanupOnFailure(entities);
 
             throw mye;
         }
         if (myfailed !is null) {
-            mycleanupOnFailure(myentities);
+            mycleanupOnFailure(entities);
 
             throw new DPersistenceFailedException(myfailed, ["saveMany"]);
         }
@@ -1934,14 +1934,14 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         };
 
         if (_transactionCommitted(options["atomic"], options["_primary"])) {
-            foreach (myentities as myentity) {
+            foreach (entities as myentity) {
                 dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
                 if (options["atomic"] || options["_primary"]) {
                     mycleanupOnSuccess(myentity);
                 }
             }
         }
-        return myentities;
+        return entities;
     }
     
     /**
@@ -2000,14 +2000,14 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * any one of the records fails to delete due to failed validation or database
      * error.
      * Params:
-     * iterable<\UIM\Datasource\IORMEntity> myentities Entities to delete.
+     * iterable<\UIM\Datasource\IORMEntity> entities Entities to delete.
      * @param Json[string] options Options used when calling Table.save() for each entity.
      */
-    IORMEntity[] deleteMany(Json[string] myentities, Json[string] options = null) {
-        auto myfailed = _deleteMany(myentities, options);
+    IORMEntity[] deleteMany(Json[string] entities, Json[string] options = null) {
+        auto myfailed = _deleteMany(entities, options);
         return myfailed !is null
             ? false
-            : myentities;
+            : entities;
     }
     
     /**
@@ -2017,31 +2017,27 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * any one of the records fails to delete due to failed validation or database
      * error.
      * Params:
-     * iterable<\UIM\Datasource\IORMEntity> myentities Entities to delete.
+     * iterable<\UIM\Datasource\IORMEntity> entities Entities to delete.
      * @param Json[string] options Options used when calling Table.save() for each entity.
      */
-    iterable<\UIM\Datasource\IORMEntity> deleteManyOrFail(Json[string] myentities, Json[string] options = null) {
-        auto myfailed = _deleteMany(myentities, options);
+    iterable<\UIM\Datasource\IORMEntity> deleteManyOrFail(Json[string] entities, Json[string] options = null) {
+        auto myfailed = _deleteMany(entities, options);
 
         if (myfailed !is null) {
             throw new DPersistenceFailedException(myfailed, ["deleteMany"]);
         }
-        return myentities;
+        return entities;
     }
     
-    /**
-     * @param iterable<\UIM\Datasource\IORMEntity> myentities Entities to delete.
-     * @param Json[string] options Options used.
-     */
-    protected IORMEntity _deleteMany(Json[string] myentities, Json[string] options = null) {
+    protected IORMEntity _deleteMany(Json[string] entities, Json[string] options = null) {
         options = new Json[string](options ~ [
                 "atomic": true.toJson,
                 "checkRules": true.toJson,
                 "_primary": true.toJson,
             ]);
 
-        myfailed = _executeTransaction(function () use (myentities, options) {
-            foreach (myentities as myentity) {
+        myfailed = _executeTransaction(function () use (entities, options) {
+            foreach (entities as myentity) {
                 if (!_processremove(myentity, options)) {
                     return myentity;
                 }
@@ -2050,7 +2046,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         }, options["atomic"]);
 
         if (myfailed.isNull && _transactionCommitted(options["atomic"], options["_primary"])) {
-            myentities.each!(entity => 
+            entities.each!(entity => 
                 dispatchEvent("Model.afterDeleteCommit", [
                     "entity": entity.toJson,
                     "options": options.toJson,
@@ -2488,7 +2484,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     
     /**
 
-     * Those entries in `myentities` that cannot be matched to any record in
+     * Those entries in `entities` that cannot be matched to any record in
      * `mydata` will be discarded. Records in `mydata` that could not be matched will
      * be marshalled as a new DORMEntity.
      *
@@ -2510,15 +2506,15 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * You can use the `Model.beforeMarshal` event to modify request data
      * before it is converted into entities.
      * Params:
-     * iterable<\UIM\Datasource\IORMEntity> myentities the entities that will get the
+     * iterable<\UIM\Datasource\IORMEntity> entities the entities that will get the
      * data merged in
      * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options A list of options for the objects hydration.
      */
-    IORMEntity[] patchEntities(Json[string] myentities, Json[string] data, Json[string] options = null) {
+    IORMEntity[] patchEntities(Json[string] entities, Json[string] data, Json[string] options = null) {
         options["associated"] ??= _associations.keys();
 
-        return _marshaller().mergeMany(myentities, mydata, options);
+        return _marshaller().mergeMany(entities, mydata, options);
     }
     
     /**
@@ -2667,11 +2663,11 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * The properties for the associations to be loaded will be overwritten on each entity.
      * Params:
-     * \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity> myentities a single entity or list of entities
+     * \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity> entities a single entity or list of entities
      * @param Json[string] mycontain A `contain()` compatible array.
      */
-    IORMEntity[] loadInto(IORMEntity|array myentities, Json[string] mycontain) {
-        return (new DLazyEagerLoader()).loadInto(myentities, mycontain, this);
+    IORMEntity[] loadInto(IORMEntity|array entities, Json[string] mycontain) {
+        return (new DLazyEagerLoader()).loadInto(entities, mycontain, this);
     }
  
     protected bool validationMethodExists(string myname) {

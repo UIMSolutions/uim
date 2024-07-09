@@ -337,11 +337,7 @@ class DFormProtector {
         return hash_hmac("sha1", hashParts.join(""), Security.getSalt());
     }
     
-    /**
-     * Create a message for humans to understand why Security token is not matching
-     * Params:
-     * @param Json[string] hashParts Elements used to generate the Token hash
-     */
+    // Create a message for humans to understand why Security token is not matching
     protected string debugTokenNotMatching(Json[string] formData, Json[string] hashParts) {
         auto messages = null;
         if (formData.isNull("_Token.debug")) {

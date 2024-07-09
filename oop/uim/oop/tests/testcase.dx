@@ -383,17 +383,13 @@ abstract class DTestCase : DBaseTestCase {
     /**
      * Assertion for comparing a regex pattern against a query having its identifiers
      * quoted. It accepts queries quoted with the characters `<` and `>`. If the third
-     * parameter is set to true, it will alter the pattern to both accept quoted and
-     * unquoted queries
-     * Params:
-     * string apattern The expected sql pattern
-     * @param string aactual The sql to compare
+     * parameter is set to true, it will alter the pattern to both accept quoted and unquoted queries
      */
-    void assertRegExpSql(string apattern, string aactual, bool isQuoteOptional = false) {
+    void assertRegExpSql(string sqlPattern, string sqlToCompare, bool isQuoteOptional = false) {
         isQuoteOptional = isQuoteOptional ? "?" : "";
-         somePattern = somePattern.replace("<", "[`\"\[]" ~ isQuoteOptional);
-         somePattern = somePattern.replace(">", "[`\"\]]" ~ isQuoteOptional);
-        this.assertMatchesRegularExpression("#" ~  somePattern ~ "#", actual);
+         sqlPattern = sqlPattern.replace("<", "[`\"\[]" ~ isQuoteOptional);
+         somePattern = sqlPattern.replace(">", "[`\"\]]" ~ isQuoteOptional);
+        this.assertMatchesRegularExpression("#" ~  somePattern ~ "#", sqlToCompare);
     }
     
     /**
@@ -436,8 +432,6 @@ abstract class DTestCase : DBaseTestCase {
      * permutation of attribute order. It will also allow whitespace between specified tags.
      * Params:
      * Json[string] expected An array, see above
-     * @param string markupText An HTML/XHTML/XML string
-     * @param bool shouldFullDebug Whether more verbose output should be used.
      */
    bool assertHtml(Json[string] expected, string markupText, bool shouldFullDebug = false) {
         auto regex = null;
@@ -767,17 +761,11 @@ abstract class DTestCase : DBaseTestCase {
         this.fixtures ~= fixture;
     }
     
-    /**
-     * Get the fixtures this test should use.
-     */
+    // Get the fixtures this test should use.
     string[] getFixtures() {
         return _fixtures;
     }
     
-    /**
-     * @param string regex A regex to match against the warning message
-     * @param \Closure aCallable Callable which should trigger the warning
-     */
     void expectNoticeMessageMatches(string regex, Closure aCallable) {
         this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_NOTICE);
     }
@@ -799,8 +787,8 @@ abstract class DTestCase : DBaseTestCase {
             throw new DException(errstr, errno);
         }, errorLevel);
 
-        this.expectException(Exception.classname);
-        this.expectExceptionMessageMatches(regex);
+        expectException(Exception.classname);
+        expectExceptionMessageMatches(regex);
         try {
             aCallable();
         } finally {

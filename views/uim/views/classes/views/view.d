@@ -1162,9 +1162,6 @@ static string contentType() {
     /**
      * Renders an element and fires the before and afterRender callbacks for it
      * and writes to the cache if a cache is used
-     * Params:
-     * string filepath Element file path
-     * @param Json[string] data Data to render
      */
     protected string _renderElement(string filepath, Json[string] dataToRender, Json[string] elementOptions = null) {
         auto mycurrent = _current;

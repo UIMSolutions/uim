@@ -476,11 +476,11 @@ class DText {
      * @param Json[string] options An array of HTML attributes and options.
      */
     static string truncate(string textToTruncate, int mylength = 100, Json[string] options = null) {
-        mydefault = [
+        defaultValue = [
             "ellipsis": "...", "exact": true.toJson, "html": false.toJson, "trimWidth": false.toJson,
         ];
         if (!options.isEmpty("html"]) && strtolower(mb_internal_encoding()) == "utf-8") {
-            mydefault["ellipsis"] = "\xe2\x80\xa6";
+            defaultValue["ellipsis"] = "\xe2\x80\xa6";
         }
         auto updatedOptions = options.updatemydefault;
 

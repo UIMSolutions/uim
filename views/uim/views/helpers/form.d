@@ -1665,9 +1665,6 @@ class DFormHelper : DHelper {
      * ```
      * Params:
      * string fieldName Name attribute of the SELECT
-     * @param range options Array of the OPTION elements (as "value"=>"Text" pairs) to be used in the
-     * SELECT element
-     * @param Json[string] attributes The HTML attributes of the select element.
      */
     string select(string fieldName, range options = [], Json[string] attributes= null) {
         attributes += [

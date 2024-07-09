@@ -186,7 +186,6 @@ class DRadioWidget : DWidget {
      * input types (multi-checkboxes) will also need labels generated.
      * Params:
      * Json[string] radio The input properties.
-     * @param string inputWidget The input widget.
      */
     protected string _renderLabel(
         array radio,
@@ -202,13 +201,13 @@ class DRadioWidget : DWidget {
         }
         
         auto labelAttributes = label.isArray ? label : [];
-        labelAttributes += [
+        labelAttributes.update([
             "for": radio["id"],
             "escape": shouldEscape,
             "text": radio["text"],
             "templateVars": radio["templateVars"],
             "input": inputWidget,
-        ];
+        ]);
 
         return _label.render(labelAttributes, formContext);
     }

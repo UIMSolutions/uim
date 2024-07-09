@@ -170,14 +170,14 @@ abstract class DCell { // }: IEventDispatcher {
         templateName = templateName ? templateName : "default";
         string key = "cell_" ~ Inflector.underscore(class) ~ "_" ~ invokedaction ~ "_" ~ templateName;
         string aKey = key.replace("\\", "_");
-        mydefault = [
+        defaultValue = [
             "config": "default",
             "key": aKey,
         ];
         if (_cache == true) {
-            return mydefault;
+            return defaultValue;
         }
-        return _cache + mydefault;
+        return _cache + defaultValue;
     }
     
     /**

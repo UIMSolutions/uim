@@ -525,17 +525,17 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     // Returns the class used to hydrate rows for this table.
     string getEntityClass() {
         if (!_entityClass) {
-            mydefault = Entity.classname;
+            defaultValue = Entity.classname;
             myself = class;
             string[] myparts = mysplit("\\");
 
             if (myself == classname || count(myparts) < 3) {
-                return _entityClass = mydefault;
+                return _entityClass = defaultValue;
             }
             string aliasName = Inflector.classify(Inflector.underscore(subString(array_pop(myparts), 0, -5)));
             string myname = array_slice(myparts, 0, -1).join("\\") ~ "\\Entity\\" ~ aliasName;
             if (!class_exists(myname)) {
-                return _entityClass = mydefault;
+                return _entityClass = defaultValue;
             }
             /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass */
             myclass = App.classname(myname, "Model/Entity");

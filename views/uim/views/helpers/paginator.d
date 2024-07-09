@@ -632,17 +632,12 @@ class DPaginatorHelper : DHelper {
         return result;
     }
 
-    /**
-     * Calculates the start and end for the pagination numbers.
-     * Params:
-     * Json[string] params Params from the numbers() method.
-     */
+    // Calculates the start and end for the pagination numbers.
     protected Json[string] _getNumbersStartAndEnd(
         Json[string] params, Json[string] options = null) {
-        myhalf = (int)(
-            options["modulus"] / 2);
-        myend = max(1 + options["modulus"], params["currentPage"] + myhalf);
-        mystart = min(
+        auto myhalf = options.getLong("modulus") / 2;
+        auto myend = max(1 + options["modulus"], params["currentPage"] + myhalf);
+        auto mystart = min(
             params.getLong("pageCount") - options["modulus"],
             params["currentPage"] - myhalf - options["modulus"] % 2
         );
@@ -748,24 +743,18 @@ class DPaginatorHelper : DHelper {
         return result;
     }
 
-    /**
-     * Generates the first number for the paginator numbers() method.
-     * Params:
-     * string ellipsis Ellipsis character.
-     * @param Json[string] params Params from the numbers() method.
-     * @param int mystart Start number.
-         */
+    // Generates the first number for the paginator numbers() method.
     protected string _firstNumber(
-        string ellipsis, Json[string] params, int mystart, Json[string] options = null) {
+        string ellipsis, Json[string] params, int startnumber, Json[string] options = null) {
         string result = "";
         myfirst = isInteger(
             options["first"]) ? options["first"] : 0;
-        if (options.hasKey("first") && mystart > 1) {
-            myoffset = mystart <= myfirst ? mystart - 1 : options["first"];
+        if (options.hasKey("first") && startnumber > 1) {
+            myoffset = startnumber <= myfirst ? startnumber - 1 : options["first"];
             result ~= this.first(
                 myoffset, options);
             if (
-                myfirst < mystart - 1) {
+                myfirst < startnumber - 1) {
                 result ~= ellipsis;
             }
         }
@@ -1105,18 +1094,18 @@ class DPaginatorHelper : DHelper {
      * This will generate a wrapping form.
      * Params:
      * STRINGAA mylimits The options array.
-     * @param int mydefault Default option for pagination limit. Defaults to `this.param("perPage")`.
+     * @param int defaultValue Default option for pagination limit. Defaults to `this.param("perPage")`.
      * @param Json[string] options Options for Select tag attributes like class, id or event
      */
     string limitControl(
         Json[string] mylimits = [
-        ], int mydefault = null, Json[string] options = null) {
+        ], int defaultValue = null, Json[string] options = null) {
         mylimits = mylimits ?  : [
             "20": "20",
             "50": "50",
             "100": "100",
         ];
-        mydefault ?  ?  = this.paginated()
+        defaultValue ?  ?  = this.paginated()
             .perPage();
         myscope = this.param(
             "scope");
@@ -1134,7 +1123,7 @@ class DPaginatorHelper : DHelper {
                 "type": "select",
                 "label": __(
                     "View"),
-                "default": mydefault,
+                "default": defaultValue,
                 "value": _view.getRequest()
                 .getQuery("limit"),
                 "options": mylimits,

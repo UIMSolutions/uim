@@ -277,17 +277,16 @@ class DTimeHelper : DHelper {
      * or DateTime object (or a date format string).
      * @param array<int>|string|int myformat date format string (or a UNIX timestamp,
      * `strtotime()` valid string or DateTime object).
-     * @param string myinvalid Default value to display on invalid dates
      * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
      */
-    string | int | false format(
+    string /* | int | false */ format(
         /* DChronosDate  */
         Json mydate,
-        string[] | int myformat = null,
-        string myinvalid = false,/* DateTimeZone | */
+        string[] /* | int  */myformat = null,
+        string defaultValue = false,/* DateTimeZone | */
         string timezone = null
     ) {
-        return _i18nFormat(mydate, myformat, myinvalid, timezone);
+        return _i18nFormat(mydate, myformat, defaultValue, timezone);
     }
 
     /**
@@ -296,18 +295,17 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\Json mydate UNIX timestamp, strtotime() valid string or DateTime object
      * @param string[]|int myformat Intl compatible format string.
-     * @param string myinvalid Default value to display on invalid dates
      * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
      */
     string /* | int | false */ i18nFormat(
         /* DChronosDate | */
-        Jso mydate,
-        string[] | int myformat = null,
-        string myinvalid = false,/* DateTimeZone | */
-        string timezone = null
+        Json mydate,
+        string[] /* | int */ myformat = null,
+        string defaultValue = false,
+        /* DateTimeZone | */ string timezone = null
     ) {
         if (mydate.isNull) {
-            return myinvalid;
+            return defaultValue;
         }
         timezone = _getTimezone(timezone);
 
@@ -316,16 +314,14 @@ class DTimeHelper : DHelper {
 
             return mytime.i18nFormat(myformat, timezone);
         } catch (Exception mye) {
-            if (myinvalid == false) {
+            if (defaultValue == false) {
                 throw mye;
             }
-            return myinvalid;
+            return defaultValue;
         }
     }
 
-    /**
-     * Event listeners.
-     */
+    // Event listeners.
     IEvent[] implementedEvents() {
         return null;
     }

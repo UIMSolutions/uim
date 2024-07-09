@@ -761,22 +761,21 @@ class DHtmlHelper : DHelper {
      * Params:
      * string myclass DCSS class name of the p element.
      * @param string mytext String content that will appear inside the p element.
-     * @param Json[string] htmlAttributes Additional HTML attributes of the P tag
      */
-    string para(string myclass, string mytext, Json[string] htmlAttributes = null) {
-        if (!htmlAttributes.isEmpty("escape"))) {
-            mytext = htmlAttributeEscape(mytext);
+    string para(string myclass, string content, Json[string] htmlAttributes = null) {
+        if (!htmlAttributes.isEmpty("escape")) {
+            content = htmlAttributeEscape(content);
         }
         if (myclass) {
             htmlAttributes["class"] = myclass;
         }
         mytag = "para";
-        if (mytext.isNull) {
+        if (content.isNull) {
             mytag = "parastart";
         }
         return _formatTemplate(mytag, [
             "attrs": templater().formatAttributes(htmlAttributes),
-            "content": mytext,
+            "content": content,
         ]);
     }
     
@@ -840,11 +839,11 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAttributes Array of HTML attributes, and special options above.
      */
     string media(string[] mypath, Json[string] htmlAttributes = null) {
-        auto htmlAttributes += [
+        htmlAttributes.merge([
             "tag": Json(null),
             "pathPrefix": "files/",
             "text": "",
-        ];
+        ]);
 
         auto mytag = !htmlAttributes.isEmpty("tag") 
             ? htmlAttributes["tag"]

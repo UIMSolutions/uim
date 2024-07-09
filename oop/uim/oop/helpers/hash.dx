@@ -28,7 +28,7 @@ class Hash {
 
     static Json get(Json[string] data, string[] mpath, Json defaultValue = Json(null)) {
         if (data.isEmpty || path.isNull) {
-            return mydefault;
+            return defaultValue;
         }
         if (isString(searchedpath) || isInteger(searchedpath)) {
             string[] myparts = to!string(searchedpath.split("."));
@@ -37,17 +37,17 @@ class Hash {
         }
         switch (count(myparts)) {
             case 1:
-                return data[myparts[0]] ?? mydefault;
+                return data[myparts[0]] ?? defaultValue;
             case 2:
-                return data[myparts[0]][myparts[1]] ?? mydefault;
+                return data[myparts[0]][myparts[1]] ?? defaultValue;
             case 3:
-                return data[myparts[0]][myparts[1]][myparts[2]] ?? mydefault;
+                return data[myparts[0]][myparts[1]][myparts[2]] ?? defaultValue;
             default:
                 myparts.each!((key) {
                     if ((isArray(data) || cast(DArrayAccess)data) && data.hasKey(aKey)) {
                         data = data[aKey];
                     } else {
-                        return mydefault;
+                        return defaultValue;
                     }
                 });
         }
@@ -930,9 +930,9 @@ class Hash {
      * Params:
      * Json[string] data List to normalize
      * @param bool myassoc If true, data will be converted to an associative array.
-     * @param Json mydefault The default value to use when a top level numeric key is converted to associative form.
+     * @param Json defaultValue The default value to use when a top level numeric key is converted to associative form.
      */
-    static Json[string] normalize(Json[string] data, bool myassoc = true, Json mydefault = null) {
+    static Json[string] normalize(Json[string] data, bool myassoc = true, Json defaultValue = null) {
         someKeys = data.keys;
         mycount = count(someKeys);
         mynumeric = true;
@@ -949,7 +949,7 @@ class Hash {
             mynewList = null;
             for (myi = 0; myi < mycount; myi++) {
                 if (isInteger(someKeys[myi])) {
-                    mynewList[data[someKeys[myi]]] = mydefault;
+                    mynewList[data[someKeys[myi]]] = defaultValue;
                 } else {
                     mynewList[someKeys[myi]] = data[someKeys[myi]];
                 }

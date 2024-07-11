@@ -89,8 +89,11 @@ class DAssociationCollection { // }: IteratorAggregate {
      *  For example "BelongsTo" or array like ["BelongsTo", "HasOne"]
      * returns an array of Association objects.
      */
-    DORMAssociation[] getByType(string[] someclassnames...) {
-        auto myclassnames = someclassnames.map!(classname => classname.lower).array;
+    DORMAssociation[] getByType(string[] associationTypes...) {
+        return getByType(associationTypes.dup);
+    }
+    DORMAssociation[] getByType(string[] associationTypes) {
+        auto myclassnames = associationTypes.map!(associationTypes=> classname.lower).array;
 
         // TODO
         /* 

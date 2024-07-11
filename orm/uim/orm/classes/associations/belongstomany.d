@@ -405,13 +405,8 @@ class DBelongsToManyAssociation : DAssociation {
         return loader.buildEagerLoader(options);
     }
 
-    /**
-     * Clear out the data in the junction table for a given entity.
-     *
-     * @param DORMDatasource\IORMEntity anEntity The entity that started the cascading delete.
-     * @param Json[string] options The options for the original delete.
-     */
-    bool cascadeRemove(IORMEntity anEntity, Json[string] options = null) {
+    // Clear out the data in the junction table for a given entity.
+    bool cascadeRemove(IORMEntity ormEntity, Json[string] options = null) {
         if (!getDependent()) {
             return true;
         }
@@ -480,8 +475,6 @@ class DBelongsToManyAssociation : DAssociation {
      * will be created in the joint table. If there exists links in the database to some
      * of the entities intended to be saved by this method, they will be updated,
      * not deleted.
-     *
-     * @param DORMDatasource\IORMEntity anEntity an entity from the source table
      */
     IORMEntity saveAssociated(IORMEntity ormEntity, Json[string] options = null) {
         auto targetEntity = entity.get(getProperty());
@@ -842,24 +835,22 @@ class DBelongsToManyAssociation : DAssociation {
 
     /**
      * Append a join to the junction table.
-     *
-     * @param DORMQuery query The query to append.
      * @param array|null conditions The query conditions to use.
      */
-    protected DORMQuery _appendJunctionJoin(Query query, array conditions = null) {
-        junctionTable = this.junction();
+    protected DORMQuery _appendJunctionJoin(DORMQuery query, array conditions = null) {
+        auto junctionTable = this.junction();
         if (conditions == null) {
-            belongsTo = junctionTable.getAssociation(getTarget().aliasName());
-            conditions = belongsTo._joinCondition([
+            auto belongsTo = junctionTable.getAssociation(getTarget().aliasName());
+            auto conditions = belongsTo._joinCondition([
                 "foreignKeys": tarforeignKeys(),
             ]);
             conditions += this.junctionConditions();
         }
 
-        name = _junctionAssociationName();
+        auto name = _junctionAssociationName();
         /** @var array joins */
-        joins = query.clause("join");
-        matching = [
+        auto joins = query.clause("join");
+        auto matching = [
             name: [
                 "table": junctionTable.getTable(),
                 "conditions": conditions,
@@ -999,33 +990,31 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array<DORMDatasource\IORMEntity> jointEntities link entities that should be persisted
      * @param Json[string] targetEntities entities in target table that are related to
      * the `jointEntities`
-     * @param Json[string] options list of options accepted by `Table.remove()`
-     * @return array|false Array of entities not deleted or false in case of deletion failure for atomic saves.
      */
     protected function _diffLinks(
         Query existing,
-        array jointEntities,
-        array targetEntities,
+        IORMEntity[] jointEntities,
+        IORMEntity[] targetEntities,
         Json[string] options = null
    ) {
-        junction = this.junction();
-        target = getTarget();
-        belongsTo = junction.getAssociation(target.aliasName());
-        foreignKeys = (array)foreignKeys();
-        assocForeignKey = (array)belongsTo.foreignKeys();
+        auto junction = this.junction();
+        auto target = getTarget();
+        auto belongsTo = junction.getAssociation(target.aliasName());
+        auto foreignKeys = (array)foreignKeys();
+        auto assocForeignKey = (array)belongsTo.foreignKeys();
 
-        keys = array_merge(foreignKeys, assocForeignKey);
-        deletes = unmatchedEntityKeys = present = null;
+        auto keys = array_merge(foreignKeys, assocForeignKey);
+        auto deletes = unmatchedEntityKeys = present = null;
 
-        foreach (jointEntities as i: entity) {
+        foreach (i, entity; jointEntities) {
             unmatchedEntityKeys[i] = entity.extract(keys);
             present[i] = array_values(entity.extract(assocForeignKey));
         }
 
         foreach (existing as existingLink) {
-            existingKeys = existingLink.extract(keys);
-            found = false;
-            foreach (unmatchedEntityKeys as i: unmatchedKeys) {
+            auto existingKeys = existingLink.extract(keys);
+            auto found = false;
+            foreach (i, unmatchedKeys; unmatchedEntityKeys) {
                 matched = false;
                 foreach (keys as key) {
                     if (is_object(unmatchedKeys[key]) && is_object(existingKeys[key])) {
@@ -1108,8 +1097,6 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param DORMDatasource\IORMEntity sourceEntity The row belonging to the source side
      *  of this association.
-     * @param Json[string] targetEntities The rows belonging to the target side of this
-     *  association.
      */
     protected IORMEntity[] _collectJointEntities(IORMEntity sourceEntity, Json[string] targetEntities) {
         auto target = getTarget();
@@ -1121,14 +1108,14 @@ class DBelongsToManyAssociation : DAssociation {
         auto result = null;
         auto missing = null;
 
-        foreach (entity; targetEntities) {
-            if (!cast(IORMEntity)entity) {
+        foreach (targetEntity; targetEntities) {
+            if (!cast(IORMEntity)targetEntity) {
                 continue;
             }
-            joint = entity.get(jointProperty);
+            joint = targetEntity.get(jointProperty);
 
             if (!joint || !cast(IORMEntity)joint)) {
-                missing ~= entity.extract(primary);
+                missing ~= targetEntity.extract(primary);
                 continue;
             }
 

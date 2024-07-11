@@ -526,7 +526,7 @@ mixin template TIntegrationTest() {
     // Creates a valid request url and parameter array more like Request._url()
     protected Json[string] _url(string url) {
         anUri = new Uri(url);
-        somePath = anUri.getPath();
+        path = anUri.getPath();
         aQuery = anUri.getQuery();
 
         hostData = null;
@@ -536,7 +536,7 @@ mixin template TIntegrationTest() {
         if (anUri.getScheme()) {
             hostData["https"] = anUri.getScheme() == "https";
         }
-        return [somePath, aQuery, hostData];
+        return [path, aQuery, hostData];
     }
 
     // Get the response body as string
@@ -679,14 +679,10 @@ mixin template TIntegrationTest() {
         assertThat(content, new DHeaderNotContains(_response, header), verboseMessage);
     }
 
-    /**
-     * Asserts content type
-     * Params:
-     * string atype The content-type to check for.
-     */
-    void assertContentType(string atype, string failureMessage = null) {
+    // Asserts content type
+    void assertContentType(string contentType, string failureMessage = null) {
         auto verboseMessage = extractVerboseMessage(failureMessage);
-        assertThat(type, new DContentType(_response), verboseMessage);
+        assertThat(contentType, new DContentType(_response), verboseMessage);
     }
 
     // Asserts content in the response body equals.
@@ -701,72 +697,44 @@ mixin template TIntegrationTest() {
         assertThat(content, new BodyNotEquals(_response), verboseMessage);
     }
 
-    /**
-     * Asserts content exists in the response body.
-     * Params:
-     * @param bool anIgnoreCase A flag to check whether we should ignore case or not.
-     */
-    void assertResponseContains(string content, string failureMessage = "", bool anIgnoreCase = false) {
+    // Asserts content exists in the response body.
+    void assertResponseContains(string content, string failureMessage = null, bool shouldIgnoreCase = false) {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
         }
-        auto verboseMessage = extractVerboseMessage(message);
-        assertThat(content, new BodyContains(_response, anIgnoreCase), verboseMessage);
+        auto verboseMessage = extractVerboseMessage(failureMessage);
+        assertThat(content, new BodyContains(_response, shouldIgnoreCase), verboseMessage);
     }
 
-    /**
-     * Asserts content does not exist in the response body.
-     * Params:
-     * string content The content to check for.
-     * @param string amessage The failure message that will be appended to the generated message.
-     * @param bool anIgnoreCase A flag to check whether we should ignore case or not.
-     */
-    void assertResponseNotContains(string content, string amessage = "", bool anIgnoreCase = false) {
+    // Asserts content does not exist in the response body.
+    void assertResponseNotContains(string content, string failureMessage = null, bool shouldIgnoreCase = false) {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
         }
-        verboseMessage = extractVerboseMessage(message);
-        assertThat(content, new BodyNotContains(_response, anIgnoreCase), verboseMessage);
+        auto verboseMessage = extractVerboseMessage(failureMessage);
+        assertThat(content, new BodyNotContains(_response, shouldIgnoreCase), verboseMessage);
     }
 
-    /**
-     * Asserts that the response body matches a given regular expression.
-     * Params:
-     * string apattern The pattern to compare against.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertResponseRegExp(string apattern, string amessage = null) {
-        verboseMessage = extractVerboseMessage(message);
-        assertThat(somePattern, new BodyRegExp(_response), verboseMessage);
+    // Asserts that the response body matches a given regular expression.
+    void assertResponseRegExp(string pattern, string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
+        assertThat(pattern, new BodyRegExp(_response), verboseMessage);
     }
 
-    /**
-     * Asserts that the response body does not match a given regular expression.
-     * Params:
-     * string apattern The pattern to compare against.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertResponseNotRegExp(string apattern, string amessage = null) {
-        verboseMessage = extractVerboseMessage(message);
-        assertThat(somePattern, new BodyNotRegExp(_response), verboseMessage);
+    // Asserts that the response body does not match a given regular expression.
+    void assertResponseNotRegExp(string pattern, string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
+        assertThat(pattern, new BodyNotRegExp(_response), verboseMessage);
     }
 
-    /**
-     * Assert response content is not empty.
-     * Params:
-     * string amessage The failure message that will be appended to the generated message.
-     */
-    void assertResponseNotEmpty(string failureMessage = "") {
+    // Assert response content is not empty.
+    void assertResponseNotEmpty(string failureMessage = null) {
         assertThat(null, new BodyNotEmpty(_response), failureMessage);
     }
 
-    /**
-     * Assert response content is empty.
-     * Params:
-     * string amessage The failure message that will be appended to the generated message.
-     */
-    void assertResponseEmpty(string amessage = null) {
-        assertThat(null, new BodyEmpty(_response), message);
+    // Assert response content is empty.
+    void assertResponseEmpty(string failureMessage = null) {
+        assertThat(null, new BodyEmpty(_response), failureMessage);
     }
 
     // Asserts that the search string was in the template name.
@@ -781,38 +749,22 @@ mixin template TIntegrationTest() {
         assertThat(content, new DLayoutFileEquals(_layoutName), verboseMessage);
     }
 
-    /**
-     * Asserts session contents
-     * Params:
-     * Json expected The expected contents.
-     * @param string aPath The session data path. Uses Hash.get() compatible notation
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertSession(Json expected, string aPath, string message = "") {
-        verboseMessage = extractVerboseMessage(message);
-        assertThat(expected, new DSessionEquals(somePath), verboseMessage);
+    // Asserts session contents
+    void assertSession(Json expected, string path, string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
+        assertThat(expected, new DSessionEquals(path), verboseMessage);
     }
 
-    /**
-     * Asserts session key exists.
-     * Params:
-     * string aPath The session data path. Uses Hash.get() compatible notation.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertSessionHasKey(string aPath, string amessage = "") {
-        verboseMessage = extractVerboseMessage(message);
-        assertThat(somePath, new DSessionHasKey(somePath), verboseMessage);
+    // Asserts session key exists.
+    void assertSessionHasKey(string path, string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
+        assertThat(path, new DSessionHasKey(path), verboseMessage);
     }
 
-    /**
-     * Asserts a session key does not exist.
-     * Params:
-     * string aPath The session data path. Uses Hash.get() compatible notation.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertSessionNotHasKey(string aPath, string amessage = null) {
-        verboseMessage = extractVerboseMessage(message);
-        assertThat(somePath, this.logicalNot(new DSessionHasKey(somePath)), verboseMessage);
+    // Asserts a session key does not exist.
+    void assertSessionNotHasKey(string path, string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
+        assertThat(path, this.logicalNot(new DSessionHasKey(path)), verboseMessage);
     }
 
     // Asserts a flash message was set
@@ -827,17 +779,17 @@ mixin template TIntegrationTest() {
      * int at Flash index
      * @param string aexpected Expected message
      */
-    void assertFlashMessageAt(int at, string aexpected, string flashKey = "flash", string amefailureMessagessage = "") {
+    void assertFlashMessageAt(int flashIndex, string aexpected, string flashKey = "flash", string amefailureMessagessage = "") {
         verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(
             expected,
-            new DFlashParamEquals(_requestSession, flashKey, "message", at),
+            new DFlashParamEquals(_requestSession, flashKey, "message", flashIndex),
             verboseMessage
         );
     }
 
     // Asserts a flash element was set
-    void assertFlashElement(string expectedElementName, string flashKey = "flash", string failureMessage = "") {
+    void assertFlashElement(string expectedElementName, string flashKey = "flash", string failureMessage = null) {
         auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(
             expectedElementName,
@@ -847,7 +799,7 @@ mixin template TIntegrationTest() {
     }
 
     // Asserts a flash element was set at a certain index
-    void assertFlashElementAt(int flashIndex, string expectedElementName, string flashKey = "flash", string failureMessage = "") {
+    void assertFlashElementAt(int flashIndex, string expectedElementName, string flashKey = "flash", string failureMessage = null) {
         auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(
             expectedElementName,
@@ -857,7 +809,7 @@ mixin template TIntegrationTest() {
     }
 
     // Asserts cookie values
-    void assertCookie(Json expectedContent, string aNacookieNameme, string failureMessage = "") {
+    void assertCookie(Json expectedContent, string aNacookieNameme, string failureMessage = null) {
         auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(cookieName, new DCookieSet(_response), verboseMessage);
         assertThat(expectedContent, new DCookieEquals(_response, cookieName), verboseMessage);
@@ -869,7 +821,7 @@ mixin template TIntegrationTest() {
      * Useful when you"re working with cookies that have obfuscated values
      * but the cookie being set is important.
      */
-    void assertCookieIsSet(string cookieName, string failureMessage = "") {
+    void assertCookieIsSet(string cookieName, string failureMessage = null) {
         verboseMessage = extractVerboseMessage(message);
         assertThat(cookieName, new DCookieSet(_response), verboseMessage);
     }
@@ -899,32 +851,28 @@ mixin template TIntegrationTest() {
      * value like the CookieComponent for this assertion.
      * Params:
      * Json expected The expected contents.
-     * @param string aName The cookie name.
-     * @param string aencrypt Encryption mode to use.
-     * @param string aKey Encryption key used. Defaults
-     * to Security.salt.
-     * @param string amessage The failure message that will be appended to the generated message.
+     * @param string failureMessage The failure message that will be appended to the generated message.
      */
     void assertCookieEncrypted(
         Json expected,
-        string aName,
-        string aencrypt = "aes",
-        string aKey = null,
-        string amessage = null
+        string cookieName,
+        string encryptionMode = "aes",
+        string encryptionKey = null,
+        string failureMessage = null
     ) {
-        verboseMessage = extractVerboseMessage(message);
-        assertThat(name, new DCookieSet(_response), verboseMessage);
+        auto verboseMessage = extractVerboseMessage(failureMessage);
+        assertThat(cookieName, new DCookieSet(_response), verboseMessage);
 
-        _cookieEncryptionKey = aKey;
+        _cookieEncryptionKey = encryptionKey;
         assertThat(
             expected,
-            new DCookieEncryptedEquals(_response, name, encrypt, _getCookieEncryptionKey())
+            new DCookieEncryptedEquals(_response, cookieName, encrypt, _getCookieEncryptionKey())
         );
     }
 
     // Asserts that a file with the given name was sent in the response
-    void assertFileResponse(string filePath, string failureMessage = "") {
-        verboseMessage = extractVerboseMessage(failureMessage);
+    void assertFileResponse(string filePath, string failureMessage = null) {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(null, new DFileSent(_response), verboseMessage);
         assertThat(filePath, new DFileSentAs(_response), verboseMessage);
 
@@ -951,16 +899,15 @@ mixin template TIntegrationTest() {
     }
 
     // Extract verbose message for existing exception
-    protected string extractExceptionMessage(Exception exceptionToExtract) {
-        Exception[] exceptions = [exceptionToExtract];
-        auto previous = exceptionToExtract.getPrevious();
-        while (!previous.isNull) {
-            exceptions ~= previous;
-            previous = previous.getPrevious();
+    protected string extractExceptionMessage(DException exceptionToExtract) {
+        DException[] exceptions = [exceptionToExtract];
+        auto previousException = exceptionToExtract.getPrevious();
+        while (!previousException.isNull) {
+            exceptions ~= previousException;
+            previousException = previousException.getPrevious();
         }
         string result = D_EOL;
         foreach (index, error; exceptions) {
-
             if (index == 0) {
                 result ~= "Possibly related to '%s': '%s'".format(error.classname, error.getMessage());
                 result ~= D_EOL;
@@ -968,8 +915,7 @@ mixin template TIntegrationTest() {
                 result ~= "Caused by '%s': '%s'".format(error.classname, error.getMessage());
                 result ~= D_EOL;
             }
-            result ~= error.getTraceAsString();
-            result ~= D_EOL;
+            result ~= error.getTraceAsString() ~ D_EOL;
         }
         return result;
     }

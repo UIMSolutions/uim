@@ -5,10 +5,6 @@ import uim.oop;
 @safe:
 
 mixin template TUnitConsecutive() {
-    /**
-     * @param Json[string] ...consecutiveCallsArguments Additional arguments
-     */
-    // TODO
     /* 
     static iterable withConsecutive(Json[string] firstCallArguments, Json[string] ...consecutiveCallsArguments) {
         allConsecutiveCallsArguments = [firstCallArguments, ...consecutiveCallsArguments];

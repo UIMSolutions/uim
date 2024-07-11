@@ -295,8 +295,8 @@ class DateTime /* : Chronos, JsonSerializable */ {
             }
             return diffFormatter = formatter;
         }
-        formatter = diffFormatter ? diffFormatter : new DRelativeTimeFormatter();
-        return formatter;
+        
+        return diffFormatter ? diffFormatter : new DRelativeTimeFormatter();
     }
 
     /**

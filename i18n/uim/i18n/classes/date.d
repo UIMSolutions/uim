@@ -104,9 +104,9 @@ class Date { // }: DChronosDate, JsonSerializable {
      * Alternatively, the format can provide a callback. In this case, the callback
      * can receive this object and return a formatted string.
      */
-    static void setJsonEncodeFormat(DClosure format) {
+/*     static void setJsonEncodeFormat(DClosure format) {
         _jsonEncodeFormat = format;
-    }
+    } */
 
     static void setJsonEncodeFormat(string format) {
         _jsonEncodeFormat = format;
@@ -130,12 +130,12 @@ class Date { // }: DChronosDate, JsonSerializable {
      * time = Date.parseDate("13 Oct, 2013", IntlDateFormatter.SHORT);
      * ```
      */
-    static auto parseDate(string adadateToParsete, int format) {
+    static auto parseDate(string dateToParse, int format) {
         return parseDate(dateToParse, to!string(format));
     }
-    static auto parseDate(string adate, string format = null) {
-        string myFormat = !format.isEmpty ? format : wordFormat;
-        return _parseDateTime(date, myFormat);
+    static auto parseDate(string dateToParse, string format = null) {
+        string checkedFormat = !format.isEmpty ? format : wordFormat;
+        return _parseDateTime(dateToParse, checkedFormat);
     }
     
     // Get the difference formatter instance.

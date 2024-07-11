@@ -324,8 +324,8 @@ class DAssociation : IAssociation {
      *
      * @param bool dependent Set the dependent mode. Use null to read the current state.
      */
-    void setDependent(bool dependent) {
-        _dependent = dependent;
+    void setDependent(bool dependentMode) {
+        _dependent = dependentMode;
     }
 
     /**
@@ -340,17 +340,13 @@ class DAssociation : IAssociation {
 
     // Whether this association can be expressed directly in a query join
     bool canBeJoined(Json[string] options = null) {
-        strategy = options.get("strategy", getStrategy());
+        string strategy = options.getString("strategy", getStrategy());
 
-        return strategy == this.STRATEGY_JOIN;
+        return strategy == STRATEGY_JOIN;
     }
 
-    /**
-     * Sets the type of join to be used when adding the association to a query.
-     *
-     * @param string type the join type to be used (e.g. INNER)
-     */
-    void setJoinType(string type) {
+    // Sets the type of join to be used when adding the association to a query.
+    void setJoinType(string joinType) {
         _joinType = type;
     }
 

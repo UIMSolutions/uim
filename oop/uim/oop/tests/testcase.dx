@@ -581,11 +581,7 @@ abstract class DTestCase : DBaseTestCase {
         return true;
     }
     
-    /**
-     * Check the attributes as part of an assertTags() check.
-     * Params:
-     * @param string[] regex Full regexp from `assertHtml`
-     */
+    // Check the attributes as part of an assertTags() check.
     protected string _assertAttributes(
         Json[string] assertions,
         string mlTextToCheck,
@@ -646,46 +642,34 @@ abstract class DTestCase : DBaseTestCase {
         assertEquals(expected, result, message);
     }
     
-    /**
-     * Compatibility auto for skipping.
-     * Params:
-     * bool condition Condition to trigger skipping
-     * @param string message Message for skip
-     */
-    protected bool skipUnless(condition, message = null) {
+    // Compatibility auto for skipping.
+    protected bool skipUnless(bool condition, string messageToSkip = null) {
         if (!condition) {
-            this.markTestSkipped(message);
+            markTestSkipped(messageToSkip);
         }
         return condition;
     }
 // Dcs:enable
 
-    /**
-     * Mock a model, maintain fixtures and table association
-     * Params:
-     * string aalias The model to get a mock for.
-     * @param string[] someMethods The list of methods to mock
-     * @param Json[string] options The config data for the mock"s constructor.
-     */
-    Table|MockObject getMockForModel(string aalias, Json[string] someMethods = [], Json[string] options = null) {
-        auto classname = _getTableclassname(alias, options);
-        auto aConnectionName = classname.defaultConnectionName();
-        auto aConnection = ConnectionManager.get(aConnectionName);
+    // Mock a model, maintain fixtures and table association
+    Table|MockObject getMockForModel(string modelAlias, Json[string] methodsToMock = [], Json[string] options = null) {
+        auto classname = _getTableclassname(modelAlias, options);
+        auto connectionName = classname.defaultConnectionName();
+        auto aConnection = ConnectionManager.get(connectionName);
 
         auto locator = getTableLocator();
 
-        [, baseClass] = pluginSplit(alias);
+        [, baseClass] = pluginSplit(modelAlias);
         options.update(["alias": baseClass, "connection": aConnection]);
-        auto updatedOptions = options.updatelocator.configuration.get(alias);
-        reflection = new DReflectionClass(classname);
+        auto updatedOptions = options.updatelocator.configuration.get(modelAlias);
+        auto reflection = new DReflectionClass(classname);
          classnameMethods = array_map(function (method) {
             return method.name;
         }, reflection.getMethods());
 
-        existingMethods = array_intersect(classnameMethods,  someMethods);
-        nonExistingMethods = array_diff(someMethods, existingMethods);
-
-        builder = getMockBuilder(classname)
+        auto existingMethods = array_intersect(classnameMethods,  methodsToMock);
+        auto nonExistingMethods = array_diff(methodsToMock, existingMethods);
+        auto builder = getMockBuilder(classname)
             .setConstructorArgs([options]);
 
         if (existingMethods || !nonExistingMethods) {
@@ -711,20 +695,15 @@ abstract class DTestCase : DBaseTestCase {
             mock.setTable(Inflector.tableize(baseClass));
         }
         locator.set(baseClass, mock);
-        locator.set(alias, mock);
+        locator.set(modelAlias, mock);
 
         return mock;
     }
     
-    /**
-     * Gets the class name for the table.
-     * Params:
-     * string aalias The model to get a mock for.
-     * @param Json[string] options The config data for the mock"s constructor.
-     */
-    protected string _getTableclassname(string aalias, Json[string] options = null) {
+    // Gets the class name for the table.
+    protected string _getTableclassname(string modelAlias, Json[string] options = null) {
         if (isoptions.isEmpty("classname")) {
-            auto classname = Inflector.camelize(alias);
+            auto classname = Inflector.camelize(modelAlias);
             /** @var class-string<\ORM\Table>|null  classname */
              classname = App.classname(classname, "Model/Table", "Table");
             if (!classname) {
@@ -767,19 +746,19 @@ abstract class DTestCase : DBaseTestCase {
     }
     
     void expectNoticeMessageMatches(string regex, Closure aCallable) {
-        this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_NOTICE);
+        expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_NOTICE);
     }
     
     void expectDeprecationMessageMatches(string regex, Closure aCallable) {
-        this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_DEPRECATED);
+        expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_DEPRECATED);
     }
     
     void expectWarningMessageMatches(string regex, Closure aCallable) {
-        this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_WARNING);
+        expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.USER_WARNING);
     }
     
     void expectErrorMessageMatches(string regex, Closure aCallable) {
-        this.expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.ERROR | ERRORS.USER_ERROR);
+        expectErrorHandlerMessageMatches(regex, aCallable, ERRORS.ERROR | ERRORS.USER_ERROR);
     }
     
     protected void expectErrorHandlerMessageMatches(string regex, Closure aCallable, int errorLevel) {

@@ -475,7 +475,7 @@ class DText {
      * @param int mylength Length of returned string, including ellipsis.
      * @param Json[string] options An array of HTML attributes and options.
      */
-    static string truncate(string textToTruncate, int mylength = 100, Json[string] options = null) {
+    static string truncate(string textToTruncate, int textLength = 100, Json[string] options = null) {
         defaultValue = [
             "ellipsis": "...", "exact": true.toJson, "html": false.toJson, "trimWidth": false.toJson,
         ];
@@ -519,42 +519,42 @@ class DText {
                     }
                     myprefix ~= tag[1];
 
-                    if (mytotalLength + mycontentLength + myellipsisLength > mylength) {
+                    if (mytotalLength + mycontentLength + myellipsisLength > textLength) {
                         mytruncate = tag[3];
-                        mytruncateLength = mylength - mytotalLength;
+                        mytruncateLength = textLength - mytotalLength;
                     } else {
                         myprefix ~= tag[3];
                     }
                 }
                 mytotalLength += mycontentLength;
-                if (mytotalLength > mylength) {
+                if (mytotalLength > textLength) {
                     break;
                 }
             });
-            if (mytotalLength <= mylength) {
+            if (mytotalLength <= textLength) {
                 return textToTruncate;
             }
             textToTruncate = mytruncate;
-            mylength = mytruncateLength;
+            textLength = mytruncateLength;
 
             foreach (myopenTags as mytag) {
                 mysuffix ~= "</" ~ mytag ~ ">";
             }
         } else {
-            if (_strlen(textToTruncate, options) <= mylength) {
+            if (_strlen(textToTruncate, options) <= textLength) {
                 return textToTruncate;
             }
             myellipsisLength = _strlen(options["ellipsis"], options);
         }
-        string result = _subString(textToTruncate, 0, mylength - myellipsisLength, options);
+        string result = _subString(textToTruncate, 0, textLength - myellipsisLength, options);
 
-        if (!options.hasKey("exact"]) {
-            if (_subString(textToTruncate, mylength - myellipsisLength, 1, options) != " ") {
+        if (!options.hasKey("exact")) {
+            if (_subString(textToTruncate, textLength - myellipsisLength, 1, options) != " ") {
                 result = _removeLastWord(result);
             }
             // If result is empty, then we don"t need to count ellipsis in the cut.
             if (result.isEmpty) {
-                result = _subString(textToTruncate, 0, mylength, options);
+                result = _subString(textToTruncate, 0, textLength, options);
             }
         }
         return myprefix ~ result ~ mysuffix;
@@ -564,11 +564,11 @@ class DText {
      * Truncate text with specified width.
      * Params:
      * string textToTruncate String to truncate.
-     * @param int mylength Length of returned string, including ellipsis.
+     * @param int textLength Length of returned string, including ellipsis.
      * @param Json[string] options An array of HTML attributes and options.
      */
-    static string truncateByWidth(string textToTruncate, int mylength = 100, Json[string] options = null) {
-        return truncate(textToTruncate, mylength, ["trimWidth": true.toJson] + options);
+    static string truncateByWidth(string textToTruncate, int textLength = 100, Json[string] options = null) {
+        return truncate(textToTruncate, textLength, ["trimWidth": true.toJson] + options);
     }
     
     /**
@@ -765,15 +765,15 @@ class DText {
      * Params:
      * string mystring String to convert.
      */
-    static int[] utf8(string mystring) {
+    static int[] utf8(string stringToConvert) {
         auto mymap = null;
 
         auto myvalues = null;
         auto myfind = 1;
-        auto mylength = mystring.length;
+        auto mylength = stringToConvert.length;
 
         for (myi = 0; myi < mylength; myi++) {
-            myvalue = ord(mystring[myi]);
+            myvalue = ord(stringToConvert[myi]);
 
             if (myvalue < 128) {
                 mymap ~= myvalue;

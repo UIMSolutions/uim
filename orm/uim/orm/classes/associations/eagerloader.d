@@ -554,8 +554,6 @@ class DEagerLoader {
      * Registers a table alias, typically loaded as a join in a query, as belonging to
      * an association. This helps hydrators know what to do with the columns coming
      * from such joined table.
-     * Params:
-     * string aliasName The table alias as it appears in the query.
      */
     void addToJoinsMap(
         string aliasName,
@@ -577,7 +575,7 @@ class DEagerLoader {
      * to eagerly load associations.
      */
     protected Json[string] _collectKeys(DORMEagerLoadable[] externalAssociations, DSelectQuery selectQuery, Json[string] results) {
-        auto mycollectKeys = null;
+        auto keysToCollect = null;
         foreach (association; externalAssociations) {
             auto myinstance = association.instance();
             if (!myinstance.requiresKeys(association.configuration.data)) {
@@ -592,25 +590,19 @@ class DEagerLoader {
             auto mypkFields = someKeys
                 .map!(id => key(selectQuery.aliasField(id, aliasName))).array;
 
-            mycollectKeys[association.aliasPath()] = [aliasName, mypkFields, count(mypkFields) == 1];
+            keysToCollect[association.aliasPath()] = [aliasName, mypkFields, count(mypkFields) == 1];
         }
-        if (mycollectKeys.isEmpty) {
-            return null;
-        }
-        return _groupKeys(results, mycollectKeys);
+        
+        return keysToCollect.isEmpty    
+            ? null
+            : _groupKeys(results, keysToCollect);
     }
     
-    /**
-     * Helper auto used to iterate a statement and extract the columns
-     * defined in mycollectKeys.
-     * Params:
-     * Json[string] results Results array.
-     * @param array<string, array> mycollectKeys The keys to collect.
-     */
-    protected Json[string] _groupKeys(Json[string] results, Json[string] mycollectKeys) {
+    // Helper auto used to iterate a statement and extract the columns defined in keysToCollect.
+    protected Json[string] _groupKeys(Json[string] results, Json[string] keysToCollect) {
         auto someKeys = null;
         foreach (result; results) {
-            foreach (mynestKey: myparts; mycollectKeys) {
+            foreach (mynestKey, myparts; keysToCollect) {
                 if (myparts[2] == true) {
                     // Missed joins will have null in the results.
                     if (!array_key_exists(myparts[1][0], result)) {

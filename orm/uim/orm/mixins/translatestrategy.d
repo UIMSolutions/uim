@@ -126,12 +126,7 @@ mixin template TTranslateStrategy() {
         ];
     }
 
-    /**
-     * Unsets the temporary `_i18n` property after the entity has been saved
-     *
-     * @param DORMevents.IEvent event The beforeSave event that was fired
-     * @param DORMDatasource\IORMEntity anEntity The entity that is going to be saved
-     */
+    // Unsets the temporary `_i18n` property after the entity has been saved
     void afterSave(IEvent event, IORMEntity anEntity) {
         entity.remove("_i18n");
     }

@@ -634,9 +634,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param callable|null builder a function that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void notMatching(string associationName, callable builder = null) {
+    void notMatching(string associationName/* , callable builder = null */) {
         auto result = getEagerLoader()
-            .setMatching(associationName, builder, [
+            .setMatching(associationName, null /* builder, */ [
                 "joinType": Query.JOIN_TYPE_LEFT,
                 "fields": false.toJson,
                 "negateMatch": true.toJson,
@@ -1034,17 +1034,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         getSelectTypeMap().addDefaults(types);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @param string finder The finder method to use.
-     * @param Json[string] options The options for the finder.
-     */
-    static auto  find(string finder, Json[string] options = null) {
-        table = getRepository();
+    static auto find(string finderMethod, Json[string] options = null) {
+        auto repository = getRepository();
 
         /** @psalm-suppress LessSpecificReturnStatement */
-        return table.callFinder(finder, this, options);
+        return repository.callFinder(finderMethod, this, options);
     }
 
     /**

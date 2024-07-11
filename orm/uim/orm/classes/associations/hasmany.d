@@ -457,13 +457,8 @@ class DHasManyAssociation : DAssociation {
             return true;
         }
 
-        /**
-     * Checks the nullable flag of the foreign key
-     *
-     * @param DORMTable myTable the table containing the foreign key
-     * @param Json[string] properties the list of fields that compose the foreign key
-     */
-        protected bool _foreignKeyAcceptsNull(Table myTable, Json[string] properties) {
+        // Checks the nullable flag of the foreign key
+        protected bool _foreignKeyAcceptsNull(DORMTable myTable, Json[string] properties) {
             return !isIn(
                 false,
                 array_map(
@@ -476,18 +471,12 @@ class DHasManyAssociation : DAssociation {
                     );
                 }
 
-            /**
-     * Get the relationship type.
-     */
+            // Get the relationship type.
             string type() {
                 return ONE_TO_MANY;
             }
 
-            /**
-     * Whether this association can be expressed directly in a query join
-     *
-     * @param Json[string] options custom options key that could alter the return value
-     */
+            // Whether this association can be expressed directly in a query join
             bool canBeJoined(
                 Json[string] options = null) {
                 return !options.isEmpty(
@@ -504,12 +493,8 @@ class DHasManyAssociation : DAssociation {
                 return _foreignKey;
             }
 
-            /**
-     * Sets the sort order in which target records should be returned.
-     *
-     * @param mixed sort A find() compatible order clause
-     */
-            void sortOrder(sort) {
+            // Sets the sort order in which target records should be returned.
+            void sortOrder(Json[string] sort) {
                 _sort = sort;
             }
 
@@ -520,8 +505,7 @@ class DHasManyAssociation : DAssociation {
 
             array defaultRowValue(Json[string] row, bool joined) {
                 sourceAlias = source().aliasName();
-                if (isset(
-                        row[sourceAlias])) {
+                if (row.hasKey(sourceAlias)) {
                     row[sourceAlias][getProperty()] = joined ? null : [
                     ];
                 }
@@ -529,11 +513,7 @@ class DHasManyAssociation : DAssociation {
                 return row;
             }
 
-            /**
-     * Parse extra options passed in the constructor.
-     *
-     * @param Json[string] options original list of options passed in constructor
-     */
+            // Parse extra options passed in the constructor.
             protected void _options(
                 Json[string] options = null) {
                 if (
@@ -541,6 +521,7 @@ class DHasManyAssociation : DAssociation {
                     setSaveStrategy(
                         options["saveStrategy"]);
                 }
+
                 if (options.hasKey("sort")) {
                     sortOrder(options["sort"]);
                 }
@@ -568,10 +549,9 @@ class DHasManyAssociation : DAssociation {
                     options);
             }
 
-            bool cascadeRemove(IORMEntity anEntity, Json[string] options = null) {
-                helper = new DependentDeleteHelper();
-
-                return helper.cascadeRemove(this, entity, options);
+            bool cascadeRemove(IORMEntity ormEntity, Json[string] options = null) {
+                auto helper = new DependentDeleteHelper();
+                return helper.cascadeRemove(this, ormEntity, options);
             }
         }
 

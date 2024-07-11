@@ -796,26 +796,21 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ]);
      * ```
      *
-     * If called with an empty first argument and `myoverride` is set to true, the
+     * If called with an empty first argument and `shouldOverride` is set to true, the
      * previous list will be emptied.
-     * Params:
-     * string[] myassociations List of table aliases to be queried.
-     * @param \Closure|bool myoverride The query builder for the association, or
-     * if associations is an array, a bool on whether to override previous list
-     * with the one passed
-     * defaults to merging previous list with the new one.
      */
-    auto contain(string[] myassociations, IClosure|bool myoverride = false) {
-        myloader = getEagerLoader();
-        if (myoverride == true) {
-            this.clearContain();
+    auto contain(string[] associations, /* IClosure| */bool shouldOverride = false) {
+        auto loader = getEagerLoader();
+        if (shouldOverride == true) {
+            clearContain();
         }
-        myqueryBuilder = null;
-        if (cast(DClosure)myoverride) {
-            myqueryBuilder = myoverride;
-        }
-        if (myassociations) {
-            myloader.contain(myassociations, myqueryBuilder);
+        
+        auto queryBuilder = null;
+/*         if (cast(DClosure)shouldOverride) {
+            queryBuilder = shouldOverride;
+        } */
+        if (associations) {
+            myloader.contain(associations, myqueryBuilder);
         }
        _addAssociationsToTypeMap(
             getRepository(),
@@ -839,15 +834,15 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     }
     
     // Used to recursively add contained association column types to the query.
-    protected void _addAssociationsToTypeMap(DORMTable mytable, TypeMap mytypeMap, Json[string] myassociations) {
-        foreach (myname, mynested; myassociations) {
+    protected void _addAssociationsToTypeMap(DORMTable mytable, TypeMap mytypeMap, Json[string] associations) {
+        foreach (myname, mynested; associations) {
             if (!mytable.hasAssociation(myname)) {
                 continue;
             }
             auto myassociation = mytable.getAssociation(myname);
             auto mytarget = myassociation.getTarget();
-            auto myprimary = (array)mytarget.primaryKeys();
-            if (isEmpty(myprimary) || mytypeMap.type(mytarget.aliasField(myprimary[0])).isNull) {
+            auto primaryKeys = mytarget.primaryKeys();
+            if (isEmpty(primaryKeys) || mytypeMap.type(mytarget.aliasField(primaryKeys[0])).isNull) {
                 this.addDefaultTypes(mytarget);
             }
             if (!mynested.isEmpty) {
@@ -900,11 +895,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Please note that the query passed to the closure will only accept calling
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
-     * Params:
-     * string myassoc The association to filter by
      */
     void matching(string association, DClosure mybuilder = null) {
-        result = getEagerLoader().setMatching(myassoc, mybuilder).getMatching();
+        result = getEagerLoader().setMatching(association, mybuilder).getMatching();
        _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
        _isChanged();
     }
@@ -966,14 +959,10 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Please note that the query passed to the closure will only accept calling
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
-     * Params:
-     * string myassoc The association to join with
-     * @param \Closure|null mybuilder a auto that will receive a pre-made query object
-     * that can be used to add custom conditions or selecting some fields
      */
-    void leftJoinWith(string myassoc, Closure mybuilder = null) {
+    void leftJoinWith(string associationToJoin/* , DClosure mybuilder = null */) {
         result = getEagerLoader()
-            .setMatching(myassoc, mybuilder, [
+            .setMatching(associationToJoin, null /* mybuilder */, [
                 "joinType": JOIN_TYPE_LEFT,
                 "fields": false.toJson,
             ])
@@ -1011,13 +1000,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * This auto works the same as `matching()` with the difference that it
      * will select no fields from the association.
      * Params:
-     * string myassoc The association to join with
+     * string association The association to join with
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void innerJoinWith(string myassoc, Closure mybuilder = null) {
+    void innerJoinWith(string associationToJoin/* , Closure mybuilder = null */) {
         result = getEagerLoader()
-            .setMatching(myassoc, mybuilder, [
+            .setMatching(associationToJoin, null /* mybuilder */, [
                 "joinType": JOIN_TYPE_INNER,
                 "fields": false.toJson,
             ])
@@ -1071,13 +1060,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
      * Params:
-     * string myassoc The association to filter by
+     * string association The association to filter by
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void notMatching(string myassoc, Closure mybuilder = null) {
+    void notMatching(string association, Closure mybuilder = null) {
         result = getEagerLoader()
-            .setMatching(myassoc, mybuilder, [
+            .setMatching(association, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
                 "fields": false.toJson,
                 "negateMatch": true.toJson,

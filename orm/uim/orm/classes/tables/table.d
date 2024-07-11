@@ -220,10 +220,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     protected string _aliasName = null;
 
     // The name of the field that represents the primary key in the table
-    protected string[] _primaryKey = null;
+    protected string[] _primaryKeys = null;
 
     // The name of the field that represents a human-readable representation of a row
-    protected string[] _displayField = null;
+    protected string[] _displayFields = null;
 
     // The name of the class that represent a single row for this table
     protected string _entityClass = null;
@@ -463,49 +463,35 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string[]|string aKey Sets a new name to be used as primary key
      */
-    void primaryKeys(string[]|string aKey) {
-       _primaryKey = aKey;
+    void primaryKeys(string[] keys...) {
+       primaryKeys(keys.dup);
     }
-
-    void primaryKeys(string[]|string aKey) {
-       _primaryKey = aKey;
+    void primaryKeys(string[] keys) {
+       _primaryKeys = keys;
     }
     
     // Returns the primary key field name.
-    string[]|string primaryKeys() {
-        if (_primaryKey.isNull) {
-            aKey = getSchema().primaryKeys();
-            if (count(aKey) == 1) {
-                aKey = aKey[0];
-            }
-           _primaryKey = aKey;
-        }
-        return _primaryKey;
+    string[] primaryKeys() {
+        return _primaryKeys.isNull
+            ? getSchema().primaryKeys()
+            : _primaryKeys;
     }
     
-    /**
-     * Sets the display field.
-     * Params:
-     * string[]|string fieldName Name to be used as display field.
-     */
-    auto setDisplayField(string[]|string fieldName) {
-       _displayField = fieldName;
-
-        return this;
+    // Sets the display field.
+    void displayfields(string[] fieldNames) {
+       _displayFields = fieldName;
     }
     
-    /**
-     * Returns the display field.
-     */
-    string[] getDisplayField() {
-        if (_displayField !is null) {
-            return _displayField;
+    // Returns the display field.
+    string[] displayfields() {
+        if (_displayFields !is null) {
+            return _displayFields;
         }
         
         auto myschema = getSchema();
         foreach (fieldName; ["title", "name", "label"]) {
             if (myschema.hasColumn(fieldName)) {
-                return _displayField = fieldName;
+                return _displayFields = fieldName;
             }
         }
         myschema.columns().each!((mycolumn) {
@@ -516,17 +502,17 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 columnSchema.getString("type") == "string" &&
                 !preg_match("/pass|token|secret/i", column)
            ) {
-                return _displayField = column;
+                return _displayFields = column;
             }
         });
-        return _displayField = this.primaryKeys();
+        return _displayFields = this.primaryKeys();
     }
     
     // Returns the class used to hydrate rows for this table.
     string getEntityClass() {
         if (!_entityClass) {
-            defaultValue = Entity.classname;
-            myself = class;
+            auto defaultValue = Entity.classname;
+            auto myself = class;
             string[] myparts = mysplit("\\");
 
             if (myself == classname || count(myparts) < 3) {
@@ -592,7 +578,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * ```
      */
     void addBehaviors(Json[string] behaviorsToLoad) {
-        foreach (behaviorsToLoad as myname: options) {
+        foreach (myname, options; behaviorsToLoad) {
             if (isInteger(myname)) {
                 myname = options;
                 options = null;
@@ -630,24 +616,20 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string myname The behavior alias to get from the registry.
      */
-    Behavior getBehavior(string myname) {
-        if (!_behaviors.has(myname)) {
+    DArrayAttributeBehavior getBehavior(string behaviorAlias) {
+        if (!_behaviors.has(behaviorAlias)) {
             throw new DInvalidArgumentException(
                 "The `%s` behavior is not defined on `%s`."
-                .format(myname, class)
+                .format(behaviorAlias, class)
            );
         }
 
-        return _behaviors.get(myname);
+        return _behaviors.get(behaviorAlias);
     }
     
-    /**
-     * Check if a behavior with the given alias has been loaded.
-     * Params:
-     * string myname The behavior alias to check.
-     */
-    bool hasBehavior(string myname) {
-        return _behaviors.has(myname);
+    // Check if a behavior with the given alias has been loaded.
+    bool hasBehavior(string behaviorAlias) {
+        return _behaviors.has(behaviorAlias);
     }
     
     /**
@@ -665,18 +647,18 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string myname The alias used for the association.
      */
-    DAssociation getAssociation(string myname) {
-        myassociation = this.findAssociation(myname);
-        if (!myassociation) {
-            myassocations = this.associations().keys();
+    DAssociation getAssociation(string associationAlias) {
+        auto association = findAssociation(associationAlias);
+        if (!association) {
+            auto assocationKeys = this.associations().keys();
 
-            mymessage = "The `{myname}` association is not defined on `{aliasName()}`.";
-            if (myassocations) {
-                mymessage ~= "\nValid associations are: " ~ join(", ", myassocations);
+            auto message = "The `{myname}` association is not defined on `{aliasName()}`.";
+            if (assocationKeys) {
+                message ~= "\nValid associations are: " ~ join(", ", assocationKeys);
             }
-            throw new DInvalidArgumentException(mymessage);
+            throw new DInvalidArgumentException(message);
         }
-        return myassociation;
+        return association;
     }
     
     /**
@@ -687,11 +669,9 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * ```
      * myhasUsers = this.hasAssociation("Articles.Comments.Users");
      * ```
-     * Params:
-     * string myname The alias used for the association.
      */
-   bool hasAssociation(string myname) {
-        return _findAssociation(myname) !is null;
+   bool hasAssociation(string associationName) {
+        return _findAssociation(associationName) !is null;
     }
     
     /**
@@ -705,14 +685,14 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string myname The alias used for the association.
      */
-    protected IAssociation findAssociation(string myname) {
-        if (!myname.contains(".")) {
-            return _associations.get(myname);
+    protected IAssociation findAssociation(string associationName) {
+        if (!associationName.contains(".")) {
+            return _associations.get(associationName);
         }
         result = null;
-        [myname, mynext] = array_pad(split(".", myname, 2), 2, null);
-        if (myname !is null) {
-            result = _associations.get(myname);
+        [associationName, mynext] = array_pad(split(".", associationName, 2), 2, null);
+        if (associationName !is null) {
+            result = _associations.get(associationName);
         }
         if (result !is null && mynext !is null) {
             result = result.getTarget().getAssociation(mynext);
@@ -1005,10 +985,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * ```
      * Params:
      * string mytype the type of query to perform
-     * @param Json ...myargs Arguments that match up to finder-specific parameters
+     * @param Json ...arguments Arguments that match up to finder-specific parameters
      */
-    SelectQuery find(string mytype = "all", Json ...myargs) {
-        return _callFinder(mytype, this.selectQuery(), ...myargs);
+    SelectQuery find(string mytype = "all", Json ...arguments) {
+        return _callFinder(mytype, this.selectQuery(), ...arguments);
     }
     
     /**
@@ -1097,7 +1077,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         string myvalueSeparator = ";"
    ) {
         keyField ??= this.primaryKeys();
-        myvalueField ??= getDisplayField();
+        myvalueField ??= displayfields();
 
         if (
             !myquery.clause("select") &&
@@ -1204,14 +1184,13 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Defaults to `null`, i.e. no caching.
      * @param \/*Closure|* / string mycacheKey The cache key to use. If not provided
      * one will be autogenerated if `mycache` is not null.
-     * @param Json ...myargs Arguments that query options or finder specific parameters.
      */
     IORMEntity get(
         Json myprimaryKey,
-        string[]|string myfinder = "all",
-        ICache|string mycache = null,
+        /* string[]| */string myfinder = "all",
+        /* ICache| */string mycache = null,
         /*Closure|*/ string mycacheKey = null,
-        Json ...myargs
+        Json arguments
    ) {
         if (myprimaryKey.isNull) {
             throw new DInvalidPrimaryKeyException(
@@ -1219,18 +1198,18 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 .format(getTable()
            ));
         }
-        aKey = (array)this.primaryKeys();
+        keys = (array)this.primaryKeys();
         aliasName = aliasName();
-        foreach (myindex: mykeyname; aKey) {
-            aKey[myindex] = aliasName ~ "." ~ mykeyname;
+        foreach (myindex: mykeyname; keys) {
+            keys[myindex] = aliasName ~ "." ~ mykeyname;
         }
         if (!isArray(myprimaryKey)) {
             myprimaryKey = [myprimaryKey];
         }
-        if (count(aKey) != count(myprimaryKey)) {
+        if (count(keys) != count(myprimaryKey)) {
             myprimaryKey = myprimaryKey ?: [null];
-            myprimaryKey = array_map(function (aKey) {
-                return var_export_(aKey, true);
+            myprimaryKey = array_map(function (keys) {
+                return var_export_(keys, true);
             }, myprimaryKey);
 
             throw new DInvalidPrimaryKeyException(
@@ -1238,7 +1217,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 .format(getTable(), join(", ", myprimaryKey)
            ));
         }
-        myconditions = array_combine(aKey, myprimaryKey);
+        myconditions = array_combine(keys, myprimaryKey);
 
         if (isArray(myfinder)) {
             deprecationWarning(
@@ -1247,17 +1226,17 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                     ~ " Use named arguments instead."
            );
 
-            myargs += myfinder;
-            myfinder = myargs.getString("finder", "all");
-            if (myargs.hasKey("cache")) {
-                mycache = myargs["cache"];
+            arguments += myfinder;
+            myfinder = arguments.getString("finder", "all");
+            if (arguments.hasKey("cache")) {
+                mycache = arguments["cache"];
             }
-            if (myargs.hasKey("key")) {
-                mycacheKey = myargs["key"];
+            if (arguments.hasKey("key")) {
+                mycacheKey = arguments["key"];
             }
-            remove(myargs["key"], myargs["cache"], myargs["finder"]);
+            remove(arguments["key"], arguments["cache"], arguments["finder"]);
         }
-        myquery = this.find(myfinder, ...myargs).where(myconditions);
+        myquery = this.find(myfinder, ...arguments).where(myconditions);
 
         if (mycache) {
             if (!mycacheKey) {
@@ -1277,23 +1256,17 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Handles the logic executing of a worker inside a transaction.
      * Params:
      * callable myworker The worker that will run inside the transaction.
-     * @param bool myatomic Whether to execute the worker inside a database transaction.
      */
-    protected Json _executeTransaction(callable myworker, bool myatomic = true) {
-        if (myatomic) {
+    protected Json _executeTransaction(callable myworker, bool isAtomic = true) {
+        if (isAtomic) {
             return _getConnection().transactional(fn (): myworker());
         }
         return myworker();
     }
     
-    /**
-     * Checks if the caller would have executed a commit on a transaction.
-     * Params:
-     * bool myatomic True if an atomic transaction was used.
-     * @param bool isPrimary True if a primary was used.
-     */
-    protected bool _transactionCommitted(bool myatomic, bool isPrimary) {
-        return !getConnection().inTransaction() && (myatomic || isPrimary);
+    // Checks if the caller would have executed a commit on a transaction.
+    protected bool _transactionCommitted(bool isAtomic, bool isPrimary) {
+        return !getConnection().inTransaction() && (isAtomic || isPrimary);
     }
     
     /**
@@ -1326,11 +1299,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @param callable|null mycallback A callback that will be invoked for newly
      * created entities. This callback will be called *before* the entity
      * is persisted.
-     * @param Json[string] options The options to use when saving.
      */
     IORMEntity findOrCreate(
-        SelectQuery|callable|array mysearch,
-        callable aCallback = null,
+        DSelectQuery/* |callable|array */ mysearch,
+        /* callable aCallback = null, */
         Json[string] options = null
    ) {
         options = new Json[string](options ~ [
@@ -1338,15 +1310,15 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             "defaults": true.toJson,
         ]);
 
-        myentity = _executeTransaction(
-            fn (): _processFindOrCreate(mysearch, mycallback, options.getArrayCopy()),
+        auto entity = _executeTransaction(
+            fn (): _processFindOrCreate(mysearch, null /* mycallback */, options.getArrayCopy()),
             options["atomic"]
        );
 
-        if (myentity && _transactionCommitted(options["atomic"], true)) {
+        if (entity && _transactionCommitted(options.get("atomic"), true)) {
             dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
         }
-        return myentity;
+        return entity;
     }
     
     // Performs the actual find and/or create of an entity based on the passed options.
@@ -1765,12 +1737,12 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             myentity.set(myfilteredKeys, ["guard": false.toJson]);
             myschema = getSchema();
             mydriver = getConnection().getDriver();
-            foreach (aKey: value; myprimary) {
-                if (!mydata.hasKey(aKey)) {
-                    myid = mystatement.lastInsertId(getTable(), aKey);
-                    mytype = myschema.getColumnType(aKey);
+            foreach (key, value; myprimary) {
+                if (!mydata.hasKey(key)) {
+                    myid = mystatement.lastInsertId(getTable(), key);
+                    mytype = myschema.getColumnType(key);
                     assert(mytype !is null);
-                    myentity.set(aKey, TypeFactory.build(mytype).ToD(myid, mydriver));
+                    myentity.set(key, TypeFactory.build(mytype).ToD(myid, mydriver));
                     break;
                 }
             }
@@ -1885,8 +1857,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
         bool[] myisNew;
         mycleanupOnFailure = void (entities) use (&myisNew) {
-            foreach (entities as aKey: myentity) {
-                if (isSet(myisNew[aKey]) && myisNew[aKey]) {
+            foreach (key: myentity; entities) {
+                if (isSet(myisNew[key]) && myisNew[key]) {
                     myentity.remove(this.primaryKeys());
                     myentity.setNew(true);
                 }
@@ -1899,8 +1871,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 .transactional(function () use (entities, options, &myisNew, &myfailed) {
                     // Cache array cast since options are the same for each entity
                     options = (array)options;
-                    foreach (entities as aKey: myentity) {
-                        myisNew[aKey] = myentity.isNew();
+                    foreach (key: myentity; entities) {
+                        myisNew[key] = myentity.isNew();
                         if (this.save(myentity, options) == false) {
                             myfailed = myentity;
 
@@ -2134,13 +2106,13 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     }
     
     // Calls a finder method and applies it to the passed query.
-    SelectQuery<TSubject> callFinder(string finderType, DSelectQuery myquery, Json myargs) {
+    SelectQuery<TSubject> callFinder(string finderType, DSelectQuery myquery, Json arguments) {
         string myfinder = "find" ~ finderType;
         if (method_exists(this, myfinder)) {
-            return _invokeFinder(this.{myfinder}(...), myquery, myargs);
+            return _invokeFinder(this.{myfinder}(...), myquery, arguments);
         }
         if (_behaviors.hasFinder(finderType)) {
-            return _behaviors.callFinder(finderType, myquery, myargs);
+            return _behaviors.callFinder(finderType, myquery, arguments);
         }
         throw new BadMethodCallException(
             "Unknown finder method `%s` on `%s`.".format(
@@ -2154,15 +2126,15 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @template TSubject of \UIM\Datasource\IORMEntity|array
      * @param \Closure mycallable Callable.
      * @param \ORM\Query\SelectQuery<TSubject> myquery The query object.
-     * @param Json[string] myargs Arguments for the callable.
+     * @param Json[string] arguments Arguments for the callable.
      */
-    SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string] myargs) {
+    SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string] arguments) {
         auto myreflected = new DReflectionFunction(mycallable);
         auto params = myreflected.getParameters();
         auto mysecondParam = params[1] ?? null;
         auto mysecondParamType = null;
 
-        if (myargs is null || isSet(myargs[0])) {
+        if (arguments is null || isSet(arguments[0])) {
             mysecondParamType = mysecondParam?.getType();
             mysecondParamTypeName = cast(ReflectionNamedType)mysecondParamType ? mysecondParamType.name: null;
             // Backwards compatibility of 4.x style finders with signature `findFoo(SelectQuery myquery, Json[string] options = null)`
@@ -2173,35 +2145,35 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 !mysecondParam.isVariadic() &&
                 (mysecondParamType.isNull || mysecondParamTypeName == "array")
            ) {
-                if (isSet(myargs[0])) {
+                if (isSet(arguments[0])) {
                     deprecationWarning(
                         "5.0.0",
                         "Using options array for the `find()` call is deprecated."
                         ~ " Use named arguments instead."
                    );
 
-                    myargs = myargs[0];
+                    arguments = arguments[0];
                 }
-                myquery.applyOptions(myargs);
+                myquery.applyOptions(arguments);
 
                 return mycallable(myquery, myquery.getOptions());
             }
             // Backwards compatibility for core finders like `findList()` called in 4.x style
             // with an array `find("list", ["valueField": "foo"])` instead of `find("list", valueField: "foo")`
-            if (isSet(myargs[0]) && isArray(myargs[0]) && mysecondParamTypeName != "array") {
+            if (isSet(arguments[0]) && isArray(arguments[0]) && mysecondParamTypeName != "array") {
                 deprecationWarning(
                     "5.0.0",
                     "Calling `{myreflected.name}` finder with options array is deprecated."
                      ~ " Use named arguments instead."
                );
 
-                myargs = myargs[0];
+                arguments = arguments[0];
             }
         }
-        if (myargs) {
-            myquery.applyOptions(myargs);
+        if (arguments) {
+            myquery.applyOptions(arguments);
             // Fetch custom args without the query options.
-            myargs = myquery.getOptions();
+            arguments = myquery.getOptions();
 
             remove(params[0]);
             mylastParam = end(params);
@@ -2209,21 +2181,21 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
             if (mylastParam == false || !mylastParam.isVariadic()) {
                 string[] myparamNames = params.map!(param => myparam.name).array;
-                myargs.byKeyValue
+                arguments.byKeyValue
                     .filter(kv => isString(kv.key) && !myparamNames.has(kv.key))
-                    .each!(kv => remove(myargs[kv.key]));
+                    .each!(kv => remove(arguments[kv.key]));
             }
         }
-        return mycallable(myquery, ...myargs);
+        return mycallable(myquery, ...arguments);
     }
     
     /**
      * Provides the dynamic findBy and findAllBy methods.
      * Params:
      * string mymethod The method name that was fired.
-     * @param Json[string] myargs List of arguments passed to the function.
+     * @param Json[string] arguments List of arguments passed to the function.
      */
-    protected ISelectQuery _dynamicFinder(string mymethod, Json[string] myargs) {
+    protected ISelectQuery _dynamicFinder(string mymethod, Json[string] arguments) {
         mymethod = Inflector.underscore(mymethod);
         preg_match("/^find_([\w]+)_by_/", mymethod, mymatches);
         if (isEmpty(mymatches)) {
@@ -2237,16 +2209,16 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         myhasOr = fieldNames.contains("_or_");
         myhasAnd = fieldNames.contains("_and_");
 
-        mymakeConditions = auto (fieldNames, myargs) {
+        mymakeConditions = auto (fieldNames, arguments) {
             myconditions = null;
-            if (count(myargs) < count(fieldNames)) {
+            if (count(arguments) < count(fieldNames)) {
                 throw new BadMethodCallException(format(
                     "Not enough arguments for magic finder. Got %s required %s",
-                    count(myargs),
+                    count(arguments),
                     count(fieldNames)
                ));
             }
-            fieldNames.each!(field => myconditions[this.aliasField(field)] = array_shift(myargs));
+            fieldNames.each!(field => myconditions[this.aliasField(field)] = array_shift(arguments));
             return myconditions;
         };
 
@@ -2256,15 +2228,15 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
            );
         }
         if (myhasOr == false && myhasAnd == false) {
-            myconditions = mymakeConditions([fieldNames], myargs);
+            myconditions = mymakeConditions([fieldNames], arguments);
         } else if (myhasOr == true) {
             string[] fieldNames = fieldNames.split("_or_");
             myconditions = [
-                "OR": mymakeConditions(fieldNames, myargs),
+                "OR": mymakeConditions(fieldNames, arguments),
             ];
         } else {
             string[] fieldNames = fieldNames.split("_and_");
-            myconditions = mymakeConditions(fieldNames, myargs);
+            myconditions = mymakeConditions(fieldNames, arguments);
         }
         return _find(myfindType, conditions: myconditions);
     }
@@ -2275,14 +2247,14 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * If your Table uses any behaviors you can call them as if
      * they were on the table object.
      * Params:
-     * @param Json[string] myargs List of arguments passed to the function
+     * @param Json[string] arguments List of arguments passed to the function
      */
-    Json __call(string methodToInvoke, Json[string] myargs) {
+    Json __call(string methodToInvoke, Json[string] arguments) {
         if (_behaviors.hasMethod(methodToInvoke)) {
-            return _behaviors.call(methodToInvoke, myargs);
+            return _behaviors.call(methodToInvoke, arguments);
         }
         if (preg_match("/^find(?:\w+)?By/", methodToInvoke) > 0) {
-            return _dynamicFinder(methodToInvoke, myargs);
+            return _dynamicFinder(methodToInvoke, arguments);
         }
         throw new BadMethodCallException(
             "Unknown method `%s` called on `%s`".format(methodToInvoke, class)
@@ -2382,14 +2354,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * You can use the `Model.beforeMarshal` event to modify request data
      * before it is converted into entities.
-     * Params:
-     * Json[string] data The data to build an entity with.
-     * @param Json[string] options A list of options for the object hydration.
      */
     IORMEntity newEntity(Json[string] data, Json[string] options = null) {
-        options["associated"] ??= _associations.keys();
-
-        return _marshaller().one(mydata, options);
+        options.set("associated", options.ifNull("associated", _associations.keys()));
+        return _marshaller().one(data, options);
     }
     
     /**
@@ -2508,13 +2476,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * iterable<\UIM\Datasource\IORMEntity> entities the entities that will get the
      * data merged in
-     * @param Json[string] data list of arrays to be merged into the entities
-     * @param Json[string] options A list of options for the objects hydration.
      */
     IORMEntity[] patchEntities(Json[string] entities, Json[string] data, Json[string] options = null) {
-        options["associated"] ??= _associations.keys();
-
-        return _marshaller().mergeMany(entities, mydata, options);
+        options.set("associated", options.ifNull("associated", _associations.keys()));
+        return _marshaller().mergeMany(entities, data, options);
     }
     
     /**
@@ -2544,31 +2509,27 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * In the above example, the email uniqueness will be scoped to only rows having
      * the same site_id. Scoping will only be used if the scoping field is present in
      * the data to be validated.
-     * Params:
      * Json aValue The value of column to be checked for uniqueness.
-     * @param Json[string] options The options array, optionally containing the "scope" key.
-     * May also be the validation context, if there are no options.
-     * @param array|null mycontext Either the validation context or null.
      */
-    bool validateUnique(Json aValue, Json[string] options, Json[string] mycontext = null) {
-        if (mycontext.isNull) {
-            mycontext = options;
+    bool validateUnique(Json columnValue, Json[string] options, Json[string] context = null) {
+        if (context.isNull) {
+            context = options;
         }
         auto myentity = new DORMEntity(
-            mycontext["data"],
+            context["data"],
             [
                 "useSetters": false.toJson,
-                "markNew": mycontext["newRecord"],
+                "markNew": context["newRecord"],
                 "source": this.registryKey(),
             ]
        );
         fieldNames = array_merge(
-            [mycontext["field"]],
-            options.hasKey("scope"]) ? (array)options["scope"] : []
+            [context["field"]],
+            options.hasKey("scope") ? options.getArray("scope") : []
        );
 
-        auto myvalues = myentity.extract(fieldNames);
-        foreach (fieldName; myvalues) {
+        auto values = myentity.extract(fieldNames);
+        foreach (fieldName; values) {
             if (fieldName !is null && !isScalar(fieldName)) {
                 return false;
             }
@@ -2670,8 +2631,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         return (new DLazyEagerLoader()).loadInto(entities, mycontain, this);
     }
  
-    protected bool validationMethodExists(string myname) {
-        return method_exists(this, myname) || this.behaviors().hasMethod(myname);
+    protected bool validationMethodExists(string methodName) {
+        return method_exists(this, methodName) || this.behaviors().hasMethod(methodName);
     }
     
     /**

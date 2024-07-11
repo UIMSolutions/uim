@@ -23,12 +23,12 @@ class DMarshaller {
      * Params:
      * Json[string] data The data being marshalled.
      */
-    protected Json[string] _buildPropertyMap(Json[string] data, Json[string] options = null) {
+    protected Json[string] _buildPropertyMap(Json[string] dataBeingMarshalled, Json[string] options = null) {
         auto mymap = null;
         auto tableSchema = _table.getSchema();
 
         // Is a concrete column?
-        foreach (myprop, data.keys) {
+        foreach (myprop, dataBeingMarshalled.keys) {
             auto myprop = to!string(myprop);
             auto mycolumnType = tableSchema.getColumnType(myprop);
             if (mycolumnType) {
@@ -57,10 +57,10 @@ class DMarshaller {
             }
             
             auto association = _table.getAssociation(to!string(aKey));
-            if (options.hasKey("forceNew"])) {
-                mynested["forceNew"] = options.get("forceNew"];
+            if (options.hasKey("forceNew")) {
+                mynested.set("forceNew", options.get("forceNew"));
             }
-            if (options.hasKey("isMerge"])) {
+            if (options.hasKey("isMerge")) {
                 mycallback = auto(myvalue, IORMEntity myentity) use(association, mynested) {
                     options = mynested ~ ["associated": Json.emptyArray, "association": association];
 
@@ -75,7 +75,8 @@ class DMarshaller {
             }
             mymap[association.getProperty()] = mycallback;
         }
-        mybehaviors = _table.behaviors();
+        
+        auto mybehaviors = _table.behaviors();
         foreach (myname; mybehaviors.loaded()) {
             auto mybehavior = mybehaviors.get(myname);
             if (cast(IPropertyMarshal) mybehavior) {
@@ -512,11 +513,6 @@ class DMarshaller {
      * - fields: An allowed list of fields to be assigned to the entity. If not present,
      * the accessible fields list in the entity will be used.
      * - accessibleFields: A list of fields to allow or deny in entity accessible fields.
-     * Params:
-     * iterable<\UIM\Datasource\IORMEntity> myentities the entities that will get the
-     * data merged in
-     * @param Json[string] data list of arrays to be merged into the entities
-     * @param Json[string] options List of options.
      */
         IORMEntity[] mergeMany(Json[string] myentities, Json[string] data, Json[string] options = null) {
             auto myprimary = /* (array) */ _table.primaryKeys();
@@ -640,23 +636,23 @@ class DMarshaller {
      * myoriginal = The original entities list.
      * @param \ORM\Association\BelongsToMany association The association to marshall
      * @param Json[string] myvalue The data to hydrate
-     * @param Json[string] options List of options.
      */
-        protected IORMEntity[] _mergeBelongsToMany(IORMEntity[] myoriginal, BelongsToMany associationToMarshall, Json[string] myvalue, Json[string] options = null) {
+        protected IORMEntity[] _mergeBelongsToMany(IORMEntity[] myoriginal, BelongsToMany associationToMarshall, Json[string] dataToHydrate, Json[string] options = null) {
             auto myassociated = options.getArray("associated");
 
-            auto myhasIds = array_key_exists("_ids", myvalue);
+            auto myhasIds = array_key_exists("_ids", dataToHydrate);
             auto myonlyIds = array_key_exists("onlyIds", options) && options["onlyIds"];
 
-            if (myhasIds && isArray(myvalue["_ids"])) {
-                return _loadAssociatedByIds(associationToMarshall, myvalue["_ids"]);
+            if (myhasIds && isArray(dataToHydrate["_ids"])) {
+                return _loadAssociatedByIds(associationToMarshall, dataToHydrate["_ids"]);
             }
             if (myhasIds || myonlyIds) {
                 return null;
             }
 
             return !empty(myassociated) && !isIn("_joinData", myassociated, true) && !myassociated.hasKey("_joinData")
-                ? _mergeMany(myoriginal, myvalue, options) : _mergeJoinData(myoriginal, associationToMarshall, myvalue, options);
+                ? _mergeMany(myoriginal, dataToHydrate, options) 
+                : _mergeJoinData(myoriginal, associationToMarshall, dataToHydrate, options);
         }
 
         /**
@@ -667,7 +663,7 @@ class DMarshaller {
      * @param Json[string] myvalue The data to hydrate
      * @param Json[string] options List of options.
      */
-        protected IORMEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany association, Json[string] myvalue, Json[string] options = null) {
+        protected IORMEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany association, Json[string] dataToHydrate, Json[string] options = null) {
             auto myassociated = options.getArray("associated");
             Json[string] myextra = null;
             foreach (myentity; myoriginal) {
@@ -688,25 +684,25 @@ class DMarshaller {
             }
             options["accessibleFields"] = ["_joinData": true.toJson];
 
-            auto myrecords = this.mergeMany(myoriginal, myvalue, options);
+            auto myrecords = this.mergeMany(myoriginal, dataToHydrate, options);
             myrecords.each!((myrecord) {
                 auto myhash = spl_object_hash(myrecord);
-                auto myvalue = myrecord.get("_joinData");
+                auto dataToHydrate = myrecord.get("_joinData");
 
                 // Already an entity, no further marshalling required.
-                if (cast(IORMEntity) myvalue) {
+                if (cast(IORMEntity) dataToHydrate) {
                     continue;
                 }
                 // Scalar data can"t be handled
-                if (!isArray(myvalue)) {
+                if (!isArray(dataToHydrate)) {
                     myrecord.remove("_joinData");
                     continue;
                 }
                 // Marshal data into the old object, or make a new joinData object.
                 if (myextra.hasKey(myhash)) {
-                    myrecord.set("_joinData", mymarshaller.merge(myextra[myhash], myvalue, mynested));
+                    myrecord.set("_joinData", mymarshaller.merge(myextra[myhash], dataToHydrate, mynested));
                 } else {
-                    myjoinData = mymarshaller.one(myvalue, mynested);
+                    myjoinData = mymarshaller.one(dataToHydrate, mynested);
                     myrecord.set("_joinData", myjoinData);
                 }
             });

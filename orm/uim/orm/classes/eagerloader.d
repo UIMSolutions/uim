@@ -246,10 +246,10 @@ class DEagerLoader {
      * @param Json[string] original The original containments array to merge
      * with the new one
      */
-    protected Json[string] _reformatContain(Json[string] associations, Json[string] original) {
-        result = original;
+    protected Json[string] _reformatContain(Json[string] associations, Json[string] originalContainments) {
+        auto result = originalContainments;
 
-        foreach (associations as table: options) {
+        foreach (table, options; associations) {
             pointer = &result;
             if (isInteger(table)) {
                 table = options;
@@ -292,15 +292,15 @@ class DEagerLoader {
 
             pointer += [table: []];
 
-            if (options.hasKey("queryBuilder"], pointer[table]["queryBuilder"])) {
-                first = pointer[table]["queryBuilder"];
-                second = options.get("queryBuilder"];
-                options["queryBuilder"] = function (query) use (first, second) {
+            if (options.hasKey("queryBuilder") && pointer.hasKey(table, "queryBuilder")) {
+                auto first = pointer[table]["queryBuilder"];
+                auto second = options.get("queryBuilder");
+               /*  options["queryBuilder"] = function (query) use (first, second) {
                     return second(first(query));
-                };
+                }; */
             }
 
-            if (!(options.isArray) {
+            if (!options.isArray) {
                 /** @psalm-suppress InvalidArrayOffset */
                 options = [options: []];
             }

@@ -444,13 +444,9 @@ class DSelectLoader {
     /**
      * Returns a callable to be used for each row in a query result set
      * for injecting the eager loaded rows
-     *
-     * @param DORMQuery fetchQuery the Query used to fetch results
-     * @param Json[string] resultMap an array with the foreignKeys as keys and
-     * the corresponding target table results as value.
      */
     // TODO
-    /* protected Closure _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] options = null) {
+    /* protected Closure _resultInjector(DORMQuery fetchQuery, Json[string] resultMap, Json[string] options = null) {
         keys = this.associationType == Association.MANY_TO_ONE ?
             _foreignKeys :
             _bindingKeys;

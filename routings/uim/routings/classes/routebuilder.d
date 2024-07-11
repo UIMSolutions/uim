@@ -666,15 +666,15 @@ class DRouteBuilder {
      * @param \Closure|null callbackClosure The callback to invoke that builds the plugin routes
      * Only required when options is defined.
      */
-    auto plugin(string routings, /* Closure| */ Json[string] options = null, Closure callbackClosure = null) {
+    auto plugin(string routings, /* Closure| */ Json[string] options = null/* , Closure callbackClosure = null */) {
         if (!isArray(options)) {
             callbackClosure = options;
             options = null;
         }
-        path = options.getString("path", "/" ~ Inflector.dasherize(routings));
-        options.remove("path"]);
-        options = ["plugin": routings] + options;
-        this.scope (path, options, callbackClosure);
+        auto path = options.getString("path", "/" ~ Inflector.dasherize(routings));
+        options.remove("path");
+        options = options.update(["plugin": routings]);
+        this.scope (path, options, null /* callbackClosure */);
 
         return this;
     }

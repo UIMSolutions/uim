@@ -508,17 +508,16 @@ class DTreeBehavior : DBehavior {
      * If the node is the first child, or is a top level node with no previous node
      * this method will return the same node without any changes
      *
-     * @param DORMDatasource\IORMEntity node The node to move
      * @param int|true number How many places to move the node, or true to move to first position
      */
-    IORMEntity moveUp(IORMEntity node, number = 1) {
+    IORMEntity moveUp(IORMEntity nodeToMove, size_t placesToMove = 1) {
         if (number < 1) {
             return false;
         }
 
-        return _table.getConnection().transactional(function () use (node, number) {
-            _ensureFields(node);
-            return _moveUp(node, number);
+        return _table.getConnection().transactional(function () use (node, placesToMove) {
+            _ensureFields(nodeToMove);
+            return _moveUp(nodeToMove, numplacesToMoveber);
         });
     }
 
@@ -528,21 +527,21 @@ class DTreeBehavior : DBehavior {
      * @param DORMDatasource\IORMEntity node The node to move
      * @param int|true number How many places to move the node, or true to move to first position
      */
-    protected IORMEntity _moveUp(IORMEntity node, number) {
+    protected IORMEntity _moveUp(IORMEntity nodeToMove, size_t placesToMove) {
         auto configData = configuration.data;
-        [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
+        [parent, left, right] = [configuration.get("parent"), configuration.get("left"), configuration.get("right")];
         [nodeParent, nodeLeft, nodeRight] = array_values(node.extract([parent, left, right]));
 
         auto targetNode = null;
         if (number != true) {
             /** @var DORMdatasources.IORMEntity|null targetNode */
-            targetNode = _scope(_table.find())
+            auto targetNode = _scope(_table.find())
                 .select([left, right])
                 .where(["parent IS": nodeParent])
-                .where(function (exp) use (myConfiguration, nodeLeft) {
-                    /** @var DDBExpression\QueryExpression exp */
+                /* .where(function (exp) use (myConfiguration, nodeLeft) {
+                    /** @var DDBExpression\QueryExpression exp * /
                     return exp.lt(configuration.get("rightField"), nodeLeft);
-                })
+                }) */
                 .orderDesc(configuration.get("leftField"))
                 .offset(number - 1)
                 .limit(1)
@@ -680,14 +679,14 @@ class DTreeBehavior : DBehavior {
      */
     protected IORMEntity _getNode(id) {
         auto configData = configuration.data;
-        [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
+        [parent, left, right] = [configuration.get("parent"), configuration.get("left"), configuration.get("right")];
         primaryKeys = primaryKeys();
         fields = [parent, left, right];
-        if (configuration.hasKey("level"]) {
-            fields ~= configuration.get("level"];
+        if (configuration.hasKey("level")) {
+            fields ~= configuration.get("level");
         }
 
-        node = _scope(_table.find())
+        auto node = _scope(_table.find())
             .select(fields)
             .where([_table.aliasField(primaryKeys): id])
             .first();

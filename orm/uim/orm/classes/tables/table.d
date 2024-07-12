@@ -1876,10 +1876,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                         }
                     }
                 });
-        } catch (Exception mye) {
+        } catch (Exception exception) {
             mycleanupOnFailure(entities);
 
-            throw mye;
+            throw exception;
         }
         if (myfailed !is null) {
             mycleanupOnFailure(entities);

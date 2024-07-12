@@ -612,24 +612,18 @@ class DEagerLoader {
      * Registers a table aliasName, typically loaded as a join in a query, as belonging to
      * an association. This helps hydrators know what to do with the columns coming
      * from such joined table.
-     *
-     * @param string aliasName The table aliasName as it appears in the query.
-     * @param DORMAssociation association The association object the aliasName represents;
-     * will be normalized
-     * @param bool asMatching Whether this join results should be treated as a
-     * "matching" association.
      */
     void addToJoinsMap(
         string aliasName,
         DORMAssociation association,
-        bool asMatching = false,
+        bool isMatching = false,
         string targetProperty = null
    ) {
         _joinsMap[aliasName] = new DEagerLoadable(aliasName, [
             "aliasPath": aliasName,
             "instance": association,
             "canBeJoined": true.toJson,
-            "forMatching": asMatching,
+            "forMatching": isMatching,
             "targetProperty": targetProperty.ifEmpty(association.getProperty()),
         ]);
     }

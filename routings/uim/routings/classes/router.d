@@ -218,13 +218,13 @@ class DRouter {
         _urlFilters.each!((filter) {
             try {
                 url = myfilter(url, myrequest);
-            } catch (Throwable mye) {
+            } catch (Throwable exception) {
                 auto reflection = new DReflectionFunction(filter);
                 auto exceptionMessage = 
                     "URL filter defined in %s on line %s could not be applied. The filter failed with: %s"
-                    .format(reflection.getFileName(), reflection.getStartLine(), mye.getMessage());
+                    .format(reflection.getFileName(), reflection.getStartLine(), exception.getMessage());
 
-                throw new DException(exceptionMessage, to!int(mye.code()), mye);
+                throw new DException(exceptionMessage, to!int(exception.code()), exception);
             }
         });
         return url;

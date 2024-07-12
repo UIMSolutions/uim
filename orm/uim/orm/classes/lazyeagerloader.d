@@ -95,7 +95,7 @@ class DLazyEagerLoader {
         /** @var array<\UIM\Datasource\IORMEntity> results */
         /* auto results = selectQuery
             .all()
-            .indexBy(IORMEntity mye => mye.extract(myprimaryKey).join(";"))
+            .indexBy(IORMEntity exception => exception.extract(myprimaryKey).join(";"))
             .toJString();
 
         myentities.byKeyValue

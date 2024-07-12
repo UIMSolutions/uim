@@ -126,8 +126,8 @@ class DApcuCacheEngine : DCacheEngine {
     string[] results = null;
     // TOD auto groupValues = mygroups.values;
     //TODO
-    /* foreach (myi : mygroup; configuration.get("groups")) {
-      results ~= mygroup ~ groupValues[myi];
+    /* foreach (index : mygroup; configuration.get("groups")) {
+      results ~= mygroup ~ groupValues[index];
     } */
     return results;
   }

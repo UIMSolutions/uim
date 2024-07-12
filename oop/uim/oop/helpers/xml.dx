@@ -157,8 +157,8 @@ class Xml {
                         }
                         try {
                             return mycallable(inputToLoad, options, myflags);
-                        } catch (Exception mye) {
-                            throw new XmlException("Xml cannot be read. " ~ mye.getMessage(), null, mye);
+                        } catch (Exception exception) {
+                            throw new XmlException("Xml cannot be read. " ~ exception.getMessage(), null, exception);
                         } finally {
                             libxml_use_internal_errors(myinternalErrors);
                         }

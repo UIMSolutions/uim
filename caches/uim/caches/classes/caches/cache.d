@@ -120,20 +120,20 @@ class DCache : UIMObject, ICache {
         // TODO 
         /*         try {
             myRegistry.load(configName, configData);
-        } catch (RuntimeException mye) {
+        } catch (RuntimeException exception) {
             if (!array_key_exists("fallback", configData)) {
                 myRegistry.set(configName, new DNullEngine());
-                trigger_error(mye.getMessage(), ERRORS.USER_WARNING);
+                trigger_error(exception.getMessage(), ERRORS.USER_WARNING);
 
                 return;
             }
             if (!configuration.hasKey("fallback")) {
-                throw mye;
+                throw exception;
             }
             if (configuration.getString("fallback") == configName) {
                 throw new DInvalidArgumentException(
                     "`%s` cache configuration cannot fallback to it"
-                    .format(configName), 0, mye);
+                    .format(configName), 0, exception);
             }
             auto myfallbackEngine = pool(configuration.get("fallback")).clone;
             assert(cast(DCacheEngine)myfallbackEngine);

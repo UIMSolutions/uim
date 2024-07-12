@@ -260,8 +260,8 @@ class DFileCacheEngine : DCacheEngine {
             myexists = isFile(mypath.getPathname());
             try {
                 _File = mypath.openFile("c+");
-            } catch (Exception mye) {
-                trigger_error(mye.getMessage(), ERRORS.USER_WARNING);
+            } catch (Exception exception) {
+                trigger_error(exception.getMessage(), ERRORS.USER_WARNING);
 
                 return false;
             }

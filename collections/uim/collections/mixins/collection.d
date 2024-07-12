@@ -34,7 +34,7 @@ mixin template TCollection() {
  
     ICollection reject(callable aCallback = null) {
         // TODO 
-        /* mycallback ??= auto (myv, myKey, myi) {
+        /* mycallback ??= auto (myv, myKey, index) {
             return (bool)myv;
         };
 
@@ -591,7 +591,7 @@ mixin template TCollection() {
     ICollection chunk(int mychunkSize) {
         return _map(function (myv, myKey, Iterator myiterator) use (mychunkSize) {
             myvalues = [myv];
-            for (myi = 1; myi < mychunkSize; myi++) {
+            for (index = 1; index < mychunkSize; index++) {
                 myiterator.next();
                 if (!myiterator.valid()) {
                     break;
@@ -609,7 +609,7 @@ mixin template TCollection() {
                 aKey = myKey;
             }
             myvalues = [aKey: myv];
-            for (myi = 1; myi < mychunkSize; myi++) {
+            for (index = 1; index < mychunkSize; index++) {
                 myiterator.next();
                 if (!myiterator.valid()) {
                     break;

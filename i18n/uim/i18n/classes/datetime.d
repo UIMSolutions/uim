@@ -347,7 +347,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      */
     string i18nFormat(
         /* array<int>|string */
-        int format = null, /* DateTimeZone| */
+        int format = 0, /* DateTimeZone| */
         string timezone = null,
         string localeName = null
     ) {
@@ -496,7 +496,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     }
 
     // Returns a string that should be serialized when converting this object to Json
-    string JsonSerialize() {
+    string jsonSerialize() {
         return cast(DClosure) _JsonEncodeFormat
             ? call_user_func(_JsonEncodeFormat, this) : _i18nFormat(
                 _JsonEncodeFormat);

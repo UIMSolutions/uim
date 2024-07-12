@@ -546,16 +546,8 @@ class DAssociation : IAssociation {
     /**
      * Correctly nests a result row associated values into the correct array keys inside the
      * source results.
-     *
-     * @param Json[string] row The row to transform
-     * @param string nestKey The array key under which the results for this association
-     *  should be found
-     * @param bool joined Whether the row is a result of a direct join
-     *  with this association
-     * @param string targetProperty The property name in the source results where the association
-     * data shuld be nested in. Will use the default one if not provided.
      */
-    array transformRow(Json[string] row, string nestKey, bool joined, string targetProperty = null) {
+    array transformRow(Json[string] row, string nestKey, bool isJoined, string targetProperty = null) {
         auto sourceAlias = source().aliasName();
         auto nestKey = nestKey ?  : _name;
         auto targetProperty = targetProperty ?  : getProperty();
@@ -570,14 +562,10 @@ class DAssociation : IAssociation {
     /**
      * Returns a modified row after appending a property for this association
      * with the default empty value according to whether the association was
-     * joined or fetched externally.
-     *
-     * @param Json[string] row The row to set a default on.
-     * @param bool joined Whether the row is a result of a direct join
-     *  with this association
+     * isJoined or fetched externally.
      */
-    Json[string] defaultRowValue(Json[string] row, bool joined) {
-        sourceAlias = source().aliasName();
+    Json[string] defaultRowValue(Json[string] row, bool isJoined) {
+        auto sourceAlias = source().aliasName();
         if (row.hasKey(sourceAlias)) {
             row[sourceAlias][getProperty()] = null;
         }

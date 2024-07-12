@@ -11,9 +11,9 @@ import uim.i18n;
  */
 class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     // Get the difference in a human readable format.
-    string diffForHumans(
-        /* DChronosDate| */
-        DDateTime first, /* DChronosDateeee| */
+    /* string diffForHumans(
+        /* DChronosDate|  * /
+        DDateTime first, /* DChronosDateeee| * /
         DDateTime second = null,
         bool isAbsoluteTime = false
     ) {
@@ -71,10 +71,11 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             return isFuture ? __d("uim", "{0} from now", message) : __d("uim", "{0} ago", message);
         }
         return isFuture ? __d("uim", "{0} after", message) : __d("uim", "{0} before", message);
-    }
+    } */
 
+    /*
     // Format a into a relative timestring.
-    string timeAgoInWords(DateTime /* | Date  */ timeToFormat, Json[string] options = null) {
+    string timeAgoInWords(DateTime /* | Date  * / timeToFormat, Json[string] options = null) {
         auto options = _options(options, DateTime.classname);
         if (options["timezone"]) {
             time = time.setTimezone(options["timezone"]);
@@ -152,7 +153,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             "year": __d("uim", "in about a year"),
         ];
         return aboutIn[fWord];
-    }
+    } */
 
     // Calculate the data needed to format a relative difference string.
     protected Json[string] _diffData(string /* |int */ futureTime, string pastTime, bool isBackwards, Json[string] options = null) {

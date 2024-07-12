@@ -254,7 +254,7 @@ class DNumber {
      * Params:
      * Json[string] options An array with options.
      */
-    static DNumberFormatter formatter(
+    static auto formatter(
         Json[string] options = null) {
         string locale = options.get("locale", ini_get(
                 "intl.default_locale"));
@@ -289,13 +289,13 @@ class DNumber {
      * Params:
      * string alocale The locale name to use for formatting the number, e.g. fr_FR
      */
-    static void config(string localeName, int formatterType = DNumberFormatter.DECIMAL, Json[string] options = null) {
+   /*  static void config(string localeName, int formatterType = DNumberFormatter.DECIMAL, Json[string] options = null) {
         _formatters[localeName][formatterType] = _setAttributes(
             new DNumberFormatter(localeName, type), options);
-    }
+    } */
 
     // Set formatter attributes
-    protected static DNumberFormatter _setAttributes(
+    /* protected static DNumberFormatter _setAttributes(
         DNumberFormatter formatter, Json[string] options = null) {
         if (options.hasKey("places")) {
             formatter.setAttribute(
@@ -320,7 +320,7 @@ class DNumber {
                     .replace("¤", "¤¤ ")));
         }
         return formatter;
-    }
+    } */
 
     /**
      * Returns a formatted integer as an ordinal number string (e.g. 1st, 2nd, 3rd, 4th, [...])

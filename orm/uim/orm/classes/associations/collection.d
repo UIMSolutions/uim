@@ -82,13 +82,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         return _items.keys;
     }
 
-    /**
-     * Get an array of associations matching a specific type.
-     *
-     * @param string[]|string class DThe type of associations you want.
-     *  For example "BelongsTo" or array like ["BelongsTo", "HasOne"]
-     * returns an array of Association objects.
-     */
+    // Get an array of associations matching a specific type.
     DORMAssociation[] getByType(string[] associationTypes...) {
         return getByType(associationTypes.dup);
     }

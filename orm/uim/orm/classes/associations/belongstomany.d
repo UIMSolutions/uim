@@ -350,7 +350,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         subquery = _appendJunctionJoin(subquery);
 
-        query
+        /* query
             .andWhere(function (QueryExpression exp) use (subquery, conds) {
                 auto identifiers = conds.keys.map!(field => new DIdentifierExpression(field));
                 identifiers = subquery.newExpr().add(identifiers).conjunctionType(",");
@@ -361,7 +361,7 @@ class DBelongsToManyAssociation : DAssociation {
                         exp.notIn(identifiers, subquery),
                         nullExp.and(array_map([nullExp, "isNull"], conds.keys)),
                     ]);
-            });
+            }); */
     }
 
     /**
@@ -377,8 +377,7 @@ class DBelongsToManyAssociation : DAssociation {
     }
 
 
-    function eagerLoader(Json[string] options = null): Closure
-    {
+/*     DClosure eagerLoader(Json[string] options = null) {
         name = _junctionAssociationName();
         loader = new DSelectWithPivotLoader([
             "alias": this.aliasName(),
@@ -399,7 +398,7 @@ class DBelongsToManyAssociation : DAssociation {
         ]);
 
         return loader.buildEagerLoader(options);
-    }
+    } */
 
     // Clear out the data in the junction table for a given entity.
     bool cascadeRemove(IORMEntity ormEntity, Json[string] options = null) {
@@ -498,20 +497,14 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Persists each of the entities into the target table and creates links between
      * the parent entity and each one of the saved target entities.
-     *
-     * @param DORMDatasource\IORMEntity parentEntity the source entity containing the target
-     * entities to be saved.
-     * @param Json[string] entities list of entities to persist in target table and to
-     * link to the parent entity
-     * @param Json[string] options list of options accepted by `Table.save()`
      */
-    protected IORMEntity _saveTarget(IORMEntity parentEntity, Json[string] entities, options) {
+    protected IORMEntity _saveTarget(IORMEntity parentEntity, Json[string] entities, Json[string] options) {
         auto joinAssociations = false;
-        if (options.hasKey("associated"]) && options["associated"].isArray) {
-            if (!options.isEmpty("associated"][_junctionProperty]["associated"])) {
-                joinAssociations = options.get("associated"][_junctionProperty]["associated"];
+        if (options.hasKey("associated") && options.isArray("associated")) {
+            if (!options.isEmpty("associated", _junctionProperty, "associated")) {
+                joinAssociations = options.get("associated", _junctionProperty, "associated");
             }
-            options.remove("associated"][_junctionProperty]);
+            options.remove("associated", _junctionProperty);
         }
 
         auto table = getTarget();
@@ -527,7 +520,7 @@ class DBelongsToManyAssociation : DAssociation {
                 entity = entity.clone;
             }
 
-            saved = table.save(entity, options);
+            auto saved = table.save(entity, options);
             if (saved) {
                 entities[k] = entity;
                 persisted ~= entity;
@@ -536,7 +529,7 @@ class DBelongsToManyAssociation : DAssociation {
 
             // Saving the new linked entity failed, copy errors back into the
             // original entity if applicable and abort.
-            if (!options.isEmpty("atomic"])) {
+            if (!options.isEmpty("atomic")) {
                 original[k].setErrors(entity.getErrors());
             }
             if (saved == false) {
@@ -546,7 +539,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         options["associated"] = joinAssociations;
         success = _saveLinks(parentEntity, persisted, options);
-        if (!success && !options.isEmpty("atomic"])) {
+        if (!success && !options.isEmpty("atomic")) {
             parentEntity.set(getProperty(), original);
 
             return false;
@@ -646,11 +639,12 @@ class DBelongsToManyAssociation : DAssociation {
         links = array_merge(links, targetEntities);
         sourceEntity.set(property, links);
 
-        return _junction().getConnection().transactional(
+        /* return _junction().getConnection().transactional(
             function () use (sourceEntity, targetEntities, options) {
                 return _saveLinks(sourceEntity, targetEntities, options);
             }
-       );
+       ); */
+       return false;
     }
 
     /**
@@ -706,15 +700,15 @@ class DBelongsToManyAssociation : DAssociation {
        );
 
         /** @var array<DORMDatasource\IORMEntity> existing */
-        auto existing = sourceEntity.get(property) ?: [];
-        if (!options.hasKey("cleanProperty"] || existing.isEmpty) {
+        auto existing = sourceEntity.getArray(property);
+        if (!options.hasKey("cleanProperty") || existing.isEmpty) {
             return true;
         }
 
         /** @var \SplObjectStorage<DORMDatasource\IORMEntity, null> storage */
-        storage = new DSplObjectStorage();
-        foreach (targetEntities as e) {
-            storage.attach(e);
+        auto storage = new DSplObjectStorage();
+        foreach (entity; targetEntities) {
+            storage.attach(entity);
         }
 
         existing.byKeyValue.each!((keyEntity){

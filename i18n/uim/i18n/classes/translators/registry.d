@@ -45,7 +45,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * catalogs where none can be found for the combination of translator
      * name and locale.
      */
-    protected callable[] _loaders = null;
+    // protected callable[] _loaders = null;
 
     this(
         DCatalogLocator catalogLocator,
@@ -92,9 +92,9 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     }
     
     // Sets the CacheEngine instance used to remember translators across requests.
-    void cacher(/* ICache */ DCacheEngine cacher) {
+   /*  void cacher(/* ICache * / DCacheEngine cacher) {
        _cacher = cacher;
-    }
+    } */
     
     // Gets a translator from the registry by catalog for a locale.
     DTranslator get(string catalogName, string localName = null) {

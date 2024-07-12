@@ -285,12 +285,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * If the third argument is set to true, it will erase previous map reducers
      * and replace it with the arguments passed.
-     * Params:
-     * \Closure|null mymapper The mapper function
-     * @param \Closure|null myreducer The reducing function
-     * @param bool shouldOverwrite Set to true to overwrite existing map + reduce functions.
      */
-    void mapReduce(Closure mymapper = null, Closure myreducer = null, bool shouldOverwrite = false) {
+    /* void mapReduce(Closure mapperFunc = null, DClosure myreducer = null, bool shouldOverwrite = false) {
         if (shouldOverwrite) {
            _mapReduce = null;
         }
@@ -301,7 +297,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             return;
         }
        _mapReduce ~= compact("mapper", "reducer");
-    }
+    } */
     
     /**
      * Returns the list of previously registered map reduce routines.

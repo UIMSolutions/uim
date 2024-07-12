@@ -100,7 +100,7 @@ class DI18n {
      *
      * If no locale is passed then it takes the value returned by the `locale()` method.
      */
-    static Translator getTranslator(string domainName = "default", string translatorLocale = null) {
+    static DTranslator getTranslator(string domainName = "default", string translatorLocale = null) {
         auto translators = translators();
 
         if (translatorlocale) {

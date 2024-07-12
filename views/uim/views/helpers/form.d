@@ -543,7 +543,7 @@ class DFormHelper : DHelper {
             foreach (key, exception; myerror) {
                 if (text.hasKey(key)) {
                     mytmp ~= text[key];
-                } elseif (mytextm.hasKey(ye)) {
+                } else if (mytextm.hasKey(ye)) {
                     mytmp ~= text[exception];
                 } else {
                     mytmp ~= exception;
@@ -1025,7 +1025,7 @@ class DFormHelper : DHelper {
         if (fieldName.endsWith("._ids")) {
             fieldName = subString(fieldName, 0, -5);
             mypluralize = false;
-        } elseif (fieldName.endsWith("_id")) {
+        } else if (fieldName.endsWith("_id")) {
             fieldName = subString(fieldName, 0, -3);
         }
         fieldName = array_slice(fieldName.split("."), -1)[0];
@@ -1597,7 +1597,7 @@ class DFormHelper : DHelper {
         }
         if (myisUrl) {
             options.set("src", mycaption);
-        } elseif (myisImage) {
+        } else if (myisImage) {
             myUrl = mycaption[0] != "/" 
                 ? _url.webroot(configuration.getString("App.imageBaseUrl") ~ mycaption)
                 : _url.webroot(trim(mycaption, "/"));

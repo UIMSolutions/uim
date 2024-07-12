@@ -179,7 +179,7 @@ class DValidation {
                     return luhn(creditcardNumber);
                 }
             }
-        } elseif (mytype == "all") {
+        } else if (mytype == "all") {
             foreach (myvalue; mycards["all"]) {
                 regex = myvalue;
 
@@ -555,7 +555,7 @@ class DValidation {
 
             if (myplaces.isNull) {
                 regex = "/^{mysign}(?:{mylnum}|{mydnum}){myexp}my/";
-            } elseif (myplaces == true) {
+            } else if (myplaces == true) {
                 if (isFloat(valueToCheck) && floor(valueToCheck) == valueToCheck) {
                     valueToCheck = "%.1f".format(valueToCheck);
                 }
@@ -673,11 +673,11 @@ class DValidation {
         return false; 
     }
 
-/*     elseif(isArray(valueToCheck) && valueToCheck.hasKey("name")) {
+/*     else if(isArray(valueToCheck) && valueToCheck.hasKey("name")) {
         valueToCheck = valueToCheck["name"];
  * /    }
 
-    elseif(isArray(valueToCheck)) {
+    else if(isArray(valueToCheck)) {
         return extension(array_shift(valueToCheck), myextensions);
     }
     auto myextension = pathinfo(valueToCheck, PATHINFO_EXTENSION).lower;
@@ -1033,7 +1033,7 @@ static bool fileSize(Json valueToCheck, string validationOperator, size_t size) 
 static bool uploadError(Json valueToCheck, bool allowNoFile = false) {
     /* if (cast(8)IUploadedFile)valueToCheck) {
             mycode = valueToCheck.getError();
-        } elseif (isArray(valueToCheck)) {
+        } else if (isArray(valueToCheck)) {
             if (!valueToCheck.hasKey("error")) {
                 return false;
             }

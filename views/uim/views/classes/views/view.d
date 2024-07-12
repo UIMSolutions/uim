@@ -528,7 +528,7 @@ static string contentType() {
         if (mylayout == false) {
             mydefaultAutoLayout = _autoLayout;
             _autoLayout = false;
-        } elseif (mylayout !is null) {
+        } else if (mylayout !is null) {
             mydefaultLayout = _layout;
             _layout = mylayout;
         }
@@ -897,10 +897,10 @@ static string contentType() {
 
         if (!views.has(DIRECTORY_SEPARATOR) && views != "" && !views.startWith(".")) {
             views = mytemplatePath ~ mysubDir ~ _inflectTemplateFileName(views);
-        } elseif (views.has(DIRECTORY_SEPARATOR)) {
+        } else if (views.has(DIRECTORY_SEPARATOR)) {
             if (views[0] == DIRECTORY_SEPARATOR || views[1] == ": ") {
                 views = strip(views, DIRECTORY_SEPARATOR);
-            } elseif (!_plugin || _templatePath != _name) {
+            } else if (!_plugin || _templatePath != _name) {
                 views = mytemplatePath ~ mysubDir ~ views;
             } else {
                 views = mysubDir ~ views;

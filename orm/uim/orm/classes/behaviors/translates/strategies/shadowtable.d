@@ -232,7 +232,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 joinRequired = true;
                 field = "alias.field";
             }
-            elseif (mainTableFields.has(field)) {
+            else if (mainTableFields.has(field)) {
                 field = "mainTableAlias.field";
             }
 

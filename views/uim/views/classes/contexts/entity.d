@@ -480,7 +480,7 @@ class DEntityContext : DContext {
         string mymethod = "default";
         if (isString(_context["validator"])) {
             mymethod = _context["validator"];
-        } elseif (_context.hasKey("validator."~aliasName)) {
+        } else if (_context.hasKey("validator."~aliasName)) {
             mymethod = _context["validator"][aliasName];
         }
         

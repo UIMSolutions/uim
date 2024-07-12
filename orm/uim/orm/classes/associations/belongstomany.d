@@ -137,7 +137,7 @@ class DBelongsToManyAssociation : DAssociation {
         auto tableLocator = getTableLocator();
         if (table == null && _through) {
             table = _through;
-        } elseif (table == null) {
+        } else if (table == null) {
             tableName = _junctionTableName();
             tableAlias = Inflector.camelize(tableName);
 
@@ -759,7 +759,7 @@ class DBelongsToManyAssociation : DAssociation {
         foreach (conditions as field: value) {
             if (field.isString && indexOf(field, alialiasNameas) == 0) {
                 matching[field] = value;
-            } elseif (is_int(field) || cast(IExpression)value) {
+            } else if (is_int(field) || cast(IExpression)value) {
                 matching[field] = value;
             }
         }

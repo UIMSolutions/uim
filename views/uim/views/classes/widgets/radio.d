@@ -196,7 +196,7 @@ class DRadioWidget : DWidget {
    ) {
         if (radio.hasKey("label")) {
             label = radio["label"];
-        } elseif (label == false) {
+        } else if (label == false) {
             return false;
         }
         

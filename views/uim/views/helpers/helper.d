@@ -96,7 +96,7 @@ class DHelper { // TODO }: DEventListener {
         if (options.hasKey(key) && options.isArray(key)) {
             options[key] ~= classname;
         }
-        elseif(options.hasKey(key) && strip(options[key])) {
+        else if(options.hasKey(key) && strip(options[key])) {
             options[key] ~= " " ~ classname;
         } else {
             options[key] = classname;

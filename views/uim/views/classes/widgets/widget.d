@@ -129,7 +129,7 @@ class DWidget : IWidget {
       mydecimalPlaces = fieldNameDef["precision"];
       data.set("step", "%." ~ mydecimalPlaces ~ "F".format(pow(10, -1 * mydecimalPlaces)));
     }
-    elseif(mydbType == "float") {
+    else if(mydbType == "float") {
       data.set("step", "any");
     }
 

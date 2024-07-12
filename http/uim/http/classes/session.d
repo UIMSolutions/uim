@@ -65,10 +65,8 @@ class DSession {
      */
     static static create(Json[string] sessionConfig = null) {
         if (sessionConfig.hasKey("defaults")) {
-            defaults = _defaultConfigData(sessionConfig["defaults"]);
-            if (defaults) {
-                sessionConfig = Hash.merge(defaults, sessionConfig);
-            }
+            sessionConfig = sessionConfig.dup.merge(
+                _defaultConfigData(sessionConfig.getMap("defaults")));
         }
         if (
             !sessionConfig.hasKey("ini.session.cookie_secure")

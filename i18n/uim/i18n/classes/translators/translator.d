@@ -3,19 +3,24 @@ module uim.i18n.classes.translators.translator;
 import uim.i18n;
 
 @safe:
-/**
- * Translator to translate the message.
- */
-class DTranslator : ITranslator {
-    mixin TConfigurable;
-
+// Translator to translate the message.
+class DTranslator : UIMObject, ITranslator {
     this() {
-        initialize;
+        super();
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    this(Json[string] initData) {
+        super(initData);
+    }
+
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
+    }
+
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
         
         return true;
     }

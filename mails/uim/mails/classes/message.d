@@ -497,25 +497,14 @@ class DMessage { //: JsonSerializable {
         return _decodeForHeader(this.subject);
     }
     
-    /**
-     * Sets headers for the message
-     * Params:
-     * Json[string] aHeaders Associative array containing headers to be set.
-     */
-    void setHeaders(Json[string] aHeaders) {
-        this.headers = aHeaders;
-
+    // Sets headers for the message
+    void setHeaders(Json[string] headers) {
+        _headers = headers.dup;
     }
     
-    /**
-     * Add header for the message
-     * Params:
-     * Json[string] aHeaders Headers to set.
-     */
-    auto addHeaders(Json[string] aHeaders) {
-        this.headers = Hash.merge(this.headers,  aHeaders);
-
-        return this;
+    // Add header for the message
+    void addHeaders(Json[string] headers) {
+        _headers.update(headers);
     }
     
     /**
@@ -540,7 +529,8 @@ class DMessage { //: JsonSerializable {
         if (anInclude == anInclude.values) {
              anInclude = array_fill_keys(anInclude, true);
         }
-        defaults = array_fill_keys(
+        
+        auto defaults = array_fill_keys(
             [
                 "from", "sender", "replyTo", "readReceipt", "returnPath",
                 "to", "cc", "bcc", "subject",
@@ -560,33 +550,31 @@ class DMessage { //: JsonSerializable {
             "bcc": "Bcc",
         ];
          aHeadersMultipleEmails = ["to", "cc", "bcc", "replyTo"];
-        foreach (var,  aHeader; relation) {
+        foreach (var,  headerName; relation) {
             if (anInclude[var]) {
-                if (isIn(var,  aHeadersMultipleEmails)) {
-                     aHeaders[aHeader] = join(", ", this.formatAddress(this.{var}));
-                } else {
-                     aHeaders[aHeader] = /* (string) */currentValue(this.formatAddress(this.{var}));
-                }
+                aHeaders[headerName] = isIn(var,  aHeadersMultipleEmails)
+                    ? join(", ", formatAddress(this.{var}))
+                    : /* (string) */currentValue(formatAddress(this.{var}));
             }
         }
         if (anInclude["sender"]) {
             aheader.set("Sender", 
-                key(this.sender) == key(this.from)
+                key(_sender) == key(_from)
                 ? ""
-                : /* (string) */currentValue(this.formatAddress(this.sender));
+                : /* (string) */currentValue(formatAddress(_sender)));
         }
-        aHeaders += this.headers;
+        aHeaders += _headers;
         if (!aHeaders.hasKey("Date")) {
-            aHeaders["Date"] = date(DATE_RFC2822);
+            aHeaders.set("Date", date(DATE_RFC2822));
         }
         if (_messageId == true) {
             if (_messageId == true) {
                 _messageId = "<" ~ Text.uuid().replace("-", "") ~ "@" ~ this.domain ~ ">";
             }
-            aHeaders["Message-ID"] = _messageId;
+            aHeaders.set("Message-ID", _messageId);
         }
-        if (this.priority) {
-            aHeaders["X-Priority"] = /* (string) */this.priority;
+        if (_priority) {
+            aHeaders.set("X-Priority", /* (string) */_priority);
         }
         if (anInclude["subject"]) {
             aHeaders["Subject"] = this.subject;
@@ -1007,7 +995,7 @@ class DMessage { //: JsonSerializable {
     
     // Sets priority.
     auto setPriority(int priority) {
-        this.priority = priority;
+        _priority = priority;
 
         return this;
     }

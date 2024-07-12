@@ -591,11 +591,11 @@ class Hash {
      * @param Json mymerge Array to merge with. The argument and all trailing arguments will be array cast when merged
      */
     static Json[string] merge(Json[string] data, Json mymerge) {
-        myargs = array_slice(func_get_args(), 1);
-        result = data;
-        mystack = null;
+        auto myargs = array_slice(func_get_args(), 1);
+        auto result = data;
+        auto mystack = null;
 
-        foreach (myargs as &mycurArg) {
+        foreach (&mycurArg; myargs) {
             mystack ~= [(array)mycurArg, &result];
         }
         remove(mycurArg);

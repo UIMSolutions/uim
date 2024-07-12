@@ -248,10 +248,10 @@ class DFileConfigEngine {
                     .format(configData, key)
             );
         }
-        someValues = engine.read(key);
 
+        auto someValues = engine.read(key);
         if (shouldMerge) {
-            someValues = Hash.merge(_values, someValues);
+            someValues.merge(_values);
         }
         write(someValues);
 

@@ -10,25 +10,23 @@ import uim.errors;
  * Debugger : D`s default error handling and gives
  * simpler to use more powerful interfaces.
  */
-class DDebugger {
-    mixin TConfigurable;
-
+class DDebugger : UIMObject {
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
-    this(string name) {
-        this().name(name);
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
 
-    // Hook method
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         configuration.updateDefaults([
             "outputMask": Json.emptyArray,

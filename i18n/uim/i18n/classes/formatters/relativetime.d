@@ -222,8 +222,8 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             weeks = floor(days / 7);
             days -= weeks * 7;
         } */
-    } else {
-        /*  years = months = weeks = 0;
+        } else {
+            /*  years = months = weeks = 0;
         days = floor(diff / 86400);
 
         diff -= days * 86400;
@@ -232,9 +232,9 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         minutes = floor(diff / 60);
         diff -= minutes * 60;
         seconds = diff; */
-    }
+        }
 
-    /* auto fWord = options.get(["accuracy", "second"]);
+        /* auto fWord = options.get(["accuracy", "second"]);
     if (years > 0) {
         fWord = options.get(["accuracy", "year"]);
     }
@@ -261,7 +261,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         ["year", "month", "week", "day", "hour", "minute", "second"],
         ["1", "2", "3", "4", "5", "6", "7"]
     ); */
-    /* return [
+        /* return [
         fNum,
         fWord,
         to!int(years),
@@ -272,11 +272,11 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         to!int(minutes),
         to!int(seconds),
     ]; */
-    return null; 
-}
+        return null;
+    }
 
-// Format a into a relative date string.
-string dateAgoInWords( /* DateTime | */ Date date, Json[string] options = null) {
+    // Format a into a relative date string.
+     /* string dateAgoInWords( /* DateTime | * / Date date, Json[string] options = null) {
     options = _options(options, Date.classname);
     if (cast(DateTime) date && options["timezone"]) {
         date = date.setTimezone(
@@ -341,31 +341,31 @@ string dateAgoInWords( /* DateTime | */ Date date, Json[string] options = null) 
         "year": __d("uim", "in about a year"),
     ];
     return aboutIn[fWord];
-}
+} */
 
-// Build the options for relative date formatting.
-protected Json[string] _options(
-    Json[string] options, string classname) {
-    auto updatedOptions = options.update([
-        "from": classname.now(),
-        "timezone": Json(null),
-        "format": classname.wordFormat,
-        "accuracy": classname.wordAccuracy,
-        "end": classname.wordEnd,
-        "relativeString": __d("uim", "%s ago"),
-        "absoluteString": __d("uim", "on %s"),
-    ]);
-    if (options.isString("accuracy")) {
-        auto accuracy = options.get(
-            "accuracy");
-        options["accuracy"] = null;
-        classname.wordAccuracy.byKeyValue
-            .each!(keyLevel => options.set(
-                    "accuracy", "" ~ keyLevel.key, accuracy));
-    } else {
-        options["accuracy"] += classname
-            .wordAccuracy;
+    // Build the options for relative date formatting.
+    protected Json[string] _options(Json[string] options, string classname) {
+
+        auto updatedOptions = options.dup.update([
+                "from": "classname.now()".toJson,
+                "timezone": Json(null),
+                "format": classname.wordFormat.toJson,
+                "accuracy": classname.wordAccuracy.toJson,
+                "end": classname.wordEnd.toJson,
+                "relativeString": `__d("uim", "%s ago")`.toJson,
+                "absoluteString": `__d("uim", "on %s")`.toJson,
+            ]);
+
+        if (updatedOptions.isString("accuracy")) {
+            auto accuracy = updatedOptions.get("accuracy");
+            updatedOptions.set("accuracy", null);
+            /* classname.wordAccuracy.byKeyValue
+            .each!(keyLevel => updatedOptions.set(
+                    "accuracy", "" ~ keyLevel.key, accuracy)); */
+        } else {
+            /* updatedOptions["accuracy"] += classname
+            .wordAccuracy; */
+        }
+        return updatedOptions;
     }
-    return options;
-}
 }

@@ -646,10 +646,9 @@ class DServerRequest { // }: IServerRequest {
         auto loweredName = name.lower;
         if (isSet(_detectors[loweredName], detector["options"])) {
             /** @var array data */
-            someData = _detectors[loweredName];
-            detector = Hash.merge(someData, detector);
+            detector.merge(_detectors.getMap(loweredName));
         }
-        _detectors[loweredName] = detector;
+        _detectors.get(loweredName, detector);
     }
     
     // Normalize a header name into the SERVER version.
@@ -685,7 +684,7 @@ class DServerRequest { // }: IServerRequest {
                 name = ucwords(name).replace(" ", "-");
                 result[name] = /* (array) */kv.value;
             }
-        }
+        });
         return result;
     }
     

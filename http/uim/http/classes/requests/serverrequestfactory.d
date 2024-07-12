@@ -100,9 +100,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         if (!isArray(parsedBody)) {
             return serverRequest;
         }
-        parsedBody = Hash.merge(parsedBody, files);
-
-        return serverRequest.withParsedBody(parsedBody);
+        return serverRequest.withParsedBody(parsedBody.merge(files));
     }
 
     /**

@@ -51,7 +51,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * @var array<int>|string|int
      */
     protected string[] _toStringFormat = [
-        IntlDateFormatter.SHORT, IntlDateFormatter.SHORT
+        DIntlDateFormatter.SHORT, DIntlDateFormatter.SHORT
     ];
 
     /**
@@ -92,7 +92,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * @var array<int>|string|int
      */
-    string[] wordFormat = [IntlDateFormatter.SHORT, IntlDateFormatter.NONE];
+    string[] wordFormat = [DIntlDateFormatter.SHORT, DIntlDateFormatter.NONE];
 
     /**
      * The format to use when formatting a time using `DateTime.timeAgoInWords()`
@@ -153,17 +153,12 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * It is possible to provide an array of 2 constants. In this case, the first position
      * will be used for formatting the date part of the object and the second position
      * will be used to format the time part.
-     * Params:
-     * array<int>|string|int format Format.
      */
-    void setToStringFormat(format) {
+    void setToStringFormat(/* array<int>|string|int */ string format) {
         _toStringFormat = format;
     }
 
-    /**
-     * Resets the format used to the default when converting an instance of this type to
-     * a string
-     */
+    // Resets the format used to the default when converting an instance of this type to a string
     void resetToStringFormat() {
         setToStringFormat([IntlDateFormatter.SHORT, IntlDateFormatter.SHORT]);
     }

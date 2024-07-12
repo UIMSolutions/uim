@@ -827,7 +827,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Append a join to the junction table.
      * @param array|null conditions The query conditions to use.
      */
-    protected DORMQuery _appendJunctionJoin(DORMQuery query, array conditions = null) {
+    protected DORMQuery _appendJunctionJoin(DORMQuery query, Json[string] conditions = null) {
         auto junctionTable = this.junction();
         if (conditions == null) {
             auto belongsTo = junctionTable.getAssociation(getTarget().aliasName());

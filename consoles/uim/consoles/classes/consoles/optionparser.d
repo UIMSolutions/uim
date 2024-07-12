@@ -521,8 +521,8 @@ class DConsoleOptionParser {
         if (aKey.length > 1) {
             flags = str_split(aKey);
             aKey = flags[0];
-            for (anI = 1, len = count(flags); anI < len; anI++) {
-                array_unshift(_tokens, "-" ~ flags[anI]);
+            for (index = 1, len = count(flags); index < len; index++) {
+                array_unshift(_tokens, "-" ~ flags[index]);
             }
         }
         if (!_shortOptions.hasKey(aKey)) {

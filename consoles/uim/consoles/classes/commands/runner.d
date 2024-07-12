@@ -184,11 +184,11 @@ class DCommandRunner { // }: IEventDispatcher {
      * defined command. This will traverse a maximum of 3 tokens.
      */
     protected Json[string] longestCommandName(CommandCollection commandsToCheck, Json[string] cliArguments) {
-        for (anI = 3; anI > 1; anI--) {
-            someParts = array_slice(cliArguments, 0, anI);
+        for (index = 3; index > 1; index--) {
+            someParts = array_slice(cliArguments, 0, index);
             name = someParts.join(" ");
             if (commandsToCheck.has(name)) {
-                return [name, array_slice(cliArguments, anI)];
+                return [name, array_slice(cliArguments, index)];
             }
         }
         name = array_shift(cliArguments);

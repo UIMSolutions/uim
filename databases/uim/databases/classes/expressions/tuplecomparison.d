@@ -73,7 +73,7 @@ class DTupleComparisonExpression : DComparisonExpression {
             if (cast(IExpression) someParts) {
                 return someParts.sql(valueBinder);
                 }
-                foreach (anI, aValue; someParts) {
+                foreach (index, aValue; someParts) {
                     if (cast(IExpression) aValue) {
                         someValues ~= aValue.sql(valueBinder); 
                         continue;
@@ -90,7 +90,7 @@ class DTupleComparisonExpression : DComparisonExpression {
                                             bound ~= _bindValue(val, valueBinder, valType);
                                         }); someValues ~= "(%s)".format(bound.join(","));
                                     continue;}
-                                    valType = type && isSet(type[anI]) ? type[anI] : type;
+                                    valType = type && isSet(type[index]) ? type[index] : type;
                                         assert(valType.isNull || isScalar(valType));
                                         someValues ~= _bindValue(aValue, valueBinder, valType);
                                 }

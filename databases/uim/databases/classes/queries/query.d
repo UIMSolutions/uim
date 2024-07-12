@@ -451,7 +451,7 @@ abstract class DQuery : IQuery { // : IExpression {
         }
         
         auto joins = null;
-        anto anI = count(_parts["join"]);
+        anto index = count(_parts["join"]);
         foreach (aliasName, t; aTables) {
             if (!isArray(t)) {
                 t = ["table": t, "conditions": this.newExpr()];
@@ -463,7 +463,7 @@ abstract class DQuery : IQuery { // : IExpression {
                 t["conditions"] = this.newExpr().add(t["conditions"], typeMap);
             }
             aliasName = isString(aliasName) ? aliasName : null;
-             joins[aliasName ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "aliasName": aliasName];
+             joins[aliasName ?:  index++] = t ~ ["type": JOIN_TYPE_INNER, "aliasName": aliasName];
         }
         _parts["join"] = shouldOverwrite ?  joins : array_merge(_parts["join"],  joins);
        _isChanged();
@@ -1336,15 +1336,15 @@ abstract class DQuery : IQuery { // : IExpression {
             .filter!(namePart => !isEmpty(part))
             .each!((namePart) { 
             if (namePart.value.isArray) {
-                foreach (anI, piece; namePart.value) {
+                foreach (index, piece; namePart.value) {
                     if (isArray(piece)) {
                         foreach (j, aValue; piece) {
                             if (cast(IExpression)aValue) {
-                               _parts[namePart.key][anI][j] = aValue.clone;
+                               _parts[namePart.key][index][j] = aValue.clone;
                             }
                         }
                     } else if (cast(IExpression)piece) {
-                       _parts[namePart.key][anI] = piece.clone;
+                       _parts[namePart.key][index] = piece.clone;
                     }
                 }
             }

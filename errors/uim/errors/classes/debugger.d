@@ -196,9 +196,9 @@ class DDebugger {
 
         // Reverse loop through both traces removing frames that
         // are the same.
-        for (anI = frameCount, p = parentCount; anI >= 0 && p >= 0; p--) {
+        for (index = frameCount, p = parentCount; index >= 0 && p >= 0; p--) {
             parentTail = parentFrames[p];
-            tail = frames[anI];
+            tail = frames[index];
 
             // Frames without file/line are never equal to another frame.
             isEqual = (
@@ -210,8 +210,8 @@ class DDebugger {
                 (tail["line"] == parentTail["line"])
            );
             if (isEqual) {
-                remove(frames[anI]);
-                anI--;
+                remove(frames[index]);
+                index--;
             }
         }
         return frames;
@@ -255,7 +255,8 @@ class DDebugger {
         if (cast(Throwable) backtrace) {
             backtrace = backtrace.getTrace();
         }
-        defaults = [
+
+        Json[string] defaults = [
             "depth": 999.toJson,
             "format": "text".toJson,
             "args": false.toJson,
@@ -264,14 +265,14 @@ class DDebugger {
             "exclude": ["call_user_func_array", "trigger_error"].toJson,
         ];
 
-        auto mergedOptions = Hash.merge(defaults, options);
+        auto mergedOptions = options.merge(defaults);
         auto count = count(backtrace) + 1;
         string[] back = null;
 
-        for (anI = mergedOptions["start"]; anI < count && anI < mergedOptions["depth"]; anI++) {
+        for (index = mergedOptions["start"]; index < count && index < mergedOptions["depth"]; index++) {
             frame = ["file": "[main]", "line": ""];
-            if (isSet(backtrace[anI])) {
-                frame = backtrace[anI] ~ ["file": "[internal]", "line": "??"];
+            if (isSet(backtrace[index])) {
+                frame = backtrace[index] ~ ["file": "[internal]", "line": "??"];
             }
             string signature = frame.getString("file");
             string reference = frame.getString("file");
@@ -357,13 +358,13 @@ class DDebugger {
             return lines;
         }
 
-        for (anI = lineToHighlight - numberOfLinesToExtract; anI < lineToHighlight + numberOfLinesToExtract + 1;
-            anI++) {
-            if (contents[anI] !is null) {
+        for (index = lineToHighlight - numberOfLinesToExtract; index < lineToHighlight + numberOfLinesToExtract + 1;
+            index++) {
+            if (contents[index] !is null) {
                 continue;
             }
-            string lineToHighlight = _highlight(someData[anI]).replace(["\r\n", "\n"], "");
-            lines ~= anI == lineToHighlight
+            string lineToHighlight = _highlight(someData[index]).replace(["\r\n", "\n"], "");
+            lines ~= index == lineToHighlight
                 ? htmlDoubleTag("span", ["code-highlight"], "string") : lineToHighlight;
         }
         return lines;

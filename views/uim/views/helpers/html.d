@@ -124,12 +124,12 @@ class DHtmlHelper : DHelper {
             }
             if (mytypes.hasKey(mytype)) {
                 mytype = mytypes[mytype];
-            } elseif (!htmlAttributes.hasKey("type") && content !is null) {
+            } else if (!htmlAttributes.hasKey("type") && content !is null) {
                 mytype = isArray(content) && content.hasKey("_ext")
                     ? mytypes[content.getString("_ext")]
                     : ["name": mytype, "content": content];
 
-            } elseif (htmlAttributes.hasKey("type") && mytypes.hasKey(htmlAttributes.getString("type"))) {
+            } else if (htmlAttributes.hasKey("type") && mytypes.hasKey(htmlAttributes.getString("type"))) {
                 mytype = mytypes[htmlAttributes["type"]];
                 htmlAttributes.remove("type");
             } else {
@@ -222,12 +222,12 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes.hasKey("escapeTitle")) {
             myescapeTitle = htmlAttributes["escapeTitle"];
             htmlAttributes.remove("escapeTitle");
-        } elseif (htmlAttributes.hasKey("escape")) {
+        } else if (htmlAttributes.hasKey("escape")) {
             myescapeTitle = htmlAttributes["escape"];
         }
         if (myescapeTitle == true) {
             mytitle = htmlAttributeEscape(mytitle);
-        } elseif (isString(myescapeTitle)) {
+        } else if (isString(myescapeTitle)) {
             /** @psalm-suppress PossiblyInvalidArgument */
             mytitle = htmlentities(mytitle, ENT_QUOTES, myescapeTitle);
         }
@@ -590,7 +590,7 @@ class DHtmlHelper : DHelper {
             if (!isArray(tableName)) {
                 content = tableName;
                 attributes = thOptions;
-            } elseif (tableName.has(0) && tableName.has(1)) {
+            } else if (tableName.has(0) && tableName.has(1)) {
                 content = tableName[0];
                 attributes = tableName[1];
             } else {
@@ -615,7 +615,7 @@ class DHtmlHelper : DHelper {
    ) {
         if (!isArray(tableData)) {
             tableData = [[tableData]];
-        } elseif (isEmpty(tableData[0]) || !isArray(tableData[0])) {
+        } else if (isEmpty(tableData[0]) || !isArray(tableData[0])) {
             tableData = [tableData];
         }
         if (oddTrOptions == true) {
@@ -915,7 +915,7 @@ class DHtmlHelper : DHelper {
             }
             if (liAttributes.hasKey("even") && myindex % 2 == 0) {
                 liAttributes.set("class", liAttributes["even"]);
-            } elseif (liAttributes.hasKey("odd") && myindex % 2 != 0) {
+            } else if (liAttributes.hasKey("odd") && myindex % 2 != 0) {
                 liAttributes.set("class", liAttributes["odd"]);
             }
             result ~= this.formatTemplate("li", [

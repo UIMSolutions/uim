@@ -53,7 +53,7 @@ mixin template TExtract() {
         auto aValue = null;
         bool isCollectionTransform = false;
 
-        foreach (anI: myColumn; someParts) {
+        foreach (index: myColumn; someParts) {
             if (myColumn == "{*}") {
                 isCollectionTransform = true;
                 continue;
@@ -65,7 +65,7 @@ mixin template TExtract() {
                 return null;
             }
             if (isCollectionTransform) {
-                rest = array_slice(someParts,  anI).join(".");
+                rest = array_slice(someParts,  index).join(".");
 
                 return (new DCollection(someData)).extract(rest);
             }

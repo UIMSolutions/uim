@@ -642,7 +642,7 @@ class DServerRequest { // }: IServerRequest {
             _detectors[detectorName.lower] = detector;
     }
 
-    static void addDetector(string name, array detector) {
+    static void addDetector(string name, Json[string] detector) {
         auto loweredName = name.lower;
         if (isSet(_detectors[loweredName], detector["options"])) {
             /** @var array data */

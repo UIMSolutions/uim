@@ -29,7 +29,7 @@ class DChainMessagesLoader {
      * Receives a list of loaders that will be executed
      * one after another until one of them returns a non-empty translations catalog
      */
-    this(MessagesFileLoader[string] loaders) {
+    this(DMessagesFileLoader[string] loaders) {
         _loaders = loaders;
     }
 

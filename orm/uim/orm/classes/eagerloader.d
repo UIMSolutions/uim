@@ -221,14 +221,14 @@ class DEagerLoader {
         }
 
         contain = null;
-        foreach (_containments as alias: options) {
+        foreach (_containments as aliasName: options) {
             if (!options.isEmpty("instance")) {
                 contain = _containments;
                 break;
             }
-            contain[alias] = _normalizeContain(
+            contain[aliasName] = _normalizeContain(
                 repository,
-                alias,
+                aliasName,
                 options,
                 ["root": Json(null)]
            );
@@ -241,10 +241,6 @@ class DEagerLoader {
      * Formats the containments array so that associations are always set as keys
      * in the array. This function merges the original associations array with
      * the new associations provided
-     *
-     * @param Json[string] associations user provided containments array
-     * @param Json[string] original The original containments array to merge
-     * with the new one
      */
     protected Json[string] _reformatContain(Json[string] associations, Json[string] originalContainments) {
         auto result = originalContainments;
@@ -330,7 +326,7 @@ class DEagerLoader {
         attachable = attachableAssociations(repository);
         processed = null;
         do {
-            foreach (attachable as alias: loadable) {
+            foreach (attachable as aliasName: loadable) {
                 myConfiguration = loadable.configuration.data + [
                     "aliasPath": loadable.aliasPath(),
                     "propertyPath": loadable.propertyPath(),
@@ -522,7 +518,7 @@ class DEagerLoader {
 
             requiresKeys = instance.requiresKeys(myConfiguration);
             if (requiresKeys) {
-                // If the path or alias has no key the required association load will fail.
+                // If the path or aliasName has no key the required association load will fail.
                 // Nested paths are not subject to this condition because they could
                 // be attached to joined associations.
                 if (
@@ -559,7 +555,7 @@ class DEagerLoader {
      * Returns an array having as keys a dotted path of associations that participate
      * in this eager loader. The values of the array will contain the following keys
      *
-     * - alias: The association alias
+     * - aliasName: The association aliasName
      * - instance: The association instance
      * - canBeJoined: Whether the association will be loaded using a JOIN
      * - entityClass: The entity that should be used for hydrating the results
@@ -596,7 +592,7 @@ class DEagerLoader {
             associations = meta.associations();
             forMatching = meta.forMatching();
             map ~= [
-                "alias": association,
+                "aliasName": association,
                 "instance": instance,
                 "canBeJoined": canBeJoined,
                 "entityClass": instance.getTarget().getEntityClass(),
@@ -613,30 +609,28 @@ class DEagerLoader {
     }
 
     /**
-     * Registers a table alias, typically loaded as a join in a query, as belonging to
+     * Registers a table aliasName, typically loaded as a join in a query, as belonging to
      * an association. This helps hydrators know what to do with the columns coming
      * from such joined table.
      *
-     * @param string anAliasName The table alias as it appears in the query.
-     * @param DORMAssociation association The association object the alias represents;
+     * @param string aliasName The table aliasName as it appears in the query.
+     * @param DORMAssociation association The association object the aliasName represents;
      * will be normalized
      * @param bool asMatching Whether this join results should be treated as a
      * "matching" association.
-     * @param string targetProperty The property name where the results of the join should be nested at.
-     * If not passed, the default property for the association will be used.
      */
     void addToJoinsMap(
-        string anAliasName,
+        string aliasName,
         DORMAssociation association,
         bool asMatching = false,
         string targetProperty = null
    ) {
-        _joinsMap[aliasName] = new DEagerLoadable(alias, [
-            "aliasPath": alias,
+        _joinsMap[aliasName] = new DEagerLoadable(aliasName, [
+            "aliasPath": aliasName,
             "instance": association,
             "canBeJoined": true.toJson,
             "forMatching": asMatching,
-            "targetProperty": targetProperty ?: association.getProperty(),
+            "targetProperty": targetProperty.ifEmpty(association.getProperty()),
         ]);
     }
 
@@ -659,10 +653,10 @@ class DEagerLoader {
 
             auto aliasName = source.aliasName();
             auto pkFields = null;
-            foreach (keys as key) {
-                pkFields ~= key(query.aliasField(key, alias));
+            foreach (key; keys) {
+                pkFields ~= key(query.aliasField(key, aliasName));
             }
-            collectKeys[meta.aliasPath()] = [alias, pkFields, count(pkFields) == 1];
+            collectKeys[meta.aliasPath()] = [aliasName, pkFields, count(pkFields) == 1];
         }
         if (collectKeys.isEmpty) {
             return [[], statement];
@@ -684,8 +678,8 @@ class DEagerLoader {
      */
     protected Json[string] _groupKeys(BufferedStatement statement, Json[string] collectKeys) {
         auto keys = null;
-        foreach ((statement.fetchAll("association") ?: []) as result) {
-            foreach (collectKeys as nestKey: parts) {
+        foreach (result; (statement.fetchAll("association") ?: [])) {
+            foreach (nestKey, parts; collectKeys) {
                 if (parts[2] == true) {
                     // Missed joins will have null in the results.
                     if (!array_key_exists(parts[1][0], result)) {
@@ -693,7 +687,7 @@ class DEagerLoader {
                     }
                     // Assign empty array to avoid not found association when optional.
                     if (result.isNull(parts[1][0])) {
-                        if (aKeys.isNull([nestKey, parts[0]]) {
+                        if (aKeys.isNull([nestKey, parts[0]])) {
                             keys[nestKey][parts[0]] = null;
                         }
                     } else {

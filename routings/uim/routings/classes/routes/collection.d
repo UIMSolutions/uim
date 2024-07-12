@@ -291,29 +291,28 @@ class DRouteCollection {
      * Add middleware to a middleware group
      * Params:
      * string routings Name of the middleware group
-     * @param string[] mymiddlewareNames Names of the middleware
      */
-    void middlewareGroup(string routings, Json[string] middlewareNames) {
-        if (this.hasMiddleware(routings)) {
-            mymessage = "Cannot add middleware group " routings". A middleware by this name has already been registered.";
+    void middlewareGroup(string groupName, Json[string] middlewareNames) {
+        if (this.hasMiddleware(groupName)) {
+            mymessage = "Cannot add middleware group 'groupName'. A middleware by this name has already been registered.";
             throw new DInvalidArgumentException(mymessage);
         }
         middlewareNames.each!((middlewareName) {
             if (!hasMiddleware(middlewareName)) {
-                string message = "Cannot add "~middlewareName~" middleware to group "~routings~". It has not been registered.";
+                string message = "Cannot add "~middlewareName~" middleware to group "~groupName~". It has not been registered.";
                 throw new DInvalidArgumentException(message);
             }
         });
-        _middlewareGroups[routings] = middlewareNames;
+        _middlewareGroups[groupName] = middlewareNames;
     }
 
     /**
      * Check if the named middleware group has been created.
      * Params:
-     * string routings The name of the middleware group to check.
+     * string groupName The name of the middleware group to check.
      */
-    bool hasMiddlewareGroup(string routings) {
-        return array_key_exists(routings, _middlewareGroups);
+    bool hasMiddlewareGroup(string groupName) {
+        return array_key_exists(groupName, _middlewareGroups);
     }
 
     // Check if the named middleware has been registered.
@@ -324,31 +323,27 @@ class DRouteCollection {
     /**
      * Check if the named middleware or middleware group has been registered.
      * Params:
-     * string routings The name of the middleware to check.
+     * string middlewareName The name of the middleware to check.
      */
-    bool middlewareExists(string routings) {
-        return _hasMiddleware(routings) || this.hasMiddlewareGroup(routings);
+    bool middlewareExists(string middlewareName) {
+        return _hasMiddleware(middlewareName) || this.hasMiddlewareGroup(middlewareName);
     }
 
-    /**
-     * Get an array of middleware given a list of names
-     * Params:
-     * string[] routingss The names of the middleware or groups to fetch
-     */
+    // Get an array of middleware given a list of names
     Json[string] getMiddleware(string[] middlewareNames) {
         auto result = null;
         middlewareNames.each!((name) {
-            if (this.hasMiddlewareGroup(routings)) {
-                result = array_merge(result, getMiddleware(_middlewareGroups[routings]));
+            if (this.hasMiddlewareGroup(name)) {
+                result = array_merge(result, getMiddleware(_middlewareGroups[name]));
                 continue;
             }
-            if (!this.hasMiddleware(routings)) {
+            if (!this.hasMiddleware(name)) {
                 throw new DInvalidArgumentException(
                     "The middleware named `%s` has not been registered. Use registerMiddleware() to define it."
-                        .format(routings
+                        .format(name
                        ));
             }
-            result ~= _middleware[routings];
+            result ~= _middleware[name];
         });
         return result;
     }

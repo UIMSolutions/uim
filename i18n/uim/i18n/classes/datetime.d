@@ -67,7 +67,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * @var \Closure|array<int>|string|int
      */
-    protected auto  /* Closure */ string[] /* |int */ _JsonEncodeFormat = [
+    protected /* Closure */ string[] /* |int */ _jsonEncodeFormat = [
         "yyyy-MM-dd'T'HH':'mm':'ssxxx'"
     ];
 
@@ -431,9 +431,9 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * keys. Setting `group` and `abbr` to true will group results and append
      * timezone abbreviation in the display value. Set `before` and `after`
      * to customize the abbreviation wrapper.
-     */
+     * /
     auto Json[string] listTimezones(
-        string /* |int */ regexFilter = null,
+        string /* |int * / regexFilter = null,
         string countryCode = null,
         Json[string] options = null
     ) {
@@ -491,9 +491,8 @@ class DateTime /* : Chronos, JsonSerializable */ {
             });
             return anGroupedIdentifiers;
         }
-        return array_combine(anIdentifiers, anIdentifiers); */
-        return null; 
-    }
+        return array_combine(anIdentifiers, anIdentifiers); 
+    } */
 
     // Returns a string that should be serialized when converting this object to Json
     string jsonSerialize() {

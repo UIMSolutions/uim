@@ -93,7 +93,7 @@ class DPoFileParser {
         return null; 
     }
 
-    PoMessage parseByLine(string line, Json[] messages, PoMessage message) {
+    DPoMessage parseByLine(string line, Json[] messages, DPoMessage message) {
         string line = strip(line);
 
         if (line.isEmpty && message.isNull) {

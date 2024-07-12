@@ -156,53 +156,54 @@ class DPaginatorHelper : DHelper {
     /**
      * Generate an active/inactive link for next/prev methods.
      * Params:
-     * string linkText The enabled text for the link.
      * @param templates An array of templates with the "active" and "disabled" keys.
      */
-    protected string _toggledLink(string linkText, bool enabled, Json[string] options, Json[string] templates) {
+    protected string _toggledLink(string linkText, bool isEnabled, Json[string] options, Json[string] templates) {
         auto mytemplate = templates["active"];
-        if (!enabled) {
+        if (!isEnabled) {
             linkText = options.get("disabledTitle");
             mytemplate = templates["disabled"];
         }
-        if (!enabled && linkText == false) {
+        if (!isEnabled && linkText == false) {
             return null;
         }
         Json linkText = options.get("escape") ? htmlAttributeEscape(
             linkText) : linkText;
-        mytemplater = this.templater();
+        contentTemplater = this.templater();
         mynewTemplates = options.get("templates") ?  ? false;
         if (mynewTemplates) {
-            mytemplater.push();
+            contentTemplater.push();
             mytemplateMethod = isString(
                 options["templates"]) ? "load" : "add";
-            mytemplater. {
+            contentTemplater. {
                 mytemplateMethod
             }
             (options.get("templates"));
         }
-        if (!enabled) {
-            result = mytemplater.format(mytemplate, [
+        if (!isEnabled) {
+            result = contentTemplater.format(mytemplate, [
                     "text": linkText,
                 ]);
             if (mynewTemplates) {
-                mytemplater.pop();
+                contentTemplater.pop();
             }
             return result;
         }
-        url = this.generateUrl(
+        
+        auto url = this.generateUrl(
             [
                 "page": this.paginated()
                 .currentPage() + options["step"]
             ],
             options["url"]
         );
-        result = mytemplater.format(mytemplate, [
+        
+        auto result = contentTemplater.format(mytemplate, [
                 "url": url,
                 "text": linkText,
             ]);
         if (mynewTemplates) {
-            mytemplater.pop();
+            contentTemplater.pop();
         }
         return result;
     }
@@ -285,11 +286,10 @@ class DPaginatorHelper : DHelper {
      * with keys `asc` and `desc` for specifying separate titles based on the direction.
      */
     string sort(string aKey, string[] linkTitle = null, Json[string] options = null) {
-        auto updatedOptions = options.update(
-            [
-                "url": Json.emptyArray,
-                "escape": true.toJson
-            ]);
+        auto updatedOptions = options.update([
+            "url": Json.emptyArray,
+            "escape": true.toJson
+        ]);
         auto url = updatedOptions["url"];
         updatedOptions.remove("url");
 
@@ -299,19 +299,18 @@ class DPaginatorHelper : DHelper {
             if (linkTitle.contains(".")) {
                 linkTitle = linkTitle.replace(".", " ");
             }
-            linkTitle = __(Inflector.humanize((
-                    string) preg_replace("/_idmy/", "", linkTitle)));
+            linkTitle = __(Inflector.humanize(/* (string) */ preg_replace("/_idmy/", "", linkTitle)));
         }
 
         stringmydefaultDir = options.getString("direction", "asc").lower;
         options.remove("direction");
 
-        mylocked = options.get("lock", false);
-        options["lock"]);
+        auto mylocked = options.get("lock", false);
+        options["lock"];
 
-        mysortKey = to!string(param(
+        auto mysortKey = to!string(param(
                 "sort"));
-        aliasName = this.param("alias");
+        auto aliasName = this.param("alias");
         [
             mytable,
             fieldName
@@ -605,29 +604,30 @@ class DPaginatorHelper : DHelper {
             params.getLong("pageCount") <= 1) {
             return null;
         }
-        mytemplater = this.templater();
+        contentTemplater = this.templater();
         if (
             updatedOptions.hasKey(
                 "templates"])) {
-            mytemplater.push();
+            contentTemplater.push();
             mymethod = isString(
                 updatedoptions["templates"]) ? "load" : "add";
-            mytemplater
+            contentTemplater
                 . {
                     mymethod
                 }
             (
                 updatedoptions["templates"]);
         }
-        if (updatedoptions["modulus"] == true && params.getLong("pageCount") > updatedOptions["modulus"]) {
+        if (updatedoptions["modulus"] == true && params.getLong(
+                "pageCount") > updatedOptions["modulus"]) {
             result = _modulusNumbers(
-                mytemplater, params, options);
+                contentTemplater, params, options);
         } else {
-            result = _numbers(mytemplater, params, options);
+            result = _numbers(contentTemplater, params, options);
         }
         if (
             options.hasKey("templates")) {
-            mytemplater.pop();
+            contentTemplater.pop();
         }
         return result;
     }
@@ -636,7 +636,7 @@ class DPaginatorHelper : DHelper {
     protected Json[string] _getNumbersStartAndEnd(
         Json[string] params, Json[string] options = null) {
         auto myhalf = options.getLong("modulus") / 2;
-        auto myend = max(1 + options["modulus"], params["currentPage"] + myhalf);
+        auto endNumber = max(1 + options["modulus"], params["currentPage"] + myhalf);
         auto mystart = min(
             params.getLong("pageCount") - options["modulus"],
             params["currentPage"] - myhalf - options["modulus"] % 2
@@ -654,23 +654,23 @@ class DPaginatorHelper : DHelper {
             mylast = isInteger(
                 options["last"]) ? options["last"] : 1;
             if (
-                myend >= params.getLong("pageCount") - mylast - 1) {
-                myend = params.getLong("pageCount");
+                endNumber >= params.getLong("pageCount") - mylast - 1) {
+                endNumber = params.getLong("pageCount");
             }
         }
-        myend = (int) min(
-            params.getLong("pageCount"), myend);
+        endNumber = (int) min(
+            params.getLong("pageCount"), endNumber);
         mystart = (int) max(1, mystart);
 
         return [
             mystart,
-            myend
+            endNumber
         ];
     }
 
     // Formats a number for the paginator number output.
     protected string _formatNumber(
-        DStringContents mytemplater, Json[string] options = null) {
+        DStringContents contentTemplater, Json[string] options = null) {
         myvars = [
             "text": options["text"],
             "url": generateUrl(
@@ -679,19 +679,19 @@ class DPaginatorHelper : DHelper {
                 ],
                 options["url"]),
         ];
-        return mytemplater.format("number", myvars);
+        return contentTemplater.format("number", myvars);
     }
 
     // Generates the numbers for the paginator numbers() method.
     protected string _modulusNumbers(
-        DStringContents mytemplater, Json[string] params, Json[string] options = null) {
+        DStringContents contentTemplater, Json[string] params, Json[string] options = null) {
         string result = "";
-        ellipsis = mytemplater.format(
+        ellipsis = contentTemplater.format(
             "ellipsis", [
             ]);
         [
             mystart,
-            myend
+            endNumber
         ] = _getNumbersStartAndEnd(
             params, options);
         result ~= _firstNumber(ellipsis, params, mystart, options);
@@ -700,14 +700,14 @@ class DPaginatorHelper : DHelper {
         for (
             myi = mystart; myi < params["currentPage"]; myi++) {
             result ~= _formatNumber(
-                mytemplater, [
+                contentTemplater, [
                     "text": this.Number
                     .format(myi),
                     "page": myi,
                     "url": options["url"],
                 ]);
         }
-        result ~= mytemplater.format("current", [
+        result ~= contentTemplater.format("current", [
                 "text": this.Number.format(
                     (
                     string) params["currentPage"]),
@@ -717,9 +717,9 @@ class DPaginatorHelper : DHelper {
         mystart = (int) params["currentPage"] + 1;
         myi = mystart;
         while (
-            myi < myend) {
+            myi < endNumber) {
             result ~= _formatNumber(
-                mytemplater, [
+                contentTemplater, [
                     "text": this.Number
                     .format(myi),
                     "page": myi,
@@ -728,17 +728,17 @@ class DPaginatorHelper : DHelper {
             myi++;
         }
         if (
-            myend != params["currentPage"]) {
+            endNumber != params["currentPage"]) {
             result ~= _formatNumber(
-                mytemplater, [
+                contentTemplater, [
                     "text": this.Number.format(
                         myi),
-                    "page": myend,
+                    "page": endNumber,
                     "url": options["url"],
                 ]);
         }
         result ~= options["after"];
-        result ~= _lastNumber(ellipsis, params, myend, options);
+        result ~= _lastNumber(ellipsis, params, endNumber, options);
 
         return result;
     }
@@ -761,21 +761,15 @@ class DPaginatorHelper : DHelper {
         return result;
     }
 
-    /**
-     * Generates the last number for the paginator numbers() method.
-     * Params:
-     * string ellipsis Ellipsis character.
-     * @param Json[string] params Params from the numbers() method.
-     * @param int myend End number.
-     */
+    // Generates the last number for the paginator numbers() method.
     protected string _lastNumber(
-        string ellipsis, Json[string] params, int myend, Json[string] options = null) {
+        string ellipsis, Json[string] params, int endNumber, Json[string] options = null) {
         string result = "";
         long mylast = options.getLong("last", 0);
-        if (options["last"] && myend < params.getLong("pageCount")) {
-            myoffset = params.getLong("pageCount") < myend + mylast ? params.getLong("pageCount") - myend
-                : options["last"];
-            if (myoffset <= options["last"] && params.getLong("pageCount") - myend > mylast) {
+        if (options["last"] && endNumber < params.getLong("pageCount")) {
+            myoffset = params.getLong("pageCount") < endNumber + mylast ? params.getLong(
+                "pageCount") - endNumber : options["last"];
+            if (myoffset <= options["last"] && params.getLong("pageCount") - endNumber > mylast) {
                 result ~= ellipsis;
             }
             result ~= this.last(myoffset, options);
@@ -783,14 +777,9 @@ class DPaginatorHelper : DHelper {
         return result;
     }
 
-    /**
-     * Generates the numbers for the paginator numbers() method.
-     * Params:
-     * \UIM\View\StringContents mytemplater StringContents instance.
-     * @param Json[string] params Params from the numbers() method.
-     */
+    // Generates the numbers for the paginator numbers() method.
     protected string _numbers(
-        DStringContents mytemplater, Json[string] params, Json[string] options = null) {
+        DStringContents contentTemplater, Json[string] params, Json[string] options = null) {
         string result = "";
         result ~= options.getString(
             "before");
@@ -798,7 +787,7 @@ class DPaginatorHelper : DHelper {
         for (myi = 1; myi <= params.getLong("pageCount"); myi++) {
             if (
                 myi == params["currentPage"]) {
-                result ~= mytemplater
+                result ~= contentTemplater
                     .format("current", [
                             "text": this
                             .Number.format(
@@ -821,7 +810,7 @@ class DPaginatorHelper : DHelper {
                         ],
                         options["url"]),
                 ];
-                result ~= mytemplater
+                result ~= contentTemplater
                     .format("number", myvars);
             }
         }

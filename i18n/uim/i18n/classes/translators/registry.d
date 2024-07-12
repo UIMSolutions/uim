@@ -82,12 +82,12 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     }
     
     // Returns the translator catalogs
-    CatalogLocator getCatalogs() {
+    DCatalogLocator getCatalogs() {
         return _catalogs;
     }
     
     // An object of type FormatterLocator
-    FormatterLocator getFormatters() {
+    DFormatterLocator getFormatters() {
         return _formatters;
     }
     

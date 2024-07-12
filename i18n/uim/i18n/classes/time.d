@@ -30,14 +30,14 @@ class DTime { // : ChronosTime, JsonSerializable {
     
     // Resets the format used to the default when converting an instance of this type to a string
     static void resetToStringFormat() {
-        setToStringFormat(DIntlDateFormatter.SHORT);
+        // setToStringFormat(DIntlDateFormatter.SHORT);
     }
     // #endregion StringFormat
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.i18nFormat()` and `__toString`.
      */
-    protected static string/* |int */ _toStringFormat = DIntlDateFormatter.SHORT;
+    // protected static string/* |int */ _toStringFormat = DIntlDateFormatter.SHORT;
 
     /**
      * The format to use when converting this object to Json.
@@ -57,7 +57,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      *
      * @var string|int
      */
-    static string/* |int */ niceFormat = DIntlDateFormatter.MEDIUM;
+    static string/* |int */ niceFormat; //  = DIntlDateFormatter.MEDIUM;
     
     /**
      * Sets the default format used when converting this object to Json

@@ -371,11 +371,7 @@ class DBelongsToManyAssociation : DAssociation {
         return MANY_TO_MANY;
     }
 
-    /**
-     * Return false as join conditions are defined in the junction table
-     *
-     * @param Json[string] options list of options passed to attachTo method
-     */
+    // Return false as join conditions are defined in the junction table
     protected Json[string] _joinCondition(Json[string] options = null) {
         return [];
     }

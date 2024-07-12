@@ -773,16 +773,11 @@ mixin template TIntegrationTest() {
         assertThat(expected, new DFlashParamEquals(_requestSession, flashKey, "message"), verboseMessage);
     }
 
-    /**
-     * Asserts a flash message was set at a certain index
-     * Params:
-     * int at Flash index
-     * @param string aexpected Expected message
-     */
-    void assertFlashMessageAt(int flashIndex, string aexpected, string flashKey = "flash", string amefailureMessagessage = "") {
-        verboseMessage = extractVerboseMessage(failureMessage);
+    // Asserts a flash message was set at a certain index
+    void assertFlashMessageAt(int flashIndex, string expectedMessage, string flashKey = "flash", string failureMessage = "") {
+        auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(
-            expected,
+            expectedMessage,
             new DFlashParamEquals(_requestSession, flashKey, "message", flashIndex),
             verboseMessage
         );

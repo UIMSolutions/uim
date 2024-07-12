@@ -367,18 +367,9 @@ class DLog {
         return write(__FUNCTION__, message, context);
     }
     
-    /**
-     * Convenience method to log notice messages
-     * Params:
-     * \string amessage log message
-     * @param string[] contextData Additional data to be used for logging the message.
-     * The special `scope` key can be passed to be used for further filtering of the
-     * log engines to be used. If a string or a numerically index array is passed, it
-     * will be treated as the `scope` key.
-     * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
-     */
-    static bool notice(string amessage, string[] contextData = null) {
-        return write(__FUNCTION__, message, context);
+    // Convenience method to log notice messages
+    static bool notice(string logMessage, string[] contextData = null) {
+        return write(__FUNCTION__, logMessage, context);
     }
     
     // Convenience method to log debug messages

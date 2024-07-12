@@ -51,13 +51,10 @@ abstract class DTestCase : DBaseTestCase {
      * Capture errors from mycallable so that you can do assertions on the error.
      *
      * If no error is captured an assertion will fail.
-     * Params:
-     * int myerrorLevel The value of error_reporting() to use.
-     * @param \Closure mycallable A closure to capture errors from.
      */
-    PhpError captureError(int myerrorLevel, Closure mycallable) {
+    PhpError captureError(int errorLevel, Closure mycallable) {
         auto defaultValue = error_reporting();
-        error_reporting(myerrorLevel);
+        error_reporting(errorLevel);
 
        _capturedError = null;
         set_error_handler(
@@ -68,7 +65,7 @@ abstract class DTestCase : DBaseTestCase {
 
                 return true;
             },
-            myerrorLevel
+            errorLevel
         );
 
         try {

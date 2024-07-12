@@ -83,8 +83,11 @@ class DNumber {
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
      */
     static string toPercentage(Json value, int precision = 2, Json[string] options = null) {
-        auto updatedOptions = options.update(["multiply": false.toJson, "type": NumberFormatter
-            .PERCENT]);
+        auto updatedOptions = options.update([
+            "multiply": false.toJson,
+            "type": DNumberFormatter
+            .PERCENT
+        ]);
         auto doubleValue = 0.0;
         if (!options.hasKey("multiply")) {
             doubleValue = value.getDouble / 100;
@@ -127,7 +130,7 @@ class DNumber {
     static float parseFloat(string value, Json[string] options = null) {
         auto parseFormatter = formatter(options);
         return  /* (float) */ formatter
-            .parseFormatter(value, NumberFormatter.TYPE_DOUBLE);
+            .parseFormatter(value, DNumberFormatter.TYPE_DOUBLE);
     }
 
     /**
@@ -182,46 +185,57 @@ class DNumber {
         auto abs = abs(doubleValue);
         if (
             !options.isEmpty("fractionSymbol") && abs > 0 && abs < 1) {
-                doubleValue *= 100; string pos = options.get(
-                    "fractionPosition", "after"); return format(doubleValue, [
-                        "precision": 0,
-                        pos: options["fractionSymbol"]
-                    ]); }
-                auto before = options.getString("before", ""); auto after = options.getString("after", "");
-                    return before ~ formatter.formatCurrency(
-                        doubleValue, currencyName) ~ after; }
+            doubleValue *= 100;
+            string pos = options.get(
+                "fractionPosition", "after");
+            return format(doubleValue, [
+                    "precision": 0,
+                    pos: options["fractionSymbol"]
+                ]);
+        }
+        auto before = options.getString("before", "");
+        auto after = options.getString("after", "");
+        return before ~ formatter.formatCurrency(
+            doubleValue, currencyName) ~ after;
+    }
 
-                    // Getter for default currency
-                    static string getDefaultCurrency() {
-                        if (_defaultCurrency.isNull) {
-                            auto locale = ini_get("intl.default_locale") ? ini_get(
-                                "intl.default_locale") : DEFAULT_LOCALE; auto formatter = new DNumberFormatter(locale, NumberFormatter
-                                .CURRENCY); _defaultCurrency = formatter.getTextAttribute(
-                                NumberFormatter.CURRENCY_CODE); }
-                            return _defaultCurrency; }
+    // Getter for default currency
+    static string getDefaultCurrency() {
+        if (_defaultCurrency.isNull) {
+            auto locale = ini_get("intl.default_locale") ? ini_get(
+                "intl.default_locale") : DEFAULT_LOCALE;
+            auto formatter = new DNumberFormatter(locale, DNumberFormatter
+                    .CURRENCY);
+            _defaultCurrency = formatter.getTextAttribute(
+                DNumberFormatter.CURRENCY_CODE);
+        }
+        return _defaultCurrency;
+    }
 
-                            // Setter for default currency
-                            static void setDefaultCurrency(
-                                string currency = null) {
-                                _defaultCurrency = currency; }
+    // Setter for default currency
+    static void setDefaultCurrency(
+        string currency = null) {
+        _defaultCurrency = currency;
+    }
 
-                                // Getter for default currency format
-                                static string /* |int|falseuto */ getDefaultCurrencyFormat() {
-                                    return _defaultCurrencyFormat ? _defaultCurrencyFormat
-                                        : FORMAT_CURRENCY; }
+    // Getter for default currency format
+    static string /* |int|falseuto */ getDefaultCurrencyFormat() {
+        return _defaultCurrencyFormat ? _defaultCurrencyFormat : FORMAT_CURRENCY;
+    }
 
-                                    /**
+    /**
      * Setter for default currency format
      * Params:
      * string currencyFormat Default currency format to be used by currency()
      * if currencyFormat argument is not provided. If null is passed, it will clear the
      * currently stored value
      */
-                                    static void setDefaultCurrencyFormat(
-                                        string currencyFormat = null) {
-                                        _defaultCurrencyFormat = currencyFormat; }
+    static void setDefaultCurrencyFormat(
+        string currencyFormat = null) {
+        _defaultCurrencyFormat = currencyFormat;
+    }
 
-                                        /**
+    /**
      * Returns a formatter object that can be reused for similar formatting task
      * under the same locale and options. This is often a speedier alternative to
      * using other methods in this class DAs only one formatter object needs to be
@@ -231,7 +245,7 @@ class DNumber {
      *
      * - `locale` - The locale name to use for formatting the number, e.g. fr_FR
      * - `type` - The formatter type to construct, set it to `currency` if you need to format
-     *  numbers representing money or a NumberFormatter constant.
+     *  numbers representing money or a DNumberFormatter constant.
      * - `places` - Number of decimal places to use. e.g. 2
      * - `precision` - Maximum Number of decimal places to use, e.g. 2
      * - `pattern` - An ICU number pattern to use for formatting the number. e.g #,##0.00
@@ -240,85 +254,90 @@ class DNumber {
      * Params:
      * Json[string] options An array with options.
      */
-                                        static NumberFormatter formatter(
-                                            Json[string] options = null) {
-                                            string locale = options.get("locale", ini_get(
-                                                "intl.default_locale")); if (!locale) {
-                                                locale = DEFAULT_LOCALE; }
-                                                auto type = NumberFormatter.DECIMAL;
-                                                    if (!options.isEmpty("type")) {
-                                                        auto type = options.getLong("type");
-                                                            if (type == FORMAT_CURRENCY) {
-                                                                type = NumberFormatter.CURRENCY;
-                                                            } else if (
-                                                            type == FORMAT_CURRENCY_ACCOUNTING) {
-                                                            type = NumberFormatter
-                                                                .CURRENCY_ACCOUNTING;
-                                                        }
-                                                    }
-                                                if (!_formatters[locale].hasKey(type)) {
-                                                    _formatters[locale][type] = new DNumberFormatter(
-                                                        locale, type); }
-                                                    /** @var \NumberFormatter formatter */
-                                                    formatter = _formatters[locale][type];
-                                                        formatter = formatter.clone;
+    static DNumberFormatter formatter(
+        Json[string] options = null) {
+        string locale = options.get("locale", ini_get(
+                "intl.default_locale"));
+        if (!locale) {
+            locale = DEFAULT_LOCALE;
+        }
+        auto type = DNumberFormatter.DECIMAL;
+        if (!options.isEmpty("type")) {
+            auto type = options.getLong("type");
+            if (type == FORMAT_CURRENCY) {
+                type = DNumberFormatter.CURRENCY;
+            } else if (
+                type == FORMAT_CURRENCY_ACCOUNTING) {
+                type = DNumberFormatter
+                    .CURRENCY_ACCOUNTING;
+            }
+        }
+        if (!_formatters[locale].hasKey(type)) {
+            _formatters[locale][type] = new DNumberFormatter(
+                locale, type);
+        }
+        /** @var \NumberFormatter formatter */
+        formatter = _formatters[locale][type];
+        formatter = formatter.clone;
 
-                                                        return _setAttributes(
-                                                            formatter, options); }
+        return _setAttributes(
+            formatter, options);
+    }
 
-                                                        /**
+    /**
      * Configure formatters.
      * Params:
      * string alocale The locale name to use for formatting the number, e.g. fr_FR
      */
-                                                        static void config(string localeName, int formatterType = NumberFormatter.DECIMAL, Json[string] options = null) {
-                                                            _formatters[localeName][formatterType] = _setAttributes(
-                                                                new DNumberFormatter(localeName, type), options);
-                                                        }
+    static void config(string localeName, int formatterType = DNumberFormatter.DECIMAL, Json[string] options = null) {
+        _formatters[localeName][formatterType] = _setAttributes(
+            new DNumberFormatter(localeName, type), options);
+    }
 
-                                                    // Set formatter attributes
-                                                    protected static NumberFormatter _setAttributes(
-                                                        NumberFormatter formatter, Json[string] options = null) {
-                                                        if (options.hasKey("places")) {
-                                                            formatter.setAttribute(
-                                                                NumberFormatter.MIN_FRACTION_DIGITS, options["places"]);
-                                                        }
-                                                        if (options.hasKey("precision")) {
-                                                            formatter.setAttribute(
-                                                                NumberFormatter.MAX_FRACTION_DIGITS, options["precision"]);
-                                                        }
-                                                        if (!options.isEmpty("pattern")) {
-                                                            formatter.setPattern(
-                                                                options["pattern"]);
-                                                        }
-                                                        if (!options.isEmpty(
-                                                            "useIntlCode")) {
-                                                            // One of the odd things about ICU is that the currency marker in patterns
-                                                            // is denoted with ¤, whereas the international code is marked with ¤¤,
-                                                            // in order to use the code we need to simply duplicate the character wherever
-                                                            // it appears in the pattern.
-                                                            formatter.setPattern(
-                                                                str(formatter.getPattern()
-                                                                .replace("¤", "¤¤ ")));
-                                                        }
-                                                        return formatter; }
+    // Set formatter attributes
+    protected static DNumberFormatter _setAttributes(
+        DNumberFormatter formatter, Json[string] options = null) {
+        if (options.hasKey("places")) {
+            formatter.setAttribute(
+                DNumberFormatter.MIN_FRACTION_DIGITS, options["places"]);
+        }
+        if (options.hasKey("precision")) {
+            formatter.setAttribute(
+                DNumberFormatter.MAX_FRACTION_DIGITS, options["precision"]);
+        }
+        if (!options.isEmpty("pattern")) {
+            formatter.setPattern(
+                options["pattern"]);
+        }
+        if (!options.isEmpty(
+                "useIntlCode")) {
+            // One of the odd things about ICU is that the currency marker in patterns
+            // is denoted with ¤, whereas the international code is marked with ¤¤,
+            // in order to use the code we need to simply duplicate the character wherever
+            // it appears in the pattern.
+            formatter.setPattern(
+                str(formatter.getPattern()
+                    .replace("¤", "¤¤ ")));
+        }
+        return formatter;
+    }
 
-                                                        /**
+    /**
      * Returns a formatted integer as an ordinal number string (e.g. 1st, 2nd, 3rd, 4th, [...])
      *
      * ### Options
      *
      * - `type` - The formatter type to construct, set it to `currency` if you need to format
-     *  numbers representing money or a NumberFormatter constant.
+     *  numbers representing money or a DNumberFormatter constant.
      *
      * For all other options see formatter().
      * Params:
      * float value An integer
      */
-                                                        static string ordinal(float value, Json[string] options = null) {
-                                                            return to!string(formatter(
-                                                                [
-                                                                    "type": NumberFormatter.ORDINAL
-                                                                ].merge(options))).format(value);
-                                                        }
-                                                    }
+    static string ordinal(float value, Json[string] options = null) {
+        return to!string(formatter(
+                [
+                    "type": DNumberFormatter.ORDINAL
+                ].merge(options))).format(value);
+    }
+}

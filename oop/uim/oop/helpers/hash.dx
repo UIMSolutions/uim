@@ -695,15 +695,11 @@ class Hash {
     /**
      * Map a callback across all elements in a set.
      * Can be provided a path to only modify slices of the set.
-     * Params:
-     * Json[string] data The data to map over, and extract data out of.
-     * @param string path The path to extract for mapping over.
-     * @param callable myfunction The auto to call on each extracted value.
      */
-    static Json[string] map(Json[string] data, string path, callable myfunction) {
-        myvalues = /* (array) */extract(data, path);
+    static Json[string] map(Json[string] data, string path, callable callableFunction) {
+        auto values = /* (array) */extract(data, path);
 
-        return array_map(myfunction, myvalues);
+        return array_map(callableFunction, values);
     }
     
     // Reduce a set of extracted values using `myfunction`.
@@ -881,25 +877,22 @@ class Hash {
      * Computes the difference between two complex arrays.
      * This method differs from the built-in array_diff() in that it will preserve keys
      * and work on multi-dimensional arrays.
-     * Params:
-     * Json[string] data First value
-     * @param Json[string] mycompare Second value
      */
-    static Json[string] diff(Json[string] data, Json[string] mycompare) {
+    static Json[string] diff(Json[string] data, Json[string] compareData) {
         if (isEmpty(data)) {
-            return mycompare;
+            return compareData;
         }
-        if (isEmpty(mycompare)) {
+        if (isEmpty(compareData)) {
             return data;
         }
-        myintersection = array_intersectinternalKey(data, mycompare);
+        myintersection = array_intersectinternalKey(data, compareData);
         while ((aKey = key(myintersection)) !is null) {
-            if (data[aKey] == mycompare[aKey]) {
-                remove(data[aKey], mycompare[aKey]);
+            if (data[aKey] == compareData[aKey]) {
+                remove(data[aKey], compareData[aKey]);
             }
             next(myintersection);
         }
-        return data + mycompare;
+        return data.merge(compareData);
     }
     
     /**
@@ -908,7 +901,7 @@ class Hash {
      * Json[string] data The data to append onto.
      * @param Json[string] mycompare The data to compare and append onto.
      */
-    static Json[string] mergeDiff(Json[string] data, Json[string] mycompare) {
+    static Json[string] mergeDiff(Json[string] data, Json[string] compareData) {
         if (isEmpty(data) && !empty(mycompare)) {
             return mycompare;
         }

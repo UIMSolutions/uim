@@ -86,14 +86,14 @@ class DI18n {
      *);
      * ```
      */
-    static void setTranslator(string domainName, callable loader, string translatorLocale = null) {
+    /* static void setTranslator(string domainName, callable loader, string translatorLocale = null) {
         translatorlocale = translatorlocale.ifEmpty(locale());
 
         auto translators = translators();
         auto loader = translators.setLoaderFallback(domainname, loader);
         auto catalogs = translators.getPackages();
         catalogs.set(domainname, translatorlocale, loader);
-    }
+    } */
     
     /**
      * Returns an instance of a translator that was configured for the name and locale.

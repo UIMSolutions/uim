@@ -529,13 +529,13 @@ class DAssociation : IAssociation {
      * @param DORMQuery query The query to modify
      * @param Json[string] options Options array containing the `negateMatch` key.
      */
-    protected void _appendNotMatching(DQuery query, Json[string] options = null) {
+    protected void _appendNotMatching(DQuery queryToModify, Json[string] options = null) {
         auto target = _targetTable;
         if (!options.isEmpty("negateMatch")) {
             // TODO
             /* 
-            primaryKeys = query.aliasFields((array) target.primaryKeys(), _name);
-            query.andWhere(function(exp) use(primaryKeys) {
+            primaryKeys = queryToModify.aliasFields((array) target.primaryKeys(), _name);
+            queryToModify.andWhere(function(exp) use(primaryKeys) {
                 array_map([exp, "isNull"], primaryKeys);
 
                 return exp;
@@ -592,9 +592,8 @@ class DAssociation : IAssociation {
      *
      * @param Json[string]|string type the type of query to perform, if an array is passed,
      *  it will be interpreted as the `options` parameter
-     * @param Json[string] options The options to for the find
      */
-    IQuery find(type = null, Json[string] options = null) {
+    IQuery find(/* Json[string]| */string queryType = null, Json[string] options = null) {
         type = type ?  : getFinder();
         [type, opts] = _extractFinder(type);
 
@@ -866,24 +865,17 @@ class DAssociation : IAssociation {
     /**
      * Proxies the isset call to the target table. This is handy to check if the
      * target table has another association with the passed name
-     *
-     * @param string property the property name
      */
-    bool __isSet(property) {
+    bool __isSet(string propertyName) {
         /* return isset(getTarget(). {
-            property
+            propertyName
         }); */
         return false; 
     }
 
-    /**
-     * Proxies method calls to the target table.
-     *
-     * @param string method name of the method to be invoked
-     * @param Json[string] argument List of arguments passed to the function
-     */
-    Json __call(method, argument) {
-        return _getTarget().method(...argument);
+    // Proxies method calls to the target table.
+    Json __call(string methodName, arguments) {
+        return _getTarget().method(arguments);
     }
 
     // Get the relationship type.

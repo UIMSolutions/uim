@@ -309,9 +309,9 @@ class DTimeHelper : DHelper {
             mytime = new DateTime(date);
 
             return mytime.i18nFormat(intlFormat, timezone);
-        } catch (Exception mye) {
+        } catch (Exception exception) {
             if (defaultValue == false) {
-                throw mye;
+                throw exception;
             }
             return defaultValue;
         }

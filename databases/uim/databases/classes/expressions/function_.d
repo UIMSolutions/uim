@@ -74,9 +74,9 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
         _conditions.each!((condition) {
             if (cast(Query)condition) {
                 condition = "(%s)".format(condition.sql(aBinder));
-            } elseif (cast(IExpression)condition) {
+            } else if (cast(IExpression)condition) {
                 condition = condition.sql(aBinder);
-            } elseif (isArray(condition)) {
+            } else if (isArray(condition)) {
                 p = aBinder.placeholder("param");
                 aBinder.bind(p, condition["value"], condition["type"]);
                 condition = p;

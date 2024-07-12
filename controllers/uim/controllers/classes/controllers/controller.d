@@ -163,7 +163,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
    ) {
         /* if (nameToOverride) {
             name(nameToOverride);
-        } elseif (_name is null) {
+        } else if (_name is null) {
             auto controller = request.getParam("controller");
             if (controller) {
                 _name = controller;
@@ -289,7 +289,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
                     .format(get_debug_type(result)
                )
            );
-        } elseif (this.isAutoRenderEnabled()) {
+        } else if (this.isAutoRenderEnabled()) {
             result = this.render();
         }
         if (result) {

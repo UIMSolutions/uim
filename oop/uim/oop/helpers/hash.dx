@@ -728,12 +728,10 @@ class Hash {
      * ```
      * Params:
      * Json[string] data The data to reduce.
-     * @param string path The path to extract from data.
      * @param callable myfunction The auto to call on each extracted value.
      */
     static Json apply(Json[string] data, string path, callable myfunction) {
-        myvalues = /* (array) */extract(data, path);
-
+        auto myvalues = /* (array) */extract(data, path);
         return myfunction(myvalues);
     }
     

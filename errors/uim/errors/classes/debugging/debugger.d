@@ -295,12 +295,12 @@ class DDebugger {
      *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
-    static /* array| */string formatTrace(Throwable|array backtrace, Json[string] options = null) {
+    static /* array| */string formatTrace(Throwable/* |array */ backtrace, Json[string] options = null) {
         if (cast(Throwable) backtrace) {
             backtrace = backtrace.getTrace();
         }
 
-        auto self = Debugger.getInstance();
+        auto debugger = Debugger.getInstance();
         auto defaults = [
             "depth": 999,
             "format": _outputFormat,
@@ -309,7 +309,7 @@ class DDebugger {
             "scope": null,
             "exclude": ["call_user_func_array", "trigger_error"],
         ];
-        auto mergedOptions = Hash.merge(defaults, options);
+        auto mergedOptions = options.defaults;
 
         auto count = count(backtrace);
         auto back = null;
@@ -348,7 +348,7 @@ class DDebugger {
             if (formatValue == "points") {
                 back ~= ["file": trace["file"], "line": trace["line"], "reference": reference];
             }
-            elseif(formatValue == "array") {
+            else if(formatValue == "array") {
                 if (!mergedOptions.hasKey("args")) {
                     trace.remove("args");
                 }
@@ -472,7 +472,7 @@ IErrorFormatter getExportFormatter() {
         if (ConsoleFormatter.environmentMatches()) {
             formaterClassname = ConsoleFormatter.classname;
         }
-        elseif(HtmlFormatter.environmentMatches()) {
+        else if(HtmlFormatter.environmentMatches()) {
             formaterClassname = HtmlFormatter.classname;
         } else {
             formaterClassname = TextFormatter.classname;
@@ -574,7 +574,7 @@ protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContex
             if (array_key_exists(key, outputMask)) {
                 node = new DScalarNode("string", outputMask[key]);
             }
-            elseif(val != valueToExport) {
+            else if(val != valueToExport) {
                 // Dump all the items without increasing depth.
                 node = export_(val, dumpContext);
             } else {

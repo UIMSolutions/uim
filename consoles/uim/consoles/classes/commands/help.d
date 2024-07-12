@@ -51,7 +51,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             string prefix = "App";
             if (namespace == "UIM") {
                 prefix = "UIM";
-            } elseif (namespace.has(plugins)) {
+            } else if (namespace.has(plugins)) {
                 prefix = namespace;
             }
 

@@ -70,7 +70,7 @@ class DRedisCacheEngine : DCacheEngine {
             _redis = new DRedis();
             if (!configuration.isEmpty("unix_socket")) {
                 result = _redis.connect(configuration.get("unix_socket"));
-            } elseif (configuration.isEmpty("persistent")) {
+            } else if (configuration.isEmpty("persistent")) {
                 result = _redis.connect(
                     configuration.get("server"),
                     configuration.getLong("port"),

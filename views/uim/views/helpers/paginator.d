@@ -698,12 +698,12 @@ class DPaginatorHelper : DHelper {
         result ~= options["before"];
 
         for (
-            myi = mystart; myi < params["currentPage"]; myi++) {
+            index = mystart; index < params["currentPage"]; index++) {
             result ~= _formatNumber(
                 contentTemplater, [
                     "text": this.Number
-                    .format(myi),
-                    "page": myi,
+                    .format(index),
+                    "page": index,
                     "url": options["url"],
                 ]);
         }
@@ -715,24 +715,24 @@ class DPaginatorHelper : DHelper {
                     ["page": params["currentPage"]], options["url"]),
             ]);
         mystart = (int) params["currentPage"] + 1;
-        myi = mystart;
+        index = mystart;
         while (
-            myi < endNumber) {
+            index < endNumber) {
             result ~= _formatNumber(
                 contentTemplater, [
                     "text": this.Number
-                    .format(myi),
-                    "page": myi,
+                    .format(index),
+                    "page": index,
                     "url": options["url"],
                 ]);
-            myi++;
+            index++;
         }
         if (
             endNumber != params["currentPage"]) {
             result ~= _formatNumber(
                 contentTemplater, [
                     "text": this.Number.format(
-                        myi),
+                        index),
                     "page": endNumber,
                     "url": options["url"],
                 ]);
@@ -784,9 +784,9 @@ class DPaginatorHelper : DHelper {
         result ~= options.getString(
             "before");
 
-        for (myi = 1; myi <= params.getLong("pageCount"); myi++) {
+        for (index = 1; index <= params.getLong("pageCount"); index++) {
             if (
-                myi == params["currentPage"]) {
+                index == params["currentPage"]) {
                 result ~= contentTemplater
                     .format("current", [
                             "text": this
@@ -795,18 +795,18 @@ class DPaginatorHelper : DHelper {
                             "url": this
                             .generateUrl(
                                 [
-                                    "page": myi
+                                    "page": index
                                 ],
                                 options["url"]),
                         ]);
             } else {
                 myvars = [
                     "text": this.Number
-                    .format(myi),
+                    .format(index),
                     "url": this
                     .generateUrl(
                         [
-                            "page": myi
+                            "page": index
                         ],
                         options["url"]),
                 ];
@@ -859,19 +859,19 @@ class DPaginatorHelper : DHelper {
 
         if (isInteger(myfirst) && this.paginated()
             .currentPage() >= myfirst) {
-            for (myi = 1; myi <= myfirst; myi++) {
+            for (index = 1; index <= myfirst; index++) {
                 result ~= this.templater()
                     .format("number", [
                             "url": this.generateUrl(
-                                ["page": myi], options["url"]),
+                                ["page": index], options["url"]),
                             "text": this
                             .Number
                             .format(
-                                myi),
+                                index),
                         ]);
             }
         }
-        elseif(this.paginated()
+        else if(this.paginated()
                 .currentPage() > 1 && isString(
                     myfirst)) {
             myfirst = options.get(
@@ -929,19 +929,19 @@ class DPaginatorHelper : DHelper {
 
         if (isInteger(mylast) && mycurrentPage <= mylower) {
             for (
-                myi = mylower; myi <= mypageCount; myi++) {
+                index = mylower; index <= mypageCount; index++) {
                 result ~= this.templater()
                     .format("number", [
                             "url": this.generateUrl(
-                                ["page": myi], options["url"]),
+                                ["page": index], options["url"]),
                             "text": this
                             .Number
                             .format(
-                                myi),
+                                index),
                         ]);
             }
         }
-        elseif(mycurrentPage < mypageCount && isString(
+        else if(mycurrentPage < mypageCount && isString(
                 mylast)) {
             mylast = options.get(
                 "escape"] ? htmlAttributeEscape(

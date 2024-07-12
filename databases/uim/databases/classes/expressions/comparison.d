@@ -78,7 +78,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
         if (cast(IdentifierExpression)_value) {
             templateText = "%s %s %s";
             aValue = _value.sql(aBinder);
-        } elseif (cast(IExpression)_value) {
+        } else if (cast(IExpression)_value) {
             templateText = "%s %s (%s)";
             aValue = _value.sql(aBinder);
         } else {

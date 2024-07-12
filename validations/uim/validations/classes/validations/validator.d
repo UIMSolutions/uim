@@ -122,11 +122,11 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Validates and returns an array of failed fields and their error messages.
-    array<array> validate(Json[string] data, bool isNewRecord = true) {
+    auto validate(Json[string] data, bool isNewRecord = true) {
         auto myerrors = null;
         foreach (myname, fieldName; _fields) {
-            myname = to!string(myname);
-            mykeyPresent = array_key_exists(myname, mydata);
+            auto myname = to!string(myname);
+            auto mykeyPresent = array_key_exists(myname, data);
 
             myproviders = _providers;
             context = compact("data", "newRecord", "field", "providers");
@@ -144,7 +144,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             if (_allowEmptyFlags.hasKey(myname)) {
                 myflags = _allowEmptyFlags[myname];
             }
-            myisEmpty = this.isEmpty(mydata[myname], myflags);
+            myisEmpty = this.isEmpty(data[myname], myflags);
 
             if (!mycanBeEmpty && myisEmpty) {
                 myerrors[myname]["_empty"] = getNotEmptyMessage(myname);
@@ -153,7 +153,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             if (myisEmpty) {
                 continue;
             }
-            result = _processRules(myname, fieldName, mydata, isNewRecord);
+            result = _processRules(myname, fieldName, data, isNewRecord);
             if (result) {
                 myerrors[myname] = result;
             }
@@ -185,13 +185,9 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * objects or class names that can contain methods used during validation of for
      * deciding whether a validation rule can be applied. All validation methods,
      * when called will receive the full list of providers stored in this validator.
-     * Params:
-     * string myname The name under which the provider should be set.
-     * @param /* object * / string myobject Provider object or class name.
-     * @psalm-param object|class-string myobject
      */
-    void setProvider(string myname, /* object */ string myobject) {
-        _providers[myname] = myobject;
+    void setProvider(string name, /* object */ string providerClassname) {
+        _providers[name] = providerClassname;
     }
 
     /**
@@ -309,13 +305,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /*     auto add(string fieldName, string[] myname, ValidationRule[] rules= null) {
     }
  */
-    void add(string fieldName, string[] myname, DValidationRule[] rules = null) {
+    void add(string fieldName, string[] ruleNames, DValidationRule[] rules = null) {
         // TODO auto myvalidationSet = this.field(fieldName);
 
-        /*         if (!isArray(myname)) {
-            rules = [myname: myrule];
+        /*         if (!isArray(ruleNames)) {
+            rules = [ruleNames: myrule];
         } else {
-            rules = myname;
+            rules = ruleNames;
         }
         rules.byKeyValue
             .each!((nameRule) {
@@ -1099,7 +1095,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a not equal to comparison rule to a field.
      * Params:
      
-     * @param Json aValue The value user data must be not be equal to.
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.comparison()
@@ -1130,7 +1125,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.compareFields()
      */
     auto sameAs(
         string fieldName,
@@ -1182,17 +1176,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a rule to compare one field is equal to another.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a rule to compare one field is equal to another.
     auto equalToField(
         string fieldName,
         string secondField,
         string errorMessage = null, /*Closure|*/
-        string mywhen = null
+        /* Closure */ string mywhen = null // "create" , "update"
     ) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
@@ -1213,24 +1202,17 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a rule to compare one field is not equal to another.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.compareFields()
-     * @return this
-     */
+    // Add a rule to compare one field is not equal to another.
     auto notEqualToField(
         string fieldName,
         string secondField,
         string errorMessage = null, /*Closure|*/
-        string mywhen = null
+        /* Closure */ string mywhen = null // "create", "update"
     ) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
-                ? "The provided value must not be equal to the one of field '%s'".format(
-                    secondField) : `__d(
+                ? "The provided value must not be equal to the one of field '%s'".format(secondField) 
+                : `__d(
                     "uim",
                     "The provided value must not be equal to the one of field '{0}'",
                     secondField
@@ -1798,13 +1780,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a validation rule to ensure a field is a non negative integer.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
-    auto nonNegativeInteger(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    // Add a validation rule to ensure a field is a non negative integer.
+    auto nonNegativeInteger(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null /* "create" or "update" */) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be a non-negative integer")`
@@ -2252,7 +2229,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     bool isEmptyAllowed(string fieldName, bool isNewRecord) {
         auto myproviders = _providers;
-        // auto mydata = null;
+        // auto data = null;
         // auto context = compact("data", "newRecord", "field", "providers");
 
         // return _canBeEmpty(this.field(fieldName), context);
@@ -2267,7 +2244,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     bool isPresenceRequired(string fieldName, bool isNewRecord) {
         /*  myproviders = _providers;
-        mydata = null;
+        data = null;
         context = compact("data", "newRecord", "field", "providers");
 
         return !_checkPresence(this.field(fieldName), context); */
@@ -2371,39 +2348,39 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Returns true if the field is empty in the passed data array
      * Params:
-     * Json mydata Value to check against.
+     * Json data Value to check against.
      * @param int myflags A bitmask of EMPTY_* flags which specify what is empty
      */
-    protected bool isEmpty(Json mydata, int myflags) {
-        /* if (mydata.isNull) {
+    protected bool isEmpty(Json data, int myflags) {
+        /* if (data.isNull) {
             return true;
         }
-        if (mydata is null && (myflags & EMPTY_STRING)) {
+        if (data is null && (myflags & EMPTY_STRING)) {
             return true;
         }
         auto myarrayTypes = EMPTY_ARRAY | EMPTY_DATE | EMPTY_TIME;
-        if (mydata is null && (myflags & myarrayTypes)) {
+        if (data is null && (myflags & myarrayTypes)) {
             return true;
         }
-        if (isArray(mydata)) {
+        if (isArray(data)) {
             auto myallFieldsAreEmpty = true;
-            foreach (fieldName; mydata) {
+            foreach (fieldName; data) {
                 if (fieldName !is null && fieldName != "") {
                     myallFieldsAreEmpty = false;
                     break;
                 }
             }
             if (myallFieldsAreEmpty) {
-                if ((myflags & EMPTY_DATE) && mydata.hasKey("year")) {
+                if ((myflags & EMPTY_DATE) && data.hasKey("year")) {
                     return true;
                 }
-                if ((myflags & EMPTY_TIME) && mydata.hasKey("hour")) {
+                if ((myflags & EMPTY_TIME) && data.hasKey("hour")) {
                     return true;
                 }
             }
         }
 
-        return (myflags & EMPTY_FILE) && cast(IUploadedFile) mydata && mydata.getError() == UPLOAD_ERR_NO_FILE; */
+        return (myflags & EMPTY_FILE) && cast(IUploadedFile) data && data.getError() == UPLOAD_ERR_NO_FILE; */
         return false; 
     }
 
@@ -2414,7 +2391,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \UIM\Validation\ValidationSet myrules the list of rules for a field
      * @param Json[string] data the full data passed to the validator
      */
-    protected Json[string] _processRules(string fieldName, DValidationSet myrules, Json[string] data, bool isNewRecord) {
+    protected Json[string] _processRules(string fieldName, DValidationSet myrules, Json[string] dataToValidator, bool isNewRecord) {
         Json[string] myerrors = null;
         // Loading default provider in case there is none
         getProvider("default");
@@ -2424,7 +2401,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             : "The provided value is invalid"; 
 
         /* foreach (myname, myrule; myrules) {
-            auto result = myrule.process(mydata[fieldName], _providers, compact("newRecord", "data", "field"));
+            auto result = myrule.process(dataToValidator[fieldName], _providers, compact("newRecord", "data", "field"));
             if (result == true) {
                 continue;
             }

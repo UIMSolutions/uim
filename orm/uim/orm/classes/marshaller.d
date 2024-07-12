@@ -207,9 +207,9 @@ class DMarshaller {
      * Create a new sub-marshaller and marshal the associated data.
      * Params:
      * \ORM\Association association The association to marshall
-     * @param Json aValue The data to hydrate. If not an array, this method will return null.
+     * @param Json value The data to hydrate. If not an array, this method will return null.
      */
-        protected IORMEntity[] _marshalAssociation(DORMAssociation association, Json aValue, Json[string] options = null) {
+        protected IORMEntity[] _marshalAssociation(DORMAssociation association, Json value, Json[string] options = null) {
             if (!isArray(myvalue)) {
                 return null;
             }
@@ -580,16 +580,11 @@ class DMarshaller {
             return myoutput;
         }
 
-        /**
-     * Creates a new sub-marshaller and merges the associated data.
-     * Params:
-     * \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity>|null myoriginal The original entity
-     * @param Json aValue The array of data to hydrate. If not an array, this method will return null.
-     */
+        // Creates a new sub-marshaller and merges the associated data.
         protected IORMEntity[] _mergeAssociation(
-            IORMEntity | array | null myoriginal,
+            IORMEntity /* | array | null */ myoriginal,
             DAssociation association,
-            Json aValue,
+            Json value,
             Json[string] options
         ) {
             if (!myoriginal) {
@@ -661,12 +656,11 @@ class DMarshaller {
      * array<\UIM\Datasource\IORMEntity> myoriginal The original entities list.
      * @param \ORM\Association\BelongsToMany association The association to marshall
      * @param Json[string] myvalue The data to hydrate
-     * @param Json[string] options List of options.
      */
-        protected IORMEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany association, Json[string] dataToHydrate, Json[string] options = null) {
+        protected IORMEntity[] _mergeJoinData(Json[string] originalEntities, BelongsToMany association, Json[string] dataToHydrate, Json[string] options = null) {
             auto myassociated = options.getArray("associated");
             Json[string] myextra = null;
-            foreach (myentity; myoriginal) {
+            foreach (myentity; originalEntities) {
                 // Mark joinData as accessible so we can marshal it properly.
                 myentity.setAccess("_joinData", true);
 
@@ -684,7 +678,7 @@ class DMarshaller {
             }
             options["accessibleFields"] = ["_joinData": true.toJson];
 
-            auto myrecords = this.mergeMany(myoriginal, dataToHydrate, options);
+            auto myrecords = this.mergeMany(originalEntities, dataToHydrate, options);
             myrecords.each!((myrecord) {
                 auto myhash = spl_object_hash(myrecord);
                 auto dataToHydrate = myrecord.get("_joinData");
@@ -716,9 +710,9 @@ class DMarshaller {
      * @param Json[string] data readOnly mydata to use.
      * @param Json[string] options List of options that are readOnly.
      */
-        protected void dispatchAfterMarshal(IORMEntity myentity, Json[string] data, Json[string] options = null) {
-            auto mydata = new Json[string](mydata);
-            auto options = new Json[string](options);
+        protected void dispatchAfterMarshal(IORMEntity myentity, Json[string] redaOnlyData, Json[string] redaOnlyOptions = null) {
+            auto data = new Json[string](redaOnlyData);
+            auto options = new Json[string](redaOnlyOptions);
             _table.dispatchEvent("Model.afterMarshal", compact("entity", "data", "options"));
         }
     }

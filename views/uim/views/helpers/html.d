@@ -263,8 +263,6 @@ class DHtmlHelper : DHelper {
      * - `confirm` JavaScript confirmation message.
      * Params:
      * string mytitle The content to be wrapped by `<a>` tags.
-     * @param Json[string] params An array specifying any additional parameters.
-     * Can be also any special parameters supported by `Router.url()`.
      */
     string linkFromPath(string mytitle, string routePath, Json[string] params = [], Json[string] htmlAttributes = null) {
         return _link(mytitle, ["_path": routePath] + params, htmlAttributes);
@@ -452,12 +450,8 @@ class DHtmlHelper : DHelper {
      *
      * - `block` Set to true to append output to view block "script" or provide
      * custom block name.
-     * Params:
-     * string myscript The script to wrap
-     * @param Json[string] htmlAttributes The options to use. Options not listed above will be
-     *  treated as HTML attributes.
      */
-    string scriptBlock(string myscript, Json[string] htmlAttributes = null) {
+    string scriptBlock(string script, Json[string] htmlAttributes = null) {
         htmlAttributes += ["block": Json(null), "nonce": _view.getRequest().getAttribute("cspScriptNonce")];
 
         auto result = this.formatTemplate("javascriptblock", [
@@ -550,13 +544,12 @@ class DHtmlHelper : DHelper {
      * - `plugin` False value will prevent parsing path as a plugin
      * Params:
      * string[] mypath Path to the image file, relative to the webroot/img/ directory.
-     * @param Json[string] options Array of HTML attributes. See above for special options.
      */
-    string image(string[] mypath, Json[string] htmlAttributes = null) {
-        if (isString(mypath)) {
-            mypath = _Url.image(mypath, htmlAttributes);
+    string image(string[] pathToImageFile, Json[string] htmlAttributes = null) {
+        if (isString(pathToImageFile)) {
+            pathToImageFile = _Url.image(pathToImageFile, htmlAttributes);
         } else {
-            mypath = _Url.build(mypath, htmlAttributes);
+            pathToImageFile = _Url.build(pathToImageFile, htmlAttributes);
         }
         htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
@@ -570,7 +563,7 @@ class DHtmlHelper : DHelper {
         }
         mytemplater = templater();
         myimage = mytemplater.format("image", [
-            "url": mypath,
+            "url": pathToImageFile,
             "attrs": mytemplater.formatAttributes(htmlAttributes),
         ]);
 
@@ -589,56 +582,49 @@ class DHtmlHelper : DHelper {
      * Params:
      * array views Array of tablenames. Each tablename can be string, or array with name and an array with a set
      *   of attributes to its specific tag
-     * @param Json[string]|null trOptions HTML options for TR elements.
-     * @param Json[string]|null thOptions HTML options for TH elements.
      */
-    string tableHeaders(Json[string] views, Json[string] trOptions = null, Json[string] thOptions = null) {
+    string tableHeaders(Json[string] tableNames, Json[string] trOptions = null, Json[string] thOptions = null) {
+        string attributes = null;
         string result = null;
-        foreach (myarg; views) {
-            if (!isArray(myarg)) {
-                content = myarg;
-                myattrs = thOptions;
-            } elseif (myarg.has(0) && myarg.has(1)) {
-                content = myarg[0];
-                myattrs = myarg[1];
+        foreach (tableName; tableNames) {
+            if (!isArray(tableName)) {
+                content = tableName;
+                attributes = thOptions;
+            } elseif (tableName.has(0) && tableName.has(1)) {
+                content = tableName[0];
+                attributes = tableName[1];
             } else {
-                content = key(myarg);
-                myattrs = currentValue(myarg);
+                content = key(vitableNameew);
+                attributes = currentValue(tableName);
             }
             result ~= this.formatTemplate("tableheader", [
-                "attrs": templater().formatAttributes(myattrs),
+                "attrs": templater().formatAttributes(attributes),
                 "content": content,
             ]);
         }
-        return _tableRow(result.join(" "), (array)trOptions);
+        return _tableRow(result.join(" "), trOptions);
     }
     
-    /**
-     * Returns a formatted string of table rows (TR"s with TD"s in them).
-     * Params:
-     * string[] mydata Array of table data
-     * @param Json[string]|bool|null myoddTrOptions HTML options for odd TR elements if true useCount is used
-     * @param Json[string]|bool|null myevenTrOptions HTML options for even TR elements
-     */
+    // Returns a formatted string of table rows (TR"s with TD"s in them).
     string tableCells(
-        string[] mydata,
-        Json|null myoddTrOptions = null,
-        Json|null myevenTrOptions = null,
+        string[] tableData,
+        Json oddTrOptions = null,
+        Json evenTrOptions = null,
         bool useCount = false,
         bool continueOddEven = true
    ) {
-        if (!isArray(mydata)) {
-            mydata = [[mydata]];
-        } elseif (isEmpty(mydata[0]) || !isArray(mydata[0])) {
-            mydata = [mydata];
+        if (!isArray(tableData)) {
+            tableData = [[tableData]];
+        } elseif (isEmpty(tableData[0]) || !isArray(tableData[0])) {
+            tableData = [tableData];
         }
-        if (myoddTrOptions == true) {
-            myuseCount = true;
-            myoddTrOptions = null;
+        if (oddTrOptions == true) {
+            shouldUseCount = true;
+            oddTrOptions = null;
         }
-        if (myevenTrOptions == false) {
+        if (evenTrOptions == false) {
             continueOddEven = false;
-            myevenTrOptions = null;
+            evenTrOptions = null;
         }
         if (continueOddEven) {
             static mycount = 0;
@@ -646,10 +632,10 @@ class DHtmlHelper : DHelper {
             mycount = 0;
         }
         auto result = null;
-        mydata.each!((line) {
+        tableData.each!((line) {
             mycount++;
-            mycellsOut = _renderCells(line, myuseCount);
-            myopts = mycount % 2 ? myoddTrOptions : myevenTrOptions;
+            mycellsOut = _renderCells(line, shouldUseCount);
+            myopts = mycount % 2 ? oddTrOptions : evenTrOptions;
 
             Json[string] htmlAttributes = (array)myopts;
             result ~= this.tableRow(mycellsOut.join(" "), htmlAttributes);
@@ -663,29 +649,26 @@ class DHtmlHelper : DHelper {
      *
      * This is a helper method for tableCells(). Overload this method as you
      * need to change the behavior of the cell rendering.
-     * Params:
-     * Json[string] myline Line data to render.
-     * @param bool myuseCount Renders the count into the row. Default is false.
      */
-    protected string[] _renderCells(Json[string] myline, bool myuseCount = false) {
+    protected string[] _renderCells(Json[string] linesToRender, bool shouldUseCount = false) {
         auto index = 0;
         auto mycellsOut = null;
-        myline.each!((cell) {
+        linesToRender.each!((cell) {
             mycellOptions = null;
 
             if (isArray(cell)) {
                 mycellOptions = cell[1];
                 cell = cell[0];
             }
-            if (myuseCount) {
+            if (shouldUseCount) {
                 index += 1;
 
 
-                mycellOptions["class"] = mycellOptions.hasKey("class"))
+                mycellOptions["class"] = mycellOptions.hasKey("class")
                     ? mycellOptions.getString("class") ~ " column-" ~ index
                     : "column-" ~ index;
             }
-            mycellsOut ~= this.tableCell((string)cell, mycellOptions);
+            mycellsOut ~= tableCell(/* (string) */cell, mycellOptions);
         });
         return mycellsOut;
     }
@@ -712,24 +695,18 @@ class DHtmlHelper : DHelper {
      * ### Options
      *
      * - `escape` Whether the contents should be html_entity escaped.
-     * Params:
-     * string views Tag name.
-     * @param string mytext String content that will appear inside the HTML element.
-     * If null, only a start tag will be printed
-     * @param Json[string] htmlAttributes Additional HTML attributes of the HTML tag, see above.
      */
-    string tag(string views, string mytext = null, Json[string] htmlAttributes = null) {
+    string tag(string tagName, string content = null, Json[string] htmlAttributes = null) {
         if (htmlAttributes.hasKey("escape") && htmlAttributes["escape"]) {
-            Json mytext = htmlAttributeEscape(mytext);
+            Json content = htmlAttributeEscape(content);
             remove(htmlAttributes["escape"]);
         }
 
-        auto tag = mytext.isNull ? "tagstart" : "tag";
-
-        return _formatTemplate(mytag, [
+        auto tag = content.isNull ? "tagstart" : "tag";
+        return _formatTemplate(tag, [
             "attrs": templater().formatAttributes(htmlAttributes),
-            "tag": views,
-            "content": mytext,
+            "tag": tagName,
+            "content": content,
         ]);
     }
     
@@ -739,17 +716,12 @@ class DHtmlHelper : DHelper {
      * ### Options
      *
      * - `escape` Whether the contents should be html_entity escaped.
-     * Params:
-     * string myclass DCSS class name of the div element.
-     * @param string mytext String content that will appear inside the div element.
-     * If null, only a start tag will be printed
-     * @param Json[string] htmlAttributes Additional HTML attributes of the DIV tag
      */
-    string div(string myclass = null, string mytext = null, Json[string] htmlAttributes = null) {
-        if (!myclass.isEmpty) {
-            htmlAttributes["class"] = myclass;
+    string div(string cssClass = null, string content = null, Json[string] htmlAttributes = null) {
+        if (!cssClass.isEmpty) {
+            htmlAttributes.set("class", cssClass);
         }
-        return _tag("div", mytext, htmlAttributes);
+        return _tag("div", content, htmlAttributes);
     }
     
     /**
@@ -758,22 +730,20 @@ class DHtmlHelper : DHelper {
      * ### Options
      *
      * - `escape` Whether the contents should be html_entity escaped.
-     * Params:
-     * string myclass DCSS class name of the p element.
-     * @param string mytext String content that will appear inside the p element.
      */
-    string para(string myclass, string content, Json[string] htmlAttributes = null) {
+    string para(string cssClass, string content, Json[string] htmlAttributes = null) {
         if (!htmlAttributes.isEmpty("escape")) {
             content = htmlAttributeEscape(content);
         }
-        if (myclass) {
-            htmlAttributes["class"] = myclass;
+        if (cssClass) {
+            htmlAttributes.set("class", cssClass);
         }
-        mytag = "para";
+        
+        auto tag = "para";
         if (content.isNull) {
-            mytag = "parastart";
+            tag = "parastart";
         }
-        return _formatTemplate(mytag, [
+        return _formatTemplate(tag, [
             "attrs": templater().formatAttributes(htmlAttributes),
             "content": content,
         ]);
@@ -834,11 +804,10 @@ class DHtmlHelper : DHelper {
      * - `pathPrefix` Path prefix to use for relative URLs, defaults to "files/"
      * - `fullBase` If provided the src attribute will get a full address including domain name
      * Params:
-     * string[] mypath Path to the video file, relative to the webroot/{htmlAttributes["pathPrefix"]} directory.
+     * string[] pathToImageFile Path to the video file, relative to the webroot/{htmlAttributes["pathPrefix"]} directory.
      * Or an array where each item itself can be a path string or an associate array containing keys `src` and `type`
-     * @param Json[string] htmlAttributes Array of HTML attributes, and special options above.
      */
-    string media(string[] mypath, Json[string] htmlAttributes = null) {
+    string media(string[] pathToImageFile, Json[string] htmlAttributes = null) {
         htmlAttributes.merge([
             "tag": Json(null),
             "pathPrefix": "files/",
@@ -849,9 +818,9 @@ class DHtmlHelper : DHelper {
             ? htmlAttributes["tag"]
             : null;
 
-        if (mypath.isArray) {
+        if (pathToImageFile.isArray) {
             auto mysourceTags = "";
-            foreach (&mysource; mypath) {
+            foreach (&mysource; pathToImageFile) {
                 if (isString(mysource)) {
                     mysource = [
                         "src": mysource,
@@ -871,17 +840,17 @@ class DHtmlHelper : DHelper {
             htmlAttributes["text"] = mysourceTags ~ htmlAttributes["text"];
             remove(htmlAttributes["fullBase"]);
         } else {
-            if (isEmpty(mypath) && !htmlAttributes.isEmpty("src"))) {
-                mypath = htmlAttributes["src"];
+            if (isEmpty(pathToImageFile) && !htmlAttributes.isEmpty("src"))) {
+                pathToImageFile = htmlAttributes["src"];
             }
             /** @psalm-suppress PossiblyNullArgument */
-            htmlAttributes["src"] = _Url.assetUrl(mypath, htmlAttributes);
+            htmlAttributes["src"] = _Url.assetUrl(pathToImageFile, htmlAttributes);
         }
         if (mytag.isNull) {
-            if (mypath.isArray) {
-                mymimeType = mypath[0]["type"];
+            if (pathToImageFile.isArray) {
+                mymimeType = pathToImageFile[0]["type"];
             } else {
-                mymimeType = _view.getResponse().getMimeType(pathinfo(mypath, PATHINFO_EXTENSION));
+                mymimeType = _view.getResponse().getMimeType(pathinfo(pathToImageFile, PATHINFO_EXTENSION));
                 assert(isString(mymimeType));
             }
 
@@ -896,8 +865,7 @@ class DHtmlHelper : DHelper {
                 ["pathPrefix": configuration.get("App.imageBaseUrl")] + htmlAttributes
            );
         }
-        mytext = htmlAttributes["text"];
-
+        content = htmlAttributes["text"];
         htmlAttributes = array_diffinternalKey(htmlAttributes, [
             "tag": Json(null),
             "fullBase": Json(null),
@@ -905,7 +873,7 @@ class DHtmlHelper : DHelper {
             "text": Json(null),
         ]);
 
-        return _tag(mytag, mytext, htmlAttributes);
+        return _tag(mytag, content, htmlAttributes);
     }
     
     /**
@@ -921,15 +889,13 @@ class DHtmlHelper : DHelper {
      * - `odd` - Class to use for odd rows.
      * Params:
      * array mylist Set of elements to list
-     * @param Json[string] htmlAttributes Options and additional HTML attributes of the list (ol/ul) tag.
-     * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
      */
-    string|int|false nestedList(Json[string] mylist, Json[string] htmlAttributes = null, Json[string] myitemOptions= null) {
-        htmlAttributes += ["tag": "ul"];
-        myitems = _nestedListItem(mylist, htmlAttributes, myitemOptions);
+    string|int|false nestedList(Json[string] mylist, Json[string] listAttributes = null, Json[string] liAttributes= null) {
+        listAttributes += ["tag": "ul"];
+        myitems = _nestedListItem(mylist, listAttributes, liAttributes);
 
-        return _formatTemplate(htmlAttributes["tag"], [
-            "attrs": templater().formatAttributes(htmlAttributes, ["tag"]),
+        return _formatTemplate(listAttributes["tag"], [
+            "attrs": templater().formatAttributes(listAttributes, ["tag"]),
             "content": myitems,
         ]);
     }
@@ -938,24 +904,22 @@ class DHtmlHelper : DHelper {
      * Internal auto to build a nested list (UL/OL) out of an associative array.
      * Params:
      * array myitems Set of elements to list.
-     * @param Json[string] htmlAttributes Additional HTML attributes of the list (ol/ul) tag.
-     * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
      */
-    protected string _nestedListItem(Json[string] myitems, Json[string] htmlAttributes, Json[string] myitemOptions) {
+    protected string _nestedListItem(Json[string] myitems, Json[string] listAttributes, Json[string] liAttributes) {
         string result = "";
 
         auto myindex = 1;
         foreach (aKey: myitem; myitems) {
             if (isArray(myitem)) {
-                myitem = aKey ~ this.nestedList(myitem, htmlAttributes, myitemOptions);
+                myitem = aKey ~ this.nestedList(myitem, listAttributes, liAttributes);
             }
-            if (myitemOptions.hasKey("even") && myindex % 2 == 0) {
-                myitemOptions.set("class", myitemOptions["even"]);
-            } elseif (myitemOptions.hasKey("odd") && myindex % 2 != 0) {
-                myitemOptions.set("class", myitemOptions["odd"]);
+            if (liAttributes.hasKey("even") && myindex % 2 == 0) {
+                liAttributes.set("class", liAttributes["even"]);
+            } elseif (liAttributes.hasKey("odd") && myindex % 2 != 0) {
+                liAttributes.set("class", liAttributes["odd"]);
             }
             result ~= this.formatTemplate("li", [
-                "attrs": templater().formatAttributes(myitemOptions, ["even", "odd"]),
+                "attrs": templater().formatAttributes(liAttributes, ["even", "odd"]),
                 "content": myitem,
             ]);
             myindex++;

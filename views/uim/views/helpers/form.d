@@ -1733,44 +1733,42 @@ class DFormHelper : DHelper {
      * Can be used in place of a select box with the multiple attribute.
      * Params:
      * string fieldName Name attribute of the SELECT
-     * @param range options Array of the OPTION elements
-     * (as "value"=>"Text" pairs) to be used in the checkboxes element.
      * @param Json[string] attributes The HTML attributes of the select element.
      */
-    string multiCheckbox(string fieldName, range options, Json[string] attributes= null) {
-        attributes += [
+    string multiCheckbox(string fieldName, Json[string] options, Json[string] htmlAttributes = null) {
+        htmlAttributes.merge([
             "disabled": Json(null),
             "escape": true.toJson,
             "hiddenField": true.toJson,
             "secure": true.toJson,
-        ];
+        ]);
 
         mygeneratedHiddenId = false;
-        if (!attributes.hasKey("id")) {
-            attributes["id"] = true;
+        if (!htmlAttributes.hasKey("id")) {
+            htmlAttributes["id"] = true;
             mygeneratedHiddenId = true;
         }
-        attributes = _initInputField(fieldName, attributes);
-        attributes["options"] = options;
-        attributes["idPrefix"] = _idPrefix;
+        htmlAttributes = _initInputField(fieldName, htmlAttributes);
+        htmlAttributes["options"] = options;
+        htmlAttributes["idPrefix"] = _idPrefix;
 
         myhidden = "";
-        if (attributes["hiddenField"]) {
+        if (htmlAttributes["hiddenField"]) {
             myhiddenAttributes = [
-                "name": attributes["name"],
+                "name": htmlAttributes["name"],
                 "value": "",
                 "secure": false.toJson,
-                "disabled": attributes["disabled"] == true || attributes["disabled"] == "disabled",
-                "id": attributes["id"],
+                "disabled": htmlAttributes["disabled"] == true || htmlAttributes["disabled"] == "disabled",
+                "id": htmlAttributes["id"],
             ];
             myhidden = hidden(fieldName, myhiddenAttributes);
         }
-        remove(attributes["hiddenField"]);
+        remove(htmlAttributes["hiddenField"]);
 
         if (mygeneratedHiddenId) {
-            remove(attributes["id"]);
+            remove(htmlAttributes["id"]);
         }
-        return myhidden ~ widget("multicheckbox", attributes);
+        return myhidden ~ widget("multicheckbox", htmlAttributes);
     }
     
     /**
@@ -1884,8 +1882,6 @@ class DFormHelper : DHelper {
      *
      * The output of this bool is a more complete set of input attributes that
      * can be passed to a form widget to generate the actual input.
-     * Params:
-     * string fieldName Name of the field to initialize options for.
      */
     protected Json[string] _initInputField(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.update["fieldName": fieldName];
@@ -1975,14 +1971,9 @@ class DFormHelper : DHelper {
      * if you wanted to use an alternative ORM like Doctrine you could
      * create and connect a new context class to allow FormHelper to
      * read metadata from doctrine.
-     * Params:
-     * string mytype The type of context. This key
-     * can be used to overwrite existing providers.
-     * @param callable mycheck A callable that returns an object
-     * when the form context is the correct type.
      */
-    void addContextProvider(string mytype, callable mycheck) {
-        this.contextFactory().addProvider(mytype, mycheck);
+    void addContextProvider(string contextType/* , callable mycheck */) {
+        this.contextFactory().addProvider(contextType, null /* mycheck */);
     }
     
     /**
@@ -2036,25 +2027,22 @@ class DFormHelper : DHelper {
      * methods like `text`, `hidden`, and `radio`. If you are using additional
      * widgets you should use this method render the widget without the label
      * or wrapping div.
-     * Params:
-     * string widgetname The name of the widget. e.g. "text".
-     * @param Json[string] data The data to render.
      */
-    string widget(string widgetname, Json[string] data= null) {
+    string widget(string widgetname, Json[string] dataToRender = null) {
         Json mysecure = null;
-        if (mydata.hasKey("secure")) {
-            mysecure = mydata["secure"];
-            mydata.remove("secure");
+        if (dataToRender.hasKey("secure")) {
+            mysecure = dataToRender["secure"];
+            dataToRender.remove("secure");
         }
         auto mywidget = _locator.get(widgetname);
-        auto result = mywidget.render(mydata, context());
+        auto result = mywidget.render(dataToRender, context());
         if (
             _formProtector !is null &&
-            mydata.hasKey("name") &&
+            dataToRender.hasKey("name") &&
             mysecure !is null &&
             mysecure != SECURE_SKIP
        ) {
-            mywidget.secureFields(mydata).each!(fieldName => _formProtector.addField(fieldName, mysecure));
+            mywidget.secureFields(dataToRender).each!(fieldName => _formProtector.addField(fieldName, mysecure));
         }
         return result;
     }

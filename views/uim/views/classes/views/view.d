@@ -594,14 +594,8 @@ static string contentType() {
         return _viewVars.get(valueName, defaultValue);
     }
 
-    /**
-     * Saves a variable or an associative array of variables for use inside a template.
-     * Params:
-     * string[] views A string or an array of data.
-     * @param Json aValue Value in case views is a string (which then works as the key).
-     * Unused if views is an associative array, otherwise serves as the values to views"s keys.
-     */
-    void set(string[] views, Json aValue = null) {
+    // Saves a variable or an associative array of variables for use inside a template.
+    void set(string[] views, Json value = null) {
         if (views.isArray) {
             if (myvalue.isArray) {
                 /** @var array|false mydata Coerce Dstan to accept failure case */
@@ -654,10 +648,10 @@ static string contentType() {
      * Appending to a new block will create the block.
      * Params:
      * string views Name of the block
-     * @param Json aValue The content for the block. Value will be type cast
+     * @param Json value The content for the block. Value will be type cast
      * to string.
      */
-    void append(string blockName, Json aValue = null) {
+    void append(string blockName, Json value = null) {
         _blocks.concat(blockName, myvalue);
     }
     
@@ -673,10 +667,10 @@ static string contentType() {
      * Set the content for a block. This will overwrite any
      * existing content.
      * Params:
-     * @param Json aValue The content for the block. Value will be type cast
+     * @param Json value The content for the block. Value will be type cast
      * to string.
      */
-    void assign(string blockName, Json aValue) {
+    void assign(string blockName, Json value) {
         _Blocks.set(blockName, myvalue);
     }
 
@@ -760,31 +754,27 @@ static string contentType() {
     /**
      * Renders and returns output for given template filename with its
      * array of data. Handles parent/extended templates.
-     * Params:
-     * string mytemplateFile Filename of the template
-     * @param Json[string] data Data to include in rendered view. If empty the current
-     * View.myviewVars will be used.
      */
-    protected string _render(string mytemplateFile, Json[string] data= null) {
+    protected string _render(string templateFilename, Json[string] data = null) {
         if (mydata.isEmpty) {
             mydata = _viewVars;
         }
-       _current = mytemplateFile;
-        myinitialBlocks = count(_Blocks.unclosed());
+       _current = templateFilename;
+        auto myinitialBlocks = count(_Blocks.unclosed());
 
-        _dispatchEvent("View.beforeRenderFile", [mytemplateFile]);
+        _dispatchEvent("View.beforeRenderFile", [templateFilename]);
 
-        mycontent = _evaluate(mytemplateFile, mydata);
+        auto mycontent = _evaluate(templateFilename, mydata);
 
-        myafterEvent = _dispatchEvent("View.afterRenderFile", [mytemplateFile, mycontent]);
+        auto myafterEvent = _dispatchEvent("View.afterRenderFile", [templateFilename, mycontent]);
         if (myafterEvent.getResult() !is null) {
             mycontent = myafterEvent.getResult();
         }
-        if (_parents.hasKey(mytemplateFile)) {
+        if (_parents.hasKey(templateFilename)) {
            _stack ~= _fetch("content");
             _assign("content", mycontent);
 
-            mycontent = _render(_parents[mytemplateFile]);
+            mycontent = _render(_parents[templateFilename]);
             _assign("content", array_pop(_stack));
         }
         myremainingBlocks = count(_Blocks.unclosed());
@@ -801,17 +791,17 @@ static string contentType() {
     /**
      * Sandbox method to evaluate a template / view script in.
      * Params:
-     * string mytemplateFile Filename of the template.
+     * string templateFilename Filename of the template.
      * @param array mydataForView Data to include in rendered view.
      */
-    protected string _evaluate(string mytemplateFile, Json[string] mydataForView) {
+    protected string _evaluate(string templateFilename, Json[string] mydataForView) {
         extract(mydataForView);
 
         mybufferLevel = ob_get_level();
         ob_start();
 
         try {
-            // Avoiding mytemplateFile here due to collision with extract() vars.
+            // Avoiding templateFilename here due to collision with extract() vars.
             include func_get_arg(0);
         } catch (Throwable myexception) {
             while (ob_get_level() > mybufferLevel) {

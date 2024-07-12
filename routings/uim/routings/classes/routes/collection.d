@@ -65,9 +65,9 @@ class DRouteCollection {
 
         // Index path prefixes (for parsing)
         auto mypath = route.staticPath();
-        auto myextensions = route.getExtensions();
-        if (count(myextensions) > 0) {
-            setExtensions(myextensions);
+        auto extensions = route.getExtensions();
+        if (count(extensions) > 0) {
+            setExtensions(extensions);
         }
         if (mypath == route.template) {
             this.staticPaths[mypath] ~= route;
@@ -263,21 +263,15 @@ class DRouteCollection {
         return _extensions;
     }
 
-    /**
-     * Set the extensions that the route collection can handle.
-     * Params:
-     * string[] myextensions The list of extensions to set.
-     * @param bool mymerge Whether to merge with or override existing extensions.
-     * Defaults to `true`.
-     */
-    void setExtensions(Json[string] myextensions, bool mymerge = true) {
-        if (mymerge) {
-            myextensions = array_unique(array_merge(
+    // Set the extensions that the route collection can handle.
+    void setExtensions(Json[string] extensions, bool shouldMerge = true) {
+        if (shouldMerge) {
+            extensions = array_unique(array_merge(
                     _extensions,
-                    myextensions
+                    extensions
            ));
         }
-        _extensions = myextensions;
+        _extensions = extensions;
     }
 
     /**

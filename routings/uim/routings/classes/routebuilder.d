@@ -662,9 +662,6 @@ class DRouteBuilder {
      * name of any route created in a scope callback.
      * Params:
      * string routings The plugin name to build routes for
-     * @param \Closure|Json[string] options Either the options to use, or a callback to build routes.
-     * @param \Closure|null callbackClosure The callback to invoke that builds the plugin routes
-     * Only required when options is defined.
      */
     auto plugin(string routings, /* Closure| */ Json[string] options = null/* , Closure callbackClosure = null */) {
         if (!isArray(options)) {

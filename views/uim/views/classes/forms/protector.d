@@ -383,15 +383,15 @@ class DFormProtector {
      * Params:
      * Json[string] someDataFields Fields array, containing the POST data fields
      * @param Json[string] expectedFields Fields array, containing the expected fields we should have in POST
-     * @param string aintKeyMessage Message string if unexpected found in data fields indexed by int (not protected)
-     * @param string astringKeyMessage Message string if tampered found in
+     * @param string intKeyMessage Message string if unexpected found in data fields indexed by int (not protected)
+     * @param string stringKeyMessage Message string if tampered found in
      * data fields indexed by string (protected).
      */
     protected string[] debugCheckFields(
         Json[string] someDataFields,
         Json[string] expectedFields= null,
-        string aintKeyMessage = "",
-        string astringKeyMessage = "",
+        string intKeyMessage = "",
+        string stringKeyMessage = "",
         string missingMessage = ""
    ) {
         auto messages = matchExistingFields(someDataFields, expectedFields,  anIntKeyMessage, stringKeyMessage);
@@ -402,21 +402,12 @@ class DFormProtector {
         return messages;
     }
     
-    /**
-     * Generate array of messages for the existing fields in POST data, matching dataFields in expectedFields
-     * will be unset
-     * Params:
-     * Json[string] someDataFields Fields array, containing the POST data fields
-     * @param Json[string] expectedFields Fields array, containing the expected fields we should have in POST
-     * @param string aintKeyMessage Message string if unexpected found in data fields indexed by int (not protected)
-     * @param string astringKeyMessage Message string if tampered found in
-     * data fields indexed by string (protected)
-     */
+    // Generate array of messages for the existing fields in POST data, matching dataFields in expectedFields will be unset
     protected string[] matchExistingFields(
-        array someDataFields,
-        array &expectedFields,
-        string aintKeyMessage,
-        string astringKeyMessage
+        Json[string] someDataFields,
+        Json[string] expectedFields,
+        string intKeyMessage,
+        string stringKeyMessage
    ) {
         string[] messages = null;
         someDataFields.byKeyValue.each!((kv) {
@@ -434,7 +425,7 @@ class DFormProtector {
                 }
                 expectedFields.remove(kv.key);
             }
-        }
+        });
         return messages;
     }
     

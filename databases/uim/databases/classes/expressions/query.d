@@ -315,7 +315,7 @@ class DQueryExpression : DExpression { // }, Countable {
         foreach (part, _conditions) {
             if (cast(DQuery)part) {
                 part = "(" ~ part.sql(aBinder) ~ ")";
-            } elseif (cast(IExpression)part) {
+            } else if (cast(IExpression)part) {
                 part = part.sql(aBinder);
             }
             if (part != "") {
@@ -448,7 +448,7 @@ class DQueryExpression : DExpression { // }, Countable {
             }
              operator = array_pop(someParts);
             expression = someParts.join(" ");
-        } elseif (spaces == 1) {
+        } else if (spaces == 1) {
             string[] someParts = split(" ", expression, 2);
             [expression,  operator] = someParts;
         }

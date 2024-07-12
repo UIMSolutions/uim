@@ -239,21 +239,21 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         fWord = options.get(["accuracy", "year"]);
     }
 
-    elseif(abs(months) > 0) {
+    else if(abs(months) > 0) {
         fWord = options.get(["accuracy", "month"]);
     }
-    elseif(
+    else if(
         abs(weeks) > 0) {
         fWord = options.get(["accuracy", "week"]);
     }
-    elseif(abs(days) > 0) {
+    else if(abs(days) > 0) {
         fWord = options.get(["accuracy", "day"]);
     }
-    elseif(
+    else if(
         abs(hours) > 0) {
         fWord = options.get(["accuracy", "hour"]);
     }
-    elseif(
+    else if(
         abs(minutes) > 0) {
         fWord = options.get(["accuracy", "minute"]);
     }

@@ -253,7 +253,7 @@ class DNumericPaginator : IPaginator {
             pageCount = max((int) ceil(pagingParams["count"] / pagingParams["perPage"]), 1);
             pageNumber = min(pageNumber, pageCount);
         }
-        elseif(pagingParams.getLong("current") == 0 && pagingParams.getLong("requestedPage") > 1) {
+        else if(pagingParams.getLong("current") == 0 && pagingParams.getLong("requestedPage") > 1) {
             pageNumber = 1;
         }
 
@@ -515,10 +515,10 @@ class DNumericPaginator : IPaginator {
                 }
                 tableOrder.set(field, kv.value);
             }
-            elseif(correctAlias && repository.hasField(field)) {
+            else if(correctAlias && repository.hasField(field)) {
                 tableOrder.set(tableAlias ~ "." ~ field, kv.value);
             }
-            elseif(!correctAlias && allowed) {
+            else if(!correctAlias && allowed) {
                 tableOrder.set(aliasName ~ "." ~ field, kv.value);
             }
         });

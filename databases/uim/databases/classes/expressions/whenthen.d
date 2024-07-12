@@ -171,7 +171,7 @@ class DWhenThenExpression : DExpression {
         }
         if (cast(Query) when) {
              when = "(%s)".format(when.sql(aBinder));
-        } elseif (cast(IExpression) when) {
+        } else if (cast(IExpression) when) {
              when = when.sql(aBinder);
         } else {
             placeholder = aBinder.placeholder("c");

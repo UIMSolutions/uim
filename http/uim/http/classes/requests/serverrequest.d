@@ -339,7 +339,7 @@ class DServerRequest { // }: IServerRequest {
         }
         if (this.trustProxy && getEnvironmentData("HTTP_X_REAL_IP")) {
              anIpaddr = getEnvironmentData("HTTP_X_REAL_IP");
-        } elseif (this.trustProxy && getEnvironmentData("HTTP_CLIENT_IP")) {
+        } else if (this.trustProxy && getEnvironmentData("HTTP_CLIENT_IP")) {
              anIpaddr = getEnvironmentData("HTTP_CLIENT_IP");
         } else {
              anIpaddr = getEnvironmentData("REMOTE_ADDR");

@@ -31,7 +31,7 @@ class DOrderClauseExpression : DExpression { // TODO }, IField {
     if (cast(Query)field) {
       field = "(%s)".format(field.sql(aBinder));
     }
-    elseif(cast(IExpression)field) {
+    else if(cast(IExpression)field) {
       field = field.sql(aBinder);
     }
     assert(isString(field));

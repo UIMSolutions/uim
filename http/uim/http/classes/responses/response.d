@@ -875,7 +875,7 @@ class DResponse : IResponse {
     protected IDateTime _getUTCDate(Jsontime = null) {
         if (cast(IDateTime)time) {
             result = time.clone;
-        } elseif (isInteger(time)) {
+        } else if (isInteger(time)) {
             result = new DateTime(date("Y-m-d H:i:s", time));
         } else {
             result = new DateTime(time ? time : "now");
@@ -1121,7 +1121,7 @@ class DResponse : IResponse {
 
             if (agent && preg_match("%Opera([/ ])([0-9].[0-9]{1,2})%", agent)) {
                 contentType = "application/octet-stream";
-            } elseif (agent && preg_match("/MSIE ([0-9].[0-9]{1,2})/", agent)) {
+            } else if (agent && preg_match("/MSIE ([0-9].[0-9]{1,2})/", agent)) {
                 contentType = "application/force-download";
             }
             if (isSet(contentType !is null) {

@@ -1343,7 +1343,7 @@ abstract class DQuery : IQuery { // : IExpression {
                                _parts[namePart.key][anI][j] = aValue.clone;
                             }
                         }
-                    } elseif (cast(IExpression)piece) {
+                    } else if (cast(IExpression)piece) {
                        _parts[namePart.key][anI] = piece.clone;
                     }
                 }

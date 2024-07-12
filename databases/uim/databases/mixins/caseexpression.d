@@ -21,27 +21,27 @@ mixin template TCaseExpression() {
         /** @psalm-suppress RedundantCondition */
         if (isString(aValue)) {
             type = "String";
-        } elseif (isInt(aValue)) {
+        } else if (isInt(aValue)) {
             type = "integer";
-        } elseif (isFloat(aValue)) {
+        } else if (isFloat(aValue)) {
             type = "float";
-        } elseif (isBoolean(aValue)) {
+        } else if (isBoolean(aValue)) {
             type = "boolean";
-        } elseif (cast(DChronosDate)aValue) {
+        } else if (cast(DChronosDate)aValue) {
             type = "date";
-        } elseif (cast(IDateTime)aValue) {
+        } else if (cast(IDateTime)aValue) {
             type = "datetime";
-        } elseif (
+        } else if (
             isObject(aValue) &&
             cast(DStringable)aValue
        ) {
             type = "String";
-        } elseif (
+        } else if (
            !_typeMap.isNull &&
             cast(IdentifierExpression)aValue 
        ) {
             type = _typeMap.type(aValue.getIdentifier());
-        } elseif (aValue  ITypedResult) {
+        } else if (aValue  ITypedResult) {
             type = aValue.getReturnType();
         }
         return type;
@@ -57,9 +57,9 @@ mixin template TCaseExpression() {
         }
         if (aValue.isNull) {
             aValue = "NULL";
-        } elseif (cast(Query)aValue) {
+        } else if (cast(Query)aValue) {
             aValue = "(%s)".format(aValue.sql(aBinder));
-        } elseif (cast(IExpression)aValue) {
+        } else if (cast(IExpression)aValue) {
             aValue = aValue.sql(aBinder);
         } else {
             placeholder = aBinder.placeholder("c");

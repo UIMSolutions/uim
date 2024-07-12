@@ -440,12 +440,12 @@ abstract class DTestCase : DBaseTestCase {
                 normalized ~= val;
             }
         }
-         anI = 0;
+         index = 0;
         foreach (tags; normalized) {
             if (!isArray(tags)) {
                 tags = to!string(tags);
             }
-             anI++;
+             index++;
             if (isString(tags) && tags[0] == "<") {
                 tags = [subString(tags, 1): []];
             } else if (isString(tags)) {
@@ -460,7 +460,7 @@ abstract class DTestCase : DBaseTestCase {
                     regex ~= [
                         "%sClose %s tag".format(prefix[0], subString(tags, match[0].length)),
                         "%s\s*<[\s]*\/[\s]*%s[\s]*>[\n\r]*".format(prefix[1], subString(tags, match[0].length)),
-                         anI,
+                         index,
                     ];
                     continue;
                 }
@@ -474,7 +474,7 @@ abstract class DTestCase : DBaseTestCase {
                 regex ~= [
                     "%s `%s`".format(type, tags),
                     tags,
-                     anI,
+                     index,
                 ];
                 continue;
             }
@@ -482,14 +482,14 @@ abstract class DTestCase : DBaseTestCase {
                 regex ~= [
                     "Open %s tag".format(tag),
                     "[\s]*<%s".format(preg_quote(tag, "/")),
-                     anI,
+                     index,
                 ];
                 if (attributes == true) {
                     attributes = null;
                 }
                 attrs = null;
                 explanations = null;
-                 anI = 1;
+                 index = 1;
                 foreach (attr: val; attributes) {
                     if (isNumeric(attr) && preg_match("/^preg\:\/(.+)\//i", to!string(val), matches)) {
                         attrs ~= matches[1];
@@ -517,7 +517,7 @@ abstract class DTestCase : DBaseTestCase {
                         val = preg_quote(val, "/");
                     }
                     attrs ~= "[\s]+" ~ preg_quote(attr, "/") ~ "=" ~ quotes ~ val ~ quotes;
-                     anI++;
+                     index++;
                 }
                 if (attrs) {
                     regex ~= [
@@ -528,11 +528,11 @@ abstract class DTestCase : DBaseTestCase {
                 regex ~= [
                     "End %s tag".format(tag),
                     "[\s]*\/?[\s]*>[\n\r]*",
-                     anI,
+                     index,
                 ];
             }
         }
-        foreach (anI: assertion; regex) {
+        foreach (index: assertion; regex) {
             auto matches = false;
             if (assertion.hasKey("attrs")) {
                 // Json[string] assertion
@@ -567,7 +567,7 @@ abstract class DTestCase : DBaseTestCase {
                 this.assertMatchesRegularExpression(
                     expression,
                     to!string(markupText),
-                    "Item #%d / regex #%d failed: %s".format(anItemNum,  anI, description)
+                    "Item #%d / regex #%d failed: %s".format(anItemNum,  index, description)
                 );
 
                 return false;

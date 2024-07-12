@@ -65,14 +65,14 @@ class DAssetMiddleware : IRoutingMiddleware {
     protected string _getAssetFile(string assetUrl) {
         string[] someParts = stripLeft(assetUrl, "/").split("/");
         auto pluginPart = null;
-        for (anI = 0;  anI < 2;  anI++) {
-            if (someParts.isNull(anI)) {
+        for (index = 0;  index < 2;  index++) {
+            if (someParts.isNull(index)) {
                 break;
             }
-            string[] pluginPart ~= Inflector.camelize(someParts[anI]);
+            string[] pluginPart ~= Inflector.camelize(someParts[index]);
             string plugin = pluginPart.join("/");
             if (Plugin.isLoaded(plugin)) {
-                someParts = array_slice(someParts,  anI + 1);
+                someParts = array_slice(someParts,  index + 1);
                 fileFragment = someParts.join(DIRECTORY_SEPARATOR);
                 pluginWebroot = Plugin.path(plugin) ~ "webroot" ~ DIRECTORY_SEPARATOR;
 

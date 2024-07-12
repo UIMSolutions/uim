@@ -123,9 +123,9 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     static remove(string cookieName) {
         auto result = this.clone;
         aKey = mb_strtolower(cookieName);
-        foreach (result.cookies as  anI: cookie) {
+        foreach (result.cookies as  index: cookie) {
             if (mb_strtolower(cookie.cookieName) == aKey) {
-                remove(result.cookies[anI]);
+                remove(result.cookies[index]);
             }
         }
         return result;
@@ -244,7 +244,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         auto time = new DateTimeImmutable("now", new DateTimeZone("UTC"));
         string hostPattern = "/" ~ preg_quote(hostToCheck, "/") ~ "/";
 
-        foreach (anI: cookie; _cookies) {
+        foreach (index: cookie; _cookies) {
             if (!cookie.isExpired(time)) {
                 continue;
             }
@@ -252,7 +252,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             auto somePathMatches = somePath.startWith(cookie.getPath());
             auto hostMatches = preg_match(hostPattern, cookie.getDomain());
             if (somePathMatches && hostMatches) {
-                remove(_cookies[anI]);
+                remove(_cookies[index]);
             }
         }
     }

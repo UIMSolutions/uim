@@ -112,9 +112,9 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
         auto tokenLength = decodedToken.length;
         string salt = Security.randomBytes(length);
         string salted;
-        for (anI = 0;  anI < length;  anI++) {
+        for (index = 0;  index < length;  index++) {
             // XOR the token and salt together so that we can reverse it later.
-            salted ~= chr(ord(decodedToken[anI]) ^ ord(salt[anI]));
+            salted ~= chr(ord(decodedToken[index]) ^ ord(salt[index]));
         }
         return base64_encode(salted ~ salt);
     }
@@ -137,9 +137,9 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
         salt = subString(decodedToken, TOKEN_VALUE_LENGTH);
 
         unsalted = "";
-        for (anI = 0;  anI < TOKEN_VALUE_LENGTH;  anI++) {
+        for (index = 0;  index < TOKEN_VALUE_LENGTH;  index++) {
             // Reverse the XOR to desalt.
-            unsalted ~= chr(ord(salted[anI]) ^ ord(salt[anI]));
+            unsalted ~= chr(ord(salted[index]) ^ ord(salt[index]));
         }
         return base64_encode(unsalted);
     }

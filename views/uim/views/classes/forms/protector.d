@@ -232,12 +232,12 @@ class DFormProtector {
         auto multi = lockedFields = null;
          auto isUnlocked = false;
 
-        foreach (anI: aKey; fieldList) {
+        foreach (index: aKey; fieldList) {
             if (isString(aKey) && preg_match("/(\.\d+){1,10}/", aKey)) {
-                multi[anI] = preg_replace("/(\.\d+){1,10}/", "", aKey);
-                remove(fieldList[anI]);
+                multi[index] = preg_replace("/(\.\d+){1,10}/", "", aKey);
+                remove(fieldList[index]);
             } else {
-                fieldList[anI] = /* (string) */aKey;
+                fieldList[index] = /* (string) */aKey;
             }
         }
         if (!multi.isEmpty) {
@@ -251,7 +251,7 @@ class DFormProtector {
        );
 
         /** @var string aKey */
-        foreach (anI: aKey; fieldList) {
+        foreach (index: aKey; fieldList) {
              isLocked = isIn(aKey, locked, true);
 
             if (!unlockedFields.isEmpty) {
@@ -265,7 +265,7 @@ class DFormProtector {
                 }
             }
             if (isUnlocked ||  isLocked) {
-                remove(fieldList[anI]);
+                remove(fieldList[index]);
                 if (isLocked) {
                     lockedFields[aKey] = fields[aKey];
                 }

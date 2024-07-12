@@ -39,8 +39,8 @@ mixin template TTupleComparisonTranslator() {
 
         if (cast(DSelectQuery) aValue) {
             string[] selected = aValue.clause("select").values;
-            foreach (anI : field; fields) {
-                aValue.andWhere([field: new DIdentifierExpression(selected[anI])]);
+            foreach (index : field; fields) {
+                aValue.andWhere([field: new DIdentifierExpression(selected[index])]);
             }
             aValue.select(true, true);
             expressionToTransform.setFieldNames(true);
@@ -65,8 +65,8 @@ mixin template TTupleComparisonTranslator() {
         }
         conditions = ["OR": Json.emptyArray];
         aValue.each!((tuple) {
-            auto items = null; foreach (anI : value2; tuple.values) {
-                items ~= [fields[anI]: value2];}
+            auto items = null; foreach (index : value2; tuple.values) {
+                items ~= [fields[index]: value2];}
                 conditions["OR"] ~= items;});
                 surrogate.where(conditions, typeMap);
 

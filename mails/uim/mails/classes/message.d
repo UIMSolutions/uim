@@ -1147,8 +1147,8 @@ class DMessage { //: JsonSerializable {
             string tmpLine;
             string tag;
             tmpLineLength = 0;
-            for (anI = 0, count = line.length;  anI < count;  anI++) {
-                char = line[anI];
+            for (index = 0, count = line.length;  index < count;  index++) {
+                char = line[index];
                 if (tagOpen) {
                     tag ~= char;
                     if (char == ">") {
@@ -1191,13 +1191,13 @@ class DMessage { //: JsonSerializable {
                 tmpLine ~= char;
                 tmpLineLength++;
                 if (tmpLineLength == wrapLength) {
-                    nextChar = line[anI + 1] ? line[anI + 1] : "";
+                    nextChar = line[index + 1] ? line[index + 1] : "";
                     if (nextChar == " " || nextChar == "<") {
                         formatted ~= strip(tmpLine);
                         tmpLine = "";
                         tmpLineLength = 0;
                         if (nextChar == " ") {
-                             anI++;
+                             index++;
                         }
                     } else {
                         lastSpace = indexOf(tmpLine, " ");
@@ -1341,8 +1341,8 @@ class DMessage { //: JsonSerializable {
             }
         });
 
-        return array_filter(array, auto (anI) {
-            return anI !is null && !isArray(anI) && !isBoolean(anI) && anI.length || !anI.isEmpty;
+        return array_filter(array, auto (index) {
+            return index !is null && !isArray(index) && !isBoolean(index) && index.length || !index.isEmpty;
         });
     }
     

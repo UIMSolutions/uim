@@ -60,18 +60,18 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     DResponse[] createResponses(Json[string] requestHeaders, string responseContent) {
         auto anIndexes = null;
         auto responses = null;
-        foreach (anI, aHeader; requestHeaders) {
+        foreach (index, aHeader; requestHeaders) {
             if (subString(aHeader, 0, 5).upper == "HTTP/") {
-                 anIndexes ~= anI;
+                 anIndexes ~= index;
             }
         }
         size_t last = count(anIndexes) - 1;
-        foreach (anI, start; anIndexes) {
+        foreach (index, start; anIndexes) {
             /** @psalm-suppress InvalidOperand */
-            auto end = isSet(anIndexes[anI + 1]) ?  anIndexes[anI + 1] - start : null;
+            auto end = isSet(anIndexes[index + 1]) ?  anIndexes[index + 1] - start : null;
             /** @psalm-suppress PossiblyInvalidArgument */
             auto headerSlice = array_slice(requestHeaders, start, end);
-            string bodyText = anI == last ? responseContent : "";
+            string bodyText = index == last ? responseContent : "";
             responses ~= _buildResponse(headerSlice, bodyText);
         }
         return responses;

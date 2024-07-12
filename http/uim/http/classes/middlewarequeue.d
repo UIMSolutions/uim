@@ -117,7 +117,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
             }
         }
         if (isFound) {
-            return _insertAt(anI, middlewareToInsert);
+            return _insertAt(index, middlewareToInsert);
         }
         throw new DLogicException("No middleware matching `%s` could be found.".format(classname));
     }
@@ -133,8 +133,8 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     // auto insertAfter(string classname, DClosure middlewareToInsert) {
     auto insertAfter(string classname, string middlewareToInsert) {
         auto found = false;
-        auto anI = 0;
-        foreach (anI, object; _queue) {
+        auto index = 0;
+        foreach (index, object; _queue) {
             /** @psalm-suppress ArgumentTypeCoercion */
             if (
                 (
@@ -149,7 +149,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         }
         
         return found
-            ? _insertAt(anI + 1, middlewareToInsert)
+            ? _insertAt(index + 1, middlewareToInsert)
             : _add(middlewareToInsert);
     }
     

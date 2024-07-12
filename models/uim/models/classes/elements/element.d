@@ -180,9 +180,9 @@ class DElement : UIMObject, IElement {
   unittest {
     /* auto element = new DElement;
     element.addValues(["test": StringAttribute]);
-    element["test"] = "something";
-    assert(element["test"] == "something");
-    assert(element["test"] != "a thing"); */
+    element.set("test", "something");
+    assert(element.getString("test") == "something");
+    assert(element.getString("test") != "a thing"); */
   }
 
   // Set data 

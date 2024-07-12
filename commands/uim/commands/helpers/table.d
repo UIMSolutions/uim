@@ -71,7 +71,7 @@ class DTableHelper : UIMObject { // }: Helper {
 
     string outputResult = "";
     foreach (index : value; row.values) {
-      outputResult ~=_renderColumn(to!string(value), columnWidths[index], optionsToPass)
+      outputResult ~= _renderColumn(to!string(value), columnWidths[index], optionsToPass)
     }
     outputResult ~= "|";
     _io.
@@ -100,8 +100,6 @@ class DTableHelper : UIMObject { // }: Helper {
      *
      * Data will be output based on the order of the values
      * in the array. The keys will not be used to align data.
-     * Params:
-     * Json[string] commandArguments The data to render out.
      */
   void output(Json[string] commandArguments) {
     if (commandArguments.isEmpty) {
@@ -109,29 +107,33 @@ class DTableHelper : UIMObject { // }: Helper {
     }
     _io.setStyle("text-right", ["text": Json(null)]);
 
-    configData = this.configuration.data;
-    widths = _calculateWidths(commandArguments);
+    auto configData = configuration.data;
+    auto widths = _calculateWidths(commandArguments);
 
     _rowSeparator(widths);
-    if (configuration.get("headers"] == true) {
-        _render(array_shift(commandArguments), widths, ["style": configuration.get("headerStyle"]]);
-            _rowSeparator(widths); }
-            if (commandArguments.isEmpty) {
-              return; }
-              commandArguments.each!((line) {
-                _render(line, widths); if (configuration.get("rowSeparator"] == true) {
-                    _rowSeparator(widths); }
-                  }
-                  if (configuration.hasKey("rowSeparator") != true) {
-                      _rowSeparator(widths); }
-                    }
+    if (configuration.hasKey("headers")) {
+      _render(array_shift(commandArguments), widths, [
+          "style": configuration.get("headerStyle")
+        ]);
+      _rowSeparator(widths);
+    }
+    if (commandArguments.isEmpty) {
+      return;
+    }
+    commandArguments.each!((line) {
+      _render(line, widths);
+      if (configuration.hasKey("rowSeparator")) {
+        _rowSeparator(widths);
+      }
+    });
 
-                    /**
-     * Add style tags
-     * Params:
-     * string textForSurround The text to be surrounded
-     */
-                    protected string _addStyle(string textForSurround, string styleToAppy) {
-                      return "<" ~ style ~ ">" ~ textForSurround ~ "</" ~ style ~ ">";
-                    }
-                    }
+    if (!configuration.hasKey("rowSeparator")) {
+      _rowSeparator(widths);
+    }
+  }
+
+  // Add style tags
+  protected string _addStyle(string textForSurround, string styleToAppy) {
+    return "<" ~ style ~ ">" ~ textForSurround ~ "</" ~ style ~ ">";
+  }
+}

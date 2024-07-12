@@ -446,7 +446,7 @@ class DPaginatorHelper : DHelper {
             ];
         }
         if (!mybaseUrl.isEmpty) {
-            url = Hash.merge(url, mybaseUrl);
+            url.merge(mybaseUrl);
         }
         url["?"] ? url["?"] : null;
 

@@ -1128,27 +1128,27 @@ unittest {
   auto entity = Entity;
   auto entityValue = EntityData;
   entityValue.value = Entity.name("TestEntity");
-  entity.values["entity"] = entityValue;
+  entity.values.set("entity", entityValue);
 
-  assert(entity["entity.name"] == "TestEntity");
-  assert(entity["entity.name"] != "_");
+  assert(entity.set("entity.name") == "TestEntity");
+  assert(entity.set("entity.name") != "_");
 
-  entity["entity.name"] = "newEntityName";
-  assert(entity["entity.name"] == "newEntityName");
+  entity.set("entity.name", "newEntityName");
+  assert(entity.getString("entity.name") == "newEntityName");
 
   entityValue = cast(DEntityData)entity.values["entity"];
   // writeln(entityValue.value["name"]);
-  assert(entityValue.value["name"] == "newEntityName");
+  assert(entityValue.value.getString("name") == "newEntityName");
 
   auto ElementData = ElementData; */
   /* ElementData.name("TestElement");
-  entity.values["element"] = entityValue;
+  entity.values.set("element", entityValue);
 
-  assert(entity["element.name"] == "TestElement");
-  assert(entity["element.name"] != "_");
+  assert(entity.getString("element.name") == "TestElement");
+  assert(entity.getString("element.name") != "_");
 
-  entity["element.name"] = "newElementName";
-  assert(entity["element.name"] == "newElementName");
+  entity.set("element.name", "newElementName");
+  assert(entity.getString("element.name") == "newElementName");
 
   ElementData = cast(DElementData)entity.values["element"];
   assert(ElementData.value.getString("name") == "newElementName");  */
@@ -1164,9 +1164,9 @@ unittest {
   assert(Entity.haslanguages(false)
   assert(Entity.config(json.emptyobject)
   assert(Entity.values(values)
-  assert(Entity.versionon(createdon)
-  assert(Entity.versionnumber(1l) // allways starts with version 1
-  assert(Entity.versionby(createdby); 
+  assert(Entity.versionOn(createdon)
+  assert(Entity.versionNumber(1l) // allways starts with version 1
+  assert(Entity.versionBy(createdby); 
 
 registerPath": return registerPath;
       case "id": return id.toString;

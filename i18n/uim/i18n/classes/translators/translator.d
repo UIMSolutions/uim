@@ -105,13 +105,13 @@ class DTranslator : UIMObject, ITranslator {
         // Resolve plural form.
         size_t count = to!size_t(tokensValues.get("_count", 0));
         auto form = PluralRules.calculate(this.locale, to!int(count));
-        message = message[form] ?  ? (string) end(message);
+        message = message.ifNull(form, (string) end(message));
 
         if (message.isEmpty) {
             message = messageKey;
 
             // If singular haven`t been translated, fallback to the key.
-            if (tokensValues.hasKey("_singular") && tokensValues["_count"] == 1) {
+            if (tokensValues.hasKey("_singular") && tokensValues.getLong("_count") == 1) {
                 message = tokensValues["_singular"];
             }
         }

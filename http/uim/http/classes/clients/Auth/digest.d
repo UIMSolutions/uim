@@ -62,7 +62,7 @@ class DDigest {
         }
         this.algorithm = algorithm;
         this.isSessAlgorithm = indexOf(this.algorithm, "-sess") == true;
-        this.hashType = Hash.get(HASH_ALGORITHMS, this.algorithm);
+        _hashType = Hash.get(HASH_ALGORITHMS, this.algorithm);
     }
     
     // Add Authorization header to the request.
@@ -117,44 +117,43 @@ class DDigest {
         auto somePath = request.getRequestTarget();
 
         if (this.isSessAlgorithm) {
-            credentials["cnonce"] = this.generateCnonce();
-            a1 = hash(this.hashType, authCredentials["username"] ~ ": " ~
-                    authCredentials["realm"] ~ ": " ~ authCredentials["password"]) ~ ": " ~
-                authCredentials.getString("nonce") ~ ": " ~ authCredentials["cnonce"];
+            credentials["cnonce"] = generateCnonce();
+            a1 = hash(_hashType, authCredentials.getString("username") ~ ": " ~
+                    authCredentials.getString("realm") ~ ": " ~ authCredentials.getString("password")) ~ ": " ~
+                authCredentials.getString("nonce") ~ ": " ~ authCredentials.getString("cnonce");
         } else {
             a1 = authCredentials.getString("username") ~ ": " ~ authCredentials["realm"] ~ ": " ~ authCredentials["password"];
         }
-        ha1 = hash(this.hashType, a1);
-        a2 = request.getMethod() ~ ": " ~ somePath;
-        nc = "%08x".format(credentials.get("nc", 1));
+        auto ha1 = hash(_hashType, a1);
+        auto a2 = request.getMethod() ~ ": " ~ somePath;
+        auto nc = "%08x".format(credentials.get("nc", 1));
 
         if (credentials.isEmpty("qop")) {
-            ha2 = hash(this.hashType, a2);
-            response = hash(this.hashType, ha1 ~ ": " ~ credentials["nonce"] ~ ": " ~ ha2);
+            ha2 = hash(_hashType, a2);
+            response = hash(_hashType, ha1 ~ ": " ~ credentials["nonce"] ~ ": " ~ ha2);
         } else {
             if (!isIn(credentials["qop"], [QOP_AUTH, QOP_AUTH_INT])) {
-                throw new DInvalidArgumentException("Invalid QOP parameter. Valid types are: " ~
-                    join(",", [QOP_AUTH, QOP_AUTH_INT]));
+                throw new DInvalidArgumentException("Invalid QOP parameter. Valid types are: " ~ [QOP_AUTH, QOP_AUTH_INT].join(","));
             }
             if (credentials["qop"] == QOP_AUTH_INT) {
-                a2 = request.getMethod() ~ ": " ~ somePath ~ ": " ~ hash(this.hashType, (string)request.getBody());
+                a2 = request.getMethod() ~ ": " ~ somePath ~ ": " ~ hash(_hashType, to!string(request.getBody()));
             }
             if (credentials.isEmpty("cnonce")) {
-                credentials["cnonce"] = this.generateCnonce();
+                credentials.get("cnonce", generateCnonce());
             }
             
-            auto ha2 = hash(this.hashType, a2);
+            auto ha2 = hash(_hashType, a2);
             auto response = hash(
-                this.hashType,
+                _hashType,
                 ha1 ~ ": " ~ credentials["nonce"] ~ ": " ~ nc ~ ": " .
                 credentials["cnonce"] ~ ": " ~ credentials["qop"] ~ ": " ~ ha2
            );
         }
         string result = "Digest ";
-        result ~= "username="" ~ credentials["username"].replace(["\\", """], ["\\\\", "\\""]) ~ "", ";
-        result ~= "realm="" ~ credentials["realm"] ~ "", ";
-        result ~= "nonce="" ~ credentials["nonce"] ~ "", ";
-        result ~= "uri="" ~ somePath ~ "", ";
+        result ~= "username=\"" ~ credentials.getString("username").replace(["\\", """], ["\\\\", "\\""]) ~ "\", ";
+        result ~= "realm=\"" ~ credentials.getString("realm") ~ "\", ";
+        result ~= "nonce=\"" ~ credentials.getString("nonce") ~ "\", ";
+        result ~= "uri=\"" ~ somePath ~ "", ";
         result ~= "algorithm="" ~ this.algorithm ~ """;
 
         if (!authCredentials.isEmpty("qop")) {

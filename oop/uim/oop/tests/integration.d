@@ -362,9 +362,7 @@ mixin template TIntegrationTest() {
                 return;
             }
             controller = event.getSubject();
-           _flashMessages = Hash.merge(
-               _flashMessages,
-                controller.getRequest().getSession().read("Flash")
+           _flashMessages.merge(controller.getRequest().getSession().read("Flash"));
            );
         }; */
         events.on("Controller.beforeRedirect", ["priority": -100], flashCapture);
@@ -435,7 +433,8 @@ mixin template TIntegrationTest() {
             });
             _request.remove("headers");
         }
-        props = [
+        
+        auto props = [
             "url": url,
             "session": session,
             "query": aQueryData,
@@ -458,7 +457,7 @@ mixin template TIntegrationTest() {
         props["cookies"] = _cookie;
         session.write(_session);
 
-        return Hash.merge(props, _request);
+        return _request.dup.merge(props);
     }
 
     // Add the CSRF and Security Component tokens if necessary.

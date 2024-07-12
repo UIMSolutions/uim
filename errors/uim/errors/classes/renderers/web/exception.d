@@ -79,7 +79,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         _request = serverRequest;
         _controller = _getController();
     }
-    
+
     /**
      * Get the controller instance to handle the exception.
      * Override this method in subclasses to customize the controller used.
@@ -92,7 +92,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         // Fallback to the request in the router or make a new one from
         // _SERVER
         if (request.isNull) {
-            request = routerRequest ?: ServerRequestFactory.fromGlobals();
+            request = routerRequest ? routerRequest : ServerRequestFactory.fromGlobals();
         }
         // If the current request doesn`t have routing data, but we
         // found a request in the router context copy the params over
@@ -101,16 +101,15 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         }
         try {
             params = request.getAttribute("params");
-            params["controller"] = "Error";
+            params.set("controller", "Error");
 
-            factory = new DControllerFactory(new DContainer());
+            auto factory = new DControllerFactory(new DContainer());
             // Check including plugin + prefix
-             classname = factory.getControllerClass(request.withAttribute("params", params));
-
-            if (!classname && !params.isEmpty("prefix")) && !empty(params["plugin"])) {
+            auto classname = factory.getControllerClass(request.withAttribute("params", params));
+            if (!classname && !params.isEmpty("prefix") && !params.isEmpty("plugin")) {
                 params.remove("prefix");
                 // Fallback to only plugin
-                 classname = factory.getControllerClass(request.withAttribute("params", params));
+                classname = factory.getControllerClass(request.withAttribute("params", params));
             }
             if (!classname) {
                 // Fallback to app/core provided controller.
@@ -119,14 +118,14 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             assert(isSubclass_of(classname, Controller.classname));
             controller = new classname(request);
             controller.startupProcess();
-        } catch (Throwable  anException) {
+        } catch (Throwable anException) {
         }
-        if (controller is null)) {
-            return new DController(request);
-        }
-        return controller;
+        
+        return controller is null
+            ? new DController(request)
+            : controller;
     }
-    
+
     // Clear output buffers so error pages display properly.
     protected void clearOutput() {
         if (isIn(UIM_SAPI, ["cli", "Ddbg"])) {
@@ -136,7 +135,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             ob_end_clean();
         }
     }
-    
+
     // Renders the response for the exception.
     IResponse render() {
         auto exception = _error;
@@ -150,9 +149,9 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         }
         string message = errorMessage(exception, code);
         auto url = _controller.getRequest().getRequestTarget();
-        
+
         auto response = _controller.getResponse();
-        if (cast(HttpException)exception) {
+        if (cast(HttpException) exception) {
             exception.getHeaders().byKeyValue
                 .each!(nameValue => response = response.withHeader(nameValue.name, nameValue.value));
         }
@@ -171,17 +170,17 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             "exceptions": exceptions,
             "code": code,
         ];
-        serialize = ["message", "url", "code"];
-
-         isDebug = configuration.get("debug");
+        
+        auto serialize = ["message", "url", "code"];
+        auto isDebug = configuration.get("debug");
         if (isDebug) {
-            trace = (array)Debugger.formatTrace(exception.getTrace(), [
-                "format": "array",
-                "args": true.toJson,
-            ]);
+            trace = (array) Debugger.formatTrace(exception.getTrace(), [
+                    "format": "array",
+                    "args": true.toJson,
+                ]);
             origin = [
-                "file": exception.getFile() ?: "null",
-                "line": exception.getLine() ?: "null",
+                "file": exception.getFile() ? : "null",
+                "line": exception.getLine() ? : "null",
             ];
             // Traces don`t include the origin file/line.
             array_unshift(trace, origin);
@@ -193,39 +192,43 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         _controller.set(viewVars);
         _controller.viewBuilder().setOption("serialize", serialize);
 
-        if (cast(DException)exception &&  isDebug) {
+        if (cast(DException) exception && isDebug) {
             _controller.set(exception.getAttributes());
         }
         _controller.setResponse(response);
 
         return _outputMessage(template);
     }
-    
+
     /**
      * Emit the response content
      * Params:
      * \Psr\Http\Message\IResponse|string aoutput The response to output.
      */
-    void write(IResponse|string aoutput) {
+    void write(IResponse | string aoutput) {
         if (isString(output)) {
             writeln(output;
 
             return;
         }
+
         emitter = new DResponseEmitter();
         emitter.emit(output);
     }
-    
+
     // Render a custom error method/template.
     protected DResponse _customMethod(string methodName, Throwable exceptionToRender) {
-        auto result = this.{methodName}(exceptionToRender);
-       _shutdown();
+        auto result = this. {
+            methodName
+        }
+        (exceptionToRender);
+        _shutdown();
         if (isString(result)) {
             result = _controller.getResponse().withStringBody(result);
         }
         return result;
     }
-    
+
     // Get method name
     protected string methodName(Throwable exception) {
         [, baseClass] = namespaceSplit(exception.classname);
@@ -238,122 +241,120 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
 
         return _method = method;
     }
-    
+
     // Get error message.
     protected string errorMessage(Throwable exception, int errorCode) {
         string result = exception.getMessage();
 
         if (
             !configuration.hasKey("debug") &&
-            !(cast(HttpException)exception)
-       ) {
+            !(cast(HttpException) exception)
+            ) {
             result = code < 500
-                ? __d("uim", "Not Found")
-                : __d("uim", "An Internal Error Has Occurred.");
-            }
+                ? __d("uim", "Not Found") : __d("uim", "An Internal Error Has Occurred.");
         }
-        return result;
     }
-    
-    /**
+
+    return result;
+}
+
+/**
      * Get template for rendering exception info.
      * Params:
      * \Throwable exception Exception instance.
      */
-    protected string templateName(Throwable exception, string methodName, int errorCode) {
-        if (cast(HttpException)exception || !configuration.hasKey("debug")) {
-            return _template = errorCode < 500 ? "error400' : 'error500";
-        }
-        
-        _template = cast(PDOException)exception
-            ? "pdo_error"
-            : methodName;
-
-        return _template;
+protected string templateName(Throwable exception, string methodName, int errorCode) {
+    if (cast(HttpException) exception || !configuration.hasKey("debug")) {
+        return _template = errorCode < 500 ? "error400' : 'error500";
     }
-    
-    // Gets the appropriate http status code for exception.
-    protected int getHttpCode(Throwable exception) {
-        if (cast(HttpException)exception) {
-            return exception.code();
-        }
-        return _exceptionHttpCodes[exception.classname] ?? 500;
-    }
-    
-    // Generate the response using the controller object.
-    protected DResponse _outputMessage(string templateToRender) {
-        try {
-            _controller.render(templateToRender);
 
-            return _shutdown();
-        } catch (MissingTemplateException  anException) {
-            attributes = anException.getAttributes();
-            if (
-                cast(MissingLayoutException)anException ||
-                attributes["file"].contains("error500")
-           ) {
-                return _outputMessageSafe("error500");
-            }
-            return _outputMessage("error500");
-        } catch (MissingPluginException  anException) {
-            attributes = anException.getAttributes();
-            if (attributes.hasKey("plugin"]) && attributes["plugin"] == _controller.pluginName) {
-                _controller.setPlugin(null);
-            }
+    _template = cast(PDOException) exception
+        ? "pdo_error" : methodName;
+
+    return _template;
+}
+
+// Gets the appropriate http status code for exception.
+protected int getHttpCode(Throwable exception) {
+    if (cast(HttpException) exception) {
+        return exception.code();
+    }
+    return _exceptionHttpCodes[exception.classname] ?  ? 500;
+}
+
+// Generate the response using the controller object.
+protected DResponse _outputMessage(string templateToRender) {
+    try {
+        _controller.render(templateToRender);
+
+        return _shutdown();
+    } catch (MissingTemplateException anException) {
+        attributes = anException.getAttributes();
+        if (
+            cast(MissingLayoutException) anException ||
+            attributes.getString("file").contains("error500")
+            ) {
             return _outputMessageSafe("error500");
-        } catch (Throwable outer) {
-            try {
-                return _outputMessageSafe("error500");
-            } catch (Throwable  anInner) {
-                throw outer;
-            }
+        }
+        return _outputMessage("error500");
+    } catch (MissingPluginException anException) {
+        attributes = anException.getAttributes();
+        if (attributes.getString("plugin") == _controller.pluginName) {
+            _controller.setPlugin(null);
+        }
+        return _outputMessageSafe("error500");
+    } catch (Throwable outer) {
+        try {
+            return _outputMessageSafe("error500");
+        } catch (Throwable anInner) {
+            throw outer;
         }
     }
-    
-    /**
+}
+
+/**
      * A safer way to render error messages, replaces all helpers, with basics
      * and doesn`t call component methods.
      * Params:
      * string atemplate The template to render.
      */
-    protected DResponse _outputMessageSafe(string atemplate) {
-        builder = _controller.viewBuilder();
-        builder
-            .setHelpers([])
-            .setLayoutPath("")
-            .setTemplatePath("Error");
-        view = _controller.createView("View");
+protected DResponse _outputMessageSafe(string templateText) {
+    auto builder = _controller.viewBuilder();
+    builder
+        .setHelpers([])
+        .setLayoutPath("")
+        .setTemplatePath("Error");
 
-        response = _controller.getResponse()
-            .withType("html")
-            .withStringBody(view.render(template, "error"));
-        _controller.setResponse(response);
+    auto view = _controller.createView("View");
+    auto response = _controller.getResponse()
+        .withType("html")
+        .withStringBody(view.render(templateText, "error"));
+    _controller.setResponse(response);
 
-        return response;
-    }
-    
-    /**
+    return response;
+}
+
+/**
      * Run the shutdown events.
-     *
      * Triggers the afterFilter and afterDispatch events.
      */
-    protected DResponse _shutdown() {
-        _controller.dispatchEvent("Controller.shutdown");
+protected DResponse _shutdown() {
+    _controller.dispatchEvent("Controller.shutdown");
 
-        return _controller.getResponse();
-    }
-    
-    /**
+    return _controller.getResponse();
+}
+
+/**
      * Returns an array that can be used to describe the internal state of this
      * object.
      */
-    Json[string] debugInfo() {
-        return [
-            "error": _error,
-            "request": _request,
-            "controller": _controller,
-            "template": this.template,
-            "method": this.method,
-        ];
-    } */
+Json[string] debugInfo() {
+    return [
+        "error": _error,
+        "request": _request,
+        "controller": _controller,
+        "template": this.template,
+        "method": this.method,
+    ];
+}
 }

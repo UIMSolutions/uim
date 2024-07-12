@@ -318,7 +318,7 @@ class DClient { // }: IClient {
 
   // Does a recursive merge of the parameter with the scope config.
   protected Json[string] _mergeOptions(Json[string] optionsToMerge = null) {
-    return Hash.merge(_config, optionsToMerge);
+    return _config.dup.merge(optionsToMerge);
   }
 
   // Sends a PSR-7 request and returns a PSR-7 response.
@@ -331,8 +331,6 @@ class DClient { // }: IClient {
      *
      * Used internally by other methods, but can also be used to send
      * handcrafted Request objects.
-     * Params:
-     * \Psr\Http\Message\IRequest  myrequest The request to send.
      */
   Response send(IRequest myrequest, Json[string] options = null) {
     int myredirects = 0;

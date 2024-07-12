@@ -441,8 +441,8 @@ class DCookie : ICookie {
             assert(isString(new.value), "aValue is not a string");
             newCookie.value = newCookie._expand(new.value);
         }
-        assert(isArray(new.value), "aValue is not an array");
-        newCookie.value = Hash.insert(newCookie.value, pathToWrite, valueToWrite);
+        assert(newCookie.value.isArray, "aValue is not an array");
+        newCookie.value = valueToWrite.set(pathToWrite, newCookie.value);
 
         return newCookie;
     }

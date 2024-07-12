@@ -345,8 +345,8 @@ class DViewBuilder { // }: DJsonSerializable {
         myproperties.each!(myproperty => myarray[myproperty] = this.{myproperty});
         array_walk_recursive(myarray["_viewData"], _checkViewVars(...));
 
-        return array_filter(myarray, auto (myi) {
-            return !isArray(myi) && (/* (string) */myi).length || !myi.isEmpty;
+        return array_filter(myarray, auto (index) {
+            return !isArray(index) && (/* (string) */index).length || !index.isEmpty;
         });
     }
     

@@ -317,38 +317,35 @@ class DRoute : IRoute {
      *
      * If the route can be parsed an array of parameters will be returned; if not
      * `null` will be returned. String URLs are parsed if they match a routes regular expression.
-     * Params:
-     * string url The URL to attempt to parse.
-     * @param string mymethod The HTTP method of the request being parsed.
      */
-    Json[string] parse(string url, string mymethod) {
+    Json[string] parse(string urlToParse, string httpMethod) {
         try {
-            if (!mymethod.isEmpty) {
-                mymethod = this.normalizeAndValidateMethods(mymethod);
+            if (!httpMethod.isEmpty) {
+                httpMethod = this.normalizeAndValidateMethods(httpMethod);
             }
-        } catch (InvalidArgumentException mye) {
-            throw new BadRequestException(mye.getMessage());
+        } catch (InvalidArgumentException exception) {
+            throw new BadRequestException(exception.getMessage());
         }
         auto mycompiledRoute = this.compile();
-        [url, myext] = _parseExtension(url);
+        [urlToParse, myext] = _parseExtension(urlToParse);
 
         auto myurldecode = _options.get("_urldecode", true);
         if (myurldecode) {
-            url = urldecode(url);
+            urlToParse = urldecode(urlToParse);
         }
-        if (!preg_match(mycompiledRoute, url, myroute)) {
+        if (!preg_match(mycompiledRoute, urlToParse, myroute)) {
             return null;
         }
         if (
             defaults.hasKey("_method") &&
-            !isIn(mymethod, /* (array) */_defaults["_method"], true)
+            !isIn(httpMethod, /* (array) */_defaults["_method"], true)
        ) {
             return null;
         }
         array_shift(myroute);
         mycount = count(_keys);
-        for (myi = 0; myi <= mycount; myi++) {
-            remove(myroute[myi]);
+        for (index = 0; index <= mycount; index++) {
+            remove(myroute[index]);
         }
         myroute["pass"] = null;
 
@@ -536,10 +533,10 @@ class DRoute : IRoute {
         // If this route uses pass option, and the passed elements are
         // not set, rekey elements.
         if (configuration.hasKey("pass")) {
-            foreach (myi, routings; configuration.set("pass")) {
-                if (url.hasKey(myi) && !url.haskey(routings)) {
-                    url[routings] = url[myi];
-                    remove(url[myi]);
+            foreach (index, routings; configuration.set("pass")) {
+                if (url.hasKey(index) && !url.haskey(routings)) {
+                    url[routings] = url[index];
+                    remove(url[index]);
                 }
             }
         }

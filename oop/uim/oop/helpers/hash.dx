@@ -249,10 +249,10 @@ class Hash {
 
         auto mycount = count(path);
         auto mylast = mycount - 1;
-        foreach (myi, aKey; path) {
+        foreach (index, aKey; path) {
             switch(operation) {
                 case "insert":
-                    if (myi == mylast) {
+                    if (index == mylast) {
                         _list[aKey] = values;
 
                         return data;
@@ -264,7 +264,7 @@ class Hash {
                     }
                     break;
                 case "remove": 
-                    if (myi == mylast) {
+                    if (index == mylast) {
                         if (isArray(_list)) {
                             remove(_list[aKey]);
                         }
@@ -380,13 +380,13 @@ class Hash {
             if (!mygroup.isEmpty) {
                 myc = isArray(someKeys) ? count(someKeys): count(myvals);
                 result = null;
-                for (myi = 0; myi < myc; myi++) {
-                    mygroup[myi] ??= 0;
-                    result[mygroup[myi]] ??= null;
+                for (index = 0; index < myc; index++) {
+                    mygroup[index] ??= 0;
+                    result[mygroup[index]] ??= null;
                     if (someKeys.isNull) {
-                        result[mygroup[myi]] ~= myvals[myi];
+                        result[mygroup[index]] ~= myvals[index];
                     } else {
-                        result[mygroup[myi]][someKeys[myi]] = myvals[myi];
+                        result[mygroup[index]][someKeys[index]] = myvals[index];
                     }
                 }
                 return result;
@@ -421,8 +421,8 @@ class Hash {
         if (mycount == 0) {
             return null;
         }
-        for (myi = 0; myi < mycount; myi++) {
-            myextracted ~= extract(data, mypaths[myi]);
+        for (index = 0; index < mycount; index++) {
+            myextracted ~= extract(data, mypaths[index]);
         }
         result = null;
         /** @var array<mixed, array> data */
@@ -432,9 +432,9 @@ class Hash {
         auto mycountTwo = count(data);
         for (myj = 0; myj < mycount; myj++) {
             myargs = null;
-            for (myi = 0; myi < mycountTwo; myi++) {
-                if (array_key_exists(myj, data[myi])) {
-                    myargs ~= data[myi][myj];
+            for (index = 0; index < mycountTwo; index++) {
+                if (array_key_exists(myj, data[index])) {
+                    myargs ~= data[index][myj];
                 }
             }
             result ~= vsprintf(myformat, myargs);
@@ -931,8 +931,8 @@ class Hash {
         mynumeric = true;
 
         if (!myassoc) {
-            for (myi = 0; myi < mycount; myi++) {
-                if (!isInteger(someKeys[myi])) {
+            for (index = 0; index < mycount; index++) {
+                if (!isInteger(someKeys[index])) {
                     mynumeric = false;
                     break;
                 }
@@ -940,11 +940,11 @@ class Hash {
         }
         if (!mynumeric || myassoc) {
             mynewList = null;
-            for (myi = 0; myi < mycount; myi++) {
-                if (isInteger(someKeys[myi])) {
-                    mynewList[data[someKeys[myi]]] = defaultValue;
+            for (index = 0; index < mycount; index++) {
+                if (isInteger(someKeys[index])) {
+                    mynewList[data[someKeys[index]]] = defaultValue;
                 } else {
-                    mynewList[someKeys[myi]] = data[someKeys[myi]];
+                    mynewList[someKeys[index]] = data[someKeys[index]];
                 }
             }
             data = mynewList;
@@ -1012,11 +1012,11 @@ class Hash {
             ? options["root"]
             : get(result[0], myparentKeys);
 
-        foreach (result as myi: result) {
+        foreach (result as index: result) {
             myid = get(result, myidKeys);
             myparentId = get(result, myparentKeys);
             if (myid != myroot && myparentId != myroot) {
-                remove(result[myi]);
+                remove(result[index]);
             }
         }
         /** @var list<array> */

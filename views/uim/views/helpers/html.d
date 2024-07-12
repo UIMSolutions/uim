@@ -317,7 +317,7 @@ class DHtmlHelper : DHelper {
      * of your application. Otherwise, the path will be relative to your CSS path, usually webroot/css.
      */
     string css(string[] mypath, Json[string] htmlAttributes = null) {
-        string result = mypath.map!(path => "\n\t" ~ css(myi, htmlAttributes)).join;
+        string result = mypath.map!(path => "\n\t" ~ css(index, htmlAttributes)).join;
         return htmlAttributes.isEmpty("block")
             ? result ~ "\n"
             : null;
@@ -412,7 +412,7 @@ class DHtmlHelper : DHelper {
         htmlAttributes += mydefaults;
 
         if (url.isArray) {
-            string result = url.map!(i => "\n\t" ~ /* (string) */this.script(myi, htmlAttributes)).join;
+            string result = url.map!(i => "\n\t" ~ /* (string) */this.script(index, htmlAttributes)).join;
             if (htmlAttributes.isEmpty("block")) {
                 return result ~ "\n";
             }

@@ -279,7 +279,7 @@ class DText {
         }
         if (!options.isEmpty("indent")) {
             string[] mychunks = mywrapped.split("\n");
-            for (index = options.get("indentAt"], mylen = count(mychunks); index < mylen; myi++) {
+            for (index = options.get("indentAt"], mylen = count(mychunks); index < mylen; index++) {
                 mychunks[index] = options.get("indent"] ~ mychunks[index];
             }
             mywrapped = mychunks.join("\n");
@@ -314,9 +314,9 @@ class DText {
                 return mywrapped;
             }
             string mytoRewrap;
-            for (myi = options.get("indentAt"); myi < mycount; myi++) {
-                mytoRewrap ~= mb_subString(mychunks[myi], myindentationLength) ~ " ";
-                remove(mychunks[myi]);
+            for (index = options.get("indentAt"); index < mycount; index++) {
+                mytoRewrap ~= mb_subString(mychunks[index], myindentationLength) ~ " ";
+                remove(mychunks[index]);
             }
             options["width"] -= myindentationLength;
             options["indentAt"] = 0;
@@ -750,8 +750,8 @@ class DText {
     static bool isMultibyte(string valueToTest) {
         size_t stringLength = valueToTest.length;
 
-        for (myi = 0; myi < stringLength; myi++) {
-            myvalue = ord(valueToTest[myi]);
+        for (index = 0; index < stringLength; index++) {
+            myvalue = ord(valueToTest[index]);
             if (myvalue > 128) {
                 return true;
             }
@@ -772,8 +772,8 @@ class DText {
         auto myfind = 1;
         auto mylength = stringToConvert.length;
 
-        for (myi = 0; myi < mylength; myi++) {
-            myvalue = ord(stringToConvert[myi]);
+        for (index = 0; index < mylength; index++) {
+            myvalue = ord(stringToConvert[index]);
 
             if (myvalue < 128) {
                 mymap ~= myvalue;
@@ -823,15 +823,15 @@ class DText {
 
         string sizeText = sizeText.upper;
         myl = -2;
-        myi = array_search(subString(sizeText, -2), ["KB", "MB", "GB", "TB", "PB"], true);
-        if (myi == false) {
+        index = array_search(subString(sizeText, -2), ["KB", "MB", "GB", "TB", "PB"], true);
+        if (index == false) {
             myl = -1;
-            myi = array_search(subString(sizeText, -1), ["K", "M", "G", "T", "P"], true);
+            index = array_search(subString(sizeText, -1), ["K", "M", "G", "T", "P"], true);
         }
-        if (myi == true) {
+        if (index == true) {
             sizeText = (float)subString(sizeText, 0, myl);
 
-            return (int)(sizeText * pow(1024, myi + 1));
+            return (int)(sizeText * pow(1024, index + 1));
         }
         if (sizeText.endsWith("B") && ctype_digit(subString(sizeText, 0, -1))) {
             sizeText = subString(sizeText, 0, -1);

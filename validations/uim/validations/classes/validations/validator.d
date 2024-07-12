@@ -404,13 +404,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             });
 
             auto myerrors = null;
-            foreach (myi: myrow; myvalue) {
+            foreach (index: myrow; myvalue) {
                 if (!isArray(myrow)) {
                     return false;
                 }
                 mycheck = myvalidator.validate(myrow, context["newRecord"]);
                 if (!mycheck.isEmpty) {
-                    myerrors[myi] = mycheck;
+                    myerrors[index] = mycheck;
                 }
             }
             errorMessage = errorMessage ? [NESTED: errorMessage] : [];

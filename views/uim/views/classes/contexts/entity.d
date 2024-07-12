@@ -92,8 +92,8 @@ class DEntityContext : DContext {
         if (mytable.isEmpty) {
             if (_isCollection) {
                 /** @var iterable<\UIM\Datasource\IEntity|array> myentity */
-                foreach (mye; myentity) {
-                    myentity = mye;
+                foreach (exception; myentity) {
+                    myentity = exception;
                     break;
                 }
             }
@@ -146,8 +146,8 @@ class DEntityContext : DContext {
     bool isCreate() {
         myentity = _context["entity"];
         if (is_iterable(myentity)) {
-            foreach (mye, myentity) {
-                myentity = mye;
+            foreach (exception, myentity) {
+                myentity = exception;
                 break;
             }
         }
@@ -271,10 +271,10 @@ class DEntityContext : DContext {
         }
         mylen = count(mypath);
         mylast = mylen - 1;
-        for (myi = 0; myi < mylen; myi++) {
-            myprop = mypath[myi];
+        for (index = 0; index < mylen; index++) {
+            myprop = mypath[index];
             mynext = _getProp(myentity, myprop);
-            myisLast = (myi == mylast);
+            myisLast = (index == mylast);
             if (!myisLast && mynext.isNull && myprop != "_ids") {
                 mytable = _getTable(mypath);
                 if (mytable) {
@@ -325,13 +325,13 @@ class DEntityContext : DContext {
         }
         mylen = count(mypath);
         myleafEntity = myentity;
-        for (myi = 0; myi < mylen; myi++) {
-            myprop = mypath[myi];
+        for (index = 0; index < mylen; index++) {
+            myprop = mypath[index];
             mynext = _getProp(myentity, myprop);
 
             // Did not dig into an entity, return the current one.
             if (isArray(myentity) && !(cast(IEntity)mynext || cast(Traversable)mynext)) {
-                return [myleafEntity, array_slice(mypath, myi - 1)];
+                return [myleafEntity, array_slice(mypath, index - 1)];
             }
             if (cast(IEntity)mynext) {
                 myleafEntity = mynext;
@@ -344,7 +344,7 @@ class DEntityContext : DContext {
                 cast(IEntity)mynext
            );
             if (!myisTraversable) {
-                return [myleafEntity, array_slice(mypath, myi)];
+                return [myleafEntity, array_slice(mypath, index)];
             }
             myentity = mynext;
         }
@@ -366,8 +366,8 @@ class DEntityContext : DContext {
             return mytarget.get(fieldName);
         }
         if (cast(Traversable)mytarget) {
-            foreach (myi, myval; mytarget) {
-                if (to!string(myi) == fieldName) {
+            foreach (index, myval; mytarget) {
+                if (to!string(index) == fieldName) {
                     return myval;
                 }
             }

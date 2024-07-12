@@ -116,7 +116,7 @@ abstract class DCell { // }: IEventDispatcher {
             try {
                 myreflect = new DReflectionMethod(this, _action);
                 myreflect.invokeArgs(this, this.args);
-            } catch (ReflectionException mye) {
+            } catch (ReflectionException exception) {
                 throw new BadMethodCallException(
                     "Class `%s` does not have a `%s` method."
                     .format(class, _action));
@@ -141,14 +141,14 @@ abstract class DCell { // }: IEventDispatcher {
             myview = this.createView();
             try {
                 return myview.render(templateName, false);
-            } catch (MissingTemplateException mye) {
-                myattributes = mye.getAttributes();
+            } catch (MissingTemplateException exception) {
+                myattributes = exception.getAttributes();
                 throw new DMissingTCellException(
                     views,
                     myattributes["file"],
                     myattributes["paths"],
                     null,
-                    mye
+                    exception
                );
             }
         };

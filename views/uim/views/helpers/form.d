@@ -540,13 +540,13 @@ class DFormHelper : DHelper {
         auto myerror = formContext.error(fieldName);
         if (text.isArray) {
             mytmp = null;
-            foreach (key, mye; myerror) {
+            foreach (key, exception; myerror) {
                 if (text.hasKey(key)) {
                     mytmp ~= text[key];
                 } elseif (mytextm.hasKey(ye)) {
-                    mytmp ~= text[mye];
+                    mytmp ~= text[exception];
                 } else {
-                    mytmp ~= mye;
+                    mytmp ~= exception;
                 }
             }
             text = mytmp;
@@ -1954,7 +1954,7 @@ class DFormHelper : DHelper {
             if (isArray(myfirst)) {
                 mydisabled = array_filter(
                     options["options"],
-                    fn (myi): isIn(myi["value"], options["disabled"], true)
+                    fn (index): isIn(index["value"], options["disabled"], true)
                );
 
                 return count(mydisabled) > 0;

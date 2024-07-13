@@ -932,13 +932,13 @@ class DText {
         if (options["transliteratorId"] == true) {
             mystring = transliterate(mystring, options["transliteratorId"]);
         }
-        myregex = "^\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}";
+        regex = "^\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}";
         if (options["preserve"]) {
-            myregex ~= preg_quote(options["preserve"], "/");
+            regex ~= preg_quote(options["preserve"], "/");
         }
         myquotedReplacement = preg_quote((string)options["replacement"], "/");
         mymap = [
-            "/[" ~ myregex ~ "]/mu": options["replacement"],
+            "/[" ~ regex ~ "]/mu": options["replacement"],
              "/^[%s]+|[%s]+my/".format(myquotedReplacement, myquotedReplacement): "",
         ];
         if (options.isString("replacement") && !options.isEmpty("replacement")) {

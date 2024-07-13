@@ -581,20 +581,18 @@ class DTreeBehavior : DBehavior {
      *
      * If the node is the last child, or is a top level node with no subsequent node
      * this method will return the same node without any changes
-     *
-     * @param DORMDatasource\IORMEntity node The node to move
-     * @param int|true number How many places to move the node or true to move to last position
      */
-    IORMEntity moveDown(IORMEntity node, number = 1) {
+    IORMEntity moveDown(IORMEntity node, int number = 1) {
         if (number < 1) {
             return null;
         }
 
-        return _table.getConnection().transactional(function () use (node, number) {
+        /* return _table.getConnection().transactional(function () use (node, number) {
             _ensureFields(node);
 
             return _moveDown(node, number);
-        });
+        }); */
+        return null; 
     }
 
     // Helper function used with the actual code for moveDown

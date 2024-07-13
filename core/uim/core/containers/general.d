@@ -9,8 +9,8 @@ module uim.core.containers.general;
 import uim.core;
   
 bool isSet(V)(V value) {
-  return !(value.isNull);
-}
+  return !(value is null);
+} 
 
 bool isSet(V)(Nullable!V value) {
   return !value.isNull;

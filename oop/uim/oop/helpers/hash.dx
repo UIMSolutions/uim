@@ -750,38 +750,36 @@ class Hash {
      * defaults to `false`.
      * Params:
      * Json[string] data An array of data to sort
-     * @param string path A Set-compatible path to the array value
-     * @param string|int mydir See directions above. Defaults to "asc".
      * @param Json[string]|string mytype See direction types above. Defaults to "regular".
      */
     static Json[string] sort(
         array data,
         string path,
-        string|int mydir = "asc",
-        string[] mytype = "regular"
+        string /*|int */ mydir = "asc",
+        /* Json[string]|string */ string[] mytype = "regular"
     ) {
         if (isEmpty(data)) {
             return null;
         }
-        myoriginalKeys = data.keys;
-        mynumeric = isNumeric(join("", myoriginalKeys));
+        auto myoriginalKeys = data.keys;
+        auto mynumeric = isNumeric(join("", myoriginalKeys));
         if (mynumeric) {
             data = data.values;
         }
-        mysortValues = extract(data, path);
+        auto mysortValues = extract(data, path);
         assert(isArray(mysortValues));
-        mydataCount = count(data);
+        auto dataCount = count(data);
 
         // Make sortValues match the data length, as some keys could be missing
         // the sorted value path.
-        mymissingData = count(mysortValues) < mydataCount;
+        auto mymissingData = count(mysortValues) < dataCount;
         if (mymissingData && mynumeric) {
             // Get the path without the leading "{n}."
             myitemPath = subString(path, 4);
             data.byKeyValue
                 .each!(kv => mysortValues[kv.key] = get(kv.value, myitemPath));
         } else if (mymissingData) {
-            mysortValues = array_pad(mysortValues, mydataCount, null);
+            mysortValues = array_pad(mysortValues, dataCount, null);
         }
         result = _squash(mysortValues);
         someKeys = extract(result, "{n}.id");

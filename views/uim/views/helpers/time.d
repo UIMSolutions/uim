@@ -224,18 +224,11 @@ class DTimeHelper : DHelper {
         return myrelativeDate;
     }
 
-    /**
-     * Returns true if specified datetime was within the interval specified, else false.
-     * Params:
-     * string mytimeInterval the numeric value with space then time type.
-     *  Example of valid types: 6 hours, 2 days, 1 minute.
-     * @param \UIM\Chronos\DChronosDate|\Json dateString UNIX timestamp, strtotime() valid string or DateTime object
-     * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
-     */
+    // Returns true if specified datetime was within the interval specified, else false.
     bool wasWithinLast(
-        string timeIntervalValue,/*  DChronosDate | */
-        Json dateString,/* DateTimeZone | */
-        string timezone = null
+        string timeIntervalValue,
+        /*  DChronosDate | */ Json dateString,
+        /* DateTimeZone | */ string timezone = null
     ) {
         return (new DateTime(dateString, timezone)).wasWithinLast(
             timeIntervalValue);

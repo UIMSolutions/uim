@@ -1103,16 +1103,16 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     }
 
     /**
-     * @param string method the method to call
-     * @param Json[string] arguments list of arguments for the method to call
+     * @param string methodName the methodName to call
+     * @param Json[string] arguments list of arguments for the methodName to call
      */
-    Json __call(string method, Json[string] arguments) {
+    Json __call(string methodName, Json[string] arguments) {
         if (this.type() == "select") {
-            return _call(method, arguments);
+            return _call(methodName, arguments);
         }
 
         throw new BadMethodCallException(
-             "Cannot call method '%s' on a '%s' query".format(method, this.type())
+             "Cannot call method '%s' on a '%s' query".format(methodName, this.type())
        );
     }
 
@@ -1161,8 +1161,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * By default calling select() will disable auto-fields. You can re-enable
      * auto-fields with enableAutoFields().
-     *
-     * @return bool|null The current value. Returns null if neither enabled or disabled yet.
      */
     bool isAutoFieldsEnabled() {
         return _autoFields;
@@ -1170,9 +1168,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
     /**
      * Decorates the results iterator with MapReduce routines and formatters
-     *
-     * @param \Traversable result Original results
-     * @return DORMDatasource\IResultset
      */
     protected IResultset _decorateResults(Traversable result) {
         result = _applyDecorators(result);

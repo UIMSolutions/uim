@@ -636,7 +636,7 @@ class DRouter {
             return _routePaths[url];
         }
         
-        auto myregex = "#^
+        auto regex = "#^
             (?:(?<plugin>[a-z0-9]+(?:/[a-z0-9]+)*)\.)?
             (?:(?<prefix>[a-z0-9]+(?:/[a-z0-9]+)*)/)?
             (?<controller>[a-z0-9]+)
@@ -647,7 +647,7 @@ class DRouter {
            )+/?)?
             my#ix";
 
-        if (!preg_match(myregex, url, mymatches)) {
+        if (!preg_match(regex, url, mymatches)) {
             throw new DInvalidArgumentException("Could not parse a string route path `%s`.".format(url));
         }
         

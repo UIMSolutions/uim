@@ -170,7 +170,7 @@ class DTextHelper : DHelper {
      * <p> added for double line return
      */
     string autoParagraph(string text) {
-        string text = myText.ifEmpty("");
+        text = text.ifEmpty("");
         if (!text.strip.isEmpty) {
             text = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", text ~ "\n"));
             text = /* (string) */preg_replace("/\n\n+/", "\n\n", text.replace(["\r\n", "\r"], "\n"));

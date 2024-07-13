@@ -111,11 +111,11 @@ class DI18n {
         auto translator = translators.get(domainName);
         if (translator.isNull) {
             throw new DI18nException(
-                "Translator for domain `%s` could not be found.".format(domainname));
+                "Translator for domain `%s` could not be found.".format("domainname"));
         }
-        if (isSet(currentLocale)) {
+       /*  if (isSet(currentLocale)) {
             translators.setLocale(currentLocale);
-        }
+        } */
         return translator;
     }
     
@@ -167,10 +167,10 @@ class DI18n {
      */
     static void setLocale(string localName) {
         getDefaultLocale();
-        Locale.setDefault(localName);
+        /* Locale.setDefault(localName);
         if (isSet(_collection)) {
             translators().setLocale(localName);
-        }
+        } */
     }
     
     /**

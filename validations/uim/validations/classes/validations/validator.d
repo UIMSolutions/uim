@@ -2237,24 +2237,17 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return false;
     }
 
-    /**
-     * Returns whether a field matches against a regular expression.
-     * Params:
-     * @param string myregex Regular expression.
-     * @param string message The error errorMessage when the rule fails.
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
-    auto regex(string fieldName, string myregex, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    // Returns whether a field matches against a regular expression.
+    auto regex(string fieldName, string regex, string errorMessage = null, /*Closure|*/ string mywhen = null) { // "create" or "update"
         /* if (errorMessage.isNull) {
             errorMessage = !_useI18n
-                ? "The provided value must match against the pattern '%s'".format(myregex)
-                : __d("uim", "The provided value must match against the pattern '{0}'", myregex);
+                ? "The provided value must match against the pattern '%s'".format(regex)
+                : __d("uim", "The provided value must match against the pattern '{0}'", regex);
         }
         Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "regex", myextra ~ [
-            "rule": ["custom", myregex],
+            "rule": ["custom", regex],
         ]); */
         return false;
     }

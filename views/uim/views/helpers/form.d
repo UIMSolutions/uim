@@ -1234,34 +1234,31 @@ class DFormHelper : DHelper {
      * values to disable specific radio buttons.
      * - `empty` - Set to `true` to create an input with the value "" as the first option. When `true`
      * the radio label will be "empty". Set this option to a string to control the label value.
-     * Params:
-     * string fieldName Name of a field, like this "modelname.fieldname"
-     * @param range options Radio button options array.
      */
-    string radio(string fieldName, Json[string] options = [], Json[string] attributes= null) {
-        attributes.set("options", options);
+    string radio(string fieldName, Json[string] radioOptions = [], Json[string] attributes= null) {
+        attributes.set("options", radioOptions);
         attributes.set("idPrefix", _idPrefix);
 
-        mygeneratedHiddenId = false;
+        auto generatedHiddenId = false;
         if (!attributes.hasKey("id")) {
             attributes["id"] = true;
-            mygeneratedHiddenId = true;
+            generatedHiddenId = true;
         }
         attributes = _initInputField(fieldName, attributes);
 
-        auto myhiddenField = attributes.get("hiddenField", true);
+        auto hiddenField = attributes.get("hiddenField", true);
         remove(attributes["hiddenField"]);
 
         auto myhidden = "";
-        if (myhiddenField == true && isScalar(myhiddenField)) {
+        if (hiddenField == true && isScalar(hiddenField)) {
             myhidden = hidden(fieldName, [
-                "value": myhiddenField == true ? "" : to!string(myhiddenField),
+                "value": hiddenField == true ? "" : to!string(hiddenField),
                 "form": attributes["form"].ifNull(null),
                 "name": attributes["name"],
                 "id": attributes["id"],
             ]);
         }
-        if (mygeneratedHiddenId) {
+        if (generatedHiddenId) {
             remove(attributes["id"]);
         }
         string myradio = widget("radio", attributes);
@@ -1737,10 +1734,10 @@ class DFormHelper : DHelper {
             "secure": true.toJson,
         ]);
 
-        mygeneratedHiddenId = false;
+        generatedHiddenId = false;
         if (!htmlAttributes.hasKey("id")) {
             htmlAttributes["id"] = true;
-            mygeneratedHiddenId = true;
+            generatedHiddenId = true;
         }
         htmlAttributes = _initInputField(fieldName, htmlAttributes);
         htmlAttributes["options"] = options;
@@ -1759,7 +1756,7 @@ class DFormHelper : DHelper {
         }
         remove(htmlAttributes["hiddenField"]);
 
-        if (mygeneratedHiddenId) {
+        if (generatedHiddenId) {
             remove(htmlAttributes["id"]);
         }
         return myhidden ~ widget("multicheckbox", htmlAttributes);

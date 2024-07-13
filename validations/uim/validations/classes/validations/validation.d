@@ -132,7 +132,6 @@ class DValidation {
      *   most major credit cards if an array is used only the values of the array are checked.
      *  Example: ["amex", "bankcard", "maestro"]
      * @param bool mydeep set to true this will check the Luhn algorithm of the credit card.
-     * @param string regex A custom regex, this will be used instead of the defined regex values.
      */
     static bool creditCard(
         Json checkValue,
@@ -828,22 +827,19 @@ static bool naturalNumber(Json valueToCheck, bool myallowZero = false) {
 /**
      * Validates that a number is in specified range.
      *
-     * If mylower and myupper are set, the range is inclusive.
+     * If lowerLimit and myupper are set, the range is inclusive.
      * If they are not set, will return true if valueToCheck is a
      * legal finite on this platform.
-     * Params:
-     * @param float|null mylower Lower limit
-     * @param float|null myupper Upper limit
      */
-static bool range(Json value, float mylower = 0.0, float myupper = 0.0) {
+static bool range(Json value, float lowerLimit = 0.0, float upperLimit = 0.0) {
     /* if (!isNumeric(valueToCheck)) {
             return false;
         }
         if ((float)valueToCheck != valueToCheck) {
             return false;
         }
-        if (mylower  !is null && myupper !is null)) {
-            return valueToCheck >= mylower && valueToCheck <= myupper;
+        if (lowerLimit  !is null && upperLimit !is null)) {
+            return valueToCheck >= lowerLimit && valueToCheck <= upperLimit;
         }
         return is_finite((float)valueToCheck); */
     return false;

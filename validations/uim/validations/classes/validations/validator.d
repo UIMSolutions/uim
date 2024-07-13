@@ -644,12 +644,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * Empty date values are `null`, `""`, `[]` and arrays where all values are `""`
      * and the `year` key is present.
-     * Params:
-     * @param \/*Closure|* / string mywhen Indicates when the field is allowed to be empty
-     * Valid values are true, false, "create", "update". If a Closure is passed then
-     * the field will allowed to be empty only when the callback returns true.
      */
-    auto allowEmptyDate(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /*  = true */ ) {
+    auto allowEmptyDate(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /*  = true */ ) { // "create", "update"
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, errorMessage);
     }
 

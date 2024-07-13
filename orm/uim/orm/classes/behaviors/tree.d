@@ -257,8 +257,6 @@ class DTreeBehavior : DBehavior {
      * Updates the left and right column for the passed entity so it can be set as
      * a new root in the tree. It also modifies the ordering in the rest of the tree
      * so the structure remains valid
-     *
-     * @param DORMDatasource\IORMEntity ormEntity The entity to set as a new root
      */
     protected void _setAsRoot(IORMEntity ormEntity) {
         auto configData = configuration.data;

@@ -180,7 +180,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     // void setJsonEncodeFormat(Closure  format) {
     // void setJsonEncodeFormat(string[]|int format) {
     void setJsonEncodeFormat( /* Closure */ string[] /* |int */ format) {
-        _JsonEncodeFormat = format;
+        _jsonEncodeFormat = format;
     }
 
     /**
@@ -492,9 +492,9 @@ class DateTime /* : Chronos, JsonSerializable */ {
 
     // Returns a string that should be serialized when converting this object to Json
     string jsonSerialize() {
-        /* return cast(DClosure) _JsonEncodeFormat
-            ? call_user_func(_JsonEncodeFormat, this) : _i18nFormat(
-                _JsonEncodeFormat); */
+        /* return cast(DClosure) _jsonEncodeFormat
+            ? call_user_func(_jsonEncodeFormat, this) : _i18nFormat(
+                _jsonEncodeFormat); */
         return null; 
     }
 

@@ -34,9 +34,9 @@ class DI18n {
      * or to configure some aspect of future translations that are not yet constructed.
      */
     static DTranslatorRegistry translators() {
-        if (!_collection.isNull) {
+        /* if (!_collection.isNull) {
             return _collection;
-        }
+        } */
         
         _collection = new DTranslatorRegistry(
             new DCatalogLocator(),

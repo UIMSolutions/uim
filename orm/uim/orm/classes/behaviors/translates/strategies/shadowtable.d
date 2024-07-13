@@ -431,8 +431,6 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * If the requested field is configured as a translation field, field with
      * an alias of a corresponding association is returned. Table-aliased
      * field name is returned for all other fields.
-     *
-     * @param string field Field name to be aliased.
      */
     string translationField(string fieldName) {
         if (

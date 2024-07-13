@@ -160,7 +160,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         return _diffData(to!int(futureTime), to!int(pastTime), isBackwards, options);
     }
 
-    protected Json[string] _diffData(string /* |int */ futureTime, int pastTime, bool isBackwards, Json[string] options = null) {
+    protected Json[string] _diffData(/* string */ int futureTime, int pastTime, bool isBackwards, Json[string] options = null) {
         auto diff = futureTime - pastTime; // If more than a week, then take into account the length of months
         if (diff >= 604800) {
             /* auto future = null;
@@ -349,9 +349,9 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         auto updatedOptions = options.dup.update([
                 "from": "classname.now()".toJson,
                 "timezone": Json(null),
-                "format": classname.wordFormat.toJson,
+                /* "format": classname.wordFormat.toJson,
                 "accuracy": classname.wordAccuracy.toJson,
-                "end": classname.wordEnd.toJson,
+                "end": classname.wordEnd.toJson, */
                 "relativeString": `__d("uim", "%s ago")`.toJson,
                 "absoluteString": `__d("uim", "on %s")`.toJson,
             ]);

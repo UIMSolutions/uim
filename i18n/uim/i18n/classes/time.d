@@ -30,14 +30,14 @@ class DTime { // : ChronosTime, JsonSerializable {
     
     // Resets the format used to the default when converting an instance of this type to a string
     static void resetToStringFormat() {
-        // setToStringFormat(DIntlDateFormatters.SHORT);
+        // setToStringFormat(IntlDateFormatterss.SHORT);
     }
     // #endregion StringFormat
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.i18nFormat()` and `__toString`.
      */
-    // protected static string/* |int */ _toStringFormat = DIntlDateFormatters.SHORT;
+    // protected static string/* |int */ _toStringFormat = IntlDateFormatterss.SHORT;
 
     /**
      * The format to use when converting this object to Json.
@@ -57,7 +57,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      *
      * @var string|int
      */
-    static string/* |int */ niceFormat; //  = DIntlDateFormatter.MEDIUM;
+    static string/* |int */ niceFormat; //  = IntlDateFormatters.MEDIUM;
     
     /**
      * Sets the default format used when converting this object to Json
@@ -90,9 +90,9 @@ class DTime { // : ChronosTime, JsonSerializable {
      * ```
      */
     static DTime parseTime(string timeToParse, string /* |int */ format = null) {
-        auto format = format.ifEmpty([IntlDateFormatter.NONE, IntlDateFormatters.SHORT]);
+        auto format = format.ifEmpty([IntlDateFormatters.NONE, IntlDateFormatters.SHORT]);
         if (isInteger(format)) {
-            format = [IntlDateFormatter.NONE, format];
+            format = [IntlDateFormatters.NONE, format];
         }
         return _parseDateTime(timeToParse, format);
     }
@@ -111,7 +111,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * ```
      * time = new DTime("23:10:10");
      * time.i18nFormat();
-     * time.i18nFormat(\IntlDateFormatter.FULL);
+     * time.i18nFormat(\IntlDateFormatters.FULL);
      * time.i18nFormat("HH": 'mm": `ss");
      * ```
      *
@@ -128,7 +128,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * ```
      * time = new DTime("2014-04-20");
      * time.i18nFormat("de-DE");
-     * time.i18nFormat(\IntlDateFormatter.FULL, "de-DE");
+     * time.i18nFormat(\IntlDateFormatters.FULL, "de-DE");
      * ```
      *
      * You can control the default locale used through `DateTime.setDefaultLocale()`.
@@ -142,7 +142,7 @@ class DTime { // : ChronosTime, JsonSerializable {
             throw new DInvalidArgumentException("UNIT_TIMESTAMP_FORMAT is not supported for Time.");
         }
         format ??= _toStringFormat;
-        format = isInteger(format) ? [IntlDateFormatter.NONE, format] : format;
+        format = isInteger(format) ? [IntlDateFormatters.NONE, format] : format;
         localName = localName ?: DateTime.getDefaultLocale();
 
         return _formatObject(toNative(), format, localName); */

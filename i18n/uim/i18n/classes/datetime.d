@@ -30,9 +30,9 @@ class DateTime /* : Chronos, JsonSerializable */ {
     protected string _defaultLocale;
 
     /**
-     * Whether lenient parsing is enabled for IntlDateFormatter.
+     * Whether lenient parsing is enabled for IntlDateFormatters.
      *
-     * Defaults to true which is the default for IntlDateFormatter.
+     * Defaults to true which is the default for IntlDateFormatters.
      */
     protected bool _lenientParsing = true;
 
@@ -51,7 +51,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * @var array<int>|string|int
      */
     protected string[] _toStringFormat = [
-       /*  DIntlDateFormatters.SHORT, DIntlDateFormatters.SHORT */
+       /*  IntlDateFormatterss.SHORT, IntlDateFormatterss.SHORT */
     ];
 
     /**
@@ -84,7 +84,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * @var array<int>|string|int
      */
-    // string[] niceFormat = [IntlDateFormatter.MEDIUM, IntlDateFormatters.SHORT];
+    // string[] niceFormat = [IntlDateFormatters.MEDIUM, IntlDateFormatters.SHORT];
 
     /**
      * The format to use when formatting a time using `UIM\I18n\DateTime.timeAgoInWords()`
@@ -92,7 +92,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * @var array<int>|string|int
      */
-    string[] wordFormat = [/* DIntlDateFormatters.SHORT, DIntlDateFormatter.NONE */];
+    string[] wordFormat = [/* IntlDateFormatterss.SHORT, IntlDateFormatters.NONE */];
 
     /**
      * The format to use when formatting a time using `DateTime.timeAgoInWords()`
@@ -193,7 +193,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * Unlike DateTime, the time zone of the returned instance is always converted
      * to `timezone` (default time zone if null) even if the `time` string specified a
-     * time zone. This is a limitation of IntlDateFormatter.
+     * time zone. This is a limitation of IntlDateFormatters.
      *
      * If it was impossible to parse the provided time, null will be returned.
      *
@@ -202,7 +202,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * ```
      * time = DateTime.parseDateTime("10/13/2013 12:54am");
      * time = DateTime.parseDateTime("13 Oct, 2013 13:54", "dd MMM, y H:mm");
-     * time = DateTime.parseDateTime("10/10/2015", [IntlDateFormatters.SHORT, IntlDateFormatter.NONE]);
+     * time = DateTime.parseDateTime("10/10/2015", [IntlDateFormatters.SHORT, IntlDateFormatters.NONE]);
      * ```
      */
     auto parseDateTime(
@@ -246,7 +246,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
     auto parseDate(string adate, string[] format = null) {
         /* format ??= wordFormat;
         if (isInteger(format)) {
-            format = [format, IntlDateFormatter.NONE];
+            format = [format, IntlDateFormatters.NONE];
         }
         return parseDateTime(date, format); */
         return null;
@@ -269,13 +269,13 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * ```
      */
     auto parseTime(string timeToParse, int format) {
-        string[] formats = [/* IntlDateFormatter.NONE, to!string(format) */];
+        string[] formats = [/* IntlDateFormatters.NONE, to!string(format) */];
         return parseTime(timeToParse, formats);
     }
 
     auto parseTime(string atitimeToParseme, string[] format = null) {
         format = format ? format : [/* 
-            IntlDateFormatter.NONE, IntlDateFormatters.SHORT */
+            IntlDateFormatters.NONE, IntlDateFormatters.SHORT */
         ];
 
         return parseDateTime(timeToParse, format);
@@ -311,8 +311,8 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * ```
      * time = new DateTime("2014-04-20 22:10");
      * time.i18nFormat(); // outputs '4/20/14, 10:10 PM' for the en-US locale
-     * time.i18nFormat(\IntlDateFormatter.FULL); // Use the full date and time format
-     * time.i18nFormat([\IntlDateFormatter.FULL, \IntlDateFormatters.SHORT]); // Use full date but short time format
+     * time.i18nFormat(\IntlDateFormatters.FULL); // Use the full date and time format
+     * time.i18nFormat([\IntlDateFormatters.FULL, \IntlDateFormatters.SHORT]); // Use full date but short time format
      * time.i18nFormat("yyyy-MM-dd HH:mm:ss"); // outputs '2014-04-20 22:10'
      * time.i18nFormat(DateTime.UNIX_TIMESTAMP_FORMAT); // outputs '1398031800'
      * ```
@@ -334,7 +334,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * ```
      * time = new DTime("2014-04-20 22:10");
      * time.i18nFormat(null, null, "de-DE");
-     * time.i18nFormat(\IntlDateFormatter.FULL, "Europe/Berlin", "de-DE");
+     * time.i18nFormat(\IntlDateFormatters.FULL, "Europe/Berlin", "de-DE");
      * ```
      *
      * You can control the default locale used through `DateTime.setDefaultLocale()`.
@@ -361,7 +361,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
 
         auto time = this;
         if (timezone) {
-            time = time.setTimezone(timezone);
+            /* time = time.setTimezone(timezone) */;
         }
         auto format = format.ifNull(_toStringFormat);
         auto localeName = localeName.ifEmpty(DateTime.getDefaultLocale());

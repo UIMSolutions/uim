@@ -62,7 +62,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      */
-    /*     static string niceFormat = IntlDateFormatter.MEDIUM; */
+    /*     static string niceFormat = IntlDateFormatters.MEDIUM; */
 
     /**
      * The format to use when formatting a time using `Date.timeAgoInWords()`
@@ -156,7 +156,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * ```
      * date = new Date("2014-04-20");
      * date.i18nFormat(); // outputs '4/20/14' for the en-US locale
-     * date.i18nFormat(\IntlDateFormatter.FULL); // Use the full date format
+     * date.i18nFormat(\IntlDateFormatters.FULL); // Use the full date format
      * date.i18nFormat("yyyy-MM-dd"); // outputs '2014-04-20'
      * ```
      *
@@ -173,7 +173,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * ```
      * date = new Date("2014-04-20");
      * time.i18nFormat(null, "de-DE");
-     * time.i18nFormat(\IntlDateFormatter.FULL, "de-DE");
+     * time.i18nFormat(\IntlDateFormatters.FULL, "de-DE");
      * ```
      *
      * You can control the default locale used through `Date.setDefaultLocale()`.

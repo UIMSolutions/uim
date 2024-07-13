@@ -24,7 +24,7 @@ mixin template TDateFormat() {
             dateFormat = format[0];
             timeFormat = format[1];
         } else {
-            dateFormat = timeFormat = IntlDateFormatter.FULL;
+            dateFormat = timeFormat = IntlDateFormatters.FULL;
             somePattern = format;
         }
 
@@ -32,7 +32,7 @@ mixin template TDateFormat() {
         auto calendar = preg_match(
             "/@calendar=(japanese|buddhist|chinese|persian|indian|islamic|hebrew|coptic|ethiopic)/",
             localName)
-            ? IntlDateFormatter.TRADITIONAL : IntlDateFormatter.GREGORIAN;
+            ? IntlDateFormatters.TRADITIONAL : IntlDateFormatters.GREGORIAN;
 
         timezone = date.getTimezone().name;
         aKey = "{localName}.{dateFormat}.{timeFormat}.{timezone}.{calendar}.{ somePattern}";
@@ -72,7 +72,7 @@ mixin template TDateFormat() {
      *
      * Unlike DateTime, the time zone of the returned instance is always converted
      * to `tz` (default time zone if null) even if the `time` string specified a
-     * time zone. This is a limitation of IntlDateFormatter.
+     * time zone. This is a limitation of IntlDateFormatters.
      *
      * If it was impossible to parse the provided time, null will be returned.
      *
@@ -81,7 +81,7 @@ mixin template TDateFormat() {
      * ```
      * time = Time.parseDateTime("10/13/2013 12:54am");
      * time = Time.parseDateTime("13 Oct, 2013 13:54", "dd MMM, y H:mm");
-     * time = Time.parseDateTime("10/10/2015", [IntlDateFormatters.SHORT, IntlDateFormatter.NONE]);
+     * time = Time.parseDateTime("10/10/2015", [IntlDateFormatters.SHORT, IntlDateFormatters.NONE]);
      * ```
      */
     /*     protected static auto _parseDateTime(
@@ -101,7 +101,7 @@ mixin template TDateFormat() {
         if (isArray(format)) {
             [dateFormat, timeFormat] = format;
         } else {
-            dateFormat = timeFormat = IntlDateFormatter.FULL;
+            dateFormat = timeFormat = IntlDateFormatters.FULL;
             somePattern = format;
         }
         /* auto localName = DateTime.getDefaultLocale() ?  ? I18n.locale();

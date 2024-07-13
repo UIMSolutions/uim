@@ -607,18 +607,13 @@ class DTreeBehavior : DBehavior {
         });
     }
 
-    /**
-     * Helper function used with the actual code for moveDown
-     *
-     * @param DORMDatasource\IORMEntity node The node to move
-     * @param int|true number How many places to move the node, or true to move to last position
-     */
-    protected IORMEntity _moveDown(IORMEntity node, number) {
+    // Helper function used with the actual code for moveDown
+    protected IORMEntity _moveDown(IORMEntity node, int number) {
         auto configData = configuration.data;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"), configuration.get("right")];
         [nodeParent, nodeLeft, nodeRight] = array_values(node.extract([parent, left, right]));
 
-        targetNode = null;
+        auto targetNode = null;
         if (number != true) {
             /** @var DORMdatasources.IORMEntity|null targetNode */
             targetNode = _scope(_table.find())

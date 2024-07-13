@@ -33,11 +33,11 @@ class DFormatterLocator {
             // TODO throw new DI18nException("Formatter named `%s` has not been registered.".format(name));
         }
         if (!_converted.hasKey(formatterName)) {
-            auto formatterclassname = _registry[formatterName];
+/*             auto formatterclassname = _registry[formatterName];
             _registry[formatterName] = cast(II18NFormatter)object.factory(formatterclassname);
-            _converted[formatterName] = true;
+            _converted[formatterName] = true; */
         }
 
-        return _registry[formatterName];
+        return _registry.get(formatterName);
     }
 }

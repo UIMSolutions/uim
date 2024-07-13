@@ -279,12 +279,9 @@ class DRouteCollection {
      *
      * Once middleware has been registered, it can be applied to the current routing
      * scope or any child scopes that share the same RouteCollection.
-     * Params:
-     * string routings The name of the middleware. Used when applying middleware to a scope.
-     * @param \Psr\Http\Server\IRoutingMiddleware|\/*Closure|* / string mymiddleware The middleware to register.
      */
-    void registerMiddleware(string routings, IRoutingMiddleware | Closure | string mymiddleware) {
-        _middleware[routings] = mymiddleware;
+    void registerMiddleware(string routingName, /* IRoutingMiddleware | Closure | */ string mymiddleware) {
+        _middleware[routingName] = mymiddleware;
     }
 
     /**

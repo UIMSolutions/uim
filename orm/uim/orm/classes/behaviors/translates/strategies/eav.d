@@ -444,14 +444,12 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * Returns the ids found for each of the condition arrays passed for the
      * translations table. Each records is indexed by the corresponding position
      * to the conditions array.
-     *
-     * @param Json[string] ruleSet An array of array of conditions to be used for finding each
      */
-    protected Json[string] findExistingTranslations(ruleSet) {
-        association = _table.getAssociation(this.translationTable.aliasName());
+    protected Json[string] findExistingTranslations( Json[string] ruleSet) {
+        auto association = _table.getAssociation(this.translationTable.aliasName());
 
-        query = association.find()
-            .select(["id", "num": 0])
+        auto query = association.find()
+            .select(["id": "", "num": "0"])
             .where(currentValue(ruleSet))
             .disableHydration()
             .disableBufferedResults();
@@ -459,7 +457,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         remove(ruleSet[0]);
         foreach (index, condition; ruleSet) {
             auto q = association.find()
-                .select(["id", "num": index])
+                .select(["id": "", "num": index])
                 .where(conditions);
             query.unionAll(q);
         }

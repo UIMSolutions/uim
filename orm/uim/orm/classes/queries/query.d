@@ -567,14 +567,10 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * This function works the same as `matching()` with the difference that it
      * will select no fields from the association.
-     *
-     * @param string assoc The association to join with
-     * @param callable|null builder a function that will receive a pre-made query object
-     * that can be used to add custom conditions or selecting some fields
      */
-    void innerJoinWith(string associationName, callable builder = null) {
+    void innerJoinWith(string associationName/* , callable builder = null */) {
         auto result = getEagerLoader()
-            .setMatching(associationName, builder, [
+            .setMatching(associationName, null /* builder */, [
                 "joinType": Query.JOIN_TYPE_INNER,
                 "fields": false.toJson,
             ])

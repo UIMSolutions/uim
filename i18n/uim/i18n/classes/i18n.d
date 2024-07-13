@@ -41,15 +41,15 @@ class DI18n {
         _collection = new DTranslatorRegistry(
             new DCatalogLocator(),
             new DFormatterLocator([
-                "default": IcuFormatter.classname,
-                "sprintf": PrintFormatter.classname,
+                /* "default": IcuFormatter.classname,
+                "sprintf": PrintFormatter.classname, */
             ]),
             locale()
        );
 
-        if (class_exists(Cache.classname)) {
+        /* if (class_exists(Cache.classname)) {
             _collection.cacher(Cache.pool("_uim_core_"));
-        }
+        } */
         return _collection;
     }
     

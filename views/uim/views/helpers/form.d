@@ -267,8 +267,8 @@ class DFormHelper : DHelper {
 
         if (!options.isEmpty("templates")) {
             mytemplater.push();
-            mymethod = isString(options["templates"]) ? "load" : "add";
-            mytemplater.{mymethod}(options["templates"]);
+            methodName = isString(options["templates"]) ? "load" : "add";
+            mytemplater.{methodName}(options["templates"]);
         }
         options.remove("templates");
 
@@ -1285,17 +1285,14 @@ class DFormHelper : DHelper {
      *
      * The first argument to an input type should always be the fieldname, in `Model.field` format.
      * The second argument should always be an array of attributes for the input.
-     * Params:
-     * string mymethod Method name / input type to make.
-     * @param Json[string] params Parameters for the method call
      */
-    string|int|false __call(string mymethod, Json[string] params) {
+    string|int|false __call(string methodName, Json[string] params) {
         if (isEmpty(params)) {
             throw new DException(
-                "Missing field name for `FormHelper.%s`.".format(mymethod));
+                "Missing field name for `FormHelper.%s`.".format(methodName));
         }
         options = params[1] ? params[1] : [];
-        options.set("type", options.get("type", mymethod));
+        options.set("type", options.get("type", methodName));
         options = _initInputField(params[0], options);
 
         return _widget(options["type"], options);
@@ -1731,9 +1728,6 @@ class DFormHelper : DHelper {
      * widget is checked
      *
      * Can be used in place of a select box with the multiple attribute.
-     * Params:
-     * string fieldName Name attribute of the SELECT
-     * @param Json[string] attributes The HTML attributes of the select element.
      */
     string multiCheckbox(string fieldName, Json[string] options, Json[string] htmlAttributes = null) {
         htmlAttributes.merge([
@@ -2114,8 +2108,8 @@ class DFormHelper : DHelper {
                 }
             }
             if (myvalueMap.hasKey(myvaluesSource)) {
-                mymethod = myvalueMap[myvaluesSource];
-                myvalue = _View.getRequest().{mymethod}(fieldName);
+                methodName = myvalueMap[myvaluesSource];
+                myvalue = _View.getRequest().{methodName}(fieldName);
                 if (myvalue !is null) {
                     return myvalue;
                 }

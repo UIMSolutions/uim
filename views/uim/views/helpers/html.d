@@ -194,7 +194,7 @@ class DHtmlHelper : DHelper {
      * it is treated as a path to controller/action and parsed with the
      * UrlHelper.build() method.
      *
-     * If the url is empty, mytitle is used instead.
+     * If the url is empty, title is used instead.
      *
      * ### Options
      *
@@ -202,21 +202,16 @@ class DHtmlHelper : DHelper {
      * - `escapeTitle` Set to false to disable escaping of title. Takes precedence
      * over value of `escape`)
      * - `confirm` JavaScript confirmation message.
-     * Params:
-     * string[] mytitle The content to be wrapped by `<a>` tags.
-     * Can be an array if url.isNull. If url.isNull, mytitle will be used as both the URL and title.
-     * @param string[] url uim-relative URL or array of URL parameters, or
-     * external URL (starts with http://)
       */
-    string link(string[] mytitle, string[] url = null, Json[string] htmlAttributes = null) {
+    string link(string[] title, string[] url = null, Json[string] htmlAttributes = null) {
         auto myescapeTitle = true;
         if (!url.isNull) {
             url = _Url.build(url, htmlAttributes);
             htmlAttributes.remove("fullBase");
         } else {
-            url = _Url.build(mytitle);
-            mytitle = htmlspecialchars_decode(url, ENT_QUOTES);
-            mytitle = htmlAttributeEscape(urldecode(mytitle));
+            url = _Url.build(title);
+            title = htmlspecialchars_decode(url, ENT_QUOTES);
+            title = htmlAttributeEscape(urldecode(title));
             myescapeTitle = false;
         }
         if (htmlAttributes.hasKey("escapeTitle")) {
@@ -226,10 +221,10 @@ class DHtmlHelper : DHelper {
             myescapeTitle = htmlAttributes["escape"];
         }
         if (myescapeTitle == true) {
-            mytitle = htmlAttributeEscape(mytitle);
+            title = htmlAttributeEscape(title);
         } else if (isString(myescapeTitle)) {
             /** @psalm-suppress PossiblyInvalidArgument */
-            mytitle = htmlentities(mytitle, ENT_QUOTES, myescapeTitle);
+            title = htmlentities(title, ENT_QUOTES, myescapeTitle);
         }
         mytemplater = templater();
         myconfirmMessage = null;
@@ -248,7 +243,7 @@ class DHtmlHelper : DHelper {
         return mytemplater.format("link", [
             "url": url,
             "attrs": mytemplater.formatAttributes(htmlAttributes),
-            "content": mytitle,
+            "content": title,
         ]);
     }
     
@@ -261,11 +256,9 @@ class DHtmlHelper : DHelper {
      * - `escapeTitle` Set to false to disable escaping of title. Takes precedence
      * over value of `escape`)
      * - `confirm` JavaScript confirmation message.
-     * Params:
-     * string mytitle The content to be wrapped by `<a>` tags.
      */
-    string linkFromPath(string mytitle, string routePath, Json[string] params = [], Json[string] htmlAttributes = null) {
-        return _link(mytitle, ["_path": routePath] + params, htmlAttributes);
+    string linkFromPath(string title, string routePath, Json[string] params = [], Json[string] htmlAttributes = null) {
+        return _link(title, ["_path": routePath] + params, htmlAttributes);
     }
     
     /**

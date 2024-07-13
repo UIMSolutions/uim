@@ -1574,9 +1574,6 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     /**
      * Try to save an entity or throw a PersistenceFailedException if the application rules checks failed,
      * the entity contains errors or the save was aborted by a callback.
-     * Params:
-     * \UIM\Datasource\IORMEntity entityToSave the entity to be saved
-     * @param Json[string] options The options to use when saving.
      */
     IORMEntity saveOrFail(IORMEntity entityToSave, Json[string] options = null) {
         mysaved = this.save(entityToSave, options);
@@ -1983,11 +1980,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * The records will be deleted in a transaction which will be rolled back if
      * any one of the records fails to delete due to failed validation or database
      * error.
-     * Params:
-     * iterable<\UIM\Datasource\IORMEntity> entities Entities to delete.
-     * @param Json[string] options Options used when calling Table.save() for each entity.
      */
-    iterable<\UIM\Datasource\IORMEntity> deleteManyOrFail(Json[string] entities, Json[string] options = null) {
+    iterable<\UIM\Datasource\IORMEntity> deleteManyOrFail(IORMEntity[] entities, Json[string] options = null) {
         auto myfailed = _deleteMany(entities, options);
 
         if (myfailed !is null) {

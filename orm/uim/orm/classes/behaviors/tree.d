@@ -518,12 +518,7 @@ class DTreeBehavior : DBehavior {
         });
     }
 
-    /**
-     * Helper function used with the actual code for moveUp
-     *
-     * @param DORMDatasource\IORMEntity node The node to move
-     * @param int|true number How many places to move the node, or true to move to first position
-     */
+    // Helper function used with the actual code for moveUp
     protected IORMEntity _moveUp(IORMEntity nodeToMove, size_t placesToMove) {
         auto configData = configuration.data;
         [parent, left, right] = [configuration.get("parent"), configuration.get("left"), configuration.get("right")];
@@ -708,7 +703,7 @@ class DTreeBehavior : DBehavior {
      * @param mixed parentId the parent id of the level to be recovered
      * @param int level Node level
      */
-    protected int _recoverTree(int lftRght = 1, parentId = null, level = 0) {
+    protected int _recoverTree(int lftRght = 1, parentId = null, int nodeLevel = 0) {
         auto configData = configuration.data;
         [parent, left, right] = configuration.getArray("parent", "left", "right");
         primaryKeys = primaryKeys();
@@ -723,10 +718,10 @@ class DTreeBehavior : DBehavior {
 
         nodes.each!((node) {
             auto nodeLft = lftRght++;
-            auto lftRght = _recoverTree(lftRght, node[primaryKeys], level + 1);
+            auto lftRght = _recoverTree(lftRght, node[primaryKeys], nodeLevel + 1);
             auto fields = [left: nodeLft, right: lftRght++];
             if (configuration.hasKey("level")) {
-                fields[configuration.get("level")] = level;
+                fields[configuration.get("level")] = nodeLevel;
             }
 
             _table.updateAll(
@@ -804,8 +799,6 @@ class DTreeBehavior : DBehavior {
     /**
      * Ensures that the provided entity contains non-empty values for the left and
      * right fields
-     *
-     * @param DORMDatasource\IORMEntity ormEntity The entity to ensure fields for
      */
     protected void _ensureFields(IORMEntity ormEntity) {
         auto configData = configuration.data;
@@ -818,7 +811,7 @@ class DTreeBehavior : DBehavior {
         fresh = _table.get(entity.get(primaryKeys()));
         entity.set(fresh.extract(fields), ["guard": false.toJson]);
 
-        foreach (fields as field) {
+        foreach (field; fields) {
             entity.setDirty(field, false);
         }
     }
@@ -826,7 +819,7 @@ class DTreeBehavior : DBehavior {
     // Returns a single string value representing the primary key of the attached table
     protected string[] primaryKeys() {
         if (!_primaryKeys) {
-            primaryKeys = /* (array) */_table.primaryKeys();
+            auto primaryKeys = /* (array) */_table.primaryKeys();
             _primaryKeys = primaryKeys[0];
         }
 
@@ -835,13 +828,13 @@ class DTreeBehavior : DBehavior {
 
     // Returns the depth level of a node in the tree.
     int getLevel(entity) {
-        primaryKeys = primaryKeys();
-        id = entity;
+        auto primaryKeys = primaryKeys();
+        auto id = entity;
         if (cast(IORMEntity)entity) {
             id = entity.get(primaryKeys);
         }
         auto configData = configuration.data;
-        entity = _table.find("all")
+        auto entity = _table.find("all")
             .select([configuration.get("left"), configuration.get("right")])
             .where([primaryKeys: id])
             .first();
@@ -850,7 +843,7 @@ class DTreeBehavior : DBehavior {
             return false;
         }
 
-        query = _table.find("all").where([
+        auto query = _table.find("all").where([
             configuration.get("left") ~ " <": entity[configuration.get("left")],
             configuration.get("right") ~ " >": entity[configuration.get("right")],
         ]);

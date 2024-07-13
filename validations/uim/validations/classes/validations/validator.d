@@ -707,8 +707,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * This method is equivalent to calling allowEmptyFor() with EMPTY_STRING +
      * EMPTY_DATE + EMPTY_TIME flags.
-     * Params:
-     * @param \/*Closure|* / string mywhen Indicates when the field is allowed to be empty
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns false.
      */
@@ -840,14 +838,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     }
 
-    /**
-     * Add a non-ascii alphanumeric rule to a field.
-     * Params:
-     
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
-    auto notAsciiAlphaNumeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    // Add a non-ascii alphanumeric rule to a field.
+    auto notAsciiAlphaNumeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) { // "create" or "update"
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must not be ASCII-alphanumeric"

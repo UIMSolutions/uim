@@ -28,7 +28,7 @@ class DStubConsoleInput : DConsoleInput {
 
         if (!_replies.hasKey(_currentIndex)) {
             auto total = count(this.replies);
-            auto formatter = new DNumberFormatter("en", NumberFormatter.ORDINAL);
+            auto formatter = new NumberFormatters("en", NumberFormatters.ORDINAL);
             auto nth = formatter.format(_currentIndex + 1);
             auto repliesText = replies.join(", ");
             

@@ -63,7 +63,7 @@ class DResultsetFactory {
             if (!fieldNames.hasKey(nameAssoc.key)) {
                 continue;
             }
-            mydata.set("matchingColumns."~nameAssoc.key, fieldNames[nameAssoc.key]);
+            mydata.set(["matchingColumns", nameAssoc.key], fieldNames[nameAssoc.key]);
             fieldNames.remove(nameAssoc.key);
         });
         mydata.set("fields", fieldNames);

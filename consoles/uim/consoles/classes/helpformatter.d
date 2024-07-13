@@ -13,25 +13,22 @@ import uim.consoles;
  *
  * Xml output is useful for integration with other tools like IDE`s or other build tools.
  */
-class DHelpFormatter {
-    mixin TConfigurable;
-
+class DHelpFormatter : UIMObject {
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
     bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     // The maximum number of arguments shown when generating usage.
     protected int _maxArgs = 6;

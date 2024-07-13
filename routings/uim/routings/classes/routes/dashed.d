@@ -37,8 +37,6 @@ class DDashedRoute : DRoute {
      * Parses a string URL into an array. If it matches, it will convert the
      * controller and plugin keys to their CamelCased form and action key to
      * camelBacked form.
-     * Params:
-     * string urlToParse The URL to parse
      */
     Json[string] parse(string urlToParse, string httpMethod= null) {
         params = super.parse(urlToParse, httpMethod);
@@ -46,16 +44,16 @@ class DDashedRoute : DRoute {
             return null;
         }
         if (!params.isEmpty("controller")) {
-            params["controller"] = Inflector.camelize(params["controller"], "-");
+            params.set("controller", Inflector.camelize(params["controller"], "-"));
         }
-        if (!params.isEmpty("plugin"))) {
-            params["plugin"] = _camelizePlugin(params["plugin"]);
+        if (!params.isEmpty("plugin")) {
+            params.set("plugin", _camelizePlugin(params["plugin"]));
         }
-        if (!params.isEmpty"action"])) {
-            params["action"] = Inflector.variable(params["action"].replace(
+        if (!params.isEmpty("action")) {
+            params.set("action", Inflector.variable(params["action"].replace(
                 "-",
                 "_"
-           ));
+           )));
         }
         return params;
     }

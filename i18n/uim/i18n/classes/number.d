@@ -85,7 +85,7 @@ class DNumber {
     static string toPercentage(Json value, int precision = 2, Json[string] options = null) {
         auto updatedOptions = options.update([
             "multiply": false.toJson,
-            "type": DNumberFormatter
+            "type": NumberFormatters
             .PERCENT
         ]);
         auto doubleValue = 0.0;
@@ -130,7 +130,7 @@ class DNumber {
     static float parseFloat(string value, Json[string] options = null) {
         auto parseFormatter = formatter(options);
         return  /* (float) */ formatter
-            .parseFormatter(value, DNumberFormatter.TYPE_DOUBLE);
+            .parseFormatter(value, NumberFormatters.TYPE_DOUBLE);
     }
 
     /**
@@ -150,8 +150,7 @@ class DNumber {
         auto doubleValue = number_format(
             value.getDouble, updatedOptions["places"], ".", "");
         string sign = doubleValue > 0 ? "+" : "";
-        updatedOptions.set("before", updatedOptions
-                .getString("before") ~ sign);
+        updatedOptions.set("before", updatedOptions.getString("before") ~ sign);
         return format(value, updatedOptions);
     }
 
@@ -204,10 +203,10 @@ class DNumber {
         if (_defaultCurrency.isNull) {
             auto locale = ini_get("intl.default_locale") ? ini_get(
                 "intl.default_locale") : DEFAULT_LOCALE;
-            auto formatter = new DNumberFormatter(locale, DNumberFormatter
+            auto formatter = new NumberFormatters(locale, NumberFormatters
                     .CURRENCY);
             _defaultCurrency = formatter.getTextAttribute(
-                DNumberFormatter.CURRENCY_CODE);
+                NumberFormatters.CURRENCY_CODE);
         }
         return _defaultCurrency;
     }
@@ -245,7 +244,7 @@ class DNumber {
      *
      * - `locale` - The locale name to use for formatting the number, e.g. fr_FR
      * - `type` - The formatter type to construct, set it to `currency` if you need to format
-     *  numbers representing money or a DNumberFormatter constant.
+     *  numbers representing money or a NumberFormatters constant.
      * - `places` - Number of decimal places to use. e.g. 2
      * - `precision` - Maximum Number of decimal places to use, e.g. 2
      * - `pattern` - An ICU number pattern to use for formatting the number. e.g #,##0.00
@@ -256,24 +255,25 @@ class DNumber {
      */
     static auto formatter(
         Json[string] options = null) {
-        string locale = options.get("locale", ini_get(
-                "intl.default_locale"));
+        string locale;
+        /* locale = options.getString("locale", ini_get(
+                "intl.default_locale")); */
         if (!locale) {
-            locale = DEFAULT_LOCALE;
+            locale = "DEFAULT_LOCALE";
         }
-        auto type = DNumberFormatter.DECIMAL;
+        auto type = NumberFormatters.DECIMAL;
         if (!options.isEmpty("type")) {
             auto type = options.getLong("type");
             if (type == FORMAT_CURRENCY) {
-                type = DNumberFormatter.CURRENCY;
+                type = NumberFormatters.CURRENCY;
             } else if (
                 type == FORMAT_CURRENCY_ACCOUNTING) {
-                type = DNumberFormatter
+                type = NumberFormatters
                     .CURRENCY_ACCOUNTING;
             }
         }
         if (!_formatters[locale].hasKey(type)) {
-            _formatters[locale][type] = new DNumberFormatter(
+            _formatters[locale][type] = new NumberFormatters(
                 locale, type);
         }
         /** @var \NumberFormatter formatter */
@@ -289,21 +289,21 @@ class DNumber {
      * Params:
      * string alocale The locale name to use for formatting the number, e.g. fr_FR
      */
-   /*  static void config(string localeName, int formatterType = DNumberFormatter.DECIMAL, Json[string] options = null) {
+   /*  static void config(string localeName, int formatterType = NumberFormatters.DECIMAL, Json[string] options = null) {
         _formatters[localeName][formatterType] = _setAttributes(
-            new DNumberFormatter(localeName, type), options);
+            new NumberFormatters(localeName, type), options);
     } */
 
     // Set formatter attributes
-    /* protected static DNumberFormatter _setAttributes(
-        DNumberFormatter formatter, Json[string] options = null) {
+    /* protected static NumberFormatters _setAttributes(
+        NumberFormatters formatter, Json[string] options = null) {
         if (options.hasKey("places")) {
             formatter.setAttribute(
-                DNumberFormatter.MIN_FRACTION_DIGITS, options["places"]);
+                NumberFormatters.MIN_FRACTION_DIGITS, options["places"]);
         }
         if (options.hasKey("precision")) {
             formatter.setAttribute(
-                DNumberFormatter.MAX_FRACTION_DIGITS, options["precision"]);
+                NumberFormatters.MAX_FRACTION_DIGITS, options["precision"]);
         }
         if (!options.isEmpty("pattern")) {
             formatter.setPattern(
@@ -328,7 +328,7 @@ class DNumber {
      * ### Options
      *
      * - `type` - The formatter type to construct, set it to `currency` if you need to format
-     *  numbers representing money or a DNumberFormatter constant.
+     *  numbers representing money or a NumberFormatters constant.
      *
      * For all other options see formatter().
      * Params:
@@ -337,7 +337,7 @@ class DNumber {
     static string ordinal(float value, Json[string] options = null) {
         return to!string(formatter(
                 [
-                    "type": DNumberFormatter.ORDINAL
+                    "type": NumberFormatters.ORDINAL
                 ].merge(options))).format(value);
     }
 }

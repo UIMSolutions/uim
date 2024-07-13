@@ -38,24 +38,24 @@ class DIsUnique {
         if (_options["allowMultipleNulls"] && array_filter(fieldNames, "is_null")) {
             return true;
         }
-        auto aliasName = options.get("repository"].aliasName();
+        auto aliasName = options.get("repository").aliasName();
         
         auto myconditions = _alias(aliasName, fieldNames);
         if (entity.isNew() == false) {
             auto someKeys = (array)options["repository"].primaryKeys();
             someKeys = _alias(aliasName, entity.extract(someKeys));
             if (Hash.filter(someKeys)) {
-                myconditions["NOT"] = someKeys;
+                myconditions.set("NOT", someKeys);
             }
         }
-        return !options.hasKey("repository"].exists(myconditions);
+        return !options.get("repository").exists(myconditions);
     }
     
     // Add a model aliasToAdd to all the keys in a set of conditions.
     protected Json[string] _alias(string aliasName, Json[string] aliasConditions) {
         auto myaliased = null;
         aliasConditions.byKeyValue
-            .each!(kv => myaliased["aliasToAdd.aKey IS"] = kv.value);
+            .each!(kv => myaliased.set("aliasToAdd.aKey IS" = kv.value);
         return myaliased;
     }
 }

@@ -355,18 +355,19 @@ class DateTime /* : Chronos, JsonSerializable */ {
         string timezone = null,
         string localeName
     ) {
-        if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
+        /* if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
             return _getTimestamp();
-        }
+        } */
 
         auto time = this;
         if (timezone) {
             /* time = time.setTimezone(timezone) */;
         }
-        auto format = format.ifNull(_toStringFormat);
+        /* auto format = format.ifNull(_toStringFormat);
         auto localeName = localeName.ifEmpty(DateTime.getDefaultLocale());
 
-        return _formatObject(time, format, localeName);
+        return _formatObject(time, format, localeName); */
+        return null; 
     }
 
     /**
@@ -414,7 +415,8 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * NOTE: If the difference is one week or more, the lowest level of accuracy is day
       */
     string timeAgoInWords(Json[string] options = null) {
-        return diffFormatter().timeAgoInWords(this, options);
+        // return diffFormatter().timeAgoInWords(this, options);
+        return null; 
     }
 
     /**

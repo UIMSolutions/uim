@@ -76,14 +76,14 @@ class DMessagesFileLoader {
         _name = domainName;
         // If space is not added after slash, the character after it remains lowercased
 
-        auto pluginName = Inflector.camelize(_name.replace("/", "/ "));
+        /* auto pluginName = Inflector.camelize(_name.replace("/", "/ "));
         if (indexOf(_name, ".")) {
             [_plugin, _name] = pluginSplit(pluginName);
         } else if (Plugin.isLoaded(pluginName)) {
             _plugin = pluginName;
         }
         _locale = localToLoad;
-        _extension = fileExtension;
+        _extension = fileExtension; */
     }
 
     /**
@@ -124,19 +124,19 @@ class DMessagesFileLoader {
             locale["language"],
         ];
 
-        searchPaths = null;
-        if (_plugin && Plugin.isLoaded(_plugin)) {
+        string[] searchPaths;
+        /* if (_plugin && Plugin.isLoaded(_plugin)) {
             basePath = App.path("locales", _plugin)[0];
             searchPaths = folders.map!(folder => basePath ~ folder ~ DIRECTORY_SEPARATOR).array;
-        }
-        localePaths = App.path("locales");
+        } */
+        
+        /* auto localePaths = App.path("locales");
         if (localePaths.isEmpty && defined("APP")) {
             localePaths ~= ROOT ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR;
-        }
-        foreach (somePath; localePaths) {
-            folders.each!(folder => searchPaths ~= somePath ~ folder ~ DIRECTORY_SEPARATOR);
-            ;
-        }
+        } */
+        /* foreach (localPath; localePaths) {
+            folders.each!(folder => searchPaths ~= localPath ~ folder ~ DIRECTORY_SEPARATOR);
+        } */
         return searchPaths;
     }
 
@@ -145,7 +145,7 @@ class DMessagesFileLoader {
         auto fileName = fileName.replace("/", "_");
 
         folders.each!((folder) {
-            stringg filePath = folder ~ fileName ~ "." ~ fileExtension;
+            string filePath = folder ~ fileName ~ "." ~ fileExtension;
             if (isFile(filePath)) {
                 file = filePath;
                 break;

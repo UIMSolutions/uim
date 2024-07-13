@@ -23,8 +23,8 @@ class DFormatterLocator {
     
     // Sets a formatter into the registry by name.
     void set(string formatterName, string formatterClassname) {
-        _registry[formatterName] = formatterClassname;
-        _converted[formatterName] = false;
+        /* _registry[formatterName] = formatterClassname;
+        _converted[formatterName] = false; */
     }
     
     // Gets a formatter from the registry by name.

@@ -567,9 +567,9 @@ class DValidation {
         }
  */ // account for localized floats.
         /* auto mylocale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
-        auto myformatter = new DNumberFormatter(mylocale, NumberFormatter.DECIMAL);
-        auto mydecimalPoint = myformatter.getSymbol(NumberFormatter.DECIMAL_SEPARATOR_SYMBOL);
-        auto mygroupingSep = myformatter.getSymbol(NumberFormatter.GROUPING_SEPARATOR_SYMBOL);
+        auto myformatter = new NumberFormatters(mylocale, NumberFormatters.DECIMAL);
+        auto mydecimalPoint = myformatter.getSymbol(NumberFormatters.DECIMAL_SEPARATOR_SYMBOL);
+        auto mygroupingSep = myformatter.getSymbol(NumberFormatters.GROUPING_SEPARATOR_SYMBOL);
 
         // There are two types of non-breaking spaces - we inject a space to account for human input
         valueToCheck = mygroupingSep == "\xc2\xa0" || mygroupingSep == "\xe2\x80\xaf"

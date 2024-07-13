@@ -103,13 +103,13 @@ class DI18n {
     static DTranslator getTranslator(string domainName = "default", string translatorLocale = null) {
         auto translators = translators();
 
-        if (translatorlocale) {
-            currentLocale = translators.locale();
-            translators.setLocale(translatorlocale);
+        if (translatorLocale) {
+            auto currentLocale = translators.locale();
+            translators.setLocale(translatorLocale);
         }
         
         auto translator = translators.get(domainName);
-        if (translator.isNull) {
+        if (translator is null) {
             throw new DI18nException(
                 "Translator for domain `%s` could not be found.".format("domainname"));
         }
@@ -179,12 +179,13 @@ class DI18n {
      */
     static string locale() {
         getDefaultLocale();
-        current = Locale.getDefault();
+        /* auto current = Locale.getDefault();
         if (current.isEmpty) {
             current = DEFAULT_LOCALE;
-            Locale.setDefault(current);
+            /* Locale.setDefault(current); * /
         }
-        return current;
+        return current; */
+        return null; 
     }
     
     /**

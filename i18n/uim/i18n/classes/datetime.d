@@ -51,7 +51,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * @var array<int>|string|int
      */
     protected string[] _toStringFormat = [
-        DIntlDateFormatter.SHORT, DIntlDateFormatter.SHORT
+       /*  DIntlDateFormatters.SHORT, DIntlDateFormatters.SHORT */
     ];
 
     /**
@@ -84,7 +84,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * @var array<int>|string|int
      */
-    // string[] niceFormat = [IntlDateFormatter.MEDIUM, IntlDateFormatter.SHORT];
+    // string[] niceFormat = [IntlDateFormatter.MEDIUM, IntlDateFormatters.SHORT];
 
     /**
      * The format to use when formatting a time using `UIM\I18n\DateTime.timeAgoInWords()`
@@ -92,7 +92,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * @var array<int>|string|int
      */
-    string[] wordFormat = [DIntlDateFormatter.SHORT, DIntlDateFormatter.NONE];
+    string[] wordFormat = [/* DIntlDateFormatters.SHORT, DIntlDateFormatter.NONE */];
 
     /**
      * The format to use when formatting a time using `DateTime.timeAgoInWords()`
@@ -116,7 +116,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
 
     // Gets the default locale.
     string getDefaultLocale() {
-        return defaultLocale;
+        return _defaultLocale;
     }
 
     /**
@@ -125,7 +125,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * Set to null to use IntlDateFormatter default.
      */
     void setDefaultLocale(string localeName = null) {
-        defaultLocale = localeName;
+        _defaultLocale = localeName;
     }
 
     // Gets whether locale format parsing is set to lenient.
@@ -160,7 +160,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
 
     // Resets the format used to the default when converting an instance of this type to a string
     void resetToStringFormat() {
-        setToStringFormat([IntlDateFormatter.SHORT, IntlDateFormatter.SHORT]);
+        setToStringFormat([/* IntlDateFormatters.SHORT, IntlDateFormatters.SHORT */]);
     }
 
     /**
@@ -202,7 +202,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * ```
      * time = DateTime.parseDateTime("10/13/2013 12:54am");
      * time = DateTime.parseDateTime("13 Oct, 2013 13:54", "dd MMM, y H:mm");
-     * time = DateTime.parseDateTime("10/10/2015", [IntlDateFormatter.SHORT, IntlDateFormatter.NONE]);
+     * time = DateTime.parseDateTime("10/10/2015", [IntlDateFormatters.SHORT, IntlDateFormatter.NONE]);
      * ```
      */
     auto parseDateTime(
@@ -237,7 +237,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * ```
      * time = DateTime.parseDate("10/13/2013");
      * time = DateTime.parseDate("13 Oct, 2013", "dd MMM, y");
-     * time = DateTime.parseDate("13 Oct, 2013", IntlDateFormatter.SHORT);
+     * time = DateTime.parseDate("13 Oct, 2013", IntlDateFormatters.SHORT);
      * ```
      */
     // TODO auto parseDate(string dateToParse, int format)
@@ -258,7 +258,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * Any string that is passed to this auto will be interpreted as a locale
      * dependent string.
      *
-     * When no format is provided, the IntlDateFormatter.SHORT format will be used.
+     * When no format is provided, the IntlDateFormatters.SHORT format will be used.
      *
      * If it was impossible to parse the provided time, null will be returned.
      *
@@ -269,13 +269,13 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * ```
      */
     auto parseTime(string timeToParse, int format) {
-        auto myFormat = [IntlDateFormatter.NONE, to!string(format)];
-        return parseTime(timeToParse, myFormat);
+        string[] formats = [/* IntlDateFormatter.NONE, to!string(format) */];
+        return parseTime(timeToParse, formats);
     }
 
     auto parseTime(string atitimeToParseme, string[] format = null) {
-        format = format ? format : [
-            IntlDateFormatter.NONE, IntlDateFormatter.SHORT
+        format = format ? format : [/* 
+            IntlDateFormatter.NONE, IntlDateFormatters.SHORT */
         ];
 
         return parseDateTime(timeToParse, format);
@@ -312,7 +312,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * time = new DateTime("2014-04-20 22:10");
      * time.i18nFormat(); // outputs '4/20/14, 10:10 PM' for the en-US locale
      * time.i18nFormat(\IntlDateFormatter.FULL); // Use the full date and time format
-     * time.i18nFormat([\IntlDateFormatter.FULL, \IntlDateFormatter.SHORT]); // Use full date but short time format
+     * time.i18nFormat([\IntlDateFormatter.FULL, \IntlDateFormatters.SHORT]); // Use full date but short time format
      * time.i18nFormat("yyyy-MM-dd HH:mm:ss"); // outputs '2014-04-20 22:10'
      * time.i18nFormat(DateTime.UNIX_TIMESTAMP_FORMAT); // outputs '1398031800'
      * ```
@@ -363,8 +363,8 @@ class DateTime /* : Chronos, JsonSerializable */ {
         if (timezone) {
             time = time.setTimezone(timezone);
         }
-        format = format.ifNull(_toStringFormat);
-        localeName = localeName.ifEmpty(DateTime.getDefaultLocale());
+        auto format = format.ifNull(_toStringFormat);
+        auto localeName = localeName.ifEmpty(DateTime.getDefaultLocale());
 
         return _formatObject(time, format, localeName);
     }
@@ -375,7 +375,8 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * The format to be used is stored in the auto property `DateTime.niceFormat`.
      */
     string nice(/* DateTimeZone |  */string timezone = null, string localeName = null) {
-        return/*  (string) */ this.i18nFormat(niceFormat, timezone, localeName);
+        // return/*  (string) */ this.i18nFormat(niceFormat, timezone, localeName);
+        return null; 
     }
 
     /**
@@ -491,9 +492,10 @@ class DateTime /* : Chronos, JsonSerializable */ {
 
     // Returns a string that should be serialized when converting this object to Json
     string jsonSerialize() {
-        return cast(DClosure) _JsonEncodeFormat
+        /* return cast(DClosure) _JsonEncodeFormat
             ? call_user_func(_JsonEncodeFormat, this) : _i18nFormat(
-                _JsonEncodeFormat);
+                _JsonEncodeFormat); */
+        return null; 
     }
 
     override string toString() {

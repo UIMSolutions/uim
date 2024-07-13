@@ -616,13 +616,8 @@ mixin template TIntegrationTest() {
         }
     }
 
-    /**
-     * Asserts that the Location header contains a substring
-     * Params:
-     * string url The URL you expected the client to go to.
-     * @param string amessage The failure message that will be appended to the generated message.
-     */
-    void assertRedirectContains(string url, string message = null) {
+    // Asserts that the Location header contains a substring
+    void assertRedirectContains(string url, string failureMessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }

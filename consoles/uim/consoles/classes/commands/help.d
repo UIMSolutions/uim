@@ -96,13 +96,13 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         if (Configure.check("App.dir")) {
             string appPath = stripRight(Configure.read("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
             // Extra space is to align output
-            myPaths["app"] = " " ~ appPath;
+            myPaths.set("app", " " ~ appPath);
         }
         if (defined("ROOT")) {
-            myPaths["root"] = stripRight(ROOT, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+            myPaths.set("root", stripRight(ROOT, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
         }
         if (defined("CORE_PATH")) {
-            myPaths["core"] = stripRight(CORE_PATH, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+            myPaths.set("core", stripRight(CORE_PATH, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
         }
         if (!count(myPaths)) {
             return;

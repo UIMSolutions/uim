@@ -30,14 +30,14 @@ class DTime { // : ChronosTime, JsonSerializable {
     
     // Resets the format used to the default when converting an instance of this type to a string
     static void resetToStringFormat() {
-        // setToStringFormat(DIntlDateFormatter.SHORT);
+        // setToStringFormat(DIntlDateFormatters.SHORT);
     }
     // #endregion StringFormat
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.i18nFormat()` and `__toString`.
      */
-    // protected static string/* |int */ _toStringFormat = DIntlDateFormatter.SHORT;
+    // protected static string/* |int */ _toStringFormat = DIntlDateFormatters.SHORT;
 
     /**
      * The format to use when converting this object to Json.
@@ -79,7 +79,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * Any string that is passed to this auto will be interpreted as a locale
      * dependent string.
      *
-     * When no format is provided, the IntlDateFormatter.SHORT format will be used.
+     * When no format is provided, the IntlDateFormatters.SHORT format will be used.
      *
      * If it was impossible to parse the provided time, null will be returned.
      *
@@ -90,7 +90,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * ```
      */
     static DTime parseTime(string timeToParse, string /* |int */ format = null) {
-        auto format = format.ifEmpty([IntlDateFormatter.NONE, IntlDateFormatter.SHORT]);
+        auto format = format.ifEmpty([IntlDateFormatter.NONE, IntlDateFormatters.SHORT]);
         if (isInteger(format)) {
             format = [IntlDateFormatter.NONE, format];
         }

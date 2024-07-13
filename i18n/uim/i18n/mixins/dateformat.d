@@ -81,7 +81,7 @@ mixin template TDateFormat() {
      * ```
      * time = Time.parseDateTime("10/13/2013 12:54am");
      * time = Time.parseDateTime("13 Oct, 2013 13:54", "dd MMM, y H:mm");
-     * time = Time.parseDateTime("10/10/2015", [IntlDateFormatter.SHORT, IntlDateFormatter.NONE]);
+     * time = Time.parseDateTime("10/10/2015", [IntlDateFormatters.SHORT, IntlDateFormatter.NONE]);
      * ```
      */
     /*     protected static auto _parseDateTime(

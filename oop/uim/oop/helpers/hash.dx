@@ -604,15 +604,10 @@ class Hash {
         return result;
     }
     
-    /**
-     * Merge helper auto to reduce duplicated code between merge() and expand().
-     * Params:
-     * Json[string] mystack The stack of operations to work with.
-     * @param Json[string] result The return value to operate on.
-     */
-    protected static void _merge(Json[string] mystack, Json[string] &result) {
-        while (!empty(mystack)) {
-            foreach (mystack as mycurKey: &mycurMerge) {
+    // Merge helper auto to reduce duplicated code between merge() and expand().
+    protected static void _merge(Json[string] stackOfOperations, Json[string] result) {
+        while (!empty(stackOfOperations)) {
+            foreach (stackOfOperations as mycurKey: &mycurMerge) {
                 foreach (mycurMerge[0].byKeyValue) {
                     if (!mycurMerge[1].isArray) {
                         continue;
@@ -623,14 +618,14 @@ class Hash {
                         && /* (array) */myval == myval
                     ) {
                         // Recurse into the current merge data as it is an array.
-                        mystack ~= [&myval, &mycurMerge[1][aKey]];
+                        stackOfOperations ~= [&myval, &mycurMerge[1][aKey]];
                     } else if (to!int(aKey) == aKey && isSet(mycurMerge[1][aKey])) {
                         mycurMerge[1] ~= myval;
                     } else {
                         mycurMerge[1][aKey] = myval;
                     }
                 }
-                mystack.remove(mycurKey);
+                stackOfOperations.remove(mycurKey);
             }
             remove(mycurMerge);
         }
@@ -856,8 +851,8 @@ class Hash {
      * @param string|int aKey The key for the data.
      */
     protected static Json[string] _squash(Json[string] data, string|int aKey = null) {
-        mystack = null;
-        foreach (data as myKey: myr) {
+        auto mystack = null;
+        foreach (myKey: myr; data) {
             myid = myKey;
             if (!aKey.isNull) {
                 myid = aKey;

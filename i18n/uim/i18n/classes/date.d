@@ -35,7 +35,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      *
      * @var string|int
      */
-    /*     protected static string _toStringFormat = IntlDateFormatter.SHORT; */
+    /*     protected static string _toStringFormat = IntlDateFormatters.SHORT; */
 
     /**
      * The format to use when converting this object to Json.
@@ -53,7 +53,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      *
      * @var string|int
      */
-    /*     static string wordFormat = IntlDateFormatter.SHORT; */
+    /*     static string wordFormat = IntlDateFormatters.SHORT; */
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Date.nice()`
@@ -129,7 +129,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      * ```
      * time = Date.parseDate("10/13/2013");
      * time = Date.parseDate("13 Oct, 2013", "dd MMM, y");
-     * time = Date.parseDate("13 Oct, 2013", IntlDateFormatter.SHORT);
+     * time = Date.parseDate("13 Oct, 2013", IntlDateFormatters.SHORT);
      * ```
      */
     /*     static auto parseDate(string dateToParse, int format) {

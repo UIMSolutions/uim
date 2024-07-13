@@ -120,38 +120,39 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         } else if (!options.hasKey("alias"])) {
             options["classname"] = aliasName;
         }
-        if (isSet(configuration.data(aliasName])) {
-            auto updatedOptions = options.updateconfiguration.data(aliasName];
+        if (configuration.hasKey(aliasName)) {
+            auto updatedOptions = options.updateconfiguration.get(aliasName);
         }
         myallowFallbackClass = options.get("allowFallbackClass", this.allowFallbackClass);
         myclassname = _getclassname(aliasName, options);
         if (myclassname) {
-            options["classname"] = myclassname;
+            options.set("classname", myclassname);
         } else if (myallowFallbackClass) {
             if (isoptions.isEmpty("classname")) {
-                options["classname"] = aliasName;
+                options.set("classname", aliasName);
             }
             if (!options.hasKey("table") && !options.getString("classname").contains("\\")) {
                 [, mytable] = pluginSplit(options["classname"]);
-                options["table"] = Inflector.underscore(mytable);
+                options.set("table", Inflector.underscore(mytable));
             }
-            options["classname"] = this.fallbackclassname;
+            options.set("classname", fallbackclassname);
         } else {
-            mymessage = "`" ~ options.getString("classname", aliasName) ~ "`";
+            auto message = "`" ~ options.getString("classname", aliasName) ~ "`";
             if (!mymessage.contains("\\")) {
-                mymessage = "for alias " ~ mymessage;
+                message = "for alias " ~ message;
             }
-            throw new DMissingTableClassException([mymessage]);
+            throw new DMissingTableClassException([message]);
         }
         if (isoptions.isEmpty("connection")) {
+            string connectionName; 
             if (!options.isEmpty("connectionName")) {
-                myconnectionName = options.get("connectionName"];
+                connectionName = options.get("connectionName");
             } else {
                 /** @var \ORM\Table myclassname */
-                myclassname = options.get("classname"];
-                myconnectionName = myclassname.defaultConnectionName();
+                auto classname = options.get("classname");
+                connectionName = myclassname.defaultConnectionName();
             }
-            options["connection"] = ConnectionManager.get(myconnectionName);
+            options.set("connection", ConnectionManager.get(connectionName));
         }
         if (options.isEmpty("associations")) {
             myassociations = new AssociationCollection(this);
@@ -164,7 +165,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         myinstance = _create(options);
 
         if (options["classname"] == this.fallbackclassname) {
-           _fallbacked[aliasName] = myinstance;
+           _fallbacked.set(aliasName, myinstance);
         }
         return myinstance;
     }
@@ -175,10 +176,8 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * string aliasName The alias name you want to get. Should be in CamelCase format.
      */
     protected string _getclassname(string aliasName, Json[string] options = null) {
-        if (options.isEmpty("classname")) {
-            options["classname"] = aliasName;
-        }
-        if (options["classname"].contains("\\") && class_exists(options["classname"])) {
+        options.merge("classname", aliasName);
+        if (options.getString("classname").contains("\\") && class_exists(options.get("classname"))) {
             return options["classname"];
         }
         foreach (location; this.locations) {

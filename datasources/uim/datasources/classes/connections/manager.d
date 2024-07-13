@@ -93,12 +93,12 @@ static Json[string] parseDsn(string dsnToConvert) {
     auto data = _parseDsn(dsnToConvert);
 
     if (data.hasKey("path") && data.isEmpty("database")) {
-        data["database"] = subString(data.getString("path"), 1);
+        data.set("database", subString(data.getString("path"), 1));
     }
 
     if (data.isEmpty("driver")) {
-        data["driver"] = data.getString("classname");
-        data["classname"] = Connection.classname;
+        data.set("driver", data.getString("classname"));
+        data.set("classname", Connection.classname);
     }
     data.remove("path");
 

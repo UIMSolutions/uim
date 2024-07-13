@@ -173,8 +173,8 @@ class DNumericPaginator : IPaginator {
 
         cleanQuery = query.clone;
         auto results = query.all();
-        data["numResults"] = count(results);
-        data["count"] = getCount(cleanQuery, data);
+        data.set("numResults", count(results));
+        data.set("count", getCount(cleanQuery, data));
 
         auto pagingParams = this.buildParams(data);
         aliasName = object.aliasName();
@@ -385,7 +385,8 @@ class DNumericPaginator : IPaginator {
         }
 
         auto defaultData = configuration.data;
-        defaultData["whitelist"] = defaultData["allowedParameters"] = getAllowedParameters();
+        defaultData.set("allowedParameters", getAllowedParameters());
+        defaultData.set("whitelist", defaultData.get("allowedParameters"));
 
         auto maxLimit = settingData.getLong("maxLimit", defaultData.getLong("maxLimit"));
         auto limit = settingData.getLong("limit", defaultData.getLong("limit"));
@@ -394,8 +395,8 @@ class DNumericPaginator : IPaginator {
             limit = maxLimit;
         }
 
-        settingData["maxLimit"] = maxLimit;
-        settingData["limit"] = limit;
+        settingData.set("maxLimit", maxLimit);
+        settingData.set("limit", limit);
         return settings.merge(defaultData);
     }
 
@@ -430,20 +431,20 @@ class DNumericPaginator : IPaginator {
                 direction = "asc";
             }
 
-            order = paginationOptions.hasKey("order") && isArray(paginationOptions["order"])
+            auto order = paginationOptions.hasKey("order") && isArray(paginationOptions["order"])
                 ? paginationOptions["order"] : null;
             if (order && paginationOptions["sort"] && indexOf(paginationOptions["sort"], ".") == false) {
                 order = _removeAliases(order, repository.aliasName());
             }
 
-            paginationOptions.get("order", [paginationOptions["sort"]: direction].update(order);
+            paginationOptions.set("order", [paginationOptions["sort"]: direction].update(order));
         } else {
-            paginationOptions["sort"] = null;
+            paginationOptions.set("sort", null);
         }
         paginationOptions.remove("direction");
 
         if (paginationOptions.isEmpty("order")) {
-            paginationOptions["order"] = null;
+            paginationOptions.set("order", null);
         }
         if (!paginationOptions.isArray("order")) {
             return paginationOptions;
@@ -452,23 +453,24 @@ class DNumericPaginator : IPaginator {
         auto sortAllowed = false;
         auto allowed = getSortableFields(paginationOptions);
         if (allowed != null) {
-            paginationOptions["sortableFields"] = paginationOptions["sortWhitelist"] = allowed;
+            paginationOptions.set("sortWhitelist", allowed);
+            paginationOptions.set("sortableFields", paginationOptions["sortWhitelist"]);
 
-            field = key(paginationOptions["order"]);
-            sortAllowed = hasAllValues(field, allowed, true);
+            auto field = key(paginationOptions["order"]);
+            auto sortAllowed = hasAllValues(field, allowed, true);
             if (!sortAllowed) {
-                paginationOptions["order"] = null;
-                paginationOptions["sort"] = null;
+                paginationOptions.set("order", null);
+                paginationOptions.set("sort", null);
                 return paginationOptions;
             }
         }
 
-        if (paginationOptions.isNull("sort") && count(paginationOptions["order"]) >= 1 && !key(
+        if (paginationOptions.isNull("sort") && count(paginationOptions.get("order")) >= 1 && !key(
                 paginationOptions["order"].isNumeric)) {
-            paginationOptions["sort"] = key(paginationOptions.getString("order"));
+            paginationOptions.set("sort", key(paginationOptions.getString("order")));
         }
 
-        paginationOptions["order"] = _prefix(repository, paginationOptions["order"], sortAllowed);
+        paginationOptions.set("order", _prefix(repository, paginationOptions["order"], sortAllowed));
         return paginationOptions;
     }
 

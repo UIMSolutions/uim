@@ -177,9 +177,9 @@ mixin(FilesystemCalls!("Memory"));
 
 unittest {
   auto fs = MemoryFilesystem;
-  fs["/test/two"] = MemoryFolder;
-  fs["/test/two/foc.xls"] = MemoryFile;
-  fs["/test/two/link.xls"] = MemoryLink;
+  fs.set("/test/two", MemoryFolder);
+  fs.set("/test/two/foc.xls", MemoryFile);
+  fs.set("/test/two/link.xls", MemoryLink);
 
   // #region test isFolder
     assert(fs.isFolder("/test/two"));

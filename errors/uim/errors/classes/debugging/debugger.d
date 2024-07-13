@@ -129,22 +129,22 @@ class DDebugger {
 
         e ~= htmlDoubleTag("div", "{:id}-trace", ["uim-stack-trace"], ["style":"display: none;"], "{:links}{:info}");
         e ~= `</pre>`;
-        _stringContents["js.error"] = e;
+        _stringContents.set("js.error", e);
 
         t = `<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">`;
         t ~= `{:dumpContext}{:code}{:trace}</div>`;
-        _stringContents["js.info"] = t;
+        _stringContents.set("js.info", t);
 
         links = null;
         link = "<a href=\"javascript:void(0);\" onclick=\"document.getElementById(\"{:id}-code\")";
         link ~= ".style.display = (document.getElementById(\"{:id}-code\").style.display == ";
         link ~= "\"none\" ? \"\" : \"none\")\">Code</a>";
-        links["code"] = link;
+        links.set("code", link);
 
         link = "<a href=\"javascript:void(0);\" onclick=\"document.getElementById(\"{:id}-dumpContext\")";
         link ~= ".style.display = (document.getElementById(\"{:id}-dumpContext\").style.display == ";
         link ~= "\"none\" ? \"\" : \"none\")\">Context</a>";
-        links["dumpContext"] = link;
+        links.set("dumpContext", link);
 
         _stringContents.set("js.links", links);
 

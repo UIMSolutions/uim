@@ -48,7 +48,7 @@ class DFactoryLocator {
     // Get the factory for the specified repository type.
     static ILocator get(string repositoryType) {
         if ("Table"  !in _modelFactories) {
-            _modelFactories["Table"] = new DTableLocator();
+            _modelFactories.set("Table", new DTableLocator());
         }
 
         if (!_modelFactories.hasKey(repositoryType)) {

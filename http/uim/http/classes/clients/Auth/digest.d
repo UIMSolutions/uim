@@ -102,8 +102,8 @@ class DDigest {
         
         auto matches = HeaderUtility.parseWwwAuthenticate(aHeader[0]);
         auto credentials = array_merge(credentials, matches);
-        if ((this.isSessAlgorithm || !credentials.isEmpty("qop"))) && credentials.isEmpty("nc"))) {
-            credentials["nc"] = 1;
+        if ((this.isSessAlgorithm || !credentials.isEmpty("qop")) && credentials.isEmpty("nc")) {
+            credentials.set("nc", 1);
         }
         return credentials;
     }

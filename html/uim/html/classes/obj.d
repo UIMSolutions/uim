@@ -290,31 +290,31 @@ class DH5Obj {
 
 	O contextmenu(this O)(string value) {
 		if (value.length > 0)
-			attributes["contextmenu"] = value;
+			attributes.set("contextmenu", value);
 		return cast(O) this;
 	}
 
 	O dir(this O)(string value) {
 		if (value.length > 0)
-			attributes["dir"] = value;
+			attributes.set("dir", value);
 		return cast(O) this;
 	}
 
 	O draggable(this O)(bool value) {
 		if (value)
-			attributes["draggable"] = "true";
+			attributes.set("draggable", "true");
 		return cast(O) this;
 	}
 
 	O dropzone(this O)(string value) {
 		if (value.length > 0)
-			attributes["dropzone"] = value;
+			attributes.set("dropzone", value);
 		return cast(O) this;
 	}
 
 	O hidden(this O)(bool value) {
 		if (value)
-			attributes["hidden"] = "true";
+			attributes.set("hidden", "true");
 		return cast(O) this;
 	}
 

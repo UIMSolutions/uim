@@ -233,10 +233,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     /**
      * Sets the instance of the eager loader class to use for loading associations
      * and storing containments.
-     *
-     * @param DORMEagerLoader instance The eager loader to use.
      */
-    void setEagerLoader(EagerLoader instance) {
+    void setEagerLoader(DORMEagerLoader instance) {
         _eagerLoader = instance;
     }
 
@@ -629,10 +627,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Please note that the query passed to the closure will only accept calling
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
-     *
-     * @param string assoc The association to filter by
-     * @param callable|null builder a function that will receive a pre-made query object
-     * that can be used to add custom conditions or selecting some fields
      */
     void notMatching(string associationName/* , callable builder = null */) {
         auto result = getEagerLoader()

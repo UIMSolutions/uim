@@ -364,13 +364,10 @@ class DTreeBehavior : DBehavior {
      *  defaults to false (all children).
      *
      * If the direct option is set to true, only the direct children are returned (based upon the parent_id field)
-     *
-     * @param DORMQuery query Query.
-     * @param Json[string] options Array of options as described above
      */
-    DORMQuery findChildren(Query query, Json[string] options = null) {
+    DORMQuery findChildren(DORMQuery query, Json[string] options = null) {
         auto configData = configuration.data;
-        auto updatedOptions = options.update["for": Json(null), "direct": false.toJson];
+        auto updatedOptions = options.update(["for": Json(null), "direct": false.toJson]);
         [parent, left, right] = array_map(
             function (field) {
                 return _table.aliasField(field);
@@ -378,7 +375,7 @@ class DTreeBehavior : DBehavior {
             [configuration.get("parent"), configuration.get("left"), configuration.get("right")]
        );
 
-        [for, direct] = [options["for"], options["direct"]];
+        [for, direct] = [options.get("for"), options.get("direct")];
 
         if (for.isEmpty) {
             throw new DInvalidArgumentException("The 'for' key is required for find('children')");

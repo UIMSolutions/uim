@@ -47,7 +47,8 @@ class DCatalogLocator {
           .format(catalogName, catalogLocale));
     } 
 
-    return _registry[catalogName][catalogLocale]; 
+    /* return _registry[catalogName][catalogLocale];  */
+    return null; 
   }
 
   // Check if a Catalog object for given name and locale exists in registry.

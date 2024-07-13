@@ -358,7 +358,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
 
         if (updatedOptions.isString("accuracy")) {
             auto accuracy = updatedOptions.get("accuracy");
-            updatedOptions.set("accuracy", null);
+            updatedOptions.set("accuracy", Json(null));
             /* classname.wordAccuracy.byKeyValue
             .each!(keyLevel => updatedOptions.set(
                     "accuracy", "" ~ keyLevel.key, accuracy)); */

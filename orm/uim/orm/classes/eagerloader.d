@@ -312,19 +312,14 @@ class DEagerLoader {
      * in order to eager load the associations described in the `contain` array.
      * This method will not modify the query for loading external associations, i.e.
      * those that cannot be loaded without executing a separate query.
-     *
-     * @param DORMTable repository The repository containing the associations
-     * @param bool includeFields whether to append all fields from the associations
-     * to the passed query. This can be overridden according to the settings defined
-     * per association in the containments array
      */
-    void attachAssociations(Query DORMQuery, Table repository, bool includeFields) {
+    void attachAssociations(DORMQuery query, DORMTable repository, bool includeFields) {
         if (_containments.isEmpty && _matching == null) {
             return;
         }
 
-        attachable = attachableAssociations(repository);
-        processed = null;
+        auto attachable = attachableAssociations(repository);
+        auto processed = null;
         do {
             foreach (attachable as aliasName: loadable) {
                 myConfiguration = loadable.configuration.data + [

@@ -21,6 +21,7 @@ public { // Required uim libraries
 
 public { // uim.i18n packages
   import uim.i18n.classes;
+  import uim.i18n.enumerations;
   import uim.i18n.exceptions;
   import uim.i18n.interfaces;
   import uim.i18n.helpers;

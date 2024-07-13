@@ -28,7 +28,7 @@ class DFormatterLocator {
     }
     
     // Gets a formatter from the registry by name.
-    II18NFormatter get(string formatterName) {
+    II18NFormatters get(string formatterName) {
         if (!_registry.hasKey(formatterName)) {
             // TODO throw new DI18nException("Formatter named `%s` has not been registered.".format(name));
         }
@@ -38,6 +38,7 @@ class DFormatterLocator {
             _converted[formatterName] = true; */
         }
 
-        return _registry.get(formatterName);
+       /*  return _registry.get(formatterName); */
+       return II18NFormatters.NONE; 
     }
 }

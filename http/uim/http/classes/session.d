@@ -79,15 +79,15 @@ class DSession {
             !sessionConfig.hasKey("ini.session.name")
             && sessionConfig.hasKey("cookie")
            ) {
-            sessionConfig["ini.session.name"] = sessionConfig["cookie"];
+            sessionConfig.set("ini.session.name", sessionConfig["cookie"]);
         }
         if (!sessionConfig.hasKey("ini.session.use_strict_mode") && ini_get(
                 "session.use_strict_mode") != 1) {
-            sessionConfig["ini.session.use_strict_mode"] = 1;
+            sessionConfig.set("ini.session.use_strict_mode", 1);
         }
         if (!sessionConfig.hasKey("ini.session.cookie_httponly") && ini_get(
                 "session.cookie_httponly") != 1) {
-            sessionConfig["ini.session.cookie_httponly"] = 1;
+            sessionConfig.set("ini.session.cookie_httponly", 1);
         }
         return new static(sessionConfig);
     }
@@ -97,7 +97,7 @@ class DSession {
      * Params:
      * string aName Config name.
      */
-    protected static Json[string]  _defaultConfigData(string aName) {
+    protected static Json[string]  _defaultConfigData(string configName) {
         tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
         Json[string] defaults = [
             "D": [
@@ -136,11 +136,11 @@ class DSession {
             ],
         ];
 
-        if (defaults.hasKey(name)) {
-            if (name != "D" || ini_get("session.cookie_samesite").isEmpty) {
-                defaults["D.ini.session.cookie_samesite"] = "Lax";
+        if (defaults.hasKey(configName)) {
+            if (configName != "D" || ini_get("session.cookie_samesite").isEmpty) {
+                defaults.set("D.ini.session.cookie_samesite", "Lax");
             }
-            return defaults[name];
+            return defaults[configName];
         }
         return null;
     }
@@ -170,7 +170,7 @@ class DSession {
         ];
 
         if (configuration.hasKey("timeout")) {
-            configuration.get("ini.session.gc_maxlifetime"] = 60 * configuration.get("timeout"];
+            configuration.set("ini.session.gc_maxlifetime", 60 * configuration.get("timeout"));
         }
         if (configuration.hasKey("cookie")) {
             configuration.set("ini.session.name", configuration.get("cookie"));

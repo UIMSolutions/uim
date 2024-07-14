@@ -70,8 +70,8 @@ class DFlashMessage {
     void set(string messageToBeFlashed, Json[string] options = null) {
         auto auto updatedOptions = options.update(this.configuration.data);
 
-        if (options.hasKey("escape"]) && !options.hasKey("params.escape"])) {
-            options["params.escape"] = options.get("escape"];
+        if (options.hasKey("escape") && !options.hasKey("params.escape")) {
+            options.set("params.escape", options.get("escape"));
         }
         [plugin, anElement] = pluginSplit(options["element"]);
         if (options["plugin"]) {
@@ -95,12 +95,12 @@ class DFlashMessage {
         }
         messages ~= [
             "message": messageToBeFlashed,
-            "key": options["key"],
-            "element": options["element"],
-            "params": options["params"],
+            "key": options.get("key"),
+            "element": options.get("element"),
+            "params": options.get("params"),
         ];
 
-        this.session.write("Flash." ~ options["key"], messages);
+        this.session.write("Flash." ~ options.get("key"), messages);
     }
     
     // Set an exception`s message as flash message.
@@ -123,7 +123,7 @@ class DFlashMessage {
      * The `'element'` option will be set to  ``success'`.
      */
     void success(string successMessage, Json[string] options = null) {
-        options["element"] = "Success";
+        options.set("element", "Success");
         set(successMessage, options);
     }
     
@@ -132,7 +132,7 @@ class DFlashMessage {
      * The `'element'` option will be set to  `'error'`.
      */
     void error(string errorMessage, Json[string] options = null) {
-        options["element"] = "error";
+        options.set("element", "error");
         set(errorMessage, options);
     }
     
@@ -141,7 +141,7 @@ class DFlashMessage {
      * The `'element'` option will be set to  `'warning'`.
      */
     void warning(string warningMessage, Json[string] options = null) {
-        options["element"] = "warning";
+        options.set("element", "warning");
         set(warningMessage, options);
     }
     
@@ -150,7 +150,7 @@ class DFlashMessage {
      * The `'element'` option will be set to  `'info'`.
      */
     void info(string infoMessage, Json[string] options = null) {
-        options["element"] = "info";
+        options.set("element", "info");
         set(infoMessage, options);
     }
 }

@@ -63,15 +63,15 @@ class DNumber {
     }
 
     static string toReadableSize(int size) {
-        if (size < 1024)
-            return __dn("uim", "{0,number,integer} Byte", "{0,number,integer} Bytes", size, size);
+        /* if (size < 1024)
+            return `__dn("uim", "{0,number,integer} Byte", "{0,number,integer} Bytes", size, size)`;
         if (round(size / 1024) < 1024)
-            return __d("uim", "{0,number,#,###.##} KB", size / 1024);
+            return `__d("uim", "{0,number,#,###.##} KB", size / 1024)`;
         if (round(size / 1024 / 1024, 2) < 1024)
-            return __d("uim", "{0,number,#,###.##} MB", size / 1024 / 1024);
+            return `__d("uim", "{0,number,#,###.##} MB", size / 1024 / 1024)`;
         if (round(size / 1024 / 1024 / 1024, 2) < 1024)
-            __d("uim", "{0,number,#,###.##} GB", size / 1024 / 1024 / 1024);
-        return __d("uim", "{0,number,#,###.##} TB", size / 1024 / 1024 / 1024 / 1024);
+            `__d("uim", "{0,number,#,###.##} GB", size / 1024 / 1024 / 1024)`; */
+        return `__d("uim", "{0,number,#,###.##} TB", size / 1024 / 1024 / 1024 / 1024)`;
     }
 
     /**
@@ -92,7 +92,8 @@ class DNumber {
         if (!options.hasKey("multiply")) {
             doubleValue = value.getDouble / 100;
         }
-        return precision(doubleValue, precision, options);
+        // return precision(doubleValue, precision, options);
+        return null; 
     }
 
     /**
@@ -113,9 +114,10 @@ class DNumber {
         auto formatter = formatter(options);
         auto updatedOptions = options.merge(
             ["before": "", "after": ""]);
-        return updatedOptions.getString(
+        /* return updatedOptions.getString(
             "before") ~ formatter.format(
-            value.getDouble) ~ updatedOptions.getString("after");
+            value.getDouble) ~ updatedOptions.getString("after"); */
+        return null;
     }
 
     /**
@@ -129,8 +131,9 @@ class DNumber {
      */
     static float parseFloat(string value, Json[string] options = null) {
         auto parseFormatter = formatter(options);
-        return  /* (float) */ formatter
-            .parseFormatter(value, NumberFormatters.TYPE_DOUBLE);
+        /*  return  /* (float) * / formatter
+            .parseFormatter(value, NumberFormatters.TYPE_DOUBLE); */
+        return 0;
     }
 
     /**
@@ -147,11 +150,13 @@ class DNumber {
      */
     static string formatDelta(Json value, Json[string] options = null) {
         auto updatedOptions = options.set("places", 0);
-        auto doubleValue = number_format(
+        /* auto doubleValue = number_format(
             value.getDouble, updatedOptions["places"], ".", "");
         string sign = doubleValue > 0 ? "+" : "";
         updatedOptions.set("before", updatedOptions.getString("before") ~ sign);
-        return format(value, updatedOptions);
+        return format
+        (value, updatedOptions); */
+        return null; 
     }
 
     /**
@@ -176,20 +181,19 @@ class DNumber {
         double doubleValue = value.getDouble;
         currencyName = currencyName ? currencyName : getDefaultCurrency();
         if (options.hasKey("zero") && !value) {
-            return options["zero"];
+            return options.getString("zero");
         }
 
         auto formatter = formatter(
-            ["type": getDefaultCurrencyFormat()] + options);
+            ["type": getDefaultCurrencyFormat()].merge(options));
         auto abs = abs(doubleValue);
         if (
             !options.isEmpty("fractionSymbol") && abs > 0 && abs < 1) {
             doubleValue *= 100;
-            string pos = options.get(
-                "fractionPosition", "after");
+            string pos = options.get("fractionPosition", "after");
             return format(doubleValue, [
                     "precision": 0,
-                    pos: options["fractionSymbol"]
+                    pos: options.get("fractionSymbol")
                 ]);
         }
         auto before = options.getString("before", "");
@@ -201,12 +205,12 @@ class DNumber {
     // Getter for default currency
     static string getDefaultCurrency() {
         if (_defaultCurrency.isNull) {
-            auto locale = ini_get("intl.default_locale") ? ini_get(
+            /* auto locale = ini_get("intl.default_locale") ? ini_get(
                 "intl.default_locale") : DEFAULT_LOCALE;
             auto formatter = new NumberFormatters(locale, NumberFormatters
                     .CURRENCY);
             _defaultCurrency = formatter.getTextAttribute(
-                NumberFormatters.CURRENCY_CODE);
+                NumberFormatters.CURRENCY_CODE); */
         }
         return _defaultCurrency;
     }
@@ -261,14 +265,14 @@ class DNumber {
         if (!locale) {
             locale = "DEFAULT_LOCALE";
         }
-        auto type = cast(string)NumberFormatters.DECIMAL;
+        auto type = cast(string) NumberFormatters.DECIMAL;
         if (!options.isEmpty("type")) {
-            auto type = options.getString("type");
+            type = options.getString("type");
             if (type == FORMAT_CURRENCY) {
-                type = cast(string)NumberFormatters.CURRENCY;
+                type = cast(string) NumberFormatters.CURRENCY;
             } else if (
                 type == FORMAT_CURRENCY_ACCOUNTING) {
-                type = cast(string)NumberFormatters.CURRENCY_ACCOUNTING;
+                type = cast(string) NumberFormatters.CURRENCY_ACCOUNTING;
             }
         }
         /* if (!_formatters[locale].hasKey(type)) {
@@ -289,7 +293,7 @@ class DNumber {
      * Params:
      * string alocale The locale name to use for formatting the number, e.g. fr_FR
      */
-   /*  static void config(string localeName, int formatterType = NumberFormatters.DECIMAL, Json[string] options = null) {
+    /*  static void config(string localeName, int formatterType = NumberFormatters.DECIMAL, Json[string] options = null) {
         _formatters[localeName][formatterType] = _setAttributes(
             new NumberFormatters(localeName, type), options);
     } */
@@ -335,9 +339,10 @@ class DNumber {
      * float value An integer
      */
     static string ordinal(float value, Json[string] options = null) {
-        return to!string(formatter(
+        /* return to!string(formatter(
                 [
                     "type": NumberFormatters.ORDINAL
-                ].merge(options))).format(value);
+                ].merge(options))).format(value); */
+        return null; 
     }
 }

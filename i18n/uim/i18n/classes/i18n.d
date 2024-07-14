@@ -38,19 +38,20 @@ class DI18n {
             return _collection;
         } */
         
-        _collection = new DTranslatorRegistry(
+        /* _collection = new DTranslatorRegistry(
             new DCatalogLocator(),
             new DFormatterLocator([
                 /* "default": IcuFormatter.classname,
-                "sprintf": PrintFormatter.classname, */
+                "sprintf": PrintFormatter.classname, * /
             ]),
             locale()
-       );
+       ); */
 
         /* if (class_exists(Cache.classname)) {
             _collection.cacher(Cache.pool("_uim_core_"));
         } */
-        return _collection;
+       /*  return _collection; */
+       return null; 
     }
     
     /**

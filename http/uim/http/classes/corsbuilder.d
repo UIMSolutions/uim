@@ -65,15 +65,16 @@ class DCorsBuilder {
             if (!preg_match(domain["preg"], _origin)) {
                 continue;
             }
-            aValue = domain["original"] == "*" ? "*" : _origin;
-           _headers["Access-Control-Allow-Origin"] = aValue;
+            
+            string value = domain.getString("original") == "*" ? "*" : _origin;
+           _headers.set("Access-Control-Allow-Origin", value);
             break;
         }
     }
     
     // Normalize the origin to regular expressions and put in an array format
     protected Json[string] _normalizeDomains(string[] domainNamesToNormalize) {
-        auto result;
+        Json[string] result;
         foreach (domainName; domainNamesToNormalize) {
             if (domainName == "*") {
                 result ~= ["preg": "@.@", "original": "*"];

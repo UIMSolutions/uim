@@ -704,12 +704,12 @@ class DResponse : IResponse {
      * Params:
      * int seconds The number of seconds for shared max-age
      */
-    static withSharedMaxAge(int seconds) {
-        new = this.clone;
-        new._cacheDirectives["s-maxage"] = seconds;
-        new._setCacheControl();
+    static DResponse withSharedMaxAge(int seconds) {
+        auto newResponse = this.clone;
+        newResponse._cacheDirectives.set("s-maxage", seconds);
+        newResponse._setCacheControl();
 
-        return new;
+        return newResponse;
     }
     
     /**

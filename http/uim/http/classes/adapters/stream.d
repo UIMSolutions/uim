@@ -103,7 +103,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         auto headers = request.getHeaders().byKeyValue
             .map!(kv => "%s: %s".format(kv.key, kv.value.join(", "))).array;
 
-       _contextOptions["header"] = aHeaders.join("\r\n");
+       _contextOptions.set("header", aHeaders.join("\r\n"));
     }
     
     /**
@@ -115,24 +115,24 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     protected void _buildContent(IRequest request, Json[string] options = null) {
         auto requestBody = request.getBody();
         requestBody.rewind();
-       _contextOptions["content"] = requestBody.getContents();
+       _contextOptions.set("content", requestBody.getContents());
     }
     
     // Build miscellaneous options for the request.
     protected void _buildOptions(IRequest request, Json[string] options = null) {
-       _contextOptions["method"] = request.getMethod();
-       _contextOptions["protocol_version"] = request.getProtocolVersion();
-       _contextOptions["ignore_errors"] = true;
+       _contextOptions.set("method", request.getMethod());
+       _contextOptions.set("protocol_version", request.getProtocolVersion());
+       _contextOptions.set("ignore_errors", true);
 
         if (options.hasKey("timeout")) {
-           _contextOptions["timeout"] = options.get("timeout"];
+           _contextOptions.set("timeout", options.get("timeout"));
         }
         // Redirects are handled in the client layer because of cookie handling issues.
        _contextOptions["max_redirects"] = 0;
 
         if (options.hasKey("proxy.proxy")) {
-           _contextOptions["request_fulluri"] = true;
-           _contextOptions["proxy"] = options.get("proxy.proxy");
+           _contextOptions.set("request_fulluri", true);
+           _contextOptions.set("proxy", options.get("proxy.proxy"));
         }
     }
     
@@ -149,17 +149,17 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             "ssl_passphrase",
         ];
         if (options.isEmpty("ssl_cafile")) {
-            options["ssl_cafile"] = CaBundle.getBundledCaBundlePath();
+            options.set("ssl_cafile", CaBundle.getBundledCaBundlePath());
         }
         if (!options.isEmpty("ssl_verify_host")) {
-            url = request.getUri();
-            host = parse_url(url.toString, UIM_URL_HOST);
-           _sslContextOptions["peer_name"] = host;
+            auto url = request.getUri();
+            auto host = parse_url(url.toString, UIM_URL_HOST);
+           _sslContextOptions.set("peer_name", host);
         }
         sslOptions.each!((key) {
             if (options.asKey(aKey)) {
-                name = subString(aKey, 4);
-               _sslContextOptions[name] = options.get(aKey];
+                auto name = subString(aKey, 4);
+               _sslContextOptions.set(name, options.get(aKey));
             }
         });
     }
@@ -171,7 +171,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             /** @var int deadline */
             deadline = time() + _contextOptions["timeout"];
         }
-        url = request.getUri();
+        auto url = request.getUri();
        _open(to!string(url, request));
         string content = "";
         bool timedOut = false;

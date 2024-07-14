@@ -106,10 +106,11 @@ class DMessagesFileLoader {
 
         auto object = Object.factory(classname);
         auto messages = object.parse(file); */
-        auto catalog = new DMessageCatalog("default");
+        // auto catalog = new DMessageCatalog("default");
         // TODOD auto catalog.setMessages(messages); 
 
-        return catalog;
+        // return catalog;
+        return null; 
     }
 
     /**
@@ -117,12 +118,12 @@ class DMessagesFileLoader {
      * and catalog name.
      */
     string[] translationsFolders() {
-        auto locale = Locale.parseLocale(_locale) ~ ["region": Json(null)];
+        /* auto locale = Locale.parseLocale(_locale) ~ ["region": Json(null)];
 
         auto folders = [
             [locale["language"], locale["region"]].join("_"),
             locale["language"],
-        ];
+        ]; */
 
         string[] searchPaths;
         /* if (_plugin && Plugin.isLoaded(_plugin)) {

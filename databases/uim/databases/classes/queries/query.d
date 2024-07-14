@@ -949,7 +949,7 @@ abstract class DQuery : IQuery { // : IExpression {
      */
     void orderByAsc(/* /* IExpression|Closure */ */ string fieldName, bool shouldOverwrite = false) {
         if (shouldOverwrite) {
-           _parts["order"] = null;
+           _parts.setNull("order");
         }
         if (!fieldName) {
             return;
@@ -958,9 +958,9 @@ abstract class DQuery : IQuery { // : IExpression {
             fieldName = field(this.newExpr(), this);
         }
         if (!_parts["order"]) {
-           _parts["order"] = new DOrderByExpression();
+           _parts.set("order", new DOrderByExpression());
         }
-       _parts["order"].add(new DOrderClauseExpression(fieldName, "ASC"));
+       _parts.get("order").add(new DOrderClauseExpression(fieldName, "ASC"));
     }
     
     /**
@@ -976,7 +976,7 @@ abstract class DQuery : IQuery { // : IExpression {
       */
     auto orderByDesc(/* IExpression|Closure */string fieldName, bool shouldOverwrite = false) {
         if (shouldOverwrite) {
-           _parts["order"] = null;
+           _parts.setNull("order");
         }
         if (!field) {
             return this;
@@ -985,7 +985,7 @@ abstract class DQuery : IQuery { // : IExpression {
             field = field(this.newExpr(), this);
         }
         if (!_parts["order"]) {
-           _parts["order"] = new DOrderByExpression();
+           _parts.set("order", new DOrderByExpression());
         }
        _parts["order"].add(new DOrderClauseExpression(field, "DESC"));
 

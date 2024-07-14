@@ -23,7 +23,7 @@ class DChainMessagesLoader {
     }
 
     // The list of callables to execute one after another for loading messages
-    // TODO protected IMessagesFileLoader[string] _loaders;
+    protected DMessagesFileLoader[string] _loaders;
 
     /**
      * Receives a list of loaders that will be executed

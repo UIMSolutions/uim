@@ -160,7 +160,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
 
     // Resets the format used to the default when converting an instance of this type to a string
     void resetToStringFormat() {
-        setToStringFormat([IntlDateFormatters.SHORT, IntlDateFormatters.SHORT]);
+        setToStringFormat([cast(string)IntlDateFormatters.SHORT, cast(string)IntlDateFormatters.SHORT]);
     }
 
     /**

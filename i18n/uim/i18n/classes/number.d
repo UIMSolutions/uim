@@ -261,27 +261,27 @@ class DNumber {
         if (!locale) {
             locale = "DEFAULT_LOCALE";
         }
-        auto type = NumberFormatters.DECIMAL;
+        auto type = cast(string)NumberFormatters.DECIMAL;
         if (!options.isEmpty("type")) {
-            auto type = options.getLong("type");
+            auto type = options.getString("type");
             if (type == FORMAT_CURRENCY) {
-                type = NumberFormatters.CURRENCY;
+                type = cast(string)NumberFormatters.CURRENCY;
             } else if (
                 type == FORMAT_CURRENCY_ACCOUNTING) {
-                type = NumberFormatters
-                    .CURRENCY_ACCOUNTING;
+                type = cast(string)NumberFormatters.CURRENCY_ACCOUNTING;
             }
         }
-        if (!_formatters[locale].hasKey(type)) {
+        /* if (!_formatters[locale].hasKey(type)) {
             _formatters[locale][type] = new NumberFormatters(
                 locale, type);
-        }
+        } */
         /** @var \NumberFormatter formatter */
-        formatter = _formatters[locale][type];
+        /* formatter = _formatters[locale][type];
         formatter = formatter.clone;
 
         return _setAttributes(
-            formatter, options);
+            formatter, options); */
+        return null;
     }
 
     /**

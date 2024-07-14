@@ -481,8 +481,7 @@ Json[string] validateSort(IRepository repository, Json[string] paginationData) {
         myField = key(paginationData.hasKey("order"));
         sortAllowed = isIn(myField, allowed, true);
         if (!sortAllowed) {
-            paginationData["order"] = null;
-            paginationData["sort"] = null;
+            paginationData.setMany(["order", "sort"], Json(null));
 
             return paginationData;
         }
@@ -490,22 +489,21 @@ Json[string] validateSort(IRepository repository, Json[string] paginationData) {
 
     if (
         paginationData["sort"] == null
-        && count(paginationData["order"]) == 1
-        && !key(paginationData["order"].isNumeric)
+        && paginationData.count("order") == 1
+        && !key(paginationData.isNumeric("order").isNumeric)
         ) {
         paginationData.set("sort", key(paginationData["order"]));
     }
 
-    paginationData["order"] = _prefix(repository, paginationData["order"], sortAllowed);
+    paginationData.set("order", _prefix(repository, paginationData.get("order"), sortAllowed));
 
     return paginationData;
 }
 
 // Remove alias if needed.
-protected Json[string] _removeAliases(
-    Json[string] fieldNames, string modelAlias) {
+protected Json[string] _removeAliases(Json[string] fieldNames, string modelAlias) {
     Json[string] myResult = null;
-    foreach (myField, sort, fieldNames as) {
+    foreach (myField, sort; fieldNames) {
         if (!myField.contains(".")) {
             myResult.set(myField, sort);
             continue;

@@ -76,18 +76,18 @@ class DOauth {
             "oauth_nonce": uniqid(),
             "oauth_timestamp": time(),
             "oauth_signature_method": "PLAINTEXT",
-            "oauth_token": authCredentials["token"],
-            "oauth_consumer_key": authCredentials["consumerKey"],
+            "oauth_token": authCredentials.get("token"),
+            "oauth_consumer_key": authCredentials.get("consumerKey"),
         ];
         if (authCredentials.hasKey("realm")) {
-            someValues["oauth_realm"] = authCredentials["realm"];
+            someValues.set("oauth_realm", authCredentials.get("realm"));
         }
 
         string[] keys = [
-            authCredentials["consumerSecret"], authCredentials["tokenSecret"]
+            authCredentials["consumerSecret"], authCredentials.get("tokenSecret")
         ];
         string key = keys.join("&");
-        someValues["oauth_signature"] = key;
+        someValues.set("oauth_signature", key);
 
         return _buildAuth(someValues);
     }
@@ -97,8 +97,8 @@ class DOauth {
      * This method is suitable for plain HTTP or HTTPS.
      */
     protected string _hmacSha1(Request request, Json[string] authCredentials) {
-        auto nonce = authCredentials["nonce"] ?  ? uniqid();
-        auto timestamp = authCredentials["timestamp"] ?  ? time();
+        auto nonce = authCredentials.get("nonce", uniqid());
+        auto timestamp = authCredentials.get("timestamp", time());
         someValues = [
             "oauth_version": "1.0",
             "oauth_nonce": nonce,
@@ -111,10 +111,10 @@ class DOauth {
 
         // Consumer key should only be encoded for base string calculation as
         // auth header generation already encodes independently
-        someValues["oauth_consumer_key"] = authCredentials["consumerKey"];
+        someValues.set("oauth_consumer_key", authCredentials["consumerKey"]);
 
         if (authCredentials.hasKey("realm")) {
-            someValues["oauth_realm"] = authCredentials["realm"];
+            someValues.set("oauth_realm", authCredentials["realm"]);
         }
         string[] aKey = [
             authCredentials["consumerSecret"], authCredentials["tokenSecret"]

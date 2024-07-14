@@ -176,20 +176,20 @@ class DPoFileParser {
         }
         translation = stripcslashes(to!string(translation));
 
-        if (context!is null && messages.isNull([singular, "_context", context])) {
+        if (context !is null && messages.isNull([singular, "_context", context])) {
             messages.set([singular, "_context", context], translation);
-        } else if (messages.isNull([singular, "_context."])) {
-            messages.set([singular, "_context."], translation);
+        } else if (messages.isNull([singular, "_context"])) {
+            messages.set([singular, "_context"], translation);
         }
 
         if (ids.hasKey("plural")) {
-            plurals = itemToInspect["translated"];
+            auto plurals = itemToInspect["translated"];
             // PO are by definition indexed so sort by index.
-            ksort(plurals);
+            // ksort(plurals);
 
             // Make sure every index is filled.
-            end(plurals);
-            count = to!int(key(plurals));
+            // end(plurals);
+            auto count = to!int(key(plurals));
 
             // Fill missing spots with an empty string.
             auto empties = array_fill(0, count + 1, "");

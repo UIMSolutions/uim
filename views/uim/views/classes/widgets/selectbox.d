@@ -225,13 +225,13 @@ class DSelectBoxWidget : DWidget {
                 }
                 myoptAttrs["templateVars"] ?  ?  = null;
                 if (_isSelected(to!string(kv.key), selectedValues)) {
-                    myoptAttrs["selected"] = true;
+                    myoptAttrs.set("selected", true);
                 }
                 if (_isDisabled(to!string(kv.key), disabledOptions)) {
-                    myoptAttrs["disabled"] = true;
+                    myoptAttrs.set("disabled", true);
                 }
                 if (!templateVariables.isEmpty) {
-                    myoptAttrs["templateVars"] = array_merge(templateVariables, myoptAttrs["templateVars"]);
+                    myoptAttrs.set("templateVars", array_merge(templateVariables, myoptAttrs["templateVars"]));
                 }
                 myoptAttrs["escape"] = escapeHTML;
 

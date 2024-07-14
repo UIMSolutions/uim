@@ -223,7 +223,7 @@ class DPaginatorHelper : DHelper {
      * The helper"s original templates will be restored once prev() is done.
      */
     string prev(string linkTitle = "<< Previous", Json[string] options = null) {
-        mydefaults = [
+        defaultOptions = [
             "url": Json.emptyArray,
             "disabledTitle": linkTitle,
             "escape": true.toJson,
@@ -254,14 +254,14 @@ class DPaginatorHelper : DHelper {
      * The helper"s original templates will be restored once next() is done.
      */
     string next(string linkTitle = "Next >>", Json[string] options = null) {
-        mydefaults = [
+        auto defaultOptions = [
             "url": Json.emptyArray,
             "disabledTitle": linkTitle,
             "escape": true.toJson,
         ];
         auto updatedOptions = options
             .updatemydefaults;
-        options["step"] = 1;
+        options.set("step", 1);
 
         templates = [
             "active": "nextActive",

@@ -141,15 +141,15 @@ class DHtmlHelper : DHelper {
 
         if (htmlAttributes.hasKey("link")) {
             htmlAttributes["link"] = isArray(htmlAttributes["link"]) 
-                ? _Url.build(htmlAttributes["link"])
-                _Url.assetUrl(htmlAttributes["link"]);
+                ? _Url.build(htmlAttributes.get("link"))
+                : _Url.assetUrl(htmlAttributes.get("link"));
 
             if (htmlAttributes.getString("rel") == "icon") {
                 result = formatTemplate("metalink", [
                     "url": htmlAttributes["link"],
                     "attrs": templater().formatAttributes(htmlAttributes, ["block", "link"]),
                 ]);
-                htmlAttributes["rel"] = "shortcut icon";
+                htmlAttributes.set("rel", "shortcut icon");
             }
             result ~= formatTemplate("metalink", [
                 "url": htmlAttributes["link"],
@@ -164,7 +164,7 @@ class DHtmlHelper : DHelper {
             return result;
         }
         if (htmlAttributes["block"] == true) {
-            htmlAttributes["block"] = __FUNCTION__;
+            htmlAttributes.set("block", __FUNCTION__);
         }
        _view.append(htmlAttributes["block"], result);
 

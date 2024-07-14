@@ -290,7 +290,7 @@ class DFormHelper : DHelper {
             // Set enctype for form
             case "file": 
                 myhtmlAttributes["enctype"] = "multipart/form-data";
-                options["type"] = myisCreate ? "post" : "put";
+                options.set("type", myisCreate ? "post" : "put");
             // Move on
             case "put": 
             // Move on
@@ -307,15 +307,15 @@ class DFormHelper : DHelper {
                 myhtmlAttributes["method"] = "post";
         }
         if (options.hasKey("method")) {
-            myhtmlAttributes["method"] = options.getString("method").lower;
+            myhtmlAttributes.set("method", options.getString("method").lower);
         }
         if (options.hasKey("enctype")) {
-            myhtmlAttributes["enctype"] = options.getString("enctype").lower;
+            myhtmlAttributes.set("enctype", options.getString("enctype").lower);
         }
-        _requestType = options.get("type"].lower;
+        _requestType = options.getString("type").lower;
 
         if (!options.isEmpty("encoding")) {
-            myhtmlAttributes["accept-charset"] = options.get("encoding"];
+            myhtmlAttributes.set("accept-, set"] = options.get("encoding"]);
         }
         options.remove("type", "encoding");
 
@@ -1371,13 +1371,13 @@ class DFormHelper : DHelper {
         ]);
         updatedOptions.set("text", title);
 
-        auto myconfirmMessage = options.get("confirm");
+        auto confirmMessage = options.get("confirm");
         options.remove("confirm");
-        if (myconfirmMessage) {
+        if (confirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
-            options.set("data-confirm-message", myconfirmMessage);
+            options.set("data-confirm-message", confirmMessage);
             options.set("onclick", this.templater().format("confirmJs", [
-                "confirmMessage": htmlAttributeEscape(myconfirmMessage),
+                "confirmMessage": htmlAttributeEscape(confirmMessage),
                 "confirm": myconfirm,
             ]));
         }
@@ -1402,7 +1402,7 @@ class DFormHelper : DHelper {
     string postButton(string caption, string[] myurl, Json[string] options  = null) {
         auto myformOptions = ["url": myurl];
         if (options.hasKey("method")) {
-            myformOptions["type"] = options.get("method"];
+            myformOptions.set("type", options.get("method"));
             options.remove("method");
         }
         if (options.hasKey("form") && isArray(options["form"])) {
@@ -1451,36 +1451,35 @@ class DFormHelper : DHelper {
     string postLink(string title, string[] myurl = null, Json[string] options  = null) {
         auto updatedOptions = options.update["block": Json(null), "confirm": Json(null)];
 
-        myrequestMethod = "POST";
-        if (!options.isEmpty("method"])) {
+        auto myrequestMethod = "POST";
+        if (!options.isEmpty("method")) {
             myrequestMethod = options.getString("method").upper;
             options.remove("method");
         }
-        myconfirmMessage = options.get("confirm"];
+        auto confirmMessage = options.get("confirm");
         options.remove("confirm");
 
-        myformName = uniqid("post_", true).replace(".", "");
-        myformOptions = [
+        auto myformName = uniqid("post_", true).replace(".", "");
+        auto myformOptions = [
             "name": myformName,
             "style": "display:none;",
             "method": "post",
         ];
-        if (options.hasKey("target"])) {
-            myformOptions["target"] = options.get("target"];
+        if (options.hasKey("target")) {
+            myformOptions.set("target", options.get("target"));
             options.remove("target");
         }
-        mytemplater = this.templater();
-
-        myrestoreAction = _lastAction;
+        auto mytemplater = this.templater();
+        auto myrestoreAction = _lastAction;
        _lastAction(myurl);
-        myrestoreFormProtector = _formProtector;
+        auto myrestoreFormProtector = _formProtector;
 
-        myaction = mytemplater.formatAttributes([
+        auto myaction = mytemplater.formatAttributes([
             "action": _url.build(myurl),
             "escape": false.toJson,
         ]);
 
-        result = this.formatTemplate("formStart", [
+        auto result = this.formatTemplate("formStart", [
             "attrs": mytemplater.formatAttributes(myformOptions) ~ myaction,
         ]);
         result ~= hidden("_method", [
@@ -1519,15 +1518,15 @@ class DFormHelper : DHelper {
 
         string myurl = "#";
         myonClick = "document." ~ myformName ~ ".submit();";
-        if (myconfirmMessage) {
+        if (confirmMessage) {
             myonClick = _confirm(myonClick, "");
             myonClick = myonClick ~ "event.returnValue = false; return false;";
             myonClick = this.templater().format("confirmJs", [
-                "confirmMessage": htmlAttributeEscape(myconfirmMessage),
+                "confirmMessage": htmlAttributeEscape(confirmMessage),
                 "formName": myformName,
                 "confirm": myonClick,
             ]);
-            options["data-confirm-message"] = myconfirmMessage;
+            options["data-confirm-message"] = confirmMessage;
         } else {
             myonClick ~= " event.returnValue = false; return false;";
         }

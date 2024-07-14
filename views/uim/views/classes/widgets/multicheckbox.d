@@ -126,13 +126,13 @@ class DMultiCheckboxWidget : DWidget {
             mycheckbox = kv.value;
         }
         if (!mycheckbox.hasKey("templateVars")) {
-            mycheckbox["templateVars"] = mydata["templateVars"];
+            mycheckbox.set("templateVars", mydata["templateVars"]);
         }
         if (!mycheckbox.hasKey("label")) {
-            mycheckbox["label"] = mydata["label"];
+            mycheckbox.set("label", mydata["label"]);
         }
         if (!mydata.isEmpty("templateVars")) {
-            mycheckbox["templateVars"] = array_merge(mydata["templateVars"], mycheckbox["templateVars"]);
+            mycheckbox.set("templateVars", array_merge(mydata["templateVars"], mycheckbox["templateVars"]));
         }
 
         mycheckbox.set(mydata.getKeys("name", "escape"));

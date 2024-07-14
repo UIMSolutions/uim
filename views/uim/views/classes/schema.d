@@ -118,24 +118,24 @@ auto Schema() {
 
 unittest {
     STRINGAA[string] fields;
-    fields["a"] = [
+    fields.set("a", [
         "type": Json(null),
         "length": Json(null),
         "precision": Json(null),
         "default": Json(null),
-    ];
+    ]);
 
-    fields["b"] = [
+    fields.set("b", [
         "type": Json(null),
         "length": Json(null),
         "default": Json(null),
-    ];
+    ]);
 
-    fields["c"] = [
+    fields.set("c", [
         "type": Json(null),
         "length": Json(null),
         "default": Json(null),
-    ];
+    ]);
 
     auto schema = Schema.addFields(fields);
     assert(schema.hasField("a"), "Field a is missing");

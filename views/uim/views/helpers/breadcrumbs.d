@@ -162,7 +162,7 @@ class DBreadcrumbsHelper : DHelper {
             if (separator.hasKey("innerAttrs")) {
                 separator.set("innerAttrs", mytemplater.formatAttributes(separator["innerAttrs"]));
             }
-            separator["attrs"] = mytemplater.formatAttributes(
+            separator.set("attrs", mytemplater.formatAttributes)(
                 separator,
                 ["innerAttrs", "separator"]
            );
@@ -194,7 +194,7 @@ class DBreadcrumbsHelper : DHelper {
                 mytemplate = "itemWithoutLink";
             }
             if (myseparatorString && key != mycrumbsCount - 1) {
-                mytemplateParams["separator"] = myseparatorString;
+                mytemplateParams.set("separator", myseparatorString);
             }
             mycrumbTrail ~= this.formatTemplate(mytemplate, mytemplateParams);
         }

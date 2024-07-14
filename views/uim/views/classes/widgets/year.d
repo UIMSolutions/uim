@@ -49,8 +49,8 @@ class DYearWidget : DWidget {
         if (updatedData.hasKey("max")) {
             updatedData["max"] = date("Y", strtotime("+5 years"));
         }
-        updatedData["min"] = updatedData.getLong("min");
-        updatedData["max"] = updatedData.getLong("max");
+        updatedData.set("min", updatedData.getLong("min"));
+        updatedData.set("max", updatedData.getLong("max"));
 
         if (
             cast(DChronosDate)mydata["val"]  ||

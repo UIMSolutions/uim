@@ -429,7 +429,7 @@ class DHtmlHelper : DHelper {
         }
 
         if (htmlAttributes["block"] == true) {
-            htmlAttributes["block"] = __FUNCTION__;
+            htmlAttributes.set("block", __FUNCTION__);
         }
        _view.append(htmlAttributes["block"], result);
 
@@ -647,21 +647,22 @@ class DHtmlHelper : DHelper {
         auto index = 0;
         auto mycellsOut = null;
         linesToRender.each!((cell) {
-            mycellOptions = null;
+            auto cellOptions = null;
 
             if (isArray(cell)) {
-                mycellOptions = cell[1];
+                cellOptions = cell[1];
                 cell = cell[0];
             }
             if (shouldUseCount) {
                 index += 1;
 
 
-                mycellOptions["class"] = mycellOptions.hasKey("class")
-                    ? mycellOptions.getString("class") ~ " column-" ~ index
-                    : "column-" ~ index;
+                cellOptions.set("class", cellOptions.hasKey("class")
+                    ? cellOptions.getString("class") ~ " column-" ~ index
+                    : "column-" ~ index
+                );
             }
-            mycellsOut ~= tableCell(/* (string) */cell, mycellOptions);
+            mycellsOut ~= tableCell(/* (string) */cell, cellOptions);
         });
         return mycellsOut;
     }

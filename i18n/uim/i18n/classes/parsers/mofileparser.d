@@ -68,7 +68,7 @@ class MoFileParser {
 
         messages = null; */
         size_t count = 0;
-        for (index = 0; index < count; index++) {
+        // for (auto index = 0; index < count; index++) {
             /* pluralId = null;
             context = null;
             plurals = null;
@@ -113,11 +113,11 @@ class MoFileParser {
                 }
                 continue;
             }
-            messages[singularId]["_context."] = singular;
-            if (pluralId!is null) {
-                messages[pluralId]["_context."] = plurals;
+            messages.set([singularId, "_context."], singular);
+            if (pluralId !is null) {
+                messages.set([pluralId, "_context."], plurals);
             } */
-        }
+        // }
         // fclose(stream);
 
         // return messages;

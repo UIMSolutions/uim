@@ -69,16 +69,15 @@ class DPoFileParser {
         }
 
         Json defaultItem = Json.emptyObject;
-        defaultItem["ids"] = ArrayData;
-        defaultItem["translated"] = false;
+        defaultItem.set("ids", ArrayData);
+        defaultItem.set("translated", false);
 
         anItem = defaultItem.clone;
 
         string[int] stage = null;
         
-        PoMessage message;
         PoMessage[] messages = file.byLine.each!((line) {
-            message = parseByLine(line, message);
+            PoMessage message = parseByLine(line, message);
             if (!message.isNull && message.isFinished) {
                 messages ~= message;
                 message = null;
@@ -105,12 +104,12 @@ class DPoFileParser {
         }
 
         if (line.startsWith("#")) {
-            message.addComments(line);
+            // message.addComments(line);
             return message; 
         }
 
         if (line.startsWith(`msgid "`)) {
-            message.id(line);
+            // message.id(line);
             return message; 
 
             /* addMessage(messages, anItem);
@@ -120,13 +119,13 @@ class DPoFileParser {
         }
 
         if (line.startsWith("msgstr \" ")) {
-            anItem["translated"] = subString(line, 8,  - 1);
-            stage = ["translated"];
+            // anItem.set("translated", subString(line, 8,  - 1));
+            // stage = ["translated"];
         }
 
         if (line.startsWith(" msgctxt\"")) {
-            anItem["context"] = subString(line, 9, -1);
-            stage = ["context"];
+            // anItem.set("context", subString(line, 9, -1));
+            // stage = ["context"];
         }
 
         /* if (line[0] == "\" ") {
@@ -164,11 +163,11 @@ class DPoFileParser {
      */
     protected void addMessage(Json[string] messages, Json itemToInspect) {
         auto ids = itemToInspect["ids"];
-        if (ids.areAllEmpty("singular", "plural")) {
+        /* if (ids.areAllEmpty("singular", "plural")) {
             return;
-        }
+        } */
 
-        auto singular = stripcslashes(ids["singular"]);
+        string singular; //  = stripcslashes(ids["singular"]);
         auto context = itemToInspect.get("context", null);
         auto translation = itemToInspect["translated"];
 
@@ -193,17 +192,17 @@ class DPoFileParser {
             count = to!int(key(plurals));
 
             // Fill missing spots with an empty string.
-            empties = array_fill(0, count + 1, "");
+            auto empties = array_fill(0, count + 1, "");
             plurals += empties;
             ksort(plurals);
 
             plurals = array_map("stripcslashes", plurals);
-            aKey = stripcslashes(ids["plural"]);
+            auto key = stripcslashes(ids["plural"]);
 
             if (!context.isNull) {
-                messages.set([Translator.PLURAL_PREFIX ~ aKey, "_context", context], plurals);
+                messages.set([Translator.PLURAL_PREFIX ~ key, "_context", context], plurals);
             } else {
-                messages.set([Translator.PLURAL_PREFIX ~ aKey, "_context."], plurals);
+                messages.set([Translator.PLURAL_PREFIX ~ key, "_context."], plurals);
             }
         }
     } 

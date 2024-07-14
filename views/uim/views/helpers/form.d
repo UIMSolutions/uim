@@ -1362,24 +1362,24 @@ class DFormHelper : DHelper {
      * string title The button"s caption. Not automatically HTML encoded
      */
     string button(string title, Json[string] options  = null) {
-        auto updatedOptions = options.update[
+        Json[string] updatedOptions = options.update([
             "type": "submit".toJson,
             "escapeTitle": true.toJson,
             "escape": true.toJson,
             "secure": false.toJson,
             "confirm": Json(null),
-        ];
-        updatedOptions["text"] = title;
+        ]);
+        updatedOptions.set("text", title);
 
-        auto myconfirmMessage = options.get("confirm"];
+        auto myconfirmMessage = options.get("confirm");
         options.remove("confirm");
         if (myconfirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
-            options["data-confirm-message"] = myconfirmMessage;
-            options["onclick"] = this.templater().format("confirmJs", [
+            options.set("data-confirm-message", myconfirmMessage);
+            options.set("onclick", this.templater().format("confirmJs", [
                 "confirmMessage": htmlAttributeEscape(myconfirmMessage),
                 "confirm": myconfirm,
-            ]);
+            ]));
         }
         return _widget("button", options);
     }

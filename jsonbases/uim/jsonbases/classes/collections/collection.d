@@ -325,13 +325,13 @@ abstract class DJsonCollection : IJsonCollection {
 
       bool removeOne(UUID id, bool allVersions = false) {
         Json json = Json.emptyObject;
-        json["id"] = id.toString;
+        json.set("id", id.toString);
         return removeOne(json, allVersions); }
 
       bool removeOne(UUID id, size_t versionNumber) {
         Json json = Json.emptyObject;
-        json["id"] = id.toString;
-        json["versionNumber"] = versionNumber;
+        json.set("id", id.toString);
+        json.set("versionNumber", versionNumber);
         return removeOne(json); }
 
       /// RemoveMany by select (STRINGAA)

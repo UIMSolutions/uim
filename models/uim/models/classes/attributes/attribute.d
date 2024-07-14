@@ -206,35 +206,35 @@ class DAttribute : UIMObject, IAttribute { // TODO:  /* DEntity,  */ IAttribute 
     auto result = Json.emptyObject;
 
     // Fields
-    result["isNullable"] = this.isNullable;
-    result["valueType"] = this.valueType;
-    result["keyType"] = this.keyType;
-    result["dataType_display"] = this.dataType_display;
-    result["defaultValueLong"] = this.defaultValueLong;
-    result["defaultValueString"] = this.defaultValueString;
-    result["baseDynamicPropertyId"] = this.baseDynamicPropertyId;
-    result["overwrittenDynamicPropertyId"] = this.overwrittenDynamicPropertyId;
-    result["rootDynamicPropertyId"] = this.rootDynamicPropertyId;
-    result["precision"] = this.precision;
-    result["stateCode"] = this.stateCode;
-    result["stateCode_display"] = this.stateCode_display;
-    result["statusCode"] = this.statusCode;
-    result["statusCode_display"] = this.statusCode_display;
-    result["regardingObjectId"] = this.regardingObjectId;
-    result["defaultValueDouble"] = this.defaultValueDouble;
-    result["minValueDouble"] = this.minValueDouble;
-    result["maxValueDouble"] = this.maxValueDouble;
-    result["minValueLong"] = this.minValueLong;
-    result["maxValueLong"] = this.maxValueLong;
-    result["isReadOnly"] = this.isReadOnly;
-    result["isHidden"] = this.isHidden;
-    result["isRequired"] = this.isRequired;
-    result["isArray"] = this.isArray;
-    result["isAssociativeArray"] = this.isAssociativeArray;
-    result["maxLengthString"] = this.maxLengthString;
-    result["defaultValueOptionSet"] = this.defaultValueOptionSet;
+    result.set("isNullable", this.isNullable);
+    result.set("valueType", this.valueType);
+    result.set("keyType", this.keyType);
+    result.set("dataType_display", this.dataType_display);
+    result.set("defaultValueLong", this.defaultValueLong);
+    result.set("defaultValueString", this.defaultValueString);
+    result.set("baseDynamicPropertyId", this.baseDynamicPropertyId);
+    result.set("overwrittenDynamicPropertyId", this.overwrittenDynamicPropertyId);
+    result.set("rootDynamicPropertyId", this.rootDynamicPropertyId);
+    result.set("precision", this.precision);
+    result.set("stateCode", this.stateCode);
+    result.set("stateCode_display", this.stateCode_display);
+    result.set("statusCode", this.statusCode);
+    result.set("statusCode_display", this.statusCode_display);
+    result.set("regardingObjectId", this.regardingObjectId);
+    result.set("defaultValueDouble", this.defaultValueDouble);
+    result.set("minValueDouble", this.minValueDouble);
+    result.set("maxValueDouble", this.maxValueDouble);
+    result.set("minValueLong", this.minValueLong);
+    result.set("maxValueLong", this.maxValueLong);
+    result.set("isReadOnly", this.isReadOnly);
+    result.set("isHidden", this.isHidden);
+    result.set("isRequired", this.isRequired);
+    result.set("isArray", this.isArray);
+    result.set("isAssociativeArray", this.isAssociativeArray);
+    result.set("maxLengthString", this.maxLengthString);
+    result.set("defaultValueOptionSet", this.defaultValueOptionSet);
 
-    result["attribute"] = this.attribute.toString;
+    result.set("attribute", this.attribute.toString);
 
     return result;
   }

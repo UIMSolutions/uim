@@ -153,7 +153,7 @@ class DRoute : IRoute {
     
     // Set host requirement
     void setHost(string hostName) {
-        configuration.set("_host"] = hostName;
+        configuration.set("_host", hostName);
     }
     
     // Set the names of parameters that will be converted into passed parameters

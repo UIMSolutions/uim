@@ -184,22 +184,24 @@ class DNumber {
             return options.getString("zero");
         }
 
-        auto formatter = formatter(
-            ["type": getDefaultCurrencyFormat()].merge(options));
+        /* auto formatter = formatter(
+        
+            ["type": getDefaultCurrencyFormat()]/* .merge(options) * /); */
         auto abs = abs(doubleValue);
         if (
             !options.isEmpty("fractionSymbol") && abs > 0 && abs < 1) {
             doubleValue *= 100;
             string pos = options.get("fractionPosition", "after");
-            return format(doubleValue, [
+            /* return format(doubleValue, [
                     "precision": 0,
-                    pos: options.get("fractionSymbol")
-                ]);
+                    /* pos: options.get("fractionSymbol") * /
+                ]); */
         }
         auto before = options.getString("before", "");
         auto after = options.getString("after", "");
-        return before ~ formatter.formatCurrency(
-            doubleValue, currencyName) ~ after;
+        /* return before ~ formatter.formatCurrency(
+            doubleValue, currencyName) ~ after; */
+        return null; 
     }
 
     // Getter for default currency
@@ -265,7 +267,7 @@ class DNumber {
         if (!locale) {
             locale = "DEFAULT_LOCALE";
         }
-        auto type = cast(string) NumberFormatters.DECIMAL;
+        auto type = cast(string)NumberFormatters.DECIMAL;
         if (!options.isEmpty("type")) {
             type = options.getString("type");
             if (type == FORMAT_CURRENCY) {

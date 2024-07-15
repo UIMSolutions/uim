@@ -60,7 +60,7 @@ version(testUimJsonbase) {
   /// 
   unittest {
     auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}], "i": 1}`);
-    /*    assert(checkVersion(json, ["a": "b"]), 
+    /*   assert(checkVersion(json, ["a": "b"]), 
         "Wrong CheckVersion result. Should be true -> %s for %s using %s".format(checkVersion(json, ["a": "b"]), json, ["a": "b"])); */
 
     assert(checkVersion(json, ["a": "b", "i": "1"]));

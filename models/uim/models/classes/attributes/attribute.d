@@ -92,7 +92,7 @@ class DAttribute : UIMObject, IAttribute { // TODO:  /* DEntity,  */ IAttribute 
      } */
 
   // Create a new attribute based on this attribute - using attribute name 
-  /*  auto createAttribute() {
+  /* auto createAttribute() {
     return createAttribute(_name); } */
 
   Json createValue() {
@@ -243,7 +243,7 @@ class DAttribute : UIMObject, IAttribute { // TODO:  /* DEntity,  */ IAttribute 
   }
 }
 
-  /*  alias opIndexAssign = DElement.opIndexAssign;
+  /* alias opIndexAssign = DElement.opIndexAssign;
   alias opIndexAssign = DEntity.opIndexAssign; */
   auto Attribute() {
     return new DAttribute;

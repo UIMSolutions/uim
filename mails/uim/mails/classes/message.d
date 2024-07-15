@@ -410,7 +410,7 @@ class DMessage { //: JsonSerializable {
     protected void setEmail(string propertyName, string[string] emails, string aName) {
         string[string] list = null;
         email.byKeyValue.each!((kv) {
-/*             if (isInteger(kv.key)) {
+/*            if (isInteger(kv.key)) {
                 kv.key = kv.value;
             } */
             validateEmail(kv.key, propertyName);

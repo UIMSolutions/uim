@@ -84,7 +84,7 @@ mixin template TDateFormat() {
      * time = Time.parseDateTime("10/10/2015", [IntlDateFormatters.SHORT, IntlDateFormatters.NONE]);
      * ```
      */
-    /*     protected static auto _parseDateTime(
+    /*    protected static auto _parseDateTime(
         string timeToParse,
         string[] dateFormat,
         /* DateTimeZone| / string timezone = null

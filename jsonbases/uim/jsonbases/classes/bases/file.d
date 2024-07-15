@@ -12,13 +12,13 @@ unittest {
 class DFileJsonBase : DJsonBase {
   mixin(JsonBaseThis!("FileJsonBase"));
 
-/*  this(string newRootPath) {
+/* this(string newRootPath) {
     this(); this.rootPath(newRootPath); 
   } */
 
   mixin(TProperty!("string", "rootPath"));
 
-/*  void load() {
+/* void load() {
     IFilesystem myFilesystem;
     version(Windows) {
       myFilesystem = WindowsFilesystem;
@@ -30,7 +30,7 @@ class DFileJsonBase : DJsonBase {
     if (auto rootFolder = myFilesystem.folder(rootPath)) {
       auto folders = rootFolder.folders;
       folders.each!(f => writeln(f.name)); */
-/*      auto dirs = dirNames(rootPath);  
+/*     auto dirs = dirNames(rootPath);  
       debug writeln(__MODULE__~" - found dirs ", dirs);
 
       foreach(myDir; dirs) {
@@ -38,7 +38,7 @@ class DFileJsonBase : DJsonBase {
         _tenants[myDir] = FileJsonTenant(rootPath~"/"~myDir);
       }      
  */    
-/*    }
+/*   }
   } */
 
   // Create

@@ -50,7 +50,7 @@ class DI18n {
         /* if (class_exists(Cache.classname)) {
             _collection.cacher(Cache.pool("_uim_core_"));
         } */
-       /*  return _collection; */
+       /* return _collection; */
        return null; 
     }
     
@@ -114,7 +114,7 @@ class DI18n {
             throw new DI18nException(
                 "Translator for domain `%s` could not be found.".format("domainname"));
         }
-       /*  if (isSet(currentLocale)) {
+       /* if (isSet(currentLocale)) {
             translators.setLocale(currentLocale);
         } */
         return translator;
@@ -158,7 +158,7 @@ class DI18n {
      * });
      * ```
      */
-/*     static void config(string translatorName, callable loader) {
+/*    static void config(string translatorName, callable loader) {
         translators().registerLoader(translatorName, loader);
     }
  */    

@@ -4,7 +4,7 @@ import uim.jsonbases;
 
 @safe:
 template FolderByIdAndFileByNumber() {
-/*  IFolder idFolder = folder.folder(myId);
+/* IFolder idFolder = folder.folder(myId);
   if (idFolder.isNull) { 
       return false; 
     }

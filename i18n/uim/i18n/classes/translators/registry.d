@@ -93,7 +93,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     }
     
     // Sets the CacheEngine instance used to remember translators across requests.
-   /*  void cacher(/* ICache * / DCacheEngine cacher) {
+   /* void cacher(/* ICache * / DCacheEngine cacher) {
        _cacher = cacher;
     } */
     
@@ -127,7 +127,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             return _createInstance(catalogName, localname);
         } */
 
-       /*  ICatalog catalog = _loaders.hasKey(catalogName)
+       /* ICatalog catalog = _loaders.hasKey(catalogName)
             ? _loaders[catalogName](catalogName, localname)
             : _loaders[FALLBACK_LOADER](catalogName, localname);
 

@@ -65,14 +65,14 @@ abstract class DJsonCollection : IJsonCollection {
       }
     // #endregion has()
 
-/*  Json lastVersion(string colName, UUID id) { return Json(null); }
+/* Json lastVersion(string colName, UUID id) { return Json(null); }
   size_t lastVersionNumber(string colName, UUID id) { return 0; }
   
   Json[] versions(string colName, UUID id) {
     return null;
   }
  */
-/*  Json[] versions(Json[size_t][UUID] col, UUID id) {
+/* Json[] versions(Json[size_t][UUID] col, UUID id) {
     if (id !in col) return null;
     return col[id].byValue.array; }
 

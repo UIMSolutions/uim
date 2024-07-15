@@ -1002,13 +1002,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a less than or equal comparison rule to a field.
-     * Params:
-     * @param float valueToCompare The value user data must be less than or equal to.
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a less than or equal comparison rule to a field.
     auto lessThanOrEqual(
         string fieldName,
         float valueToCompare,
@@ -1035,8 +1029,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto equals(
         string fieldName,
         Json valueToCompare,
-        string errorMessage = null, /*Closure|*/
-        string mywhen = null
+        string errorMessage = null, 
+        /*Closure|*/ string mywhen = null
     ) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n

@@ -1338,21 +1338,14 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         getSelectTypeMap().addDefaults(mytypes);
     }
     
-    /**
- Params:
-     * string myfinder The finder method to use.
-     * @param Json ...myargs Arguments that match up to finder-specific parameters
-     */
-    static find(string myfinder, Json ...myargs) {
-        mytable = getRepository();
+    static find(string finderMethod, Json[string] myargs) {
+        auto mytable = getRepository();
 
         /** @psalm-suppress LessSpecificReturnStatement */
-        return mytable.callFinder(myfinder, this, ...myargs);
+        return mytable.callFinder(finderMethod, this, myargs);
     }
     
-    /**
-     * Disable auto adding table"s alias to the fields of SELECT clause.
-     */
+    // Disable auto adding table"s alias to the fields of SELECT clause.
     auto disableAutoAliasing() {
         _aliasingEnabled = false;
 
@@ -1385,7 +1378,6 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     /**
      * Executes the query and converts the result set into Json.
-     *
      * Part of JsonSerializable interface.
      */
     IResultset<(\UIM\Datasource\IORMEntity|mixed)> JsonSerialize() {
@@ -1397,22 +1389,14 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * By default calling select() will disable auto-fields. You can re-enable
      * auto-fields with this method.
-     * Params:
-     * bool myvalue Set true to enable, false to disable.
      */
-    auto enableAutoFields(bool myvalue = true) {
-       _autoFields = myvalue;
-
-        return this;
+    void enableAutoFields(bool isEnabled = true) {
+       _autoFields = isEnabled;
     }
     
-    /**
-     * Disables automatically appending fields.
-     */
-    auto disableAutoFields() {
+    // Disables automatically appending fields.
+    void disableAutoFields() {
        _autoFields = false;
-
-        return this;
     }
     
     /**

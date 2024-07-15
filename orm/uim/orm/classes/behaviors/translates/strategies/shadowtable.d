@@ -443,15 +443,15 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * fields into each entity for a given locale.
      */
     protected ICollection rowMapper(IResultset results, string locale) {
-        allowEmpty = configuration
+        auto allowEmpty = configuration
             .get(
                 "allowEmptyTranslations");
 
-        return results.map(
+        /* return results.map(
             function(
                 row) use(
                 allowEmpty, locale) {
-            /** @var DORMdatasources.IORMEntity|array|null row */
+            /** @var DORMdatasources.IORMEntity|array|null row * /
             if (
                 row == null) {
                 return row;
@@ -459,65 +459,50 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
             hydrated = !(
                 row
-                .isArray;
-            if (
-                empty(
-                row["translation"])) {
-                row["_locale"] = locale;
-                remove(
-                    row["translation"]);
-                if (
-                    hydrated) {
-                    /** @psalm-suppress PossiblyInvalidMethodCall */
-                    row.clean();
-                }
+                .isArray; if (
+                    empty(
+                    row["translation"])) {
+                    row["_locale"] = locale; remove(
+                    row["translation"]); if (
+                        hydrated) {
+                        /** @psalm-suppress PossiblyInvalidMethodCall * /
+                        row.clean();}
 
-                return row;
-            }
+                        return row;}
 
-            /** @var DORMEntity|array translation */
-            translation = row["translation"]; /**
+                        /** @var DORMEntity|array translation * /
+                        translation = row["translation"];  /**
              * @psalm-suppress PossiblyInvalidMethodCall
              * @psalm-suppress PossiblyInvalidArgument
-             */
-            keys = hydrated ? translation
-                .visibleFields() : translation
-                .keys;
-            foreach (field; keys) {
-                if (
-                    field == "locale") {
-                    row["_locale"] = translation[field];
-                    continue;
-                }
+              * /
+                        keys = hydrated ? translation
+                        .visibleFields() : translation
+                        .keys; foreach (field; keys) {
+                            if (
+                                field == "locale") {
+                                row["_locale"] = translation[field]; continue;}
 
-                if (
-                    translation[field] != null) {
-                    if (allowEmpty || translation[field] != "") {
-                        row[field] = translation[field];
-                    }
-                }
-            }
+                                if (
+                                    translation[field] != null) {
+                                    if (allowEmpty || translation[field] != "") {
+                                        row[field] = translation[field];}
+                                    }
+                                }
 
-            remove(
-                row["translation"]);
-            if (
-                hydrated) {
-                /** @psalm-suppress PossiblyInvalidMethodCall */
-                row.clean();
-            }
+                                remove(
+                                row["translation"]); if (
+                                    hydrated) {
+                                    /** @psalm-suppress PossiblyInvalidMethodCall * /
+                                    row.clean();}
 
-            return row;
-        });
+                                    return row;}); */
     }
 
     /**
      * Modifies the results from a table find in order to merge full translation
      * records into each entity under the `_translations` key.
-     *
-     * @param DORMDatasource\IResultset results Results to modify.
      */
-    ICollection groupTranslations(
-        results) {
+    ICollection groupTranslations(IResultset results) {
         return results.map(
             function(
                 row) {
@@ -530,16 +515,13 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             }
 
             result = null;
-            foreach (
-                translations as translation) {
-                remove(
-                    translation["id"]);
-                result[translation["locale"]] = translation;
+            foreach (translation; translations) {
+                translation.remove("id");
+                result.set(translation.getString("locale"), translation);
             }
 
-            row["_translations"] = result;
-            remove(
-                row["_i18n"]);
+            row.set("_translations", result);
+            row.remove("_i18n");
             if (
                 cast(
                 IORMEntity) row) {
@@ -612,35 +594,22 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         return fields;
     }
 
-    /**
-     * Lazy define and return the translation table fields.
-     *
-     */
+    // Lazy define and return the translation table fields.
     protected string[] translatedFields() {
-        fields = getConfig(
-            "fields");
-        if (
-            fields) {
+        auto fields = getConfig("fields");
+        if (fields) {
             return fields;
         }
 
-        table = this
-            .translationTable;
+        auto table = _translationTable;
         fields = table.getSchema()
             .columns();
         fields = array_values(
             array_diff(
                 fields, [
-                    "id",
-                    "locale"
+                    "id", "locale"
                 ]));
-        configuration.update(
-            "fields", fields);
-
+        configuration.update("fields", fields);
         return fields;
     }
-
-    
-
-    *  /
 }

@@ -192,11 +192,8 @@ class DTreeBehavior : DBehavior {
      * Sets the correct left and right values for the passed entity so it can be
      * updated to a new parent. It also makes the hole in the tree so the node
      * move can be done without corrupting the structure.
-     *
-     * @param DORMDatasource\IORMEntity ormEntity The entity to re-parent
-     * @param mixed parent the id of the parent to set
      */
-    protected void _setParent(IORMEntity ormEntity, parent) {
+    protected void _setParent(IORMEntity ormEntity, Json parent) {
         auto configData = configuration.data;
         auto parentNode = _getNode(parent);
         _ensureFields(entity);
@@ -214,11 +211,11 @@ class DTreeBehavior : DBehavior {
         }
 
         // Values for moving to the left
-        diff = right - left + 1;
-        targetLeft = parentRight;
-        targetRight = diff + parentRight - 1;
-        min = parentRight;
-        max = left - 1;
+        auto diff = right - left + 1;
+        auto targetLeft = parentRight;
+        auto targetRight = diff + parentRight - 1;
+        auto min = parentRight;
+        auto max = left - 1;
 
         if (left < targetLeft) {
             // Moving to the right

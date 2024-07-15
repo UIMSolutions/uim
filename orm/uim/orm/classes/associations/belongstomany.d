@@ -548,21 +548,13 @@ class DBelongsToManyAssociation : DAssociation {
         return parentEntity;
     }
 
-    /**
-     * Creates links between the source entity and each of the passed target entities
-     *
-     * @param DORMDatasource\IORMEntity sourceEntity the entity from source table in this
-     * association
-     * @param array<DORMDatasource\IORMEntity> targetEntities list of entities to link to link to the source entity using the
-     * junction table
-     * @param Json[string] options list of options accepted by `Table.save()`
-     */
-    protected bool _saveLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
+    // Creates links between the source entity and each of the passed target entities
+    protected bool _saveLinks(IORMEntity sourceEntity, IORMEntity[string] targetEntities, Json[string] options = null) {
         auto target = getTarget();
         auto junction = this.junction();
         auto entityClass = junction.getEntityClass();
         auto belongsTo = junction.getAssociation(target.aliasName());
-        auto foreignKeys = (array)foreignKeys();
+        auto foreignKeys = foreignKeys();
         auto assocForeignKey = /* (array) */belongsTo.foreignKeys();
         auto targetBindingKey = /* (array) */belongsTo.getBindingKey();
         auto bindingKey = /* (array) */getBindingKey();
@@ -785,14 +777,13 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * If your association includes conditions or a finder, the junction table will be
      * included in the query"s contained associations.
-     *
-     * @param Json[string]|string type the type of query to perform, if an array is passed,
-     *  it will be interpreted as the `options` parameter
      */
-/*     Query find(Json[string]|string queryType = null, Json[string] options = null) {
+
+/*  Query find(Json[string]|string queryType = null, Json[string] options = null) {
     } */
-    Query find(Json[string]|string queryType = null, Json[string] options = null) {
-        queryType = queryType ?: getFinder();
+
+    DQuery find(string queryType = null, Json[string] options = null) {
+/*         queryType = queryType ?: getFinder();
         [queryType, opts] = _extractFinder(queryType);
         query = getTarget()
             .find(queryType, options + opts)
@@ -803,13 +794,10 @@ class DBelongsToManyAssociation : DAssociation {
             return _appendJunctionJoin(query);
         }
 
-        return query;
+        return query; */
     }
 
-    /**
-     * Append a join to the junction table.
-     * @param array|null conditions The query conditions to use.
-     */
+    // Append a join to the junction table.
     protected DORMQuery _appendJunctionJoin(DORMQuery query, Json[string] conditions = null) {
         auto junctionTable = this.junction();
         if (conditions == null) {
@@ -954,11 +942,6 @@ class DBelongsToManyAssociation : DAssociation {
      * Helper method used to delete the difference between the links passed in
      * `existing` and `jointEntities`. This method will return the values from
      * `targetEntities` that were not deleted from calculating the difference.
-     *
-     * @param DORMQuery existing a query for getting existing links
-     * @param array<DORMDatasource\IORMEntity> jointEntities link entities that should be persisted
-     * @param Json[string] targetEntities entities in target table that are related to
-     * the `jointEntities`
      */
     protected function _diffLinks(
         Query existing,
@@ -1063,9 +1046,6 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Returns the list of joint entities that exist between the source entity
      * and each of the passed target entities
-     *
-     * @param DORMDatasource\IORMEntity sourceEntity The row belonging to the source side
-     *  of this association.
      */
     protected IORMEntity[] _collectJointEntities(IORMEntity sourceEntity, Json[string] targetEntities) {
         auto target = getTarget();
@@ -1081,8 +1061,8 @@ class DBelongsToManyAssociation : DAssociation {
             if (!cast(IORMEntity)targetEntity) {
                 continue;
             }
-            joint = targetEntity.get(jointProperty);
-
+            
+            auto joint = targetEntity.get(jointProperty);
             if (!joint || !cast(IORMEntity)joint)) {
                 missing ~= targetEntity.extract(primary);
                 continue;

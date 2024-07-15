@@ -454,12 +454,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * Please note that the query passed to the closure will only accept calling
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
-     *
-     * @param callable|null builder a function that will receive a pre-made query object
-     * that can be used to add custom conditions or selecting some fields
      */
-    void matching(string associationName, callable builder = null) {
-        auto result = getEagerLoader().setMatching(associationName, builder).getMatching();
+    void matching(string associationName/* , callable builder = null */) {
+        auto result = getEagerLoader().setMatching(associationName, null /* builder */).getMatching();
         _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
         _isChanged();
     }
@@ -522,9 +519,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
     */
-    void leftJoinWith(string associationName, callable builder = null) {
+    void leftJoinWith(string associationName/* , callable builder = null */) {
         auto result = getEagerLoader()
-            .setMatching(associationName, builder, [
+            .setMatching(associationName, null /* builder */, [
                 "joinType": Query.JOIN_TYPE_LEFT,
                 "fields": false.toJson,
             ])

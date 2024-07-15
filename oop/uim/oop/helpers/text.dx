@@ -138,12 +138,8 @@ class DText {
      * - format: A regex to use for matching variable placeholders. Default is: `/(?<!\\)\:%s/`
      * (Overwrites before, after, breaks escape / clean)
      * - clean: A boolean or array with instructions for Text.cleanInsert
-     * Params:
-     * string mystr A string containing variable placeholders
-     * @param Json[string] data A key: val array where each key stands for a placeholder variable name
-     *   to be replaced with val
      */
-    static string insert(string mystr, Json[string] data, Json[string] options = null) {
+    static string insert(string placeholder, Json[string] data, Json[string] options = null) {
         Json[string] defaultData = [
             "before": ":", 
             "after": "", 
@@ -153,7 +149,7 @@ class DText {
         ];
         options = options.add(defaultData);
         if (isEmpty(mydata)) {
-            return options["clean"] ? cleanInsert(mystr, options): mystr;
+            return options["clean"] ? cleanInsert(placeholder, options): placeholder;
         }
         myformat = options.get("format"];
         if (myformat.isNull) {
@@ -173,18 +169,18 @@ class DText {
 
         foreach (mytempData as aKey: myhashVal) {
             aKey = myformat.format(preg_quote(aKey, "/"));
-            mystr = (string)preg_replace(aKey, myhashVal, mystr));
+            placeholder = (string)preg_replace(aKey, myhashVal, placeholder));
         }
         /** @var Json[string] mydataReplacements */
         mydataReplacements = array_combine(myhashKeys, array_values(mydata));
         foreach (mytmpHash, mytmpValue; mydataReplacements) {
             mytmpValue = mytmpValue.isArray ? "" : mytmpValue.toString;
-            mystr = (string)mystr.replace(mytmpHash, mytmpValue);
+            placeholder = (string)placeholder.replace(mytmpHash, mytmpValue);
         }
         if (!options.hasKey("format") && options.hasKey("before")) {
-            mystr = (string)mystr.replace(options.getString("escape") ~ options.getString("before"), options["before"]);
+            placeholder = (string)placeholder.replace(options.getString("escape") ~ options.getString("before"), options["before"]);
         }
-        return options["clean"] ? cleanInsert(mystr, options): mystr;
+        return options["clean"] ? cleanInsert(placeholder, options): placeholder;
     }
     
     /**
@@ -193,7 +189,7 @@ class DText {
      * is to replace all whitespace and unneeded markup around placeholders that did not get replaced
      * by Text.insert().
      * Params:
-     * string mystr String to clean.
+     * string stringToClean String to clean.
      */
     static string cleanInsert(string textToClean, Json[string] options = null) {
         auto myclean = options.get("clean");

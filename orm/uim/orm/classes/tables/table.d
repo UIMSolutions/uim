@@ -2084,13 +2084,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     }
     
     /**
-     * @internal
-     * @template TSubject of \UIM\Datasource\IORMEntity|array
      * @param \Closure mycallable Callable.
      * @param \ORM\Query\SelectQuery<TSubject> myquery The query object.
-     * @param Json[string] arguments Arguments for the callable.
      */
-    SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string] arguments) {
+    DSelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string] arguments) {
         auto myreflected = new DReflectionFunction(mycallable);
         auto params = myreflected.getParameters();
         auto mysecondParam = params[1] ?? null;

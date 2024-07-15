@@ -669,18 +669,14 @@ class DAssociation : IAssociation {
      * the associated target table, the resulting formatter will be the result of
      * applying the surrogate formatters to only the property corresponding to
      * such table.
-     *
-     * @param DORMQuery query the query that will get the formatter applied to
-     * @param DORMQuery surrogate the query having formatters for the associated
-     * target table.
      */
-    protected void _formatAssociationResults(Query query, Query surrogate, Json[string] options = null) {
+    protected void _formatAssociationResults(DORMQuery query, DORMQuery surrogate, Json[string] options = null) {
         auto formatters = surrogate.getResultFormatters();
         if (!formatters || options.isEmpty("propertyPath")) {
             return;
         }
 
-        auto property = options.get("propertyPath"];
+        auto property = options.get("propertyPath");
         // TODO auto propertyPath = explode(".", property);
         // TODO
         /* 

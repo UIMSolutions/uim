@@ -159,7 +159,7 @@ class DPoFileParser {
 
     // Saves a translation item to the messages.
     protected void addMessage(Json[string] messages, Json[string] itemToInspect) {
-        auto ids = itemToInspect["ids"];
+        auto ids = itemToInspect.getStringArray("ids");
         /* if (ids.areAllEmpty("singular", "plural")) {
             return;
         } */
@@ -168,7 +168,7 @@ class DPoFileParser {
         auto context = itemToInspect.get("context");
         auto translation = itemToInspect.get("translated");
 
-        if (isArray(translation)) {
+        if (translation.isArray) {
             translation = translation[0];
         }
         translation = stripcslashes(to!string(translation));

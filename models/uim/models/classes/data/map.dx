@@ -38,7 +38,7 @@ class DMapData : DData {
     return _items.values;
   }
 
-/*   Json opIndex(string name) {
+/*  Json opIndex(string name) {
     return _items.get(name, NullData);
   } */
 
@@ -47,11 +47,11 @@ class DMapData : DData {
     // _items[key] = BooleanData; // TODO (newValue);
   }
 
-  /*  void opIndexAssign(Json newValue, string key) {
+  /* void opIndexAssign(Json newValue, string key) {
     _items[key] = JsonValue(newValue);
   } */
 
-/*   void opIndexAssign(DData newValue, string key) {
+/*  void opIndexAssign(DData newValue, string key) {
     _items[key] = newValue;
   }
 
@@ -59,7 +59,7 @@ class DMapData : DData {
     // TODO _items[key] = IntegerData; //TODO (newValue);
   } */
 
-/*   void opIndexAssign(string newValue, string key) {
+/*  void opIndexAssign(string newValue, string key) {
     _items[key] = StringData; // TODO (newValue);
   }
 

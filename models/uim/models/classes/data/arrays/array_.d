@@ -44,7 +44,7 @@ class DArrayData : DData {
   }
 
   // #region equal
-/*   bool isEqual(IData checkData) {
+/*  bool isEqual(IData checkData) {
     auto arrayData = cast(DArrayData)checkData;
     if (arrayData.isNull) {
       return false;
@@ -152,7 +152,7 @@ class DArrayData : DData {
   // TODO assert(data.length == 1);
   }
 
-/*   alias toJson = DData.toJson;
+/*  alias toJson = DData.toJson;
   override Json toJson() {
     return Json(_items.map!(item => item.toJson).array);
   }
@@ -161,7 +161,7 @@ class DArrayData : DData {
     return "[" ~ _items.map!(item => item.toString).join(",") ~ "]";
   } */
 
-/*   override string[] toStringArray() {
+/*  override string[] toStringArray() {
     return _items.map!(item => item.toString).array;
   }  */
 }

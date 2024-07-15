@@ -55,7 +55,7 @@ class DBooleanData : DScalarData {
   // #region Getter
 
   // #region opCmp
- /*  alias opCmp = Object.opCmp;
+ /* alias opCmp = Object.opCmp;
   int opCmp(bool valueToCompare) {
     if (value < valueToCompare)
       return -1;

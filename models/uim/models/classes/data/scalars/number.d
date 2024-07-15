@@ -134,7 +134,7 @@ class DNumberData : DScalarData {
     return NumberData(getDouble);
   }
 
-/*   double toDouble() {
+/*  double toDouble() {
     if (isNull)
       return 0;
     return _value;

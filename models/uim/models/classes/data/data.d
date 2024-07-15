@@ -313,10 +313,10 @@ class DData : UIMObject, IData {
 
   // #region data
   // #region data()
-  /*   void data(string key, IData data) {
+  /*  void data(string key, IData data) {
   } */
 
-  /*   // Return data of keys
+  /*  // Return data of keys
   override IData[string] data(string[] keys) {
     IData[string] result;
     keys
@@ -349,7 +349,7 @@ class DData : UIMObject, IData {
     return null;
   } */
 
-/*   IData opIndex(string key) {
+/*  IData opIndex(string key) {
     return null;
   }
 
@@ -404,7 +404,7 @@ class DData : UIMObject, IData {
   }
 
   void fromJson(Json newValue, bool shouldOverwrite = true) {
-    /*       if (shouldOverwrite) {
+    /*      if (shouldOverwrite) {
         _values = values.update(newValue);
       } else {
         _values = values.merge(newValue);

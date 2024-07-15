@@ -289,7 +289,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     
   } */
 
-  /*  string opDispatch(string name)(){
+  /* string opDispatch(string name)(){
     if (auto myValue = values[name]) {
       return myValue.toString;
     }
@@ -307,7 +307,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       writeln("Unknown value in " ~ classname);
     }
   }
-  /*  void addAttributes(DAttribute[] newAttributes) {
+  /* void addAttributes(DAttribute[] newAttributes) {
     newAttributes.each!(newAttribute => addAttribute(newAttribute));
     
   }
@@ -360,7 +360,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
   version (test_uim_models) {
     unittest {
-      /*    auto now1 = now; auto now2 = now;
+      /*   auto now1 = now; auto now2 = now;
     assert(Entity.createdOn(now1).createdOn == now1);
     assert(Entity.createdOn(now1).createdOn(now2).createdOn == now2);
  */
@@ -411,7 +411,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
   version (test_uim_models) {
     unittest {
-      /*    auto now1 = now; auto now2 = now;
+      /*   auto now1 = now; auto now2 = now;
     assert(Entity.createdOn(now1).createdOn == now1);
     assert(Entity.createdOn(now1).createdOn(now2).createdOn == now2);
  */
@@ -565,7 +565,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       return versionDisplay;
     case "versionMode":
       return versionMode;
-      /*      case "versionOn": return to!string(versionOn);
+      /*     case "versionOn": return to!string(versionOn);
       case "versionBy": return to!string(versionBy); */
     case "versionDescription":
       return versionDescription;
@@ -661,7 +661,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     case "versionMode":
       versionMode(value);
       break;
-      /*      case "versionOn": versionOn(value); break;
+      /*     case "versionOn": versionOn(value); break;
       case "versionBy": versionBy(value); break; */
     case "versionDescription":
       versionDescription(value);
@@ -710,7 +710,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     case "deletedBy":
       deletedBy(value);
       break;
-      /*      case "versionBy": versionBy(value); break; */
+      /*     case "versionBy": versionBy(value); break; */
     default:
       /* if (key in attributes) {
           if (auto att = cast(DOOPUUIDAttribute)attributes[key]) att.value(value); 
@@ -739,7 +739,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     case "deletedOn":
       deletedOn(value);
       break;
-      /*      case "versionOn": versionOn(value); break; */
+      /*     case "versionOn": versionOn(value); break; */
     default:
       // values[key] = value;
       break;
@@ -780,7 +780,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     }
   }
 
-  /*  DEntity create() { return new DEntity; }
+  /* DEntity create() { return new DEntity; }
   DEntity create(Json data) {
     auto result = create;
     result.fromJson(data);   
@@ -795,7 +795,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     result.fromJson(data);
     return result; } */
 
-  /*  DEntity copyTo(DEntity targetOfCopy) {
+  /* DEntity copyTo(DEntity targetOfCopy) {
     if (targetOfCopy) {
       targetOfCopy.fromJson(toJson);
       return targetOfCopy; }
@@ -865,7 +865,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       case "deletedBy":
         deletedBy(v.get!string);
         break;
-        /*        case "model": 
+        /*       case "model": 
           auto id = v.get!string;
           if (id.isUUID) model(OOPModel(UUID(id)));
           else model(OOPModel(id));
@@ -895,7 +895,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       case "versionMode":
         versionMode(v.get!string);
         break;
-        /*        case "versionOn": versionOn(v.get!long); break;
+        /*       case "versionOn": versionOn(v.get!long); break;
         case "versionBy": versionBy(v.get!string); break; */
       case "versionDescription":
         versionDescription(v.get!string);
@@ -950,7 +950,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
       result["config"] = config;
 
-      /*      foreach(k; _attributes.byKey) {
+      /*     foreach(k; _attributes.byKey) {
         if (!hideFields.exist(k)) result[k] = _attributes[k].jsonValue;
       } */
       /* values.keys

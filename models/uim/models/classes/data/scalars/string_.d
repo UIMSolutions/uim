@@ -117,7 +117,7 @@ class DStringData : DScalarData {
   // TODO assert(data >= "test"); */
   }
 
-/*   string opCall() {
+/*  string opCall() {
     return null; 
     // TODO return value();
   } */
@@ -185,7 +185,7 @@ class DStringData : DScalarData {
   }
   // #endregion equal
 
-/*   int opCmp(string otherValue) {
+/*  int opCmp(string otherValue) {
     if (_value < otherValue)
       return -1;
     if (_value == otherValue)

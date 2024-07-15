@@ -356,9 +356,9 @@ class DFormProtector {
                 .format(expectedUrl, url);
         }
         auto expectedFields = Hash.get(expectedParts, 1);
-        auto someDataFields = Hash.get(hashParts, "fields") ?: [];
+        auto dataFields = Hash.get(hashParts, "fields") ?: [];
         auto fieldsMessages = this.debugCheckFields(
-            (array)someDataFields,
+            (array)dataFields,
             expectedFields,
             "Unexpected field `%s` in POST data",
             "Tampered field `%s` in POST data (expected value `%s` but found `%s`)",
@@ -381,20 +381,17 @@ class DFormProtector {
     /**
      * Iterates data array to check against expected
      * Params:
-     * Json[string] someDataFields Fields array, containing the POST data fields
-     * @param Json[string] expectedFields Fields array, containing the expected fields we should have in POST
-     * @param string intKeyMessage Message string if unexpected found in data fields indexed by int (not protected)
-     * @param string stringKeyMessage Message string if tampered found in
+     * Json[string] dataFields Fields array, containing the POST data fields
      * data fields indexed by string (protected).
      */
     protected string[] debugCheckFields(
-        Json[string] someDataFields,
-        Json[string] expectedFields= null,
+        Json[string] dataFields,
+        Json[string] expectedFields = null,
         string intKeyMessage = "",
         string stringKeyMessage = "",
         string missingMessage = ""
    ) {
-        auto messages = matchExistingFields(someDataFields, expectedFields,  anIntKeyMessage, stringKeyMessage);
+        auto messages = matchExistingFields(dataFields, expectedFields,  anIntKeyMessage, stringKeyMessage);
         auto expectedFieldsMessage = this.debugExpectedFields(expectedFields, missingMessage);
         if (!expectedFieldsMessage.isNull) {
             messages ~= expectedFieldsMessage;
@@ -404,13 +401,13 @@ class DFormProtector {
     
     // Generate array of messages for the existing fields in POST data, matching dataFields in expectedFields will be unset
     protected string[] matchExistingFields(
-        Json[string] someDataFields,
+        Json[string] dataFields,
         Json[string] expectedFields,
         string intKeyMessage,
         string stringKeyMessage
    ) {
         string[] messages = null;
-        someDataFields.byKeyValue.each!((kv) {
+        dataFields.byKeyValue.each!((kv) {
             if (isInteger(kv.key)) {
                 foundKey = array_search(kv.value, expectedFields, true);
                 if (foundKey == false) {

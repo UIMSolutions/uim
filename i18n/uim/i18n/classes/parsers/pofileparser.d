@@ -161,14 +161,14 @@ class DPoFileParser {
      * Params:
      * Json[string] messages The messages array being collected from the file
      */
-    protected void addMessage(Json[string] messages, Json itemToInspect) {
+    protected void addMessage(Json[string] messages, Json[string] itemToInspect) {
         auto ids = itemToInspect["ids"];
         /* if (ids.areAllEmpty("singular", "plural")) {
             return;
         } */
 
         string singular; //  = stripcslashes(ids["singular"]);
-        auto context = itemToInspect.get("context", null);
+        auto context = itemToInspect.get("context");
         auto translation = itemToInspect.get("translated");
 
         if (isArray(translation)) {

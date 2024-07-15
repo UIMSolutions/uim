@@ -409,28 +409,24 @@ class Hash {
      * ```
      *
      * The `myformat` string can use any format options that `vsprintf()` and `sprintf()` do.
-     * Params:
-     * Json[string] data Source array from which to extract the data
-     * @param string[] mypaths An array containing one or more Hash.extract()-style key paths
-     * @param string myformat Format string into which values will be inserted, see sprintf()
      */
     static string[] format(Json[string] data, Json[string] mypaths, string myformat) {
         auto myextracted = null;
-        auto mycount = count(mypaths);
+        auto countPath = count(mypaths);
 
-        if (mycount == 0) {
+        if (countPath == 0) {
             return null;
         }
-        for (index = 0; index < mycount; index++) {
+        for (index = 0; index < countPath; index++) {
             myextracted ~= extract(data, mypaths[index]);
         }
         result = null;
         /** @var array<mixed, array> data */
         auto data = myextracted;
-        auto mycount = count(data[0]);
+        auto countData = count(data[0]);
 
         auto mycountTwo = count(data);
-        for (myj = 0; myj < mycount; myj++) {
+        for (myj = 0; myj < countData; myj++) {
             myargs = null;
             for (index = 0; index < mycountTwo; index++) {
                 if (array_key_exists(myj, data[index])) {
@@ -880,16 +876,15 @@ class Hash {
      * Merges the difference between data and mycompare onto data.
      * Params:
      * Json[string] data The data to append onto.
-     * @param Json[string] mycompare The data to compare and append onto.
      */
     static Json[string] mergeDiff(Json[string] data, Json[string] compareData) {
         if (isEmpty(data) && !empty(mycompare)) {
-            return mycompare;
+            return compareData;
         }
-        if (mycompare.isEmpty) {
+        if (compareData.isEmpty) {
             return data;
         }
-        foreach (mycompare as aKey: myvalue) {
+        foreach (aKey, myvalue; compareData) {
             if (!array_key_exists(aKey, data)) {
                 data[aKey] = myvalue;
             } else if (myvalue.isArray && isArray(data[aKey])) {

@@ -525,11 +525,8 @@ class DAssociation : IAssociation {
     /**
      * Conditionally adds a condition to the passed Query that will make it find
      * records where there is no match with this association.
-     *
-     * @param DORMQuery query The query to modify
-     * @param Json[string] options Options array containing the `negateMatch` key.
      */
-    protected void _appendNotMatching(DQuery queryToModify, Json[string] options = null) {
+    protected void _appendNotMatching(DORMQuery queryToModify, Json[string] options = null) {
         auto target = _targetTable;
         if (!options.isEmpty("negateMatch")) {
             // TODO

@@ -1930,7 +1930,6 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * the options used in the delete operation.
      * Params:
      * \UIM\Datasource\IORMEntity myentity The entity to remove.
-     * @param Json[string] options The options for the delete.
          */
     bool remove(IORMEntity myentity, Json[string] options = null) {
         options = new Json[string](options ~ [
@@ -1939,7 +1938,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             "_primary": true.toJson,
         ]);
 
-        mysuccess = _executeTransaction(
+        bool mysuccess; 
+        /* mysuccess = _executeTransaction(
             fn (): _processremove(myentity, options),
             options["atomic"]
        );
@@ -1949,7 +1949,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 "entity": myentity,
                 "options": options,
             ]);
-        }
+        } */
         return mysuccess;
     }
     

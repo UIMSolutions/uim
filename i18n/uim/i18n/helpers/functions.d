@@ -53,12 +53,12 @@ string __d(string domainName, string messageToTranslate, Json[string] arguments)
  * from domain domain.
  */
 string __dn(string domainName, string singularText, string pluralText, int count, Json[string] arguments) {
-    if (singular.isEmpty) {
+    if (singularText.isEmpty) {
         return null;
     }
-    if (isSet(arguments[0]) && isArray(arguments[0])) {
+    /* if (isSet(arguments[0]) && isArray(arguments[0])) {
         arguments = arguments[0];
-    }
+    } */
     return I18n.getTranslator(domainName).translate(
         plural,
         ["_count": count, "_singular": singularText] + arguments

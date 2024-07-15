@@ -1476,17 +1476,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a decimal validation rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a decimal validation rule to a field.
     auto decimal(
         string fieldName,
         int numberOfPlaces = 0,
-        string errorMessage = null, /*Closure|*/
-        string mywhen = null
+        string errorMessage = null, 
+        /*Closure|*/ string mywhen = null
     ) {
         if (errorMessage.isNull) {
             if (!_useI18n) {

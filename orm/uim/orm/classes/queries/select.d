@@ -171,12 +171,10 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * myquery.cache(false);
      * ```
      * Params:
-     * \/*Closure|*/ string key Either the cache key or a auto to generate the cache key.
+     * \/*Closure|* / string key Either the cache key or a auto to generate the cache key.
      * When using a function, this query instance will be supplied as an argument.
-     * @param \Psr\SimpleCache\ICache|string configData Either the name of the cache config to use, or
-     * a cache engine instance.
      */
-    void cache(/*Closure|*/ string key, ICache|string configData = "default") {
+    void cache(/*Closure|*/ string key, /* ICache| */string configData = "default") {
         if (key == false) {
            _cache = null;
 

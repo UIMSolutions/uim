@@ -214,5 +214,5 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
 }
 
 auto TranslatorRegistry() { // Singleton
-    return DTranslatorRegistry.instance;
+    return DTranslatorRegistry.registry;
 }

@@ -197,19 +197,11 @@ class DValidation {
         return false;
     }
 
-    /**
-     * Used to check the count of a given value of type array or Countable.
-     * Params:
-     * Json valueToCheck The value to check the count on.
-     * @param string validationOperator Can be either a word or operand
-     *  is greater >, is less <, greater or equal >=
-     *  less or equal <=, is less <, equal to ==, not equal !=
-     * @param int myexpectedCount The expected count value.
-     */
-    static bool checkNumElements(Json valueToCheck, string validationOperator, int myexpectedCount) {
+    // Used to check the count of a given value of type array or Countable.
+    static bool checkNumElements(Json valueToCheck, string validationOperator, int expectedCount) {
         /* return !valueToCheck.isArray/*  && !cast(DCountable)valueToCheck * /
             ? false
-            : comparison(count(valueToCheck), validationOperator, myexpectedCount); */
+            : comparison(count(valueToCheck), validationOperator, expectedCount); */
         return false;
     }
 

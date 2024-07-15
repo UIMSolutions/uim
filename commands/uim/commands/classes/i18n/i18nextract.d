@@ -453,41 +453,42 @@ class DI18nExtractCommand : DCommand {
     protected void _store(string domainName, string headerContent, string sentenceToStore) {
        _storage[domainName] ??= null;
 
-        _storage[domainName][sentence] = _storage[domainName].hasKey(sentence))
-           ? _storage[domainName][sentence] ~ headerContent
-           : headerContent;
+        _storage.set([domainName, sentence], 
+            _storage[domainName].hasKey(sentence))
+            ? _storage[domainName][sentence] ~ headerContent
+            : headerContent;
 
     }
     
     // Write the files that need to be stored
     protected void _writeFiles(Json[string] commandArguments, IConsoleIo aConsoleIo) {
-         aConsoleIo.writeln();
+        aConsoleIo.writeln();
         bool overwriteAll = false;
         if (commandArguments.getOption("overwrite")) {
             overwriteAll = true;
         }
         foreach (_storage as domain: sentences) {
             auto outputHeader = _writeHeader(domain);
-             lengthOfFileheader = outputHeader.length;
-            sentences.byKeyValue
-                .ech!(sentenceHeader => outputHeader ~= sentenceHeader.value ~ sentenceHeader.key);
-            filename = domain.replace("/", "_") ~ ".pot";
-            outputPath = _output ~ filename;
+            auto lengthOfFileheader = outputHeader.length;
+            auto sentences.byKeyValue
+                .each!(sentenceHeader => outputHeader ~= sentenceHeader.value ~ sentenceHeader.key);
+            auto filename = domain.replace("/", "_") ~ ".pot";
+            auto outputPath = _output ~ filename;
 
-            if (this.checkUnchanged(outputPath,  lengthOfFileheader, outputHeader) == true) {
+            if (checkUnchanged(outputPath,  lengthOfFileheader, outputHeader) == true) {
                  aConsoleIo.writeln(filename ~ " is unchanged. Skipping.");
                 continue;
             }
             
             string response = "";
             while (overwriteAll == false && fileExists(outputPath) && strtoupper(response) != "Y") {
-                 aConsoleIo.writeln();
+                aConsoleIo.writeln();
                 response = aConsoleIo.askChoice(
                     "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format(filename),
                     ["y", "n", "a"],
                     'y'
                );
-                if (strtoupper(response) == "N") {
+                if (response.upper == "N") {
                     response = "";
                     while (!response) {
                         response = aConsoleIo.ask("What would you like to name this file?", "new_" ~ filename);

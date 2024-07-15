@@ -581,7 +581,7 @@ class DMessage { //: JsonSerializable {
         }
 
         aHeaders.get("MIME-Version", "1.0");
-        if (this.attachments) {
+        if (_attachments) {
              aHeaders.set("Content-Type", "multipart/mixed; boundary="" ~ /* (string) */_boundary ~ """);
         } else if (this.emailFormat == MESSAGE_BOTH) {
              aHeaders.set("Content-Type", "multipart/alternative; boundary="" ~ /* (string) */_boundary ~ """);
@@ -800,7 +800,7 @@ class DMessage { //: JsonSerializable {
             }
             attach[attName] = dirEntry;
         }
-        this.attachments = attach;
+        _attachments = attach;
     }
     
     // Gets attachments to the email message.
@@ -844,7 +844,7 @@ class DMessage { //: JsonSerializable {
         if (
             _boundary.isNull &&
             (
-                this.attachments ||
+                _attachments ||
                 this.emailFormat == MESSAGE_BOTH
            )
        ) {
@@ -857,7 +857,7 @@ class DMessage { //: JsonSerializable {
         this.createBoundary();
         string[] message;
 
-        auto contentIds = array_filter(/* (array) */Hash.extract(this.attachments, "{s}.contentId"));
+        auto contentIds = array_filter(/* (array) */Hash.extract(_attachments, "{s}.contentId"));
         auto hasInlineAttachments = count(contentIds) > 0;
         auto hasAttachments = !_attachments.isEmpty;
         auto hasMultipleTypes = this.emailFormat == MESSAGE_BOTH;
@@ -932,21 +932,17 @@ class DMessage { //: JsonSerializable {
         return message;
     }
     
-    /**
-     * Attach non-embedded files by adding file contents inside boundaries.
-     * Params:
-     * string boundary Boundary to use. If null, will default to _boundary
-     */
-    protected string[] attachFiles(string aboundary = null) {
-        boundary ??= _boundary;
+    // Attach non-embedded files by adding file contents inside boundaries.
+    protected string[] attachFiles(string boundary = null) {
+        boundary ? boundary : _boundary;
 
-        message = null;
-        foreach (this.attachments as filename: dirEntry) {
+        string message = null;
+        foreach (filename: dirEntry; _attachments) {
             if (!dirEntry.isEmpty("contentId"))) {
                 continue;
             }
-            someData = dirEntry.get("data", this.readFile(dirEntry["file"]));
-            hasDisposition = (
+            auto someData = dirEntry.get("data", readFile(dirEntry["file"]));
+            auto hasDisposition = (
                 dirEntry.isNull("contentDisposition") ||
                 dirEntry["contentDisposition"]
            );
@@ -1324,7 +1320,7 @@ class DMessage { //: JsonSerializable {
         }
          array_walk(array["attachments"], auto (& anItem, key) {
             if (!anItem.isEmpty("file"))) {
-                 anItem["data"] = this.readFile(anItem["file"]);
+                 anItem["data"] = readFile(anItem["file"]);
                 remove(anItem["file"]);
             }
         });

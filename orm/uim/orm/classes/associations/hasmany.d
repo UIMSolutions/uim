@@ -356,7 +356,6 @@ class DHasManyAssociation : DAssociation {
      *
      * @param Json[string] foreignKeyReference The foreign key reference defining the link between the
      * target entity, and the parent entity.
-     * @param DORMDatasource\IORMEntity anEntity the entity which should have its associated entities unassigned
      * @param DORMTable myTarget The associated table
      * @param range remainingEntities Entities that should not be deleted
      * @param Json[string] options list of options accepted by `Table.remove()`

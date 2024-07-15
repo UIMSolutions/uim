@@ -49,8 +49,9 @@ class DNumber {
      * Json value A floating point number.
      */
     static string precision(Json value, int numberPrecision = 3, Json[string] formattingOptions = null) {
-        auto formatter = formatter(["precision": precision, "places": precision] + options);
-        return to!string(formatter.format( /* (float)  */ value));
+        /* auto formatter = formatter(["precision": precision, "places": precision] + options);
+        return to!string(formatter.format( /* (float)  * / value)); */
+        return null; 
     }
 
     // Returns a formatted-for-humans file size.

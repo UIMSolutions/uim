@@ -204,7 +204,8 @@ class DExceptionTrap {
         if (!error.isArray) {
             return;
         }
-        fatals = [
+        
+        auto fatals = [
             ERRORS.USER_ERROR,
             ERRORS.ERROR,
             ERRORS.PARSE,
@@ -226,7 +227,8 @@ class DExceptionTrap {
         if (aLimit == false || aLimit is null || aLimit == "-1") {
             return;
         }
-        aLimit = strip(aLimit);
+        
+        auto aLimit = aLimit.strip;
         string units = subString(aLimit, -1).upper;
         auto myCurrent = (int)subString(aLimit, 0, -1);
         

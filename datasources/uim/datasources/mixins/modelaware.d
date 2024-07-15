@@ -43,7 +43,7 @@ mixin template TModelAware() {
             this.modelClass = aName;
         }
     }
-    
+
     /**
      * Fetch or construct a model instance from a locator.
      *
@@ -63,37 +63,36 @@ mixin template TModelAware() {
         if (modelClass.isEmpty) {
             throw new DUnexpectedValueException("Default modelClass is empty");
         }
-        modelType = modelType.if??= getModelType();
+        modelType = modelType.ifEmpty(getModelType());
 
         auto options = null;
         if (indexOf(modelClass, "\\") == false) {
             [, aliasName] = pluginSplit(modelClass, true);
         } else {
-            options["classname"] = modelClass;
-            /** @psalm-suppress PossiblyFalseOperand */
-            aliasName = subString(
+            options.set("classname", modelClass);
+
+            string aliasName = subString(
                 modelClass,
                 indexOf(modelClass, "\\") + 1,
                 -modelType.length
-           );
+            );
             modelClass = aliasName;
         }
-        factory = _modelFactories.get(modelType, FactoryLocator.get(modelType);
-
-        anInstance = cast(ILocator)factory
-            ? factory.get(modelClass, options)
-            : factory(modelClass, options);
+        factory = _modelFactories.get(modelType, FactoryLocator.get(modelType));
+        anInstance = cast(
+            ILocator) factory
+            ? factory.get(modelClass, options) : factory(modelClass, options);
 
         if (anInstance) {
             return anInstance;
         }
         throw new DMissingModelException([modelClass, modelType]);
     }
-    
+
     // Override a existing callable to generate repositories of a given type.
     void modelFactory(string repositoryType, ILocator /*|callable*/ factory) {
-       _modelFactories[repositoryType] = factory;
+        _modelFactories[repositoryType] = factory;
     }
-    
-    mixin(TProperty!("string", "modelType")); 
-} 
+
+    mixin(TProperty!("string", "modelType"));
+}

@@ -755,9 +755,9 @@ class DBelongsToManyAssociation : DAssociation {
         auto aliasName = this.aliasName() ~ ".";
         foreach (conditions as field: value) {
             if (field.isString && indexOf(field, alialiasNameas) == 0) {
-                matching[field] = value;
+                matching.set(field, value);
             } else if (is_int(field) || cast(IExpression)value) {
-                matching[field] = value;
+                matching.set(field, value);
             }
         }
 
@@ -767,22 +767,21 @@ class DBelongsToManyAssociation : DAssociation {
     /**
      * Returns filtered conditions that specifically reference
      * the junction table.
-     *
      */
     protected Json[string] junctionConditions() {
         if (_junctionConditions != null) {
             return _junctionConditions;
         }
-        matching = null;
-        conditions = getConditions();
-        if (!(conditions.isArray) {
+        auto matching = null;
+        auto conditions = getConditions();
+        if (!conditions.isArray) {
             return matching;
         }
         aliasName = _junctionAssociationName() ~ ".";
-        foreach (conditions as field: value) {
+        foreach (field, value; conditions) {
             isString = field.isString;
-            if (isString && indexOf(field, alias) == 0) {
-                matching[field] = value;
+            if (isString && indexOf(field, aliasName) == 0) {
+                matching.set(field, value);
             }
             // Assume that operators contain junction conditions.
             // Trying to manage complex conditions could result in incorrect queries.
@@ -804,12 +803,14 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param Json[string]|string type the type of query to perform, if an array is passed,
      *  it will be interpreted as the `options` parameter
-     * @param Json[string] options The options to for the find
-    Query find(type = null, Json[string] options = null) {
-        type = type ?: getFinder();
-        [type, opts] = _extractFinder(type);
+     */
+/*     Query find(Json[string]|string queryType = null, Json[string] options = null) {
+    } */
+    Query find(Json[string]|string queryType = null, Json[string] options = null) {
+        queryType = queryType ?: getFinder();
+        [queryType, opts] = _extractFinder(queryType);
         query = getTarget()
-            .find(type, options + opts)
+            .find(queryType, options + opts)
             .where(this.targetConditions())
             .addDefaultTypes(getTarget());
 
@@ -893,8 +894,6 @@ class DBelongsToManyAssociation : DAssociation {
      * `article.get("tags")` will contain only `[tag1, tag3]` at the end
      *
      * @param DORMDatasource\IORMEntity sourceEntity an entity persisted in the source table for
-     *  this association
-     * @param Json[string] targetEntities list of entities from the target table to be linked
      */
     bool replaceLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         auto bindingKey = /* (array) */getBindingKey();

@@ -617,7 +617,7 @@ class DText {
             return "";
         }
 
-        desiredLength ??= _strlen(inputText, options);
+        size_t desiredLength ??= _strlen(inputText, options);
         if (desiredLength < 0) {
             inputText = _subString(inputText, startPosition, null, options);
             startPosition = 0;

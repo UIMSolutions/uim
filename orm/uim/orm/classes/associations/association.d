@@ -286,8 +286,9 @@ class DAssociation : IAssociation {
      *
      * @param string[]|string aKey the table field or fields to be used to link both tables together
      */
-    void bindingKeys(key) {
-        _bindingKeys = key;
+    // void bindingKeys(string[]|string key) {
+    void bindingKeys(string[] keys) {
+        _bindingKeys = keys;
     }
 
     /**
@@ -419,8 +420,6 @@ class DAssociation : IAssociation {
     /**
      * Override this function to initialize any concrete association class, it will
      * get passed the original list of options used in the constructor
-     *
-     * @param Json[string] options List of options used for initialization
      */
     protected void _options(Json[string] options = null) {
     }
@@ -445,15 +444,12 @@ class DAssociation : IAssociation {
      * - joinType: The SQL join type to use in the query.
      * - negateMatch: Will append a condition to the passed query for excluding matches.
      *  with this association.
-     *
-     * @param DORMQuery query the query to be altered to include the target table data
-     * @param Json[string] options Any extra options or overrides to be taken in account
      */
-    void attachTo(Query query, Json[string] options = null) {
-        target = getTarget();
-        table = target.getTable();
+    void attachTo(DORMQuery query, Json[string] options = null) {
+        auto target = getTarget();
+        auto table = target.getTable();
 
-        auto updatedOptions = options.update[
+        auto updatedOptions = options.update([
             "includeFields": true.toJson,
             "foreignKeys": foreignKeys(),
             "conditions": Json.emptyArray,
@@ -461,23 +457,24 @@ class DAssociation : IAssociation {
             "fields": Json.emptyArray,
             "table": table,
             "finder": getFinder(),
-        ];
+        ]);
 
         // This is set by joinWith to disable matching results
         if (options["fields"] == false) {
-            options["fields"] = null;
-            options["includeFields"] = false;
+            options.setNull("fields");
+            options.set("includeFields", = false);
         }
 
-        if (!options.isEmpty("foreignKeys"])) {
-            joinCondition = _joinCondition(options);
+        if (!options.isEmpty("foreignKeys")) {
+            auto joinCondition = _joinCondition(options);
             if (joinCondition) {
-                options["conditions"] ~= joinCondition;
+                auto conditions = options.getArray("conditions") ~ joinCondition;
+                options.set("conditions", conditions)
             }
         }
 
         [finder, opts] = _extractFinder(options["finder"]);
-        dummy = this
+        auto dummy = this
             .find(finder, opts)
             .eagerLoaded(true);
 
@@ -506,12 +503,9 @@ class DAssociation : IAssociation {
 
         query.join([
             _name: [
-                "table": options["table"],
+                "table": options.get("table"),
                 "conditions": dummy.clause("where"),
-                "type": options["joinType"],
-
-            
-
+                "type": options.get("joinType"),
         ]]);
 
         _appendFields(query, dummy, options);
@@ -543,12 +537,13 @@ class DAssociation : IAssociation {
      * source results.
      */
     array transformRow(Json[string] row, string nestKey, bool isJoined, string targetProperty = null) {
-        auto sourceAlias = source().aliasName();
-        auto nestKey = nestKey ?  : _name;
-        auto targetProperty = targetProperty ?  : getProperty();
+        string sourceAlias = source().aliasName();
+        string nestKey = nestKey ?  nestKey : _name;
+        auto targetProperty = targetProperty ? targetProperty : getProperty();
         if (row.hasKey(sourceAlias)) {
-            row[sourceAlias][targetProperty] = row[nestKey];
-            remove(row[nestKey]);
+            string key = row.getString(nestKey);
+            row.set([sourceAlias, targetProperty], row.get(key));
+            row.remove(key);
         }
 
         return row;
@@ -577,11 +572,11 @@ class DAssociation : IAssociation {
      *  it will be interpreted as the `options` parameter
      */
     IQuery find(/* Json[string]| */string queryType = null, Json[string] options = null) {
-        type = type ?  : getFinder();
-        [type, opts] = _extractFinder(type);
+        queryType = queryType ? queryType : getFinder();
+        [queryType, opts] = _extractFinder(queryType);
 
         return _getTarget()
-            .find(type, options + opts)
+            .find(queryType, options + opts)
             .where(getConditions());
     }
 
@@ -606,7 +601,7 @@ class DAssociation : IAssociation {
      * @param Json[string] fields A hash of field: new value.
      */
     size_t updateAll(string[] fieldNames, /* .IExpression|\Closure|array| */string conditions) {
-        expression = this.find()
+        expression = find()
             .where(conditions)
             .clause("where");
 
@@ -621,7 +616,7 @@ class DAssociation : IAssociation {
      * @return int Returns the number of affected rows.
      */
     int deleteAll(conditions) {
-        expression = this.find()
+        auto expression = this.find()
             .where(conditions)
             .clause("where");
 
@@ -635,7 +630,7 @@ class DAssociation : IAssociation {
      * @param Json[string] options The options containing the strategy to be used.
      */
     bool requiresKeys(Json[string] options = null) {
-        strategy = options.get("strategy"] ?  ? getStrategy();
+        auto strategy = options.get("strategy", getStrategy());
 
         return strategy == STRATEGY_SELECT;
     }

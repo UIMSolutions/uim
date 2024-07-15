@@ -168,11 +168,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      *
      * Only add translations for fields that are in the main table, always
      * add the locale field though.
-     *
-     * @param DORMQuery query The query to check.
-     * @param Json[string] myConfiguration The config to use for adding fields.
      */
-    protected bool addFieldsToQuery(DORMQuery query, Json myConfiguration) {
+    protected bool addFieldsToQuery(DORMQuery query, Json[string] options) {
         if (query.isAutoFieldsEnabled()) {
             return true;
         }
@@ -185,10 +182,9 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             return true;
         }
 
-        auto aliasName"mainTableAlias");
+        auto aliasName = "mainTableAlias";
         joinRequired = false;
-        foreach (
-            translatedFields() as field) {
+        foreach (field; translatedFields()) {
             if (array_intersect(select, [
                         field, "alias.field"
                     ])) {

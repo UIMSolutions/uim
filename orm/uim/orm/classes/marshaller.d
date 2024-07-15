@@ -61,7 +61,7 @@ class DMarshaller {
                 mynested.set("forceNew", options.get("forceNew"));
             }
             if (options.hasKey("isMerge")) {
-                /*  mycallback = auto(myvalue, IORMEntity myentity) use(association, mynested) {
+                /* mycallback = auto(myvalue, IORMEntity myentity) use(association, mynested) {
                     options = mynested ~ ["associated": Json.emptyArray, "association": association];
 
                     return _mergeAssociation(myentity.get(association.getProperty()), association, myvalue, options);
@@ -649,7 +649,7 @@ class DMarshaller {
 
                                         // Creates a new sub-marshaller and merges the associated data.
                                         protected IORMEntity[] _mergeAssociation(
-                                        IORMEntity /* | array | null * / myoriginal,
+                                        IORMEntity /* array | null * / myoriginal,
                                         DAssociation association,
                                         Json value,
                                         Json[string] options

@@ -5,7 +5,7 @@ import uim.oop;
 
 // Base class for commands
 class DCommand : UIMObject, ICommand {
-/*     mixin TLocatorAware;
+/*    mixin TLocatorAware;
     mixin TLog; */
 
     override bool initialize(Json[string] initData = null) {

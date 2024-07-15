@@ -5,7 +5,7 @@ import uim.oop;
 
 class DConsole : UIMObject, IConsole {
     mixin(ConsoleThis!(""));
-/*     mixin TLocatorAware;
+/*    mixin TLocatorAware;
     mixin TLog; */
 
     override bool initialize(Json[string] initData = null) {

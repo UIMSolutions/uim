@@ -5,7 +5,7 @@ import uim.oop;
 
 // Base class for Formatters
 class DFormatter : UIMObject, IFormatter {
-/*     mixin TLocatorAware;
+/*    mixin TLocatorAware;
     mixin TLog; */
 
     override bool initialize(Json[string] initData = null) {

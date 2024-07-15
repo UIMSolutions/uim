@@ -57,7 +57,7 @@ template ValueMapWrapper() {
     return null;
   }
 
-/*  DValue[string] getValues(string[] valueKeys) {
+/* DValue[string] getValues(string[] valueKeys) {
     DValue[string] results;
     valueKeys.each!(ḱey => results[key] = this.values[key]);
     return results;

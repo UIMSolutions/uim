@@ -26,7 +26,7 @@ interface IList(T) {
   // Removes all of the elements from this list (optional operation).
   bool clear();
 
-/*  // Compares the specified object with this list for equality.
+/* // Compares the specified object with this list for equality.
   bool equals(Object o);
 
   // Returns the hash code value for this list.
@@ -41,13 +41,13 @@ interface IList(T) {
   // Returns the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element.
   int	lastIndexOf(T checkItem);
 
-/*  // Returns a list iterator over the elements in this list (in proper sequence).
+/* // Returns a list iterator over the elements in this list (in proper sequence).
   ListIterator<E>	listIterator();
 
   // Returns a list iterator over the elements in this list (in proper sequence), starting at the specified position in the list.
   ListIterator<E>	listIterator(int index) */
 
-/*  // eplaces each element of this list with the result of applying the operator to that element.
+/* // eplaces each element of this list with the result of applying the operator to that element.
   default void	replaceAll(UnaryOperator<E> operator); */
 
   // Retains only the elements in this list that are contained in the specified collection (optional operation).
@@ -63,13 +63,13 @@ interface IList(T) {
   // Returns the number of elements in this list.
   size_t	size(); 
 
-/*  // Sorts this list according to the order induced by the specified Comparator.
+/* // Sorts this list according to the order induced by the specified Comparator.
   default void	sort(Comparator<? super E> c);
 
   // Creates a Spliterator over the elements in this list.
   default Spliterator<E>	spliterator(); */
 
-/*  // Returns a view of the portion of this list between the specified fromIndex, inclusive, and toIndex, exclusive.
+/* // Returns a view of the portion of this list between the specified fromIndex, inclusive, and toIndex, exclusive.
   List<E>	subList(int fromIndex, int toIndex); */
 
   // Returns an array containing all of the elements in this list in proper sequence (from first to last element).

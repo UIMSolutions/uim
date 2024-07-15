@@ -76,7 +76,7 @@ class DError : UIMObject, IError {
 
   private ulong[string] _logMap;
 
-  /*  // Get the mapped LOG_ constant.
+  /* // Get the mapped LOG_ constant.
   int logLevel() {
       auto myLabel = this.label();
 

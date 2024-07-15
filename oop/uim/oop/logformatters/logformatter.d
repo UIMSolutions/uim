@@ -6,7 +6,7 @@ import uim.oop;
 // Base class for LogFormatters
 class DLogFormatter : UIMObject, ILogFormatter {
     mixin(LogFormatterThis!(""));
-/*     mixin TLocatorAware;
+/*    mixin TLocatorAware;
     mixin TLog; */
 
     override bool initialize(Json[string] initData = null) {

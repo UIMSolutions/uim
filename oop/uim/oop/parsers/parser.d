@@ -5,7 +5,7 @@ import uim.oop;
 
 // Base class for parsers
 class DParser : UIMObject, IParser {
-/*     mixin TLocatorAware;
+/*    mixin TLocatorAware;
     mixin TLog; */
 
     override bool initialize(Json[string] initData = null) {

@@ -5,7 +5,7 @@ import uim.oop;
 
 // Base class for validators
 class DValidator : UIMObject, IValidator {
-/*     mixin TLocatorAware;
+/*    mixin TLocatorAware;
     mixin TLog; */
 
     override bool initialize(Json[string] initData = null) {

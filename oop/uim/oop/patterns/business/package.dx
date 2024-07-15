@@ -31,7 +31,7 @@ class DBusinessLookUp {
   IBusinessService getBusinessService(string serviceType) {
 
     // TODO an error?
-/*   return serviceType.lower == "EJB".lower
+/*  return serviceType.lower == "EJB".lower
       ? new DEJBService() : new JMSService();
 */
     return null;

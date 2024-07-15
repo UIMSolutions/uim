@@ -291,7 +291,7 @@ class DEagerLoader {
             if (options.hasKey("queryBuilder") && pointer.hasKey(table, "queryBuilder")) {
                 auto first = pointer[table]["queryBuilder"];
                 auto second = options.get("queryBuilder");
-               /*  options["queryBuilder"] = function (query) use (first, second) {
+               /* options["queryBuilder"] = function (query) use (first, second) {
                     return second(first(query));
                 }; */
             }

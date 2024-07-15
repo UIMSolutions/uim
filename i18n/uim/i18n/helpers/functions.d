@@ -73,10 +73,11 @@ string __x(string context, string singularText, Json[string] arguments) {
     if (!singularText) {
         return null;
     }
-    if (isSet(arguments[0]) && arguments[0].isArray) {
+    /* if (isSet(arguments[0]) && arguments[0].isArray) {
         arguments = arguments[0];
-    }
-    return I18n.getTranslator().translate(singularText, ["_context": context] + arguments);
+    } */
+    // return I18n.getTranslator().translate(singularText, ["_context": context] + arguments);
+    return null; 
 }
 /**
  * Returns correct plural form of message identified by singular and plural for count count.

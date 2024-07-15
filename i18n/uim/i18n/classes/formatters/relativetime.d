@@ -75,7 +75,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
 
     /*
     // Format a into a relative timestring.
-    string timeAgoInWords(DateTime /* | Date  * / timeToFormat, Json[string] options = null) {
+    string timeAgoInWords(DateTime /* Date  * / timeToFormat, Json[string] options = null) {
         auto options = _options(options, DateTime.classname);
         if (options["timezone"]) {
             time = time.setTimezone(options["timezone"]);
@@ -156,7 +156,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     } */
 
     // Calculate the data needed to format a relative difference string.
-    protected Json[string] _diffData(string /* |int */ futureTime, string pastTime, bool isBackwards, Json[string] options = null) {
+    protected Json[string] _diffData(string /* int */ futureTime, string pastTime, bool isBackwards, Json[string] options = null) {
         return _diffData(to!int(futureTime), to!int(pastTime), isBackwards, options);
     }
 
@@ -173,7 +173,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
                 future["Y"],
             ] = date("H/i/s/d/m/Y", futureTime).split("/");
 
-            auto past = null; /*             [
+            auto past = null; /*            [
                 past["H"],
                 past["i"],
                 past["s"],
@@ -223,7 +223,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             days -= weeks * 7;
         } */
         } else {
-            /*  years = months = weeks = 0;
+            /* years = months = weeks = 0;
         days = floor(diff / 86400);
 
         diff -= days * 86400;

@@ -37,7 +37,7 @@ class DTime { // : ChronosTime, JsonSerializable {
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.i18nFormat()` and `__toString`.
      */
-    // protected static string/* |int */ _toStringFormat = IntlDateFormatterss.SHORT;
+    // protected static string/* int */ _toStringFormat = IntlDateFormatterss.SHORT;
 
     /**
      * The format to use when converting this object to Json.
@@ -46,7 +46,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      */
-    protected static /*Closure|*/ string/* |int */ _JsonEncodeFormat = "HH':'mm':'ss";
+    protected static /*Closure|*/ string/* int */ _JsonEncodeFormat = "HH':'mm':'ss";
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.nice()`
@@ -57,7 +57,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      *
      * @var string|int
      */
-    static string/* |int */ niceFormat; //  = IntlDateFormatters.MEDIUM;
+    static string/* int */ niceFormat; //  = IntlDateFormatters.MEDIUM;
     
     /**
      * Sets the default format used when converting this object to Json
@@ -69,7 +69,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * Alternatively, the format can provide a callback. In this case, the callback
      * can receive this object and return a formatted string.
      */
-    static void jsonEncodeFormat(/*Closure|*/ string/* |int */ format) {
+    static void jsonEncodeFormat(/*Closure|*/ string/* int */ format) {
         _JsonEncodeFormat = format;
     }
     
@@ -89,7 +89,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * time = Time.parseTime("11:23pm");
      * ```
      */
-    static DTime parseTime(string timeToParse, string /* |int */ format = null) {
+    static DTime parseTime(string timeToParse, string /* int */ format = null) {
         /* auto format = format.ifEmpty([IntlDateFormatters.NONE, IntlDateFormatters.SHORT]);
         if (isInteger(format)) {
             format = [IntlDateFormatters.NONE, format];

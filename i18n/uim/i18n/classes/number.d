@@ -130,7 +130,7 @@ class DNumber {
      */
     static float parseFloat(string value, Json[string] options = null) {
         auto parseFormatter = formatter(options);
-        /*  return  /* (float) * / formatter
+        /* return  /* (float) * / formatter
             .parseFormatter(value, NumberFormatters.TYPE_DOUBLE); */
         return 0;
     }
@@ -223,7 +223,7 @@ class DNumber {
     }
 
     // Getter for default currency format
-    static string /* |int|falseuto */ getDefaultCurrencyFormat() {
+    static string /* int|falseuto */ getDefaultCurrencyFormat() {
         return _defaultCurrencyFormat ? _defaultCurrencyFormat : FORMAT_CURRENCY;
     }
 
@@ -294,7 +294,7 @@ class DNumber {
      * Params:
      * string alocale The locale name to use for formatting the number, e.g. fr_FR
      */
-    /*  static void config(string localeName, int formatterType = NumberFormatters.DECIMAL, Json[string] options = null) {
+    /* static void config(string localeName, int formatterType = NumberFormatters.DECIMAL, Json[string] options = null) {
         _formatters[localeName][formatterType] = _setAttributes(
             new NumberFormatters(localeName, type), options);
     } */

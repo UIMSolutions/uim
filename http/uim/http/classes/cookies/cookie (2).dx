@@ -47,7 +47,7 @@ class DCookie : ICookie {
      */
     this(
         string cookieName,
-        string[] /* |float|bool */ cookieValue = "",
+        string[] /* float|bool */ cookieValue = "",
         IDateTime expiresAt = null,
         string path = null,
         string domainName = null,

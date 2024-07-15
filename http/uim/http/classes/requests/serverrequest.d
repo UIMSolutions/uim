@@ -638,7 +638,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * `addDetector("extension", ["param": '_ext", "options": ["pdf", "csv"]]`
      */
-    static void addDetector(string detectorName, DClosure/* |array */ detector) {
+    static void addDetector(string detectorName, DClosure/* array */ detector) {
             _detectors[detectorName.lower] = detector;
     }
 

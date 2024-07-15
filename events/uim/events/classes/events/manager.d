@@ -58,7 +58,7 @@ class DEventManager { // }: IEventManager {
 
     ) {
         // TODO
-        /*         if (cast(DEventListener)eventKey) {
+        /*        if (cast(DEventListener)eventKey) {
            _attachSubscriber(eventKey);
 
             return;
@@ -70,7 +70,7 @@ class DEventManager { // }: IEventManager {
         }
         if (!aCallable) {
             /** @var callable options */
-        /*         _listeners[eventKey][defaultPriority] ~= [
+        /*        _listeners[eventKey][defaultPriority] ~= [
             "callable": options(...),
         ];
 
@@ -88,7 +88,7 @@ class DEventManager { // }: IEventManager {
      * as individual methods on this manager
      */
     protected void _attachSubscriber(DEventListener subscriber) {
-        /*     foreach (eventKey : handlers; subscriber.implementedEvents()) {
+        /*    foreach (eventKey : handlers; subscriber.implementedEvents()) {
         foreach (this.normalizeHandlers(subscriber, handlers) as handler) {
             this.on(eventKey, handler["settings"], handler["callable"]);
         }
@@ -102,14 +102,14 @@ class DEventManager { // }: IEventManager {
     }
 
     auto off(
-        /* |callable */
+        /* callable */
         string eventKey, /* DEventListener|callable */
         // TODO callable aCallable = null
 
         
 
     ) {
-        /*     if (!isString(eventKey)) {
+        /*    if (!isString(eventKey)) {
         _listeners.keys.each!(name => off(name, eventKey)); 
         return this;
     }
@@ -119,15 +119,15 @@ class DEventManager { // }: IEventManager {
         return this;
     }
  */
-        /*     if (aCallable.isNull) {
+        /*    if (aCallable.isNull) {
         _listeners.remove(eventKey);
 
         return this;
     } */
-        /*     if (_listeners.isEmpty(eventKey)) {
+        /*    if (_listeners.isEmpty(eventKey)) {
         return this;
     }
- */ /*     aCallable = aCallable(...);
+ */ /*    aCallable = aCallable(...);
     foreach (_listeners[eventKey] as priority : aCallables) {
         foreach (aCallables as myKey : aCallback) {
             if (aCallback["callable"] == aCallable) {
@@ -143,14 +143,14 @@ class DEventManager { // }: IEventManager {
     // Auxiliary auto to help detach all listeners provided by an object implementing DEventListener
     protected void _detachSubscriber(DEventListener subscriber, string eventKey = null) {
         // TODO
-        /*     events = subscriber.implementedEvents();
+        /*    events = subscriber.implementedEvents();
     if (!eventKey.isEmpty && events.isEmpty(eventKey)) {
         return;
     }
     if (!eventKey.isEmpty) {
         events = [eventKey: events[eventKey]];
     }
- */ /*     foreach (events as aKey : handlers) {
+ */ /*    foreach (events as aKey : handlers) {
         foreach (thandler; his.normalizeHandlers(subscriber, handlers)) {
             this.off(aKey, handler["callable"]);
         }
@@ -168,7 +168,7 @@ class DEventManager { // }: IEventManager {
      */
     protected Json[string] normalizeHandlers(DEventListener subscriber, Json[string] eventHandlers) {
         if (!eventHandlers.hasKey("callable")) {
-/*             eventHandlers.byKeyValue
+/*            eventHandlers.byKeyValue
                 .each!(kv => eventHandlers[kv.key] = normalizeHandler(subscriber, kv.value));
  */        }
         return eventHandlers;
@@ -203,7 +203,7 @@ class DEventManager { // }: IEventManager {
         settings.remove("callable");
     } */
         // TODO
-        /*     if (isString(aCallable)) {
+        /*    if (isString(aCallable)) {
         aCallable = subscriber.aCallable(...);
     }
  */
@@ -226,7 +226,7 @@ class DEventManager { // }: IEventManager {
         if (isEmpty(listeners)) {
             return event;
         }
-        /*     foreach (listener; listeners) {
+        /*    foreach (listener; listeners) {
         if (event.isStopped()) {
             break;
         }
@@ -245,7 +245,7 @@ class DEventManager { // }: IEventManager {
     // Calls a listener.
     /* protected Json _callListener(callable listenerToTrigger, IEvent event) {
     // TODO 
-/*     return listener(event, ...array_values(event.getData()));
+/*    return listener(event, ...array_values(event.getData()));
  * /
  }
  */
@@ -253,7 +253,7 @@ class DEventManager { // }: IEventManager {
     Json[string] listeners(string eventKey) {
         // TODO 
         // auto localListeners = null;
-        /*     if (!_isGlobal) {
+        /*    if (!_isGlobal) {
         localListeners = prioritisedListeners(eventKey);
         localListeners = localListeners.isEmpty ? [] : localListeners;
     }
@@ -265,7 +265,7 @@ class DEventManager { // }: IEventManager {
     priorities = array_unique(priorities);
     asort(priorities);
 
-/*     auto result;
+/*    auto result;
     foreach (priorities as priority) {
         if (globalListeners.hasKey(priority)) {
             result = array_merge(result, globalListeners[priority]);
@@ -287,7 +287,7 @@ class DEventManager { // }: IEventManager {
 
     // Returns the listeners matching a specified pattern
     Json[string] matchingListeners(string patternToPattern) {
-        /*     matchPattern = "/" ~ preg_quote(eventKeyPattern, "/") ~ "/";
+        /*    matchPattern = "/" ~ preg_quote(eventKeyPattern, "/") ~ "/";
 
     return array_intersectinternalKey(
         _listeners,
@@ -306,7 +306,7 @@ class DEventManager { // }: IEventManager {
 
     // Adds an event to the list if the event list object is present.
     void addEventToList(IEvent event) {
-        /*     _eventList ? .add(event);
+        /*    _eventList ? .add(event);
  */
     }
 
@@ -335,10 +335,10 @@ class DEventManager { // }: IEventManager {
 
     // Debug friendly object properties.
     Json[string] debugInfo() {
-        /*     properties = get_object_vars(this);
+        /*    properties = get_object_vars(this);
     properties["_generalManager"] = "(object) EventManager";
     properties["_listeners"] = null;
- */ /*     foreach (_listeners as aKey : priorities) {
+ */ /*    foreach (_listeners as aKey : priorities) {
         listenerCount = 0;
         foreach (priorities as listeners) {
             listenerCount += count(listeners);
@@ -352,7 +352,7 @@ class DEventManager { // }: IEventManager {
                 assert(!empty(_eventList[index]), "Given event item not present");
 
                 event = _eventList[index];
-                /*             try {
+                /*            try {
                 subject = event.getSubject();
                 properties["_dispatchedEvents"] ~= event.name ~ " with subject " ~ subject
                     .classname;
@@ -364,7 +364,7 @@ class DEventManager { // }: IEventManager {
             // properties["_dispatchedEvents"] = null;
         }
 
-        /*     properties.remove("_eventList");
+        /*    properties.remove("_eventList");
 
     return properties;
  */

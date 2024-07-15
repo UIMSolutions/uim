@@ -51,7 +51,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * @var array<int>|string|int
      */
     protected string[] _toStringFormat = [
-       /*  IntlDateFormatterss.SHORT, IntlDateFormatterss.SHORT */
+       /* IntlDateFormatterss.SHORT, IntlDateFormatterss.SHORT */
     ];
 
     /**
@@ -67,7 +67,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      *
      * @var \Closure|array<int>|string|int
      */
-    protected /* Closure */ string[] /* |int */ _jsonEncodeFormat = [
+    protected /* Closure */ string[] /* int */ _jsonEncodeFormat = [
         "yyyy-MM-dd'T'HH':'mm':'ssxxx'"
     ];
 
@@ -179,7 +179,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      */
     // void setJsonEncodeFormat(Closure  format) {
     // void setJsonEncodeFormat(string[]|int format) {
-    void setJsonEncodeFormat( /* Closure */ string[] /* |int */ format) {
+    void setJsonEncodeFormat( /* Closure */ string[] /* int */ format) {
         _jsonEncodeFormat = format;
     }
 
@@ -376,7 +376,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * The format to be used is stored in the auto property `DateTime.niceFormat`.
      */
     string nice(/* DateTimeZone |  */string timezone = null, string localeName = null) {
-        // return/*  (string) */ this.i18nFormat(niceFormat, timezone, localeName);
+        // return/* (string) */ this.i18nFormat(niceFormat, timezone, localeName);
         return null; 
     }
 
@@ -431,7 +431,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
      * to customize the abbreviation wrapper.
      * /
     auto Json[string] listTimezones(
-        string /* |int * / regexFilter = null,
+        string /* int * / regexFilter = null,
         string countryCode = null,
         Json[string] options = null
     ) {

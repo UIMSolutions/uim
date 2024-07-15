@@ -364,7 +364,7 @@ class Xml {
                     }
 
                     // Returns this XML structure as an array.
-                    static Json[string] toArray(DSimpleXMLElement/* | DOMNode myobj*/) {
+                    static Json[string] toArray(DSimpleXMLElement/* DOMNode myobj*/) {
                         if (cast(DOMNode) myobj) {
                             myobj = simplexml_import_dom(myobj);
                         }

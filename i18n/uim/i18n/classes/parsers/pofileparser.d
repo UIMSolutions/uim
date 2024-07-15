@@ -78,7 +78,7 @@ class DPoFileParser {
         
         PoMessage[] messages = file.byLine.each!((line) {
             PoMessage message = parseByLine(line, message);
-            if (!message.isNull && message.isFinished) {
+            if (!message is null && message.isFinished) {
                 messages ~= message;
                 message = null;
             }
@@ -95,11 +95,11 @@ class DPoFileParser {
     DPoMessage parseByLine(string line, Json[] messages, DPoMessage message) {
         line = strip(line);
 
-        if (line.isEmpty && message.isNull) {
+        if (line.isEmpty && message is null) {
             return null;
         }
 
-        if (!line.isEmpty && message.isNull) {
+        if (!line.isEmpty && message is null) {
             message = new DPoMessage;
         }
 
@@ -176,9 +176,9 @@ class DPoFileParser {
         }
         translation = stripcslashes(to!string(translation));
 
-        if (context !is null && messages.isNull([singular, "_context", context])) {
+        if (context !is null && messages is null([singular, "_context", context])) {
             messages.set([singular, "_context", context], translation);
-        } else if (messages.isNull([singular, "_context"])) {
+        } else if (messages is null([singular, "_context"])) {
             messages.set([singular, "_context"], translation);
         }
 
@@ -199,7 +199,7 @@ class DPoFileParser {
             plurals = array_map("stripcslashes", plurals);
             auto key = stripcslashes(ids["plural"]);
 
-            if (!context.isNull) {
+            if (!context is null) {
                 messages.set([Translator.PLURAL_PREFIX ~ key, "_context", context], plurals);
             } else {
                 messages.set([Translator.PLURAL_PREFIX ~ key, "_context."], plurals);

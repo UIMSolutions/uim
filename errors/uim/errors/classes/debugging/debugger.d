@@ -295,7 +295,7 @@ class DDebugger {
      *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
-    static /* array| */string formatTrace(Throwable/* |array */ backtrace, Json[string] options = null) {
+    static /* array| */string formatTrace(Throwable/* array */ backtrace, Json[string] options = null) {
         if (cast(Throwable) backtrace) {
             backtrace = backtrace.getTrace();
         }

@@ -21,7 +21,7 @@ class DPluginShortRoute : DInflectedRoute {
         if (!params) {
             return null;
         }
-        params["controller"] = params["plugin"];
+        params.set("controller", params["plugin"]);
         return params;
     }
     
@@ -30,12 +30,12 @@ class DPluginShortRoute : DInflectedRoute {
      * are not the same the match is an auto fail.
      */
     string match(Json[string] url, Json[string] context = null) {
-        if (isSet(url["controller"], url["plugin"]) && url["plugin"] != url["controller"]) {
+        if (isSet(url.get("controller"), url.get("plugin")) && url.get("plugin") != url.get("controller")) {
             return null;
         }
-        _defaults["controller"] = url["controller"];
+        _defaults.set("controller", url.get("controller"));
         result = super.match(url, context);
-        remove(_defaults["controller"]);
+        _defaults.remove("controller");
 
         return result;
     }

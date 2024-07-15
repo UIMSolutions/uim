@@ -365,7 +365,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         ];
         translation = null;
         if (id) {
-            where["id"] = id;
+            where.set("id", id);
 
             /** @var DORMdatasources.IORMEntity|null translation */
             translation = this
@@ -459,11 +459,13 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
             hydrated = !(
                 row
-                .isArray; if (
+                .isArray; 
+                if (
                     empty(
                     row["translation"])) {
                     row["_locale"] = locale; remove(
-                    row["translation"]); if (
+                    row["translation"]); 
+                    if (
                         hydrated) {
                         /** @psalm-suppress PossiblyInvalidMethodCall * /
                         row.clean();}

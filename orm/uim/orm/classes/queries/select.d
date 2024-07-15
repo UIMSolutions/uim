@@ -358,9 +358,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *       ];
      *
      *       if (myquery.isHydrationEnabled()) {
-     *           myrow["foo"] = new DFoo(mydata)
+     *           myrow.set("foo", ] = new DFoo(mydata)
      *       } else {
-     *           myrow["foo"] = mydata;
+     *           myrow.set("foo", ] = mydata;
      *       }
      *
      *       return myrow;

@@ -329,8 +329,7 @@ class DRouter {
             if (isFull && isSet(url["_scheme"]) && !url.hasKey("_host")) {
                 url["_host"] = mycontext["_host"];
             }
-            mycontext["params"] = params;
-
+            mycontext.set("params", params);
             myoutput = _collection.match(url, mycontext);
         } else {
             url = (string)url;
@@ -376,7 +375,6 @@ class DRouter {
     static bool routeExists(string[] url = null, bool isFull = false) {
         try {
             url(url, isFull);
-
             return true;
         } catch (MissingRouteException) {
             return false;

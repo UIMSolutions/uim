@@ -1307,7 +1307,7 @@ protected static string _getDateString(Json[string] items) {
         }
         if (items.hasKey("hour")) {
            /* if (isSet(items["meridian"]) && (int)items["hour"] == 12) {
-                items["hour"] = 0;
+                items.set("hour", 0);
             } * /
             if (items.hasKey("meridian")) {
                 items["hour"] = items.getString("meridian").lower == "am" 
@@ -1318,10 +1318,10 @@ protected static string _getDateString(Json[string] items) {
             if (items.allNumeric("hour", "minute", "second", "microsecond")) {
                 myformatted ~= "%02d:%02d:%02d.%06d"
                     .format(
-                        items["hour"],
-                        items["minute"],
-                        items["second"],
-                        items["microsecond"]
+                        items.get("hour"),
+                        items.get("minute"),
+                        items.get("second"),
+                        items.get("microsecond")
                );
             }
         } */

@@ -362,15 +362,15 @@ class DRoute : IRoute {
         }
         if (myroute.hasKey("_args_")) {
             mypass = _parseArgs(myroute["_args_"], myroute);
-            myroute["pass"] = array_merge(myroute["pass"], mypass);
+            myroute.set("pass", array_merge(myroute["pass"], mypass));
             remove(myroute["_args_"]);
         }
         if (myroute.hasKey("_trailing_")) {
-            myroute["pass"] ~= myroute["_trailing_"];
+            myroute.set("pass",  myroute["_trailing_"]);
             myroute.remove("_trailing_");
         }
         if (!myext.isEmpty) {
-            myroute["_ext"] = myext;
+            myroute.set("_ext", myext);
         }
         // pass the name if set
         if (auto name = configuration.getString("_name")) {
@@ -388,7 +388,7 @@ class DRoute : IRoute {
         }
         myroute.set("_route", this);
         myroute.set("_matchedRoute", _template);
-        if (count(this.middleware) > 0) {
+        if (count(_middleware) > 0) {
             myroute.set("_middleware", _middleware);
         }
         return myroute;
@@ -680,7 +680,7 @@ class DRoute : IRoute {
      * Middleware names will not be checked until the route is matched.
      */
     void setMiddleware(Json[string] mymiddleware) {
-        this.middleware = mymiddleware;
+        _middleware = mymiddleware;
     }
     
     /**

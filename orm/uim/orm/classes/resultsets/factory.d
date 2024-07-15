@@ -36,15 +36,15 @@ class DResultsetFactory {
         ];
 
         auto myassocMap = myquery.getEagerLoader().associationsMap(myprimaryTable);
-        mydata["matchingAssoc"] = (new DCollection(myassocMap))
+        mydata.set("matchingAssoc", (new DCollection(myassocMap))
             .match(["matching": true.toJson])
             .indexBy("alias")
-            .toJString();
+            .toJString());
 
-        mydata["containAssoc"] = (new DCollection(array_reverse(myassocMap)))
+        mydata.set("containAssoc", (new DCollection(array_reverse(myassocMap)))
             .match(["matching": false.toJson])
             .indexBy("nestKey")
-            .toJString();
+            .toJString());
 
         string[] fieldNames = null;
         myquery.clause("select").each!((keyField) {
@@ -132,10 +132,10 @@ class DResultsetFactory {
                 continue;
             }
             if (!mycanBeJoined) {
-                results[aliasName] = myrow[aliasName];
+                results.set(aliasName, myrow.get(aliasName));
             }
             mytarget = myinstance.getTarget();
-            options["source"] = mytarget.registryKey();
+            options.set("source", mytarget.registryKey());
             mypresentAliasesm.remove(yalias);
 
             if (myassoc["canBeJoined"] && tableMetadata["autoFields"] == true) {
@@ -147,7 +147,7 @@ class DResultsetFactory {
                     }
                 }
                 if (!myhasData) {
-                    results[aliasName] = null;
+                    results.set(aliasName, Json(null));
                 }
             }
             if (tableMetadata["hydrate"] && results[aliasName] !is null && myassoc["canBeJoined"]) {
@@ -160,12 +160,12 @@ class DResultsetFactory {
             if (!results.hasKey(aliasName)) {
                 continue;
             }
-            results[tableMetadata["primaryAlias"]][aliasName] = results[aliasName];
+            results.set([tableMetadata.getString("primaryAlias"), aliasName], results.get(aliasName));
         }
         if (results.hasKey("_matchingData")) {
-            results[tableMetadata["primaryAlias"]]["_matchingData"] = results["_matchingData"];
+            results.set([tableMetadata.getString("primaryAlias"), "_matchingData"], results.get("_matchingData"));
         }
-        options.set("source", tableMetadata["registryAlias"]);
+        options.set("source", tableMetadata.get("registryAlias"));
         if (auto primaryAlias = tableMetadata.getString("primaryAlias")) {
             results = results[primaryAlias];
         }

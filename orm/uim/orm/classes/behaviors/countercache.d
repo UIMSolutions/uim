@@ -167,7 +167,7 @@ class DCounterCacheBehavior : DBehavior {
 
         foreach (fieldName, myvalue; mycountConditions) {
             if (myvalue.isNull) {
-                mycountConditions[fieldName ~ " IS"] = myvalue;
+                mycountConditions.set(fieldName ~ " IS", myvalue);
                 mycountConditions.remove(fieldName);
             }
         }

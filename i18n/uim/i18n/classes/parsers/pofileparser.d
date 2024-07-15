@@ -180,7 +180,7 @@ class DPoFileParser {
         } */
 
         if (ids.hasKey("plural")) {
-            auto plurals = itemToInspect["translated"];
+            auto plurals = itemToInspect.get("translated");
             // PO are by definition indexed so sort by index.
             // ksort(plurals);
 

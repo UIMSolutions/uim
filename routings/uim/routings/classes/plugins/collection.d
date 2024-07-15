@@ -90,7 +90,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      * in their composer.json file to move plugin outside of vendor/
      */
     // TODO
-    /*   protected void loaDFileConfigEngine() {
+    /*  protected void loaDFileConfigEngine() {
         if (Configure.check("plugins")) {
             return;
         }
@@ -274,7 +274,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      * string ahook The hook to filter plugins by
      */
     // TODO
-    /*   Generator<\UIM\Core\IPlugin> with (string myhook) {
+    /*  Generator<\UIM\Core\IPlugin> with (string myhook) {
         if (!isIn(hook, IPlugin:
                  : VALID_HOOKS, true)) {
             throw new DInvalidArgumentException(

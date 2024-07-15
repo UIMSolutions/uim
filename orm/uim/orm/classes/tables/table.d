@@ -1296,7 +1296,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * the 2nd arg of the method to modify the entity data before saving.
      */
     IORMEntity findOrCreate(
-        DSelectQuery/* |callable|array */ mysearch,
+        DSelectQuery/* callable|array */ mysearch,
         /* callable aCallback = null, */
         Json[string] options = null
    ) {
@@ -1319,7 +1319,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     
     // Performs the actual find and/or create of an entity based on the passed options.
     protected IORMEntity _processFindOrCreate(
-        DSelectQuery/* |callable|array */ mysearch,
+        DSelectQuery/* callable|array */ mysearch,
         // callable aCallback = null,
         Json[string] options = null
    ) {

@@ -489,7 +489,7 @@ class DRouter {
      * keys like "pass", "_matchedRoute" etc. those keys need to be specially
      * handled in order to reverse a params array into a string URL.
      */
-    static string reverse(DServerRequest/* |array */ params, bool isFull = false) {
+    static string reverse(DServerRequest/* array */ params, bool isFull = false) {
         auto params = reverseToArray(params);
         return url(params, isFull);
     }
@@ -545,7 +545,7 @@ class DRouter {
      * Params:
      * string[]|string myextensions List of extensions to be added.
      */
-    static string[] extensions(string[]/* |string */ myextensions = null, bool shouldMerge = true) {
+    static string[] extensions(string[]/* string */ myextensions = null, bool shouldMerge = true) {
         auto mycollection = _collection;
         if (myextensions.isNull) {
             return array_unique(chain(_defaultExtensions, mycollection.getExtensions()));

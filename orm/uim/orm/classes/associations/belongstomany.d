@@ -377,7 +377,7 @@ class DBelongsToManyAssociation : DAssociation {
     }
 
 
-/*     DClosure eagerLoader(Json[string] options = null) {
+/*    DClosure eagerLoader(Json[string] options = null) {
         name = _junctionAssociationName();
         loader = new DSelectWithPivotLoader([
             "alias": this.aliasName(),

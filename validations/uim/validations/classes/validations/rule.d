@@ -77,13 +77,13 @@ class DValidationRule {
            );
             throw new DInvalidArgumentException(mymessage);
         } */
-/*         if (_pass) {
+/*        if (_pass) {
             myargs = array_merge([myvalue], _pass, [context]).values;
             result = mycallable(...myargs);
         } else {
             result = mycallable(myvalue, context);
         } */
-/*         if (result == false) {
+/*        if (result == false) {
             return _message ?: false;
         } */
         // return result;
@@ -102,7 +102,7 @@ class DValidationRule {
      * be passed as the last argument for the validation method
      */
     protected bool _skip(Json[string] context) {
-/*         if (isString(_on)) {
+/*        if (isString(_on)) {
             mynewRecord = context["newRecord"];
 
             return (_on == Validator.WHEN_CREATE && !mynewRecord)
@@ -118,7 +118,7 @@ class DValidationRule {
     
     // Sets the rule properties from the rule entry in validate
     protected void _addValidatorProps(Json[string] myvalidator = null) {
-/*         foreach (aKey: myvalue; myvalidator) {
+/*        foreach (aKey: myvalue; myvalidator) {
             if (isEmpty(myvalue)) {
                 continue;
             }
@@ -138,7 +138,7 @@ class DValidationRule {
      * string myproperty The name of the property to retrieve.
     */
     // Json get(string propertyName) {
-/*         myproperty = "_" ~ myproperty;
+/*        myproperty = "_" ~ myproperty;
 
         return _{myproperty} ?? null;
  */   //  }

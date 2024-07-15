@@ -191,7 +191,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * been added to the query by the first. If you need to change the list after the first call,
      * pass overwrite boolean true which will reset the select clause removing all previous additions.
      */
-    IQuery selectAllExcept(DORMTable/* |DORMAssociation */ table, Json[string] excludedFields, bool canOverwrite = false) {
+    IQuery selectAllExcept(DORMTable/* DORMAssociation */ table, Json[string] excludedFields, bool canOverwrite = false) {
         if (cast(Association)table) {
             table = table.getTarget();
         }
@@ -735,7 +735,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This method creates query clones that are useful when working with subqueries.
      */
     static auto cleanCopy() {
-       /*  auto clone = this.clone;
+       /* auto clone = this.clone;
         clone.triggerBeforeFind();
         clone.disableAutoFields();
         clone.limit(null);

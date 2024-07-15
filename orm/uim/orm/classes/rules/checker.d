@@ -61,7 +61,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      */
     DRuleInvoker existsIn(
         string[] /* string */ fieldName,
-        DORMTable/* |/*Association|*/ string */ mytable,
+        DORMTable/* /*Association|*/ string */ mytable,
         string[] /* string */ errorMessage = null
    ) {
         options = null;

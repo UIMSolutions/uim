@@ -191,7 +191,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         query.contain(contain);
         // TODO
-/*         query.formatResults(function (results) use (locale) {
+/*        query.formatResults(function (results) use (locale) {
             return _rowMapper(results, locale);
         }, query.PREPEND);
  */    }
@@ -274,7 +274,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         }
 
         // TODO
-/*         new = array_diffinternalKey(values, modified);
+/*        new = array_diffinternalKey(values, modified);
         foreach (new as field: content) {
             new[field] = new DORMEntity(compact("locale", "field", "content", "model"), [
                 "useSetters": false.toJson,

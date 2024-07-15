@@ -391,7 +391,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * });
      * ```
      */
-    void formatResults(DClosure myformatter = null, int/* |bool */ formatterMode = APPEND) {
+    void formatResults(DClosure myformatter = null, int/* bool */ formatterMode = APPEND) {
         if (formatterMode == OVERWRITE) {
            _formatters = null;
         }
@@ -797,7 +797,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         }
         
         auto queryBuilder = null;
-/*         if (cast(DClosure)shouldOverride) {
+/*        if (cast(DClosure)shouldOverride) {
             queryBuilder = shouldOverride;
         } */
         if (associations) {

@@ -1203,8 +1203,7 @@ static bool geoCoordinate(Json geographicLocation, Json[string] options = null) 
 
 // Convenience method for latitude validation.
 static bool latitude(Json latitudeValue, Json[string] options = null) {
-    options["format"] = "lat";
-
+    options.get("format", "lat");
     return geoCoordinate(latitudeValue, options);
 }
 
@@ -1214,8 +1213,7 @@ static bool latitude(Json latitudeValue, Json[string] options = null) {
      * Json aValue Latitude as string
      */
 static bool longitude(Json latitudeValue, Json[string] options = null) {
-    options["format"] = "long";
-
+    options.get("format", "long");
     return geoCoordinate(latitudeValue, options);
 }
 

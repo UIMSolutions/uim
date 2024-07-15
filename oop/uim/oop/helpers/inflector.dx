@@ -260,10 +260,10 @@ class DInflector {
     auto irregularWords = _cache.get("irregular", null);
     if (!irregularWords.isSet("singular")) {
       mywordList = _irregular.values;
-      static.irregularWords["singular"] = "/(.*?(?:\\b|_))(" ~ mywordList.join("|") ~ ")my/i";
+      static.irregularWords.set("singular", "/(.*?(?:\\b|_))(" ~ mywordList.join("|") ~ ")my/i");
 
       myupperWordList = array_map("ucfirst", mywordList);
-      static.irregularWords["singularUpper"] = "/(.*?(?:\\b|[a-z]))("~myupperWordList.join("|"")
+      static.irregularWords.set("singularUpper", "/(.*?(?:\\b|[a-z]))("~myupperWordList.join("|""))
         .")my/";
     }
 

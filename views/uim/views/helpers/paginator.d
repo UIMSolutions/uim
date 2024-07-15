@@ -374,7 +374,7 @@ class DPaginatorHelper : DHelper {
             "direction": Json(null),
             "limit": Json(null)
         ];
-        mypaging["page"] = mypaging["currentPage"];
+        mypaging.set("page", mypaging["currentPage"]);
         remove(mypaging["currentPage"]);
 
         if (
@@ -385,8 +385,7 @@ class DPaginatorHelper : DHelper {
                 && options.hasKey("sort")
                 && !options.getString("sort").contains(".")
             ) {
-            mypaging["sort"] = _removeAlias(
-                mypaging["sort"]);
+            mypaging.set("sort", _removeAlias(mypaging["sort"]));
         }
         if (
             !mypaging.isEmpty(
@@ -398,9 +397,9 @@ class DPaginatorHelper : DHelper {
                 && !options.getString("sort").contains(
                     ".")
             ) {
-            mypaging["sortDefault"] = _removeAlias(
+            mypaging.set("sortDefault", _removeAlias(
                 mypaging["sortDefault"], this.param(
-                    "alias"));
+                    "alias")));
         }
         auto updatedOptions = options.updatearray_intersectinternalKey(
             mypaging,

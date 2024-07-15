@@ -54,7 +54,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
    ) {
         _catalogs = catalogLocator;
         _formatters = formatterLocator;
-        _localeName(localName);
+        // _localeName(localName);
 
         /* registerLoader(FALLBACK_LOADER, auto (name, localName) {
             loader = new DChainMessagesLoader([
@@ -73,12 +73,13 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     
     // Sets the default locale code.
     void setLocale(string localName) {
-        _locale = localName;
+        //_locale = localName;
     }
     
     // Returns the default locale code.
     string locale() {
-        return _locale;
+        //return _locale;
+        return null; 
     }
     
     // Returns the translator catalogs
@@ -122,28 +123,29 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     
     // Gets a translator from the registry by catalog for a locale.
     protected ITranslator _getTranslator(string catalogName, string localName) {
-        if (this.catalogs.has(catalogName, localName)) {
+        /* if (_catalogs.has(catalogName, localName)) {
             return _createInstance(catalogName, localname);
-        }
+        } */
 
-        ICatalog catalog = _loaders.hasKey(catalogName)
+       /*  ICatalog catalog = _loaders.hasKey(catalogName)
             ? _loaders[catalogName](catalogName, localname)
             : _loaders[FALLBACK_LOADER](catalogName, localname);
 
         catalog = setFallbackPackage(catalogName, catalog);
-        this.catalogs.set(catalogName, localname, catalog);
+        _catalogs.set(catalogName, localname, catalog);
 
-        return _createInstance(catalogName, localname);
+        return _createInstance(catalogName, localname); */
+        return null; 
     }
     
     // Create translator instance.
     protected ITranslator createInstance(string catalogName, string localName = null) {
-        ICatalog catalog = this.catalogs.get(catalogName, localname);
+        ICatalog catalog = _catalogs.get(catalogName, localName);
         auto fallback = catalog.fallback();
         if (!fallback.isNull) {
-            fallback = get(fallback, localname);
+            fallback = get(fallback, localName);
         }
-        formatter = this.formatters.get(catalog.formatterName());
+        formatter = _formatters.get(catalog.formatterName());
 
         return new DTranslator(localName, catalog, formatter, fallback);
     }
@@ -195,7 +197,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     // Set domain fallback for loader.
     auto setLoaderFallback(string catalogName, ILoader loader) {
         string fallbackDomain = "default";
-        if (!_useFallback || name == fallbackDomain) {
+        if (!_useFallback || catalogName == fallbackDomain) {
             return loader;
         }
         /* return ICatalog () use (loader, fallbackDomain) {

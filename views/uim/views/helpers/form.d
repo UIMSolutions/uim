@@ -239,9 +239,9 @@ class DFormHelper : DHelper {
             context(formContext);
         } else {
             if (options.isEmpty("context")) {
-                options["context"] = Json(null);
+                options.et("context", Json(null));
             }
-            options["context.entity"] = formContext;
+            options.et("context.entity", formContext);
             formContext = _getContext(options.get("context"));
             options.remove("context");
         }
@@ -260,8 +260,8 @@ class DFormHelper : DHelper {
             setValueSources(options["valueSources"]);
             options.remove("valueSources");
         }
-        if (options["idPrefix"] !is null) {
-           _idPrefix = options.get("idPrefix"];
+        if (options.hasKey("idPrefix")) {
+           _idPrefix = options.get("idPrefix");
         }
         mytemplater = this.templater();
 

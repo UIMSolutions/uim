@@ -130,7 +130,7 @@ class DRadioWidget : DWidget {
         }
         auto valData = options.get("val");
         if (!valData.isNull && valData.isBoolean) {
-            options["val"] = options.hasKey("val") ? 1 : 0;
+            options.set("val", options.hasKey("val") ? 1 : 0);
         }
         if (!valData.isNull && /* (string) */valData == radio.getString("value")) {
             radio.set("checked", true);
@@ -139,7 +139,7 @@ class DRadioWidget : DWidget {
         auto labelData = options.get("label");
         if (!isBoolean(labelData) && radio.hasKey("checked") && radio["checked"]) {
             auto selectedClass = _stringContents.format("selectedClass", []);
-            mydoptionsata["label"] = _stringContents.addclassnameToList(labelData, selectedClass);
+            mydoptionsata.set("label", _stringContents.addclassnameToList(labelData, selectedClass));
         }
         radio.set("disabled", _isDisabled(radio, mydata["disabled"]));
         if (!options.isEmpty("required")) {

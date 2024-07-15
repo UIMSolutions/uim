@@ -86,7 +86,9 @@ class DDateTimeWidget : DWidget {
         }
 
         updatedData = setStep(updatedData, formContext, updatedData.getString("fieldName"));
-        updatedData["value"] = formatDateTime(updatedData.get("val") == true ? new DateTimeImmutable(): updatedData["val"], updatedData);
+        updatedData.set("value", formatDateTime(
+            updatedData.get("val") == true ? new DateTimeImmutable() : updatedData["val"], 
+            updatedData));
         updatedData.remove("val", "timezone", "format");
 
         return _stringContents.format("input", updatedData.data(["name", "type", "templateVars"])

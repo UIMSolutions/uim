@@ -292,7 +292,7 @@ class DRouter {
                 url = unwrapShortString(url);
             }
             if (url.hasKey("_https")) {
-                url["_scheme"] = url["_https"] == true ? "https" : "http";
+                url.set("_scheme", url["_https"] == true ? "https" : "http");
             }
             if (url.hasKey("_full") && url["_full"] == true) {
                 isFull = true;
@@ -313,11 +313,11 @@ class DRouter {
                         params["controller"] == url["controller"]
                    )
                ) {
-                    url["action"] = params["action"];
+                    url.set("action", params["action"]);
                 }
                 // Keep the current prefix around if none set.
-                if (isSet(params["prefix"]) && !url.hasKey("prefix"])) {
-                    url["prefix"] = params["prefix"];
+                if (isSet(params["prefix"]) && !url.hasKey("prefix")) {
+                    url.set("prefix", params["prefix"]);
                 }
                 url += [
                     "plugin": params["plugin"],

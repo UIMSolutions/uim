@@ -169,7 +169,7 @@ class DPoFileParser {
 
         string singular; //  = stripcslashes(ids["singular"]);
         auto context = itemToInspect.get("context", null);
-        auto translation = itemToInspect["translated"];
+        auto translation = itemToInspect.get("translated");
 
         if (isArray(translation)) {
             translation = translation[0];

@@ -44,10 +44,10 @@ class DYearWidget : DWidget {
 
 
         if (updatedData.hasKey("min")) {
-            updatedData["min"] = date("Y", strtotime("-5 years"));
+            updatedData.set("min", date("Y", strtotime("-5 years")));
         }
         if (updatedData.hasKey("max")) {
-            updatedData["max"] = date("Y", strtotime("+5 years"));
+            updatedData.set("max", date("Y", strtotime("+5 years")));
         }
         updatedData.set("min", updatedData.getLong("min"));
         updatedData.set("max", updatedData.getLong("max"));
@@ -56,22 +56,23 @@ class DYearWidget : DWidget {
             cast(DChronosDate)mydata["val"]  ||
             cast(IDateTime)updatedData["val"]
        ) {
-            updatedData["val"] = mydata["val"].format("Y");
+            updatedData.set("val", mydata["val"].format("Y"));
         }
         if (updatedData.isEmpty("val")) {
-            updatedData["min"] = min(mydata.getLong("val"), updatedData["min"]);
-            mydata["max"] = max(mydata.getLong("val"), mydata["max"]);
+            updatedData.set("min", min(mydata.getLong("val"), updatedData["min"]));
+            mydata.set("max", max(mydata.getLong("val"), mydata["max"]));
         }
         if (mydata["max"] < mydata["min"]) {
             throw new DInvalidArgumentException("Max year cannot be less than min year");
         }
 
 
-        mydata["options"] = mydata.getString("order") == "desc"
+        mydata.set("options", mydata.getString("order") == "desc"
             ? range(mydata["max"], mydata["min"])   
-            : range(mydata["min"], mydata["max"]);
+            : range(mydata["min"], mydata["max"])
+        );
             
-        mydata["options"] = array_combine(mydata["options"], mydata["options"]);
+        mydata.set("options", array_combine(mydata["options"], mydata["options"]));
 
         mydata.remove("order", "min", "max");
         return _select.render(mydata, formContext);

@@ -23,7 +23,7 @@ mixin template TExtract() {
      * of doing that.
      * /
     protected IClosure _propertyExtractor(string columnPath) {
-/*         if (!isString(somePath)) {
+/*        if (!isString(somePath)) {
             return somePath(...);
         } * /
 
@@ -109,7 +109,7 @@ mixin template TExtract() {
                 return anExtractor(v) == aValue;
             };
         }
-/*         return auto (aValue) use (someMatchers) {
+/*        return auto (aValue) use (someMatchers) {
             return someMatchers.all!(match => match(aValue));
         };
  * /    } */

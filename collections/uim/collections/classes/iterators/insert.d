@@ -41,7 +41,7 @@ class DInsertIterator : DCollection {
 
   // Advances the cursor to the next record
   void next() {
-    /*     super.next();
+    /*    super.next();
     if (_validValues) {
      _values.next();
     }
@@ -55,7 +55,7 @@ class DInsertIterator : DCollection {
   Json currentValue() {
     // auto myRow = super.currentValue();
 
-    /*     if (!_validValues) {
+    /*    if (!_validValues) {
       return myRow;
     }
     auto aPointer = & myRow;
@@ -73,7 +73,7 @@ class DInsertIterator : DCollection {
 
   // Resets the collection pointer.
   void rewind() {
-    /*     super.rewind();
+    /*    super.rewind();
    _values.rewind();
    _validValues = _values.valid(); */
   }

@@ -75,7 +75,7 @@ class DCacheEngine : UIMObject, ICache, ICacheEngine {
     }
 
     // Persists a set of key: value pairs in the cache, with an optional TTL.
-    /*         bool items(Json[string] items, long timeToLive = 0) {
+    /*        bool items(Json[string] items, long timeToLive = 0) {
             // TODO ensureValidType(myvalues, CHECK_KEY);
 
             Json restoreDuration = Json(null); 

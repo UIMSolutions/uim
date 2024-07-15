@@ -109,7 +109,7 @@ class DCache : UIMObject, ICache {
         auto myRegistry = getRegistry();
 
         // TODO 
-        /*         if (configuration.isEmpty(configName~".classname")) {
+        /*        if (configuration.isEmpty(configName~".classname")) {
             throw new DInvalidArgumentException(
                 "The `%s` cache configuration does not exist."
                 .format(configName)
@@ -118,7 +118,7 @@ class DCache : UIMObject, ICache {
 
         auto configData = configuration.get(configName);
         // TODO 
-        /*         try {
+        /*        try {
             myRegistry.load(configName, configData);
         } catch (RuntimeException exception) {
             if (!array_key_exists("fallback", configData)) {
@@ -149,10 +149,10 @@ class DCache : UIMObject, ICache {
             }
             myRegistry.set(configName, myfallbackEngine);
         } */
-        /*         if (cast(DCacheEngine)configuration.get("classname")) {
+        /*        if (cast(DCacheEngine)configuration.get("classname")) {
             configData = configuration.get("classname").configuration.data;
         } */
-        /*         if (!configuration.isEmpty("groups")) {
+        /*        if (!configuration.isEmpty("groups")) {
             (cast(DArrayData)configuration.get("groups")).values.each!((groupName) {
                 _groups[groupName] ~= configName;
                 _groups.set(groupName, array_unique(_groups[groupName]));
@@ -195,7 +195,7 @@ class DCache : UIMObject, ICache {
      */
     static bool write(string key, Json dataToCache, string configName = "default") {
         // TODO 
-        /*         if (isResource(dataToCache)) {
+        /*        if (isResource(dataToCache)) {
             return false;
         } */
         /* auto mybackend = pool(configName);

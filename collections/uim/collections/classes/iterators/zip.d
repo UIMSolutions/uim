@@ -95,7 +95,7 @@ class DZipIterator : ICollection {
      * Json[string] data Data array.
      */
     void __unserialize(Json[string] data) {
-       /*  _multipleIterator = new DMultipleIterator(
+       /* _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
        );
 

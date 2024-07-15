@@ -41,7 +41,7 @@ class DReplaceIterator : DCollection {
 
   Iterator unwrap() {
     // TODO
-    /*  anIterator = _innerIterator;
+    /* anIterator = _innerIterator;
 
     if (cast(ICollection) anIterator) {
        anIterator = anIterator.unwrap();

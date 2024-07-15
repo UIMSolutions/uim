@@ -116,7 +116,7 @@ class DArrayCacheEngine : DCacheEngine {
   override bool clearGroup(string groupName) {
     string key = configuration.get("prefix").toString ~ groupName;
     // TODO 
-    /*    if (_cachedData.hasKey(key)) {
+    /*   if (_cachedData.hasKey(key)) {
       _cachedData[key]["val"] += 1;
     } */
     return true;

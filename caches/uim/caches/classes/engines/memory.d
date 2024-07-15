@@ -173,7 +173,7 @@ return true;
         "`%s` is not a valid serializer engine for Memory.".format(myserializer)
       );
     }
-    /*     if (myserializer != "d" && !constant("Memory.HAVE_" ~ myserializer.upper)) {
+    /*    if (myserializer != "d" && !constant("Memory.HAVE_" ~ myserializer.upper)) {
       throw new DInvalidArgumentException(
         "Memory extension is not compiled with `%s` support.".format(myserializer)
      ); */
@@ -259,7 +259,7 @@ override bool merge(Json[string] items, long timeToLive = 0) {
   } 
 
   // Write many cache entries to the cache at once
-  /*   override bool update(Json[string] items, long timeToLive = 0) {
+  /*  override bool update(Json[string] items, long timeToLive = 0) {
     Json[string] cacheData = null;
     items.byKeyValue
       .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
@@ -295,14 +295,14 @@ override bool merge(Json[string] items, long timeToLive = 0) {
   // Delete all keys from the cache
   override bool clear() {
     string prefix = configuration.getString("prefix");
-/*     _memory.getAllKeys()
+/*    _memory.getAllKeys()
       .filter!(key => key.startsWith(prefix))
       .each!(key => _memory.remove(key)); */
     return true;
   }
 
   // Add a key to the cache if it does not already exist.
-/*   override bool merge(string key, Json value, long timeToLive = 0) {
+/*  override bool merge(string key, Json value, long timeToLive = 0) {
     auto internKey = internalcorrectKey(key);
     return _memory.add(internKey, value, duration);
   } */
@@ -323,7 +323,7 @@ override bool merge(Json[string] items, long timeToLive = 0) {
       _compiledGroupNames
         .filter!(groupName => !mygroups.hasKey(groupName))
         .each!((groupName) { _memory.set(mygroup, 1, 0); mygroups[mygroup] = 1; }); */
-    /*  ksort(mygroups); * /
+    /* ksort(mygroups); * /
   } */
 
   string[] result;

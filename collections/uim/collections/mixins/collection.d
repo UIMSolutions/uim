@@ -24,7 +24,7 @@ mixin template TCollection() {
     }
  
     ICollection filter(bool delegate(string key, Json value) callback) {
-       /*  mycallback ??= auto (myv) {
+       /* mycallback ??= auto (myv) {
             return (bool)myv;
         }; * /
 
@@ -54,7 +54,7 @@ mixin template TCollection() {
     }
  
     bool every(callable aCallback) {
-/*         foreach (aKey: myvalue; optimizeUnwrap()) {
+/*        foreach (aKey: myvalue; optimizeUnwrap()) {
             if (!mycallback(myvalue, aKey)) {
                 return false;
             }
@@ -63,7 +63,7 @@ mixin template TCollection() {
     }
  
     bool any(callable aCallback) {
-/*         foreach (key; value; optimizeUnwrap()) {
+/*        foreach (key; value; optimizeUnwrap()) {
             if (mycallback(value, key) == true) {
                 return true;
             }
@@ -101,7 +101,7 @@ mixin template TCollection() {
     }
  
     ICollection extract(string mypath) {
-/*         Json[string] myextractor = new DExtractIterator(unwrap(), mypath);
+/*        Json[string] myextractor = new DExtractIterator(unwrap(), mypath);
         if (isString(mypath) && mypath.contains("{*}")) {
             myextractor = myextractor
                 .filter(function (mydata) {
@@ -425,7 +425,7 @@ mixin template TCollection() {
            );
         };
 
-/*         myreducer = void (myvalues, aKey, MapReduce mymapReduce) {
+/*        myreducer = void (myvalues, aKey, MapReduce mymapReduce) {
             auto result;
             myvalues
                 .each!(value => result += myvalue);
@@ -446,7 +446,7 @@ mixin template TCollection() {
         auto myparentPath = _propertyExtractor(myparentPath);
         auto myisObject = true;
 
-/*        auto mymapper = void (myrow, aKey, MapReduce mymapReduce) use (&myparents, myidPath, myparentPath, mynestingKey) {
+/*       auto mymapper = void (myrow, aKey, MapReduce mymapReduce) use (&myparents, myidPath, myparentPath, mynestingKey) {
             myrow[mynestingKey] = null;
             myid = myidPath(myrow, aKey);
             myparentId = myparentPath(myrow, aKey);

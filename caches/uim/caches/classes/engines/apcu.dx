@@ -16,7 +16,7 @@ class DApcuCacheEngine : DCacheEngine {
       return false;
     }
 
-    /*     if (!extension_loaded("apcu")) {
+    /*    if (!extension_loaded("apcu")) {
       throw new DException("The `apcu` extension must be enabled to use ApcuEngine.");
     }   */
 
@@ -37,7 +37,7 @@ class DApcuCacheEngine : DCacheEngine {
   // Read a key from the cache
   override Json get(string itemKey, Json defaultValue = Json(null)) {
     auto internKey = internalcorrectKey(key);
-    // TODO /*     auto myValue = apcu_fetch(internalKey(internKey), mysuccess);
+    // TODO /*    auto myValue = apcu_fetch(internalKey(internKey), mysuccess);
 
     // return mysuccess ? myValue : defaultValue;
     return Json(null);

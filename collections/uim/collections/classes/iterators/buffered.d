@@ -124,7 +124,7 @@ class DBufferedIterator : DCollection { // }, Countable {
   } */
 
   // Magic method used to rebuild the iterator instance.
- /*  void __unserialize(Json[string] data) {
+ /* void __unserialize(Json[string] data) {
     __construct([]);
 
     data.each!(value => _buffer.push(value));

@@ -620,17 +620,9 @@ class DBelongsToManyAssociation : DAssociation {
      * newTags = tags.find("relevant").toJString();
      * articles.getAssociation("tags").link(article, newTags);
      * ```
-     *
      * `article.get("tags")` will contain all tags in `newTags` after liking
-     *
-     * @param DORMDatasource\IORMEntity sourceEntity the row belonging to the `source` side
-     *  of this association
-     * @param array<DORMDatasource\IORMEntity> targetEntities list of entities belonging to the `target` side
-     *  of this association
-     * @param Json[string] options list of options to be passed to the internal `save` call
-     * @return bool true on success, false otherwise
      */
-    bool link(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
+    bool link(IORMEntity sourceEntity, IORMEntity[string] targetEntities, Json[string] options = null) {
         _checkPersistenceStatus(sourceEntity, targetEntities);
         property = getProperty();
         links = sourceEntity.get(property) ?: [];

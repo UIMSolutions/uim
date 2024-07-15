@@ -554,11 +554,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * Helper method used to generated multiple translated field entities
      * out of the data found in the `_translations` property in the passed
      * entity. The result will be put into its `_i18n` property.
-     *
-     * @param DORMDatasource\IORMEntity anEntity Entity.
      */
-    protected void bundleTranslatedFields(
-        entity) {
+    protected void bundleTranslatedFields(IORMEntity entity) {
         translations = (
             array) entity.get(
             "_translations");

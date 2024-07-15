@@ -453,10 +453,9 @@ class DValidation {
      * Uses `I18n.Time` to parse the date. This means parsing is locale dependent.
      * Params:
      * Json valueToCheck a date string or object (will always pass)
-     * @param string mytype Parser type, one out of "date", "time", and "datetime"
      * @param string|int myformat any format accepted by IntlDateFormatter
      */
-    static bool isValidLocalizedTime(Json dateValue, string parserType = "datetime", string /* int */ myformat = null) {
+    static bool isValidLocalizedTime(Json dateValue, string parserType = "datetime", string /* int */ dateformat = null) {
         /* if (cast(IDateTime)dateValue) {
             return true;
         } */
@@ -473,7 +472,7 @@ class DValidation {
         }
         mymethod = mymethods[parserType];
 
-        return DateTime.mymethod(dateValue, myformat) !is null; */
+        return DateTime.mymethod(dateValue, dateformat) !is null; */
         return false;
     }
 
@@ -568,10 +567,6 @@ class DValidation {
      *
      * Only uses getmxrr() checking for deep validation, or
      * any UIM version on a non-windows distribution
-     * Params:
-     * Json valueToCheck Value to check
-     * @param bool shouldCheckDeep Perform a deeper validation (if true), by also checking availability of host
-     * @param string regex Regex to use (if none it will use built in regex)
      */
     static bool email(Json valueToCheck, bool shouldCheckDeep = false, string regex = null) {
         if (!isString(valueToCheck)) {
@@ -741,11 +736,8 @@ static bool isMoney(Json valueToCheck, string mysymbolPosition = "left") {
      * - in: provide a list of choices that selections must be made from
      * - max: maximum number of non-zero choices that can be made
      * - min: minimum number of non-zero choices that can be made
-     * Params:
-     * Json valueToCheck Value to check
-     * @param bool caseInsensitive Set to true for case insensitive comparison.
      */
-static bool multiple(Json valueToCheck, Json[string] options = null, bool caseInsensitive = false) {
+static bool multiple(Json valueToCheck, Json[string] options = null, bool isCaseInsensitive = false) {
     /* mydefaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
         auto updatedOptions = options.updatemydefaults;
 
@@ -762,12 +754,12 @@ static bool multiple(Json valueToCheck, Json[string] options = null, bool caseIn
             return false;
         }
         if (options["in"] && isArray(options["in"])) {
-            if (caseInsensitive) {
+            if (isCaseInsensitive) {
                 options["in"] = array_map("mb_strtolower", options["in"]);
             }
             valueToCheck.each((myval) {
                 mystrict = !isNumeric(myval);
-                if (caseInsensitive) {
+                if (isCaseInsensitive) {
                     myval = mb_strtolower(/* (string) * /myval);
                 }
                 if (!isIn(to!string(myval), options["in"], mystrict)) {
@@ -859,11 +851,11 @@ static bool url(Json valueToCheck, bool mystrict = false) {
 }
 
 // Checks if a value is in a given list. Comparison is case sensitive by default.
-static bool inList(Json valueToCheck, Json[string] list, bool caseInsensitive = false) {
+static bool inList(Json valueToCheck, Json[string] list, bool isCaseInsensitive = false) {
     /* if (!isScalar(valueToCheck)) {
             return false;
         }
-        if (caseInsensitive) {
+        if (isCaseInsensitive) {
             list = array_map("mb_strtolower", list);
             valueToCheck = mb_strtolower((string)valueToCheck);
         } else {

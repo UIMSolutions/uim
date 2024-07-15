@@ -608,13 +608,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * If you pass an instance of a `UIM\ORM\Table` or `UIM\ORM\Association` class,
      * all the fields in the schema of the table or the association will be added to
      * the select clause.
-     * Params:
-     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\/* Closure * / string[] fieldNames Fields
-     * to be added to the list.
-     * @param bool shouldOverwrite whether to reset fields with passed list or not
      */
     auto select(
-        IExpression|Table|Association|/* Closure */ string[] fieldNames = [],
+        /* IExpression|Table|Association|  Closure */ string[] fieldNames = [],
         bool shouldOverwrite = false
    ) {
         if (cast(DAssociation)fieldNames) {
@@ -1051,9 +1047,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void notMatching(string association, Closure mybuilder = null) {
+    void notMatching(string association/* , Closure mybuilder = null */) {
         result = getEagerLoader()
-            .setMatching(association, mybuilder, [
+            .setMatching(association, null /* mybuilder */, [
                 "joinType": JOIN_TYPE_LEFT,
                 "fields": false.toJson,
                 "negateMatch": true.toJson,

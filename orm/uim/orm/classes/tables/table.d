@@ -1804,22 +1804,15 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * The records will be saved in a transaction which will be rolled back if
      * any one of the records fails to save due to failed validation or database
      * error.
-     * Params:
-     * iterable<\UIM\Datasource\IORMEntity> entities Entities to save.
-     * @param Json[string] options Options used when calling Table.save() for each entity.
      */
-    iterable<\UIM\Datasource\IORMEntity> saveManyOrFail(Json[string] entities, Json[string] options = null) {
+    IORMEntity[] saveManyOrFail(IORMEntity[string] entities, Json[string] options = null) {
         return _saveMany(entities, options);
     }
     
-    /**
-     * @param iterable<\UIM\Datasource\IORMEntity> entities Entities to save.
-     * @param Json[string] options Options used when calling Table.save() for each entity.
-     */
     protected IORMEntity[] _saveMany(
-        range entities,
+        IORMEntity[] entities,
         Json[string] options = null
-   ): range {
+   ) {
         options = new Json[string](
             options ~ [
                 "atomic": true.toJson,
@@ -2210,8 +2203,6 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * If your Table uses any behaviors you can call them as if
      * they were on the table object.
-     * Params:
-     * @param Json[string] arguments List of arguments passed to the function
      */
     Json __call(string methodToInvoke, Json[string] arguments) {
         if (_behaviors.hasMethod(methodToInvoke)) {

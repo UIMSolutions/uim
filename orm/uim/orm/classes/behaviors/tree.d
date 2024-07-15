@@ -146,8 +146,8 @@ class DTreeBehavior : DBehavior {
 
         /** @var DORMdatasources.IORMEntity node */
         foreach (node; children) {
-            parentIdValue = node.get(configuration.get("parent"));
-            depth = depths[parentIdValue] + 1;
+            auto parentIdValue = node.get(configuration.get("parent"));
+            size_t depth = depths.getLong(parentIdValue) + 1;
             depths[node.get(primaryKeys)] = depth;
 
             _table.updateAll(
@@ -450,18 +450,15 @@ class DTreeBehavior : DBehavior {
      * without moving its children with it.
      */
     IORMEntity removeFromTree(IORMEntity node) {
-        return _table.getConnection().transactional(function () use (node) {
+        /* return _table.getConnection().transactional(function () use (node) {
             _ensureFields(node);
 
             return _removeFromTree(node);
-        });
+        }); */
+        return null; 
     }
 
-    /**
-     * Helper function containing the actual code for removeFromTree
-     *
-     * @param DORMDatasource\IORMEntity node The node to remove from the tree
-     */
+    // Helper function containing the actual code for removeFromTree
     protected IORMEntity _removeFromTree(IORMEntity nodeToRemove) {
         auto configData = configuration.data;
         auto left = nodeToRemove.get(configuration.get("left"));

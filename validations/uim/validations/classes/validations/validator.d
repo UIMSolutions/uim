@@ -1222,12 +1222,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a rule to compare one field is greater than or equal to another.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a rule to compare one field is greater than or equal to another.
     auto greaterThanOrEqualToField(
         string fieldName,
         string secondField,

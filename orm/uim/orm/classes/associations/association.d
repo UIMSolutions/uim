@@ -240,9 +240,9 @@ class DAssociation : IAssociation {
             "targetTable",
         ];
         foreach (property; defaults) {
-            if (property in options) {
+            /* if (property in options) {
                 this. {"_" ~ property} = options.get(property];
-            }
+            } */
         }
 
         if (_classname.isEmpty) {
@@ -267,7 +267,7 @@ class DAssociation : IAssociation {
      *
      * @param \Closure|array conditions list of conditions to be used
      */
-    void setConditions(conditions) {
+    void setConditions(/* Closure|array */ Json[string] conditions) {
         _conditions = conditions;
     }
 
@@ -400,7 +400,7 @@ class DAssociation : IAssociation {
         if (!isIn(strategyName, _validStrategies, true)) {
             throw new DInvalidArgumentException(
                 "Invalid strategy '%s' was provided. Valid options are (%s)."
-                    .format(strategyName, _validStrategies.join(", "));
+                    .format(strategyName, _validStrategies.join(", "))
            );
         }
         _strategy = strategyName;
@@ -462,7 +462,7 @@ class DAssociation : IAssociation {
         // This is set by joinWith to disable matching results
         if (options["fields"] == false) {
             options.setNull("fields");
-            options.set("includeFields", = false);
+            options.set("includeFields", false);
         }
 
         if (!options.isEmpty("foreignKeys")) {

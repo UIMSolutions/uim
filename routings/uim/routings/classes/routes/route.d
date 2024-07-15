@@ -592,14 +592,9 @@ class DRoute : IRoute {
     
     /**
      * Converts a matching route array into a URL string.
-     *
-     * Composes the string URL using the template
-     * used to create the route.
-     * Params:
-     * Json[string] options The params to convert to a string url
-     * @param Json[string] mypass The additional passed arguments
+     * Composes the string URL using the template used to create the route.
      */
-    protected string _writeUrl(Json[string] options, Json[string] mypass = [], Json[string] query= null) {
+    protected string _writeUrl(Json[string] options, Json[string] mypass = null, Json[string] query = null) {
         mypass = array_map(function (myvalue) {
             return rawUrlEncode(/* (string) */myvalue);
         }, mypass);

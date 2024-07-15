@@ -930,21 +930,18 @@ static string contentType() {
      * Splits a dot syntax plugin name into its plugin and filename.
      * If views does not have a dot, then index 0 will be null.
      * It checks if the plugin is loaded, else filename will stay unchanged for filenames containing dot
-     * Params:
-     * string views The name you want to plugin split.
-     * @param bool myfallback If true uses the plugin set in the current Request when parsed plugin is not loaded
      */
-    array pluginSplit(string views, bool myfallback = true) {
+    array pluginSplit(string pluginName, bool isFallback = true) {
         _plugin = null;
-        [myfirst, mysecond] = pluginSplit(views);
+        [myfirst, mysecond] = pluginSplit(pluginName);
         if (myfirst && Plugin.isLoaded(myfirst)) {
-            views = mysecond;
+            pluginName = mysecond;
             _plugin = myfirst;
         }
-        if (_plugin !is null && !_plugin && myfallback) {
+        if (_plugin !is null && !_plugin && isFallback) {
             _plugin = _plugin;
         }
-        return [_plugin, views];
+        return [_plugin, pluginName];
     }
     
     // Returns layout filename for this template as a string.

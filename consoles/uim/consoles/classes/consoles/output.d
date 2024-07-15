@@ -202,7 +202,7 @@ class DConsoleOutput {
      * matchesToReplace - Array of matches to replace.
      */
     protected string _replaceTags(STRINGAA matchesToReplace) {
-       /*  auto style = getStyle(matchesToReplace.get("tag"));
+       /* auto style = getStyle(matchesToReplace.get("tag"));
         if (style.isEmpty) {
             return "<" ~ matchesToReplace.getString("tag") ~ ">" ~ matchesToReplace.getStringget("text") ~ "</" ~ matchesToReplace.getString("tag") ~ ">";
         }

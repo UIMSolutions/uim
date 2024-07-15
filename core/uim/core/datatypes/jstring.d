@@ -210,7 +210,7 @@ unittest {
   assert(jsonMain.getMap("x").getInteger("oNe") != 1);
 
   // TODO 
-  /*     assert(jsonMain.getMap("x")["A"].getString == "A");
+  /*    assert(jsonMain.getMap("x")["A"].getString == "A");
     assert(jsonMain.getMap("x")["one"].getInteger == 1);
  */
 }

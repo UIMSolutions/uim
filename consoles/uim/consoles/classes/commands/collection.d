@@ -89,7 +89,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
      * the long name (`plugin.command`) will be returned.
      */
     // TODO
-    /*   STRINGAA discoverPlugin(string pluginName) {
+    /*  STRINGAA discoverPlugin(string pluginName) {
         auto commandScanner = new DCommandScanner();
         auto pluginShells = commandScanner.scanPlugin(pluginName);
 

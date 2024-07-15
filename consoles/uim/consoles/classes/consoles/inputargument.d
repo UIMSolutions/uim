@@ -106,7 +106,7 @@ class DConsoleInputArgument : UIMObject {
 
     // Append this arguments XML representation to the passed in SimpleXml object.
     DSimpleXMLElement xml(SimpleXMLElement parentElement) {
-       /*  auto option = parentElement.addChild("argument");
+       /* auto option = parentElement.addChild("argument");
         option.addAttribute("name", _name);
         option.addAttribute("help", _help);
         option.addAttribute("required", to!string(to!int(isRequired())));

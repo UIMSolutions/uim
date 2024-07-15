@@ -47,7 +47,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
             return;
         }
 
-/*         if (cast(DClosure) mypartitions) {
+/*        if (cast(DClosure) mypartitions) {
             mypartitions = mypartitions(new QueryExpression([], [], ""));
         } */
 
@@ -69,7 +69,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         }
         _orderExpression = _orderExpression.ifNull(new DOrderByExpression());
 
-/*         if (cast(DClosure)fieldNames) {
+/*        if (cast(DClosure)fieldNames) {
             fieldNames = fieldNames(new QueryExpression([], [], ""));
         } */
         _order.add(fieldNames);

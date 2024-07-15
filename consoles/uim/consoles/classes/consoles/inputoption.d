@@ -91,7 +91,7 @@ class DConsoleInputOption {
         _prompt = promptText;
 
         if (isBooleanOption) {
-           _default =/*  (bool)  */defaultValue != "true";
+           _default =/* (bool)  */defaultValue != "true";
         } else if (!defaultValue.isNull) {
            _default = to!string(defaultValue);
         }

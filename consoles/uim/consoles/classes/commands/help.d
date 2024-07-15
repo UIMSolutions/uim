@@ -44,7 +44,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         myInvert.byKeyValue.each!((classname) {
             // preg_match("/^(.+)\\\\Command\\\\/",  classname, matches);
             // Probably not a useful class
-            /*             if (matches.isEmpty) { continue; }
+            /*            if (matches.isEmpty) { continue; }
             
             string namespace = matches[1].replace("\\", "/");
             
@@ -85,7 +85,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
              aConsoleIo.out("");
         } */
         string root = rootName();
-        /*         aConsoleIo.out("To run a command, type <info>`{root} command_name [args|options]`</info>");
+        /*        aConsoleIo.out("To run a command, type <info>`{root} command_name [args|options]`</info>");
         aConsoleIo.out("To get help on a specific command, type <info>`{root} command_name --help`</info>", 2);
  */
     }
@@ -107,7 +107,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         if (!count(myPaths)) {
             return;
         }
-        /*          aConsoleIo.out("<info>Current Paths:</info>", 2);
+        /*         aConsoleIo.out("<info>Current Paths:</info>", 2);
         myPaths.each!(kv => aConsoleIo.out("* %s: %s".format(kv.key, kv.value)));
          aConsoleIo.out(""); */
     }
@@ -137,12 +137,12 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         commandNames.byKeyValue
             .each(nameclassname => shells.addCommandToShells(nameclassname.key, nameclassname.value));
 
-        /*         aConsoleIo.setOutputAs(ConsoleOutput.RAW);
+        /*        aConsoleIo.setOutputAs(ConsoleOutput.RAW);
         aConsoleIo.out(castto!string(xmlShells.saveXML())); */
     }
 
     // TODO
-/*     void addCommandToShells(DSimpleXMLElement shells, string commandName, DCommand command) {
+/*    void addCommandToShells(DSimpleXMLElement shells, string commandName, DCommand command) {
         addCommandToShells(shells, commandName, command.classname);
     } */
 

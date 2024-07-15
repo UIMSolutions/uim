@@ -680,17 +680,16 @@ class DBelongsToManyAssociation : DAssociation {
      * @param string[]|bool options List of options to be passed to the internal `delete` call,
      *  or a `boolean` as `cleanProperty` key shortcut.
      */
-    bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, options = null) {
-        if (is_bool(options)) {
-            options = [
-                "cleanProperty": options,
-            ];
-        } else {
-            auto updatedOptions = options.update["cleanProperty": true.toJson];
-        }
+    bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, bool isCleanProperty = null) {
+        unlink(sourceEntity, targetEntities, [
+            "cleanProperty": isCleanProperty.toJson,
+        ]);
+    }
+    bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
+        auto updatedOptions = options.merge(["cleanProperty": true.toJson]);
 
         _checkPersistenceStatus(sourceEntity, targetEntities);
-        property = getProperty();
+        auto property = getProperty();
 
         this.junction().getConnection().transactional(
             void () use (sourceEntity, targetEntities, options) {

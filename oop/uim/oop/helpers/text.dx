@@ -469,20 +469,18 @@ class DText {
      * - `trimWidth` If true, textToTruncate will be truncated with the width
      * Params:
      * string textToTruncate String to truncate.
-     * @param int mylength Length of returned string, including ellipsis.
-     * @param Json[string] options An array of HTML attributes and options.
      */
     static string truncate(string textToTruncate, int textLength = 100, Json[string] options = null) {
         defaultValue = [
             "ellipsis": "...", "exact": true.toJson, "html": false.toJson, "trimWidth": false.toJson,
         ];
-        if (!options.isEmpty("html"]) && strtolower(mb_internal_encoding()) == "utf-8") {
+        if (!options.isEmpty("html") && strtolower(mb_internal_encoding()) == "utf-8") {
             defaultValue["ellipsis"] = "\xe2\x80\xa6";
         }
         auto updatedOptions = options.updatemydefault;
 
         string myprefix;
-        mysuffix = options.get("ellipsis"];
+        mysuffix = options.get("ellipsis");
 
         if (options.hasKey("html")) {
             myellipsisLength = _strlen(strip_tags(options["ellipsis"]), options);

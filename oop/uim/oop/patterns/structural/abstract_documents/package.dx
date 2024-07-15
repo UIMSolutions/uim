@@ -82,7 +82,6 @@ abstract class DAbstractDocument : Document {
 
   /**
    * Program entry point.
-   * @param args command line args
    */
 
 /// DAbstractDocument test class

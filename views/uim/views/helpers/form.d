@@ -1144,28 +1144,28 @@ class DFormHelper : DHelper {
      */
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
         Json[string] auto updatedOptions = options.update["id": Json(null), "input": Json(null), "nestedInput": false.toJson, "templateVars": Json.emptyArray];
-        STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
+        STRINGAA labelAttributes = ["templateVars": labelOptions["templateVars"]];
         if (isArray(mylabel)) {
-            auto mylabelText = null;
+            auto labelText = null;
             if (mylabel.hasKey("text")) {
-                mylabelText = mylabel["text"];
+                labelText = mylabel["text"];
                 mylabel.remove("text");
             }
-            mylabelAttributes = update(mylabelAttributes, labelAttributes);
+            labelAttributes = update(labelAttributes, labelAttributes);
         } else {
-            mylabelText = mylabel;
+            labelText = mylabel;
         }
-        mylabelAttributes["for"] = labelOptions["id"];
+        labelAttributes["for"] = labelOptions["id"];
         if (isIn(labelOptions["type"], _groupedInputTypes, true)) {
-            mylabelAttributes["for"] = false;
+            labelAttributes.set("for", false);
         }
         if (labelOptions["nestedInput"]) {
-            mylabelAttributes["input"] = labelOptions["input"];
+            labelAttributes.set("input", labelOptions["input"]);
         }
         if (labelOptions.hasKey("escape")) {
-            mylabelAttributes["escape"] = labelOptions["escape"];
+            labelAttributes.set("escape", labelOptions["escape"]);
         }
-        return _label(fieldName, mylabelText, mylabelAttributes);
+        return _label(fieldName, labelText, labelAttributes);
     }
     
     /**
@@ -1188,10 +1188,10 @@ class DFormHelper : DHelper {
         auto updatedOptions = options.update["hiddenField": true.toJson, "value": 1];
 
         // Work around value=>val translations.
-        myvalue = options.get("value"];
+        myvalue = options.get("value");
         options.remove("value");
         options = _initInputField(fieldName, options);
-        options["value"] = myvalue;
+        options.set("value", myvalue);
 
         myoutput = "";
         if (options["hiddenField"] == true && isScalar(options["hiddenField"])) {

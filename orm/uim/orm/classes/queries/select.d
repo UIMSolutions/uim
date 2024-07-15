@@ -623,7 +623,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             fieldNames = fieldNames.getTarget();
         }
         if (cast(Table)fieldNames) {
-            if (this.aliasingEnabled) {
+            if (_aliasingEnabled) {
                 fieldNames = this.aliasFields(fieldNames.getSchema().columns(), fieldNames.aliasName());
             } else {
                 fieldNames = fieldNames.getSchema().columns();
@@ -656,16 +656,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * After the first call to this method, a second call cannot be used to remove fields that have already
      * been added to the query by the first. If you need to change the list after the first call,
      * pass overwrite boolean true which will reset the select clause removing all previous additions.
-     * Params:
-     * \ORM\Table|\ORM\Association mytable The table to use to get an array of columns
-     * @param string[] myexcludedFields The un-aliased column names you do not want selected from mytable
      */
-    auto selectAllExcept(Table|Association mytable, Json[string] myexcludedFields, bool shouldOverwrite = false) {
-        if (cast(DAssociation)mytable) {
-            mytable = mytable.getTarget();
-        }
+    auto selectAllExcept(/* Table| */Association mytable, Json[string] myexcludedFields, bool shouldOverwrite = false) {
+        return selectAllExcept(mytable.getTarget(), myexcludedFields, shouldOverwrite);
+    }
+    auto selectAllExcept(DORMTable mytable, Json[string] myexcludedFields, bool shouldOverwrite = false) {
         fieldNames = array_diff(mytable.getSchema().columns(), myexcludedFields);
-        if (this.aliasingEnabled) {
+        if (_aliasingEnabled) {
             fieldNames = this.aliasFields(fieldNames);
         }
         return _select(fieldNames, shouldOverwrite);
@@ -1326,7 +1323,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             this.select(myrepository.getSchema().columns());
             myselect = this.clause("select");
         }
-        if (this.aliasingEnabled) {
+        if (_aliasingEnabled) {
             myselect = this.aliasFields(myselect, myrepository.aliasName());
         }
         this.select(myselect, true);
@@ -1370,7 +1367,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Disable auto adding table"s alias to the fields of SELECT clause.
      */
     auto disableAutoAliasing() {
-        this.aliasingEnabled = false;
+        _aliasingEnabled = false;
 
         return this;
     }

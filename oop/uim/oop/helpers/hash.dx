@@ -714,12 +714,9 @@ class Hash {
      * ```
      * mytotal = Hash.apply(data, "{n}.Item.price", "array_sum");
      * ```
-     * Params:
-     * Json[string] data The data to reduce.
-     * @param callable myfunction The auto to call on each extracted value.
      */
-    static Json apply(Json[string] data, string path, callable myfunction) {
-        auto myvalues = /* (array) */extract(data, path);
+    static Json apply(Json[string] dataToReduce, string path, callable myfunction) {
+        auto myvalues = /* (array) */extract(dataToReduce, path);
         return myfunction(myvalues);
     }
     

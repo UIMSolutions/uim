@@ -524,9 +524,6 @@ class DEagerLoader {
     /**
      * An internal method to build a map which is used for the return value of the
      * associationsMap() method.
-     * Params:
-     * Json[string] mymap An initial array for the map.
-     * @param array<\ORM\> mylevel An array of EagerLoadable instances.
      */
     protected DEagerLoadable[] _buildAssociationsMap(Json[string] initialData, Json[string] mylevel, bool isMatching = false) {
         foreach (association, mymeta; mylevel) {

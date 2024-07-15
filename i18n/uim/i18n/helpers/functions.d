@@ -9,10 +9,10 @@ string __(string singularText, Json[string] arguments) {
     if (!singularText) {
         return null;
     }
-    /* if (isSet(someArguments[0]) && isArray(someArguments[0])) {
-        someArguments = someArguments[0];
+    /* if (isSet(arguments[0]) && isArray(arguments[0])) {
+        arguments = arguments[0];
     }
-    return I18n.getTranslator().translate(singular, someArguments); */
+    return I18n.getTranslator().translate(singular, arguments); */
     return null; 
 }
 /**
@@ -23,12 +23,12 @@ string __n(string singularText, string pluralText, size_t count, Json[string] ar
     /* if (!singularText) {
         return null;
     }
-    if (isSet(someArguments[0]) && isArray(someArguments[0])) {
-        someArguments = someArguments[0];
+    if (isSet(arguments[0]) && isArray(arguments[0])) {
+        arguments = arguments[0];
     }
     return I18n.getTranslator().translate(
         plural,
-        ["_count": count, "_singular": singularText] + someArguments
+        ["_count": count, "_singular": singularText] + arguments
    ); */
    return null;
 }
@@ -40,10 +40,10 @@ string __d(string domainName, string messageToTranslate, Json[string] arguments)
     }
 
     /* 
-    if (isSet(someArguments[0]) && isArray(someArguments[0])) {
-        someArguments = someArguments[0];
+    if (isSet(arguments[0]) && isArray(arguments[0])) {
+        arguments = arguments[0];
     }
-    return I18n.getTranslator(domainName).translate(messageToTranslate, someArguments); */
+    return I18n.getTranslator(domainName).translate(messageToTranslate, arguments); */
     return null;
 }
 
@@ -56,12 +56,12 @@ string __dn(string domainName, string singularText, string pluralText, int count
     if (singular.isEmpty) {
         return null;
     }
-    if (isSet(someArguments[0]) && isArray(someArguments[0])) {
-        someArguments = someArguments[0];
+    if (isSet(arguments[0]) && isArray(arguments[0])) {
+        arguments = arguments[0];
     }
     return I18n.getTranslator(domainName).translate(
         plural,
-        ["_count": count, "_singular": singularText] + someArguments
+        ["_count": count, "_singular": singularText] + arguments
    );
 }
 /**
@@ -88,12 +88,12 @@ string __xn(string context, string singularText, string pluralText, size_t count
     if (!singularText) {
         return null;
     }
-    if (isSet(someArguments[0]) && isArray(someArguments[0])) {
-        someArguments = someArguments[0];
+    if (isSet(arguments[0]) && isArray(arguments[0])) {
+        arguments = arguments[0];
     }
     return I18n.getTranslator().translate(
         pluralText,
-        ["_count": count, "_singular": singularText, "_context": context] + someArguments
+        ["_count": count, "_singular": singularText, "_context": context] + arguments
    );
 }
 
@@ -106,12 +106,12 @@ string __dx(string domainName, string context, string messageToTranslate, Json[s
     if (!messageToTranslate) {
         return null;
     }
-    if (isSet(someArguments[0]) && isArray(someArguments[0])) {
-        someArguments = someArguments[0];
+    if (isSet(arguments[0]) && isArray(arguments[0])) {
+        arguments = arguments[0];
     }
     return I18n.getTranslator(domainName).translate(
         messageToTranslate,
-        ["_context": context] + someArguments
+        ["_context": context] + arguments
    );
 }
 
@@ -132,11 +132,11 @@ string __dxn(
     if (!singularText) {
         return null;
     }
-    if (isSet(someArguments[0]) && isArray(someArguments[0])) {
-        someArguments = someArguments[0];
+    if (isSet(arguments[0]) && isArray(arguments[0])) {
+        arguments = arguments[0];
     }
     return I18n.getTranslator(domainName).translate(
         plural,
-        ["_count": count, "_singular": singularText, "_context": context] + someArguments
+        ["_count": count, "_singular": singularText, "_context": context] + arguments
    ); 
 } 

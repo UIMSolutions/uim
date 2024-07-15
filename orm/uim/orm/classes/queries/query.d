@@ -806,7 +806,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         }
 
         if (!complex && _valueBinder != null) {
-            auto order = this.clause("order");
+            auto order = clause("order");
             complex = order == null ? false : order.hasNestedExpression();
         }
 
@@ -875,22 +875,12 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         _hydrate = false;
     }
 
-    /**
-     * Returns the current hydration mode.
-     */
+    // Returns the current hydration mode.
     bool isHydrationEnabled() {
         return _hydrate;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @param \/*Closure|*/ string key Either the cache key or a function to generate the cache key.
-     *  When using a function, this query instance will be supplied as an argument.
-     * @param DORMCache\CacheEngine|string myConfiguration Either the name of the cache config to use, or
-     *  a cache config instance.
-     */
-    auto cache(key, myConfiguration = "default") {
+    auto cache(/*Closure|*/ string key, /* DORMCache\CacheEngine| */string myConfiguration = "default") {
         if (_type != "select" && _type != null) {
             throw new DRuntimeException("You cannot cache the results of non-select queries.");
         }
@@ -927,8 +917,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     }
 
 
-    string sql(?DValueBinder aBinder = null) {
-        this.triggerBeforeFind();
+    string sql(DValueBinder aBinder = null) {
+        _triggerBeforeFind();
 
         _transformQuery();
 
@@ -942,9 +932,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * @return DORMDatasource\IResultset
      */
-    protected function _execute(): IResultset
-    {
-        this.triggerBeforeFind();
+    protected IResultset _execute() {
+        _triggerBeforeFind();
         if (_results) {
             decorator = _decoratorClass();
 
@@ -952,7 +941,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         }
 
         statement = getEagerLoader().loadExternal(this, this.execute());
-
         return new DResultset(this, statement);
     }
 
@@ -970,8 +958,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             return;
         }
 
-        repository = getRepository();
-
+        auto repository = getRepository();
         if (_parts.isEmpty("from")) {
             this.from([repository.aliasName(): repository.getTable()]);
         }
@@ -985,15 +972,14 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * the fields for the default table.
      */
     protected void _addDefaultFields() {
-        select = this.clause("select");
+        auto select = clause("select");
         _hasFields = true;
 
-        repository = getRepository();
-
+        auto repository = getRepository();
         if (!count(select) || _autoFields == true) {
             _hasFields = false;
             this.select(repository.getSchema().columns());
-            select = this.clause("select");
+            select = clause("select");
         }
 
         if (this.aliasingEnabled) {
@@ -1005,7 +991,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     // Sets the default types for converting the fields in the select clause
     protected void _addDefaultSelectTypes() {
         auto typeMap = getTypeMap().getDefaults();
-        auto select = this.clause("select");
+        auto select = clause("select");
         auto types = null;
 
         foreach (aliasName, value; select) {
@@ -1018,7 +1004,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
                 continue;
             }
             if (value.isString && typeMap.hasKey(value)) {
-                types[aliasName] = typeMap[value];
+                types.set(aliasName, typeMap[value]);
             }
         }
         getSelectTypeMap().addDefaults(types);
@@ -1062,8 +1048,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This changes the query type to be "delete".
      * Can be combined with the where() method to create delete queries.
      */
-    auto  remove(string tableName = null) {
-        repository = getRepository();
+    auto remove(string tableName = null) {
+        auto repository = getRepository();
         this.from([repository.aliasName(): repository.getTable()]);
 
         // We do not pass table to parent class here
@@ -1082,19 +1068,15 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param Json[string] columns The columns to insert into.
      * @param string[] types A map between columns & their datatypes.
      */
-    auto insert(Json[string] columns, Json[string] types = null) {
-        repository = getRepository();
-        table = repository.getTable();
-        this.into(table);
+    auto insert(Json[string] columnsToInsert, Json[string] types = null) {
+        auto repository = getRepository();
+        auto table = repository.getTable();
+        into(table);
 
-        return super.insert(columns, types);
+        return super.insert(columnsToInsert, types);
     }
 
-    /**
-     * Returns a new Query that has automatic field aliasing disabled.
-     *
-     * @param DORMDORMTable aTable The table this query is starting on
-     */
+    // Returns a new Query that has automatic field aliasing disabled.
     static auto subquery(DORMTable aTable) {
         query = new static(table.getConnection(), table);
         query.aliasingEnabled = false;

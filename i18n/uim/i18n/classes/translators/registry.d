@@ -140,14 +140,15 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     
     // Create translator instance.
     protected ITranslator createInstance(string catalogName, string localName = null) {
-        ICatalog catalog = _catalogs.get(catalogName, localName);
+        /* ICatalog catalog = _catalogs.get(catalogName, localName);
         auto fallback = catalog.fallback();
         if (!fallback.isNull) {
             fallback = get(fallback, localName);
         }
         formatter = _formatters.get(catalog.formatterName());
 
-        return new DTranslator(localName, catalog, formatter, fallback);
+        return new DTranslator(localName, catalog, formatter, fallback); */
+        return null; 
     }
     
     /**
@@ -171,7 +172,8 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         if (formatterName.isNull) {
             return _defaultFormatter;
         }
-        return _defaultFormatter = formatterName;
+        _defaultFormatter = formatterName;
+        return _defaultFormatter;
     }
     
     // Set if the default domain fallback is used.

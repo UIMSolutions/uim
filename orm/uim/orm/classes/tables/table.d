@@ -1766,17 +1766,12 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         return mytype.newId();
     }
     
-    /**
-     * Auxiliary auto to handle the update of an entity"s data in the table
-     * Params:
-     * \UIM\Datasource\IORMEntity myentity the subject entity from were mydata was extracted
-     * @param Json[string] data The actual data that needs to be saved
-     */
+    // Auxiliary auto to handle the update of an entity"s data in the table
     protected IORMEntity _update(IORMEntity myentity, Json[string] data) {
-        myprimaryColumns = (array)this.primaryKeys();
-        primaryKey = myentity.extract(myprimaryColumns);
+        auto myprimaryColumns = this.primaryKeys();
+        auto primaryKey = myentity.extract(myprimaryColumns);
 
-        mydata = array_diffinternalKey(mydata, primaryKey);
+        auto mydata = array_diffinternalKey(mydata, primaryKey);
         if (isEmpty(mydata)) {
             return myentity;
         }

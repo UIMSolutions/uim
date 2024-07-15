@@ -445,8 +445,8 @@ static string contentType() {
             return null;
         }
         [_plugin, myelementName] = _pluginSplit(templatefilename, _pluginCheck);
-        auto mypaths = iterator_to_array(_getElementPaths(_plugin));
-        throw new DMissingElementException([templatefilename ~ _ext, myelementName ~ _ext], mypaths);
+        auto paths = iterator_to_array(_getElementPaths(_plugin));
+        throw new DMissingElementException([templatefilename ~ _ext, myelementName ~ _ext], paths);
     }
 
     /**
@@ -478,11 +478,11 @@ static string contentType() {
 
         try {
             myblock();
-        } catch (Throwable myexception) {
+        } catch (Throwable exception) {
             while (ob_get_level() > mybufferLevel) {
                 ob_end_clean();
             }
-            throw myexception;
+            throw exception;
         }
         result = to!string(ob_get_clean());
 
@@ -703,8 +703,8 @@ static string contentType() {
                 myparent = _getElementFileName(views);
                 if (!myparent) {
                     [_plugin, views] = _pluginSplit(views);
-                    mypaths = _paths(_plugin);
-                    mydefaultPath = mypaths[0] ~ TYPE_ELEMENT ~ DIRECTORY_SEPARATOR;
+                    paths = _paths(_plugin);
+                    mydefaultPath = paths[0] ~ TYPE_ELEMENT ~ DIRECTORY_SEPARATOR;
                     throw new DLogicException(
                         "You cannot extend an element which does not exist (%s).".format(mydefaultPath ~ views ~ _ext
                    ));
@@ -776,12 +776,7 @@ static string contentType() {
         return mycontent;
     }
 
-    /**
-     * Sandbox method to evaluate a template / view script in.
-     * Params:
-     * string templateFilename Filename of the template.
-     * @param array mydataForView Data to include in rendered view.
-     */
+    // Sandbox method to evaluate a template / view script in.
     protected string _evaluate(string templateFilename, Json[string] mydataForView) {
         extract(mydataForView);
 
@@ -790,12 +785,12 @@ static string contentType() {
 
         try {
             // Avoiding templateFilename here due to collision with extract() vars.
-            include func_get_arg(0);
-        } catch (Throwable myexception) {
+            // TODO include func_get_arg(0);
+        } catch (Throwable exception) {
             while (ob_get_level() > mybufferLevel) {
                 ob_end_clean();
             }
-            throw myexception;
+            throw exception;
         }
         return /* (string) */ob_get_clean();
     }
@@ -893,13 +888,13 @@ static string contentType() {
             }
         }
         views ~= _ext;
-        mypaths = _paths(_plugin);
-        foreach (mypaths as path) {
+        paths = _paths(_plugin);
+        foreach (paths as path) {
             if (isFile(path ~ views)) {
                 return _checkFilePath(path ~ views, path);
             }
         }
-        throw new DMissingTemplateException(views, mypaths);
+        throw new DMissingTemplateException(views, paths);
     }
     
     // Change the name of a view template file into underscored format.
@@ -963,8 +958,8 @@ static string contentType() {
                 return _checkFilePath(path ~ views, path);
             }
         }
-        mypaths = iterator_to_array(_getLayoutPaths(_plugin));
-        throw new DMissingLayoutException(views, mypaths);
+        paths = iterator_to_array(_getLayoutPaths(_plugin));
+        throw new DMissingLayoutException(views, paths);
     }
     
     // Get an iterator for layout paths.
@@ -982,12 +977,7 @@ static string contentType() {
         }
     }
     
-    /**
-     * Finds an element filename, returns false on failure.
-     * Params:
-     * string elementname The name of the element to find.
-     * @param bool _pluginCheck - if false will ignore the request"s plugin if parsed plugin is not loaded
-     */
+    // Finds an element filename, returns false on failure.
     protected string|int|false _getElementFileName(string elementname, bool shouldCheckPlugin = true)|false
     {
         [_plugin, elementname] = _pluginSplit(elementname, shouldCheckPlugin);
@@ -1006,23 +996,21 @@ static string contentType() {
         auto myelementPaths = _getSubPaths(TYPE_ELEMENT);
         foreach (path; _paths(pluginName)) {
             foreach (mysubdir; myelementPaths) {
-                yield path ~ mysubdir ~ DIRECTORY_SEPARATOR;
+                // yield path ~ mysubdir ~ DIRECTORY_SEPARATOR;
             }
         }
     }
     
     /**
-     * Find all sub templates path, based on mybasePath
+     * Find all sub templates path, based on basePath
      * If a prefix is defined in the current request, this method will prepend
-     * the prefixed template path to the mybasePath, cascading up in case the prefix
+     * the prefixed template path to the basePath, cascading up in case the prefix
      * is nested.
      * This is essentially used to find prefixed template paths for elements
      * and layouts.
-     * Params:
-     * string mybasePath Base path on which to get the prefixed one.
      */
-    protected string[] _getSubPaths(string mybasePath) {
-        auto mypaths = [mybasePath];
+    protected string[] _getSubPaths(string basePath) {
+        string[] paths = [basePath];
         if (_request.getParam("prefix")) {
             string[] myprefixPath =_request.getParam("prefix"). split("/");
             path = "";
@@ -1030,12 +1018,12 @@ static string contentType() {
                 path ~= Inflector.camelize(myprefixPart) ~ DIRECTORY_SEPARATOR;
 
                 array_unshift(
-                    mypaths,
-                    path ~ mybasePath
+                    paths,
+                    path ~ basePath
                );
             }
         }
-        return mypaths;
+        return paths;
     }
     
     // Return all possible paths to find view files in order
@@ -1074,7 +1062,7 @@ static string contentType() {
             mythemePaths ~= mythemePath;
         }
         
-        auto mypaths = array_merge(
+        auto paths = array_merge(
             mythemePaths,
             _pluginPaths,
             templatePaths,
@@ -1082,9 +1070,9 @@ static string contentType() {
        );
 
         if (_plugin !is null) {
-            return _pathsForPlugin[_plugin] = mypaths;
+            return _pathsForPlugin[_plugin] = paths;
         }
-        return _paths = mypaths;
+        return _paths = paths;
     }
     
     // Generate the cache configuration options for an element.

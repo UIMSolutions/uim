@@ -65,7 +65,7 @@ class DExtractIterator : DCollection {
     aCallback = _extractor;
     res = null;
 
-    myIterator.getArrayCopy().byKeyValue.each!(kv => res[kv.key] = aCallback(kv.value));
+    myIterator.dup.byKeyValue.each!(kv => res[kv.key] = aCallback(kv.value));
 
     return new DArrayIterator(res);
   } */

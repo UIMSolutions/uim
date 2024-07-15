@@ -15,7 +15,7 @@ class DPoFileParser {
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
-        
+
         return true;
     }
     /**
@@ -89,7 +89,7 @@ class DPoFileParser {
         /// fclose(fileStream);
 
         // return messages;
-        return null; 
+        return null;
     }
 
     DPoMessage parseByLine(string line, Json[] messages, DPoMessage message) {
@@ -105,17 +105,17 @@ class DPoFileParser {
 
         if (line.startsWith("#")) {
             // message.addComments(line);
-            return message; 
+            return message;
         }
 
         if (line.startsWith(`msgid "`)) {
             // message.id(line);
-            return message; 
+            return message;
 
             /* addMessage(messages, anItem);
             anItem["ids.singular"] = subString(line, 7,  - 1);
             stage = ["ids", "singular"];
-            return; */ 
+            return; */
         }
 
         if (line.startsWith("msgstr \" ")) {
@@ -154,26 +154,26 @@ class DPoFileParser {
             anItem["translated"][row] = subString(line, size + 3,  - 1);
             stage = ["translated", row];
         } */
-        return null; 
+        return null;
     }
 
     // Saves a translation item to the messages.
     protected void addMessage(Json[string] messages, Json[string] itemToInspect) {
-        auto ids = itemToInspect.getStringArray("ids");
+        // auto ids = itemToInspect.getStringArray("ids");
         /* if (ids.areAllEmpty("singular", "plural")) {
             return;
         } */
 
         string singular; //  = stripcslashes(ids["singular"]);
         auto context = itemToInspect.get("context");
-        auto translation = itemToInspect.get("translated");
+        /*         auto translation = itemToInspect.get("translated");
 
         if (translation.isArray) {
             translation = translation[0];
         }
-        translation = stripcslashes(to!string(translation));
+        translation = stripcslashes(to!string(translation)); */
 
-   /*      if (context !is null && messages is null([singular, "_context", context])) {
+        /*      if (context !is null && messages is null([singular, "_context", context])) {
             messages.set([singular, "_context", context], translation);
         } else if (messages is null([singular, "_context"])) {
             messages.set([singular, "_context"], translation);
@@ -202,5 +202,5 @@ class DPoFileParser {
                 messages.set([Translator.PLURAL_PREFIX ~ key, "_context."], plurals);
             } */
         }
-    } 
+    }
 }

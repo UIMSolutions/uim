@@ -143,11 +143,11 @@ class DMessagesFileLoader {
 
     protected string translationFile(string[] folders, string fileName, string fileExtension) {
         auto file = null;
-        fileName = fileName.replace("/", "_");
+        auto fileName = fileName.replace("/", "_");
 
         folders.each!((folder) {
             string filePath = folder ~ fileName ~ "." ~ fileExtension;
-            if (isFile(filePath)) {
+            if (filePath.isFile) {
                 file = filePath;
                 break;
             }

@@ -1306,7 +1306,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
         IORMEntity entity = null;
         /* entity = _executeTransaction(
-            fn (): _processFindOrCreate(mysearch, null /* mycallback */, options.getArrayCopy()),
+            fn (): _processFindOrCreate(mysearch, null /* mycallback */, options.dup),
             options["atomic"]
        ); */
 
@@ -1617,7 +1617,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             this,
             entityToSave,
             options["associated"],
-            ["_primary": false.toJson] + options.getArrayCopy()
+            ["_primary": false.toJson] + options.dup
        );
 
         if (!mysaved && options["atomic"]) {
@@ -1649,7 +1649,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             this,
             entityToSave,
             options["associated"],
-            ["_primary": false.toJson] + options.getArrayCopy()
+            ["_primary": false.toJson] + options.dup
        );
 
         if (!mysuccess && options["atomic"]) {
@@ -2037,7 +2037,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         }
         mysuccess = _associations.cascadeRemove(
             ormEntity,
-            ["_primary": false.toJson + options.getArrayCopy()}
+            ["_primary": false.toJson + options.dup}
        );
         if (!mysuccess) {
             return mysuccess;
@@ -2083,11 +2083,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
        ));
     }
     
-    /**
-     * @param \Closure mycallable Callable.
-     * @param \ORM\Query\SelectQuery<TSubject> myquery The query object.
-     */
-    DSelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string] arguments) {
+    /* DSelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string] arguments) {
         auto myreflected = new DReflectionFunction(mycallable);
         auto params = myreflected.getParameters();
         auto mysecondParam = params[1] ?? null;
@@ -2146,13 +2142,13 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             }
         }
         return mycallable(myquery, ...arguments);
-    }
+    } */
     
     // Provides the dynamic findBy and findAllBy methods.
     protected ISelectQuery _dynamicFinder(string methodName, Json[string] arguments) {
-        methodName = Inflector.underscore(methodName);
+        string methodName = Inflector.underscore(methodName);
         preg_match("/^find_([\w]+)_by_/", methodName, mymatches);
-        if (isEmpty(mymatches)) {
+        if (mymatches.isEmpty) {
             // find_by_is 8 characters.
             fieldNames = subString(methodName, 8);
             myfindType = "all";
@@ -2163,7 +2159,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         auto myhasOr = fieldNames.contains("_or_");
         auto myhasAnd = fieldNames.contains("_and_");
 
-        auto mymakeConditions = auto (fieldNames, arguments) {
+        /* auto mymakeConditions = auto (fieldNames, arguments) {
             myconditions = null;
             if (count(arguments) < count(fieldNames)) {
                 throw new BadMethodCallException(format(
@@ -2174,7 +2170,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             }
             fieldNames.each!(field => myconditions[this.aliasField(field)] = array_shift(arguments));
             return myconditions;
-        };
+        }; */
 
         if (myhasOr == true && myhasAnd == true) {
             throw new BadMethodCallException(

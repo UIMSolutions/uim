@@ -39,7 +39,7 @@ class DLogger : ILogger {
                 continue;
             }
             if (cast(DJson[string])aValue) {
-                replacements.set("{" ~ aKey ~ "}", Json_encode(aValue.getArrayCopy(), JsonFlags));
+                replacements.set("{" ~ aKey ~ "}", Json_encode(aValue.dup, JsonFlags));
                 continue;
             }
             if (cast(DSerializable)aValue) {

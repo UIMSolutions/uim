@@ -113,7 +113,7 @@ class DNumber {
     static string format(Json value, Json[string] options = null) {
         auto formatter = formatter(options);
         auto updatedOptions = options.merge(
-            ["before": "", "after": ""]);
+            ["before": Json(""), "after": Json("")]);
         /* return updatedOptions.getString(
             "before") ~ formatter.format(
             value.getDouble) ~ updatedOptions.getString("after"); */

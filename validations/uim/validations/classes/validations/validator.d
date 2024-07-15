@@ -451,11 +451,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * You can also set mode and message for all passed fields, the individual
      * setting takes precedence over group settings.
-     * Params:
-     * array<string|int, mixed>|string fieldName the name of the field or list of fields.
-     * @param \/*Closure|* / string mymode Valid values are true, false, "create", "update".
-     * If a Closure is passed then the field will be required only when the callback
-     * returns true.
      */
     void requirePresence(string[] fieldName, /*Closure|*/ string mymode /* = true */ , string message = null) {
         /* mydefaults = [
@@ -1605,13 +1600,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a string length validation rule to a field.
-     * Params:
-     * @param int mymin The minimum length required.
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a string length validation rule to a field.
     auto minLengthBytes(string fieldName, int requiredMinLength, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
@@ -1917,12 +1906,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null; 
     }
 
-    /**
-     * Add a validation rule to ensure a field contains only ascii bytes
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a validation rule to ensure a field contains only ascii bytes
     auto ascii(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             message = _useI18n
@@ -2110,26 +2094,21 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure that a field is an array containing at most
      * the specified amount of elements
-     * Params:
-     * @param int mycount The number maximum amount of elements the field should have
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.numElements()
      */
-    Json[string] hasAtMost(string fieldName, int mycount, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    Json[string] hasAtMost(string fieldName, int countElements, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must have at most '{0}' elements", mycount)`
-                : "The provided value must have at most '%s' elements".format(mycount); 
+                : "The provided value must have at most '%s' elements".format(countElements); 
         }
         // Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
 
         /* return _add(fieldName, "hasAtMost", myextra ~ [
-            "rule": auto (myvalue) use (mycount) {
+            "rule": auto (myvalue) use (countElements) {
                 if (isArray(myvalue) && myvalue.hasKey("_ids")) {
                     myvalue = myvalue["_ids"];
                 }
-                return Validation.numElements(myvalue, Validation.COMPARE_LESS_OR_EQUAL, mycount);
+                return Validation.numElements(myvalue, Validation.COMPARE_LESS_OR_EQUAL, countElements);
             },
         ]); */
         return null;

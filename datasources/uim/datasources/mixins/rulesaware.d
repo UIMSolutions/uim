@@ -41,7 +41,7 @@ mixin template TRulesAware() {
                 return event.getResult();
             }
         }
-        result = rules.check(entity, operationToRun, ruleOptions.getArrayCopy());
+        result = rules.check(entity, operationToRun, ruleOptions.dup);
 
         if (hasEvents) {
             event = dispatchEvent(

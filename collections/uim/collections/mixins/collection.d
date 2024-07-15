@@ -473,7 +473,7 @@ mixin template TCollection() {
         }; * /
 
         /* return _newCollection(new DMapReduce(unwrap(), mymapper, myreducer))
-            .map(fn (myvalue): myisObject ? myvalue : myvalue.getArrayCopy()); * /
+            .map(fn (myvalue): myisObject ? myvalue : myvalue.dup); * /
         return null; 
     }
  
@@ -484,7 +484,7 @@ mixin template TCollection() {
     Json[string] toArray(bool mykeepKeys = true) {
         myiterator = unwrap();
         if (cast(DArrayIterator)myiterator) {
-            myitems = myiterator.getArrayCopy();
+            myitems = myiterator.dup;
 
             return mykeepKeys ? myitems : array_values(myitems);
         }
@@ -728,7 +728,7 @@ mixin template TCollection() {
         myiterator = unwrap();
 
         if (myiterator.classname == ArrayIterator.classname) {
-            myiterator = myiterator.getArrayCopy();
+            myiterator = myiterator.dup;
         }
         return myiterator;
     } */

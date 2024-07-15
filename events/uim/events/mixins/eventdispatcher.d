@@ -47,7 +47,7 @@ mixin template TEventDispatcher() {
      */
     IEvent dispatchEvent(string eventName, Json[string] dataToListener = null, object eventSubject = null) {
 //TODO
-/*         eventSubject ??= this;
+/*        eventSubject ??= this;
 
         auto event = new _eventClass(eventName, eventSubject, dataToListener);
         getEventManager().dispatch(event);

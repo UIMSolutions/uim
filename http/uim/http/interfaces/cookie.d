@@ -17,7 +17,7 @@ interface ICookie {
     // Get the domain attribute.
     string getDomain();
 
-/*   // Sets the cookie name
+/*  // Sets the cookie name
     static void withName(string aName);
 
     // Gets the cookie name

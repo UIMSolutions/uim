@@ -67,7 +67,7 @@ class DEvent : IEvent {
     }
 
     Json data(string key) {
-/*         return !key.isNull
+/*        return !key.isNull
             ? _data.get(key) : _data;
 
  */    return Json(null);

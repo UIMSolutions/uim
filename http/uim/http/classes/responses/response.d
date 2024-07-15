@@ -416,7 +416,7 @@ class DResponse : IResponse {
     
     /**
      * Formats the Content-Type header based on the configured contentType and charset
-     * the charset will only be set in the header if the response is of type text/*   * Params:
+     * the charset will only be set in the header if the response is of type text/*  * Params:
      * string atype The type to set.
      */
     protected void _setContentType(string atype) {

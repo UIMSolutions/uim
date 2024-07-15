@@ -6,7 +6,7 @@ import uim.html;
 class clientOrPartnersLogoSlider : DH5Component {
   this() {
     super(); 
-/*    this.css(`h2 {
+/*   this.css(`h2 {
   text-align:center;
   padding: 20px;
 }

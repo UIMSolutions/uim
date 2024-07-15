@@ -24,7 +24,7 @@ class DH5Form : DH5Obj {
 	/* encType - specifies how the form-data should be encoded when submitting it to the server */
 	//	mixin(EnumField!("EncTypes", "encType"));
 
-	/*  */
+	/* */
 	void add(Methods value) {
 		_attributes.remove("method");
 		_attributes["method"] = value;

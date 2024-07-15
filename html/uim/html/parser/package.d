@@ -321,7 +321,7 @@ size_t minLevel(DH5Node[] newNodes) {
       node.tag = node.txt.strip.replace("<", "").replace(">", "").split(" ")[0];
       // if ()
       auto atts = node.txt.strip.replace("<", "").replace(">", "").split(" ");
-/*       if (atts.length > 1)
+/*      if (atts.length > 1)
         foreach (a; atts[1 ..$])  node.attribute(a);
  * /    }
     else if (node.isEndTag)
@@ -507,7 +507,7 @@ auto parse2(string html) {
 }
 
 unittest {
-  /*   // writeln(`<tag a d>`);
+  /*  // writeln(`<tag a d>`);
   // writeln(parse2(`<tag a d>`));
   // writeln(`<tag a="b" d="c">`);
   // writeln(parse2(`<tag a="b" d="c">`));
@@ -554,7 +554,7 @@ string nodeToH5(DH5Node[] nodes, size_t level) {
     }
   }
   return results.join(",").replace(",)", ")").replace(",]", "]").replace("\"\",", ",");
-  /*   auto xxxLines = xxx.split("\n"); 
+  /*  auto xxxLines = xxx.split("\n"); 
   string[] newLines;
   foreach(line; xxxLines) if (line.strip.length > 0) newLines ~= line; // use only not empty lines
   return newLines.join("\n");

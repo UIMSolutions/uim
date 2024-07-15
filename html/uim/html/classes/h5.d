@@ -538,7 +538,7 @@ auto main_(this O)(string id, string[] classes, STRINGAA attributes, DH5 content
         assert(H5.script == "<script></script>");
     }}
 
-/*     mixin(H5Def!"slot");
+/*    mixin(H5Def!"slot");
     version(test_uim_html) { unittest { 
         assert(H5.slot == "<slot></slot>");
     }

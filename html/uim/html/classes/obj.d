@@ -794,7 +794,7 @@ class DH5Obj {
 			attributes.dup,
 			content.dup
 		);
-		/*     .css(CSSRules.dup)
+		/*    .css(CSSRules.dup)
     .js(this.js.dup);
  */
 		return H5Obj;
@@ -807,7 +807,7 @@ class DH5Obj {
 			attributes.dup,
 			content.dup
 		);
-		/*     .css(CSSRules.dup)
+		/*    .css(CSSRules.dup)
     .js(this.js.dup);
  */
 		return H5Obj;

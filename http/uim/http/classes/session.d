@@ -436,7 +436,7 @@ class DSession {
     }
 
     // Used to write new data to _SESSION, since UIM doesn`t like us setting the _SESSION var it
-/*     protected void _overwrite(Json[string] oldValues, Json[string] newValues) {
+/*    protected void _overwrite(Json[string] oldValues, Json[string] newValues) {
        ) {
             oldValues.byKeyValue
                 .filter!(kv => newValues.isNull(kv.key))

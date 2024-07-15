@@ -188,7 +188,7 @@ class DEagerLoader {
     
     // Returns the current tree of associations to be matched.
     array getMatching() {
-       _matching ??= new static();
+       _matching = _matching : new static();
 
         return _matching.getContain();
     }

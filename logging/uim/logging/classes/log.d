@@ -147,12 +147,12 @@ class DLog {
      * adapters if config isn"t loaded.
      */
     protected static LogEngineRegistry getRegistry() {
-        _registry ??= new DLogEngineRegistry();
+        _registry = _registry : new DLogEngineRegistry();
 
         if (_isDirtyConfig) {
             foreach (name, properties; configuration) {
                 if (properties.hasKey("engine")) {
-                    properties["classname"] = properties["engine"];
+                    properties.set("classname", properties.get("engine"));
                 }
                 if (!_registry.hasKey(to!string(name))) {
                     _registry.load(to!string(name, properties));

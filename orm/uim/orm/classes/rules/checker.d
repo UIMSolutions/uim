@@ -142,7 +142,7 @@ class DRulesChecker { // }: BaseRulesChecker {
    ) {
         if (cast(DAssociation)association) {
             myassociationAlias = association.name;
-            myerrorField ??= association.getProperty();
+            myerrorField = myerrorField.ifEmpty(association.getProperty());
         } else {
             myassociationAlias = association;
 

@@ -123,11 +123,11 @@ class DRouter {
         auto myuri = _request.getUri();
         
         /*
-        _requestContext["_base"] = myrequest.getAttribute("base", "");
-        _requestContext["params"] = myrequest.getAttribute("params", []);
-        _requestContext["_scheme"] ??= myuri.getScheme();
-        _requestContext["_host"] ??= myuri.getHost();
-        _requestContext["_port"] ??= myuri.getPort();
+        _requestContext.get("_base", myrequest.getAttribute("base", ""));
+        _requestContext.get("params", myrequest.getAttribute("params", []));
+        _requestContext.get("_scheme", ??= myuri.getScheme();
+        _requestContext.set("_host", _requestContext.get("_host", myuri.getHost());
+        _requestContext.set("_port", _requestContext.get("_port", myuri.getPort());
         */
     }
     
@@ -168,8 +168,6 @@ class DRouter {
      * - the initialized property
      *
      * Extensions and default route classes will not be modified
-     *
-     * @internal
      */
     static void resetRoutes() {
         _collection = new DRouteCollection();
@@ -266,10 +264,10 @@ class DRouter {
      */
     static string url(/* IUri| */string[] url = null, bool isFull = false) {
         auto context = _requestContext;
-        context["_base"] ??= "";
+        context.set("_base", context.getString("_base", ""));
 
         if (url.isEmpty) {
-            string myhere = getRequest()?.getRequestTarget() ?? "/";
+            string myhere = getRequest().getRequestTarget() ? getRequest().getRequestTarget() : "/";
             string myoutput = context.getString("_base") ~ myhere;
             if (isFull) {
                 myoutput = fullBaseUrl() ~ myoutput;

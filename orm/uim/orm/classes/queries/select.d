@@ -1116,22 +1116,19 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * value is returned
      */
     size_t count() {
-        return _resultsCount ??= _performCount();
+        return _resultsCount ? _resultsCount : _performCount();
     }
     
-    /**
-     * Performs and returns the COUNT(*) for the query.
-     *
-     */
+    // Performs and returns the COUNT(*) for the query.
     protected int _performCount() {
-        myquery = this.cleanCopy();
-        mycounter = _counter;
+        auto myquery = this.cleanCopy();
+        auto mycounter = _counter;
         if (mycounter !is null) {
             myquery.counter(null);
 
             return to!int(mycounter(myquery));
         }
-        mycomplex = (
+        auto mycomplex = (
             myquery.clause("distinct") ||
             count(myquery.clause("group")) ||
             count(myquery.clause("union")) ||

@@ -1076,8 +1076,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
        /* Closure */ string[]|string mygroupField = null,
         string myvalueSeparator = ";"
    ) {
-        keyField ??= this.primaryKeys();
-        myvalueField ??= displayfields();
+        keyField = keyField : this.primaryKeys();
+        myvalueField = myvalueField : displayfields();
 
         if (
             !myquery.clause("select") &&
@@ -1085,7 +1085,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             !isObject(myvalueField) &&
             !isObject(mygroupField)
        ) {
-            fieldNames = chain(
+            auto fieldNames = chain(
                 /* (array) */keyField,
                 /* (array) */myvalueField,
                 /* (array) */mygroupField
@@ -1132,8 +1132,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
        /* Closure */ /* string[]| */string parentField = "parent_id",
         string nestingKey = "children"
    ) {
-        keyField ??= this.primaryKeys();
-
+        keyField = keyField.ifEmpty(this.primaryKeys());
         options = _setFieldMatchers(compact("keyField", "parentField"), ["keyField", "parentField"]);
 
         return selectquery.formatResults(fn (ICollection results) =>
@@ -1160,11 +1159,11 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             
             auto fieldNames = options.get(field);
             auto myglue = isIn(field, ["keyField", "parentField"], true) ? ";" : options.get("valueSeparator");
-            options[field] = auto (myrow) use (fieldNames, myglue) {
+            /* options[field] = auto (myrow) use (fieldNames, myglue) {
                 auto mymatches = fieldNames.each!(fld => myrow[fld]).array;
                 return join(myglue, mymatches);
-            };
-        }
+            }; */
+        });
         return options;
     }
     
@@ -2361,8 +2360,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options A list of options for the objects hydration.
      */
     IORMEntity[] newEntities(Json[string] data, Json[string] options = null) {
-        options["associated"] ??= _associations.keys();
-
+        options.set("associated", options.ifEmpty("associated", _associations.keys()));
         return _marshaller().many(mydata, options);
     }
     
@@ -2410,7 +2408,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * updates when persisting entities.
      */
     IORMEntity patchEntity(IORMEntity entity, Json[string] dataToMerge, Json[string] options = null) {
-        options["associated"] ??= _associations.keys();
+        options.set("associated", options.ifEmpty("associated", _associations.keys()));
         return _marshaller().merge(entity, dataToMerge, options);
     }
     

@@ -38,18 +38,18 @@ class DConnectionHelper {
      * Params:
      * array<int, string>|null aConnections Connection names or null for all.
      */
-    void enableQueryLogging(Json[string] aConnections = null) {
+    void enableQueryLogging(Json[string] connections = null) {
         // TODO
-        /* aConnections ??= ConnectionManager.configured();
-        foreach (aConnections as aConnection) {
-            aConnection = ConnectionManager.get(aConnection);
+        /* connections = connections.ifEmpyt(ConnectionManager.configured());
+        foreach (connection; connections) {
+            connection = ConnectionManager.get(connection);
             string message = "--Starting test run " ~ date("Y-m-d H:i:s");
             if (
-                cast(DConnection)aConnection &&
-                aConnection.getDriver().log(message) == false
+                cast(DConnection)connection &&
+                connection.getDriver().log(message) == false
            ) {
-                aConnection.getDriver().setLogger(new QueryLogger());
-                aConnection.getDriver().log(message);
+                connection.getDriver().setLogger(new QueryLogger());
+                connection.getDriver().log(message);
             }
         } */
     }

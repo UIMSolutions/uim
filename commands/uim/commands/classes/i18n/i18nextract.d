@@ -451,7 +451,7 @@ class DI18nExtractCommand : DCommand {
     
     // Prepare a file to be stored
     protected void _store(string domainName, string headerContent, string sentenceToStore) {
-       _storage[domainName] ??= null;
+       _storage[domainName] = _storage.get(domainName);
 
         _storage.set([domainName, sentence], 
             _storage[domainName].hasKey(sentence))

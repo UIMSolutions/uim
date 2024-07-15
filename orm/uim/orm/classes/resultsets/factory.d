@@ -114,9 +114,8 @@ class DResultsetFactory {
         // If the default table is not in the results, set
         // it to an empty array so that any contained
         // associations hydrate correctly.
-        results[tableMetadata["primaryAlias"]] ??= null;
-
-        remove(mypresentAliases[tableMetadata["primaryAlias"]]);
+        results.set(tableMetadata["primaryAlias"], results.get(tableMetadata.getString("primaryAlias"));
+        mypresentAliases.remove(tableMetadata.getString("primaryAlias"));
 
         foreach (myassoc; tableMetadata["containAssoc"]) {
             auto aliasName = myassoc.get("nestKey");

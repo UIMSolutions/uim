@@ -59,10 +59,11 @@ string __dn(string domainName, string singularText, string pluralText, int count
     /* if (isSet(arguments[0]) && isArray(arguments[0])) {
         arguments = arguments[0];
     } */
-    return I18n.getTranslator(domainName).translate(
+    /* return I18n.getTranslator(domainName).translate(
         plural,
         ["_count": count, "_singular": singularText] + arguments
-   );
+   ); */
+   return null; 
 }
 /**
  * Returns a translated string if one is found; Otherwise, the submitted message.
@@ -135,11 +136,12 @@ string __dxn(
     if (!singularText) {
         return null;
     }
-    if (isSet(arguments[0]) && isArray(arguments[0])) {
+    /* if (isSet(arguments[0]) && isArray(arguments[0])) {
         arguments = arguments[0];
     }
     return I18n.getTranslator(domainName).translate(
         plural,
         ["_count": count, "_singular": singularText, "_context": context] + arguments
-   ); 
+   );  */
+   return null; 
 } 

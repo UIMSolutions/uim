@@ -484,12 +484,8 @@ class DEagerLoader {
     /**
      * Decorates the passed statement object in order to inject data from associations
      * that cannot be joined directly.
-     *
-     * @param DORMQuery query The query for which to eager load external
-     * associations
-     * @param DORMdatabases.StatementInterface statement The statement created after executing the query
      */
-    StatementInterface loadExternal(Query query, StatementInterface statement) {
+    IStatement loadExternal(DORMQuery query, IStatement statement) {
         auto table = query.getRepository();
         auto external = this.externalAssociations(table);
         if (external.isEmpty) {
@@ -504,14 +500,14 @@ class DEagerLoader {
             return statement;
         }
 
-        foreach (external as meta) {
-            contain = meta.associations();
-            instance = meta.instance();
-            myConfiguration = meta.configuration.data;
-            aliasName = instance.source().aliasName();
-            path = meta.aliasPath();
+        foreach (meta; external) {
+            auto contain = meta.associations();
+            auto instance = meta.instance();
+            auto myConfiguration = meta.configuration.data;
+            auto aliasName = instance.source().aliasName();
+            auto path = meta.aliasPath();
 
-            requiresKeys = instance.requiresKeys(myConfiguration);
+            auto requiresKeys = instance.requiresKeys(myConfiguration);
             if (requiresKeys) {
                 // If the path or aliasName has no key the required association load will fail.
                 // Nested paths are not subject to this condition because they could

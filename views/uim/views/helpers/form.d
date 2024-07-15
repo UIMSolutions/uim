@@ -2074,9 +2074,8 @@ class DFormHelper : DHelper {
      *
      * You need to supply one or more valid sources, as a list of strings.
      * DOrder sets priority.
-     *
-     * @param string[]|string mysources A string or a list of strings identifying a source.
      */
+    // void setValueSources(string mysources) {
     void setValueSources(string[] mysources) {
         mysources = (array)mysources;
 

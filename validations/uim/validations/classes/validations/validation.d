@@ -605,35 +605,30 @@ class DValidation {
         return false;
     }
 
-    /**
-     * Checks that the value is a valid backed enum instance or value.
-     * Params:
-     * Json valueToCheck Value to check
-     * @param class-string<\BackedEnum> myenumclassname The valid backed enum class name
-     */
-    static bool enumeration(Json valueToCheck, string myenumclassname) {
+    // Checks that the value is a valid backed enum instance or value.
+    static bool enumeration(Json valueToCheck, string enumClassname) {
         /* if (
-            cast(myenumclassname)valueToCheck &&
+            cast(enumClassname)valueToCheck &&
             cast(BackedEnum)valueToCheck
        ) {
             return true;
         } */
 
-        auto mybackingType = null;
+        auto backingType = null;
         /*        try {
-            myreflectionEnum = new DReflectionenumeration(myenumclassname);
-            mybackingType = myreflectionEnum.getBackingType();
+            myreflectionEnum = new DReflectionenumeration(enumClassname);
+            backingType = myreflectionEnum.getBackingType();
         } catch (ReflectionException) {
         }
-        if (mybackingType.isNull) {
+        if (backingType.isNull) {
             throw new DInvalidArgumentException(
-                "The `myenumclassname` argument must be the classname of a valid backed enum."
+                "The `enumClassname` argument must be the classname of a valid backed enum."
            );
         }
  */
-        /*        return (get_debug_type(valueToCheck) != (string)mybackingType)
+        /*        return (get_debug_type(valueToCheck) != (string)backingType)
             ? false
-            : myenumclassname.tryFrom(valueToCheck) !is null;
+            : enumClassname.tryFrom(valueToCheck) !is null;
  */
         return false;
     }

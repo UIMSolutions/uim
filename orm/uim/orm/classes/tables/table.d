@@ -1583,12 +1583,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         return mysaved;
     }
     
-    /**
-     * Performs the actual saving of an entity based on the passed options.
-     * Params:
-     * \UIM\Datasource\IORMEntity entityToSave the entity to be saved
-     * @param \Json[string]<string, mixed> options the options to use for the save operation
-     */
+    // Performs the actual saving of an entity based on the passed options.
     protected IORMEntity|false _processSave(IORMEntity entityToSave, Json[string] options) {
         auto myprimaryColumns = (array)this.primaryKeys();
 

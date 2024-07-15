@@ -522,15 +522,15 @@ static string contentType() {
      * string mytemplate Name of template file to use
      * @param string|null mylayout Layout to use. False to disable.
      */
-    string render(string mytemplate = null, string|null mylayout = null) {
-        mydefaultLayout = "";
-        mydefaultAutoLayout = null;
-        if (mylayout == false) {
+    string render(string mytemplate = null, string layoutName = null) {
+        auto mydefaultLayout = "";
+        auto mydefaultAutoLayout = null;
+        if (layoutName == false) {
             mydefaultAutoLayout = _autoLayout;
             _autoLayout = false;
-        } else if (mylayout !is null) {
+        } else if (layoutName !is null) {
             mydefaultLayout = _layout;
-            _layout = mylayout;
+            _layout = layoutName;
         }
         mytemplateFileName = _getTemplateFileName(mytemplate);
        _currentType = TYPE_TEMPLATE;
@@ -541,13 +541,13 @@ static string contentType() {
         if (_autoLayout) {
             if (_layout.isEmpty) {
                 throw new DException(
-                    "View.mylayout must be a non-empty string." .
+                    "View.layoutName must be a non-empty string." .
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."
                );
             }
             _Blocks.set("content", _renderLayout("", _layout));
         }
-        if (mylayout !is null) {
+        if (layoutName !is null) {
             _layout = mydefaultLayout;
         }
         if (mydefaultAutoLayout !is null) {

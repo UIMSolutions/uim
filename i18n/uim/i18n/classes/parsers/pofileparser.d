@@ -154,6 +154,7 @@ class DPoFileParser {
             anItem["translated"][row] = subString(line, size + 3,  - 1);
             stage = ["translated", row];
         } */
+        return null; 
     }
 
     // Saves a translation item to the messages.

@@ -623,14 +623,14 @@ class DRouteBuilder {
      * @param \Closure|Json[string] params An array of routing defaults to add to each connected route.
      * If you have no parameters, this argument can be a Closure.
      */
-    void prefix(string routings, /* Closure |  */Json[string] params = null, DClosure callbackClosure = null) {
+    void prefix(string routingPrefix, /* Closure |  */Json[string] params = null, DClosure callbackClosure = null) {
         if (!params.isArray) {
             callbackClosure = params;
             params = null;
         }
 
-        string path = "/" ~ Inflector.dasherize(routings);
-        string routings = Inflector.camelize(routings);
+        string path = "/" ~ Inflector.dasherize(routingPrefix);
+        string routings = Inflector.camelize(routingPrefix);
         if (params.hasKey("path")) {
             path = params["path"];
             params.remove("path");

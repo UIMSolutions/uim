@@ -854,24 +854,20 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add an rule that ensures a string length is within a range.
      * Params:
      
-     * @param Json[string] myrange The inclusive minimum and maximum length you want permitted.
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.alphaNumeric()
-     * @return this
+     * @param Json[string] minmaxLength The inclusive minimum and maximum length you want permitted.
      */
     auto lengthBetween(
         string fieldName,
-        Json[string] myrange,
-        string errorMessage = null, /*Closure|*/
-        string mywhen = null
+        Json[string] minmaxLength,
+        string errorMessage = null, 
+        /*Closure|*/ string mywhen = null
     ) {
-        // if (count(myrange) != 2) {
-            // TODO throw new DInvalidArgumentException("The myrange argument requires 2 numbers");
+        // if (count(minmaxLength) != 2) {
+            // TODO throw new DInvalidArgumentException("The minmaxLength argument requires 2 numbers");
         // }
 
-        auto lowerBound = "0"; // array_shift(myrange);
-        auto upperBound = "1"; // array_shift(myrange);
+        auto lowerBound = "0"; // array_shift(minmaxLength);
+        auto upperBound = "1"; // array_shift(minmaxLength);
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The length of the provided value must be between '%s' and '%s', inclusively"
@@ -944,51 +940,48 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a greater than comparison rule to a field.
      * Params:
-     
      * @param float myvalue The value user data must be greater than.
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
      */
     Json[string] greaterThan(
         string fieldName,
-        float myvalue,
+        float valueToCompare,
         string errorMessage = null, /*Closure|*/
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
-                ? "The provided value must be greater than '%s'".format(myvalue)
-                : `__d("uim", "The provided value must be greater than '{0}'", myvalue)`;
+                ? "The provided value must be greater than '%s'".format(valueToCompare)
+                : `__d("uim", "The provided value must be greater than '{0}'", valueToCompare)`;
         }
 
         // TODO Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
-        /* return _add(fieldName, "greaterThan", myextra ~ ["rule": ["comparison", Validation.COMPARE_GREATER, myvalue]]); */
+        /* return _add(fieldName, "greaterThan", myextra ~ ["rule": ["comparison", Validation.COMPARE_GREATER, valueToCompare]]); */
         return null;
     }
 
     /**
      * Add a greater than or equal to comparison rule to a field.
      * Params:
-     * @param float myvalue The value user data must be greater than or equal to.
+     * @param float valueToCompare The value user data must be greater than or equal to.
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
     Json[string] greaterThanOrEqual(
         string fieldName,
-        float myvalue,
+        float valueToCompare,
         string errorMessage = null, /*Closure|*/
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
-                ? "The provided value must be greater than or equal to '%s'".format(myvalue)
-                : `__d("uim", "The provided value must be greater than or equal to '{0}'", myvalue)`;
+                ? "The provided value must be greater than or equal to '%s'".format(valueToCompare)
+                : `__d("uim", "The provided value must be greater than or equal to '{0}'", valueToCompare)`;
         }
 
         /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "greaterThanOrEqual", myextra ~ [
                 "rule": [
-                    "comparison", Validation.COMPARE_GREATER_OR_EQUAL, myvalue
+                    "comparison", Validation.COMPARE_GREATER_OR_EQUAL, valueToCompare
                 ],
             ]);
  */
@@ -998,26 +991,26 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a less than comparison rule to a field.
      * Params:
-     * @param float myvalue The value user data must be less than.
+     * @param float valueToCompare The value user data must be less than.
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.comparison()
      */
     auto lessThan(
         string fieldName,
-        float myvalue,
+        float valueToCompare,
         string errorMessage = null, /*Closure|*/
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
-                ? "The provided value must be less than '%s'".format(myvalue) 
-                : `__d("uim", "The provided value must be less than '{0}'", myvalue)`;
+                ? "The provided value must be less than '%s'".format(valueToCompare) 
+                : `__d("uim", "The provided value must be less than '{0}'", valueToCompare)`;
         }
 
         /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "lessThan", myextra ~ [
-                "rule": ["comparison", Validation.COMPARE_LESS, myvalue],
+                "rule": ["comparison", Validation.COMPARE_LESS, valueToCompare],
             ]); */
         return null;
     }
@@ -1025,26 +1018,26 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a less than or equal comparison rule to a field.
      * Params:
-     * @param float myvalue The value user data must be less than or equal to.
+     * @param float valueToCompare The value user data must be less than or equal to.
      * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
      * true when the validation rule should be applied.
      */
     auto lessThanOrEqual(
         string fieldName,
-        float myvalue,
+        float valueToCompare,
         string errorMessage = null, /*Closure|*/
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
-                ? `__d("uim", "The provided value must be less than or equal to '{0}'", myvalue)`
-                : "The provided value must be less than or equal to '%s'".format(myvalue);
+                ? `__d("uim", "The provided value must be less than or equal to '{0}'", valueToCompare)`
+                : "The provided value must be less than or equal to '%s'".format(valueToCompare);
         }
 
         /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "lessThanOrEqual", myextra ~ [
                 "rule": [
-                    "comparison", Validation.COMPARE_LESS_OR_EQUAL, myvalue
+                    "comparison", Validation.COMPARE_LESS_OR_EQUAL, valueToCompare
                 ],
             ]);
  */
@@ -1061,14 +1054,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto equals(
         string fieldName,
-        Json value,
+        Json valueToCompare,
         string errorMessage = null, /*Closure|*/
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must be equal to '%s'".format(
-                    value) : `__d("uim", "The provided value must be equal to '{0}'", myvalue)`;
+                    valueToCompare) : `__d("uim", "The provided value must be equal to '{0}'", valueToCompare)`;
         }
         // Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
 
@@ -1087,14 +1080,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto notEquals(
         string fieldName,
-        Json value,
+        Json valueToCompare,
         string errorMessage = null, /*Closure|*/
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must not be equal to '%s'".format(value)
-                : `__d("uim", "The provided value must not be equal to '{0}'", myvalue)`;
+                : `__d("uim", "The provided value must not be equal to '{0}'", valueToCompare)`;
         }
 
         /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
@@ -1315,13 +1308,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a rule to compare one field is less than or equal to another.
-     * Params:
-     
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a rule to compare one field is less than or equal to another.
     auto lessThanOrEqualToField(
         string fieldName,
         string secondField,
@@ -1776,19 +1763,13 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a validation rule to ensure a field is within a numeric range
-     * Params:
-     
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a validation rule to ensure a field is within a numeric range
     auto range(string fieldName, Json[string] bounds, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         // if (count(bounds) != 2) {
-            // TODO throw new DInvalidArgumentException("The myrange argument requires 2 numbers");
+            // TODO throw new DInvalidArgumentException("The minmaxLength argument requires 2 numbers");
         // }
-        auto lowerBound = "0"; // array_shift(myrange);
-        auto upperBound = "1"; // array_shift(myrange);
+        auto lowerBound = "0"; // array_shift(minmaxLength);
+        auto upperBound = "1"; // array_shift(minmaxLength);
 
         if (errorMessage.isNull) {
             errorMessage = _useI18n
@@ -2146,9 +2127,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure that a field is an array containing at least
      * the specified amount of elements
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
      */
     Json[string] hasAtLeast(string fieldName, int numberOfElements, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {

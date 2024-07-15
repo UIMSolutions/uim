@@ -426,12 +426,7 @@ class DFormProtector {
         return messages;
     }
     
-    /**
-     * Generate debug message for the expected fields
-     * Params:
-     * Json[string] expectedFields Expected fields
-     * @param string missingMessage Message template
-     */
+    // Generate debug message for the expected fields
     protected string debugExpectedFields(Json[string] expectedFields= null, string missingMessage= null) {
         if (count(expectedFields) == 0) {
             return null;

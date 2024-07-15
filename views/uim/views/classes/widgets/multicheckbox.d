@@ -193,7 +193,7 @@ protected string _renderInput(Json[string] checkboxData, IContext formContext) {
 }
 
 // Helper method for deciding what options are selected.
-protected bool _isSelected(string key, string[] /* | int | false | null */ selectedValues) {
+protected bool _isSelected(string key, string[] /* int | false | null */ selectedValues) {
     if (selectedValues.isNull) {
         return false;
     }

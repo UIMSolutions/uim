@@ -1139,21 +1139,19 @@ class DFormHelper : DHelper {
      *
      * options can contain a hash of id overrides. These overrides will be
      * used instead of the generated values if present.
-     * Params:
-     * @param Json[string]|string mylabel Label text or array with label attributes.
      */
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
         Json[string] auto updatedOptions = options.update["id": Json(null), "input": Json(null), "nestedInput": false.toJson, "templateVars": Json.emptyArray];
         STRINGAA labelAttributes = ["templateVars": labelOptions["templateVars"]];
-        if (isArray(mylabel)) {
+        if (isArray(labelOptions)) {
             auto labelText = null;
-            if (mylabel.hasKey("text")) {
-                labelText = mylabel["text"];
-                mylabel.remove("text");
+            if (labelOptions.hasKey("text")) {
+                labelText = labelOptions["text"];
+                labelOptions.remove("text");
             }
             labelAttributes = update(labelAttributes, labelAttributes);
         } else {
-            labelText = mylabel;
+            labelText = labelOptions;
         }
         labelAttributes["for"] = labelOptions["id"];
         if (isIn(labelOptions["type"], _groupedInputTypes, true)) {
@@ -1443,21 +1441,17 @@ class DFormHelper : DHelper {
      * custom block name.
      * - Other options are the same of HtmlHelper.link() method.
      * - The option `onclick` will be replaced.
-     * Params:
-     * string title The content to be wrapped by <a> tags.
-     * @param string[] myurl uim-relative URL or array of URL parameters, or
-     * external URL (starts with http://)
      */
     string postLink(string title, string[] myurl = null, Json[string] options  = null) {
-        auto updatedOptions = options.update["block": Json(null), "confirm": Json(null)];
+        auto updatedOptions = options.dup.addKeys(["block", "confirm"]);
 
         auto myrequestMethod = "POST";
-        if (!options.isEmpty("method")) {
-            myrequestMethod = options.getString("method").upper;
-            options.remove("method");
+        if (!updatedOptions.isEmpty("method")) {
+            myrequestMethod = updatedOptions.getString("method").upper;
+            updatedOptions.remove("method");
         }
-        auto confirmMessage = options.get("confirm");
-        options.remove("confirm");
+        auto confirmMessage = updatedOptions.get("confirm");
+        updatedOptions.remove("confirm");
 
         auto myformName = uniqid("post_", true).replace(".", "");
         auto myformOptions = [
@@ -1465,9 +1459,9 @@ class DFormHelper : DHelper {
             "style": "display:none;",
             "method": "post",
         ];
-        if (options.hasKey("target")) {
-            myformOptions.set("target", options.get("target"));
-            options.remove("target");
+        if (updatedOptions.hasKey("target")) {
+            myformOptions.set("target", updatedOptions.get("target"));
+            updatedOptions.remove("target");
         }
         auto mytemplater = this.templater();
         auto myrestoreAction = _lastAction;
@@ -1494,12 +1488,12 @@ class DFormHelper : DHelper {
         }
         
         auto fieldNames = null;
-        if (options.hasKey("data"]) && isArray(options["data"])) {
-            Hash.flatten(options["data"]).each!((kv) {
+        if (updatedOptions.hasKey("data"]) && isArray(updatedOptions["data"])) {
+            Hash.flatten(updatedOptions["data"]).each!((kv) {
                 fieldNames[kv.key] = kv.value;
                 result ~= hidden(kv.key, ["value": kv.value, "secure": SECURE_SKIP]);
             });
-            options.remove("data");
+            updatedOptions.remove("data");
         }
         result ~= this.secure(fieldNames);
         result ~= this.formatTemplate("formEnd", []);
@@ -1507,14 +1501,14 @@ class DFormHelper : DHelper {
        _lastAction = myrestoreAction;
         _formProtector = myrestoreFormProtector;
 
-        if (options["block"]) {
-            if (options["block"] == true) {
-                options["block"] = __FUNCTION__;
+        if (updatedOptions["block"]) {
+            if (updatedOptions["block"] == true) {
+                updatedOptions["block"] = __FUNCTION__;
             }
-           _View.append(options["block"], result);
+           _View.append(updatedOptions["block"], result);
             result = "";
         }
-        options.remove("block");
+        updatedOptions.remove("block");
 
         string myurl = "#";
         myonClick = "document." ~ myformName ~ ".submit();";
@@ -1526,13 +1520,13 @@ class DFormHelper : DHelper {
                 "formName": myformName,
                 "confirm": myonClick,
             ]);
-            options["data-confirm-message"] = confirmMessage;
+            updatedOptions["data-confirm-message"] = confirmMessage;
         } else {
             myonClick ~= " event.returnValue = false; return false;";
         }
-        options.set("onclick", myonClick);
+        updatedOptions.set("onclick", myonClick);
 
-        result ~= _html.link(title, myurl, options);
+        result ~= _html.link(title, myurl, updatedOptions);
         return result;
     }
     

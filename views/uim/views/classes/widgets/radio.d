@@ -106,8 +106,8 @@ class DRadioWidget : DWidget {
     
     // Renders a single radio input and label.
     protected string _renderInput(
-        string/* |int */ value,
-        string[]/* |int */ labelText,
+        string/* int */ value,
+        string[]/* int */ labelText,
         Json[string] options,
         IContext formContext
    ) {

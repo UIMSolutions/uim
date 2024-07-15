@@ -227,7 +227,7 @@ class DTimeHelper : DHelper {
     // Returns true if specified datetime was within the interval specified, else false.
     bool wasWithinLast(
         string timeIntervalValue,
-        /*  DChronosDate | */ Json dateString,
+        /* DChronosDate | */ Json dateString,
         /* DateTimeZone | */ string timezone = null
     ) {
         return (new DateTime(dateString, timezone)).wasWithinLast(
@@ -245,7 +245,7 @@ class DTimeHelper : DHelper {
     bool isWithinNext(
         string timeIntervalValue,/* DChronosDate | */
         Json dateString,/* DateTimeZone | */
-        string timezone = null
+        DateTimeZonestring timezone = null
     ) {
         return (new DateTime(dateString, timezone)).isWithinNext(
             timeIntervalValue);
@@ -265,19 +265,12 @@ class DTimeHelper : DHelper {
      * UNIX timestamp or a valid strtotime() date string.
      *
      * This method is an alias for TimeHelper.i18nFormat().
-     * Params:
-     * \UIM\Chronos\DChronosDate|\Json date UNIX timestamp, strtotime() valid string
-     * or DateTime object (or a date format string).
-     * @param array<int>|string|int myformat date format string (or a UNIX timestamp,
-     * `strtotime()` valid string or DateTime object).
-     * @param \DateTimeZone|string timezone User"s timezone string or DateTimeZone object
      */
-    string /* | int | false */ format(
-        /* DChronosDate  */
-        Json date,
-        string[] /* | int  */myformat = null,
-        string defaultValue = false,/* DateTimeZone | */
-        string timezone = null
+    string /* int | false */ format(
+        /* DChronosDate */ Json date,
+        string[] /* int  */myformat = null,
+        string defaultValue = false,
+        /* DateTimeZone | */ string timezone = null
     ) {
         return _i18nFormat(date, myformat, defaultValue, timezone);
     }
@@ -286,10 +279,10 @@ class DTimeHelper : DHelper {
      * Returns a formatted date string, given either a Datetime instance,
      * UNIX timestamp or a valid strtotime() date string.
      */
-    string /* | int | false */ i18nFormat(
+    string /* int | false */ i18nFormat(
         /* DChronosDate | */
         Json date,
-        string[] /* | int */ intlFormat = null,
+        string[] /* int */ intlFormat = null,
         string defaultValue = false,
         /* DateTimeZone | */ string timezone = null
     ) {

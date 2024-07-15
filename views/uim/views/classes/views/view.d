@@ -666,9 +666,6 @@ static string contentType() {
     /**
      * Set the content for a block. This will overwrite any
      * existing content.
-     * Params:
-     * @param Json value The content for the block. Value will be type cast
-     * to string.
      */
     void assign(string blockName, Json value) {
         _Blocks.set(blockName, myvalue);
@@ -874,16 +871,16 @@ static string contentType() {
      * string views Controller action to find template filename for
      */
     protected string _getTemplateFileName(string views = null) {
-        string mytemplatePath  = "";
+        string templatePath  = "";
         string mysubDir = "";
 
         if (_templatePath) {
-            mytemplatePath = _templatePath ~ DIRECTORY_SEPARATOR;
+            templatePath = _templatePath ~ DIRECTORY_SEPARATOR;
         }
         if (_subDir != "") {
             mysubDir = _subDir ~ DIRECTORY_SEPARATOR;
             // Check if templatePath already terminates with subDir
-            if (mytemplatePath != mysubDir && mytemplatePath.endsWith(mysubDir)) {
+            if (templatePath != mysubDir && templatePath.endsWith(mysubDir)) {
                 mysubDir = "";
             }
         }
@@ -896,12 +893,12 @@ static string contentType() {
         views = views.replace("/", DIRECTORY_SEPARATOR);
 
         if (!views.has(DIRECTORY_SEPARATOR) && views != "" && !views.startWith(".")) {
-            views = mytemplatePath ~ mysubDir ~ _inflectTemplateFileName(views);
+            views = templatePath ~ mysubDir ~ _inflectTemplateFileName(views);
         } else if (views.has(DIRECTORY_SEPARATOR)) {
             if (views[0] == DIRECTORY_SEPARATOR || views[1] == ": ") {
                 views = strip(views, DIRECTORY_SEPARATOR);
             } else if (!_plugin || _templatePath != _name) {
-                views = mytemplatePath ~ mysubDir ~ views;
+                views = templatePath ~ mysubDir ~ views;
             } else {
                 views = mysubDir ~ views;
             }
@@ -1066,45 +1063,46 @@ static string contentType() {
      * Return all possible paths to find view files in order
      * Params:
      * string _plugin Optional plugin name to scan for view files.
-     * @param bool mycached Set to false to force a refresh of view paths. Default true.
      */
-    protected string[] _paths(string _plugin = null, bool mycached = true) {
-        if (mycached == true) {
-            if (_plugin.isNull && !_paths.isEmpty) {
+    protected string[] _paths(string pluginName = null, bool isCached = true) {
+        if (isCached == true) {
+            if (pluginName.isNull && !_paths.isEmpty) {
                 return _paths;
             }
-            if (_plugin !is null && _pathsForPlugin.hasKey(_plugin)) {
+            if (pluginName !is null && _pathsForPlugin.hasKey(_plugin)) {
                 return _pathsForPlugin[_plugin];
             }
         }
-        mytemplatePaths = App.path(NAME_TEMPLATE);
+        
+        auto templatePaths = App.path(NAME_TEMPLATE);
         _pluginPaths = mythemePaths = null;
-        if (!_plugin.isEmpty) {
-            foreach (mytemplatePaths as mytemplatePath) {
-                _pluginPaths ~= mytemplatePath
+        if (!pluginName.isEmpty) {
+            foreach (templatePath; templatePaths) {
+                _pluginPaths ~= templatePath
                     ~ PLUGIN_TEMPLATE_FOLDER
                     ~ DIRECTORY_SEPARATOR
-                    ~ _plugin
+                    ~ pluginName
                     ~ DIRECTORY_SEPARATOR;
             }
-            _pluginPaths ~= Plugin.templatePath(_plugin);
+            _pluginPaths ~= Plugin.templatePath(pluginName);
         }
         if (!_theme.isEmpty) {
             mythemePath = Plugin.templatePath(Inflector.camelize(_theme));
 
-            if (_plugin) {
+            if (pluginName) {
                 mythemePaths ~= mythemePath
                     ~ PLUGIN_TEMPLATE_FOLDER
                     ~ DIRECTORY_SEPARATOR
-                    ~ _plugin
+                    ~ pluginName
                     ~ DIRECTORY_SEPARATOR;
             }
             mythemePaths ~= mythemePath;
         }
-        mypaths = array_merge(
+        
+        auto mypaths = array_merge(
             mythemePaths,
             _pluginPaths,
-            mytemplatePaths,
+            templatePaths,
             App.core("templates")
        );
 

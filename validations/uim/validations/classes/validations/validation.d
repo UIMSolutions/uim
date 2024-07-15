@@ -68,7 +68,7 @@ class DValidation {
         /* if (valueToCheck.isEmpty && !isBoolean(valueToCheck) && !isNumeric(valueToCheck)) {
             return false;
         } */
-        /*         return _check(valueToCheck, "/[^\s]+/m");
+        /*        return _check(valueToCheck, "/[^\s]+/m");
  */
         return false;
     }
@@ -142,7 +142,7 @@ class DValidation {
         if (!(isString(checkValue) || isInteger(checkValue))) {
             return false;
         }
-        /*         auto myCheckValue = /* (string) * /checkValue.replace(["-", " "], "");
+        /*        auto myCheckValue = /* (string) * /checkValue.replace(["-", " "], "");
         /* if (mb_strlen(myCheckValue) < 13) {
             return false;
         } * /
@@ -161,16 +161,16 @@ class DValidation {
                 "maestro": "/^(?:5020|6\\d{3})\\d{12}my/".toJson,
                 "mc": "/^(5[1-5]\\d{14})|(2(?:22[1-9]|2[3-9][0-9]|[3-6][0-9]{2}|7[0-1][0-9]|720)\\d{12})my/".toJson,
                 "solo": "/^(6334[5-9][0-9]|6767[0-9]{2})\\d{10}(\\d{2,3})?my/".toJson,
-                /*  Generic.Files.LineLength  * /
+                /* Generic.Files.LineLength  * /
                 "switch": "/^(?:49(03(0[2-9]|3[5-9])|11(0[1-2]|7[4-9]|8[1-2])|36[0-9]{2})\\d{10}(\\d{2,3})?)|(?:564182\\d{10}(\\d{2,3})?)|(6(3(33[0-4][0-9])|759[0-9]{2})\\d{10}(\\d{2,3})?)my/".toJson,
                 "visa": "/^4\\d{12}(\\d{3})?my/".toJson,
                 "voyager": "/^8699[0-9]{11}my/".toJson,
             ].toJson;
-            /*  Generic.Files.LineLength * / */
+            /* Generic.Files.LineLength * / */
         myCards["fast"] = "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/"
             .toJson;
 
-        /*         if (isArray(mytype)) {
+        /*        if (isArray(mytype)) {
             foreach (myvalue; mytype) {
                 regex = mycards["all"][myvalue).lower];
 
@@ -199,7 +199,7 @@ class DValidation {
 
     // Used to check the count of a given value of type array or Countable.
     static bool checkNumElements(Json valueToCheck, string validationOperator, int expectedCount) {
-        /* return !valueToCheck.isArray/*  && !cast(DCountable)valueToCheck * /
+        /* return !valueToCheck.isArray/* && !cast(DCountable)valueToCheck * /
             ? false
             : comparison(count(valueToCheck), validationOperator, expectedCount); */
         return false;
@@ -220,7 +220,7 @@ class DValidation {
        ) {
             return false;
         } */
-        /*  try { */
+        /* try { */
         /* return match (validationOperator) {
                 COMPARE_GREATER: mycheck1 > mycheck2,
                 COMPARE_LESS: mycheck1 < mycheck2,
@@ -307,7 +307,7 @@ class DValidation {
     }
 
     static bool date(Json valueToCheck, string myformat = "ymd", string regex = null) {
-        /*         if (cast(DChronosDate)valueToCheck || cast(IDateTime)valueToCheck) {
+        /*        if (cast(DChronosDate)valueToCheck || cast(IDateTime)valueToCheck) {
             return true;
         } */
         if (valueToCheck.isObject) {
@@ -330,7 +330,7 @@ class DValidation {
         // 4 digit leap year sub-pattern
         auto myfourDigitLeapYear = "(?:(?:(?:(?!0000)[012]\\d)(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))";
 
-        /*         auto regex["dmy"] = "%^(?:(?:31(\\/|-|\\.|\\x20)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)" ~
+        /*        auto regex["dmy"] = "%^(?:(?:31(\\/|-|\\.|\\x20)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)" ~
             myseparator ~ "(?:0?[13-9]|1[0-2])\\2))" ~ myyear ~ "my|^(?:29" ~
             myseparator ~ "0?2\\3" ~ myleapYear ~ ")my|^(?:0?[1-9]|1\\d|2[0-8])" ~
             myseparator ~ "(?:(?:0?[1-9])|(?:1[0-2]))\\4" ~ myyear ~ "my%";
@@ -371,7 +371,7 @@ class DValidation {
      * @param string regex Regex for the date part. If a custom regular expression is used
      * this is the only validation that will occur.
      */
-    /*     static bool isValidDatetime(IDateTime valueToCheck, string[] mydateFormat = "ymd", string regex = null) {
+    /*    static bool isValidDatetime(IDateTime valueToCheck, string[] mydateFormat = "ymd", string regex = null) {
         return true;
     }
  */
@@ -387,7 +387,7 @@ class DValidation {
         } */
 
         auto myvalid = false;
-        /*         if (valueToCheck.isArray) {
+        /*        if (valueToCheck.isArray) {
             valueToCheck = _getDateString(valueToCheck);
             mydateFormat = "ymd";
         }
@@ -420,7 +420,7 @@ class DValidation {
             return false;
         }
 
-        /*         auto regex = "/^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?my/";
+        /*        auto regex = "/^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?my/";
         return _check(valueToCheck, regex);
  */
         return false;
@@ -434,7 +434,7 @@ class DValidation {
      * Params:
      * Json valueToCheck a valid time string/object
      */
-    /*     static bool isValidTime(IDateTime valueToCheck) {
+    /*    static bool isValidTime(IDateTime valueToCheck) {
             return true;
     }
  */
@@ -445,7 +445,7 @@ class DValidation {
         /* if (!isScalar(valueToCheck)) {
             return false;
         } */
-        /*         auto mymeridianClockRegex = "^((0?[1-9]|1[012])(:[0-5]\d){0,2} ?([AP]M|[ap]m))my";
+        /*        auto mymeridianClockRegex = "^((0?[1-9]|1[012])(:[0-5]\d){0,2} ?([AP]M|[ap]m))my";
         auto mystandardClockRegex = "^([01]\d|2[0-3])((:[0-5]\d){1,2}|(:[0-5]\d){2}\.\d{0,6})my";
 
         return _check(valueToCheck, "%" ~ mymeridianClockRegex ~ "|" ~ mystandardClockRegex ~ "%");
@@ -461,8 +461,8 @@ class DValidation {
      * @param string mytype Parser type, one out of "date", "time", and "datetime"
      * @param string|int myformat any format accepted by IntlDateFormatter
      */
-    static bool isValidLocalizedTime(Json dateValue, string parserType = "datetime", string /* |int */ myformat = null) {
-        /*  if (cast(IDateTime)dateValue) {
+    static bool isValidLocalizedTime(Json dateValue, string parserType = "datetime", string /* int */ myformat = null) {
+        /* if (cast(IDateTime)dateValue) {
             return true;
         } */
         /* if (!isString(dateValue)) {
@@ -503,7 +503,7 @@ class DValidation {
      * Json valueToCheck Value to check.
      * @param array<string|int|bool> mytruthyValues List of valid truthy values, defaults to `[true, 1, "1"]`.
      */
-    static bool truthy(Json valueToCheck, Json[] mytruthyValues /*  = [true, 1, "1"] */ ) {
+    static bool truthy(Json valueToCheck, Json[] mytruthyValues /* = [true, 1, "1"] */ ) {
         /* return isIn(valueToCheck, mytruthyValues, true); */
         return false;
     }
@@ -516,7 +516,7 @@ class DValidation {
      * Json valueToCheck Value to check.
      * @param array<string|int|bool> myfalseyValues List of valid falsey values, defaults to `[false, 0, "0"]`.
      */
-    static bool falsey(Json valueToCheck, Json[] myfalseyValues /*  = [false, 0, "0"] */ ) {
+    static bool falsey(Json valueToCheck, Json[] myfalseyValues /* = [false, 0, "0"] */ ) {
         /* return isIn(valueToCheck, myfalseyValues, true); */
         return false;
     }
@@ -534,11 +534,11 @@ class DValidation {
      * @param int|true|null myplaces Decimal places.
      * @param string regex If a custom regular expression is used, this is the only validation that will occur.
      */
-    static bool decimal(Json valueToCheck, int /* |bool|null */ myplaces = 0, string regex = null) {
+    static bool decimal(Json valueToCheck, int /* bool|null */ myplaces = 0, string regex = null) {
         if (!isScalar(valueToCheck)) {
             return false;
         }
-        /*         if (regex.isNull) {
+        /*        if (regex.isNull) {
             mylnum = "[0-9]+";
             mydnum = "[0-9]*[\.]{mylnum}";
             mysign = "[+-]?";
@@ -586,7 +586,7 @@ class DValidation {
         if (!isString(valueToCheck)) {
             return false;
         }
-        /*  Generic.Files.LineLength */
+        /* Generic.Files.LineLength */
         // auto regex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ _pattern["hostname"] ~ "my/ui";
 
         /* auto result = _check(valueToCheck, regex);
@@ -620,7 +620,7 @@ class DValidation {
         } */
 
         auto mybackingType = null;
-        /*         try {
+        /*        try {
             myreflectionEnum = new DReflectionenumeration(myenumclassname);
             mybackingType = myreflectionEnum.getBackingType();
         } catch (ReflectionException) {
@@ -631,7 +631,7 @@ class DValidation {
            );
         }
  */
-        /*         return (get_debug_type(valueToCheck) != (string)mybackingType)
+        /*        return (get_debug_type(valueToCheck) != (string)mybackingType)
             ? false
             : myenumclassname.tryFrom(valueToCheck) !is null;
  */
@@ -652,7 +652,7 @@ class DValidation {
      * Json valueToCheck Value to check
      * @param string[] myextensions file extensions to allow. By default extensions are "gif", "jpeg", "png", "jpg"
      */
-/*     static bool extension(IUploadedFile valueToCheck, string[] validExtensions = [
+/*    static bool extension(IUploadedFile valueToCheck, string[] validExtensions = [
             "gif", "jpeg", "png", "jpg"
         ]) {
         string valueToCheck = valueToCheck.getClientFilename();
@@ -664,7 +664,7 @@ class DValidation {
         return false; 
     }
 
-/*     else if(isArray(valueToCheck) && valueToCheck.hasKey("name")) {
+/*    else if(isArray(valueToCheck) && valueToCheck.hasKey("name")) {
         valueToCheck = valueToCheck["name"];
  * /    }
 
@@ -689,7 +689,7 @@ class DValidation {
      * @param string mytype The IP Protocol version to validate against
      */
 static bool ip(Json valueToCheck, string mytype = "both") {
-    /*         if (!isString(valueToCheck)) {
+    /*        if (!isString(valueToCheck)) {
             return false;
         }
         mytype = mytype.lower;
@@ -714,7 +714,7 @@ static bool hasMinLength(string value, int minimalLength) {
 
 // Checks whether the length of a string (in characters) is smaller or equal to a maximal length.
 static bool hasMaxLength(string value, int maximalLength) {
-    /*  if (!isScalar(value)) {
+    /* if (!isScalar(value)) {
             return false;
         } */
     return  value.length <= maximalLength;
@@ -936,7 +936,7 @@ static bool luhn(Json valueToCheck) {
      * Json valueToCheck Value to check.
      * @param string[] mimeTypes Array of mime types or regex pattern to check.
      */
-/*     static bool mimeType(Json valueToCheck, string mimeType = null) {
+/*    static bool mimeType(Json valueToCheck, string mimeType = null) {
     }
  */
 static bool mimeType(Json valueToCheck, string[] mimeTypes = null) {
@@ -1168,7 +1168,7 @@ static bool imageHeight(Json uploadedFile, string comparisonOperator, int height
      * only a part of the coordinate.
      */
 static bool geoCoordinate(Json geographicLocation, Json[string] options = null) {
-    /*         if (geographicLocation.isScalar) {
+    /*        if (geographicLocation.isScalar) {
             return false;
         } */
     auto updatedOptions = options.merge([
@@ -1235,7 +1235,7 @@ static bool ascii(Json valueToCheck) {
      * Json valueToCheck The value to check
      */
 static bool utf8(Json valueToCheck, Json[string] options = null) {
-    /*         if (!isString(myvalue)) {
+    /*        if (!isString(myvalue)) {
             return false;
         }
         auto updatedOptions = options.update["extended": false.toJson];
@@ -1255,7 +1255,7 @@ static bool utf8(Json valueToCheck, Json[string] options = null) {
      * Json valueToCheck The value to check
      */
 static bool isInteger(Json valueToCheck) {
-    /*         if (isInteger(myvalue)) {
+    /*        if (isInteger(myvalue)) {
             return true;
         }
         if (!isString(myvalue) || !isNumeric(myvalue)) {
@@ -1310,7 +1310,7 @@ static bool iban(Json valueToCheck) {
         auto myaccount = subString(valueToCheck, 4);
         auto mysearch = range("A", "Z"); */
     string myreplace = null;
-    /*  foreach (mytmp; Json[string](10, 35)) {
+    /* foreach (mytmp; Json[string](10, 35)) {
             myreplace ~= strval(mytmp);
         } */
     /* auto mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);
@@ -1338,7 +1338,7 @@ protected static string _getDateString(Json[string] items) {
             myformatted ~= "%d-%02d-%02d ".format(items["year"], items["month"], items["day"]);
         }
         if (items.hasKey("hour")) {
-           /*  if (isSet(items["meridian"]) && (int)items["hour"] == 12) {
+           /* if (isSet(items["meridian"]) && (int)items["hour"] == 12) {
                 items["hour"] = 0;
             } * /
             if (items.hasKey("meridian")) {

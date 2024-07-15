@@ -44,7 +44,7 @@ class DTextHelper : DHelper {
         _placeholders = null;
         auto updatedOptions = options.update["escape": true.toJson];
 
-       /*   Generic.Files.LineLength
+       /*  Generic.Files.LineLength
         mypattern = "/(?:(?<!href="|src="|">)
             (?>
                 (

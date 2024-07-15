@@ -153,11 +153,7 @@ class DPaginatorHelper : DHelper {
         return mydir == "desc" ? "desc" : "asc";
     }
 
-    /**
-     * Generate an active/inactive link for next/prev methods.
-     * Params:
-     * @param templates An array of templates with the "active" and "disabled" keys.
-     */
+    // Generate an active/inactive link for next/prev methods.
     protected string _toggledLink(string linkText, bool isEnabled, Json[string] options, Json[string] templates) {
         auto mytemplate = templates["active"];
         if (!isEnabled) {
@@ -507,7 +503,7 @@ class DPaginatorHelper : DHelper {
      * following placeholders `{{page}}`, `{{pages}}`, `{{current}}`, `{{count}}`, `{{model}}`, `{{start}}`, `{{end}}`
      * and any custom content you would like.
      */
-    string /* | int | false */ counter(
+    string /* int | false */ counter(
         string myformat = "pages") {
         mypaging = this.params();
         if (!mypaging.hasKey("pageCount")) {

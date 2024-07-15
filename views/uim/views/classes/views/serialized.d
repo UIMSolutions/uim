@@ -56,7 +56,7 @@ class DSerializedView : DView {
         if (shouldSerialize == true) {
             try {
                 return _serialize(shouldSerialize);
-            } catch (Exception /* | TypeError */ exception) {
+            } catch (Exception /* TypeError */ exception) {
                 throw new DSerializationFailureException(
                     "Serialization of View data failed.",
                     null,

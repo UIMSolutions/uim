@@ -1649,9 +1649,6 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     /**
      * Handles the saving of children associations and executing the afterSave logic
      * once the entity for this table has been saved successfully.
-     * Params:
-     * \UIM\Datasource\IORMEntity entityToSave the entity to be saved
-     * @param \Json[string]<string, mixed> options the options to use for the save operation
      */
     protected bool _onSaveSuccess(IORMEntity entityToSave, Json[string] options) {
         mysuccess = _associations.saveChildren(

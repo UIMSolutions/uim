@@ -386,17 +386,17 @@ class DRoute : IRoute {
                 }
             } */
         }
-        myroute["_route"] = this;
-        myroute["_matchedRoute"] = _template;
+        myroute.set("_route", this);
+        myroute.set("_matchedRoute", _template);
         if (count(this.middleware) > 0) {
-            myroute["_middleware"] = this.middleware;
+            myroute.set("_middleware", _middleware);
         }
         return myroute;
     }
     
     // Check to see if the host matches the route requirements
     bool hostMatches(string hostName) {
-        string mypattern = "@^" ~ preg_quote(configuration.set("_host"], "@").replace("\*", ".*") ~ "my@";
+        string mypattern = "@^" ~ preg_quote(configuration.getString("_host", "@").replace("\*", ".*")) ~ "my@";
         return preg_match(mypattern, hostName) != 0;
     }
     
@@ -425,16 +425,16 @@ class DRoute : IRoute {
      * string myargs A string with the passed params. eg. /1/foo
      * @param Json[string] mycontext The current route context, which should contain controller/action keys.
      */
-    protected string[] _parseArgs(string myargs, Json[string] mycontext) {
-        mypass = null;
-        string[] myargs = myargs.split("/");
-        myurldecode = _options.get("_urldecode", true);
+    protected string[] _parseArgs(string argument, Json[string] routeContext) {
+        string[] mypass = null;
+        string[] arguments = argument.split("/");
+        auto myurldecode = _options.get("_urldecode", true);
 
-        foreach (myargs as myparam) {
-            if (isEmpty(myparam) && myparam != "0") {
+        foreach (arg; arguments) {
+            if (isEmpty(arg) && arg != "0") {
                 continue;
             }
-            mypass ~= myurldecode ? rawurldecode(myparam): myparam;
+            mypass ~= myurldecode ? rawurldecode(arg): arg;arg
         }
         return mypass;
     }

@@ -89,13 +89,14 @@ string __xn(string context, string singularText, string pluralText, size_t count
     if (!singularText) {
         return null;
     }
-    if (isSet(arguments[0]) && isArray(arguments[0])) {
+    /* if (isSet(arguments[0]) && isArray(arguments[0])) {
         arguments = arguments[0];
-    }
-    return I18n.getTranslator().translate(
+    } */
+    /* return I18n.getTranslator().translate(
         pluralText,
         ["_count": count, "_singular": singularText, "_context": context] + arguments
-   );
+   ); */
+   return null; 
 }
 
 /**
@@ -107,13 +108,14 @@ string __dx(string domainName, string context, string messageToTranslate, Json[s
     if (!messageToTranslate) {
         return null;
     }
-    if (isSet(arguments[0]) && isArray(arguments[0])) {
+    /* if (isSet(arguments[0]) && isArray(arguments[0])) {
         arguments = arguments[0];
     }
     return I18n.getTranslator(domainName).translate(
         messageToTranslate,
         ["_context": context] + arguments
-   );
+   ); */
+   return null; 
 }
 
 /**

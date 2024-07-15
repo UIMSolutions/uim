@@ -224,7 +224,8 @@ class DNumber {
 
     // Getter for default currency format
     static string /* int|falseuto */ getDefaultCurrencyFormat() {
-        return _defaultCurrencyFormat ? _defaultCurrencyFormat : FORMAT_CURRENCY;
+        // return _defaultCurrencyFormat ? _defaultCurrencyFormat : FORMAT_CURRENCY;
+        return null; 
     }
 
     /**

@@ -838,9 +838,6 @@ mixin template TIntegrationTest() {
      *
      * The difference from assertCookie() is this decrypts the cookie
      * value like the CookieComponent for this assertion.
-     * Params:
-     * Json expected The expected contents.
-     * @param string failureMessage The failure message that will be appended to the generated message.
      */
     void assertCookieEncrypted(
         Json expected,

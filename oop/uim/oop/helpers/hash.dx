@@ -575,11 +575,8 @@ class Hash {
      * keys that contain scalar values (unlike `array_merge_recursive`).
      *
      * This auto will work with an unlimited amount of arguments and typecasts non-array parameters into arrays.
-     * Params:
-     * Json[string] data Array to be merged
-     * @param Json mymerge Array to merge with. The argument and all trailing arguments will be array cast when merged
      */
-    static Json[string] merge(Json[string] data, Json mymerge) {
+    static Json[string] merge(Json[string] data, Json valueToMerge) {
         auto myargs = array_slice(func_get_args(), 1);
         auto result = data;
         auto mystack = null;
@@ -596,7 +593,7 @@ class Hash {
     // Merge helper auto to reduce duplicated code between merge() and expand().
     protected static void _merge(Json[string] stackOfOperations, Json[string] result) {
         while (!empty(stackOfOperations)) {
-            foreach (stackOfOperations as mycurKey: &mycurMerge) {
+            foreach (mycurKey, &mycurMerge; stackOfOperations) {
                 foreach (mycurMerge[0].byKeyValue) {
                     if (!mycurMerge[1].isArray) {
                         continue;

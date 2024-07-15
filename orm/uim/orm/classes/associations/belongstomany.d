@@ -364,9 +364,7 @@ class DBelongsToManyAssociation : DAssociation {
             }); */
     }
 
-    /**
-     * Get the relationship type.
-     */
+    // Get the relationship type.
     string type() {
         return MANY_TO_MANY;
     }

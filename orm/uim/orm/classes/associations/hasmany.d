@@ -79,9 +79,9 @@ class DHasManyAssociation : DAssociation {
      * `options`
      */
     IORMEntity saveAssociated(IORMEntity sourceEntity, Json[string] options = null) {
-        myTargetEntities = sourceEntity.get(getProperty());
+        targetEntities = sourceEntity.get(getProperty());
 
-        isEmpty = isIn(myTargetEntities, [null, [], "", false], true);
+        isEmpty = isIn(targetEntities, [null, [], "", false], true);
         if (isEmpty) {
             if (
                 sourceEntity.isNew() ||
@@ -90,10 +90,10 @@ class DHasManyAssociation : DAssociation {
                 return sourceEntity;
             }
 
-            myTargetEntities = null;
+            targetEntities = null;
         }
 
-        if (!is_iterable(myTargetEntities)) {
+        if (!is_iterable(targetEntities)) {
             myName = getProperty();
             throw new DInvalidArgumentException(
                 "Could not save %s, it cannot be traversed".format(myName););
@@ -109,15 +109,15 @@ class DHasManyAssociation : DAssociation {
 
         if (
             _saveStrategy == SAVE_REPLACE &&
-            !_unlinkAssociated(foreignKeyReference, sourceEntity, getTarget(), myTargetEntities, options)
+            !_unlinkAssociated(foreignKeyReference, sourceEntity, getTarget(), targetEntities, options)
             ) {
             return null;
         }
 
-        if (!myTargetEntities.isArray) {
-            myTargetEntities = iterator_to_array(myTargetEntities);
+        if (!targetEntities.isArray) {
+            targetEntities = iterator_to_array(targetEntities);
         }
-        if (!_saveTarget(foreignKeyReference, sourceEntity, myTargetEntities, options)) {
+        if (!_saveTarget(foreignKeyReference, sourceEntity, targetEntities, options)) {
             return null;
         }
 
@@ -174,7 +174,7 @@ class DHasManyAssociation : DAssociation {
 
     /**
      * Associates the source entity to each of the target entities provided.
-     * When using this method, all entities in `myTargetEntities` will be appended to
+     * When using this method, all entities in `targetEntities` will be appended to
      * the source entity"s property corresponding to this association object.
      *
      * This method does not check link uniqueness.
@@ -189,7 +189,7 @@ class DHasManyAssociation : DAssociation {
      * ```
      * `myUser.get("articles")` will contain all articles in `allArticles` after linking
      */
-    bool link(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
+    bool link(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         auto saveStrategy = getSaveStrategy();
         setSaveStrategy(SAVE_APPEND);
         auto property = getProperty();
@@ -198,7 +198,7 @@ class DHasManyAssociation : DAssociation {
             array_merge(
                 /* (array) */
                 sourceEntity.get(property),
-                myTargetEntities
+                targetEntities
         )
         );
         sourceEntity.set(property, currentEntities);
@@ -229,7 +229,7 @@ class DHasManyAssociation : DAssociation {
      * Additionally to the default options accepted by `Table.remove()`, the following
      * keys are supported:
      *
-     * - cleanProperty: Whether to remove all the objects in `myTargetEntities` that
+     * - cleanProperty: Whether to remove all the objects in `targetEntities` that
      * are stored in `sourceEntity` (default: true)
      *
      * By default this method will unset each of the entity objects stored inside the
@@ -258,7 +258,7 @@ class DHasManyAssociation : DAssociation {
             auto updatedOptions = options
                 .update["cleanProperty": true];
         }
-        if (count(myTargetEntities) == 0) {
+        if (count(targetEntities) == 0) {
             return;
         }
 
@@ -271,7 +271,7 @@ class DHasManyAssociation : DAssociation {
         /* 
         auto conditions = [
             "OR": (new DCollection(
-                    myTargetEntities))
+                    targetEntities))
             .map(
                 function(entity) use(myTargetPrimaryKey) {
                 /** @var DORMdatasources.IORMEntity anEntity * /
@@ -289,8 +289,8 @@ class DHasManyAssociation : DAssociation {
                         sourceEntity.get(property)))
                         .reject(
                         function(assoc) use(
-                        myTargetEntities) {
-                            return isIn(assoc, myTargetEntities);}
+                        targetEntities) {
+                            return isIn(assoc, targetEntities);}
                            )
                             .toList()
                            );
@@ -302,7 +302,7 @@ class DHasManyAssociation : DAssociation {
     /**
      * Replaces existing association links between the source entity and the target
      * with the ones passed. This method does a smart cleanup, links that are already
-     * persisted and present in `myTargetEntities` will not be deleted, new links will
+     * persisted and present in `targetEntities` will not be deleted, new links will
      * be created for the passed target entities that are not already in the database
      * and the rest will be removed.
      *
@@ -316,7 +316,7 @@ class DHasManyAssociation : DAssociation {
      *
      * This method does not check link uniqueness.
      *
-     * On success, the passed `sourceEntity` will contain `myTargetEntities` as value
+     * On success, the passed `sourceEntity` will contain `targetEntities` as value
      * in the corresponding property for this association.
      *
      * Additional options for new links to be saved can be passed in the third argument,
@@ -332,16 +332,10 @@ class DHasManyAssociation : DAssociation {
      * ```
      *
      * `author.get("articles")` will contain only `[article1, article3]` at the end
-     *
-     * @param DORMDatasource\IORMEntity sourceEntity an entity persisted in the source table for
-     * this association
-     * @param Json[string] myTargetEntities list of entities from the target table to be linked
-     * @param Json[string] options list of options to be passed to the internal `save`/`delete` calls
-     * when persisting/updating new links, or deleting existing ones
      */
-    bool replace(IORMEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
+    bool replace(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         auto property = getProperty();
-        sourceEntity.set(property, myTargetEntities);
+        sourceEntity.set(property, targetEntities);
         auto saveStrategy = getSaveStrategy();
         setSaveStrategy(
             SAVE_REPLACE);

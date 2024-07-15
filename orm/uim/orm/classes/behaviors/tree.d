@@ -692,20 +692,14 @@ class DTreeBehavior : DBehavior {
         });
     }
 
-    /**
-     * Recursive method used to recover a single level of the tree
-     *
-     * @param int lftRght The starting lft/rght value
-     * @param mixed parentId the parent id of the level to be recovered
-     * @param int level Node level
-     */
-    protected int _recoverTree(int lftRght = 1, parentId = null, int nodeLevel = 0) {
+    // Recursive method used to recover a single level of the tree
+    protected int _recoverTree(int lftRght = 1, Json parentId = Json(null), int nodeLevel = 0) {
         auto configData = configuration.data;
         [parent, left, right] = configuration.getArray("parent", "left", "right");
-        primaryKeys = primaryKeys();
-        order = configuration.getArray("recoverOrder", primaryKeys);
+        auto primaryKeys = primaryKeys();
+        auto order = configuration.getArray("recoverOrder", primaryKeys);
 
-        nodes = _scope(_table.query())
+        auto nodes = _scope(_table.query())
             .select(primaryKeys)
             .where([parent ~ " IS": parentId])
             .order(order)
@@ -729,9 +723,7 @@ class DTreeBehavior : DBehavior {
         return lftRght;
     }
 
-    /**
-     * Returns the maximum index value in the table.
-     */
+    // Returns the maximum index value in the table.
     protected int _getMax() {
         auto field = configuration.get("right");
         auto rightField = configuration.get("rightField");

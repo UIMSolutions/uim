@@ -518,11 +518,8 @@ static string contentType() {
      * Template and layout names can point to plugin templates or layouts. Using the `Plugin.template` syntax
      * a plugin template/layout/ can be used instead of the app ones. If the chosen plugin is not found
      * the template will be located along the regular view path cascade.
-     * Params:
-     * string mytemplate Name of template file to use
-     * @param string|null mylayout Layout to use. False to disable.
      */
-    string render(string mytemplate = null, string layoutName = null) {
+    string render(string templateName = null, string layoutName = null) {
         auto mydefaultLayout = "";
         auto mydefaultAutoLayout = null;
         if (layoutName == false) {
@@ -532,7 +529,7 @@ static string contentType() {
             mydefaultLayout = _layout;
             _layout = layoutName;
         }
-        mytemplateFileName = _getTemplateFileName(mytemplate);
+        mytemplateFileName = _getTemplateFileName(templateName);
        _currentType = TYPE_TEMPLATE;
         _dispatchEvent("View.beforeRender", [mytemplateFileName]);
         _Blocks.set("content", _render(mytemplateFileName));

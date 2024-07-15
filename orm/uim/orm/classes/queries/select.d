@@ -990,10 +990,6 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * This auto works the same as `matching()` with the difference that it
      * will select no fields from the association.
-     * Params:
-     * string association The association to join with
-     * @param \Closure|null mybuilder a auto that will receive a pre-made query object
-     * that can be used to add custom conditions or selecting some fields
      */
     void innerJoinWith(string associationToJoin/* , Closure mybuilder = null */) {
         result = getEagerLoader()

@@ -519,9 +519,9 @@ class DRouteBuilder {
     // Create a route object, or return the provided object.
     protected DRoute _makeRoute(/* Route |  */string myroute, Json[string] defaults, Json[string] options = null) {
         if (isString(myroute)) {
-            /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass */
-            auto myrouteClass = App.classname(options["routeClass"], "Routing/Route");
-            if (myrouteClass.isNull) {
+            /** @var class-string<\UIM\Routing\Route\Route>|null routeClassname */
+            auto routeClassname = App.classname(options["routeClass"], "Routing/Route");
+            if (routeClassname.isNull) {
                 throw new DInvalidArgumentException(
                     "Cannot find route class %s".format(options["routeClass"])
                 );
@@ -548,7 +548,7 @@ class DRouteBuilder {
             if (!defaults.hasKey("action") && !options.hasKey("action")) {
                 defaults["action"] = "index";
             }
-            myroute = new myrouteClass(myroute, defaults, options);
+            myroute = new routeClassname(myroute, defaults, options);
         }
         return myroute;
     }
@@ -584,13 +584,13 @@ class DRouteBuilder {
      * string myroute A string describing the template of the route
      * @param string[] myurl A URL to redirect to. Can be a string or a uim array-based URL
      */
-    Route redirect(string routeTemplate, string[] myurl, Json[string] options = null) {
+    DRoute redirect(string routeTemplate, string url, Json[string] options = null) {
+        return redirect(routeTemplate, ["redirect": url], options);
+    }
+    DRoute redirect(string routeTemplate, STRINGAA myurl, Json[string] options = null) {
         auto options = options.merge([
             "routeClass": RedirectRoute.classname.toJson
         ]);
-        if (isString(myurl)) {
-            myurl = ["redirect": myurl];
-        }
         return _connect(routeTemplate, myurl, options);
     }
 
@@ -618,10 +618,6 @@ class DRouteBuilder {
      *   });
      * });
      * ```
-     * Params:
-     * string routings The prefix name to use.
-     * @param \Closure|Json[string] params An array of routing defaults to add to each connected route.
-     * If you have no parameters, this argument can be a Closure.
      */
     void prefix(string routingPrefix, /* Closure |  */Json[string] params = null, DClosure callbackClosure = null) {
         if (!params.isArray) {
@@ -687,49 +683,45 @@ class DRouteBuilder {
      *
      * - `_namePrefix` Set a prefix used for named routes. The prefix is prepended to the
      * name of any route created in a scope callback.
-     * Params:
-     * string path The path to create a scope for.
-     * @param \Closure|Json[string] params Either the parameters to add to routes, or a callback.
-     * @param \Closure|null callbackClosure The callback to invoke that builds the plugin routes.
-     * Only required when params is defined.
      */
-    void scope (string path, Closure | Json[string] params, Closure callbackClosure = null) {
+   /*  void scope (string path, /* Closure |  * /Json[string] params, /* Closure callbackClosure = null * /) {
         if (cast(DClosure) params) {
-            callbackClosure = params;
+            // callbackClosure = params;
             params = null;
         }
-        if (callbackClosure.isNull) {
+        /* if (callbackClosure.isNull) {
             throw new DInvalidArgumentException("Need a valid Closure to connect routes.");
-        }
+        } * /
         if (_path != "/") {
             path = _path ~ path;
         }
-        routingsPrefix = _namePrefix;
+        
+        auto routingsPrefix = _namePrefix;
         if (params.hasKey("_namePrefix")) {
             routingsPrefix ~= params["_namePrefix"];
         }
         remove(params["_namePrefix"]);
 
         params += _params;
-        mybuilder = new static(_collection, path, params, [
+        /* auto mybuilder = new static(_collection, path, params, [
                 "routeClass": _routeClass,
                 "extensions": _extensions,
                 "namePrefix": routingsPrefix,
                 "middleware": _middleware,
             ]);
-        callbackClosure(mybuilder);
-    }
+        callbackClosure(mybuilder); * /
+    } */
 
     /**
      * Connect the `/{controller}` and `/{controller}/{action}/*` fallback routes.
      *
      * This is a shortcut method for connecting fallback routes in a given scope.
      * Params:
-     * string myrouteClass the route class to use, uses the default routeClass
+     * string routeClassname the route class to use, uses the default routeClass
      * if not specified
      */
-    void fallbacks(string myrouteClass = null) {
-        myrouteClass = myrouteClass ?  : _routeClass;
+    void fallbacks(string routeClassname = null) {
+        routeClassname = routeClassname.ifEmpty(_routeClass);
         this.connect("/{controller}", ["action": "index"], compact("routeClass"));
         this.connect("/{controller}/{action}/*", [], compact("routeClass"));
     }

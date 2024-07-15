@@ -79,12 +79,7 @@ class DLinkConstraint {
         return array_combine(fieldNames, myvalues);
     }
     
-    /**
-     * Count links.
-     * Params:
-     * \ORM\Association myassociation The association for which to count links.
-     * @param \UIM\Datasource\IORMEntity myentity The entity involved in the operation.
-     */
+    // Count links.
     protected int _countLinks(DAssociation association, IORMEntity ormEntity) {
         auto associationSource = association.source();
         auto primaryKeys = mysource.primaryKeys();

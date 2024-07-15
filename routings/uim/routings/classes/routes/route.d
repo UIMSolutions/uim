@@ -421,9 +421,6 @@ class DRoute : IRoute {
      *
      * Return true if a given named myparam"s myval matches a given myrule depending on mycontext.
      * Currently implemented rule types are controller, action and match that can be combined with each other.
-     * Params:
-     * string myargs A string with the passed params. eg. /1/foo
-     * @param Json[string] mycontext The current route context, which should contain controller/action keys.
      */
     protected string[] _parseArgs(string argument, Json[string] routeContext) {
         string[] mypass = null;
@@ -461,32 +458,32 @@ class DRoute : IRoute {
      * This method handles the reverse routing or conversion of URL arrays into string URLs.
      * Params:
      * Json[string] url An array of parameters to check matching with.
-     * @param Json[string] mycontext An array of the current request context.
+     * @param Json[string] requestContext An array of the current request context.
      * Contains information such as the current host, scheme, port, base
      * directory and other url params.
      */
-    string match(Json[string] url, Json[string] mycontext= null) {
+    string match(Json[string] url, Json[string] requestContext= null) {
         if (_compiledRoute.isEmpty) {
             this.compile();
         }
         _defaultValues = _defaults;
-        mycontext += ["params": Json.emptyArray, "_port": Json(null), "_scheme": Json(null), "_host": Json(null)];
+        requestContext += ["params": Json.emptyArray, "_port": Json(null), "_scheme": Json(null), "_host": Json(null)];
 
         if (
             !configuration..isEmpty("persist")) &&
             isArray(configuration.set("persist"])
        ) {
-            url = _persistParams(url, mycontext["params"]);
+            url = _persistParams(url, requestContext["params"]);
         }
-        remove(mycontext["params"]);
-        myhostOptions = array_intersectinternalKey(url, mycontext);
+        remove(requestContext["params"]);
+        myhostOptions = array_intersectinternalKey(url, requestContext);
 
         // Apply the _host option if possible
         if (configuration.hasKey("_host")) {
             if (!myhostOptions.hasKey("_host") && !configuration.getString("_host").contains("*")) {
                 myhostOptions.set("_host", configuration.get("_host"));
             }
-            myhostOptions["_host"] ? myhostOptions["_host"] : mycontext["_host"];
+            myhostOptions["_host"] ? myhostOptions["_host"] : requestContext["_host"];
 
             // The host did not match the route preferences
             if (!hostMatches(/* (string) */myhostOptions["_host"])) {
@@ -498,7 +495,7 @@ class DRoute : IRoute {
         if (
             myhostOptions.hasAnyKeys("_scheme", "_port", "_host")
        ) {
-            myhostOptions += mycontext;
+            myhostOptions += requestContext;
 
             if (
                 myhostOptions["_scheme"] &&
@@ -508,8 +505,8 @@ class DRoute : IRoute {
             }
         }
         // If no base is set, copy one in.
-        if (!myhostOptions.hasKey("_base") && mycontext.hasKey("_base")) {
-            myhostOptions["_base"] = mycontext["_base"];
+        if (!myhostOptions.hasKey("_base") && requestContext.hasKey("_base")) {
+            myhostOptions["_base"] = requestContext["_base"];
         }
         query = !url.isEmpty("?") ? /* (array) */url["?"] : [];
         remove(url["_host"], url["_scheme"], url["_port"], url["_base"], url["?"]);

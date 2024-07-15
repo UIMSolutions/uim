@@ -528,12 +528,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * myvalidator.allowEmptyFile("photo");
      * myvalidator.allowEmptyDateTime("published");
      * myvalidator.allowEmptyArray("items");
-     * Params:
-     * @param int myflags A bitmask of EMPTY_* flags which specify what is empty.
-     * If no flags/bitmask is provided only `null` will be allowed as empty value.
-     * @param \/*Closure|* / string mywhen Indicates when the field is allowed to be empty
-     * Valid values are true, false, "create", "update". If a Closure is passed then
-     * the field will allowed to be empty only when the callback returns true.
      */
     void allowEmptyFor(
         string fieldName,

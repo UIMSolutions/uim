@@ -131,12 +131,11 @@ class DValidation {
      * @param string[]|string mytype "all" may be passed as a string, defaults to fast which checks format of
      *   most major credit cards if an array is used only the values of the array are checked.
      *  Example: ["amex", "bankcard", "maestro"]
-     * @param bool mydeep set to true this will check the Luhn algorithm of the credit card.
      */
     static bool creditCard(
         Json checkValue,
         string[] mytype = ["fast"],
-        bool mydeep = false,
+        bool shouldCheckDeep = false,
         string regex = null
     ) {
         if (!(isString(checkValue) || isInteger(checkValue))) {
@@ -147,7 +146,7 @@ class DValidation {
             return false;
         } * /
         if (regex !is null && _check(myCheckValue, regex)) {
-            return !mydeep || luhn(myCheckValue);
+            return !shouldCheckDeep || luhn(myCheckValue);
         } */
         Json myCards = Json.emptyObject;
         /* myCards["all"] = [
@@ -579,10 +578,10 @@ class DValidation {
      * any UIM version on a non-windows distribution
      * Params:
      * Json valueToCheck Value to check
-     * @param bool mydeep Perform a deeper validation (if true), by also checking availability of host
+     * @param bool shouldCheckDeep Perform a deeper validation (if true), by also checking availability of host
      * @param string regex Regex to use (if none it will use built in regex)
      */
-    static bool email(Json valueToCheck, bool mydeep = false, string regex = null) {
+    static bool email(Json valueToCheck, bool shouldCheckDeep = false, string regex = null) {
         if (!isString(valueToCheck)) {
             return false;
         }
@@ -590,7 +589,7 @@ class DValidation {
         // auto regex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ _pattern["hostname"] ~ "my/ui";
 
         /* auto result = _check(valueToCheck, regex);
-        if (mydeep == false || mydeep.isNull) {
+        if (shouldCheckDeep == false || shouldCheckDeep.isNull) {
             return result;
         }
         if (result == true && preg_match("/@(" ~ _pattern["hostname"] ~ ")my/i", valueToCheck, myregs)) {

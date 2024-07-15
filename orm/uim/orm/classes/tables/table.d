@@ -1407,14 +1407,14 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * This method will *not* trigger beforeSave/afterSave events. If you need those
      * first load a collection of records and update them.
      * Params:
-     * \UIM\Database\Expression\QueryExpression|\/*Closure|*/ string[]|string fieldNames A hash of field: new value.
-     * @param \UIM\Database\Expression\QueryExpression|\/*Closure|*/ string[]|string myconditions Conditions to be used, accepts anything Query.where()
+     * \UIM\Database\Expression\QueryExpression|\/*Closure|* / string[]|string fieldNames A hash of field: new value.
+     * @param \UIM\Database\Expression\QueryExpression|\/*Closure|* / string[]|string myconditions Conditions to be used, accepts anything Query.where()
      */
     int updateAll(
-        QueryExpression|/*Closure|*/ string[]|string fieldNames,
-        QueryExpression|/*Closure|*/ string[]|string myconditions
+        /* QueryExpression|/ Closure|*/ string[]/* |string */ fieldNames,
+        /* QueryExpression|/ Closure|*/ string[]/* |string */ myconditions
    ) {
-        mystatement = this.updateQuery()
+        auto mystatement = updateQuery()
             .set(fieldNames)
             .where(myconditions)
             .execute();
@@ -1778,7 +1778,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             mymessage ~= myentity.classname ~ " is missing " ~ myprimaryColumns.join(", ");
             throw new DInvalidArgumentException(mymessage);
         }
-        mystatement = this.updateQuery()
+        mystatement = updateQuery()
             .set(mydata)
             .where(primaryKey)
             .execute();

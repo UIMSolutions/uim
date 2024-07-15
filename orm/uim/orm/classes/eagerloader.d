@@ -340,13 +340,10 @@ class DEagerLoader {
      * Returns an array with the associations that can be fetched using a single query,
      * the array keys are the association aliases and the values will contain an array
      * with uim\orm.EagerLoadable objects.
-     *
-     * @param  repository The table containing the associations to be
-     * attached
      */
     DORMEagerLoadable[] attachableAssociations(DORMTable repository) {
-        contain = this.normalized(repository);
-        matching = _matching ? _matching.normalized(repository) : [];
+        auto contain = this.normalized(repository);
+        auto matching = _matching ? _matching.normalized(repository) : [];
         _fixStrategies();
         _loadExternal = null;
 

@@ -1993,15 +1993,10 @@ class DFormHelper : DHelper {
     
     /**
      * Add a new widget to FormHelper.
-     *
      * Allows you to add or replace widget instances with custom code.
-     * Params:
-     * string views The name of the widget. e.g. "text".
-     * @param \UIM\View\Widget\IWidget|string[] myspec Either a string class
-     * name or an object implementing the IWidget.
      */
-    void addWidget(string views, IWidget|string[] myspec) {
-       _locator.add([views: myspec]);
+    void addWidget(string widgetName, /* IWidget| */string[] myspec) {
+       _locator.add([widgetName: myspec]);
     }
     
     /**

@@ -555,13 +555,7 @@ class DText {
         return myprefix ~ result ~ mysuffix;
     }
     
-    /**
-     * Truncate text with specified width.
-     * Params:
-     * string textToTruncate String to truncate.
-     * @param int textLength Length of returned string, including ellipsis.
-     * @param Json[string] options An array of HTML attributes and options.
-     */
+    // Truncate text with specified width.
     static string truncateByWidth(string textToTruncate, int textLength = 100, Json[string] options = null) {
         return truncate(textToTruncate, textLength, ["trimWidth": true.toJson] + options);
     }

@@ -730,12 +730,7 @@ static bool maxLengthBytes(Json valueToCheck, int maximalLengthmymax) {
     return  /* (string) */ valueToCheck.length <= maximalLength;
 }
 
-/**
-     * Checks that a value is a monetary amount.
-     * Params:
-     * Json valueToCheck Value to check
-     * @param string mysymbolPosition Where symbol is located (left/right)
-     */
+// Checks that a value is a monetary amount.
 static bool isMoney(Json valueToCheck, string mysymbolPosition = "left") {
     // TODO auto mymoney = "(?!0,?\\d)(?:\\d{1,3}(?:([, .])\\d{3})?(?:\\1\\d{3})*|(?:\\d+))((?!\\1)[,.]\\d{1,2})?";
     /* auto myRegex = mysymbolPosition == "right"

@@ -580,9 +580,6 @@ class DRouteBuilder {
      * - `status` Sets the HTTP status (default 301)
      * - `persist` Passes the params to the redirected route, if it can. This is useful with greedy routes,
      * routes that end in `*` are greedy. As you can remap URLs and not lose any passed args.
-     * Params:
-     * string myroute A string describing the template of the route
-     * @param string[] myurl A URL to redirect to. Can be a string or a uim array-based URL
      */
     DRoute redirect(string routeTemplate, string url, Json[string] options = null) {
         return redirect(routeTemplate, ["redirect": url], options);

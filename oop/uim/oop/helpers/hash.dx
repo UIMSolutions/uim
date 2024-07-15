@@ -483,13 +483,7 @@ class Hash {
             : false;
     }
     
-    /**
-     * Recursively filters a data set.
-     * Params:
-     * Json[string] data Either an array to filter, or value when in callback
-     * @param callable|null mycallback A auto to filter the data with. Defaults to
-     * all non-empty or zero values.
-     */
+    // Recursively filters a data set.
     static Json[string] filter(Json[string] data, callable aCallback = null) {
         data.byKeyValue
             .filter!(kv => isArray(kv.value))

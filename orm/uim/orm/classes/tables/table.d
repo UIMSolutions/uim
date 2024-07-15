@@ -2164,27 +2164,22 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         return mycallable(myquery, ...arguments);
     }
     
-    /**
-     * Provides the dynamic findBy and findAllBy methods.
-     * Params:
-     * string mymethod The method name that was fired.
-     * @param Json[string] arguments List of arguments passed to the function.
-     */
-    protected ISelectQuery _dynamicFinder(string mymethod, Json[string] arguments) {
-        mymethod = Inflector.underscore(mymethod);
-        preg_match("/^find_([\w]+)_by_/", mymethod, mymatches);
+    // Provides the dynamic findBy and findAllBy methods.
+    protected ISelectQuery _dynamicFinder(string methodName, Json[string] arguments) {
+        methodName = Inflector.underscore(methodName);
+        preg_match("/^find_([\w]+)_by_/", methodName, mymatches);
         if (isEmpty(mymatches)) {
             // find_by_is 8 characters.
-            fieldNames = subString(mymethod, 8);
+            fieldNames = subString(methodName, 8);
             myfindType = "all";
         } else {
-            fieldNames = subString(mymethod, mymatches[0].length);
+            fieldNames = subString(methodName, mymatches[0].length);
             myfindType = Inflector.variable(mymatches[1]);
         }
-        myhasOr = fieldNames.contains("_or_");
-        myhasAnd = fieldNames.contains("_and_");
+        auto myhasOr = fieldNames.contains("_or_");
+        auto myhasAnd = fieldNames.contains("_and_");
 
-        mymakeConditions = auto (fieldNames, arguments) {
+        auto mymakeConditions = auto (fieldNames, arguments) {
             myconditions = null;
             if (count(arguments) < count(fieldNames)) {
                 throw new BadMethodCallException(format(
@@ -2551,11 +2546,11 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         ];
         myevents = null;
 
-        foreach (myeventMap as myevent: mymethod) {
-            if (!method_exists(this, mymethod)) {
+        foreach (myeventMap as myevent: methodName) {
+            if (!method_exists(this, methodName)) {
                 continue;
             }
-            myevents[myevent] = mymethod;
+            myevents[myevent] = methodName;
         }
         return myevents;
     }

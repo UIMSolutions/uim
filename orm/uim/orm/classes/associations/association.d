@@ -321,11 +321,9 @@ class DAssociation : IAssociation {
      * the source table is deleted.
      *
      * If no parameters are passed the current setting is returned.
-     *
-     * @param bool dependent Set the dependent mode. Use null to read the current state.
      */
-    void setDependent(bool dependentMode) {
-        _dependent = dependentMode;
+    void setDependent(bool isDependent) {
+        _dependent = isDependent;
     }
 
     /**

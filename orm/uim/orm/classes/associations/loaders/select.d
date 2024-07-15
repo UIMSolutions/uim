@@ -358,11 +358,9 @@ class DSelectLoader {
      * Normally this includes the binding key columns. If there is a an ORDER BY,
      * those columns are also included as the fields may be calculated or constant values,
      * that need to be present to ensure the correct association data is loaded.
-     *
-     * @param DORMQuery query The query to get fields from.
      */
     protected Json[string] _subqueryFields(
-        Query query) {
+        DORMQuery query) {
         string[] keys = _bindingKeys;
 
         if (

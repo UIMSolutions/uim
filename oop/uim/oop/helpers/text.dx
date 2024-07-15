@@ -722,11 +722,7 @@ class DText {
         return myprepend ~ myexcerpt ~ myappend;
     }
     
-    /**
-     * Creates a comma separated list where the last two items are joined with "and", forming natural language.
-     * Params:
-     * @param string andWord The word used to join the last and second last items together with. Defaults to "and".
-     */
+    // Creates a comma separated list where the last two items are joined with "and", forming natural language.
     static string toList(string[] listToJoin, string andWord = null, string separator = ", ") {
         string andWord ??= __d("uim", "and");
         

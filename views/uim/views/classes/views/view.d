@@ -806,11 +806,9 @@ static string contentType() {
         return /* (string) */ob_get_clean();
     }
 
-    /**
-     * Get the helper registry in use by this View class.
-     */
-    HelperRegistry helpers() {
-        return _helpers ??= new DHelperRegistry(this);
+    // Get the helper registry in use by this View class.
+    DHelperRegistry helpers() {
+        return _helpers ? _helpers : new DHelperRegistry(this);
     }
 
     // Adds a helper from within `initialize()` method.

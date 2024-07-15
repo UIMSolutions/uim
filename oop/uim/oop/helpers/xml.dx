@@ -234,12 +234,7 @@ class Xml {
                         return domDocument;
                     }
 
-                    /**
-     * Recursive method to create children from array
-     * Params:
-     * \DOMDocument domDocument Handler to DOMDocument
-     * @param \DOMDocument|\DOMElement mynode Handler to DOMElement (child)
-     */
+                    // Recursive method to create children from array
                     protected static void _fromArray(
                     DOMDocument domDocument,
                     DOMDocument | DOMElement mynode,

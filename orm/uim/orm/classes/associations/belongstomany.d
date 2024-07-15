@@ -670,15 +670,8 @@ class DBelongsToManyAssociation : DAssociation {
      * ```
      *
      * `article.get("tags")` will contain only `[tag4]` after deleting in the database
-     *
-     * @param DORMDatasource\IORMEntity sourceEntity An entity persisted in the source table for
-     *  this association.
-     * @param array<DORMDatasource\IORMEntity> targetEntities List of entities persisted in the target table for
-     *  this association.
-     * @param string[]|bool options List of options to be passed to the internal `delete` call,
-     *  or a `boolean` as `cleanProperty` key shortcut.
      */
-    bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, bool isCleanProperty = null) {
+    bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, /* string[]  */bool isCleanProperty = null) {
         unlink(sourceEntity, targetEntities, [
             "cleanProperty": isCleanProperty.toJson,
         ]);

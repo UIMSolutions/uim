@@ -246,7 +246,7 @@ class DSelectLoader {
      * Appends any conditions required to load the relevant set of records in the
      * target table query given a filter key and some filtering values.
      */
-    protected DORMQuery _addFilteringCondition(DORMQuery query, /* string[]| */string key, json filter) {
+    protected DORMQuery _addFilteringCondition(DORMQuery query, /* string[]| */ string key, json filter) {
         if (key.isArray) {
             conditions = _createTupleCondition(
                 query, key, filter, "IN");
@@ -287,7 +287,7 @@ class DSelectLoader {
         auto links = null;
         auto name = _aliasName;
         if (options.get(
-                "foreignKeys") == false && this.associationType == Association
+                "foreignKeys") == false && _associationType == Association
             .ONE_TO_MANY) {
             auto message = "Cannot have foreignKeys = false for hasMany associations~ " ~
                 "You must provide a foreignKeys column.";
@@ -296,7 +296,7 @@ class DSelectLoader {
         }
 
         auto keys = isIn(
-            this.associationType, [
+            _associationType, [
                 Association.ONE_TO_ONE,
                 Association
                 .ONE_TO_MANY
@@ -364,7 +364,7 @@ class DSelectLoader {
         string[] keys = _bindingKeys;
 
         if (
-            this.associationType == Association
+            _associationType == Association
             .MANY_TO_ONE) {
             keys = (
                 array) _foreignKeys;
@@ -395,22 +395,19 @@ class DSelectLoader {
     /**
      * Builds an array containing the results from fetchQuery indexed by
      * the foreignKeys value corresponding to this association.
-     *
-     * @param DORMQuery fetchQuery The query to get results from
-     * @param Json[string] options The options passed to the eager loader
      */
     protected Json[string] _buildResultMap(
-        Query fetchQuery, Json[string] options = null) {
+        DORMQuery fetchQuery, Json[string] options = null) {
         auto resultMap = null;
         auto singleResult = isIn(
-            this.associationType, [
+            _associationType, [
                 Association
                 .MANY_TO_ONE,
                 Association
                 .ONE_TO_ONE
             ], true);
         auto keys = isIn(
-            this.associationType, [
+            _associationType, [
                 Association.ONE_TO_ONE,
                 Association
                 .ONE_TO_MANY
@@ -445,7 +442,7 @@ class DSelectLoader {
      */
     // TODO
     /* protected Closure _resultInjector(DORMQuery fetchQuery, Json[string] resultMap, Json[string] options = null) {
-        keys = this.associationType == Association.MANY_TO_ONE ?
+        keys = _associationType == Association.MANY_TO_ONE ?
             _foreignKeys :
             _bindingKeys;
 

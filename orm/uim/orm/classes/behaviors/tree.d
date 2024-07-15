@@ -468,33 +468,33 @@ class DTreeBehavior : DBehavior {
      *
      * @param DORMDatasource\IORMEntity node The node to remove from the tree
      */
-    protected IORMEntity _removeFromTree(IORMEntity node) {
+    protected IORMEntity _removeFromTree(IORMEntity nodeToRemove) {
         auto configData = configuration.data;
-        auto left = node.get(configuration.get("left"));
-        auto right = node.get(configuration.get("right"));
-        auto parent = node.get(configuration.get("parent"));
+        auto left = nodeToRemove.get(configuration.get("left"));
+        auto right = nodeToRemove.get(configuration.get("right"));
+        auto parent = nodeToRemove.get(configuration.get("parent"));
 
-        node.set(configuration.get("parent"), null);
+        nodeToRemove.set(configuration.get("parent"), null);
 
         if (right - left == 1) {
-            return _table.save(node);
+            return _table.save(nodeToRemove);
         }
 
         primary = primaryKeys();
         _table.updateAll(
             [configuration.get("parent"): parent],
-            [configuration.get("parent"): node.get(primary)]
+            [configuration.get("parent"): nodeToRemove.get(primary)]
        );
         _sync(1, "-", "BETWEEN " ~ (left + 1) ~ " AND " ~ (right - 1));
         _sync(2, "-", "> {right}");
         edge = _getMax();
-        node.set(configuration.get("left"), edge + 1);
-        node.set(configuration.get("right"), edge + 2);
+        nodeToRemove.set(configuration.get("left"), edge + 1);
+        nodeToRemove.set(configuration.get("right"), edge + 2);
         auto fields = [configuration.get("parent"), configuration.get("left"), configuration.get("right")];
 
-        _table.updateAll(node.extract(fields), [primary: node.get(primary)]);
-        fields.each!(field => node.setDirty(field, false));
-        return node;
+        _table.updateAll(nodeToRemove.extract(fields), [primary: nodeToRemove.get(primary)]);
+        fields.each!(field => nodeToRemove.setDirty(field, false));
+        return nodeToRemove;
     }
 
     /**
@@ -502,8 +502,6 @@ class DTreeBehavior : DBehavior {
      *
      * If the node is the first child, or is a top level node with no previous node
      * this method will return the same node without any changes
-     *
-     * @param int|true number How many places to move the node, or true to move to first position
      */
     IORMEntity moveUp(IORMEntity nodeToMove, size_t placesToMove = 1) {
         if (number < 1) {

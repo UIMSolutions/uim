@@ -353,22 +353,16 @@ class DHasManyAssociation : DAssociation {
     /**
      * Deletes/sets null the related objects according to the dependency between source and targets
      * and foreign key nullability. Skips deleting records present in remainingEntities
-     *
-     * @param Json[string] foreignKeyReference The foreign key reference defining the link between the
-     * target entity, and the parent entity.
-     * @param DORMTable myTarget The associated table
-     * @param range remainingEntities Entities that should not be deleted
-     * @param Json[string] options list of options accepted by `Table.remove()`
      */
     protected bool _unlinkAssociated(
-        array foreignKeyReference,
+        Json[string] foreignKeyReference,
         IORMEntity anEntity,
         Table myTarget,
-        range remainingEntities = null,
+        Json[string] remainingEntities = null,
         Json[string] options = null
     ) {
-        primaryKeys = /* (array) */ myTarget.primaryKeys();
-        exclusions = new DCollection(remainingEntities);
+        auto primaryKeys = /* (array) */ myTarget.primaryKeys();
+        auto exclusions = new DCollection(remainingEntities);
         // TODO
         /* 
         exclusions = exclusions.map(

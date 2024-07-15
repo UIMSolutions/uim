@@ -139,7 +139,6 @@ class DValidationRule {
     */
     // Json get(string propertyName) {
 /*        myproperty = "_" ~ myproperty;
-
-        return _{myproperty} ?? null;
+        return _{myproperty} ? _{myproperty} : null;
  */   //  }
 }

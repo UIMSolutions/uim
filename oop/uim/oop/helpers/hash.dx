@@ -21,10 +21,10 @@ class Hash {
      * Params:
      * \ArrayAccess|array data Array of data or object implementing
      * \ArrayAccess interface to operate on.
-     * @param string[]|string|int searchedpath The path being searched for. Either a dot
+     * @param  searchedpath The path being searched for. Either a dot
      * separated string, or an array of path segments.
      */
-    // TODO static Json get(ArrayAccess data, string[] searchedpath, Json defaultValue = Json(null)) {
+    // TODO static Json get(ArrayAccess data, /* string[]|string|int */ string[] searchedpath, Json defaultValue = Json(null)) {
 
     static Json get(Json[string] data, string[] mpath, Json defaultValue = Json(null)) {
         if (data.isEmpty || path.isNull) {

@@ -586,7 +586,7 @@ class DValidation {
             return false;
         }
         /* Generic.Files.LineLength */
-        // auto regex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ _pattern["hostname"] ~ "my/ui";
+        // regex = regex.ifEmpty("/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ _pattern["hostname"] ~ "my/ui");
 
         /* auto result = _check(valueToCheck, regex);
         if (shouldCheckDeep == false || shouldCheckDeep.isNull) {

@@ -411,7 +411,7 @@ class DFormHelper : DHelper {
         if (_requestType != "get" && !_View.getRequest().getAttribute("formTokenData").isNull) {
             result ~= this.secure([], mysecureAttributes);
         }
-        result ~= this.formatTemplate("formEnd", []);
+        result ~= formatTemplate("formEnd", []);
 
         templater().pop();
         _requestType = null;
@@ -564,7 +564,7 @@ class DFormHelper : DHelper {
                 foreach (error; myerror) {
                     myerrorText ~= formatTemplate("errorItem", ["text": error]);
                 }
-                myerror = this.formatTemplate("errorList", [
+                myerror = formatTemplate("errorList", [
                     "content": join("", myerrorText),
                 ]);
             } else {
@@ -747,13 +747,13 @@ class DFormHelper : DHelper {
         }
         if (fieldNameset == true) {
             if (isLegend) {
-                result = this.formatTemplate("legend", ["text": isLegend]) ~ result;
+                result = formatTemplate("legend", ["text": isLegend]) ~ result;
             }
             fieldNamesetParams = ["content": result, "attrs": ""];
             if (isArray(fieldNameset) && !fieldNameset.isEmpty) {
                 fieldNamesetParams["attrs"] = this.templater().formatAttributes(fieldNameset);
             }
-            result = this.formatTemplate("fieldset", fieldNamesetParams);
+            result = formatTemplate("fieldset", fieldNamesetParams);
         }
         return result;
     }
@@ -1473,7 +1473,7 @@ class DFormHelper : DHelper {
             "escape": false.toJson,
         ]);
 
-        auto result = this.formatTemplate("formStart", [
+        auto result = formatTemplate("formStart", [
             "attrs": mytemplater.formatAttributes(myformOptions) ~ myaction,
         ]);
         result ~= hidden("_method", [
@@ -1496,7 +1496,7 @@ class DFormHelper : DHelper {
             updatedOptions.remove("data");
         }
         result ~= this.secure(fieldNames);
-        result ~= this.formatTemplate("formEnd", []);
+        result ~= formatTemplate("formEnd", []);
 
        _lastAction = myrestoreAction;
         _formProtector = myrestoreFormProtector;
@@ -1533,7 +1533,7 @@ class DFormHelper : DHelper {
     /**
      * Creates a submit button element. This method will generate `<input>` elements that
      * can be used to submit, and reset forms by using options. image submits can be created by supplying an
-     * image path for mycaption.
+     * image path for caption.
      *
      * ### Options
      *
@@ -1541,20 +1541,20 @@ class DFormHelper : DHelper {
      * - `templateVars` - Additional template variables for the input element and its container.
      * - Other attributes will be assigned to the input element.
      * Params:
-     * string mycaption The label appearing on the button OR if string contains :// or the
+     * string caption The label appearing on the button OR if string contains :// or the
      * extension .jpg, .jpe, .jpeg, .gif, .png use an image if the extension
      * exists, AND the first character is /, image is relative to webroot,
      * OR if the first character is not /, image is relative to webroot/img.
      */
-    string submit(string mycaption = null, Json[string] options  = null) {
-        mycaption ??= __d("uim", "Submit");
+    string submit(string caption = null, Json[string] options  = null) {
+        caption ? caption : __d("uim", "Submit");
         auto updatedOptions = options.update([
             "type": "submit",
             "secure": false.toJson,
             "templateVars": Json.emptyArray,
         ]);
 
-        if (options.hasKey("name"]) && _formProtector) {
+        if (options.hasKey("name") && _formProtector) {
             _formProtector.addField(
                 options["name"],
                 options["secure"]
@@ -1562,8 +1562,8 @@ class DFormHelper : DHelper {
         }
         options.remove("secure");
 
-        bool myisUrl = mycaption.contains(": //");
-        bool myisImage = preg_match("/\.(jpg|jpe|jpeg|gif|png|ico)my/", mycaption);
+        bool myisUrl = caption.contains(": //");
+        bool myisImage = preg_match("/\.(jpg|jpe|jpeg|gif|png|ico)my/", caption);
 
         string mytype = options.getString("type");
         options.remove("type");
@@ -1573,7 +1573,7 @@ class DFormHelper : DHelper {
 
             if (_formProtector) {
                 myunlockFields = ["x", "y"];
-                if (options.hasKey("name"])) {
+                if (options.hasKey("name")) {
                     myunlockFields = [
                         options.getString("name") ~ "_x",
                         options.getString("name") ~ "_y",
@@ -1583,18 +1583,19 @@ class DFormHelper : DHelper {
             }
         }
         if (myisUrl) {
-            options.set("src", mycaption);
+            options.set("src", caption);
         } else if (myisImage) {
-            myUrl = mycaption[0] != "/" 
-                ? _url.webroot(configuration.getString("App.imageBaseUrl") ~ mycaption)
-                : _url.webroot(trim(mycaption, "/"));
+            myUrl = caption[0] != "/" 
+                ? _url.webroot(configuration.getString("App.imageBaseUrl") ~ caption)
+                : _url.webroot(trim(caption, "/"));
 
             myurl = _url.assetTimestamp(myurl);
             options.set("src", myurl);
         } else {
-            options.set("value", mycaption);
+            options.set("value", caption);
         }
-        myinput = this.formatTemplate("inputSubmit", [
+        
+        auto myinput = formatTemplate("inputSubmit", [
             "type": mytype,
             "attrs": this.templater().formatAttributes(options),
             "templateVars": options["templateVars"],

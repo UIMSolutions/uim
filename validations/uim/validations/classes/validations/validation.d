@@ -528,10 +528,6 @@ class DValidation {
      * - null: Any number of decimal places, including none. The "." is not required.
      * - true: Any number of decimal places greater than 0, or a float|double. The "." is required.
      * - 1..N: Exactly that many number of decimal places. The "." is required.
-     * Params:
-     * Json valueToCheck The value the test for decimal.
-     * @param int|true|null myplaces Decimal places.
-     * @param string regex If a custom regular expression is used, this is the only validation that will occur.
      */
     static bool decimal(Json valueToCheck, int /* bool|null */ myplaces = 0, string regex = null) {
         if (!isScalar(valueToCheck)) {

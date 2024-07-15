@@ -1064,9 +1064,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * with Query.values()
      *
      * Can be combined with the where() method to create delete queries.
-     *
-     * @param Json[string] columns The columns to insert into.
-     * @param string[] types A map between columns & their datatypes.
      */
     auto insert(Json[string] columnsToInsert, Json[string] types = null) {
         auto repository = getRepository();
@@ -1078,16 +1075,12 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
     // Returns a new Query that has automatic field aliasing disabled.
     static auto subquery(DORMTable aTable) {
-        query = new static(table.getConnection(), table);
+        auto query = new static(table.getConnection(), table);
         query.aliasingEnabled = false;
 
         return query;
     }
 
-    /**
-     * @param string methodName the methodName to call
-     * @param Json[string] arguments list of arguments for the methodName to call
-     */
     Json __call(string methodName, Json[string] arguments) {
         if (this.type() == "select") {
             return _call(methodName, arguments);
@@ -1099,7 +1092,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     }
 
 
-    array __debugInfo() {
+    Json[string] __debugInfo() {
         eagerLoader = getEagerLoader();
 
         return super.__debugInfo() + [

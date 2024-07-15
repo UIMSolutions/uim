@@ -609,7 +609,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * all the fields in the schema of the table or the association will be added to
      * the select clause.
      * Params:
-     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\/* Closure */ string[] fieldNames Fields
+     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\/* Closure * / string[] fieldNames Fields
      * to be added to the list.
      * @param bool shouldOverwrite whether to reset fields with passed list or not
      */

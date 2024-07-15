@@ -643,10 +643,6 @@ static string contentType() {
      * Append to an existing or new block.
      *
      * Appending to a new block will create the block.
-     * Params:
-     * string views Name of the block
-     * @param Json value The content for the block. Value will be type cast
-     * to string.
      */
     void append(string blockName, Json value = null) {
         _blocks.concat(blockName, myvalue);
@@ -671,11 +667,9 @@ static string contentType() {
     /**
      * Reset the content for a block. This will overwrite any
      * existing content.
-     * Params:
-     * string views Name of the block
      */
-    void reset(string views) {
-        _assign(views, "");
+    void reset(string blockName) {
+        _assign(blockName, "");
     }
     
     /**

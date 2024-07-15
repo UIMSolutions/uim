@@ -86,7 +86,7 @@ class DNumber {
     static string toPercentage(Json value, int precision = 2, Json[string] options = null) {
         auto updatedOptions = options.update([
             "multiply": false.toJson,
-            "type": NumberFormatters.PERCENT
+            "type": NumberFormatters.PERCENT.toJson
         ]);
         auto doubleValue = 0.0;
         if (!options.hasKey("multiply")) {

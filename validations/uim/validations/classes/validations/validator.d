@@ -1038,14 +1038,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return this;
     }
 
-    /**
-     * Add a equal to comparison rule to a field.
-     * Params:
-     * @param Json aValue The value user data must be equal to.
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.comparison()
-     */
+    // Add a equal to comparison rule to a field.
     auto equals(
         string fieldName,
         Json valueToCompare,
@@ -2160,11 +2153,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Returns whether a field can be left empty for a new or already existing record.
-     * Params:
-     * @param bool isNewRecord whether the data to be validated is new or to be updated.
-     */
+    // Returns whether a field can be left empty for a new or already existing record.
     bool isEmptyAllowed(string fieldName, bool isNewRecord) {
         auto myproviders = _providers;
         // auto data = null;
@@ -2174,12 +2163,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return false;
     }
 
-    /**
-     * Returns whether a field can be left out for a new or already existing
-     * record.
-     * Params:
-     * @param bool isNewRecord Whether the data to be validated is new or to be updated.
-     */
+    // Returns whether a field can be left out for a new or already existing record.
     bool isPresenceRequired(string fieldName, bool isNewRecord) {
         /* myproviders = _providers;
         data = null;

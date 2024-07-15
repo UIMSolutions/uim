@@ -549,9 +549,6 @@ class DEagerLoader {
      * - entityClass: The entity that should be used for hydrating the results
      * - nestKey: A dotted path that can be used to correctly insert the data into the results.
      * - matching: Whether it is an association loaded through `matching()`.
-     *
-     * @param DORMDORMTable aTable The table containing the association that
-     * will be normalized
      */
     array associationsMap(DORMTable aTable) {
         map = null;

@@ -456,11 +456,6 @@ class DRoute : IRoute {
      * If the URL matches the route parameters and settings, then
      * return a generated string URL. If the URL doesn"t match the route parameters, false will be returned.
      * This method handles the reverse routing or conversion of URL arrays into string URLs.
-     * Params:
-     * Json[string] url An array of parameters to check matching with.
-     * @param Json[string] requestContext An array of the current request context.
-     * Contains information such as the current host, scheme, port, base
-     * directory and other url params.
      */
     string match(Json[string] url, Json[string] requestContext= null) {
         if (_compiledRoute.isEmpty) {

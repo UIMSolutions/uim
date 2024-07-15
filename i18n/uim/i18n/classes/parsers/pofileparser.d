@@ -173,11 +173,11 @@ class DPoFileParser {
         }
         translation = stripcslashes(to!string(translation));
 
-        if (context !is null && messages is null([singular, "_context", context])) {
+   /*      if (context !is null && messages is null([singular, "_context", context])) {
             messages.set([singular, "_context", context], translation);
         } else if (messages is null([singular, "_context"])) {
             messages.set([singular, "_context"], translation);
-        }
+        } */
 
         if (ids.hasKey("plural")) {
             auto plurals = itemToInspect["translated"];

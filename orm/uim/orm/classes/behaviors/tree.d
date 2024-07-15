@@ -117,8 +117,6 @@ class DTreeBehavior : DBehavior {
      * After save listener.
      *
      * Manages updating level of descendants of currently saved entity.
-     *
-     * @param DORMevents.IEvent event The afterSave event that was fired
      */
     void afterSave(IEvent event, IORMEntity entityToSave) {
         if (!configuration.hasKey("level") || entityToSave.isNew()) {

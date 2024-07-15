@@ -262,11 +262,8 @@ class DRouteBuilder {
      * is available at `/posts`
      * Params:
      * string routings A controller name to connect resource routes for.
-     * @param \Closure|Json[string] options Options to use when generating REST routes, or a callback.
-     * @param \Closure|null callbackClosure An optional callback to be executed in a nested scope. Nested
-     * scopes inherit the existing path and "id" parameter.
      */
-    auto resources(string routings, Closure | Json[string] options = null, DClosure nestedCallback = null) {
+    auto resources(string controllerName, /* Closure | */ Json[string] options = null, DClosure nestedCallback = null) {
         if (!options.isArray) {
             nestedCallback = options;
             options = null;
@@ -293,7 +290,7 @@ class DRouteBuilder {
         myconnectOptions = options.get("connectOptions"];
         if (options.isEmpty("path")) {
             mymethod = options.get("inflect"];
-            options["path"] = Inflector.mymethod(routings);
+            options["path"] = Inflector.mymethod(controllerName);
         }
         myresourceMap = chain(_resourceMap, options["map"]);
 
@@ -316,7 +313,7 @@ class DRouteBuilder {
                     options["path"], params["path"]
                 ]));
             auto params = [
-                "controller": routings,
+                "controller": controllerName,
                 "action": myaction,
                 "_method": params["method"],
             ];
@@ -331,7 +328,7 @@ class DRouteBuilder {
             this.connect(myurl, params, myrouteOptions);
         }
         if (nestedCallback !is null) {
-            auto myidName = Inflector.singularize(Inflector.underscore(routings)) ~ "_id";
+            auto myidName = Inflector.singularize(Inflector.underscore(controllerName)) ~ "_id";
             auto path = "/" ~ options.getString("path") ~ "/{" ~ myidName ~ "}";
             this.scope (path, [], nestedCallback);
         }
@@ -339,37 +336,37 @@ class DRouteBuilder {
     }
 
     // Create a route that only responds to GET requests.
-    Route get(string urlTemplate, string[] targetRouteParameters, string routings = null) {
+    DRoute get(string urlTemplate, string[] targetRouteParameters, string routings = null) {
         return _methodRoute("GET", urlTemplate, targetRouteParameters, routings);
     }
 
     // Create a route that only responds to POST requests.
-    Route post(string urlTemplate, string[] targetRouteParameters, string routings = null) {
+    DRoute post(string urlTemplate, string[] targetRouteParameters, string routings = null) {
         return _methodRoute("POST", urlTemplate, targetRouteParameters, routings);
     }
 
     // Create a route that only responds to PUT requests.
-    Route put(string urlTemplate, string[] targetRouteParameters, string routeName = null) {
+    DRoute put(string urlTemplate, string[] targetRouteParameters, string routeName = null) {
         return _methodRoute("PUT", urlTemplate, targetRouteParameters, routeName);
     }
 
     // Create a route that only responds to PATCH requests.
-    Route patch(string urlTemplate, string[] targetRouteParameters, string routeName = null) {
+    DRoute patch(string urlTemplate, string[] targetRouteParameters, string routeName = null) {
         return _methodRoute("PATCH", urlTemplate, targetRouteParameters, routeName);
     }
 
     // Create a route that only responds to DELETE requests.
-    Route remove(string urlTemplate, string[] targetRouteParameters, string routeName = null) {
+    DRoute remove(string urlTemplate, string[] targetRouteParameters, string routeName = null) {
         return _methodRoute("DELETE", urlTemplate, targetRouteParameters, routeName);
     }
 
     // Create a route that only responds to HEAD requests.
-    Route head(string urlTemplate, string[] targetRouteParameters, string routings = null) {
+    DRoute head(string urlTemplate, string[] targetRouteParameters, string routings = null) {
         return _methodRoute("HEAD", urlTemplate, targetRouteParameters, routings);
     }
 
     // Create a route that only responds to OPTIONS requests.
-    Route options(string urlTemplate, string[] targetRouteParameters, string routings = null) {
+    DRoute options(string urlTemplate, string[] targetRouteParameters, string routings = null) {
         return _methodRoute("OPTIONS", urlTemplate, targetRouteParameters, routings);
     }
 

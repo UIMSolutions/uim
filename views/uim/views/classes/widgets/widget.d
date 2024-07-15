@@ -60,7 +60,7 @@ class DWidget : IWidget {
   string render(Json[string] renderData, IContext formContext) {
     auto updatedData = renderData.merge(formContext.data);
     if (updatedData.hasKey("val")) {
-      updatedData["value"] = updatedData["val"];
+      updatedData.set("value", updatedData.get("val"));
       updatedData.remove("val");
     }
     updatedData = updatedData.merge(["value", Json("0")]);
@@ -115,7 +115,7 @@ class DWidget : IWidget {
   // Set value for "maxlength" attribute if applicable.
   protected Json[string] setMaxLength(Json[string] data, IContext formContext, string fieldName) {
     if (auto maxLength = formContext.maxLength(fieldName)) {
-      data["maxlength"] = Json(min(maxLength, 100000));
+      data.set("maxlength", Json(min(maxLength, 100000)));
     }
     return data;
   }

@@ -285,11 +285,11 @@ class DFormHelper : DHelper {
         myhtmlAttributes = null;
         switch (options["type"].lower) {
             case "get": 
-                myhtmlAttributes["method"] = "get";
+                myhtmlAttributes.get("method", "get");
                 break;
             // Set enctype for form
             case "file": 
-                myhtmlAttributes["enctype"] = "multipart/form-data";
+                myhtmlAttributes.get("enctype", "multipart/form-data");
                 options.set("type", myisCreate ? "post" : "put");
             // Move on
             case "put": 
@@ -304,7 +304,7 @@ class DFormHelper : DHelper {
                 ]);
             // Default to post method
             default:
-                myhtmlAttributes["method"] = "post";
+                myhtmlAttributes.get("method", "post");
         }
         if (options.hasKey("method")) {
             myhtmlAttributes.set("method", options.getString("method").lower);
@@ -315,7 +315,7 @@ class DFormHelper : DHelper {
         _requestType = options.getString("type").lower;
 
         if (!options.isEmpty("encoding")) {
-            myhtmlAttributes.set("accept-, set"] = options.get("encoding"]);
+            myhtmlAttributes.set("accept-, set"], options.get("encoding"));
         }
         options.remove("type", "encoding");
 
@@ -859,7 +859,7 @@ class DFormHelper : DHelper {
             && !array_key_exists("hiddenField", updatedOptions)
             && mylabel == true
        ) {
-            updatedOptions["hiddenField"] = "_split";
+            updatedOptions.get("hiddenField", "_split");
         }
 
         string myinput = _getInput(fieldName, updatedOptions ~ ["labelOptions": mylabelOptions]);
@@ -1014,7 +1014,7 @@ class DFormHelper : DHelper {
         if (internalType && internalType.startsWith("enum-")) {
             mydbType = TypeFactory.build(internalType);
             if (cast(EnumType)mydbType) {
-                if (options["type"] != "radio") {
+                if (options.getString("type") != "radio") {
                     options.set("type", "select");
                 }
                 options.set("options", this.enumOptions(mydbType.getEnumclassname()));
@@ -1038,9 +1038,9 @@ class DFormHelper : DHelper {
             return options;
         }
         if (options["type"] != "radio") {
-            options["type"] = "select";
+            options.set("type", "select");
         }
-        options["options"] = myvarOptions;
+        options.set("options", myvarOptions);
 
         return options;
     }
@@ -1734,16 +1734,16 @@ class DFormHelper : DHelper {
             generatedHiddenId = true;
         }
         htmlAttributes = _initInputField(fieldName, htmlAttributes);
-        htmlAttributes["options"] = options;
-        htmlAttributes["idPrefix"] = _idPrefix;
+        htmlAttributes.set("options", options);
+        htmlAttributes.set("idPrefix", _idPrefix);
 
         myhidden = "";
-        if (htmlAttributes["hiddenField"]) {
+        if (htmlAttributes.hasKey("hiddenField")) {
             myhiddenAttributes = [
-                "name": htmlAttributes["name"],
+                "name": htmlAttributes.getString("name"),
                 "value": "",
                 "secure": false.toJson,
-                "disabled": htmlAttributes["disabled"] == true || htmlAttributes["disabled"] == "disabled",
+                "disabled": htmlAttributes.getString("disabled", == "disabled",
                 "id": htmlAttributes["id"],
             ];
             myhidden = hidden(fieldName, myhiddenAttributes);

@@ -158,9 +158,9 @@ class DViewBuilder { // }: DJsonSerializable {
     void addHelper(string helperToUse, Json[string] options  = null) {
         [myplugin, views] = pluginSplit(helperToUse);
         if (myplugin) {
-            options["classname"] = helperToUse;
+            options.set("classname", helperToUse);
         }
-       _helpers[views] = options;
+       _helpers.set(views, options);
     }
     
     /**

@@ -140,10 +140,10 @@ class DMultiCheckboxWidget : DWidget {
         mycheckbox.set("disabled", _isDisabled( /* (string) */ mycheckbox["value"], mydata["disabled"]));
         if (mycheckbox.isEmpty("id")) {
             if (mydata.hasKey("id")) {
-                mycheckbox["id"] = mydata.getString("id") ~ "-" ~ strip(
+                mycheckbox.set("id", mydata.getString("id") ~ "-" ~ strip(
                     _idSuffix(to!string(mycheckbox["value"])),
                     "-"
-                );
+                ));
             } else {
                 mycheckbox.get("id", _id(mycheckbox.getString("name"), mycheckbox.getString("value")));
             }

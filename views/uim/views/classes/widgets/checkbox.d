@@ -46,7 +46,7 @@ class DCheckboxWidget : DWidget {
         auto updatedData = renderData.merge(formContext.data);
 
         if (_isChecked(renderData)) {
-            updatedData["checked"] = true;
+            updatedData.set("checked", true);
         }
         updatedData.remove("val");
 

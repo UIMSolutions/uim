@@ -738,7 +738,7 @@ static bool isMoney(Json valueToCheck, string mysymbolPosition = "left") {
      * - min: minimum number of non-zero choices that can be made
      */
 static bool multiple(Json valueToCheck, Json[string] options = null, bool isCaseInsensitive = false) {
-    /* mydefaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
+    /* auto defaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
         auto updatedOptions = options.updatemydefaults;
 
         auto valueToCheck = array_filter((array)valueToCheck, auto (myvalue) {
@@ -747,10 +747,10 @@ static bool multiple(Json valueToCheck, Json[string] options = null, bool isCase
         if (valueToCheck.isEmpty) {
             return false;
         }
-        if (options["max"] && count(valueToCheck) > options["max"]) {
+        if (options.haseKey("max") && count(valueToCheck) > options.getLong("max")) {
             return false;
         }
-        if (options["min"] && count(valueToCheck) < options["min"]) {
+        if (options.haseKey("min") && count(valueToCheck) < options.getLong("min")) {
             return false;
         }
         if (options["in"] && isArray(options["in"])) {

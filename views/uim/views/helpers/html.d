@@ -140,9 +140,9 @@ class DHtmlHelper : DHelper {
         string result = "";
 
         if (htmlAttributes.hasKey("link")) {
-            htmlAttributes["link"] = isArray(htmlAttributes["link"]) 
+            htmlAttributes.set("link", htmlAttributes.isArray("link")
                 ? _Url.build(htmlAttributes.get("link"))
-                : _Url.assetUrl(htmlAttributes.get("link"));
+                : _Url.assetUrl(htmlAttributes.get("link")));
 
             if (htmlAttributes.getString("rel") == "icon") {
                 result = formatTemplate("metalink", [

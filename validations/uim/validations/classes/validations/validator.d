@@ -128,32 +128,33 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             auto myname = to!string(myname);
             auto mykeyPresent = array_key_exists(myname, data);
 
-            myproviders = _providers;
-            context = compact("data", "newRecord", "field", "providers");
+            auto providers = _providers;
+            auto context = compact("data", "newRecord", "field", "providers");
 
             if (!mykeyPresent && !_checkPresence(fieldName, context)) {
-                myerrors[myname]["_required"] = getRequiredMessage(myname);
+                myerrors.set([myname, "_required"], getRequiredMessage(myname));
                 continue;
             }
             if (!mykeyPresent) {
                 continue;
             }
-            mycanBeEmpty = _canBeEmpty(fieldName, context);
+            auto canBeEmpty = _canBeEmpty(fieldName, context);
 
-            myflags = EMPTY_NULL;
+            auto myflags = EMPTY_NULL;
             if (_allowEmptyFlags.hasKey(myname)) {
                 myflags = _allowEmptyFlags[myname];
             }
             myisEmpty = this.isEmpty(data[myname], myflags);
 
-            if (!mycanBeEmpty && myisEmpty) {
-                myerrors[myname]["_empty"] = getNotEmptyMessage(myname);
+            if (!canBeEmpty && myisEmpty) {
+                myerrors.set([myname, "_empty"], getNotEmptyMessage(myname));
                 continue;
             }
             if (myisEmpty) {
                 continue;
             }
-            result = _processRules(myname, fieldName, data, isNewRecord);
+            
+            auto result = _processRules(myname, fieldName, data, isNewRecord);
             if (result) {
                 myerrors[myname] = result;
             }

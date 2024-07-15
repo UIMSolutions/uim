@@ -1057,7 +1057,7 @@ class DPaginatorHelper : DHelper {
 
         if (
             options["block"] == true) {
-            options["block"] = __FUNCTION__;
+            options.set("block", __FUNCTION__);
         }
         if (
             options["block"]) {

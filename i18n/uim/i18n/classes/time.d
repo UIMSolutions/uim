@@ -25,7 +25,7 @@ class DTime { // : ChronosTime, JsonSerializable {
     // #region StringFormat
     // Sets the default format used when type converting instances of this type to string
     static void setToStringFormat(string /* int */ format) {
-        _toStringFormat = format;
+        /* _toStringFormat = format; */
     }
     
     // Resets the format used to the default when converting an instance of this type to a string
@@ -90,11 +90,12 @@ class DTime { // : ChronosTime, JsonSerializable {
      * ```
      */
     static DTime parseTime(string timeToParse, string /* |int */ format = null) {
-        auto format = format.ifEmpty([IntlDateFormatters.NONE, IntlDateFormatters.SHORT]);
+        /* auto format = format.ifEmpty([IntlDateFormatters.NONE, IntlDateFormatters.SHORT]);
         if (isInteger(format)) {
             format = [IntlDateFormatters.NONE, format];
         }
-        return _parseDateTime(timeToParse, format);
+        return _parseDateTime(timeToParse, format); */
+        return null; 
     }
     
     /**

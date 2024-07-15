@@ -27,23 +27,23 @@ class DLogger : ILogger {
             aValue = context[aKey];
 
             if (isScalar(aValue)) {
-                replacements["{" ~ aKey ~ "}"] = to!string(aValue);
+                replacements.set("{" ~ aKey ~ "}", to!string(aValue));
                 continue;
             }
             if (isArray(aValue)) {
-                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue, JsonFlags);
+                replacements.set("{" ~ aKey ~ "}", Json_encode(aValue, JsonFlags));
                 continue;
             }
             if (cast(JsonSerializable)aValue) {
-                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue, JsonFlags);
+                replacements.set("{" ~ aKey ~ "}", Json_encode(aValue, JsonFlags));
                 continue;
             }
             if (cast(DJson[string])aValue) {
-                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.getArrayCopy(), JsonFlags);
+                replacements.set("{" ~ aKey ~ "}", Json_encode(aValue.getArrayCopy(), JsonFlags));
                 continue;
             }
             if (cast(DSerializable)aValue) {
-                replacements["{" ~ aKey ~ "}"] = aValue.serialize();
+                replacements.set("{" ~ aKey ~ "}", aValue.serialize());
                 continue;
             }
             if (isObject(aValue)) {

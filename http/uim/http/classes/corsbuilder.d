@@ -101,12 +101,12 @@ protected Json[string] normalizeDomain(string domainName) {
      * allowedMethods - The allowed HTTP methods
      */
     void allowMethods(string[] allowedMethods) {
-       _headers["Access-Control-Allow-Methods"] = allowedMethods.join(", ");
+       _headers.set("Access-Control-Allow-Methods", allowedMethods.join(", "));
     }
     
     // Enable cookies to be sent in CORS requests.
     void allowCredentials() {
-       _headers["Access-Control-Allow-Credentials"] = "true";
+       _headers.set("Access-Control-Allow-Credentials", "true");
     }
     
     /**
@@ -115,12 +115,12 @@ protected Json[string] normalizeDomain(string domainName) {
      * headersToAccept - The list of headers to accept in CORS requests.
      */
     void allowHeaders(string[] headersToAccept) {
-       _headers["Access-Control-Allow-Headers"] = headersToAccept.join(", ");
+       _headers.set("Access-Control-Allow-Headers", headersToAccept.join(", "));
     }
     
     // Define the headers a client library/browser can expose to scripting
     auto exposeHeaders(string[] corsResponseHeaders) {
-       _headers["Access-Control-Expose-Headers"] = corsResponseHeaders.join(", ");
+       _headers.set("Access-Control-Expose-Headers", corsResponseHeaders.join(", "));
 
         return this;
     }
@@ -130,8 +130,9 @@ protected Json[string] normalizeDomain(string domainName) {
      * Params:
      * string|int age The max-age for OPTIONS requests in seconds
      */
-    auto maxAge(string|int age) {
-       _headers["Access-Control-Max-Age"] = age;
+    // auto maxAge(int age) {
+    auto maxAge(string age) {
+       _headers.set("Access-Control-Max-Age", age);
 
         return this;
     }

@@ -128,14 +128,14 @@ class DPluralRules {
      * to the countable provided in ruleNumber.
      */
     static int calculate(string localName, int ruleNumber) {
-        localName = Locale.canonicalize(localName);
+        /* localName = Locale.canonicalize(localName);
 
         if (!_rulesMap.hasKey(localName)) {
             string[] locale = split("_", locale)[0];
         }
         if (!_rulesMap.hasKey(localName)) {
             return 0;
-        }
+        } */
         return 0;
         /* return match (_rulesMap[localName]) {
             0: 0,

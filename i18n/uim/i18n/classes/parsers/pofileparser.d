@@ -93,7 +93,7 @@ class DPoFileParser {
     }
 
     DPoMessage parseByLine(string line, Json[] messages, DPoMessage message) {
-        string line = strip(line);
+        line = strip(line);
 
         if (line.isEmpty && message.isNull) {
             return null;
@@ -189,7 +189,7 @@ class DPoFileParser {
 
             // Make sure every index is filled.
             // end(plurals);
-            auto count = to!int(key(plurals));
+            /* auto count = to!int(key(plurals));
 
             // Fill missing spots with an empty string.
             auto empties = array_fill(0, count + 1, "");
@@ -203,7 +203,7 @@ class DPoFileParser {
                 messages.set([Translator.PLURAL_PREFIX ~ key, "_context", context], plurals);
             } else {
                 messages.set([Translator.PLURAL_PREFIX ~ key, "_context."], plurals);
-            }
+            } */
         }
     } 
 }

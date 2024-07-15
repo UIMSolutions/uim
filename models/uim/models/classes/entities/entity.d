@@ -958,29 +958,29 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
     } else if (showFields.isEmpty && !hideFields.isEmpty) {
       if (!hideFields.exist("registerPath"))
-        result["registerPath"] = registerPath;
+        result.set("registerPath", registerPath);
       if (!hideFields.exist("id"))
-        result["id"] = id.toString;
+        result.set("id", id.toString);
       if (!hideFields.exist("name"))
-        result["name"] = name;
+        result.set("name", name);
       if (!hideFields.exist("display"))
-        result["display"] = display;
+        result.set("display", display);
       if (!hideFields.exist("createdOn"))
-        result["createdOn"] = createdOn;
+        result.set("createdOn", createdOn);
       if (!hideFields.exist("createdBy"))
-        result["createdBy"] = createdBy.toString;
+        result.set("createdBy", createdBy.toString);
       if (!hideFields.exist("modifiedOn"))
-        result["modifiedOn"] = modifiedOn;
+        result.set("modifiedOn", modifiedOn);
       if (!hideFields.exist("modifiedBy"))
-        result["modifiedBy"] = modifiedBy.toString;
+        result.set("modifiedBy", modifiedBy.toString);
       if (!hideFields.exist("lastAccessedOn"))
-        result["lastAccessedOn"] = lastAccessedOn;
+        result.set("lastAccessedOn", lastAccessedOn);
       if (!hideFields.exist("lastAccessBy"))
-        result["lastAccessBy"] = lastAccessBy.toString;
+        result.set("lastAccessBy", lastAccessBy.toString);
       if (!hideFields.exist("description"))
-        result["description"] = description;
+        result.set("description", description);
       if (!hideFields.exist("isLocked"))
-        result["isLocked"] = isLocked;
+        result.set("isLocked", isLocked);
       if (!hideFields.exist("lockedOn"))
         result["lockedOn"] = lockedOn;
       if (!hideFields.exist("lockedBy"))

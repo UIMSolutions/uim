@@ -278,13 +278,13 @@ class DH5Obj {
 	// Global HTML attributes	
 	O accesskey(this O)(string value) {
 		if (value.length > 0)
-			attributes["accesskey"] = value;
+			attributes.set("accesskey", value);
 		return cast(O) this;
 	}
 
 	O contenteditable(this O)(bool value) {
 		if (value)
-			attributes["contenteditable"] = "true";
+			attributes.set("contenteditable", "true");
 		return cast(O) this;
 	}
 
@@ -320,37 +320,37 @@ class DH5Obj {
 
 	O lang(this O)(string value) {
 		if (value.length > 0)
-			attributes["lang"] = value;
+			attributes.set("lang", value);
 		return cast(O) this;
 	}
 
 	O spellcheck(this O)(bool value) {
 		if (value)
-			attributes["spellcheck"] = "true";
+			attributes.set("spellcheck", "true");
 		return cast(O) this;
 	}
 
 	O style(this O)(string value) {
 		if (value.length > 0)
-			attributes["style"] = value;
+			attributes.set("style", value);
 		return cast(O) this;
 	}
 
 	O tabindex(this O)(string value) {
 		if (value.length > 0)
-			attributes["tabindex"] = value;
+			attributes.set("tabindex", value);
 		return cast(O) this;
 	}
 
 	O title(this O)(string value) {
 		if (value.length > 0)
-			attributes["title"] = value;
+			attributes.set("title", value);
 		return cast(O) this;
 	}
 
 	O translate(this O)(bool value) {
 		if (value)
-			attributes["translate"] = "true";
+			attributes.set("translate", "true");
 		return cast(O) this;
 	}
 

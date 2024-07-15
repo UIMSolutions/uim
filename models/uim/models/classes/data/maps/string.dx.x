@@ -144,19 +144,19 @@ unittest {
 // TODO assert(cast(DStringData) stringMap["key1"]);
 // TODO assert(!cast(DBooleanData) stringMap["key1"]);
 
-  stringMap["key2"] = "value2";
+  stringMap.set("key2", "value2");
 // TODO assert(stringMap["key2"].toString == "value2");
 
-  stringMap["key3"] = true;
+  stringMap.set("key3", true);
 // TODO assert(stringMap["key3"].toString == "true");
 
-  stringMap["key4"] = 100;
+  stringMap.set("key4", 100);
 // TODO assert(stringMap["key4"].toString == "100");
 
-  stringMap["key5"] = 100.1;
+  stringMap.set("key5", 100.1);
 // TODO assert(stringMap["key5"].toString == "100.1");
 
-  stringMap["key6"] = [Json("v1"), Json("v2")];
+  stringMap.set("key6", [Json("v1"), Json("v2")]);
 
 // TODO assert(stringMap.toJson.toString == `{"key1":"value1","key6":null,"key2":"value2","key3":true,"key5":100.1,"key4":100}`); */
 }

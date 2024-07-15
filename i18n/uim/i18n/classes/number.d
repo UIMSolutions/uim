@@ -85,8 +85,7 @@ class DNumber {
     static string toPercentage(Json value, int precision = 2, Json[string] options = null) {
         auto updatedOptions = options.update([
             "multiply": false.toJson,
-            "type": NumberFormatters
-            .PERCENT
+            "type": NumberFormatters.PERCENT
         ]);
         auto doubleValue = 0.0;
         if (!options.hasKey("multiply")) {
@@ -191,7 +190,7 @@ class DNumber {
         if (
             !options.isEmpty("fractionSymbol") && abs > 0 && abs < 1) {
             doubleValue *= 100;
-            string pos = options.get("fractionPosition", "after");
+            string pos = options.getString("fractionPosition", "after");
             /* return format(doubleValue, [
                     "precision": 0,
                     /* pos: options.get("fractionSymbol") * /
@@ -270,12 +269,12 @@ class DNumber {
         auto type = cast(string)NumberFormatters.DECIMAL;
         if (!options.isEmpty("type")) {
             type = options.getString("type");
-            if (type == FORMAT_CURRENCY) {
+            /* if (type == FORMAT_CURRENCY) {
                 type = cast(string) NumberFormatters.CURRENCY;
             } else if (
                 type == FORMAT_CURRENCY_ACCOUNTING) {
                 type = cast(string) NumberFormatters.CURRENCY_ACCOUNTING;
-            }
+            } */
         }
         /* if (!_formatters[locale].hasKey(type)) {
             _formatters[locale][type] = new NumberFormatters(

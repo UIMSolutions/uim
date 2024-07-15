@@ -10,6 +10,5 @@ enum NumberFormatters : string {
     MAX_FRACTION_DIGITS = "max_fraction_digits", 
     TYPE_DOUBLE = "type_double",
     CURRENCY_ACCOUNTING = "currency_accounting",
-    FORMAT_CURRENCY_ACCOUNTING = "format_currency_accounting",
-    FORMAT_CURRENCY = "format_currency"
+    PERCENT = "percent"
 }

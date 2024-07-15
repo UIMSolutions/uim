@@ -126,11 +126,7 @@ class DTreeBehavior : DBehavior {
         _setChildrenLevel(entityToSave);
     }
 
-    /**
-     * Set level for descendants.
-     *
-     * @param DORMDatasource\IORMEntity ormEntity The entity whose descendants need to be updated.
-     */
+    // Set level for descendants.
     protected void _setChildrenLevel(IORMEntity ormEntity) {
         auto configData = configuration.data;
 

@@ -83,17 +83,17 @@ import uim.orm;
  *
  * - `beforeFind(IEvent myevent, SelectQuery myquery, Json[string] options, boolean myprimary)`
  * - `beforeMarshal(IEvent myevent, Json[string] mydata, Json[string] options)`
- * - `afterMarshal(IEvent myevent, IORMEntity myentity, Json[string] options)`
+ * - `afterMarshal(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `buildValidator(IEvent myevent, Validator myvalidator, string myname)`
  * - `buildRules(RulesChecker myrules)`
- * - `beforeRules(IEvent myevent, IORMEntity myentity, Json[string] options, string myoperation)`
- * - `afterRules(IEvent myevent, IORMEntity myentity, Json[string] options, bool result, string myoperation)`
- * - `beforeSave(IEvent myevent, IORMEntity myentity, Json[string] options)`
- * - `afterSave(IEvent myevent, IORMEntity myentity, Json[string] options)`
- * - `afterSaveCommit(IEvent myevent, IORMEntity myentity, Json[string] options)`
- * - `beforeremove(IEvent myevent, IORMEntity myentity, Json[string] options)`
- * - `afterremove(IEvent myevent, IORMEntity myentity, Json[string] options)`
- * - `afterDeleteCommit(IEvent myevent, IORMEntity myentity, Json[string] options)`
+ * - `beforeRules(IEvent myevent, IORMEntity ormEntity, Json[string] options, string myoperation)`
+ * - `afterRules(IEvent myevent, IORMEntity ormEntity, Json[string] options, bool result, string myoperation)`
+ * - `beforeSave(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
+ * - `afterSave(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
+ * - `afterSaveCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
+ * - `beforeremove(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
+ * - `afterremove(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
+ * - `afterDeleteCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  */
 class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
@@ -1328,22 +1328,22 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (myrow !is null) {
             return myrow;
         }
-        myentity = this.newEmptyEntity();
+        ormEntity = this.newEmptyEntity();
         if (options["defaults"] && isArray(mysearch)) {
             myaccessibleFields = array_combine(mysearch.keys, array_fill(0, count(mysearch), true));
-            myentity = this.patchEntity(myentity, mysearch, ["accessibleFields": myaccessibleFields]);
+            ormEntity = this.patchEntity(ormEntity, mysearch, ["accessibleFields": myaccessibleFields]);
         }
         if (mycallback !is null) {
-            myentity = mycallback(myentity) ?: myentity;
+            ormEntity = mycallback(ormEntity) ?: ormEntity;
         }
         options.remove("defaults");
 
-        result = this.save(myentity, options);
+        result = this.save(ormEntity, options);
 
         if (result == false) {
-            throw new DPersistenceFailedException(myentity, ["findOrCreate"]);
+            throw new DPersistenceFailedException(ormEntity, ["findOrCreate"]);
         }
-        return myentity;
+        return ormEntity;
     }
     
     /**
@@ -1463,7 +1463,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * - checkRules: Whether to check the rules on entity before saving, if the checking
      * fails, it will abort the save operation. (default:true)
      * - associated: If `true` it will save 1st level associated entities as they are found
-     * in the passed `myentity` whenever the property defined for the association
+     * in the passed `ormEntity` whenever the property defined for the association
      * is marked as dirty. If an array, it will be interpreted as the list of associations
      * to be saved. It is possible to provide different options for saving on associated
      * table objects using this key by making the custom options the array value.
@@ -1515,11 +1515,11 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * ```
      * Only save the comments association
-     * myarticles.save(myentity, ["associated": ["Comments"]]);
+     * myarticles.save(ormEntity, ["associated": ["Comments"]]);
      *
      * Save the company, the employees and related addresses for each of them.
      * For employees do not check the entity rules
-     * mycompanies.save(myentity, [
+     * mycompanies.save(ormEntity, [
      * "associated": [
      *   "Employees": [
      *     "associated": ["Addresses"],
@@ -1529,7 +1529,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * ]);
      *
      * Save no associations
-     * myarticles.save(myentity, ["associated": false.toJson]);
+     * myarticles.save(ormEntity, ["associated": false.toJson]);
      * ```
      */
     IORMEntity save(IORMEntity entityToSave,
@@ -1668,14 +1668,9 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         return true;
     }
     
-    /**
-     * Auxiliary auto to handle the insert of an entity"s data in the table
-     * Params:
-     * \UIM\Datasource\IORMEntity myentity the subject entity from were mydata was extracted
-     * @param Json[string] data The actual data that needs to be saved
-     */
-    protected IORMEntity _insert(IORMEntity myentity, Json[string] data) {
-        auto primaryKeys = (array)this.primaryKeys();
+    // Auxiliary auto to handle the insert of an entity"s data in the table
+    protected IORMEntity _insert(IORMEntity ormEntity, Json[string] data) {
+        auto primaryKeys = primaryKeys();
         if (isEmpty(primaryKeys)) {
             mymsg = "Cannot insert row in `%s` table, it has no primary key."
                 .format(getTable());
@@ -1701,7 +1696,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                     message ~= 
                         "Got (%s), expecting (%s)"
                         .format(
-                        myfilteredKeys + myentity.extract(myprimary.keys).join(", "),
+                        myfilteredKeys + ormEntity.extract(myprimary.keys).join(", "),
                         myprimary.keys.join(", ")
                    );
                     throw new DatabaseException(mymsg);
@@ -1717,8 +1712,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
         mysuccess = false;
         if (mystatement.rowCount() != 0) {
-            mysuccess = myentity;
-            myentity.set(myfilteredKeys, ["guard": false.toJson]);
+            mysuccess = ormEntity;
+            ormEntity.set(myfilteredKeys, ["guard": false.toJson]);
             myschema = getSchema();
             mydriver = getConnection().getDriver();
             foreach (key, value; myprimary) {
@@ -1726,7 +1721,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                     myid = mystatement.lastInsertId(getTable(), key);
                     mytype = myschema.getColumnType(key);
                     assert(mytype !is null);
-                    myentity.set(key, TypeFactory.build(mytype).ToD(myid, mydriver));
+                    ormEntity.set(key, TypeFactory.build(mytype).ToD(myid, mydriver));
                     break;
                 }
             }
@@ -1758,23 +1753,23 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     }
     
     // Auxiliary auto to handle the update of an entity"s data in the table
-    protected IORMEntity _update(IORMEntity myentity, Json[string] data) {
+    protected IORMEntity _update(IORMEntity ormEntity, Json[string] data) {
         auto myprimaryColumns = this.primaryKeys();
-        auto primaryKey = myentity.extract(myprimaryColumns);
+        auto primaryKey = ormEntity.extract(myprimaryColumns);
 
         auto mydata = array_diffinternalKey(mydata, primaryKey);
         if (isEmpty(mydata)) {
-            return myentity;
+            return ormEntity;
         }
         if (count(myprimaryColumns) == 0) {
-            myentityClass = myentity.classname;
+            myentityClass = ormEntity.classname;
             mytable = getTable();
             mymessage = "Cannot update `myentityClass`. The `mytable` has no primary key.";
             throw new DInvalidArgumentException(mymessage);
         }
-        if (!myentity.has(myprimaryColumns)) {
+        if (!ormEntity.has(myprimaryColumns)) {
             mymessage = "All primary key value(s) are needed for updating, ";
-            mymessage ~= myentity.classname ~ " is missing " ~ myprimaryColumns.join(", ");
+            mymessage ~= ormEntity.classname ~ " is missing " ~ myprimaryColumns.join(", ");
             throw new DInvalidArgumentException(mymessage);
         }
         mystatement = updateQuery()
@@ -1782,7 +1777,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             .where(primaryKey)
             .execute();
 
-        return mystatement.errorCode() == "00000" ? myentity : false;
+        return mystatement.errorCode() == "00000" ? ormEntity : false;
     }
     
     /**
@@ -1836,10 +1831,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
         bool[] myisNew;
         mycleanupOnFailure = void (entities) use (&myisNew) {
-            foreach (key: myentity; entities) {
+            foreach (key: ormEntity; entities) {
                 if (isSet(myisNew[key]) && myisNew[key]) {
-                    myentity.remove(this.primaryKeys());
-                    myentity.setNew(true);
+                    ormEntity.remove(this.primaryKeys());
+                    ormEntity.setNew(true);
                 }
             }
         };
@@ -1850,10 +1845,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 .transactional(function () use (entities, options, &myisNew, &myfailed) {
                     // Cache array cast since options are the same for each entity
                     options = (array)options;
-                    foreach (key: myentity; entities) {
-                        myisNew[key] = myentity.isNew();
-                        if (this.save(myentity, options) == false) {
-                            myfailed = myentity;
+                    foreach (key: ormEntity; entities) {
+                        myisNew[key] = ormEntity.isNew();
+                        if (this.save(ormEntity, options) == false) {
+                            myfailed = ormEntity;
 
                             return false;
                         }
@@ -1869,12 +1864,12 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
             throw new DPersistenceFailedException(myfailed, ["saveMany"]);
         }
-        mycleanupOnSuccess = void (IORMEntity myentity) use (&mycleanupOnSuccess) {
-            myentity.clean();
-            myentity.setNew(false);
+        mycleanupOnSuccess = void (IORMEntity ormEntity) use (&mycleanupOnSuccess) {
+            ormEntity.clean();
+            ormEntity.setNew(false);
 
-            foreach (myentity.toJString().keys as fieldName) {
-                myvalue = myentity.get(fieldName);
+            foreach (ormEntity.toJString().keys as fieldName) {
+                myvalue = ormEntity.get(fieldName);
 
                 if (cast(IORMEntity)myvalue) {
                     mycleanupOnSuccess(myvalue);
@@ -1885,10 +1880,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         };
 
         if (_transactionCommitted(options["atomic"], options["_primary"])) {
-            foreach (entities as myentity) {
+            foreach (entities as ormEntity) {
                 dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
                 if (options["atomic"] || options["_primary"]) {
-                    mycleanupOnSuccess(myentity);
+                    mycleanupOnSuccess(ormEntity);
                 }
             }
         }
@@ -1920,9 +1915,9 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * for the duration of the callbacks, this allows listeners to modify
      * the options used in the delete operation.
      * Params:
-     * \UIM\Datasource\IORMEntity myentity The entity to remove.
+     * \UIM\Datasource\IORMEntity ormEntity The entity to remove.
          */
-    bool remove(IORMEntity myentity, Json[string] options = null) {
+    bool remove(IORMEntity ormEntity, Json[string] options = null) {
         options = new Json[string](options ~ [
             "atomic": true.toJson,
             "checkRules": true.toJson,
@@ -1931,13 +1926,13 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
         bool mysuccess; 
         /* mysuccess = _executeTransaction(
-            fn (): _processremove(myentity, options),
+            fn (): _processremove(ormEntity, options),
             options["atomic"]
        );
 
         if (mysuccess && _transactionCommitted(options["atomic"], options["_primary"])) {
             dispatchEvent("Model.afterDeleteCommit", [
-                "entity": myentity,
+                "entity": ormEntity,
                 "options": options,
             ]);
         } */
@@ -1984,9 +1979,9 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             ]);
 
         myfailed = _executeTransaction(function () use (entities, options) {
-            foreach (entities as myentity) {
-                if (!_processremove(myentity, options)) {
-                    return myentity;
+            foreach (entities as ormEntity) {
+                if (!_processremove(ormEntity, options)) {
+                    return ormEntity;
                 }
             }
             return null;
@@ -2006,7 +2001,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Try to delete an entity or throw a PersistenceFailedException if the entity is new,
      * has no primary key value, application rules checks failed or the delete was aborted by a callback.
      * Params:
-     * \UIM\Datasource\IORMEntity myentity The entity to remove.
+     * \UIM\Datasource\IORMEntity ormEntity The entity to remove.
      */
     bool deleteOrFail(IORMEntity entityToRemove, Json[string] options = null) {
         auto mydeleted = remove(entityToRemove, options);
@@ -2022,25 +2017,25 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Will delete the entity provided. Will remove rows from any
      * dependent associations, and clear out join tables for BelongsToMany associations.
      * Params:
-     * \UIM\Datasource\IORMEntity myentity The entity to delete.
+     * \UIM\Datasource\IORMEntity ormEntity The entity to delete.
      * @param \Json[string]<string, mixed> options The options for the delete.
      * passed entity
      */
-    protected bool _processremove(IORMEntity myentity, Json[string] options) {
-        if (myentity.isNew()) {
+    protected bool _processremove(IORMEntity ormEntity, Json[string] options) {
+        if (ormEntity.isNew()) {
             return false;
         }
         
         auto primaryKey = (array)this.primaryKeys();
-        if (!myentity.has(primaryKey)) {
+        if (!ormEntity.has(primaryKey)) {
             mymsg = "Deleting requires all primary key values.";
             throw new DInvalidArgumentException(mymsg);
         }
-        if (options["checkRules"] && !this.checkRules(myentity, RulesChecker.DELETE, options)) {
+        if (options["checkRules"] && !this.checkRules(ormEntity, RulesChecker.DELETE, options)) {
             return false;
         }
         myevent = dispatchEvent("Model.beforeDelete", [
-            "entity": myentity.toJson,
+            "entity": ormEntity.toJson,
             "options": options.toJson,
         ]);
 
@@ -2048,21 +2043,21 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             return (bool)myevent.getResult();
         }
         mysuccess = _associations.cascadeRemove(
-            myentity,
+            ormEntity,
             ["_primary": false.toJson + options.getArrayCopy()}
        );
         if (!mysuccess) {
             return mysuccess;
         }
         mystatement = this.deleteQuery()
-            .where(myentity.extract(primaryKey))
+            .where(ormEntity.extract(primaryKey))
             .execute();
 
         if (mystatement.rowCount() < 1) {
             return false;
         }
         dispatchEvent("Model.afterDelete", [
-            "entity": myentity.toJson,
+            "entity": ormEntity.toJson,
             "options": options,
         ]);
 
@@ -2477,7 +2472,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (context.isNull) {
             context = options;
         }
-        auto myentity = new DORMEntity(
+        auto ormEntity = new DORMEntity(
             context["data"],
             [
                 "useSetters": false.toJson,
@@ -2490,7 +2485,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             options.hasKey("scope") ? options.getArray("scope") : []
        );
 
-        auto values = myentity.extract(fieldNames);
+        auto values = ormEntity.extract(fieldNames);
         foreach (fieldName; values) {
             if (fieldName !is null && !isScalar(fieldName)) {
                 return false;
@@ -2499,7 +2494,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         myclass = IS_UNIQUE_CLASS;
 
         IsUnique myrule = new myclass(fieldNames, options);
-        return myrule(myentity, ["repository": this]);
+        return myrule(ormEntity, ["repository": this]);
     }
     
     /**

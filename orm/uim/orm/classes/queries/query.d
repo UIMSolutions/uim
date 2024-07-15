@@ -355,22 +355,16 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * If called with an empty first argument and `override` is set to true, the
      * previous list will be emptied.
-     *
-     * @param array|string associations List of table aliases to be queried.
-     * @param callable|bool override The query builder for the association, or
-     *  if associations is an array, a bool on whether to override previous list
-     *  with the one passed
-     * defaults to merging previous list with the new one.
      */
-    void contain(associations, override = false) {
+    void contain(string associations, bool shouldOverride = false) {
         loader = getEagerLoader();
-        if (override == true) {
+        if (shouldOverride == true) {
             this.clearContain();
         }
 
         queryBuilder = null;
-        if (is_callable(override)) {
-            queryBuilder = override;
+        if (is_callable(shouldOverride)) {
+            queryBuilder = shouldOverride;
         }
 
         if (associations) {

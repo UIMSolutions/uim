@@ -649,9 +649,6 @@ class DEagerLoader {
     /**
      * Helper function used to iterate a statement and extract the columns
      * defined in collectKeys
-     *
-     * @param DORMdatabases.Statement\BufferedStatement statement The statement to read from.
-     * @param array<string, array> collectKeys The keys to collect
      */
     protected Json[string] _groupKeys(BufferedStatement statement, Json[string] collectKeys) {
         auto keys = null;

@@ -885,8 +885,6 @@ class DBelongsToManyAssociation : DAssociation {
      * ```
      *
      * `article.get("tags")` will contain only `[tag1, tag3]` at the end
-     *
-     * @param DORMDatasource\IORMEntity sourceEntity an entity persisted in the source table for
      */
     bool replaceLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         auto bindingKey = /* (array) */getBindingKey();

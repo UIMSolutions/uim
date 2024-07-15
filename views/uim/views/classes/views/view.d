@@ -912,21 +912,18 @@ static string contentType() {
      *
      * Only paths that contain `..` will be checked, as they are the ones most likely to
      * have the ability to resolve to files outside of the template paths.
-     * Params:
-     * string filepath The path to the template file.
-     * @param string path Base path that filepath should be inside of.
      */
     protected string _checkFilePath(string filepath, string basePath) {
         if (!filepath.contains("..")) {
             return filepath;
         }
-        string myabsolute = realpath(filepath);
-        if (myabsolute == false || !myabsolute.startWith(basePath)) {
+        string absolutePath = realpath(filepath);
+        if (absolutePath.isEmpty || !absolutePath.startWith(basePath)) {
             throw new DInvalidArgumentException(
                 "Cannot use `%s` as a template, it is not within any view template path."
                 .format(filepath));
         }
-        return myabsolute;
+        return absolutePath;
     }
     
     /**
@@ -973,19 +970,15 @@ static string contentType() {
         throw new DMissingLayoutException(views, mypaths);
     }
     
-    /**
-     * Get an iterator for layout paths.
-     * Params:
-     * string _plugin The plugin to fetch paths for.
-     */
-    protected DGenerator getLayoutPaths(string _plugin) {
-        mysubDir = "";
+    // Get an iterator for layout paths.
+    protected DGenerator getLayoutPaths(string pluginName) {
+        auto mysubDir = "";
         if (_layoutPath) {
             mysubDir = _layoutPath ~ DIRECTORY_SEPARATOR;
         }
         mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ DIRECTORY_SEPARATOR ~ mysubDir);
 
-        foreach (path; _paths(_plugin)) {
+        foreach (path; _paths(pluginName)) {
             foreach (mylayoutPath; mylayoutPaths) {
                 yield path ~ mylayoutPath;
             }
@@ -1048,11 +1041,7 @@ static string contentType() {
         return mypaths;
     }
     
-    /**
-     * Return all possible paths to find view files in order
-     * Params:
-     * string _plugin Optional plugin name to scan for view files.
-     */
+    // Return all possible paths to find view files in order
     protected string[] _paths(string pluginName = null, bool isCached = true) {
         if (isCached == true) {
             if (pluginName.isNull && !_paths.isEmpty) {

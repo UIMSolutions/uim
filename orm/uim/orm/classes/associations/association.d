@@ -479,7 +479,7 @@ class DAssociation : IAssociation {
             .eagerLoaded(true);
 
         if (!options.isEmpty("queryBuilder")) {
-            dummy = options.get("queryBuilder"](dummy);
+            dummy = options.get("queryBuilder")(dummy);
             if (!cast(Query)dummy) {
                 throw new DRuntimeException(format(
                     "Query builder for association '%s' did not return a query",
@@ -615,8 +615,8 @@ class DAssociation : IAssociation {
      * can take.
      * @return int Returns the number of affected rows.
      */
-    int deleteAll(conditions) {
-        auto expression = this.find()
+    int deleteAll(/* IExpression|\Closure|array|string */ conditions) {
+        auto expression = find()
             .where(conditions)
             .clause("where");
 
@@ -626,8 +626,6 @@ class DAssociation : IAssociation {
     /**
      * Returns true if the eager loading process will require a set of the owning table"s
      * binding keys in order to use them as a filter in the finder query.
-     *
-     * @param Json[string] options The options containing the strategy to be used.
      */
     bool requiresKeys(Json[string] options = null) {
         auto strategy = options.get("strategy", getStrategy());

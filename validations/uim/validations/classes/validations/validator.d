@@ -577,10 +577,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * This method is equivalent to calling allowEmptyFor() with EMPTY_STRING +
      * EMPTY_ARRAY flags.
-     * Params:
-     * @param \/*Closure|* / string mywhen Indicates when the field is allowed to be empty
-     * Valid values are true, false, "create", "update". If a Closure is passed then
-     * the field will allowed to be empty only when the callback returns true.
      */
     void allowEmptyArray(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = true */ ) {
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, errorMessage);
@@ -986,9 +982,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a less than comparison rule to a field.
      * Params:
      * @param float valueToCompare The value user data must be less than.
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.comparison()
      */
     auto lessThan(
         string fieldName,

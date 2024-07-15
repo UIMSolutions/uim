@@ -240,10 +240,6 @@ class DValidation {
      * Compare one field to another.
      *
      * If both fields have exactly the same value this method will return true.
-     * Params:
-     * Json valueToCheck The value to find in fieldName.
-     * @param string fieldName The field to check valueToCheck against. This field must be present in mycontext.
-     * @param Json[string] mycontext The validation context.
      */
     static bool compareWith(Json valueToCheck, string fieldName, Json[string] mycontext) {
         /* return compareFields(valueToCheck, fieldName, COMPARE_SAME, mycontext); */
@@ -1123,12 +1119,7 @@ static bool imageWidth(Json uploadedFile, string comparisonOperator, int minmaxw
     return false;
 }
 
-/**
-     * Validates the image height.
-     * Params:
-     * Json uploadedFile The uploaded file data from D.
-     * @param int myheight Min or max height.
-     */
+// Validates the image height.
 static bool imageHeight(Json uploadedFile, string comparisonOperator, int height) {
     /* return imageSize(uploadedFile, [
             "height": [

@@ -301,7 +301,7 @@ class DPaginator : IPaginator {
         directionDefault = currentValue(defaults["order"]);
     }
 
-    return paginatorData.update([
+    return paginatorData.set([
             "sort": pagingParams["options.sort"].toJson,
             "direction": (pagingParams.hasKey("options.sort") && count(
                 order) ? currentValue(order) : null).toJson,

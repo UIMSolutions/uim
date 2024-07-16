@@ -75,7 +75,7 @@ class DMysqlDriver : DDriver {
         if (!configuration.isEmpty("timezone")) {
             configuration.get("init") ~= "SET time_zone = '%s'".format(configuration.getString("timezone"));
         }
-        configuration.update("flags", [
+        configuration.set("flags", [
             PDO.ATTR_PERSISTENT: configuration.get("persistent"),
             PDO.MYSQL_ATTR_USE_BUFFERED_QUERY: true,
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,

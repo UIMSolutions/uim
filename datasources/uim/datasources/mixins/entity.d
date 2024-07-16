@@ -246,7 +246,7 @@ mixin template TEntity() {
     if (!isArray(fieldName)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
-    auto updatedOptions = options.update([
+    auto updatedOptions = options.set([
       "setter": true.toJson,
       "guard": guard,
       "asOriginal": false.toJson

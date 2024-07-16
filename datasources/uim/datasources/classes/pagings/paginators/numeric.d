@@ -437,7 +437,7 @@ class DNumericPaginator : IPaginator {
                 order = _removeAliases(order, repository.aliasName());
             }
 
-            paginationOptions.set("order", [paginationOptions["sort"]: direction].update(order));
+            paginationOptions.set("order", [paginationOptions["sort"]: direction].set(order));
         } else {
             paginationOptions.set("sort", null);
         }

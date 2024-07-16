@@ -73,7 +73,7 @@ class DSqliteDriver : DDriver {
             return;
         }
         configData = configuration;
-        configuration.update("flags", [
+        configuration.set("flags", [
             PDO.ATTR_PERSISTENT: configuration.get("persistent"],
             PDO.ATTR_EMULATE_PREPARES: false,
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,

@@ -84,7 +84,7 @@ class DComponent { // TODO }: DEventListener {
     this(DComponentRegistry registry, Json[string] initData = null) {
         _registry = registry;
 
-        configuration.update(initData);
+        configuration.set(initData);
 
         if (this.components) {
             _components = registry.normalizeArray(_components);

@@ -47,7 +47,7 @@ class DRuleInvoker {
      * Json[string] options The options to set.
      */
     void updateOptions(Json[string] additionalOptions = null) {
-        _options = _options.update(additionalOptions);
+        _options = _options.set(additionalOptions);
     }
     
     /**

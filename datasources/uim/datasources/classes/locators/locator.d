@@ -21,14 +21,14 @@ abstract class DAbstractLocator : ILocator {
         storeOptions.remove("allowFallbackClass");
 
         if (_instances.hasKey(aliasName)) {
-            if (!storeOptions.isEmpty && configuration.hasKey(aliasName) && configuration.update(aliasName] != storeOptions) {
+            if (!storeOptions.isEmpty && configuration.hasKey(aliasName) && configuration.set(aliasName] != storeOptions) {
                 throw new DRuntimeException("You cannot configure '%s', it already exists in the registry.".format(aliasName));
             }
 
             return _instances[aliasName];
         }
 
-        configuration.update(aliasName, storeOptions);
+        configuration.set(aliasName, storeOptions);
 
         return _instances[aliasName] = this.createInstance(aliasName, options);
     }
@@ -49,7 +49,7 @@ abstract class DAbstractLocator : ILocator {
     bool remove(string aliasNameName) {
         remove(
             _instances[aliasNameName],
-            configuration.update(aliasNameName]
+            configuration.set(aliasNameName]
        );
     }
 

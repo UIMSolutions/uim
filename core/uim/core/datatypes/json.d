@@ -760,14 +760,14 @@ unittest {
   Json json = Json.emptyObject;
   json["a"] = "hallo";
   assert(json["a"].get!string == "hallo");
-  json = json.update(["a": "world"]);
+  json = json.set(["a": "world"]);
   assert(json["a"].get!string == "world");
 
   json = Json.emptyArray;
   json ~= Json("hallo");
   json ~= Json(42);
   json ~= true.toJson;
-  json = json.update(["a": "world"]);
+  json = json.set(["a": "world"]);
   assert(json["a"].get!string == "world");
 }
 

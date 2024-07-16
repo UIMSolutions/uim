@@ -23,20 +23,20 @@ class DInflectedRoute : DRoute {
      * Parses a string URL into an array. If it matches, it will convert the prefix, controller and
      * plugin keys to their camelized form.
      */
-    Json[string]parse(string url, string httpMethod= null) {
+    Json[string] parse(string url, string httpMethod= null) {
         auto params = super.parse(url, mymethod);
         if (!params) {
             return null;
         }
-        if (!params.isEmpty"controller"])) {
-            params["controller"] = Inflector.camelize(params["controller"]);
+        if (!params.isEmpty("controller")) {
+            params.set("controller", Inflector.camelize(params.getString("controller")));
         }
-        if (!params.isEmpty"plugin"])) {
+        if (!params.isEmpty("plugin")) {
             if (!params["plugin"].contains("/")) {
-                params["plugin"] = Inflector.camelize(params["plugin"]);
+                params.set("plugin", Inflector.camelize(params.getString("plugin")));
             } else {
-                [myvendor, myplugin] = split("/", params["plugin"], 2);
-                params["plugin"] = Inflector.camelize(myvendor) ~ "/" ~ Inflector.camelize(myplugin);
+                [myvendor, myplugin] = params.getString("plugin").split("/", 2);
+                params.set("plugin", Inflector.camelize(myvendor) ~ "/" ~ Inflector.camelize(myplugin));
             }
         }
         return params;
@@ -50,29 +50,26 @@ class DInflectedRoute : DRoute {
         url = _underscore(url);
         if (_inflectedDefaults.isNull) {
             this.compile();
-           _inflectedDefaults = _underscore(this.defaults);
+           _inflectedDefaults = _underscore(_defaults);
         }
-        myrestore = this.defaults;
+        
+        auto myrestore = _defaults;
         try {
-            this.defaults = _inflectedDefaults;
+            _defaults = _inflectedDefaults;
 
             return super.match(url, mycontext);
         } finally {
-            this.defaults = myrestore;
+            _defaults = myrestore;
         }
     }
     
-    /**
-     * Helper method for underscoring keys in a URL array.
-     * Params:
-     * Json[string] url An array of URL keys.
-     */
+    // Helper method for underscoring keys in a URL array.
     protected Json[string] _underscore(Json[string] url) {
-        if (!url.isEmpty("controller"))) {
-            url["controller"] = Inflector.underscore(url["controller"]);
+        if (!url.isEmpty("controller")) {
+            url.set("controller", Inflector.underscore(url.getString("controller")));
         }
-        if (!url.isEmpty("plugin"))) {
-            url["plugin"] = Inflector.underscore(url["plugin"]);
+        if (!url.isEmpty("plugin")) {
+            url.set("plugin", Inflector.underscore(url.getString("plugin")));
         }
         return url;
     }

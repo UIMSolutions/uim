@@ -113,7 +113,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
         ];
 
         checkValues(policyValue, available);
-        _headers["referrer-policy"] = policyValue;
+        _headers.set("referrer-policy", policyValue);
     }
     
     // X-Frame-Options
@@ -141,7 +141,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
             modeValue = XSS_ENABLED_BLOCK;
         }
         checkValues(modeValue, [XSS_ENABLED, XSS_DISABLED, XSS_ENABLED_BLOCK]);
-        _headers["x-xss-protection"] = modeValue;
+        _headers.set("x-xss-protection", modeValue);
     }
     
     // X-Permitted-Cross-Domain-Policies
@@ -153,7 +153,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
             BY_CONTENT_TYPE,
             BY_FTP_FILENAME,
         ]);
-        _headers["x-permitted-cross-domain-policies"] = policyValue;
+        _headers.set("x-permitted-cross-domain-policies", policyValue);
     }
     
     // Convenience method to check if a value is in the list of allowed args

@@ -101,14 +101,14 @@ template TestH5DoubleClasses(string h5, string tag, bool showRendering = false) 
 template TestH5DoubleAttributes(string h5, string tag, string[] attributes, bool showRendering = false) {
   const char[] TestH5DoubleAttributes = 
     (showRendering ? attributes.map!(a => `writeln(`~h5~`.`~a~`("aValue"));`).join : "")~
-    attributes.map!(a => `// assert(`~h5~`.`~a~`("aValue").`~a~` == "aValue", "Tag `~tag~`: No setting attribute `~a~`");`).join~
+    attributes.map!(a => `// assert(`~h5~`.`~a~`("aValue").`~a~` == "aValue", "Tag `~tag~`: No setting attribute `~a~`");`).join ~
     attributes.map!(a => `// assert(`~h5~`.`~a~`("aValue") == "<`~tag~` `~a.toLower~`=\"aValue\"></`~tag~`>", "Tag `~tag~`: Wrong rendering with attribute `~a~`");`).join;
 }
 
 template TestH5SingleAttributes(string h5, string tag, string[] attributes, bool showRendering = false) {
   const char[] TestH5SingleAttributes = 
     (showRendering ? attributes.map!(a => `writeln(`~h5~`.`~a~`("aValue"));`).join : "")~
-    attributes.map!(a => `// assert(`~h5~`.`~a~`("aValue").`~a~` == "aValue", "Tag `~tag~`: No setting attribute `~a~`");`).join~
+    attributes.map!(a => `// assert(`~h5~`.`~a~`("aValue").`~a~` == "aValue", "Tag `~tag~`: No setting attribute `~a~`");`).join ~
     attributes.map!(a => `// assert(`~h5~`.`~a~`("aValue") == "<`~tag~` `~a.toLower~`=\"aValue\">", "Tag `~tag~`: Wrong rendering with attribute `~a~`");`).join;
 }
 
@@ -116,16 +116,16 @@ template TestH5SingleAttributes(string h5, string tag, string[] attributes, bool
 // 
 
 /* 	// Global HTML attributes	
-	O accesskey(this O)(string value) { if (value.length > 0) attributes["accesskey"] = value; return cast(O)this; }
-	O contenteditable(this O)(bool value) { if (value) attributes["contenteditable"] = "true"; return cast(O)this; }
-	O contextmenu(this O)(string value) { if (value.length > 0) attributes["contextmenu"] = value; return cast(O)this; }
-	O dir(this O)(string value) { if (value.length > 0) attributes["dir"] = value; return cast(O)this; }
-	O draggable(this O)(bool value) { if (value) attributes["draggable"] = "true"; return cast(O)this; }
-	O dropzone(this O)(string value) { if (value.length > 0) attributes["dropzone"] = value; return cast(O)this; }
-	O hidden(this O)(bool value) { if (value) attributes["hidden"] = "true"; return cast(O)this; }
-	O lang(this O)(string value) { if (value.length > 0) attributes["lang"] = value; return cast(O)this; }
-	O spellcheck(this O)(bool value) { if (value) attributes["spellcheck"] = "true"; return cast(O)this; }
-	O style(this O)(string value) { if (value.length > 0) attributes["style"] = value; return cast(O)this; }
-	O tabindex(this O)(string value) { if (value.length > 0) attributes["tabindex"] = value; return cast(O)this; }
-	O title(this O)(string value) { if (value.length > 0) attributes["title"] = value; return cast(O)this; }
-	O translate(this O)(bool value) { if (value) attributes["translate"] = "true"; return cast(O)this; } */
+	O accesskey(this O)(string value) { if (value.length > 0) attributes.set("accesskey", value); return cast(O)this; }
+	O contenteditable(this O)(bool value) { if (value) attributes.set("contenteditable", "true"); return cast(O)this; }
+	O contextmenu(this O)(string value) { if (value.length > 0) attributes.set("contextmenu", value); return cast(O)this; }
+	O dir(this O)(string value) { if (value.length > 0) attributes.set("dir", value); return cast(O)this; }
+	O draggable(this O)(bool value) { if (value) attributes.set("draggable", "true"); return cast(O)this; }
+	O dropzone(this O)(string value) { if (value.length > 0) attributes.set("dropzone", value); return cast(O)this; }
+	O hidden(this O)(bool value) { if (value) attributes.set("hidden", "true"); return cast(O)this; }
+	O lang(this O)(string value) { if (value.length > 0) attributes.set("lang", value); return cast(O)this; }
+	O spellcheck(this O)(bool value) { if (value) attributes.set("spellcheck", "true"); return cast(O)this; }
+	O style(this O)(string value) { if (value.length > 0) attributes.set("style", value); return cast(O)this; }
+	O tabindex(this O)(string value) { if (value.length > 0) attributes.set("tabindex", value); return cast(O)this; }
+	O title(this O)(string value) { if (value.length > 0) attributes.set("title", value); return cast(O)this; }
+	O translate(this O)(bool value) { if (value) attributes.set("translate", "true"); return cast(O)this; } */

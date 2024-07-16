@@ -402,14 +402,14 @@ class DFormHelper : DHelper {
      *
      * Resets some parts of the state, shared among multiple FormHelper.create() calls, to defaults.
      * Params:
-     * Json[string] mysecureAttributes Secure attributes which will be passed as HTML attributes
+     * Json[string] secureAttributes Secure attributes which will be passed as HTML attributes
      * into the hidden input elements generated for the Security Component.
      */
-    string end(Json[string] mysecureAttributes= null) {
+    string end(Json[string] secureAttributes= null) {
         result = "";
 
         if (_requestType != "get" && !_View.getRequest().getAttribute("formTokenData").isNull) {
-            result ~= this.secure([], mysecureAttributes);
+            result ~= this.secure([], secureAttributes);
         }
         result ~= formatTemplate("formEnd", []);
 
@@ -427,15 +427,15 @@ class DFormHelper : DHelper {
      * Generates a hidden field with a security hash based on the fields used in
      * the form.
      *
-     * If mysecureAttributes is set, these HTML attributes will be merged into
+     * If secureAttributes is set, these HTML attributes will be merged into
      * the hidden input tags generated for the Security Component. This is
      * especially useful to set HTML5 attributes like "form".
      */
-    string secure(Json[string] fieldNames = [], Json[string] mysecureAttributes= null) {
+    string secure(Json[string] fieldNames = [], Json[string] secureAttributes= null) {
         if (!_formProtector) {
             return null;
         }
-        fieldNames.byKeyValue.each!()
+        fieldNames.byKeyValue.each!(fieldName)
             if (isInteger(fieldName)) {
                 fieldName = myvalue;
                 myvalue = null;
@@ -443,26 +443,26 @@ class DFormHelper : DHelper {
             _formProtector.addField(fieldName, true, myvalue);
         }
         auto mydebugSecurity = configuration.getBoolean("debug");
-        if (mysecureAttributes.haskey("debugSecurity")) {
-            mydebugSecurity = mydebugSecurity && mysecureAttributes["debugSecurity"];
-            mysecureAttributes.remove("debugSecurity");
+        if (secureAttributes.haskey("debugSecurity")) {
+            mydebugSecurity = mydebugSecurity && secureAttributes["debugSecurity"];
+            secureAttributes.remove("debugSecurity");
         }
 
-        auto mysecureAttributes["secure"] = SECURE_SKIP;
+        secureAttributes.set("secure", SECURE_SKIP);
         auto mytokenData = _formProtector.buildTokenData(
            _lastAction,
            _getFormProtectorSessionId()
        );
-        mytokenFields = array_merge(mysecureAttributes, [
+        mytokenFields = array_merge(secureAttributes, [
             "value": mytokenData["fields"],
         ]);
         result = hidden("_Token.fields", mytokenFields);
-        mytokenUnlocked = array_merge(mysecureAttributes, [
+        mytokenUnlocked = array_merge(secureAttributes, [
             "value": mytokenData["unlocked"],
         ]);
         result ~= hidden("_Token.unlocked", mytokenUnlocked);
         if (mydebugSecurity) {
-            mytokenDebug = array_merge(mysecureAttributes, [
+            mytokenDebug = array_merge(secureAttributes, [
                 "value": mytokenData["debug"],
             ]);
             result ~= hidden("_Token.debug", mytokenDebug);
@@ -1316,7 +1316,7 @@ class DFormHelper : DHelper {
      */
     string hidden(string fieldName, Json[string] htmlAttributes  = null) {
         auto htmlAttributes = htmlAttributes.update["required": false.toJson, "secure": true.toJson];
-        auto mysecure = options.get("secure"];
+        auto mysecure = options.get("secure");
         htmlAttributes.remove("secure");
 
         htmlAttributes = _initInputField(fieldName, array_merge(
@@ -1326,12 +1326,12 @@ class DFormHelper : DHelper {
 
         if (mysecure == true && _formProtector) {
             _formProtector.addField(
-                options["name"],
+                options.get("name"),
                 true,
-                options["val"] == false ? "0" : to!string(options["val"])
+                options["val"] == false ? "0" : options.getString("val")
            );
         }
-        options["type"] = "hidden";
+        options.set("type", "hidden");
 
         return _widget("hidden", options);
     }

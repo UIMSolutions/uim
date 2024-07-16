@@ -113,7 +113,7 @@ class DPoFileParser {
             return message;
 
             /* addMessage(messages, anItem);
-            anItem["ids.singular"] = subString(line, 7,  - 1);
+            anItem.set("ids.singular", subString(line, 7,  - 1));
             stage = ["ids", "singular"];
             return; */
         }

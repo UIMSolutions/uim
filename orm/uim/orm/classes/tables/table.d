@@ -987,8 +987,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * string mytype the type of query to perform
      * @param Json ...arguments Arguments that match up to finder-specific parameters
      */
-    SelectQuery find(string mytype = "all", Json ...arguments) {
-        return _callFinder(mytype, this.selectQuery(), ...arguments);
+    DSelectQuery find(string mytype = "all", Json[] arguments...) {
+        return _callFinder(mytype, this.selectQuery(), arguments.dup);
     }
     
     /**
@@ -999,7 +999,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \ORM\Query\SelectQuery myquery The query to find with
      */
-    SelectQuery findAll(SelectQuery myquery) {
+    DSelectQuery findAll(SelectQuery myquery) {
         return myquery;
     }
     
@@ -1027,7 +1027,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * `displayField` respectively in this table:
      *
      * ```
-     * mytable.find("list", keyField: "name", valueField: "age");
+     * mytable.find("list", keyFields: "name", valueField: "age");
      * ```
      *
      * The `valueField` can also be an array, in which case you can also specify
@@ -1069,43 +1069,44 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \ORM\Query\SelectQuery myquery The query to find with
      */
-    SelectQuery findList(
+    DSelectQuery findList(
         SelectQuery myquery,
-       /* Closure */ string[]|string keyField = null,
-       /* Closure */ string[]|string myvalueField = null,
-       /* Closure */ string[]|string mygroupField = null,
+       /* Closure */ string[]/* |string */ keyFields = null,
+       /* Closure */ string[]/* |string */ valuesFields = null,
+       /* Closure */ string[]/* |string */ groupFields = null,
         string myvalueSeparator = ";"
    ) {
-        keyField = keyField : this.primaryKeys();
-        myvalueField = myvalueField : displayfields();
+        keyFields = keyFields.ifEmpty(primaryKeys());
+        valuesFields = valuesFields.ifEmpty(displayfields());
 
         if (
             !myquery.clause("select") &&
-            !isObject(keyField) &&
-            !isObject(myvalueField) &&
-            !isObject(mygroupField)
+            !isObject(keyFields) &&
+            !isObject(valuesFields) &&
+            !isObject(groupFields)
        ) {
             auto fieldNames = chain(
-                /* (array) */keyField,
-                /* (array) */myvalueField,
-                /* (array) */mygroupField
+                keyFields,
+                valuesFields,
+                groupFields
            );
-            mycolumns = getSchema().columns();
+            auto mycolumns = getSchema().columns();
             if (count(fieldNames) == count(array_intersect(fieldNames, mycolumns))) {
                 myquery.select(fieldNames);
             }
         }
         options = _setFieldMatchers(
-            compact("keyField", "valueField", "groupField", "valueSeparator"),
-            ["keyField", "valueField", "groupField"]
+            compact("keyFields", "valueField", "groupField", "valueSeparator"),
+            ["keyFields", "valueField", "groupField"]
        );
 
-        return myquery.formatResults(fn (ICollection results) =>
+        /* return myquery.formatResults(fn (ICollection results) =>
             results.combine(
-                options["keyField"],
+                options["keyFields"],
                 options["valueField"],
                 options["groupField"]
-           ));
+           )); */
+           return null; 
     }
     
     /**
@@ -1117,26 +1118,27 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * You can customize what fields are used for nesting results, by default the
      * primary key and the `parent_id` fields are used. If you wish to change
-     * these defaults you need to provide the `keyField`, `parentField` or `nestingKey`
+     * these defaults you need to provide the `keyFields`, `parentField` or `nestingKey`
      * arguments:
      *
      * ```
-     * mytable.find("threaded", keyField: "id", parentField: "ancestor_id", nestingKey: "children");
+     * mytable.find("threaded", keyFields: "id", parentField: "ancestor_id", nestingKey: "children");
      * ```
      * Params:
      * \ORM\Query\SelectQuery myquery The query to find with
      */
     DSelectQuery findThreaded(
         DSelectQuery selectquery,
-       /* Closure */ /* string[]| */string keyField = null,
+       /* Closure */ /* string[]| */string keyFields = null,
        /* Closure */ /* string[]| */string parentField = "parent_id",
         string nestingKey = "children"
    ) {
-        keyField = keyField.ifEmpty(this.primaryKeys());
-        options = _setFieldMatchers(compact("keyField", "parentField"), ["keyField", "parentField"]);
+        keyFields = keyFields.ifEmpty(this.primaryKeys());
+        options = _setFieldMatchers(compact("keyFields", "parentField"), ["keyFields", "parentField"]);
 
-        return selectquery.formatResults(fn (ICollection results) =>
-            results.nest(options["keyField"], options["parentField"], nestingKey));
+        /* return selectquery.formatResults(fn (ICollection results) =>
+            results.nest(options["keyFields"], options["parentField"], nestingKey)); */
+        return null; 
     }
     
     /**
@@ -1158,7 +1160,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             }
             
             auto fieldNames = options.get(field);
-            auto myglue = isIn(field, ["keyField", "parentField"], true) ? ";" : options.get("valueSeparator");
+            auto myglue = isIn(field, ["keyFields", "parentField"], true) ? ";" : options.get("valueSeparator");
             /* options[field] = auto (myrow) use (fieldNames, myglue) {
                 auto mymatches = fieldNames.each!(fld => myrow[fld]).array;
                 return join(myglue, mymatches);
@@ -1195,7 +1197,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 .format(getTable()
            ));
         }
-        auto keys = (array)this.primaryKeys();
+        string[] keys = primaryKeys();
         auto aliasName = aliasName();
         foreach (myindex, mykeyname; keys) {
             keys[myindex] = aliasName ~ "." ~ mykeyname;
@@ -1204,7 +1206,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             primaryKey = [primaryKey];
         }
         if (count(keys) != count(primaryKey)) {
-            primaryKey = primaryKey ?: [null];
+            primaryKey = primaryKey ? primaryKey : [null];
             primaryKey = array_map(function (keys) {
                 return var_export_(keys, true);
             }, primaryKey);
@@ -1586,7 +1588,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     protected IORMEntity|false _processSave(IORMEntity entityToSave, Json[string] options) {
         auto myprimaryColumns = (array)this.primaryKeys();
 
-        if (options["checkExisting"] && myprimaryColumns && entityToSave.isNew() && entityToSave.has(myprimaryColumns)) {
+        if (options.hasKey("checkExisting") && myprimaryColumns && entityToSave.isNew() && entityToSave.has(myprimaryColumns)) {
             auto aliasName = aliasName();
             auto myconditions = null;
             entityToSave.extract(myprimaryColumns).byKeyValue.each!(kv => myconditions.set(["aliasName", kv.key], kv.value));
@@ -1596,7 +1598,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (options["checkRules"] && !this.checkRules(entityToSave, mymode, options)) {
             return false;
         }
-        options["associated"] = _associations.normalizeKeys(options["associated"]);
+
+        options.set("associated", _associations.normalizeKeys(options.get("associated")));
         auto myevent = dispatchEvent("Model.beforeSave", compact("entity", "options"));
 
         if (myevent.isStopped()) {
@@ -1648,8 +1651,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         mysuccess = _associations.saveChildren(
             this,
             entityToSave,
-            options["associated"],
-            ["_primary": false.toJson] + options.dup
+            options.get("associated"),
+            options.dup.merge(["_primary": false.toJson]) 
        );
 
         if (!mysuccess && options["atomic"]) {
@@ -1660,7 +1663,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (options["atomic"] && !getConnection().inTransaction()) {
             throw new DRolledbackTransactionException(["table": class]);
         }
-        if (!options.hasKey("atomic") && !options.hasKey("_primary") {
+        if (!options.hasKey("atomic") && !options.hasKey("_primary")) {
             entityToSave.clean();
             entityToSave.setNew(false);
             entityToSave.setSource(this.registryKey());
@@ -1676,14 +1679,14 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 .format(getTable());
             throw new DatabaseException(mymsg);
         }
-        auto someKeys = array_fill(0, count(primaryKeys), null);
-        auto myid = (array)_newId(primaryKeys) + someKeys;
+        string[] someKeys = array_fill(0, count(primaryKeys), null);
+        auto myid = _newId(primaryKeys) ~ someKeys;
 
         // Generate primary keys preferring values in mydata.
-        primaryKeys = array_combine(primaryKeys, myid);
+        string[] primaryKeys = array_combine(primaryKeys, myid);
         primaryKeys = array_intersectinternalKey(mydata, primaryKeys) + primaryKeys;
 
-        myfilteredKeys = array_filter(primaryKeys, auto (value) {
+        string[] myfilteredKeys = array_filter(primaryKeys, auto (value) {
             return value !is null;
         });
         mydata += myfilteredKeys;
@@ -1710,7 +1713,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             .values(mydata)
             .execute();
 
-        mysuccess = false;
+        bool mysuccess = false;
         if (mystatement.rowCount() != 0) {
             mysuccess = ormEntity;
             ormEntity.set(myfilteredKeys, ["guard": false.toJson]);
@@ -1820,19 +1823,19 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 "_primary": true.toJson,
             ]
        );
-        options["_cleanOnSuccess"] = false;
+        options.set("_cleanOnSuccess", false);
 
         bool[] myisNew;
-        mycleanupOnFailure = void (entities) use (&myisNew) {
+        /* mycleanupOnFailure = void (entities) use (&myisNew) {
             foreach (key: ormEntity; entities) {
                 if (isSet(myisNew[key]) && myisNew[key]) {
                     ormEntity.remove(this.primaryKeys());
                     ormEntity.setNew(true);
                 }
             }
-        };
+        }; */
 
-        myfailed = null;
+        /* myfailed = null;
         try {
             getConnection()
                 .transactional(function () use (entities, options, &myisNew, &myfailed) {
@@ -1880,7 +1883,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 }
             }
         }
-        return entities;
+        return entities; */
+        return null; 
     }
     
     /**

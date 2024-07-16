@@ -152,7 +152,7 @@ class DElement : UIMObject, IElement {
     assert(value.toString == "aValue");
 
     auto element = new DElement;
-    element["test"] = value;
+    element.set("test", value);
 
     assert(element.getString("test") == "aValue"); */
   }

@@ -179,12 +179,12 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
                     "args": true.toJson,
                 ]);
             origin = [
-                "file": exception.getFile() ? : "null",
-                "line": exception.getLine() ? : "null",
+                "file": exception.getFile().ifEmpty("null"),
+                "line": exception.getLine().ifEmpty("null"),
             ];
             // Traces don`t include the origin file/line.
             array_unshift(trace, origin);
-            viewVars["trace"] = trace;
+            viewVars.set("trace", trace);
             viewVars += origin;
             serialize ~= "file";
             serialize ~= "line";

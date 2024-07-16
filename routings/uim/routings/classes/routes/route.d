@@ -146,7 +146,7 @@ class DRoute : IRoute {
     void setPatterns(Json[string] mypatterns) {
         string mypatternValues = mypatterns.join("");
         if (mb_strlen(mypatternValues) < mypatternValues.length) {
-            configuration.set("multibytePattern"] = true;
+            configuration.set("multibytePattern", true);
         }
         _options = mypatterns + _options;
     }
@@ -158,7 +158,7 @@ class DRoute : IRoute {
     
     // Set the names of parameters that will be converted into passed parameters
     void setPass(string[] parameterNames) {
-        configuration.set("pass"] = parameterNames;
+        configuration.set("pass", parameterNames);
     }
     
     /**
@@ -173,10 +173,10 @@ class DRoute : IRoute {
      * Router.url(["date": false.toJson", ...]);
      * ```
      * Params:
-     * Json[string] routingss The names of the parameters that should be passed.
+     * Json[string] routings The names of the parameters that should be passed.
      */
-    void setPersist(Json[string] routingss) {
-        configuration.set("persist"] = routingss;
+    void setPersist(Json[string] routings) {
+        configuration.set("persist", routings);
     }
     
     /**
@@ -216,7 +216,7 @@ class DRoute : IRoute {
         }
 
         auto myroute = _template;
-        auto routingss = myrouteParams = null;
+        auto routings = myrouteParams = null;
         auto myparsed = preg_quote(_template, "#");
 
         preg_match_all(PLACEHOLDER_REGEX, myroute, routingsdElements, PREG_OFFSET_CAPTURE | PREG_SET_ORDER);
@@ -242,7 +242,7 @@ class DRoute : IRoute {
             } else {
                 myrouteParams[mysearch] = "(?:(?P<" ~ routings ~ ">[^/]+))";
             }
-            routingss ~= routings;
+            routings ~= routings;
         }
         if (preg_match("#\/\*\*my#", myroute)) {
             myparsed = to!string(preg_replace("#/\\\\\*\\\\\*my#", "(?:/(?P<_trailing_>.*))?", myparsed));
@@ -256,7 +256,7 @@ class DRoute : IRoute {
         krsort(myrouteParams);
         myparsed = myparsed.replace(myrouteParams.keys, myrouteParams);
        _compiledRoute = "#^" ~ myparsed ~ "[/]*my#" ~ mymode;
-        _keys = routingss;
+        _keys = routings;
 
         // Remove defaults that are also keys. They can cause match failures
         _keys.each!(key => remove(_defaults[aKey]));

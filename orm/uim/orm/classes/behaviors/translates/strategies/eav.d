@@ -110,7 +110,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 name ~ ".field": field,
             ];
             if (configuration.hasKey("allowEmptyTranslations")) {
-                conditions[name ~ ".content !="] = "";
+                conditions.set([name, "content !="], "");
             }
 
             _table.hasOne(name, [
@@ -174,12 +174,12 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         foreach (field; fields) {
             auto name = aliasName ~ "_" ~ field ~ "_translation";
-            contain[name]["queryBuilder"] = conditions(
+            contain.set([name, "queryBuilder"], conditions(
                 field,
                 locale,
                 query,
                 select
-           );
+           ));
 
             if (changeFilter) {
                 filter = options.get("filterByCurrentLocale"]

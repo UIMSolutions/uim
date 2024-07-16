@@ -463,7 +463,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 if (
                     empty(
                     row["translation"])) {
-                    row["_locale"] = locale; remove(
+                    row.set("_locale", locale); remove(
                     row["translation"]); 
                     if (
                         hydrated) {

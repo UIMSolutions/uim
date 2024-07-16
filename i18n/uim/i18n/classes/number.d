@@ -110,13 +110,13 @@ class DNumber {
      * Params:
      * Json value A floating point number.
      */
-    static string format(Json value, Json[string] options = null) {
+    static string format(Json floatNumber, Json[string] options = null) {
         auto formatter = formatter(options);
         auto updatedOptions = options.merge(
             ["before": Json(""), "after": Json("")]);
         /* return updatedOptions.getString(
             "before") ~ formatter.format(
-            value.getDouble) ~ updatedOptions.getString("after"); */
+            floatNumber.getDouble) ~ updatedOptions.getString("after"); */
         return null;
     }
 
@@ -124,7 +124,6 @@ class DNumber {
      * Parse a localized numeric string and transform it in a float point
      *
      * Options:
-     *
      * - `locale` - The locale name to use for parsing the number, e.g. fr_FR
      * - `type` - The formatter type to construct, set it to `currency` if you need to parse
      *  numbers representing money.

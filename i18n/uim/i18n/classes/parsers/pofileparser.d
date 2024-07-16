@@ -165,7 +165,7 @@ class DPoFileParser {
         } */
 
         string singular; //  = stripcslashes(ids["singular"]);
-        auto context = itemToInspect.get("context");
+        // auto context = itemToInspect.get("context");
         /*         auto translation = itemToInspect.get("translated");
 
         if (translation.isArray) {

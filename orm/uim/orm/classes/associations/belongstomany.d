@@ -535,7 +535,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
         }
 
-        options["associated"] = joinAssociations;
+        options.set("associated", joinAssociations);
         success = _saveLinks(parentEntity, persisted, options);
         if (!success && !options.isEmpty("atomic")) {
             parentEntity.set(getProperty(), original);

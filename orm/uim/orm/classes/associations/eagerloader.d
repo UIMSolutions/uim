@@ -373,9 +373,9 @@ class DEagerLoader {
         myeagerLoadable = new DEagerLoadable(aliasName, configData);
 
         if (configuration.hasKey("canBeJoined")) {
-           _aliasList[paths["root"]][aliasName] ~= myeagerLoadable;
+           _aliasList[paths.getString("root")][aliasName] ~= myeagerLoadable;
         } else {
-            paths["root"] = configuration.get("aliasPath");
+            paths.set("root", configuration.get("aliasPath"));
         }
         myextra.byKeyValue
             .each!((tAssoc) {
@@ -414,7 +414,7 @@ class DEagerLoader {
      * under the same direct associations chain.
      */
     protected void _correctStrategy(DEagerLoadable myloadable) {
-        configData = myloadable.configuration.data;
+        auto configData = myloadable.configuration.data;
         string currentStrategy = configuration.getString("strategy", "join");
 
         if (!myloadable.canBeJoined() || currentStrategy != "join") {
@@ -432,15 +432,15 @@ class DEagerLoader {
      * array<\ORM\> associations List of associations from which to obtain joins.
      */
     protected DEagerLoadable[] _resolveJoins(DEagerLoadable[] associations, DEagerLoadable[] mymatching = null) {
-        auto result;
+        DEagerLoadable[] result;
         foreach (ormtable, myloadable; mymatching) {
             result[ormtable] = myloadable;
             result += _resolveJoins(myloadable.associations(), []);
         }
-        foreach (associations as ormtable: myloadable) {
+        foreach (ormtable, myloadable; associations) {
             auto myinMatching = mymatching.hasKey(ormtable);
             if (!myinMatching && myloadable.canBeJoined()) {
-                result[ormtable] = myloadable;
+                result.set(ormtable, myloadable);
                 result += _resolveJoins(myloadable.associations(), []);
                 continue;
             }

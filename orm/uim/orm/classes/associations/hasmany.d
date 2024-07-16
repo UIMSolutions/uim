@@ -102,10 +102,10 @@ class DHasManyAssociation : DAssociation {
         foreignKeyReference = array_combine(
             /* (array) */
             foreignKeys(),
-            sourceEntity.extract( /* (array) */ getBindingKey())
+            sourceEntity.extract( /* (array) */ getBindingKeys())
         );
 
-        options["_sourceTable"] = source();
+        options.set("_sourceTable", source());
 
         if (
             _saveStrategy == SAVE_REPLACE &&
@@ -523,7 +523,7 @@ class DHasManyAssociation : DAssociation {
                     "targetAlias": getTarget()
                     .aliasName(),
                     "foreignKeys": foreignKeys(),
-                    "bindingKey": getBindingKey(),
+                    "bindingKey": getBindingKeys(),
                     "strategy": getStrategy(),
                     "associationType": associationType(),
                     "sort": getSort(),

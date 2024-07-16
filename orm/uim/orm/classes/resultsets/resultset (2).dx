@@ -385,7 +385,7 @@ class DResultset : IResultset {
             }
 
             auto target = instance.getTarget();
-            options["source"] = target.registryKey();
+            options.set("source", target.registryKey());
             presentAliases.remove(aliasName);
 
             if (assoc["canBeJoined"] && _autoFields == true) {

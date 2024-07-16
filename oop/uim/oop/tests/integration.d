@@ -530,10 +530,10 @@ mixin template TIntegrationTest() {
 
         hostData = null;
         if (anUri.getHost()) {
-            hostData["host"] = anUri.getHost();
+            hostData.set("host", anUri.getHost());
         }
         if (anUri.getScheme()) {
-            hostData["https"] = anUri.getScheme() == "https";
+            hostData.set("https", anUri.getScheme() == "https");
         }
         return [path, aQuery, hostData];
     }

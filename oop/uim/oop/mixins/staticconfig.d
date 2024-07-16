@@ -55,7 +55,8 @@ mixin template TStaticConfig() {
             throw new DLogicException("If config is not null, key must be a string.");
         }
         if (configuration.hasKey(configurationName)) {
-            throw new BadMethodCallException("Cannot reconfigure existing key `%s`.".format(configurationName));
+            throw new BadMethodCallException(
+                "Cannot reconfigure existing key `%s`.".format(configurationName));
         }
         if (isObject(configData)) {
             configData = ["classname": configData];
@@ -71,12 +72,12 @@ mixin template TStaticConfig() {
         }
         configuration.set(aKey, configData);
     }
-    
+
     // Reads existing configuration.
     static Json getConfig(string key) {
         return configuration.get(aKey, null);
     }
-    
+
     /**
      * Reads existing configuration for a specific key.
      *
@@ -86,11 +87,12 @@ mixin template TStaticConfig() {
      */
     static Json getConfigOrFail(string configName) {
         if (configuration.isNull(configName)) {
-            throw new DInvalidArgumentException("Expected configuration `%s` not found.".format(configName));
+            throw new DInvalidArgumentException(
+                "Expected configuration `%s` not found.".format(configName));
         }
         return configuration.data(configName);
     }
-    
+
     /**
      * Drops a constructed adapter.
      *
@@ -111,16 +113,14 @@ mixin template TStaticConfig() {
 
         return true;
     }
-    
+
     // Returns an array containing the named configurations
     static string[] configured() {
         configDataurations = _config.keys;
 
-        return array_map(function (aKey) {
-            return to!string(aKey);
-        }, configDataurations);
+        return array_map(function(aKey) { return to!string(aKey); }, configDataurations);
     }
-    
+
     /**
      * Parses a DSN into a valid connection configuration
      *
@@ -191,14 +191,15 @@ REGEXP`;
         preg_match(somePattern, dsn, parsed);
 
         if (!parsed) {
-            throw new DInvalidArgumentException("The DSN string `%s` could not be parsed.".format(dsn));
+            throw new DInvalidArgumentException(
+                "The DSN string `%s` could not be parsed.".format(dsn));
         }
         exists = null;
         /**
          * @var string|int myKey
          */
-         // TODO
-         /*
+        // TODO
+        /*
         foreach (myKey: v; parsed) {
             if (isInteger(myKey)) {
                 parsed.remove(myKey);
@@ -209,7 +210,7 @@ REGEXP`;
                 parsed.remove(myKey);
             }
         } */
-        
+
         string aQuery = "";
         if (parsed.hasKey("query")) {
             aQuery = parsed["query"];
@@ -230,23 +231,23 @@ REGEXP`;
 
         Json[string] parsed = aQueryArgs + parsed;
         if (isEmpty(parsed["classname"])) {
-             classnameMap = getDsnClassMap();
+            classnameMap = getDsnClassMap();
 
             /** @var string ascheme */
             scheme = parsed["scheme"];
-            parsed["classname"] = scheme;
+            parsed.set("classname", scheme);
             if (classnameMap.hasKey(scheme)) {
-                parsed["classname"] = classnameMap[scheme];
+                parsed.set("classname", classnameMap[scheme]);
             }
         }
         return parsed;
     }
-    
+
     // Updates the DSN class map for this class.
     static void setDsnClassMap(STRINGAA map) {
         _dsnClassMap = map + _dsnClassMap;
     }
-    
+
     // Returns the DSN class map for this class.
     static STRINGAA getDsnClassMap() {
         return _dsnClassMap;

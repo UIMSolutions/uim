@@ -19,7 +19,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
     this(Json[string] aConfig = null) {
         // TODO super();
 
-        configuration.update(aConfig);
+        configuration.set(aConfig);
         _stderr = _config["stderr"];
     }
 

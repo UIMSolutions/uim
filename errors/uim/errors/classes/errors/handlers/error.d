@@ -77,7 +77,7 @@ class DErrorHandler { // }: DERRErrorHandler
             "exceptionRenderer": ExceptionRenderer.classname,
         ];
 
-        configuration.update(aConfig);
+        configuration.set(aConfig);
     }
 
     /**

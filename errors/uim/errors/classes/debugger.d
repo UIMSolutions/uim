@@ -108,7 +108,7 @@ class DDebugger : UIMObject {
             define("ERRORS.RECOVERABLE_ERROR", 4096);
         }
         aConfig = array_intersectinternalKey(/* (array) */configuration.get("Debugger"), _defaultConfigData);
-        configuration.update(aConfig);
+        configuration.set(aConfig);
     }
     
     /**

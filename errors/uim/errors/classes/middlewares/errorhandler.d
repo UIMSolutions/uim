@@ -86,7 +86,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
         }
 
         if (myErrorHandler.isArray) {
-            configuration.update(myErrorHandler);
+            configuration.set(myErrorHandler);
             return;
         }
 

@@ -775,7 +775,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Be careful about using it without proper sanity checks.
      */
     auto whereNotInList(string fieldName, Json[string] someValues, Json[string] options = null) {
-        auto auto updatedOptions = options.update([
+        auto auto updatedOptions = options.set([
             "types": Json.emptyArray,
             "allowEmpty": false.toJson
         ];
@@ -797,7 +797,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Be careful about using it without proper sanity checks.
      */
     auto whereNotInListOrNull(string fieldName, Json[string] someValues, Json[string] options = null) {
-        auto auto updatedOptions = options.update() [
+        auto auto updatedOptions = options.set() [
             "types": Json.emptyArray,
             "allowEmpty": false.toJson,
         ];

@@ -105,7 +105,7 @@ class DExceptionTrap {
     protected bool disabled = false;
 
     this(Json[string] options = null) {
-        configuration.update(options);
+        configuration.set(options);
     }
 
     // Get an instance of the renderer.

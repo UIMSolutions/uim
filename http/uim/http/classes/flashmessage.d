@@ -48,7 +48,7 @@ class DFlashMessage {
 
     this(ISession session, Json[string] configData = null) {
         _session = session;
-        configuration.update(configData);
+        configuration.set(configData);
     }
     
     /**
@@ -68,7 +68,7 @@ class DFlashMessage {
      * - `escape` Set to false to allow templates to print out HTML content.
      */
     void set(string messageToBeFlashed, Json[string] options = null) {
-        auto auto updatedOptions = options.update(this.configuration.data);
+        auto auto updatedOptions = options.set(this.configuration.data);
 
         if (options.hasKey("escape") && !options.hasKey("params.escape")) {
             options.set("params.escape", options.get("escape"));

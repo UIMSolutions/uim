@@ -160,7 +160,7 @@ class DClient { // }: IClient {
      * Json[string] configData Config options for scoped clients.
      */
   this(Json[string] configData = null) {
-    configuration.update(configData);
+    configuration.set(configData);
 
     myadapter = configuration.get("adapter"];
     if (myadapter.isNull) {
@@ -413,7 +413,7 @@ class DClient { // }: IClient {
       "basePath": "".toJson,
       "protocolRelative": false.toJson,
     ];
-    auto updatedOptions = options.update(mydefaults);
+    auto updatedOptions = options.set(mydefaults);
 
     if (queryData) {
       fullUrl ~= fullUrl.contains("?") ? "&" : "?";

@@ -119,7 +119,7 @@ class DDebugger {
         }
 
         aConfig = array_intersectinternalKey( /* (array) */ Configure.read("Debugger"), _defaultConfig);
-        configuration.update(aConfig);
+        configuration.set(aConfig);
 
         e = `<pre class="uim-error">`;
         e ~= `<a href="javascript:void(0);" onclick="document.getElementById(\"{:id}-trace\")`;

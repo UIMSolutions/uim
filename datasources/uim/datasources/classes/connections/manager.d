@@ -62,9 +62,9 @@ protected static DConnectionRegistry _registry;
      *
      * The connection will not be constructed until it is first used.
      */
-static void configuration.update(string[] aKey, /* IConnection | Closure */ Json[string] configData = null) {
+static void configuration.set(string[] aKey, /* IConnection | Closure */ Json[string] configData = null) {
     configuration.get("name", aKey);
-    configuration.update(aKey, configData);
+    configuration.set(aKey, configData);
 }
 
 /**

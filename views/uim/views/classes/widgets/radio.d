@@ -201,7 +201,7 @@ class DRadioWidget : DWidget {
         }
         
         auto labelAttributes = label.isArray ? label : [];
-        labelAttributes.update([
+        labelAttributes.set([
             "for": radio["id"],
             "escape": shouldEscape,
             "text": radio["text"],

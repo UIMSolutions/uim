@@ -161,7 +161,7 @@ class DTextHelper : DHelper {
      */
     string autoLink(string text, Json[string] options  = null) {
         auto linkUrls = autoLinkUrls(text, options);
-        return _autoLinkEmails(linkUrls, options.update(["escape": false.toJson]));
+        return _autoLinkEmails(linkUrls, options.set(["escape": false.toJson]));
     }
     
     /**

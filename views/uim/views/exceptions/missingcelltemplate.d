@@ -37,7 +37,7 @@ class DMissingTCellException : DMissingTemplateException {
     }
     override Json[string] attributes() {
         return super.attributes()
-            .update([
+            .set([
                 "name": Json(name)
             ]);
     }

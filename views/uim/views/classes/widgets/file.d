@@ -44,7 +44,7 @@ class DFileWidget : DWidget {
 
         return _stringContents.format("file", 
             updatedData.data(["name", "templateVars"])
-                .update(["attrs": _stringContents.formatAttributes(updatedData, ["name"])]); 
+                .set(["attrs": _stringContents.formatAttributes(updatedData, ["name"])]); 
         return null; 
     }
 }

@@ -50,7 +50,7 @@ class DBreadcrumbsHelper : DHelper {
             title.each!(crumb => _crumbs ~= crumb ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
             return;
         }
-        _crumbs = _crumbs.update(compact("title", "url", "options"));
+        _crumbs = _crumbs.set(compact("title", "url", "options"));
     }
     
     /**

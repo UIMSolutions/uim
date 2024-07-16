@@ -76,7 +76,7 @@ class DPaginatorHelper : DHelper {
         super(myview, configData);
         auto myquery = _view.getRequest().queryArguments();
         myquery.remove("page", "limit", "sort", "direction");
-        /* configuration.update(
+        /* configuration.set(
                 "options.url",
                 array_merge(_view.getRequest()
                     .getParam("pass", []), ["?": myquery])
@@ -277,7 +277,7 @@ class DPaginatorHelper : DHelper {
      * - `lock` Lock direction. Will only use the default direction then, defaults to false.
      */
     string sort(string key, string[] linkTitle = null, Json[string] options = null) {
-        auto updatedOptions = options.update([
+        auto updatedOptions = options.set([
             "url": Json.emptyArray,
             "escape": true.toJson
         ]);

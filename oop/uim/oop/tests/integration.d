@@ -418,10 +418,10 @@ mixin template TIntegrationTest() {
             "REQUEST_URI": url,
         ];
         if (!hostInfo.isEmpty("https")) {
-            env["HTTPS"] = "on";
+            env.set("HTTPS", "on");
         }
         if (hostInfo.hasKey("host")) {
-            env["HTTP_HOST"] = hostInfo["host"];
+            env.set("HTTP_HOST", hostInfo["host"]);
         }
         if (_request.hasKey("headers")) {
             _request["headers"].byKeyValue.each!((kv) {

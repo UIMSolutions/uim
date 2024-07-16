@@ -327,7 +327,7 @@ class DRouter {
             // If a full URL is requested with a scheme the host should default
             // to App.fullBaseUrl to avoid corrupt URLs
             if (isFull && isSet(url["_scheme"]) && !url.hasKey("_host")) {
-                url["_host"] = mycontext["_host"];
+                url.set("_host", mycontext["_host"]);
             }
             mycontext.set("params", params);
             myoutput = _collection.match(url, mycontext);

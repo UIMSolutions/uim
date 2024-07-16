@@ -1239,13 +1239,13 @@ class DFormHelper : DHelper {
 
         auto generatedHiddenId = false;
         if (!attributes.hasKey("id")) {
-            attributes["id"] = true;
+            attributes.set("id", true);
             generatedHiddenId = true;
         }
         attributes = _initInputField(fieldName, attributes);
 
         auto hiddenField = attributes.get("hiddenField", true);
-        remove(attributes["hiddenField"]);
+        attributes.remove("hiddenField");
 
         auto myhidden = "";
         if (hiddenField == true && isScalar(hiddenField)) {
@@ -1666,10 +1666,10 @@ class DFormHelper : DHelper {
 
         if (attributes["empty"].isNull && attributes["multiple"] != "checkbox") {
             myrequired = _getContext().isRequired(fieldName);
-            attributes["empty"] = myrequired.isNull ? false : !myrequired;
+            attributes.set("empty", myrequired.isNull ? false : !myrequired);
         }
         if (attributes["multiple"] == "checkbox") {
-            remove(attributes["multiple"], attributes["empty"]);
+            attributes.remove("multiple", "empty");
 
             return _multiCheckbox(fieldName, options, attributes);
         }
@@ -1697,7 +1697,7 @@ class DFormHelper : DHelper {
             ];
             myhidden = hidden(fieldName, myhiddenAttributes);
         }
-        remove(attributes["hiddenField"], attributes["type"]);
+        attributes.remove("hiddenField", "type");
 
         return myhidden ~ widget("select", attributes);
     }
@@ -1730,28 +1730,28 @@ class DFormHelper : DHelper {
 
         generatedHiddenId = false;
         if (!htmlAttributes.hasKey("id")) {
-            htmlAttributes["id"] = true;
+            htmlAttributes.set("id", true);
             generatedHiddenId = true;
         }
         htmlAttributes = _initInputField(fieldName, htmlAttributes);
         htmlAttributes.set("options", options);
         htmlAttributes.set("idPrefix", _idPrefix);
 
-        myhidden = "";
+        auto myhidden = "";
         if (htmlAttributes.hasKey("hiddenField")) {
             myhiddenAttributes = [
                 "name": htmlAttributes.getString("name"),
                 "value": "",
                 "secure": false.toJson,
-                "disabled": htmlAttributes.getString("disabled", == "disabled",
+                "disabled": htmlAttributes.getString("disabled") == "disabled",
                 "id": htmlAttributes["id"],
             ];
             myhidden = hidden(fieldName, myhiddenAttributes);
         }
-        remove(htmlAttributes["hiddenField"]);
+        htmlAttributes.remove("hiddenField");
 
         if (generatedHiddenId) {
-            remove(htmlAttributes["id"]);
+            htmlAttributes.remove("id");
         }
         return myhidden ~ widget("multicheckbox", htmlAttributes);
     }
@@ -1787,12 +1787,12 @@ class DFormHelper : DHelper {
      * See dateTime() options.
      */
     string month(string fieldName, Json[string] options  = null) {
-        auto updatedOptions = options.update[
+        Json[string] updatedOptions = options.update[
             "value": Json(null),
         ];
 
         options = _initInputField(fieldName, options);
-        options["type"] = "month";
+        options.set("type", "month");
 
         return _widget("datetime", options);
     }

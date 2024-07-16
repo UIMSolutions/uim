@@ -456,7 +456,7 @@ class DHtmlHelper : DHelper {
             return result;
         }
         if (htmlAttributes["block"] == true) {
-            htmlAttributes["block"] = "script";
+            htmlAttributes.set("block", "script");
         }
        _view.append(htmlAttributes["block"], result);
 
@@ -838,7 +838,7 @@ class DHtmlHelper : DHelper {
                 pathToImageFile = htmlAttributes["src"];
             }
             /** @psalm-suppress PossiblyNullArgument */
-            htmlAttributes["src"] = _Url.assetUrl(pathToImageFile, htmlAttributes);
+            htmlAttributes.set("src", _Url.assetUrl(pathToImageFile, htmlAttributes));
         }
         if (mytag.isNull) {
             if (pathToImageFile.isArray) {

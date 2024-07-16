@@ -301,13 +301,13 @@ class DRouteBuilder {
 
         string myprefix = options.getStrinf("prefix");
         if (_params.hasKey("prefix") && myprefix) {
-            myprefix = _params["prefix"] ~ "/" ~ myprefix;
+            myprefix = _params.getString("prefix") ~ "/" ~ myprefix;
         }
-        foreach (myresourceMap as mymethod : params) {
+        foreach (mymethod, params; myresourceMap) {
             if (!isIn(mymethod, myonly, true)) {
                 continue;
             }
-            myaction = options.get("actions"].get(mymethod, params["action"]);
+            myaction = options.get("actions").get(mymethod, params.get("action"));
 
             string myurl = "/" ~ join("/", array_filter([
                     options["path"], params["path"]
@@ -318,7 +318,7 @@ class DRouteBuilder {
                 "_method": params["method"],
             ];
             if (myprefix) {
-                params["prefix"] = myprefix;
+                params.set("prefix", myprefix);
             }
             myrouteOptions = myconnectOptions ~ [
                 "id": options.get("id"),
@@ -330,7 +330,7 @@ class DRouteBuilder {
         if (nestedCallback !is null) {
             auto myidName = Inflector.singularize(Inflector.underscore(controllerName)) ~ "_id";
             auto path = "/" ~ options.getString("path") ~ "/{" ~ myidName ~ "}";
-            this.scope (path, [], nestedCallback);
+            scope(path, [], nestedCallback);
         }
         return this;
     }
@@ -661,7 +661,7 @@ class DRouteBuilder {
         auto path = options.getString("path", "/" ~ Inflector.dasherize(routings));
         options.remove("path");
         options = options.set(["plugin": routings]);
-        this.scope (path, options, null /* callbackClosure */);
+        scope(path, options, null /* callbackClosure */);
 
         return this;
     }

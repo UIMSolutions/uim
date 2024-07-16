@@ -97,8 +97,8 @@ class DRoute : IRoute {
         setMiddleware(configuration.getArray("_middleware"));
         configuration.remove("_middleware");
 
-        if (isSet(_defaults["_method"])) {
-            _defaults["_method"] = this.normalizeAndValidateMethods(_defaults["_method"]);
+        if (_defaults.hasKey("_method")) {
+            _defaults.set("_method", this.normalizeAndValidateMethods(_defaults["_method"]));
         }
     }
     

@@ -233,12 +233,12 @@ class DSelectBoxWidget : DWidget {
                 if (!templateVariables.isEmpty) {
                     myoptAttrs.set("templateVars", array_merge(templateVariables, myoptAttrs["templateVars"]));
                 }
-                myoptAttrs["escape"] = escapeHTML;
+                myoptAttrs.set("escape", escapeHTML);
 
                 result ~= _stringContents.format("option", [
                         "value": isEscapeHTML ? htmlAttributeEscape(myoptAttrs["value"]): myoptAttrs["value"],
                         "text": isEscapeHTML ? htmlAttributeEscape(myoptAttrs["text"]): myoptAttrs["text"],
-                        "templateVars": myoptAttrs["templateVars"],
+                        "templateVars": myoptAttrs.get("templateVars"),
                         "attrs": _stringContents.formatAttributes(myoptAttrs, [
                             "text", "value"
                         ]),

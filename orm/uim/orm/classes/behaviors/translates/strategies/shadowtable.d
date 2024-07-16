@@ -295,13 +295,13 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * in the database too.
      */
     void beforeSave(IEvent event, IORMEntity anEntity, Json[string] options) {
-        locale = entity.get("_locale") ? entity.get("_locale") : locale();
-        newOptions = [
+        auto locale = entity.get("_locale") ? entity.get("_locale") : locale();
+        auto newOptions = [
             this.translationTable.aliasName(): [
                 "validate": false.toJson
             ]
         ];
-        options["associated"] = newOptions + options["associated"];
+        options.set("associated", newOptions + options["associated"]);
 
         // Check early if empty translations are present in the entity.
         // If this is the case, unset them to prevent persistence.

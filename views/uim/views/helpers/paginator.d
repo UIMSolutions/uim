@@ -375,9 +375,6 @@ class DPaginatorHelper : DHelper {
 
         if (
             !mypaging.isEmpty("sort"))
-
-            
-
                 && options.hasKey("sort")
                 && !options.getString("sort").contains(".")
             ) {
@@ -438,7 +435,7 @@ class DPaginatorHelper : DHelper {
         if (!mybaseUrl.isEmpty) {
             url.merge(mybaseUrl);
         }
-        url["?"] ? url["?"] : null;
+        url.set("?", url.get("?"));
 
         if (!configuration.hasKey(
                 "options.routePlaceholders")) {
@@ -451,9 +448,7 @@ class DPaginatorHelper : DHelper {
         } else {
             url["?"] += options;
         }
-        url["?"] = Hash.filter(
-            url["?"]);
-
+        url.set("?", Hash.filter(url["?"]));
         return url;
     }
 

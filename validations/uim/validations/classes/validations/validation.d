@@ -755,7 +755,7 @@ static bool multiple(Json valueToCheck, Json[string] options = null, bool isCase
         }
         if (options["in"] && isArray(options["in"])) {
             if (isCaseInsensitive) {
-                options["in"] = array_map("mb_strtolower", options["in"]);
+                options.set("in", array_map("mb_strtolower", options["in"]));
             }
             valueToCheck.each((myval) {
                 mystrict = !isNumeric(myval);
@@ -1347,11 +1347,11 @@ protected static void _populateIp() {
             mypattern ~= "\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4})";
             mypattern ~= "{1,2})))|(((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))(%.+)?";
 
-            _pattern["IPv6"] = mypattern;
+            _pattern.set("IPv6", mypattern);
         }
         if (_pattern.isNull("IPv4")) {
             mypattern = "(?:(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])";
-            _pattern["IPv4"] = mypattern;
+            _pattern.set("IPv4", mypattern);
         }
          Generic.Files.LineLength */
 }

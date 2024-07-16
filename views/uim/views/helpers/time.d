@@ -205,12 +205,12 @@ class DTimeHelper : DHelper {
             if (options.isArray("element")) {
                 myelement = options.get("element") + myelement;
             } else {
-                myelement["tag"] = options.get("element");
+                myelement.set("tag", options.get("element"));
             }
             options.remove("element");
         }
-        myrelativeDate = (new DateTime(mydateTime)).timeAgoInWords(options);
-
+        
+        auto myrelativeDate = (new DateTime(mydateTime)).timeAgoInWords(options);
         if (myelement) {
             myrelativeDate =
                 "<%s%s>%s</%s>".format(

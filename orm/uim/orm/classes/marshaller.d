@@ -28,11 +28,11 @@ class DMarshaller {
         auto tableSchema = _table.getSchema();
 
         // Is a concrete column?
-        foreach (myprop, dataBeingMarshalled.keys) {
-            auto myprop = to!string(myprop);
-            auto mycolumnType = tableSchema.getColumnType(myprop);
+        foreach (propertyName; dataBeingMarshalled.keys) {
+            propertyName = to!string(propertyName);
+            auto mycolumnType = tableSchema.getColumnType(propertyName);
             /* if (mycolumnType) {
-                mymap[myprop] = fn(myvalue) : TypeFactory.build(mycolumnType).marshal(myvalue);
+                mymap[propertyName] = fn(myvalue) : TypeFactory.build(mycolumnType).marshal(myvalue);
             } */
         }
         // Map associations
@@ -754,10 +754,7 @@ class DMarshaller {
                 "_joinData")) {
             mynested =  /* (array) */ myassociated["_joinData"];
         }
-        options["accessibleFields"] = [
-            "_joinData": true
-            .toJson
-        ];
+        options.set("accessibleFields", ["_joinData": true.toJson]);
         auto myrecords = this.mergeMany(
             originalEntities, dataToHydrate, options);
         myrecords.each!(

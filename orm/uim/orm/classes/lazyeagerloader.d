@@ -38,34 +38,34 @@ class DLazyEagerLoader {
      * associations specified in associationsToLoad.
      */
     protected ISelectQuery _getQuery(IORMEntity[] myentities, Json[string] associationsToLoad, DORMTable sourceTable) {
-        auto myprimaryKey = sourceTable.primaryKeys();
-        auto mymethod = isString(myprimaryKey) ? "get" : "extract";
-        auto someKeys = Hash.map(myentities, "{*}", fn (IORMEntity myentity): myentity.{mymethod}(myprimaryKey));
+        auto primaryKeys = sourceTable.primaryKeys();
+        auto mymethod = isString(primaryKeys) ? "get" : "extract";
+        /// auto someKeys = Hash.map(myentities, "{*}", fn (IORMEntity myentity): myentity.{mymethod}(primaryKeys)); 
 
-        auto myquery = sourceTable
+        ISelectQuery selectQuery = sourceTable
             .find()
-            .select(/* (array) */myprimaryKey)
-            .where(function (QueryExpression myexp, SelectQuery myq) use (myprimaryKey, someKeys, sourceTable) {
-                if (isArray(myprimaryKey) && count(myprimaryKey) == 1) {
-                    myprimaryKey = currentValue(myprimaryKey);
+            .select(primaryKeys)
+            /* .where(function (QueryExpression myexp, SelectQuery myq) use (primaryKeys, someKeys, sourceTable) {
+                if (isArray(primaryKeys) && count(primaryKeys) == 1) {
+                    primaryKeys = currentValue(primaryKeys);
                 }
-                if (isString(myprimaryKey)) {
-                    return myexp.in(sourceTable.aliasField(myprimaryKey), someKeys);
+                if (isString(primaryKeys)) {
+                    return myexp.in(sourceTable.aliasField(primaryKeys), someKeys);
                 }
-                mytypes = array_intersectinternalKey(myq.getDefaultTypes(), array_flip(myprimaryKey));
-                myprimaryKey = array_map([sourceTable, "aliasField"], myprimaryKey);
+                mytypes = array_intersectinternalKey(myq.getDefaultTypes(), array_flip(primaryKeys));
+                primaryKeys = array_map([sourceTable, "aliasField"], primaryKeys);
 
-                return new DTupleComparison(myprimaryKey, someKeys, mytypes, "IN");
-            })
+                return new DTupleComparison(primaryKeys, someKeys, mytypes, "IN");
+            }) */
             .enableAutoFields()
             .contain(associationsToLoad);
 
-        foreach (myquery.getEagerLoader().attachableAssociations(sourceTable) as myloadable) {
+        /* foreach (myloadable; selectQuery.getEagerLoader().attachableAssociations(sourceTable)) {
             configData = myloadable.configuration.data;
-            configuration.get("includeFields"] = true;
+            configuration.get("includeFields", true);
             myloadable.configuration.update(configData);
-        }
-        return myquery;
+        } */
+        return selectQuery;
     }
 
     /**
@@ -76,7 +76,7 @@ class DLazyEagerLoader {
         auto propertyMap = null;
         auto mycontainer = sourceTable.associations();
         foreach (myassoc; associations) {
-            myassociation = mycontainer.get(myassoc);
+            auto myassociation = mycontainer.get(myassoc);
             propertyMap[myassoc] = myassociation.getProperty();
         }
         return propertyMap;
@@ -91,16 +91,16 @@ class DLazyEagerLoader {
    ) {
         auto myinjected = null;
         auto myproperties = _getPropertyMap(sourceTable, myassociations);
-        auto myprimaryKey = /* (array) */sourceTable.primaryKeys();
+        auto primaryKeys = /* (array) */sourceTable.primaryKeys();
         /** @var array<\UIM\Datasource\IORMEntity> results */
         /* auto results = selectQuery
             .all()
-            .indexBy(IORMEntity exception => exception.extract(myprimaryKey).join(";"))
+            .indexBy(IORMEntity exception => exception.extract(primaryKeys).join(";"))
             .toJString();
 
         myentities.byKeyValue
             .each!((kv) {
-            aKey = myobject.extract(myprimaryKey).join(";");
+            aKey = myobject.extract(primaryKeys).join(";");
             if (results.isNull(aKey)) {
                 myinjected[myKey] = myobject;
                 continue;

@@ -1,6 +1,7 @@
 ﻿module uim.html.classes.elements.link;
 
 import uim.html;
+
 @safe:
 
 class DH5Link : DH5Obj {
@@ -8,28 +9,35 @@ class DH5Link : DH5Obj {
 
   O styleSheet(this O)(bool mode = true) {
     if (mode) {
-      attribues["rel"] = "stylesheet";      
+      attribues.set("rel", "stylesheet");
+    } else {
+      if (isStyleSheet)
+        attributes.remove("rel");
     }
-    else {
-      if (isStyleSheet)  attributes.remove("rel");
-    }
-    cast(o)this;
+    cast(o) this;
   }
-  bool isStyleSheet() { return (attributes.get("rel", null) == "stylesheet"); }
+
+  bool isStyleSheet() {
+    return (attributes.get("rel", null) == "stylesheet");
+  }
 
   O icon(this O)(bool mode = true) {
     if (mode) {
-      attribues["rel"] = "icon";      
+      attribues.set("rel", "icon");
+    } else {
+      if (isIcon)
+        attributes.remove("rel");
     }
-    else {
-      if (isIcon)  attributes.remove("rel");
-    }
-    cast(o)this;
+    cast(o) this;
   }
-  bool isIcon() { return (attributes.get("rel", null) == "stylesheet"); }
+
+  bool isIcon() {
+    return (attributes.get("rel", null) == "stylesheet");
+  }
 }
+
 mixin(H5Short!("Link"));
 
-version(test_uim_html) { unittest {
+unittest {
   assert(H5Link == "<link>");
-}}
+}

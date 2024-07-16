@@ -99,7 +99,7 @@ class DResultsetFactory {
                 mytable = mymatching["instance"];
                 assert(cast(Table)mytable || cast(DAssociation)mytable);
 
-                options["source"] = mytable.registryKey();
+                options.set("source", mytable.registryKey());
                 myentity = new mymatching["entityClass"](results["_matchingData"][aliasName], options);
                 assert(cast(IORMEntity)myentity);
 

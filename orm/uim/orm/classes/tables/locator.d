@@ -117,8 +117,8 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         if (!aliasName.contains("\\")) {
             [, myclassAlias] = pluginSplit(aliasName);
             options = ["alias": myclassAlias] + options;
-        } else if (!options.hasKey("alias"])) {
-            options["classname"] = aliasName;
+        } else if (!options.hasKey("alias")) {
+            options.set("classname", aliasName);
         }
         if (configuration.hasKey(aliasName)) {
             auto updatedOptions = options.updateconfiguration.get(aliasName);

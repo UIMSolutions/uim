@@ -395,9 +395,9 @@ class DEagerLoader {
         eagerLoadable = new DEagerLoadable(aliasName, myConfiguration);
 
         if (configuration.hasKey("canBeJoined")) {
-            _aliasList[paths["root"]][aliasName] ~= eagerLoadable;
+            _aliasList.add([paths.getString("root"), aliasName], eagerLoadable);
         } else {
-            paths["root"] = configuration.get("aliasPath");
+            paths.set("root", configuration.get("aliasPath"));
         }
 
         foreach (t, association; extra) {

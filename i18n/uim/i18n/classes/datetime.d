@@ -219,7 +219,8 @@ class DateTime /* : Chronos, JsonSerializable */ {
         string timezone = null
     ) {
         format = format ? format : _toStringFormat;
-        return _parseDateTime(time, format, timezone);
+        // return _parseDateTime(time, format, timezone);
+        return "";
     }
 
     /**
@@ -249,7 +250,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
             format = [format, IntlDateFormatters.NONE];
         }
         return parseDateTime(date, format); */
-        return null;
+        return "";
     }
 
     /**

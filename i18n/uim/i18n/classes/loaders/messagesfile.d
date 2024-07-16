@@ -145,13 +145,13 @@ class DMessagesFileLoader {
         auto file = null;
         auto fileName = fileName.replace("/", "_");
 
-        folders.each!((folder) {
+        /* folders.each!((folder) {
             string filePath = folder ~ fileName ~ "." ~ fileExtension;
             if (filePath.isFile) {
                 file = filePath;
                 break;
             }
-        });
+        }); */
 
         return file;
     }

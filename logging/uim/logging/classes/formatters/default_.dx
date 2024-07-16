@@ -17,7 +17,7 @@ class StandardLogFormatter : DAbstractFormatter {
 
 
     this(Json[string] configData = null) {
-        configuration.update(configData);
+        configuration.set(configData);
     }
  
     string format(level, string messageToFormat, Json[string] context= null) {

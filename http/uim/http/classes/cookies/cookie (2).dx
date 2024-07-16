@@ -102,7 +102,7 @@ class DCookie : ICookie {
         if (options.hasKey("samesite")) {
             options["samesite"] = resolveSameSiteenumeration(options["samesite"]);
         }
-        defaultAttributes = options.update(defaultAttributes);
+        defaultAttributes = options.set(defaultAttributes);
     }
     
     // Factory method to create Cookie instances.

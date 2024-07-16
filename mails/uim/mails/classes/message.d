@@ -50,7 +50,7 @@ class DMessage { //: JsonSerializable {
             this.domain = D_uname("n");
         }
         if (configData) {
-            configuration.update(configData);
+            configuration.set(configData);
         } */
         
         return true;
@@ -504,7 +504,7 @@ class DMessage { //: JsonSerializable {
     
     // Add header for the message
     void addHeaders(Json[string] headers) {
-        _headers.update(headers);
+        _headers.set(headers);
     }
     
     /**

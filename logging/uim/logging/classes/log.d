@@ -222,11 +222,11 @@ class DLog {
      * Configure multiple adapters at once:
      *
      * ```
-     * Log.configuration.update(arrayOfConfig);
+     * Log.configuration.set(arrayOfConfig);
      * ```
      */
-    static void configuration.update(string[] configName, /* ILogger|Closure|array|null */ Json[string] configData = null) {
-        configurationuration.update(configName, configData);
+    static void configuration.set(string[] configName, /* ILogger|Closure|array|null */ Json[string] configData = null) {
+        configurationuration.set(configName, configData);
         _isDirtyConfig = true;
     }
     

@@ -18,7 +18,7 @@ class DData : UIMObject, IData {
     
     // clear variables
     _values = null;
-    // TODO values.update(initData);
+    // TODO values.set(initData);
 
     return true;
   }
@@ -396,7 +396,7 @@ class DData : UIMObject, IData {
     // TODO 
     /* 
       if (shouldOverwrite) {
-        _values = values.update(newValue);
+        _values = values.set(newValue);
       } else {
         _values = values.merge(newValue);
       } 
@@ -405,7 +405,7 @@ class DData : UIMObject, IData {
 
   void fromJson(Json newValue, bool shouldOverwrite = true) {
     /*      if (shouldOverwrite) {
-        _values = values.update(newValue);
+        _values = values.set(newValue);
       } else {
         _values = values.merge(newValue);
       }  */

@@ -58,7 +58,7 @@ class DCspMiddleware { // }: IHttpMiddleware {
         if (!class_exists(CSPBuilder.classname)) {
             throw new DException("You must install paragonie/csp-builder to use CspMiddleware");
         }
-        configuration.update(configData);
+        configuration.set(configData);
 
         if (!cast(DCSPBuilder)cspObject) {
             cspObject = new DCSPBuilder(cspObject);

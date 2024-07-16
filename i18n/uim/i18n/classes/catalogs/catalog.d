@@ -43,7 +43,7 @@ class DMessageCatalog : ICatalog {
 
   // Adds new messages for this catalog.
   void addMessages(string[][string] newMessages) {
-    messages(messages.update(newMessages));
+    messages(messages.set(newMessages));
   }
 
   // #region Getter Setter single message

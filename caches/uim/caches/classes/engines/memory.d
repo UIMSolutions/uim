@@ -247,7 +247,7 @@ return true;
   override bool update(string itemKey, Json dataToCache, long timeToLive = 0) {
       return false;
       // TODO 
-    // return _memory.update(internalKey(itemKey), dataToCache, duration(timeToLive));
+    // return _memory.set(internalKey(itemKey), dataToCache, duration(timeToLive));
   }
 
 override bool merge(Json[string] items, long timeToLive = 0) {
@@ -263,7 +263,7 @@ override bool merge(Json[string] items, long timeToLive = 0) {
     Json[string] cacheData = null;
     items.byKeyValue
       .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
-    return _memory.update(cacheData); //, duration(timeToLive));
+    return _memory.set(cacheData); //, duration(timeToLive));
   } */
 
   // Read a key from the cache

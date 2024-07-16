@@ -398,7 +398,7 @@ mixin template TIntegrationTest() {
 
     // Creates a request object with the configured options and parameters.
     protected Json[string] _buildRequest(string url, string httpMethod, string[] requestData = null) {
-        auto sessionConfig = configuration.data("Session").update([
+        auto sessionConfig = configuration.data("Session").set([
             "defaults": "D".toJson,
         ]);
 
@@ -443,18 +443,18 @@ mixin template TIntegrationTest() {
         ];
 
         if (isString(someData)) {
-            props["input"] = someData;
+            props.set("input", someData);
         } else if (
             someData.isArray &&
             props.hasKey("environment.CONTENT_TYPE") &&
             props.getString("environment.CONTENT_TYPE") == "application/x-www-form-urlencoded"
             ) {
-            props["input"] = http_build_query(someData);
+            props.set("input", http_build_query(someData));
         } else {
             someData = _addTokens(tokenUrl, someData);
-            props["post"] = _castToString(someData);
+            props.set("post", _castToString(someData));
         }
-        props["cookies"] = _cookie;
+        props.set("cookies", _cookie);
         session.write(_session);
 
         return _request.dup.merge(props);

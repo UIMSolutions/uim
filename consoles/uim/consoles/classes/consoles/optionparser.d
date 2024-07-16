@@ -305,7 +305,7 @@ class DConsoleOptionParser {
             "required": false.toJson,
             "prompt": Json(null),
         ];
-        behaviorOptions = behaviorOptions.update(defaultValues);
+        behaviorOptions = behaviorOptions.set(defaultValues);
 
         auto inputOption = new DConsoleInputOption(
             name,

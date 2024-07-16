@@ -280,21 +280,21 @@ class DRouteBuilder {
             "path": Json(null),
         ];
 
-        foreach (options["map"] as myKey : mymapped) {
+        foreach (myKey, mymapped; options["map"]) {
             options["map"][myKey] += ["method": "GET", "path": myKey, "action": ""];
         }
         myext = null;
         if (!options.isEmpty("_ext")) {
-            myext = options.get("_ext"];
+            myext = options.get("_ext");
         }
-        myconnectOptions = options.get("connectOptions"];
+        myconnectOptions = options.get("connectOptions");
         if (options.isEmpty("path")) {
-            mymethod = options.get("inflect"];
-            options["path"] = Inflector.mymethod(controllerName);
+            mymethod = options.get("inflect");
+            options.set("path", Inflector.mymethod(controllerName));
         }
-        myresourceMap = chain(_resourceMap, options["map"]);
+        auto myresourceMap = chain(_resourceMap, options["map"]);
 
-        myonly = (array) options["only"];
+        string[] myonly =  options.getStringArray("only");
         if (isEmpty(myonly)) {
             myonly = myresourceMap.keys;
         }
@@ -660,7 +660,7 @@ class DRouteBuilder {
         }
         auto path = options.getString("path", "/" ~ Inflector.dasherize(routings));
         options.remove("path");
-        options = options.update(["plugin": routings]);
+        options = options.set(["plugin": routings]);
         this.scope (path, options, null /* callbackClosure */);
 
         return this;

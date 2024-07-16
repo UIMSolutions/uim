@@ -24,18 +24,18 @@ class DPropertyObj : DOOPElement {
 
 /* 	@safe override Bson toBson() {
 		Bson result = super.toBson;
-		result["datatype"] = _datatype;
-		result["defaultValue"] = _defaultValue;
-		result["readOnly"] = _readOnly;
+		result.set("datatype", _datatype);
+		result.set("defaultValue", _defaultValue);
+		result.set("readOnly", _readOnly);
 		
 		return result;
 	} */
 
 	@safe override Json toJson() {
 		Json result = Json.emptyObject;
-		result["datatype"] = _datatype;
-		result["defaultValue"] = _defaultValue;
-		result["readOnly"] = _readOnly;
+		result.set("datatype", _datatype);
+		result.set("defaultValue", _defaultValue);
+		result.set("readOnly", _readOnly);
 
 		return result;
 	}

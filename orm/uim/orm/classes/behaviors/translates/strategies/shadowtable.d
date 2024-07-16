@@ -62,7 +62,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             _tableLocator = configuration.get("tableLocator");
         }
 
-        configuration.update(myConfiguration);
+        configuration.set(myConfiguration);
         _table = table;
         this.translationTable = getTableLocator()
             .get(
@@ -482,7 +482,9 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                         .keys; foreach (field; keys) {
                             if (
                                 field == "locale") {
-                                row["_locale"] = translation[field]; continue;}
+                                row.set("_locale", translation[field]); 
+                                continue;
+                                }
 
                                 if (
                                     translation[field] != null) {
@@ -590,7 +592,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         fields = _table
             .getSchema()
             .columns();
-        configuration.update(
+        configuration.set(
             "mainTableFields", fields);
 
         return fields;
@@ -611,7 +613,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 fields, [
                     "id", "locale"
                 ]));
-        configuration.update("fields", fields);
+        configuration.set("fields", fields);
         return fields;
     }
 }

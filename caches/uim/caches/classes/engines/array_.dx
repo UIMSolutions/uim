@@ -69,7 +69,7 @@ class DArrayCacheEngine : DCacheEngine {
       update(key, 0);
     }
     auto internKey = internalcorrectKey(key);
-    _cachedData.update(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") + incValue);
+    _cachedData.set(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") + incValue);
 
     return _cachedData[internKey ~ ".val"];
   }
@@ -80,7 +80,7 @@ class DArrayCacheEngine : DCacheEngine {
       set(key, 0);
     }
     auto internKey = internalcorrectKey(key);
-    _cachedData.update(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") - decValue);
+    _cachedData.set(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") - decValue);
 
     return _cachedData[internKey ~ ".val"];
   }

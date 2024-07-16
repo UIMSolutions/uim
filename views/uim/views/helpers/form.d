@@ -531,7 +531,7 @@ class DFormHelper : DHelper {
         if (fieldName.endsWith("._ids")) {
             fieldName = subString(fieldName, 0, -5);
         }
-        auto updatedOptions = options.update(["escape": true.toJson]);
+        auto updatedOptions = options.set(["escape": true.toJson]);
         auto formContext = _getContext();
         if (!formContext.hasError(fieldName)) {
             return null;
@@ -1360,7 +1360,7 @@ class DFormHelper : DHelper {
      * string title The button"s caption. Not automatically HTML encoded
      */
     string button(string title, Json[string] options  = null) {
-        Json[string] updatedOptions = options.update([
+        Json[string] updatedOptions = options.set([
             "type": "submit".toJson,
             "escapeTitle": true.toJson,
             "escape": true.toJson,
@@ -1482,7 +1482,7 @@ class DFormHelper : DHelper {
         ]);
         result ~= _csrfField();
 
-        myformTokenData = _View.getRequest().getAttribute("formTokenData");
+        auto myformTokenData = _View.getRequest().getAttribute("formTokenData");
         if (myformTokenData !is null) {
             _formProtector = this.createFormProtector(myformTokenData);
         }
@@ -1511,7 +1511,7 @@ class DFormHelper : DHelper {
         updatedOptions.remove("block");
 
         string myurl = "#";
-        myonClick = "document." ~ myformName ~ ".submit();";
+        string myonClick = "document." ~ myformName ~ ".submit();";
         if (confirmMessage) {
             myonClick = _confirm(myonClick, "");
             myonClick = myonClick ~ "event.returnValue = false; return false;";
@@ -1520,7 +1520,7 @@ class DFormHelper : DHelper {
                 "formName": myformName,
                 "confirm": myonClick,
             ]);
-            updatedOptions["data-confirm-message"] = confirmMessage;
+            updatedOptions.set("data-confirm-message", confirmMessage);
         } else {
             myonClick ~= " event.returnValue = false; return false;";
         }
@@ -1548,7 +1548,7 @@ class DFormHelper : DHelper {
      */
     string submit(string caption = null, Json[string] options  = null) {
         caption ? caption : __d("uim", "Submit");
-        auto updatedOptions = options.update([
+        auto updatedOptions = options.set([
             "type": "submit",
             "secure": false.toJson,
             "templateVars": Json.emptyArray,

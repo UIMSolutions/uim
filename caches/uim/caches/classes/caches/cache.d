@@ -138,7 +138,7 @@ class DCache : UIMObject, ICache {
             auto myfallbackEngine = pool(configuration.get("fallback")).clone;
             assert(cast(DCacheEngine)myfallbackEngine);
 
-            auto mynewConfig = configuration.update([
+            auto mynewConfig = configuration.set([
                     "groups": Json.emptyArray, 
                     "prefix": StringData
                 ]);

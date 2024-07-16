@@ -234,11 +234,11 @@ class DHtmlHelper : DHelper {
         }
         if (myconfirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
-            htmlAttributes["data-confirm-message"] = myconfirmMessage;
-            htmlAttributes["onclick"] = mytemplater.format("confirmJs", [
+            htmlAttributes.set("data-confirm-message", myconfirmMessage);
+            htmlAttributes.set("onclick", mytemplater.format("confirmJs", [
                 "confirmMessage": htmlAttributeEscape(myconfirmMessage),
                 "confirm": myconfirm,
-            ]);
+            ]));
         }
         return mytemplater.format("link", [
             "url": url,
@@ -317,7 +317,7 @@ class DHtmlHelper : DHelper {
     }
 
     string css(string[] mypath, Json[string] htmlAttributes = null) {
-        auto htmlAttributes = htmlAttributes.update([
+        auto htmlAttributes = htmlAttributes.set([
             "once": true.toJson,
             "block": Json(null),
             "rel": "stylesheet".toJson,

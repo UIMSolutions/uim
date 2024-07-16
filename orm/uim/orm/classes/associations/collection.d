@@ -183,7 +183,7 @@ class DAssociationCollection { // }: IteratorAggregate {
             return true;
         }
         if (!nested.isEmpty) {
-            options = nested.update(options);
+            options = nested.set(options);
         }
 
         return !ormAssociation.saveAssociated(ormEntity, options).isNull;

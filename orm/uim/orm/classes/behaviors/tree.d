@@ -356,7 +356,7 @@ class DTreeBehavior : DBehavior {
      */
     DORMQuery findChildren(DORMQuery query, Json[string] options = null) {
         auto configData = configuration.data;
-        auto updatedOptions = options.update(["for": Json(null), "direct": false.toJson]);
+        auto updatedOptions = options.set(["for": Json(null), "direct": false.toJson]);
         [parent, left, right] = array_map(
             function (field) {
                 return _table.aliasField(field);
@@ -745,7 +745,7 @@ class DTreeBehavior : DBehavior {
             auto where = exp.clone;
             where.add(field).add(conditions).conjunctionType("");
 
-            query.update()
+            query.set()
                 .set(exp.eq(field, movement))
                 .where(where);
 

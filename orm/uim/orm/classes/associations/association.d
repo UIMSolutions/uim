@@ -449,7 +449,7 @@ class DAssociation : IAssociation {
         auto target = getTarget();
         auto table = target.getTable();
 
-        auto updatedOptions = options.update([
+        auto updatedOptions = options.set([
             "includeFields": true.toJson,
             "foreignKeys": foreignKeys(),
             "conditions": Json.emptyArray,

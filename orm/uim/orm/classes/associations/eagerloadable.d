@@ -153,7 +153,7 @@ class DEagerLoadable {
      *
      * configData - The value to set.
      */
-    void configuration.update(Json[string] configData = null) {
+    void configuration.set(Json[string] configData = null) {
        configuration = configData;
     }
     

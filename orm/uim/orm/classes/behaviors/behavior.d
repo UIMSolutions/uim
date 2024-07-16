@@ -150,7 +150,7 @@ class DBehavior : DEventListener {
             myConfiguration
        );
         _table = attachedTable;
-        configuration.update(myConfiguration);
+        configuration.set(myConfiguration);
         this.initialize(myConfiguration);
     }
 
@@ -165,7 +165,7 @@ class DBehavior : DEventListener {
             return configuration;
         }
         if (configuration.hasKey(key) && configuration.isEmpty(key)) {
-            configuration.update(key, [], false);
+            configuration.set(key, [], false);
             configuration.remove(key);
 
             return configuration;
@@ -178,7 +178,7 @@ class DBehavior : DEventListener {
                 indexedCustom[methodAlias.key] = methodAlias.value;
             }
         });
-        configuration.update(key, array_flip(indexedCustom), false);
+        configuration.set(key, array_flip(indexedCustom), false);
         configuration.remove(key);
 
         return configuration;

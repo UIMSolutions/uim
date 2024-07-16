@@ -63,7 +63,7 @@ class DLazyEagerLoader {
         /* foreach (myloadable; selectQuery.getEagerLoader().attachableAssociations(sourceTable)) {
             configData = myloadable.configuration.data;
             configuration.get("includeFields", true);
-            myloadable.configuration.update(configData);
+            myloadable.configuration.set(configData);
         } */
         return selectQuery;
     }

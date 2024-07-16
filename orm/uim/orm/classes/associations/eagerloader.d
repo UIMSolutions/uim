@@ -421,7 +421,7 @@ class DEagerLoader {
             return;
         }
         configuration.set("strategy", Association.STRATEGY_SELECT);
-        myloadable.configuration.update(configData);
+        myloadable.configuration.set(configData);
         myloadable.setCanBeJoined(false);
     }
     
@@ -492,7 +492,7 @@ class DEagerLoader {
             }
             someKeys = mycollected.get(mypath~"."~aliasName, null);
             mycallback = myinstance.eagerLoader(
-                configData.update([
+                configData.set([
                     "query": selectQuery,
                     "contain": mycontain,
                     "keys": someKeys,

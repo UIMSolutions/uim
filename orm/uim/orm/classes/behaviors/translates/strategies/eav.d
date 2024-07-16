@@ -63,7 +63,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             _tableLocator = configuration.get("tableLocator");
         }
 
-        configuration.update(myConfiguration);
+        configuration.set(myConfiguration);
         _table = table;
         this.translationTable = getTableLocator().get(
             configuration.get("translationTable"],

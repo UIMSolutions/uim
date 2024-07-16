@@ -177,7 +177,7 @@ class DEagerLoader {
             _matching = new static();
         }
 
-        auto updatedOptions = options.update(["joinType": Query.JOIN_TYPE_INNER]);
+        auto updatedOptions = options.set(["joinType": Query.JOIN_TYPE_INNER]);
         auto sharedOptions = ["negateMatch": false.toJson, "matching": true.toJson] + options;
 
         auto contains = null;
@@ -446,7 +446,7 @@ class DEagerLoader {
         }
 
         configuration.set("strategy", Association.STRATEGY_SELECT);
-        loadable.configuration.update(myConfiguration);
+        loadable.configuration.set(myConfiguration);
         loadable.setCanBeJoined(false);
     }
 

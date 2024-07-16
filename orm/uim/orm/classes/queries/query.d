@@ -1030,7 +1030,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             table = repository.getTable();
         }
 
-        return super.update(table);
+        return super.set(table);
     }
 
     /**

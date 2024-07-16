@@ -25,11 +25,11 @@ class DSubject {
     observers ~= observer; }
 
   void notifyAllObservers() {
-    observers.each!(observer => observer.update()); 
+    observers.each!(observer => observer.set()); 
   }
 
   void notifyAllObservers(Json info) {
-    observers.each!(a => a.update(info)); } 	
+    observers.each!(a => a.set(info)); } 	
 }
 
 /// Create Observer class.

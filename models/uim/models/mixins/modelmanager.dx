@@ -67,7 +67,7 @@ mixin template TModelManager() {
      if (aModel) updateModel(aModel.name, aModel);
   }
   void updateModel(string aName, IModel aModel) {
-    if (aModel && hasModel(aName)) _modelContainer.update(aName, aModel);
+    if (aModel && hasModel(aName)) _modelContainer.set(aName, aModel);
   }
 
   // Remove existing model

@@ -68,12 +68,12 @@ class Obj {
 
 /* 	Json toJson() {
 		auto result = Json.emptyObject;
-		result["Fullname"] = fullname;
-		result["Properties"] = _properties.toJson;
-		result["Methods"] = _methods.toJson;
-		result["Events"] = _events.toJson;
-		result["Aggregations"] = _aggregations.toJson;
-		result["Associations"] = _associations.toJson;
+		result.set("Fullname", fullname);
+		result.set("Properties", _properties.toJson);
+		result.set("Methods", _methods.toJson);
+		result.set("Events", _events.toJson);
+		result.set("Aggregations", _aggregations.toJson);
+		result.set("Associations", _associations.toJson);
 		
 		return result;
 	} */

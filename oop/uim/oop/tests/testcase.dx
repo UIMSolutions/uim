@@ -84,7 +84,7 @@ abstract class DTestCase : DBaseTestCase {
     // Helper method for check deprecation methods
     void deprecated(Closure mycallable) {
         auto myduplicate = configuration.get("Error.allowDuplicateDeprecations");
-        Configuration.update("Error.allowDuplicateDeprecations", true);
+        Configuration.set("Error.allowDuplicateDeprecations", true);
         /** @var bool mydeprecation Expand type for psalm */
         auto mydeprecation = false;
 
@@ -106,7 +106,7 @@ abstract class DTestCase : DBaseTestCase {
         } finally {
             restore_error_handler();
             if (myduplicate != configuration.get("Error.allowDuplicateDeprecations")) {
-                Configuration.update("Error.allowDuplicateDeprecations", myduplicate);
+                Configuration.set("Error.allowDuplicateDeprecations", myduplicate);
             }
         }
         this.assertTrue(mydeprecation, "Should have at least one deprecation warning");
@@ -137,7 +137,7 @@ abstract class DTestCase : DBaseTestCase {
 
         if (_configure) {
             Configuration.clear();
-            Configuration.update(_configure);
+            Configuration.set(_configure);
         }
         getTableLocator().clear();
        _configure = null;
@@ -657,7 +657,7 @@ abstract class DTestCase : DBaseTestCase {
         auto locator = getTableLocator();
 
         [, baseClass] = pluginSplit(modelAlias);
-        options.update(["alias": baseClass, "connection": aConnection]);
+        options.set(["alias": baseClass, "connection": aConnection]);
         auto updatedOptions = options.updatelocator.configuration.get(modelAlias);
         auto reflection = new DReflectionClass(classname);
          classnameMethods = array_map(function (method) {
@@ -714,7 +714,7 @@ abstract class DTestCase : DBaseTestCase {
     // Set the app namespace
     static string setAppNamespace(string appNamespace = "TestApp") {
         auto previous = configuration.getString("App.namespace");
-        Configuration.update("App.namespace", appNamespace);
+        Configuration.set("App.namespace", appNamespace);
 
         return previous;
     }

@@ -22,7 +22,7 @@ class UIMObject : INamed {
         name("Attribute");
 
         configuration(MemoryConfiguration);
-        configuration.update(initData);
+        configuration.set(initData);
 
         return true;
     }

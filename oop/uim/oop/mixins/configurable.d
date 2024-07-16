@@ -32,7 +32,7 @@ mixin template TConfigurable() {
     // Set configuration data
     void updateConfiguration(Json[string] newData) {
         if (configuration) {
-            configuration.update(newData);
+            configuration.set(newData);
         }
     }
 

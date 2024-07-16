@@ -18,9 +18,9 @@ interface ILocator { // }: BaseILocator {
      * Stores a list of options to be used when instantiating an object
      * with a matching alias.
      */
-    // ILocator configuration.update(string[] aliasNames...);
-    // ILocator configuration.update(string aliasName, Json[string] options = null);
-    ILocator configuration.update(string[] aliasNames, Json[string] options = null);
+    // ILocator configuration.set(string[] aliasNames...);
+    // ILocator configuration.set(string aliasName, Json[string] options = null);
+    ILocator configuration.set(string[] aliasNames, Json[string] options = null);
 
     // Get a table instance from the registry.
     Table get(string aliasName, Json[string] options = null);

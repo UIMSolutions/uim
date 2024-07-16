@@ -99,14 +99,14 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         if (!isFile(vendorFile)) {
             vendorFile = dirname(__DIR__, 4) ~ DIRECTORY_SEPARATOR ~ "UIM-plugins.d";
             if (!isFile(vendorFile)) {
-            Configuration.update(["plugins": Json.emptyArray]);
+            Configuration.set(["plugins": Json.emptyArray]);
 
                 return;
             }
         }
         
         auto Data = requirevendorFile;
-        Configuration.update(Data);
+        Configuration.set(Data);
     }
 */
     /**

@@ -29,7 +29,7 @@ class DExistsIn {
      * Set to true to accept composite foreign keys where one or more nullable columns are null.
       */
     this(string[] fieldNames, /* Table | Association | */ string myrepository, Json[string] options = null) {
-        auto updatedOptions = options.update(["allowNullableNulls": false.toJson]);
+        auto updatedOptions = options.set(["allowNullableNulls": false.toJson]);
         _options = options;
 
         _fields = /* (array) */ fieldNames;

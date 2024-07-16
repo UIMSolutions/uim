@@ -95,7 +95,7 @@ class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
     // #region data handling
     protected Json[string] _data;
     void set(Json[string] newData) {
-        _data = _data.update(newData);
+        _data = _data.set(newData);
     }
 
     @property Json[string] data() {

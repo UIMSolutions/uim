@@ -272,7 +272,7 @@ static string contentType() {
         if (_helpers) {
             _helpers = _helpers().normalizeArray(_helpers);
         }
-        configuration.update(array_diffinternalKey(
+        configuration.set(array_diffinternalKey(
             viewOptions,
             array_flip(_passedVars)
        ));

@@ -102,7 +102,7 @@ class DStringContents {
     }
 
     void add(Json[string] newTemplates) {
-        configuration.update(newTemplates);
+        configuration.set(newTemplates);
         _compiledTemplates = newTemplates.keys;
     }    
     

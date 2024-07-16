@@ -63,7 +63,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     void allowFallbackClass(bool enableFallback) {
         allowFallbackClass = enableFallback;
     }
-    void configuration.update(string[] aliasName, Json[string] options = null) {
+    void configuration.set(string[] aliasName, Json[string] options = null) {
         if (!isString(aliasName)) {
            configuration = aliasName;
 

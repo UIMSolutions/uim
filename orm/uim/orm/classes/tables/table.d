@@ -1382,7 +1382,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
     
     // Creates a new update query
     UpdateQuery updateQuery() {
-        return _queryFactory.update(this);
+        return _queryFactory.set(this);
     }
     
     /**

@@ -99,68 +99,6 @@ unittest {
     ]);
 }
 
-/// remove subItems from baseItems if key exists
-T[S] removeByKeys(T, S)(T[S] baseItems, S[] subItems...) {
-  return removeByKeys(baseItems, subItems);
-}
-///
-unittest {
-  assert([1: "4", 2: "5", 3: "6"].removeByKeys(2, 3) == [1: "4"]);
-}
-
-/// remove subItems from baseItems if key exists
-T[S] removeByKeys(T, S)(T[S] baseItems, S[] keys) {
-  T[S] results = baseItems.dup;
-  keys.each!((key) => results.remove(key));
-  return results;
-}
-///
-unittest {
-  assert([1: "4", 2: "5", 3: "6"].removeByKeys([2, 3]) == [1: "4"]);
-}
-
-/// remove subItems from baseItems if key exists
-T[S] removeByKeys(T, S)(T[S] baseItems, T[S] subItems) {
-  T[S] results = baseItems.dup;
-  subItems.byKeyValue
-    .each!(kv => results.remove(kv.key));
-  return results;
-}
-///
-  unittest {
-    assert([1: "4", 2: "5", 3: "6"].removeByKeys([2: "x", 3: "y"]) == [
-        1: "4"
-      ]);
-  }
-
-/// remove subItems from baseItems if value exists
-T[S] removeByValues(T, S)(T[S] baseItems, T[S] subItems) {
-  T[S] results = baseItems.dup;
-  foreach (k, v; subItems) {
-    baseItems.byKeyValue
-      .filter!(kv => v == kv.value)
-      .each!(kv => results.remove(kv.key));
-  }
-  return results;
-}
-
-version (test_uim_core) {
-  unittest {
-    assert([1: "4", 2: "5", 3: "6"].removeByValues([2: "5", 3: "6"]) == [
-        1: "4"
-      ]);
-    assert([7: "4", 8: "5", 9: "6"].removeByValues([2: "5", 3: "6"]) == [
-        7: "4"
-      ]);
-    assert([7: "4", 8: "5", 9: "6"].removeByValues([2: "2", 3: "2"]) != [
-        7: "4"
-      ]);
-
-    assert([1: 4, 2: 5, 3: 6].removeByValues([2: 5, 3: 6]) == [1: 4]);
-    assert([7: 4, 8: 5, 9: 6].removeByValues([2: 5, 3: 6]) == [7: 4]);
-    assert([7: 4, 8: 5, 9: 6].removeByValues([2: 2, 3: 2]) != [7: 4]);
-  }
-}
 
 pure size_t[T] indexAA(T)(T[] values, size_t startPos = 0) {
   size_t[T] results;
@@ -457,3 +395,28 @@ JMAP updateKeys(K, V)(V[K] values, string[] keys, V defaultValue = Null(V)) {
   return values;
 }
 // #endregion update
+
+// #region remove
+  V[K] removeByKey(s(K, V)(V[K] items, string[] keys...) {
+    return removeByKey(s(items, keys.dup);
+  }
+
+  V[K] removeByKey(s(K, V)(V[K] items, string[] keys) {
+    keys.each!(key => items.removeByKey(key));
+    return items;
+  }
+
+  V[K] removeByKey(K, V)(V[K] items, K key) {
+    items.remove(key);
+    return items;
+  }
+
+  unittest {
+    assert(["a": "A", "b": "B", "c": "C"].length == 3);
+    assert(["a": "A", "b": "B", "c": "C"].removeByKey("a").length == 2);
+    assert(["a": "A", "b": "B", "c": "C"].removeByKey(s("a", "b").length == 1);
+
+    assert(["a": "A", "b": "B", "c": "C"].removeByKey("a")["c"] == "C");
+    assert(["a": "A", "b": "B", "c": "C"].removeByKey(s("a", "b")["c"] == "C");
+  }
+// #endregion remove

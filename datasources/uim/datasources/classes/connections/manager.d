@@ -100,7 +100,7 @@ static Json[string] parseDsn(string dsnToConvert) {
         data.set("driver", data.getString("classname"));
         data.set("classname", Connection.classname);
     }
-    data.remove("path");
+    data.removeByKey("path");
 
     return data;
 }
@@ -136,7 +136,7 @@ static void aliasName(string sourceConnection, string aliasName) {
      * connection may fail if there is no other connection with that name.
      */
 static void dropAlias(aliasToDrop) {
-    remove(_aliasMap[aliasToDrop]);
+    removeByKey(_aliasMap[aliasToDrop]);
 }
 
 /**
@@ -202,7 +202,7 @@ static Json[string] parseDsn(string adsn) {
         configuration.get("driver", configuration.get("classname"));
         configuration.get("classname", Connection.classname);
     }
-    configuration.remove("path");
+    configuration.removeByKey("path");
     return configData;
 }
 
@@ -236,7 +236,7 @@ static void aliasName(string connectionAlias, string sourceAlias) {
      * connection may fail if there is no other connection with that name.
      */
 static void dropAlias(string connectionAlias) {
-    remove(_connectionAliases[connectionAlias]);
+    removeByKey(_connectionAliases[connectionAlias]);
 }
 
 // Returns the current connection aliases and what they alias.

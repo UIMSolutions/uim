@@ -361,7 +361,7 @@ namespace SoftDelete\Model\Entity;
 
 mixin template SoftDeleteTrait
 {
-    public function softremove()
+    public function softremoveByKey()
     {
         set('deleted', true);
     }

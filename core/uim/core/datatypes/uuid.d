@@ -11,6 +11,10 @@ import uim.core;
 enum NULLID = "00000000-0000-0000-0000-000000000000";
 enum NULLUUID = UUID(NULLID);
 
+V Null(V:UUID)(){
+	return NULLUUID; 
+}
+
 bool isNull(UUID id) {
   return (NULLUUID == id);
 }

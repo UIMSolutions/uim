@@ -91,7 +91,7 @@ string htmlDoubleTag(string tag, string[] classes, string content = null) {
 	return htmlStartTag(tag, null, classes, null) ~ content ~ htmlEndTag(tag);
 }
 unittest {
-	assert(htmlDoubleTag("p", ["x", "b"], "some content") == "<p class=\"x b\">some content</p>");
+	assert(htmlDoubleTag("p", ["x", "b"], "some content") == "<p class=\"b x\">some content</p>");
 	assert(htmlDoubleTag("p", "", "some content") == "<p>some content</p>");
 }
 

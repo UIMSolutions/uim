@@ -1,9 +1,9 @@
-module uim.oop.objects.obj;
+module orm.uim.orm.classes.associations.obj;
 
 import uim.oop;
 @safe:
 
-class UIMObject : INamed {
+removeByKey(ject : INamed {
     mixin TConfigurable;
 
     this() {

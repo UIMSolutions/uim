@@ -369,11 +369,11 @@ version (test_uim_core) {
 }
 
 /// Remove keys from Json Object
-Json removeByKey(s(Json json, string[] delKeys...) {
-  return removeByKey(s(json, delKeys.dup);
+Json removeByKeys(Json json, string[] delKeys...) {
+  return removeByKeys(json, delKeys.dup);
 }
 
-Json removeByKey(s(Json aJson, string[] delKeys) {
+Json removeByKeys(Json aJson, string[] delKeys) {
   auto result = aJson;
   delKeys.each!(k => result.removeByKey(k));
   return result;

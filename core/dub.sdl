@@ -1,15 +1,12 @@
 name "core"
 description "Core D-Library for the uim framework"
 homepage "https://www.sicherheitsschmiede.de/"
-license "Apache-2.0"
-copyright "Copyright © 2015-2024, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
-
-dependency "colored" version="~>0.0.31"
+copyright "Copyright © 2015-2024, Ozan Nurettin Süel"
+license "Apache-2.0"
 dependency "vibe-d" version="~>0.10.0"
-
-sourcePaths "."
-importPaths "."
-
+dependency "colored" version="~>0.0.31"
 targetType "library"
 targetName "uim-core"
+sourcePaths "."
+importPaths "."

@@ -19,10 +19,9 @@ K[] sortedKeys(K, V)(V[K] items) {
 /// sorted = false (default) returns an unsorted array, sorted = true returns a sorted array
 K[] getKeys(K, V)(V[K] aa, bool sorted = false) {
   K[] results = aa.keys;
-  
-  return sorted 
-    ? results.sort.array
-    : results;
+
+  return sorted
+    ? results.sort.array : results;
 }
 ///
 unittest {
@@ -47,10 +46,9 @@ unittest {
 /// get values of an associative array - currently not working für objects
 V[] getValues(K, V)(V[K] aa, bool sorted = NOTSORTED) {
   V[] results = aa.values.map!(v => v).array;
-  
-  return sorted 
-    ? results.sort.array
-    : results;
+
+  return sorted
+    ? results.sort.array : results;
 }
 
 version (test_uim_core) {
@@ -99,7 +97,6 @@ unittest {
     ]);
 }
 
-
 pure size_t[T] indexAA(T)(T[] values, size_t startPos = 0) {
   size_t[T] results;
   foreach (i, value; values)
@@ -128,51 +125,51 @@ version (test_uim_core) {
 }
 
 // #region hasAllKeys
-  bool hasAllKeys(T, S)(T[S] base, S[] keys...) {
-    return base.hasAllKeys(keys.dup);
-  }
+bool hasAllKeys(T, S)(T[S] base, S[] keys...) {
+  return base.hasAllKeys(keys.dup);
+}
 
-  bool hasAllKeys(T, S)(T[S] base, S[] keys) {
-    return keys.all!(key => base.hasKey(key));
-  }
-  ///
-  unittest {
-    assert(["a": 1, "b": 2, "c": 3].hasAllKeys(["a", "b", "c"]));
-    assert(!["a": 1, "b": 2, "c": 3].hasAllKeys(["x", "b", "c"]));
+bool hasAllKeys(T, S)(T[S] base, S[] keys) {
+  return keys.all!(key => base.hasKey(key));
+}
+///
+unittest {
+  assert(["a": 1, "b": 2, "c": 3].hasAllKeys(["a", "b", "c"]));
+  assert(!["a": 1, "b": 2, "c": 3].hasAllKeys(["x", "b", "c"]));
 
-    assert(["a": "b", "c": "d"].hasAllKeys("a"));
-    assert(["a": "b", "c": "d"].hasAllKeys("a", "c"));
-    assert(["a": "b", "c": "d"].hasAllKeys(["a"]));
-    assert(["a": "b", "c": "d"].hasAllKeys(["a", "c"]));
+  assert(["a": "b", "c": "d"].hasAllKeys("a"));
+  assert(["a": "b", "c": "d"].hasAllKeys("a", "c"));
+  assert(["a": "b", "c": "d"].hasAllKeys(["a"]));
+  assert(["a": "b", "c": "d"].hasAllKeys(["a", "c"]));
 
-    assert(!["a": "b", "c": "d"].hasAllKeys("x"));
-    assert(!["a": "b", "c": "d"].hasAllKeys("x", "c"));
-    assert(!["a": "b", "c": "d"].hasAllKeys(["x"]));
-    assert(!["a": "b", "c": "d"].hasAllKeys(["x", "c"]));
+  assert(!["a": "b", "c": "d"].hasAllKeys("x"));
+  assert(!["a": "b", "c": "d"].hasAllKeys("x", "c"));
+  assert(!["a": "b", "c": "d"].hasAllKeys(["x"]));
+  assert(!["a": "b", "c": "d"].hasAllKeys(["x", "c"]));
 
-  }
+}
 // #endregion hasAllKeys
 
 // #region hasAnyKey
-  bool hasAnyKeys(T, S)(T[S] base, S[] keys...) {
-    return base.hasAnyKeys(keys.dup);
-  }
+bool hasAnyKeys(T, S)(T[S] base, S[] keys...) {
+  return base.hasAnyKeys(keys.dup);
+}
 
-  bool hasAnyKeys(T, S)(T[S] base, S[] keys) {
-    return keys.any!(key => base.hasKey(key));
-  }
-  ///
-  unittest {
-    assert(["a": "b", "c": "d"].hasAnyKeys("a"));
-    assert(["a": "b", "c": "d"].hasAnyKeys("a", "x"));
-    assert(["a": "b", "c": "d"].hasAnyKeys(["a"]));
-    assert(["a": "b", "c": "d"].hasAnyKeys(["a", "x"]));
+bool hasAnyKeys(T, S)(T[S] base, S[] keys) {
+  return keys.any!(key => base.hasKey(key));
+}
+///
+unittest {
+  assert(["a": "b", "c": "d"].hasAnyKeys("a"));
+  assert(["a": "b", "c": "d"].hasAnyKeys("a", "x"));
+  assert(["a": "b", "c": "d"].hasAnyKeys(["a"]));
+  assert(["a": "b", "c": "d"].hasAnyKeys(["a", "x"]));
 
-    assert(!["a": "b", "c": "d"].hasAnyKeys("x"));
-    assert(!["a": "b", "c": "d"].hasAnyKeys("x", "y"));
-    assert(!["a": "b", "c": "d"].hasAnyKeys(["x"]));
-    assert(!["a": "b", "c": "d"].hasAnyKeys(["x", "y"]));
-  }
+  assert(!["a": "b", "c": "d"].hasAnyKeys("x"));
+  assert(!["a": "b", "c": "d"].hasAnyKeys("x", "y"));
+  assert(!["a": "b", "c": "d"].hasAnyKeys(["x"]));
+  assert(!["a": "b", "c": "d"].hasAnyKeys(["x", "y"]));
+}
 // #endregion hasAnyKey
 
 bool hasKey(T, S)(T[S] base, S key) {
@@ -194,22 +191,21 @@ bool hasValue(T, S)(T[S] base, S value...) {
 }
 
 // #region hasAllValues
-  bool hasAllValues(T, S)(T[S] base, S[] values...) {
-    return base.hasAllValues(values);
-  }
+bool hasAllValues(T, S)(T[S] base, S[] values...) {
+  return base.hasAllValues(values);
+}
 
-  bool hasAllValues(T, S)(T[S] base, S[] values) {
-    return values.all!(value => base.hasValue(value));
-  }
-  unittest {
-    assert(["a": "b", "c": "d"].hasAllValues("b"));
-    assert(["a": "b", "c": "d"].hasAllValues("b", "d"));
-    assert(["a": "b", "c": "d"].hasAllValues(["b"]));
-    assert(["a": "b", "c": "d"].hasAllValues(["b", "d"]));
-  }
+bool hasAllValues(T, S)(T[S] base, S[] values) {
+  return values.all!(value => base.hasValue(value));
+}
+
+unittest {
+  assert(["a": "b", "c": "d"].hasAllValues("b"));
+  assert(["a": "b", "c": "d"].hasAllValues("b", "d"));
+  assert(["a": "b", "c": "d"].hasAllValues(["b"]));
+  assert(["a": "b", "c": "d"].hasAllValues(["b", "d"]));
+}
 // #endregion hasAllValues
-
-
 
 pure string toJSONString(T)(T[string] values, bool sorted = NOTSORTED) {
   string result = "{" ~ values
@@ -233,6 +229,7 @@ pure string toHTML(T)(T[string] values, bool sorted = NOTSORTED) {
 }
 
 unittest {
+  writeln(__FILE__, "/", __LINE__);
   assert(["a": 1, "b": 2].toHTML(SORTED) == `a="1" b="2"`);
 }
 
@@ -246,6 +243,7 @@ pure string toSqlUpdate(T)(T[string] values, bool sorted = NOTSORTED) {
 }
 
 unittest {
+  writeln(__FILE__, "/", __LINE__);
   assert(["a": 1, "b": 2].toSqlUpdate(SORTED) == `a=1,b=2`);
 }
 
@@ -256,19 +254,14 @@ pure bool isValue(T, S)(T[S] base, S key, T value) {
   }
   return false;
 }
-  ///
-  unittest {
-    // TODO 
-  }
 
-version (test_uim_core) {
-  unittest {
-    assert(["a": 1, "b": 2].isValue("a", 1));
-    assert(!["a": 2, "b": 2].isValue("a", 1));
-    assert(["a": 1, "b": 1].isValue("a", 1));
-    assert(!["a": 2, "b": 1].isValue("a", 1));
-    assert(["a": 1, "b": 2].isValue("b", 2));
-  }
+unittest {
+  writeln(__FILE__, "/", __LINE__);
+  assert(["a": 1, "b": 2].isValue("a", 1));
+  assert(!["a": 2, "b": 2].isValue("a", 1));
+  assert(["a": 1, "b": 1].isValue("a", 1));
+  assert(!["a": 2, "b": 1].isValue("a", 1));
+  assert(["a": 1, "b": 2].isValue("b", 2));
 }
 
 // Checks if values exist in base
@@ -284,11 +277,12 @@ pure bool isValues(T, S)(T[S] base, T[S] values) {
   return true;
 }
 ///
-  unittest {
-    assert(["a": 1, "b": 2].isValues(["a": 1, "b": 2]));
-    assert(!["a": 1, "b": 2].isValues(["a": 1, "b": 3]));
-    assert(!["a": 1, "b": 2].isValues(["a": 1, "c": 2]));
-  }
+unittest {
+  writeln(__FILE__, "/", __LINE__);
+  assert(["a": 1, "b": 2].isValues(["a": 1, "b": 2]));
+  assert(!["a": 1, "b": 2].isValues(["a": 1, "b": 3]));
+  assert(!["a": 1, "b": 2].isValues(["a": 1, "c": 2]));
+}
 
 V[K] merge(K, V)(V[K] sourceValues, V[K] mergeValues, K[] excludedKeys = null) {
   auto results = sourceValues.dup;
@@ -300,18 +294,18 @@ V[K] merge(K, V)(V[K] sourceValues, V[K] mergeValues, K[] excludedKeys = null) {
 
   return results;
 }
-  ///
-  unittest {
-    // TODO 
-  }
+///
+unittest {
+  // TODO 
+}
 
 bool isEmpty(V, K)(V[K] someValues) {
   return (someValues.length == 0);
 }
-  ///
-  unittest {
-    // TODO 
-  }
+///
+unittest {
+  // TODO 
+}
 
 V[K] setValues(K, V)(V[K] target, V[K] someValues) {
   // IN Check
@@ -327,49 +321,48 @@ V[K] setValues(K, V)(V[K] target, V[K] someValues) {
   // OUT
   return result;
 }
-  ///
-  unittest {
-    // TODO 
-  }
+///
+unittest {
+  // TODO 
+}
 
 // #region update
-  /// Creates a new updated array without changing the origin array
-  /// Params:
-  ///   origin = array to update
-  ///   updates = array fpr update
-  /// Returns: 
-  /// 
-  /// Params:
-  ///   updated new array
-  V[K] update(K, V)(V[K] originalValues, V[K] updateValues, K[] excludedKeys = null) {
-    V[K] results = originalValues.dup;
-    updateValues.byKeyValue
-      .filter!(kv => !excludedKeys.has(kv.key))
-      .each!(kv => results[kv.key] = kv.value);
+/// Creates a new updated array without changing the origin array
+/// Params:
+///   origin = array to update
+///   updates = array fpr update
+/// Returns: 
+/// 
+/// Params:
+///   updated new array
+V[K] update(K, V)(V[K] originalValues, V[K] updateValues, K[] excludedKeys = null) {
+  V[K] results = originalValues.dup;
+  updateValues.byKeyValue
+    .filter!(kv => !excludedKeys.has(kv.key))
+    .each!(kv => results[kv.key] = kv.value);
 
-    return results;
-  }
-  ///
-  unittest {
-    // TODO 
-  }
+  return results;
+}
+///
+unittest {
+  // TODO 
+}
 
-  V[K] update(K, V)(V[K] originalValues, K key, V newValue) {
-    V[K] updatedValues = originalValues.dup;
-    updatedValues[key] = newValue;
+V[K] update(K, V)(V[K] originalValues, K key, V newValue) {
+  V[K] updatedValues = originalValues.dup;
+  updatedValues[key] = newValue;
 
-    return updatedValues;
-  }
-  ///
-  unittest {
-    // TODO 
-  }
+  return updatedValues;
+}
+///
+unittest {
+  // TODO 
+}
 // #endregion update
 
 V ifNull(K, V)(V[K] map, K key, V defaultValue) {
-  return key in map 
-    ? (!map[k].isNull ? map[k] : defaultValue)
-    : defaultValue;
+  return key in map
+    ? (!map[k].isNull ? map[k] : defaultValue) : defaultValue;
 }
 
 // #region set
@@ -397,26 +390,28 @@ JMAP updateKeys(K, V)(V[K] values, string[] keys, V defaultValue = Null(V)) {
 // #endregion update
 
 // #region remove
-  V[K] removeByKey(s(K, V)(V[K] items, string[] keys...) {
-    return removeByKey(s(items, keys.dup);
-  }
+V[K] removeByKeys(K, V)(V[K] items, string[] keys...) {
+  return removeByKeys(items, keys.dup);
+}
 
-  V[K] removeByKey(s(K, V)(V[K] items, string[] keys) {
-    keys.each!(key => items.removeByKey(key));
-    return items;
-  }
+V[K] removeByKeys(K, V)(V[K] items, string[] keys) {
+  keys.each!(key => removeByKey(items, key));
+  return items;
+}
 
-  V[K] removeByKey(K, V)(V[K] items, K key) {
-    items.remove(key);
-    return items;
-  }
+V[K] removeByKey(K, V)(V[K] items, K key) {
+  items.remove(key);
+  return items;
+}
 
-  unittest {
-    assert(["a": "A", "b": "B", "c": "C"].length == 3);
-    assert(["a": "A", "b": "B", "c": "C"].removeByKey("a").length == 2);
-    assert(["a": "A", "b": "B", "c": "C"].removeByKey(s("a", "b").length == 1);
+unittest {
+  assert(["a": "A", "b": "B", "c": "C"].length == 3);
+  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a").length == 2);
+  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b").length == 1);
+  assert(["a": "A", "b": "B", "c": "C"].removeByKey("a").length == 2);
 
-    assert(["a": "A", "b": "B", "c": "C"].removeByKey("a")["c"] == "C");
-    assert(["a": "A", "b": "B", "c": "C"].removeByKey(s("a", "b")["c"] == "C");
-  }
+  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a")["c"] == "C");
+  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b")["c"] == "C");
+  assert(["a": "A", "b": "B", "c": "C"].removeByKey("a")["c"] == "C");
+}
 // #endregion remove

@@ -71,7 +71,7 @@ class DHasOneAssociation : DAssociation {
         targetEntity.set(properties, ["guard": false.toJson]);
 
         if (!getTarget().save(targetEntity, options)) {
-            targetEntity.remove(properties.keys);
+            targetEntity.removeByKey(properties.keys);
 
             return false;
         }
@@ -95,9 +95,9 @@ class DHasOneAssociation : DAssociation {
     }
 
 
-    bool cascadeRemove(IORMEntity ormEntity, Json[string] options = null) {
+    bool cascaderemoveByKey(IORMEntity ormEntity, Json[string] options = null) {
         auto helper = new DependentDeleteHelper();
-        return helper.cascadeRemove(this, ormEntity, options);
+        return helper.cascaderemoveByKey(this, ormEntity, options);
     }
 }
 mixin(AssociationCalls!("HasOne"));

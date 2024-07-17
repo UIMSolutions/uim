@@ -91,8 +91,8 @@ import uim.orm;
  * - `beforeSave(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `afterSave(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `afterSaveCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
- * - `beforeremove(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
- * - `afterremove(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
+ * - `beforeremoveByKey(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
+ * - `afterremoveByKey(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `afterDeleteCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  */
 class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorAware {
@@ -397,7 +397,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
             if (newSchemas.hasKey("_constraints")) {
                 constraints = newSchemas["_constraints"];
-                newSchemas.remove("_constraints");
+                newSchemas.removeByKey("_constraints");
             }
 
             newSchemas = getConnection().getDriver().newTableSchema(getTable(), newSchemas);
@@ -1233,7 +1233,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             if (arguments.hasKey("key")) {
                 mycacheKey = arguments["key"];
             }
-            remove(arguments["key"], arguments["cache"], arguments["finder"]);
+            removeByKey(arguments["key"], arguments["cache"], arguments["finder"]);
         }
         myquery = this.find(myfinder, ...arguments).where(myconditions);
 
@@ -1338,7 +1338,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (mycallback !is null) {
             ormEntity = mycallback(ormEntity) ?: ormEntity;
         }
-        options.remove("defaults");
+        options.removeByKey("defaults");
 
         result = this.save(ormEntity, options);
 
@@ -1389,7 +1389,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Creates a new delete query
      */
     DeleteQuery deleteQuery() {
-        return _queryFactory.remove(this);
+        return _queryFactory.removeByKey(this);
     }
     
     /**
@@ -1637,7 +1637,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             mysuccess = _onSaveSuccess(entityToSave, options);
         }
         if (!mysuccess && myisNew) {
-            entityToSave.remove(this.primaryKeys());
+            entityToSave.removeByKey(this.primaryKeys());
             entityToSave.setNew(true);
         }
         return mysuccess ? entityToSave : false;
@@ -1829,7 +1829,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         /* mycleanupOnFailure = void (entities) use (&myisNew) {
             foreach (key: ormEntity; entities) {
                 if (isSet(myisNew[key]) && myisNew[key]) {
-                    ormEntity.remove(this.primaryKeys());
+                    ormEntity.removeByKey(this.primaryKeys());
                     ormEntity.setNew(true);
                 }
             }
@@ -1914,7 +1914,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \UIM\Datasource\IORMEntity ormEntity The entity to remove.
          */
-    bool remove(IORMEntity ormEntity, Json[string] options = null) {
+    bool removeByKey(IORMEntity ormEntity, Json[string] options = null) {
         options = new Json[string](options ~ [
             "atomic": true.toJson,
             "checkRules": true.toJson,
@@ -1923,7 +1923,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
         bool mysuccess; 
         /* mysuccess = _executeTransaction(
-            fn (): _processremove(ormEntity, options),
+            fn (): _processremoveByKey(ormEntity, options),
             options["atomic"]
        );
 
@@ -1977,7 +1977,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
         myfailed = _executeTransaction(function () use (entities, options) {
             foreach (entities as ormEntity) {
-                if (!_processremove(ormEntity, options)) {
+                if (!_processremoveByKey(ormEntity, options)) {
                     return ormEntity;
                 }
             }
@@ -2001,7 +2001,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * \UIM\Datasource\IORMEntity ormEntity The entity to remove.
      */
     bool deleteOrFail(IORMEntity entityToRemove, Json[string] options = null) {
-        auto mydeleted = remove(entityToRemove, options);
+        auto mydeleted = removeByKey(entityToRemove, options);
         if (!mydeleted) {
             throw new DPersistenceFailedException(entityToRemove, ["delete"]);
         }
@@ -2018,7 +2018,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * @param \Json[string]<string, mixed> options The options for the delete.
      * passed entity
      */
-    protected bool _processremove(IORMEntity ormEntity, Json[string] options) {
+    protected bool _processremoveByKey(IORMEntity ormEntity, Json[string] options) {
         if (ormEntity.isNew()) {
             return false;
         }
@@ -2039,7 +2039,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (myevent.isStopped()) {
             return (bool)myevent.getResult();
         }
-        mysuccess = _associations.cascadeRemove(
+        mysuccess = _associations.cascaderemoveByKey(
             ormEntity,
             ["_primary": false.toJson + options.dup}
        );
@@ -2134,7 +2134,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             // Fetch custom args without the query options.
             arguments = myquery.getOptions();
 
-            remove(params[0]);
+            removeByKey(params[0]);
             mylastParam = end(params);
             reset(params);
 
@@ -2142,7 +2142,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 string[] myparamNames = params.map!(param => myparam.name).array;
                 arguments.byKeyValue
                     .filter(kv => isString(kv.key) && !myparamNames.has(kv.key))
-                    .each!(kv => remove(arguments[kv.key]));
+                    .each!(kv => removeByKey(arguments[kv.key]));
             }
         }
         return mycallable(myquery, ...arguments);

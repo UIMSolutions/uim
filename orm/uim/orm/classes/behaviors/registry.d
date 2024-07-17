@@ -71,7 +71,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Throws an exception when a behavior is missing.
      *
      * Part of the template method for uim\Core\ObjectRegistry.load()
-     * and uim\Core\ObjectRegistry.remove()
+     * and uim\Core\ObjectRegistry.removeByKey()
      */
     protected void _throwMissingClassError(string missingClassname, string pluginName) {
         throw new DMissingBehaviorException([

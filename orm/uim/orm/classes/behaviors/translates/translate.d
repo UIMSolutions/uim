@@ -158,7 +158,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
         foreach (fieldName, myvalue; mydata["_translations"][mydefaultLocale]) {
             mydata[fieldName] = myvalue;
         }
-        remove(mydata["_translations"][mydefaultLocale]);
+        removeByKey(mydata["_translations"][mydefaultLocale]);
     } */
 
     /**

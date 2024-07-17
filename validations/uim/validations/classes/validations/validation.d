@@ -1310,9 +1310,10 @@ protected static string _getDateString(Json[string] items) {
                 items.set("hour", 0);
             } * /
             if (items.hasKey("meridian")) {
-                items["hour"] = items.getString("meridian").lower == "am" 
+                items.set("hour", items.getString("meridian").lower == "am" 
                     ? items["hour"] 
-                    : items["hour"] + 12;
+                    : items["hour"] + 12
+                );
             }
             items += ["minute": 0, "second": 0, "microsecond": 0];
             if (items.allNumeric("hour", "minute", "second", "microsecond")) {

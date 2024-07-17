@@ -71,12 +71,20 @@ string htmlEndTag(string tag) {
 }
 // #endregion htmlEndTag 
 
+string htmlDoubleTag(string tag) {
+	return htmlStartTag(tag, null) ~ htmlEndTag(tag);
+}
+
+string htmlDoubleTag(string tag, string id) {
+	return htmlStartTag(tag, id) ~ htmlEndTag(tag);
+}
+
 string htmlDoubleTag(string tag, string id, string content = null) {
 	return htmlStartTag(tag, id) ~ content ~ htmlEndTag(tag);
 }
 unittest {
 	assert(htmlDoubleTag("p") == "<p></p>");
-	assert(htmlDoubleTag("p", null, "some content") == "<p>some content</p>");
+	assert(htmlDoubleTag("p", "", "some content") == "<p>some content</p>");
 }
 
 string htmlDoubleTag(string tag, string[] classes, string content = null) {
@@ -84,7 +92,7 @@ string htmlDoubleTag(string tag, string[] classes, string content = null) {
 }
 unittest {
 	assert(htmlDoubleTag("p", ["x", "b"], "some content") == "<p class=\"x b\">some content</p>");
-	assert(htmlDoubleTag("p", null, "some content") == "<p>some content</p>");
+	assert(htmlDoubleTag("p", "", "some content") == "<p>some content</p>");
 }
 
 string htmlDoubleTag(string tag, string id, string[] classes, string content = null) {

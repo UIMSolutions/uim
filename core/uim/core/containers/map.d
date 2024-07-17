@@ -15,9 +15,10 @@ enum NOTSORTED = false;
 /// sorted = false (default) returns an unsorted array, sorted = true returns a sorted array
 K[] getKeys(K, V)(V[K] aa, bool sorted = false) {
   K[] results = aa.keys;
-  if (sorted)
-    return results.sort.array;
-  return results;
+  
+  return sorted 
+    ? results.sort.array
+    : results;
 }
 ///
 unittest {
@@ -42,9 +43,10 @@ unittest {
 /// get values of an associative array - currently not working für objects
 V[] getValues(K, V)(V[K] aa, bool sorted = NOTSORTED) {
   V[] results = aa.values.map!(v => v).array;
-  if (sorted)
-    return results.sort.array;
-  return results;
+  
+  return sorted 
+    ? results.sort.array
+    : results;
 }
 
 version (test_uim_core) {
@@ -103,9 +105,9 @@ unittest {
 }
 
 /// remove subItems from baseItems if key exists
-T[S] removeByKeys(T, S)(T[S] baseItems, S[] subItems) {
+T[S] removeByKeys(T, S)(T[S] baseItems, S[] keys) {
   T[S] results = baseItems.dup;
-  subItems.each!((key) => results.remove(key));
+  keys.each!((key) => results.remove(key));
   return results;
 }
 ///

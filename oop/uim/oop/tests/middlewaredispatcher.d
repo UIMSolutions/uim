@@ -58,22 +58,22 @@ class DMiddlewareDispatcher {
     /* 
     protected DServerRequest _createRequest(Json[string] requestSpec) {
         if (requestSpec.hasKey("input")) {
-            requestSpec["post"] = null;
-            requestSpec["environment.uimUIM_INPUT"] = requestSpec["input"];
+            requestSpec.set("post", null);
+            requestSpec.set("environment.uimUIM_INPUT", requestSpec["input"]);
         }
         environment = array_merge(
-            chain(_SERVER, ["REQUEST_URI": requestSpec["url"]]),
+            chain(_SERVER, ["REQUEST_URI": requestSpec.get("url")]),
             requestSpec["environment"]
        );
         if (environment["UIM_SELF"].contains("Dunit")) {
-            environment["UIM_SELF"] = "/";
+            environment.set("UIM_SELF", "/");
         }
         request = ServerRequestFactory.fromGlobals(
             environment,
-            requestSpec["query"],
-            requestSpec["post"],
-            requestSpec["cookies"],
-            requestSpec["files"]
+            requestSpec.get("query"),
+            requestSpec.get("post"),
+            requestSpec.get("cookies"),
+            requestSpec.get("files")
        );
 
         return request
@@ -82,7 +82,6 @@ class DMiddlewareDispatcher {
     } */
     
     // Run a request and get the response.
-    // TODO 
     /* IResponse execute(Json[string] requestSpec) {
         auto newServer = new DServer(_app);
 

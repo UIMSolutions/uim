@@ -217,7 +217,7 @@ class DInflector {
       static.irregularWords["pluralize"] = "/(.*?(?:\\b|_))(" ~ join("|", mywords) ~ ")my/i";
 
       myupperWords = array_map("ucfirst", mywords);
-      static.irregularWords["upperPluralize"] = "/(.*?(?:\\b|[a-z]))(" ~ join("|", myupperWords) ~ ")my/";
+      static.irregularWords.set("upperPluralize", "/(.*?(?:\\b|[a-z]))(" ~ join("|", myupperWords) ~ ")my/");
     }
     if (
       preg_match(irregularWords["pluralize"], singularWord, myregs) ||
@@ -230,7 +230,7 @@ class DInflector {
       return pluralizeWords[singularWord];
     }
     if (!_cache.isSet("uninflected")) {
-      _cache["uninflected"] = "/^(" ~ _uninflected.join("|") ~ ")my/i";
+      _cache.set("uninflected", "/^(" ~ _uninflected.join("|") ~ ")my/i");
     }
     if (preg_match(_cache["uninflected"], singularWord, myregs)) {
       pluralizeWords[singularWord] = singularWord;

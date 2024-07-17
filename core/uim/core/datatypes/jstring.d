@@ -4,6 +4,8 @@ import uim.core;
 
 @safe:
 
+alias JMAP = Json[string];
+
 Json[string] setKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
   keys.each!(key => values.set(key, defaultValue));
   return values;

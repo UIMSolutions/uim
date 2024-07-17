@@ -508,7 +508,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * argument:
      *
      * myvalidator.allowEmpty("email", Validator.EMPTY_STRING, auto (context) {
-     * return !context["newRecord"] || context["data.role"] == "admin";
+     * return !context["newRecord"] || context.getString("data.role") == "admin";
      * });
      *
      * If you want to allow other kind of empty data on a field, you need to pass other

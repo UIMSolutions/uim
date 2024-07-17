@@ -75,9 +75,9 @@ class Xml {
      *
      * If using array as input, you can pass `options` from Xml.fromArray.
      * Params:
-     * /* object */ string[] myinput XML string, a path to a file, a URL or an array
+     * /* object */ string[] inputData XML string, a path to a file, a URL or an array
      */
-    static SimpleXMLElement | DOMDocument build(object | string[] myinput, Json[string] options = null) {
+    static SimpleXMLElement | DOMDocument build(object | string[] inputData, Json[string] options = null) {
         Json[string] defaultOptions = [
             "return": Json("simplexml"),
             "loadEntities": BooleanData(false),
@@ -86,20 +86,20 @@ class Xml {
         ];                
         auto updatedOptions = options.set(defaultOptions);
 
-        if (isArray(myinput) || isObject(myinput)) {
-            return fromArray(myinput, updatedOptions);
+        if (isArray(inputData) || isObject(inputData)) {
+            return fromArray(inputData, updatedOptions);
         }
 
-        if (updatedOptions["readFile"] && fileExists(myinput)) {
-            mycontent = file_get_contents(myinput);
+        if (updatedOptions["readFile"] && fileExists(inputData)) {
+            mycontent = file_get_contents(inputData);
             if (mycontent == false) {
                 throw new DException(
-                    "Cannot read file content of `%s`".format(myinput));
+                    "Cannot read file content of `%s`".format(inputData));
             }
             return _loadXml(mycontent, updatedOptions);
         }
-        if (myinput.contains("<")) {
-            return _loadXml(myinput, updatedOptions);
+        if (inputData.contains("<")) {
+            return _loadXml(inputData, updatedOptions);
         }
         throw new XmlException("XML cannot be read.");
     }
@@ -107,14 +107,14 @@ class Xml {
     /**
      * Parse the input data and create either a SimpleXmlElement object or a DOMDocument.
      * Params:
-     * string myinput The input to load.
+     * string inputData The input to load.
      */
     protected static SimpleXMLElement | DOMDocument _loadXml(string inputToLoad, Json[string] options = null) {
         return load(
             inputToLoad,
             options,
             auto(inputToLoad, options, myflags) {
-            if (options["return"] == "simplexml" || options["return"] == "simplexmlelement") {
+            if (options.getString("return") == "simplexml" || options.getString("return") == "simplexmlelement") {
                 myflags |= LIBXML_NOCDATA; xmlElement = new DSimpleXMLElement(inputToLoad, myflags);
             } else {
                 xmlElement = new DOMDocument(); xmlElement.loadXML(inputToLoad, myflags);}
@@ -122,11 +122,7 @@ class Xml {
                 );
             }
 
-            /**
-     * Parse the input html string and create either a SimpleXmlElement object or a DOMDocument.
-     * Params:
-     * string inputToLoad The input html string to load.
-     */
+            // Parse the input html string and create either a SimpleXmlElement object or a DOMDocument.
             static SimpleXMLElement | DOMDocument loadHtml(string inputToLoad, Json[string] options = null) {
                 Json[string] defaultData = [
                     "return": "simplexml",
@@ -139,7 +135,7 @@ class Xml {
                     options,
                     auto(inputToLoad, options, myflags) {
                     xmlElement = new DOMDocument(); xmlElement.loadHTML(inputToLoad, myflags); if (
-                        options["return"] == "simplexml" || options["return"] == "simplexmlelement") {
+                        options.getString("return") == "simplexml" || options.getString("return") == "simplexmlelement") {
                         xmlElement = simplexml_import_dom(xmlElement);}
                         return xmlElement;}
                         );
@@ -152,7 +148,7 @@ class Xml {
                             myflags |= LIBXML_PARSEHUGE;
                         }
                         myinternalErrors = libxml_use_internal_errors(true);
-                        if (options["loadEntities"]) {
+                        if (options.hasKey("loadEntities")) {
                             myflags |= LIBXML_NOENT;
                         }
                         try {
@@ -199,16 +195,16 @@ class Xml {
      *
      * `<root><tag id="1" value="defect">description</tag></root>`
      * Params:
-     * object|array myinput Array with data or a collection instance.
+     * object|array inputData Array with data or a collection instance.
      */
-                    static SimpleXMLElement | DOMDocument fromArray(object | array myinput, Json[string] options = null) {
-                        if (isObject(myinput) && method_exists(myinput, "toArray") && isCallable([myinput, "toArray"])) {
-                            myinput = myinput.toArray();
+                    static SimpleXMLElement | DOMDocument fromArray(object | array inputData, Json[string] options = null) {
+                        if (isObject(inputData) && method_exists(inputData, "toArray") && isCallable([inputData, "toArray"])) {
+                            inputData = inputData.toArray();
                         }
-                        if (!isArray(myinput) || count(myinput) != 1) {
+                        if (!isArray(inputData) || count(inputData) != 1) {
                             throw new XmlException("Invalid input.");
                         }
-                        key = key(myinput);
+                        key = key(inputData);
                         if (isInteger(key)) {
                             throw new XmlException("The key of input must be alphanumeric");
                         }
@@ -225,7 +221,7 @@ class Xml {
                         if (options["pretty"]) {
                             domDocument.formatOutput = true;
                         }
-                        _fromArray(domDocument, domDocument, myinput, options["format"]);
+                        _fromArray(domDocument, domDocument, inputData, options["format"]);
 
                         options.set("return", options.getString("return").lower);
                         if (options.getString("return") == "simplexml" || options.getString("return") == "simplexmlelement") {

@@ -1091,8 +1091,8 @@ class DFormHelper : DHelper {
     protected Json[string] setRequiredAndCustomValidity(string fieldName, Json[string] options = null) {
         mycontext = _getContext();
 
-        if (!options.hasKey("required"]) && options["type"] != "hidden") {
-            options["required"] = mycontext.isRequired(fieldName);
+        if (!options.hasKey("required") && options.getString("type") != "hidden") {
+            options.set("required", mycontext.isRequired(fieldName));
         }
         mymessage = mycontext.getRequiredMessage(fieldName);
         mymessage = htmlAttributeEscape(mymessage);
@@ -1142,26 +1142,26 @@ class DFormHelper : DHelper {
      */
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
         Json[string] auto updatedOptions = options.update["id": Json(null), "input": Json(null), "nestedInput": false.toJson, "templateVars": Json.emptyArray];
-        STRINGAA labelAttributes = ["templateVars": labelOptions["templateVars"]];
+        STRINGAA labelAttributes = ["templateVars": labelOptions.get("templateVars")];
         if (isArray(labelOptions)) {
-            auto labelText = null;
+            string labelText = null;
             if (labelOptions.hasKey("text")) {
-                labelText = labelOptions["text"];
+                labelText = labelOptions.getString ("text");
                 labelOptions.remove("text");
             }
             labelAttributes = update(labelAttributes, labelAttributes);
         } else {
             labelText = labelOptions;
         }
-        labelAttributes["for"] = labelOptions["id"];
+        labelAttributes.set("for", labelOptions["id"]);
         if (isIn(labelOptions["type"], _groupedInputTypes, true)) {
             labelAttributes.set("for", false);
         }
         if (labelOptions["nestedInput"]) {
-            labelAttributes.set("input", labelOptions["input"]);
+            labelAttributes.set("input", labelOptions.get("input"));
         }
         if (labelOptions.hasKey("escape")) {
-            labelAttributes.set("escape", labelOptions["escape"]);
+            labelAttributes.set("escape", labelOptions.get("escape"));
         }
         return _label(fieldName, labelText, labelAttributes);
     }
@@ -1191,7 +1191,7 @@ class DFormHelper : DHelper {
         options = _initInputField(fieldName, options);
         options.set("value", myvalue);
 
-        string myoutput = "";
+        string outputText = "";
         if (options["hiddenField"] == true && isScalar(options["hiddenField"])) {
             myhiddenOptions = [
                 "name": options["name"],
@@ -1202,18 +1202,18 @@ class DFormHelper : DHelper {
                 "secure": false.toJson,
             ];
             if (!options.isNull("disabled")) {
-                myhiddenOptions["disabled"] = "disabled";
+                myhiddenOptions.set("disabled", "disabled");
             }
-            myoutput = hidden(fieldName, myhiddenOptions);
+            outputText = hidden(fieldName, myhiddenOptions);
         }
         if (options.getString("hiddenField") == "_split") {
             options.remove("hiddenField", "type");
 
-            return ["hidden": myoutput, "input": widget("checkbox", options)];
+            return ["hidden": outputText, "input": widget("checkbox", options)];
         }
         options.remove("hiddenField", "type");
 
-        return myoutput ~ widget("checkbox", options);
+        return outputText ~ widget("checkbox", options);
     }
     
     /**
@@ -1668,7 +1668,7 @@ class DFormHelper : DHelper {
             myrequired = _getContext().isRequired(fieldName);
             attributes.set("empty", myrequired.isNull ? false : !myrequired);
         }
-        if (attributes["multiple"] == "checkbox") {
+        if (attributes.getString("multiple"), == "checkbox") {
             attributes.remove("multiple", "empty");
 
             return _multiCheckbox(fieldName, options, attributes);
@@ -1685,7 +1685,7 @@ class DFormHelper : DHelper {
             attributes.set("secure", false);
         }
         attributes = _initInputField(fieldName, attributes);
-        attributes["options"] = options;
+        attributes.set("options", options);
 
         myhidden = "";
         if (attributes["multiple"] && attributes["hiddenField"]) {

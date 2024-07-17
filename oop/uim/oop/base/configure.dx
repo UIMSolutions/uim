@@ -124,14 +124,14 @@ class DFileConfigEngine {
      *
      * Usage:
      * ```
-     * Configuration.remove("Name"); will delete the entire Configure.Name
-     * Configuration.remove("Name.key"); will delete only the Configure.Name[key]
+     * Configuration.removeByKey("Name"); will delete the entire Configure.Name
+     * Configuration.removeByKey("Name.key"); will delete only the Configure.Name[key]
      * ```
      * Params:
      * string avar the var to be deleted
      */
-    static void remove(string variableName) {
-        _values.remove(variableName);
+    static void removeByKey(string variableName) {
+        _values.removeByKey(variableName);
     }
 
     /**
@@ -165,12 +165,12 @@ class DFileConfigEngine {
                 return null;
             }
             aValue = _values[var];
-            _values.remove(var);
+            _values.removeByKey(var);
 
             return aValue;
         }
         aValue = Hash.get(_values, var);
-        remove(var);
+        removeByKey(var);
 
         return aValue;
     }
@@ -215,7 +215,7 @@ class DFileConfigEngine {
         if (!_engines.isSet(name)) {
             return false;
         }
-        _engines.remove(name);
+        _engines.removeByKey(name);
 
         return true;
     }

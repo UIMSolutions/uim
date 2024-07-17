@@ -1321,7 +1321,7 @@ class DMessage { //: JsonSerializable {
          array_walk(array["attachments"], auto (& anItem, key) {
             if (!anItem.isEmpty("file"))) {
                  anItem["data"] = readFile(anItem["file"]);
-                remove(anItem["file"]);
+                removeByKey(anItem["file"]);
             }
         });
 

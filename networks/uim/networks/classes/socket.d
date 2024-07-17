@@ -182,7 +182,7 @@ class DSocket {
             if (configuration.isEmpty("context/ssl/"~contextKey)) {
                 configuration.set("context/ssl/"~contextKey, kv.value);
             }
-            remove(configuration.getString(kv.key));
+            removeByKey(configuration.getString(kv.key));
         });
         if (!configuration.hasKey("context/ssl.SNI_enabled")) {
             configuration.set("context/ssl/SNI_enabled", true);
@@ -196,7 +196,7 @@ class DSocket {
         if (!configuration.isEmpty("context/ssl/verify_host"])) {
             configuration.set("context/ssl/CN_match", hostName);
         }
-        configuration.remove("context/ssl/verify_host");
+        configuration.removeByKey("context/ssl/verify_host");
     }
 
     /*

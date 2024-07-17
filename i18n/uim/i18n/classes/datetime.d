@@ -460,7 +460,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
         if (regex) {
             foreach (aKey, timezone; anIdentifiers) {
                 if (!preg_match(regex, timezone)) {
-                    anIdentifiers.remove(aKey);
+                    anIdentifiers.removeByKey((aKey);
                 }
             }
         }

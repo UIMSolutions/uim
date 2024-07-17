@@ -91,7 +91,7 @@ class DTranslator : UIMObject, ITranslator {
         // Check for missing/invalid context
         if (tokensValues.hasKey("_context")) {
             message = resolveContext(messageKey, message, tokensValues);
-            tokensValues.remove("_context");
+            tokensValues.removeByKey(("_context");
         }
         if (tokensValues.isEmpty) { // Fallback for plurals that were using the singular key
             return message ~ [""].values[0];
@@ -115,7 +115,7 @@ class DTranslator : UIMObject, ITranslator {
                 message = tokensValues["_singular"];
             }
         }
-        tokensValues.remove("_count", "_singular");
+        tokensValues.removeByKey(("_count", "_singular");
         return formatter.format(_locale, message, tokensValues);
     } */
 

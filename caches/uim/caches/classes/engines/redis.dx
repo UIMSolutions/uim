@@ -146,7 +146,7 @@ class DRedisCacheEngine : DCacheEngine {
     }
     
     // Delete a key from the cache
-    override bool remove(string key) {
+    override bool removeByKey(string key) {
         auto key = internalKey(dataIdentifier);
         return _redis.del(key) > 0;
     }

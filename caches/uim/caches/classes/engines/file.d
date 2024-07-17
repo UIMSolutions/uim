@@ -142,14 +142,14 @@ class DFileCacheEngine : DCacheEngine {
     }
 
     // Delete a key from the cache
-    override bool remove(string dataId) {
+    override bool removeByKey(string dataId) {
         auto key = internalKey(dataId);
 
         if (_setcorrectKey(key) == false || !_init) {
             return false;
         }
         auto mypath = _File.getRealPath();
-        remove(_File);
+        removeByKey(_File);
 
         return mypath.isEmpty
             ? false
@@ -161,7 +161,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!_init) {
             return false;
         }
-        remove(_File);
+        removeByKey(_File);
 
         _clearDirectory(configuration.get("path"]);
 
@@ -178,13 +178,13 @@ class DFileCacheEngine : DCacheEngine {
         string[] mycleared;
         myiterator.each!((myfileInfo) {
             if (myfileInfo.isFile()) {
-                remove(myfileInfo);
+                removeByKey(myfileInfo);
                 continue;
             }
             
             auto myrealPath = myfileInfo.getRealPath();
             if (!myrealPath) {
-                remove(myfileInfo);
+                removeByKey(myfileInfo);
                 continue;
             }
 
@@ -194,11 +194,11 @@ class DFileCacheEngine : DCacheEngine {
                 mycleared ~= mypath;
             }
             // possible inner iterators need to be unset too in order for locks on parents to be released
-            remove(myfileInfo);
+            removeByKey(myfileInfo);
         });
         // unsetting iterators helps releasing possible locks in certain environments,
         // which could otherwise make `rmdir()` fail
-        remove(mydirectory, myiterator);
+        removeByKey(mydirectory, myiterator);
 
         return true;
     }
@@ -226,7 +226,7 @@ class DFileCacheEngine : DCacheEngine {
             }
             if (myfile.isFile()) {
                 myfilePath = myfile.getRealPath();
-                remove(myfile);
+                removeByKey(myfile);
             }
         }
         mydir.close();
@@ -306,7 +306,7 @@ class DFileCacheEngine : DCacheEngine {
     // Recursively deletes all files under any directory named as mygroup
     override bool clearGroup(string groupName) {
         // TODO
-        /* remove(_File);
+        /* removeByKey(_File);
 
         string myprefix = configuration.getString("prefix");
 
@@ -333,11 +333,11 @@ class DFileCacheEngine : DCacheEngine {
                );
 
                 myfiltered.each!((obj) {
-                    auto mypath = obj.getPathName(); remove(obj); @unlink(mypath) ;
+                    auto mypath = obj.getPathName(); removeByKey(obj); @unlink(mypath) ;
                 });
                 // unsetting iterators helps releasing possible locks in certain environments,
                 // which could otherwise make `rmdir()` fail
-                remove(mydirectoryIterator, mycontents, myfiltered);
+                removeByKey(mydirectoryIterator, mycontents, myfiltered);
 
                 return true;
             }

@@ -25,8 +25,8 @@ interface ICacheEngine : INamed {
     long increment(string key, int incValue = 1);
     long decrement(string key, int decValue = 1);
 
-    bool remove(string[] keys);
-    bool remove(string key);
+    bool removeByKey(string[] keys);
+    bool removeByKey(string key);
 
     bool clear();
     bool clearGroup(string groupName);

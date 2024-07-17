@@ -50,7 +50,7 @@ class DPluginUnloadCommand : DCommand {
         if (!array_key_exists(pluginName, configData)) {
             return "plugin-`%s` could not be found".format(pluginName);
         }
-        configData.remove(pluginName);
+        configData.removeByKey((pluginName);
 
         string exported = class_exists(VarExporter.classname)
             ? VarExporter.export_(configData)

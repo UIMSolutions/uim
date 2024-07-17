@@ -120,7 +120,7 @@ class DEventManager { // }: IEventManager {
     }
  */
         /*    if (aCallable.isNull) {
-        _listeners.remove(eventKey);
+        _listeners.removeByKey(eventKey);
 
         return this;
     } */
@@ -131,7 +131,7 @@ class DEventManager { // }: IEventManager {
     foreach (_listeners[eventKey] as priority : aCallables) {
         foreach (aCallables as myKey : aCallback) {
             if (aCallback["callable"] == aCallable) {
-                _listeners.remove([eventKey, priority, myKey]);
+                _listeners.removeByKey([eventKey, priority, myKey]);
                 break;
             }
         }
@@ -200,7 +200,7 @@ class DEventManager { // }: IEventManager {
         // callable = eventHandler["callable"];
 
         settings = eventHandler;
-        settings.remove("callable");
+        settings.removeByKey("callable");
     } */
         // TODO
         /*    if (isString(aCallable)) {
@@ -364,7 +364,7 @@ class DEventManager { // }: IEventManager {
             // properties["_dispatchedEvents"] = null;
         }
 
-        /*    properties.remove("_eventList");
+        /*    properties.removeByKey("_eventList");
 
     return properties;
  */

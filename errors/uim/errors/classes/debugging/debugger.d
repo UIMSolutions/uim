@@ -350,7 +350,7 @@ class DDebugger {
             }
             else if(formatValue == "array") {
                 if (!mergedOptions.hasKey("args")) {
-                    trace.remove("args");
+                    trace.removeByKey("args");
                 }
                 back ~= trace;
             } else {
@@ -359,7 +359,7 @@ class DDebugger {
             }
             trace.set("path", trimPath(trace["file"]));
             trace.set("reference", reference);
-            trace.remove("object", "args");
+            trace.removeByKey("object", "args");
             back ~= Text.insert(tpl, trace, ["before": "{:", "after": "}"]);
         }
     }

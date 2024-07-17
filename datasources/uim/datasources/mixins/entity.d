@@ -169,8 +169,8 @@ mixin template TEntity() {
   }
 
   // Removes a field from this entity
-  void __remove(string fieldName) {
-    this.remove(fieldName);
+  void __removeByKey(string fieldName) {
+    this.removeByKey(fieldName);
   }
 
   /**
@@ -432,16 +432,16 @@ mixin template TEntity() {
      * ### Examples:
      *
      * ```
-     * entity.remove("name");
-     * entity.remove(["name", "last_name"]);
+     * entity.removeByKey("name");
+     * entity.removeByKey(["name", "last_name"]);
      * ```
      * Params:
      * string[]|string fieldName The field to unset.
     */
-  auto remove(string[] afield) {
+  auto removeByKey(string[] afield) {
     field = /* (array) */ field;
     foreach (field asp) {
-      remove(_fields[p], _isChangedFields[p]);
+      removeByKey(_fields[p], _isChangedFields[p]);
     }
     return this;
   }
@@ -532,9 +532,9 @@ mixin template TEntity() {
     set(offsetToSet, valueToSet);
   }
 
-  // remove(result[anOffset]);
+  // removeByKey(result[anOffset]);
   void offsetUnset(Json offsetToRemove) {
-    this.remove(offsetToRemove);
+    this.removeByKey(offsetToRemove);
   }
 
   /**
@@ -670,15 +670,15 @@ mixin template TEntity() {
     if (!isChanged) {
       setOriginalField(fieldName);
 
-      _isChangedFields.remove(fieldName);
-      _originalFields.remove(fieldName);
+      _isChangedFields.removeByKey(fieldName);
+      _originalFields.removeByKey(fieldName);
 
       return;
     }
 
     _isChangedFields[fieldName] = true;
-    _fieldErrors.remove(fieldName);
-    _invalidFields.remove(fieldName);
+    _fieldErrors.removeByKey(fieldName);
+    _invalidFields.removeByKey(fieldName);
   }
 
   // Checks if the entity is dirty or if a single field of it is dirty.

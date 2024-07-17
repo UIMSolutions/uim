@@ -57,7 +57,7 @@ interface IFile : IFilesystemEntry {
 		bool move(IFolder toFolder); 	
 
 		// Deletes file.
-		bool remove();
+		bool removeByKey();
 
 		// TODO: OpenAsTextStream 	Opens a specified file and returns a TextStream object to access the file.
 	// #endregion Methods

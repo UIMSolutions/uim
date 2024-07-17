@@ -135,12 +135,12 @@ class DObjectRegistry(T : UIMObject) {
 	// #endregion clone
 
 	// #region remove
-	bool remove(string[] keys) {
-		return keys.all!(reg => remove(reg));
+	bool removeByKey(string[] keys) {
+		return keys.all!(reg => removeByKey(reg));
 	}
 
-	bool remove(string key) {
-		return _objects.remove(key);
+	bool removeByKey(string key) {
+		return _objects.removeByKey(key);
 	}
 
 	void clear() {

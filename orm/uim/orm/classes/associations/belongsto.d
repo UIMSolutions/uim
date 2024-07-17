@@ -47,7 +47,7 @@ class DBelongsToAssociation : DAssociation {
      *
      * BelongsTo associations are never cleared in a cascading delete scenario.
      */
-    bool cascadeRemove(IORMEntity anEntity, Json[string] options = null) {
+    bool cascaderemoveByKey(IORMEntity anEntity, Json[string] options = null) {
       return true;
     }
 

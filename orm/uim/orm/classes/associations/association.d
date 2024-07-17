@@ -543,7 +543,7 @@ class DAssociation : IAssociation {
         if (row.hasKey(sourceAlias)) {
             string key = row.getString(nestKey);
             row.set([sourceAlias, targetProperty], row.get(key));
-            row.remove(key);
+            row.removeByKey(key);
         }
 
         return row;
@@ -891,7 +891,7 @@ class DAssociation : IAssociation {
      * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
      * @param Json[string] options The options for the original delete.
      */
-    abstract bool cascadeRemove(IORMEntity anEntity, Json[string] options = null);
+    abstract bool cascaderemoveByKey(IORMEntity anEntity, Json[string] options = null);
 
     /**
      * Returns whether the passed table is the owning side for this

@@ -48,7 +48,7 @@ class DCheckboxWidget : DWidget {
         if (_isChecked(renderData)) {
             updatedData.set("checked", true);
         }
-        updatedData.remove("val");
+        updatedData.removeByKey("val");
 
         /* 
         auto myattrs = _stringContents.formatAttributes(

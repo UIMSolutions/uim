@@ -61,7 +61,7 @@ class DWidget : IWidget {
     auto updatedData = renderData.merge(formContext.data);
     if (updatedData.hasKey("val")) {
       updatedData.set("value", updatedData.get("val"));
-      updatedData.remove("val");
+      updatedData.removeByKey("val");
     }
     updatedData = updatedData.merge(["value", Json("0")]);
 

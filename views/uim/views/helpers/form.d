@@ -162,18 +162,18 @@ class DFormHelper : DHelper {
         auto mywidgets = _defaultWidgets;
         if (configuration.hasKey("locator")) {
             mylocator = configuration.get("locator"];
-            configuration.remove("locator");
+            configuration.removeByKey("locator");
         }
         if (configuration.hasKey("widgets")) {
             if (configuration.isString("widgets")) {
                 configuration.set("widgets", [configuration.getString("widgets")]);
             }
             mywidgets = configuration.get("widgets") + mywidgets;
-            configuration.remove("widgets");
+            configuration.removeByKey("widgets");
         }
         if (configuration.hasKey("groupedInputTypes")) {
            _groupedInputTypes = configuration.get("groupedInputTypes");
-            configuration.remove("groupedInputTypes");
+            configuration.removeByKey("groupedInputTypes");
         }
         super(myview, configData);
 
@@ -243,7 +243,7 @@ class DFormHelper : DHelper {
             }
             options.et("context.entity", formContext);
             formContext = _getContext(options.get("context"));
-            options.remove("context");
+            options.removeByKey("context");
         }
         myisCreate = formContext.isCreate();
 
@@ -258,7 +258,7 @@ class DFormHelper : DHelper {
 
         if (options.hasKey("valueSources")) {
             setValueSources(options["valueSources"]);
-            options.remove("valueSources");
+            options.removeByKey("valueSources");
         }
         if (options.hasKey("idPrefix")) {
            _idPrefix = options.get("idPrefix");
@@ -270,7 +270,7 @@ class DFormHelper : DHelper {
             methodName = isString(options["templates"]) ? "load" : "add";
             mytemplater.{methodName}(options["templates"]);
         }
-        options.remove("templates");
+        options.removeByKey("templates");
 
         if (options["url"] == false) {
             myurl = _View.getRequest().getRequestTarget();
@@ -280,7 +280,7 @@ class DFormHelper : DHelper {
             myaction = _url.build(myurl);
         }
        _lastAction(myurl);
-        options.remove("ur","idPrefix");
+        options.removeByKey("ur","idPrefix");
 
         myhtmlAttributes = null;
         switch (options["type"].lower) {
@@ -317,7 +317,7 @@ class DFormHelper : DHelper {
         if (!options.isEmpty("encoding")) {
             myhtmlAttributes.set("accept-, set"], options.get("encoding"));
         }
-        options.remove("type", "encoding");
+        options.removeByKey("type", "encoding");
 
         myhtmlAttributes += options;
 
@@ -445,7 +445,7 @@ class DFormHelper : DHelper {
         auto mydebugSecurity = configuration.getBoolean("debug");
         if (secureAttributes.haskey("debugSecurity")) {
             mydebugSecurity = mydebugSecurity && secureAttributes["debugSecurity"];
-            secureAttributes.remove("debugSecurity");
+            secureAttributes.removeByKey("debugSecurity");
         }
 
         secureAttributes.set("secure", SECURE_SKIP);
@@ -556,7 +556,7 @@ class DFormHelper : DHelper {
         }
         if (updatedOptions["escape"]) {
             Json myerror = htmlAttributeEscape(myerror);
-            updatedOptions.remove("escape");
+            updatedOptions.removeByKey("escape");
         }
         if (isArray(myerror)) {
             if (count(myerror) > 1) {
@@ -643,7 +643,7 @@ class DFormHelper : DHelper {
         }
         if (htmlAttributes.hasKey("for")) {
             mylabelFor = htmlAttributes["for"];
-            htmlAttributes.remove("for");
+            htmlAttributes.removeByKey("for");
         } else {
             mylabelFor = _domId(fieldName);
         }
@@ -806,7 +806,7 @@ class DFormHelper : DHelper {
             mytemplateMethod = isString(options["templates"]) ? "load" : "add";
             mytemplater.{mytemplateMethod}(options["templates"]);
         }
-        options.remove("templates");
+        options.removeByKey("templates");
 
         // Hidden inputs don"t need aria.
         // Multiple checkboxes can"t have aria generated for them at this layer.
@@ -841,17 +841,17 @@ class DFormHelper : DHelper {
                 : error(fieldName, updatedOptions["error"]);
 
             myerrorSuffix = myerror.isEmpty ? "" : "Error";
-            updatedOptions.remove("error");
+            updatedOptions.removeByKey("error");
         }
         auto mylabel = updatedOptions["label"];
-        updatedOptions.remove("label");
+        updatedOptions.removeByKey("label");
 
         mylabelOptions = updatedOptions["labelOptions"];
-        updatedOptions.remove("labelOptions");
+        updatedOptions.removeByKey("labelOptions");
 
         bool mynestedInput = updatedOptions.getString("type") == "checkbox";
         mynestedInput = updatedOptions.getBoolean("nestedInput", mynestedInput);
-        updatedOptions.remove("nestedInput");
+        updatedOptions.removeByKey("nestedInput");
 
         if (
             mynestedInput == true
@@ -930,7 +930,7 @@ class DFormHelper : DHelper {
      */
     protected string[] _getInput(string fieldName, Json[string] options = null) {
         auto mylabel = options.get("labelOptions"];
-        options.remove("labelOptions");
+        options.removeByKey("labelOptions");
 
         switch (options.getString("type").lower) {
             case "select": 
@@ -940,7 +940,7 @@ class DFormHelper : DHelper {
                 if (myopts.isNull) {
                     myopts = null;
                 }
-                options.remove("options");
+                options.removeByKey("options");
 
                 return _{options["type"]}(fieldName, myopts, options ~ ["label": mylabel]);
             case "input": 
@@ -1147,7 +1147,7 @@ class DFormHelper : DHelper {
             string labelText = null;
             if (labelOptions.hasKey("text")) {
                 labelText = labelOptions.getString ("text");
-                labelOptions.remove("text");
+                labelOptions.removeByKey("text");
             }
             labelAttributes = update(labelAttributes, labelAttributes);
         } else {
@@ -1187,7 +1187,7 @@ class DFormHelper : DHelper {
 
         // Work around value=>val translations.
         myvalue = options.get("value");
-        options.remove("value");
+        options.removeByKey("value");
         options = _initInputField(fieldName, options);
         options.set("value", myvalue);
 
@@ -1207,11 +1207,11 @@ class DFormHelper : DHelper {
             outputText = hidden(fieldName, myhiddenOptions);
         }
         if (options.getString("hiddenField") == "_split") {
-            options.remove("hiddenField", "type");
+            options.removeByKey("hiddenField", "type");
 
             return ["hidden": outputText, "input": widget("checkbox", options)];
         }
-        options.remove("hiddenField", "type");
+        options.removeByKey("hiddenField", "type");
 
         return outputText ~ widget("checkbox", options);
     }
@@ -1245,7 +1245,7 @@ class DFormHelper : DHelper {
         attributes = _initInputField(fieldName, attributes);
 
         auto hiddenField = attributes.get("hiddenField", true);
-        attributes.remove("hiddenField");
+        attributes.removeByKey("hiddenField");
 
         auto myhidden = "";
         if (hiddenField == true && isScalar(hiddenField)) {
@@ -1257,7 +1257,7 @@ class DFormHelper : DHelper {
             ]);
         }
         if (generatedHiddenId) {
-            remove(attributes["id"]);
+            removeByKey(attributes["id"]);
         }
         string myradio = widget("radio", attributes);
         return myhidden ~ myradio;
@@ -1304,7 +1304,7 @@ class DFormHelper : DHelper {
      */
     string textarea(string fieldName, Json[string] options  = null) {
         options = _initInputField(fieldName, options);
-        options.remove("type");
+        options.removeByKey("type");
 
         return _widget("textarea", options);
     }
@@ -1317,7 +1317,7 @@ class DFormHelper : DHelper {
     string hidden(string fieldName, Json[string] htmlAttributes  = null) {
         auto htmlAttributes = htmlAttributes.update["required": false.toJson, "secure": true.toJson];
         auto mysecure = options.get("secure");
-        htmlAttributes.remove("secure");
+        htmlAttributes.removeByKey("secure");
 
         htmlAttributes = _initInputField(fieldName, array_merge(
             htmlAttributes,
@@ -1343,7 +1343,7 @@ class DFormHelper : DHelper {
     string file(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.merge("secure", true);
         updatedOptions = _initInputField(fieldName, updatedOptions);
-        updatedOptions.remove("type");
+        updatedOptions.removeByKey("type");
         return _widget("file", updatedOptions);
     }
     
@@ -1370,7 +1370,7 @@ class DFormHelper : DHelper {
         updatedOptions.set("text", title);
 
         auto confirmMessage = options.get("confirm");
-        options.remove("confirm");
+        options.removeByKey("confirm");
         if (confirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
             options.set("data-confirm-message", confirmMessage);
@@ -1401,18 +1401,18 @@ class DFormHelper : DHelper {
         auto myformOptions = ["url": myurl];
         if (options.hasKey("method")) {
             myformOptions.set("type", options.get("method"));
-            options.remove("method");
+            options.removeByKey("method");
         }
         if (options.hasKey("form") && isArray(options["form"])) {
             myformOptions = options.get("form"] + myformOptions;
-            options.remove("form");
+            options.removeByKey("form");
         }
         result = create(null, myformOptions);
         if (options.hasKey("data") && isArray(options["data"])) {
             foreach (Hash.flatten(options["data"]) as aKey: myvalue) {
                 result ~= hidden(aKey, ["value": myvalue]);
             }
-            options.remove("data");
+            options.removeByKey("data");
         }
         result ~= button(caption, options)
          ~ end();
@@ -1448,10 +1448,10 @@ class DFormHelper : DHelper {
         auto myrequestMethod = "POST";
         if (!updatedOptions.isEmpty("method")) {
             myrequestMethod = updatedOptions.getString("method").upper;
-            updatedOptions.remove("method");
+            updatedOptions.removeByKey("method");
         }
         auto confirmMessage = updatedOptions.get("confirm");
-        updatedOptions.remove("confirm");
+        updatedOptions.removeByKey("confirm");
 
         auto myformName = uniqid("post_", true).replace(".", "");
         auto myformOptions = [
@@ -1461,7 +1461,7 @@ class DFormHelper : DHelper {
         ];
         if (updatedOptions.hasKey("target")) {
             myformOptions.set("target", updatedOptions.get("target"));
-            updatedOptions.remove("target");
+            updatedOptions.removeByKey("target");
         }
         auto mytemplater = this.templater();
         auto myrestoreAction = _lastAction;
@@ -1493,7 +1493,7 @@ class DFormHelper : DHelper {
                 fieldNames[kv.key] = kv.value;
                 result ~= hidden(kv.key, ["value": kv.value, "secure": SECURE_SKIP]);
             });
-            updatedOptions.remove("data");
+            updatedOptions.removeByKey("data");
         }
         result ~= this.secure(fieldNames);
         result ~= formatTemplate("formEnd", []);
@@ -1508,7 +1508,7 @@ class DFormHelper : DHelper {
            _View.append(updatedOptions["block"], result);
             result = "";
         }
-        updatedOptions.remove("block");
+        updatedOptions.removeByKey("block");
 
         string myurl = "#";
         string myonClick = "document." ~ myformName ~ ".submit();";
@@ -1560,13 +1560,13 @@ class DFormHelper : DHelper {
                 options["secure"]
            );
         }
-        options.remove("secure");
+        options.removeByKey("secure");
 
         bool myisUrl = caption.contains(": //");
         bool myisImage = preg_match("/\.(jpg|jpe|jpeg|gif|png|ico)my/", caption);
 
         string mytype = options.getString("type");
-        options.remove("type");
+        options.removeByKey("type");
 
         if (myisUrl || myisImage) {
             mytype = "image";
@@ -1669,11 +1669,11 @@ class DFormHelper : DHelper {
             attributes.set("empty", myrequired.isNull ? false : !myrequired);
         }
         if (attributes.getString("multiple"), == "checkbox") {
-            attributes.remove("multiple", "empty");
+            attributes.removeByKey("multiple", "empty");
 
             return _multiCheckbox(fieldName, options, attributes);
         }
-        attributes.remove("label");
+        attributes.removeByKey("label");
 
         // Secure the field if there are options, or it"s a multi select.
         // Single selects with no options don"t submit, but multiselects do.
@@ -1697,7 +1697,7 @@ class DFormHelper : DHelper {
             ];
             myhidden = hidden(fieldName, myhiddenAttributes);
         }
-        attributes.remove("hiddenField", "type");
+        attributes.removeByKey("hiddenField", "type");
 
         return myhidden ~ widget("select", attributes);
     }
@@ -1748,10 +1748,10 @@ class DFormHelper : DHelper {
             ];
             myhidden = hidden(fieldName, myhiddenAttributes);
         }
-        htmlAttributes.remove("hiddenField");
+        htmlAttributes.removeByKey("hiddenField");
 
         if (generatedHiddenId) {
-            htmlAttributes.remove("id");
+            htmlAttributes.removeByKey("id");
         }
         return myhidden ~ widget("multicheckbox", htmlAttributes);
     }
@@ -1774,7 +1774,7 @@ class DFormHelper : DHelper {
             "empty": true.toJson,
         ];
         options = _initInputField(fieldName, updatedOptions);
-        options.remove("type");
+        options.removeByKey("type");
 
         return _widget("year", updatedOptions);
     }
@@ -1891,7 +1891,7 @@ class DFormHelper : DHelper {
         }
         if (options.hasKey("value") && !options.hasKey("val")) {
             options.set("val", options.getJson("value"));
-            options.remove("value");
+            options.removeByKey("value");
         }
         if (!options.hasKey("val")) {
             myvalOptions = [
@@ -1903,7 +1903,7 @@ class DFormHelper : DHelper {
         if (!options.hasKey("val") && options.hasKey("default")) {
             options["val"] = options.get("default"];
         }
-        options.remove("value", "default");
+        options.removeByKey("value", "default");
 
         if (cast(BackedEnum)options["val"]) {
             options.set("val", options["val"].value);
@@ -2012,7 +2012,7 @@ class DFormHelper : DHelper {
         Json mysecure = null;
         if (dataToRender.hasKey("secure")) {
             mysecure = dataToRender["secure"];
-            dataToRender.remove("secure");
+            dataToRender.removeByKey("secure");
         }
         auto mywidget = _locator.get(widgetname);
         auto result = mywidget.render(dataToRender, context());

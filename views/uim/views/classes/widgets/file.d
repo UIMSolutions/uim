@@ -40,7 +40,7 @@ class DFileWidget : DWidget {
      */
     override string render(Json[string] renderData, IContext formContext) {
         auto updatedData = renderData.merge(formContext.data);
-        updatedData.remove("val");
+        updatedData.removeByKey("val");
 
         return _stringContents.format("file", 
             updatedData.data(["name", "templateVars"])

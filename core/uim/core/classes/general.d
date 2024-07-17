@@ -1,5 +1,11 @@
 module uim.core.classes.general;
 
+@safe:
+
+V Null(V:Object)(){
+	return null; 
+}
+
 T ifNull(T:Object)(T value, T defaultValue = null) {
   return value !is null ? value : defaultValue;
 }

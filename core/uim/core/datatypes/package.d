@@ -16,7 +16,7 @@ public {
   import uim.core.datatypes.general;
   import uim.core.datatypes.integral;
   import uim.core.datatypes.json;
-  import uim.core.datatypes.jstring;
+  import uim.core.datatypes.jmap;
   import uim.core.datatypes.string_;
   import uim.core.datatypes.uuid; 
 }

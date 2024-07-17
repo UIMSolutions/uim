@@ -8,6 +8,15 @@ module uim.core.datatypes.boolean;
 @safe:
 import uim.core;
 
+V Null(V:bool)(){
+	return false; 
+}
+
+unittest {
+	assert(Null!bool == false);
+	assert(Null!bool != true);
+}
+
 // char[] BOOL(bool toogleValue) { return cast(char[])((toogleValue) ? `true`:`false`); }
 
 /// Toggle boolean value (from true to false, false to true) -> in this function it's !value

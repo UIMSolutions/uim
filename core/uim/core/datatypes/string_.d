@@ -9,6 +9,10 @@ import uim.core;
 
 @safe:
 
+V Null(V:string)(){
+	return null; 
+}
+
 /// create a string with defined length and content
 string fill(size_t width, string fillText = "0") {
 	if (width == 0 || fillText.length == 0) {

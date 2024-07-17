@@ -11,6 +11,10 @@ import uim.core;
 enum SORTED = true;
 enum NOTSORTED = false;
 
+K[] sortedKeys(K, V)(V[K] items) {
+  return items.keys.sort.array;
+}
+
 /// get keys of an associative array
 /// sorted = false (default) returns an unsorted array, sorted = true returns a sorted array
 K[] getKeys(K, V)(V[K] aa, bool sorted = false) {
@@ -429,3 +433,27 @@ V ifNull(K, V)(V[K] map, K key, V defaultValue) {
     ? (!map[k].isNull ? map[k] : defaultValue)
     : defaultValue;
 }
+
+// #region set
+/+ Set keys +/
+JMAP setKeys(K, V)(V[K] values, string[] keys, V defaultValue = Null(V)) {
+  keys.each!(key => values.set(key, defaultValue));
+  return values;
+}
+// #endregion set
+
+// #region merge
+/+ Merge new items if key not exists +/
+JMAP mergeKeys(K, V)(V[K] values, string[] keys, V defaultValue = Null(V)) {
+  keys.each!(key => values.merge(key, defaultValue));
+  return values;
+}
+// #endregion merge
+
+// #region update
+/+ Update existing keys +/
+JMAP updateKeys(K, V)(V[K] values, string[] keys, V defaultValue = Null(V)) {
+  keys.each!(key => values.update(key, defaultValue));
+  return values;
+}
+// #endregion update

@@ -8,6 +8,15 @@ module uim.core.datatypes.floating;
 @safe:
 import uim.core;
 
+V Null(V:float)(){
+	return 0.0; 
+}
+
+V Null(V:double)(){
+	return 0.0; 
+}
+
+
 T fuzzy(T)(T value, T minLimit, T maxLimit, T minFactor = 0, T maxFactor = 1)
     if (isFloatingPoint!T) {
 

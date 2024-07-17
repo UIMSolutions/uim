@@ -1,4 +1,4 @@
-module uim.core.datatypes.jstring;
+module uim.core.datatypes.jmap;
 
 import uim.core;
 
@@ -6,27 +6,37 @@ import uim.core;
 
 alias JMAP = Json[string];
 
-Json[string] setKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
+unittest { // inherited from uim.core.containers.map
+  JMAP values = [
+    "a": Json("A"),
+    "b": Json("B"),
+    "c": Json("C")
+    ];
+
+  assert(values.sortedKeys == ["a", "b", "c"]);
+
+  JMAP setKeys(JMAP values, string[] keys, Json defaultValue = Json(null)) {
   keys.each!(key => values.set(key, defaultValue));
   return values;
 }
 
-Json[string] mergeKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
+JMAP mergeKeys(JMAP values, string[] keys, Json defaultValue = Json(null)) {
   keys.each!(key => values.merge(key, defaultValue));
   return values;
 }
 
-Json[string] updateKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
+JMAP updateKeys(JMAP values, string[] keys, Json defaultValue = Json(null)) {
   keys.each!(key => values.update(key, defaultValue));
   return values;
 }
+}
 
-Json[string] copy(Json[string] values, string[] keys = null) {
+JMAP copy(JMAP values, string[] keys = null) {
   if (keys.length == 0) {
     return values.dup;
   }
 
-  Json[string] results;
+  JMAP results;
   keys
     .filter!(key => values.hasKey(key))
     .each!(key => results[key] = values[key]);
@@ -35,14 +45,14 @@ Json[string] copy(Json[string] values, string[] keys = null) {
 }
 
 // #region merge
-Json[string] merge(Json[string] values, Json[string] valuesToMerge) {
+JMAP merge(JMAP values, JMAP valuesToMerge) {
   valuesToMerge.byKeyValue
     .each!(kv => values.merge(kv.key, kv.value));
 
   return values;
 }
 
-Json[string] merge(Json[string] values, Json valuesToMerge) {
+JMAP merge(JMAP values, Json valuesToMerge) {
   if (!valuesToMerge.isObject) {
     return values;
   }
@@ -53,35 +63,35 @@ Json[string] merge(Json[string] values, Json valuesToMerge) {
   return values;
 }
 
-Json[string] merge(Json[string] values, string key, bool value) {
+JMAP merge(JMAP values, string key, bool value) {
   if (key !in values) {
     values[key] = Json(value);
   }
   return values;
 }
 
-Json[string] merge(Json[string] values, string key, long value) {
+JMAP merge(JMAP values, string key, long value) {
   if (key !in values) {
     values[key] = Json(value);
   }
   return values;
 }
 
-Json[string] merge(Json[string] values, string key, double value) {
+JMAP merge(JMAP values, string key, double value) {
   if (key !in values) {
     values[key] = Json(value);
   }
   return values;
 }
 
-Json[string] merge(Json[string] values, string key, string value) {
+JMAP merge(JMAP values, string key, string value) {
   if (key !in values) {
     values[key] = Json(value);
   }
   return values;
 }
 
-Json[string] merge(Json[string] values, string key, Json value) {
+JMAP merge(JMAP values, string key, Json value) {
   if (key !in values) {
     values[key] = value;
   }
@@ -90,7 +100,7 @@ Json[string] merge(Json[string] values, string key, Json value) {
 // #endregion merge
 
 // #region Getter
-Json getJson(Json[string] values, string key) {
+Json getJson(JMAP values, string key) {
   key = key.strip;
   if (values.hasKey(key)) {
     return values[key];
@@ -107,7 +117,7 @@ Json getJson(Json[string] values, string key) {
 }
 
 unittest {
-  Json[string] jMap;
+  JMAP jMap;
   jMap["a"] = Json("a");
   jMap["b"] = Json("b");
   jMap["a.b"] = Json("a.b");
@@ -132,38 +142,38 @@ unittest {
   writeln("z.x.c.d = ", jMap.getString("z.x.c.d"));
 }
 
-bool getBoolean(Json[string] values, string key, bool defaultValue = false) {
+bool getBoolean(JMAP values, string key, bool defaultValue = false) {
   auto json = getJson(values, key);
   return !json.isNull
     ? json.get!bool : defaultValue;
 }
 
-int getInteger(Json[string] values, string key, int defaultValue = 0) {
+int getInteger(JMAP values, string key, int defaultValue = 0) {
   auto json = getJson(values, key);
   return !json.isNull
     ? json.get!int : defaultValue;
 }
 
-long getLong(Json[string] values, string key, long defaultValue = 0) {
+long getLong(JMAP values, string key, long defaultValue = 0) {
   auto json = getJson(values, key);
   return !json.isNull
     ? json.get!long : defaultValue;
 }
 
-double getDouble(Json[string] values, string key, double defaultValue = 0.0) {
+double getDouble(JMAP values, string key, double defaultValue = 0.0) {
   auto json = getJson(values, key);
   return !json.isNull
     ? json.get!double : defaultValue;
 }
 
-string getString(Json[string] values, string key, string defaultValue = null) {
+string getString(JMAP values, string key, string defaultValue = null) {
   auto json = getJson(values, key);
   return !json.isNull
     ? json.get!string : defaultValue;
 }
 
 unittest {
-  Json[string] values;
+  JMAP values;
   values["a"] = Json("A");
   values["b"] = "B".toJson;
   assert(values.getString("a") == "A");
@@ -172,39 +182,39 @@ unittest {
 }
 
 // #region getStrings
-STRINGAA getStrings(Json[string] values, string[] keys...) {
+STRINGAA getStrings(JMAP values, string[] keys...) {
   return getStrings(values, keys.dup);
 }
 
-STRINGAA getStrings(Json[string] values, string[] keys) {
+STRINGAA getStrings(JMAP values, string[] keys) {
   STRINGAA results;
   keys.each!(key => results[key] = values.getString(key));
   return results;
 }
 
 unittest {
-  Json[string] values;
+  JMAP values;
   values["a"] = Json("A");
   values["b"] = "B".toJson;
   assert(values.getStrings(["a"]) == ["a": "A"]);
 }
 // #endregion getStrings
 
-Json getJson(Json[string] values, string key, Json defaultValue = Json(null)) {
+Json getJson(JMAP values, string key, Json defaultValue = Json(null)) {
   return key in values
     ? values[key] : defaultValue;
 }
 
-Json[] getArray(Json[string] values, string key, Json[] defaultValue = null) {
+Json[] getArray(JMAP values, string key, Json[] defaultValue = null) {
   auto json = getJson(values, key);
   return !json.isNull
     ? json.get!(Json[]) : defaultValue;
 }
 
-Json[string] getMap(Json[string] values, string key, Json[string] defaultValue = null) {
+JMAP getMap(JMAP values, string key, JMAP defaultValue = null) {
   auto json = getJson(values, key);
   return !json.isNull && json.isObject
-    ? json.get!(Json[string]) : defaultValue;
+    ? json.get!(JMAP) : defaultValue;
 }
 
 unittest {
@@ -212,7 +222,7 @@ unittest {
   json["a"] = "A";
   json["one"] = 1;
 
-  Json[string] jsonMain = ["x": json];
+  JMAP jsonMain = ["x": json];
 
   assert(jsonMain.getMap("x").getString("a") == "A");
   assert(jsonMain.getMap("x").getString("b") != "A");
@@ -226,16 +236,16 @@ unittest {
 }
 // #endregion Getter
 
-bool isEmpty(Json[string] values, string key) {
+bool isEmpty(JMAP values, string key) {
   return (key !in values || values[key].isNull);
 }
 
-Json[string] filterKeys(Json[string] values, string[] keys) {
+JMAP filterKeys(JMAP values, string[] keys) {
   if (keys.length == 0) {
     return values.dup;
   }
 
-  Json[string] filteredData;
+  JMAP filteredData;
   keys
     .filter!(key => key in values)
     .each!(key => filteredData[key] = values[key]);
@@ -244,65 +254,65 @@ Json[string] filterKeys(Json[string] values, string[] keys) {
 }
 
 // #region setter
-Json[string] setNull(Json[string] map, string key) {
+JMAP setNull(JMAP map, string key) {
   map[key] = Json(null);
   return map;
 }
 
-Json[string] set(Json[string] map, string key, bool value) {
+JMAP set(JMAP map, string key, bool value) {
   map[key] = Json(value);
   return map;
 }
 
-Json[string] set(Json[string] map, string key, int value) {
+JMAP set(JMAP map, string key, int value) {
   map[key] = Json(value);
   return map;
 }
 
-Json[string] set(Json[string] map, string key, long value) {
+JMAP set(JMAP map, string key, long value) {
   map[key] = Json(value);
   return map;
 }
 
-Json[string] set(Json[string] map, string key, float value) {
+JMAP set(JMAP map, string key, float value) {
   map[key] = Json(value);
   return map;
 }
 
-Json[string] set(Json[string] map, string key, double value) {
+JMAP set(JMAP map, string key, double value) {
   map[key] = Json(value);
   return map;
 }
 
-Json[string] set(Json[string] map, string key, string value) {
+JMAP set(JMAP map, string key, string value) {
   map[key] = Json(value);
   return map;
 }
 
-Json[string] set(Json[string] map, string key, Json value) {
+JMAP set(JMAP map, string key, Json value) {
   map[key] = value;
   return map;
 }
 
-Json[string] set(Json[string] map, string key, Json[] value) {
+JMAP set(JMAP map, string key, Json[] value) {
   map[key] = value;
   return map;
 }
 
-Json[string] set(T)(Json[string] map, string key, T[string] value) {
-  Json[string] convertedValues;
+JMAP set(T)(JMAP map, string key, T[string] value) {
+  JMAP convertedValues;
   value.byKeyValue.each!(kv => convertedValues[kv.key] = Json(kv.value));
   map.set(key, convertedValues);
   return map;
 }
 
-Json[string] set(Json[string] map, string key, Json[string] value) {
+JMAP set(JMAP map, string key, JMAP value) {
   map[key] = value;
   return map;
 }
 
 unittest {
-  Json[string] json;
+  JMAP json;
   assert(json.set("bool", true).getBoolean("bool"));
   assert(json.set("bool", true).getBoolean("bool"));
   assert(json.set("long", 1).getLong("long") == 1);
@@ -317,35 +327,35 @@ unittest {
 // #endregion setter
 
 // #region convert
-Json[string] toJsonMap(bool[string] values, string[] excludeKeys = null) {
-  Json[string] result;
+JMAP toJsonMap(bool[string] values, string[] excludeKeys = null) {
+  JMAP result;
   values.byKeyValue
     .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
     .each!(kv => result[kv.key] = Json(kv.value));
   return result;
 }
 
-Json[string] toJsonMap(long[string] values, string[] excludeKeys = null) {
-  Json[string] result;
+JMAP toJsonMap(long[string] values, string[] excludeKeys = null) {
+  JMAP result;
   values.byKeyValue
     .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
     .each!(kv => result[kv.key] = Json(kv.value));
   return result;
 }
 
-Json[string] toJsonMap(double[string] values, string[] excludeKeys = null) {
-  Json[string] result;
+JMAP toJsonMap(double[string] values, string[] excludeKeys = null) {
+  JMAP result;
   values.byKeyValue
     .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
     .each!(kv => result[kv.key] = Json(kv.value));
   return result;
 }
 
-Json[string] toJsonMap(string[string] values, string[] excludeKeys = null) {
-  Json[string] result;
-  values.byKeyValue
-    .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
-    .each!(kv => result[kv.key] = Json(kv.value));
+JMAP toJsonMap(string[string] items, string[] excludeKeys = null) {
+  JMAP result;
+  items.byKeyValue
+    .filter!(item => !excludeKeys.has(item.key))
+    .each!(item => result[item.key] = Json(item.value));
   return result;
 }
 
@@ -357,7 +367,7 @@ unittest {
 }
 // #endregion convert
 
-bool isScalar(Json[string] map, string key) {
+bool isScalar(JMAP map, string key) {
   if (map is null) {
     return false;
   }

@@ -1039,12 +1039,12 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This changes the query type to be "delete".
      * Can be combined with the where() method to create delete queries.
      */
-    auto remove(string tableName = null) {
+    auto removeByKey(string tableName = null) {
         auto repository = getRepository();
         this.from([repository.aliasName(): repository.getTable()]);
 
         // We do not pass table to parent class here
-        return super.remove();
+        return super.removeByKey();
     }
 
     /**

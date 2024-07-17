@@ -216,10 +216,10 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         return _fallbacked;
     }
  
-    bool remove(string aliasToRemove) {
-        super.remove(aliasName);
+    bool removeByKey(string aliasToRemove) {
+        super.removeByKey(aliasName);
 
-        remove(_fallbacked[aliasName]);
+        removeByKey(_fallbacked[aliasName]);
     }
     
     // Adds a location where tables should be looked for.

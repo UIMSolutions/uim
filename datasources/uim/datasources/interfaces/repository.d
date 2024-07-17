@@ -102,7 +102,7 @@ interface IRepository {
      * Params:
      * \UIM\Datasource\IDatasourceEntity entity The entity to remove.
          */
-    bool remove(IDatasourceEntity entity, Json[string] options = null);
+    bool removeByKey(IDatasourceEntity entity, Json[string] options = null);
 
     /**
      * This creates a new entity object.

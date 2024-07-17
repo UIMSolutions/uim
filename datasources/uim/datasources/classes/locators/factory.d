@@ -42,7 +42,7 @@ class DFactoryLocator {
      * aRepositoryTypeName - The name of the repository type to drop the factory for.
      */
     static void drop(string aRepositoryTypeName) {
-        _modelFactories.remove(aRepositoryTypeName));
+        _modelFactories.removeByKey(aRepositoryTypeName));
     }
 
     // Get the factory for the specified repository type.

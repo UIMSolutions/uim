@@ -313,7 +313,7 @@ class DNumericPaginator : IPaginator {
     // Extracts the finder name and options out of the provided pagination options.
     protected Json[string] _extractFinder(Json[string] paginationOptions) {
         auto type = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"] : "all";
-        paginationOptions.remove("finder"), paginationOptions["maxLimit"]);
+        paginationOptions.removeByKey("finder"), paginationOptions["maxLimit"]);
 
         if (type.isArray) {
             paginationOptions = /* (array) */ currentValue(type) + paginationOptions;
@@ -441,7 +441,7 @@ class DNumericPaginator : IPaginator {
         } else {
             paginationOptions.set("sort", null);
         }
-        paginationOptions.remove("direction");
+        paginationOptions.removeByKey("direction");
 
         if (paginationOptions.isEmpty("order")) {
             paginationOptions.set("order", null);

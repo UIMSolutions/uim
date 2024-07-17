@@ -20,7 +20,7 @@ interface ILocator {
     bool exists(string aliasName);
 
     // Removes an repository instance from the registry.
-    bool remove(string aliasName);
+    bool removeByKey(string aliasName);
 
     // Clears the registry of configuration and instances.
     void clear();

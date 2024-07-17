@@ -68,7 +68,7 @@ class DMockAdapter { //}: IAdapter {
             // Move the current mock to the end so that when there are multiple
             // matches for a URL the next match is used on subsequent requests.
             auto mock = _responses[foundIndex];
-            _responses.remove(foundIndex);
+            _responses.removeByKey(foundIndex);
             _responses ~= mock;
 
             return [mock["response"]];

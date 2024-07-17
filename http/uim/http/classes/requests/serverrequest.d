@@ -746,7 +746,7 @@ class DServerRequest { // }: IServerRequest {
     static auto withoutHeader(string aName) {
         new = this.clone;
         name = this.normalizeHeaderName(name);
-        remove(new._environmentData[name]);
+        removeByKey(new._environmentData[name]);
 
         return new;
     }
@@ -1164,7 +1164,7 @@ class DServerRequest { // }: IServerRequest {
         auto newServerRequest = this.clone;
 
         if (isArray(newServerRequest.data)) {
-            newServerRequest.data = Hash.remove(newServerRequest.data, name);
+            newServerRequest.data = Hash.removeByKey(newServerRequest.data, name);
         }
         return newServerRequest;
     }
@@ -1210,7 +1210,7 @@ class DServerRequest { // }: IServerRequest {
                 "You cannot unset 'name'. It is a required UIM attribute."
            );
         }
-        remove(newServerRequest.attributes[name]);
+        removeByKey(newServerRequest.attributes[name]);
 
         return newServerRequest;
     }

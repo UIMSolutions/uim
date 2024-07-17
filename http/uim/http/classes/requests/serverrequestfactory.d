@@ -83,7 +83,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         serverRequest = serverRequest.withenviroment("ORIGINAL_REQUEST_METHOD", method);
         if (parsedBody.hasKey("_method")) {
             serverRequest = serverRequest.withenviroment("REQUEST_METHOD", parsedBody["_method"]);
-            remove(parsedBody["_method"]);
+            removeByKey(parsedBody["_method"]);
             shouldOverride = true;
         }
 

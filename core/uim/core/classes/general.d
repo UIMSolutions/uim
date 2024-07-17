@@ -11,7 +11,7 @@ T ifNull(T:Object)(T value, T defaultValue = null) {
 }
 
 unittest {
-  class Test {
+  @safe class Test {
     this() {}
     this(int aValue) {
       _value = aValue;

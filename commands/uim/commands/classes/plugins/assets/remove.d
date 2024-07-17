@@ -36,7 +36,7 @@ class DPluginAssetsRemoveCommand : DCommand {
                 _io.writeln("For plugin: " ~ pluginConfigData.key);
                 _io.hr();
 
-                _remove(pluginConfigData.value);
+                _removeByKey((pluginConfigData.value);
             });
         _io.writeln();
         _io.writeln("Done");

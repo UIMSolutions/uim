@@ -585,7 +585,7 @@ return url[0] != "/"
        );
 
         auto paginator = new paginatorclassname();
-        settingsForPagination.remove("classname");
+        settingsForPagination.removeByKey("classname");
 
         try {
             results = paginator.paginate(

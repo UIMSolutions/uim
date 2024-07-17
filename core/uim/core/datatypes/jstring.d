@@ -15,7 +15,7 @@ Json[string] mergeKeys(Json[string] values, string[] keys, Json defaultValue = J
 }
 
 Json[string] updateKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
-  keys.each!(key => update.merge(key, defaultValue));
+  keys.each!(key => values.update(key, defaultValue));
   return values;
 }
 
@@ -86,8 +86,6 @@ Json[string] merge(Json[string] values, string key, Json value) {
   return values;
 }
 // #endregion merge
-
-
 
 // #region Getter
 Json getJson(Json[string] values, string key) {
@@ -320,10 +318,10 @@ unittest {
 Json[string] toJsonMap(bool[string] values, string[] excludeKeys = null) {
   Json[string] result;
   values.byKeyValue
-      .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
-      .each!(kv => result[kv.key] = Json(kv.value));
+    .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
+    .each!(kv => result[kv.key] = Json(kv.value));
   return result;
-} 
+}
 
 Json[string] toJsonMap(long[string] values, string[] excludeKeys = null) {
   Json[string] result;
@@ -331,7 +329,7 @@ Json[string] toJsonMap(long[string] values, string[] excludeKeys = null) {
     .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
     .each!(kv => result[kv.key] = Json(kv.value));
   return result;
-} 
+}
 
 Json[string] toJsonMap(double[string] values, string[] excludeKeys = null) {
   Json[string] result;
@@ -339,7 +337,7 @@ Json[string] toJsonMap(double[string] values, string[] excludeKeys = null) {
     .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
     .each!(kv => result[kv.key] = Json(kv.value));
   return result;
-} 
+}
 
 Json[string] toJsonMap(string[string] values, string[] excludeKeys = null) {
   Json[string] result;
@@ -347,15 +345,19 @@ Json[string] toJsonMap(string[string] values, string[] excludeKeys = null) {
     .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
     .each!(kv => result[kv.key] = Json(kv.value));
   return result;
-} 
+}
+
 unittest {
-  assert(["a": "A", "b":"B"].toJsonMap.length == 2);
-  assert(["a": "A", "b":"B"].toJsonMap.getString("a") == "A");
-  assert(["a": "A", "b":"B"].toJsonMap(["b"]).length == 1);
-  assert(["a": "A", "b":"B"].toJsonMap(["b"]).getString("a") == "A");
+  assert(["a": "A", "b": "B"].toJsonMap.length == 2);
+  assert(["a": "A", "b": "B"].toJsonMap.getString("a") == "A");
+  assert(["a": "A", "b": "B"].toJsonMap(["b"]).length == 1);
+  assert(["a": "A", "b": "B"].toJsonMap(["b"]).getString("a") == "A");
 }
 // #endregion convert
 
-bool isScalar(string key) {
-  return hasKey(key) && get(key).isScalar;
+bool isScalar(Json[string] map, string key) {
+  if (map is null) {
+    return false;
+  }
+  return map.hasKey(key) && uim.core.datatypes.json.isScalar(map.getJson(key));
 }

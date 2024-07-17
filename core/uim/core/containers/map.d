@@ -3,7 +3,7 @@
 	License: Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt]                                       
 	Authors: Ozan Nurettin Süel (UIManufaktur)										                          
 ***********************************************************************************************************************/
-module uim.core.containers.aa;
+module uim.core.containers.map;
 
 @safe:
 import uim.core;

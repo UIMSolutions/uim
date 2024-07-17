@@ -26,7 +26,7 @@ class DH5Form : DH5Obj {
 
 	void add(Methods value) {
 		_attributes.remove("method");
-		_attributes.set("method", value);
+		_attributes["method"] = value;
 	}
 
 	@property string method() {
@@ -37,7 +37,7 @@ class DH5Form : DH5Obj {
 	void add(FormTargets value) {
 		_attributes.remove("target");
 		if (value != FormTargets.None) {
-			_attributes.set("target", value.toString);
+			_attributes["target"] = value.toString;
 		}
 	}
 

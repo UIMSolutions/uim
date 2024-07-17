@@ -356,7 +356,7 @@ class DRouteBuilder {
     }
 
     // Create a route that only responds to DELETE requests.
-    DRoute remove(string urlTemplate, string[] targetRouteParameters, string routeName = null) {
+    DRoute removeByKey(string urlTemplate, string[] targetRouteParameters, string routeName = null) {
         return _methodRoute("DELETE", urlTemplate, targetRouteParameters, routeName);
     }
 
@@ -623,7 +623,7 @@ class DRouteBuilder {
         string routings = Inflector.camelize(routingPrefix);
         if (params.hasKey("path")) {
             path = params["path"];
-            params.remove("path");
+            params.removeByKey("path");
         }
 
         if (_params.hasKey("prefix")) {
@@ -659,7 +659,7 @@ class DRouteBuilder {
             options = null;
         }
         auto path = options.getString("path", "/" ~ Inflector.dasherize(routings));
-        options.remove("path");
+        options.removeByKey("path");
         options = options.set(["plugin": routings]);
         scope(path, options, null /* callbackClosure */);
 
@@ -694,7 +694,7 @@ class DRouteBuilder {
         if (params.hasKey("_namePrefix")) {
             routingsPrefix ~= params["_namePrefix"];
         }
-        remove(params["_namePrefix"]);
+        removeByKey(params["_namePrefix"]);
 
         params += _params;
         /* auto mybuilder = new static(_collection, path, params, [

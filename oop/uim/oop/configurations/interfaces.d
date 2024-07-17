@@ -91,7 +91,7 @@ interface IConfiguration : INamed {
     bool merge(Json[string] newData, string[] validKeys = null);
     bool merge(string key, Json newValue);
 
-    bool remove(string[] keys);
+    bool removeByKey(string[] keys);
     bool removeItem(string keys);
 
     IConfiguration clear();

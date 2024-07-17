@@ -251,13 +251,13 @@ abstract class DConfiguration : IConfiguration {
 
     // #region remove - clear
     bool clear() {
-        return remove(keys);
+        return removeByKey(keys);
     }
 
-    bool remove(string[] keys) {
-        return keys.all!(key => remove(key));
+    bool removeByKey(string[] keys) {
+        return keys.all!(key => removeByKey(key));
     }
 
-    abstract bool remove(string key);
+    abstract bool removeByKey(string key);
     // #region remove - clear
 }

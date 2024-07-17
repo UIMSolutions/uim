@@ -106,8 +106,8 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
 
     IConfiguration existingConfig = existing.configuration();
     // TODO ?
-    // configData.remove("enabled");
-    // existingConfig.remove("enabled");
+    // configData.removeByKey("enabled");
+    // existingConfig.removeByKey("enabled");
 
     string failure;
     configData.keys
@@ -182,7 +182,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
   }
 
   // Unsets an object.
-  void __remove(string propertyName) {
+  void __removeByKey(string propertyName) {
     this.unload(propertyName);
   }
 
@@ -250,7 +250,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
         IEventListener) object) {
       getEventManager().off(object);
     }
-    _loaded.remove(name);
+    _loaded.removeByKey(name);
   }
 
   // Returns an array iterator.

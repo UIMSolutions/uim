@@ -332,11 +332,11 @@ class Xml {
                         if (isArray(dataValue)) {
                             if (dataValue.hasKey("@")) {
                                 mychildValue = to!string(dataValue["@"]);
-                                remove(dataValue["@"]);
+                                removeByKey(dataValue["@"]);
                             }
                             if (dataValue.hasKey("xmlns:")) {
                                 mychildNS = dataValue["xmlns:"];
-                                remove(dataValue["xmlns:"]);
+                                removeByKey(dataValue["xmlns:"]);
                             }
                         }
                         else if(!dataValue.isEmpty || dataValue == 0 || dataValue == "0") {

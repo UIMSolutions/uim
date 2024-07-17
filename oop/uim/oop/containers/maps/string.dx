@@ -26,7 +26,7 @@ class DMapString : DMapTempl!(string, string) {
 	/*
 	STRINGAA items(string[] ignoreKeys = null) {
 		STRINGAA result = _items.dup;
-		ignoreKeys.each!(key => result.remove(key));
+		ignoreKeys.each!(key => result.removeByKey(key));
 		return result;
 	} */
 

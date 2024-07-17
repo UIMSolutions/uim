@@ -51,9 +51,9 @@ void	putAll(Map<? extends K,? extends V> m)
 Copies all of the mappings from the specified map to this map (optional operation).
 default V	putIfAbsent(K key, V value)
 If the specified key is not already associated with a value (or is mapped to null) associates it with the given value and returns null, else returns the current value.
-V	remove(Object key)
+V	removeByKey(Object key)
 Removes the mapping for a key from this map if it is present (optional operation).
-default boolean	remove(Object key, Object value)
+default boolean	removeByKey(Object key, Object value)
 Removes the entry for the specified key only if it is currently mapped to the specified value.
 default V	replace(K key, V value)
 Replaces the entry for the specified key only if it is currently mapped to some value.

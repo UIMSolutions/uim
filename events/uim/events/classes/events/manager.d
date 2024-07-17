@@ -336,8 +336,8 @@ class DEventManager { // }: IEventManager {
     // Debug friendly object properties.
     Json[string] debugInfo() {
         /*    properties = get_object_vars(this);
-    properties["_generalManager"] = "(object) EventManager";
-    properties["_listeners"] = null;
+    properties.set("_generalManager", "(object) EventManager");
+    properties.set("_listeners", null);
  */ /*    foreach (_listeners as aKey : priorities) {
         listenerCount = 0;
         foreach (priorities as listeners) {

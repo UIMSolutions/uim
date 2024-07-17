@@ -235,19 +235,19 @@ abstract class DERRErrorHandler {
     // Log an error.
     protected bool _logError(string levelName, Json[string] errorData) {
         string message = "%s (%s): %s in [%s, line %s]".format(
-            data["error"],
-            data["code"],
-            data["description"],
-            data["file"],
-            data["line"]
+            data.getString("error"),
+            data.getString("code"),
+            data.getString("description"),
+            data.getString("file"),
+            data.getString("line")
        );
         context = null;
         if (!_config.isEmpty("trace"))) {
-            context["trace"] = Debugger.trace([
+            context.set("trace", Debugger.trace([
                 "start": 1,
                 "format": "log",
-            ]);
-            context["request"] = Router.getRequest();
+            ]));
+            context.set("request", Router.getRequest());
         }
 
         return _getLogger().logMessage(level, message, context);
@@ -258,7 +258,7 @@ abstract class DERRErrorHandler {
         if (_config.isEmpty("log")) {
             return false;
         }
-        return _config["skipLog"].any!(classname => cast(aclassname)exceptionToLog )
+        return _config.getArray("skipLog").any!(classname => cast(aclassname)exceptionToLog )
             ? false
             : _getLogger().log(exceptionToLog, currentRequest.ifNull(Router.getRequest));
     }
@@ -267,17 +267,17 @@ abstract class DERRErrorHandler {
     IErrorLogger getLogger() {
         if (_logger == null) {
             /** @var uim.errors.IErrorLogger logger */
-            logger = new _config["errorLogger"](_config);
+            auto logger = new _config["errorLogger"](_config);
 
             if (!cast(IErrorLogger)logger) {
                 // Set the logger so that the next error can be logged.
-                this.logger = new DErrorLogger(_config);
+                _logger = new DErrorLogger(_config);
 
-                interface = IErrorLogger.classname;
-                type = getTypeName(logger);
-                throw new DRuntimeException("Cannot create logger. `{type}` does not implement `{interface}`.");
+                auto anInterface = IErrorLogger.classname;
+                auto typeName = getTypeName(logger);
+                throw new DRuntimeException("Cannot create logger. `{typeName}` does not implement `{anInterface}`.");
             }
-            this.logger = logger;
+            _logger = logger;
         }
 
         return _logger;

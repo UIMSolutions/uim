@@ -1191,7 +1191,7 @@ class DFormHelper : DHelper {
         options = _initInputField(fieldName, options);
         options.set("value", myvalue);
 
-        myoutput = "";
+        string myoutput = "";
         if (options["hiddenField"] == true && isScalar(options["hiddenField"])) {
             myhiddenOptions = [
                 "name": options["name"],

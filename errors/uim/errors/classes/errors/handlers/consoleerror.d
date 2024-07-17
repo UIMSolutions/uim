@@ -26,8 +26,8 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
     bool initialize() {
         // TODO super.initialize;
 
-        aConfig["stderr"] = new DConsoleOutput("D://stderr");
-        aConfig["log"] = false;
+        aConfig.set("stderr", new DConsoleOutput("D://stderr"));
+        aConfig.set("log", false);
     }
 
     /**

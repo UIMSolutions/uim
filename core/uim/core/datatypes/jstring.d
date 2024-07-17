@@ -4,8 +4,18 @@ import uim.core;
 
 @safe:
 
+Json[string] setKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
+  keys.each!(key => values.set(key, defaultValue));
+  return values;
+}
+
 Json[string] mergeKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
   keys.each!(key => values.merge(key, defaultValue));
+  return values;
+}
+
+Json[string] updateKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
+  keys.each!(key => update.merge(key, defaultValue));
   return values;
 }
 
@@ -346,3 +356,6 @@ unittest {
 }
 // #endregion convert
 
+bool isScalar(string key) {
+  return hasKey(key) && get(key).isScalar;
+}

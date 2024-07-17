@@ -1223,3 +1223,7 @@ Json match(K)(Json[K] matchValues, K key, Json defaultValue = Json(null)) {
     ? matchValues[key]
     : defaultValue;
 }
+
+bool isScalar(Json value) {
+  return !value.isArray && !value.isObject;
+}

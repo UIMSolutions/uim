@@ -285,15 +285,15 @@ class DServerRequest { // }: IServerRequest {
      */
     protected Json[string] processUrlOption(Json[string] configData = null) {
         if (configData["url"][0] != "/") {
-            configData["url"] = "/" ~ configData["url"];
+            configData.set("url", "/" ~ configData.getString("url"));
         }
         if (configData["url"].contains("?")) {
-            [configData["url"], configData["environment.QUERY_STRING"]] = split("?", configData["url"]);
+            [configData.get("url"), configData.get("environment.QUERY_STRING")] = split("?", configData.get("url"));
 
             parse_str(configData["environment.QUERY_STRING"], aQueryArgs);
             configData["query"] += aQueryArgs;
         }
-        configData["environment.REQUEST_URI"] = configData["url"];
+        configData.set("environment.REQUEST_URI", configData.get("url"));
 
         return configData;
     }
@@ -372,37 +372,37 @@ class DServerRequest { // }: IServerRequest {
      * Local addresses do not contain hostnames.
      */
     string referer(bool local = true) {
-        ref = getEnvironmentData("HTTP_REFERER");
+        auto httpReferer = getEnvironmentData("HTTP_REFERER");
 
-        base = configuration.get("App.fullBaseUrl") ~ this.webroot;
-        if (isEmpty(ref) || base.isEmpty) {
+        auto base = configuration.get("App.fullBaseUrl") ~ this.webroot;
+        if (isEmpty(httpReferer) || base.isEmpty) {
             return null;
         }
-        if (local && ref.startWith(base)) {
-            ref = subString(ref, base.length);
-            if (ref.isEmpty || ref.startWith("//")) {
-                ref = "/";
+        if (local && httpReferer.startWith(base)) {
+            httpReferer = subString(httpReferer, base.length);
+            if (httpReferer.isEmpty || httpReferer.startWith("//")) {
+                httpReferer = "/";
             }
-            if (ref[0] != "/") {
-                ref = "/" ~ ref;
+            if (httpReferer[0] != "/") {
+                httpReferer = "/" ~ httpReferer;
             }
-            return ref;
+            return httpReferer;
         }
-        if (local) {
-            return null;
-        }
-        return ref;
+
+        return local
+            ? null
+            : httpReferer;
     }
     
     // Missing method handler, handles wrapping older style isAjax() type methods
     bool __call(string methodName, Json[string] params) {
-        if (name.startWith("is")) {
+        /* if (name.startWith("is")) {
             auto type = subString(methodName, 2).lower;
 
             array_unshift(params, type);
 
             return _is(...params);
-        }
+        } */
         throw new BadMethodCallException("Method `%s()` does not exist."
         .format(methodName));
     }
@@ -492,31 +492,25 @@ class DServerRequest { // }: IServerRequest {
         return true;
     }
     
-    /**
-     * Detects if a specific header is present.
-     */
+    // Detects if a specific header is present.
     protected bool _headerDetector(Json[string] detectorOptions) {
-        foreach (detectorOptions["header"] as  aHeader: aValue) {
-            auto aHeader = getEnvironmentData("http_" ~  aHeader);
-            if (!aHeader.isNull) {
-                if (cast(DClosure)aValue) {
-                    return aValue(aHeader);
-                }
-                return aHeader == aValue;
+        foreach (header, aValue; detectorOptions.getMap("header")) {
+            auto header = getEnvironmentData("http_" ~  header);
+            if (!header.isNull) {
+                /* if (cast(DClosure)aValue) {
+                    return aValue(header);
+                } */
+                return header == aValue;
             }
         }
         return false;
     }
     
-    /**
-     * Detects if a specific request parameter is present.
-     * Params:
-     * Json[string] detect Detector options array.
-     */
+    // Detects if a specific request parameter is present.
     protected bool _paramDetector(Json[string] detect) {
-        key = detect["param"];
+        string key = detect.getString("param");
         if (detect.hasKey("value")) {
-            aValue = detect["value"];
+            auto aValue = detect.get("value");
 
             return _params.hasKey(key) ? _params[key] == aValue : false;
         }
@@ -534,15 +528,14 @@ class DServerRequest { // }: IServerRequest {
     protected bool _environmentDetector(Json[string] detect) {
         if (detect.hasKey("env")) {
             if (detect.hasKey("value")) {
-                return _getEnvironmentData(detect["env"]) == detect["value"];
+                return _getEnvironmentData(detect.get("env")) == detect.get("value");
             }
             if (detect.hasKey("pattern")) {
-                return (bool)preg_match(detect["pattern"], (string)getEnvironmentData(detect["env"]));
+                return /* (bool) */preg_match(detect.get("pattern"), /* (string) */getEnvironmentData(detect.get("env")));
             }
             if (detect.hasKey("options")) {
-                 somePattern = "/" ~ detect["options"].join("|") ~ "/i";
-
-                return (bool)preg_match(somePattern, (string)getEnvironmentData(detect["env"]));
+                auto somePattern = "/" ~ detect.get("options").join("|") ~ "/i";
+                return /* (bool) */preg_match(somePattern, /* (string) */getEnvironmentData(detect.get("env")));
             }
         }
         return false;
@@ -554,14 +547,12 @@ class DServerRequest { // }: IServerRequest {
      * Allows you to test multiple types and union the results.
      * See Request.is() for how to add additional types and the
      * built-in types.
-     * Params:
-     * string[] types The types to check.
      */
     bool isAll(Json[string] types) {
         foreach (type; types) {
-            if (!is(type)) {
+            /* if (!is(type)) {
                 return false;
-            }
+            } */
         }
         return true;
     }
@@ -738,8 +729,8 @@ class DServerRequest { // }: IServerRequest {
         auto newRequest = this.clone;
         string normalizedName = this.normalizeHeaderName(headerName);
         auto existing = null;
-        if (new._environmentData[normalizedName] !is null) {
-            existing = (array)new._environmentData[normalizedName];
+        if (newRequest._environmentData[normalizedName] !is null) {
+            existing = /* (array) */newRequest._environmentData[normalizedName];
         }
         existing = array_merge(existing, /* (array) */headerValue);
         newRequest._environmentData[normalizedName] = existing;
@@ -826,14 +817,12 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Get the current url scheme used for the request.
-     *
      * e.g. 'http", or 'https'
      */
     string scheme() {
-        if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PROTO")) {
-            return (string)getEnvironmentData("HTTP_X_FORWARDED_PROTO");
-        }
-        return _getEnvironmentData("HTTPS") ? "https' : 'http";
+        return this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PROTO")
+            ? getEnvironmentData("HTTP_X_FORWARDED_PROTO")
+            : _getEnvironmentData("HTTPS") ? "https' : 'http";
     }
     
     /**
@@ -844,12 +833,12 @@ class DServerRequest { // }: IServerRequest {
      */
     string domain(int tldLength = 1) {
         auto host = this.host();
-        if (isEmpty(host)) {
+        if (host.isEmpty) {
             return null;
         }
         
         string[] segments = host.split(".");
-        domain = array_slice(segments, -1 * (tldLength + 1));
+        auto domain = array_slice(segments, -1 * (tldLength + 1));
 
         return join(".", domain);
     }
@@ -862,7 +851,7 @@ class DServerRequest { // }: IServerRequest {
      */
     string[] subdomains(int tldLength = 1) {
         auto host = host();
-        if (host.isEmpty() {
+        if (host.isEmpty()) {
             return null;
         }
         
@@ -912,8 +901,6 @@ class DServerRequest { // }: IServerRequest {
      * Check if a specific language is accepted:
      *
      * ```request.acceptLanguage("es-es");```
-     * Params:
-     * string language The language to test.
      */
     Json acceptLanguage(string languageToTest = null) {
         auto content = new DContentTypeNegotiation();
@@ -934,7 +921,6 @@ class DServerRequest { // }: IServerRequest {
      * aValue = Hash.get(request.queryArguments(), "Post.id");
      * ```
      */
-
     Json getQuery(string[] path, Json defaultValue = Json(null)) {
         return getQuery(path.join("."), defaultValue);
     }
@@ -1011,18 +997,16 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Replace the cookies in the request with those contained in
      * the provided CookieCollection.
-     * Params:
-     * \UIM\Http\Cookie\CookieCollection cookies The cookie collection
      */
-    static withCookieCollection(CookieCollection cookies) {
-        new = this.clone;
-         someValues = null;
-        foreach (cookies as cookie) {
-             someValues[cookie.name] = cookie.getValue();
+    static withCookieCollection(DCookieCollection cookies) {
+        auto newServerRequest = this.clone;
+        Json[string] someValues = null;
+        foreach (cookie; cookies) {
+            someValues.set(cookie.name, cookie.getValue());
         }
-        new.cookies = someValues;
+        newServerRequest.cookies = someValues;
 
-        return new;
+        return newServerRequest;
     }
     
     // Get all the cookie data from the request.
@@ -1030,17 +1014,12 @@ class DServerRequest { // }: IServerRequest {
         return _cookies;
     }
     
-    /**
-     * Replace the cookies and get a new request instance.
-     * Params:
-     * Json[string] cookies The new cookie data to use.
-     */
-    static auto withCookieParams(Json[string] cookies): static
-    {
-        new = this.clone;
-        new.cookies = cookies;
+    // Replace the cookies and get a new request instance.
+    static auto withCookieParams(Json[string] cookies) {
+        auto newServerRequest = this.clone;
+        newServerRequest.cookies = cookies;
 
-        return new;
+        return newServerRequest;
     }
     
     /**
@@ -1051,7 +1030,7 @@ class DServerRequest { // }: IServerRequest {
      * post data. For other content types, it may be the deserialized request
      * body.
      */
-    object|array|null getParsedBody() {
+    /* object|array|null */ auto getParsedBody() {
         return _data;
     }
     
@@ -1061,18 +1040,16 @@ class DServerRequest { // }: IServerRequest {
      * object|array|null someData The deserialized body data. This will
      *   typically be in an array or object.
      */
-    static withParsedBody(someData) {
-        new = this.clone;
-        new.data = someData;
+    static auto withParsedBody(someData) {
+        auto newServerRequest = this.clone;
+        newServerRequest.data = someData;
 
-        return new;
+        return newServerRequest;
     }
     
-    /**
-     * Retrieves the HTTP protocol version as a string.
-     */
+    // Retrieves the HTTP protocol version as a string.
     string getProtocolVersion() {
-        if (this.protocol) {
+        if (_protocol) {
             return _protocol;
         }
         // Lazily populate this data as it is generally not used.
@@ -1081,7 +1058,7 @@ class DServerRequest { // }: IServerRequest {
         if (match[1] !is null) {
             protocol = match[1];
         }
-        this.protocol = protocol;
+        _protocol = protocol;
 
         return _protocol;
     }
@@ -1094,14 +1071,14 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string aversion HTTP protocol version
      */
-    static withProtocolVersion(string aversion) {
+    static auto withProtocolVersion(string aversion) {
         if (!preg_match("/^(1\.[01]|2)/", version)) {
             throw new DInvalidArgumentException("Unsupported protocol version `%s` provided.".format(version));
         }
-        new = this.clone;
-        new.protocol = version;
+        auto newServerRequest = this.clone;
+        newServerRequest.protocol = aversion;
 
-        return new;
+        return newServerRequest;
     }
     
     /**
@@ -1184,12 +1161,12 @@ class DServerRequest { // }: IServerRequest {
      * string aName The dot separated path to remove.
      */
     static withoutData(string aName) {
-        copy = this.clone;
+        auto newServerRequest = this.clone;
 
-        if (isArray(copy.data)) {
-            copy.data = Hash.remove(copy.data, name);
+        if (isArray(newServerRequest.data)) {
+            newServerRequest.data = Hash.remove(newServerRequest.data, name);
         }
-        return copy;
+        return newServerRequest;
     }
     
     /**
@@ -1199,10 +1176,10 @@ class DServerRequest { // }: IServerRequest {
      * a *new* request object and does not mutate the request in-place.
      */
     static auto withParam(string insertPath, Json valueToInsert) {
-        auto copyRequest = this.clone;
-        copyRequest.params = Hash.insert(copy.params, insertPath, valueToInsert);
+        auto newServerRequest = this.clone;
+        newServerRequest.params = Hash.insert(copy.params, insertPath, valueToInsert);
 
-        return copyRequest;
+        return newServerRequest;
     }
     
     // Safely access the values in _params.
@@ -1212,13 +1189,13 @@ class DServerRequest { // }: IServerRequest {
     
     // Return an instance with the specified request attribute.
     static DServerRequest withAttribute(string attributeName, Json aValue) {
-        DServerRequest newRequest = this.clone;
+        DServerRequest newServerRequest = this.clone;
         if (isIn(attributeName, _emulatedAttributes, true)) {
-            newRequest.{attributeName} = aValue;
+            newServerRequest.{attributeName} = aValue;
         } else {
-            newRequest.attributes[attributeName] = aValue;
+            newServerRequest.attributes[attributeName] = aValue;
         }
-        return newRequest;
+        return newServerRequest;
     }
     
     /**
@@ -1227,15 +1204,15 @@ class DServerRequest { // }: IServerRequest {
      * string aName The attribute name.
      */
     static auto withoutAttribute(string aName) {
-        new = this.clone;
+        auto newServerRequest = this.clone;
         if (isIn(name, _emulatedAttributes, true)) {
             throw new DInvalidArgumentException(
                 "You cannot unset 'name'. It is a required UIM attribute."
            );
         }
-        remove(new.attributes[name]);
+        remove(newServerRequest.attributes[name]);
 
-        return new;
+        return newServerRequest;
     }
     
     // Read an attribute from the request, or get the default
@@ -1274,7 +1251,7 @@ class DServerRequest { // }: IServerRequest {
      * string aPath The dot separated path to the file you want.
      */
     IUploadedFile getUploadedFile(string aPath) {
-        file = Hash.get(this.uploadedFiles, somePath);
+        auto file = Hash.get(this.uploadedFiles, somePath);
         if (!cast(UploadedFile)file) {
             return null;
         }
@@ -1295,10 +1272,10 @@ class DServerRequest { // }: IServerRequest {
      */
     static withUploadedFiles(Json[string] uploadedFiles) {
         this.validateUploadedFiles(uploadedFiles, "");
-        new = this.clone;
-        new.uploadedFiles = uploadedFiles;
+        auto newServerRequest = this.clone;
+        newServerRequest.uploadedFiles = uploadedFiles;
 
-        return new;
+        return newServerRequest;
     }
     
     /**
@@ -1329,15 +1306,13 @@ class DServerRequest { // }: IServerRequest {
      * \Psr\Http\Message\IStream body The new request body
      */
     static auto withBody(IStream body) {
-        new = this.clone;
-        new.stream = body;
+        auto newServerRequest = this.clone;
+        newServerRequest.stream = body;
 
-        return new;
+        return newServerRequest;
     }
     
-    /**
-     * Retrieves the URI instance.
-     */
+    // Retrieves the URI instance.
     IUri getUri() {
         return _uri;
     }
@@ -1351,23 +1326,23 @@ class DServerRequest { // }: IServerRequest {
      * \Psr\Http\Message\IUri anUri The new request uri
      */
     static withUri(IUri anUri, bool preserveHost = false) {
-        new = this.clone;
-        new.uri = anUri;
+        auto newServerRequest = this.clone;
+        newServerRequest.uri = anUri;
 
         if (preserveHost && this.hasHeader("Host")) {
-            return new;
+            return newServerRequest;
         }
         host = anUri.getHost();
         if (!host) {
-            return new;
+            return newServerRequest;
         }
         port = anUri.getPort();
         if (port) {
             host ~= ": " ~ port;
         }
-        new._environmentData["HTTP_HOST"] = host;
+        newServerRequest._environmentData["HTTP_HOST"] = host;
 
-        return new;
+        return nenewServerRequestw;
     }
     
     /**
@@ -1393,7 +1368,7 @@ class DServerRequest { // }: IServerRequest {
      * defined in the SERVER environment.
      */
     string getRequestTarget() {
-        if (this.requestTarget !is null) {
+        if (_requestTarget !is null) {
             return _requestTarget;
         }
 
@@ -1409,11 +1384,12 @@ class DServerRequest { // }: IServerRequest {
     
     // Get the path of current request.
     string getPath() {
-        if (this.requestTarget.isNull) {
+        if (_requestTarget.isNull) {
             return _uri.getPath();
         }
-        [somePath] = this.requestTarget.split("?");
 
-        return somePath;
+        return _requestTarget.contains("?")
+            ? _requestTarget.split("?")[0]
+            : null;
     }
 }

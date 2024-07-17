@@ -331,7 +331,7 @@ class DDebugger {
                 signature = reference = next["function"];
 
                 if (!next.isEmpty("class")) {
-                    string signature = next.getString("class") ~ "." ~ next.getString("class") "function");
+                    string signature = next.getString("class") ~ "." ~ next.getString("class")/*  "function") */;
                     reference = signature ~ "(";
                     if (mergedOptions.isNull("args") && next.hasKey("args")) {
                         auto args = next["args"].map!(arg => Debugger.exportVar(arg)).array;
@@ -355,13 +355,11 @@ class DDebugger {
                 back ~= trace;
             } else {
                 formatValue = mergedOptions.getString("format");
-                tpl = _stringContents.hasKey(formatValue ~ ".traceLine")
-                    ? _stringContents[formatValue ~ ".traceLine"];
-                 : _stringContents["base.traceLine"];
+                tpl = _stringContents.get([formatValue, "traceLine"], _stringContents.get(["base", "traceLine"]));
             }
-            trace["path"] = trimPath(trace["file"]);
-            trace["reference"] = reference;
-            remove(trace["object"], trace["args"]);
+            trace.set("path", trimPath(trace["file"]));
+            trace.set("reference", reference);
+            trace.remove("object", "args");
             back ~= Text.insert(tpl, trace, ["before": "{:", "after": "}"]);
         }
     }

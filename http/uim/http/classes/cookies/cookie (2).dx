@@ -90,17 +90,15 @@ class DCookie : ICookie {
      * - `isSecure`: Boolean. Defaults to `false`.
      * - `samesite`: Can be one of `ICookie.SAMESITE_LAX`, `ICookie.SAMESITERRORS.NOTICE`,
      *  `ICookie.SAMESITE_NONE` or `null`. Defaults to `null`.
-     * Params:
-     * Json[string] options Default options.
      */
     static void setDefaults(Json[string] options = null) {
         auto options = options.copy;
 
         if (options.hasKey("expires")) {
-            options["expires"] = dateTimeInstance(options["expires"]);
+            t("expires", dateTimeInstance(options["expires"]));
         }
         if (options.hasKey("samesite")) {
-            options["samesite"] = resolveSameSiteenumeration(options["samesite"]);
+            t("samesite", resolveSameSiteenumeration(options["samesite"]));
         }
         defaultAttributes = options.set(defaultAttributes);
     }

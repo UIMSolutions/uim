@@ -116,15 +116,15 @@ class DOauth {
         if (authCredentials.hasKey("realm")) {
             someValues.set("oauth_realm", authCredentials["realm"]);
         }
-        string[] aKey = [
-            authCredentials["consumerSecret"], authCredentials["tokenSecret"]
+        string[] key = [
+            authCredentials.getString("consumerSecret"), authCredentials.getString("tokenSecret")
         ];
-        aKey = array_map(_encode(...), aKey);
-        aKey = aKey.join("&");
+        // key = array_map(_encode(...), key);
+        key = key.join("&");
 
-        someValues["oauth_signature"] = base64_encode(
-            hash_hmac("sha1", baseString, aKey, true)
-       );
+        someValues.set("oauth_signature", base64_encode(
+            hash_hmac("sha1", baseString, key, true)
+       ));
 
         return _buildAuth(someValues);
     }
@@ -136,9 +136,9 @@ class DOauth {
         if (!function_exists("openssl_pkey_get_private")) {
             throw new DException("RSA-SHA1 signature method requires the OpenSSL extension.");
         }
-        nonce = authCredentials["nonce"] ?  ? bin2hex(Security.randomBytes(16));
-        timestamp = authCredentials["timestamp"] ?  ? time();
-        someValues = [
+        auto nonce = authCredentials.get("nonce", bin2hex(Security.randomBytes(16)));
+        auto timestamp = authCredentials.get("timestamp", time());
+        auto someValues = [
             "oauth_version": "1.0",
             "oauth_nonce": nonce,
             "oauth_timestamp": timestamp,
@@ -146,24 +146,24 @@ class DOauth {
             "oauth_consumer_key": authCredentials["consumerKey"],
         ];
         if (authCredentials.hasKey("consumerSecret")) {
-            someValues["oauth_consumer_secret"] = authCredentials["consumerSecret"];
+            someValues.set("oauth_consumer_secret", authCredentials["consumerSecret"]);
         }
         if (authCredentials.hasKey("token")) {
-            someValues["oauth_token"] = authCredentials["token"];
+            someValues.set("oauth_token", authCredentials["token"]);
         }
         if (authCredentials.hasKey("tokenSecret")) {
-            someValues["oauth_token_secret"] = authCredentials["tokenSecret"];
+            someValues.set("oauth_token_secret", authCredentials["tokenSecret"]);
         }
-        baseString = this.baseString(request, someValues);
 
+        auto baseString = this.baseString(request, someValues);
         if (authCredentials.hasKey("realm")) {
-            someValues["oauth_realm"] = authCredentials["realm"];
+            someValues.set("oauth_realm", authCredentials["realm"]);
         }
-        if (isResource(authCredentials["privateKey"])) {
-            auto resource = authCredentials["privateKey"];
+        if (isResource(authCredentials.get("privateKey"))) {
+            auto resource = authCredentials.get("privateKey");
             auto privateKey = stream_get_contents(resource);
             rewind(resource);
-            authCredentials["privateKey"] = privateKey;
+            authCredentials.set("privateKey", privateKey);
         }
         authCredentials.merge([
                 "privateKeyPassphrase": "",
@@ -172,7 +172,7 @@ class DOauth {
             auto resource = authCredentials["privateKeyPassphrase"];
             auto passphrase = stream_get_line(resource, 0, D_EOL);
             rewind(resource);
-            authCredentials["privateKeyPassphrase"] = passphrase;
+            authCredentials.set("privateKeyPassphrase", passphrase);
         }
         /** @var \OpenSSLAsymmetricKey|\OpenSSLCertificate|string[] aprivateKey */
         privateKey = openssl_pkey_get_private(authCredentials["privateKey"], authCredentials["privateKeyPassphrase"]);
@@ -202,7 +202,7 @@ class DOauth {
             _normalizedUrl(request.getUri()),
             _normalizedParams(request, oauthData),
         ];
-        someParts = array_map(_encode(...), someParts);
+        // someParts = array_map(_encode(...), someParts);
 
         return join("&", someParts);
     }
@@ -221,19 +221,19 @@ class DOauth {
      * - Sort keys & values by byte value.
      */
     protected string _normalizedParams(Request request, Json[string] oauthData) {
-        auto aQuery = parse_url((string) request.getUri(), UIM_URL_QUERY);
-        parse_str((string) aQuery, aQueryArgs);
+        auto aQuery = parse_url(/* (string)  */request.getUri(), UIM_URL_QUERY);
+        // parse_str((string) aQuery, aQueryArgs);
 
         auto post = null;
         string contentType = request.getHeaderLine("Content-Type");
         if (contentType.isEmpty || contentType == "application/x-www-form-urlencoded") {
-            parse_str(to!string(request.getBody()), post);
+            // parse_str(to!string(request.getBody()), post);
         }
         auto arguments = chain(aQueryArgs, oauthData, post);
         auto pairs = _normalizeData(arguments);
         auto someData = null;
-        foreach (pairs as pair) {
-            someData ~= join("=", pair);
+        foreach (pair; pairs) {
+            someData ~= pair.join("=");
         }
         sort(someData, SORT_STRING);
 
@@ -266,7 +266,7 @@ class DOauth {
     protected string _buildAuth(Json[string] oauthData) {
         string result = "OAuth ";
         string[] params = someData.byKeyValue
-            .map!(kv => kv.key ~ "=\"" ~ _encode((string) kv.value) ~ "\"").array;
+            .map!(kv => kv.key ~ "=\"" ~ _encode(/* (string)  */kv.value) ~ "\"").array;
 
         result ~= params.join(",");
 

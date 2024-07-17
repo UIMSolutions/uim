@@ -284,9 +284,9 @@ mixin template TQuery() {
      *        ];
      *
      *        if (query.isHydrationEnabled()) {
-     *            row["foo"] = new DFoo(data)
+     *            row.set("foo", new DFoo(data));
      *        } else {
-     *            row["foo"] = data;
+     *            row.set("foo", data);
      *        }
      *
      *        return row;

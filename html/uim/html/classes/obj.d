@@ -271,7 +271,7 @@ class DH5Obj {
 	}
 
 	O removeAttribute(this O)(string name) {
-		_attributes.remove(name);
+		_attributes.removeByKey((name);
 		return cast(O) this;
 	}
 
@@ -770,11 +770,11 @@ class DH5Obj {
 				switch (key.toLower) {
 				case "id":
 					this.id(_attributes[key]);
-					_attributes.remove(key);
+					_attributes.removeByKey((key);
 					break;
 				case "class":
 					this.addClasses(_attributes[key].split(" "));
-					_attributes.remove(key);
+					_attributes.removeByKey((key);
 					break;
 				default:
 					if (isBoolAttribute(key) || key == _attributes[key])

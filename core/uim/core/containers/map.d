@@ -63,8 +63,8 @@ version (test_uim_core) {
 }
 
 // Add Items from array
-T[S] add(T, S)(T[S] origin, T[S] newValues, bool shouldOverwrite = false) {
-  T[S] results = origin.dup;
+V[K] add(K, V)(V[K] origin, V[K] newValues, bool shouldOverwrite = false) {
+  V[K] results = origin.dup;
   newValues.byKeyValue
     .filter!(kv => shouldOverwrite || (kv.key !in results))
     .each!(kv => results[kv.key] = kv.value);
@@ -72,19 +72,19 @@ T[S] add(T, S)(T[S] origin, T[S] newValues, bool shouldOverwrite = false) {
 }
 ///
 unittest {
-  assert([1: "b", 2: "d"].add([3: "f"]) == [1: "b", 2: "d", 3: "f"]);
-  assert(["a": "b", "c": "d"].add(["e": "f"]) == [
-      "a": "b",
-      "c": "d",
+  assert([1: "b", 2: "C"].add([3: "f"]) == [1: "b", 2: "C", 3: "f"]);
+  assert(["a": "A", "c": "C"].add(["e": "f"]) == [
+      "a": "A",
+      "c": "C",
       "e": "f"
     ]);
-  assert(["a": "b", "c": "d"].add(["e": "f"])
-      .add(["g": "h"]) == ["a": "b", "c": "d", "e": "f", "g": "h"]);
+  assert(["a": "A", "c": "C"].add(["e": "f"])
+      .add(["g": "h"]) == ["a": "A", "c": "C", "e": "f", "g": "h"]);
 }
 
 /// remove subItems from baseItems if key and value of item are equal
-T[S] sub(T, S)(T[S] baseItems, T[S] subItems) {
-  T[S] results = baseItems.dup;
+V[K] sub(K, V)(V[K] baseItems, V[K] subItems) {
+  V[K] results = baseItems.dup;
   foreach (k, v; subItems)
     if ((k in results) && (results[k] == v))
       results.remove(k);
@@ -125,86 +125,102 @@ version (test_uim_core) {
 }
 
 // #region hasAllKeys
-bool hasAllKeys(T, S)(T[S] base, S[] keys...) {
-  return base.hasAllKeys(keys.dup);
-}
+  bool hasAllKeys(K, V)(V[K] base, K[] keys...) {
+    return base.hasAllKeys(keys.dup);
+  }
 
-bool hasAllKeys(T, S)(T[S] base, S[] keys) {
-  return keys.all!(key => base.hasKey(key));
-}
-///
-unittest {
-  assert(["a": 1, "b": 2, "c": 3].hasAllKeys(["a", "b", "c"]));
-  assert(!["a": 1, "b": 2, "c": 3].hasAllKeys(["x", "b", "c"]));
+  bool hasAllKeys(K, V)(V[K] base, K[] keys) {
+    return keys.all!(key => base.hasKey(key));
+  }
+  ///
+  unittest {
+    assert(["a": 1, "b": 2, "c": 3].hasAllKeys(["a", "b", "c"]));
+    assert(!["a": 1, "b": 2, "c": 3].hasAllKeys(["x", "b", "c"]));
 
-  assert(["a": "b", "c": "d"].hasAllKeys("a"));
-  assert(["a": "b", "c": "d"].hasAllKeys("a", "c"));
-  assert(["a": "b", "c": "d"].hasAllKeys(["a"]));
-  assert(["a": "b", "c": "d"].hasAllKeys(["a", "c"]));
+    assert(["a": "A", "c": "C"].hasAllKeys("a"));
+    assert(["a": "A", "c": "C"].hasAllKeys("a", "c"));
+    assert(["a": "A", "c": "C"].hasAllKeys(["a"]));
+    assert(["a": "A", "c": "C"].hasAllKeys(["a", "c"]));
 
-  assert(!["a": "b", "c": "d"].hasAllKeys("x"));
-  assert(!["a": "b", "c": "d"].hasAllKeys("x", "c"));
-  assert(!["a": "b", "c": "d"].hasAllKeys(["x"]));
-  assert(!["a": "b", "c": "d"].hasAllKeys(["x", "c"]));
+    assert(!["a": "A", "c": "C"].hasAllKeys("x"));
+    assert(!["a": "A", "c": "C"].hasAllKeys("x", "c"));
+    assert(!["a": "A", "c": "C"].hasAllKeys(["x"]));
+    assert(!["a": "A", "c": "C"].hasAllKeys(["x", "c"]));
 
-}
+  }
 // #endregion hasAllKeys
 
 // #region hasAnyKey
-bool hasAnyKeys(T, S)(T[S] base, S[] keys...) {
+bool hasAnyKeys(K, V)(V[K] base, V[] keys...) {
   return base.hasAnyKeys(keys.dup);
 }
 
-bool hasAnyKeys(T, S)(T[S] base, S[] keys) {
+bool hasAnyKeys(K, V)(V[K] base, V[] keys) {
   return keys.any!(key => base.hasKey(key));
 }
 ///
 unittest {
-  assert(["a": "b", "c": "d"].hasAnyKeys("a"));
-  assert(["a": "b", "c": "d"].hasAnyKeys("a", "x"));
-  assert(["a": "b", "c": "d"].hasAnyKeys(["a"]));
-  assert(["a": "b", "c": "d"].hasAnyKeys(["a", "x"]));
+  assert(["a": "A", "c": "C"].hasAnyKeys("a"));
+  assert(["a": "A", "c": "C"].hasAnyKeys("a", "x"));
+  assert(["a": "A", "c": "C"].hasAnyKeys(["a"]));
+  assert(["a": "A", "c": "C"].hasAnyKeys(["a", "x"]));
 
-  assert(!["a": "b", "c": "d"].hasAnyKeys("x"));
-  assert(!["a": "b", "c": "d"].hasAnyKeys("x", "y"));
-  assert(!["a": "b", "c": "d"].hasAnyKeys(["x"]));
-  assert(!["a": "b", "c": "d"].hasAnyKeys(["x", "y"]));
+  assert(!["a": "A", "c": "C"].hasAnyKeys("x"));
+  assert(!["a": "A", "c": "C"].hasAnyKeys("x", "y"));
+  assert(!["a": "A", "c": "C"].hasAnyKeys(["x"]));
+  assert(!["a": "A", "c": "C"].hasAnyKeys(["x", "y"]));
 }
 // #endregion hasAnyKey
 
-bool hasKey(T, S)(T[S] base, S key) {
+bool hasKey(K, V)(V[K] base, K key) {
   return (key in base)
     ? true : false;
 }
 ///
 unittest {
-  assert(["a": "b", "c": "d"].hasKey("a"));
-  assert(!["a": "b", "c": "d"].hasKey("x"));
+  assert(["a": "A", "c": "C"].hasKey("a"));
+  assert(!["a": "A", "c": "C"].hasKey("x"));
 }
 
-bool hasValue(T, S)(T[S] base, S value...) {
-  foreach (v; base.getValues)
-    if (v == value) {
-      return true;
-    }
-  return false;
-}
 
-// #region hasAllValues
-bool hasAllValues(T, S)(T[S] base, S[] values...) {
-  return base.hasAllValues(values);
-}
+// #region hasValue
+  bool hasAllValues(K, V)(V[K] items, V[] values...) {
+    return items.hasAllValues(values);
+  }
 
-bool hasAllValues(T, S)(T[S] base, S[] values) {
-  return values.all!(value => base.hasValue(value));
-}
+  bool hasAllValues(K, V)(V[K] items, V[] values) {
+    return values.all!(value => items.hasValue(value));
+  }
 
-unittest {
-  assert(["a": "b", "c": "d"].hasAllValues("b"));
-  assert(["a": "b", "c": "d"].hasAllValues("b", "d"));
-  assert(["a": "b", "c": "d"].hasAllValues(["b"]));
-  assert(["a": "b", "c": "d"].hasAllValues(["b", "d"]));
-}
+  bool hasAnyValues(K, V)(V[K] items, V[] values...) {
+    return items.hasAnyValues(values);
+  }
+
+  bool hasAnyValues(K, V)(V[K] items, V[] values) {
+    return values.any!(value => items.hasValue(value));
+  }
+
+  bool hasValue(K, V)(V[K] items, V value) {
+    return items.byKeyValue.any!(item => item.value == value);
+  }
+
+  unittest {
+    assert(["a": "A", "c": "C"].hasValue("A"));
+    assert(!["a": "A", "c": "C"].hasValue("x"));
+
+    assert(["a": "A", "c": "C"].hasAnyValues("A"));
+    assert(["a": "A", "c": "C"].hasAnyValues("A", "x"));
+    assert(["a": "A", "c": "C"].hasAnyValues(["A"]));
+    assert(["a": "A", "c": "C"].hasAnyValues(["A", "x"]));
+    assert(!["a": "A", "c": "C"].hasAnyValues(["x", "y"]));
+
+    assert(["a": "A", "c": "C"].hasAllValues("A"));
+    assert(["a": "A", "c": "C"].hasAllValues("A", "C"));
+    assert(["a": "A", "c": "C"].hasAllValues(["A"]));
+    assert(["a": "A", "c": "C"].hasAllValues(["A", "C"]));
+    assert(!["a": "A", "c": "C"].hasAllValues(["A", "x"]));
+    assert(!["a": "A", "c": "C"].hasAllValues(["x", "y"]));
+  }
 // #endregion hasAllValues
 
 pure string toJSONString(T)(T[string] values, bool sorted = NOTSORTED) {
@@ -248,11 +264,10 @@ unittest {
 }
 
 /// Checks if key exists and has values
-pure bool isValue(T, S)(T[S] base, S key, T value) {
-  if (key in base) {
-    return (base[key] == value);
-  }
-  return false;
+pure bool isValue(K, V)(V[K] base, K key, V value) {
+  return (key in base) 
+    ? base[key] == value
+    : false;
 }
 
 unittest {
@@ -265,7 +280,7 @@ unittest {
 }
 
 // Checks if values exist in base
-pure bool isValues(T, S)(T[S] base, T[S] values) {
+pure bool isValues(K, V)(V[K] base, V[K] values) {
   foreach (k; values.getKeys) {
     if (k !in base) {
       return false;
@@ -326,6 +341,27 @@ unittest {
   // TODO 
 }
 
+V ifNull(K, V)(V[K] map, K key, V defaultValue) {
+  return key in map
+    ? (!map[k].isNull ? map[k] : defaultValue) : defaultValue;
+}
+
+// #region set
+/+ Set keys +/
+V[K] setKeys(K, V)(V[K] values, K[] keys, V defaultValue = Null(V)) {
+  keys.each!(key => values.set(key, defaultValue));
+  return values;
+}
+// #endregion set
+
+// #region merge
+/+ Merge new items if key not exists +/
+V[K] mergeKeys(K, V)(V[K] values, K[] keys, V defaultValue = Null(V)) {
+  keys.each!(key => values.merge(key, defaultValue));
+  return values;
+}
+// #endregion merge
+
 // #region update
 /// Creates a new updated array without changing the origin array
 /// Params:
@@ -335,83 +371,119 @@ unittest {
 /// 
 /// Params:
 ///   updated new array
-V[K] update(K, V)(V[K] originalValues, V[K] updateValues, K[] excludedKeys = null) {
-  V[K] results = originalValues.dup;
-  updateValues.byKeyValue
-    .filter!(kv => !excludedKeys.has(kv.key))
-    .each!(kv => results[kv.key] = kv.value);
+V[K] update(K, V)(V[K] items, V[K] updateItems, K[] excludedKeys = null) {
+  updateItems.byKeyValue
+    .filter!(updateItem => !excludedKeys.has(updateItem.key))
+    .each!(updateItem => update(items, updateItem.key, updateItem.value));
 
-  return results;
-}
-///
-unittest {
-  // TODO 
-}
-
-V[K] update(K, V)(V[K] originalValues, K key, V newValue) {
-  V[K] updatedValues = originalValues.dup;
-  updatedValues[key] = newValue;
-
-  return updatedValues;
-}
-///
-unittest {
-  // TODO 
-}
-// #endregion update
-
-V ifNull(K, V)(V[K] map, K key, V defaultValue) {
-  return key in map
-    ? (!map[k].isNull ? map[k] : defaultValue) : defaultValue;
-}
-
-// #region set
-/+ Set keys +/
-JMAP setKeys(K, V)(V[K] values, string[] keys, V defaultValue = Null(V)) {
-  keys.each!(key => values.set(key, defaultValue));
-  return values;
-}
-// #endregion set
-
-// #region merge
-/+ Merge new items if key not exists +/
-JMAP mergeKeys(K, V)(V[K] values, string[] keys, V defaultValue = Null(V)) {
-  keys.each!(key => values.merge(key, defaultValue));
-  return values;
-}
-// #endregion merge
-
-// #region update
-/+ Update existing keys +/
-JMAP updateKeys(K, V)(V[K] values, string[] keys, V defaultValue = Null(V)) {
-  keys.each!(key => values.update(key, defaultValue));
-  return values;
-}
-// #endregion update
-
-// #region remove
-V[K] removeByKeys(K, V)(V[K] items, string[] keys...) {
-  return removeByKeys(items, keys.dup);
-}
-
-V[K] removeByKeys(K, V)(V[K] items, string[] keys) {
-  keys.each!(key => removeByKey(items, key));
   return items;
 }
 
-V[K] removeByKey(K, V)(V[K] items, K key) {
-  items.remove(key);
+V[K] update(K, V)(V[K] items, K key, V value) {
+  if (key in items) {
+    items[key] = value;
+  }
   return items;
 }
-
+///
 unittest {
-  assert(["a": "A", "b": "B", "c": "C"].length == 3);
-  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a").length == 2);
-  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b").length == 1);
-  assert(["a": "A", "b": "B", "c": "C"].removeByKey("a").length == 2);
+    assert(["a": "A", "b": "B", "c": "C"].length == 3);
 
-  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a")["c"] == "C");
-  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b")["c"] == "C");
-  assert(["a": "A", "b": "B", "c": "C"].removeByKey("a")["c"] == "C");
+    assert(["a": "A", "b": "B", "c": "C"].update("a", "x").length == 3);
+    assert(["a": "A", "b": "B", "c": "C"].update("a", "x")["a"] == "x");
+
+    assert(["a": "A", "b": "B", "c": "C"].update("x", "y").length == 3);
+
+    assert(["a": "A", "b": "B", "c": "C"].update(["a": "x"]).length == 3);
+    assert(["a": "A", "b": "B", "c": "C"].update(["a": "x"])["a"] == "x");
+
+    assert(["a": "A", "b": "B", "c": "C"].update(["a": "x", "b":"y"], ["b"]).length == 3);
+    assert(["a": "A", "b": "B", "c": "C"].update(["a": "x", "b":"y"], ["b"])["a"] == "x");
+    assert(["a": "A", "b": "B", "c": "C"].update(["a": "x", "b":"y"], ["b"])["b"] == "B");
 }
-// #endregion remove
+// #endregion update
+
+// #region updateKeys
+  /+ Update existing keys +/
+  V[K] updateKeys(K, V)(V[K] values, K[] keys, V defaultValue = Null(V)) {
+    keys.each!(key => values.update(key, defaultValue));
+    return values;
+  }
+
+  unittest {
+    assert(["a": "A", "b": "B", "c": "C"].length == 3);
+    assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a").length == 2);
+    assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b").length == 1);
+    assert(["a": "A", "b": "B", "c": "C"].removeByKey("a").length == 2);
+
+    assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a")["c"] == "C");
+    assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b")["c"] == "C");
+    assert(["a": "A", "b": "B", "c": "C"].removeByKey("a")["c"] == "C");
+  }
+// #endregion updateKeys
+
+// #region removeByKeys
+  V[K] removeByKeys(K, V)(V[K] items, K[] keys...) {
+    return removeByKeys(items, keys.dup);
+  }
+
+  V[K] removeByKeys(K, V)(V[K] items, K[] keys) {
+    keys.each!(key => removeByKey(items, key));
+    return items;
+  }
+
+  V[K] removeByKey(K, V)(V[K] items, K key) {
+    if (hasKey(items, key)) items.remove(key);
+    return items;
+  }
+
+  unittest {
+    assert(["a": "A", "b": "B", "c": "C"].length == 3);
+    assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a").length == 2);
+    assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b").length == 1);
+    assert(["a": "A", "b": "B", "c": "C"].removeByKey("a").length == 2);
+
+    assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a")["c"] == "C");
+    assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b")["c"] == "C");
+    assert(["a": "A", "b": "B", "c": "C"].removeByKey("a")["c"] == "C");
+  }
+// #endregion removeByKeys
+
+// #region removeByValues
+  V[K] removeByValues(K, V)(V[K] items, V[] values...) {
+    return removeByValues(items, values.dup);
+  }
+
+  V[K] removeByValues(K, V)(V[K] items, V[] values) {
+    values.each!(value => removeByValue(items, value));
+    return items;
+  }
+
+  V[K] removeByValue(K, V)(V[K] items, V value) {
+    return hasValue(items, value)
+      ? items.removeByKey(keyByValue(items, value))
+      : items;
+  }
+
+  unittest {
+    assert(["a": "A", "b": "B", "c": "C"].length == 3);
+
+    assert(["a": "A", "b": "B", "c": "C"].removeByValue("A").length == 2);
+    assert(["a": "A", "b": "B", "c": "C"].removeByValue("A")["c"] == "C");
+
+    assert(["a": "A", "b": "B", "c": "C"].removeByValues("A").length == 2);
+    assert(["a": "A", "b": "B", "c": "C"].removeByValues(["A", "B"]).length == 1);
+    assert(["a": "A", "b": "B", "c": "C"].removeByValues("A", "B").length == 1);
+
+    assert(["a": "A", "b": "B", "c": "C"].removeByValues("A")["c"] == "C");
+    assert(["a": "A", "b": "B", "c": "C"].removeByValues(["A", "B"])["c"] == "C");
+    assert(["a": "A", "b": "B", "c": "C"].removeByValues("A", "B")["c"] == "C");
+  }
+// #endregion removeByValues
+
+K keyByValue(K, V)(V[K] items, V searchValue) {
+  foreach (key, value; items) {
+    if (value == searchValue) return key;
+  }
+  return Null!K;
+}

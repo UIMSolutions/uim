@@ -12,7 +12,7 @@ class DNullCacheEngine : DCacheEngine {
     return null;
   }
 
-  override bool update(string key, Json valueToSet, long timeToLive = 0) {
+  override bool updateKey(string key, Json valueToSet, long timeToLive = 0) {
     return true;
   }
 

@@ -369,15 +369,15 @@ V[K] mergeKeys(K, V)(V[K] values, K[] keys, V defaultValue = Null(V)) {
 /// 
 /// Params:
 ///   updated new array
-V[K] update(K, V)(V[K] items, V[K] updateItems, K[] excludedKeys = null) {
+V[K] updateKey(K, V)(V[K] items, V[K] updateItems, K[] excludedKeys = null) {
   updateItems.byKeyValue
     .filter!(updateItem => !excludedKeys.has(updateItem.key))
-    .each!(updateItem => update(items, updateItem.key, updateItem.value));
+    .each!(updateItem => updateKey(items, updateItem.key, updateItem.value));
 
   return items;
 }
 
-V[K] update(K, V)(V[K] items, K key, V value) {
+V[K] updateKey(K, V)(V[K] items, K key, V value) {
   if (key in items) {
     items[key] = value;
   }
@@ -387,36 +387,40 @@ V[K] update(K, V)(V[K] items, K key, V value) {
 unittest {
   assert(["a": "A", "b": "B", "c": "C"].length == 3);
 
-  assert(["a": "A", "b": "B", "c": "C"].update("a", "x").length == 3);
-  assert(["a": "A", "b": "B", "c": "C"].update("a", "x")["a"] == "x");
+  assert(["a": "A", "b": "B", "c": "C"].updateKey("a", "x").length == 3);
+  assert(["a": "A", "b": "B", "c": "C"].updateKey("a", "x")["a"] == "x");
 
-  assert(["a": "A", "b": "B", "c": "C"].update("x", "y").length == 3);
+  assert(["a": "A", "b": "B", "c": "C"].updateKey("x", "y").length == 3);
 
-  assert(["a": "A", "b": "B", "c": "C"].update(["a": "x"]).length == 3);
-  assert(["a": "A", "b": "B", "c": "C"].update(["a": "x"])["a"] == "x");
+  assert(["a": "A", "b": "B", "c": "C"].updateKey(["a": "x"]).length == 3);
+  assert(["a": "A", "b": "B", "c": "C"].updateKey(["a": "x"])["a"] == "x");
 
-  assert(["a": "A", "b": "B", "c": "C"].update(["a": "x", "b": "y"], ["b"]).length == 3);
-  assert(["a": "A", "b": "B", "c": "C"].update(["a": "x", "b": "y"], ["b"])["a"] == "x");
-  assert(["a": "A", "b": "B", "c": "C"].update(["a": "x", "b": "y"], ["b"])["b"] == "B");
+  assert(["a": "A", "b": "B", "c": "C"].updateKey(["a": "x", "b": "y"], ["b"]).length == 3);
+  assert(["a": "A", "b": "B", "c": "C"].updateKey(["a": "x", "b": "y"], ["b"])["a"] == "x");
+  assert(["a": "A", "b": "B", "c": "C"].updateKey(["a": "x", "b": "y"], ["b"])["b"] == "B");
 }
 // #endregion update
 
 // #region updateKeys
 /+ Update existing keys +/
 V[K] updateKeys(K, V)(V[K] values, K[] keys, V defaultValue = Null(V)) {
-  keys.each!(key => values.update(key, defaultValue));
+  keys.each!(key => values.updateKey(key, defaultValue));
   return values;
 }
 
 unittest {
   assert(["a": "A", "b": "B", "c": "C"].length == 3);
-  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a").length == 2);
-  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b").length == 1);
-  assert(["a": "A", "b": "B", "c": "C"].removeByKey("a").length == 2);
 
-  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a")["c"] == "C");
-  assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b")["c"] == "C");
-  assert(["a": "A", "b": "B", "c": "C"].removeByKey("a")["c"] == "C");
+  assert(["a": "A", "b": "B", "c": "C"].updateKeys("a", "x").length == 3);
+  assert(["a": "A", "b": "B", "c": "C"].updateKeys("a", "x")["a"] == "x");
+
+  assert(["a": "A", "b": "B", "c": "C"].updateKeys(["a"], "x").length == 3);
+  assert(["a": "A", "b": "B", "c": "C"].updateKeys(["a"], "x")["a"] == "x");
+  assert(["a": "A", "b": "B", "c": "C"].updateKeys(["a", "b"], "x")["b"] == "x");
+
+  assert(["a": "A", "b": "B", "c": "C"].updateKey("a", "x").length == 3);
+  assert(["a": "A", "b": "B", "c": "C"].updateKey("a", "x")["a"] == "x");
+  assert(["a": "A", "b": "B", "c": "C"].updateKey("a", "x")["b"] != "x");
 }
 // #endregion updateKeys
 

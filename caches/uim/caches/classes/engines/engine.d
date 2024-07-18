@@ -51,7 +51,7 @@ class DCacheEngine : UIMObject, ICache, ICacheEngine {
     // Obtains multiple cache items by their unique keys.
     void items(Json[string] newItems, long timeToLive = 0) {
         clear();
-        update(newItems.dup, timeToLive);
+        updateKey(newItems.dup, timeToLive);
     }
 
     Json[string] items(string[] keysToUse = null) {
@@ -85,7 +85,7 @@ class DCacheEngine : UIMObject, ICache, ICacheEngine {
             }
             try {
                 return items.byKeyValue
-                    .all!(kv => update(aKey, myvalue));
+                    .all!(kv => updateKey(aKey, myvalue));
             } finally {
                 if (restoreDuration.isNull) {
                     configuration.set("duration", restoreDuration);
@@ -109,12 +109,12 @@ class DCacheEngine : UIMObject, ICache, ICacheEngine {
 
     // #region update
     // Persists data in the cache, uniquely referenced by the given key with an optional expiration timeToLive time.
-    bool update(Json[string] items, long timeToLive = 0) {
+    bool updateKey(Json[string] items, long timeToLive = 0) {
         return items.byKeyValue
-            .all!(kv => update(kv.key, kv.value, timeToLive));
+            .all!(kv => updateKey(kv.key, kv.value, timeToLive));
     }
 
-    bool update(string key, Json value, long timeToLive = 0) {
+    bool updateKey(string key, Json value, long timeToLive = 0) {
         return false;
     }
     // #endregion update
@@ -131,7 +131,7 @@ class DCacheEngine : UIMObject, ICache, ICacheEngine {
     // Merge an item (key, value) to the cache if it does not already exist.
     bool merge(string key, Json value, long timeToLive = 0) {
         return read(key).isNull
-            ? update(key, value, timeToLive) : false;
+            ? updateKey(key, value, timeToLive) : false;
     }
 
     // #region remove

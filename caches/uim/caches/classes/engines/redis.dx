@@ -101,7 +101,7 @@ class DRedisCacheEngine : DCacheEngine {
     }
     
     // Write data for key into cache.
-    override bool update(string key, Json dataToCache, long timeToLive = 0) {
+    override bool updateKey(string key, Json dataToCache, long timeToLive = 0) {
         auto internKey = internalcorrectKey(key);
         auto serializedData = serialize(dataToCache);
 

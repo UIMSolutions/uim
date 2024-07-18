@@ -26,7 +26,7 @@ JMAP mergeKeys(JMAP values, string[] keys, Json defaultValue = Json(null)) {
 }
 
 JMAP updateKeys(JMAP values, string[] keys, Json defaultValue = Json(null)) {
-  keys.each!(key => values.update(key, defaultValue));
+  keys.each!(key => values.updateKey(key, defaultValue));
   return values;
 }
 }

@@ -727,7 +727,7 @@ unittest {
   // TODO create test
 }
 
-Json update(Json origin, Json additional) {
+Json updateKey(Json origin, Json additional) {
   if (origin.type != additional.type) {
     return origin;
   } // no update
@@ -743,7 +743,7 @@ Json update(Json origin, Json additional) {
   return updated;
 }
 
-Json update(Json origin, STRINGAA additional) {
+Json updateKey(Json origin, STRINGAA additional) {
   if (!origin.isObject) { // Overwrite if not object
     Json result = Json.emptyObject;
     additional.byKeyValue

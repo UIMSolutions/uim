@@ -228,14 +228,14 @@ abstract class DConfiguration : IConfiguration {
     // #endregion set
 
     // #region update
-    bool update(Json[string] newData, string[] includedKeys = null) {
+    bool updateKey(Json[string] newData, string[] includedKeys = null) {
         return keys.isNull
-            ? includedKeys.all!(key => update(key, newData[key])) : includedKeys.filter!(
+            ? includedKeys.all!(key => updateKey(key, newData[key])) : includedKeys.filter!(
                 key => key in newData)
-            .all!(key => update(key, newData[key]));
+            .all!(key => updateKey(key, newData[key]));
     }
 
-    abstract bool update(string key, Json newValue);
+    abstract bool updateKey(string key, Json newValue);
     // #region update
 
     // #region merge

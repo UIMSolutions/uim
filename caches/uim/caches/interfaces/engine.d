@@ -16,8 +16,8 @@ interface ICacheEngine : INamed {
     bool merge(Json[string] newItems, long timeToLive = 0);
     bool merge(string key, Json value, long timeToLive = 0);
 
-    bool update(Json[string] newItems, long timeToLive = 0);
-    bool update(string key, Json value, long timeToLive = 0);
+    bool updateKey(Json[string] newItems, long timeToLive = 0);
+    bool updateKey(string key, Json value, long timeToLive = 0);
 
     Json[] read(string key, Json defaultValue = null);
     Json read(string key, Json defaultValue = null);

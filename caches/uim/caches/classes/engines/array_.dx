@@ -24,7 +24,7 @@ class DArrayCacheEngine : DCacheEngine {
   }
 
   // Write data for key into cache
-  override bool update(string itemKey, Json dataForCache, long timeToLive = 0) {
+  override bool updateKey(string itemKey, Json dataForCache, long timeToLive = 0) {
     Json data = Json.emptyObject;
     data.set("exp", 0); // TODO time() + duration(timeToLive));
     data.set("val", dataForCache);
@@ -66,7 +66,7 @@ class DArrayCacheEngine : DCacheEngine {
   // Increments the value of an integer cached key
   override long increment(string key, int incValue = 1) {
     if (read(key).isNull) {
-      update(key, 0);
+      updateKey(key, 0);
     }
     auto internKey = internalcorrectKey(key);
     _cachedData.set(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") + incValue);

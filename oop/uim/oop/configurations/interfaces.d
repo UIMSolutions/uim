@@ -85,8 +85,8 @@ interface IConfiguration : INamed {
         void opIndexAssign(Json newValue, string key);
     // #endregion set
 
-    bool update(Json[string] newData, string[] validKeys = null);
-    bool update(string key, Json newValue);
+    bool updateKey(Json[string] newData, string[] validKeys = null);
+    bool updateKey(string key, Json newValue);
 
     bool merge(Json[string] newData, string[] validKeys = null);
     bool merge(string key, Json newValue);

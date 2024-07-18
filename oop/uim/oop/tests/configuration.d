@@ -99,9 +99,9 @@ bool testConfiguration(IConfiguration aConfig) {
         void set(string key, Json newData);
     // #endregion set
 
-    void update(Json[string] newData, string[] validKeys = null);
-    void update(string key, Json newData);
-    void update(string key, Json[string] newData);
+    void updateKey(Json[string] newData, string[] validKeys = null);
+    void updateKey(string key, Json newData);
+    void updateKey(string key, Json[string] newData);
 
     void merge(Json[string] newData, string[] validKeys = null);
     void merge(string key, Json newData);

@@ -37,11 +37,11 @@ class DIniConfiguration : DConfiguration {
 
     }
 
-    override void update(string key, Json newData) {
+    override void updateKey(string key, Json newData) {
         // TODO 
     }
 
-    override void update(string key, Json[string] newData) {
+    override void updateKey(string key, Json[string] newData) {
         // TODO 
     }
 

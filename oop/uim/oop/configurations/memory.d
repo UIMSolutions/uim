@@ -156,7 +156,7 @@ class DMemoryConfiguration : DConfiguration {
         return true;
     }
 
-    override bool update(string key, Json value) {
+    override bool updateKey(string key, Json value) {
         return set(key, value);
     }
 

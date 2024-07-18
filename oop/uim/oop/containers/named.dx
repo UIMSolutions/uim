@@ -37,7 +37,7 @@ class DNamedContainer(T) {
     this[aName] = anItem;
   }
 
-  void update(string aName, T anItem) {
+  void updateKey(string aName, T anItem) {
     if (aName in _items) { 
       this[aName] = anItem;
     }

@@ -35,7 +35,7 @@ class DSubject {
 /// Create Observer class.
  abstract class DObserver {
    protected DSubject _subject;
-    abstract void update(Json info = Json(null));
+    abstract void updateKey(Json info = Json(null));
 }
 
 /// Create concrete observer classes
@@ -46,7 +46,7 @@ class DBinaryObserver : DObserver{
     _subject.attach(this);
   }
 
-  override void update(Json info = Json(null)) {
+  override void updateKey(Json info = Json(null)) {
     writeln("Binary String: Integer.toBinaryString(subject.getState() )"); 
   }
 }
@@ -58,7 +58,7 @@ class DOctalObserver : DObserver{
     _subject.attach(this);
   }
 
-  override void update(Json info = Json(null)) {
+  override void updateKey(Json info = Json(null)) {
     writeln("Octal String: Integer.toOctalString(subject.getState() )" ); 
   }
 }
@@ -70,7 +70,7 @@ class DHexaObserver : DObserver{
     _subject.attach(this);
   }
 
-  override void update(Json info = Json(null)) {
+  override void updateKey(Json info = Json(null)) {
     writeln("Hex String: Integer.toHexString(subject.getState() ).upperCase()" ); 
   }
 }

@@ -18,7 +18,7 @@ class QueryFactory {
     }
     
     // Create a new UpdateQuery instance.
-    UpdateQuery update(Table tableForQuery) {
+    UpdateQuery updateKey(Table tableForQuery) {
         return new UpdateQuery(tableForQuery);
     }
     

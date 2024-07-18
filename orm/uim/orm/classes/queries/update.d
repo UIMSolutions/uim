@@ -16,7 +16,7 @@ class DUpdateQuery : DQuery {
  
     string sql(DValueBinder mybinder = null) {
         if (!_parts.hasKey("update") || _parts.isEmpty("update")) {
-            update(getRepository().getTable());
+            updateKey(getRepository().getTable());
         }
         return super.sql(mybinder);
     }

@@ -37,7 +37,7 @@ class DXmlConfiguration : DFileConfiguration {
 
     }
 
-    override void update(string key, Json newData) {
+    override void updateKey(string key, Json newData) {
         // TODO 
     }
 

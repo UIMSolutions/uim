@@ -144,15 +144,15 @@ class DMemoryConfiguration : DConfiguration {
 
     alias set = DConfiguration.set;
     override bool set(string key, Json value) {
-        _data[key] = value;
+        _data.set(key, value);
         return true;
     }
     override bool set(string key, Json[] value) {
-        _data[key] = Json(value);
+        _data.set(key, value);
         return true;
     }
     override bool set(string key, Json[string] value) {
-        _data[key] = Json(value);
+        _data.set(key, value);
         return true;
     }
 
@@ -165,8 +165,10 @@ class DMemoryConfiguration : DConfiguration {
             ? false : set(key, value);
     }
 
-    override bool removeByKey(string key) {
-        return _data.removeByKey(key);
+    alias remove = DConfiguration.remove;
+    override IConfiguration remove(string[] keys) {
+        keys.each!(key => _data.remove(key));
+        return this;
     }
 }
 

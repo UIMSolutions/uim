@@ -6,23 +6,23 @@ import uim.oop;
 interface IConfiguration : INamed {
     // #region default data
         Json[string] data(); 
-        void data(Json[string] newData);
+        void data(Json[string] items);
     // #endregion default data
 
     // #region default data
         Json[string] defaultData(); 
-        IConfiguration defaultData(Json[string] newData);
+        IConfiguration defaultData(Json[string] items);
 
         bool hasAnyDefaults(string[] keys);
         bool hasAllDefaults(string[] keys);
         bool hasDefault(string key);
         Json getDefault(string key);
 
-        bool updateDefaults(Json[string] newData);
-        bool updateDefault(string key, Json newData);
+        bool updateDefaults(Json[string] items);
+        bool updateDefault(string key, Json items);
 
-        bool mergeDefaults(Json[string] newData);
-        bool mergeDefault(string key, Json newData);
+        bool mergeDefaults(Json[string] items);
+        bool mergeDefault(string key, Json items);
     // #endregion default data
 
     // #region keys
@@ -68,7 +68,7 @@ interface IConfiguration : INamed {
         void opAssign(Json[string] data);
 
         bool set(STRINGAA values, string[] keys = null);
-        bool set(Json[string] newData, string[] keys = null);
+        bool set(Json[string] items, string[] keys = null);
 
         bool set(string key, bool newValue);
         bool set(string key, long newValue);
@@ -83,16 +83,20 @@ interface IConfiguration : INamed {
         void opIndexAssign(double newValue, string key);
         void opIndexAssign(string newValue, string key);
         void opIndexAssign(Json newValue, string key);
+        void opIndexAssign(Json[] newValue, string key);
+        void opIndexAssign(Json[string] newValue, string key);
     // #endregion set
 
-    bool updateKey(Json[string] newData, string[] validKeys = null);
+    bool updateKey(Json[string] items, string[] validKeys = null);
     bool updateKey(string key, Json newValue);
 
-    bool merge(Json[string] newData, string[] validKeys = null);
+    bool merge(Json[string] items, string[] validKeys = null);
     bool merge(string key, Json newValue);
 
-    bool removeByKey(string[] keys);
-    bool removeItem(string keys);
+    IConfiguration remove(Json jsonObj);
+    IConfiguration remove(Json[string] items);
+    IConfiguration remove(string[] keys...);
+    IConfiguration remove(string[] keys);
 
     IConfiguration clear();
 }

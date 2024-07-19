@@ -301,17 +301,17 @@ class DCache : UIMObject, ICache {
      * Deleting from the active cache configuration.
      *
      * ```
-     * Cache.removeByKey("_data");
+     * Cache.remove("_data");
      * ```
      *
      * Deleting from a specific cache configuration.
      *
      * ```
-     * Cache.removeByKey("_data", "long_term");
+     * Cache.remove("_data", "long_term");
      * ```
      */
-    /* static bool removeByKey(string key, string configName = "default") {
-        return pool(configName).removeByKey(key);
+    /* static bool remove(string key, string configName = "default") {
+        return pool(configName).remove(key);
     } */
 
     /**

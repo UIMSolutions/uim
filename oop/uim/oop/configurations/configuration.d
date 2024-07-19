@@ -250,14 +250,36 @@ abstract class DConfiguration : IConfiguration {
     // #endregion merge
 
     // #region remove - clear
-    bool clear() {
-        return removeByKey(keys);
-    }
+        IConfiguration clear() {
+            remove(keys);
+            return this;
+        }
 
-    bool removeByKey(string[] keys) {
-        return keys.all!(key => removeByKey(key));
-    }
+        IConfiguration remove(Json json) {
+            if (json.isObject) {
+                json.byKeyValue.each!(kv => remove(kv.key));
+            }
+            else if (json.isArray) {
+                foreach(value; json.get!(Json[])) {
+                    remove(value.getString);
+                }
+            }
+            else if (json.isString) {
+                remove(json.getString);
+            }
+            return this;
+        }
 
-    abstract bool removeByKey(string key);
+        IConfiguration remove(Json[string] items) {
+            remove(items.keys);
+            return this;
+        }
+
+        IConfiguration remove(string[] keys...) {
+            remove(keys.dup);
+            return this;
+        }
+
+        abstract IConfiguration remove(string[] keys);
     // #region remove - clear
 }

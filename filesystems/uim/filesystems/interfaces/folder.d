@@ -36,5 +36,5 @@ interface IFolder : IFilesystemEntry, IFolderManager, IFileManager, ILinkManager
   string type(); 
 
   // Deletes file.
-	bool removeByKey();
+	bool remove();
 }

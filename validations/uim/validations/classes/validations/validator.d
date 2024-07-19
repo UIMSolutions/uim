@@ -267,7 +267,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     // Unsets the rule set for a field
     void offsetUnset(Json fieldName) {
-        _fields.removeByKey(fieldName);
+        _fields.remove(fieldName);
     }
 
     // Returns an iterator for each of the fields to be validated
@@ -427,18 +427,18 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * ```
      *    myvalidator
-     *        .removeByKey("title", "required")
-     *        .removeByKey("user_id")
+     *        .remove("title", "required")
+     *        .remove("user_id")
      * ```
      * Params:
      * string fieldName The name of the field from which the rule will be removed
      * @param string myrule the name of the rule to be removed
      */
-    void removeByKey(string fieldName, string myrule = null) {
+    void remove(string fieldName, string myrule = null) {
         if (myrule.isNull) {
-            _fields.removeByKey(fieldName);
+            _fields.remove(fieldName);
         } else {
-            field(fieldName).removeByKey(myrule);
+            field(fieldName).remove(myrule);
         }
     }
 
@@ -2060,7 +2060,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
 /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
         auto mycaseInsensitive = options.getBoolean("caseInsensitive", false);
-        options.removeByKey("caseInsensitive");
+        options.remove("caseInsensitive");
 
         return _add(fieldName, "multipleOptions", myextra ~ [
                 "rule": ["multiple", options, mycaseInsensitive],

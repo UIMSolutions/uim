@@ -205,7 +205,7 @@ class DRouteCollection {
         // Named routes support optimization.
         if (url.hasKey("_name")) {
             routings = url["_name"];
-            url.removeByKey(("_name");
+            url.remove(("_name");
             if (_named.hasKey(routings)) {
                 route = _named[routings];
                 result = route.match(url + route.defaults, context);

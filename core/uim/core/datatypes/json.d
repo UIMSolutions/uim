@@ -375,7 +375,7 @@ Json removeByKeys(Json json, string[] delKeys...) {
 
 Json removeByKeys(Json aJson, string[] delKeys) {
   auto result = aJson;
-  delKeys.each!(k => result.removeByKey(k));
+  delKeys.each!(k => result.remove(k));
   return result;
 }
 ///
@@ -386,7 +386,7 @@ unittest {
 }
 
 /// Remove key from Json Object
-Json removeByKey(Json json, string aKey) {
+Json remove(Json json, string aKey) {
   if (!json.isObject) {
     return json;
   }
@@ -403,12 +403,12 @@ Json removeByKey(Json json, string aKey) {
 unittest {
   auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
   assert(json.hasKey("a"));
-  assert(!json.removeByKey("a").hasKey("a"));
+  assert(!json.remove("a").hasKey("a"));
 
   json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
   assert(!json.hasKey("x"));
-  assert(!json.removeByKey("x").hasKey("x"));
-  assert(json.removeByKey("x").hasKey("a"));
+  assert(!json.remove("x").hasKey("x"));
+  assert(json.remove("x").hasKey("a"));
 }
 
 Json readJson(Json target, Json source, bool shouldOverwrite = true) {

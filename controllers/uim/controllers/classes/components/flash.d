@@ -126,7 +126,7 @@ class DFlashComponent : DComponent {
                 options = [
                     "element": someArguments[1].getString("plugin") ~ "." ~ anElement
                 ];
-                someArguments[1].removeByKey("plugin");
+                someArguments[1].remove("plugin");
             }
             auto updatedOptions = options.update/* (array) */ someArguments[1];
         }

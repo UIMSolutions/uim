@@ -95,7 +95,7 @@ class DFormProtectionComponent : DComponent {
             ]);
 
         if (someData.isArray) {
-            someData.removeByKey("_Token");
+            someData.remove("_Token");
              request = request.withParsedBody(someData);
         }
         getController().setRequest(request); */

@@ -193,7 +193,7 @@ class DTimeHelper : DHelper {
             }
             /** @var \DateTimeImmutable|\DateTime mydateTime */
             mydateTime = mydateTime.setTimezone(options.get("timezone"));
-            options.removeByKey("timezone");
+            options.remove("timezone");
         }
         if (!options.isEmpty("element")) {
             myelement = [
@@ -207,7 +207,7 @@ class DTimeHelper : DHelper {
             } else {
                 myelement.set("tag", options.get("element"));
             }
-            options.removeByKey("element");
+            options.remove("element");
         }
         
         auto myrelativeDate = (new DateTime(mydateTime)).timeAgoInWords(options);

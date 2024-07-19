@@ -108,12 +108,12 @@ class DSelectBoxWidget : DWidget {
         auto nameData = renderData["name"];
         renderData.removeItems("name", "options", "empty", "val", "escape");
         if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
-            renderData.removeByKey("disabled");
+            renderData.remove("disabled");
         }
         auto mytemplate = "select";
         if (!renderData.isEmpty("multiple")) {
             mytemplate = "selectMultiple";
-            renderData.removeByKey("multiple");
+            renderData.remove("multiple");
         }
         myattrs = _stringContents.formatAttributes(renderData);
 

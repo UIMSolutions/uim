@@ -75,7 +75,7 @@ class DPaginatorHelper : DHelper {
     this(IView myview, Json[string] configData = null) {
         super(myview, configData);
         auto myquery = _view.getRequest().queryArguments();
-        myquery.removeByKey("page", "limit", "sort", "direction");
+        myquery.remove("page", "limit", "sort", "direction");
         /* configuration.set(
                 "options.url",
                 array_merge(_view.getRequest()
@@ -128,7 +128,7 @@ class DPaginatorHelper : DHelper {
     void options(Json[string] optionsForLinks = null) {
         if (!options.isEmpty("paging")) {
             configuration.set("params", options["paging"]);
-            options.removeByKey("paging");
+            options.remove("paging");
         }
         configuration.set("options", array_filter(options + configuration.get("options"));
                 if (configuration.isEmpty("options/url")) ) {
@@ -282,7 +282,7 @@ class DPaginatorHelper : DHelper {
             "escape": true.toJson
         ]);
         auto url = updatedOptions["url"];
-        updatedOptions.removeByKey("url");
+        updatedOptions.remove("url");
 
         if (linkTitle.isEmpty) {
             linkTitle = key;
@@ -294,7 +294,7 @@ class DPaginatorHelper : DHelper {
         }
 
         stringmydefaultDir = options.getString("direction", "asc").lower;
-        options.removeByKey("direction");
+        options.remove("direction");
 
         auto mylocked = options.get("lock", false);
         options["lock"];
@@ -371,7 +371,7 @@ class DPaginatorHelper : DHelper {
             "limit": Json(null)
         ];
         mypaging.set("page", mypaging["currentPage"]);
-        removeByKey(mypaging["currentPage"]);
+        remove(mypaging["currentPage"]);
 
         if (
             !mypaging.isEmpty("sort"))
@@ -425,7 +425,7 @@ class DPaginatorHelper : DHelper {
                     mybaseUrl["?"][myscope])) {
                 auto updatedOptions = options
                     .updatetions.updatemybaseUrl["?"][myscope];
-                removeByKey(
+                remove(
                     mybaseUrl["?"][myscope]);
             }
             options = [

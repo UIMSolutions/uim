@@ -170,7 +170,7 @@ class DCookie : ICookie {
         });
         if (someData.hasKey("max-age")) {
             someData.set("expires", time() + someData.getLong("max-age"));
-            someData.removeByKey("max-age");
+            someData.remove("max-age");
         }
         // Ignore invalid value when parsing headers
         // https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-4.1
@@ -178,13 +178,13 @@ class DCookie : ICookie {
             try {
                 someData["samesite"] = resolveSameSiteenumeration(someData["samesite"]);
             } catch (ValueError) {
-                removeByKey(someData["samesite"]);
+                remove(someData["samesite"]);
             }
         }
         name = someData["name"];
         aValue = someData["value"];
         assert(isString(name) && isString(aValue));
-        removeByKey(someData["name"], someData["value"]);
+        remove(someData["name"], someData["value"]);
 
         return Cookie.create(
             name,
@@ -454,7 +454,7 @@ class DCookie : ICookie {
         }
         assert(isArray(new.value), "aValue is not an array");
 
-        newCookie.value = Hash.removeByKey(newCookie.value, somepathToRemovePath);
+        newCookie.value = Hash.remove(newCookie.value, somepathToRemovePath);
         return newCookie;
     }
     

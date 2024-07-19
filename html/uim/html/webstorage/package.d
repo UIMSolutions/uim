@@ -22,8 +22,8 @@ version(test_uim_html) { unittest {
   //assert(H5LocalStorageGetItem("var test", "'test'")  == "var test=localStorage.getItem('test');");
 }}
 
-string h5LocalStorageremoveByKey(string name) {
-  return "localStorage.removeByKey(%s);".format(name);
+string h5LocalStorageremove(string name) {
+  return "localStorage.remove(%s);".format(name);
 }
 version(test_uim_html) { unittest {
   //assert(H5LocalStorageGetItem("var test", "'test'")  == "var test=localStorage.getItem('test');");

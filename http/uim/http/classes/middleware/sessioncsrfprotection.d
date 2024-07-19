@@ -155,7 +155,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
     protected IServerRequest unsetTokenField(IServerRequest serverRequest) {
         body = request.getParsedBody();
         if (isArray(body)) {
-            removeByKey(body[configuration.get("field"]]);
+            remove(body[configuration.get("field"]]);
             request = request.withParsedBody(body);
         }
         return request;

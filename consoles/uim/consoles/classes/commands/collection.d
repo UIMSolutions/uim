@@ -45,11 +45,11 @@ class DCommandCollection { // : IteratorAggregate, Countable {
     // #endregion add
 
     // Remove a command from the collection if it exists.
-    bool remove((string[] commandNames) {
-        return commandNames.all!(name => remove((name));
+    bool remove(string[] commandNames) {
+        return commandNames.all!(name => remove(name));
     }
 
-    bool remove((string commandName) {
+    bool remove(string commandName) {
         return _commands.remove(commandName);
     }
 

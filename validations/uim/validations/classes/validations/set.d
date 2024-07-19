@@ -85,7 +85,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      *        .remove("inRange")
      * ```
      */
-    bool remove((string ruleName) {
+    bool remove(string ruleName) {
         return _rules.remove(ruleName);
     }
     

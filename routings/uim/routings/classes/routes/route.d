@@ -259,7 +259,7 @@ class DRoute : IRoute {
         _keys = routings;
 
         // Remove defaults that are also keys. They can cause match failures
-        _keys.each!(key => remove((_defaults[aKey]));
+        _keys.each!(key => remove(_defaults[aKey]));
         someKeys = _keys.sort;
 
         _keys = array_reverse(someKeys);
@@ -345,7 +345,7 @@ class DRoute : IRoute {
         array_shift(myroute);
         mycount = count(_keys);
         for (index = 0; index <= mycount; index++) {
-            remove((myroute[index]);
+            remove(myroute[index]);
         }
         myroute["pass"] = null;
 
@@ -363,7 +363,7 @@ class DRoute : IRoute {
         if (myroute.hasKey("_args_")) {
             mypass = _parseArgs(myroute["_args_"], myroute);
             myroute.set("pass", array_merge(myroute["pass"], mypass));
-            remove((myroute["_args_"]);
+            remove(myroute["_args_"]);
         }
         if (myroute.hasKey("_trailing_")) {
             myroute.set("pass",  myroute["_trailing_"]);
@@ -470,7 +470,7 @@ class DRoute : IRoute {
        ) {
             url = _persistParams(url, requestContext["params"]);
         }
-        remove((requestContext["params"]);
+        remove(requestContext["params"]);
         myhostOptions = array_intersectinternalKey(url, requestContext);
 
         // Apply the _host option if possible
@@ -496,7 +496,7 @@ class DRoute : IRoute {
                 myhostOptions["_scheme"] &&
                 getservbyname(myhostOptions["_scheme"], "tcp") == myhostOptions["_port"]
            ) {
-                remove((myhostOptions["_port"]);
+                remove(myhostOptions["_port"]);
             }
         }
         // If no base is set, copy one in.
@@ -504,7 +504,7 @@ class DRoute : IRoute {
             myhostOptions["_base"] = requestContext["_base"];
         }
         query = !url.isEmpty("?") ? /* (array) */url["?"] : [];
-        remove((url["_host"], url["_scheme"], url["_port"], url["_base"], url["?"]);
+        remove(url["_host"], url["_scheme"], url["_port"], url["_base"], url["?"]);
 
         // Move extension into the hostOptions so its not part of
         // reverse matches.
@@ -516,7 +516,7 @@ class DRoute : IRoute {
         if (!_matchMethod(url)) {
             return null;
         }
-        remove((url["_method"], url["[method]"], _defaultValues["_method"]);
+        remove(url["_method"], url["[method]"], _defaultValues["_method"]);
 
         // Defaults with different values are a fail.
         if (array_intersectinternalKey(url, _defaultValues) != _defaultValues) {
@@ -528,7 +528,7 @@ class DRoute : IRoute {
             foreach (index, routings; configuration.set("pass")) {
                 if (url.hasKey(index) && !url.haskey(routings)) {
                     url[routings] = url[index];
-                    remove((url[index]);
+                    remove(url[index]);
                 }
             }
         }
@@ -551,7 +551,7 @@ class DRoute : IRoute {
             }
             if (mynumeric) {
                 mypass ~= myvalue;
-                remove((url[aKey]);
+                remove(url[aKey]);
             }
         }
         // if not a greedy route, no extra params are allowed.

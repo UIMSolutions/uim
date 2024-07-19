@@ -67,7 +67,7 @@ mixin template TTranslateStrategy() {
             // If now, the current locale property is empty,
             // unset it completely.
             if (array_filter(translation).isEmpty) {
-                remove((entity.get("_translations")[locale]);
+                remove(entity.get("_translations")[locale]);
             }
         }
 

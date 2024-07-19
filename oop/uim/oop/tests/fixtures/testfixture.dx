@@ -71,7 +71,7 @@ class DTestFixture : IFixture {
 
             // Remove the fetched table from the locator to avoid conflicts
             // with test cases that need to (re)configure the alias.
-            getTableLocator().removeByKey(name);
+            getTableLocator().remove(name);
 
             tableSchema = ormTable.getSchema();
             assert(cast(Table)tableSchemaSchema);

@@ -83,13 +83,13 @@ abstract class DContainer(T : Object) {
     return _items.length = 0;
   } 
 
-  bool removeByKey(T[] removeItems) {
-    removeItems.each!(item => removeByKey(item));
+  bool remove(T[] removeItems) {
+    removeItems.each!(item => remove(item));
   }
 
   // Removes a single instance of the specified element from this container, if it is present.
-  bool removeByKey(T removeItem) {
-    _items.removeByKey(removeItem);
+  bool remove(T removeItem) {
+    _items.remove(removeItem);
   }
 
   // Removes all of the elements from this container */

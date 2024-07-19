@@ -150,7 +150,7 @@ class DArrayTempl(T) : DArrayObj {
 		return cast(O) this;
 	}
 
-	O removeByKey(this O)(T[] values...) {
+	O remove(this O)(T[] values...) {
 		values.each!(value => removeValue(value));
 		return cast(O) this;
 	}
@@ -172,7 +172,7 @@ class DArrayTempl(T) : DArrayObj {
 
 	O toggle(this O)(T value) {
 		if (has(value))
-			removeByKey(value);
+			remove(value);
 		else
 			add(value);
 		return cast(O) this;

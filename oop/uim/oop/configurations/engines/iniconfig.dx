@@ -99,7 +99,7 @@ class DIniConfig : DConfigEngine {
             if (kv.value.isEmpty) {
                 kv.value = false;
             }
-            someValues.removeByKey(kv.key);
+            someValues.remove(kv.key);
             if (to!string(kv.key).contains(".")) {
                  someValues = Hash.insert(someValues, kv.key, kv.value);
             } else {

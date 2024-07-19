@@ -63,12 +63,12 @@ mixin template TStaticConfig() {
         }
         if (isArray(configData) && configData.hasKey("url")) {
             auto parsed = parseDsn(configuration.get("url"));
-            configuration.removeByKey("url");
+            configuration.remove("url");
             configData = parsed + configData;
         }
         if (configData.hasKey("engine") && configData.isEmpty("classname")) {
             configuration.set("classname", configuration.get("engine"));
-            configuration.removeByKey("engine");
+            configuration.remove("engine");
         }
         configuration.set(aKey, configData);
     }
@@ -109,7 +109,7 @@ mixin template TStaticConfig() {
         if (!_registry.isNull) {
             _registry.unload(key);
         }
-        configuration.removeByKey(key);
+        configuration.remove(key);
 
         return true;
     }
@@ -202,19 +202,19 @@ REGEXP`;
         /*
         foreach (myKey: v; parsed) {
             if (isInteger(myKey)) {
-                parsed.removeByKey(myKey);
+                parsed.remove(myKey);
             } else if (myKey.startsWith("_")) {
                 exists[subString(myKey, 1)] = (!v.isEmpty);
-                parsed.removeByKey(myKey);
+                parsed.remove(myKey);
             } else if (v is null && !exists[myKey]) {
-                parsed.removeByKey(myKey);
+                parsed.remove(myKey);
             }
         } */
 
         string aQuery = "";
         if (parsed.hasKey("query")) {
             aQuery = parsed["query"];
-            parsed.removeByKey("query");
+            parsed.remove("query");
         }
         parse_str(aQuery, aQueryArgs);
 

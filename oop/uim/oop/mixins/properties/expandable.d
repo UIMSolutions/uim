@@ -71,8 +71,8 @@ template XStringAA(string name) {
 	O "~name~"(this O)(string key, string value) { _"~name~"[key] = value; return cast(O)this; }
 	O "~name~"(this O)(STRINGAA addValues) { foreach(kv; addValues.byKeyValue) _"~name~"[kv.key] = kv.value; return cast(O)this; }
 	
-	O remove"~Name~"(this O)(string[] values...) { removeByKey(values); return cast(O)this; }	
-	O remove"~Name~"(this O)(string[] values) { foreach(value; values) _name = _"~name~".removeByKey(value); return cast(O)this; }	
+	O remove"~Name~"(this O)(string[] values...) { remove(values); return cast(O)this; }	
+	O remove"~Name~"(this O)(string[] values) { foreach(value; values) _name = _"~name~".remove(value); return cast(O)this; }	
 	
 	O clear"~Name~"(this O)() { _"~name~" = null; return cast(O)this; }	
 	";
@@ -127,7 +127,7 @@ template XPropertyArray(string datatype, string name) {
 	
 	O remove`~Name~`(this O)(`~datatype~`[] values...) { remove`~Name~`(values); return cast(O)this; }
 	O remove`~Name~`(this O)(`~datatype~`[] values) { 
-		foreach(value; values) if (value.index(_`~name~`) != -1) _`~name~`.removeByKey(value.index(_`~name~`)); 
+		foreach(value; values) if (value.index(_`~name~`) != -1) _`~name~`.remove(value.index(_`~name~`)); 
 		return cast(O)this; }
 
 	O clear`~Name~`(this O)() { _`~name~` = null; return cast(O)this; }

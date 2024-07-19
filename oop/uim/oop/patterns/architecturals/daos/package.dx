@@ -39,7 +39,7 @@ class DStudentDao : IStudentDao {
   }
 
   override void deleteStudent(DStudent student) {
-    _students.removeByKey(student.id);
+    _students.remove(student.id);
     writeln("Student: Id ", student.id, ", deleted from database");
   }
 

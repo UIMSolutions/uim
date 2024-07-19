@@ -47,6 +47,6 @@ version (test_uim_oop) {
     reverse(commandStack);
     commandStack.each!(command => command.undo());
 
-    std.file.removeByKey("foo.txt");
+    std.file.remove("foo.txt");
   }
 }

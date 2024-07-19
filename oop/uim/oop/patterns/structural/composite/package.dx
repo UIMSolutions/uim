@@ -27,7 +27,7 @@ class DEmployee {
     subordinates ~= e;
   }
 
-  void removeByKey(DEmployee employee) {
+  void remove(DEmployee employee) {
     subordinates = subordinates
       .filter!(subordinate => subordinate !is employee)
       .array;

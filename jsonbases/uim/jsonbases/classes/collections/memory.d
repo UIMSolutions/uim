@@ -267,10 +267,10 @@ class DMemoryJsonCollection : DJsonCollection {
       auto itemsId = _items[id];
       if (allVersions) {
         result = itemsId.length;
-        _items.removeByKey((id);
+        _items.remove((id);
       } else {
         auto lastVers = lastVersion(itemsId);
-        itemsId.removeByKey((lastVers["versionNumber"].get!size_t);
+        itemsId.remove((lastVers["versionNumber"].get!size_t);
       }
     }
     return result;
@@ -293,19 +293,19 @@ class DMemoryJsonCollection : DJsonCollection {
         foreach (vNumber, item; itemId) {
           if (checkVersion(item, select)) {
             counter++;
-            _items[id].removeByKey((vNumber);
+            _items[id].remove((vNumber);
           }
         }
       } else {
         if (auto item = lastVersion(itemId)) {
           if (checkVersion(item, select)) {
             counter++;
-            _items[id].removeByKey((item["versionNumber"].get!size_t);
+            _items[id].remove((item["versionNumber"].get!size_t);
           }
         }
       }
       if (_items[id].empty)
-        _items.removeByKey((id);
+        _items.remove((id);
     }
 
     return counter;
@@ -328,19 +328,19 @@ class DMemoryJsonCollection : DJsonCollection {
         foreach (vNumber, item; itemId) {
           if (checkVersion(item, select)) {
             counter++;
-            _items[id].removeByKey((vNumber);
+            _items[id].remove((vNumber);
           }
         }
       } else {
         if (auto item = lastVersion(itemId)) {
           if (checkVersion(item, select)) {
             counter++;
-            _items[id].removeByKey((item["versionNumber"].get!size_t);
+            _items[id].remove((item["versionNumber"].get!size_t);
           }
         }
       }
       if (_items[id].empty)
-        _items.removeByKey((id);
+        _items.remove((id);
     }
 
     return counter;
@@ -361,11 +361,11 @@ class DMemoryJsonCollection : DJsonCollection {
   override bool removeOne(UUID id, bool allVersions = false) {
     if (id in _items) {
       if (allVersions) {
-        _items.removeByKey((id);
+        _items.remove((id);
         return true;
       } else {
         foreach (vNumber; _items[id].byKey) {
-          _items[id].removeByKey((vNumber);
+          _items[id].remove((vNumber);
           return true;
         }
       }
@@ -385,7 +385,7 @@ class DMemoryJsonCollection : DJsonCollection {
   override bool removeOne(UUID id, size_t versionNumber) {
     if (auto itemsId = _items.get(id, null)) {
       if (versionNumber in itemsId) {
-        _items[id].removeByKey((versionNumber);
+        _items[id].remove((versionNumber);
         return true;
       }
     }
@@ -412,7 +412,7 @@ class DMemoryJsonCollection : DJsonCollection {
           auto id = UUID(oneItem["id"].get!string);
           auto vNumber = oneItem["versionNUmber"].get!size_t;
           auto itemsId = _items[id];
-          itemsId.removeByKey((vNumber);
+          itemsId.remove((vNumber);
         }
       }
     }
@@ -440,7 +440,7 @@ class DMemoryJsonCollection : DJsonCollection {
             auto id = UUID(oneItem["id"].get!string);
             auto vNumber = oneItem["versionNUmber"].get!size_t;
             auto itemsId = _items[id];
-            itemsId.removeByKey((vNumber);
+            itemsId.remove((vNumber);
           }
         }
     }

@@ -477,8 +477,8 @@ class DResponse : IResponse {
         }
 
         auto original = _headerNames[normalized];
-        _headerNames.removeByKey(normalized);
-        _headers.removeByKey(original);
+        _headerNames.remove(normalized);
+        _headers.remove(original);
     }
     
     /**
@@ -684,7 +684,7 @@ class DResponse : IResponse {
     //Create a new instace with the public/private Cache-Control directive set.
     static withSharable(bool isPublic, int maxAge = 0) {
         IResponse newResponse = this.clone;
-        newResponse._cacheDirectivesremoveByKey("private", "public");
+        newResponse._cacheDirectivesremove("private", "public");
 
         newResponse._cacheDirectives.set(isPublic ? "public" : "private", true);
 
@@ -743,7 +743,7 @@ class DResponse : IResponse {
         if (enable) {
             new._cacheDirectives["must-revalidate"] = true;
         } else {
-            removeByKey(new._cacheDirectives["must-revalidate"]);
+            remove(new._cacheDirectives["must-revalidate"]);
         }
         new._setCacheControl();
 

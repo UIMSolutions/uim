@@ -75,6 +75,6 @@ mixin template TModelManager() {
     if (aModel) removeModel(aModel.name);
   }
   void removeModel(string aName) {
-    if (_modelContainer && hasModel(aName)) _modelContainer.removeByKey(aName);
+    if (_modelContainer && hasModel(aName)) _modelContainer.remove(aName);
   }
 }

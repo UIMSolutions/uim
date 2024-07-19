@@ -314,7 +314,7 @@ class DPaginator : IPaginator {
 // Extracts the finder name and options out of the provided pagination options.
 protected Json[string] _extractFinder(Json[string] paginationOptions) {
     auto myType = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"] : "all";
-    paginationOptions.removeByKey("finder", paginationOptions["maxLimit"]);
+    paginationOptions.remove("finder", paginationOptions["maxLimit"]);
 
     if (isArray(myType)) {
         paginationOptions =  /* (array) */ currentValue(myType) + paginationOptions;
@@ -463,7 +463,7 @@ Json[string] validateSort(IRepository repository, Json[string] paginationData) {
     } else {
         paginationData.set("sort", null);
     }
-    paginationData.removeByKey("direction");
+    paginationData.remove("direction");
 
     if (paginationData.isEmpty("order")) {
         paginationData.set("order", null);

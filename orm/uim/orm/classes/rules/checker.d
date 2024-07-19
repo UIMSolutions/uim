@@ -26,7 +26,7 @@ class DRulesChecker { // }: BaseRulesChecker {
     RuleInvoker isUnique(Json[string] fieldNames, string[] errorMessage = null) {
         auto options = isArray(errorMessage) ? errorMessage : ["message": errorMessage];
         auto errorMessage = options.get("message", null);
-        options.removeByKey("message");
+        options.remove("message");
 
         if (!errorMessage) {
             if (_useI18n) {
@@ -68,7 +68,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         if (errorMessage.isArray) {
             options = errorMessage ~ ["message": Json(null)];
             errorMessage = options.get("message");
-            options.removeByKey("message");
+            options.remove("message");
         }
         if (!errorMessage) {
             errorMessage = _useI18n
@@ -112,7 +112,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * ### Example:
      *
      * ```
-     * myrules.addremoveByKey(myrules.isNotLinkedTo("Comments", "comments"));
+     * myrules.addremove(myrules.isNotLinkedTo("Comments", "comments"));
      * ```
      *
      * On a `Articles` table that has a `hasMany Comments` association, this check would ensure that articles

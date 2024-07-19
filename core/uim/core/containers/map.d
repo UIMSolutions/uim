@@ -431,11 +431,11 @@ V[K] removeByKeys(K, V)(V[K] items, K[] keys...) {
 }
 
 V[K] removeByKeys(K, V)(V[K] items, K[] keys) {
-  keys.each!(key => removeByKey(items, key));
+  keys.each!(key => remove(items, key));
   return items;
 }
 
-V[K] removeByKey(K, V)(V[K] items, K key) {
+V[K] remove(K, V)(V[K] items, K key) {
   if (hasKey(items, key))
     items.remove(key);
   return items;
@@ -445,11 +445,11 @@ unittest {
   assert(["a": "A", "b": "B", "c": "C"].length == 3);
   assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a").length == 2);
   assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b").length == 1);
-  assert(["a": "A", "b": "B", "c": "C"].removeByKey("a").length == 2);
+  assert(["a": "A", "b": "B", "c": "C"].remove("a").length == 2);
 
   assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a")["c"] == "C");
   assert(["a": "A", "b": "B", "c": "C"].removeByKeys("a", "b")["c"] == "C");
-  assert(["a": "A", "b": "B", "c": "C"].removeByKey("a")["c"] == "C");
+  assert(["a": "A", "b": "B", "c": "C"].remove("a")["c"] == "C");
 }
 // #endregion removeByKeys
 
@@ -465,7 +465,7 @@ V[K] removeByValues(K, V)(V[K] items, V[] values) {
 
 V[K] removeByValue(K, V)(V[K] items, V value) {
   return hasValue(items, value)
-    ? items.removeByKey(keyByValue(items, value)) : items;
+    ? items.remove(keyByValue(items, value)) : items;
 }
 
 unittest {

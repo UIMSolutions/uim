@@ -28,7 +28,7 @@ class DCSSMediaQuery {
     }}
 
   O removeRule(this O)(string selector) {
-    _rules.removeByKey(selector); 
+    _rules.remove(selector); 
     return cast(O)this; }
   version(test_uim_css) { unittest {
       /// TODO

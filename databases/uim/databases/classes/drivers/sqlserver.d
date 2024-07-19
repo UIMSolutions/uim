@@ -262,7 +262,7 @@ protected ISelectQuery _pagingSubquery(SelectQuery original, int numberOfRows, i
                 // end developer will be calling execute() on originally.
                 original.decorateResults(function(row) {
                     if (row.hasKey(["_uim_page_rownum_"])) {
-                        row.removeByKey("_uim_page_rownum_");
+                        row.remove("_uim_page_rownum_");
                     }
                     return row;
                 });
@@ -304,7 +304,7 @@ protected ISelectQuery _pagingSubquery(SelectQuery original, int numberOfRows, i
                     // end developer will be calling execute() on originally.
                     original.decorateResults(function(row) {
 
-                        row.removeByKey("_uim_distinct_pivot_");
+                        row.remove("_uim_distinct_pivot_");
                         return row;
                     });
 

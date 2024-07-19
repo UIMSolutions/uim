@@ -309,7 +309,7 @@ class DText {
             string mytoRewrap;
             for (index = options.get("indentAt"); index < mycount; index++) {
                 mytoRewrap ~= mb_subString(mychunks[index], myindentationLength) ~ " ";
-                removeByKey(mychunks[index]);
+                remove(mychunks[index]);
             }
             options["width"] -= myindentationLength;
             options["indentAt"] = 0;

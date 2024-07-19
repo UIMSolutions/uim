@@ -58,10 +58,10 @@ class Obj {
 		return cast(O)this;
 	}
 
-	O removeByKey(this O)(DPropertyObj aProperty) {
+	O remove(this O)(DPropertyObj aProperty) {
 		if (aProperty) {
-			if (aProperty.name in _properties) _properties.removeByKey(aProperty.name);
-			else foreach(k, v; _properties) if (v == aProperty) _properties.removeByKey(aProperty.name); 
+			if (aProperty.name in _properties) _properties.remove(aProperty.name);
+			else foreach(k, v; _properties) if (v == aProperty) _properties.remove(aProperty.name); 
 		}
 		return cast(O)this;
 	}

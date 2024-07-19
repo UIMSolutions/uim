@@ -25,7 +25,7 @@ class DH5Form : DH5Obj {
 	//	mixin(EnumField!("EncTypes", "encType"));
 
 	void add(Methods value) {
-		_attributes.removeByKey("method");
+		_attributes.remove("method");
 		_attributes["method"] = value;
 	}
 
@@ -35,7 +35,7 @@ class DH5Form : DH5Obj {
 
 	/* The target attribute specifies a name or a keyword that indicates where to display the response that is received after submitting the form.*/
 	void add(FormTargets value) {
-		_attributes.removeByKey("target");
+		_attributes.remove("target");
 		if (value != FormTargets.None) {
 			_attributes["target"] = value.toString;
 		}

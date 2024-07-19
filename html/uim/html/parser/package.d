@@ -147,11 +147,11 @@ class DH5Node {
     _attributes = newAttributes;
     if ("id" in _attributes) {
       id = _attributes["id"];
-      _attributes.removeByKey("id");
+      _attributes.remove("id");
     }
     if ("class" in _attributes) {
       classes = _attributes["class"];
-      _attributes.removeByKey("class");
+      _attributes.remove("class");
     }
   }
 
@@ -477,11 +477,11 @@ auto parse2(string html) {
         writeln(attributes);
         if ("id" in attributes) {
           node.id(attributes["id"]);
-          attributes.removeByKey("id");
+          attributes.remove("id");
         }
         if ("class" in attributes) {
           node.classes(attributes["class"]);
-          attributes.removeByKey("class");
+          attributes.remove("class");
         }
         node.attributes = attributes;
       }

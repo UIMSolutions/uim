@@ -37,9 +37,9 @@ class DArrayCacheEngine : DCacheEngine {
   // Structured as [key: [exp: expiration, val: value]]
   protected Json[string] _cachedData;
   // Delete a key from the cache
-  override bool removeByKey(string key) {
+  override bool remove(string key) {
     string internKey = internalcorrectKey(key);
-    return _cachedData.removeByKey(internKey);
+    return _cachedData.remove(internKey);
   }
 
   // Delete all keys from the cache. This will clear every cache config using APC.
@@ -56,7 +56,7 @@ class DArrayCacheEngine : DCacheEngine {
     // Check expiration
     auto checkTime = time();
     if (value.getLong("exp") <= checkTime) {
-      _cachedData.removeByKey(internKey);
+      _cachedData.remove(internKey);
       return defaultValue;
     }
 

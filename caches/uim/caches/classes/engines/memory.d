@@ -288,8 +288,8 @@ override bool merge(Json[string] items, long timeToLive = 0) {
   }
 
   // Delete a key from the cache
-  override bool removeByKey(string key) {
-    return _memory.removeByKey(internalcorrectKey(key));
+  override bool remove(string key) {
+    return _memory.remove(internalcorrectKey(key));
   }
 
   // Delete all keys from the cache
@@ -297,7 +297,7 @@ override bool merge(Json[string] items, long timeToLive = 0) {
     string prefix = configuration.getString("prefix");
 /*    _memory.getAllKeys()
       .filter!(key => key.startsWith(prefix))
-      .each!(key => _memory.removeByKey(key)); */
+      .each!(key => _memory.remove(key)); */
     return true;
   }
 

@@ -58,10 +58,10 @@ class DApcuCacheEngine : DCacheEngine {
   }
 
   // Delete a key from the cache
-  override bool removeByKey(string key) {
+  override bool remove(string key) {
     auto internKey = internalcorrectKey(key);
 
-    // TODO return apcu_removeByKey(internKey);
+    // TODO return apcu_remove(internKey);
     return false;
   }
 
@@ -72,7 +72,7 @@ class DApcuCacheEngine : DCacheEngine {
         "/^" ~ preg_quote(configuration.getString("prefix"), "/") ~ "/",
         APC_ITER_NONE
      );
-      apcu_removeByKey(myiterator);
+      apcu_remove(myiterator);
 
       return true;
     }
@@ -80,7 +80,7 @@ class DApcuCacheEngine : DCacheEngine {
     auto mycache = apcu_cache_info(); // Raises warning by itself already
     mycache["cache_list"]
       .filter!(key => aKey["info"].startsWith(configuration.get("prefix")))
-      .each!(key => apcu_removeByKey(aKey["info"]));
+      .each!(key => apcu_remove(aKey["info"]));
     }
     return true;
   } */

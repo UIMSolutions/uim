@@ -38,7 +38,7 @@ class DRoutesCheckCommand : DCommand {
           break;
         }
       }
-      removeByKey((route["_route"], route["_matchedRoute"]);
+      remove((route["_route"], route["_matchedRoute"]);
       ksort(route);
 
       output = [

@@ -50,7 +50,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
     }
 
     bool remove((string commandName) {
-        return _commands.remove((commandName);
+        return _commands.remove(commandName);
     }
 
     // Check whether the command name exists in the collection.

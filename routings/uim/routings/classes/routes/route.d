@@ -95,7 +95,7 @@ class DRoute : IRoute {
         _options = options.mergeKeys(["_ext", "_middleware"], Json.emptyArray);
         setExtensions(configuration.getArray("_ext"));
         setMiddleware(configuration.getArray("_middleware"));
-        configuration.remove(("_middleware");
+        configuration.remove("_middleware");
 
         if (_defaults.hasKey("_method")) {
             _defaults.set("_method", this.normalizeAndValidateMethods(_defaults["_method"]));
@@ -367,7 +367,7 @@ class DRoute : IRoute {
         }
         if (myroute.hasKey("_trailing_")) {
             myroute.set("pass",  myroute["_trailing_"]);
-            myroute.remove(("_trailing_");
+            myroute.remove("_trailing_");
         }
         if (!myext.isEmpty) {
             myroute.set("_ext", myext);
@@ -510,7 +510,7 @@ class DRoute : IRoute {
         // reverse matches.
         if (url.hasKey("_ext")) {
             myhostOptions.set("_ext", url["_ext"]);
-            url.remove(("_ext");
+            url.remove("_ext");
         }
         // Check the method first as it is special.
         if (!_matchMethod(url)) {
@@ -624,7 +624,7 @@ class DRoute : IRoute {
         // add base url if applicable.
         if (options.hasKey("_base")) {
             result = options.getString("_base") ~ result;
-            options.remove(("_base");
+            options.remove("_base");
         }
         result = result.replace("//", "/");
         if (options.hasAnyKeys("_scheme", "_host", "_port")) {

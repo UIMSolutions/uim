@@ -25,7 +25,7 @@ template classes() {
 	 O addClass(this O)(string newClass) { this.classes(newClass); return cast(O)this; }
 	
 	 O removeClass(this O)(string[] someClasses) { foreach(c; someClasses) removeClass(c); return cast(O)this; }
-	 O removeClass(this O)(string classname) { if (hasclass(classname)) classes = std.algorithm.mutation.remove((classes, classname); return cast(O)this; }
+	 O removeClass(this O)(string classname) { if (hasclass(classname)) classes = std.algorithm.mutation.remove(classes, classname); return cast(O)this; }
 	
 	 O toggleClass(this O)(string[] someClasses) { foreach(c; someClasses) toggleclass(c); return cast(O)this; }
 	 O toggleClass(this O)(string classname) { if (hasclass(classname)) removeClass(classname); else addClass(classname); return cast(O)this; }

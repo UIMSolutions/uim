@@ -105,7 +105,7 @@ class DConsoleOptionParser {
 
         auto newParams = params.merge(defaultOptions);
         auto anIndex = newParams["index"];
-        newParams.remove(("index");
+        newParams.remove("index");
         auto inputArgument = new DConsoleInputArgument(newParams);
 
         _args.each!((a) {
@@ -330,7 +330,7 @@ class DConsoleOptionParser {
 
     // Remove an option from the option parser.
     void removeOption(string optionName) {
-        _options.remove((optionName);
+        _options.remove(optionName);
     }
 
     /**

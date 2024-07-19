@@ -214,7 +214,7 @@ class DConsoleOutput {
         if (!style.isEmpty("background")) && _backgroundColors.hasKey(style.getString("background")) {
             styleInfo ~= _backgroundColors.get(style.getString("background"));
         }
-        style.remove(("text", "background");
+        style.remove("text", "background");
         style.byKeyValue
             .filter!(optionValue => optionValue.value)
             .each!(optionValue => styleInfo ~= _options[optionValue.option]);
@@ -250,7 +250,7 @@ class DConsoleOutput {
      */
     void setStyle(string styleToSet, Json[string] styleDefinition) {
         if (!styleDefinition) {
-            _styles.remove((styleToSet);
+            _styles.remove(styleToSet);
             return;
         }
         _styles[styleToSet] = styleDefinition;

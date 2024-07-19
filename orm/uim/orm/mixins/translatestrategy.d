@@ -59,7 +59,7 @@ mixin template TTranslateStrategy() {
             auto fields = translation.extract(configuration.getArray("fields"), false);
             foreach (field, value; fields) {
                 if (value == null || value is null) {
-                    translation.remove((field);
+                    translation.remove(field);
                 }
             }
 
@@ -74,7 +74,7 @@ mixin template TTranslateStrategy() {
         // If now, the whole _translations property is empty,
         // unset it completely and return
         if (entity.isEmpty("_translations")) {
-            entity.remove(("_translations");
+            entity.remove("_translations");
         }
     }
 
@@ -128,6 +128,6 @@ mixin template TTranslateStrategy() {
 
     // Unsets the temporary `_i18n` property after the entity has been saved
     void afterSave(IEvent event, IORMEntity anEntity) {
-        entity.remove(("_i18n");
+        entity.remove("_i18n");
     }
 }

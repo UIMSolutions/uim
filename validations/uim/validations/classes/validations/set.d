@@ -81,12 +81,12 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * ```
      *    myset
-     *        .remove(("notBlank")
-     *        .remove(("inRange")
+     *        .remove("notBlank")
+     *        .remove("inRange")
      * ```
      */
     bool remove((string ruleName) {
-        return _rules.remove((ruleName);
+        return _rules.remove(ruleName);
     }
     
     // Returns whether an index exists in the rule set
@@ -107,7 +107,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
 
     // Unsets a validation rule
     void offsetUnset(string ruleName) {
-        _rules.remove((ruleName);
+        _rules.remove(ruleName);
     }
 
     /**

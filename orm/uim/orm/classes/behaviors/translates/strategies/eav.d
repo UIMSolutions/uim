@@ -329,7 +329,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 auto translation = row.get(name);
 
                 if (translation.isEmpty) {
-                    row.removeByKey(name);
+                    row.remove(name);
                     continue;
                 }
 
@@ -338,7 +338,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                     row[field] = content;
                 }
 
-                row.removeByKey(name);
+                row.remove(name);
             }
 
             row["_locale"] = locale;
@@ -383,7 +383,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
             options = ["setter": false.toJson, "guard": false.toJson];
             row.set("_translations", result, options);
-            row.removeByKey("_i18n");
+            row.remove("_i18n");
             row.clean();
 
             return row;
@@ -454,7 +454,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             .disableHydration()
             .disableBufferedResults();
 
-        removeByKey(ruleSet[0]);
+        remove(ruleSet[0]);
         foreach (index, condition; ruleSet) {
             auto q = association.find()
                 .select(["id": "", "num": index])

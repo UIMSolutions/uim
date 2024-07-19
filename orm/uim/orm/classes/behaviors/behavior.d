@@ -67,11 +67,11 @@ import uim.orm;
  * - `afterSave(IEvent event, IORMEntity anEntity, Json[string] options)`
  *  Fired after an entity is saved.
  *
- * - `beforeremoveByKey(IEvent event, IORMEntity anEntity, Json[string] options)`
+ * - `beforeremove(IEvent event, IORMEntity anEntity, Json[string] options)`
  *  Fired before an entity is deleted. By stopping this event you will abort
  *  the delete operation.
  *
- * - `afterremoveByKey(IEvent event, IORMEntity anEntity, Json[string] options)`
+ * - `afterremove(IEvent event, IORMEntity anEntity, Json[string] options)`
  *  Fired after an entity has been deleted.
  *
  * In addition to the core events, behaviors can respond to any
@@ -166,7 +166,7 @@ class DBehavior : DEventListener {
         }
         if (configuration.hasKey(key) && configuration.isEmpty(key)) {
             configuration.set(key, [], false);
-            configuration.removeByKey(key);
+            configuration.remove(key);
 
             return configuration;
         }
@@ -179,7 +179,7 @@ class DBehavior : DEventListener {
             }
         });
         configuration.set(key, array_flip(indexedCustom), false);
-        configuration.removeByKey(key);
+        configuration.remove(key);
 
         return configuration;
     }

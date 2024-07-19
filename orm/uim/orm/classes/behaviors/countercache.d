@@ -138,7 +138,7 @@ class DCounterCacheBehavior : DBehavior {
      *
      * Makes sure to update counter cache when a record is deleted.
      */
-    void afterremoveByKey(IEvent event, IORMEntity ormEntity, Json[string] options) {
+    void afterremove(IEvent event, IORMEntity ormEntity, Json[string] options) {
         if (options.getBoolean("ignoreCounterCache")) {
             return;
         }
@@ -168,7 +168,7 @@ class DCounterCacheBehavior : DBehavior {
         foreach (fieldName, myvalue; mycountConditions) {
             if (myvalue.isNull) {
                 mycountConditions.set(fieldName ~ " IS", myvalue);
-                mycountConditions.removeByKey(fieldName);
+                mycountConditions.remove(fieldName);
             }
         }
         
@@ -223,7 +223,7 @@ class DCounterCacheBehavior : DBehavior {
     protected int _getCount(Json[string] configData, Json[string] conditions) {
         string myfinder = "all";
         if (!configData.isEmpty("finder")) {
-            removeByKey(configuration.getString("finder"));
+            remove(configuration.getString("finder"));
         }
         // TODO configuration.set("conditions", chain(conditions, configuration.getArray("conditions"));
         // myquery = _table.find(myfinder, ...configData); */

@@ -32,7 +32,7 @@ class DWidget : IWidget {
   bool initialize(Json[string] initData = null) {
     configuration(MemoryConfiguration);
     configuration.data(initData);
-    configuration.set([
+    configuration.setPath([
       "name": Json(null),
       "val": Json(null),
       "type": Json("text"),
@@ -83,7 +83,7 @@ class DWidget : IWidget {
 
     return _stringContents.format("input",
         updatedData.get("name", "type", "templateVars")
-          .set(["attrs": _stringContents.formatAttributes(updatedData, ["name", "type"])])
+          .setPath(["attrs": _stringContents.formatAttributes(updatedData, ["name", "type"])])
    );
   }
 

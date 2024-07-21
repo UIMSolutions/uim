@@ -49,7 +49,7 @@ class DMissingTemplateException : DViewException {
     _attributes = newAttributes;
   }
   override Json[string] attributes() {
-    return super.attributes().set([
+    return super.attributes().setPath([
       "file": Json(fileName),
       "paths": Json(paths.map!(path => Json(path)).array),
     ]);

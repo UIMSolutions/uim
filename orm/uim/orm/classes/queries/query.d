@@ -838,7 +838,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * If the first param is a null value, the built-in counter function will be called
      * instead
-     * @param callable|null counter The counter value
      */
 /*     void counter(callable counter) {
         _counter = counter;
@@ -846,7 +845,6 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
     /**
      * Toggle hydrating entities.
-     *
      * If set to false array results will be returned for the query.
      */
     void enableHydration(bool enable = true) {

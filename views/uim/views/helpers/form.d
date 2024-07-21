@@ -531,7 +531,7 @@ class DFormHelper : DHelper {
         if (fieldName.endsWith("._ids")) {
             fieldName = subString(fieldName, 0, -5);
         }
-        auto options = options.set(["escape": true.toJson]);
+        auto options = options.setPath(["escape": true.toJson]);
         auto formContext = _getContext();
         if (!formContext.hasError(fieldName)) {
             return null;
@@ -1360,7 +1360,7 @@ class DFormHelper : DHelper {
      * string title The button"s caption. Not automatically HTML encoded
      */
     string button(string title, Json[string] options  = null) {
-        Json[string] options = options.set([
+        Json[string] options = options.setPath([
             "type": "submit".toJson,
             "escapeTitle": true.toJson,
             "escape": true.toJson,
@@ -1548,7 +1548,7 @@ class DFormHelper : DHelper {
      */
     string submit(string caption = null, Json[string] options  = null) {
         caption ? caption : __d("uim", "Submit");
-        auto options = options.set([
+        auto options = options.setPath([
             "type": "submit",
             "secure": false.toJson,
             "templateVars": Json.emptyArray,
@@ -1831,21 +1831,13 @@ class DFormHelper : DHelper {
         return _widget("datetime", fieldOptions);
     }
     
-    /**
-     * Generate an input tag with type "date".
-     *
-     * ### Options:
-     *
-     * See dateTime() options.
-     * Params:
-     * string fieldName The field name.
-     */
+    // Generate an input tag with type "date".
     string date(string fieldName, Json[string] options  = null) {
-        auto options = options.merge(["value": Json(null)]);
-        options = _initInputField(fieldName, options);
-        options.set("type", "date");
+        options.merge("value", Json(null));
+        auto fieldOptions = _initInputField(fieldName, options);
+        fieldOptions.set("type", "date");
 
-        return _widget("datetime", options);
+        return _widget("datetime", fieldOptions);
     }
     
     /**

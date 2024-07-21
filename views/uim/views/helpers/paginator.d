@@ -277,7 +277,7 @@ class DPaginatorHelper : DHelper {
      * - `lock` Lock direction. Will only use the default direction then, defaults to false.
      */
     string sort(string key, string[] linkTitle = null, Json[string] options = null) {
-        auto updatedOptions = options.set([
+        auto updatedOptions = options.setPath([
             "url": Json.emptyArray,
             "escape": true.toJson
         ]);

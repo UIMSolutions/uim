@@ -576,9 +576,6 @@ class DAssociation : IAssociation {
     /**
      * Proxies the operation to the target table"s exists method after
      * appending the default conditions for this association
-     *
-     * @param  conditions The conditions to use
-     * for checking if any record matches.
      */
     bool exists(/* DORMdatabases.IExpression|\Closure|array| */string conditions) {
         conditions = find()

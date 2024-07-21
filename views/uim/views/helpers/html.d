@@ -317,7 +317,7 @@ class DHtmlHelper : DHelper {
     }
 
     string css(string[] mypath, Json[string] htmlAttributes = null) {
-        auto htmlAttributes = htmlAttributes.set([
+        auto htmlAttributes = htmlAttributes.setPath([
             "once": true.toJson,
             "block": Json(null),
             "rel": "stylesheet".toJson,

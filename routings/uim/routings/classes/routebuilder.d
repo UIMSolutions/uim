@@ -660,7 +660,7 @@ class DRouteBuilder {
         }
         auto path = options.getString("path", "/" ~ Inflector.dasherize(routings));
         options.remove("path");
-        options = options.set(["plugin": routings]);
+        options = options.setPath(["plugin": routings]);
         scope(path, options, null /* callbackClosure */);
 
         return this;

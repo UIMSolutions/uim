@@ -110,7 +110,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 name ~ ".field": field,
             ];
             if (configuration.hasKey("allowEmptyTranslations")) {
-                conditions.set([name, "content !="], "");
+                conditions.setPath([name, "content !="], "");
             }
 
             _table.hasOne(name, [
@@ -174,7 +174,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         foreach (field; fields) {
             auto name = aliasName ~ "_" ~ field ~ "_translation";
-            contain.set([name, "queryBuilder"], conditions(
+            contain.setPath([name, "queryBuilder"], conditions(
                 field,
                 locale,
                 query,

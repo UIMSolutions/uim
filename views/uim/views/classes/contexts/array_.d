@@ -122,7 +122,7 @@ class DArrayContext : DContext {
      * - 
     */
     Json val(string fieldPath, Json[string] options  = null) {
-        Json options = options.set([
+        Json options = options.setPath([
             // `default`: Default value to return if no value found in data or context record.
             "default": Json(null),
             "schemaDefault": true.toJson

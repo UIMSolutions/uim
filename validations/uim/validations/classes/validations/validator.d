@@ -132,7 +132,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             auto context = compact("data", "newRecord", "field", "providers");
 
             if (!mykeyPresent && !_checkPresence(fieldName, context)) {
-                myerrors.set([myname, "_required"], getRequiredMessage(myname));
+                myerrors.setPath([myname, "_required"], getRequiredMessage(myname));
                 continue;
             }
             if (!mykeyPresent) {
@@ -147,7 +147,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             myisEmpty = this.isEmpty(data[myname], myflags);
 
             if (!canBeEmpty && myisEmpty) {
-                myerrors.set([myname, "_empty"], getNotEmptyMessage(myname));
+                myerrors.setPath([myname, "_empty"], getNotEmptyMessage(myname));
                 continue;
             }
             if (myisEmpty) {

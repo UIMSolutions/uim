@@ -63,7 +63,7 @@ class DResultsetFactory {
             if (!fieldNames.hasKey(nameAssoc.key)) {
                 continue;
             }
-            mydata.set(["matchingColumns", nameAssoc.key], fieldNames[nameAssoc.key]);
+            mydata.setPath(["matchingColumns", nameAssoc.key], fieldNames[nameAssoc.key]);
             fieldNames.remove(nameAssoc.key);
         });
         mydata.set("fields", fieldNames);
@@ -160,10 +160,10 @@ class DResultsetFactory {
             if (!results.hasKey(aliasName)) {
                 continue;
             }
-            results.set([tableMetadata.getString("primaryAlias"), aliasName], results.get(aliasName));
+            results.setPath([tableMetadata.getString("primaryAlias"), aliasName], results.get(aliasName));
         }
         if (results.hasKey("_matchingData")) {
-            results.set([tableMetadata.getString("primaryAlias"), "_matchingData"], results.get("_matchingData"));
+            results.setPath([tableMetadata.getString("primaryAlias"), "_matchingData"], results.get("_matchingData"));
         }
         options.set("source", tableMetadata.get("registryAlias"));
         if (auto primaryAlias = tableMetadata.getString("primaryAlias")) {

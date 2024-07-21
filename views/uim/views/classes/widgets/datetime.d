@@ -92,7 +92,7 @@ class DDateTimeWidget : DWidget {
         updatedData.remove("val", "timezone", "format");
 
         return _stringContents.format("input", updatedData.data(["name", "type", "templateVars"])
-            .set(["attrs": _stringContents.formatAttributes(
+            .setPath(["attrs": _stringContents.formatAttributes(
                 updatedData, ["name", "type"]
            )]));
     }

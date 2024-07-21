@@ -1582,7 +1582,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (options.hasKey("checkExisting") && myprimaryColumns && entityToSave.isNew() && entityToSave.has(myprimaryColumns)) {
             auto aliasName = aliasName();
             auto myconditions = null;
-            entityToSave.extract(myprimaryColumns).byKeyValue.each!(kv => myconditions.set(["aliasName", kv.key], kv.value));
+            entityToSave.extract(myprimaryColumns).byKeyValue.each!(kv => myconditions.setPath(["aliasName", kv.key], kv.value));
             entityToSave.setNew(!this.exists(myconditions));
         }
         auto mymode = entityToSave.isNew() ? RulesChecker.CREATE : RulesChecker.UPDATE;

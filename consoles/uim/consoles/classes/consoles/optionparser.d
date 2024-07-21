@@ -534,8 +534,8 @@ class DConsoleOptionParser {
                 aKey, options
             );
         }
-        name = _shortOptions[aKey];
-
+        
+        auto name = _shortOptions.getString(aKey);
         return _parseOption(name, paramsToAppen);
     }
 

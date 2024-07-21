@@ -102,11 +102,11 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         /* auto locale = locale : locale();
 
         if (registry.hasKey([catalogName, localName])) {
-            return _registry.get([catalogName, localName]);
+            return _registry.getPath([catalogName, localName]);
         }
 
         if (_cacher.isNull) {
-            _registry.register([catalogName, localName], _getTranslator(catalogName, locale)).get([catalogName, localName]);
+            _registry.register([catalogName, localName], _getTranslator(catalogName, locale)).getPath([catalogName, localName]);
         }
         // Cache keys cannot contain / if they go to file engine.
         auto keyName = name.replace("/", ".");
@@ -117,7 +117,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             translator = _getTranslator(catalogName, locale);
            _cacher.set(aKey, translator);
         }
-        return _registry.register([catalogName, localName], translator).get([catalogName, localName]); */
+        return _registry.register([catalogName, localName], translator).getPath([catalogName, localName]); */
         return null; 
     }
     

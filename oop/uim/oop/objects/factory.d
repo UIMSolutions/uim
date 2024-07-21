@@ -162,9 +162,9 @@ unittest {
     });
 
     assert(Factory.get("testWorkerOne").name == "one");
-    assert(Factory.get(["testWorker", "two"]).name == "two");
+    assert(Factory.getPath(["testWorker", "two"]).name == "two");
     assert(Factory.get("testWorker.two").name == "two");
-    assert(Factory.get(["testWorker", "and", "three"]).name == "three");
+    assert(Factory.getPath(["testWorker", "and", "three"]).name == "three");
     assert(Factory.get("testWorker.and.three").name == "three");
 
     assert(Factory.hasPath(["testWorkerOne"]));

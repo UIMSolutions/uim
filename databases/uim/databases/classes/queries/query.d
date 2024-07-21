@@ -810,7 +810,7 @@ abstract class DQuery : IQuery { // : IExpression {
             [
                 "OR": [fieldName ~ " NOT IN": someValues, fieldName ~ " IS": Json(null)],
             ],
-            options["types"]
+            options.get("types")
        );
     }
     

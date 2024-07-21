@@ -355,7 +355,7 @@ class DDebugger {
                 back ~= trace;
             } else {
                 formatValue = mergedOptions.getString("format");
-                tpl = _stringContents.get([formatValue, "traceLine"], _stringContents.get(["base", "traceLine"]));
+                tpl = _stringContents.getPath([formatValue, "traceLine"], _stringContents.getPath(["base", "traceLine"]));
             }
             trace.set("path", trimPath(trace["file"]));
             trace.set("reference", reference);

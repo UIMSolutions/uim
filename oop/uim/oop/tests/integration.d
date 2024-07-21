@@ -398,7 +398,7 @@ mixin template TIntegrationTest() {
 
     // Creates a request object with the configured options and parameters.
     protected Json[string] _buildRequest(string url, string httpMethod, string[] requestData = null) {
-        auto sessionConfig = configuration.data("Session").set([
+        auto sessionConfig = configuration.data("Session").setPath([
             "defaults": "D".toJson,
         ]);
 

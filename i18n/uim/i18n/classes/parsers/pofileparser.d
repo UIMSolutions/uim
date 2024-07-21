@@ -174,9 +174,9 @@ class DPoFileParser {
         translation = stripcslashes(to!string(translation)); */
 
         /*      if (context !is null && messages is null([singular, "_context", context])) {
-            messages.set([singular, "_context", context], translation);
+            messages.setPath([singular, "_context", context], translation);
         } else if (messages is null([singular, "_context"])) {
-            messages.set([singular, "_context"], translation);
+            messages.setPath([singular, "_context"], translation);
         } * /
 
         if (ids.hasKey("plural")) {
@@ -197,9 +197,9 @@ class DPoFileParser {
             auto key = stripcslashes(ids["plural"]);
 
             if (!context is null) {
-                messages.set([Translator.PLURAL_PREFIX ~ key, "_context", context], plurals);
+                messages.setPath([Translator.PLURAL_PREFIX ~ key, "_context", context], plurals);
             } else {
-                messages.set([Translator.PLURAL_PREFIX ~ key, "_context."], plurals);
+                messages.setPath([Translator.PLURAL_PREFIX ~ key, "_context."], plurals);
             } 
         }*/
     }

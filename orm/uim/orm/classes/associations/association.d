@@ -446,7 +446,7 @@ class DAssociation : IAssociation {
         auto target = getTarget();
         auto table = target.getTable();
 
-        auto updatedOptions = options.set([
+        auto updatedOptions = options.setPath([
             "includeFields": true.toJson,
             "foreignKeys": foreignKeys(),
             "conditions": Json.emptyArray,
@@ -539,7 +539,7 @@ class DAssociation : IAssociation {
         auto targetProperty = targetProperty ? targetProperty : getProperty();
         if (row.hasKey(sourceAlias)) {
             string key = row.getString(nestKey);
-            row.set([sourceAlias, targetProperty], row.get(key));
+            row.setPath([sourceAlias, targetProperty], row.get(key));
             row.remove(key);
         }
 

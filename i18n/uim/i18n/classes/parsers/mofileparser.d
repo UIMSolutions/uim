@@ -113,9 +113,9 @@ class MoFileParser {
                 }
                 continue;
             }
-            messages.set([singularId, "_context."], singular);
+            messages.setPath([singularId, "_context."], singular);
             if (pluralId !is null) {
-                messages.set([pluralId, "_context."], plurals);
+                messages.setPath([pluralId, "_context."], plurals);
             } */
         // }
         // fclose(stream);

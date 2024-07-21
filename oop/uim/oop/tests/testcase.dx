@@ -657,7 +657,7 @@ abstract class DTestCase : DBaseTestCase {
         auto locator = getTableLocator();
 
         [, baseClass] = pluginSplit(modelAlias);
-        options.set(["alias": baseClass, "connection": aConnection]);
+        options.setPath(["alias": baseClass, "connection": aConnection]);
         auto updatedOptions = options.updatelocator.configuration.get(modelAlias);
         auto reflection = new DReflectionClass(classname);
          classnameMethods = array_map(function (method) {

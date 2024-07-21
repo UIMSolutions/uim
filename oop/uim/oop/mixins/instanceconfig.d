@@ -36,7 +36,7 @@ mixin template TInstanceConfig() {
      * Updating multiple config settings at the same time:
      *
      * ```
-     * configuration.set(["one": 'value", "another": 'value"]);
+     * configuration.setPath(["one": 'value", "another": 'value"]);
      * ```
      */
     void setConfig(string[] keysToSet, Json valueToSet = null, bool shouldMerge = true) {

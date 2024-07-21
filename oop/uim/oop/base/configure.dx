@@ -36,13 +36,13 @@ class DFileConfigEngine {
      * Usage:
      * ```
      * Configuration.set("One.key1", "value of the Configure.One[key1]");
-     * Configuration.set(["One.key1": 'value of the Configure.One[key1]"]);
+     * Configuration.setPath(["One.key1": 'value of the Configure.One[key1]"]);
      * Configuration.set("One", [
      *   'key1": 'value of the Configure.One[key1]",
      *   'key2": 'value of the Configure.One[key2]'
      * ]);
      *
-     * Configuration.set([
+     * Configuration.setPath([
      *   'One.key1": 'value of the Configure.One[key1]",
      *   'One.key2": 'value of the Configure.One[key2]'
      * ]);

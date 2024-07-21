@@ -492,7 +492,7 @@ class DEagerLoader {
             }
             someKeys = mycollected.get(mypath~"."~aliasName, null);
             mycallback = myinstance.eagerLoader(
-                configData.set([
+                configData.setPath([
                     "query": selectQuery,
                     "contain": mycontain,
                     "keys": someKeys,

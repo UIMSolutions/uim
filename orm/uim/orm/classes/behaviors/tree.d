@@ -641,12 +641,8 @@ class DTreeBehavior : DBehavior {
         return node;
     }
 
-    /**
-     * Returns a single node from the tree from its primary key
-     *
-     * @param mixed id Record id.
-     */
-    protected IORMEntity _getNode(id) {
+    // Returns a single node from the tree from its primary key
+    protected IORMEntity _getNode(Json id) {
         auto configData = configuration.data;
         [parent, left, right] = [configuration.get("parent"), configuration.get("left"), configuration.get("right")];
         primaryKeys = primaryKeys();

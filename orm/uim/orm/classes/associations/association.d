@@ -264,8 +264,6 @@ class DAssociation : IAssociation {
     /**
      * Sets a list of conditions to be always included when fetching records from
      * the target association.
-     *
-     * @param \Closure|array conditions list of conditions to be used
      */
     void setConditions(/* Closure|array */ Json[string] conditions) {
         _conditions = conditions;
@@ -274,7 +272,6 @@ class DAssociation : IAssociation {
     /**
      * Gets a list of conditions to be always included when fetching records from
      * the target association.
-     * @return \Closure|array
      */
     auto getConditions() {
         return _conditions;
@@ -565,11 +562,7 @@ class DAssociation : IAssociation {
 
     /**
      * Proxies the finding operation to the target table"s find method
-     * and modifies the query accordingly based of this association
-     * configuration
-     *
-     * @param Json[string]|string type the type of query to perform, if an array is passed,
-     *  it will be interpreted as the `options` parameter
+     * and modifies the query accordingly based of this association configuration
      */
     IQuery find(/* Json[string]| */string queryType = null, Json[string] options = null) {
         queryType = queryType ? queryType : getFinder();
@@ -595,17 +588,13 @@ class DAssociation : IAssociation {
         return _getTarget().exists(conditions);
     }
 
-    /**
-     * Proxies the update operation to the target table"s updateAll method
-     *
-     * @param Json[string] fields A hash of field: new value.
-     */
+    // Proxies the update operation to the target table"s updateAll method
     size_t updateAll(string[] fieldNames, /* .IExpression|\Closure|array| */string conditions) {
         expression = find()
             .where(conditions)
             .clause("where");
 
-        return _getTarget().updateAll(fields, expression);
+        return _getTarget().updateAll(fieldNames, expression);
     }
 
     /**

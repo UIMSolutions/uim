@@ -823,12 +823,13 @@ class Hash {
      * Squashes an array to a single hash so it can be sorted.
      * Params:
      * Json[string] data The data to squash.
-     * @param string|int aKey The key for the data.
      */
     protected static Json[string] _squash(Json[string] data, string|int aKey = null) {
+    }
+    protected static Json[string] _squash(Json[string] data, string aKey = null) {
         auto mystack = null;
-        foreach (myKey: myr; data) {
-            myid = myKey;
+        foreach (myKey, myr; data) {
+            string myid = myKey;
             if (!aKey.isNull) {
                 myid = aKey;
             }

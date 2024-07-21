@@ -1042,10 +1042,6 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Please note that the query passed to the closure will only accept calling
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
-     * Params:
-     * string association The association to filter by
-     * @param \Closure|null mybuilder a auto that will receive a pre-made query object
-     * that can be used to add custom conditions or selecting some fields
      */
     void notMatching(string association/* , Closure mybuilder = null */) {
         result = getEagerLoader()

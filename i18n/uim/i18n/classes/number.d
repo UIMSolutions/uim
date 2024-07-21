@@ -107,12 +107,10 @@ class DNumber {
      * - `locale` - The locale name to use for formatting the number, e.g. fr_FR
      * - `before` - The string to place before whole numbers, e.g. '["
      * - `after` - The string to place after decimal numbers, e.g. "]'
-     * Params:
-     * Json value A floating point number.
      */
     static string format(Json floatNumber, Json[string] options = null) {
         auto formatter = formatter(options);
-        auto updatedOptions = options.merge(
+        options.merge(
             ["before": Json(""), "after": Json("")]);
         /* return updatedOptions.getString(
             "before") ~ formatter.format(

@@ -1019,15 +1019,8 @@ class DBelongsToManyAssociation : DAssociation {
         return targetEntities;
     }
 
-    /**
-     * Throws an exception should any of the passed entities is not persisted.
-     *
-     * @param DORMDatasource\IORMEntity sourceEntity the row belonging to the `source` side
-     *  of this association
-     * @param array<DORMDatasource\IORMEntity> targetEntities list of entities belonging to the `target` side
-     *  of this association
-     */
-    protected bool _checkPersistenceStatus(IORMEntity sourceEntity, Json[string] targetEntities) {
+    // Throws an exception should any of the passed entities is not persisted.
+    protected bool _checkPersistenceStatus(IORMEntity sourceEntity, IORMEntity[] targetEntities) {
         if (sourceEntity.isNew()) {
             error = "Source entity needs to be persisted before links can be created or removed.";
             throw new DInvalidArgumentException(error);

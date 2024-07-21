@@ -53,7 +53,7 @@ class DRoutesCommand : DCommand {
 
     someMethods.each!((method) {
         if (!someDuplicateRoutesCounter.hasKey([route.templateText, method])) {
-            someDuplicateRoutesCounter.set([route.templateText, method], 0);}
+            someDuplicateRoutesCounter.setPath([route.templateText, method], 0);}
             someDuplicateRoutesCounter.inc([route.templateText, method], 1);};});
 
             if (arguments.getOption("sort")) {

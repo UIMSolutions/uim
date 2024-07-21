@@ -13,7 +13,7 @@ class DSqlserverDriver : DDriver {
             return false;
         }
 
-        configuration.set([
+        configuration.setPath([
             "host": Json("localhost\\SQLEXPRESS"),
             "username": "".toJson,
             "password": "".toJson,

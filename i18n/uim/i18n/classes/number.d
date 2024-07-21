@@ -84,7 +84,7 @@ class DNumber {
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
      */
     static string toPercentage(Json value, int precision = 2, Json[string] options = null) {
-        auto updatedOptions = options.set([
+        auto updatedOptions = options.setPath([
             "multiply": false.toJson,
             "type": NumberFormatters.PERCENT.toJson
         ]);

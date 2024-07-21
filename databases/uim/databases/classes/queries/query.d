@@ -154,7 +154,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * rowCount = aQuery.set("articles")
-     *               .set(["published'=>true])
+     *               .setPath(["published'=>true])
      *               .where(["published'=>false])
      *               .rowCountAndClose();
      * ```
@@ -775,16 +775,16 @@ abstract class DQuery : IQuery { // : IExpression {
      * Be careful about using it without proper sanity checks.
      */
     auto whereNotInList(string fieldName, Json[string] someValues, Json[string] options = null) {
-        auto auto updatedOptions = options.set([
+        options.merge([
             "types": Json.emptyArray,
             "allowEmpty": false.toJson
-        ];
+        ]);
 
-        if (options["allowEmpty"] && !someValues) {
+        if (options.hasKey("allowEmpty") && !someValues) {
             return _where([fieldName ~ " IS NOT": Json(null)]);
         }
 
-        return _where([fieldName ~ " NOT IN": someValues], options["types"]);
+        return _where([fieldName ~ " NOT IN": someValues], options.get("types"));
     }
     
     /**

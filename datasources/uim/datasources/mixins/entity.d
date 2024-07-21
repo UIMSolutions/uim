@@ -189,7 +189,7 @@ mixin template TEntity() {
      * ### Example:
      *
      * ```
-     * entity.set(["name": 'andrew", "id": 1]);
+     * entity.setPath(["name": 'andrew", "id": 1]);
      * writeln(entity.name // prints andrew
      * writeln(entity.id // prints 1
      * ```
@@ -200,7 +200,7 @@ mixin template TEntity() {
      *
      * ```
      * entity.set("name", "Andrew", ["setter": false.toJson]);
-     * entity.set(["name": 'Andrew", "id": 1], ["setter": false.toJson]);
+     * entity.setPath(["name": 'Andrew", "id": 1], ["setter": false.toJson]);
      * ```
      *
      * Mass assignment should be treated carefully when accepting user input, by default
@@ -208,7 +208,7 @@ mixin template TEntity() {
      * the guarding for a single set call with the `guard` option:
      *
      * ```
-     * entity.set(["name": 'Andrew", "id": 1], ["guard": false.toJson]);
+     * entity.setPath(["name": 'Andrew", "id": 1], ["guard": false.toJson]);
      * ```
      *
      * You do not need to use the guard option when assigning fields individually:
@@ -246,7 +246,7 @@ mixin template TEntity() {
     if (!isArray(fieldName)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
-    auto updatedOptions = options.set([
+    auto updatedOptions = options.setPath([
       "setter": true.toJson,
       "guard": guard,
       "asOriginal": false.toJson

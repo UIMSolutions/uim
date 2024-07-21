@@ -764,7 +764,7 @@ unittest {
   Json json = Json.emptyObject;
   json["a"] = "hallo";
   assert(json["a"].get!string == "hallo");
-  json = json.set(["a": "world"]);
+  json = json.setPath(["a": "world"]);
   assert(json["a"].get!string == "world");
 }
 
@@ -1020,11 +1020,11 @@ Json set(T)(Json json, T[string] newValues) {
 ///
 unittest {
   auto json = parseJsonString(`{"a": "b", "x": "y"}`);
-  assert(json.set(["a": "c"])["a"].get!string == "c");
+  assert(json.setPath(["a": "c"])["a"].get!string == "c");
 
   json = parseJsonString(`{"a": "b", "x": "y"}`);
-  assert(json.set(["a": "c", "x": "z"])["x"].get!string == "z");
-  assert(json.set(["a": "c", "x": "z"])["x"].get!string != "c");
+  assert(json.setPath(["a": "c", "x": "z"])["x"].get!string == "z");
+  assert(json.setPath(["a": "c", "x": "z"])["x"].get!string != "c");
 }
 // #endregion
 

@@ -1101,7 +1101,7 @@ class DResponse : IResponse {
      */
     static withFile(string aPath, Json[string] options = null) {
         auto file = validateFile(somePath);
-        auto updatedOptions = options.set([
+        auto updatedOptions = options.setPath([
             "name": StringData,
             "download": Json(null)
         ]);

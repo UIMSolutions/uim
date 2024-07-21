@@ -199,12 +199,12 @@ class DI18nExtractCommand : DCommand {
         auto context = contextData.get("msgctxt", "");
 
         if (isEmpty(_translations[domainName][messageId][context])) {
-           _translations.set([domainName, messageId, context], [
+           _translations.setPath([domainName, messageId, context], [
                 "msgid_plural": false.toJson,
             ]);
         }
         if (contextData.hasKey("msgid_plural")) {
-           _translations.set([domainName, messageId, context, "msgid_plural"], contextData["msgid_plural"]);
+           _translations.setPath([domainName, messageId, context, "msgid_plural"], contextData["msgid_plural"]);
         }
         if (contextData.hasKey("file")) {
             auto line = contextData.getLong("line", 0);
@@ -453,7 +453,7 @@ class DI18nExtractCommand : DCommand {
     protected void _store(string domainName, string headerContent, string sentenceToStore) {
        _storage[domainName] = _storage.get(domainName);
 
-        _storage.set([domainName, sentence], 
+        _storage.setPath([domainName, sentence], 
             _storage[domainName].hasKey(sentence))
             ? _storage[domainName][sentence] ~ headerContent
             : headerContent;

@@ -527,21 +527,21 @@ class DEagerLoader {
      */
     protected DEagerLoadable[] _buildAssociationsMap(Json[string] initialData, Json[string] mylevel, bool isMatching = false) {
         foreach (association, mymeta; mylevel) {
-            auto mycanBeJoined = mymeta.canBeJoined();
+            auto canBeJoined = mymeta.canBeJoined();
             auto myinstance = mymeta.instance();
             auto myassociations = mymeta.associations();
             auto myforMatching = mymeta.forMatching();
-            auto updatedData = initialData.merge([
+            initialData.merge([
                 "alias": association,
                 "instance": myinstance,
-                "canBeJoined": mycanBeJoined,
+                "canBeJoined": canBeJoined,
                 "entityClass": myinstance.getTarget().getEntityClass(),
-                "nestKey": mycanBeJoined ? association : mymeta.aliasPath(),
-                "matching": myforMatching ?? isMatching,
+                "nestKey": canBeJoined ? association : mymeta.aliasPath(),
+                "matching": myforMatching ? myforMatching : isMatching,
                 "targetProperty": mymeta.targetProperty(),
             ]);
-            if (mycanBeJoined && myassociations) {
-                updatedData = _buildAssociationsMap(updatedData, myassociations, isMatching);
+            if (canBeJoined && myassociations) {
+                initialData = _buildAssociationsMap(initialData, myassociations, isMatching);
             }
         }
         return updatedData;

@@ -985,10 +985,9 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * ```
      * Params:
      * string mytype the type of query to perform
-     * @param Json ...arguments Arguments that match up to finder-specific parameters
      */
-    DSelectQuery find(string mytype = "all", Json[] arguments...) {
-        return _callFinder(mytype, this.selectQuery(), arguments.dup);
+    DSelectQuery find(string queryType = "all", Json[] arguments...) {
+        return _callFinder(queryType, this.selectQuery(), arguments.dup);
     }
     
     /**
@@ -1714,9 +1713,9 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             foreach (key, value; myprimary) {
                 if (!mydata.hasKey(key)) {
                     myid = mystatement.lastInsertId(getTable(), key);
-                    mytype = myschema.getColumnType(key);
-                    assert(mytype !is null);
-                    ormEntity.set(key, TypeFactory.build(mytype).ToD(myid, mydriver));
+                    columnType = myschema.getColumnType(key);
+                    assert(columnType !is null);
+                    ormEntity.set(key, TypeFactory.build(columnType).ToD(myid, mydriver));
                     break;
                 }
             }
@@ -1736,14 +1735,15 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * Params:
      * string[] myprimary The primary key columns to get a new DID for.
      */
-    protected string _newId(Json[string] myprimary) {
-        if (!myprimary || count(myprimary) > 1) {
+    protected string _newId(Json[string] primaryKeys) {
+        if (!primaryKeys || count(primaryKeys) > 1) {
             return null;
         }
-        mytypeName = getSchema().getColumnType(myprimary[0]);
+        
+        auto mytypeName = getSchema().getColumnType(primaryKeys[0]);
         assert(mytypeName !is null);
-        mytype = TypeFactory.build(mytypeName);
-
+        
+        auto mytype = TypeFactory.build(mytypeName);
         return mytype.newId();
     }
     

@@ -838,12 +838,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * If the first param is a null value, the built-in counter function will be called
      * instead
-     *
      * @param callable|null counter The counter value
      */
-    void counter(callable counter) {
+/*     void counter(callable counter) {
         _counter = counter;
-    }
+    } */
 
     /**
      * Toggle hydrating entities.

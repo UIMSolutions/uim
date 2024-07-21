@@ -131,7 +131,7 @@ class DEventManager { // }: IEventManager {
     foreach (_listeners[eventKey] as priority : aCallables) {
         foreach (aCallables as myKey : aCallback) {
             if (aCallback["callable"] == aCallable) {
-                _listeners.remove([eventKey, priority, myKey]);
+                _listeners.removePath([eventKey, priority, myKey]);
                 break;
             }
         }

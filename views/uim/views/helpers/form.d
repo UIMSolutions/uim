@@ -247,7 +247,7 @@ class DFormHelper : DHelper {
         }
         myisCreate = formContext.isCreate();
 
-        auto updatedOptions = options.updatetions.updatetions.updatetions.updatetions.update[
+        auto options = options.updatetions.updatetions.updatetions.updatetions.update[
             "type": myisCreate ? "post" : "put",
             "url": Json(null),
             "encoding": configuration.get("App.encoding").lower.toJson,
@@ -531,7 +531,7 @@ class DFormHelper : DHelper {
         if (fieldName.endsWith("._ids")) {
             fieldName = subString(fieldName, 0, -5);
         }
-        auto updatedOptions = options.set(["escape": true.toJson]);
+        auto options = options.set(["escape": true.toJson]);
         auto formContext = _getContext();
         if (!formContext.hasError(fieldName)) {
             return null;
@@ -554,9 +554,9 @@ class DFormHelper : DHelper {
         if (text !is null) {
             myerror = text;
         }
-        if (updatedOptions["escape"]) {
+        if (options["escape"]) {
             Json myerror = htmlAttributeEscape(myerror);
-            updatedOptions.remove("escape");
+            options.remove("escape");
         }
         if (isArray(myerror)) {
             if (count(myerror) > 1) {
@@ -785,7 +785,7 @@ class DFormHelper : DHelper {
      * widget is checked
      */
     string control(string fieldName, Json[string] options  = null) {
-        auto updatedOptions = options.update[
+        auto options = options.update[
             "type": Json(null),
             "label": Json(null),
             "error": Json(null),
@@ -796,7 +796,7 @@ class DFormHelper : DHelper {
             "labelOptions": true.toJson,
         ];
         options = _parseOptions(fieldName, options);
-        auto updatedOptions = options.update["id": _domId(fieldName)];
+        auto options = options.update["id": _domId(fieldName)];
 
         mytemplater = this.templater();
         mynewTemplates = options.get("templates"];
@@ -812,7 +812,7 @@ class DFormHelper : DHelper {
         // Multiple checkboxes can"t have aria generated for them at this layer.
         if (options["type"] != "hidden" && (options["type"] != "select" && !options.hasKey("multiple"))) {
             bool isFieldError = isFieldError(fieldName);
-            auto updatedOptions = options.update[
+            auto options = options.update[
                 "aria-required": options["required"] ? "true" : null,
                 "aria-invalid": isFieldError ? "true" : null,
             ];
@@ -822,12 +822,12 @@ class DFormHelper : DHelper {
                 mytemplater.get("error").contains("{{id}}") &&
                 mytemplater.get("inputContainerError").contains("{{error}}")
            ) {
-                updatedOptions = updatedOptions.update[
+                options = options.update[
                    "aria-describedby": isFieldError ? _domId(fieldName) ~ "-error" : null,
                 ];
             }
             if (options.hasKey("placeholder"]) && options["label"] == false) {
-                updatedOptions = updatedOptions.update[
+                options = options.update[
                     "aria-label": options["placeholder"],
                 ];
             }
@@ -835,52 +835,52 @@ class DFormHelper : DHelper {
         
         auto myerror = null;
         auto myerrorSuffix = "";
-        if (updatedOptions.getString("type") != "hidden" && updatedOptions["error"] == true) {
-            myError = isArray(updatedOptions["error"])
-                ? error(fieldName, updatedOptions["error"], updatedOptions["error"])
-                : error(fieldName, updatedOptions["error"]);
+        if (options.getString("type") != "hidden" && options["error"] == true) {
+            myError = isArray(options["error"])
+                ? error(fieldName, options["error"], options["error"])
+                : error(fieldName, options["error"]);
 
             myerrorSuffix = myerror.isEmpty ? "" : "Error";
-            updatedOptions.remove("error");
+            options.remove("error");
         }
-        auto mylabel = updatedOptions["label"];
-        updatedOptions.remove("label");
+        auto mylabel = options["label"];
+        options.remove("label");
 
-        mylabelOptions = updatedOptions["labelOptions"];
-        updatedOptions.remove("labelOptions");
+        mylabelOptions = options["labelOptions"];
+        options.remove("labelOptions");
 
-        bool mynestedInput = updatedOptions.getString("type") == "checkbox";
-        mynestedInput = updatedOptions.getBoolean("nestedInput", mynestedInput);
-        updatedOptions.remove("nestedInput");
+        bool mynestedInput = options.getString("type") == "checkbox";
+        mynestedInput = options.getBoolean("nestedInput", mynestedInput);
+        options.remove("nestedInput");
 
         if (
             mynestedInput == true
-            && updatedOptions.getString("type") == "checkbox"
-            && !array_key_exists("hiddenField", updatedOptions)
+            && options.getString("type") == "checkbox"
+            && !array_key_exists("hiddenField", options)
             && mylabel == true
        ) {
-            updatedOptions.get("hiddenField", "_split");
+            options.get("hiddenField", "_split");
         }
 
-        string myinput = _getInput(fieldName, updatedOptions ~ ["labelOptions": mylabelOptions]);
-        if (updatedOptions.getString("type") == "hidden" || updatedOptions.getString("type") == "submit") {
+        string myinput = _getInput(fieldName, options ~ ["labelOptions": mylabelOptions]);
+        if (options.getString("type") == "hidden" || options.getString("type") == "submit") {
             if (mynewTemplates) {
                 mytemplater.pop();
             }
             return myinput;
         }
         
-        mylabel = _getLabel(fieldName, compact("input", "label", "error", "nestedInput") + updatedOptions);
+        mylabel = _getLabel(fieldName, compact("input", "label", "error", "nestedInput") + options);
         result = mynestedInput
-            ? _groupTemplate(compact("label", "error", "updatedOptions"))
-            : _groupTemplate(compact("input", "label", "error", "updatedOptions"));
+            ? _groupTemplate(compact("label", "error", "options"))
+            : _groupTemplate(compact("input", "label", "error", "options"));
 
         result = _inputContainerTemplate([
             "content": result,
             "error": myerror,
             "errorSuffix": myerrorSuffix,
             "label": mylabel,
-            "options": updatedOptions,
+            "options": options,
         ]);
 
         if (mynewTemplates) {
@@ -1064,23 +1064,23 @@ class DFormHelper : DHelper {
     
     // Magically set option type and corresponding options
     protected Json[string] _magicOptions(string fieldName, Json[string] options, bool allowOverride) {
-        auto updatedOptions = options.update[
+        auto options = options.update[
             "templateVars": Json.emptyArray,
         ];
 
-        updatedOptions = setRequiredAndCustomValidity(fieldName, updatedOptions);
+        options = setRequiredAndCustomValidity(fieldName, options);
         auto mytypesWithOptions = ["text", "number", "radio", "select"];
-        auto mymagicOptions = (isIn(updatedOptions["type"], ["radio", "select"], true) || allowOverride);
-        if (mymagicOptions && isIn(updatedOptions["type"], mytypesWithOptions, true)) {
-            updatedOptions = _optionsOptions(fieldName, options);
+        auto mymagicOptions = (isIn(options["type"], ["radio", "select"], true) || allowOverride);
+        if (mymagicOptions && isIn(options["type"], mytypesWithOptions, true)) {
+            options = _optionsOptions(fieldName, options);
         }
         if (allowOverride && fieldName.endsWith("._ids")) {
-            updatedOptions.set("type", "select");
-            if (!updatedOptions.hasKey("multiple"]) || (updatedOptions["multiple"] && updatedOptions["multiple"] != "checkbox")) {
-                updatedOptions.set("multiple", true);
+            options.set("type", "select");
+            if (!options.hasKey("multiple"]) || (options["multiple"] && options["multiple"] != "checkbox")) {
+                options.set("multiple", true);
             }
         }
-        return updatedOptions;
+        return options;
     }
     
     /**
@@ -1141,7 +1141,7 @@ class DFormHelper : DHelper {
      * used instead of the generated values if present.
      */
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
-        Json[string] auto updatedOptions = options.update["id": Json(null), "input": Json(null), "nestedInput": false.toJson, "templateVars": Json.emptyArray];
+        Json[string] auto options = options.update["id": Json(null), "input": Json(null), "nestedInput": false.toJson, "templateVars": Json.emptyArray];
         STRINGAA labelAttributes = ["templateVars": labelOptions.get("templateVars")];
         if (isArray(labelOptions)) {
             string labelText = null;
@@ -1183,7 +1183,7 @@ class DFormHelper : DHelper {
      * string fieldName Name of a field, like this "modelname.fieldname"
      */
     string[] checkbox(string fieldName, Json[string] options  = null) {
-        auto updatedOptions = options.update["hiddenField": true.toJson, "value": 1];
+        auto options = options.update["hiddenField": true.toJson, "value": 1];
 
         // Work around value=>val translations.
         myvalue = options.get("value");
@@ -1341,10 +1341,10 @@ class DFormHelper : DHelper {
      * Name of a field in the form "modelname.fieldname"
      */
     string file(string fieldName, Json[string] options  = null) {
-        auto updatedOptions = options.merge("secure", true);
-        updatedOptions = _initInputField(fieldName, updatedOptions);
-        updatedOptions.remove("type");
-        return _widget("file", updatedOptions);
+        auto options = options.merge("secure", true);
+        options = _initInputField(fieldName, options);
+        options.remove("type");
+        return _widget("file", options);
     }
     
     /**
@@ -1360,14 +1360,14 @@ class DFormHelper : DHelper {
      * string title The button"s caption. Not automatically HTML encoded
      */
     string button(string title, Json[string] options  = null) {
-        Json[string] updatedOptions = options.set([
+        Json[string] options = options.set([
             "type": "submit".toJson,
             "escapeTitle": true.toJson,
             "escape": true.toJson,
             "secure": false.toJson,
             "confirm": Json(null),
         ]);
-        updatedOptions.set("text", title);
+        options.set("text", title);
 
         auto confirmMessage = options.get("confirm");
         options.remove("confirm");
@@ -1443,15 +1443,15 @@ class DFormHelper : DHelper {
      * - The option `onclick` will be replaced.
      */
     string postLink(string title, string[] myurl = null, Json[string] options  = null) {
-        auto updatedOptions = options.dup.addKeys(["block", "confirm"]);
+        auto options = options.dup.addKeys(["block", "confirm"]);
 
         auto myrequestMethod = "POST";
-        if (!updatedOptions.isEmpty("method")) {
-            myrequestMethod = updatedOptions.getString("method").upper;
-            updatedOptions.remove("method");
+        if (!options.isEmpty("method")) {
+            myrequestMethod = options.getString("method").upper;
+            options.remove("method");
         }
-        auto confirmMessage = updatedOptions.get("confirm");
-        updatedOptions.remove("confirm");
+        auto confirmMessage = options.get("confirm");
+        options.remove("confirm");
 
         auto myformName = uniqid("post_", true).replace(".", "");
         auto myformOptions = [
@@ -1459,9 +1459,9 @@ class DFormHelper : DHelper {
             "style": "display:none;",
             "method": "post",
         ];
-        if (updatedOptions.hasKey("target")) {
-            myformOptions.set("target", updatedOptions.get("target"));
-            updatedOptions.remove("target");
+        if (options.hasKey("target")) {
+            myformOptions.set("target", options.get("target"));
+            options.remove("target");
         }
         auto mytemplater = this.templater();
         auto myrestoreAction = _lastAction;
@@ -1488,12 +1488,12 @@ class DFormHelper : DHelper {
         }
         
         auto fieldNames = null;
-        if (updatedOptions.hasKey("data"]) && isArray(updatedOptions["data"])) {
-            Hash.flatten(updatedOptions["data"]).each!((kv) {
+        if (options.hasKey("data"]) && isArray(options["data"])) {
+            Hash.flatten(options["data"]).each!((kv) {
                 fieldNames[kv.key] = kv.value;
                 result ~= hidden(kv.key, ["value": kv.value, "secure": SECURE_SKIP]);
             });
-            updatedOptions.remove("data");
+            options.remove("data");
         }
         result ~= this.secure(fieldNames);
         result ~= formatTemplate("formEnd", []);
@@ -1501,14 +1501,14 @@ class DFormHelper : DHelper {
        _lastAction = myrestoreAction;
         _formProtector = myrestoreFormProtector;
 
-        if (updatedOptions["block"]) {
-            if (updatedOptions["block"] == true) {
-                updatedOptions["block"] = __FUNCTION__;
+        if (options["block"]) {
+            if (options["block"] == true) {
+                options["block"] = __FUNCTION__;
             }
-           _View.append(updatedOptions["block"], result);
+           _View.append(options["block"], result);
             result = "";
         }
-        updatedOptions.remove("block");
+        options.remove("block");
 
         string myurl = "#";
         string myonClick = "document." ~ myformName ~ ".submit();";
@@ -1520,13 +1520,13 @@ class DFormHelper : DHelper {
                 "formName": myformName,
                 "confirm": myonClick,
             ]);
-            updatedOptions.set("data-confirm-message", confirmMessage);
+            options.set("data-confirm-message", confirmMessage);
         } else {
             myonClick ~= " event.returnValue = false; return false;";
         }
-        updatedOptions.set("onclick", myonClick);
+        options.set("onclick", myonClick);
 
-        result ~= _html.link(title, myurl, updatedOptions);
+        result ~= _html.link(title, myurl, options);
         return result;
     }
     
@@ -1548,7 +1548,7 @@ class DFormHelper : DHelper {
      */
     string submit(string caption = null, Json[string] options  = null) {
         caption ? caption : __d("uim", "Submit");
-        auto updatedOptions = options.set([
+        auto options = options.set([
             "type": "submit",
             "secure": false.toJson,
             "templateVars": Json.emptyArray,
@@ -1770,13 +1770,13 @@ class DFormHelper : DHelper {
      * - `min` The min year to appear in the select element.
      */
     string year(string fieldName, Json[string] options  = null) {
-        auto auto updatedOptions = options.update[
+        auto auto options = options.update[
             "empty": true.toJson,
         ];
-        options = _initInputField(fieldName, updatedOptions);
+        options = _initInputField(fieldName, options);
         options.remove("type");
 
-        return _widget("year", updatedOptions);
+        return _widget("year", options);
     }
     
     /**
@@ -1787,7 +1787,7 @@ class DFormHelper : DHelper {
      * See dateTime() options.
      */
     string month(string fieldName, Json[string] options  = null) {
-        Json[string] updatedOptions = options.update[
+        Json[string] options = options.update[
             "value": Json(null),
         ];
 
@@ -1806,12 +1806,12 @@ class DFormHelper : DHelper {
      * If set to `true` current datetime will be used.
      */
     string dateTime(string fieldName, Json[string] options  = null) {
-        auto updatedOptions = options.merge(["value": Json(null)]);
-        updatedOptions = _initInputField(fieldName, updatedOptions);
-        updatedOptions.set("type", "datetime-local");
-        updatedOptions.set("fieldName", fieldName);
+        auto options = options.merge(["value": Json(null)]);
+        options = _initInputField(fieldName, options);
+        options.set("type", "datetime-local");
+        options.set("fieldName", fieldName);
 
-        return _widget("datetime", updatedOptions);
+        return _widget("datetime", options);
     }
     
     /**
@@ -1824,11 +1824,11 @@ class DFormHelper : DHelper {
      * string fieldName The field name.
      */
     string time(string fieldName, Json[string] options  = null) {
-        auto updatedOptions = options.merge(["value": Json(null)]);
-        updatedOptions = _initInputField(fieldName, updatedOptions);
-        updatedOptions.set("type", "time");
+        options.merge(["value": Json(null)]);
+        auto fieldOptions = _initInputField(fieldName, options);
+        fieldOptions.set("type", "time");
 
-        return _widget("datetime", updatedOptions);
+        return _widget("datetime", fieldOptions);
     }
     
     /**
@@ -1841,11 +1841,11 @@ class DFormHelper : DHelper {
      * string fieldName The field name.
      */
     string date(string fieldName, Json[string] options  = null) {
-        auto updatedOptions = options.merge(["value": Json(null)]);
-        updatedOptions = _initInputField(fieldName, updatedOptions);
-        updatedOptions.set("type", "date");
+        auto options = options.merge(["value": Json(null)]);
+        options = _initInputField(fieldName, options);
+        options.set("type", "date");
 
-        return _widget("datetime", updatedOptions);
+        return _widget("datetime", options);
     }
     
     /**
@@ -1869,15 +1869,15 @@ class DFormHelper : DHelper {
      * can be passed to a form widget to generate the actual input.
      */
     protected Json[string] _initInputField(string fieldName, Json[string] options  = null) {
-        auto updatedOptions = options.update["fieldName": fieldName];
+        auto options = options.update["fieldName": fieldName];
 
         if (!options.hasKey("secure")) {
-            updatedOptions.set("secure", _View.getRequest().getAttribute("formTokenData").isNull ? false : true);
+            options.set("secure", _View.getRequest().getAttribute("formTokenData").isNull ? false : true);
         }
         auto mycontext = _getContext();
 
         if (options.hasKey("id") && options["id"] == true) {
-            updatedOptions.set("id", _domId(fieldName));
+            options.set("id", _domId(fieldName));
         }
         if (!options.hasKey("name"))) {
             myendsWithBrackets = "";

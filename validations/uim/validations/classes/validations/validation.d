@@ -128,13 +128,13 @@ class DValidation {
      * Returns true if creditcardNumber is in the proper credit card format.
      * Params:
      * Json creditcardNumber credit card number to validate
-     * @param string[]|string mytype "all" may be passed as a string, defaults to fast which checks format of
+     * @param string[]|string checkType "all" may be passed as a string, defaults to fast which checks format of
      *   most major credit cards if an array is used only the values of the array are checked.
      *  Example: ["amex", "bankcard", "maestro"]
      */
     static bool creditCard(
         Json checkValue,
-        string[] mytype = ["fast"],
+        string[] checkType = ["fast"],
         bool shouldCheckDeep = false,
         string regex = null
     ) {
@@ -169,15 +169,15 @@ class DValidation {
         myCards["fast"] = "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/"
             .toJson;
 
-        /*        if (isArray(mytype)) {
-            foreach (myvalue; mytype) {
+        /*        if (isArray(checkType)) {
+            foreach (myvalue; checkType) {
                 regex = mycards["all"][myvalue).lower];
 
                 if (_check(creditcardNumber, regex)) {
                     return luhn(creditcardNumber);
                 }
             }
-        } else if (mytype == "all") {
+        } else if (checkType == "all") {
             foreach (myvalue; mycards["all"]) {
                 regex = myvalue;
 
@@ -451,9 +451,6 @@ class DValidation {
     /**
      * Date and/or time string validation.
      * Uses `I18n.Time` to parse the date. This means parsing is locale dependent.
-     * Params:
-     * Json valueToCheck a date string or object (will always pass)
-     * @param string|int myformat any format accepted by IntlDateFormatter
      */
     static bool isValidLocalizedTime(Json dateValue, string parserType = "datetime", string /* int */ dateformat = null) {
         /* if (cast(IDateTime)dateValue) {
@@ -667,18 +664,18 @@ class DValidation {
      * Validation of an IP address.
      * Params:
      * Json valueToCheck The string to test.
-     * @param string mytype The IP Protocol version to validate against
+     * @param string protocolType The IP Protocol version to validate against
      */
-static bool ip(Json valueToCheck, string mytype = "both") {
+static bool ip(Json valueToCheck, string protocolType = "both") {
     /*        if (!isString(valueToCheck)) {
             return false;
         }
-        mytype = mytype.lower;
+        protocolType = protocolType.lower;
         auto myflags = 0;
-        if (mytype == "ipv4") {
+        if (protocolType == "ipv4") {
             myflags = FILTER_FLAG_IPV4;
         }
-        if (mytype == "ipv6") {
+        if (protocolType == "ipv6") {
             myflags = FILTER_FLAG_IPV6;
         }
         return (bool)filter_var(valueToCheck, FILTER_VALIDATE_IP, ["flags": myflags]); */
@@ -739,7 +736,7 @@ static bool isMoney(Json valueToCheck, string mysymbolPosition = "left") {
      */
 static bool multiple(Json valueToCheck, Json[string] options = null, bool isCaseInsensitive = false) {
     /* auto defaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
-        auto updatedOptions = options.updatemydefaults;
+        auto options = options.updatemydefaults;
 
         auto valueToCheck = array_filter((array)valueToCheck, auto (myvalue) {
             return myvalue || isNumeric(myvalue);
@@ -758,11 +755,11 @@ static bool multiple(Json valueToCheck, Json[string] options = null, bool isCase
                 options.set("in", array_map("mb_strtolower", options["in"]));
             }
             valueToCheck.each((myval) {
-                mystrict = !isNumeric(myval);
+                isStrict = !isNumeric(myval);
                 if (isCaseInsensitive) {
                     myval = mb_strtolower(/* (string) * /myval);
                 }
-                if (!isIn(to!string(myval), options["in"], mystrict)) {
+                if (!isIn(to!string(myval), options["in"], isStrict)) {
                     return false;
                 }
             });
@@ -822,11 +819,8 @@ static bool range(Json value, float lowerLimit = 0.0, float upperLimit = 0.0) {
      * - an optional valid path
      * - an optional query string (get parameters)
      * - an optional fragment (anchor tag) as defined in RFC 3986
-     * Params:
-     * Json valueToCheck Value to check
-     * @param bool mystrict Require URL to be prefixed by a valid scheme (one of http(s)/ftp(s)/file/news/gopher)
      */
-static bool url(Json valueToCheck, bool mystrict = false) {
+static bool url(Json valueToCheck, bool isStrict = false) {
     /* if (!isString(valueToCheck)) {
             return false;
         }
@@ -839,7 +833,7 @@ static bool url(Json valueToCheck, bool mystrict = false) {
         mypath = "([" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
         myfragmentAndQuery = "([\?" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
          Generic.Files.LineLength
-        regex = "/^(?:(?:https?|ftps?|sftp|file|news|gopher):\/\/)" ~ (mystrict ? "" : "?") .
+        regex = "/^(?:(?:https?|ftps?|sftp|file|news|gopher):\/\/)" ~ (isStrict ? "" : "?") .
             "(?:" ~ _pattern["IPv4"] ~ "|\[" ~ _pattern.getString("IPv6") ~ "\]|" ~ _pattern["hostname"] ~ ")(?.[1-9][0-9]{0,4})?" .
             "(?:\/" ~ mypath ~ "*)?" .
             "(?:\?" ~ myfragmentAndQuery ~ "*)?" .
@@ -1030,7 +1024,7 @@ static bool uploadedFile(Json uploadedFile, Json[string] options = null) {
             return false;
         } */
 
-    Json[string] updatedOptions = options.merge([
+    Json[string] options = options.merge([
         "minSize": Json(null),
         "maxSize": Json(null),
         "types": Json(null),
@@ -1139,22 +1133,22 @@ static bool geoCoordinate(Json geographicLocation, Json[string] options = null) 
     /*        if (geographicLocation.isScalar) {
             return false;
         } */
-    auto updatedOptions = options.merge([
+    options.merge([
         "format": "both".toJson,
         "type": "latLong".toJson,
     ]);
-    if (updatedOptions.getString("type") != "latLong") {
+    if (options.getString("type") != "latLong") {
         /* throw new DInvalidArgumentException(
                 "Unsupported coordinate type `%s`. Use `latLong` instead."
-                .format(updatedOptions["type"])
+                .format(options["type"])
            ); */
     }
 
     /* auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.getString("longitude") ~ "my/";
-        if (updatedOptions.getString("format") == "long") {
+        if (options.getString("format") == "long") {
             mypattern = "/^" ~ _pattern.getString("longitude") ~ "my/";
         }
-        if (updatedOptions.getString("format") == "lat") {
+        if (options.getString("format") == "lat") {
             mypattern = "/^" ~ _pattern.getString("latitude") ~ "my/";
         } */
     // TODO return (bool)preg_match(mypattern, to!string(myvalue));
@@ -1206,7 +1200,7 @@ static bool utf8(Json valueToCheck, Json[string] options = null) {
     /*        if (!isString(myvalue)) {
             return false;
         }
-        auto updatedOptions = options.update["extended": false.toJson];
+        auto options = options.update["extended": false.toJson];
         if (options["extended"]) {
             return preg_match("//u", myvalue) == 1;
         }

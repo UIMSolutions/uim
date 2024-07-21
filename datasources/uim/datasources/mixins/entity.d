@@ -433,14 +433,14 @@ mixin template TEntity() {
      *
      * ```
      * entity.remove("name");
-     * entity.remove(["name", "last_name"]);
+     * entity.removePath(["name", "last_name"]);
      * ```
      * Params:
      * string[]|string fieldName The field to unset.
     */
   auto remove(string[] afield) {
     field = /* (array) */ field;
-    foreach (field asp) {
+    foreach (p; field) {
       remove(_fields[p], _isChangedFields[p]);
     }
     return this;

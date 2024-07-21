@@ -165,9 +165,8 @@ class DOauth {
             rewind(resource);
             authCredentials.set("privateKey", privateKey);
         }
-        authCredentials.merge([
-                "privateKeyPassphrase": "",
-            ]);
+        authCredentials.merge("privateKeyPassphrase", "");
+
         if (isResource(authCredentials["privateKeyPassphrase"])) {
             auto resource = authCredentials["privateKeyPassphrase"];
             auto passphrase = stream_get_line(resource, 0, D_EOL);
@@ -175,10 +174,10 @@ class DOauth {
             authCredentials.set("privateKeyPassphrase", passphrase);
         }
         /** @var \OpenSSLAsymmetricKey|\OpenSSLCertificate|string[] aprivateKey */
-        privateKey = openssl_pkey_get_private(authCredentials["privateKey"], authCredentials["privateKeyPassphrase"]);
+        auto privateKey = openssl_pkey_get_private(authCredentials["privateKey"], authCredentials["privateKeyPassphrase"]);
         this.checkSslError();
 
-        signature = "";
+        auto signature = "";
         openssl_sign(baseString, signature, privateKey);
         this.checkSslError();
 

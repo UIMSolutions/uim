@@ -544,10 +544,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Allows a field to be an empty string.
      *
      * This method is equivalent to calling allowEmptyFor() with EMPTY_STRING flag.
-     * Params:
-     * @param \/*Closure|* / string mywhen Indicates when the field is allowed to be empty
-     * Valid values are true, false, "create", "update". If a Closure is passed then
-     * the field will allowed to be empty only when the callback returns true.
      */
     void allowEmptyString(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = true */ ) {
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, errorMessage);
@@ -557,11 +553,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Requires a field to not be an empty string.
      *
      * Opposite to allowEmptyString()
-     * Params:
-     * @param \/*Closure|* / string mywhen Indicates when the field is not allowed
-     * to be empty. Valid values are false (never), "create", "update". If a
-     * Closure is passed then the field will be required to be not empty when
-     * the callback returns true.
      */
     void notEmptyString(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
@@ -600,10 +591,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * This method is equivalent to calling allowEmptyFor() with EMPTY_FILE flag.
      * File fields will not accept `""`, or `[]` as empty values. Only `null` and a file
      * upload with `error` equal to `UPLOAD_ERR_NO_FILE` will be treated as empty.
-     * Params:
-     * @param \/*Closure|* / string mywhen Indicates when the field is allowed to be empty
-     * Valid values are true, "create", "update". If a Closure is passed then
-     * the field will allowed to be empty only when the callback returns true.
      */
     void allowEmptyFile(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = true */ ) {
         // TODO return _allowEmptyFor(fieldName, EMPTY_FILE, mywhen, errorMessage);
@@ -658,10 +645,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * This method is equivalent to calling allowEmptyFor() with EMPTY_STRING +
      * EMPTY_TIME flags.
-     * Params:
-     * @param \/*Closure|* / string mywhen Indicates when the field is allowed to be empty
-     * Valid values are true, false, "create", "update". If a Closure is passed then
-     * the field will allowed to be empty only when the callback returns true.
      */
     auto allowEmptyTime(string fieldName, string errorMessage = null, /*Closure|*/ string mywhenA) {
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, errorMessage);
@@ -670,11 +653,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Require a field to be a non-empty time.
      * Opposite to allowEmptyTime()
-     * Params:
-     * @param \/*Closure|* / string mywhen Indicates when the field is not allowed
-     * to be empty. Valid values are false (never), "create", "update". If a
-     * Closure is passed then the field will be required to be not empty when
-     * the callback returns true.
      */
     void notEmptyTime(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
@@ -702,14 +680,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Require a field to be a non empty date/time.
      *
      * Opposite to allowEmptyDateTime
-     * Params:
-     * string fieldName The name of the field.
-     * @param string message The message to show if the field is empty.
-     * @param \/*Closure|* / string mywhen Indicates when the field is not allowed
-     * to be empty. Valid values are false (never), "create", "update". If a
-     * Closure is passed then the field will be required to be not empty when
-     * the callback returns true.
-     * @return this
      */
     auto notEmptyDateTime(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
         // auto mywhen = invertWhenClause(mywhen);
@@ -923,11 +893,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a greater than comparison rule to a field.
-     * Params:
-     * @param float myvalue The value user data must be greater than.
-     */
+    // Add a greater than comparison rule to a field.
     Json[string] greaterThan(
         string fieldName,
         float valueToCompare,
@@ -1071,9 +1037,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a rule to compare two fields to each other.
      *
      * If both fields have the exact same value the rule will pass.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
      */
     auto sameAs(
         string fieldName,
@@ -1096,12 +1059,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a rule to compare that two fields have different values.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a rule to compare that two fields have different values.
     auto notSameAs(
         string fieldName,
         string secondField,
@@ -1178,14 +1136,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a rule to compare one field is greater than another.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.compareFields()
-     * @return this
-     */
+    // Add a rule to compare one field is greater than another.
     auto greaterThanField(
         string fieldName,
         string secondField,
@@ -1240,12 +1191,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a rule to compare one field is less than another.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a rule to compare one field is less than another.
     auto lessThanField(
         string fieldName,
         string secondField,
@@ -1375,9 +1321,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     /**
      * Add a localized time, date or datetime format validation rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
      */
     auto localizedTime(
         string fieldName,
@@ -1520,9 +1463,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * This rule will accept both IPv4 and IPv6 addresses.
      * Params:
-     
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
      */
     auto ip(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
@@ -1539,14 +1479,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add an IPv4 validation rule to a field.
-     * Params:
-     
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.ip()
-     */
+    // Add an IPv4 validation rule to a field.
     auto ipv4(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
@@ -1562,12 +1495,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add an IPv6 validation rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add an IPv6 validation rule to a field.
     auto ipv6(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
@@ -1582,12 +1510,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a string length validation rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a string length validation rule to a field.
     auto hasMinLength(string fieldName, int requiredMinLength, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
@@ -1616,12 +1539,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a string length validation rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a string length validation rule to a field.
     auto maxLength(string fieldName, int allowedMaxlength, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
@@ -1636,12 +1554,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a string length validation rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a string length validation rule to a field.
     auto maxLengthBytes(string fieldName, int allowedMaxlength, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
@@ -1656,12 +1569,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a numeric value validation rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a numeric value validation rule to a field.
     auto numeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
@@ -1677,12 +1585,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a natural number validation rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a natural number validation rule to a field.
     auto naturalNumber(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
@@ -1740,9 +1643,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Add a validation rule to ensure a field is a URL.
      * This validator does not require a protocol.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
      */
     auto url(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
@@ -1761,9 +1661,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure a field is a URL.
      *
      * This validator requires the URL to have a protocol.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
      */
     auto urlWithProtocol(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
@@ -1779,12 +1676,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null; 
     }
 
-    /**
-     * Add a validation rule to ensure the field value is within an allowed list.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a validation rule to ensure the field value is within an allowed list.
     auto inList(string fieldName, Json[string] validOptions, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         // auto listEnumeration = mylist.join(", ");
         if (errorMessage.isNull) {
@@ -1825,12 +1717,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null; 
     }
 
-    /**
-     * Add a validation rule to ensure the field is an uploaded file
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a validation rule to ensure the field is an uploaded file
     auto uploadedFile(
         string fieldName,
         Json[string] options,
@@ -1854,9 +1741,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure the field is a lat/long tuple.
      *
      * e.g. `<lat>, <lng>`
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
      */
     auto latLong(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
@@ -1871,12 +1755,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null; 
     }
 
-    /**
-     * Add a validation rule to ensure the field is a latitude.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a validation rule to ensure the field is a latitude.
     auto latitude(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
@@ -1922,12 +1801,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null; 
     }
 
-    /**
-     * Add a validation rule to ensure a field contains only BMP utf8 bytes
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a validation rule to ensure a field contains only BMP utf8 bytes
     auto utf8(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             message = _useI18n
@@ -1946,9 +1820,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure a field contains only utf8 bytes.
      *
      * This rule will accept 3 and 4 byte UTF8 sequences, which are necessary for emoji.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
      */
     auto utf8Extended(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
@@ -1964,12 +1835,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null; 
     }
 
-    /**
-     * Add a validation rule to ensure a field is an integer value.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a validation rule to ensure a field is an integer value.
     auto integer(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             message = _useI18n
@@ -2004,12 +1870,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null; 
     }
 
-    /**
-     * Add a validation rule to ensure that a field contains a scalar.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a validation rule to ensure that a field contains a scalar.
     auto scalar(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             message = _useI18n
@@ -2264,8 +2125,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Iterates over each rule in the validation set and collects the errors resulting
      * from executing them
-     * Params:
-     * @param \UIM\Validation\ValidationSet myrules the list of rules for a field
      */
     protected Json[string] _processRules(string fieldName, DValidationSet validationRules, Json[string] dataToValidator, bool isNewRecord) {
         Json[string] myerrors = null;

@@ -661,17 +661,17 @@ class DBelongsToManyAssociation : DAssociation {
         ]);
     }
     bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
-        auto updatedOptions = options.merge(["cleanProperty": true.toJson]);
+        options.merge("cleanProperty", true);
 
         _checkPersistenceStatus(sourceEntity, targetEntities);
         auto property = getProperty();
 
-        this.junction().getConnection().transactional(
+        /* this.junction().getConnection().transactional(
             void () use (sourceEntity, targetEntities, options) {
                 links = _collectJointEntities(sourceEntity, targetEntities);
                 links.each!(entity => _junctionTable.remove(entity, options));
             }
-       );
+       ); */
 
         /** @var array<DORMDatasource\IORMEntity> existing */
         auto existing = sourceEntity.getArray(property);

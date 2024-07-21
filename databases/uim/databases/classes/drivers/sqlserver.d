@@ -21,18 +21,13 @@ class DSqlserverDriver : DDriver {
             "port": "".toJson,
             // PDO.SQLSRV_ENCODING_UTF8
             "encoding": Json(65_001),
-            "flags": Json.emptyArray,
-            "init": Json.emptyArray,
-            "settings": Json.emptyArray,
-            "attributes": Json.emptyArray,
-            "app": Json(null),
-            "connectionPooling": Json(null),
-            "failoverPartner": Json(null),
-            "loginTimeout": Json(null),
-            "multiSubnetFailover": Json(null),
-            "encrypt": Json(null),
-            "trustServerCertificate": Json(null),
-        ]);
+        ])
+        .merge(
+            ["flags", "init", "settings", "attributes"], Json.emptyArray
+        )
+        .merge(
+            ["app", "connectionPooling", "failoverPartner", "loginTimeout", "multiSubnetFailover", "encrypt", "trustServerCertificate"],
+            Json(null));
 
         startQuote("[");
         endQuote("]");

@@ -18,11 +18,6 @@ class Hash {
      * Get a single value specified by path out of data.
      * Does not support the full dot notation feature set,
      * but is faster for simple read operations.
-     * Params:
-     * \ArrayAccess|array data Array of data or object implementing
-     * \ArrayAccess interface to operate on.
-     * @param  searchedpath The path being searched for. Either a dot
-     * separated string, or an array of path segments.
      */
     // TODO static Json get(ArrayAccess data, /* string[]|string|int */ string[] searchedpath, Json defaultValue = Json(null)) {
 
@@ -886,19 +881,13 @@ class Hash {
         return data;
     }
     
-    /**
-     * Normalizes an array, and converts it to a standard format.
-     * Params:
-     * Json[string] data List to normalize
-     * @param bool myassoc If true, data will be converted to an associative array.
-     * @param Json defaultValue The default value to use when a top level numeric key is converted to associative form.
-     */
-    static Json[string] normalize(Json[string] data, bool myassoc = true, Json defaultValue = null) {
-        someKeys = data.keys;
-        mycount = count(someKeys);
-        mynumeric = true;
+    // Normalizes an array, and converts it to a standard format.
+    static Json[string] normalize(Json[string] data, bool isAssociation = true, Json defaultValue = null) {
+        auto someKeys = data.keys;
+        auto mycount = count(someKeys);
+        auto mynumeric = true;
 
-        if (!myassoc) {
+        if (!isAssociation) {
             for (index = 0; index < mycount; index++) {
                 if (!isInteger(someKeys[index])) {
                     mynumeric = false;
@@ -906,7 +895,7 @@ class Hash {
                 }
             }
         }
-        if (!mynumeric || myassoc) {
+        if (!mynumeric || isAssociation) {
             mynewList = null;
             for (index = 0; index < mycount; index++) {
                 if (isInteger(someKeys[index])) {

@@ -634,12 +634,12 @@ class DAssociation : IAssociation {
      * Helper function used to conditionally append fields to the select clause of
      * a query from the fields found in another query object.
      */
-    protected void _appendFields(DORMQuery query, DORMQuery surrogate, Json[string] options = null) {
+    protected void _appendFields(DORMQuery query, DORMQuery surrogateQuery, Json[string] options = null) {
         if (query.getEagerLoader().isAutoFieldsEnabled() == false) {
             return;
         }
 
-        fields = array_merge(surrogate.clause("select"), options["fields"]);
+        fields = array_merge(surrogateQuery.clause("select"), options["fields"]);
 
         if (
             (fields.isEmpty && options["includeFields"]) ||
@@ -714,15 +714,11 @@ class DAssociation : IAssociation {
      * Copies all contained associations from the `surrogate` query into the
      * passed `query`. Containments are altered so that they respect the associations
      * chain from which they originated.
-     *
-     * @param DORMQuery query the query that will get the associations attached to
-     * @param DORMQuery surrogate the query having the containments to be attached
-     * @param Json[string] options options passed to the method `attachTo`
      */
-    protected void _bindNewAssociations(Query query, Query surrogate, Json[string] options = null) {
-        loader = surrogate.getEagerLoader();
-        contain = loader.getContain();
-        matching = loader.getMatching();
+    protected void _bindNewAssociations(DORMQuery query, DORMQuery surrogateQuery, Json[string] options = null) {
+        auto loader = surrogateQuery.getEagerLoader();
+        auto contain = loader.getContain();
+        auto matching = loader.getMatching();
 
         if (!contain && !matching) {
             return;
@@ -797,11 +793,8 @@ class DAssociation : IAssociation {
      * query.contain(["Comments": ["finder": ["translations"]]]);
      * query.contain(["Comments": ["finder": ["translations": Json.emptyArray]]]);
      * query.contain(["Comments": ["finder": ["translations": ["locales": ["en_US"]]]]]);
-     *
-     * @param array|string finderData The finder name or an array having the name as key
-     * and options as value.
      */
-    protected Json[string] _extractFinder(finderData) {
+    protected Json[string] _extractFinder(/*array*/string finderData) {
         finderData = (array) finderData;
 
         if (key(finderData).isNumeric) {
@@ -814,13 +807,13 @@ class DAssociation : IAssociation {
     /**
      * Proxies property retrieval to the target table. This is handy for getting this
      * association"s associations
-     *
-     * @param string property the property name
      */
-    DORMAssociation __get(property) {
-        return _getTarget(). {
-            property
+    DORMAssociation __get(string propertyName) {
+/*         return _getTarget(). {
+            propertyName
         };
+ */    
+        return null; 
     }
 
     /**
@@ -876,9 +869,6 @@ class DAssociation : IAssociation {
      *
      * Each implementing class should handle the cascaded delete as
      * required.
-     *
-     * @param DORMDatasource\IORMEntity anEntity The entity that started the cascaded delete.
-     * @param Json[string] options The options for the original delete.
      */
     abstract bool cascaderemove(IORMEntity anEntity, Json[string] options = null);
 
@@ -886,10 +876,8 @@ class DAssociation : IAssociation {
      * Returns whether the passed table is the owning side for this
      * association. This means that rows in the "target" table would miss important
      * or required information if the row in "source" did not exist.
-     *
-     * @param DORMTable side The potential Table with ownership
      */
-    abstract bool isOwningSide(Table side);
+    abstract bool isOwningSide(DORMTable sideTable);
 
     /**
      * Extract the target"s association data our from the passed entity and proxies

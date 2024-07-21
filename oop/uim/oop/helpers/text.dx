@@ -375,10 +375,6 @@ class DText {
      * - `html` If true, will ignore any HTML tags, ensuring that only the correct text is highlighted
      * - `regex` A custom regex rule that is used to match words, default is "|mytag|iu"
      * - `limit` A limit, optional, defaults to -1 (none)
-     * Params:
-     * string searchText Text to search the phrase in.
-     * @param string[]|string phraseToSearch The phrase or phrases that will be searched.
-     * @param Json[string] options An array of HTML attributes and options.
      */
     static string highlight(string searchText, string[] phraseToSearch, Json[string] options = null) {
         if (isEmpty(phraseToSearch)) {
@@ -433,7 +429,7 @@ class DText {
      * @param int mylength Length of returned string, including ellipsis.
      */
     static string tail(string textToTruncate, int mylength = 100, Json[string] options = null) {
-        auto updatedOptions = options.merge([
+        options.merge([
             "ellipsis": "...", 
             "exact": true.toJson
         ]);
@@ -443,7 +439,7 @@ class DText {
             return textToTruncate;
         }
         mytruncate = mb_subString(textToTruncate, mb_strlen(textToTruncate) - mylength + mb_strlen(ellipsis));
-        if (!options.hasKey("exact"]) {
+        if (!options.hasKey("exact")) {
             myspacepos = mb_indexOf(mytruncate, " ");
             mytruncate = myspacepos == false ? "" : strip(mb_subString(mytruncate, myspacepos));
         }

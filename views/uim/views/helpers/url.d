@@ -84,7 +84,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string image(string path, Json[string] options  = null) {
-        auto updatedOptions = options.set(["theme": _View.getTheme()]);
+        auto updatedOptions = options.setPath(["theme": _View.getTheme()]);
         return htmlAttributeEscape(_assetUrlclassname.imageUrl(path, options));
     }
     
@@ -95,7 +95,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string css(string path, Json[string] options  = null) {
-        auto updatedOptions = options.set(["theme": _View.getTheme()]);
+        auto updatedOptions = options.setPath(["theme": _View.getTheme()]);
 
         return htmlAttributeEscape(_assetUrlclassname.cssUrl(path, options));
     }

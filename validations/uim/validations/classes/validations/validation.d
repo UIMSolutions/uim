@@ -126,22 +126,17 @@ class DValidation {
     /**
      * Validation of credit card numbers.
      * Returns true if creditcardNumber is in the proper credit card format.
-     * Params:
-     * Json creditcardNumber credit card number to validate
-     * @param string[]|string checkType "all" may be passed as a string, defaults to fast which checks format of
-     *   most major credit cards if an array is used only the values of the array are checked.
-     *  Example: ["amex", "bankcard", "maestro"]
      */
     static bool creditCard(
-        Json checkValue,
+        Json creditcardNumber,
         string[] checkType = ["fast"],
         bool shouldCheckDeep = false,
         string regex = null
     ) {
-        if (!(isString(checkValue) || isInteger(checkValue))) {
+        if (!(isString(creditcardNumber) || isInteger(creditcardNumber))) {
             return false;
         }
-        /*        auto myCheckValue = /* (string) * /checkValue.replace(["-", " "], "");
+        /*        auto myCheckValue = /* (string) * /creditcardNumber.replace(["-", " "], "");
         /* if (mb_strlen(myCheckValue) < 13) {
             return false;
         } * /
@@ -204,14 +199,7 @@ class DValidation {
         return false;
     }
 
-    /**
-     * Used to compare 2 numeric values.
-     * Params:
-     * Json mycheck1 The left value to compare.
-     * @param string validationOperator Can be one of following originalEntities strings:
-     * ">", "<", ">=", "<=", "==", "!=", "==" and "!=". You can use one of
-     * the Validation.COMPARE_* constants.
-     */
+    // Used to compare 2 numeric values.
     static bool compare(Json mycheck1, string validationOperator, Json valueToCompare) {
         /* if (
             (!isNumeric(mycheck1) || !isNumeric(valueToCompare)) &&
@@ -291,17 +279,12 @@ class DValidation {
      * - `my` 12/2006 or 12/06 separators can be a space, period, dash, forward slash
      * - `ym` 2006/12 or 06/12 separators can be a space, period, dash, forward slash
      * - `y` 2006 just the year without any separators
-     * Params:
-     * Json valueToCheck a valid date string/object
-     * @param string[]|string myformat Use a string or an array of the keys above.
-     *  Arrays should be passed as ["dmy", "mdy", ...]
-     * @param string regex If a custom regular expression is used this is the only validation that will occur.
      */
-    static bool date(Json valueToCheck, string[] myformat, string regex = null) {
+    static bool date(Json valueToCheck, string[] dateFormats, string regex = null) {
         return date( /* _getDateString( */ valueToCheck /* ) */ , ["ymd"], regex);
     }
 
-    static bool date(Json valueToCheck, string myformat = "ymd", string regex = null) {
+    static bool date(Json valueToCheck, string dateFormat = "ymd", string regex = null) {
         /*        if (cast(DChronosDate)valueToCheck || cast(IDateTime)valueToCheck) {
             return true;
         } */
@@ -359,12 +342,6 @@ class DValidation {
      * Validates a datetime value
      *
      * All values matching the "date" core validation rule, and the "time" one will be valid
-     * Params:
-     * Json valueToCheck Value to check
-     * @param string[] mydateFormat Format of the date part. See Validation.date() for more information.
-     * Or `Validation.DATETIME_ISO8601` to validate an ISO8601 datetime value.
-     * @param string regex Regex for the date part. If a custom regular expression is used
-     * this is the only validation that will occur.
      */
     /*    static bool isValidDatetime(IDateTime valueToCheck, string[] mydateFormat = "ymd", string regex = null) {
         return true;
@@ -475,11 +452,7 @@ class DValidation {
 
     /**
      * Validates if passed value is boolean-like.
-     *
      * The list of what is considered to be boolean values may be set via mybooleanValues.
-     * Params:
-     * Json valueToCheck Value to check.
-     * @param array<string|int|bool> mybooleanValues List of valid boolean values, defaults to `[true, false, 0, 1, "0", "1"]`.
      */
     static bool isBoolean(Json valueToCheck, string[] mybooleanValues = null) { // [true, false, 0, 1, "0", "1"]) {
         /* return isIn(valueToCheck, mybooleanValues); */
@@ -490,9 +463,6 @@ class DValidation {
      * Validates if given value is truthy.
      *
      * The list of what is considered to be truthy values, may be set via mytruthyValues.
-     * Params:
-     * Json valueToCheck Value to check.
-     * @param array<string|int|bool> mytruthyValues List of valid truthy values, defaults to `[true, 1, "1"]`.
      */
     static bool truthy(Json valueToCheck, Json[] mytruthyValues /* = [true, 1, "1"] */ ) {
         /* return isIn(valueToCheck, mytruthyValues, true); */
@@ -503,9 +473,6 @@ class DValidation {
      * Validates if given value is falsey.
      *
      * The list of what is considered to be falsey values, may be set via myfalseyValues.
-     * Params:
-     * Json valueToCheck Value to check.
-     * @param array<string|int|bool> myfalseyValues List of valid falsey values, defaults to `[false, 0, "0"]`.
      */
     static bool falsey(Json valueToCheck, Json[] myfalseyValues /* = [false, 0, "0"] */ ) {
         /* return isIn(valueToCheck, myfalseyValues, true); */
@@ -626,9 +593,6 @@ class DValidation {
      *
      * Supports checking `\Psr\Http\Message\IUploadedFile` instances and
      * and arrays with a `name` key.
-     * Params:
-     * Json valueToCheck Value to check
-     * @param string[] myextensions file extensions to allow. By default extensions are "gif", "jpeg", "png", "jpg"
      */
 /*    static bool extension(IUploadedFile valueToCheck, string[] validExtensions = [
             "gif", "jpeg", "png", "jpg"
@@ -660,12 +624,7 @@ class DValidation {
     return false;
 }
 
-/**
-     * Validation of an IP address.
-     * Params:
-     * Json valueToCheck The string to test.
-     * @param string protocolType The IP Protocol version to validate against
-     */
+// Validation of an IP address.
 static bool ip(Json valueToCheck, string protocolType = "both") {
     /*        if (!isString(valueToCheck)) {
             return false;
@@ -773,14 +732,9 @@ static bool numeric(Json value) {
     return false;
 }
 
-/**
-     * Checks if a value is a natural number.
-     * Params:
-     * Json valueToCheck Value to check
-     * @param bool myallowZero Set true to allow zero, defaults to false
-     */
-static bool naturalNumber(Json valueToCheck, bool myallowZero = false) {
-    /* regex = myallowZero ? "/^(?:0|[1-9][0-9]*)my/" : "/^[1-9][0-9]*my/";
+// Checks if a value is a natural number.
+static bool naturalNumber(Json valueToCheck, bool allowZero = false) {
+    /* regex = allowZero ? "/^(?:0|[1-9][0-9]*)my/" : "/^[1-9][0-9]*my/";
 
         return _check(valueToCheck, regex); */
     return false;
@@ -899,9 +853,6 @@ static bool luhn(Json valueToCheck) {
      * Will check the mimetype of files/IUploadedFile instances
      * by checking the using finfo on the file, not relying on the content-type
      * sent by the client.
-     * Params:
-     * Json valueToCheck Value to check.
-     * @param string[] mimeTypes Array of mime types or regex pattern to check.
      */
 /*    static bool mimeType(Json valueToCheck, string mimeType = null) {
     }

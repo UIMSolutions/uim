@@ -2005,10 +2005,6 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      *
      * Will delete the entity provided. Will remove rows from any
      * dependent associations, and clear out join tables for BelongsToMany associations.
-     * Params:
-     * \UIM\Datasource\IORMEntity ormEntity The entity to delete.
-     * @param \Json[string]<string, mixed> options The options for the delete.
-     * passed entity
      */
     protected bool _processremove(IORMEntity ormEntity, Json[string] options) {
         if (ormEntity.isNew()) {
@@ -2023,13 +2019,14 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (options["checkRules"] && !this.checkRules(ormEntity, RulesChecker.DELETE, options)) {
             return false;
         }
-        myevent = dispatchEvent("Model.beforeDelete", [
+        
+        auto event = dispatchEvent("Model.beforeDelete", [
             "entity": ormEntity.toJson,
             "options": options.toJson,
         ]);
 
-        if (myevent.isStopped()) {
-            return (bool)myevent.getResult();
+        if (event.isStopped()) {
+            return (bool)event.getResult();
         }
         mysuccess = _associations.cascaderemove(
             ormEntity,
@@ -2497,10 +2494,9 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      * - Model.afterDeleteCommit: afterDeleteCommit
      * - Model.beforeRules: beforeRules
      * - Model.afterRules: afterRules
-     *
      */
     IEvent[] implementedEvents() {
-        auto myeventMap = [
+        auto eventMap = [
             "Model.beforeMarshal": "beforeMarshal",
             "Model.afterMarshal": "afterMarshal",
             "Model.buildValidator": "buildValidator",
@@ -2514,13 +2510,13 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             "Model.beforeRules": "beforeRules",
             "Model.afterRules": "afterRules",
         ];
-        myevents = null;
-
-        foreach (myeventMap as myevent: methodName) {
+        
+        IEvent[string] myevents = null;
+        foreach (eventName, methodName; eventMap) {
             if (!method_exists(this, methodName)) {
                 continue;
             }
-            myevents[myevent] = methodName;
+            myevents[eventName] = methodName;
         }
         return myevents;
     }

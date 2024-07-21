@@ -727,15 +727,12 @@ class Hash {
      *
      * When using the array form, `type` defaults to "regular". The `ignoreCase` option
      * defaults to `false`.
-     * Params:
-     * Json[string] data An array of data to sort
-     * @param Json[string]|string mytype See direction types above. Defaults to "regular".
      */
     static Json[string] sort(
-        array data,
+        Json[string] data,
         string path,
         string /*|int */ mydir = "asc",
-        /* Json[string]|string */ string[] mytype = "regular"
+        /* Json[string]|string */ string[] directionType = "regular"
     ) {
         if (isEmpty(data)) {
             return null;
@@ -773,29 +770,29 @@ class Hash {
         }
         myignoreCase = false;
 
-        // mytype can be overloaded for case insensitive sort
-        if (mytype.isArray) {
-            mytype += ["ignoreCase": false.toJson, "type": "regular"];
-            myignoreCase = mytype["ignoreCase"];
-            mytype = mytype["type"];
+        // directionType can be overloaded for case insensitive sort
+        if (directionType.isArray) {
+            directionType += ["ignoreCase": false.toJson, "type": "regular"];
+            myignoreCase = directionType["ignoreCase"];
+            directionType = directionType["type"];
         }
-        mytype = mytype.lower;
+        directionType = directionType.lower;
 
-        if (mytype == "numeric") {
-            mytype = SORT_NUMERIC;
-        } else if (mytype == "string") {
-            mytype = SORT_STRING;
-        } else if (mytype == "natural") {
-            mytype = SORT_NATURAL;
-        } else if (mytype == "locale") {
-            mytype = SORT_LOCALE_STRING;
+        if (directionType == "numeric") {
+            directionType = SORT_NUMERIC;
+        } else if (directionType == "string") {
+            directionType = SORT_STRING;
+        } else if (directionType == "natural") {
+            directionType = SORT_NATURAL;
+        } else if (directionType == "locale") {
+            directionType = SORT_LOCALE_STRING;
         } else {
-            mytype = SORT_REGULAR;
+            directionType = SORT_REGULAR;
         }
         if (myignoreCase) {
             myvalues = array_map("mb_strtolower", myvalues);
         }
-        array_multisort(myvalues, mydir, mytype, someKeys, mydir, mytype);
+        array_multisort(myvalues, mydir, directionType, someKeys, mydir, directionType);
         mysorted = null;
         someKeys = array_unique(someKeys);
 

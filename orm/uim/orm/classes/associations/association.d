@@ -204,12 +204,8 @@ class DAssociation : IAssociation {
         return _finder;
     }
 
-    /**
-     * Sets the default finder to use for fetching rows from the target table.
-     *
-     * @param array|string finder the finder name to use or array of finder name and option.
-     */
-    void setFinder(finder) {
+    // Sets the default finder to use for fetching rows from the target table.
+    void setFinder(/* array */ string finder) {
         _finder = finder;
     }
 
@@ -280,8 +276,6 @@ class DAssociation : IAssociation {
     /**
      * Sets the name of the field representing the binding field with the target table.
      * When not manually specified the primary key of the owning side table is used.
-     *
-     * @param string[]|string aKey the table field or fields to be used to link both tables together
      */
     // void bindingKeys(string[]|string key) {
     void bindingKeys(string[] keys) {
@@ -594,14 +588,8 @@ class DAssociation : IAssociation {
         return _getTarget().updateAll(fieldNames, expression);
     }
 
-    /**
-     * Proxies the delete operation to the target table"s deleteAll method
-     *
-     * @param DORMdatabases.IExpression|\Closure|array|string conditions Conditions to be used, accepts anything Query.where()
-     * can take.
-     * @return int Returns the number of affected rows.
-     */
-    int deleteAll(/* IExpression|\Closure|array|string */ conditions) {
+    // Proxies the delete operation to the target table"s deleteAll method
+    int deleteAll(/* IExpression|\Closure|array| */ string conditions) {
         auto expression = find()
             .where(conditions)
             .clause("where");

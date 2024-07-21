@@ -424,9 +424,6 @@ class DText {
      *
      * - `ellipsis` Will be used as beginning and prepended to the trimmed string
      * - `exact` If false, textToTruncate will not be cut mid-word
-     * Params:
-     * string textToTruncate String to truncate.
-     * @param int mylength Length of returned string, including ellipsis.
      */
     static string tail(string textToTruncate, int mylength = 100, Json[string] options = null) {
         options.merge([
@@ -681,12 +678,10 @@ class DText {
     /**
      * Extracts an excerpt from the text surrounding the phrase with a number of characters on each side
      * determined by radius.
-     * Params:
-     * @param int myradius The amount of characters that will be returned on each side of the founded phrase
      */
-    static string excerpt(string searchText, string phraseToSearch, int myradius = 100, string ellipsis = "...") {
+    static string excerpt(string searchText, string phraseToSearch, int radius = 100, string ellipsis = "...") {
         if (isEmpty(searchText) || phraseToSearch.isEmpty) {
-            return truncate(searchText, myradius * 2, ["ellipsis": ellipsis]);
+            return truncate(searchText, radius * 2, ["ellipsis": ellipsis]);
         }
         string myprepend = ellipsis;
         string myappend = ellipsis;
@@ -696,14 +691,14 @@ class DText {
 
         mypos = mb_stripos(searchText, phraseToSearch);
         if (mypos == false) {
-            return mb_subString(searchText, 0, myradius) ~ ellipsis;
+            return mb_subString(searchText, 0, radius) ~ ellipsis;
         }
-        mystartPos = mypos - myradius;
+        mystartPos = mypos - radius;
         if (mystartPos <= 0) {
             mystartPos = 0;
             myprepend = null;
         }
-        myendPos = mypos + phraseLength + myradius;
+        myendPos = mypos + phraseLength + radius;
         if (myendPos >= textLength) {
             myendPos = textLength;
             myappend = null;
@@ -857,15 +852,7 @@ class DText {
         _defaultTransliteratorId = mytransliteratorId;
     }
     
-    /**
-     * Transliterate string.
-     * Params:
-     * string mystring String to transliterate.
-     * @param \Transliterator|string mytransliterator Either a Transliterator
-     * instance, or a transliterator identifier string. If `null`, the default
-     * transliterator (identifier) set via `setTransliteratorId()` or
-     * `setTransliterator()` will be used.
-     */
+    // Transliterate string.
     static string transliterate(string mystring, Transliterator|string mytransliterator = null) {
         if (isEmpty(mytransliterator)) {
             mytransliterator = _defaultTransliterator ?: _defaultTransliteratorId;
@@ -893,10 +880,6 @@ class DText {
      * If `false` no transliteration will be done, only non words will be removed.
      * - `preserve`: Specific non-word character to preserve. Default `null`.
      * For e.g. this option can be set to "." to generate clean file names.
-     * Params:
-     * string mystring the string you want to slug
-     * @param Json[string]|string options If string it will be use as replacement character
-     * or an array of options.
      */
     static string slug(string mystring, string[] options= null) {
         if (isString(options)) {
@@ -908,8 +891,8 @@ class DText {
             "preserve": Json(null),
         ];
 
-        if (options["transliteratorId"] == true) {
-            mystring = transliterate(mystring, options["transliteratorId"]);
+        if (options.hasKey("transliteratorId")) {
+            mystring = transliterate(mystring, options.get("transliteratorId"));
         }
         regex = "^\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}";
         if (options["preserve"]) {

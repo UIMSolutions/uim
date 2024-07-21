@@ -124,15 +124,15 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     // Validates and returns an array of failed fields and their error messages.
     auto validate(Json[string] data, bool isNewRecord = true) {
         auto myerrors = null;
-        foreach (myname, fieldName; _fields) {
-            auto myname = to!string(myname);
-            auto mykeyPresent = array_key_exists(myname, data);
+        foreach (ruleNames, fieldName; _fields) {
+            auto ruleNames = to!string(ruleNames);
+            auto mykeyPresent = array_key_exists(ruleNames, data);
 
             auto providers = _providers;
             auto context = compact("data", "newRecord", "field", "providers");
 
             if (!mykeyPresent && !_checkPresence(fieldName, context)) {
-                myerrors.setPath([myname, "_required"], getRequiredMessage(myname));
+                myerrors.setPath([ruleNames, "_required"], getRequiredMessage(ruleNames));
                 continue;
             }
             if (!mykeyPresent) {
@@ -141,22 +141,22 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             auto canBeEmpty = _canBeEmpty(fieldName, context);
 
             auto myflags = EMPTY_NULL;
-            if (_allowEmptyFlags.hasKey(myname)) {
-                myflags = _allowEmptyFlags[myname];
+            if (_allowEmptyFlags.hasKey(ruleNames)) {
+                myflags = _allowEmptyFlags[ruleNames];
             }
-            myisEmpty = this.isEmpty(data[myname], myflags);
+            myisEmpty = this.isEmpty(data[ruleNames], myflags);
 
             if (!canBeEmpty && myisEmpty) {
-                myerrors.setPath([myname, "_empty"], getNotEmptyMessage(myname));
+                myerrors.setPath([ruleNames, "_empty"], getNotEmptyMessage(ruleNames));
                 continue;
             }
             if (myisEmpty) {
                 continue;
             }
             
-            auto result = _processRules(myname, fieldName, data, isNewRecord);
+            auto result = _processRules(ruleNames, fieldName, data, isNewRecord);
             if (result) {
-                myerrors[myname] = result;
+                myerrors[ruleNames] = result;
             }
         }
         return myerrors;
@@ -194,41 +194,35 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Returns the provider stored under that name if it exists.
      * Params:
-     * string myname The name under which the provider should be set.
+     * string ruleNames The name under which the provider should be set.
      */
     /* object */
-    string getProvider(string myname) {
-        /*        if (_providers.hasKey(myname)) {
-            return _providers[myname];
+    string getProvider(string ruleNames) {
+        /*        if (_providers.hasKey(ruleNames)) {
+            return _providers[ruleNames];
         }
-        if (myname != "default") {
+        if (ruleNames != "default") {
             return null;
         }
-        _providers[myname] = new DRulesProvider();
+        _providers[ruleNames] = new DRulesProvider();
 
-        return _providers[myname]; */
+        return _providers[ruleNames]; */
         return null;
     }
 
     /**
      * Returns the default provider stored under that name if it exists.
      * Params:
-     * string myname The name under which the provider should be retrieved.
+     * string ruleNames The name under which the provider should be retrieved.
      */
-    static  /* object */ string getDefaultProvider(string myname) {
-        // return _defaultProviders.get(myname);
+    static  /* object */ string getDefaultProvider(string ruleNames) {
+        // return _defaultProviders.get(ruleNames);
         return null;
     }
 
-    /**
-     * Associates an object to a name so it can be used as a default provider.
-     * Params:
-     * string myname The name under which the provider should be set.
-     * @param /* object * / string myobject Provider object or class name.
-     * @psalm-param object|class-string myobject
-     */
-    static void addDefaultProvider(string myname, /* object */ string myobject) {
-        _defaultProviders[myname] = myobject;
+    // Associates an object to a name so it can be used as a default provider.
+    static void addDefaultProvider(string ruleNames, /* object */ string myobject) {
+        _defaultProviders[ruleNames] = myobject;
     }
 
     // Get the list of default providers.
@@ -298,19 +292,15 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *        "hasSpecialCharacter": ["rule": "validateSpecialchar", "message": "not valid"]
      *    ]);
      * ```
-     * Params:
-     * string fieldName The name of the field from which the rule will be added
-     * @param string[] myname The alias for a single rule or multiple rules array
-     * @param \UIM\Validation\ValidationRule|array myrule the rule to add
      */
-    /*    auto add(string fieldName, string[] myname, ValidationRule[] validationRules= null) {
+    /*    auto add(string fieldName, string[] ruleNames, ValidationRule[] validationRules= null) {
     }
  */
     void add(string fieldName, string[] ruleNames, DValidationRule[] validationRules = null) {
         // TODO auto myvalidationSet = this.field(fieldName);
 
         /*        if (!isArray(ruleNames)) {
-            validationRules = [ruleNames: myrule];
+            validationRules = [ruleNames: ruleName];
         } else {
             validationRules = ruleNames;
         }
@@ -344,9 +334,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * The providers of the parent validator will be synced into the nested validator, when
      * errors are checked. This ensures that any validation rule providers connected
      * in the parent will have the same values in the nested validator when rules are evaluated.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
      */
     auto addNested(
         string rootfieldName,
@@ -383,9 +370,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * The providers of the parent validator will be synced into the nested validator, when
      * errors are checked. This ensures that any validation rule providers connected
      * in the parent will have the same values in the nested validator when rules are evaluated.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
      */
     void addNestedMany(
         string rootFieldName,
@@ -430,15 +414,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *        .remove("title", "required")
      *        .remove("user_id")
      * ```
-     * Params:
-     * string fieldName The name of the field from which the rule will be removed
-     * @param string myrule the name of the rule to be removed
      */
-    void remove(string fieldName, string myrule = null) {
-        if (myrule.isNull) {
+    void remove(string fieldName, string ruleName = null) {
+        if (ruleName.isNull) {
             _fields.remove(fieldName);
         } else {
-            field(fieldName).remove(myrule);
+            field(fieldName).remove(ruleName);
         }
     }
 
@@ -573,11 +554,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Require a field to be a non-empty array
      *
      * Opposite to allowEmptyArray()
-     * Params:
-     * @param \/*Closure|* / string mywhen Indicates when the field is not allowed
-     * to be empty. Valid values are false (never), "create", "update". If a
-     * Closure is passed then the field will be required to be not empty when
-     * the callback returns true.
      */
     void notEmptyArray(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
@@ -600,11 +576,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Require a field to be a not-empty file.
      *
      * Opposite to allowEmptyFile()
-     * Params:
-     * @param \/*Closure|* / string mywhen Indicates when the field is not allowed
-     * to be empty. Valid values are false (never), "create", "update". If a
-     * Closure is passed then the field will be required to be not empty when
-     * the callback returns true.
      */
     auto notEmptyFile(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
@@ -622,19 +593,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, errorMessage);
     }
 
-    /**
-     * Require a non-empty date value
-     * Params:
-     * @param \/*Closure|* / string mywhen Indicates when the field is not allowed
-     * to be empty. Valid values are false (never), "create", "update". If a
-     * Closure is passed then the field will be required to be not empty when
-     * the callback returns true.
-     * @return this
-     */
+    // Require a non-empty date value
     auto notEmptyDate(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
-        mywhen = invertWhenClause(mywhen);
+        auto mywhen = invertWhenClause(mywhen);
 
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, errorMessage);
+        return null; 
     }
 
     /**
@@ -687,13 +651,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return this;
     }
 
-    /**
-     * Converts validator to fieldName: mysettings array
-     * Params:
-     * string fieldName name of field
-     * @param Json[string] mydefaults default settings
-     * @param array<string|int, mixed>|string|int mysettings settings from data
-     */
+    // Converts validator to fieldName: mysettings array
     protected auto _convertValidatorToArray(
         string fieldName,
         Json[string] mydefaults = null,
@@ -806,12 +764,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add an rule that ensures a string length is within a range.
-     * Params:
-     
-     * @param Json[string] minmaxLength The inclusive minimum and maximum length you want permitted.
-     */
+    // Add an rule that ensures a string length is within a range.
     auto lengthBetween(
         string fieldName,
         Json[string] minmaxLength,
@@ -844,13 +797,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a credit card rule to a field.
-     * Params:
-     * You can also supply an array of accepted card types. e.g `["mastercard", "visa", "amex"]`
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a credit card rule to a field.
     auto creditCard(
         string fieldName,
         string[] allowedTypeOfCards = null,
@@ -911,13 +858,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a greater than or equal to comparison rule to a field.
-     * Params:
-     * @param float valueToCompare The value user data must be greater than or equal to.
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a greater than or equal to comparison rule to a field.
     Json[string] greaterThanOrEqual(
         string fieldName,
         float valueToCompare,
@@ -940,11 +881,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a less than comparison rule to a field.
-     * Params:
-     * @param float valueToCompare The value user data must be less than.
-     */
+    // Add a less than comparison rule to a field.
     auto lessThan(
         string fieldName,
         float valueToCompare,
@@ -1008,12 +945,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a not equal to comparison rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a not equal to comparison rule to a field.
     auto notEquals(
         string fieldName,
         Json valueToCompare,
@@ -1274,12 +1206,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a date time format validation rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a date time format validation rule to a field.
     auto dateTime(
         string fieldName,
         string[] dateFormats = ["ymd"],
@@ -1341,12 +1268,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a boolean validation rule to a field.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a boolean validation rule to a field.
     auto isBoolean(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
@@ -1394,14 +1316,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add an email validation rule to a field.
-     * Params:
-     
-     * @param bool shouldCheckMX Whether to check the MX records.
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add an email validation rule to a field.
     auto email(
         string fieldName,
         bool shouldCheckMX = false,
@@ -1421,14 +1336,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null;
     }
 
-    /**
-     * Add a backed enum validation rule to a field.
-     * Params:
-     
-     * @param class-string<\BackedEnum> myenumclassname The valid backed enum class name.
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a backed enum validation rule to a field.
     auto enumeration(
         string fieldName,
         string myenumclassname,
@@ -1696,13 +1604,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null; 
     }
 
-    /**
-     * Add a validation rule to ensure the field is a UUID
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     * @see \UIM\Validation\Validation.uuid()
-     */
+    // Add a validation rule to ensure the field is a UUID
     auto uuid(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
@@ -1850,12 +1752,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null; 
     }
 
-    /**
-     * Add a validation rule to ensure that a field contains an array.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a validation rule to ensure that a field contains an array.
     auto array(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
@@ -1885,12 +1782,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return null; 
     }
 
-    /**
-     * Add a validation rule to ensure a field is a 6 digits hex color value.
-     * Params:
-     * @param \/*Closure|* / string mywhen Either "create" or "update" or a Closure that returns
-     * true when the validation rule should be applied.
-     */
+    // Add a validation rule to ensure a field is a 6 digits hex color value.
     auto hexColor(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
             message = _useI18n
@@ -2030,9 +1922,9 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         /* if (!_fields.hasKey(fieldName)) {
             return null;
         } */
-        /* foreach (myrule; _fields[fieldName]) {
-            if (myrule.get("rule") == "notBlank" && myrule.get("message")) {
-                return myrule.get("message");
+        /* foreach (ruleName; _fields[fieldName]) {
+            if (ruleName.get("rule") == "notBlank" && ruleName.get("message")) {
+                return ruleName.get("message");
             }
         }
         if (_allowEmptyMessages.hasKey(fieldName)) {
@@ -2083,12 +1975,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         return false;
     }
 
-    /**
-     * Returns true if the field is empty in the passed data array
-     * Params:
-     * Json data Value to check against.
-     * @param int myflags A bitmask of EMPTY_* flags which specify what is empty
-     */
+    // Returns true if the field is empty in the passed data array
     protected bool isEmpty(Json data, int myflags) {
         /* if (data.isNull) {
             return true;
@@ -2135,20 +2022,20 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             ? `__d("uim", "The provided value is invalid")`
             : "The provided value is invalid"; 
 
-        /* foreach (myname, myrule; validationRules) {
-            auto result = myrule.process(dataToValidator[fieldName], _providers, compact("newRecord", "data", "field"));
+        /* foreach (ruleNames, ruleName; validationRules) {
+            auto result = ruleName.process(dataToValidator[fieldName], _providers, compact("newRecord", "data", "field"));
             if (result == true) {
                 continue;
             }
 
-            myerrors[myname] = message;
-            if (isArray(result) && myname == NESTED) {
+            myerrors[ruleNames] = message;
+            if (isArray(result) && ruleNames == NESTED) {
                 myerrors = result;
             }
             if (isString(result)) {
-                myerrors[myname] = result;
+                myerrors[ruleNames] = result;
             }
-            if (myrule.isLast()) {
+            if (ruleName.isLast()) {
                 break;
             }
         }

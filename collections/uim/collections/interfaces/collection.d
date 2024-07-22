@@ -120,7 +120,7 @@ zip * /
      * be present in the resulting collection:
      *
      * ```
-     * collection = (new DCollection([1, 2, 3])).filter(// function (value,  key) {
+     * collection = (new D_Collection([1, 2, 3])).filter(// function (value,  key) {
      * return value % 2 == 0;
      * });
      * ```
@@ -141,7 +141,7 @@ zip * /
      * be present in the resulting collection:
      *
      * ```
-     * collection = (new DCollection([1, 2, 3])).reject(// function (value,  key) {
+     * collection = (new D_Collection([1, 2, 3])).reject(// function (value,  key) {
      * return value % 2 == 0;
      * });
      * ```
@@ -158,7 +158,7 @@ zip * /
      * ### Example:
      *
      * ```
-     * overTwentyOne = (new DCollection([24, 45, 60, 15])).every(// function (value,  key) {
+     * overTwentyOne = (new D_Collection([24, 45, 60, 15])).every(// function (value,  key) {
      * return value > 21;
      * });
      * ```
@@ -176,7 +176,7 @@ zip * /
      * ### Example:
      *
      * ```
-     * $hasYoungPeople = (new DCollection([24, 45, 15])).any(// function (value,  key) {
+     * $hasYoungPeople = (new D_Collection([24, 45, 15])).any(// function (value,  key) {
      * return value < 21;
      * });
      * ```
@@ -202,7 +202,7 @@ zip * /
      * Getting a collection of booleans where true indicates if a person is female:
      *
      * ```
-     * collection = (new DCollection(people)).map(// function (person,  key) {
+     * collection = (new D_Collection(people)).map(// function (person,  key) {
      * return person.gender == "female";
      * });
      * ```
@@ -220,7 +220,7 @@ zip * /
     Json reduce(callable callback, initial = null);
 
     /**
-     * Returns a new DCollection containing the column or property value found in each
+     * Returns a new D_Collection containing the column or property value found in each
      * of the elements.
      *
      * The matcher can be a string with a property name to extract or a dot separated
@@ -238,7 +238,7 @@ zip * /
      * ["comment": ["body": "cool", "user": ["name": "Mark"]],
      * ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ];
-     * extracted = (new DCollection(items)).extract("comment.user.name");
+     * extracted = (new D_Collection(items)).extract("comment.user.name");
      *
      * Result will look like this when converted to array
      * ["Mark", "Renan"]
@@ -251,7 +251,7 @@ zip * /
      *     ["comment": ["votes": [["value": 1], ["value": 2], ["value": 3]]],
      *     ["comment": ["votes": [["value": 4]]
      * ];
-     * extracted = (new DCollection(items)).extract("comment.votes.{*}.value");
+     * extracted = (new D_Collection(items)).extract("comment.votes.{*}.value");
      *
      * Result will contain
      * [1, 2, 3, 4]
@@ -312,11 +312,11 @@ zip * /
      * ["invoice": ["total": 200]]
      * ];
      *
-     * total = (new DCollection(items)).avg("invoice.total");
+     * total = (new D_Collection(items)).avg("invoice.total");
      *
      * Total: 150
      *
-     * total = (new DCollection([1, 2, 3])).avg();
+     * total = (new D_Collection([1, 2, 3])).avg();
      * Total: 2
      * ```
      *
@@ -340,11 +340,11 @@ zip * /
      * ["invoice": ["total": 200]]
      * ];
      *
-     * total = (new DCollection(items)).median("invoice.total");
+     * total = (new D_Collection(items)).median("invoice.total");
      *
      * Total: 333
      *
-     * total = (new DCollection([1, 2, 3, 4])).median();
+     * total = (new D_Collection([1, 2, 3, 4])).median();
      * Total: 2.5
      * ```
      *
@@ -403,10 +403,10 @@ zip * /
      * ["id": 3, "name": "baz", "parent_id": 10],
      * ];
      *
-     * group = (new DCollection(items)).groupBy("parent_id");
+     * group = (new D_Collection(items)).groupBy("parent_id");
      *
      * Or
-     * group = (new DCollection(items)).groupBy(// function (e) {
+     * group = (new D_Collection(items)).groupBy(// function (e) {
      * return e["parent_id"];
      * });
      *
@@ -442,10 +442,10 @@ zip * /
      * ["id": 3, "name": "baz"],
      * ];
      *
-     * indexed = (new DCollection(items)).indexBy("id");
+     * indexed = (new D_Collection(items)).indexBy("id");
      *
      * Or
-     * indexed = (new DCollection(items)).indexBy(// function (e) {
+     * indexed = (new D_Collection(items)).indexBy(// function (e) {
      * return e["id"];
      * });
      *
@@ -477,10 +477,10 @@ zip * /
      * ["id": 3, "name": "baz", "parent_id": 10],
      * ];
      *
-     * group = (new DCollection(items)).countBy("parent_id");
+     * group = (new D_Collection(items)).countBy("parent_id");
      *
      *  Or
-     * group = (new DCollection(items)).countBy(// function (e) {
+     * group = (new D_Collection(items)).countBy(// function (e) {
      * return e["parent_id"];
      * });
      *
@@ -505,27 +505,27 @@ zip * /
      * ["invoice": ["total": 200]]
      * ];
      *
-     * total = (new DCollection(items)).sumOf("invoice.total");
+     * total = (new D_Collection(items)).sumOf("invoice.total");
      *
      *  Total: 300
      *
-     * total = (new DCollection([1, 2, 3])).sumOf();
+     * total = (new D_Collection([1, 2, 3])).sumOf();
      *  Total: 6
      * ```
      * /
     float sumOf(string propertyName = null);
 
     /**
-     * Returns a new DCollection with the elements placed in a random order,
+     * Returns a new D_Collection with the elements placed in a random order,
      * this // function does not preserve the original keys in the collection.
      * /
     ICollection shuffle();
 
-    // Returns a new DCollection with maximum size random elements from this collection
+    // Returns a new D_Collection with maximum size random elements from this collection
     ICollection sample(int maxNumberOfElements);
 
     /**
-     * Returns a new DCollection with maximum size elements in the internal
+     * Returns a new D_Collection with maximum size elements in the internal
      * order this collection was created. If a second parameter is passed, it
      * will determine from what position to start taking elements.
      * /
@@ -539,7 +539,7 @@ zip * /
      * ```
      * items = [1, 2, 3, 4, 5];
      *
-     * last = (new DCollection(items)).takeLast(3);
+     * last = (new D_Collection(items)).takeLast(3);
      *
      * Result will look like this when converted to array
      * [3, 4, 5];
@@ -547,7 +547,7 @@ zip * /
     ICollection takeLast(int numberOfElements);
 
     /**
-     * Returns a new DCollection that will skip the specified amount of elements
+     * Returns a new D_Collection that will skip the specified amount of elements
      * at the beginning of the iteration.
      * /
     ICollection skip(int elementsToSkip);
@@ -564,7 +564,7 @@ zip * /
      * ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ];
      *
-     * extracted = (new DCollection(items)).match(["user.name": "Renan"]);
+     * extracted = (new D_Collection(items)).match(["user.name": "Renan"]);
      *
      * Result will look like this when converted to array
      * [
@@ -584,22 +584,22 @@ zip * /
     Json last();
 
     /**
-     * Returns a new DCollection as the result of concatenating the list of elements
+     * Returns a new D_Collection as the result of concatenating the list of elements
      * in this collection with the passed list of elements
      * /
     ICollection append(Json[] items);
 
-    // Append a single item creating a new DCollection.
+    // Append a single item creating a new D_Collection.
     ICollection appendItem(Json itemToAppend, Json keyToAppend = null);
 
-    // Prepend a set of items to a collection creating a new DCollection
+    // Prepend a set of items to a collection creating a new D_Collection
     ICollection prepend(Json[string] itemsToPrepend);
 
-    // Prepend a single item creating a new DCollection.
+    // Prepend a single item creating a new D_Collection.
     ICollection prependItem(Json itemToPrepend, Json key = null);
 
     /**
-     * Returns a new DCollection where the values extracted based on a value path
+     * Returns a new D_Collection where the values extracted based on a value path
      * and then indexed by a key path. Optionally this method can produce parent
      * groups based on a group property path.
      *
@@ -611,7 +611,7 @@ zip * /
      * ["id": 3, "name": "baz", "parent": "a"],
      * ];
      *
-     * combined = (new DCollection(items)).combine("id", "name");
+     * combined = (new D_Collection(items)).combine("id", "name");
      *
      * Result will look like this when converted to array
      * [
@@ -620,7 +620,7 @@ zip * /
      * 3: "baz",
      * ];
      *
-     * combined = (new DCollection(items)).combine("id", "name", "parent");
+     * combined = (new D_Collection(items)).combine("id", "name", "parent");
      *
      * Result will look like this when converted to array
      * [
@@ -631,13 +631,13 @@ zip * /
     ICollection combine(string keyPath, string valuePath, string groupPath = null);
 
     /**
-     * Returns a new DCollection where the values are nested in a tree-like structure
+     * Returns a new D_Collection where the values are nested in a tree-like structure
      * based on an id property path and a parent id property path.
      * /
     ICollection nest(string idPath, string parentPath, string nestingKey = "children");
 
     /**
-     * Returns a new DCollection containing each of the elements found in `values` as
+     * Returns a new D_Collection containing each of the elements found in `values` as
      * a property inside the corresponding elements in this collection. The property
      * where the values will be inserted is described by the `path` parameter.
      *
@@ -657,7 +657,7 @@ zip * /
      * ["comment": ["body": "awesome", "user": ["name": "Renan"]]
      * ];
      * ages = [25, 28];
-     * inserted = (new DCollection(items)).insert("comment.user.age", ages);
+     * inserted = (new D_Collection(items)).insert("comment.user.age", ages);
      *
      * Result will look like this when converted to array
      * [
@@ -693,7 +693,7 @@ zip * /
 
     /**
      * Iterates once all elements in this collection and executes all stacked
-     * operations of them, finally it returns a new DCollection with the result.
+     * operations of them, finally it returns a new D_Collection with the result.
      * This is useful for converting non-rewindable internal iterators into
      * a collection that can be rewound and used multiple times.
      *
@@ -720,7 +720,7 @@ zip * /
     ICollection compile(bool shouldKeepKeys = true);
 
     /**
-     * Returns a new DCollection where any operations chained after it are guaranteed
+     * Returns a new D_Collection where any operations chained after it are guaranteed
      * to be run lazily. That is, elements will be yieleded one at a time.
      *
      * A lazy collection can only be iterated once. A second attempt results in an error.
@@ -728,8 +728,8 @@ zip * /
     ICollection lazyCollection();
 
     /**
-     * Returns a new DCollection where the operations performed by this collection.
-     * No matter how many times the new DCollection is iterated, those operations will
+     * Returns a new D_Collection where the operations performed by this collection.
+     * No matter how many times the new D_Collection is iterated, those operations will
      * only be performed once.
      *
      * This can also be used to make any non-rewindable iterator rewindable.
@@ -737,7 +737,7 @@ zip * /
     ICollection buffered();
 
     /**
-     * Returns a new DCollection with each of the elements of this collection
+     * Returns a new D_Collection with each of the elements of this collection
      * after flattening the tree structure. The tree structure is defined
      * by nesting elements under a key with a known name. It is possible
      * to specify such name by using the "nestingKey" parameter.
@@ -763,7 +763,7 @@ zip * /
      * ### Example:
      *
      * ```
-     * collection = new DCollection([
+     * collection = new D_Collection([
      * ["id": 1, "children": [["id": 2, "children": [["id": 3]]]]],
      * ["id": 4, "children": [["id": 5]]]
      * ]);
@@ -774,7 +774,7 @@ zip * /
     ICollection listNested(string order = "desc", string nestingKey = "children");
 
     /**
-     * Creates a new DCollection that when iterated will stop yielding results if
+     * Creates a new D_Collection that when iterated will stop yielding results if
      * the provided condition evaluates to true.
      *
      * This is handy for dealing with infinite iterators or any generator that
@@ -787,7 +787,7 @@ zip * /
      * Get an array of lines in a CSV file until the timestamp column is less than a date
      *
      * ```
-     * lines = (new DCollection(fileLines)).stopWhen(// function (value,  key) {
+     * lines = (new D_Collection(fileLines)).stopWhen(// function (value,  key) {
      * return (new DateTime(value)).format("Y") < 2012;
      * })
      * .toJString();
@@ -796,13 +796,13 @@ zip * /
      * Get elements until the first unapproved message is found:
      *
      * ```
-     * comments = (new DCollection(comments)).stopWhen(["is_approved": false.toJson]);
+     * comments = (new D_Collection(comments)).stopWhen(["is_approved": false.toJson]);
      * ```
      * /
     ICollection stopWhen(Json[string] condition);
 
     /**
-     * Creates a new DCollection where the items are the
+     * Creates a new D_Collection where the items are the
      * concatenation of the lists of items generated by the transformer function
      * applied to each item in the original collection.
      *
@@ -818,14 +818,14 @@ zip * /
      *
      * ```
      * items [[1, 2, 3], [4, 5]];
-     * unfold = (new DCollection(items)).unfold(); // Returns [1, 2, 3, 4, 5]
+     * unfold = (new D_Collection(items)).unfold(); // Returns [1, 2, 3, 4, 5]
      * ```
      *
      * Using a transformer
      *
      * ```
      * items [1, 2, 3];
-     * allItems = (new DCollection(items)).unfold(// function (page) {
+     * allItems = (new D_Collection(items)).unfold(// function (page) {
      * return service.fetchPage(page).toJString();
      * });
      * ```
@@ -840,7 +840,7 @@ zip * /
      *
      * ```
      * items = [1, 2, 3];
-     * decorated = (new DCollection(items)).through(// function (collection) {
+     * decorated = (new D_Collection(items)).through(// function (collection) {
      *     return new DMyCustomCollection(collection);
      * });
      * ```
@@ -854,7 +854,7 @@ zip * /
      * ### Example:
      *
      * ```
-     * collection = new DCollection([1, 2]);
+     * collection = new D_Collection([1, 2]);
      * collection.zip([3, 4], [5, 6]).toList(); // returns [[1, 3, 5], [2, 4, 6]]
      * ```
      * /
@@ -869,7 +869,7 @@ zip * /
      * ### Example:
      *
      * ```
-     * collection = new DCollection([1, 2]);
+     * collection = new D_Collection([1, 2]);
      * zipped = collection.zipWith([3, 4], [5, 6], // function (...args) {
      *  return array_sum(args);
      * });
@@ -885,7 +885,7 @@ zip * /
      *
      * ```
      * items [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-     * chunked = (new DCollection(items)).chunk(3).toList();
+     * chunked = (new D_Collection(items)).chunk(3).toList();
      * Returns [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11]]
      * ```
      * /
@@ -898,7 +898,7 @@ zip * /
      *
      * ```
      * items ["a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6];
-     * chunked = (new DCollection(items)).chunkWithKeys(3).toList();
+     * chunked = (new D_Collection(items)).chunkWithKeys(3).toList();
      * Returns [["a": 1, "b": 2, "c": 3], ["d": 4, "e": 5, "f": 6]]
      * ```
      * /
@@ -911,11 +911,11 @@ zip * /
      *
      * ```
      * items [1, 2, 3];
-     * (new DCollection(items)).isEmpty(); // false
+     * (new D_Collection(items)).isEmpty(); // false
      * ```
      *
      * ```
-     * (new DCollection([])).isEmpty(); // true
+     * (new D_Collection([])).isEmpty(); // true
      * ```
      * /
     bool isEmpty();
@@ -940,7 +940,7 @@ zip * /
      *      ["Product C", "400", "300", "200"],
      * ]
      *
-     * transpose = (new DCollection(items)).transpose().toList();
+     * transpose = (new D_Collection(items)).transpose().toList();
      *
      * Returns
      * [
@@ -973,7 +973,7 @@ zip * /
      * or a unbuffered database cursor will not accept any other // function calls after calling
      * `count()` on it.
      *
-     * Create a new DCollection with `buffered()` method to overcome this problem.
+     * Create a new D_Collection with `buffered()` method to overcome this problem.
      *
      * ### Can report more elements than unique keys:
      *
@@ -998,7 +998,7 @@ zip * /
     size_t countKeys();
 
     /**
-     * Create a new DCollection that is the cartesian product of the current collection
+     * Create a new D_Collection that is the cartesian product of the current collection
      *
      * In order to create a carteisan product a collection must contain a single dimension
      * of data.
@@ -1006,7 +1006,7 @@ zip * /
      * ### Example
      *
      * ```
-     * collection = new DCollection([["A", "B", "C"], [1, 2, 3]]);
+     * collection = new D_Collection([["A", "B", "C"], [1, 2, 3]]);
      * result = collection.cartesianProduct().toJString();
      * expected = [
      *    ["A", 1],

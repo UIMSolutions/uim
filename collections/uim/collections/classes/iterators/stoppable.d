@@ -9,7 +9,7 @@ import uim.collections;
  * step. If the condition evaluates to false, the iterator will not yield more
  * results.
  */
-class DStoppableIterator : DCollection {
+class DStoppableIterator : D_Collection {
   /**
      * The condition to evaluate for each item of the collection
           * /

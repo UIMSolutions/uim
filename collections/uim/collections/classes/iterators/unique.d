@@ -9,7 +9,7 @@ import uim.collections;
  * passing a callback auto to each of the elements and taking them out if
  * the value returned is not unique.
  */
-class DUniqueIterator : DCollection {
+class DUniqueIterator : D_Collection {
     /**
      * Creates a filtered iterator using the callback to determine which items are
      * accepted or rejected.
@@ -19,7 +19,7 @@ class DUniqueIterator : DCollection {
      * /
     this(Json[string] itemToFilter, callable aCallback) {
         if (!cast(Iterator)itemToFilter) {
-            itemToFilter = new DCollection(itemToFilter);
+            itemToFilter = new D_Collection(itemToFilter);
         }
         auto myunique = null;
         auto myuniqueValues = null;

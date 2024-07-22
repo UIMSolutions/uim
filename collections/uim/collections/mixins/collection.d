@@ -9,13 +9,13 @@ mixin template TCollection() {
     mixin TExtract;
 
     /**
-     * Returns a new DCollection.
+     * Returns a new D_Collection.
      *
      * Allows classes which use this template to determine their own
      * type of returned collection interface
      * /
     protected ICollection newCollection(Json[] arguments...) {
-        return new DCollection(arguments);
+        return new D_Collection(arguments);
     }
  
     void each(void delegate(string key, Json value) callback) {

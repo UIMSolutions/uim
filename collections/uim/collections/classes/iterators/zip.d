@@ -50,7 +50,7 @@ class DZipIterator : ICollection {
        _callback = aCallable;
 
         listToZip.each!((set) {
-             anIterator = (new DCollection(set)).unwrap();
+             anIterator = (new D_Collection(set)).unwrap();
            _iterators ~= anIterator;
             _multipleIterator.attachIterator(anIterator);
         });

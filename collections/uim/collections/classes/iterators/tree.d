@@ -47,13 +47,13 @@ class DTreeIterator { // TODO }: RecursiveIteratorIterator, ICollection {
      * ### Example
      *
      * ```
-     * printer = (new DCollection(treeStructure)).listNested().printer("name");
+     * printer = (new D_Collection(treeStructure)).listNested().printer("name");
      * ```
      *
      * Using a closure:
      *
      * ```
-     * printer = (new DCollection(treeStructure))
+     * printer = (new D_Collection(treeStructure))
      *    .listNested()
      *    .printer(function (anItem, aKey, myIterator) {
      *        return anItem.name;

@@ -8,7 +8,7 @@ import uim.collections;
  * A type of collection that is aware of nested items and exposes methods to
  * check or retrieve them
  */
-class DNestIterator : DCollection {// }, RecursiveIterator {
+class DNestIterator : D_Collection {// }, RecursiveIterator {
     // The name of the property that contains the nested items for each element
     protected string _nestedKey;
 

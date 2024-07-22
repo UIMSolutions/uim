@@ -8,7 +8,7 @@ import uim.collections;
  * Creates an iterator from another iterator that will modify each of the values
  * by converting them using a callback function.
  */
-class DReplaceIterator : DCollection {
+class DReplaceIterator : D_Collection {
   /*
   // The callback auto to be used to transform values
   protected callable _callback;

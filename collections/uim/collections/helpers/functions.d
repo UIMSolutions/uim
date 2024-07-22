@@ -5,5 +5,5 @@ import uim.collections;
 @safe:
 
 ICollection collection(Json[] someItems) {
-    return new DCollection(someItems);
+    return new D_Collection(someItems);
 }

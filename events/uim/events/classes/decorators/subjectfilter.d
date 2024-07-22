@@ -28,8 +28,8 @@ class DSubjectFilterDecorator : DDecorator {
         if (!_options.hasKey("allowedSubject")) {
             throw new DException(class ~ " Missing subject filter options!");
         }
-        if (_options["allowedSubject"].isString) {
-           _options.set("allowedSubject", [_options["allowedSubject"]);
+        if (_options.get("allowedSubject"].isString) {
+           _options.set("allowedSubject", [_options.get("allowedSubject"]);
         }
         IEventObject subject;
         try {
@@ -38,6 +38,6 @@ class DSubjectFilterDecorator : DDecorator {
             return false;
         }
 
-        return isIn(subject.classname, _options["allowedSubject"], true);
+        return isIn(subject.classname, _options.get("allowedSubject"], true);
     } */
 }

@@ -66,7 +66,7 @@ import uim.errors;
  * to one or a combination of a few of the E_* constants will only enable the specified errors:
  *
  * ```
- * options["errorLevel"] = E_ALL & ~ERRORS.NOTICE;
+ * options.get("errorLevel"] = E_ALL & ~ERRORS.NOTICE;
  * ```
  *
  * Would enable handling for all non Notice errors.

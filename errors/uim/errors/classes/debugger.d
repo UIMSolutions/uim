@@ -262,7 +262,7 @@ class DDebugger : UIMObject {
             "scope": Json(null),
             "exclude": ["call_user_func_array", "trigger_error"].toJson,
         ]);
-        
+
         auto count = count(backtrace) + 1;
         string[] back = null;
 
@@ -281,7 +281,7 @@ class DDebugger : UIMObject {
                 }
                 reference ~= ")";
             }
-            if (isIn(signature, mergedOptions["exclude"], true)) {
+            if (isIn(signature, mergedoptions.get("exclude"], true)) {
                 continue;
             }
             if (mergedOptions.getString("format") == "points") {
@@ -301,7 +301,7 @@ class DDebugger : UIMObject {
             } else {
                 debug (mergedOptions);
                 throw new DInvalidArgumentException(
-                    "Invalid trace format of `{mergedOptions[\"format\"]}` chosen. Must be one of `array`, `points` or `text`."
+                    "Invalid trace format of `{mergedoptions.get(\"format\"]}` chosen. Must be one of `array`, `points` or `text`."
                );
             }
         }

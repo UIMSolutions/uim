@@ -43,7 +43,7 @@ void stackTrace(Json[string] formatOptions = null) {
         return;
     }
     auto updatedOptions = formatOptions.update["start": 0];
-    formatOptions["start"]++;
+    formatoptions.get("start"]++;
 
     /** @var string atrace */
     trace = Debugger.trace(formatOptions);

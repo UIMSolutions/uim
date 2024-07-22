@@ -323,7 +323,7 @@ class DConsoleOptionParser {
         /* _options.set(optionName, inputOption);
         asort(_options);
         if (inputOption.short()) {
-            _shortOptions[inputOption.short()] = optionName;
+            _shortoptions.get(inputOption.short()] = optionName;
             asort(_shortOptions);
         } */
     }

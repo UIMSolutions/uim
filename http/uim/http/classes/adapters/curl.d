@@ -91,7 +91,7 @@ class DCurl { // }: IAdapter {
         }
         if (!clientOptions.isEmpty("ssl_verify_host"))) {
             // Value of 1 or true is deprecated. Only 2 or 0 should be used now.
-            clientOptions["ssl_verify_host"] = 2;
+            clientoptions.get("ssl_verify_host"] = 2;
         }
         optionMap = [
             "timeout": CURLOPT_TIMEOUT,
@@ -107,15 +107,15 @@ class DCurl { // }: IAdapter {
             .each!(optionCurlOpt => result[optionCurlOpt.value] = clientOptions.get(optionCurlOpt.key));
             
         if (clientOptions.hasKey("proxy.proxy")) {
-             result[CURLOPT_PROXY] = clientOptions["proxy.proxy"];
+             result[CURLOPT_PROXY] = clientoptions.get("proxy.proxy"];
         }
         if (clientOptions.hasKey("proxy.username")) {
-            password = !clientOptions.isEmpty("proxy.password") ? clientOptions["proxy.password"] : "";
+            password = !clientOptions.isEmpty("proxy.password") ? clientoptions.get("proxy.password"] : "";
              result[CURLOPT_PROXYUSERPWD] = clientOptions.getString("proxy.username") ~ ": " ~ password;
         }
-        if (clientOptions.hasKey("curl") && isArray(clientOptions["curl"])) {
+        if (clientOptions.hasKey("curl") && isArray(clientoptions.get("curl"])) {
             // Can`t use array_merge() because keys will be re-ordered.
-            clientOptions["curl"].byKeyValue
+            clientoptions.get("curl"].byKeyValue
                 .each!(kv => result.set(kv.key, kv.value));
 
         }

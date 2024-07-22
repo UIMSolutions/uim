@@ -578,7 +578,7 @@ class DH5 {
 // Generates a hyperlink tag.	
 //string a(string text, string url = null, STRINGAA options = null) {
 //	if (!url) {
-//		// options['href'] = Url::to(url);
+//		// options.get('href'] = Url::to(url);
 //	}
 //	return dtag("a", text, options);
 //}
@@ -976,7 +976,7 @@ class DH5 {
 
  options = ['class' => ['persistent' => 'initial']];
  Html::addCssclass(options, ['persistent' => 'override']);
- var_dump(options['class']); // outputs: array('persistent' => 'initial');
+ var_dump(options.get('class']); // outputs: array('persistent' => 'initial');
  public static void addCssclass ( &options, class)
  options	array	
  The options to be modified.
@@ -1432,7 +1432,7 @@ class DH5 {
  Generates an ordered list.
  public static string ol ( items, options= null)
  items	array|Traversable	
- The items for generating the list. Each item generates a single list item. Note that items will be automatically HTML encoded if options['encode'] is not set or true.
+ The items for generating the list. Each item generates a single list item. Note that items will be automatically HTML encoded if options.get('encode'] is not set or true.
  options	array	
  Options (name => config) for the radio button list. The following options are supported:
  encode: boolean, whether to HTML-encode the items. Defaults to true. This option is ignored if the item option is specified.
@@ -1638,7 +1638,7 @@ class DH5 {
  Generates an unordered list.
  public static string ul ( items, options = [])
  items	array|Traversable	
- The items for generating the list. Each item generates a single list item. Note that items will be automatically HTML encoded if options['encode'] is not set or true.
+ The items for generating the list. Each item generates a single list item. Note that items will be automatically HTML encoded if options.get('encode'] is not set or true.
  options	array	
  Options (name => config) for the radio button list. The following options are supported:
  encode: boolean, whether to HTML-encode the items. Defaults to true. This option is ignored if the item option is specified.

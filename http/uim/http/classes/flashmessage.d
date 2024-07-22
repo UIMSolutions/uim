@@ -78,7 +78,7 @@ class DFlashMessage {
             plugin = options.get("plugin");
         }
 
-        options["element"] = plugin 
+        options.get("element"] = plugin 
             ? plugin ~ ".flash/" ~ anElement
             : "flash/" ~ anElement;
 

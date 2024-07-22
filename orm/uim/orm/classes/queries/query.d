@@ -705,7 +705,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             if (valid.hasKey(option) && values !is null) {
                 // this.{valid[option]}(values);
             } else {
-                // _options[option] = values;
+                // _options.get(option] = values;
             }
         }
     }

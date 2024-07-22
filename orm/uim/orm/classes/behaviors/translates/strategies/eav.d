@@ -170,7 +170,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         auto select = query.clause("select");
 
         auto changeFilter = options.hasKey("filterByCurrentLocale") &&
-            options["filterByCurrentLocale"] != configuration.get("onlyTranslated");
+            options.get("filterByCurrentLocale"] != configuration.get("onlyTranslated");
 
         foreach (field; fields) {
             auto name = aliasName ~ "_" ~ field ~ "_translation";

@@ -112,7 +112,7 @@ class DSelectWithPivotLoader : DSelectLoader {
         string[] links = null;
         name = this.junctionAssociationName;
 
-        foreach ((array)options["foreignKeys"] as key) {
+        foreach ((array)options.get("foreignKeys"] as key) {
             links ~=  "%s.%s".format(name, key);
         }
 

@@ -317,7 +317,7 @@ class DTreeBehavior : DBehavior {
             [configuration.get("left"), configuration.get("right")]
        );
 
-        node = _table.get(options["for"], ["fields": [left, right]]);
+        node = _table.get(options.get("for"], ["fields": [left, right]]);
 
         return _scope(query)
             .where([
@@ -435,7 +435,7 @@ class DTreeBehavior : DBehavior {
             /** @var DORMcollections.Iterator\TreeIterator nested */
             nested = results.listNested();
 
-            return nested.printer(options["valuePath"], options["keyPath"], options["spacer"]);
+            return nested.printer(options.get("valuePath"], options.get("keyPath"], options.get("spacer"]);
         });
     }
 

@@ -126,7 +126,7 @@ class DCounterCacheBehavior : DBehavior {
      * Makes sure to update counter cache when a new record is created or updated.
      */
     void afterSave(IEvent firedEvent, IORMEntity entity, Json[string] queryOptions) {
-        if (queryOptions.hasKey("ignoreCounterCache") && queryOptions["ignoreCounterCache"] == true) {
+        if (queryOptions.hasKey("ignoreCounterCache") && queryoptions.get("ignoreCounterCache"] == true) {
             return;
         }
        _processAssociations(firedEvent, entity);

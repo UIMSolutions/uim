@@ -259,7 +259,7 @@ class DEagerLoader {
             }
 
             if (_containOptions.hasKey(table)) {
-                pointer[table] = options;
+                pointer.set(table, options;
                 continue;
             }
 
@@ -274,7 +274,7 @@ class DEagerLoader {
 
             if (options.isArray) {
                 options = options.hasKey("config") ?
-                    options["config"] + options["associations"] :
+                    options.get("config"] + options.get("associations"] :
                     options;
                 options = _reformatContain(
                     options,
@@ -291,7 +291,7 @@ class DEagerLoader {
             if (options.hasKey("queryBuilder") && pointer.hasKey(table, "queryBuilder")) {
                 auto first = pointer[table]["queryBuilder"];
                 auto second = options.get("queryBuilder");
-               /* options["queryBuilder"] = function (query) use (first, second) {
+               /* options.get("queryBuilder"] = function (query) use (first, second) {
                     return second(first(query));
                 }; */
             }
@@ -301,7 +301,7 @@ class DEagerLoader {
                 options = [options: []];
             }
 
-            pointer[table] = options + pointer[table];
+            pointer.set(table, options + pointer[table];
         }
 
         return result;
@@ -374,7 +374,7 @@ class DEagerLoader {
 
         if (
             options.hasKey("matching") &&
-            options["matching"] == true
+            options.get("matching"] == true
        ) {
             paths["propertyPath"] = "_matchingData." ~ aliasName;
         } else {
@@ -456,13 +456,13 @@ class DEagerLoader {
     protected DORMEagerLoadable[] _resolveJoins(DORMEagerLoadable[] associations, DORMEagerLoadable[] matching = null) {
         auto result = null;
         foreach (matching as table: loadable) {
-            result[table] = loadable;
+            result.set(table, loadable;
             result += _resolveJoins(loadable.associations(), []);
         }
         foreach (table, loadable; associations) {
             bool inMatching = matching.hasKey(table);
             if (!inMatching && loadable.canBeJoined()) {
-                result[table] = loadable;
+                result.set(table, loadable;
                 result += _resolveJoins(loadable.associations(), []);
                 continue;
             }

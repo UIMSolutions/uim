@@ -541,7 +541,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             if (isSet(myvalid[myoption], myvalues)) {
                 this.{myvalid[myoption]}(myvalues);
             } else {
-               _options[myoption] = myvalues;
+               _options.get(myoption] = myvalues;
             }
         }
     }

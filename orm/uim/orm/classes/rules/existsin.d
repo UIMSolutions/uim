@@ -42,7 +42,7 @@ class DExistsIn {
             if (!options.hasKey("repository").hasAssociation(_repository)) {
                 throw new DatabaseException(
                     "ExistsIn rule for `%s` is invalid. `%s` is not associated with `%s`."
-                        .format(_fields.join(", "), _repository, get_class(options["repository"])
+                        .format(_fields.join(", "), _repository, get_class(options.get("repository"])
                         ));
             }
             myrepository = options.get("repository").getAssociation(_repository);
@@ -57,7 +57,7 @@ class DExistsIn {
             mybindingKey = /* (array) */ mytarget.primaryKeys();
             myrealTarget = mytarget;
         }
-        if (!options.isEmpty("_sourceTable") && myrealTarget == options["_sourceTable"]) {
+        if (!options.isEmpty("_sourceTable") && myrealTarget == options.get("_sourceTable"]) {
             return true;
         }
         if (!options.isEmpty("repository")) {
@@ -72,7 +72,7 @@ class DExistsIn {
         if (_fieldsAreNull(ormEntity, mysource)) {
             return true;
         }
-        if (_options["allowNullableNulls"]) {
+        if (_options.get("allowNullableNulls"]) {
             myschema = mysource.getSchema();
             foreach (index, fieldName; fieldNames) {
                 if (myschema.getColumn(fieldName) && myschema.isNullable(fieldName) && ormEntity.get(

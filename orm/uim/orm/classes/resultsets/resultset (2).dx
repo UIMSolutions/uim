@@ -349,19 +349,19 @@ class DResultset : IResultset {
                 options.get("source", table.registryKey());
                 /** @var DORMdatasources.IORMEntity anEntity */
                 entity = new matching["entityClass"](results["_matchingData"][aliasName], options);
-                results["_matchingData"][aliasName] = entity;
+                results.setPath(["_matchingData", aliasName], entity);
             }
         }
 
         foreach (table, keys; _map) {
-            results[table] = array_combine(keys, array_intersectinternalKey(row, keys));
-            presentAliases[table] = true;
+            results.set(table, array_combine(keys, array_intersectinternalKey(row, keys)));
+            presentAliases.set(table, true);
         }
 
         // If the default table is not in the results, set
         // it to an empty array so that any contained
         // associations hydrate correctly.
-        results[defaultAlias] = results.get(defaultAlias);
+        results.set(defaultAlias, results.get(defaultAlias));
 
         presentAliases.remove(defaultAlias);
 
@@ -411,21 +411,20 @@ class DResultset : IResultset {
         }
 
         foreach (alias, present; presentAliases) {
-            if (!results.hasKey(aliasName)) {
-                continue;
+            if (results.hasKey(aliasName)) {
+                results.setPath([defaultAlias, aliasName], results[aliasName]);
             }
-            results[defaultAlias][aliasName] = results[aliasName];
         }
 
         if (results.hasKey("_matchingData")) {
-            results[defaultAlias]["_matchingData"] = results["_matchingData"];
+            results.setPath([defaultAlias, "_matchingData"], results["_matchingData"]);
         }
 
         options.set("source", _defaultTable.registryKey());
         if (results.hasKey(defaultAlias)) {
             results = results[defaultAlias];
         }
-        if (_hydrate && !cast(IORMEntity)results)) {
+        if (_hydrate && !cast(IORMEntity)results) {
             results = new _entityClass(results, options);
         }
 

@@ -23,7 +23,8 @@ class DNumberHelper : DHelper {
 
     // Call methods from UIM\I18n\Number utility class
     Json __call(string methodName, Json[string] params) {
-        return Number.{methodName}(...params);
+        // return Number.{methodName}(...params);
+        return Json(null);
     }
     
     /**
@@ -45,7 +46,7 @@ class DNumberHelper : DHelper {
         /* auto formattedNumber = Number.format(mynumber, options);
         auto auto updatedOptions = options.update["escape": true.toJson];
 
-        return options["escape"] ? htmlAttributeEscape(formattedNumber) : formattedNumber; */
+        return options.get("escape"] ? htmlAttributeEscape(formattedNumber) : formattedNumber; */
         return null; 
     }
     

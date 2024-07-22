@@ -302,7 +302,7 @@ class DPaginator : IPaginator {
     }
 
     return paginatorData.setPath([
-            "sort": pagingParams["options.sort"].toJson,
+            "sort": pagingParams.get("options.sort"),
             "direction": (pagingParams.hasKey("options.sort") && count(
                 order) ? currentValue(order) : null).toJson,
             "sortDefault": sortDefault.toJson,
@@ -375,13 +375,10 @@ protected string[] getSortableFields(Json[string] configData) {
      * which options/values can be set using request parameters.
      */
 Json[string] mergeOptions(Json[string] requestData, Json[string] settingsData) {
-    if (!settingsData.isEmpty("scope"))
-
-        
-
-        ) {
-        scope = settingsData["scope"];
-        requestData = !requestData.isEmpty(scope) ?  /* (array) */ requestData[scope] : [];
+    Json[] requestData;
+    if (!settingsData.isEmpty("scope")) {
+         scopeName = settingsData.get("scope");
+        requestData = requestData.getArray(scopeName);
     }
 
     allowed = getAllowedParameters();

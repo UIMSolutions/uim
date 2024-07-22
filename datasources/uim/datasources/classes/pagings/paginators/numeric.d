@@ -246,11 +246,11 @@ class DNumericPaginator : IPaginator {
 
     // Add "page" and "pageCount" params.
     protected Json[string] addPageCountParams(Json[string] pagingParams, Json[string] paginatorData) {
-        auto pageNumber = pagingParams["page"];
-        auto pageCount = 0;
+        long pageNumber = pagingParams["page"];
+        long pageCount = 0;
 
         if (pagingParams.haskey("count")) {
-            pageCount = max((int) ceil(pagingParams["count"] / pagingParams["perPage"]), 1);
+            pageCount = max(ceil(pagingParams.getLong("count") / pagingParams["perPage"]), 1);
             pageNumber = min(pageNumber, pageCount);
         }
         else if(pagingParams.getLong("current") == 0 && pagingParams.getLong("requestedPage") > 1) {
@@ -312,7 +312,7 @@ class DNumericPaginator : IPaginator {
 
     // Extracts the finder name and options out of the provided pagination options.
     protected Json[string] _extractFinder(Json[string] paginationOptions) {
-        auto type = !paginationOptions.isEmpty("finder") ? paginationoptions.get("finder"] : "all";
+        auto type = !paginationOptions.isEmpty("finder") ? paginationoptions.get("finder") : "all";
         // paginationOptions.remove("finder"), paginationoptions.get("maxLimit"]);
 
         if (type.isArray) {

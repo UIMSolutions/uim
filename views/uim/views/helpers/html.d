@@ -532,7 +532,7 @@ class DHtmlHelper : DHelper {
      * ### Options:
      *
      * - `url` If provided an image link will be generated and the link will point at
-     * `options["url"]`.
+     * `options.get("url"]`.
      * - `fullBase` If true the src attribute will get a full address for the image file.
      * - `plugin` False value will prevent parsing path as a plugin
      * Params:

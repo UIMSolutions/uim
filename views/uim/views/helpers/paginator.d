@@ -127,7 +127,7 @@ class DPaginatorHelper : DHelper {
      */
     void options(Json[string] optionsForLinks = null) {
         if (!options.isEmpty("paging")) {
-            configuration.set("params", options["paging"]);
+            configuration.set("params", options.get("paging"]);
             options.remove("paging");
         }
         configuration.set("options", array_filter(options + configuration.get("options"));
@@ -170,7 +170,7 @@ class DPaginatorHelper : DHelper {
         if (mynewTemplates) {
             contentTemplater.push();
             mytemplateMethod = isString(
-                options["templates"]) ? "load" : "add";
+                options.get("templates"]) ? "load" : "add";
             contentTemplater. {
                 mytemplateMethod
             }
@@ -189,9 +189,9 @@ class DPaginatorHelper : DHelper {
         auto url = this.generateUrl(
             [
                 "page": this.paginated()
-                .currentPage() + options["step"]
+                .currentPage() + options.get("step"]
             ],
-            options["url"]
+            options.get("url"]
         );
         
         auto result = contentTemplater.format(mytemplate, [
@@ -281,7 +281,7 @@ class DPaginatorHelper : DHelper {
             "url": Json.emptyArray,
             "escape": true.toJson
         ]);
-        auto url = updatedOptions["url"];
+        auto url = updatedoptions.get("url"];
         updatedOptions.remove("url");
 
         if (linkTitle.isEmpty) {
@@ -297,7 +297,7 @@ class DPaginatorHelper : DHelper {
         options.remove("direction");
 
         auto mylocked = options.get("lock", false);
-        options["lock"];
+        options.get("lock"];
 
         auto mysortKey = to!string(param(
                 "sort"));
@@ -335,7 +335,7 @@ class DPaginatorHelper : DHelper {
             "page": 1
         ];
         myvars = [
-            "text": options["escape"] ? htmlAttributeEscape(mytitle): mytitle,
+            "text": options.get("escape"] ? htmlAttributeEscape(mytitle): mytitle,
             "url": this.generateUrl(mypaging, url),
         ];
         return _templater().format(mytemplate, myvars);
@@ -410,12 +410,12 @@ class DPaginatorHelper : DHelper {
         if (
             mypaging.hasAllKeys("sortDefault", "directionDefault")
             && options.hasAllKeys("sort", "direction")
-            && options["sort"] == mypaging["sortDefault"]
-            && options["direction"].lower == mypaging["directionDefault"]
+            && options.get("sort"] == mypaging["sortDefault"]
+            && options.get("direction"].lower == mypaging["directionDefault"]
             .lower
             ) {
             options.set("direction", Json(null));
-            options.set("sort", options["direction"]);
+            options.set("sort", options.get("direction"]);
         }
         mybaseUrl = configuration.get("options.url", null);
         if (!mypaging.isEmpty(
@@ -595,16 +595,16 @@ class DPaginatorHelper : DHelper {
                 "templates"])) {
             contentTemplater.push();
             mymethod = isString(
-                updatedoptions["templates"]) ? "load" : "add";
+                updatedoptions.get("templates"]) ? "load" : "add";
             contentTemplater
                 . {
                     mymethod
                 }
             (
-                updatedoptions["templates"]);
+                updatedoptions.get("templates"]);
         }
-        if (updatedoptions["modulus"] == true && params.getLong(
-                "pageCount") > updatedOptions["modulus"]) {
+        if (updatedoptions.get("modulus"] == true && params.getLong(
+                "pageCount") > updatedoptions.get("modulus"]) {
             result = _modulusNumbers(
                 contentTemplater, params, options);
         } else {
@@ -621,15 +621,15 @@ class DPaginatorHelper : DHelper {
     protected Json[string] _getNumbersStartAndEnd(
         Json[string] params, Json[string] options = null) {
         auto myhalf = options.getLong("modulus") / 2;
-        auto endNumber = max(1 + options["modulus"], params["currentPage"] + myhalf);
+        auto endNumber = max(1 + options.get("modulus"], params["currentPage"] + myhalf);
         auto mystart = min(
-            params.getLong("pageCount") - options["modulus"],
-            params["currentPage"] - myhalf - options["modulus"] % 2
+            params.getLong("pageCount") - options.get("modulus"],
+            params["currentPage"] - myhalf - options.get("modulus"] % 2
         );
         if (
-            options["first"]) {
+            options.get("first"]) {
             myfirst = isInteger(
-                options["first"]) ? options["first"] : 1;
+                options.get("first"]) ? options.get("first"] : 1;
             if (
                 mystart <= myfirst + 2) {
                 mystart = 1;
@@ -637,7 +637,7 @@ class DPaginatorHelper : DHelper {
         }
         if (options.hasKey("last"]) {
             mylast = isInteger(
-                options["last"]) ? options["last"] : 1;
+                options.get("last"]) ? options.get("last"] : 1;
             if (
                 endNumber >= params.getLong("pageCount") - mylast - 1) {
                 endNumber = params.getLong("pageCount");
@@ -657,12 +657,12 @@ class DPaginatorHelper : DHelper {
     protected string _formatNumber(
         DStringContents contentTemplater, Json[string] options = null) {
         myvars = [
-            "text": options["text"],
+            "text": options.get("text"],
             "url": generateUrl(
                 [
-                    "page": options["page"]
+                    "page": options.get("page"]
                 ],
-                options["url"]),
+                options.get("url"]),
         ];
         return contentTemplater.format("number", myvars);
     }
@@ -680,7 +680,7 @@ class DPaginatorHelper : DHelper {
         ] = _getNumbersStartAndEnd(
             params, options);
         result ~= _firstNumber(ellipsis, params, mystart, options);
-        result ~= options["before"];
+        result ~= options.get("before"];
 
         for (
             index = mystart; index < params["currentPage"]; index++) {
@@ -689,7 +689,7 @@ class DPaginatorHelper : DHelper {
                     "text": this.Number
                     .format(index),
                     "page": index,
-                    "url": options["url"],
+                    "url": options.get("url"],
                 ]);
         }
         result ~= contentTemplater.format("current", [
@@ -697,7 +697,7 @@ class DPaginatorHelper : DHelper {
                     (
                     string) params["currentPage"]),
                 "url": this.generateUrl(
-                    ["page": params["currentPage"]], options["url"]),
+                    ["page": params["currentPage"]], options.get("url"]),
             ]);
         mystart = (int) params["currentPage"] + 1;
         index = mystart;
@@ -708,7 +708,7 @@ class DPaginatorHelper : DHelper {
                     "text": this.Number
                     .format(index),
                     "page": index,
-                    "url": options["url"],
+                    "url": options.get("url"],
                 ]);
             index++;
         }
@@ -719,10 +719,10 @@ class DPaginatorHelper : DHelper {
                     "text": this.Number.format(
                         index),
                     "page": endNumber,
-                    "url": options["url"],
+                    "url": options.get("url"],
                 ]);
         }
-        result ~= options["after"];
+        result ~= options.get("after"];
         result ~= _lastNumber(ellipsis, params, endNumber, options);
 
         return result;
@@ -733,9 +733,9 @@ class DPaginatorHelper : DHelper {
         string ellipsis, Json[string] params, int startnumber, Json[string] options = null) {
         string result = "";
         myfirst = isInteger(
-            options["first"]) ? options["first"] : 0;
+            options.get("first"]) ? options.get("first"] : 0;
         if (options.hasKey("first") && startnumber > 1) {
-            myoffset = startnumber <= myfirst ? startnumber - 1 : options["first"];
+            myoffset = startnumber <= myfirst ? startnumber - 1 : options.get("first"];
             result ~= this.first(
                 myoffset, options);
             if (
@@ -753,8 +753,8 @@ class DPaginatorHelper : DHelper {
         long mylast = options.getLong("last", 0);
         if (options.hasKey("last"] && endNumber < params.getLong("pageCount")) {
             myoffset = params.getLong("pageCount") < endNumber + mylast ? params.getLong(
-                "pageCount") - endNumber : options["last"];
-            if (myoffset <= options["last"] && params.getLong("pageCount") - endNumber > mylast) {
+                "pageCount") - endNumber : options.get("last"];
+            if (myoffset <= options.get("last"] && params.getLong("pageCount") - endNumber > mylast) {
                 result ~= ellipsis;
             }
             result ~= this.last(myoffset, options);
@@ -782,7 +782,7 @@ class DPaginatorHelper : DHelper {
                                 [
                                     "page": index
                                 ],
-                                options["url"]),
+                                options.get("url"]),
                         ]);
             } else {
                 myvars = [
@@ -793,13 +793,13 @@ class DPaginatorHelper : DHelper {
                         [
                             "page": index
                         ],
-                        options["url"]),
+                        options.get("url"]),
                 ];
                 result ~= contentTemplater
                     .format("number", myvars);
             }
         }
-        result ~= options["after"];
+        result ~= options.get("after"];
 
         return result;
     }
@@ -848,7 +848,7 @@ class DPaginatorHelper : DHelper {
                 result ~= this.templater()
                     .format("number", [
                             "url": this.generateUrl(
-                                ["page": index], options["url"]),
+                                ["page": index], options.get("url"]),
                             "text": this
                             .Number
                             .format(
@@ -865,7 +865,7 @@ class DPaginatorHelper : DHelper {
             result ~= templater().format(
                 "first", [
                     "url": generateUrl(
-                        ["page": 1], options["url"]),
+                        ["page": 1], options.get("url"]),
                     "text": myfirst,
                 ]);
         }
@@ -918,7 +918,7 @@ class DPaginatorHelper : DHelper {
                 result ~= this.templater()
                     .format("number", [
                             "url": this.generateUrl(
-                                ["page": index], options["url"]),
+                                ["page": index], options.get("url"]),
                             "text": this
                             .Number
                             .format(
@@ -934,7 +934,7 @@ class DPaginatorHelper : DHelper {
             result ~= this.templater()
                 .format("last", [
                         "url": this.generateUrl(
-                            ["page": mypageCount], options["url"]),
+                            ["page": mypageCount], options.get("url"]),
                         "text": mylast,
                     ]);
         }
@@ -1016,7 +1016,7 @@ class DPaginatorHelper : DHelper {
             );
         }
         if (
-            options["first"]) {
+            options.get("first"]) {
             mylinks ~= this.Html.meta(
                 "first",
                 this.generateUrl([
@@ -1051,12 +1051,12 @@ class DPaginatorHelper : DHelper {
             mylinks);
 
         if (
-            options["block"] == true) {
+            options.get("block"] == true) {
             options.set("block", __FUNCTION__);
         }
         if (
-            options["block"]) {
-            _view.append(options["block"], result);
+            options.get("block"]) {
+            _view.append(options.get("block"], result);
 
             return null;
         }

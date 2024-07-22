@@ -1678,7 +1678,7 @@ class DFormHelper : DHelper {
         // Secure the field if there are options, or it"s a multi select.
         // Single selects with no options don"t submit, but multiselects do.
         if (
-            attributes["secure"] &&
+            attributes.hasKey("secure") &&
             options.isEmpty &&
             attributes.isAllEmpty("empty", "multiple")
        ) {
@@ -1690,7 +1690,7 @@ class DFormHelper : DHelper {
         myhidden = "";
         if (attributes["multiple"] && attributes["hiddenField"]) {
             myhiddenAttributes = [
-                "name": attributes.getString(],
+                "name": attributes.getString,
                 "value": "",
                 "form": attributes.get("form"),
                 "secure": false.toJson,
@@ -1739,13 +1739,13 @@ class DFormHelper : DHelper {
 
         auto myhidden = "";
         if (htmlAttributes.hasKey("hiddenField")) {
-            myhiddenAttributes = [
+            myhiddenAttributes.merge([
                 "name": htmlAttributes.getString("name"),
                 "value": "",
                 "secure": false.toJson,
                 "disabled": htmlAttributes.getString("disabled") == "disabled",
                 "id": htmlAttributes["id"],
-            ];
+            ]);
             myhidden = hidden(fieldName, myhiddenAttributes);
         }
         htmlAttributes.remove("hiddenField");

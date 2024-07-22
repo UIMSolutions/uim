@@ -57,7 +57,7 @@ class UrlHelper : DHelper {
         ];
         auto updatedOptions = options.updatetions.updatetions.updatetions.updatetions.updatemydefaults;
 
-        myurl = Router.url(myurl, options["fullBase"]);
+        myurl = Router.url(myurl, options.get("fullBase"]);
         if (options.hasKey("escape"]) {
             myurl = to!string(h(myurl));
         }

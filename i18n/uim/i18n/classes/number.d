@@ -147,7 +147,7 @@ class DNumber {
     static string formatDelta(Json value, Json[string] options = null) {
         auto updatedOptions = options.set("places", 0);
         /* auto doubleValue = number_format(
-            value.getDouble, updatedOptions["places"], ".", "");
+            value.getDouble, updatedoptions.get("places"], ".", "");
         string sign = doubleValue > 0 ? "+" : "";
         updatedOptions.set("before", updatedOptions.getString("before") ~ sign);
         return format
@@ -301,15 +301,15 @@ class DNumber {
         NumberFormatters formatter, Json[string] options = null) {
         if (options.hasKey("places")) {
             formatter.setAttribute(
-                NumberFormatters.MIN_FRACTION_DIGITS, options["places"]);
+                NumberFormatters.MIN_FRACTION_DIGITS, options.get("places"]);
         }
         if (options.hasKey("precision")) {
             formatter.setAttribute(
-                NumberFormatters.MAX_FRACTION_DIGITS, options["precision"]);
+                NumberFormatters.MAX_FRACTION_DIGITS, options.get("precision"]);
         }
         if (!options.isEmpty("pattern")) {
             formatter.setPattern(
-                options["pattern"]);
+                options.get("pattern"]);
         }
         if (!options.isEmpty(
                 "useIntlCode")) {

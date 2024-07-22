@@ -25,7 +25,7 @@ class DMockAdapter { //}: IAdapter {
      */
     void addResponse(IRequest requestForMatch, Response response, Json[string] options = null) {
         if (options.haskey("match") && !(cast(DClosure)options.get("match"))) {
-            auto type = get_debug_type(options["match"]);
+            auto type = get_debug_type(options.get("match"]);
             throw new DInvalidArgumentException(
                 "The `match` option must be a `Closure`. Got `%s`."
                 .format(type

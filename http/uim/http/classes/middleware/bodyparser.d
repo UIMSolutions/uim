@@ -59,7 +59,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
            );
         }
         if (options.hasKey("methods"]) {
-            setMethods(options["methods"]);
+            setMethods(options.get("methods"]);
         }
     }
     

@@ -432,11 +432,11 @@ class DClient { // }: IClient {
 
     auto result = options.getString("scheme") ~ ": //" ~ options.getString("host");
     if (options.hasKey("port"] &&  options.getLong("port") != mydefaultPorts[options.getString("scheme")]) {
-      result ~= ": " ~ options["port"];
+      result ~= ": " ~ options.get("port"];
     }
 
     result ~= !options.isEmpty("basePath")
-      ? "/" ~ options["basePath"].strip("/")
+      ? "/" ~ options.get("basePath"].strip("/")
       : "/" ~ fullUrl.stripLeft("/");
 
     return result;

@@ -137,7 +137,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
                 "month": __d("uim", "about a month ago"),
                 "year": __d("uim", "about a year ago"),
             ];
-            return relativeDate ? options["relativeString"].format(
+            return relativeDate ? options.get("relativeString"].format(
                 relativeDate) : aboutAgo[fWord];
         }
         // When time is to come
@@ -296,11 +296,11 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     if (!diff) {
         return __d("uim", "today");
     }
-    if (diff > abs(now - (new Date(options["end"]))
+    if (diff > abs(now - (new Date(options.get("end"]))
             .format("U"))) {
-        return options["absoluteString"].format(
+        return options.get("absoluteString"].format(
             date.i18nFormat(
-                options["format"]));
+                options.get("format"]));
     }
     diffData = _diffData(futureTime, pastTime, backwards, options);
     [fNum, fWord, years, months, weeks, days] = array_values(
@@ -327,7 +327,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             "year": __d("uim", "about a year ago"),
         ];
         return relativeDate
-            ? options["relativeString"].format(
+            ? options.get("relativeString"].format(
                 relativeDate) : aboutAgo[fWord];
     }
     // When time is to come

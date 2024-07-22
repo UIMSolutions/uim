@@ -8,7 +8,7 @@ import uim.http;
  * Digest authentication adapter for UIM\Http\Client
  *
  * Generally not directly constructed, but instead used by {@link \UIM\Http\Client}
- * when options["auth.type"] is 'digest'
+ * when options.get("auth.type"] is 'digest'
  */
 class DDigest {
     /* 

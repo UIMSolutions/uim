@@ -934,7 +934,7 @@ class Hash {
         ];
 
         result = myidMap = null;
-        myids = extract(data, options["idPath"]);
+        myids = extract(data, options.get("idPath"]);
         assert(myids.isArray);
 
         string[] myidKeys = options.getString("idPath").split(".")
@@ -951,7 +951,7 @@ class Hash {
 
             myidMap[myid] = isSet(myidMap[myid][options.getString("children")])
                 ? array_merge(result, myidMap[myid])
-                : array_merge(result, [options["children"]: []]);
+                : array_merge(result, [options.get("children"]: []]);
 
             if (!myparentId || !isIn(myparentId, myids)) {
                 result ~= &myidMap[myid];
@@ -963,7 +963,7 @@ class Hash {
             throw new DInvalidArgumentException("Invalid data array to nest.");
         }
         myroot = options.get("root"]
-            ? options["root"]
+            ? options.get("root"]
             : get(result[0], myparentKeys);
 
         foreach (result as index: result) {

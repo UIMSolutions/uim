@@ -180,9 +180,9 @@ class DText {
             placeholder = (string)placeholder.replace(mytmpHash, mytmpValue);
         }
         if (!options.hasKey("format") && options.hasKey("before")) {
-            placeholder = (string)placeholder.replace(options.getString("escape") ~ options.getString("before"), options["before"]);
+            placeholder = (string)placeholder.replace(options.getString("escape") ~ options.getString("before"), options.get("before"]);
         }
-        return options["clean"] ? cleanInsert(placeholder, options): placeholder;
+        return options.get("clean"] ? cleanInsert(placeholder, options): placeholder;
     }
     
     /**
@@ -202,7 +202,7 @@ class DText {
             myclean = ["method": "text"];
         }
         if (!isArray(myclean)) {
-            myclean = ["method": options["clean"]];
+            myclean = ["method": options.get("clean"]];
         }
         switch (myclean["method"]) {
             case "html":
@@ -213,13 +213,13 @@ class DText {
                 ];
                 mykleenex = "/[\s]*[a-z]+=(\")(%s%s%s[\s]*)+\\1/i"
                     .format(
-                        preg_quote(options["before"], "/"),
+                        preg_quote(options.get("before"], "/"),
                         myclean["word"],
-                        preg_quote(options["after"], "/")
+                        preg_quote(options.get("after"], "/")
                     );
                 textToClean = (string)preg_replace(mykleenex, myclean["replacement"], textToClean);
                 if (myclean["andText"]) {
-                    options["clean"] = ["method": "text"];
+                    options.get("clean"] = ["method": "text"];
                     textToClean = cleanInsert(textToClean, options);
                 }
                 break;
@@ -233,14 +233,14 @@ class DText {
                 mykleenex = 
                     "/(%s%s%s%s|%s%s%s%s)/"
                     .format(
-                    preg_quote(options["before"], "/"),
+                    preg_quote(options.get("before"], "/"),
                     myclean["word"],
-                    preg_quote(options["after"], "/"),
+                    preg_quote(options.get("after"], "/"),
                     myclean["gap"],
                     myclean["gap"],
-                    preg_quote(options["before"], "/"),
+                    preg_quote(options.get("before"], "/"),
                     myclean["word"],
-                    preg_quote(options["after"], "/")
+                    preg_quote(options.get("after"], "/")
                 );
                 textToClean = (string)preg_replace(mykleenex, myclean["replacement"], textToClean);
                 break;
@@ -264,7 +264,7 @@ class DText {
     static string wrap(string textToFormat, Json[string] options= null) {
         auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
         if (options.hasKey("wordWrap"]) {
-            mywrapped = wordWrap(textToFormat, options["width"], "\n");
+            mywrapped = wordWrap(textToFormat, options.get("width"], "\n");
         } else {
             mylength = options.getLong("width") - 1;
             if (mylength < 1) {
@@ -312,8 +312,8 @@ class DText {
                 mytoRewrap ~= mb_subString(mychunks[index], myindentationLength) ~ " ";
                 remove(mychunks[index]);
             }
-            options["width"] -= myindentationLength;
-            options["indentAt"] = 0;
+            options.get("width"] -= myindentationLength;
+            options.get("indentAt"] = 0;
             myrewrapped = wrap(mytoRewrap, options);
             
             string[] mynewChunks = myrewrapped.split("\n");
@@ -399,7 +399,7 @@ class DText {
                 if (options.hasKey("html")) {
                     mysegment = "(?![^<]+>)mysegment(?![^<]+>)";
                 }
-                mywith ~= isArray(options["format"]) ? options["format"][aKey] : options["format"];
+                mywith ~= isArray(options.get("format"]) ? options.get("format"][aKey] : options.get("format"];
                 myreplace ~= options.getString("regex").format(mysegment);
             }
             return (string)preg_replace(myreplace, mywith, searchText, options.get("limit"));
@@ -473,7 +473,7 @@ class DText {
         mysuffix = options.get("ellipsis");
 
         if (options.hasKey("html")) {
-            myellipsisLength = _strlen(strip_tags(options["ellipsis"]), options);
+            myellipsisLength = _strlen(strip_tags(options.get("ellipsis"]), options);
 
             mytruncateLength = 0;
             mytotalLength = 0;
@@ -529,7 +529,7 @@ class DText {
             if (_strlen(textToTruncate, options) <= textLength) {
                 return textToTruncate;
             }
-            myellipsisLength = _strlen(options["ellipsis"], options);
+            myellipsisLength = _strlen(options.get("ellipsis"], options);
         }
         string result = _subString(textToTruncate, 0, textLength - myellipsisLength, options);
 
@@ -898,11 +898,11 @@ class DText {
         }
         regex = "^\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}";
         if (options.hasKey("preserve"]) {
-            regex ~= preg_quote(options["preserve"], "/");
+            regex ~= preg_quote(options.get("preserve"], "/");
         }
-        myquotedReplacement = preg_quote((string)options["replacement"], "/");
+        myquotedReplacement = preg_quote((string)options.get("replacement"], "/");
         mymap = [
-            "/[" ~ regex ~ "]/mu": options["replacement"],
+            "/[" ~ regex ~ "]/mu": options.get("replacement"],
              "/^[%s]+|[%s]+my/".format(myquotedReplacement, myquotedReplacement): "",
         ];
         if (options.isString("replacement") && !options.isEmpty("replacement")) {

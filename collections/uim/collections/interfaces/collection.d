@@ -14,7 +14,7 @@ import uim.collections;
  * list of elements exposing a number of traversing and extracting method for
  * generating other collections.
  */
-interface ICollection {
+interface I_Collection {
   /* append
 
 appendItem
@@ -103,7 +103,7 @@ unfold
 
 zip * /
     // Applies a callback to the elements in this collection.
-    ICollection each(void function(string key, Json value) functionCall);
+    I_Collection each(void function(string key, Json value) functionCall);
 
     /**
      * Looks through each value in the collection, and returns another collection with
@@ -125,7 +125,7 @@ zip * /
      * });
      * ```
      * /
-    ICollection filter(bool delegate(Json item));
+    I_Collection filter(bool delegate(Json item));
 
     /**
      * Looks through each value in the collection, and returns another collection with
@@ -146,7 +146,7 @@ zip * /
      * });
      * ```
      */
-    // ICollection reject(callable callbackForEachElement);
+    // I_Collection reject(callable callbackForEachElement);
 
     /**
      * Returns true if all values in this collection pass the truth test provided
@@ -207,7 +207,7 @@ zip * /
      * });
      * ```
      * /
-    ICollection map(callable callback);
+    I_Collection map(callable callback);
 
     /**
      * Folds the values in this collection to a single value, as the result of
@@ -257,8 +257,8 @@ zip * /
      * [1, 2, 3, 4]
      * ```
     * /
-    // TODO  ICollection extract(/* callable * / string path);
-    /* ICollection extract(string path);
+    // TODO  I_Collection extract(/* callable * / string path);
+    /* I_Collection extract(string path);
 
     /**
      * Returns the top element in this collection after being sorted by a property.
@@ -383,7 +383,7 @@ zip * /
      * }
      * ```
      * /
-    ICollection sortBy(string columnName, int sortOrder = 0 /* SORT_DESC * /, int sortType = 0 /* SORT_NUMERIC * /);
+    I_Collection sortBy(string columnName, int sortOrder = 0 /* SORT_DESC * /, int sortType = 0 /* SORT_NUMERIC * /);
 
     /**
      * Splits a collection into sets, grouped by the result of running each value
@@ -422,7 +422,7 @@ zip * /
      * ];
      * ```
       * /
-    ICollection groupBy(string columnName);
+    I_Collection groupBy(string columnName);
 
     /**
      * Given a list and a callback // function that returns a key for each element
@@ -457,7 +457,7 @@ zip * /
      * ];
      * ```
      * /
-    ICollection indexBy(string columnName);
+    I_Collection indexBy(string columnName);
 
     /**
      * Sorts a list into groups and returns a count for the number of elements
@@ -491,7 +491,7 @@ zip * /
      * ];
      * ```
      * /
-    ICollection countBy(string columnName);
+    I_Collection countBy(string columnName);
 
     /**
      * Returns the total sum of all the values extracted with  matcher
@@ -519,17 +519,17 @@ zip * /
      * Returns a new D_Collection with the elements placed in a random order,
      * this // function does not preserve the original keys in the collection.
      * /
-    ICollection shuffle();
+    I_Collection shuffle();
 
     // Returns a new D_Collection with maximum size random elements from this collection
-    ICollection sample(int maxNumberOfElements);
+    I_Collection sample(int maxNumberOfElements);
 
     /**
      * Returns a new D_Collection with maximum size elements in the internal
      * order this collection was created. If a second parameter is passed, it
      * will determine from what position to start taking elements.
      * /
-    ICollection take(int numberOfElements = 1, int positionalOffset = 0);
+    I_Collection take(int numberOfElements = 1, int positionalOffset = 0);
 
     /**
      * Returns the last N elements of a collection
@@ -544,13 +544,13 @@ zip * /
      * Result will look like this when converted to array
      * [3, 4, 5];
      * /
-    ICollection takeLast(int numberOfElements);
+    I_Collection takeLast(int numberOfElements);
 
     /**
      * Returns a new D_Collection that will skip the specified amount of elements
      * at the beginning of the iteration.
      * /
-    ICollection skip(int elementsToSkip);
+    I_Collection skip(int elementsToSkip);
 
     /**
      * Looks through each value in the list, returning a Collection of all the
@@ -572,7 +572,7 @@ zip * /
      * ]
      * ```
      * /
-    ICollection match(Json[string] conditions);
+    I_Collection match(Json[string] conditions);
 
     // Returns the first result matching all the key-value pairs listed in conditions.
     Json firstMatch(Json[string] conditionsWithPath);
@@ -587,16 +587,16 @@ zip * /
      * Returns a new D_Collection as the result of concatenating the list of elements
      * in this collection with the passed list of elements
      * /
-    ICollection append(Json[] items);
+    I_Collection append(Json[] items);
 
     // Append a single item creating a new D_Collection.
-    ICollection appendItem(Json itemToAppend, Json keyToAppend = null);
+    I_Collection appendItem(Json itemToAppend, Json keyToAppend = null);
 
     // Prepend a set of items to a collection creating a new D_Collection
-    ICollection prepend(Json[string] itemsToPrepend);
+    I_Collection prepend(Json[string] itemsToPrepend);
 
     // Prepend a single item creating a new D_Collection.
-    ICollection prependItem(Json itemToPrepend, Json key = null);
+    I_Collection prependItem(Json itemToPrepend, Json key = null);
 
     /**
      * Returns a new D_Collection where the values extracted based on a value path
@@ -628,13 +628,13 @@ zip * /
      * "b": [2: "bar"]
      * ];
      * /
-    ICollection combine(string keyPath, string valuePath, string groupPath = null);
+    I_Collection combine(string keyPath, string valuePath, string groupPath = null);
 
     /**
      * Returns a new D_Collection where the values are nested in a tree-like structure
      * based on an id property path and a parent id property path.
      * /
-    ICollection nest(string idPath, string parentPath, string nestingKey = "children");
+    I_Collection nest(string idPath, string parentPath, string nestingKey = "children");
 
     /**
      * Returns a new D_Collection containing each of the elements found in `values` as
@@ -666,7 +666,7 @@ zip * /
      * ];
      * ```
      * /
-    ICollection insert(string path, Json[string] valuesToInsert);
+    I_Collection insert(string path, Json[string] valuesToInsert);
 
     /**
      * Returns an array representation of the results
@@ -717,7 +717,7 @@ zip * /
      * You can think of this method as a way to create save points for complex
      * calculations in a collection.
      * /
-    ICollection compile(bool shouldKeepKeys = true);
+    I_Collection compile(bool shouldKeepKeys = true);
 
     /**
      * Returns a new D_Collection where any operations chained after it are guaranteed
@@ -725,7 +725,7 @@ zip * /
      *
      * A lazy collection can only be iterated once. A second attempt results in an error.
       * /
-    ICollection lazyCollection();
+    I_Collection lazyCollection();
 
     /**
      * Returns a new D_Collection where the operations performed by this collection.
@@ -734,7 +734,7 @@ zip * /
      *
      * This can also be used to make any non-rewindable iterator rewindable.
      * /
-    ICollection buffered();
+    I_Collection buffered();
 
     /**
      * Returns a new D_Collection with each of the elements of this collection
@@ -770,8 +770,8 @@ zip * /
      * flattenedIds = collection.listNested().extract("id"); // Yields [1, 2, 3, 4, 5]
      * ```
      * /
-    // ICollection listNested(callable - string order = "desc", string nestingKey = "children");
-    ICollection listNested(string order = "desc", string nestingKey = "children");
+    // I_Collection listNested(callable - string order = "desc", string nestingKey = "children");
+    I_Collection listNested(string order = "desc", string nestingKey = "children");
 
     /**
      * Creates a new D_Collection that when iterated will stop yielding results if
@@ -799,7 +799,7 @@ zip * /
      * comments = (new D_Collection(comments)).stopWhen(["is_approved": false.toJson]);
      * ```
      * /
-    ICollection stopWhen(Json[string] condition);
+    I_Collection stopWhen(Json[string] condition);
 
     /**
      * Creates a new D_Collection where the items are the
@@ -830,7 +830,7 @@ zip * /
      * });
      * ```
      * /
-    ICollection unfold(callable callback = null);
+    I_Collection unfold(callable callback = null);
 
     /**
      * Passes this collection through a callable as its first argument.
@@ -845,7 +845,7 @@ zip * /
      * });
      * ```
      * /
-    ICollection through(callable callback);
+    I_Collection through(callable callback);
 
     /**
      * Combines the elements of this collection with each of the elements of the
@@ -858,7 +858,7 @@ zip * /
      * collection.zip([3, 4], [5, 6]).toList(); // returns [[1, 3, 5], [2, 4, 6]]
      * ```
      * /
-    // ICollection zip(Json[string] itemsToZip): ;
+    // I_Collection zip(Json[string] itemsToZip): ;
 
     /**
      * Combines the elements of this collection with each of the elements of the
@@ -876,7 +876,7 @@ zip * /
      * zipped.toList(); // returns [9, 12]; [(1 + 3 + 5), (2 + 4 + 6)]
      * ```
      * /
-    ICollection zipWith(Json[string] collectionsToZip, callable callback);
+    I_Collection zipWith(Json[string] collectionsToZip, callable callback);
 
     /**
      * Breaks the collection into smaller arrays of the given size.
@@ -889,7 +889,7 @@ zip * /
      * Returns [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11]]
      * ```
      * /
-    ICollection chunk(int chunkMaxsize);
+    I_Collection chunk(int chunkMaxsize);
 
     /**
      * Breaks the collection into smaller arrays of the given size.
@@ -902,7 +902,7 @@ zip * /
      * Returns [["a": 1, "b": 2, "c": 3], ["d": 4, "e": 5, "f": 6]]
      * ```
      * /
-    ICollection chunkWithKeys(int chunkMaxsize, bool shouldKeepKeys = true);
+    I_Collection chunkWithKeys(int chunkMaxsize, bool shouldKeepKeys = true);
 
     /**
      * Returns whether there are elements in this collection
@@ -951,7 +951,7 @@ zip * /
      * ]
      * ```
      * /
-    ICollection transpose();
+    I_Collection transpose();
 
     /**
      * Returns the amount of elements in the collection.
@@ -992,7 +992,7 @@ zip * /
      * Returns the number of unique keys in this iterator. This is the same as the number of
      * elements the collection will contain after calling `toArray()`
      *
-     * This method comes with a number of caveats. Please refer to `ICollection.count()`
+     * This method comes with a number of caveats. Please refer to `I_Collection.count()`
      * for details.
      * /
     size_t countKeys();
@@ -1021,5 +1021,5 @@ zip * /
      * ];
      * ```
      */
-    // ICollection cartesianProduct(callable operation = null, callable filter = null);
+    // I_Collection cartesianProduct(callable operation = null, callable filter = null);
 }

@@ -4,6 +4,6 @@ import uim.collections;
 
 @safe:
 
-ICollection collection(Json[] someItems) {
+I_Collection collection(Json[] someItems) {
     return new D_Collection(someItems);
 }

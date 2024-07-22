@@ -71,17 +71,17 @@ class DRadioWidget : DWidget {
                auto updatedData = renderData.merge(formContext.data);
 
 
-        options = cast(Traversable)mydata["options"]
-            ? iterator_to_array(mydata["options"])
-            : /* (array) */mydata["options"];
+        options = cast(Traversable)mydata.get("options")
+            ? iterator_to_array(mydata.get("options"))
+            : mydata.getArray("options");
         }
         if (!mydata.isEmpty("empty")) {
-            myempty = mydata.contains("empty") ? "empty" : mydata["empty"];
+            myempty = mydata.contains("empty") ? "empty" : mydata.get("empty");
             options = ["": myempty] + options;
         }
         mydata.remove("empty");
 
-       _idPrefix = mydata["idPrefix"];
+       _idPrefix = mydata.get("idPrefix");
        _clearIds();
         
         auto myopts = options.byKeyValue
@@ -100,8 +100,8 @@ class DRadioWidget : DWidget {
             return true;
         }
         
-        auto myisNumeric = isNumeric(radio["value"]);
-        return !isArray(isDisabled) || isIn(to!string(radio["value"]), isDisabled, !myisNumeric);
+        auto myisNumeric = isNumeric(radio.get("value"));
+        return !isArray(isDisabled) || isIn(to!string(radio.get("value")), isDisabled, !myisNumeric);
     }
     
     // Renders a single radio input and label.
@@ -118,9 +118,9 @@ class DRadioWidget : DWidget {
 
         radio.set("name", options.get("name"));
 
-        radio["templateVars"] ??= null;
+        radio.set("templateVars", radio.get("templateVars"));
         if (!options.isEmpty("templateVars")) {
-            radio.set("templateVars", array_merge(options.get("templateVars"], radio["templateVars"]));
+            radio.set("templateVars", array_merge(options.get("templateVars"), radio.get("templateVars")));
         }
         if (radio.isEmpty("id")) {
             auto idData = options.get("id");

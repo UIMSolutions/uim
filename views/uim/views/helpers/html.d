@@ -580,6 +580,7 @@ class DHtmlHelper : DHelper {
         string attributes = null;
         string result = null;
         foreach (tableName; tableNames) {
+            string content; 
             if (!isArray(tableName)) {
                 content = tableName;
                 attributes = thOptions;

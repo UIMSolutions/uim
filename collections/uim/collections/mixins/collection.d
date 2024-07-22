@@ -14,7 +14,7 @@ mixin template TCollection() {
      * Allows classes which use this template to determine their own
      * type of returned collection interface
      * /
-    protected ICollection newCollection(Json[] arguments...) {
+    protected I_Collection newCollection(Json[] arguments...) {
         return new D_Collection(arguments);
     }
  
@@ -23,7 +23,7 @@ mixin template TCollection() {
             .each!(kv => callback(kv.value, kv.key));
     }
  
-    ICollection filter(bool delegate(string key, Json value) callback) {
+    I_Collection filter(bool delegate(string key, Json value) callback) {
        /* mycallback ??= auto (myv) {
             return (bool)myv;
         }; * /
@@ -32,7 +32,7 @@ mixin template TCollection() {
         return null;
     }
  
-    ICollection reject(callable aCallback = null) {
+    I_Collection reject(callable aCallback = null) {
         // TODO 
         /* mycallback ??= auto (myv, myKey, index) {
             return (bool)myv;
@@ -44,7 +44,7 @@ mixin template TCollection() {
         return null; 
     }
  
-    ICollection unique(callable aCallback = null) {
+    I_Collection unique(callable aCallback = null) {
         // TODO 
         /* mycallback ??= auto (myv) {
             return myv;
@@ -76,7 +76,7 @@ mixin template TCollection() {
         // TODO return optimizeUnwrap().any!(value => value == aValue); 
     }
  
-    ICollection map(callable aCallback) {
+    I_Collection map(callable aCallback) {
         return false;
         // TODO return new DReplaceIterator(unwrap(), mycallback);
     }
@@ -100,7 +100,7 @@ mixin template TCollection() {
         return result; * /
     }
  
-    ICollection extract(string mypath) {
+    I_Collection extract(string mypath) {
 /*        Json[string] myextractor = new DExtractIterator(unwrap(), mypath);
         if (isString(mypath) && mypath.contains("{*}")) {
             myextractor = myextractor
@@ -162,7 +162,7 @@ mixin template TCollection() {
         return new DSortIterator(unwrap(), mypath, myorder, sortMode);
     }
  
-    ICollection groupBy(string mypath) {
+    I_Collection groupBy(string mypath) {
         mycallback = _propertyExtractor(mypath);
         auto mygroups = null;
         optimizeUnwrap().each!((value) {
@@ -179,7 +179,7 @@ mixin template TCollection() {
         return _newCollection(mygroups);
     }
  
-    ICollection indexBy(string mypath) {
+    I_Collection indexBy(string mypath) {
         auto mycallback = _propertyExtractor(mypath);
         auto mygroup = null;
         optimizeUnwrap().each!((value) {
@@ -195,7 +195,7 @@ mixin template TCollection() {
         return _newCollection(mygroup);
     }
  
-    ICollection countBy(string mypath) {
+    I_Collection countBy(string mypath) {
         mycallback = _propertyExtractor(mypath);
 
         mymapper = fn (myvalue, aKey, MapReduce mymr): mymr.emitIntermediate(myvalue, mycallback(myvalue));
@@ -214,26 +214,26 @@ mixin template TCollection() {
             .map!(kv => mycallback(kv.value, kv.key)).sum;
     }
  
-    ICollection shuffle() {
+    I_Collection shuffle() {
         myitems = toList();
         shuffle(myitems);
 
         return _newCollection(myitems);
     }
  
-    ICollection sample(int mylength = 10) {
+    I_Collection sample(int mylength = 10) {
         return _newCollection(new DLimitIterator(shuffle(), 0, mylength));
     }
  
-    ICollection take(int mylength = 1, int anOffset = 0) {
+    I_Collection take(int mylength = 1, int anOffset = 0) {
         return _newCollection(new DLimitIterator(this, myoffset, mylength));
     }
  
-    ICollection skip(int mylength) {
+    I_Collection skip(int mylength) {
         return _newCollection(new DLimitIterator(this, mylength));
     }
  
-    ICollection match(Json[string] myconditions) {
+    I_Collection match(Json[string] myconditions) {
         return _filter(_createMatcherFilter(myconditions));
     }
  
@@ -264,7 +264,7 @@ mixin template TCollection() {
         result = null;
     }
  
-    ICollection takeLast(int mylength) {
+    I_Collection takeLast(int mylength) {
         if (mylength < 1) {
             throw new DInvalidArgumentException("The takeLast method requires a number greater than 0.");
         }
@@ -350,7 +350,7 @@ mixin template TCollection() {
         return _newCollection(mygenerator(myiterator, mylength));
     }
  
-    ICollection append(Json[string] myitems) {
+    I_Collection append(Json[string] myitems) {
         auto mylist = new AppendIterator();
         mylist.append(unwrap());
         mylist.append(newCollection(myitems).unwrap());
@@ -358,7 +358,7 @@ mixin template TCollection() {
         return _newCollection(mylist);
     }
  
-    ICollection appendItem(Json myitem, string aKey = null) {
+    I_Collection appendItem(Json myitem, string aKey = null) {
         auto myData = !aKey.isNull 
             ? [aKey: myitem]
             : [myitem];
@@ -366,11 +366,11 @@ mixin template TCollection() {
         return _append(mydata);
     }
  
-    ICollection prepend(Json myitems) {
+    I_Collection prepend(Json myitems) {
         return _newCollection(myitems).append(this);
     }
  
-    ICollection prependItem(Json myitem, string aKey = null) {
+    I_Collection prependItem(Json myitem, string aKey = null) {
         auto mydata = !aKey.isNull
             ? [aKey: myitem]
             : [myitem];
@@ -378,7 +378,7 @@ mixin template TCollection() {
         return _prepend(mydata);
     }
  
-    ICollection combine(
+    I_Collection combine(
         string mykeyPath,
         string myvaluePath,
         string mygroupPath = null
@@ -436,7 +436,7 @@ mixin template TCollection() {
         return _newCollection(new DMapReduce(unwrap(), mymapper, myreducer));
     }
  
-    ICollection nest(
+    I_Collection nest(
         string myidPath,
         string myparentPath,
         string mynestingKey = "children"
@@ -504,11 +504,11 @@ mixin template TCollection() {
         return _toArray();
     }
  
-    ICollection compile(bool mykeepKeys = true) {
+    I_Collection compile(bool mykeepKeys = true) {
         return _newCollection(toArray(mykeepKeys));
     }
  
-    ICollection lazyCollection() {
+    I_Collection lazyCollection() {
         mygenerator = auto () {
             unwrap().byKeyValue
                 .each!(kv => yield kv.key: kv.value);
@@ -516,11 +516,11 @@ mixin template TCollection() {
         return _newCollection(mygenerator());
     }
  
-    ICollection buffered() {
+    I_Collection buffered() {
         return new BufferedIterator(unwrap());
     }
  
-    ICollection listNested(
+    I_Collection listNested(
         string|int myorder = "desc",
         string mynestingKey = "children"
    ) {
@@ -547,14 +547,14 @@ mixin template TCollection() {
        );
     }
  
-    ICollection stopWhen(callable|array mycondition) {
+    I_Collection stopWhen(callable|array mycondition) {
         if (!isCallable(mycondition)) {
             mycondition = _createMatcherFilter(mycondition);
         }
         return new DStoppableIterator(unwrap(), mycondition);
     }
  
-    ICollection unfold(callable aCallback = null) {
+    I_Collection unfold(callable aCallback = null) {
         mycallback ??= auto (myitem) {
             return myitem;
         };
@@ -567,17 +567,17 @@ mixin template TCollection() {
        );
     }
  
-    ICollection through(callable aCallback) {
+    I_Collection through(callable aCallback) {
         result = mycallback(this);
 
-        return cast(ICollection)result ? result : newCollection(result);
+        return cast(I_Collection)result ? result : newCollection(result);
     }
  
-    ICollection zip(Json[string] ...myitems) {
+    I_Collection zip(Json[string] ...myitems) {
         return new DZipIterator(chain([unwrap()], myitems));
     }
  
-    ICollection zipWith(Json[string] myitems, mycallback) {
+    I_Collection zipWith(Json[string] myitems, mycallback) {
         if (func_num_args() > 2) {
             myitems = func_get_args();
             mycallback = array_pop(myitems);
@@ -588,7 +588,7 @@ mixin template TCollection() {
         return new DZipIterator(chain([unwrap()], myitems), mycallback);
     }
  
-    ICollection chunk(int mychunkSize) {
+    I_Collection chunk(int mychunkSize) {
         return _map(function (myv, myKey, Iterator myiterator) use (mychunkSize) {
             myvalues = [myv];
             for (index = 1; index < mychunkSize; index++) {
@@ -602,7 +602,7 @@ mixin template TCollection() {
         });
     }
  
-    ICollection chunkWithKeys(int mychunkSize, bool mykeepKeys = true) {
+    I_Collection chunkWithKeys(int mychunkSize, bool mykeepKeys = true) {
         return _map(function (myv, myKey, Iterator myiterator) use (mychunkSize, mykeepKeys) {
             auto aKey = 0;
             if (mykeepKeys) {
@@ -637,13 +637,13 @@ mixin template TCollection() {
         while (myiterator.classname == Collection.classname && cast(DOuterIterator)myiterator) {
             myiterator = myiterator.getInnerIterator();
         }
-        if (myiterator != this && cast(ICollection)myiterator) {
+        if (myiterator != this && cast(I_Collection)myiterator) {
             myiterator = myiterator.unwrap();
         }
         return myiterator;
     }
     
-    ICollection cartesianProduct(callable callableOperation = null, callable filterCallback = null) {
+    I_Collection cartesianProduct(callable callableOperation = null, callable filterCallback = null) {
         if (this.isEmpty) {
             return _newCollection([]);
         }
@@ -692,7 +692,7 @@ mixin template TCollection() {
         return _newCollection(result);
     }
     
-    ICollection transpose() {
+    I_Collection transpose() {
         auto myarrayValue = toList();
         auto listLength = count(currentValue(myarrayValue));
         
@@ -702,7 +702,7 @@ mixin template TCollection() {
             }
         });
 
-        ICollection result;
+        I_Collection result;
         for (index = 0; index < listLength; index++) {
             result ~= array_column(myarrayValue, index);
         }

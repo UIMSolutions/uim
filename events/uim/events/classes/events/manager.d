@@ -174,11 +174,11 @@ class DEventManager { // }: IEventManager {
         return eventHandlers;
     }
 
-    protected Json[string] normalizeHandlers(DEventListener subscriber, DClosure eventHandler) {
+/*     protected Json[string] normalizeHandlers(DEventListener subscriber, DClosure eventHandler) {
         // TODO return [normalizeHandler(subscriber, eventHandler)];
         return null; 
     }
-
+ */
     protected Json[string] normalizeHandlers(DEventListener subscriber, /* Closure |  */ string eventHandler) {
         // TODO return [normalizeHandler(subscriber, eventHandler)];
         return null; 

@@ -26,15 +26,15 @@ public {
 
 @safe:
 string filePath(Json json, string sep = "/", string extension = ".json") {
-  if (json is null)
+  if (json.isNull)
     return null;
 
   if ("id" in json && "versionNumber" in json) {
     return json["id"].get!string ~ sep ~ "1" ~ extension;
   }
 
-  return ("id" in json) ?
-    json["id"].get!string ~ sep ~ to!string(json["versionNumber"].get!size_t) ~ ".json" : "";
+  return json.hasKey("id") ?
+    json["id"].get!string ~ sep ~ to!string(json.getLong("versionNumber")) ~ ".json" : "";
 }
 
 /* string jsonFilePath(Json json, string sep = "/") {

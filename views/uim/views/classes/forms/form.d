@@ -194,14 +194,12 @@ class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
      */
     bool execute(Json[string] data, Json[string] options = null) {
        _data = someData;
-
         auto updatedOptions = options.update["validate": true.toJson];
-
-        if (options.hasKey("validate"] == false) {
+        if (!options.getBoolean("validate")) {
             return _execute(someData);
         }
-        validator = options.get("validate"] == true ? DEFAULT_VALIDATOR : options.get("validate"];
 
+        auto validator = options.getBoolean("validate") ? DEFAULT_VALIDATOR : options.getBoolean("validate");
         return _validate(someData, validator) ? _execute(someData): false;
     }
 
@@ -235,7 +233,7 @@ class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
 
     // Get the printable version of a Form instance.
     Json[string] debugInfo() {
-        special = [
+        auto special = [
             "_schema": getSchema().__debugInfo(),
             "_errors": getErrors(),
             "_validator": getValidator().__debugInfo(),

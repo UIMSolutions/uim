@@ -5,7 +5,7 @@ import uim.collections;
 @safe:
 
 // Base collections exception.
-class DCollectionsException : DException {
+class D_CollectionsException : DException {
   mixin(ExceptionThis!("Collections"));
 
   override bool initialize(Json[string] initData = null) {

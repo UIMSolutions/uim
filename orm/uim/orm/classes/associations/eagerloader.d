@@ -238,6 +238,7 @@ class DEagerLoader {
 
         foreach (ormtable,  options; associations) {
             auto mypointer = &result;
+            string ormtable;
             if (isInteger(ormtable)) {
                 ormtable = options;
                 options = null;
@@ -247,8 +248,8 @@ class DEagerLoader {
                 ormtable = key(options);
                 options = currentValue(options);
             }
-            if (isSet(_containoptions.get(ormtable])) {
-                mypointer[ormtable] = options;
+            if (_containoptions.hasKey(ormtable))) {
+                mypointer.set(ormtable, options);
                 continue;
             }
             if (ormtable.contains(".")) {
@@ -260,9 +261,9 @@ class DEagerLoader {
                 });
             }
             if (isArray(options)) {
-                options = options.hasKey("config") ?
-                    options.get("config"] + options.get("associations"] :
-                    options;
+                options = options.hasKey("config") 
+                    ? options.get("config") + options.get("associations") 
+                    : options;
                 options = _reformatContain(
                     options,
                     mypointer.get(ormtable)

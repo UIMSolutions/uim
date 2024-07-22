@@ -67,7 +67,7 @@ mixin template TExtract() {
             if (isCollectionTransform) {
                 rest = array_slice(someParts,  index).join(".");
 
-                return (new DCollection(someData)).extract(rest);
+                return (new D_Collection(someData)).extract(rest);
             }
             if (!someData.hasKey(myColumn)) {
                 return null;

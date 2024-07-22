@@ -10,7 +10,7 @@ import uim.collections;
  * always behave as having no nested items.
  * @template-implements \RecursiveIterator<mixed, mixed>
  */
-class DNoChildrenIterator : DCollection { // }, RecursiveIterator {
+class DNoChildrenIterator : D_Collection { // }, RecursiveIterator {
   // Returns false as there are no children iterators in this collection
   bool hasChildren() {
     return false;

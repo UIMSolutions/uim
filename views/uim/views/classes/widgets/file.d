@@ -42,9 +42,9 @@ class DFileWidget : DWidget {
         auto updatedData = renderData.merge(formContext.data);
         updatedData.remove("val");
 
-        return _stringContents.format("file", 
+        /* return _stringContents.format("file", 
             updatedData.data(["name", "templateVars"])
-                .setPath(["attrs": _stringContents.formatAttributes(updatedData, ["name"])]); 
+                .setPath(["attrs": _stringContents.formatAttributes(updatedData, ["name"])]);  */
         return null; 
     }
 }

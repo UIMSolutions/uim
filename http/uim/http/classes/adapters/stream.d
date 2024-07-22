@@ -128,7 +128,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
            _contextOptions.set("timeout", options.get("timeout"));
         }
         // Redirects are handled in the client layer because of cookie handling issues.
-       _contextOptions["max_redirects"] = 0;
+       _contextOptions.set("max_redirects", 0);
 
         if (options.hasKey("proxy.proxy")) {
            _contextOptions.set("request_fulluri", true);
@@ -167,9 +167,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     // Open the stream and send the request.
     protected Json[string] _send(IRequest request) {
         auto deadline = false;
-        if (_contextOptions.hasKey("timeout")) && _contextOptions["timeout"] > 0) {
+        if (_contextOptions.getLong("timeout") > 0) {
             /** @var int deadline */
-            deadline = time() + _contextOptions["timeout"];
+            deadline = time() + _contextOptions.getLong("timeout");
         }
         auto url = request.getUri();
        _open(to!string(url, request));

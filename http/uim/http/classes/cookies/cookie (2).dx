@@ -95,10 +95,10 @@ class DCookie : ICookie {
         auto options = options.copy;
 
         if (options.hasKey("expires")) {
-            t("expires", dateTimeInstance(options["expires"]));
+            t("expires", dateTimeInstance(options.get("expires")));
         }
         if (options.hasKey("samesite")) {
-            t("samesite", resolveSameSiteenumeration(options["samesite"]));
+            t("samesite", resolveSameSiteenumeration(options.get("samesite")));
         }
         defaultAttributes = options.set(defaultAttributes);
     }

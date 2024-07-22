@@ -20,11 +20,11 @@ class DOauth {
         if (!authCredentials.hasKey("consumerKey")) {
             return request;
         }
-        authCredentials["method"] = authCredentials.isEmpty("method")
+        authCredentials.set("method", authCredentials.isEmpty("method")
             ? "hmac-sha1"
-            : authCredentials.getString("method").upper;
+            : authCredentials.getString("method").upper);
 
-        switch (authCredentials["method"]) {
+        switch (authCredentials.getString("method")) {
         case "HMAC-SHA1":
             bool hasKeys = authCredentials.hasKeys([
                 "consumerSecret", "token", "tokenSecret"

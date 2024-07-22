@@ -306,14 +306,14 @@ class DClient { // }: IClient {
 
   // Helper method for doing non-GET requests.
   protected DClientResponse _doRequest(string hhtpMethod, string requestUrl, Json requestBody, Json[string] options = null) {
-    myrequest = _createRequest(
+    newRequest = _createRequest(
       hhtpMethod,
       requestUrl,
       requestBody,
       options
    );
 
-    return _send(myrequest, options);
+    return _send(newRequest, options);
   }
 
   // Does a recursive merge of the parameter with the scope config.
@@ -332,27 +332,27 @@ class DClient { // }: IClient {
      * Used internally by other methods, but can also be used to send
      * handcrafted Request objects.
      */
-  Response send(IRequest myrequest, Json[string] options = null) {
+  Response send(IRequest request, Json[string] options = null) {
     int myredirects = 0;
     if (options.hasKey("redirect")) {
       myredirects = options.getLong("redirect");
       options.remove("redirect");
     }
     do {
-      auto myresponse = _sendRequest(myrequest, options);
+      auto myresponse = _sendRequest(request, options);
       auto myhandleRedirect = myresponse.isRedirect() && myredirects-- > 0;
       if (myhandleRedirect) {
-        auto requestUrl = myrequest.getUri();
+        auto requestUrl = request.getUri();
 
-        mylocation = myresponse.getHeaderLine("Location");
+        auto mylocation = myresponse.getHeaderLine("Location");
         mylocationUrl = buildUrl(mylocation, [], [
             "host": requestUrl.getHost(),
             "port": requestUrl.getPort(),
             "scheme": requestUrl.getScheme(),
             "protocolRelative": true.toJson,
           ]);
-        myrequest = myrequest.withUri(new Uri(mylocationUrl));
-        myrequest = _cookies.addToRequest(myrequest, []);
+        request = request.withUri(new Uri(mylocationUrl));
+        request = _cookies.addToRequest(request, []);
       }
     }
     while (myhandleRedirect);
@@ -406,21 +406,20 @@ class DClient { // }: IClient {
     if (options.isEmpty && queryData.isEmpty) {
       return fullUrl;
     }
-    Json[string] mydefaults = [
+    auto updatedOptions = options.merge([
       "host": Json(null),
       "port": Json(null),
       "scheme": Json("http"),
       "basePath": "".toJson,
-      "protocolRelative": false.toJson,
-    ];
-    auto updatedOptions = options.set(mydefaults);
+      "protocolRelative": false.toJson
+      ]);
 
     if (queryData) {
       fullUrl ~= fullUrl.contains("?") ? "&" : "?";
       fullUrl ~= isString(queryData) ? queryData : http_build_query(queryData, "", "&", UIM_QUERY_RFC3986);
     }
-    if (options["protocolRelative"] && fullUrl.startWith("//")) {
-      fullUrl = options.get("scheme"] ~ ": " ~ fullUrl;
+    if (options.hasKey("protocolRelative") && fullUrl.startWith("//")) {
+      fullUrl = options.getString("scheme") ~ ": " ~ fullUrl;
     }
     if (preg_match("#^https?://#", fullUrl)) {
       return fullUrl;
@@ -448,24 +447,24 @@ class DClient { // }: IClient {
     /** @var array<non-empty-string, non-empty-string>  myheaders */
     auto myheaders = options.get("headers");
     if (options.hasKey("type")) {
-      myheaders = chain(myheaders, _typeHeaders(options["type"]));
+      myheaders = chain(myheaders, _typeHeaders(options.get("type")));
     }
     if (isString(requestBody) && myheaders.isNull("Content-Type") && 
         myheaders.isNull("content-type")) {
       myheaders["Content-Type"] = "application/x-www-form-urlencoded";
     }
-    auto myrequest = new DRequest(url, httpMethod, myheaders, requestBody);
-    myrequest = myrequest.withProtocolVersion(_configData.hasKey("protocolVersion"));
-    mycookies = options.get("cookies"] ?  ? [];
-    /** @var \UIM\Http\Client\Request  myrequest */
-    myrequest = _cookies.addToRequest(myrequest, mycookies);
+    auto newRequest = new DRequest(url, httpMethod, myheaders, requestBody);
+    newRequest = newRequest.withProtocolVersion(_configData.hasKey("protocolVersion"));
+    auto mycookies = options.getArray("cookies");
+    /** @var \UIM\Http\Client\Request  newRequest */
+    newRequest = _cookies.addToRequest(newRequest, mycookies);
     if (options.hasKey("auth")) {
-      myrequest = _addAuthentication(myrequest, options);
+      newRequest = _addAuthentication(newRequest, options);
     }
 
     return options.hasKey("proxy")
-      ? _addProxy(myrequest, options)
-      : myrequest;
+      ? _addProxy(newRequest, options)
+      : newRequest;
   }
 
   // Returns headers for Accept/Content-Type based on a short type or full mime-type.
@@ -498,12 +497,12 @@ class DClient { // }: IClient {
      * Uses the authentication type to choose the correct strategy
      * and use its methods to add headers.
      */
-  protected DRequest _addAuthentication(Request myrequest, Json[string] optionsWithAuthKey = null) :  {
+  protected DRequest _addAuthentication(Request request, Json[string] optionsWithAuthKey = null) :  {
     myauth = optionsWithAuthKey["auth"];
     /** @var \UIM\Http\Client\Auth\Basic  myadapter */
     myadapter = _createAuth(myauth, options);
 
-    return myadapter.authentication(myrequest, optionsWithAuthKey["auth"]);
+    return myadapter.authentication(request, optionsWithAuthKey["auth"]);
   }
 
   /**

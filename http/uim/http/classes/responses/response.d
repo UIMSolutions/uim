@@ -382,36 +382,34 @@ class DResponse : IResponse {
        _streamTarget = options.get("streamTarget", _streamTarget);
        _streamMode = options.get("streamMode", _streamMode);
         if (options.hasKey("stream")) {
-            if (!cast(IStream)options["stream"]) {
+            if (!cast(IStream)options.get("stream")) {
                 throw new DInvalidArgumentException("Stream option must be an object that : IStream");
             }
-            _stream = options.get("stream"];
+            _stream = options.get("stream");
         } else {
            _createStream();
         }
         if (options.hasKey("body")) {
-           _stream.write(options["body"]);
+           _stream.write(options.get("body"));
         }
         if (options.hasKey("status")) {
-           _setStatus(options["status"]);
+           _setStatus(options.get("status"));
         }
         if (!options.hasKey("charset")) {
-            options["charset"] = configuration.get("App.encoding");
+            options.set("charset", configuration.get("App.encoding"));
         }
-       _charset = options.get("charset"];
+       _charset = options.get("charset");
         auto type = "text/html";
         if (options.hasKey("type")) {
-            type = this.resolveType(options["type"]);
+            type = this.resolveType(options.get("type"));
         }
        _setContentType(type);
        _cookies = new DCookieCollection();
     }
     
-    /**
-     * Creates the stream object.
-     */
+    // Creates the stream object.
     protected void _createStream() {
-        this.stream = new DStream(_streamTarget, _streamMode);
+        _stream = new DStream(_streamTarget, _streamMode);
     }
     
     /**
@@ -425,11 +423,12 @@ class DResponse : IResponse {
 
             return;
         }
-        allowed = [
+        
+        auto allowed = [
             "application/javascript", "application/xml", "application/rss+xml",
         ];
 
-        charset = false;
+        auto charset = false;
         if (
            _charset &&
             (

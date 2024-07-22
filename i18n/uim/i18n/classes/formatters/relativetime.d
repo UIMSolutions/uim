@@ -77,8 +77,8 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     // Format a into a relative timestring.
     string timeAgoInWords(DateTime /* Date  * / timeToFormat, Json[string] options = null) {
         auto options = _options(options, DateTime.classname);
-        if (options["timezone"]) {
-            time = time.setTimezone(options["timezone"]);
+        if (options.hasKey("timezone")) {
+            time = time.setTimezone(options.get("timezone"));
         }
         auto now = options.get("from").format("U");
         auto anInSeconds = time.format("U");
@@ -89,13 +89,14 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             futureTime = anInSeconds;
             pastTime = now;
         }
-        diff = futureTime - pastTime;
+        
+        auto diff = futureTime - pastTime;
         if (!diff) {
             return __d("uim", "just now", "just now");
         }
-        if (diff > abs(now - (new DateTime(options["end"])).format("U"))) {
-            return options["absoluteString"].format(
-                time.i18nFormat(options["format"]));
+        if (diff > abs(now - (new DateTime(options.get("end"))).format("U"))) {
+            return options.getString("absoluteString").format(
+                time.i18nFormat(options.get("format")));
         }
         diffData = _diffData(futureTime, pastTime, backwards, options);
         [
@@ -278,9 +279,8 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     // Format a into a relative date string.
      /* string dateAgoInWords( /* DateTime | * / Date date, Json[string] options = null) {
     options = _options(options, Date.classname);
-    if (cast(DateTime) date && options["timezone"]) {
-        date = date.setTimezone(
-            options.get("timezone"));
+    if (cast(DateTime) date && options.get("timezone")) {
+        date = date.setTimezone(options.get("timezone"));
     }
 
     auto now = options.get("from").format("U");

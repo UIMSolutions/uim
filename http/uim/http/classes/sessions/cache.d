@@ -39,13 +39,13 @@ class DCacheSession { // }: !SessionHandler {
     
     // Method used to read from a cache session.
     string read(string sessionId) {
-        return Cache.read(sessionId, _options.getString("config", "");
+        return Cache.read(sessionId, _options.getString("config", ""));
     }
     
     // Helper auto called on write for cache sessions.
     bool write(string sessionId, string dataToSave) {
         return sessionId
-            ? Cache.write(sessionId, dataToSave, _options["config"])
+            ? Cache.write(sessionId, dataToSave, _options.get("config"))
             : false;
     }
     
@@ -55,7 +55,7 @@ class DCacheSession { // }: !SessionHandler {
      * string aid ID that uniquely identifies session in cache.
      */
     bool destroy(string aid) {
-        Cache.remove(anId, _options["config"]);
+        Cache.remove(anId, _options.get("config"));
 
         return true;
     }

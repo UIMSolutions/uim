@@ -149,19 +149,21 @@ class DText {
         ];
         options = options.add(defaultData);
         if (isEmpty(mydata)) {
-            return options["clean"] ? cleanInsert(placeholder, options): placeholder;
+            return options.hasKey("clean") ? cleanInsert(placeholder, options): placeholder;
         }
-        myformat = options.get("format"];
+
+        auto myformat = options.get("format");
         if (myformat.isNull) {
             myformat = 
                 "/(?<!%s)%s%%s%s/"
                 .format(
-                    preg_quote(options["escape"], "/"),
-                    preg_quote(options["before"], "/").replace("%", "%%"),
-                    preg_quote(options["after"], "/").replace("%", "%%")
+                    preg_quote(options.get("escape"), "/"),
+                    preg_quote(options.get("before"), "/").replace("%", "%%"),
+                    preg_quote(options.get("after"), "/").replace("%", "%%")
                 );
         }
-        mydataKeys = mydata.keys;
+        
+        auto mydataKeys = mydata.keys;
         myhashKeys = array_map("md5", mydataKeys);
         /** @var STRINGAA mytempData */
         mytempData = array_combine(mydataKeys, myhashKeys);
@@ -400,17 +402,17 @@ class DText {
                 mywith ~= isArray(options["format"]) ? options["format"][aKey] : options["format"];
                 myreplace ~= options["regex"].format(mysegment);
             }
-            return (string)preg_replace(myreplace, mywith, searchText, options["limit"]);
+            return (string)preg_replace(myreplace, mywith, searchText, options.get("limit"));
         }
         phraseToSearch = "(" ~ preg_quote(phraseToSearch, "|") ~ ")";
-        if (options["html"]) {
+        if (options.hasKey("html")) {
             phraseToSearch = "(?![^<]+>)phraseToSearch(?![^<]+>)";
         }
         return (string)preg_replace(
-             options["regex"].format(phraseToSearch),
-            options["format"],
+             options.getString("regex").format(phraseToSearch),
+            options.get("format"),
             searchText,
-            options["limit"]
+            options.get("limit")
         );
     }
     

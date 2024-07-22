@@ -4,7 +4,7 @@ import uim.jsonbases;
 @safe:
 
 bool testJsonTenant(IJsonTenant aTenant) {
-  if (aTenant.isNull) { 
+  if (aTenant is null) { 
     return false; 
   }
   

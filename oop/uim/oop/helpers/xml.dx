@@ -205,7 +205,7 @@ class Xml {
                             throw new XmlException("Invalid input.");
                         }
                         
-                        auto key = key(inputData);
+                        string key = key(inputData);
                         if (isInteger(key)) {
                             throw new XmlException("The key of input must be alphanumeric");
                         }

@@ -11,10 +11,11 @@ public {
   import uim.core;
   import uim.oop;
   import uim.filesystems;
+
   // import uim.logging;
 }
 
-public  {
+public {
   import uim.jsonbases.classes;
   import uim.jsonbases.exceptions;
   import uim.jsonbases.helpers;
@@ -25,7 +26,7 @@ public  {
 
 @safe:
 string filePath(Json json, string sep = "/", string extension = ".json") {
-  if (json.isNull)
+  if (json is null)
     return null;
 
   if ("id" in json && "versionNumber" in json) {
@@ -33,12 +34,11 @@ string filePath(Json json, string sep = "/", string extension = ".json") {
   }
 
   return ("id" in json) ?
-    json["id"].get!string ~ sep ~ to!string(json["versionNumber"].get!size_t) ~ ".json" 
-    : "";
+    json["id"].get!string ~ sep ~ to!string(json["versionNumber"].get!size_t) ~ ".json" : "";
 }
 
 /* string jsonFilePath(Json json, string sep = "/") {
-  if (json.isNull) return null;
+  if (json is null) return null;
  
   if ("id" in json && "versionNumber" in json) return json["id"].get!string~sep~"1.json";
 
@@ -47,7 +47,7 @@ string filePath(Json json, string sep = "/", string extension = ".json") {
 } */
 
 /* string jsonFilePath(string startPath, Json json, string sep = "/") {
-  if (json.isNull) return null;
+  if (json is null) return null;
   return startPath~sep~jsonFilePath(json, sep);
 } */
 
@@ -60,19 +60,17 @@ string dirPath(UUID id, string separator = "/") {
 }
 
 string dirPath(string path, Json json, string separator = "/") {
-  if (json.isNull)
+  if (json.isNull || !json.hasKey("id")) {
     return null;
-  if ("id" !in json)
-    return null;
+  }
 
   return path ~ dirPath(json, separator);
 }
 
 string dirPath(Json json, string separator = "/") {
-  if (json.isNull)
+  if (json.isNull || !json.hasKey("id")) {
     return null;
-  if ("id" !in json)
-    return null;
+  }
 
   return separator ~ json["id"].get!string;
 }
@@ -86,19 +84,17 @@ string filePath(UUID id, size_t versionNumber, string separator = "/") {
 }
 
 string filePath(string path, Json json, string separator = "/") {
-  if (json.isNull)
+  if (json.isNull || !json.hasKey("id")) {
     return null;
-  if ("id" !in json)
-    return null;
+  }
 
   return path ~ filePath(json, separator);
 }
 
 string filePath(Json json, string separator = "/") {
-  if (json.isNull)
+  if (json.isNull || !json.hasKey("id")) {
     return null;
-  if ("id" !in json)
-    return null;
+  }
 
   return dirPath(json, separator) ~ separator ~ ("versionNumber" in json ?
       to!string(json["versionNumber"].get!long > 0 ? json["versionNumber"].get!long : 1) : "1") ~ ".json";
@@ -109,15 +105,18 @@ Json lastVersion(Json[] jsons) {
 
   if (jsons.length > 0) {
     foreach (json; jsons) {
-      if (result.isNull && "versionNumber" in json)
+      if (result.isNull && json.hasKey("versionNumber")) {
         result = json;
+      }
     }
 
     if (!result.isNull) {
-      foreach (json; jsons)
-        if ("versionNumber" in json && json["versionNumber"].get!size_t > result["versionNumber"]
-          .get!size_t)
+      foreach (json; jsons) {
+        if (json.hasKey("versionNumber") && json.getLong(
+            "versionNumber") > result.getLong("versionNumber")) {
           result = json;
+        }
+      }
     }
   }
 
@@ -132,7 +131,7 @@ Json lastVersion(Json[size_t] jsons) {
       if (result.isNull && "versionNumber" in json)
         result = json;
     }
-  
+
     if (!result.isNull) {
       foreach (k, json; jsons) {
         if ("versionNumber" in json && json["versionNumber"].get!size_t > result["versionNumber"]

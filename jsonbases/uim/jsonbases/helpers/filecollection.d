@@ -31,7 +31,7 @@ IFile[] versionFiles(IFolder aFolder, string anId) {
   version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
   auto idFolder = idFolder(aFolder, anId);
-  if (idFolder.isNull) { return null; }
+  if (idFolder is null) { return null; }
 
   return idFolder.files();
 }
@@ -40,7 +40,7 @@ IFile versionFile(IFolder aFolder, string anId, string aVersionNumber = null) {
   version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
   auto idFolder = idFolder(aFolder, anId);
-  if (idFolder.isNull) { return null; } // Folder not found
+  if (idFolder is null) { return null; } // Folder not found
 
   auto versionFile = idFolder.file(aVersionNumber); // TODO not working
   return (versionFile? versionFile : null);

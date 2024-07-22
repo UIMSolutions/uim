@@ -43,13 +43,13 @@ abstract class DJsonCollection : IJsonCollection {
         if (jsonObject.isNull) { return false; }
 
         // BODY
-        return jsonObject.hasKey("id") ? jsonObject["id"].get!string == id.toString : false; }
+        return jsonObject.getString("id") == id.toString; }
 
       bool has(Json jsonObject, string name) {
         version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
         // IN Check
-        if (jsonObject.isNull) { return false; }
+        if (jsonObject is null) { return false; }
 
         // BODY
         return jsonObject.hasKey("name") ? jsonObject["name"].get!string == name : false; }
@@ -61,7 +61,7 @@ abstract class DJsonCollection : IJsonCollection {
         if (jsonObject.isNull) { return false; }
 
         // BODY
-        return (versionNumber != 0) && (jsonObject["versionNumber"].get!size_t == versionNumber);
+        return (versionNumber != 0) && (jsonObject.getLong("versionNumber") == versionNumber);
       }
     // #endregion has()
 

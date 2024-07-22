@@ -32,13 +32,13 @@ abstract class DConfiguration : IConfiguration {
 
     bool hasAnyDefaults(string[] keys) {
         return keys
-            .filter!(key => !key.isEmpty)
+            .filter!(key => key.length > 0)
             .any!(key => hasDefault(key));
     }
 
     bool hasAllDefaults(string[] keys) {
         return keys
-            .filter!(key => !key.isEmpty)
+            .filter!(key => key.length > 0)
             .all!(key => hasDefault(key));
     }
 

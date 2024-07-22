@@ -56,7 +56,7 @@ class DORMEntity { // }: IORMEntity, IInvalidProperty {
                 "guard": options.get("guard"),
             ]);
         }
-        if (options["markClean"]) {
+        if (options.hasKey("markClean"]) {
             this.clean();
         }
     }

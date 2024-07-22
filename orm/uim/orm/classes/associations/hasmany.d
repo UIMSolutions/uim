@@ -282,7 +282,7 @@ class DHasManyAssociation : DAssociation {
 
                 myResult = sourceEntity.get(
                     property);
-                if (options["cleanProperty"] && myResult !is null) {
+                if (options.hasKey("cleanProperty"] && myResult !is null) {
                     sourceEntity.set(
                         property,
                         (new DCollection(

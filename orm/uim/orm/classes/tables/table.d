@@ -1325,7 +1325,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             return myrow;
         }
         ormEntity = this.newEmptyEntity();
-        if (options["defaults"] && isArray(mysearch)) {
+        if (options.hasKey("defaults"] && isArray(mysearch)) {
             myaccessibleFields = array_combine(mysearch.keys, array_fill(0, count(mysearch), true));
             ormEntity = this.patchEntity(ormEntity, mysearch, ["accessibleFields": myaccessibleFields]);
         }
@@ -1586,7 +1586,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             entityToSave.setNew(!this.exists(myconditions));
         }
         auto mymode = entityToSave.isNew() ? RulesChecker.CREATE : RulesChecker.UPDATE;
-        if (options["checkRules"] && !this.checkRules(entityToSave, mymode, options)) {
+        if (options.hasKey("checkRules"] && !this.checkRules(entityToSave, mymode, options)) {
             return false;
         }
 
@@ -1651,7 +1651,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         }
         dispatchEvent("Model.afterSave", compact("entity", "options"));
 
-        if (options["atomic"] && !getConnection().inTransaction()) {
+        if (options.hasKey("atomic"] && !getConnection().inTransaction()) {
             throw new DRolledbackTransactionException(["table": class]);
         }
         if (!options.hasKey("atomic") && !options.hasKey("_primary")) {
@@ -1870,7 +1870,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         if (_transactionCommitted(options["atomic"], options["_primary"])) {
             foreach (entities as ormEntity) {
                 dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
-                if (options["atomic"] || options["_primary"]) {
+                if (options.hasKey("atomic"] || options["_primary"]) {
                     mycleanupOnSuccess(ormEntity);
                 }
             }
@@ -2016,7 +2016,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             mymsg = "Deleting requires all primary key values.";
             throw new DInvalidArgumentException(mymsg);
         }
-        if (options["checkRules"] && !this.checkRules(ormEntity, RulesChecker.DELETE, options)) {
+        if (options.hasKey("checkRules"] && !this.checkRules(ormEntity, RulesChecker.DELETE, options)) {
             return false;
         }
         

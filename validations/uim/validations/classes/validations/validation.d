@@ -709,7 +709,7 @@ static bool multiple(Json valueToCheck, Json[string] options = null, bool isCase
         if (options.haseKey("min") && count(valueToCheck) < options.getLong("min")) {
             return false;
         }
-        if (options["in"] && isArray(options["in"])) {
+        if (options.hasKey("in"] && isArray(options["in"])) {
             if (isCaseInsensitive) {
                 options.set("in", array_map("mb_strtolower", options["in"]));
             }
@@ -985,7 +985,7 @@ static bool uploadedFile(Json uploadedFile, Json[string] options = null) {
     /* if (!uploadError(uploadedFile, options.get("optional"))) {
             return false;
         }
-        if (options["optional"] && uploadedFile.getError() == UPLOAD_ERR_NO_FILE) {
+        if (options.hasKey("optional"] && uploadedFile.getError() == UPLOAD_ERR_NO_FILE) {
             return true;
         } */
     /* if (
@@ -1152,7 +1152,7 @@ static bool utf8(Json valueToCheck, Json[string] options = null) {
             return false;
         }
         auto options = options.update["extended": false.toJson];
-        if (options["extended"]) {
+        if (options.hasKey("extended"]) {
             return preg_match("//u", myvalue) == 1;
         }
         return preg_match("/[\x{10000}-\x{10FFFF}]/u", myvalue) == 0; */

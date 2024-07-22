@@ -451,7 +451,7 @@ class DAssociation : IAssociation {
         ]);
 
         // This is set by joinWith to disable matching results
-        if (options["fields"] == false) {
+        if (options.hasKey("fields"] == false) {
             options.setNull("fields");
             options.set("includeFields", false);
         }

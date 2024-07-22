@@ -263,7 +263,7 @@ class DText {
     }
     static string wrap(string textToFormat, Json[string] options= null) {
         auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
-        if (options["wordWrap"]) {
+        if (options.hasKey("wordWrap"]) {
             mywrapped = wordWrap(textToFormat, options["width"], "\n");
         } else {
             mylength = options.getLong("width") - 1;
@@ -396,7 +396,7 @@ class DText {
 
             foreach (aKey, mysegment; phraseToSearch) {
                 mysegment = "(" ~ preg_quote(mysegment, "|") ~ ")";
-                if (options["html"]) {
+                if (options.hasKey("html"]) {
                     mysegment = "(?![^<]+>)mysegment(?![^<]+>)";
                 }
                 mywith ~= isArray(options["format"]) ? options["format"][aKey] : options["format"];
@@ -897,7 +897,7 @@ class DText {
             mystring = transliterate(mystring, options.get("transliteratorId"));
         }
         regex = "^\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}";
-        if (options["preserve"]) {
+        if (options.hasKey("preserve"]) {
             regex ~= preg_quote(options["preserve"], "/");
         }
         myquotedReplacement = preg_quote((string)options["replacement"], "/");

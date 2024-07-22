@@ -164,7 +164,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         options.set("registryAlias", aliasName);
         myinstance = _create(options);
 
-        if (options["classname"] == this.fallbackclassname) {
+        if (options.hasKey("classname"] == this.fallbackclassname) {
            _fallbacked.set(aliasName, myinstance);
         }
         return myinstance;

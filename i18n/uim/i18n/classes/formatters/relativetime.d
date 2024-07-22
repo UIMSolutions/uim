@@ -363,8 +363,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             .each!(keyLevel => options.set(
                     "accuracy", "" ~ keyLevel.key, accuracy)); */
         } else {
-            /* options["accuracy"] += classname
-            .wordAccuracy; */
+            /* options.set("accuracy", += classname.wordAccuracy); */
         }
         return options;
     }

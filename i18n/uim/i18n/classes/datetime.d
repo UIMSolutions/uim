@@ -473,7 +473,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
             anIdentifiers.each!(
                 (timezone) {
                 string abbr = "";
-                if (options["abbr"]) {
+                if (options.hasKey("abbr"]) {
                     dateTimeZone = new DateTimeZone(timezone);
                     trans = dateTimeZone.getTransitions(now, now);
                     abbr = isSet(trans[0]["abbr"]) ?

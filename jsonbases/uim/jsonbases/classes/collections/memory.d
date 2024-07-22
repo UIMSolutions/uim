@@ -131,19 +131,19 @@ class DMemoryJsonCollection : DJsonCollection {
   override Json findOne(UUID id, size_t versionNumber) {
     Json result = Json(null);
 
-    if (auto item = _items.get(id, null) && versionNumber in item) {
-      result = item[versionNumber];
+    if (auto item = _items.get(id, null)) {
+      if (versionNumber in item) {
+        result = item[versionNumber];
+      }
     }
 
     return result;
   }
 
-  version (test_uim_jsonbase) {
-    unittest {
+  unittest {
 
-      auto col = MemoryJsonCollection;
-      assert(test_findOne_id_versionNumber(col));
-    }
+    auto col = MemoryJsonCollection;
+    assert(test_findOne_id_versionNumber(col));
   }
 
   override Json findOne(STRINGAA select, bool allVersions = false) {
@@ -156,13 +156,10 @@ class DMemoryJsonCollection : DJsonCollection {
     return Json(null);
   }
 
-  version (test_uim_jsonbase) {
-    unittest {
-
-      auto col = MemoryJsonCollection;
-      assert(test_findMany_select(col));
-      assert(test_findMany_select_allVersions(col));
-    }
+  unittest {
+    auto col = MemoryJsonCollection;
+    assert(test_findMany_select(col));
+    assert(test_findMany_select_allVersions(col));
   }
 
   override Json findOne(Json select, bool allVersions = false) {
@@ -175,13 +172,10 @@ class DMemoryJsonCollection : DJsonCollection {
     return Json(null);
   }
 
-  version (test_uim_jsonbase) {
-    unittest {
-
-      auto col = MemoryJsonCollection;
-      assert(test_findMany_jselect(col));
-      assert(test_findMany_jselect_allVersions(col));
-    }
+  unittest {
+    auto col = MemoryJsonCollection;
+    assert(test_findMany_jselect(col));
+    assert(test_findMany_jselect_allVersions(col));
   }
 
   override Json insertOne(Json newData) {
@@ -197,12 +191,9 @@ class DMemoryJsonCollection : DJsonCollection {
     return findOne(newData);
   }
 
-  version (test_uim_jsonbase) {
-    unittest {
-
-      auto col = MemoryJsonCollection;
-      assert(test_insertOne_data(col));
-    }
+  unittest {
+    auto col = MemoryJsonCollection;
+    assert(test_insertOne_data(col));
   }
 
   override size_t updateMany(Json select, Json updateData) {
@@ -224,12 +215,9 @@ class DMemoryJsonCollection : DJsonCollection {
     return updates;
   }
 
-  version (test_uim_jsonbase) {
-    unittest {
-
-      auto col = MemoryJsonCollection;
-      assert(test_updateMany_select_data(col));
-    }
+  unittest {
+    auto col = MemoryJsonCollection;
+    assert(test_updateMany_select_data(col));
   }
 
   override bool updateOne(Json select, Json updateData) {

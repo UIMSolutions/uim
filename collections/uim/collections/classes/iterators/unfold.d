@@ -42,9 +42,10 @@ class DUnfoldIterator {  /* }: IteratorIterator, RecursiveIterator {
      * /
     DRecursiveIterator getChildren() {
         auto current = currentValue();
-        auto key = key();
+        
+        string correctedKey = key();
         auto unfolder = _unfolder;
 
-        return new DNoChildrenIterator(unfolder(current, key, _innerIterator));
+        return new DNoChildrenIterator(unfolder(current, correctedKey, _innerIterator));
     } */
 }

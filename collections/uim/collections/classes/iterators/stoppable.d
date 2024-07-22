@@ -40,7 +40,8 @@ class DStoppableIterator : DCollection {
       return false;
     }
     current = currentValue();
-    aKey = key();
+    
+    string aKey = key();
     condition = _condition;
 
     return !condition(current, aKey, _innerIterator);

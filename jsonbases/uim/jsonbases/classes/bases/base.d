@@ -113,8 +113,7 @@ class DJsonBase : IJsonBase, IJsonTenantManager {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
-    if (aName.isEmpty
-      || aTenant.isNull) {
+    if (aName.isEmpty || aTenant is null) {
       return false;
     }
 

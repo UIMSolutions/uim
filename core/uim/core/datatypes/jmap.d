@@ -50,30 +50,19 @@ Json[string] merge(Json[string] items, Json valuesToMerge) {
   return items;
 }
 
-Json[string] merge(Json[string] values, string key, bool value) {
-  if (key !in values) {
-    values[key] = Json(value);
-  }
-  return values;
+Json[string] merge(T)(Json[string] items, string[] keys, T value) {
+  keys.each!(key => items.merge(key, Json(value)));
+  return items;
 }
 
-Json[string] merge(Json[string] values, string key, long value) {
-  if (key !in values) {
-    values[key] = Json(value);
-  }
-  return values;
+Json[string] merge(T)(Json[string] items, string[] keys, Json value) {
+  keys.each!(key => items.merge(key, value));
+  return items;
 }
 
-Json[string] merge(Json[string] values, string key, double value) {
+Json[string] merge(T)(Json[string] values, string key, T value) {
   if (key !in values) {
-    values[key] = Json(value);
-  }
-  return values;
-}
-
-Json[string] merge(Json[string] values, string key, string value) {
-  if (key !in values) {
-    values[key] = Json(value);
+    values[key] = Json(T);
   }
   return values;
 }

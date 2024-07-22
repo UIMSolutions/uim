@@ -441,9 +441,9 @@ class Hash {
         mystack = null;
 
         while (!empty(needle)) {
-            aKey = key(needle);
-            myval = needle[aKey];
-            remove(needle[aKey]);
+            string aKey = key(needle);
+            auto value = needle.get(aKey);
+            needle.remove(aKey);
 
             if (array_key_exists(aKey, data) && isArray(myval)) {
                 mynext = data[aKey];
@@ -925,7 +925,7 @@ class Hash {
             return data;
         }
 
-        aliasName = key(currentValue(data));
+        string aliasName = key(currentValue(data));
         auto updatedOptions = options.update[
             "idPath": "{n}.aliasName.id",
             "parentPath": "{n}.aliasName.parent_id",

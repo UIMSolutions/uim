@@ -171,7 +171,7 @@ class DPaginator : IPaginator {
         auto paginatorData = this.extractData(objectToPaginate, requestData, paginationData);
         auto myQuery = getQuery(objectToPaginate, myQuery, paginatorData);
 
-        auto cleanQuery =  myQuery.clone;
+        auto cleanQuery = myQuery.clone;
         auto myResults = myQuery.all();
         paginatorData.set("numResults", count(myResults));
         paginatorData.set("count", getCount(cleanQuery, paginatorData));
@@ -281,24 +281,24 @@ class DPaginator : IPaginator {
         paginatorData.set("prevPage", pageNumber > 1);
         paginatorData.set("nextPage",
             paginatorData.getLong("count") > 0
-                ? true 
-                : paginatorData.getLong("count") > pageNumber * paginatorData.getLong("perPage")
+                ? true : paginatorData.getLong(
+                    "count") > pageNumber * paginatorData.getLong("perPage")
         );
         return paginatorData;
     }
 
     // Add sorting / ordering params.
-    protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingParams)
-    auto defaults = pagingParams["defaults"];
-    auto order = pagingParams.getArray("options.order");
-    bool sortDefault = directionDefault = false;
+    protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingParams) {
+        auto defaults = pagingParams["defaults"];
+        auto order = pagingParams.getArray("options.order");
+        bool sortDefault = directionDefault = false;
 
-    if (!defaults.isEmpty("order") && count(defaults.get("order")) == 1) {
-        sortDefault = key(defaults.get("order"));
-        directionDefault = currentValue(defaults.get("order"));
-    }
+        if (!defaults.isEmpty("order") && count(defaults.get("order")) == 1) {
+            sortDefault = key(defaults.get("order"));
+            directionDefault = currentValue(defaults.get("order"));
+        }
 
-    /* return paginatorData.set([
+        /* return paginatorData.set([
             "sort": pagingParams.get("options.sort"),
             /* "direction": (pagingParams.hasKey("options.sort") && count(
                 order) ? currentValue(order) : null).toJson, * /
@@ -306,61 +306,61 @@ class DPaginator : IPaginator {
             "directionDefault": directionDefault.toJson,
             "completeSort": order.toJson,
         ]); */
-    return null; 
-}
-
-// Extracts the finder name and options out of the provided pagination options.
-protected Json[string] _extractFinder(Json[string] options) {
-    auto myType = options.getString("finder", "all");
-    // TODO options.remove("finder", options.get("maxLimit"]);
-
-    if (myType.isArray) {
-        options = /* (array) */ currentValue(myType) + options;
-        myType = key(myType);
+        return null;
     }
 
-    return [myType, options];
-}
+    // Extracts the finder name and options out of the provided pagination options.
+    protected Json[string] _extractFinder(Json[string] options) {
+        auto myType = options.getString("finder", "all");
+        // TODO options.remove("finder", options.get("maxLimit"]);
 
-// Get paging params after pagination operation.
-Json[string] pagingParams() {
-    return _pagingParams;
-}
+        if (myType.isArray) {
+            options =  /* (array) */ currentValue(myType) + options;
+            myType = key(myType);
+        }
 
-// Shim method for reading the deprecated whitelist or allowedParameters options
-protected string[] getAllowedParameters() {
-    auto allowedParameters = configuration.get("allowedParameters");
-    if (!allowedParameters) {
-        allowedParameters = null;
-    }
-    whitelist = configuration.get("whitelist");
-    if (whitelist) {
-        deprecationWarning(
-            "The `whitelist` option is deprecated. Use the `allowedParameters` option instead.");
-
-        return array_merge(allowedParameters, whitelist);
+        return [myType, options];
     }
 
-    return allowedParameters;
-}
-
-// Shim method for reading the deprecated sortWhitelist or sortableFields options.
-protected string[] getSortableFields(Json[string] configData) {
-    auto sortableFields = configData.get("sortableFields");
-    if (!sortableFields.isNull) {
-        return sortableFields;
+    // Get paging params after pagination operation.
+    Json[string] pagingParams() {
+        return _pagingParams;
     }
 
-    auto deprecatedMode = configData.get("sortWhitelist");
-    if (!deprecatedMode.isNull) {
-        deprecationWarning(
-            "The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
+    // Shim method for reading the deprecated whitelist or allowedParameters options
+    protected string[] getAllowedParameters() {
+        auto allowedParameters = configuration.get("allowedParameters");
+        if (!allowedParameters) {
+            allowedParameters = null;
+        }
+        whitelist = configuration.get("whitelist");
+        if (whitelist) {
+            deprecationWarning(
+                "The `whitelist` option is deprecated. Use the `allowedParameters` option instead.");
+
+            return array_merge(allowedParameters, whitelist);
+        }
+
+        return allowedParameters;
     }
 
-    return deprecatedMode;
-}
+    // Shim method for reading the deprecated sortWhitelist or sortableFields options.
+    protected string[] getSortableFields(Json[string] configData) {
+        auto sortableFields = configData.get("sortableFields");
+        if (!sortableFields.isNull) {
+            return sortableFields;
+        }
 
-/**
+        auto deprecatedMode = configData.get("sortWhitelist");
+        if (!deprecatedMode.isNull) {
+            deprecationWarning(
+                "The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
+        }
+
+        return deprecatedMode;
+    }
+
+    /**
      * Merges the various options that Paginator uses.
      * Pulls settings together from the following places:
      *
@@ -372,48 +372,48 @@ protected string[] getSortableFields(Json[string] configData) {
      * combined together. You can change config value `allowedParameters` to modify
      * which options/values can be set using request parameters.
      */
-Json[string] mergeOptions(Json[string] requestData, Json[string] settingsData) {
-    Json[] requestData;
-    if (!settingsData.isEmpty("scope")) {
-         scopeName = settingsData.get("scope");
-        requestData = requestData.getArray(scopeName);
+    Json[string] mergeOptions(Json[string] requestData, Json[string] settingsData) {
+        Json[] requestData;
+        if (!settingsData.isEmpty("scope")) {
+            scopeName = settingsData.get("scope");
+            requestData = requestData.getArray(scopeName);
+        }
+
+        allowedParameters = getAllowedParameters();
+        requestData = array_intersectinternalKey(
+            requestData, array_flip(allowedParameters));
+
+        return array_merge(settingsData, requestData);
     }
 
-    allowedParameters = getAllowedParameters();
-    requestData = array_intersectinternalKey(
-        requestData, array_flip(allowedParameters));
-
-    return array_merge(settingsData, requestData);
-}
-
-/**
+    /**
      * Get the settings for a myModel. If there are no settings for a specific
      * repository, the general settings will be used.
      */
-Json[string] getDefaults(string aliasName, Json[string] settingsData) {
-    if (settingsData.hasKey(aliasName)) {
-        settingsData = settingsData[aliasName];
+    Json[string] getDefaults(string aliasName, Json[string] settingsData) {
+        if (settingsData.hasKey(aliasName)) {
+            settingsData = settingsData[aliasName];
+        }
+
+        auto defaults = configuration.data;
+        defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
+
+        int maxLimit = settingsData.getLong("maxLimit", defaults.getLong(
+                "maxLimit"));
+        int limit = settingsData.getLong("limit", defaults.getLong(
+                "limit"));
+
+        if (limit > maxLimit) {
+            limit = maxLimit;
+        }
+
+        settingsData.set("maxLimit", maxLimit);
+        settingsData.set("limit", limit);
+
+        return settingsData.merge(defaults);
     }
 
-    auto defaults = configuration.data;
-    defaults["whitelist"] = defaults["allowedParameters"] = getAllowedParameters();
-
-    int maxLimit = settingsData.getLong("maxLimit", defaults.getLong(
-            "maxLimit"));
-    int limit = settingsData.getLong("limit", defaults.getLong(
-            "limit"));
-
-    if (limit > maxLimit) {
-        limit = maxLimit;
-    }
-
-    settingsData.set("maxLimit", maxLimit);
-    settingsData.set("limit", limit);
-
-    return settingsData.merge(defaults);
-}
-
-/**
+    /**
      * Validate that the desired sorting can be performed on the repository.
      *
      * Only fields or virtualFields can be sorted on. The direction param will
@@ -434,128 +434,128 @@ Json[string] getDefaults(string aliasName, Json[string] settingsData) {
      * The default order options provided to paginate() will be merged with the user"s
      * requested sorting field/direction.
      */
-Json[string] validateSort(IRepository repository, Json[string] paginationData) {
-    if (paginationData.hasKey("sort")) {
-        auto direction = null;
-        if (paginationData.hasKey("direction")) {
-            direction = strtolower(paginationData["direction"]);
+    Json[string] validateSort(IRepository repository, Json[string] paginationData) {
+        if (paginationData.hasKey("sort")) {
+            auto direction = null;
+            if (paginationData.hasKey("direction")) {
+                direction = strtolower(paginationData["direction"]);
+            }
+            if (!["asc", "desc"].has(direction)) {
+                direction = "asc";
+            }
+
+            order = paginationData.hasKey("order") && paginationData["order"].isArray ? paginationData["order"]
+                : [
+                ];
+            if (order && paginationData.hasKey("sort") && indexOf(
+                    paginationData.getString("sort"), ".") == false) {
+                order = _removeAliases(order, repository.aliasName());
+            }
+
+            paginationData.set("order", [
+                    paginationData.hasKey("sort"): direction
+                ] + order);
+        } else {
+            paginationData.set("sort", null);
         }
-        if (!["asc", "desc"].has(direction)) {
-            direction = "asc";
+        paginationData.remove("direction");
+
+        if (paginationData.isEmpty("order")) {
+            paginationData.set("order", null);
+        }
+        if (!paginationData["order"].isArray) {
+            return paginationData;
         }
 
-        order = paginationData.hasKey("order") && paginationData["order"].isArray ? paginationData["order"]
-            : [
-            ];
-        if (order && paginationData.hasKey("sort") && indexOf(
-                paginationData.getString("sort"), ".") == false) {
-            order = _removeAliases(order, repository.aliasName());
+        auto sortAllowed = false;
+        auto allowed = getSortableFields(paginationData);
+        if (allowed !is null) {
+            paginationData.set("sortableFields", allowed);
+            paginationData.set("sortWhitelist", allowed);
+
+            string myField = key(paginationData.hasKey("order"));
+            sortAllowed = isIn(myField, allowed, true);
+            if (!sortAllowed) {
+                paginationData.setMany(["order", "sort"], Json(null));
+
+                return paginationData;
+            }
         }
 
-        paginationData.set("order", [
-                paginationData.hasKey("sort"): direction
-            ] + order);
-    } else {
-        paginationData.set("sort", null);
-    }
-    paginationData.remove("direction");
+        if (
+            paginationData["sort"] == null
+            && paginationData.count("order") == 1
+            && !key(paginationData.isNumeric("order").isNumeric)
+            ) {
+            paginationData.set("sort", key(paginationData["order"]));
+        }
 
-    if (paginationData.isEmpty("order")) {
-        paginationData.set("order", null);
-    }
-    if (!paginationData["order"].isArray) {
+        paginationData.set("order", _prefix(repository, paginationData.get("order"), sortAllowed));
+
         return paginationData;
     }
 
-    auto sortAllowed = false;
-    auto allowed = getSortableFields(paginationData);
-    if (allowed !=  = null) {
-        paginationData.set("sortableFields", allowed);
-        paginationData.set("sortWhitelist", allowed);
-
-        myField = key(paginationData.hasKey("order"));
-        sortAllowed = isIn(myField, allowed, true);
-        if (!sortAllowed) {
-            paginationData.setMany(["order", "sort"], Json(null));
-
-            return paginationData;
-        }
-    }
-
-    if (
-        paginationData["sort"] == null
-        && paginationData.count("order") == 1
-        && !key(paginationData.isNumeric("order").isNumeric)
-        ) {
-        paginationData.set("sort", key(paginationData["order"]));
-    }
-
-    paginationData.set("order", _prefix(repository, paginationData.get("order"), sortAllowed));
-
-    return paginationData;
-}
-
-// Remove alias if needed.
-protected Json[string] _removeAliases(Json[string] fieldNames, string modelAlias) {
-    Json[string] myResult = null;
-    foreach (myField, sort; fieldNames) {
-        if (!myField.contains(".")) {
-            myResult.set(myField, sort);
-            continue;
-        }
-
-        [aliasName, currentField] = explode(".", myField);
-        if (aliasName == modelAlias) {
-            myResult.set(currentField, sort);
-            continue;
-        }
-
-        myResult.set(myField, sort);
-    }
-
-    return myResult;
-}
-
-// Prefixes the field with the table alias if possible.
-protected Json[string] _prefix(IRepository repository, Json[string] orderData, bool isAllowed = false) {
-    string myTableAlias = repository.aliasName();
-    Json[string] myTableOrder = null;
-    foreach (orderData as myKey : myValue) {
-        if (myKey.isNumeric) {
-            myTableOrder ~= myValue;
-            continue;
-        }
-        auto myField = myKey;
-        auto aliasName = myTableAlias;
-
-        if (myKey.contains(".")) {
-            [aliasName, myField] = explode(".", myKey);
-        }
-
-        auto correctAlias = (myTableAlias == aliasName);
-        if (correctAlias && isAllowed) {
-            // Disambiguate fields in schema. As id is quite common.
-            if (repository.hasField(myField)) {
-                myField = aliasName ~ "." ~ myField;
+    // Remove alias if needed.
+    protected Json[string] _removeAliases(Json[string] fieldNames, string modelAlias) {
+        Json[string] myResult = null;
+        foreach (myField, sort; fieldNames) {
+            if (!myField.contains(".")) {
+                myResult.set(myField, sort);
+                continue;
             }
-            myTableOrder.set(myField, myValue);
-        } else if (correctAlias && repository.hasField(myField)) {
-            myTableOrder.set(myTableAlias ~ "." ~ myField, myValue);
-        } else if (!correctAlias && isAllowed) {
-            myTableOrder.set(aliasName ~ "." ~ myField, myValue);
+
+            [aliasName, currentField] = explode(".", myField);
+            if (aliasName == modelAlias) {
+                myResult.set(currentField, sort);
+                continue;
+            }
+
+            myResult.set(myField, sort);
         }
+
+        return myResult;
     }
 
-    return myTableOrder;
-}
+    // Prefixes the field with the table alias if possible.
+    protected Json[string] _prefix(IRepository repository, Json[string] orderData, bool isAllowed = false) {
+        string myTableAlias = repository.aliasName();
+        Json[string] myTableOrder = null;
+        foreach (myKey, myValue; orderData) {
+            if (myKey.isNumeric) {
+                myTableOrder ~= myValue;
+                continue;
+            }
 
-// Check the limit parameter and ensure it"s within the maxLimit bounds.
-Json[string] checkLimit(Json[string] options = null) {
-    auto limit = options.getInteger("limit");
-    options.set("limit", limit < 1 ? 1 : limit);
-    options.set("limit", max(min(options.getInteger("limit"), options.getInteger(
-            "maxLimit")), 1));
+            auto fieldName = myKey;
+            auto aliasName = myTableAlias;
+            if (myKey.contains(".")) {
+                [aliasName, fieldName] = explode(".", myKey);
+            }
 
-    return options;
-}
+            auto correctAlias = (myTableAlias == aliasName);
+            if (correctAlias && isAllowed) {
+                // Disambiguate fields in schema. As id is quite common.
+                if (repository.hasField(fieldName)) {
+                    fieldName = aliasName ~ "." ~ fieldName;
+                }
+                myTableOrder.set(fieldName, myValue);
+            } else if (correctAlias && repository.hasField(fieldName)) {
+                myTableOrder.set(myTableAlias ~ "." ~ fieldName, myValue);
+            } else if (!correctAlias && isAllowed) {
+                myTableOrder.set(aliasName ~ "." ~ fieldName, myValue);
+            }
+        }
+
+        return myTableOrder;
+    }
+
+    // Check the limit parameter and ensure it"s within the maxLimit bounds.
+    Json[string] checkLimit(Json[string] options = null) {
+        auto limit = options.getInteger("limit");
+        options.set("limit", limit < 1 ? 1 : limit);
+        options.set("limit", max(min(options.getInteger("limit"), options.getInteger(
+                "maxLimit")), 1));
+
+        return options;
+    }
 }

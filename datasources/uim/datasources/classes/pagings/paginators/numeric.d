@@ -288,20 +288,21 @@ class DNumericPaginator : IPaginator {
     protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingData) {
         auto defaults = pagingData["defaults"];
         auto order = pagingData.getArray("options.order");
-        auto sortDefault = directionDefault = false;
+        string directionDefault;
+        string sortDefault;
 
         if (!defaults.isEmpty("order") && count(defaults["order"]) >= 1) {
             sortDefault = key(defaults["order"]);
             directionDefault = currentValue(defaults["order"]);
         }
 
-        paginatorData += [
+        paginatorData.set([
             "sort": pagingData.get("options.sort"),
             "direction": pagingData.hasKey("options.sort") && count(order) ? currentValue(order): null,
             "sortDefault": sortDefault,
             "directionDefault": directionDefault,
             "completeSort": order,
-        ];
+        ]);
 
         return paginatorData;
     }

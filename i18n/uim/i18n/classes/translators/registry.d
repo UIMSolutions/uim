@@ -98,7 +98,8 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     } */
     
     // Gets a translator from the registry by catalog for a locale.
-    DTranslator get(string catalogName, string localName = null) {
+    // alias get = DObjectRegistry.get;
+    /// DTranslator get(string catalogName, string localName = null) {
         /* auto locale = locale : locale();
 
         if (registry.hasKey([catalogName, localName])) {
@@ -118,8 +119,8 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
            _cacher.set(aKey, translator);
         }
         return _registry.register([catalogName, localName], translator).getPath([catalogName, localName]); */
-        return null; 
-    }
+        /* return null; 
+    } */
     
     // Gets a translator from the registry by catalog for a locale.
     protected ITranslator _getTranslator(string catalogName, string localName) {

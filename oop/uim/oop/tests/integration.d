@@ -474,10 +474,10 @@ mixin template TIntegrationTest() {
                 "unlockedFields": _unlockedFields
             ]);
             someKeys.each!(field => formProtector.addField(field));
-            tokenData = formProtector.buildTokenData(submittedUrl, "cli");
 
-            results["_Token"] = tokenData;
-            results["_Token.debug"] = "FormProtector debug data would be added here";
+            auto tokenData = formProtector.buildTokenData(submittedUrl, "cli");
+            results.set("_Token", tokenData);
+            results.set("_Token.debug", "FormProtector debug data would be added here");
         }
         if (_csrfToken == true) {
             auto middleware = new DCsrfProtectionMiddleware();
@@ -492,8 +492,8 @@ mixin template TIntegrationTest() {
             // both types of CSRF tokens. We generate the token with the cookie
             // middleware as cookie tokens will be accepted by session csrf, but not
             // the inverse.
-            _session[_csrfKeyName] = token;
-            _cookie[_csrfKeyName] = token;
+            _session.set(_csrfKeyName, token);
+            _cookie.set(_csrfKeyName, token);
             if (!results.hasKey("_csrfToken")) {
                 results.set("_csrfToken", token);
             }
@@ -506,7 +506,7 @@ mixin template TIntegrationTest() {
         postData.byKeyValue
             .each!((kv) {
                 if (kv.value.isScalar) {
-                    someData[kv.key] = kv.value == false ? "0" : to!string(kv.value);
+                    someData.set(kv.key, kv.value == false ? "0" : to!string(kv.value));
 
                     continue;
                 }
@@ -516,7 +516,7 @@ mixin template TIntegrationTest() {
                     if (looksLikeFile) {
                         continue;
                     }
-                    postData[kv.key] = _castToString(kv.value);
+                    postData.set(kv.key, _castToString(kv.value));
                 }
             });
         return postData;
@@ -541,7 +541,7 @@ mixin template TIntegrationTest() {
     // Get the response body as string
     protected string _getBodyAsString() {
         if (!_response) {
-            this.fail("No response set, cannot assert content.");
+            fail("No response set, cannot assert content.");
         }
         return to!string(_response.getBody());
     }
@@ -605,7 +605,7 @@ mixin template TIntegrationTest() {
     // Asserts that the Location header is correct. Comparison is made against exactly the URL provided.
     void assertRedirectEquals(string[] urls = null, string failureMessage = null) {
         if (!_response) {
-            this.fail("No response set, cannot assert header.");
+            fail("No response set, cannot assert header.");
         }
 
         auto verboseMessage = extractVerboseMessage(failureMessage);
@@ -619,7 +619,7 @@ mixin template TIntegrationTest() {
     // Asserts that the Location header contains a substring
     void assertRedirectContains(string url, string failureMessage = null) {
         if (!_response) {
-            this.fail("No response set, cannot assert header.");
+            fail("No response set, cannot assert header.");
         }
 
         auto verboseMessage = extractVerboseMessage(message);
@@ -630,7 +630,7 @@ mixin template TIntegrationTest() {
     // Asserts that the Location header does not contain a substring
     void assertRedirectNotContains(string url, string failureMessage = null) {
         if (!_response) {
-            this.fail("No response set, cannot assert header.");
+            fail("No response set, cannot assert header.");
         }
         auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
@@ -646,7 +646,7 @@ mixin template TIntegrationTest() {
     // Asserts response headers
     void assertHeader(string headerToCheck, string content, string failureMessage = null) {
         if (!_response) {
-            this.fail("No response set, cannot assert header.");
+            fail("No response set, cannot assert header.");
         }
         auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(null, new DHeaderSet(_response, headerToCheck), verboseMessage);
@@ -656,7 +656,7 @@ mixin template TIntegrationTest() {
     // )Asserts response header contains a string
     void assertHeaderContains(string headerToCheck, string content, string failureMessage = null) {
         if (!_response) {
-            this.fail("No response set, cannot assert header.");
+            fail("No response set, cannot assert header.");
         }
         auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(null, new DHeaderSet(_response, headerToCheck), verboseMessage);
@@ -666,7 +666,7 @@ mixin template TIntegrationTest() {
     //  Asserts response header does not contain a string
     void assertHeaderNotContains(string header, string content, string failureMessage = null) {
         if (!_response) {
-            this.fail("No response set, cannot assert header.");
+            fail("No response set, cannot assert header.");
         }
         auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(null, new DHeaderSet(_response, header), verboseMessage);
@@ -694,7 +694,7 @@ mixin template TIntegrationTest() {
     // Asserts content exists in the response body.
     void assertResponseContains(string content, string failureMessage = null, bool shouldIgnoreCase = false) {
         if (!_response) {
-            this.fail("No response set, cannot assert content.");
+            fail("No response set, cannot assert content.");
         }
         auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(content, new BodyContains(_response, shouldIgnoreCase), verboseMessage);
@@ -703,7 +703,7 @@ mixin template TIntegrationTest() {
     // Asserts content does not exist in the response body.
     void assertResponseNotContains(string content, string failureMessage = null, bool shouldIgnoreCase = false) {
         if (!_response) {
-            this.fail("No response set, cannot assert content.");
+            fail("No response set, cannot assert content.");
         }
         auto verboseMessage = extractVerboseMessage(failureMessage);
         assertThat(content, new BodyNotContains(_response, shouldIgnoreCase), verboseMessage);

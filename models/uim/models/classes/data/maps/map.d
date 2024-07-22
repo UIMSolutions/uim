@@ -14,23 +14,23 @@ class DMapData : DData {
   protected IData[string] _items;
 
   /* void opIndexAssign(IData value, string key) {
-    _items[key] = value;
+    _items.set(key, value);
   }
 
   void opIndexAssign(bool value, string key) {
-    _items[key] = BooleanData(value);
+    _items.set(key, BooleanData(value));
   }
 
   void opIndexAssign(long value, string key) {
-    _items[key] = LongData(value);
+    _items.set(key, LongData(value));
   }
 
   void opIndexAssign(double value, string key) {
-    _items[key] = NumberData(value);
+    _items.set(key, NumberData(value));
   }
 
   void opIndexAssign(string value, string key) {
-    _items[key] = StringData(value);
+    _items.set(key, StringData(value));
 
   } * /
 
@@ -38,9 +38,9 @@ class DMapData : DData {
     // TODO
     /*
     if (hasKey(key)) {
-      _items[key].set(value.toString);
+      _items.set(key, value.toString);
     } else {
-      _items[key] = new DUUIDData(value);
+      _items.set(key, new DUUIDData(value));
     } * /
   }
 
@@ -48,9 +48,9 @@ class DMapData : DData {
     // TODO
     /*
     if (hasKey(key)) {
-      _items[key] = new DArrayData(values);
+      _items.set(key, new DArrayData(values));
     } else {
-      _items[key] = new DArrayData(values);
+      _items.set(key, new DArrayData(values));
     } * /
   } */
 

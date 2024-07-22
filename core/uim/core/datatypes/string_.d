@@ -579,7 +579,3 @@ string match(K)(string[K] matchValues, K key, string defaultValue = null) {
     ? matchValues[key]
     : defaultValue;
 }
-
-bool isEmpty(string key) {
-	return key.length == 0;
-}

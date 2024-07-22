@@ -52,7 +52,7 @@ class DStringDataMap : DData, IMap {
      if (hasKey(key)) {
       _items[key].set(value); 
     } else {
-     _items[key] = new DStringData(value); }
+     _items.set(key, new DStringData(value)); }
     
   }
 
@@ -60,14 +60,14 @@ class DStringDataMap : DData, IMap {
     if (hasKey(key)) {
       _items[key].set(value.toString); 
     } else {
-      _items[key] = new DUUIDData(value); }
+      _items.set(key, new DUUIDData(value)); }
 
   }
 
   void opIndexAssign(IData[] values, string key) {
-    _items[key] = hasKey(key)
+    _items.set(key, hasKey(key)
       ? new DArrayData(values)
-      : new DArrayData(values);
+      : new DArrayData(values));
 
   } */
 

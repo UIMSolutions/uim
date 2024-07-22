@@ -67,11 +67,11 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Params:
      * \UIM\Http\Cookie\ICookie cookie Cookie instance to add.
      */
-    static add(ICookie cookieToAdd) {
-        new = this.clone;
-        new.cookies[cookieToAdd.getId()] = cookieToAdd;
+    static DCookieCollection add(ICookie cookieToAdd) {
+        DCookieCollection newCollection = this.clone;
+        newCollection.cookies[cookieToAdd.getId()] = cookieToAdd;
 
-        return new;
+        return newCollection;
     }
     
     /**

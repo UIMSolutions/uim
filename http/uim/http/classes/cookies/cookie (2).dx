@@ -178,34 +178,31 @@ class DCookie : ICookie {
             try {
                 someData["samesite"] = resolveSameSiteenumeration(someData["samesite"]);
             } catch (ValueError) {
-                remove(someData["samesite"]);
+                someData.remove("samesite");
             }
         }
-        name = someData.getString(];
-        aValue = someData["value"];
-        assert(isString(name) && isString(aValue));
-        remove(someData.getString(], someData["value"]);
+        
+        auto name = someData.getString;
+        auto aValue = someData["value"];
+        assert(name.isString && aValueisString);
+        remove(someData.getString, someData["value"]);
 
-        return Cookie.create(
+        return Cook.create(
             name,
             aValue,
             someData
         );
     }
     
-    /**
-     * Returns a header value as string
-     */
+    // Returns a header value as string
     string toHeaderValue() {
-        aValue = this.value;
+        auto aValue = this.value;
         if (_isExpanded) {
             assert(isArray(aValue), "aValue is not an array");
-
             aValue = _flatten(aValue);
         }
 
-        string[] aHeaderValue;
-        aHeaderValue ~= "%s=%s".format(_name, rawUrlEncode(aValue));
+        string[] aHeaderValue = ["%s=%s".format(_name, rawUrlEncode(aValue))];
         if (_expiresAt) {
              aHeaderValue ~= "expires=%s".format(getFormattedExpires());
         }
@@ -229,10 +226,10 @@ class DCookie : ICookie {
  
     static withName(string aName) {
         this.validateName(name);
-        new = this.clone;
-        new.name = name;
+        auto newCookie = this.clone;
+        newCookie.name = name;
 
-        return new;
+        return newCookie;
     }
  
     string getId() {

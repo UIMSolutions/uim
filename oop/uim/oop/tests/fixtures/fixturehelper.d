@@ -170,12 +170,12 @@ class DFixtureHelper {
     // Sort fixtures with foreign constraints last if possible, otherwise returns null.
     // TODO
     /* protected Json[string] sortByConstraint(Connection aConnection, Json[string] fixtures) {
-        constrained = null;
-        unconstrained = null;
+        auto constrained = null;
+        auto unconstrained = null;
         fixtures.each((fixture) {
             references = getForeignReferences(aConnection, fixture);
             if (references) {
-                constrained[fixture.sourceName()] = ["references": references, "fixture": fixture];
+                constrained.set(fixture.sourceName(), ["references": references, "fixture": fixture]);
             } else {
                 unconstrained ~= fixture;
             }
@@ -198,7 +198,7 @@ class DFixtureHelper {
         static TableISchema[] schemas = null;
 
         // Get and cache off the schema since TestFixture generates a fake schema based on fields
-        aTableName = fixture.sourceName();
+        auto aTableName = fixture.sourceName();
         if (!schemas.hasKey(aTableName)) {
             schemas[aTableName] = dbConnection.getSchemaCollection().describe(aTableName);
         }

@@ -557,10 +557,11 @@ class DResponse : IResponse {
      * This is needed for RequestHandlerComponent and recognition of types.
      */
     void setTypeMap(string contentType, string mimeType) {
-       _mimeTypes[contentType] = mimeType;
+       _mimeTypes.set(contentType, mimeType);
     }
+
     void setTypeMap(string contentType, string[] mimeTypes) {
-       _mimeTypes[contentType] = mimeTypes;
+       _mimeTypes.set(contentType, mimeTypes);
     }
     
     // Returns the current content type.

@@ -354,8 +354,8 @@ V[K] merge(K, V)(V[K] items, V[K] mergeItems, K[] includedKeys = null) {
 
   includedKeys.isNull
     ? mergeItems.byKeyValue.each!(item => items.merge(item.key, item.value))
-    : mergeValues.byKeyValue
-      .filter!(item => !includedKeys.hasKey(kv.key))
+    : mergeItems.byKeyValue
+      .filter!(item => !includedKeys.hasKey(item.key))
       .each!(item => items.merge(item.key, item.value));
 
   return results;

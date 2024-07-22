@@ -48,23 +48,23 @@ class DLogger : ILogger {
             }
             if (isObject(aValue)) {
                 if (method_exists(aValue, "toArray")) {
-                    replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.toJString(), JsonFlags);
+                    replacements.set("{" ~ aKey ~ "}", Json_encode(aValue.toJString(), JsonFlags));
                     continue;
                 }
                 if (cast(DSerializable)aValue) {
-                    replacements["{" ~ aKey ~ "}"] = serialize(aValue);
+                    replacements.set("{" ~ aKey ~ "}", serialize(aValue));
                     continue;
                 }
                 if (cast(DStringable)aValue) {
-                    replacements["{" ~ aKey ~ "}"] = to!string(aValue);
+                    replacements.set("{" ~ aKey ~ "}", to!string(aValue));
                     continue;
                 }
                 if (method_exists(aValue, "__debugInfo")) {
-                    replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.__debugInfo(), JsonFlags);
+                    replacements.set("{" ~ aKey ~ "}", Json_encode(aValue.__debugInfo(), JsonFlags));
                     continue;
                 }
             }
-            replacements["{" ~ aKey ~ "}"] = "[unhandled value of type %s]".format(get_debug_type(aValue));
+            replacements.set("{" ~ aKey ~ "}", "[unhandled value of type %s]".format(get_debug_type(aValue)));
         }
         /** @psalm-suppress InvalidArgument */
         return formattedMessage.replace(replacements.keys, replacements);

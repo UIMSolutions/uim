@@ -120,7 +120,7 @@ class DRadioWidget : DWidget {
 
         radio["templateVars"] ??= null;
         if (!options.isEmpty("templateVars")) {
-            radio.set("templateVars", array_merge(options["templateVars"], radio["templateVars"]));
+            radio.set("templateVars", array_merge(options.get("templateVars"], radio["templateVars"]));
         }
         if (radio.isEmpty("id")) {
             auto idData = options.get("id");

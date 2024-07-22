@@ -234,7 +234,7 @@ class DStringContents {
      */
      string formatAttributes(Json[string] options, string[] excludedKeys) {
         bool[string] excludedOptions;
-        excludedKeys.each!(ex => excludedOptions[ex] = true);
+        excludedKeys.each!(ex => excludedoptions.get(ex] = true);
         return formatAttributes(options, excludedOptions);
     }
 
@@ -243,7 +243,7 @@ class DStringContents {
         Json[string] mergedOptions = options.merge(["escape": true.toJson]);
 
         bool[string] mergedExcludedOptions = excludedOptions.merge(["escape": true.toJson, "idPrefix": true.toJson, "templateVars": true.toJson, "fieldName": true]);
-        bool useEscape = mergedOptions["escape"].to!bool;
+        bool useEscape = mergedoptions.get("escape"].to!bool;
 
         string[] attributes = mergedOptions.byKeyValue
             .filter!(kv => !mergedExcludedOptions.hasKey(kv.key))

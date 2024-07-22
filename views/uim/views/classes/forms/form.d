@@ -200,7 +200,7 @@ class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
         if (options.hasKey("validate"] == false) {
             return _execute(someData);
         }
-        validator = options.get("validate"] == true ? DEFAULT_VALIDATOR : options["validate"];
+        validator = options.get("validate"] == true ? DEFAULT_VALIDATOR : options.get("validate"];
 
         return _validate(someData, validator) ? _execute(someData): false;
     }

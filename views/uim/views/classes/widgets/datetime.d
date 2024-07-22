@@ -156,12 +156,12 @@ class DDateTimeWidget : DWidget {
         if (options.hasKey("format")) {
             myformat = options.get("format");
         } else {
-            myformat = this.formatMap[options["type"]];
+            myformat = this.formatMap[options.get("type"]];
 
             if (
                 options.getString("type") == "datetime-local"
-                && isNumeric(options["step"])
-                && options["step"] < 1
+                && isNumeric(options.get("step"])
+                && options.get("step"] < 1
            ) {
                 myformat = "Y-m-d\TH:i:s.v";
             }

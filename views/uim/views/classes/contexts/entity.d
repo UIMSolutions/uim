@@ -171,7 +171,7 @@ class DEntityContext : DContext {
         ]);
 
         if (_context.isEmpty("entity")) {
-            return updatedOptions["default"];
+            return updatedoptions.get("default"];
         }
         
         string[] pathParts = fieldPath.split(".");
@@ -192,18 +192,18 @@ class DEntityContext : DContext {
                 return value;
             }
             if (
-                updatedOptions["default"] !is null
-                || !updatedOptions["schemaDefault"]
+                updatedoptions.get("default"] !is null
+                || !updatedoptions.get("schemaDefault"]
                 || !myentity.isNew()
            ) {
-                return updatedOptions["default"];
+                return updatedoptions.get("default"];
             }
             return _schemaDefault(pathParts);
         }
         if (isArray(myentity) || cast(DArrayAccess)myentity) {
             aKey = array_pop(pathParts);
 
-            return myentity.get(aKey, updatedOptions["default"]);
+            return myentity.get(aKey, updatedoptions.get("default"]);
         }
         return null;
     }

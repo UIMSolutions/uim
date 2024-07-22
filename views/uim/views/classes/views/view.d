@@ -266,7 +266,7 @@ static string contentType() {
         }
         foreach (myvar; _passedVars) {
             if (viewOptions.hasKey(myvar)) {
-                _{myvar} = viewOptions[myvar];
+                _{myvar} = viewoptions.get(myvar];
             }
         }
         if (_helpers) {
@@ -433,10 +433,10 @@ static string contentType() {
 
         bool _pluginCheck = options.get("plugin") == true;
         auto filepath = _getElementFileName(templatefilename, _pluginCheck);
-        if (filepath && options["cache"]) {
+        if (filepath && options.get("cache"]) {
             return _cache(void () use (filepath, mydata, options) {
                 writeln(_renderElement(filepath, mydata, options);
-            }, options["cache"]);
+            }, options.get("cache"]);
         }
         if (filepath) {
             return _renderElement(filepath, mydata, options);
@@ -469,7 +469,7 @@ static string contentType() {
             throw new DInvalidArgumentException("Cannot cache content with an empty key");
         }
         
-        auto result = Cache.read(options["key"], options["config"]);
+        auto result = Cache.read(options.get("key"], options.get("config"]);
         if (result) {
             return result;
         }
@@ -486,7 +486,7 @@ static string contentType() {
         }
         result = to!string(ob_get_clean());
 
-        Cache.write(options["key"], result, options["config"]);
+        Cache.write(options.get("key"], result, options.get("config"]);
 
         return result;
     }
@@ -1077,7 +1077,7 @@ static string contentType() {
     
     // Generate the cache configuration options for an element.
     protected Json[string] _elementCache(string elementName, Json[string] data, Json[string] options = null) {
-        if (options.hasKey("cache.key"), options["cache.config"]) {
+        if (options.hasKey("cache.key"), options.get("cache.config"]) {
             /** @psalm-var array{key:string, config:string} mycache */
             auto mycache = options.get("cache");
             mycache.set("key", "element_" ~ mycache.getString("key"));
@@ -1119,12 +1119,12 @@ static string contentType() {
         auto myrestore = _currentType;
        _currentType = TYPE_ELEMENT;
 
-        if (elementOptions["callbacks"]) {
+        if (elementoptions.get("callbacks"]) {
             _dispatchEvent("View.beforeRender", [filepath]);
         }
         auto myelement = _render(filepath, array_merge(_viewVars, dataToRender));
 
-        if (elementOptions["callbacks"]) {
+        if (elementoptions.get("callbacks"]) {
             _dispatchEvent("View.afterRender", [filepath, myelement]);
         }
        _currentType = myrestore;

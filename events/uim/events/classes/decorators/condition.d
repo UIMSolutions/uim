@@ -33,7 +33,7 @@ class DConditionDecorator : DDecorator {
             return conditionType != "unless";
         }
 
-        if (!_options[conditionType].isCallable) {
+        if (!_options.get(conditionType).isCallable) {
             throw new DInvalidArgumentException(
                 this.classname ~ " the `" ~ conditionType ~ "` condition is not a callable!");
         }

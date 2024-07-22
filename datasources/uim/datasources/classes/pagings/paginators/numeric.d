@@ -207,14 +207,14 @@ class DNumericPaginator : IPaginator {
 
     // Extract pagination data needed
     Json[string] extractData(IRepository repository, Json[string] requestData, Json[string] paginationData) {
-        aliasName = repository.aliasName();
-        defaults = getDefaults(aliasName, paginationData);
-        options = this.mergeOptions(requestData, defaults);
+        auto aliasName = repository.aliasName();
+        auto defaults = getDefaults(aliasName, paginationData);
+        auto options = this.mergeOptions(requestData, defaults);
         options = this.validateSort(repository, options);
         options = this.checkLimit(options);
 
-        auto updatedOptions = options.update["page": 1, "scope": Json(null)];
-        options["page"] = options.getLong("page") < 1 ? 1 : (int) options["page"];
+        options.merge(["page": 1, "scope": Json(null)]);
+        options.set("page", options.getLong("page") < 1 ? 1 : options.getLong("page"));
         [finder, options] = _extractFinder(options);
 
         return compact("defaults", "options", "finder");
@@ -313,7 +313,7 @@ class DNumericPaginator : IPaginator {
     // Extracts the finder name and options out of the provided pagination options.
     protected Json[string] _extractFinder(Json[string] paginationOptions) {
         auto type = !paginationOptions.isEmpty("finder") ? paginationOptions["finder"] : "all";
-        paginationOptions.remove("finder"), paginationOptions["maxLimit"]);
+        // paginationOptions.remove("finder"), paginationOptions["maxLimit"]);
 
         if (type.isArray) {
             paginationOptions = /* (array) */ currentValue(type) + paginationOptions;
@@ -433,11 +433,11 @@ class DNumericPaginator : IPaginator {
 
             auto order = paginationOptions.hasKey("order") && isArray(paginationOptions["order"])
                 ? paginationOptions["order"] : null;
-            if (order && paginationOptions["sort"] && indexOf(paginationOptions["sort"], ".") == false) {
+            if (order && paginationOptions.hasKey("sort") && !paginationOptions.getString("sort").contains(".")) {
                 order = _removeAliases(order, repository.aliasName());
             }
 
-            paginationOptions.set("order", [paginationOptions["sort"]: direction].set(order));
+            paginationOptions.set("order", [paginationOptions.getString("sort"): direction].set(order));
         } else {
             paginationOptions.set("sort", null);
         }
@@ -454,9 +454,9 @@ class DNumericPaginator : IPaginator {
         auto allowed = getSortableFields(paginationOptions);
         if (allowed != null) {
             paginationOptions.set("sortWhitelist", allowed);
-            paginationOptions.set("sortableFields", paginationOptions["sortWhitelist"]);
+            paginationOptions.set("sortableFields", paginationOptions.get("sortWhitelist"));
 
-            auto field = key(paginationOptions["order"]);
+            auto field = key(paginationOptions.getString("order"));
             auto sortAllowed = hasAllValues(field, allowed, true);
             if (!sortAllowed) {
                 paginationOptions.set("order", null);
@@ -466,11 +466,11 @@ class DNumericPaginator : IPaginator {
         }
 
         if (paginationOptions.isNull("sort") && count(paginationOptions.get("order")) >= 1 && !key(
-                paginationOptions["order"].isNumeric)) {
+                paginationOptions.get("order").isNumeric)) {
             paginationOptions.set("sort", key(paginationOptions.getString("order")));
         }
 
-        paginationOptions.set("order", _prefix(repository, paginationOptions["order"], sortAllowed));
+        paginationOptions.set("order", _prefix(repository, paginationOptions.get("order"), sortAllowed));
         return paginationOptions;
     }
 
@@ -478,14 +478,14 @@ class DNumericPaginator : IPaginator {
     protected Json[string] _removeAliases(string[] fieldNames, string modelAlias) {
         Json[string] result = null;
         foreach (field, sort; fields) {
-            if (field.contains(".") == false) {
+            if (!field.contains(".")) {
                 result[field] = sort;
                 continue;
             }
 
             [aliasName, currentField] = field.split(".");
             if (aliasName == modelAlias) {
-                result[currentField] = sort;
+                result.set(currentField, sort);
                 continue;
             }
 

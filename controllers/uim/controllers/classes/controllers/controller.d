@@ -322,18 +322,18 @@ class DController : IController { // DEventListener, IEventDispatcher {
         foreach (middleware, _middlewares) {
             auto middlewareOptions = options = middleware["options"];
             if (!middlewareOptions.isEmpty("only")) {
-                if (/* (array) */middlewareOptions["only"].has(requestAction)) {
-                     matching ~= middleware["middleware"];
+                if (middlewareOptions.getArray("only").has(requestAction)) {
+                     matching ~= middleware.get("middleware");
                 }
                 continue;
             }
             if (
                 !middlewareOptions.isEmpty("except") &&
-                /* (array) */middlewareOptions["except"].has(requestAction)
+                middlewareOptions.getArray("except").has(requestAction)
            ) {
                 continue;
             }
-             matching ~= middleware["middleware"];
+             matching ~= middleware.get("middleware");
         }
         return matching;
     }
@@ -360,7 +360,7 @@ class DController : IController { // DEventListener, IEventDispatcher {
      * - triggers Component `startup` methods.
      */
     IResponse startupProcess() {
-        result = dispatchEvent("Controller.initialize").getResult();
+        auto result = dispatchEvent("Controller.initialize").getResult();
         if (cast(IResponse)result) { return result; }
 
         result = dispatchEvent("Controller.startup").getResult();

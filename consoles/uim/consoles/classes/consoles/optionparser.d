@@ -551,7 +551,7 @@ class DConsoleOptionParser {
                 "Unknown option `%s`.".format(nameToParse), nameToParse, _options.keys
             );
         }
-        auto option = _options[nameToParse];
+        auto option = _options.get(nameToParse);
         auto isBoolean = option.isBoolean();
         auto nextValue = _nextToken();
         auto emptyNextValue = (isEmpty(nextValue) && nextValue != "0");

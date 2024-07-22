@@ -217,7 +217,7 @@ class DConsoleOutput {
         style.remove("text", "background");
         style.byKeyValue
             .filter!(optionValue => optionValue.value)
-            .each!(optionValue => styleInfo ~= _options[optionValue.option]);
+            .each!(optionValue => styleInfo ~= _options.get(optionValue.option));
 
         return "\033[" ~ styleInfo.join(";") ~ "m" ~ matchesToReplace.getString("text") ~ "\033[0m"; */
         return null; 

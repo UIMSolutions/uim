@@ -340,7 +340,7 @@ class DDebugger {
                     reference ~= ")";
                 }
             }
-            if (hasAllValues(signature, mergedOptions["exclude"], true)) {
+            if (hasAllValues(signature, mergedOptions.get(["exclude"], true)) {
                 continue;
             }
 

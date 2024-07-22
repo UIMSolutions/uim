@@ -763,7 +763,7 @@ abstract class DQuery : IQuery { // : IExpression {
             return _where("1=0");
         }
 
-        return _where([fieldName ~ " IN": someValues], options["types"]);
+        return _where([fieldName ~ " IN": someValues], options.get("types"));
     }
     
     /**

@@ -235,6 +235,8 @@ mixin template TEntity() {
      * fields with their respective values
     */
   void set(string[] fieldName, Json valueToSet = null, Json[string] options = null) {
+  }
+  void set(string[] fieldName, Json valueToSet = null, Json[string] options = null) {
     bool guard;
     if (isString(fieldName) && !fieldName.isEmpty) {
       guard = false;
@@ -252,18 +254,18 @@ mixin template TEntity() {
       "asOriginal": false.toJson
     ]);
 
-    if (options["asOriginal"] == true) {
+    if (options.getBoolean("asOriginal")) {
       setOriginalField(fieldName.keys);
     }
     fieldName.byKeyValue
       .each((kv) {
         auto fieldName = /* (string)  */ name;
-        if (options["guard"] == true && !this.isAccessible(fieldName)) {
+        if (options.getBoolean("guard") && !this.isAccessible(fieldName)) {
           continue;
         }
         isChanged(fieldName, true);
 
-        if (options["setter"]) {
+        if (options.hasey("setter")) {
           setter = _accessor(fieldName, "set");
           if (setter) {
             valueToSet = this. {
@@ -289,7 +291,7 @@ mixin template TEntity() {
     }
 
     Json aValue = null;
-    fieldIsPresent = false;
+    auto fieldIsPresent = false;
     if (array_key_exists(fieldName, _fields)) {
       fieldIsPresent = true;
       aValue = &_fields[fieldName];

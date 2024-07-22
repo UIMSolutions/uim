@@ -197,7 +197,7 @@ class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
 
         auto updatedOptions = options.update["validate": true.toJson];
 
-        if (options["validate"] == false) {
+        if (options.hasKey("validate"] == false) {
             return _execute(someData);
         }
         validator = options.get("validate"] == true ? DEFAULT_VALIDATOR : options["validate"];

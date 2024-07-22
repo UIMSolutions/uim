@@ -217,7 +217,7 @@ class DSelectLoader {
                 is_int(aliasedField)) {
                 filter ~= new DIdentifierExpression(field);
             } else {
-                filter[aliasedField] = field;
+                filter.set(aliasedField, field);
             }
         }
         filteringQuery.select(

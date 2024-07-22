@@ -52,7 +52,7 @@ class DTextareaWidget : DWidget {
             mydata = setMaxLength(mydata, formContext, mydata["fieldName"]);
         }
         return _stringContents.format("textarea", [
-                "name": mydata["name"],
+                "name": mydata.getString(],
                 "value": mydata["escape"] ? htmlAttributeEscape(mydata["val"]): mydata["val"],
                 "templateVars": mydata["templateVars"],
                 "attrs": _stringContents.formatAttributes(

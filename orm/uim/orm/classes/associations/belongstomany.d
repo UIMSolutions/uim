@@ -763,7 +763,7 @@ class DBelongsToManyAssociation : DAssociation {
             // Assume that operators contain junction conditions.
             // Trying to manage complex conditions could result in incorrect queries.
             if (isString && isIn(strtoupper(field), ["OR", "NOT", "AND", "XOR"], true)) {
-                matching[field] = value;
+                matching.set(field, value);
             }
         }
 

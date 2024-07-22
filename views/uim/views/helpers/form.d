@@ -272,7 +272,7 @@ class DFormHelper : DHelper {
         }
         options.remove("templates");
 
-        if (options["url"] == false) {
+        if (options.hasKey("url"] == false) {
             myurl = _View.getRequest().getRequestTarget();
             myaction = null;
         } else {
@@ -554,7 +554,7 @@ class DFormHelper : DHelper {
         if (text !is null) {
             myerror = text;
         }
-        if (options["escape"]) {
+        if (options.hasKey("escape"]) {
             Json myerror = htmlAttributeEscape(myerror);
             options.remove("escape");
         }
@@ -810,7 +810,7 @@ class DFormHelper : DHelper {
 
         // Hidden inputs don"t need aria.
         // Multiple checkboxes can"t have aria generated for them at this layer.
-        if (options["type"] != "hidden" && (options["type"] != "select" && !options.hasKey("multiple"))) {
+        if (options.hasKey("type"] != "hidden" && (options["type"] != "select" && !options.hasKey("multiple"))) {
             bool isFieldError = isFieldError(fieldName);
             auto options = options.update[
                 "aria-required": options["required"] ? "true" : null,
@@ -1037,7 +1037,7 @@ class DFormHelper : DHelper {
         if (!is_iterable(myvarOptions)) {
             return options;
         }
-        if (options["type"] != "radio") {
+        if (options.hasKey("type"] != "radio") {
             options.set("type", "select");
         }
         options.set("options", myvarOptions);
@@ -1097,7 +1097,7 @@ class DFormHelper : DHelper {
         mymessage = mycontext.getRequiredMessage(fieldName);
         mymessage = htmlAttributeEscape(mymessage);
 
-        if (options["required"] && mymessage) {
+        if (options.hasKey("required"] && mymessage) {
             options["templateVars.customValidityMessage"] = mymessage;
 
             if (configuration.hasKey("autoSetCustomValidity")) {
@@ -1192,9 +1192,9 @@ class DFormHelper : DHelper {
         options.set("value", myvalue);
 
         string outputText = "";
-        if (options["hiddenField"] == true && isScalar(options["hiddenField"])) {
+        if (options.hasKey("hiddenField"] == true && isScalar(options["hiddenField"])) {
             myhiddenOptions = [
-                "name": options["name"],
+                "name": options.getString(],
                 "value": options["hiddenField"] != true
                     && options["hiddenField"] != "_split"
                     ? to!string(options["hiddenField"]) : "0",
@@ -1252,7 +1252,7 @@ class DFormHelper : DHelper {
             myhidden = hidden(fieldName, [
                 "value": hiddenField == true ? "" : to!string(hiddenField),
                 "form": attributes["form"].ifNull(null),
-                "name": attributes["name"],
+                "name": attributes.getString(],
                 "id": attributes["id"],
             ]);
         }
@@ -1501,8 +1501,8 @@ class DFormHelper : DHelper {
        _lastAction = myrestoreAction;
         _formProtector = myrestoreFormProtector;
 
-        if (options["block"]) {
-            if (options["block"] == true) {
+        if (options.hasKey("block"]) {
+            if (options.hasKey("block"] == true) {
                 options["block"] = __FUNCTION__;
             }
            _View.append(options["block"], result);
@@ -1556,7 +1556,7 @@ class DFormHelper : DHelper {
 
         if (options.hasKey("name") && _formProtector) {
             _formProtector.addField(
-                options["name"],
+                options.getString(],
                 options["secure"]
            );
         }
@@ -1690,7 +1690,7 @@ class DFormHelper : DHelper {
         myhidden = "";
         if (attributes["multiple"] && attributes["hiddenField"]) {
             myhiddenAttributes = [
-                "name": attributes["name"],
+                "name": attributes.getString(],
                 "value": "",
                 "form": attributes.get("form"),
                 "secure": false.toJson,

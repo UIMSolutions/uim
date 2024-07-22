@@ -441,7 +441,7 @@ static string contentType() {
         if (filepath) {
             return _renderElement(filepath, mydata, options);
         }
-        if (options["ignoreMissing"]) {
+        if (options.hasKey("ignoreMissing"]) {
             return null;
         }
         [_plugin, myelementName] = _pluginSplit(templatefilename, _pluginCheck);

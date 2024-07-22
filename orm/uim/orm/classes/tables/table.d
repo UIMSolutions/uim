@@ -1193,8 +1193,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         }
         string[] keys = primaryKeys();
         auto aliasName = aliasName();
-        foreach (myindex, mykeyname; keys) {
-            keys[myindex] = aliasName ~ "." ~ mykeyname;
+        foreach (index, key; keys) {
+            keys.set(index, aliasName ~ "." ~ key);
         }
         if (!isArray(primaryKey)) {
             primaryKey = [primaryKey];

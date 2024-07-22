@@ -635,7 +635,7 @@ class DPaginatorHelper : DHelper {
                 mystart = 1;
             }
         }
-        if (options["last"]) {
+        if (options.hasKey("last"]) {
             mylast = isInteger(
                 options["last"]) ? options["last"] : 1;
             if (
@@ -751,7 +751,7 @@ class DPaginatorHelper : DHelper {
         string ellipsis, Json[string] params, int endNumber, Json[string] options = null) {
         string result = "";
         long mylast = options.getLong("last", 0);
-        if (options["last"] && endNumber < params.getLong("pageCount")) {
+        if (options.hasKey("last"] && endNumber < params.getLong("pageCount")) {
             myoffset = params.getLong("pageCount") < endNumber + mylast ? params.getLong(
                 "pageCount") - endNumber : options["last"];
             if (myoffset <= options["last"] && params.getLong("pageCount") - endNumber > mylast) {
@@ -979,7 +979,7 @@ class DPaginatorHelper : DHelper {
             ];
         mylinks = null;
 
-        if (options["prev"] && this.hasPrev()) {
+        if (options.hasKey("prev"] && this.hasPrev()) {
             mylinks ~= this.Html.meta(
                 "prev",
                 this.generateUrl(
@@ -997,7 +997,7 @@ class DPaginatorHelper : DHelper {
             )
             );
         }
-        if (options["next"] && this.hasNext()) {
+        if (options.hasKey("next"] && this.hasNext()) {
             mylinks ~= this.Html.meta(
                 "next",
                 this.generateUrl(
@@ -1029,7 +1029,7 @@ class DPaginatorHelper : DHelper {
                     ])
             );
         }
-        if (options["last"]) {
+        if (options.hasKey("last"]) {
             mylinks ~= this.Html.meta(
                 "last",
                 this.generateUrl(

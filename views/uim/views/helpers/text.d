@@ -73,7 +73,7 @@ class DTextHelper : DHelper {
             text
        );
          Generic.Files.LineLength
-        if (options["escape"]) {
+        if (options.hasKey("escape"]) {
             text = htmlAttributeEscape(text);
         }
         return _linkUrls(text, options); */

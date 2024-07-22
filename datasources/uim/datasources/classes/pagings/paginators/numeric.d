@@ -40,12 +40,12 @@ class DNumericPaginator : IPaginator {
      *
      * @var Json[string]
      */
-        protected configuration.updateDefaults([
-                "page": 1,
-                "limit": 20,
-                "maxLimit": 100,
-                "allowedParameters": ["limit", "sort", "page", "direction"],
-            ]);
+        configuration.updateDefaults([
+            "page": 1,
+            "limit": 20,
+            "maxLimit": 100,
+            "allowedParameters": ["limit", "sort", "page", "direction"],
+        ]);
 
         return true;
     }
@@ -431,9 +431,9 @@ class DNumericPaginator : IPaginator {
                 direction = "asc";
             }
 
-            auto order = paginationOptions.hasKey("order") && isArray(paginationoptions.get("order"])
-                ? paginationoptions.get("order"] : null;
-            if (order && paginationOptions.hasKey("sort") && !paginationOptions.getString("sort").contains(".")) {
+            auto order = paginationOptions.hasKey("order") && paginationoptions.isArray("order")
+                ? paginationoptions.get("order") : null;
+            if (order && !paginationOptions.getString("sort").contains(".")) {
                 order = _removeAliases(order, repository.aliasName());
             }
 

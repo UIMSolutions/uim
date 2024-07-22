@@ -36,9 +36,6 @@ class DConnectionManager {
         ];
 
         return true;
-    }
-
-    return true;
 }
 
 // A map of connection aliases.
@@ -62,9 +59,10 @@ protected static DConnectionRegistry _registry;
      *
      * The connection will not be constructed until it is first used.
      */
-static void configuration.set(string[] aKey, /* IConnection | Closure */ Json[string] configData = null) {
-    configuration.get("name", aKey);
-    configuration.set(aKey, configData);
+static void setConfiguration(string[] key, /* IConnection | Closure */ Json[string] options = null) {
+    configuration
+        .set("name", key)
+        .set(key, options);
 }
 
 /**

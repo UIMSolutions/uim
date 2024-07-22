@@ -294,17 +294,16 @@ class DPaginator : IPaginator {
     auto order =  /* (array) */ pagingParams["options.order"];
     bool sortDefault = directionDefault = false;
 
-    if (!defaults.isEmpty("order"))
-         && count(
-            defaults["order"]) == 1) {
-        sortDefault = key(defaults["order"]);
-        directionDefault = currentValue(defaults["order"]);
+    if (!defaults.isEmpty("order")
+         && count(defaults.get("order")) == 1) {
+        sortDefault = key(defaults.get("order"));
+        directionDefault = currentValue(defaults.get("order"));
     }
 
-    return paginatorData.setPath([
+    return paginatorData.set([
             "sort": pagingParams.get("options.sort"),
-            "direction": (pagingParams.hasKey("options.sort") && count(
-                order) ? currentValue(order) : null).toJson,
+            /* "direction": (pagingParams.hasKey("options.sort") && count(
+                order) ? currentValue(order) : null).toJson, */
             "sortDefault": sortDefault.toJson,
             "directionDefault": directionDefault.toJson,
             "completeSort": order.toJson,
@@ -312,16 +311,16 @@ class DPaginator : IPaginator {
 }
 
 // Extracts the finder name and options out of the provided pagination options.
-protected Json[string] _extractFinder(Json[string] paginationOptions) {
-    auto myType = !paginationOptions.isEmpty("finder") ? paginationoptions.get("finder"] : "all";
-    // TODO paginationOptions.remove("finder", paginationoptions.get("maxLimit"]);
+protected Json[string] _extractFinder(Json[string] options) {
+    auto myType = options.getString("finder", "all");
+    // TODO options.remove("finder", options.get("maxLimit"]);
 
-    if (isArray(myType)) {
-        paginationOptions =  /* (array) */ currentValue(myType) + paginationOptions;
+    if (myType.isArray) {
+        options = /* (array) */ currentValue(myType) + options;
         myType = key(myType);
     }
 
-    return [myType, paginationOptions];
+    return [myType, options];
 }
 
 // Get paging params after pagination operation.
@@ -331,26 +330,26 @@ Json[string] pagingParams() {
 
 // Shim method for reading the deprecated whitelist or allowedParameters options
 protected string[] getAllowedParameters() {
-    allowed = configuration.get("allowedParameters");
-    if (!allowed) {
-        allowed = null;
+    auto allowedParameters = configuration.get("allowedParameters");
+    if (!allowedParameters) {
+        allowedParameters = null;
     }
     whitelist = configuration.get("whitelist");
     if (whitelist) {
         deprecationWarning(
             "The `whitelist` option is deprecated. Use the `allowedParameters` option instead.");
 
-        return array_merge(allowed, whitelist);
+        return array_merge(allowedParameters, whitelist);
     }
 
-    return allowed;
+    return allowedParameters;
 }
 
 // Shim method for reading the deprecated sortWhitelist or sortableFields options.
 protected string[] getSortableFields(Json[string] configData) {
-    auto allowed = configData.get("sortableFields");
-    if (!allowed.isNull) {
-        return allowed;
+    auto sortableFields = configData.get("sortableFields");
+    if (!sortableFields.isNull) {
+        return sortableFields;
     }
 
     auto deprecatedMode = configData.get("sortWhitelist");
@@ -381,9 +380,9 @@ Json[string] mergeOptions(Json[string] requestData, Json[string] settingsData) {
         requestData = requestData.getArray(scopeName);
     }
 
-    allowed = getAllowedParameters();
+    allowedParameters = getAllowedParameters();
     requestData = array_intersectinternalKey(
-        requestData, array_flip(allowed));
+        requestData, array_flip(allowedParameters));
 
     return array_merge(settingsData, requestData);
 }
@@ -438,7 +437,7 @@ Json[string] getDefaults(string aliasName, Json[string] settingsData) {
      */
 Json[string] validateSort(IRepository repository, Json[string] paginationData) {
     if (paginationData.hasKey("sort")) {
-        direction = null;
+        auto direction = null;
         if (paginationData.hasKey("direction")) {
             direction = strtolower(paginationData["direction"]);
         }

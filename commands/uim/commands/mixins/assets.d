@@ -82,7 +82,7 @@ mixin template TPluginAssets() {
             }
             if (!copyMode) {
                 result = _createSymlink(
-                    configuration.get("srcPath"],
+                    configuration.get("srcPath"),
                     dest
                );
                 if (result) {
@@ -90,7 +90,7 @@ mixin template TPluginAssets() {
                 }
             }
            _copyDirectory(
-                configuration.get("srcPath"],
+                configuration.get("srcPath"),
                 dest
            );
         }
@@ -135,7 +135,8 @@ mixin template TPluginAssets() {
                 return false;
             }
         }
-        fs = new DFilesystem();
+        
+        auto fs = new DFilesystem();
         if (fs.deleteDir(dest)) {
             _io.writeln("Deleted " ~ dest);
 
@@ -149,8 +150,8 @@ mixin template TPluginAssets() {
     
     // Create directory
     protected bool _createDirectory(string directoryName) {
-        old = umask(0);
-        result = @mkdir(directoryName, 0755, true);
+        auto old = umask(0);
+        auto result = @mkdir(directoryName, 0755, true);
         umask(old);
 
         if (result) {

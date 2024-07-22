@@ -56,13 +56,13 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
      * ```
      */
     this(Json[string] hashOfProperties = null, Json[string] options = null) {
-        auto updatedOptions = options.update[
+        options.merge([
             "useSetters": true.toJson,
             "markClean": false.toJson,
             "markNew": Json(null),
             "guard": false.toJson,
             "source": Json(null),
-        ];
+        ]);
 
         if (!options.isEmpty("source")) {
             setSource(options.get("source"));
@@ -86,7 +86,7 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
         }
 
         if (options.hasKey["markClean"]) {
-            this.clean();
+            clean();
         }
     } 
 }

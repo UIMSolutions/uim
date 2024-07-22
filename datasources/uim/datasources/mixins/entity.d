@@ -523,7 +523,7 @@ mixin template TEntity() {
     return __isSet(anOffset);
   }
 
-  Json & offsetGet(Json anOffset) {
+  Json offsetGet(Json anOffset) {
     return get(anOffset);
   }
 
@@ -546,7 +546,7 @@ mixin template TEntity() {
      * string aproperty the field name to derive getter name from
     */
   protected static string _accessor(string fieldName, string accessorType) {
-    auto classname = class;
+    auto classname = this.classname;
 
     auto key = classname ~ "." ~ accessorType ~ "." ~ aProperty;
     if (_accessors.hasKey(key)) {
@@ -556,7 +556,7 @@ mixin template TEntity() {
       _accessors(key, "");
       return _accessors(key);
     }
-    if (class == Entity.classname) {
+    if (classname == Entity.classname) {
       return null;
     }
     get_class_methods(classname).each!((method) {

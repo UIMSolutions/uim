@@ -57,7 +57,7 @@ class DORMEntity { // }: IORMEntity, IInvalidProperty {
             ]);
         }
         if (options.hasKey("markClean"]) {
-            this.clean();
+            clean();
         }
     }
 }

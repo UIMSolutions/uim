@@ -15,13 +15,13 @@ class DFactoryLocator {
 
     // Register a callable to generate repositories of a given type.
     static void add(string repositoryType, ILocator factory) {
-        if (cast(ILocator)factory) {
+       /*  if (cast(ILocator)factory) {
             _modelFactories[repositoryType] = factory;
 
             return;
-        }
+        } */
 
-        if (is_callable(factory)) {
+        /* if (is_callable(factory)) {
             deprecationWarning(
                 "Using a callable as a locator has been deprecated."
                 ~ " Use an instance of uim\Datasource\Locator\ILocatorinstead."
@@ -31,23 +31,21 @@ class DFactoryLocator {
 
             return;
         }
-
-        throw new DInvalidArgumentException("`factory` must be an instance of uim\Datasource\Locator\ILocator a callable. Got type `%s` instead."
-            .format(getTypeName(factory)
-       ));
+ */
+        throw new DInvalidArgumentException(
+            "`factory` must be an instance of uim\Datasource\Locator\ILocator a callable. Got type `%s` instead."
+            .format(getTypeName(factory))
+        );
     }
 
-    /**
-     * Drop a model factory.
-     * aRepositoryTypeName - The name of the repository type to drop the factory for.
-     */
+    // Drop a model factory.
     static void drop(string aRepositoryTypeName) {
-        _modelFactories.remove(aRepositoryTypeName));
+        _modelFactories.remove(aRepositoryTypeName);
     }
 
     // Get the factory for the specified repository type.
     static ILocator get(string repositoryType) {
-        if ("Table"  !in _modelFactories) {
+        if ("Table" !in _modelFactories) {
             _modelFactories.set("Table", new DTableLocator());
         }
 
@@ -58,6 +56,6 @@ class DFactoryLocator {
            );
         }
 
-        return _modelFactories[repositoryType];
+        return _modelFactories.get(repositoryType);
     } 
 }

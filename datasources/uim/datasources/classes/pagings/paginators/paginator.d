@@ -281,9 +281,8 @@ class DPaginator : IPaginator {
         paginatorData.set("prevPage", pageNumber > 1);
         paginatorData.set("nextPage",
             paginatorData.getLong("count") > 0
-                ? true : paginatorData.getLong(
-                    "count") > pageNumber * paginatorData.getLong(
-                    "perPage")
+                ? true 
+                : paginatorData.getLong("count") > pageNumber * paginatorData.getLong("perPage")
         );
         return paginatorData;
     }
@@ -291,23 +290,23 @@ class DPaginator : IPaginator {
     // Add sorting / ordering params.
     protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingParams)
     auto defaults = pagingParams["defaults"];
-    auto order =  /* (array) */ pagingParams["options.order"];
+    auto order = pagingParams.getArray("options.order");
     bool sortDefault = directionDefault = false;
 
-    if (!defaults.isEmpty("order")
-         && count(defaults.get("order")) == 1) {
+    if (!defaults.isEmpty("order") && count(defaults.get("order")) == 1) {
         sortDefault = key(defaults.get("order"));
         directionDefault = currentValue(defaults.get("order"));
     }
 
-    return paginatorData.set([
+    /* return paginatorData.set([
             "sort": pagingParams.get("options.sort"),
             /* "direction": (pagingParams.hasKey("options.sort") && count(
-                order) ? currentValue(order) : null).toJson, */
+                order) ? currentValue(order) : null).toJson, * /
             "sortDefault": sortDefault.toJson,
             "directionDefault": directionDefault.toJson,
             "completeSort": order.toJson,
-        ]);
+        ]); */
+    return null; 
 }
 
 // Extracts the finder name and options out of the provided pagination options.

@@ -112,17 +112,17 @@ mixin template TPluginAssets() {
 
             return false;
         }
-        dest = configuration.getString("destDir") ~ configuration.getString("link");
-
-        if (!fileExists(dest)) {
+        
+        string destDirLink = configuration.getString("destDir") ~ configuration.getString("link");
+        if (!fileExists(destDirLink)) {
             _io.verbose(
-                dest ~ " does not exist",
+                destDirLink ~ " does not exist",
                 1
            );
 
             return false;
         }
-        if (isLink(dest)) {
+        /* if (isLink(dest)) {
             
             success = DIRECTORY_SEPARATOR == "\\" ? @rmdir(dest): @unlink(dest);
             if (success) {
@@ -134,7 +134,7 @@ mixin template TPluginAssets() {
 
                 return false;
             }
-        }
+        } */
         
         auto fs = new DFilesystem();
         if (fs.deleteDir(dest)) {
@@ -151,14 +151,14 @@ mixin template TPluginAssets() {
     // Create directory
     protected bool _createDirectory(string directoryName) {
         auto old = umask(0);
-        auto result = @mkdir(directoryName, 0755, true);
+        // auto result = @mkdir(directoryName, 0755, true);
         umask(old);
 
-        if (result) {
+        /* if (result) {
             _io.writeln("Created directory " ~ directoryName);
 
             return true;
-        }
+        } */
         _io.writeErrorMessages("Failed creating directory " ~ directoryName);
 
         return false;
@@ -166,12 +166,12 @@ mixin template TPluginAssets() {
     
     // Create symlink
     protected bool _createSymlink(string targetDirectory, string linkName) {
-        auto result = @symlink(targetDirectory, linkName);
+        // auto result = @symlink(targetDirectory, linkName);
 
-        if (result) {
+        /* if (result) {
             _io.writeln("Created symlink " ~ linkName);
             return true;
-        }
+        } */
         return false;
     }
     

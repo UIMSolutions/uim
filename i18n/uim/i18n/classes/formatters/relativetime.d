@@ -346,7 +346,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     // Build the options for relative date formatting.
     protected Json[string] _options(Json[string] options, string classname) {
 
-        options.setPath([
+        options.set([
                 "from": "classname.now()".toJson,
                 "timezone": Json(null),
                 /* "format": classname.wordFormat.toJson,

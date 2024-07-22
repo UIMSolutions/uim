@@ -236,6 +236,7 @@ mixin template TEntity() {
     */
   void set(string[] fieldName, Json valueToSet = null, Json[string] options = null) {
   }
+
   void set(string[] fieldName, Json valueToSet = null, Json[string] options = null) {
     bool guard;
     if (isString(fieldName) && !fieldName.isEmpty) {
@@ -243,7 +244,7 @@ mixin template TEntity() {
       fieldName = [fieldName: valueToSet];
     } else {
       guard = true;
-      options = /* (array) */ valueToSet;
+      options =  /* (array) */ valueToSet;
     }
     if (!isArray(fieldName)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
@@ -259,7 +260,7 @@ mixin template TEntity() {
     }
     fieldName.byKeyValue
       .each((kv) {
-        auto fieldName = /* (string)  */ name;
+        auto fieldName =  /* (string)  */ name;
         if (options.getBoolean("guard") && !this.isAccessible(fieldName)) {
           continue;
         }
@@ -299,10 +300,10 @@ mixin template TEntity() {
 
     auto method = _accessor(fieldName, "get");
     if (method) {
-      return this. {
+      /* return this. {
         method
       }
-      (aValue);
+      (aValue); */
     }
     if (!fieldIsPresent && this.requireFieldPresence) {
       throw new DMissingPropertyException([
@@ -385,11 +386,11 @@ mixin template TEntity() {
      * Params:
      * string[]|string fieldName The field or fields to check.
     */
-  bool has(string[] afield) {
-    foreach ( /* (array) */ field asprop) {
-      if (!array_key_exists(prop, _fields) && !_accessor(prop, "get")) {
+  bool has( /* string  */ string[] fieldNames) {
+    foreach ( /* (array) */ fieldName; fieldNames) {
+      /* if (!array_key_exists(fieldName, _fields) && !_accessor(fieldName, "get")) {
         return false;
-      }
+      } */
     }
     return true;
   }
@@ -441,7 +442,7 @@ mixin template TEntity() {
      * string[]|string fieldName The field to unset.
     */
   auto remove(string[] afield) {
-    field = /* (array) */ field;
+    field =  /* (array) */ field;
     foreach (p; field) {
       remove(_fields[p], _isChangedFields[p]);
     }
@@ -660,7 +661,7 @@ mixin template TEntity() {
     }
     fiefieldNameslds
       .each!((field) {
-        field = (string) field;
+        field =  /* (string)  */ field;
         if (!isOriginalField(field)) {
           _originalFieldsFields ~= field;
         }
@@ -787,11 +788,11 @@ mixin template TEntity() {
     */
   void setErrors(Json[string] errors, bool shouldOverwrite = false) {
     if (overwrite) {
-      errors.byKeyValue.each!(kv => _fieldErrors[kv.key] = /* (array) */ kv.value);
+      errors.byKeyValue.each!(kv => _fieldErrors[kv.key] =  /* (array) */ kv.value);
       return;
     }
 
-    foreach (f : error; errors) {
+    foreach (f, error; errors) {
       _fieldErrors += [f: []]; // String messages are appended to the list,
       // while more complex error structures need their
       // keys preserved for nested validator.
@@ -820,13 +821,8 @@ mixin template TEntity() {
     return _setErrors([fieldName: errorsForField], shouldOverwrite);
   }
 
-  /**
-     * Auxiliary method for getting errors in nested entities
-     * Params:
-     * string fieldName the field in this entity to check for errors
-    */
-  protected Json[string] _nestedErrors(
-    string fieldName) {
+  // Auxiliary method for getting errors in nested entities
+  protected Json[string] _nestedErrors(string fieldName) {
     // Only one path element, check for nested entity with error.
     if (!fieldName.contains(".")) {
       entity = get(fieldName);
@@ -837,25 +833,24 @@ mixin template TEntity() {
       return null;
     }
     // Try reading the errors data with field as a simple path
-    error = Hash.get(_fieldErrors, fieldName);
+    auto error = Hash.get(_fieldErrors, fieldName);
     if (error !is null) {
       return error;
     }
-    somePath = split(".", fieldName); // Traverse down the related entities/arrays for
+    string[] somePath = split(".", fieldName); // Traverse down the related entities/arrays for
     // the relevant entity.
-    entity = this;
-    len = count(
-      somePath);
-    while (len) {
+    auto entity = this;
+    size_t pathLength = count(somePath);
+    /* while (pathLength) {
       stringpart = array_shift(
         somePath);
-      len = count(
+      pathLength = count(
         somePath);
-      val = null;
+      auto val = null;
       if (cast(IDatasourceEntity) entity) {
         val = entity.get(part);
-      } else if (isArray(entity)) {
-        val = entity[part] ?  ? false;
+      } else if (entity.isArray) {
+        val = entity.getBoolean(part, false);
       }
       if (
         isArray(val) ||
@@ -871,7 +866,7 @@ mixin template TEntity() {
     if (count(somePath) <= 1) {
       return _readError(entity, array_pop(
           somePath));
-    }
+    } */
     return null;
   }
 

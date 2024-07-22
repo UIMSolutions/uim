@@ -274,7 +274,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
         return parseTime(timeToParse, formats);
     }
 
-    auto parseTime(string atitimeToParseme, string[] format = null) {
+    auto parseTime(string timeToParse, string[] format = null) {
         format = format ? format : [/* 
             IntlDateFormatters.NONE, IntlDateFormatters.SHORT */
         ];

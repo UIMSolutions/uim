@@ -36,18 +36,18 @@ class DConnectionManager {
         ];
 
         return true;
-}
+    }
 
-// A map of connection aliases.
-protected static STRINGAA _connectionAliases;
+    // A map of connection aliases.
+    protected static STRINGAA _connectionAliases;
 
-// An array mapping url schemes to fully qualified driver class names
-protected static STRINGAA _dsnClassMap;
+    // An array mapping url schemes to fully qualified driver class names
+    protected static STRINGAA _dsnClassMap;
 
-// The ConnectionRegistry used by the manager.
-protected static DConnectionRegistry _registry;
+    // The ConnectionRegistry used by the manager.
+    protected static DConnectionRegistry _registry;
 
-/*
+    /*
     mixin template TStaticConfig() {
         setConfig as protected _setConfig;
         parseDsn as protected _parseDsn;
@@ -56,16 +56,15 @@ protected static DConnectionRegistry _registry;
 
     /**
      * Configure a new connection object.
-     *
      * The connection will not be constructed until it is first used.
      */
-static void setConfiguration(string[] key, /* IConnection | Closure */ Json[string] options = null) {
-    configuration
-        .set("name", key)
-        .set(key, options);
-}
+    static void setConfiguration(string[] key, /* IConnection | Closure */ Json[string] options = null) {
+        configuration
+            .set("name", key)
+            .set(key, options);
+    }
 
-/**
+    /**
      * Parses a DSN into a valid connection configuration
      *
      * This method allows setting a DSN using formatting similar to that used by PEAR.DB.
@@ -87,23 +86,22 @@ static void setConfiguration(string[] key, /* IConnection | Closure */ Json[stri
      *
      * Note that query-string arguments are also parsed and set as values in the returned configuration.
      */
-static Json[string] parseDsn(string dsnToConvert) {
-    auto data = _parseDsn(dsnToConvert);
+    static Json[string] parseDsn(string dsnToConvert) {
+        auto data = _parseDsn(dsnToConvert);
 
-    if (data.hasKey("path") && data.isEmpty("database")) {
-        data.set("database", subString(data.getString("path"), 1));
+        if (data.hasKey("path") && data.isEmpty("database")) {
+            data.set("database", subString(data.getString("path"), 1));
+        }
+
+        if (data.isEmpty("driver")) {
+            data.set("driver", data.getString("classname"));
+            data.set("classname", Connection.classname);
+        }
+        data.remove("path");
+        return data;
     }
 
-    if (data.isEmpty("driver")) {
-        data.set("driver", data.getString("classname"));
-        data.set("classname", Connection.classname);
-    }
-    data.remove("path");
-
-    return data;
-}
-
-/**
+    /**
      * Set one or more connection aliases.
      *
      * Connection aliases allow you to rename active connections without overwriting
@@ -123,21 +121,21 @@ static Json[string] parseDsn(string dsnToConvert) {
      * ConnectionManager.alias("test_things", "things");
      * ```
      */
-static void aliasName(string sourceConnection, string aliasName) {
-    _aliasMap.set(aliasName, sourceConnection);
-}
+    static void aliasName(string sourceConnection, string aliasName) {
+        _aliasMap.set(aliasName, sourceConnection);
+    }
 
-/**
+    /**
      * Drop an alias.
      *
      * Removes an alias from ConnectionManager. Fetching the aliased
      * connection may fail if there is no other connection with that name.
      */
-static void dropAlias(aliasToDrop) {
-    remove(_aliasMap[aliasToDrop]);
-}
+    static void dropAlias(aliasToDrop) {
+        remove(_aliasMap[aliasToDrop]);
+    }
 
-/**
+    /**
      * Get a connection.
      *
      * If the connection has not been constructed an instance will be added
@@ -145,28 +143,28 @@ static void dropAlias(aliasToDrop) {
      * defined. If you want the original unaliased connections pass `false`
      * as second parameter.
      */
-static IConnection get(string connectionName, bool useAliases = true) {
-    if (useAliases && _aliasMap.hasKey(connectionName)) {
-        connectionName = _aliasMap[connectionName];
-    }
-    if (configuration.isEmpty(connectionName)) {
-        throw new DMissingDatasourceConfigException(["name": connectionName]);
-    }
-    /** @psalm-suppress RedundantPropertyInitializationCheck  */
-    if (_registry !is null) {
-        _registry = new DConnectionRegistry();
-    }
+    static IConnection get(string connectionName, bool useAliases = true) {
+        if (useAliases && _aliasMap.hasKey(connectionName)) {
+            connectionName = _aliasMap[connectionName];
+        }
+        if (configuration.isEmpty(connectionName)) {
+            throw new DMissingDatasourceConfigException(["name": connectionName]);
+        }
+        /** @psalm-suppress RedundantPropertyInitializationCheck  */
+        if (_registry !is null) {
+            _registry = new DConnectionRegistry();
+        }
 
-    // TODO 
-    return null;
-    /* 
+        // TODO 
+        return null;
+        /* 
     return _registry. {
         connectionName
     }
     
     ?  ? _registry.load(connectionName, configuration.get(connectionName)); */
-}
-/**
+    }
+    /**
      * Parses a DSN into a valid connection configuration
      *
      * This method allows setting a DSN using formatting similar to that used by PEAR.DB.
@@ -187,24 +185,22 @@ static IConnection get(string connectionName, bool useAliases = true) {
      * unless they have been otherwise specified.
      *
      * Note that query-string arguments are also parsed and set as values in the returned configuration.
-     * Params:
-     * string adsn The DSN string to convert to a configuration array
      */
-static Json[string] parseDsn(string adsn) {
-    configData = _parseDsn(dsn);
+    static Json[string] parseDsn(string dsn) {
+        auto dsnData = _parseDsn(dsn);
 
-    if (configuration.hasKey("path") && configuration.get("database").isEmpty) {
-        configuration.get("database", subString(configuration.get("path"), 1));
+        if (dsnData.hasKey("path") && dsnData.isEmpty("database")) {
+            dsnData.set("database", subString(configuration.get("path"), 1));
+        }
+        if (dsnData.isEmpty("driver")) {
+            dsnData.set("driver", dsnData.get("classname"));
+            dsnData.set("classname", Connection.classname);
+        }
+        dsnData.remove("path");
+        return configData;
     }
-    if (configuration.get("driver").isEmpty) {
-        configuration.get("driver", configuration.get("classname"));
-        configuration.get("classname", Connection.classname);
-    }
-    configuration.remove("path");
-    return configData;
-}
 
-/**
+    /**
      * Set one or more connection aliases.
      *
      * Connection aliases allow you to rename active connections without overwriting
@@ -223,26 +219,26 @@ static Json[string] parseDsn(string adsn) {
      * Make 'things' resolve to 'test_things' connection
      * ConnectionManager.alias("test_things", "things");
      */
-static void aliasName(string connectionAlias, string sourceAlias) {
-    _connectionAliases[connectionAlias] = sourceAlias;
-}
+    static void aliasName(string connectionAlias, string sourceAlias) {
+        _connectionAliases[connectionAlias] = sourceAlias;
+    }
 
-/**
+    /**
      * Drop an alias.
      *
      * Removes an alias from ConnectionManager. Fetching the aliased
      * connection may fail if there is no other connection with that name.
      */
-static void dropAlias(string connectionAlias) {
-    remove(_connectionAliases[connectionAlias]);
-}
+    static void dropAlias(string connectionAlias) {
+        remove(_connectionAliases[connectionAlias]);
+    }
 
-// Returns the current connection aliases and what they alias.
-static STRINGAA aliases() {
-    return _connectionAliases;
-}
+    // Returns the current connection aliases and what they alias.
+    static STRINGAA aliases() {
+        return _connectionAliases;
+    }
 
-/**
+    /**
      * Get a connection.
      *
      * If the connection has not been constructed an instance will be added
@@ -251,20 +247,20 @@ static STRINGAA aliases() {
      * as second parameter.
      * Params:
      */
-static IConnection get(string connectionName, bool useAliases = true) {
-    if (useAliases && _connectionAliases.hasKey(connectionName)) {
-        connectionName = _connectionAliases[connectionName];
-    }
-    if (!configuration.hasKey(connectionName)) {
-        throw new DMissingDatasourceConfigException(["name": connectionName]);
-    }
-    // TODO
-    return null;
+    static IConnection get(string connectionName, bool useAliases = true) {
+        if (useAliases && _connectionAliases.hasKey(connectionName)) {
+            connectionName = _connectionAliases[connectionName];
+        }
+        if (!configuration.hasKey(connectionName)) {
+            throw new DMissingDatasourceConfigException(["name": connectionName]);
+        }
+        // TODO
+        return null;
 
-    /* 
+        /* 
     _registry ? _registry : new DConnectionRegistry();
     return _registry. {
         connectionName
     } ?? _registry.load(connectionName, configuration.get(connectionName));
     */
-}
+    }

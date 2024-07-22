@@ -52,12 +52,8 @@ class DNumericPaginator : IPaginator {
 
     mixin(TProperty!("string", "name"));
 
-    /**
-     * Paging params after pagination operation is done.
-     *
-     * @var array<string, array>
-     */
-    protected _pagingParams = null;
+    // Paging params after pagination operation is done.
+    protected Json[string]_pagingParams = null;
 
     /**
      * Handles automatic pagination of model records.

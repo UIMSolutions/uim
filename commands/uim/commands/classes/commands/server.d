@@ -10,8 +10,8 @@ class DServerCommand : DCommand {
 
   	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { 
-return false; 
-}
+            return false; 
+        }
 		
 		return true;
 	}
@@ -37,17 +37,15 @@ return false;
     /**
      * Starts up the Command and displays the welcome message.
      * Allows for checking and configuring prior to command or main execution
-     * Params:
-     * \UIM\Console\Json[string] arguments The command arguments.
      */
     protected void startup(Json[string] arguments, IConsoleIo aConsoleIo) {
         _host = arguments.getString("host", _host); 
-        _port = arguments.getLong("port", _port));
+        _port = arguments.getLong("port", _port);
         if (arguments.hasKey("document_root")) {
            _documentRoot = arguments.getString("document_root");
         }
         if (commandArguments.getOption("ini_path")) {
-           _iniPath = arguments.getString("ini_path"));
+           _iniPath = arguments.getString("ini_path");
         }
         // For Windows
         if (_documentRoot.subString(-1, 1) == DIRECTORY_SEPARATOR) {
@@ -57,7 +55,7 @@ return false;
            _documentRoot = m[1] ~ "\\" ~ m[2];
         }
        _iniPath = stripRight(_iniPath, DIRECTORY_SEPARATOR);
-        if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _iniPath, m)) {
+        /* if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _iniPath, m)) {
            _iniPath = m[1] ~ "\\" ~ m[2];
         }
         with (aConsoleIo) {
@@ -69,7 +67,7 @@ return false;
             writeln("DocumentRoot: %s".format(_documentRoot));
             writeln("Ini Path: %s".format(_iniPath));
             hr();
-        }
+        } */
     }
 
   overwrite override ulong execute(Json[string] arguments, IConsole aConsole = null) {
@@ -83,24 +81,22 @@ return false;
                 escapeshellarg(_documentRoot)
            );
 
-        if (!_iniPath.isEmpty) {
+/*         if (!_iniPath.isEmpty) {
             commandText = "%s -c %s".format(commandText, _iniPath);
-        }
+        } */
         commandText = "%s %s".format(commandText, escapeshellarg(_documentRoot ~ "/index.d"));
 
-        string port = ": " ~ _port;
+        /* string port = ": " ~ _port;
          aConsoleIo.writeln("built-in server is running in http://%s%s/".format(_host, port));
          aConsoleIo.writeln("You can exit with <info>`CTRL-C`</info>");
-        system(commandText);
+        system(commandText); */
 
         return CODE_SUCCESS;
     }
     
-    /**
-     * Hook method for defining this command`s option parser.
-     */
+    // Hook method for defining this command`s option parser.
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
-        with (parserToUpdate) {
+        /* with (parserToUpdate) {
             description([
                 "D Built-in Server for UIM",
                 "<warning>[WARN] Don't use this in a production environment</warning>",
@@ -122,7 +118,7 @@ return false;
                 "short": "d",
                 "help": "DocumentRoot",
             ]);
-        }
+        } */
 
         return aParser;
     }

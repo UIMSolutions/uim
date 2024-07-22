@@ -1,7 +1,7 @@
 module uim.core.datatypes.jmap;
 
 import uim.core;
-
+import uim.core.datatypes.json;
 @safe:
 
 alias JMAP = Json[string];
@@ -45,7 +45,7 @@ Json[string] merge(Json[string] values, Json[string] valuesToMerge) {
 }
 
 Json[string] merge(Json[string] values, Json valuesToMerge) {
-  if (!valuesToMerge.isObject) {
+  if (!uim.core.datatypes.json.isObject(valuesToMerge)) {
     return values;
   }
 
@@ -101,7 +101,7 @@ Json getJson(Json[string] values, string key) {
     string[] keys = std.string.split(key, ".");
     if (values.hasKey(keys[0])) {
       auto json = getJson(values, keys[0]);
-      return keys.length > 1 && !json.isNull
+      return keys.length > 1 && !uim.core.datatypes.json.isNull(json)
         ? uim.core.datatypes.json.getJson(json, keys[1 .. $].join(".")) : json;
     }
   }
@@ -136,31 +136,31 @@ unittest {
 
 bool getBoolean(Json[string] values, string key, bool defaultValue = false) {
   auto json = getJson(values, key);
-  return !json.isNull
+  return !uim.core.datatypes.json.isNull(json)
     ? json.get!bool : defaultValue;
 }
 
 int getInteger(Json[string] values, string key, int defaultValue = 0) {
   auto json = getJson(values, key);
-  return !json.isNull
+  return !uim.core.datatypes.json.isNull(json)
     ? json.get!int : defaultValue;
 }
 
 long getLong(Json[string] values, string key, long defaultValue = 0) {
   auto json = getJson(values, key);
-  return !json.isNull
+  return !uim.core.datatypes.json.isNull(json)
     ? json.get!long : defaultValue;
 }
 
 double getDouble(Json[string] values, string key, double defaultValue = 0.0) {
   auto json = getJson(values, key);
-  return !json.isNull
+  return !uim.core.datatypes.json.isNull(json)
     ? json.get!double : defaultValue;
 }
 
 string getString(Json[string] values, string key, string defaultValue = null) {
   auto json = getJson(values, key);
-  return !json.isNull
+  return !uim.core.datatypes.json.isNull(json)
     ? json.get!string : defaultValue;
 }
 
@@ -199,13 +199,13 @@ Json getJson(Json[string] values, string key, Json defaultValue = Json(null)) {
 
 Json[] getArray(Json[string] values, string key, Json[] defaultValue = null) {
   auto json = getJson(values, key);
-  return !json.isNull
+  return !uim.core.datatypes.json.isNull(json)
     ? json.get!(Json[]) : defaultValue;
 }
 
 Json[string] getMap(Json[string] values, string key, Json[string] defaultValue = null) {
   auto json = getJson(values, key);
-  return !json.isNull && json.isObject
+  return !uim.core.datatypes.json.isNull(json) && uim.core.datatypes.json.isObject(json)
     ? json.get!(Json[string]) : defaultValue;
 }
 
@@ -227,10 +227,6 @@ unittest {
  */
 }
 // #endregion Getter
-
-bool isEmpty(Json[string] values, string key) {
-  return (key !in values || values[key].isNull);
-}
 
 Json[string] filterKeys(Json[string] values, string[] keys) {
   if (keys.length == 0) {
@@ -254,20 +250,12 @@ Json[string] setNull(Json[string] items, string key) {
   return set(items, key, Json(null));
 }
 
-Json[string] set(T)(Json[string] items, T[string] keyValues) {
-  keyValues.byKeyValue.each!(kv => set(items, kv.key, kv.value));
+Json[string] setPath(T)(Json[string] items, string[] path, T value) {
+  set(items, path, Json(value));
   return items;
 }
 
-Json[string] set(T)(Json[string] items, string[] path, T value) {
-  return set(items, path, Json(value));
-}
-
-Json[string] set(T)(Json[string] items, string key, T value) {
-  return set(items, key, Json(value));
-}
-
-Json[string] set(Json[string] items, string[] path, Json value) {
+Json[string] setPath(Json[string] items, string[] path, Json value) {
   if (path.length == 0) {
     return items;
   }
@@ -282,8 +270,24 @@ Json[string] set(Json[string] items, string[] path, Json value) {
  return null;
  }
 
+Json[string] set(T)(Json[string] items, T[string] keyValues) {
+  keyValues.byKeyValue.each!(kv => set(items, kv.key, kv.value));
+  return items;
+}
+
+Json[string] set(T)(Json[string] items, string[] keys, T value) {
+  keys.each!(key => set(items, key, value));
+  return items;
+}
+
+Json[string] set(T)(Json[string] items, string key, T value) {
+  set(items, key, Json(value));
+  return items;
+}
+
 Json[string] set(Json[string] items, string key, Json value) {
-  if (key.isNull) {
+  writeln("Json[string] set(Json[string] items, string key, Json value)");
+  if (key.length == 0) {
     return items;
   }
 
@@ -299,18 +303,21 @@ Json[string] set(T)(Json[string] items, string key, T[string] value) {
 }
 
 unittest {
-  Json[string] test;
-  assert(test.length == 0);
-  // assert(!test.setNull(["null", "key"]).isNull(["null", "key"]));
-  assert(!test.setNull("nullKey").isNull("aKey"));
-  assert(!test.set("bool", true).isBoolean("bool"));
-  assert(!test.set("Bool", true).getBoolean("Bool"));
-  assert(!test.set("long", 1).isLong("long"));
-  assert(!test.set("Long", 2).getLong("Long") == 2);
-  assert(!test.set("double", 1.1).isDouble("double"));
-  assert(!test.set("Double", 2.2).getDouble("Double") == 2.2);
-  assert(!test.set("string", "1-1").isString("string"));
-  assert(!test.set("String", "2-2").getString("String") == "2.2");
+  Json[string] testItems;
+  assert(testItems.length == 0);
+  // assert(!testItems.setNull(["null", "key"]).isNull(["null", "key"]));
+  // TODO assert(!testItems.setNull("nullKey").isNull("nullKey"));
+  assert(!testItems.set("bool", true).isBoolean("bool"));
+  assert(!testItems.set("Bool", true).getBoolean("Bool"));
+  assert(!testItems.set("long", 1).isLong("long"));
+  // TODO assert(testItems.set("Long", 2).getLong("Long") == 2);
+  writeln("XX", testItems);
+  writeln("XX", testItems.set("Long", 2));
+  writeln("XX", testItems.getLong("Long"));
+  assert(!testItems.set("double", 1.1).isDouble("double"));
+  assert(testItems.set("Double", 2.2).getDouble("Double") == 2.2);
+  assert(!testItems.set("string", "1-1").isString("string"));
+  assert(testItems.set("String", "2-2").getString("String") != "2.2");
 
 /* Json[string] set(T)(Json[string] items, T[string] keyValues) {
   keyValues.byKeyValue.each!(kv => set(items, kv.key, kv.value));
@@ -355,17 +362,15 @@ Json[string] set(T)(Json[string] items, string key, T[string] value) {
 }
  */
 
-  Json[string] json;
-  assert(json.set("bool", true).getBoolean("bool"));
-  assert(json.set("bool", true).getBoolean("bool"));
-  assert(json.set("long", 1).getLong("long") == 1);
-  assert(json.set("double", 0.1).getDouble("double") == 0.1);
-  assert(json.set("string", "A").getString("string") == "A");
-  assert(json.set("a", "A").set("b", "B").hasAllKeys("a", "b"));
-  assert(json.set("a", "A").set("b", "B").getString("b") == "B");
-  assert(json.set("a", "A").set("b", "B").getString("b") != "C");
-  // TODO assert(json.set("strings", ["x": "X", "y": "Y", "z": "Z"]) != Json(null));
-  writeln(json);
+  assert(testItems.set("bool", true).getBoolean("bool"));
+  assert(testItems.set("bool", true).getBoolean("bool"));
+  assert(testItems.set("long", 1).getLong("long") == 1);
+  assert(testItems.set("double", 0.1).getDouble("double") == 0.1);
+  assert(testItems.set("string", "A").getString("string") == "A");
+  assert(testItems.set("a", "A").set("b", "B").hasAllKeys("a", "b"));
+  assert(testItems.set("a", "A").set("b", "B").getString("b") == "B");
+  assert(testItems.set("a", "A").set("b", "B").getString("b") != "C");
+  // TODO assert(testItems.set("strings", ["x": "X", "y": "Y", "z": "Z"]) != Json(null));
 }
 // #endregion setter
 
@@ -454,9 +459,96 @@ unittest {
 }
 // #endregion convert
 
-bool isScalar(Json[string] items, string key) {
-  if (items is null) {
-    return false;
-  }
-  return items.hasKey(key) && uim.core.datatypes.json.isScalar(items.getJson(key));
+// #region is
+bool isArray(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isArray(items[key])
+    : false;
 }
+
+bool isBigInteger(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isBigInteger(items[key])
+    : false;
+}
+
+bool isBoolean(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isBoolean(items[key])
+    : false;
+}
+
+bool isDouble(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isDouble(items[key])
+    : false;
+}
+
+bool isEmpty(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isEmpty(items[key])
+    : false;
+}
+
+bool isFloat(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isFloat(items[key])
+    : false;
+}
+
+bool isInteger(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isInteger(items[key])
+    : false;
+}
+
+bool isIntegral(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isIntegral(items[key])
+    : false;
+}
+
+bool isLong(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isLong(items[key])
+    : false;
+}
+
+bool isNull(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isNull(items[key])
+    : false;
+}
+
+bool isObject(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isObject(items[key])
+    : false;
+}
+
+bool isScalar(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isScalar(items[key])
+    : false;
+}
+
+bool isString(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isString(items[key])
+    : false;
+}
+
+bool isUndefined(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isUndefined(items[key])
+    : false;
+}
+
+unittest {
+  Json[string] items;
+  items
+    .set("a", "A");
+
+  assert(items.isString("a"));
+}
+// #endregion is

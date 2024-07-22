@@ -10,7 +10,7 @@ import uim.core;
 @safe:
 // #region startTag
 string htmlStartTag(string name, string id, string[] classes, string[string] attributes/* , bool isClosed = false */) {
-	if (!id.isEmpty) {
+	if (id.length > 0) {
 		attributes.remove("id");
 	}
 	return htmlStartTag(
@@ -42,9 +42,9 @@ string htmlStartTag(string tag, string attributes, bool isClosed = false) {
 string htmlStartTag(string name, string id = null, string classes = null, string attributes = null) {
 	string startTag;
 	startTag ~= "<" ~ name;
-	startTag ~= !id.isEmpty ? ` id="` ~ id ~ `"` : null;
-	startTag ~= !classes.isEmpty ? ` class="` ~ classes ~ `"` : null;
-	startTag ~= !attributes.isEmpty ? ` ` ~ attributes : null;
+	startTag ~= id.length > 0 ? ` id="` ~ id ~ `"` : null;
+	startTag ~= classes.length > 0 ? ` class="` ~ classes ~ `"` : null;
+	startTag ~= attributes.length > 0 ? ` ` ~ attributes : null;
 	startTag ~= ">";
 	return startTag;
 }

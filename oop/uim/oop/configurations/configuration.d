@@ -171,40 +171,39 @@ abstract class DConfiguration : IConfiguration {
     }
     // #endregion get
 
-    // #region set
-    bool set(STRINGAA data, string[] keys = null) {
+    //#region set
+    IConfiguration set(STRINGAA data, string[] keys = null) {
         return set(data.toJsonMap, keys);
     }
 
-    bool set(Json[string] newData, string[] keys = null) {
-        if (keys.isNull) {
-            keys.each!(key => set(key, newData[key]));
-        } else {
-            keys.filter!(key => key in newData)
+    IConfiguration set(Json[string] newData, string[] keys = null) {
+        keys.isNull
+            ? keys.each!(key => set(key, newData[key]))
+            : keys.filter!(key => key in newData)
                 .each!(key => set(key, newData[key]));
-        }
-        return true;
+
+        return this;
     }
 
-    bool set(string key, bool newValue) {
+    IConfiguration set(string key, bool newValue) {
         return set(key, Json(newValue));
     }
 
-    bool set(string key, long newValue) {
+    IConfiguration set(string key, long newValue) {
         return set(key, Json(newValue));
     }
 
-    bool set(string key, double newValue) {
+    IConfiguration set(string key, double newValue) {
         return set(key, Json(newValue));
     }
 
-    bool set(string key, string newValue) {
+    IConfiguration set(string key, string newValue) {
         return set(key, Json(newValue));
     }
 
-    abstract bool set(string key, Json newValue);
-    abstract bool set(string key, Json[] newValue);
-    abstract bool set(string key, Json[string] newValue);
+    abstract IConfiguration set(string key, Json newValue);
+    abstract IConfiguration set(string key, Json[] newValue);
+    abstract IConfiguration set(string key, Json[string] newValue);
 
     void opIndexAssign(bool newValue, string key) {
         set(key, newValue);
@@ -225,28 +224,40 @@ abstract class DConfiguration : IConfiguration {
     void opIndexAssign(Json newValue, string key) {
         set(key, newValue);
     }
-    // #endregion set
+    //#endregion set
 
     // #region update
-    bool updateKey(Json[string] newData, string[] includedKeys = null) {
-        return keys.isNull
-            ? includedKeys.all!(key => updateKey(key, newData[key])) : includedKeys.filter!(
-                key => key in newData)
-            .all!(key => updateKey(key, newData[key]));
+    IConfiguration update(Json[string] newItems, string[] includedKeys = null) {
+        includedKeys.isNull
+            ? newItems.byKeyValue.each!(item => update(item.key, item.value)) 
+            : newItems.byKeyValue
+                .filter!(item => includedKeys.has(item.key))
+                .each!(item => update(item.key, item.value));
+
+        return this;
     }
 
-    abstract bool updateKey(string key, Json newValue);
+    IConfiguration update(T)(string key, T newValue) {
+        return update(key, Json(T));
+    }
+    abstract IConfiguration update(string key, Json newValue);
     // #region update
 
     // #region merge
-    bool merge(Json[string] newData, string[] includedKeys = null) {
-        return includedKeys.isNull
-            ? newData.keys.all!(key => merge(key, newData[key])) : includedKeys
-            .filter!(key => key in newData)
-            .all!(key => merge(key, newData[key]));
-    }
+    IConfiguration merge(Json[string] items, string[] includedKeys = null) {
+        includedKeys.isNull
+            ? items.byKeyValue.each!(item => merge(item.key, item.value)) 
+            : items.byKeyValue
+                .filter!(item => includedKeys.has(item.key))
+                .each!(item => merge(item.key, item.value));
 
-    abstract bool merge(string key, Json newValue);
+        return this;
+    }
+    
+    IConfiguration merge(T)(string key, T newValue) {
+        return merge(key, Json(T));
+    }
+    abstract IConfiguration merge(string key, Json newValue);
     // #endregion merge
 
     // #region remove - clear

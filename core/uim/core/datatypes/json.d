@@ -369,11 +369,11 @@ version (test_uim_core) {
 }
 
 /// Remove keys from Json Object
-Json removeByKeys(Json json, string[] delKeys...) {
-  return removeByKeys(json, delKeys.dup);
+Json remove(Json json, string[] delKeys...) {
+  return remove(json, delKeys.dup);
 }
 
-Json removeByKeys(Json aJson, string[] delKeys) {
+Json remove(Json aJson, string[] delKeys) {
   auto result = aJson;
   delKeys.each!(k => result.remove(k));
   return result;
@@ -403,12 +403,15 @@ Json remove(Json json, string aKey) {
 unittest {
   auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
   assert(json.hasKey("a"));
-  assert(!json.remove("a").hasKey("a"));
+  json.remove("a");
+  assert(!json.hasKey("a"));
 
   json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
   assert(!json.hasKey("x"));
-  assert(!json.remove("x").hasKey("x"));
-  assert(json.remove("x").hasKey("a"));
+  json.remove("x");
+  assert(!json.hasKey("x"));
+  json.remove("x"); 
+  assert(json.hasKey("a"));
 }
 
 Json readJson(Json target, Json source, bool shouldOverwrite = true) {
@@ -764,7 +767,7 @@ unittest {
   Json json = Json.emptyObject;
   json["a"] = "hallo";
   assert(json["a"].get!string == "hallo");
-  json = json.setPath(["a": "world"]);
+  json = json.set(["a": "world"]);
   assert(json["a"].get!string == "world");
 }
 
@@ -1020,11 +1023,11 @@ Json set(T)(Json json, T[string] newValues) {
 ///
 unittest {
   auto json = parseJsonString(`{"a": "b", "x": "y"}`);
-  assert(json.setPath(["a": "c"])["a"].get!string == "c");
+  assert(json.set(["a": "c"])["a"].get!string == "c");
 
   json = parseJsonString(`{"a": "b", "x": "y"}`);
-  assert(json.setPath(["a": "c", "x": "z"])["x"].get!string == "z");
-  assert(json.setPath(["a": "c", "x": "z"])["x"].get!string != "c");
+  assert(json.set(["a": "c", "x": "z"])["x"].get!string == "z");
+  assert(json.set(["a": "c", "x": "z"])["x"].get!string != "c");
 }
 // #endregion
 

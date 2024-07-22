@@ -30,11 +30,11 @@ class DMemoryConfiguration : DConfiguration {
     override bool hasDefault(string key) {
         return (key in _defaultData) ? true : false;
     }
-    
+
     override Json getDefault(string key) {
         return (key in _defaultData) ? _defaultData[key] : Json(null);
     }
-    
+
     override bool updateDefaults(Json[string] newDefaults) {
         return newDefaults.byKeyValue
             .all!(kv => updateDefault(kv.key, kv.value));
@@ -53,9 +53,9 @@ class DMemoryConfiguration : DConfiguration {
     override bool mergeDefault(string key, Json value) {
         if (!hasDefault(key)) {
             _defaultData[key] = value;
-            return true; 
+            return true;
         }
-        return false; 
+        return false;
     }
     // #endregion defaultData
 
@@ -108,7 +108,8 @@ class DMemoryConfiguration : DConfiguration {
         return includedKeys.length == 0
             ? _data.values : includedKeys
             .filter!(key => hasKey(key))
-            .map!(key => get(key)).array;
+            .map!(key => get(key))
+            .array;
     }
     // #endregion value
 
@@ -116,60 +117,109 @@ class DMemoryConfiguration : DConfiguration {
         return _data.keys;
     }
 
-    override Json[string] get(string[] selectKeys, bool compressMode = true) {
-        Json[string] results;
+    // #region get
+        override Json[string] get(string[] selectKeys, bool compressMode = true) {
+            Json[string] results;
 
-        selectKeys.each!((key) {
-            Json result = get(key);
-            if (result is Json(null) && !compressMode) {
-                results[key] = result;
+            selectKeys.each!((key) {
+                Json result = get(key);
+                if (result is Json(null) && !compressMode) {
+                    results[key] = result;
+                }
+            });
+
+            return results;
+        }
+
+        override Json get(string key, Json defaultValue = Json(null)) {
+            if (key.length == 0) {
+                return Json(null);
             }
-        });
 
-        return results;
-    }
+            if (key in _data) {
+                return _data[key];
+            }
 
-    override Json get(string key, Json defaultValue = Json(null)) {
-        if (key.length == 0) {
-            return Json(null);
+            return defaultValue.isNull
+                ? getDefault(key) : defaultValue;
+        }
+    // #endregion get
+
+    // #region set
+        alias set = DConfiguration.set;
+        override IConfiguration set(string key, Json value) {
+            _data[key] = value;
+            return this;
         }
 
-        if (key in _data) {
-            return _data[key];
+        override IConfiguration set(string key, Json[] value) {
+            _data[key] = Json(value);
+            return this;
         }
 
-        return defaultValue.isNull
-            ? getDefault(key) : defaultValue;
-    }
+        override IConfiguration set(string key, Json[string] value) {
+            _data[key] = Json(value);
+            return this;
+        }
+    // #endregion set
 
-    alias set = DConfiguration.set;
-    override IConfiguration set(string key, Json value) {
-        _data.set(key, value);
+    // #region update
+        override IConfiguration update(string key, Json value) {
+            if (hasKey(key)) {
+                set(key, value);
+            }
+            return this;
+        }
+
+        unittest {
+            auto config = MemoryConfiguration;
+            config
+                .set("a", Json("A"))
+                .set("one", Json(1));
+
+            assert(config.getString("a") == "A");
+            assert(config.update("a", "B").getString("a") == "B");
+            assert(config.update("x", "X").hasKey("x") == false);
+        }
+    // #endregion update
+
+    // #region merge
+    override IConfiguration merge(string key, Json value) {
+        if (!hasKey(key)) {
+            set(key, value);
+        }
         return this;
     }
-    override IConfiguration set(string key, Json[] value) {
-        _data.set(key, value);
-        return this;
-    }
-    override IConfiguration set(string key, Json[string] value) {
-        _data.set(key, value);
-        return this;
-    }
 
-    override bool updateKey(string key, Json value) {
-        return set(key, value);
-    }
+    unittest {
+        auto config = MemoryConfiguration;
+        config
+            .set("a", Json("A"))
+            .set("one", Json(1));
 
-    override bool merge(string key, Json value) {
-        return hasKey(key)
-            ? false : set(key, value);
+        assert(config.getString("a") == "A");
+        assert(config.merge("a", "B").getString("a") == "A");
+        assert(config.merge("x", "X").hasKey("x"));
     }
+    // #endregion merge
 
+    // #region remove
     alias remove = DConfiguration.remove;
     override IConfiguration remove(string[] keys) {
         keys.each!(key => _data.remove(key));
         return this;
     }
+
+    unittest {
+        auto config = MemoryConfiguration;
+        config
+            .set("a", Json("A"))
+            .set("one", Json(1));
+
+        assert(config.hasKey("a"));
+        assert(config.remove("a").hasKey("a") == false);
+    }
+    // #endregion remove
 }
 
 mixin(ConfigurationCalls!("Memory"));

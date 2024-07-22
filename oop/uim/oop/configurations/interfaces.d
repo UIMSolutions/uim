@@ -67,16 +67,16 @@ interface IConfiguration : INamed {
     // #region set
         void opAssign(Json[string] data);
 
-        bool set(STRINGAA values, string[] keys = null);
-        bool set(Json[string] items, string[] keys = null);
+        IConfiguration set(STRINGAA values, string[] keys = null);
+        IConfiguration set(Json[string] items, string[] keys = null);
 
-        bool set(string key, bool newValue);
-        bool set(string key, long newValue);
-        bool set(string key, double newValue);
-        bool set(string key, string newValue);
-        bool set(string key, Json newValue);
-        bool set(string key, Json[] newValue);
-        bool set(string key, Json[string] newValue);
+        IConfiguration set(string key, bool newValue);
+        IConfiguration set(string key, long newValue);
+        IConfiguration set(string key, double newValue);
+        IConfiguration set(string key, string newValue);
+        IConfiguration set(string key, Json newValue);
+        IConfiguration set(string key, Json[] newValue);
+        IConfiguration set(string key, Json[string] newValue);
 
         void opIndexAssign(bool newValue, string key);
         void opIndexAssign(long newValue, string key);
@@ -87,8 +87,11 @@ interface IConfiguration : INamed {
         void opIndexAssign(Json[string] newValue, string key);
     // #endregion set
 
-    bool updateKey(Json[string] items, string[] validKeys = null);
-    bool updateKey(string key, Json newValue);
+    //#region update
+    IConfiguration update(Json[string] items, string[] validKeys = null);
+    IConfiguration update(string[] keys, Json newValue);
+    IConfiguration update(string key, Json newValue);
+    //#endregion update
 
     bool merge(Json[string] items, string[] validKeys = null);
     bool merge(string key, Json newValue);

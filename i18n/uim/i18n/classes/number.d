@@ -79,17 +79,17 @@ class DNumber {
      * Formats a number into a percentage string.
      *
      * Options:
-     *
      * - `multiply`: Multiply the input value by 100 for decimal percentages.
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
      */
     static string toPercentage(Json value, int precision = 2, Json[string] options = null) {
-        auto updatedOptions = options.setPath([
+        options.merge([
             "multiply": false.toJson,
             "type": NumberFormatters.PERCENT.toJson
         ]);
+        
         auto doubleValue = 0.0;
-        if (!options.hasKey("multiply")) {
+        if (!options.getBoolean("multiply")) {
             doubleValue = value.getDouble / 100;
         }
         // return precision(doubleValue, precision, options);
@@ -110,8 +110,7 @@ class DNumber {
      */
     static string format(Json floatNumber, Json[string] options = null) {
         auto formatter = formatter(options);
-        options.merge(
-            ["before": Json(""), "after": Json("")]);
+        options.merge(["before", "after"], "");
         /* return updatedOptions.getString(
             "before") ~ formatter.format(
             floatNumber.getDouble) ~ updatedOptions.getString("after"); */
@@ -182,7 +181,6 @@ class DNumber {
         }
 
         /* auto formatter = formatter(
-        
             ["type": getDefaultCurrencyFormat()]/* .merge(options) * /); */
         auto abs = abs(doubleValue);
         if (

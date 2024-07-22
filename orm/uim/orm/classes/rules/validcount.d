@@ -19,6 +19,6 @@ class DValidCount {
         if (!isArray(value) && !cast(DCountable)value) {
             return false;
         }
-        return Validation.comparison(count(value), options["operator"], options["count"]);
+        return Validation.comparison(count(value), options.get("operator"], options.get("count"]);
     }
 }

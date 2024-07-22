@@ -567,8 +567,8 @@ class DRouter {
         Json[string] updatedOptions = options.merge(defaults);
 
         return new DRouteBuilder(_collection, path, [], [
-            "routeClass": updatedOptions["routeClass"],
-            "extensions": updatedOptions["extensions"],
+            "routeClass": updatedoptions.get("routeClass"],
+            "extensions": updatedoptions.get("extensions"],
         ]);
     }
     

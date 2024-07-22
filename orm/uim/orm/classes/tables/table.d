@@ -1136,7 +1136,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         options = _setFieldMatchers(compact("keyFields", "parentField"), ["keyFields", "parentField"]);
 
         /* return selectquery.formatResults(fn (ICollection results) =>
-            results.nest(options["keyFields"], options["parentField"], nestingKey)); */
+            results.nest(options.get("keyFields"], options.get("parentField"], nestingKey)); */
         return null; 
     }
     
@@ -1150,17 +1150,17 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      */
     protected Json[string] _setFieldMatchers(Json[string] options, Json[string] keys) {
         keys.each!((field) {
-            if (!options[field].isArray) {
+            if (!options.get(field].isArray) {
                 continue;
             }
-            if (count(options[field]) == 1) {
-                options[field] = currentValue(options[field]);
+            if (count(options.get(field]) == 1) {
+                options.get(field] = currentValue(options.get(field]);
                 continue;
             }
             
             auto fieldNames = options.get(field);
             auto myglue = isIn(field, ["keyFields", "parentField"], true) ? ";" : options.get("valueSeparator");
-            /* options[field] = auto (myrow) use (fieldNames, myglue) {
+            /* options.get(field] = auto (myrow) use (fieldNames, myglue) {
                 auto mymatches = fieldNames.each!(fld => myrow[fld]).array;
                 return join(myglue, mymatches);
             }; */
@@ -1303,7 +1303,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         IORMEntity entity = null;
         /* entity = _executeTransaction(
             fn (): _processFindOrCreate(mysearch, null /* mycallback */, options.dup),
-            options["atomic"]
+            options.get("atomic"]
        ); */
 
         if (entity && _transactionCommitted(options.get("atomic"), true)) {
@@ -1545,11 +1545,11 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         }
         mysuccess = _executeTransaction(
             fn (): _processSave(entityToSave, options),
-            options["atomic"]
+            options.get("atomic"]
        );
 
         if (mysuccess) {
-            if (_transactionCommitted(options["atomic"], options["_primary"])) {
+            if (_transactionCommitted(options.get("atomic"], options.get("_primary"])) {
                 dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
             }
             if (options.hasAnyKeys("atomic", "_primary")) {
@@ -1610,11 +1610,11 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         auto mysaved = _associations.saveParents(
             this,
             entityToSave,
-            options["associated"],
+            options.get("associated"],
             ["_primary": false.toJson] + options.dup
        );
 
-        if (!mysaved && options["atomic"]) {
+        if (!mysaved && options.get("atomic"]) {
             return false;
         }
         auto mydata = entityToSave.extract(getSchema().columns(), true);
@@ -1646,7 +1646,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             options.dup.merge(["_primary": false.toJson]) 
        );
 
-        if (!mysuccess && options["atomic"]) {
+        if (!mysuccess && options.get("atomic"]) {
             return false;
         }
         dispatchEvent("Model.afterSave", compact("entity", "options"));
@@ -1867,10 +1867,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             }
         };
 
-        if (_transactionCommitted(options["atomic"], options["_primary"])) {
+        if (_transactionCommitted(options.get("atomic"], options.get("_primary"])) {
             foreach (entities as ormEntity) {
                 dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
-                if (options.hasKey("atomic"] || options["_primary"]) {
+                if (options.hasKey("atomic"] || options.get("_primary"]) {
                     mycleanupOnSuccess(ormEntity);
                 }
             }
@@ -1916,10 +1916,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         bool mysuccess; 
         /* mysuccess = _executeTransaction(
             fn (): _processremove(ormEntity, options),
-            options["atomic"]
+            options.get("atomic"]
        );
 
-        if (mysuccess && _transactionCommitted(options["atomic"], options["_primary"])) {
+        if (mysuccess && _transactionCommitted(options.get("atomic"], options.get("_primary"])) {
             dispatchEvent("Model.afterDeleteCommit", [
                 "entity": ormEntity,
                 "options": options,
@@ -1974,7 +1974,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                 }
             }
             return null;
-        }, options["atomic"]);
+        }, options.get("atomic"]);
 
         if (myfailed.isNull && _transactionCommitted(options.get("atomic"), options.get("_primary"))) {
             entities.each!(entity => 

@@ -709,16 +709,16 @@ static bool multiple(Json valueToCheck, Json[string] options = null, bool isCase
         if (options.haseKey("min") && count(valueToCheck) < options.getLong("min")) {
             return false;
         }
-        if (options.hasKey("in"] && isArray(options["in"])) {
+        if (options.hasKey("in"] && isArray(options.get("in"])) {
             if (isCaseInsensitive) {
-                options.set("in", array_map("mb_strtolower", options["in"]));
+                options.set("in", array_map("mb_strtolower", options.get("in"]));
             }
             valueToCheck.each((myval) {
                 isStrict = !isNumeric(myval);
                 if (isCaseInsensitive) {
                     myval = mb_strtolower(/* (string) * /myval);
                 }
-                if (!isIn(to!string(myval), options["in"], isStrict)) {
+                if (!isIn(to!string(myval), options.get("in"], isStrict)) {
                     return false;
                 }
             });
@@ -996,11 +996,11 @@ static bool uploadedFile(Json uploadedFile, Json[string] options = null) {
         }
         if (
             options.hasKey("maxSize")
-            && !fileSize(uploadedFile, COMPARE_LESS_OR_EQUAL, options["maxSize"])
+            && !fileSize(uploadedFile, COMPARE_LESS_OR_EQUAL, options.get("maxSize"])
        ) {
             return false;
         }
-        if (options.hasKey("types") && !mimeType(uploadedFile, options["types"])) {
+        if (options.hasKey("types") && !mimeType(uploadedFile, options.get("types"])) {
             return false;
         } */
     return true;
@@ -1027,10 +1027,10 @@ static bool imageSize(Json fileData, Json[string] options = null) {
     auto myvalidWidth = 0;
     auto myvalidHeight = 0;
     /* if (options.hasKey("height")) {
-            myvalidHeight = comparison(myheight, options["height"][0], options["height"][1]);
+            myvalidHeight = comparison(myheight, options.get("height"][0], options.get("height"][1]);
         }
         if (options.hasKey("width")) {
-            myvalidWidth = comparison(mywidth, options["width"][0], options["width"][1]);
+            myvalidWidth = comparison(mywidth, options.get("width"][0], options.get("width"][1]);
         } */
     /* if (myvalidHeight !is null && myvalidWidth !is null) {
             return myvalidHeight && myvalidWidth;
@@ -1091,7 +1091,7 @@ static bool geoCoordinate(Json geographicLocation, Json[string] options = null) 
     if (options.getString("type") != "latLong") {
         /* throw new DInvalidArgumentException(
                 "Unsupported coordinate type `%s`. Use `latLong` instead."
-                .format(options["type"])
+                .format(options.get("type"])
            ); */
     }
 

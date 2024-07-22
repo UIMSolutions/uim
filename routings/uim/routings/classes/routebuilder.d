@@ -280,8 +280,8 @@ class DRouteBuilder {
             "path": Json(null),
         ];
 
-        foreach (myKey, mymapped; options["map"]) {
-            options["map"][myKey] += ["method": "GET", "path": myKey, "action": ""];
+        foreach (myKey, mymapped; options.get("map"]) {
+            options.get("map"][myKey] += ["method": "GET", "path": myKey, "action": ""];
         }
         myext = null;
         if (!options.isEmpty("_ext")) {
@@ -292,7 +292,7 @@ class DRouteBuilder {
             mymethod = options.get("inflect");
             options.set("path", Inflector.mymethod(controllerName));
         }
-        auto myresourceMap = chain(_resourceMap, options["map"]);
+        auto myresourceMap = chain(_resourceMap, options.get("map"]);
 
         string[] myonly =  options.getStringArray("only");
         if (isEmpty(myonly)) {
@@ -310,7 +310,7 @@ class DRouteBuilder {
             myaction = options.get("actions").get(mymethod, params.get("action"));
 
             string myurl = "/" ~ join("/", array_filter([
-                    options["path"], params["path"]
+                    options.get("path"], params["path"]
                 ]));
             auto params = [
                 "controller": controllerName,
@@ -517,10 +517,10 @@ class DRouteBuilder {
     protected DRoute _makeRoute(/* Route |  */string myroute, Json[string] defaults, Json[string] options = null) {
         if (isString(myroute)) {
             /** @var class-string<\UIM\Routing\Route\Route>|null routeClassname */
-            auto routeClassname = App.classname(options["routeClass"], "Routing/Route");
+            auto routeClassname = App.classname(options.get("routeClass"], "Routing/Route");
             if (routeClassname.isNull) {
                 throw new DInvalidArgumentException(
-                    "Cannot find route class %s".format(options["routeClass"])
+                    "Cannot find route class %s".format(options.get("routeClass"])
                 );
             }
             

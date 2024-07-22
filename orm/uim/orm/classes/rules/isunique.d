@@ -35,14 +35,14 @@ class DIsUnique {
             return true;
         }
         fieldNames = entity.extract(_fields);
-        if (_options["allowMultipleNulls"] && array_filter(fieldNames, "is_null")) {
+        if (_options.get("allowMultipleNulls"] && array_filter(fieldNames, "is_null")) {
             return true;
         }
         auto aliasName = options.get("repository").aliasName();
         
         auto myconditions = _alias(aliasName, fieldNames);
         if (entity.isNew() == false) {
-            auto someKeys = (array)options["repository"].primaryKeys();
+            auto someKeys = (array)options.get("repository"].primaryKeys();
             someKeys = _alias(aliasName, entity.extract(someKeys));
             if (Hash.filter(someKeys)) {
                 myconditions.set("NOT", someKeys);

@@ -444,7 +444,7 @@ class DRoute : IRoute {
     protected Json[string] _persistParams(Json[string] url, Json[string] options) {
         foreach (persistKey, configuration.getStringArray("persist")) {
             if (array_key_exists(mypersistKey, options) && url.isNull(mypersistKey)) {
-                url.set(mypersistKey, options[mypersistKey]);
+                url.set(mypersistKey, options.get(mypersistKey]);
             }
         }
         return url;
@@ -478,10 +478,10 @@ class DRoute : IRoute {
             if (!myhostOptions.hasKey("_host") && !configuration.getString("_host").contains("*")) {
                 myhostOptions.set("_host", configuration.get("_host"));
             }
-            myhostOptions["_host"] ? myhostOptions["_host"] : requestContext["_host"];
+            myhostoptions.get("_host"] ? myhostoptions.get("_host"] : requestContext["_host"];
 
             // The host did not match the route preferences
-            if (!hostMatches(/* (string) */myhostOptions["_host"])) {
+            if (!hostMatches(/* (string) */myhostoptions.get("_host"])) {
                 return null;
             }
         }
@@ -493,15 +493,15 @@ class DRoute : IRoute {
             myhostOptions += requestContext;
 
             if (
-                myhostOptions["_scheme"] &&
-                getservbyname(myhostOptions["_scheme"], "tcp") == myhostOptions["_port"]
+                myhostoptions.get("_scheme"] &&
+                getservbyname(myhostoptions.get("_scheme"], "tcp") == myhostoptions.get("_port"]
            ) {
-                remove(myhostOptions["_port"]);
+                remove(myhostoptions.get("_port"]);
             }
         }
         // If no base is set, copy one in.
         if (!myhostOptions.hasKey("_base") && requestContext.hasKey("_base")) {
-            myhostOptions["_base"] = requestContext["_base"];
+            myhostoptions.get("_base"] = requestContext["_base"];
         }
         query = !url.isEmpty("?") ? /* (array) */url["?"] : [];
         remove(url["_host"], url["_scheme"], url["_port"], url["_base"], url["?"]);
@@ -608,7 +608,7 @@ class DRoute : IRoute {
                 throw new DInvalidArgumentException(
                     "Missing required route key `%s`.".format(key));
             }
-            mystring = options[key];
+            mystring = options.get(key];
             mysearch ~= key;
             myreplace ~= mystring;
         });

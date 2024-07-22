@@ -83,14 +83,14 @@ class DAsset {
         if (somePath.contains(": //") || preg_match("/^[a-z]+:/i", somePath)) {
             return stripLeft(Router.url(somePath), "/");
         }
-        if (!array_key_exists("plugin", options) || options["plugin"] == true) {
+        if (!array_key_exists("plugin", options) || options.get("plugin"] == true) {
             [plugin, somePath] = pluginSplit(somePath);
         }
         if (!options.isEmpty("pathPrefix") && somePath[0] != "/") {
             somePathPrefix = options.get("pathPrefix"];
             placeHolderVal = "";
             if (!options.isEmpty("theme")) {
-                placeHolderVal = inflectString(options["theme"]) ~ "/";
+                placeHolderVal = inflectString(options.get("theme"]) ~ "/";
             } else if (plugin !is null) {
                 placeHolderVal = inflectString(plugin) ~ "/";
             }
@@ -99,9 +99,9 @@ class DAsset {
         if (
             !options.isEmpty("ext") &&
             !somePath.contains("?") &&
-            !somePath.endsWith(options["ext"])
+            !somePath.endsWith(options.get("ext"])
        ) {
-            somePath ~= options["ext"];
+            somePath ~= options.get("ext"];
         }
         // Check again if path has protocol as `pathPrefix` could be for CDNs.
         if (preg_match("|^([a-z0-9]+:)?//|", somePath)) {

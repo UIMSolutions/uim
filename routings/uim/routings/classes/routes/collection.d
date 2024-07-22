@@ -51,7 +51,7 @@ class DRouteCollection {
             if (_named.hasKey(options.getString("_name"))) {
                 mymatched = _named[options.getString("_name")];
                 throw new DuplicateNamedRouteException([
-                        "name": options["_name"],
+                        "name": options.get("_name"],
                         "url": mymatched.template,
                         "duplicate": mymatched,
                     ]);

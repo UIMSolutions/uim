@@ -132,7 +132,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
                 options.set("classname", aliasName);
             }
             if (!options.hasKey("table") && !options.getString("classname").contains("\\")) {
-                [, mytable] = pluginSplit(options["classname"]);
+                [, mytable] = pluginSplit(options.get("classname"]);
                 options.set("table", Inflector.underscore(mytable));
             }
             options.set("classname", fallbackclassname);
@@ -178,10 +178,10 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     protected string _getclassname(string aliasName, Json[string] options = null) {
         options.merge("classname", aliasName);
         if (options.getString("classname").contains("\\") && class_exists(options.get("classname"))) {
-            return options["classname"];
+            return options.get("classname"];
         }
         foreach (location; this.locations) {
-            myclass = App.classname(options["classname"], location, "Table");
+            myclass = App.classname(options.get("classname"], location, "Table");
             if (!myclass.isNull) {
                 return myclass;
             }

@@ -10,7 +10,7 @@ import uim.collections;
  *
  * @template-extends \RecursiveIteratorIterator<\RecursiveIterator>
  */
-class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
+class DTreePrinter { // }: RecursiveIteratorIterator, I_Collection {
   mixin TCollection;
 
   // Cached value for the current iteration element

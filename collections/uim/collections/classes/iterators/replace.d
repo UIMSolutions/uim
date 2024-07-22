@@ -43,7 +43,7 @@ class DReplaceIterator : D_Collection {
     // TODO
     /* anIterator = _innerIterator;
 
-    if (cast(ICollection) anIterator) {
+    if (cast(I_Collection) anIterator) {
        anIterator = anIterator.unwrap();
     }
     if (anIterator.classname != ArrayIterator.classname) {

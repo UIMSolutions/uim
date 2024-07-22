@@ -51,7 +51,7 @@ class DExtractIterator : D_Collection {
   Iterator unwrap() {
     auto myIterator = innerIterator();
 
-    if (cast(ICollection)myIterator) {
+    if (cast(I_Collection)myIterator) {
       myIterator = anIterator.unwrap();
     }
     TODO 

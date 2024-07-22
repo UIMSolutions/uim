@@ -26,7 +26,7 @@ import uim.collections;
  * anIterator.toList(); // Returns [4, 6]
  * ```
  */
-class DZipIterator : ICollection {
+class DZipIterator : I_Collection {
     mixin TCollection;
 
     /* 

@@ -20,7 +20,7 @@ class DInsertIterator : D_Collection {
   protected string _target;
 
   // The collection from which to extract the values to be inserted
-  protected ICollection _values;
+  protected I_Collection _values;
 
   /**
      * Constructs a new D_Collection that will dynamically add properties to it out of

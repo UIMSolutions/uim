@@ -42,7 +42,7 @@ class DFilterIterator : D_Collection {
         auto myfilter = innerIterator();
         auto myiterator = myfilter.getInnerIterator();
 
-        if (cast(ICollection)myiterator) {
+        if (cast(I_Collection)myiterator) {
             myiterator = myiterator.unwrap();
         }
         if (myiterator.classname != ArrayIterator.classname) {

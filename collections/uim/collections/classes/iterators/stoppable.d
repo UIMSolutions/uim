@@ -50,7 +50,7 @@ class DStoppableIterator : D_Collection {
   Iterator unwrap() {
      anIterator = _innerIterator;
 
-    if (cast(ICollection) anIterator) {
+    if (cast(I_Collection) anIterator) {
        anIterator = anIterator.unwrap();
     }
     if (anIterator.classname != ArrayIterator.classname) {

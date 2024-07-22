@@ -103,27 +103,27 @@ class DErrorTrap {
         auto trace = /* (array) */Debugger.trace(["start": 1, "format": "points"]);
         auto error = new UIMError(errorCode, errorDescription, fileName, errorTriggerLine, trace);
 
-        auto anIgnoredPaths = /* (array) */configuration.get("Error.ignoredDeprecationPaths");
+        auto anIgnoredPaths = configuration.getArray("Error.ignoredDeprecationPaths");
         if (errorCode == ERRORS.USER_DEPRECATED &&  anIgnoredPaths) {
             string relativePath = subString(fileName, ROOT.length + 1).replace(DIRECTORY_SEPARATOR, "/");
-            foreach (somePattern; anIgnoredPaths) {
-                string somePattern = somePattern.replace(DIRECTORY_SEPARATOR, "/");
-                if (fnmatch(somePattern, relativePath)) {
+            foreach (pattern; anIgnoredPaths) {
+                string pattern = pattern.replace(DIRECTORY_SEPARATOR, "/");
+                if (fnmatch(pattern, relativePath)) {
                     return true;
                 }
             }
         }
-        debug = configuration.get("debug");
-        renderer = this.renderer();
 
+        auto debug = configuration.get("debug");
+        auto renderer = this.renderer();
         try {
             // Log first incase rendering or event listeners fail
             logError(error);
-            event = dispatchEvent("Error.beforeRender", ["error": error]);
+            auto event = dispatchEvent("Error.beforeRender", ["error": error]);
             if (event.isStopped()) {
                 return true;
             }
-            renderer.write(event.getResult() ?: renderer.render(error, debug));
+            renderer.write(event.getResult() ? event.getResult() : renderer.render(error, debug));
         } catch (Exception exception) {
             // Fatal errors always log.
             logger().logException(exception);

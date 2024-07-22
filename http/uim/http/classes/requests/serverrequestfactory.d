@@ -21,16 +21,18 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         Json[string] aQuery = null, // _GET superglobal
         Json[string] parsedBody = null, // _POST superglobal
         Json[string] cookies = null, // _COOKIE superglobal
-        Json[string] files = null // _FILES superglobal
+        Json[string] files = null  // _FILES superglobal
+        
     ) {
-        auto server = normalizeServer(server ?  server : _SERVER);
+        auto server = normalizeServer(server ? server : _SERVER);
         ["uri": anUri, "base": base, "webroot": webroot] = UriFactory.marshalUriAndBaseFromSapi(
             server);
 
-        auto sessionConfig = /* (array) */ configuration.get("Session") ~ [
-                "defaults": "D",
-                "cookiePath": webroot,
-            ];
+        auto sessionConfig = configuration.getMap("Session")
+            .merge([
+                    "defaults": "D",
+                    "cookiePath": webroot,
+                ]);
 
         auto session = Session.create(sessionConfig);
         auto request = new DServerRequest([
@@ -44,12 +46,12 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
                 "input": server.get("uimD_INPUT", null),
             ]);
 
-        request = marshalBodyAndRequestMethod(parsedBody ?  ? _POST, request);
+        auto request = marshalBodyAndRequestMethod(parsedBody ?  ? _POST, request);
         // This is required as `ServerRequest.scheme()` ignores the value of
         // `HTTP_X_FORWARDED_PROTO` unless `trustProxy` is enabled, while the
         // `Uri` instance intially created always takes values of `HTTP_X_FORWARDED_PROTO`
         // into account.
-        anUri = request.getUri().withScheme(request.scheme());
+        auto anUri = request.getUri().withScheme(request.scheme());
         request = request.withUri(anUri, true);
 
         return marshalFiles(files ?  ? _FILES, request);
@@ -113,7 +115,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
     IServerRequest createServerRequest(string httpMethod, string uri, Json[string] serverOptions = null) {
         return createServerRequest(httpMethod, (new UriFactory()).createUri(uri), serverOptions);
     }
-    
+
     IServerRequest createServerRequest(string httpMethod, IUri uri, Json[string] serverOptions = null) {
         serverOptions.set("REQUEST_METHOD", httpMethod);
         auto options = ["environment": serverOptions].toJsonMap;

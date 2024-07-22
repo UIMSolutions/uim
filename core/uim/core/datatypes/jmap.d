@@ -37,22 +37,17 @@ Json[string] copy(Json[string] values, string[] keys = null) {
 }
 
 // #region merge
-Json[string] merge(Json[string] values, Json[string] valuesToMerge) {
-  valuesToMerge.byKeyValue
-    .each!(kv => values.merge(kv.key, kv.value));
+// #inherited -> Json[string] merge(Json[string] items, Json[string] valuesToMerge) {
 
-  return values;
-}
-
-Json[string] merge(Json[string] values, Json valuesToMerge) {
+Json[string] merge(Json[string] items, Json valuesToMerge) {
   if (!uim.core.datatypes.json.isObject(valuesToMerge)) {
-    return values;
+    return items;
   }
 
   valuesToMerge.byKeyValue
-    .each!(kv => values.merge(kv.key, kv.value));
+    .each!(kv => items.merge(kv.key, kv.value));
 
-  return values;
+  return items;
 }
 
 Json[string] merge(Json[string] values, string key, bool value) {

@@ -54,11 +54,11 @@ mixin template TTranslateStrategy() {
      */
     protected void unsetEmptyFields(IORMEntity entity) {
         /** @var array<DORMEntity> translations */
-        auto translations = /* (array) */entity.get("_translations");
+        auto translations = entity.getArray("_translations");
         foreach (locale, translation; translations) {
             auto fields = translation.extract(configuration.getArray("fields"), false);
             foreach (field, value; fields) {
-                if (value == null || value is null) {
+                if (value is null) {
                     translation.remove(field);
                 }
             }

@@ -362,8 +362,7 @@ class DNumericPaginator : IPaginator {
         string scopeValue;
         if (!settingsToMerge.isEmpty("scope")) {
             scopeValue = settingsToMerge.getString("scope");
-            requestData = !requestData.isEmpty(scopeValue) ?  /* (array) */ requestData[scopeValue]
-                : [];
+            requestData = requestData.getMap(scopeValue);
         }
 
         auto allowed = getAllowedParameters();

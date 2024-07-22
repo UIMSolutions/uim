@@ -752,10 +752,10 @@ class DMarshaller {
         if (
             myassociated.hasKey(
                 "_joinData")) {
-            mynested =  /* (array) */ myassociated["_joinData"];
+            mynested = myassociated.getArray("_joinData");
         }
         options.set("accessibleFields", ["_joinData": true.toJson]);
-        auto myrecords = this.mergeMany(
+        auto myrecords = mergeMany(
             originalEntities, dataToHydrate, options);
         myrecords.each!(
             (myrecord) {

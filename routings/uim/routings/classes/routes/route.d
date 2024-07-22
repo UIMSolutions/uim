@@ -338,7 +338,7 @@ class DRoute : IRoute {
         }
         if (
             defaults.hasKey("_method") &&
-            !isIn(httpMethod, /* (array) */_defaults["_method"], true)
+            !isIn(httpMethod, _defaults.getArray("_method"), true)
        ) {
             return null;
         }
@@ -493,17 +493,17 @@ class DRoute : IRoute {
             myhostOptions += requestContext;
 
             if (
-                myhostoptions.get("_scheme"] &&
-                getservbyname(myhostoptions.get("_scheme"], "tcp") == myhostoptions.get("_port"]
+                myhostoptions.get("_scheme") &&
+                getservbyname(myhostoptions.get("_scheme"), "tcp") == myhostoptions.get("_port")
            ) {
-                remove(myhostoptions.get("_port"]);
+                remove(myhostoptions.get("_port"));
             }
         }
         // If no base is set, copy one in.
         if (!myhostOptions.hasKey("_base") && requestContext.hasKey("_base")) {
-            myhostoptions.get("_base"] = requestContext["_base"];
+            myhostoptions.set("_base", requestContext["_base"]);
         }
-        query = !url.isEmpty("?") ? /* (array) */url["?"] : [];
+        query = url.getArray("?", []);
         remove(url["_host"], url["_scheme"], url["_port"], url["_base"], url["?"]);
 
         // Move extension into the hostOptions so its not part of

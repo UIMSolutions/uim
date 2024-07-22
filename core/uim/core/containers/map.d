@@ -350,15 +350,13 @@ unittest {
 // #region merge
 /+ Merge new items if key not exists +/
 V[K] merge(K, V)(V[K] items, V[K] mergeItems, K[] includedKeys = null) {
-  auto results = items.dup;
-
   includedKeys.isNull
     ? mergeItems.byKeyValue.each!(item => items.merge(item.key, item.value))
     : mergeItems.byKeyValue
       .filter!(item => !includedKeys.has(item.key))
       .each!(item => items.merge(item.key, item.value));
 
-  return results;
+  return items;
 }
 
 V[K] merge(K, V)(V[K] items, K[] keys, V value = Null!V) {

@@ -117,7 +117,7 @@ class DConsoleOptionParser {
             }
         });
 
-        _args[anIndex] = arg;
+        _args.set(anIndex, arg);
         ksort(_args);
     }
 

@@ -181,10 +181,10 @@ class DCookie : ICookie {
                 remove(someData["samesite"]);
             }
         }
-        name = someData["name"];
+        name = someData.getString(];
         aValue = someData["value"];
         assert(isString(name) && isString(aValue));
-        remove(someData["name"], someData["value"]);
+        remove(someData.getString(], someData["value"]);
 
         return Cookie.create(
             name,

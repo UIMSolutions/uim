@@ -77,7 +77,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             aConsoleIo.out("<info>%s</info>:".format(prefix));
             auto sortedNames = names.sort;
             foreach (someData; sortedNames) {
-                 aConsoleIo.out(" - " ~ someData["name"]);
+                 aConsoleIo.out(" - " ~ someData.getString("name"));
                 if (auto description = someData.get("description", null)) {
                      aConsoleIo.info(str_pad(" \u{2514}", 13, "\u{2500}") ~ " " ~ description.get!string);
                 }

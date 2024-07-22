@@ -21,7 +21,7 @@ abstract class DAbstractLocator : ILocator {
         storeOptions.remove("allowFallbackClass");
 
         if (_instances.hasKey(aliasName)) {
-            if (!storeOptions.isEmpty && configuration.hasKey(aliasName) && configuration.set(aliasName] != storeOptions) {
+            if (!storeOptions.isEmpty && configuration.hasKey(aliasName) && configuration.set(aliasName) != storeOptions) {
                 throw new DRuntimeException("You cannot configure '%s', it already exists in the registry.".format(aliasName));
             }
 
@@ -29,15 +29,16 @@ abstract class DAbstractLocator : ILocator {
         }
 
         configuration.set(aliasName, storeOptions);
-
-        return _instances[aliasName] = this.createInstance(aliasName, options);
+        return _instances.set(aliasName, this.createInstance(aliasName, options));
     }
 
     // Create an instance of a given classname.
     abstract protected IRepository createInstance(string repositoryAlias, Json[string] options = null);
 
-    function set(string repositoryAlias, IRepository repository) {
-        return _instances[repositoryAlias] = repository;
+    ILocator set(string repositoryAlias, IRepository repository) {
+        return _instances.set(repositoryAlias, repository);
+
+        return this;
     }
 
 
@@ -46,16 +47,16 @@ abstract class DAbstractLocator : ILocator {
     }
 
 
-    bool remove(string aliasNameName) {
-        remove(
-            _instances[aliasNameName],
-            configuration.set(aliasNameName]
-       );
+    ILocator remove(string aliasNameName) {
+        _instances.remove(aliasNameName);
+        configuration.remove(aliasNameName)
+
+        return this;
     }
 
 
     void clear() {
         _instances = null;
         _options = null;
-    } */
+    } 
 }

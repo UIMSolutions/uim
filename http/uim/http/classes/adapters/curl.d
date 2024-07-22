@@ -60,25 +60,25 @@ class DCurl { // }: IAdapter {
         ];
         switch (request.getMethod()) {
             case Request.METHOD_GET:
-                 result[CURLOPT_HTTPGET] = true;
+                 t(CURLOPT_HTTPGET, true);
                 break;
 
             case Request.METHOD_POST:
-                 result[CURLOPT_POST] = true;
+                 t(CURLOPT_POST, true);
                 break;
 
             case Request.METHOD_HEAD:
-                 result[CURLOPT_NOBODY] = true;
+                 t(CURLOPT_NOBODY, true);
                 break;
 
             default:
-                 result[CURLOPT_POST] = true;
-                 result[CURLOPT_CUSTOMREQUEST] = request.getMethod();
+                 t(CURLOPT_POST, true);
+                 t(CURLOPT_CUSTOMREQUEST, request.getMethod());
                 break;
         }
         body = request.getBody();
         body.rewind();
-         result[CURLOPT_POSTFIELDS] = body.getContents();
+         t(CURLOPT_POSTFIELDS, body.getContents());
         // GET requests with bodies require custom request to be used.
         if (result[CURLOPT_POSTFIELDS] != "" && result.hasKey(CURLOPT_HTTPGET))) {
             result.set(URLOPT_CUSTOMREQUEST, "get");
@@ -116,17 +116,13 @@ class DCurl { // }: IAdapter {
         if (clientOptions.hasKey("curl") && isArray(clientOptions["curl"])) {
             // Can`t use array_merge() because keys will be re-ordered.
             clientOptions["curl"].byKeyValue
-                .each!(kv => result[kv.key] = kv.value);
+                .each!(kv => result.set(kv.key, kv.value));
 
         }
         return result;
     }
     
-    /**
-     * Convert HTTP version number into curl value.
-     * Params:
-     * \Psr\Http\Message\IRequest request The request to get a protocol version for.
-     */
+    // Convert HTTP version number into curl value.
     protected int getProtocolVersion(IRequest request) {
         /* return match (request.getProtocolVersion()) {
             "1.0": CURL_HTTP_VERSION_1_0,

@@ -42,12 +42,12 @@ mixin template TPluginAssets() {
                 link = array_pop(someParts);
                 dir = wwwRoot ~ someParts.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
             }
-            plugins[plugin] = [
+            plugins.set(plugin, [
                 "srcPath": Plugin.path(plugin) ~ "webroot",
                 "destDir": dir,
                 "link": link,
                 "namespaced": namespaced,
-            ];
+            ]);
         });
 
         return plugins;

@@ -396,11 +396,11 @@ class DText {
 
             foreach (aKey, mysegment; phraseToSearch) {
                 mysegment = "(" ~ preg_quote(mysegment, "|") ~ ")";
-                if (options.hasKey("html"]) {
+                if (options.hasKey("html")) {
                     mysegment = "(?![^<]+>)mysegment(?![^<]+>)";
                 }
                 mywith ~= isArray(options["format"]) ? options["format"][aKey] : options["format"];
-                myreplace ~= options["regex"].format(mysegment);
+                myreplace ~= options.getString("regex").format(mysegment);
             }
             return (string)preg_replace(myreplace, mywith, searchText, options.get("limit"));
         }

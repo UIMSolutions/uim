@@ -20,7 +20,7 @@ class DMethod : DOOPElement {
 /* 	@safe 
   override Json toJson(string[] showFields = null, string[] hifeFields = null) {    
     auto result = super.toJson(showFields, hideFields);
-		result["name"] = _name;
+		result.set("name"] = _name;
 		return result;
 	}
  */

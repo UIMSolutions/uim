@@ -354,7 +354,7 @@ mixin template TEntity() {
           !isIn(aKey, originalKeys, true) &&
         this.isOriginalField(aKey)
           ) {
-          originals[aKey] = aValue;
+          originals.set(aKey, aValue);
         }
       });
     return originals;

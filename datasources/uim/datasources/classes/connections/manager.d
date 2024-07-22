@@ -126,7 +126,7 @@ static Json[string] parseDsn(string dsnToConvert) {
      * ```
      */
 static void aliasName(string sourceConnection, string aliasName) {
-    _aliasMap[aliasName] = sourceConnection;
+    _aliasMap.set(aliasName, sourceConnection);
 }
 
 /**

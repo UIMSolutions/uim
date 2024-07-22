@@ -96,13 +96,13 @@ class DCounterCacheBehavior : DBehavior {
      * Check if a field, which should be ignored, is dirty
      */
     void beforeSave(IEvent myevent, IORMEntity ormEntity, Json[string] options) {
-        if (options.hasKey("ignoreCounterCache") && options["ignoreCounterCache"] == true) {
+        if (options.hasKey("ignoreCounterCache") && options.getBoolean("ignoreCounterCache")) {
             return;
         }
         foreach (association, mysettings; configuration) {
             association = _table.getAssociation(association);
             /** @var string|int fieldName */
-            foreach fieldName, configData; mysettings) {
+            foreach (fieldName, configData; mysettings) {
                 if (isInteger(fieldName)) {
                     continue;
                 }

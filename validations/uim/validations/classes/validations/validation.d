@@ -982,7 +982,7 @@ static bool uploadedFile(Json uploadedFile, Json[string] options = null) {
         "optional": false.toJson,
     ]);
 
-    /* if (!uploadError(uploadedFile, options["optional"])) {
+    /* if (!uploadError(uploadedFile, options.get("optional"))) {
             return false;
         }
         if (options["optional"] && uploadedFile.getError() == UPLOAD_ERR_NO_FILE) {
@@ -990,7 +990,7 @@ static bool uploadedFile(Json uploadedFile, Json[string] options = null) {
         } */
     /* if (
             options.hasKey("minSize")
-            && !fileSize(uploadedFile, COMPARE_GREATER_OR_EQUAL, options["minSize"])
+            && !fileSize(uploadedFile, COMPARE_GREATER_OR_EQUAL, options.get("minSize"))
        ) {
             return false;
         }

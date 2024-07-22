@@ -1134,19 +1134,19 @@ class DBelongsToManyAssociation : DAssociation {
     // Parse extra options passed in the constructor.
     protected void _options(Json[string] options = null) {
         if (!options.isEmpty("targetForeignKey")) {
-            tarforeignKeys(options["targetForeignKey"]);
+            targetforeignKeys(options.get("targetForeignKey"));
         }
         if (!options.isEmpty("joinTable")) {
-            _junctionTableName(options["joinTable"]);
+            _junctionTableName(options.get("joinTable"));
         }
         if (!options.isEmpty("through")) {
-            setThrough(options["through"]);
+            setThrough(options.get("through"));
         }
         if (!options.isEmpty("saveStrategy")) {
-            setSaveStrategy(options["saveStrategy"]);
+            setSaveStrategy(options.get("saveStrategy"));
         }
         if (options.hasKey("sort")) {
-            sortOrder(options["sort"]);
+            sortOrder(options.get("sort"));
         }
     }
 }

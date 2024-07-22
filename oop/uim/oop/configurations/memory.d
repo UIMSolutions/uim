@@ -143,17 +143,17 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     alias set = DConfiguration.set;
-    override bool set(string key, Json value) {
+    override IConfiguration set(string key, Json value) {
         _data.set(key, value);
-        return true;
+        return this;
     }
-    override bool set(string key, Json[] value) {
+    override IConfiguration set(string key, Json[] value) {
         _data.set(key, value);
-        return true;
+        return this;
     }
-    override bool set(string key, Json[string] value) {
+    override IConfiguration set(string key, Json[string] value) {
         _data.set(key, value);
-        return true;
+        return this;
     }
 
     override bool updateKey(string key, Json value) {

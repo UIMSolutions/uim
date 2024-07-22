@@ -65,7 +65,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         configuration.set(myConfiguration);
         _table = table;
-        this.translationTable = getTableLocator().get(
+        _translationTable = getTableLocator().get(
             configuration.get("translationTable"],
             ["allowFallbackClass": true.toJson]
        );
@@ -87,7 +87,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         auto strategy = configuration.get("strategy");
         auto filter = configuration.get("onlyTranslated");
 
-        auto targetAlias = this.translationTable.aliasName();
+        auto targetAlias = _translationTable.aliasName();
         auto aliasName = _table.aliasName();
         auto tableLocator = getTableLocator();
 
@@ -98,7 +98,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 fieldTable = tableLocator.get(name, [
                     "classname": table,
                     "alias": name,
-                    "table": this.translationTable.getTable(),
+                    "table": _translationTable.getTable(),
                     "allowFallbackClass": true.toJson,
                 ]);
             } else {
@@ -202,8 +202,8 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      */
     void beforeSave(IEvent event, IORMEntity ormEntity, Json[string] options) {
         auto locale = ormEntity.get("_locale") ?: locale();
-        auto newOptions = [this.translationTable.aliasName(): ["validate": false.toJson]];
-        options["associated"] = newOptions + options["associated"];
+        auto newOptions = [_translationTable.aliasName(): ["validate": false.toJson]];
+        options.set("associated", newOptions + options.get("associated"));
 
         // Check early if empty translations are present in the entity.
         // If this is the case, unset them to prevent persistence.
@@ -254,7 +254,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         auto model = configuration.get("referenceName");
         auto preexistent = null;
         if (key) {
-            preexistent = this.translationTable.find()
+            preexistent = _translationTable.find()
                 .select(["id", "field"])
                 .where([
                     "field IN": fields,
@@ -446,7 +446,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * to the conditions array.
      */
     protected Json[string] findExistingTranslations( Json[string] ruleSet) {
-        auto association = _table.getAssociation(this.translationTable.aliasName());
+        auto association = _table.getAssociation(_translationTable.aliasName());
 
         auto query = association.find()
             .select(["id": "", "num": "0"])

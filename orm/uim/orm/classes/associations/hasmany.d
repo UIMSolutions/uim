@@ -506,11 +506,11 @@ class DHasManyAssociation : DAssociation {
                 if (
                     !options.isEmpty("saveStrategy")) {
                     setSaveStrategy(
-                        options["saveStrategy"]);
+                        options.get("saveStrategy"));
                 }
 
                 if (options.hasKey("sort")) {
-                    sortOrder(options["sort"]);
+                    sortOrder(options.get("sort"));
                 }
             }
 

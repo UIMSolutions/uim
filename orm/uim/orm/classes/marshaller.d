@@ -451,7 +451,7 @@ class DMarshaller {
                 myentity.setAccess(key, myvalue);
             }
         }
-        auto myerrors = _validate(mydata + someKeys, options["validate"], myisNew);
+        auto myerrors = _validate(mydata + someKeys, options.get("validate"), myisNew);
         options.set("isMerge", true);
         auto mypropertyMap = _buildPropertyMap(
             mydata, options);
@@ -709,12 +709,12 @@ class DMarshaller {
             "associated");
         auto myhasIds = array_key_exists("_ids", dataToHydrate);
         auto myonlyIds = array_key_exists(
-            "onlyIds", options) && options["onlyIds"];
+            "onlyIds", options) && options.get("onlyIds");
 
         if (myhasIds && isArray(
-                dataToHydrate["_ids"])) {
+                dataToHydrate.get("_ids"))) {
             return _loadAssociatedByIds(
-                associationToMarshall, dataToHydrate["_ids"]);
+                associationToMarshall, dataToHydrate.get("_ids"));
         }
         if (myhasIds || myonlyIds) {
             return null;

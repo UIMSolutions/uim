@@ -22,10 +22,6 @@ Json[string] mergeKeys(Json[string] values, string[] keys, Json defaultValue = J
   return values;
 }
 
-Json[string] updateKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
-  keys.each!(key => values.updateKey(key, defaultValue));
-  return values;
-}
 
 Json[string] copy(Json[string] values, string[] keys = null) {
   if (keys.length == 0) {
@@ -268,7 +264,7 @@ Json[string] set(T)(Json[string] items, string[] path, T value) {
 }
 
 Json[string] set(T)(Json[string] items, string key, T value) {
-  return set(items, path, Json(value));
+  return set(items, key, Json(value));
 }
 
 Json[string] set(Json[string] items, string[] path, Json value) {
@@ -372,6 +368,50 @@ Json[string] set(T)(Json[string] items, string key, T[string] value) {
   writeln(json);
 }
 // #endregion setter
+
+// #region update
+  // TODO
+  /*   Json[string] update(Json[string] items, string[] keys, Json defaultValue = Json(null)) {
+    keys.each!(key => items.update(key, defaultValue));
+    return items;
+  } */
+
+  Json[string] update(Json[string] items, Json[string] updateItems) {
+    updateItems.byKeyValue.each!(item => items.update(item.key, item.value));
+    return items;
+  }
+
+  Json[string] update(Json[string] items, string[] keys, Json defaultValue = Json(null)) {
+    keys.each!(key => items.update(key, defaultValue));
+    return items;
+  }
+  
+  Json[string] update(T)(Json[string] items, string key, T value) {
+    if (items.hasKey(key)) {
+      items.set(key, value);
+    }
+    return items;
+  }
+
+  Json[string] update(Json[string] items, string key, Json value = Json(null)) {
+    if (items.hasKey(key)) {
+      items.set(key, value);
+    }
+    return items;
+  }
+
+  unittest {
+    Json[string] items = [
+      "a": Json("A"),
+      "one": Json(1),
+      "pi": Json(3.14),
+      "bool": Json(true)
+    ];
+    assert(items.length == 4);
+    assert(items.getString("a") == "A");
+    assert(items.update("a", "B").getString("a") == "B");
+  }
+// #endregion update
 
 // #region convert
 Json[string] toJsonMap(bool[string] values, string[] excludeKeys = null) {

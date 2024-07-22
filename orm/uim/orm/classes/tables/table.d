@@ -1101,9 +1101,9 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
         /* return myquery.formatResults(fn (ICollection results) =>
             results.combine(
-                options["keyFields"],
-                options["valueField"],
-                options["groupField"]
+                options.get("keyFields"),
+                options.get("valueField"),
+                options.get("groupField")
            )); */
            return null; 
     }
@@ -1976,7 +1976,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             return null;
         }, options["atomic"]);
 
-        if (myfailed.isNull && _transactionCommitted(options["atomic"], options["_primary"])) {
+        if (myfailed.isNull && _transactionCommitted(options.get("atomic"), options.get("_primary"))) {
             entities.each!(entity => 
                 dispatchEvent("Model.afterDeleteCommit", [
                     "entity": entity.toJson,

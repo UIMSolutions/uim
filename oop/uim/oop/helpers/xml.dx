@@ -204,7 +204,8 @@ class Xml {
                         if (!isArray(inputData) || count(inputData) != 1) {
                             throw new XmlException("Invalid input.");
                         }
-                        key = key(inputData);
+                        
+                        auto key = key(inputData);
                         if (isInteger(key)) {
                             throw new XmlException("The key of input must be alphanumeric");
                         }
@@ -217,11 +218,11 @@ class Xml {
                         ];
                         options = options.add(defaultData);
 
-                        auto domDocument = new DOMDocument(options["version"], options["encoding"]);
-                        if (options["pretty"]) {
+                        auto domDocument = new DOMDocument(options.get("version"), options.get("encoding"));
+                        if (options.get("pretty")) {
                             domDocument.formatOutput = true;
                         }
-                        _fromArray(domDocument, domDocument, inputData, options["format"]);
+                        _fromArray(domDocument, domDocument, inputData, options.get("format"));
 
                         options.set("return", options.getString("return").lower);
                         if (options.getString("return") == "simplexml" || options.getString("return") == "simplexmlelement") {

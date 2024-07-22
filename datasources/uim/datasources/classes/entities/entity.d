@@ -68,7 +68,7 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
             setSource(options.get("source"));
         }
 
-        if (options["markNew"] != null) {
+        if (options.hasKey("markNew"] != null) {
             setNew(options.get("markNew"));
         }
 

@@ -73,9 +73,9 @@ class DFlashMessage {
         if (options.hasKey("escape") && !options.hasKey("params.escape")) {
             options.set("params.escape", options.get("escape"));
         }
-        [plugin, anElement] = pluginSplit(options["element"]);
-        if (options["plugin"]) {
-            plugin = options.get("plugin"];
+        [plugin, anElement] = pluginSplit(options.get("element"));
+        if (options.hasKey("plugin"]) {
+            plugin = options.get("plugin");
         }
 
         options["element"] = plugin 
@@ -83,10 +83,10 @@ class DFlashMessage {
             : "flash/" ~ anElement;
 
         auto messages = null;
-        if (!options.hasKey("clear"]) {
-            messages = (array)this.session.read("Flash." ~ options["key"]);
+        if (!options.hasKey("clear")) {
+            messages = (array)_session.read("Flash." ~ options.getString("key"));
         }
-        if (!options.hasKey("duplicate"]) {
+        if (!options.hasKey("duplicate")) {
             foreach (existingMessage; messages) {
                 if (existingMessage["message"] == messageToBeFlashed) {
                     return;
@@ -100,7 +100,7 @@ class DFlashMessage {
             "params": options.get("params"),
         ];
 
-        this.session.write("Flash." ~ options.get("key"), messages);
+        _session.write("Flash." ~ options.get("key"), messages);
     }
     
     // Set an exception`s message as flash message.

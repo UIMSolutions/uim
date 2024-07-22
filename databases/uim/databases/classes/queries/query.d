@@ -802,7 +802,7 @@ abstract class DQuery : IQuery { // : IExpression {
             "allowEmpty": false.toJson,
         ];
 
-        if (options["allowEmpty"] && !someValues) {
+        if (options.hasKey("allowEmpty"] && !someValues) {
             return _where([fieldName ~ " IS NOT": Json(null)]);
         }
 

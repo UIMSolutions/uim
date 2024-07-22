@@ -32,13 +32,14 @@ class DRoutesCheckCommand : DCommand {
       auto request = new DServerRequest(["url": url]);
       auto route = Router.parseRequest(request);
       string name = null;
-      foreach (myRoute; Router.routes()) {
-        if (myRoute.match(route)) {
-          name = myRoute.options["_name"] ?  ? myRoute.name;
+      foreach (route; Router.routes()) {
+        if (route.match(route)) {
+          name = route.options.getString("_name", route.name);
           break;
         }
       }
-      remove(route["_route"], route["_matchedRoute"]);
+      
+      route.remove("_route", "_matchedRoute");
       ksort(route);
 
       output = [

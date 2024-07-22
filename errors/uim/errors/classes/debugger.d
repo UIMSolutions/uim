@@ -254,20 +254,19 @@ class DDebugger : UIMObject {
             backtrace = backtrace.getTrace();
         }
 
-        Json[string] defaults = [
+        auto mergedOptions = options.merge([
             "depth": 999.toJson,
             "format": "text".toJson,
             "args": false.toJson,
             "start": 0.toJson,
             "scope": Json(null),
             "exclude": ["call_user_func_array", "trigger_error"].toJson,
-        ];
-
-        auto mergedOptions = options.merge(defaults);
+        ]);
+        
         auto count = count(backtrace) + 1;
         string[] back = null;
 
-        for (index = mergedOptions["start"]; index < count && index < mergedOptions["depth"]; index++) {
+        for (index = mergedOptions.getLong("start"); index < count && index < mergedOptions.getLong("depth"); index++) {
             frame = ["file": "[main]", "line": ""];
             if (isSet(backtrace[index])) {
                 frame = backtrace[index] ~ ["file": "[internal]", "line": "??"];
@@ -277,7 +276,7 @@ class DDebugger : UIMObject {
             if (!frame.isEmpty("class")) {
                 string signature = frame.getString("class") ~ frame.getString("type") ~ frame.getString("function");
                 string reference = signature ~ "(";
-                if (mergedOptions["args"] && isSet(frame["args"])) {
+                if (mergedOptions.hasKey("args") && frame.hasKey("args")) {
                     reference ~= frame["args"].map!(arg => Debugger.exportVar(arg)).join(", ");
                 }
                 reference ~= ")";
@@ -287,13 +286,13 @@ class DDebugger : UIMObject {
             }
             if (mergedOptions.getString("format") == "points") {
                 back ~= [
-                    "file": frame["file"],
-                    "line": frame["line"],
+                    "file": frame("file"),
+                    "line": frame("line"),
                     "reference": reference
                 ];
             } else if (mergedOptions.getString("format") == "array") {
-                if (!mergedOptions["args"]) {
-                    remove(frame["args"]);
+                if (!mergedOptions.get("args")) {
+                    frame.remove("args");
                 }
                 back ~= frame;
             } else if (mergedOptions.getString("format") == "text") {

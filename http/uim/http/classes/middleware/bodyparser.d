@@ -46,19 +46,19 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      */
     this(Json[string] options = null) {
         auto updatedOptions = options.update["Json": true.toJson, "xml": false.toJson, "methods": Json(null)];
-        if (options["Json"]) {
+        if (options.hasKey("Json"]) {
             this.addParser(
                 ["application/Json", "text/Json"],
                 this.decodeJson(...)
            );
         }
-        if (options["xml"]) {
+        if (options.hasKey("xml"]) {
             this.addParser(
                 ["application/xml", "text/xml"],
                 this.decodeXml(...)
            );
         }
-        if (options["methods"]) {
+        if (options.hasKey("methods"]) {
             setMethods(options["methods"]);
         }
     }

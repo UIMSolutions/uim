@@ -1115,7 +1115,7 @@ class DResponse : IResponse {
             newResponse = newResponse.withType(fileExtension);
         }
         fileSize = file.getSize();
-        if (options["download"]) {
+        if (options.hasKey("download"]) {
             agent = /* (string) */enviroment("HTTP_USER_AGENT");
 
             if (agent && preg_match("%Opera([/ ])([0-9].[0-9]{1,2})%", agent)) {

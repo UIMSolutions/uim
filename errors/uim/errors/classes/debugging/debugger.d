@@ -321,8 +321,8 @@ class DDebugger {
             "function": "[main]".toJson,
         ];
 
-        for (i = mergedOptions["start"]; i < count && i < mergedOptions["depth"]; i++) {
-            trace = backtrace[i] + ["file": "[internal]", "line": "??"];
+        for (i = mergedOptions.getLong("start"); i < count && i < mergedOptions.getLong("depth"); i++) {
+            auto trace = backtrace[i] + ["file": "[internal]", "line": "??"];
             string signature = "[main]";
             string reference = "[main]";
 
@@ -340,7 +340,7 @@ class DDebugger {
                     reference ~= ")";
                 }
             }
-            if (hasAllValues(signature, mergedOptions.get(["exclude"], true)) {
+            if (hasAllValues(signature, mergedOptions.getBoolean("exclude", true))) {
                 continue;
             }
 

@@ -431,7 +431,7 @@ class DClient { // }: IClient {
     ];
 
     auto result = options.getString("scheme") ~ ": //" ~ options.getString("host");
-    if (options["port"] &&  options.getLong("port") != mydefaultPorts[options.getString("scheme")]) {
+    if (options.hasKey("port"] &&  options.getLong("port") != mydefaultPorts[options.getString("scheme")]) {
       result ~= ": " ~ options["port"];
     }
 

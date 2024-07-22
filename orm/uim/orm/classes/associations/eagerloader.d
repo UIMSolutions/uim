@@ -247,7 +247,7 @@ class DEagerLoader {
                 ormtable = key(options);
                 options = currentValue(options);
             }
-            if (isSet(_containOptions[ormtable])) {
+            if (isSet(_containoptions.get(ormtable])) {
                 mypointer[ormtable] = options;
                 continue;
             }
@@ -261,7 +261,7 @@ class DEagerLoader {
             }
             if (isArray(options)) {
                 options = options.hasKey("config") ?
-                    options["config"] + options["associations"] :
+                    options.get("config"] + options.get("associations"] :
                     options;
                 options = _reformatContain(
                     options,
@@ -276,7 +276,7 @@ class DEagerLoader {
             if (options.hasKey("queryBuilder"), mypointer[ormtable]["queryBuilder"]) {
                 myfirst = mypointer[ormtable]["queryBuilder"];
                 mysecond = options.get("queryBuilder");
-                // TODO options["queryBuilder"] = fn (selectQuery): mysecond(myfirst(selectQuery));
+                // TODO options.get("queryBuilder"] = fn (selectQuery): mysecond(myfirst(selectQuery));
             }
             if (!isArray(options)) {
                 /** @psalm-suppress InvalidArrayOffset */
@@ -352,7 +352,7 @@ class DEagerLoader {
 
         if (
             options.hasKey("matching") &&
-            options["matching"] == true
+            options.get("matching"] == true
        ) {
             paths["propertyPath"] = "_matchingData." ~ aliasName;
         } else {

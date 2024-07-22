@@ -342,7 +342,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         auto subquery = this.find()
             .select(array_values(conds))
-            .where(options["conditions"]);
+            .where(options.get("conditions"]);
 
         if (!options.isEmpty("queryBuilder")) {
             subquery = options.get("queryBuilder")(subquery);

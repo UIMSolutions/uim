@@ -708,7 +708,7 @@ abstract class DTestCase : DBaseTestCase {
             }
             options.set("classname", classname);
         }
-        return options["classname"];
+        return options.get("classname"];
     }
     
     // Set the app namespace

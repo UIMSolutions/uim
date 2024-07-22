@@ -106,7 +106,7 @@ class DBelongsToAssociation : DAssociation {
         auto conditions = null;
         auto tAlias = _name;
         auto sAlias = _sourceTable.aliasName();
-        auto foreignKeys = /* (array) */options["foreignKeys"];
+        auto foreignKeys = /* (array) */options.get("foreignKeys"];
         auto bindingKeys = /* (array) */getBindingKey();
 
         if (count(foreignKeys) != count(bindingKeys)) {

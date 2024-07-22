@@ -1109,7 +1109,7 @@ class DResponse : IResponse {
         auto fileExtension = file.getExtension().lower;
         auto mapped = getMimeType(fileExtension);
         if ((!fileExtension || !mapped) && options.isNull("download")) {
-            options["download"] = true;
+            options.get("download"] = true;
         }
         auto newResponse = this.clone;
         if (mapped) {

@@ -40,7 +40,7 @@ class DORMEntity { // }: IORMEntity, IInvalidProperty {
             setSource(options.get("source"));
         }
         if (!options.isNull("markNew")) {
-            setNew(options["markNew"]);
+            setNew(options.get("markNew"]);
         }
         if (!properties.isEmpty) {
             //Remember the original field names here.

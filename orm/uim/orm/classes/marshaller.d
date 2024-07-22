@@ -38,7 +38,7 @@ class DMarshaller {
         // Map associations
         options.set("associated", options.getArray("associated"));
 
-        auto myinclude = _normalizeAssociations(options["associated"]);
+        auto myinclude = _normalizeAssociations(options.get("associated"]);
         foreach (key, mynested; myinclude) {
             if (isInteger(key) && isScalar(mynested)) {
                 key = mynested;
@@ -132,7 +132,7 @@ class DMarshaller {
                 myentity.setAccess(key, myvalue);
             }
         }
-        auto myerrors = _validate(mydata, options["validate"], true);
+        auto myerrors = _validate(mydata, options.get("validate"], true);
 
         options:set("isMerge", false);
         auto mypropertyMap = _buildPropertyMap(mydata, options);
@@ -215,7 +215,7 @@ class DMarshaller {
                                                             if (mytype == Association.ONE_TO_MANY || mytype == Association
                                                             .MANY_TO_MANY) {
                                                                 myhasIds = array_key_exists("_ids", valueToHydrate);
-                                                                    myonlyIds = array_key_exists("onlyIds", options) && options["onlyIds"];
+                                                                    myonlyIds = array_key_exists("onlyIds", options) && options.get("onlyIds"];
 
                                                                     if (myhasIds && isArray(
                                                                         valueToHydrate["_ids"])) {
@@ -518,7 +518,7 @@ class DMarshaller {
 
             return myentity;
         }
-        foreach (fieldName;  /* (array) */ options["fields"]) {
+        foreach (fieldName;  /* (array) */ options.get("fields"]) {
             assert(
                 isString(fieldName));
             if (!array_key_exists(fieldName, myproperties)) {
@@ -684,7 +684,7 @@ class DMarshaller {
                                                     mytype == Association
                                                 .ONE_TO_MANY) {
                                                     myhasIds = array_key_exists("_ids", myvalue);
-                                                    myonlyIds = array_key_exists("onlyIds", options) && options["onlyIds"];
+                                                    myonlyIds = array_key_exists("onlyIds", options) && options.get("onlyIds"];
                                                     if (myhasIds && isArray(
                                                         myvalue["_ids"])) {
                                                         return _loadAssociatedByIds(

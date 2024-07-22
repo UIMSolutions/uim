@@ -92,25 +92,25 @@ class DSelectLoader {
         options.set("fields", options.get("fields")); /** @var DORMQuery query */
         DORMQuery query = finder();
         if (options.hasKey("finder")) {
-            [finderName, opts] = _extractFinder(options["finder"]);
+            [finderName, opts] = _extractFinder(options.get("finder"]);
             query = query.find(
                 finderName, opts);
         }
 
         auto fetchQuery = query
-            .select(options["fields"])
-            .where(options["conditions"])
+            .select(options.get("fields"])
+            .where(options.get("conditions"])
             .eagerLoaded(true)
-            .enableHydration(options["query"].isHydrationEnabled());
+            .enableHydration(options.get("query"].isHydrationEnabled());
         if (
-            options["query"].isResultsCastingEnabled()) {
+            options.get("query"].isResultsCastingEnabled()) {
             fetchQuery.enableResultsCasting();
         } else {
             fetchQuery.disableResultsCasting();
         }
 
         if (useSubquery) {
-            filter = _buildSubquery(options["query"]);
+            filter = _buildSubquery(options.get("query"]);
             fetchQuery = _addFilteringJoin(
                 fetchQuery, key, filter);
         } else {
@@ -118,11 +118,11 @@ class DSelectLoader {
         }
 
         if (!options.isEmpty("sort")) {
-            fetchQuery.order(options["sort"]);
+            fetchQuery.order(options.get("sort"]);
         }
 
         if (!options.isEmpty("contain")) {
-            fetchQuery.contain(options["contain"]);
+            fetchQuery.contain(options.get("contain"]);
         }
 
         if (!options.isEmpty("queryBuilder")) {

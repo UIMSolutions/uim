@@ -90,7 +90,7 @@ class Xml {
             return fromArray(inputData, updatedOptions);
         }
 
-        if (updatedOptions["readFile"] && fileExists(inputData)) {
+        if (updatedoptions.get("readFile"] && fileExists(inputData)) {
             mycontent = file_get_contents(inputData);
             if (mycontent == false) {
                 throw new DException(

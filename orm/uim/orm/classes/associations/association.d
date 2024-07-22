@@ -251,7 +251,7 @@ class DAssociation : IAssociation {
         _options(options);
 
         if (!options.isEmpty("strategy")) {
-            setStrategy(options["strategy"]);
+            setStrategy(options.get("strategy"]);
         }
     }
 
@@ -464,7 +464,7 @@ class DAssociation : IAssociation {
             }
         }
 
-        [finder, opts] = _extractFinder(options["finder"]);
+        [finder, opts] = _extractFinder(options.get("finder"]);
         auto dummy = this
             .find(finder, opts)
             .eagerLoaded(true);
@@ -489,7 +489,7 @@ class DAssociation : IAssociation {
            );
         }
 
-        dummy.where(options["conditions"]);
+        dummy.where(options.get("conditions"]);
         _dispatchBeforeFind(dummy);
 
         query.join([
@@ -624,10 +624,10 @@ class DAssociation : IAssociation {
             return;
         }
 
-        fields = array_merge(surrogateQuery.clause("select"), options["fields"]);
+        fields = array_merge(surrogateQuery.clause("select"), options.get("fields"]);
 
         if (
-            (fields.isEmpty && options["includeFields"]) ||
+            (fields.isEmpty && options.get("includeFields"]) ||
             surrogate.isAutoFieldsEnabled()
            ) {
             fields = array_merge(fields, _targetTable.getSchema().columns());
@@ -736,7 +736,7 @@ class DAssociation : IAssociation {
         auto conditions = null;
         auto tAlias = _name;
         auto sAlias = source().aliasName();
-        auto foreignKeys = /* (array) */ options["foreignKeys"];
+        auto foreignKeys = /* (array) */ options.get("foreignKeys"];
         auto bindingKeys = /* (array) */ bindingKeys();
 
         if (count(foreignKeys) != count(bindingKeys)) {

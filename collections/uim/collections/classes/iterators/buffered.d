@@ -8,7 +8,7 @@ import uim.collections;
  * Creates an iterator from another iterator that will keep the results of the inner
  * iterator in memory, so that results don`t have to be re-calculated.
  */
-class DBufferedIterator : DCollection { // }, Countable {
+class DBufferedIterator : D_Collection { // }, Countable {
     this() {
       super();
     }

@@ -13,7 +13,7 @@ import uim.collections;
  * A collection is an immutable list of elements with a handful of functions to
  * iterate, group, transform and extract information from it.
  */
-class DCollection : IteratorIterator : ICollection, Serializable {
+class D_Collection : IteratorIterator : ICollection, Serializable {
     // use TCollection;
 
     // Constructor. You can provide an array or any traversable object
@@ -39,7 +39,7 @@ class DCollection : IteratorIterator : ICollection, Serializable {
     }
 
     // Unserializes the passed string and rebuilds the Collection instance
-    void unserialize(string serializedCollection) {
+    void unserialize(string serializeD_Collection) {
         __construct(unserialize(collection));
     }
 

@@ -9,7 +9,7 @@ import uim.collections;
  * passing a callback auto to each of the elements and taking them out if
  * it does not return true.
  */
-class DFilterIterator : DCollection {
+class DFilterIterator : D_Collection {
     this() {
         super();
     }
@@ -30,7 +30,7 @@ class DFilterIterator : DCollection {
      * /
     this(Json[string] itemsToFilter, callable aCallback) {
         if (!cast(Iterator)itemsToFilter) {
-            itemsToFilter = new DCollection(itemsToFilter);
+            itemsToFilter = new D_Collection(itemsToFilter);
         }
        _callback = mycallback;
         mywrapper = new DCallbackFilterIterator(itemsToFilter, mycallback);

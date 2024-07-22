@@ -252,8 +252,8 @@ return true;
 
 override bool merge(Json[string] items, long timeToLive = 0) {
     Json[string] cacheData = null;
-    items.byKeyValue
-      .each!(kv => cacheData.set(internalKey(kv.key), kv.value));
+    /* items.byKeyValue
+      .each!(kv => cacheData.set(internalKey(kv.key), kv.value)); */
     // TODOreturn _memory.merge(cacheData, duration(timeToLive));
     return false; 
   } 
@@ -268,7 +268,7 @@ override bool merge(Json[string] items, long timeToLive = 0) {
 
   // Read a key from the cache
   override Json read(string key, Json defaultValue = Json(null)) {
-    string internKey = internalcorrectKey(key);
+    // string internKey = internalcorrectKey(key);
     // TODO auto myvalue = _memory.get(internKey);
     /* return _memory.getResultCode() == Memory.RES_NOTFOUND
       ? defaultValue : myvalue; */
@@ -289,7 +289,8 @@ override bool merge(Json[string] items, long timeToLive = 0) {
 
   // Delete a key from the cache
   override bool remove(string key) {
-    return _memory.remove(internalcorrectKey(key));
+    // return _memory.remove(internalcorrectKey(key));
+    return false; 
   }
 
   // Delete all keys from the cache

@@ -8,7 +8,7 @@ import uim.collections;
  * Creates an iterator from another iterator that extract the requested column
  * or property based on a path
  */
-class DExtractIterator : DCollection {
+class DExtractIterator : D_Collection {
   this() {
     super();
   }

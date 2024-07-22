@@ -9,7 +9,7 @@ import uim.collections;
  * when you have two separate collections and want to merge them together by placing
  * each of the values from one collection into a property inside the other collection.
  */
-class DInsertIterator : DCollection {
+class DInsertIterator : D_Collection {
   // Holds whether the values collection is still valid. (has more records)
   protected bool _validValues = true;
 
@@ -23,14 +23,14 @@ class DInsertIterator : DCollection {
   protected ICollection _values;
 
   /**
-     * Constructs a new DCollection that will dynamically add properties to it out of
+     * Constructs a new D_Collection that will dynamically add properties to it out of
      * the values found in  sourceValues.
      */
   this(Json[string] targetValues, string propertyPath, Json[string] sourceValues) {
     super(targetValues);
 
-    /* if (!(cast(DCollection) sourceValues)) {
-       sourceValues = new DCollection(sourceValues);
+    /* if (!(cast(D_Collection) sourceValues)) {
+       sourceValues = new D_Collection(sourceValues);
     }
     string[] pathParts = propertyPath.split(".");
     auto mytarget = array_pop(pathParts);

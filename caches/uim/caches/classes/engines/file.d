@@ -297,8 +297,7 @@ class DFileCacheEngine : DCacheEngine {
     } */
 
     override protected string internalKey(string key) {
-        auto newKey = super.internalcorrectKey(key);
-
+        // auto newKey = super.internalcorrectKey(key);
         /* return rawUrlEncode(newKey); */
         return null; 
     }

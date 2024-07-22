@@ -62,9 +62,9 @@ class DCacheEngine : UIMObject, ICache, ICacheEngine {
         Json[string] results;
         keysToUse
             .each!((key) {
-                if (auto item = read(key)) {
+                /* if (auto item = read(key)) {
                     results.set(key, item);
-                }
+                } */
             });
 
         return results;

@@ -37,7 +37,10 @@ class DRulesChecker { // }: BaseRulesChecker {
         }
         myerrorField = currentValue(fieldNames);
 
-        return _addError(new DIsUnique(fieldNames, options), "_isUnique", compact("errorField", "message"));
+        return _addError(new DIsUnique(fieldNames, options), "_isUnique", [
+            "errorField": errorField, 
+            "message": message
+        ]);
     }
     
     /**
@@ -75,9 +78,12 @@ class DRulesChecker { // }: BaseRulesChecker {
                 ? __d("uim", "This value does not exist")
                 : "This value does not exist";
         }
-        myerrorField = isString(fieldName) ? fieldName : currentValue(fieldName);
-
-        return _addError(new DExistsIn(fieldName, mytable, options), "_existsIn", compact("errorField", "message"));
+        
+        auto errorField = isString(fieldName) ? fieldName : currentValue(fieldName);
+        return _addError(new DExistsIn(fieldName, mytable, options), "_existsIn", [
+                "errorField": errorField, 
+                "message": message
+            ]);
     }
     
     /**

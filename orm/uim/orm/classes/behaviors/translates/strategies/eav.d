@@ -275,8 +275,14 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         // TODO
 /*        new = array_diffinternalKey(values, modified);
-        foreach (new as field: content) {
-            new[field] = new DORMEntity(compact("locale", "field", "content", "model"), [
+        foreach (field, content; new) {
+            new[field] = new DORMEntity([
+                "locale": locale, 
+                "field": field, 
+                "content": content, 
+                "model": model
+            ], 
+            [
                 "useSetters": false.toJson,
                 "markNew": true.toJson,
             ]);

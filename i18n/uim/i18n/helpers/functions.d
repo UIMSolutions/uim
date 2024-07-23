@@ -34,16 +34,16 @@ string __n(string singularText, string pluralText, size_t count, Json[string] ar
 }
 
 // Allows you to override the current domain for a single message lookup.
-string __d(string domainName, string messageToTranslate, Json[string] arguments) {
+string __d(string domainName, string messageToTranslate, Json[string] options) {
     if (messageToTranslate.isEmpty) {
         return null;
     }
 
     /* 
-    if (isSet(arguments[0]) && isArray(arguments[0])) {
-        arguments = arguments[0];
+    if (isSet(options[0]) && isArray(options[0])) {
+        options = options[0];
     }
-    return I18n.getTranslator(domainName).translate(messageToTranslate, arguments); */
+    return I18n.getTranslator(domainName).translate(messageToTranslate, options); */
     return null;
 }
 

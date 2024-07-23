@@ -33,10 +33,15 @@ mixin template TRulesAware() {
         bool hasEvents = (cast(IEventDispatcher)this);
 
         if (hasEvents) {
-            event = dispatchEvent(
+            auto event = dispatchEvent(
                 "Model.beforeRules",
-                compact("entity", "ruleOptions", "operation")
-           );
+                [
+                    "entity": entity, 
+                    "ruleOptions": ruleOptions,
+                    "operation": operation
+                ]
+            );
+
             if (event.isStopped()) {
                 return event.getResult();
             }

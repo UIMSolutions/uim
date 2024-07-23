@@ -213,7 +213,11 @@ class DNumericPaginator : IPaginator {
         options.set("page", options.getLong("page") < 1 ? 1 : options.getLong("page"));
         [finder, options] = _extractFinder(options);
 
-        return compact("defaults", "options", "finder");
+        return [
+            "defaults": defaults, 
+            "options": options, 
+            "finder": finder
+        ];
     }
 
     // Build pagination params.

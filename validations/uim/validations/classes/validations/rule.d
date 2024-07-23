@@ -35,16 +35,9 @@ class DValidationRule {
     // Extra arguments to be passed to the validation method
     protected Json[string] _pass = null;
 
-    /**
-     
-     * Params:
-     * Json[string] myvalidator The validator properties
-     */
-    this(Json[string] myvalidator) {
-       _addValidatorProps(myvalidator);
+    this(Json[string] options) {
+       _addValidatorProps(options);
     }
-    
-
     
     /**
      * Dispatches the validation rule to the given validator method and returns
@@ -52,11 +45,16 @@ class DValidationRule {
      * it is assumed that the rule failed and the error message was given as a result.
      */
     string[] process(Json value, Json[string] myproviders, Json[string] context= null) {
-        /* auto context += ["data": Json.emptyArray, "newRecord": true.toJson, "providers": myproviders];
+        context.merge([
+            "data": Json.emptyArray, 
+            "newRecord": true.toJson, 
+            "providers": myproviders
+        ]);
 
         if (_skip(context)) {
             return true;
         }
+
         if (isString(_rule)) {
             myprovider = myproviders[_provider];
             /** @var callable mycallable * /
@@ -66,6 +64,7 @@ class DValidationRule {
             mycallable = _rule;
             myisCallable = true;
         }
+        
         if (!myisCallable) {
             /** @var string mymethod  * /
             mymethod = _rule;

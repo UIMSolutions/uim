@@ -294,12 +294,13 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             }
             return;
         }
-       _mapReduce ~= compact("mapper", "reducer");
+       _mapReduce ~= [
+                "mapper": mapper, 
+                "reducer": reducer
+            ];
     } */
     
-    /**
-     * Returns the list of previously registered map reduce routines.
-     */
+    // Returns the list of previously registered map reduce routines.
     Json[string]getMapReducers() {
         return _mapReduce;
     }

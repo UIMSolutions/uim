@@ -297,8 +297,13 @@ class Xml {
                                             _createChild(itemData);
                                         });
                                     } else {
-                                        // Struct
-                                        _createChild(compact("dom", "node", "key", "value", "format"));
+                                        _createChild([
+                                            "dom": dom, 
+                                            "node": node, 
+                                            "key": key, 
+                                            "value": value, 
+                                            "format": format
+                                        ]);
                                     }
                                 }
                             } else {

@@ -211,7 +211,7 @@ mixin template TQuery() {
      * If the third argument is set to true, it will erase previous map reducers
      * and replace it with the arguments passed.
      */
-    function mapReduce(callable mapper = null, callable reducer = null, bool canOverwrite = false) {
+    void mapReduce(callable mapper = null, callable reducer = null, bool canOverwrite = false) {
         if (canOverwrite) {
             _mapReduce = null;
         }
@@ -222,7 +222,10 @@ mixin template TQuery() {
 
             return;
         }
-        _mapReduce ~= compact("mapper", "reducer");
+        _mapReduce ~= [
+            "mapper": mapper, 
+            "reducer": reducer
+        ];
     }
 
     // Returns the list of previously registered map reduce routines.

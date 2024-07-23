@@ -616,7 +616,7 @@ class DValidation {
     auto myextension = pathinfo(valueToCheck, PATHINFO_EXTENSION).lower;
     return validExtensions.any!(value => myextension == myvalue.lower);
     
-    *  /
+    */
         if (valueToCheck.isEmpty) {
             return false;
         }

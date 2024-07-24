@@ -12,19 +12,19 @@ import uim.i18n;
 // Message Catalog
 interface ICatalog {
     // Sets the messages for this catalog.
-    void messages(string[][string] messages); 
+    ICatalog messages(string[][string] messages); 
 
     // Gets the messages for this catalog.
     string[][string] messages(); 
 
     // Adds new messages for this catalog.
-    // TODO void addMessages(string[][string] messages...); 
+    ICatalog addMessages(string[][string] messages); 
 
-    // Adds new messages for this catalog.
-    void addMessages(string[][string] messages); 
+    // Adds or update one message for this catalog.
+    ICatalog message(string key, string messages...); 
 
-    // Adds or updat one message for this catalog.
-    void message(string key, string[] messages); 
+    // Adds or update one message for this catalog.
+    ICatalog message(string key, string[] messages); 
             
     // Gets the message of the given key for this catalog.
     string[] message(string key); 

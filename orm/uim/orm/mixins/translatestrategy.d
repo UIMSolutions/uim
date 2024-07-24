@@ -33,14 +33,14 @@ mixin template TTranslateStrategy() {
      * will win over the locale set via this method (and over the globally
      * configured one for that matter)!
      */
-    void setLocale(string locale) {
+    void localeName(string locale) {
         this.locale = locale;
     }
 
     /**
      * Returns the current locale.
      *
-     * If no locale has been explicitly set via `setLocale()`, this method will return
+     * If no locale has been explicitly set via `localeName)`, this method will return
      * the currently configured global locale.
      */
     string locale() {

@@ -19,10 +19,10 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     // TODO protected ITranslator[string][string] registry = null;
 
     // The current locale code.
-    protected string _localeName = null;
+    protected string _localeName;
 
     // A catalog locator.
-    protected DCatalogLocator _catalogs;
+    protected DCatalogLocator _catalogLocator;
 
     // A formatter locator.
     protected DFormatterLocator _formatters;
@@ -52,7 +52,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         DFormatterLocator formatterLocator,
         string localName
    ) {
-        _catalogs = catalogLocator;
+        _catalogLocator = catalogLocator;
         _formatters = formatterLocator;
         // _localeName(localName);
 
@@ -72,19 +72,18 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     }
     
     // Sets the default locale code.
-    void setLocale(string localName) {
-        //_locale = localName;
+    void localeName(string localName) {
+        _localName = localName;
     }
     
     // Returns the default locale code.
     string locale() {
-        //return _locale;
-        return null; 
+        return _localName;
     }
     
     // Returns the translator catalogs
     DCatalogLocator getCatalogs() {
-        return _catalogs;
+        return _catalogLocator;
     }
     
     // An object of type FormatterLocator
@@ -99,9 +98,10 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     
     // Gets a translator from the registry by catalog for a locale.
     // alias get = DObjectRegistry.get;
-    /// DTranslator get(string catalogName, string localName = null) {
-        /* auto locale = locale : locale();
+    DTranslator get(string catalogName, string localName = null) {
+        localName = localName.ifEmpty(localName());
 
+    /*
         if (registry.hasKey([catalogName, localName])) {
             return _registry.getPath([catalogName, localName]);
         }
@@ -119,12 +119,12 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
            _cacher.set(aKey, translator);
         }
         return _registry.register([catalogName, localName], translator).getPath([catalogName, localName]); */
-        /* return null; 
-    } */
+        return null; 
+    }
     
     // Gets a translator from the registry by catalog for a locale.
     protected ITranslator _getTranslator(string catalogName, string localName) {
-        /* if (_catalogs.has(catalogName, localName)) {
+        /* if (_catalogLocator.has(catalogName, localName)) {
             return _createInstance(catalogName, localname);
         } */
 
@@ -133,7 +133,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             : _loaders[FALLBACK_LOADER](catalogName, localname);
 
         catalog = setFallbackPackage(catalogName, catalog);
-        _catalogs.set(catalogName, localname, catalog);
+        _catalogLocator.set(catalogName, localname, catalog);
 
         return _createInstance(catalogName, localname); */
         return null; 
@@ -141,7 +141,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     
     // Create translator instance.
     protected ITranslator createInstance(string catalogName, string localName = null) {
-        /* ICatalog catalog = _catalogs.get(catalogName, localName);
+        /* ICatalog catalog = _catalogLocator.get(catalogName, localName);
         auto fallback = catalog.fallback();
         if (!fallback.isNull) {
             fallback = get(fallback, localName);

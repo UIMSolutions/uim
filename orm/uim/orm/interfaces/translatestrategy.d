@@ -19,12 +19,12 @@ interface ITranslateStrategy : IPropertyMarshal {
      * will win over the locale set via this method (and over the globally
      * configured one for that matter)!
      */
-    ITranslateStrategy setLocale(string localeName);
+    ITranslateStrategy localeName(string localeName);
 
     /**
      * Returns the current locale.
      *
-     * If no locale has been explicitly set via `setLocale()`, this method will
+     * If no locale has been explicitly set via `localeName)`, this method will
      * return the currently configured global locale.
      */
     string locale();

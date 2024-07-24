@@ -28,7 +28,7 @@ class DLocaleSelectorMiddleware : D18NMiddleware {
             locale = Locale.lookup(this.locales, locale, true);
         }
         if (locale || this.locales == ["*"]) {
-            I18n.setLocale(locale);
+            I18n.localeNamelocale);
         }
         return requestHandler.handle(serverRequest);
     } */ 

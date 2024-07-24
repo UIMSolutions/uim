@@ -106,7 +106,7 @@ class DI18n {
 
         if (translatorLocale) {
             auto currentLocale = translators.locale();
-            translators.setLocale(translatorLocale);
+            translators.localeNametranslatorLocale);
         }
         
         auto translator = translators.get(domainName);
@@ -115,7 +115,7 @@ class DI18n {
                 "Translator for domain `%s` could not be found.".format("domainname"));
         }
        /* if (isSet(currentLocale)) {
-            translators.setLocale(currentLocale);
+            translators.localeNamecurrentLocale);
         } */
         return translator;
     }
@@ -166,11 +166,11 @@ class DI18n {
      * Sets the default locale to use for future translator instances.
      * This also affects the `intl.default_locale` UIM setting.
      */
-    static void setLocale(string localName) {
+    static void localeName(string localName) {
         getDefaultLocale();
         /* Locale.setDefault(localName);
         if (isSet(_collection)) {
-            translators().setLocale(localName);
+            translators().localeNamelocalName);
         } */
     }
     

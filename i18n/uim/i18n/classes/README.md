@@ -20,7 +20,7 @@ should you wish to create them manually instead of using the conventions this li
 ```D
 use UIM\I18n\I18n;
 
-I18n.setLocale("en_US");
+I18n.localeName"en_US");
 ```
 
 ### Setting path to folder containing po files.

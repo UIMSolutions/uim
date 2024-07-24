@@ -6,7 +6,7 @@ import uim.i18n;
 
 // Message Catalog
 class DMessageCatalog : ICatalog {
-    mixin TConfigurable; 
+  mixin TConfigurable;
 
   this() {
     initialize;
@@ -17,7 +17,7 @@ class DMessageCatalog : ICatalog {
     string[][string] messages,
     string formatterName = "default",
     string fallbackName = null,
- ) {
+  ) {
     this();
     this.messages(messages);
     this.formatterName(formatterName);
@@ -49,7 +49,7 @@ class DMessageCatalog : ICatalog {
   // #region Getter Setter single message
   // Gets the message of the given key for this catalog.
   string[] message(string messageKey) {
-    return messages.get(messageKey, null);
+    return messages.get(messageKey);
   }
   ///
   unittest {
@@ -57,13 +57,22 @@ class DMessageCatalog : ICatalog {
     catalog.message("test");
   }
 
-  // Adds one message for this catalog.
-  void message(string messageKey, string[] newContent) {
-    auto myMessages = messages;
-    myMessages[messageKey] = newContent;
-    messages(myMessages);
-  }
-  // #endregion
+  // #region set
+    ICatalog set(string[][string] messages) {
+      messages.bykeyValue.each!(message => set(key, message));
+      return this;
+    }
+
+    ICatalog set(string key, string[] message...) {
+      set(key, message.dup);
+      return this;
+    }
+
+    ICatalog set(string key, string[] message) {
+      _messages[key] = message;
+      return this;
+    }
+  // #endregion set
 }
 
 auto MessageCatalog() {

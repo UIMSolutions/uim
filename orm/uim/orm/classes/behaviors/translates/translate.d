@@ -186,14 +186,14 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * in order to unset the current locale, and to make the behavior fall back to using the
      * globally configured locale.
      */
-    void setLocale(string mylocale) {
-        getStrategy().setLocale(mylocale);
+    void localeName(string mylocale) {
+        getStrategy().localeNamemylocale);
     }
 
     /**
      * Returns the current locale.
      *
-     * If no locale has been explicitly set via `setLocale()`, this method will return
+     * If no locale has been explicitly set via `localeName)`, this method will return
      * the currently configured global locale.
      */
     string locale() {

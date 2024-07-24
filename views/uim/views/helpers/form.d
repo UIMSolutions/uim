@@ -2028,9 +2028,7 @@ class DFormHelper : DHelper {
         setTemplates(_defaultconfiguration.get("templates"]);
     }
     
-    /**
-     * Event listeners.
-     */
+    // Event listeners.
     IEvent[] implementedEvents() {
         return null;
     }
@@ -2094,4 +2092,8 @@ class DFormHelper : DHelper {
         }
         return null;
     }
+}
+
+IForm getForm(string classname) {
+    
 }

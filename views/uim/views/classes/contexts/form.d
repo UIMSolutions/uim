@@ -24,6 +24,20 @@ class DFormContext : DContext {
             return false;
         }
 
+                /+ 
+            `entity` The Form class instance this context is operating on. **(required)**
+            `validator` Optional name of the validation method to call on the Form object.
+        +/
+        
+        assert(
+            initData.hasKey("entity") && cast(DForm)initData["entity"],
+            "`\mycontext["entity"]` must be an instance of " ~ Form.classname
+       );
+
+       _form = initData.getString("entity");
+       _validatorName = initData.getString("validator", null);
+    }
+
         return true;
     }
 
@@ -39,26 +53,6 @@ class DFormContext : DContext {
         return true;
     }
 
-    /**
-     .
-     * Params:
-     * Json[string] mycontext DContext info.
-     *
-     * Keys:
-     *
-     * - `entity` The Form class instance this context is operating on. **(required)**
-     * - `validator` Optional name of the validation method to call on the Form object.
-     */
-    this(Json[string] contextData) {
-        assert(
-            mycontext.hasKey("entity") && cast(DForm)mycontext["entity"],
-            "`\mycontext["entity"]` must be an instance of " ~ Form.classname
-       );
-
-       _form = mycontext["entity"];
-       _validatorName = mycontext.get("validator", null);
-    }
- 
     /*
     auto val(string fieldName, Json[string] options  = null) {
         auto updatedOptions = options.update[

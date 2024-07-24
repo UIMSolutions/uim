@@ -20,30 +20,16 @@ import uim.views;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Form\Form>
  */
-class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
-    mixin TConfigurable;
+class DForm : UIMObject, IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
+    mixin(FormThis!(""));
 
-    this() {
-        initialize;
-    }
-
-    this(Json[string] initData) {
-        initialize(initData);
-    }
-
-    this(string newName) {
-        this();
-        this.name(newName);
-    }
-
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     // #region Constants
     // Name of default validation set.
@@ -94,16 +80,32 @@ class DForm : IForm { // }: DEventListener, IEventDispatcher, IValidatorAware {
 
     // #region data handling
     protected Json[string] _data;
-    void set(Json[string] newData) {
-        _data = _data.set(newData);
+    IForm set(Json[string] newData) {
+        newData.byKeyValue.each!(kv => _data.set(kv.key, kv.value));
+        return this;
     }
 
     @property Json[string] data() {
         return _data.dup;
     }
 
-    @property void data(Json[string] data) {
-        _data = data.dup;
+    bool hasKey(string key) {
+        return _data.hasKey(key);
+    }
+
+    Json[string] get(string[] keys) {
+        Json[string] result;
+        keys
+            .filter!(key => hasKey(key))
+            .each!(key => result[key] = get(key));
+        
+        return result;
+    }
+
+    Json get(string key, Json defaultValue = Json(null)) {
+        return _data.hasKey(key)
+            ? _data[key]
+            : defaultValue;
     }
     // #endregion data handling
 

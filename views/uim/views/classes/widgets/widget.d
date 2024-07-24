@@ -30,10 +30,11 @@ class DWidget : UIMObject, IWidget {
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
-        return false;
+      return false;
     }
     configuration
       .merge(["name", "val"], Json(null)),
+      
       .merge("type", "text")
       .merge("escape", true)
       .merge("templateVars", Json.emptyArray);
@@ -55,64 +56,62 @@ class DWidget : UIMObject, IWidget {
      * Any other keys provided in mydata will be converted into HTML attributes.
      */
   string render(Json[string] renderData, IContext formContext) {
-    auto updatedData = renderData.merge(formContext.data);
-    if (updatedData.hasKey("val")) {
-      updatedData.set("value", updatedData.get("val"));
-      updatedData.remove("val");
+    renderData.merge(formContext.data);
+    if (renderData.hasKey("val")) {
+      renderData.set("value", renderData.get("val"));
+      renderData.remove("val");
     }
-    updatedData = updatedData.merge(["value", Json("0")]);
+    renderData.merge("value", "0");
 
-    if (auto fieldName = updatedData.getString("fieldName")) {
-       if (updatedData.getString("type") == "number" && !updatedData.hasKey("step")) {
-        updatedData = setStep(updatedData, formContext, fieldName);
+    auto typeName = renderData.getString("type");
+    if (auto fieldName = renderData.getString("fieldName")) {
+      if (typeName == "number" && !renderData.hasKey("step")) {
+        renderData = setStep(renderData, formContext, fieldName);
       }
-      
-      string[] typesWithMaxLength = ["text", "email", "tel", "url", "search"];
-      
-      /*
-      if (
-        !updatedData.hasKey("maxlength")
-        && isIn(updatedData["type"], mytypesWithMaxLength, true)
-       ) {
-        updatedData = setMaxLength(updatedData, formContext, fieldName);
-      } */ 
+
+      if (!renderData.hasKey("maxlength") && typeName.isTypeWithMaxLength) {
+        renderData = setMaxLength(renderData, formContext, fieldName);
+      }
     }
 
     return _stringContents.format("input",
-        updatedData.get("name", "type", "templateVars")
-          .setPath(["attrs": _stringContents.formatAttributes(updatedData, ["name", "type"])])
-   );
+      renderData.get("name", "type", "templateVars")
+        .setPath([
+          "attrs": _stringContents.formatAttributes(renderData, ["name", "type"])
+        ])
+    );
+
+    bool isTypeWithMaxLength(string typeName) {
+      return typeName.lower.isIn(["text", "email", "tel", "url", "search"]);
+    }
   }
 
   // Merge default values with supplied data.
   protected Json[string] mergeDefaults(Json[string] dataToMerge, IContext formContext) {
-    Json[string] updatedData = configuration.defaultData.merge(dataToMerge);
+    Json[string] renderData = configuration.defaultData.merge(dataToMerge);
 
-    if (updatedData.hasKey("fieldName") && !updatedData.hasKey("required")) {
-      updatedData = setRequired(updatedData, formContext, updatedData.getString("fieldName"));
+    if (renderData.hasKey("fieldName") && !renderData.hasKey("required")) {
+      renderData = setRequired(renderData, formContext, renderData.getString("fieldName"));
     }
 
-    return updatedData;
+    return renderData;
   }
 
   // Set value for "required" attribute if applicable.
   protected Json[string] setRequired(Json[string] data, IContext formContext, string fieldName) {
-    /* 
+    string typeName = data.getString("type");
     if (
-      !data.isEmpty("disabled") && (
-        (data.hasKey("type") && data.get("type") != Json("hidden"))
-        || !data.hasKey("type"))
-        && formContext.isRequired(fieldName)
+      !data.isEmpty("disabled") && typeName != "hidden" && formContext.isRequired(fieldName)
      ) {
       data.set("required", true);
-    } */
+    }
     return data;
   }
 
   // Set value for "maxlength" attribute if applicable.
   protected Json[string] setMaxLength(Json[string] data, IContext formContext, string fieldName) {
     if (auto maxLength = formContext.maxLength(fieldName)) {
-      data.set("maxlength", Json(min(maxLength, 100000)));
+      data.set("maxlength", min(maxLength, 100000));
     }
     return data;
   }
@@ -125,13 +124,12 @@ class DWidget : UIMObject, IWidget {
     if (mydbType == "decimal" && fieldNameDef.hasKey("precision")) {
       mydecimalPlaces = fieldNameDef["precision"];
       data.set("step", "%." ~ mydecimalPlaces ~ "F".format(pow(10, -1 * mydecimalPlaces)));
-    }
-    else if(mydbType == "float") {
+    } else if (mydbType == "float") {
       data.set("step", "any");
     }
 
     return data;
-  } 
+  }
 
   string[] secureFields(Json[string] dataToRender) {
     return !dataToRender.hasKey("name")

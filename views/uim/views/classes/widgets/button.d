@@ -28,23 +28,18 @@ class DButtonWidget : DWidget {
     
     // Render a button.
     override string render(Json[string] renderData, IContext formContext) {
-        Json[string] updatedData = renderData.merge([
-            // `text` The text of the button. Unlike all other form controls, buttons do not escape their contents by default.
-            "text": "".toJson,
-            // `type` The button type defaults to "submit".
-            "type": Json("submit"),
-            // `escapeTitle` Set to false to disable escaping of button text.
-            "escapeTitle": true.toJson,
-            // `escape` Set to false to disable escaping of attributes.
-            "escape": true.toJson,
-            "templateVars": Json.emptyArray(),
-        ]);
+        renderData
+            .merge("text", "") // `text` The text of the button. Unlike all other form controls, buttons do not escape their contents by default.
+            .merge("type", "submit") // `type` The button type defaults to "submit"
+            .merge("escapeTitle", true) // `escapeTitle` Set to false to disable escaping of button text.
+            .merge("escape", true) // `escape` Set to false to disable escaping of attributes.
+            .merge("templateVars", Json.emptyArray());
 
         return null; 
         _stringContents.format("button", [
-            "text": !updatedData.isEmpty("escapeTitle") ? htmlAttributeEscape(updatedData.getString("text")) : updatedData.getString("text"),
-            "templateVars": updatedData.getString("templateVars"),
-            "attrs": _stringContents.formatAttributes(updatedData, ["text", "escapeTitle"]),
+            "text": !renderData.isEmpty("escapeTitle") ? htmlAttributeEscape(renderData.getString("text")) : renderData.getString("text"),
+            "templateVars": renderData.getString("templateVars"),
+            "attrs": _stringContents.formatAttributes(renderData, ["text", "escapeTitle"]),
         ]);
     }
 }

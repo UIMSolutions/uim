@@ -203,7 +203,7 @@ class DNumericPaginator : IPaginator {
 
     // Extract pagination data needed
     Json[string] extractData(IRepository repository, Json[string] requestData, Json[string] paginationData) {
-        auto aliasName = repository.aliasName();
+        string aliasName = repository.aliasName();
         auto defaults = getDefaults(aliasName, paginationData);
         auto options = this.mergeOptions(requestData, defaults);
         options = this.validateSort(repository, options);

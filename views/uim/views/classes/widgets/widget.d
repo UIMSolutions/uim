@@ -10,15 +10,14 @@ import uim.views;
  * This input class DCan be used to render basic simple
  * input elements like hidden, text, email, tel and other types.
  */
-class DWidget : IWidget {
-  mixin TConfigurable;
+class DWidget : UIMObject, IWidget {
 
   this() {
-    initialize;
+    super();
   }
 
   this(Json[string] initData) {
-    initialize(initData);
+    super(initData);
   }
 
   this(DStringContents newTemplate) {
@@ -26,24 +25,22 @@ class DWidget : IWidget {
   }
 
   this(string newName) {
-    this().name(newName);
+    super(newName);
   }
 
-  bool initialize(Json[string] initData = null) {
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
-    configuration.setPath([
-      "name": Json(null),
-      "val": Json(null),
-      "type": Json("text"),
-      "escape": true.toJson,
-      "templateVars": Json.emptyArray
-    ]);
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+        return false;
+    }
+    configuration
+      .merge(["name", "val"], Json(null)),
+      .merge("type", "text")
+      .merge("escape", true)
+      .merge("templateVars", Json.emptyArray);
 
     return true;
   }
 
-  mixin(TProperty!("string", "name"));
   mixin(TProperty!("DStringContents", "stringContents"));
 
   /**

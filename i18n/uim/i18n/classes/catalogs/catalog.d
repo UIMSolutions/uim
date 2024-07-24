@@ -33,29 +33,58 @@ class DMessageCatalog : ICatalog {
   }
 
   // Message keys and translations in this catalog.
-  mixin(TProperty!("string[][string]", "messages"));
-
-  // The name of a fallback catalog to use when a message key does not exist.
-  mixin(TProperty!("string", "fallbackName"));
-
-  // The name of the formatter to use when formatting translated messages.
-  mixin(TProperty!("string", "formatterName"));
-
-  // Adds new messages for this catalog.
-  void addMessages(string[][string] newMessages) {
-    /* messages(messages.set(newMessages)); */
+  protected string[][string] _messages;
+  string[][string] messages() {
+    return _messages;
   }
 
-  // #region Getter Setter single message
-  // Gets the message of the given key for this catalog.
-  string[] message(string messageKey) {
-    return messages.get(messageKey);
+  ICatalog messages(string[][string] newMessages) {
+    _messages = newMessages;
+    return this;
+  }
+
+  // The name of a fallback catalog to use when a message key does not exist.
+  protected string _fallbackName;
+  string fallbackName() {
+    return _fallbackName;
+  }
+  ICatalog fallbackName(string name) {
+    _fallbackName = name;
+    return this;
+  }
+
+  // The name of the formatter to use when formatting translated messages.
+  protected string _formatterName;
+  string formatterName() {
+    return _formatterName;
+  }
+  ICatalog formatterName(string name) {
+    _formatterName = name;
+    return this;
+  }
+
+  // #region get
+  string[][string] message(string[] keys) {
+    string[][string] result;
+
+    keys
+      .filter!(key => messages.hasKey(key))
+      .each(key => result[key] = messages[key]);
+
+    return result;
+  }
+
+  string[] message(string key) {
+    return messages.hasKey(key) 
+      ? _messages[key]
+      : null;
   }
   ///
   unittest {
     auto catalog = MessageCatalog;
     catalog.message("test");
   }
+  // #endregion get
 
   // #region set
     ICatalog set(string[][string] messages) {

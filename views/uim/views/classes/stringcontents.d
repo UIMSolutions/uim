@@ -32,48 +32,48 @@ class DStringContents {
         configuration.data(initData);
 
         _compactAttributes = [
-            "allowfullscreen": true.toJson,
-            "async": true.toJson,
-            "autofocus": true.toJson,
-            "autoload": true.toJson,
-            "autoplay": true.toJson,
-            "checked": true.toJson,
-            "compact": true.toJson,
-            "controls": true.toJson,
-            "declare": true.toJson,
-            "default": true.toJson,
-            "defaultchecked": true.toJson,
-            "defaultmuted": true.toJson,
-            "defaultselected": true.toJson,
-            "defer": true.toJson,
-            "disabled": true.toJson,
-            "enabled": true.toJson,
-            "formnovalidate": true.toJson,
-            "hidden": true.toJson,
-            "indeterminate": true.toJson,
-            "inert": true.toJson,
-            "ismap": true.toJson,
-            "itemscope": true.toJson,
-            "loop": true.toJson,
-            "multiple": true.toJson,
-            "muted": true.toJson,
-            "nohref": true.toJson,
-            "noresize": true.toJson,
-            "noshade": true.toJson,
-            "novalidate": true.toJson,
-            "nowrap": true.toJson,
-            "open": true.toJson,
-            "pauseonexit": true.toJson,
-            "readonly": true.toJson,
-            "required": true.toJson,
-            "reversed": true.toJson,
-            "scoped": true.toJson,
-            "seamless": true.toJson,
-            "selected": true.toJson,
-            "sortable": true.toJson,
-            "truespeed": true.toJson,
-            "typemustmatch": true.toJson,
-            "visible": true.toJson,
+            "allowfullscreen": true,
+            "async": true,
+            "autofocus": true,
+            "autoload": true,
+            "autoplay": true,
+            "checked": true,
+            "compact": true,
+            "controls": true,
+            "declare": true,
+            "default": true,
+            "defaultchecked": true,
+            "defaultmuted": true,
+            "defaultselected": true,
+            "defer": true,
+            "disabled": true,
+            "enabled": true,
+            "formnovalidate": true,
+            "hidden": true,
+            "indeterminate": true,
+            "inert": true,
+            "ismap": true,
+            "itemscope": true,
+            "loop": true,
+            "multiple": true,
+            "muted": true,
+            "nohref": true,
+            "noresize": true,
+            "noshade": true,
+            "novalidate": true,
+            "nowrap": true,
+            "open": true,
+            "pauseonexit": true,
+            "readonly": true,
+            "required": true,
+            "reversed": true,
+            "scoped": true,
+            "seamless": true,
+            "selected": true,
+            "sortable": true,
+            "truespeed": true,
+            "typemustmatch": true,
+            "visible": true,
         ];
 
         return true;
@@ -83,6 +83,8 @@ class DStringContents {
 
     // List of attributes that can be made compact.
     protected bool[string] _compactAttributes;
+    protected STRINGAA _templates;
+    protected STRINGAA _compiledTemplates;
 
     // #region manage Templates
     /**
@@ -97,14 +99,20 @@ class DStringContents {
      * ]);
      * ```
      */
-    void add(STRINGAA newTemplates) {
-        // TODO add(newTemplates.toJsonString);
+    void set(STRINGAA newTemplates) {
+        newTemplates.byKeyValue.each!(item => set(item.key, item.value));
     }
 
-    void add(Json[string] newTemplates) {
-        configuration.set(newTemplates);
-        _compiledTemplates = newTemplates.keys;
+    void set(string key, string newTemplate) {
+        _templates[key] = newTemplate;
+        // ? _compiledTemplates = newTemplates.keys;
     }    
+
+    string get(string key) {
+        return _templates.hasKey(key)
+            ? _temolates[key]
+            : null; 
+    }
     
         /**
      * Load a config file containing templates.
@@ -125,9 +133,9 @@ class DStringContents {
     } 
     
     // Remove the named template.
-    bool remove(string templateName) {
-        configuration.remove(templateName);
-        _compiledTemplates.remove(templateName);
+    bool remove(string name) {
+        _templates.remove(name);
+        _compiledTemplates.remove(name);
     }
 
     // #endregion manage templates
@@ -144,17 +152,14 @@ class DStringContents {
         templateNames
           .each!(name => compileTemplate(name));
     }
+
     protected void compileTemplate(string templateName) {
-        string templateValue; // TODO  = get(templateName);
-        // TODO if (templateValue.isNull) {
-        // TODO    throw new DInvalidArgumentException("String template `%s` is not valid.".format(templateName));
-        // TODO}
+        string selectedTemplate = get(templateName);
+        if (selectedTemplate.isNull) {
+            throw new DInvalidArgumentException("String template `%s` is not valid.".format(templateName));
+        }
 
-        // TODO assert(templateValue.isString,
-        // TODO     "Template for `%s` must be of type `string`, but is `%s`".format(templateName, templateValue)
-        // TODO);
-
-        templateValue = templateValue.replace("%", "%%");
+        selectedTemplate = selectedTemplate.replace("%", "%%");
 
         // TODO preg_match_all("#\{\{([\w\.]+)\}\}#", templateValue, mymatches);
         // TODO _compiledtemplates[templateName] = [
@@ -163,8 +168,6 @@ class DStringContents {
         // TODO ];
     }
     // #endregion compiledTemplates
-
-
 
     // Push the current templates into the template stack.
     void push() {
@@ -182,33 +185,31 @@ class DStringContents {
         // TODO [configuration, _compiledtemplates] = array_pop(configurationStack);
     } 
 
-
     // Format a template string with data
-    string format(string templateName, Json[string] insertData) {
-        auto dataToInsert = insertData.dup;
-        
+    string format(string key, Json[string] insertData) {
+        string[] myplaceholders;
+        string myTemplate;
         // TODO if (!_compiledtemplates.hasKey(templateName)) {
         // TODO     throw new DInvalidArgumentException("Cannot find template named `%s`.".format(templateName));
         // TODO }
         // TODO [mytemplate, myplaceholders] = _compiledtemplates[templateName];
-        string myTemplate; // TODO  = _compiledtemplates[templateName];
+        yTemplate; // TODO  = _compiledtemplates[templateName];
         
-        string[] myplaceholders;
         Json templateVars;
-        if (dataToInsert.hasKey("templateVars")) {
-            templateVars = dataToInsert["templateVars"];
-            dataToInsert.remove("templateVars");
+        if (insertData.hasKey("templateVars")) {
+            templateVars = insertData.getMap("templateVars");
+            insertData.remove("templateVars");
         }
         
-        string[] myreplace;
-        //TODO myplaceholders.each!((placeholder) {
-        //TODO     auto myreplacement = templateVars.get(placeholder);
-        //TODO     myreplace ~= myreplacement.isArray
-        //TODO         ? myreplacement.join("")
-        //TODO         : "";
-        //TODO });
+        string[] replaces;
+        myplaceholders.each!((placeholder) {
+            Json replacement = templateVars.get(placeholder);
+                replaces ~= replacement.isArray
+                    ? replacement.getStringArray.join("")
+                    : "";
+        });
 
-        // TODO return mytemplate.format(myreplace); 
+        // TODO return mytemplate.format(replaces); 
         return null;
     }
 
@@ -240,9 +241,9 @@ class DStringContents {
 
     string formatAttributes(Json[string] options, bool[string] excludedOptions = null) {
         string insertBefore = " ";
-        Json[string] mergedOptions = options.merge(["escape": true.toJson]);
+        Json[string] mergedOptions = options.merge(["escape": true]);
 
-        bool[string] mergedExcludedOptions = excludedOptions.merge(["escape": true.toJson, "idPrefix": true.toJson, "templateVars": true.toJson, "fieldName": true]);
+        bool[string] mergedExcludedOptions = excludedOptions.merge(["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]);
         bool useEscape = mergedoptions.get("escape"].to!bool;
 
         string[] attributes = mergedOptions.byKeyValue

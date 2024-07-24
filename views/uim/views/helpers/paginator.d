@@ -113,7 +113,7 @@ class DPaginatorHelper : DHelper {
     // Gets the current paging parameters from the resultset for the given model
     // TODO 
     /* Json[string] params() {
-                            return configuration.getArray("params") ~ this.paginated().pagingData();}
+                            return configuration.getArray("params") ~ paginated().pagingData();}
 
                             // Convenience access to any of the paginator params.
                             Json param(string paramKey) {
@@ -188,10 +188,10 @@ class DPaginatorHelper : DHelper {
         
         auto url = this.generateUrl(
             [
-                "page": this.paginated()
+                "page": paginated()
                 .currentPage() + options.get("step"]
             ],
-            options.get("url"]
+            options.get("url")
         );
         
         auto result = contentTemplater.format(mytemplate, [
@@ -281,7 +281,7 @@ class DPaginatorHelper : DHelper {
             "url": Json.emptyArray,
             "escape": true.toJson
         ]);
-        auto url = updatedoptions.get("url"];
+        auto url = updatedoptions.get("url");
         updatedOptions.remove("url");
 
         if (linkTitle.isEmpty) {
@@ -484,7 +484,7 @@ class DPaginatorHelper : DHelper {
 
     // Returns true if the given result set has the page number given by mypage
     bool hasPage(int pageNumber = 1) {
-        return mypage <= this.paginated()
+        return mypage <= paginated()
             .pageCount();
     }
 
@@ -627,9 +627,9 @@ class DPaginatorHelper : DHelper {
             params["currentPage"] - myhalf - options.get("modulus"] % 2
         );
         if (
-            options.get("first"]) {
+            options.get("first")) {
             myfirst = isInteger(
-                options.get("first"]) ? options.get("first"] : 1;
+                options.get("first")) ? options.get("first") : 1;
             if (
                 mystart <= myfirst + 2) {
                 mystart = 1;
@@ -637,7 +637,7 @@ class DPaginatorHelper : DHelper {
         }
         if (options.hasKey("last"]) {
             mylast = isInteger(
-                options.get("last"]) ? options.get("last"] : 1;
+                options.get("last")) ? options.get("last") : 1;
             if (
                 endNumber >= params.getLong("pageCount") - mylast - 1) {
                 endNumber = params.getLong("pageCount");
@@ -656,31 +656,21 @@ class DPaginatorHelper : DHelper {
     // Formats a number for the paginator number output.
     protected string _formatNumber(
         DStringContents contentTemplater, Json[string] options = null) {
-        myvars = [
-            "text": options.get("text"],
-            "url": generateUrl(
-                [
-                    "page": options.get("page"]
-                ],
-                options.get("url"]),
+        Json[string] variables = [
+            "text": options.get("text"),
+            "url": generateUrl(["page": options.get("page")], options.get("url")),
         ];
-        return contentTemplater.format("number", myvars);
+        return contentTemplater.format("number", variables);
     }
 
     // Generates the numbers for the paginator numbers() method.
     protected string _modulusNumbers(
         DStringContents contentTemplater, Json[string] params, Json[string] options = null) {
         string result = "";
-        ellipsis = contentTemplater.format(
-            "ellipsis", [
-            ]);
-        [
-            mystart,
-            endNumber
-        ] = _getNumbersStartAndEnd(
-            params, options);
+        ellipsis = contentTemplater.format("ellipsis", null);
+        [mystart, endNumber] = _getNumbersStartAndEnd(params, options);
         result ~= _firstNumber(ellipsis, params, mystart, options);
-        result ~= options.get("before"];
+        result ~= options.get("before");
 
         for (
             index = mystart; index < params["currentPage"]; index++) {
@@ -689,15 +679,12 @@ class DPaginatorHelper : DHelper {
                     "text": this.Number
                     .format(index),
                     "page": index,
-                    "url": options.get("url"],
+                    "url": options.get("url"),
                 ]);
         }
         result ~= contentTemplater.format("current", [
-                "text": this.Number.format(
-                    (
-                    string) params["currentPage"]),
-                "url": this.generateUrl(
-                    ["page": params["currentPage"]], options.get("url"]),
+                "text": this.Number.format(params.getString("currentPage")),
+                "url": this.generateUrl(["page": params.get("currentPage")], options.get("url")),
             ]);
         mystart = (int) params["currentPage"] + 1;
         index = mystart;
@@ -708,7 +695,7 @@ class DPaginatorHelper : DHelper {
                     "text": this.Number
                     .format(index),
                     "page": index,
-                    "url": options.get("url"],
+                    "url": options.get("url"),
                 ]);
             index++;
         }
@@ -719,10 +706,10 @@ class DPaginatorHelper : DHelper {
                     "text": this.Number.format(
                         index),
                     "page": endNumber,
-                    "url": options.get("url"],
+                    "url": options.get("url"),
                 ]);
         }
-        result ~= options.get("after"];
+        result ~= options.get("after");
         result ~= _lastNumber(ellipsis, params, endNumber, options);
 
         return result;
@@ -733,9 +720,9 @@ class DPaginatorHelper : DHelper {
         string ellipsis, Json[string] params, int startnumber, Json[string] options = null) {
         string result = "";
         myfirst = isInteger(
-            options.get("first"]) ? options.get("first"] : 0;
+            options.get("first")) ? options.get("first") : 0;
         if (options.hasKey("first") && startnumber > 1) {
-            myoffset = startnumber <= myfirst ? startnumber - 1 : options.get("first"];
+            myoffset = startnumber <= myfirst ? startnumber - 1 : options.get("first");
             result ~= this.first(
                 myoffset, options);
             if (
@@ -751,10 +738,10 @@ class DPaginatorHelper : DHelper {
         string ellipsis, Json[string] params, int endNumber, Json[string] options = null) {
         string result = "";
         long mylast = options.getLong("last", 0);
-        if (options.hasKey("last"] && endNumber < params.getLong("pageCount")) {
+        if (options.hasKey("last") && endNumber < params.getLong("pageCount")) {
             myoffset = params.getLong("pageCount") < endNumber + mylast ? params.getLong(
-                "pageCount") - endNumber : options.get("last"];
-            if (myoffset <= options.get("last"] && params.getLong("pageCount") - endNumber > mylast) {
+                "pageCount") - endNumber : options.get("last");
+            if (myoffset <= options.get("last") && params.getLong("pageCount") - endNumber > mylast) {
                 result ~= ellipsis;
             }
             result ~= this.last(myoffset, options);
@@ -782,7 +769,7 @@ class DPaginatorHelper : DHelper {
                                 [
                                     "page": index
                                 ],
-                                options.get("url"]),
+                                options.get("url")),
                         ]);
             } else {
                 myvars = [
@@ -793,13 +780,13 @@ class DPaginatorHelper : DHelper {
                         [
                             "page": index
                         ],
-                        options.get("url"]),
+                        options.get("url")),
                 ];
                 result ~= contentTemplater
                     .format("number", myvars);
             }
         }
-        result ~= options.get("after"];
+        result ~= options.get("after");
 
         return result;
     }
@@ -829,26 +816,25 @@ class DPaginatorHelper : DHelper {
      * you want at the beginning of the range.
      */
     string first(
-        string | int myfirst = "<< first", Json[string] options = null) {
+        string /* | int */ myfirst = "<< first", Json[string] options = null) {
         auto updatedOptions = options
             .updatetions.update[
                 "url": Json.emptyArray,
                 "escape": true.toJson,
             ];
-        if (this.paginated()
-            .pageCount() <= 1) {
+        if (paginated().pageCount() <= 1) {
             return null;
         }
 
         string result = "";
 
-        if (isInteger(myfirst) && this.paginated()
+        if (isInteger(myfirst) && paginated()
             .currentPage() >= myfirst) {
             for (index = 1; index <= myfirst; index++) {
                 result ~= this.templater()
                     .format("number", [
                             "url": this.generateUrl(
-                                ["page": index], options.get("url"]),
+                                ["page": index], options.get("url")),
                             "text": this
                             .Number
                             .format(
@@ -856,7 +842,7 @@ class DPaginatorHelper : DHelper {
                         ]);
             }
         }
-        else if(this.paginated()
+        else if(paginated()
                 .currentPage() > 1 && isString(
                     myfirst)) {
             myfirst = options.get(
@@ -865,7 +851,7 @@ class DPaginatorHelper : DHelper {
             result ~= templater().format(
                 "first", [
                     "url": generateUrl(
-                        ["page": 1], options.get("url"]),
+                        ["page": 1], options.get("url")),
                     "text": myfirst,
                 ]);
         }
@@ -900,12 +886,12 @@ class DPaginatorHelper : DHelper {
                 "escape": true.toJson,
                 "url": Json.emptyArray,
             ];
-        mypageCount = (int) this.paginated()
+        mypageCount = (int) paginated()
             .pageCount();
         if (mypageCount <= 1) {
             return null;
         }
-        mycurrentPage = this.paginated()
+        mycurrentPage = paginated()
             .currentPage();
 
         string result = "";
@@ -918,7 +904,7 @@ class DPaginatorHelper : DHelper {
                 result ~= this.templater()
                     .format("number", [
                             "url": this.generateUrl(
-                                ["page": index], options.get("url"]),
+                                ["page": index], options.get("url")),
                             "text": this
                             .Number
                             .format(
@@ -934,7 +920,7 @@ class DPaginatorHelper : DHelper {
             result ~= this.templater()
                 .format("last", [
                         "url": this.generateUrl(
-                            ["page": mypageCount], options.get("url"]),
+                            ["page": mypageCount], options.get("url")),
                         "text": mylast,
                     ]);
         }
@@ -984,7 +970,7 @@ class DPaginatorHelper : DHelper {
                 "prev",
                 this.generateUrl(
                     [
-                        "page": this.paginated()
+                        "page": paginated()
                         .currentPage() - 1
                     ],
                     [
@@ -1002,7 +988,7 @@ class DPaginatorHelper : DHelper {
                 "next",
                 this.generateUrl(
                     [
-                        "page": this.paginated()
+                        "page": paginated()
                         .currentPage() + 1
                     ],
                     [
@@ -1016,7 +1002,7 @@ class DPaginatorHelper : DHelper {
             );
         }
         if (
-            options.get("first"]) {
+            options.get("first")) {
             mylinks ~= this.Html.meta(
                 "first",
                 this.generateUrl([
@@ -1034,7 +1020,7 @@ class DPaginatorHelper : DHelper {
                 "last",
                 this.generateUrl(
                     [
-                        "page": this.paginated()
+                        "page": paginated()
                         .pageCount()
                     ],
                     [
@@ -1072,7 +1058,7 @@ class DPaginatorHelper : DHelper {
             "50": "50",
             "100": "100",
         ];
-        defaultValue ?  ?  = this.paginated()
+        defaultValue ?  ?  = paginated()
             .perPage();
         myscope = this.param(
             "scope");

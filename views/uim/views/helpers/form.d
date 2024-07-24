@@ -355,7 +355,7 @@ class DFormHelper : DHelper {
             (options.isArray("url") &&
             options.hasKey("url._name"]))
        ) {
-            return options.get("url"];
+            return options.get("url");
         }
         myactionDefaults = [
             "plugin": _View.pluginName,
@@ -363,7 +363,7 @@ class DFormHelper : DHelper {
             "action": myrequest.getParam("action"),
         ];
 
-        return (array)options.get("url"] + myactionDefaults;
+        return (array)options.get("url") + myactionDefaults;
     }
     
     /**

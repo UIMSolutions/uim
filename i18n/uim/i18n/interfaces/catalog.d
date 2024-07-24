@@ -11,27 +11,34 @@ import uim.i18n;
 
 // Message Catalog
 interface ICatalog {
-    // Sets the messages for this catalog.
-    ICatalog messages(string[][string] messages); 
+    // #region messages
+        // Sets the messages for this catalog.
+        ICatalog messages(string[][string] messages); 
 
-    // Gets the messages for this catalog.
-    string[][string] messages(); 
+        // Gets the messages for this catalog.
+        string[][string] messages(); 
+    // #endregion messages
 
-    // Adds new messages for this catalog.
-    ICatalog addMessages(string[][string] messages); 
+    // #region set
+        // Set message
+        ICatalog set(string[][string] messages); 
 
-    // Adds or update one message for this catalog.
-    ICatalog message(string key, string messages...); 
+        ICatalog set(string key, string messages...); 
 
-    // Adds or update one message for this catalog.
-    ICatalog message(string key, string[] messages); 
-            
-    // Gets the message of the given key for this catalog.
-    string[] message(string key); 
+        // Adds or update one message for this catalog.
+        ICatalog set(string key, string[] messages); 
+    // #endregion set
+
+    // #region get
+        // Get message
+        string[][string] get(string[] keys); 
+
+        string[] get(string key); 
+    // #region get
     
     // #region formatterName
         // Sets the formatter name for this catalog.
-        void formatterName(string name); 
+        ICatalog formatterName(string name); 
         
         // Gets the formatter name for this catalog.
         string formatterName(); 
@@ -39,7 +46,7 @@ interface ICatalog {
     
     // #region fallbackName
         // Sets the fallback catalog name.
-        void fallbackName(string name);
+        ICatalog fallbackName(string name);
 
         // Gets the fallback catalog name.
         string fallbackName();

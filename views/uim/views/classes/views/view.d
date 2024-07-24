@@ -39,33 +39,20 @@ import uim.views;
  * @property \UIM\View\ViewBlock myBlocks
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
-class DView : IView { //  }: IEventDispatcher {
-    mixin TConfigurable;
+class DView : UIMObject, IView { //  }: IEventDispatcher {
     // @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
     mixin TEventDispatcher;
     mixin TLog;
 
-    this() {
-        initialize;
-    }
+    mixin(ViewThis!(""));
 
-    this(Json[string] initData) {
-        initialize(initData);
-    }
-
-    this(string newName) {
-        this();
-        _name(newName);
-    }
-
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     // The name of the plugin.
     mixin(TProperty!("string", "plugin"));
@@ -96,19 +83,19 @@ class DView : IView { //  }: IEventDispatcher {
     protected string _templatePath = "";
 
     // #region consts
-    const string TYPE_TEMPLATE = "template";
+        const string TYPE_TEMPLATE = "template";
 
-    // Constant for view file type "element"
-    const string TYPE_ELEMENT = "element";
+        // Constant for view file type "element"
+        const string TYPE_ELEMENT = "element";
 
-    // Constant for view file type "layout"
-    const string TYPE_LAYOUT = "layout";
+        // Constant for view file type "layout"
+        const string TYPE_LAYOUT = "layout";
 
-    // Constant for type used for App.path().
-    const string NAME_TEMPLATE = "templates";
+        // Constant for type used for App.path().
+        const string NAME_TEMPLATE = "templates";
 
-    // Constant for folder name containing files for overriding plugin templates.
-    const string PLUGIN_TEMPLATE_FOLDER = "plugin";
+        // Constant for folder name containing files for overriding plugin templates.
+        const string PLUGIN_TEMPLATE_FOLDER = "plugin";
     // #endregion consts
 
     /**
@@ -166,7 +153,7 @@ class DView : IView { //  }: IEventDispatcher {
     protected IServerRequest _request;
 
     // Reference to the Response object
-    protected DResponse myresponse;
+    protected DResponse _response;
 
     // #region contentType
         
@@ -179,7 +166,7 @@ class DView : IView { //  }: IEventDispatcher {
             }
             
             auto response = _getResponse();
-            auto myresponseType = myresponse.getHeaderLine("Content-Type");
+            auto myresponseType = _response.getHeaderLine("Content-Type");
             if (myresponseType.isEmpty || myresponseType.startsWith("text/html")) {
                 response = response.withType(viewContentType);
             }
@@ -255,7 +242,7 @@ static string contentType() {
 
     this(
         DServerRequest serverRequest = null,
-        DResponse myresponse = null,
+        DResponse _response = null,
         IEventManager myeventManager = null,
         Json[string] viewOptions= null
    ) {
@@ -278,7 +265,7 @@ static string contentType() {
        ));
 
         _request = serverRequest ? serverRequest : (Router.getRequest() ?: new DServerRequest(["base": "", "url": "", "webroot": "/"]));
-        _response = myresponse ?: new DResponse();
+        _response = _response ?: new DResponse();
         _Blocks = new _viewBlockClass();
         _initialize();
         _loadHelpers();
@@ -325,8 +312,8 @@ static string contentType() {
     }
     
     // Sets the response instance.
-    auto setResponse(Response myresponse) {
-        _response = myresponse;
+    auto setResponse(Response _response) {
+        _response = _response;
 
         return this;
     }

@@ -880,7 +880,7 @@ class DPaginatorHelper : DHelper {
      * Params:
      * string|int mylast if string use as label for the link, if numeric print page numbers
      */
-    string last(string | int mylast = "last >>", Json[string] options = null) {
+    string last(string /* | int */ mylast = "last >>", Json[string] options = null) {
         auto updatedOptions = options
             .updatetions.update[
                 "escape": true.toJson,
@@ -915,7 +915,7 @@ class DPaginatorHelper : DHelper {
         else if(mycurrentPage < mypageCount && isString(
                 mylast)) {
             mylast = options.get(
-                "escape"] ? htmlAttributeEscape(
+                "escape") ? htmlAttributeEscape(
                     mylast) : mylast;
             result ~= this.templater()
                 .format("last", [
@@ -966,7 +966,7 @@ class DPaginatorHelper : DHelper {
         mylinks = null;
 
         if (options.hasKey("prev"] && this.hasPrev()) {
-            mylinks ~= this.Html.meta(
+            mylinks ~= _html.meta(
                 "prev",
                 this.generateUrl(
                     [
@@ -984,7 +984,7 @@ class DPaginatorHelper : DHelper {
             );
         }
         if (options.hasKey("next"] && this.hasNext()) {
-            mylinks ~= this.Html.meta(
+            mylinks ~= _html.meta(
                 "next",
                 this.generateUrl(
                     [
@@ -1003,7 +1003,7 @@ class DPaginatorHelper : DHelper {
         }
         if (
             options.get("first")) {
-            mylinks ~= this.Html.meta(
+            mylinks ~= _html.meta(
                 "first",
                 this.generateUrl([
                         "page": 1
@@ -1015,8 +1015,8 @@ class DPaginatorHelper : DHelper {
                     ])
             );
         }
-        if (options.hasKey("last"]) {
-            mylinks ~= this.Html.meta(
+        if (options.hasKey("last")) {
+            mylinks ~= _html.meta(
                 "last",
                 this.generateUrl(
                     [
@@ -1037,12 +1037,12 @@ class DPaginatorHelper : DHelper {
             mylinks);
 
         if (
-            options.get("block"] == true) {
+            options.get("block") == true) {
             options.set("block", __FUNCTION__);
         }
         if (
-            options.get("block"]) {
-            _view.append(options.get("block"], result);
+            options.get("block")) {
+            _view.append(options.get("block"), result);
 
             return null;
         }

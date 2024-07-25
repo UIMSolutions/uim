@@ -388,7 +388,7 @@ mixin template TIntegrationTest() {
      */
     protected void _handleError(Throwable exceptionToHandle) {
         classname = configuration.get("Error.exceptionRenderer");
-        if (classname.isEmpty || !class_exists(classname)) {
+        if (classname.isEmpty || !class_hasKey(classname)) {
             classname = WebExceptionRenderer.classname;
         }
 

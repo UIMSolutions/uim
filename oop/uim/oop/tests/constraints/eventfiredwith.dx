@@ -48,7 +48,7 @@ class DEventFiredWith : DConstraint {
             })
             .toArray();
 
-        if (!array_key_exists(constraintCheckValue, eventGroup)) {
+        if (!array_key_hasKey(constraintCheckValue, eventGroup)) {
             return false;
         }
         /** @var array<\UIM\Event\IEvent<object>> events */
@@ -63,7 +63,7 @@ class DEventFiredWith : DConstraint {
         }
         event = events[0];
 
-        if (array_key_exists(_dataKey, /* (array) */event.getData()) == false) {
+        if (array_key_hasKey(_dataKey, /* (array) */event.getData()) == false) {
             return false;
         }
         return event.getData(_dataKey) == _dataValue;

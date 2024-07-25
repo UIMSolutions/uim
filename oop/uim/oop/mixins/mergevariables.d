@@ -27,7 +27,7 @@ mixin template TMergeVariables() {
       myclass = myparent;
     }
     properties
-      .filter!(property => property_exists(this, aProperty))
+      .filter!(property => property_hasKey(this, aProperty))
       .each!((property) { 
         // TODO
         /* auto mythisValue = this. {property};

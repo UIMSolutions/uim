@@ -40,7 +40,7 @@ version (test_uim_oop) {
     auto secondCommand = new DMoveFileCommand("bar.txt", "baz.txt");
     commandStack ~= firstCommand;
     commandStack ~= secondCommand;
-    assert(exists("foo.txt") == false);
+    assert(hasKey("foo.txt") == false);
     auto file = File("foo.txt", "w");
     commandStack
       .each!(command => command.execute());

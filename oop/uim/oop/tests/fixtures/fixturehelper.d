@@ -57,7 +57,7 @@ class DFixtureHelper {
             if (fixtures.hasKey(classname)) {
                 throw new DUnexpectedValueException("Found duplicate fixture `%s`.".format(fixtureName));
             }
-            if (!class_exists(classname)) {
+            if (!class_hasKey(classname)) {
                 throw new DUnexpectedValueException("Could not find fixture `%s`.".format(fixtureName));
             }
             if (!cachedFixtures.hasKey(classname)) {

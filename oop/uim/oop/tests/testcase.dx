@@ -124,7 +124,7 @@ abstract class DTestCase : DBaseTestCase {
         if (!_configure) {
            _configure = configuration.get();
         }
-        if (class_exists(Router.classname, false)) {
+        if (class_hasKey(Router.classname, false)) {
             Router.reload();
         }
         EventManager.instance(new DEventManager());
@@ -142,7 +142,7 @@ abstract class DTestCase : DBaseTestCase {
         getTableLocator().clear();
        _configure = null;
        _tableLocator = null;
-        if (class_exists(Mockery.classname)) {
+        if (class_hasKey(Mockery.classname)) {
             Mockery.close();
         }
     }
@@ -684,7 +684,7 @@ abstract class DTestCase : DBaseTestCase {
             string[] someParts = classname.split("\\");
             entityAlias = Inflector.classify(Inflector.underscore(subString(array_pop(someParts), 0, -5)));
             entityClass = array_slice(someParts, 0, -1).join("\\") ~ "\\Entity\\" ~ entityAlias;
-            if (class_exists(entityClass)) {
+            if (class_hasKey(entityClass)) {
                 mock.setEntityClass(entityClass);
             }
         }

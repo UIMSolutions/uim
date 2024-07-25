@@ -37,13 +37,13 @@ mixin template TContainerStub() {
             ? _appClass
             : configuration.getString("App.namespace") ~ "\\Application";
 
-        if (!class_exists(appClass)) {
+        if (!class_hasKey(appClass)) {
             throw new DLogicException("Cannot load `%s` for use in integration testing.".format(appClass));
         }
         appArgs = _appArgs ? _appArgs : [CONFIG];
 
         auto app = null; // TODO new appClass(...appArgs);
-        if (!this.containerServices.isEmpty && method_exists(app, "getEventManager")) {
+        if (!this.containerServices.isEmpty && method_hasKey(app, "getEventManager")) {
             app.getEventManager().on("Application.buildContainer", [this, "modifyContainer"]);
         }
         return app;

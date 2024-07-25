@@ -121,25 +121,23 @@ class DClientResponse { // }: Message : IResponse {
      *
      * - Decodes the status code and reasonphrase.
      * - Parses and normalizes header names + values.
-     *
-     * string[] headersToParse Headers to parse.
      */
     protected void _parseHeaders(string[] headersToParse) {
         foreach (headersToParse as aValue) {
             if (aValue.startWith("HTTP/")) {
                 preg_match("/HTTP\/([\d.]+) ([0-9]+)(.*)/i", aValue, matches);
-                this.protocol = matches[1];
+                _protocol = matches[1];
                 _statusCode = to!int(matches[2]);
-                this.reasonPhrase = strip(matches[3]);
+                _reasonPhrase = matches[3].strip;
                 continue;
             }
             if (!aValue.contains(": ")) {
                 continue;
             }
             [name, aValue] = split(": ", aValue, 2);
-            aValue = strip(aValue);
+            aValue = aValue.strip;
             /** @Dstan-var non-empty-string aName */
-            string name = strip(name);
+            string name = name.strip;
             string normalized = name.lower;
             if (_headers.hasKey(name)) {
                 _headers[name] ~= aValue;

@@ -261,9 +261,9 @@ class DExceptionTrap {
         if (limit.isEmpty || limit == "-1") {
             return;
         }
-        limit = strip(limit);
-        units = subString(limit, -1).upper;
-        current = (int)subString(limit, 0, -1);
+        limit = limit.strip;
+        auto units = subString(limit, -1).upper;
+        auto current = (int)subString(limit, 0, -1);
         if (units == "M") {
             current *= 1024;
             units = "K";

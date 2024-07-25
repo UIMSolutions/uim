@@ -209,8 +209,8 @@ void setEncoding(string encodingToUse) {
     // Changes string expression into postgresql format.
     protected void _transformStringExpression(StringExpression expressionToTranform) {
         // use strip() to work around expression being transformed multiple times
-        expressionToTranform.collation("\"" ~ strip(
-                expressionToTranform.collation(), "\"") ~ "\"");
+        expressionToTranform.collation("\"" ~ 
+                expressionToTranform.collation().strip("\"") ~ "\"");
     }
 
     QueryCompiler newCompiler() {

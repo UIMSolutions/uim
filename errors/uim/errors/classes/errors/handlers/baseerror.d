@@ -215,7 +215,7 @@ abstract class DERRErrorHandler {
         if (limit == false || limit is null || limit == "-1") {
             return;
         }
-        limit = strip(limit);
+        limit = limit.strip;
         units = (subString(limit, -1)).upper;
         current = (int)subString(limit, 0, strlen(limit) - 1);
         if (units == "M") {

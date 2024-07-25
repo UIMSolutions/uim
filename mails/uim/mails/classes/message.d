@@ -1040,7 +1040,7 @@ class DMessage { //: JsonSerializable {
             text = text.replace(["\r\n", "\r"], "\n");
             text = this.encodeString(text, getCharset());
             text = this.wrap(text);
-            text = text.join("\n").rstrip("\n");
+            text = text.join("\n").stripRight"\n");
 
              aProperty = "{type}Message";
             this. aProperty = text;
@@ -1177,7 +1177,7 @@ class DMessage { //: JsonSerializable {
                 if (tmpLineLength == wrapLength) {
                     nextChar = line[index + 1] ? line[index + 1] : "";
                     if (nextChar == " " || nextChar == "<") {
-                        formatted ~= strip(tmpLine);
+                        formatted ~= tmpLine.strip;
                         tmpLine = "";
                         tmpLineLength = 0;
                         if (nextChar == " ") {
@@ -1188,7 +1188,7 @@ class DMessage { //: JsonSerializable {
                         if (lastSpace == false) {
                             continue;
                         }
-                        formatted ~= strip(subString(tmpLine, 0, lastSpace));
+                        formatted ~= subString(tmpLine, 0, lastSpace).strip;
                         tmpLine = subString(tmpLine, lastSpace + 1);
 
                         tmpLineLength = tmpLine.length;

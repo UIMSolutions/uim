@@ -337,7 +337,7 @@ class DText {
         if (shouldWrap) {
             while (mb_strlen(textToFormat) > 0) {
                 mypart = mb_subString(textToFormat, 0, widthToWarp);
-                myparts ~= mypart.strip(;
+                myparts ~= mypart.strip;
                 textToFormat = mb_subString(textToFormat, mb_strlen(mypart)).strip;
             }
             return join(breakText, myparts);

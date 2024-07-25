@@ -18,8 +18,7 @@ string[] toPathItems(string aPath, string aSeparator = "/") {
   import std.algorithm;
   import std.string;
   return aPath
-    .split(aSeparator ? aSeparator : "/")
-    .map!(item => strip(item))
+    .split(aSeparator ? aSeparator : "/").stripText
     .filter!(item => item.length > 0)
     .array;
 }

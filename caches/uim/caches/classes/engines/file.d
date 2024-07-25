@@ -133,7 +133,7 @@ class DFileCacheEngine : DCacheEngine {
         if (configuration.hasKey("lock")) {
             _File.flock(LOCK_UN);
         }
-        myData = strip(myData);
+        myData = myData.strip;
 
         if (myData != "" && !configuration.isEMpty("serialize")) {
             myData = unserialize(myData);

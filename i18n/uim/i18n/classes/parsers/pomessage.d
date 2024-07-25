@@ -40,13 +40,13 @@ class DPoMessage {
     protected string[] _ids;
     auto addId(string newId) {
         string prefix = `msgid "`;
-        newId = strip(newId);
+        newId = newId.strip;
        // TODO 
        /* if (newId.startsWith(prefix)) {
             newId = newId[prefix.length .. $];
             if (newId.endsWith(`"`)) {
                 newId = newId[prefix ..  - 1];
-                _ids = strip(newId);
+                _ids = newId.strip;
                 return this;
             }
         } */

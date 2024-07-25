@@ -327,7 +327,7 @@ class DExceptionTrap {
     void logInternalError(Throwable exceptionToLog) {
         string message = "[%s] %s (%s:%s)".format( // Keeping same message format
             get_class(exceptionToLog),
-            exceptionToLog.getMessage(),
+            exceptionToLog.message(),
             exceptionToLog.getFile(),
             exceptionToLog.getLine(),
        );

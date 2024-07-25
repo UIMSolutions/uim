@@ -53,7 +53,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
         }
 
         _stderr.write("<error>%s</error> %s\nIn [%s, line %s]\n"
-            .format(errorName, exception.getMessage(), exception.getFile(), exception.getLine()));
+            .format(errorName, exception.message(), exception.getFile(), exception.getLine()));
     }
 
     /**

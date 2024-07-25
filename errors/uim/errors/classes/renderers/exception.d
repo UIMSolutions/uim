@@ -237,7 +237,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
     // Get error message.
     protected string errorMessage(Throwable myException, int errorCode) {
-        auto myMessage = myException.getMessage();
+        auto myMessage = myException.message();
 
         if (
             !Configure.read("debug") &&

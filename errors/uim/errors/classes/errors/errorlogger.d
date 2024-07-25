@@ -28,7 +28,7 @@ class DErrorLogger : IErrorLogger {
     }
 
     void logError(UIMError error, IServerRequest serverRequest = null, bool anIncludeTrace = false) {
-        auto errorMessage = error.getMessage();
+        auto errorMessage = error.message();
         if (request) {
             errorMessage ~= getRequestContext(request);
         }
@@ -50,7 +50,7 @@ class DErrorLogger : IErrorLogger {
         IServerRequest serverRequest = null,
         bool anIncludeTrace = false
    ) {
-        exceptionMessage = getMessage(exception, false,  anIncludeTrace);
+        exceptionMessage = message(exception, false,  anIncludeTrace);
 
         if (!request.isNull) {
             exceptionMessage ~= getRequestContext(request);
@@ -59,12 +59,12 @@ class DErrorLogger : IErrorLogger {
     }
     
     // Generate the message for the exception
-    protected string getMessage(Throwable exceptionToLog, bool isPrevious = false, bool includeTrace = false) {
+    protected string message(Throwable exceptionToLog, bool isPrevious = false, bool includeTrace = false) {
         string message = "%s[%s] %s in %s on line %s"
             .format(
                 isPrevious ? "\nCaused by: " : "",
                 exceptionToLog.classname,
-                exceptionToLog.getMessage(),
+                exceptionToLog.message(),
                 exceptionToLog.getFile(),
                 exceptionToLog.getLine()
            );
@@ -90,7 +90,7 @@ class DErrorLogger : IErrorLogger {
 
         auto previousException = exceptionToLog.getPrevious();
         if (previousException) {
-            message ~= getMessage(previousException, true,  includeTrace);
+            message ~= message(previousException, true,  includeTrace);
         }
         return message;
     }

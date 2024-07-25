@@ -615,7 +615,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext dump
 
                 return node;
             } catch (Exception e) {
-                return new DSpecialNode("(unable to export object: {e.getMessage()})");
+                return new DSpecialNode("(unable to export object: {e.message()})");
             }
         }
 

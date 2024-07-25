@@ -138,7 +138,7 @@ class DErrorHandler { // }: DERRErrorHandler
         _config["trace"] = false;
         message = "[%s] %s (%s:%s)\n%s".format( // Keeping same message format
             get_class(exception),
-            exception.getMessage(),
+            exception.message(),
             exception.getFile(),
             exception.getLine(),
             exception.getTraceAsString()

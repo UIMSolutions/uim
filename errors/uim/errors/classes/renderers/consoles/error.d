@@ -33,7 +33,7 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
             .format(
                 error.getLabel(),
                 error.code(),
-                error.getMessage(),
+                error.message(),
                 error.getLine() ? error.getLine() : "",
                 error.getFile() ? error.getFile() : "",
                 trace

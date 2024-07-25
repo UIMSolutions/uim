@@ -130,7 +130,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
     // Convert a redirect exception into a response.
     IResponse handleRedirect(DRedirectException exceptionToHandle) {
         return new DRedirectResponse(
-            exceptionToHandle.getMessage(),
+            exceptionToHandle.message(),
             exceptionToHandle.code(),
             exceptionToHandle.getHeaders()
        );

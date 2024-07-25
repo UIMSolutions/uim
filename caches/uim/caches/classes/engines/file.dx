@@ -260,7 +260,7 @@ class DFileCacheEngine : DCacheEngine {
             try {
                 _File = mypath.openFile("c+");
             } catch (Exception exception) {
-                trigger_error(exception.getMessage(), ERRORS.USER_WARNING);
+                trigger_error(exception.message(), ERRORS.USER_WARNING);
 
                 return false;
             }

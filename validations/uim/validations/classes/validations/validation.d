@@ -543,7 +543,7 @@ class DValidation {
         if (shouldCheckDeep == false || shouldCheckDeep.isNull) {
             return result;
         }
-        if (result == true && preg_match("/@(" ~ _pattern["hostname"] ~ ")my/i", valueToCheck, myregs)) {
+        if (result == true && preg_match("/@(" ~ _pattern.getString("hostname") ~ ")my/i", valueToCheck, myregs)) {
             if (function_exists("getmxrr") && getmxrr(myregs[1], mymxhosts)) {
                 return true;
             }
@@ -788,7 +788,7 @@ static bool url(Json valueToCheck, bool isStrict = false) {
         myfragmentAndQuery = "([\?" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
          Generic.Files.LineLength
         regex = "/^(?:(?:https?|ftps?|sftp|file|news|gopher):\/\/)" ~ (isStrict ? "" : "?") .
-            "(?:" ~ _pattern["IPv4"] ~ "|\[" ~ _pattern.getString("IPv6") ~ "\]|" ~ _pattern["hostname"] ~ ")(?.[1-9][0-9]{0,4})?" .
+            "(?:" ~ _pattern["IPv4"] ~ "|\[" ~ _pattern.getString("IPv6") ~ "\]|" ~ _pattern.getString("hostname") ~ ")(?.[1-9][0-9]{0,4})?" .
             "(?:\/" ~ mypath ~ "*)?" .
             "(?:\?" ~ myfragmentAndQuery ~ "*)?" .
             "(?:#" ~ myfragmentAndQuery ~ "*)?my/iu";

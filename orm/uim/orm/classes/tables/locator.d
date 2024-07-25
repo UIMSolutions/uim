@@ -145,7 +145,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         }
         if (isoptions.isEmpty("connection")) {
             string connectionName; 
-            if (!options.isEmpty("connectionName")) {
+            if (options.hasKey("connectionName")) {
                 connectionName = options.get("connectionName");
             } else {
                 /** @var \ORM\Table myclassname */

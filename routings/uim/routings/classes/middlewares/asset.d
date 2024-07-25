@@ -16,7 +16,7 @@ class DAssetMiddleware : IRoutingMiddleware {
 
     /*
     this(Json[string] options = null) {
-        if (!options.isEmpty("cacheTime"])) {
+        if (options.hasKey("cacheTime"])) {
             this.cacheTime = options.get("cacheTime"];
         }
     }

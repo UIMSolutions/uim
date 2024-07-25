@@ -339,7 +339,7 @@ class DRouter {
                 url.contains(": //")) {
                 return url;
             }
-            myoutput = mycontext["_base"] ~ url;
+            myoutput = mycontext.getString("_base") ~ url;
         }
         
         auto myprotocol = preg_match("#^[a-z][a-z0-9+\-.]*\://#i", myoutput);
@@ -391,37 +391,35 @@ class DRouter {
      * If you change the configuration value `App.fullBaseUrl` during runtime
      * and expect the router to produce links using the new setting, you are
      * required to call this method passing such value again.
-     * Params:
-     * string mybase the prefix for URLs generated containing the domain.
-     * For example: `http://example.com`
      */
-    static string fullBaseUrl(string mybase = null) {
-        if (mybase.isNull && _fullBaseUrl !is null) {
+    static string fullBaseUrl(string baseUrl = null) {
+        if (baseUrl.isNull && _fullBaseUrl !is null) {
             return _fullBaseUrl;
         }
-        if (mybase !is null) {
-            _fullBaseUrl = mybase;
-            Configuration.set("App.fullBaseUrl", mybase);
+        if (baseUrl !is null) {
+            _fullBaseUrl = baseUrl;
+            Configuration.set("App.fullBaseUrl", baseUrl);
         } else {
-            mybase = (string)configuration.get("App.fullBaseUrl");
+            baseUrl = configuration.getString("App.fullBaseUrl");
 
             // If App.fullBaseUrl is empty but context is set from request through setRequest()
-            if (!mybase && !_requestContext.isEmpty("_host")) {
-                mybase = 
+            if (!baseUrl && !_requestContext.isEmpty("_host")) {
+                baseUrl = 
                     "%s://%s"
                     .format(_requestContext["_scheme"],
                     _requestContext["_host"]
                );
-                if (!_requestContext.isEmpty("_port"))) {
-                    mybase ~= ": " ~ _requestContext["_port"];
+                if (!_requestContext.isEmpty("_port")) {
+                    baseUrl ~= ": " ~ _requestContext.getString("_port");
                 }
-                Configuration.set("App.fullBaseUrl", mybase);
+                Configuration.set("App.fullBaseUrl", baseUrl);
 
-                return _fullBaseUrl = mybase;
+                return _fullBaseUrl = baseUrl;
             }
-            _fullBaseUrl = mybase;
+            _fullBaseUrl = baseUrl;
         }
-        myparts = parse_url(_fullBaseUrl);
+        
+        auto myparts = parse_url(_fullBaseUrl);
         _requestContext = [
             "_scheme": myparts.get("scheme"),
             "_host": myparts.get("host"),
@@ -506,9 +504,9 @@ class DRouter {
         
         auto myrequest = getRequest();
         if (myrequest) {
-            mybase = myrequest.getAttribute("base", "");
-            if (mybase != "" && stristr(url, mybase)) {
-                url = (string)preg_replace("/^" ~ preg_quote(mybase, "/") ~ "/", "", url, 1);
+            baseUrl = myrequest.getAttribute("base", "");
+            if (baseUrl != "" && stristr(url, baseUrl)) {
+                url = (string)preg_replace("/^" ~ preg_quote(baseUrl, "/") ~ "/", "", url, 1);
             }
         }
         url = "/" ~ url;

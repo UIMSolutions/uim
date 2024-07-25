@@ -222,7 +222,7 @@ class DEagerLoader {
 
         contain = null;
         foreach (_containments as aliasName: options) {
-            if (!options.isEmpty("instance")) {
+            if (options.hasKey("instance")) {
                 contain = _containments;
                 break;
             }

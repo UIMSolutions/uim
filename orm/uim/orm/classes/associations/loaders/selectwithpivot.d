@@ -53,7 +53,7 @@ class DSelectWithPivotLoader : DSelectLoader {
         assoc = this.junctionAssoc;
         queryBuilder = false;
 
-        if (!options.isEmpty("queryBuilder"])) {
+        if (options.hasKey("queryBuilder"])) {
             queryBuilder = options.get("queryBuilder"];
             options.remove("queryBuilder"]);
         }

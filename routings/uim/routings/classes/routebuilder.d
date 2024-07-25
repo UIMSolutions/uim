@@ -284,7 +284,7 @@ class DRouteBuilder {
             options.get("map"][myKey] += ["method": "GET", "path": myKey, "action": ""];
         }
         myext = null;
-        if (!options.isEmpty("_ext")) {
+        if (options.hasKey("_ext")) {
             myext = options.get("_ext");
         }
         myconnectOptions = options.get("connectOptions");

@@ -637,10 +637,10 @@ class DRoute : IRoute {
             myscheme = options.getString("_scheme", "http");
             result = "{myscheme}://{myhost}{result}";
         }
-        if (!options.isEmpty("_ext") || !query.isEmpty) {
+        if (options.hasKey("_ext") || !query.isEmpty) {
             result = stripRight(result, "/");
         }
-        if (!options.isEmpty("_ext")) {
+        if (options.hasKey("_ext")) {
             result ~= "." ~ options.getString("_ext");
         }
         if (!query.isEmpty) {

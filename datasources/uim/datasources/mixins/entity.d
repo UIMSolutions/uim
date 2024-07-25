@@ -276,8 +276,8 @@ mixin template TEntity() {
           }
         }
         if (
-          this.isOriginalField(fieldName) && !array_key_exists(fieldName, _originalFields) &&
-        array_key_exists(fieldName, _fields) && valueToSet != _fields[fieldName]
+          this.isOriginalField(fieldName) && !array_key_hasKey(fieldName, _originalFields) &&
+        array_key_hasKey(fieldName, _fields) && valueToSet != _fields[fieldName]
           ) {
           _originalFields[fieldName] = _fields[fieldName];
         }
@@ -293,7 +293,7 @@ mixin template TEntity() {
 
     Json aValue = null;
     auto fieldIsPresent = false;
-    if (array_key_exists(fieldName, _fields)) {
+    if (array_key_hasKey(fieldName, _fields)) {
       fieldIsPresent = true;
       aValue = &_fields[fieldName];
     }
@@ -324,7 +324,7 @@ mixin template TEntity() {
 
   // Returns whether a field has an original value
   bool hasOriginal(string fieldName) {
-    return array_key_exists(fieldName, _originalFields);
+    return array_key_hasKey(fieldName, _originalFields);
   }
 
   // Returns the value of an original field by name
@@ -333,7 +333,7 @@ mixin template TEntity() {
       throw new DInvalidArgumentException("Cannot get an empty field");
     }
 
-    if (array_key_exists(fieldName, _originalFields)) {
+    if (array_key_hasKey(fieldName, _originalFields)) {
       return _originalFields[fieldName];
     }
 
@@ -388,7 +388,7 @@ mixin template TEntity() {
     */
   bool has( /* string  */ string[] fieldNames) {
     foreach ( /* (array) */ fieldName; fieldNames) {
-      /* if (!array_key_exists(fieldName, _fields) && !_accessor(fieldName, "get")) {
+      /* if (!array_key_hasKey(fieldName, _fields) && !_accessor(fieldName, "get")) {
         return false;
       } */
     }
@@ -520,7 +520,7 @@ mixin template TEntity() {
     return _extract(visibleFields());
   }
 
-  bool offsetExists(Json anOffset) {
+  bool offsethasKey(Json anOffset) {
     return __isSet(anOffset);
   }
 

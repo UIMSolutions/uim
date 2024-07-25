@@ -132,7 +132,7 @@ class DExceptionTrap {
 
         if (aclassname.isString) {
             /** @psalm-suppress ArgumentTypeCoercion */
-            if (!(method_exists(aclassname, "render") && method_exists(aclassname, "write"))) {
+            if (!(method_hasKey(aclassname, "render") && method_hasKey(aclassname, "write"))) {
                 throw new DInvalidArgumentException(
                     "Cannot use {aclassname} as an `exceptionRenderer`~ " ~
                     "It must implement render() and write() methods."
@@ -303,7 +303,7 @@ class DExceptionTrap {
         }
         if (shouldLog) {
             logger = logger();
-            if (method_exists(logger, "logException")) {
+            if (method_hasKey(logger, "logException")) {
                 logger.logException(exceptionToLog, serverRequest, _config["trace"]);
             } else {
                 loggerClass = get_class(logger);

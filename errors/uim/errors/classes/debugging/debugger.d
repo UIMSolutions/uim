@@ -111,7 +111,7 @@ class DDebugger {
 
     this() {
         docRef = ini_get("docref_root");
-        if (docRef.isEMpty && function_exists("ini_set")) {
+        if (docRef.isEMpty && function_hasKey("ini_set")) {
             ini_set("docref_root", "https://secure.D.net/");
         }
         if (!defined("ERRORS.RECOVERABLE_ERROR")) {
@@ -402,7 +402,7 @@ static string trimPath(string pathToShorten) {
      */
 static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesContext = 2) {
     auto lines = null;
-    if (!fileExists(absPathToFile)) {
+    if (!filehasKey(absPathToFile)) {
         return [];
     }
     auto data = file_get_contents(absPathToFile);
@@ -436,7 +436,7 @@ static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesCon
      * implement the function as it is the case of the HipHop interpreter
      */
 protected static string _highlight(string stringToConvert) {
-    if (function_exists("hD_log") || function_exists("hD_gettid")) {
+    if (function_hasKey("hD_log") || function_hasKey("hD_gettid")) {
         return htmlentities(stringToConvert);
     }
     
@@ -569,7 +569,7 @@ protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContex
     if (remaining >= 0) {
         outputMask = outputMask();
         foreach (valueToExport as key : val) {
-            if (array_key_exists(key, outputMask)) {
+            if (array_key_hasKey(key, outputMask)) {
                 node = new DScalarNode("string", outputMask[key]);
             }
             else if(val != valueToExport) {
@@ -604,7 +604,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext dump
     auto node = new DClassNode(, refNum);
     auto remaining = dumpContext.remainingDepth();
     if (remaining > 0) {
-        if (method_exists(objToConvert, "__debugInfo")) {
+        if (method_hasKey(objToConvert, "__debugInfo")) {
             try {
                 foreach (key , val;  /* (array) */ objToConvert.__debugInfo()) {
                     node.addProperty(new DPropertyNode("" {
@@ -622,7 +622,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext dump
         auto outputMask = outputMask();
         auto objectVars = get_object_vars(objToConvert);
         foreach (key, value; objectVars) {
-            if (array_key_exists(key, outputMask)) {
+            if (array_key_hasKey(key, outputMask)) {
                 value = outputMask[key];
             }
             /** @psalm-suppress RedundantCast */
@@ -642,7 +642,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext dump
             foreach (reflectionProperty; reflectionProperties) {
                 reflectionProperty.setAccessible(true);
 
-                value = method_exists(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(objToConvert)
+                value = method_hasKey(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(objToConvert)
                     ? new DSpecialNode(
                         "[uninitialized]") : export_(reflectionProperty.getValue(objToConvert), dumpContext.withAddedDepth());
 

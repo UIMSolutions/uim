@@ -81,5 +81,5 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
     // TODO void write(IResponse aoutput) {
     void write(string outputText) {
         _output.write(outputText);
-    } */
+    }
 }

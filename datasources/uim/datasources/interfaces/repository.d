@@ -85,7 +85,7 @@ interface IRepository {
      * Params:
      * \/*Closure|*/ string[] conditions list of conditions to pass to the query
      */
-   bool exists(/* Closure */ string[] conditions);
+   bool hasKey(/* Closure */ string[] conditions);
 
     /**
      * Persists an entity based on the fields that are marked as dirty and

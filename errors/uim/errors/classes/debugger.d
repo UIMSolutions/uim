@@ -101,7 +101,7 @@ class DDebugger : UIMObject {
 
     this() {
         docRef = ini_get("docref_root");
-        if (isEmpty(docRef) && function_exists("ini_set")) {
+        if (isEmpty(docRef) && function_hasKey("ini_set")) {
             ini_set("docref_root", "https://secure.d.net/");
         }
         if (!defined("ERRORS.RECOVERABLE_ERROR")) {
@@ -339,7 +339,7 @@ class DDebugger : UIMObject {
      */
     static string[] excerpt(string filePath, int lineToHighlight, int numberOfLinesToExtract = 2) {
         string[] lines = null;
-        if (!fileExists(filePath)) {
+        if (!filehasKey(filePath)) {
             return null;
         }
         
@@ -372,7 +372,7 @@ class DDebugger : UIMObject {
      * implement the auto as it is the case of the HipHop interpreter
      */
     protected static string _highlight(string stringToConvert) {
-        if (function_exists("hD_log") || function_exists("hD_gettid")) {
+        if (function_hasKey("hD_log") || function_hasKey("hD_gettid")) {
             return htmlentities(stringToConvert);
         }
         
@@ -501,7 +501,7 @@ class DDebugger : UIMObject {
         if (remaining >= 0) {
             outputMask = outputMask();
             foreach (key : val; exportValues) {
-                if (array_key_exists(key, outputMask)) {
+                if (array_key_hasKey(key, outputMask)) {
                     node = new DScalarNode("string", outputMask[key]);
                 } else if (val != exportValues) {
                     // Dump all the items without increasing depth.
@@ -534,7 +534,7 @@ class DDebugger : UIMObject {
         auto node = new DClassNode(classname, refNum);
         auto remaining = dumpContext.remainingDepth();
         if (remaining > 0) {
-            if (method_exists(objToConvert, "__debugInfo")) {
+            if (method_hasKey(objToConvert, "__debugInfo")) {
                 try {
                     foreach (key, val; /* (array) */ objToConvert.__debugInfo()) {
                         node.addProperty(new DPropertyNode("'{key}'", null, export_(val, dumpContext)));
@@ -568,7 +568,7 @@ class DDebugger : UIMObject {
                     reflectionProperty.setAccessible(true);
 
                     if (
-                        method_exists(reflectionProperty, "isInitialized") &&
+                        method_hasKey(reflectionProperty, "isInitialized") &&
                         !reflectionProperty.isInitialized(objToConvert)
                        ) {
                         aValue = new DSpecialNode("[uninitialized]");

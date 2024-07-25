@@ -81,7 +81,7 @@ class DRulesChecker {
     // Takes the options to be passed to all rules.
     this(Json[string] options = null) {
        _options = options;
-       _useI18n = function_exists("\UIM\I18n\__d");
+       _useI18n = function_hasKey("\UIM\I18n\__d");
     }
     
     /**

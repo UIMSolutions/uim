@@ -17,11 +17,12 @@ interface ILocator {
     IRepository set(string aliasName, IRepository repository);
 
     // Check to see if an instance exists in the registry.
-    bool exists(string aliasName);
+    bool hasKey(string aliasName);
 
     // Removes an repository instance from the registry.
-    bool remove(string aliasName);
+    ILocator remove(string[] aliasNames);
+    ILocator remove(string[] aliasNames...);
 
     // Clears the registry of configuration and instances.
-    void clear();
+    ILocator clear();
 }

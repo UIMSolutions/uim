@@ -162,7 +162,7 @@ class DAssociation : IAssociation {
             tableLocator = getTableLocator();
 
             myConfiguration = null;
-            exists = tableLocator.exists(registryAlias);
+            exists = tableLocator.hasKey(registryAlias);
             if (!exists) {
                 myConfiguration = ["classname": _classname];
             }
@@ -571,12 +571,12 @@ class DAssociation : IAssociation {
      * Proxies the operation to the target table"s exists method after
      * appending the default conditions for this association
      */
-    bool exists(/* DORMdatabases.IExpression|\Closure|array| */string conditions) {
+    bool hasKey(/* DORMdatabases.IExpression|\Closure|array| */string conditions) {
         conditions = find()
             .where(conditions)
             .clause("where");
 
-        return _getTarget().exists(conditions);
+        return _getTarget().hasKey(conditions);
     }
 
     // Proxies the update operation to the target table"s updateAll method

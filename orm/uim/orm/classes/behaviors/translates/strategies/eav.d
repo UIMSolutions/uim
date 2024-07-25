@@ -94,7 +94,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         foreach (field; fields) {
             string name = alias ~ "_" ~ field ~ "_translation";
 
-            if (!tableLocator.exists(name)) {
+            if (!tableLocator.hasKey(name)) {
                 fieldTable = tableLocator.get(name, [
                     "classname": table,
                     "alias": name,

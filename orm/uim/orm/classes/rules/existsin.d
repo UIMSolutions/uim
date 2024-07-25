@@ -93,7 +93,7 @@ class DExistsIn {
             myentity.extract(fieldNames)
         );
 
-        return mytarget.exists(myconditions);
+        return mytarget.hasKey(myconditions);
     }
 
     // Checks whether the given entity fields are nullable and null.

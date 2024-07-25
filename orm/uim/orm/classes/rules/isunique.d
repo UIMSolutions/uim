@@ -48,7 +48,7 @@ class DIsUnique {
                 myconditions.set("NOT", someKeys);
             }
         }
-        return !options.get("repository").exists(myconditions);
+        return !options.get("repository").hasKey(myconditions);
     }
     
     // Add a model aliasToAdd to all the keys in a set of conditions.

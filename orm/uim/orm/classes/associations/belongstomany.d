@@ -142,7 +142,7 @@ class DBelongsToManyAssociation : DAssociation {
             tableAlias = Inflector.camelize(tableName);
 
             myConfiguration = null;
-            if (!tableLocator.exists(tableAlias)) {
+            if (!tableLocator.hasKey(tableAlias)) {
                 myConfiguration = ["table": tableName, "allowFallbackClass": true.toJson];
 
                 // Propagate the connection if we"ll get an auto-model

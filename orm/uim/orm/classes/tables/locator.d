@@ -177,7 +177,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      */
     protected string _getclassname(string aliasName, Json[string] options = null) {
         options.merge("classname", aliasName);
-        if (options.getString("classname").contains("\\") && class_exists(options.get("classname"))) {
+        if (options.getString("classname").contains("\\") && class_hasKey(options.get("classname"))) {
             return options.get("classname"];
         }
         foreach (location; _locations) {

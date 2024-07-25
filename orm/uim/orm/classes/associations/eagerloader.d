@@ -481,7 +481,7 @@ class DEagerLoader {
                 // be attached to joined associations.
                 if (
                     !mypath.contains(".") &&
-                    (!array_key_exists(mypath, mycollected) || !array_key_exists(aliasName, mycollected[mypath]))
+                    (!array_key_hasKey(mypath, mycollected) || !array_key_hasKey(aliasName, mycollected[mypath]))
                ) {
                     mymessage = "Unable to load `{mypath}` association. Ensure foreign key in `{aliasName}` is selected.";
                     throw new DInvalidArgumentException(mymessage);
@@ -604,7 +604,7 @@ class DEagerLoader {
             foreach (mynestKey, myparts; keysToCollect) {
                 if (myparts[2] == true) {
                     // Missed joins will have null in the results.
-                    if (!array_key_exists(myparts[1][0], result)) {
+                    if (!array_key_hasKey(myparts[1][0], result)) {
                         continue;
                     }
                     // Assign empty array to avoid not found association when optional.

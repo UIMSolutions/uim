@@ -55,7 +55,7 @@ class DSchemaLoader {
          // TODO 
          /* 
         filePaths.each!((filePath) {
-            if (!fileExists(filePath)) {
+            if (!filehasKey(filePath)) {
                 throw new DInvalidArgumentException(
                     "Unable to load SQL file `%s`."
                     .format(filePath));

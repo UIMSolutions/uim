@@ -232,7 +232,7 @@ class DBehavior : DEventListener {
         Json priority = configuration.get("priority");
         Json[string] events = null;
         foreach (eventMap as event: method) {
-            if (!method_exists(this, method)) {
+            if (!method_hasKey(this, method)) {
                 continue;
             }
             if (priority == null) {

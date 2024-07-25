@@ -94,12 +94,12 @@ class DHelper { // TODO }: DEventListener {
     // Adds the given class to the element options
     Json[string] addClass(Json[string] options, string classname, string key = "class") {
         if (options.hasKey(key) && options.isArray(key)) {
-            options.get(key] ~= classname;
+            options.set(key, options.getSTring(key) ~ classname);
         }
-        else if(options.hasKey(key) && strip(options.get(key])) {
-            options.get(key] ~= " " ~ classname;
+        else if(options.hasKey(key) && options.getString(key).strip) {
+            options.set(key, options.getString(key) ~ " " ~ classname);
         } else {
-            options.get(key] = classname;
+            options.set(key, classname);
         }
 
         return options;
@@ -132,19 +132,8 @@ class DHelper { // TODO }: DEventListener {
         return myevents;
     }
 
-    /**
-      hook method.
-     *
-     * Implement this method to avoid having to overwrite the constructor and call parent.
-     * Params:
-     * Json[string] helperSettings The configuration settings provided to this helper.
-     */
-    bool initialize(Json[string] initData = null) {
-
-    }
-
     // Returns an array that can be used to describe the internal state of this object.
-    Json __debugInfo() {
+    Json[string] __debugInfo() {
         return [
             "helpers": helpers,
             "implementedEvents": implementedEvents(),

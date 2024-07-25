@@ -126,7 +126,7 @@ class DPaginatorHelper : DHelper {
      * See PaginatorHelper.options for list of keys.
      */
     void options(Json[string] optionsForLinks = null) {
-        if (!options.isEmpty("paging")) {
+        if (options.hasKey("paging")) {
             configuration.set("params", options.get("paging"]);
             options.remove("paging");
         }
@@ -386,7 +386,7 @@ class DPaginatorHelper : DHelper {
 
             
 
-                && !options.isEmpty("sort")
+                && options.hasKey("sort")
                 && !options.getString("sort").contains(
                     ".")
             ) {
@@ -403,7 +403,7 @@ class DPaginatorHelper : DHelper {
                 "direction": Json(null)
             ]
         );
-        if (!options.isEmpty("page") && options.getLong(
+        if (options.hasKey("page") && options.getLong(
                 "page") == 1) {
             options.set("page", Json(null));
         }

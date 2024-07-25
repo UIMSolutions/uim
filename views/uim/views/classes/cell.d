@@ -194,14 +194,14 @@ abstract class DCell { // }: IEventDispatcher {
         } catch (Exception exception) {
             trigger_error(
                 "Could not render cell - %s [%s, line %d]"
-                .format(exception.getMessage(), exception.getFile(), exception.getLine()), 
+                .format(exception.message(), exception.getFile(), exception.getLine()), 
                 ERRORS.USER_WARNING);
 
             return null;
         } catch (DError error) {
             throw new DError(
                 "Could not render cell - %s [%s, line %d]"
-                .format(error.getMessage(), error.getFile(), error.getLine()), 
+                .format(error.message(), error.getFile(), error.getLine()), 
                 0, error);
         }
     }

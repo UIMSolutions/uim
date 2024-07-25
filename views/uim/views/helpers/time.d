@@ -195,7 +195,7 @@ class DTimeHelper : DHelper {
             mydateTime = mydateTime.setTimezone(options.get("timezone"));
             options.remove("timezone");
         }
-        if (!options.isEmpty("element")) {
+        if (options.hasKey("element")) {
             myelement = [
                 "tag": "span",
                 "class": "time-ago-in-words",

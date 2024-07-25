@@ -539,23 +539,24 @@ class DHtmlHelper : DHelper {
      * string[] mypath Path to the image file, relative to the webroot/img/ directory.
      */
     string image(string[] pathToImageFile, Json[string] htmlAttributes = null) {
-        if (isString(pathToImageFile)) {
-            pathToImageFile = _Url.image(pathToImageFile, htmlAttributes);
-        } else {
-            pathToImageFile = _Url.build(pathToImageFile, htmlAttributes);
-        }
+        pathToImageFile = pathToImageFile.isString
+            ? _Url.image(pathToImageFile, htmlAttributes)
+            : _Url.build(pathToImageFile, htmlAttributes);
+
         htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
 
         if (!htmlAttributes.hasKey("alt")) {
-            htmlAttributes["alt"] = "";
+            htmlAttributes.set("alt", "");
         }
-        url = false;
+        
+        auto url = false;
         if (!htmlAttributes.isEmpty("url"))) {
             url = htmlAttributes["url"];
-            remove(htmlAttributes["url"]);
+            htmlAttributes.remove("url");
         }
-        mytemplater = templater();
-        myimage = mytemplater.format("image", [
+
+        auto mytemplater = templater();
+        auto myimage = mytemplater.format("image", [
             "url": pathToImageFile,
             "attrs": mytemplater.formatAttributes(htmlAttributes),
         ]);
@@ -607,9 +608,9 @@ class DHtmlHelper : DHelper {
         bool useCount = false,
         bool continueOddEven = true
    ) {
-        if (!isArray(tableData)) {
+        if (!tableData.isArray) {
             tableData = [[tableData]];
-        } else if (isEmpty(tableData[0]) || !isArray(tableData[0])) {
+        } else if (tableData[0].isEmpty || !tableData[0].isArray) {
             tableData = [tableData];
         }
         if (oddTrOptions == true) {
@@ -657,7 +658,6 @@ class DHtmlHelper : DHelper {
             if (shouldUseCount) {
                 index += 1;
 
-
                 cellOptions.set("class", cellOptions.hasKey("class")
                     ? cellOptions.getString("class") ~ " column-" ~ index
                     : "column-" ~ index
@@ -688,7 +688,6 @@ class DHtmlHelper : DHelper {
      * Returns a formatted block tag, i.e DIV, SPAN, P.
      *
      * ### Options
-     *
      * - `escape` Whether the contents should be html_entity escaped.
      */
     string tag(string tagName, string content = null, Json[string] htmlAttributes = null) {

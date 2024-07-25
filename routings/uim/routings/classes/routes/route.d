@@ -324,7 +324,7 @@ class DRoute : IRoute {
                 httpMethod = this.normalizeAndValidateMethods(httpMethod);
             }
         } catch (InvalidArgumentException exception) {
-            throw new BadRequestException(exception.getMessage());
+            throw new BadRequestException(exception.message());
         }
         auto mycompiledRoute = this.compile();
         [urlToParse, myext] = _parseExtension(urlToParse);

@@ -220,7 +220,7 @@ class DRouter {
                 auto reflection = new DReflectionFunction(filter);
                 auto exceptionMessage = 
                     "URL filter defined in %s on line %s could not be applied. The filter failed with: %s"
-                    .format(reflection.getFileName(), reflection.getStartLine(), exception.getMessage());
+                    .format(reflection.getFileName(), reflection.getStartLine(), exception.message());
 
                 throw new DException(exceptionMessage, to!int(exception.code()), exception);
             }

@@ -895,10 +895,10 @@ mixin template TIntegrationTest() {
         string result = D_EOL;
         foreach (index, error; exceptions) {
             if (index == 0) {
-                result ~= "Possibly related to '%s': '%s'".format(error.classname, error.getMessage());
+                result ~= "Possibly related to '%s': '%s'".format(error.classname, error.message());
                 result ~= D_EOL;
             } else {
-                result ~= "Caused by '%s': '%s'".format(error.classname, error.getMessage());
+                result ~= "Caused by '%s': '%s'".format(error.classname, error.message());
                 result ~= D_EOL;
             }
             result ~= error.getTraceAsString() ~ D_EOL;

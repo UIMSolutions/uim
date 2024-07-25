@@ -105,7 +105,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     protected bool _stopOnFailure = false;
 
     this() {
-        /* _useI18n = function_exists("\\UIM\\I18n\\__d");
+        /* _useI18n = function_hasKey("\\UIM\\I18n\\__d");
         _providers = _defaultProviders; */
     }
 
@@ -126,7 +126,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         auto myerrors = null;
         foreach (ruleNames, fieldName; _fields) {
             auto ruleNames = to!string(ruleNames);
-            auto mykeyPresent = array_key_exists(ruleNames, data);
+            auto mykeyPresent = array_key_hasKey(ruleNames, data);
 
             auto providers = _providers;
             auto context = compact("data", "newRecord", "field", "providers");
@@ -236,7 +236,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Returns whether a rule set is defined for a field or not
-    bool offsetExists(Json fieldName) {
+    bool offsethasKey(Json fieldName) {
         // return _fields.getBoolean(fieldName);
         return false;
     }

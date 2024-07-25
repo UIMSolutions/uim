@@ -161,8 +161,8 @@ class DRouteBuilder {
      * Params:
      * string routings Name.
      */
-    bool nameExists(string routings) {
-        return array_key_exists(routings, _collection.named());
+    bool namehasKey(string routings) {
+        return array_key_hasKey(routings, _collection.named());
     }
 
     /**
@@ -741,7 +741,7 @@ class DRouteBuilder {
      */
     void applyMiddleware(string...routingss) {
         foreach (routings; routingss) {
-            if (!_collection.middlewareExists(routings)) {
+            if (!_collection.middlewarehasKey(routings)) {
                 auto mymessage = "Cannot apply " routings" middleware or middleware group. "
                     ."Use registerMiddleware() to register middleware.";
                 throw new DInvalidArgumentException(mymessage);

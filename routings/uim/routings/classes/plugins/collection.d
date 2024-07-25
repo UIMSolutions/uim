@@ -197,7 +197,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
             throw new DException("Cannot create a plugin with empty name");
         }
         if (pluginName.contains("\\")) {
-            if (!class_exists(pluginName)) {
+            if (!class_hasKey(pluginName)) {
                 throw new DInvalidArgumentException("Class `%s` does not exist.".format(pluginName));
             }
             return new pluginName(Data);
@@ -207,14 +207,14 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         string namespace = pluginName.replace("/", "\\");
         string classname = namespace ~ "\\" ~ "Plugin";
         // Check for [Vendor/]Foo/Plugin class
-        if (!class_exists(classname)) {
+        if (!class_hasKey(classname)) {
             pos = indexOf(pluginName, "/");
             classname = pos == false 
                 ? namespace ~ "\\" ~ pluginName ~ "Plugin"
                 : namespace ~ "\\" ~ subString(pluginName, pos + 1) ~ "Plugin";
 
             // Check for [Vendor/]Foo/FooPlugin
-            if (!class_exists(classname)) {
+            if (!class_hasKey(classname)) {
                 string classname = BasePlugin.classname;
                 if (Data("path").isEmpty) {
                     Data("path", _findPath(pluginName));

@@ -90,7 +90,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     }
     
     // Returns whether an index exists in the rule set
-   bool offsetExists(string ruleName) {
+   bool offsethasKey(string ruleName) {
         return _rules.hasKey(ruleName);
     }
     

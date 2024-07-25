@@ -372,7 +372,7 @@ class DRouter {
      *
      * ### Usage
      */
-    static bool routeExists(string[] url = null, bool isFull = false) {
+    static bool routehasKey(string[] url = null, bool isFull = false) {
         try {
             url(url, isFull);
             return true;
@@ -598,7 +598,7 @@ class DRouter {
      */
     protected static Json[string] unwrapShortString(Json[string] url) {
         foreach (aKey; ["plugin", "prefix", "controller", "action"]) {
-            if (array_key_exists(aKey, url)) {
+            if (array_key_hasKey(aKey, url)) {
                 throw new DInvalidArgumentException(
                     "`aKey` cannot be used when defining route targets with a string route path."
                );

@@ -83,7 +83,7 @@ class DAsset {
         if (somePath.contains(": //") || preg_match("/^[a-z]+:/i", somePath)) {
             return stripLeft(Router.url(somePath), "/");
         }
-        if (!array_key_exists("plugin", options) || options.get("plugin"] == true) {
+        if (!array_key_hasKey("plugin", options) || options.get("plugin"] == true) {
             [plugin, somePath] = pluginSplit(somePath);
         }
         if (options.hasKey("pathPrefix") && somePath[0] != "/") {
@@ -111,7 +111,7 @@ class DAsset {
             somePath = inflectString(plugin) ~ "/" ~ somePath;
         }
         auto optionTimestamp = null;
-        if (array_key_exists("timestamp", options)) {
+        if (array_key_hasKey("timestamp", options)) {
             optionTimestamp = options.get("timestamp"];
         }
         auto webPath = assetTimestamp(

@@ -1,6 +1,6 @@
 
 /* 
-if (!function_exists("url")) {
+if (!function_hasKey("url")) {
     /**
      * Convenience wrapper for Router.url().
      * Params:
@@ -14,7 +14,7 @@ if (!function_exists("url")) {
     }
 }
 
-if (!function_exists("urlArray")) {
+if (!function_hasKey("urlArray")) {
     // Returns an array URL from a route path string.
     Json[string] urlArray(string routePath, Json[string] params= null) {
         return uimUrlArray(routePath, params);

@@ -309,7 +309,7 @@ class DRouteCollection {
      * string groupName The name of the middleware group to check.
      */
     bool hasMiddlewareGroup(string groupName) {
-        return array_key_exists(groupName, _middlewareGroups);
+        return array_key_hasKey(groupName, _middlewareGroups);
     }
 
     // Check if the named middleware has been registered.
@@ -322,7 +322,7 @@ class DRouteCollection {
      * Params:
      * string middlewareName The name of the middleware to check.
      */
-    bool middlewareExists(string middlewareName) {
+    bool middlewarehasKey(string middlewareName) {
         return _hasMiddleware(middlewareName) || this.hasMiddlewareGroup(middlewareName);
     }
 

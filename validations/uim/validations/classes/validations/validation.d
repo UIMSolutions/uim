@@ -240,7 +240,7 @@ class DValidation {
      * Return true if the comparison matches the expected result.
      */
     static bool compareFields(Json value, string fieldName, string originalEntities, Json[string] context) {
-        /* if (context.isNull("data") || !array_key_exists(fieldName, context["data"])) {
+        /* if (context.isNull("data") || !array_key_hasKey(fieldName, context["data"])) {
             return false;
         } */
         // TODO return comparison(value, originalEntities, context["data"][fieldName]);
@@ -544,10 +544,10 @@ class DValidation {
             return result;
         }
         if (result == true && preg_match("/@(" ~ _pattern.getString("hostname") ~ ")my/i", valueToCheck, myregs)) {
-            if (function_exists("getmxrr") && getmxrr(myregs[1], mymxhosts)) {
+            if (function_hasKey("getmxrr") && getmxrr(myregs[1], mymxhosts)) {
                 return true;
             }
-            if (function_exists("checkdnsrr") && checkdnsrr(myregs[1], "MX")) {
+            if (function_hasKey("checkdnsrr") && checkdnsrr(myregs[1], "MX")) {
                 return true;
             }
             return isArray(gethostbynamel(myregs[1] ~ "."));
@@ -862,7 +862,7 @@ static bool mimeType(Json valueToCheck, string[] mimeTypes = null) {
     if (filename.isNull) {
         return false;
     }
-    /* if (!function_exists("finfo_open")) {
+    /* if (!function_hasKey("finfo_open")) {
             throw new DException("ext/fileinfo is required for validating file mime types");
         }
         if (!isFile(filename)) {

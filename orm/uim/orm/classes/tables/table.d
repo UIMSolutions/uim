@@ -520,7 +520,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             }
             string aliasName = Inflector.classify(Inflector.underscore(subString(array_pop(myparts), 0, -5)));
             string myname = array_slice(myparts, 0, -1).join("\\") ~ "\\Entity\\" ~ aliasName;
-            if (!class_exists(myname)) {
+            if (!class_hasKey(myname)) {
                 return _entityClass = defaultValue;
             }
             /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass */
@@ -1435,7 +1435,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         return mystatement.rowCount();
     }
  
-    bool exists(QueryExpression|/*Closure|*/ string[]|string myconditions) {
+    bool hasKey(QueryExpression|/*Closure|*/ string[]|string myconditions) {
         return (bool)count(
             this.find("all")
             .select(["existing": 1])
@@ -1583,7 +1583,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
             auto aliasName = aliasName();
             auto myconditions = null;
             entityToSave.extract(myprimaryColumns).byKeyValue.each!(kv => myconditions.setPath(["aliasName", kv.key], kv.value));
-            entityToSave.setNew(!this.exists(myconditions));
+            entityToSave.setNew(!this.hasKey(myconditions));
         }
         auto mymode = entityToSave.isNew() ? RulesChecker.CREATE : RulesChecker.UPDATE;
         if (options.hasKey("checkRules"] && !this.checkRules(entityToSave, mymode, options)) {
@@ -2057,13 +2057,13 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
      */
    bool hasFinder(string finderType) {
         auto finderName = "find" ~ finderType;
-        return method_exists(this, finderName) || _behaviors.hasFinder(finderType);
+        return method_hasKey(this, finderName) || _behaviors.hasFinder(finderType);
     }
     
     // Calls a finder method and applies it to the passed query.
     SelectQuery<TSubject> callFinder(string finderType, DSelectQuery myquery, Json arguments) {
         string myfinder = "find" ~ finderType;
-        if (method_exists(this, myfinder)) {
+        if (method_hasKey(this, myfinder)) {
             return _invokeFinder(this.{myfinder}(...), myquery, arguments);
         }
         if (_behaviors.hasFinder(finderType)) {
@@ -2513,7 +2513,7 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         
         IEvent[string] myevents = null;
         foreach (eventName, methodName; eventMap) {
-            if (!method_exists(this, methodName)) {
+            if (!method_hasKey(this, methodName)) {
                 continue;
             }
             myevents[eventName] = methodName;
@@ -2561,8 +2561,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         return (new DLazyEagerLoader()).loadInto(entities, mycontain, this);
     }
  
-    protected bool validationMethodExists(string methodName) {
-        return method_exists(this, methodName) || this.behaviors().hasMethod(methodName);
+    protected bool validationMethodhasKey(string methodName) {
+        return method_hasKey(this, methodName) || this.behaviors().hasMethod(methodName);
     }
     
     /**

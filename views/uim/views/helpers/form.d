@@ -852,7 +852,7 @@ class DFormHelper : DHelper {
         if (
             isNestedInput == true
             && options.getString("type") == "checkbox"
-            && !array_key_exists("hiddenField", options)
+            && !array_key_hasKey("hiddenField", options)
             && mylabel == true
        ) {
             options.get("hiddenField", "_split");
@@ -1053,7 +1053,7 @@ class DFormHelper : DHelper {
         myvalues = null;
         /** @var \BackedEnum mycase */
         foreach (mycase; enumclassname.cases()) {
-            myhasLabel = cast(IEnumLabel)mycase || method_exists(mycase, "label");
+            myhasLabel = cast(IEnumLabel)mycase || method_hasKey(mycase, "label");
             myvalues[mycase.value] = myhasLabel ? mycase.label(): mycase.name;
         }
         return myvalues;
@@ -1126,7 +1126,7 @@ class DFormHelper : DHelper {
     
     // Extracts a single option from an options array.
     protected Json _extractOption(string optionName, Json[string] optionsToExtract, Json defaultValue = Json(null)) {
-        return array_key_exists(optionName, optionsToExtract)
+        return array_key_hasKey(optionName, optionsToExtract)
             ? optionsToExtract[optionName]
             : defaultValue;
     }

@@ -46,7 +46,7 @@ class DTextareaWidget : DWidget {
         auto updatedData = renderData.merge(formContext.data);
 
         if (
-            !array_key_exists("maxlength", mydata)
+            !array_key_hasKey("maxlength", mydata)
             && mydata.hasKey("fieldName")
             ) {
             mydata = setMaxLength(mydata, formContext, mydata["fieldName"]);

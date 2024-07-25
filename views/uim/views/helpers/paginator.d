@@ -325,7 +325,7 @@ class DPaginatorHelper : DHelper {
                 mytemplate = mydir == "asc" ? "sortDesc" : "sortAsc";
             }
         }
-        if (linkTitle.isArray && array_key_exists(
+        if (linkTitle.isArray && array_key_hasKey(
                 mydir, linkTitle)) {
             linkTitle = linkTitle[mydir];
         }

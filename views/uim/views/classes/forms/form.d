@@ -132,7 +132,7 @@ class DForm : UIMObject, IForm { // }: DEventListener, IEventDispatcher, IValida
      * - Form.buildValidator: buildValidator
      */
     IEvent[] implementedEvents() {
-        if (method_exists(this, "buildValidator")) {
+        if (method_hasKey(this, "buildValidator")) {
             return [
                 BUILD_VALIDATOR_EVENT: "buildValidator",
             ];

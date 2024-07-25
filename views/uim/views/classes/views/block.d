@@ -107,7 +107,7 @@ class DViewBlock {
     }
     
     //Check if a block exists
-   bool exists(string blockName) {
+   bool hasKey(string blockName) {
         return false; // TODO _blocks.hasKey(blockName);
     }
     

@@ -485,7 +485,7 @@ static string contentType() {
      * or `_plugin.template` to check the template element from _plugin. If the element
      * is not found in the plugin, the normal view path cascade will be searched.
      */
-    bool elementExists(string templatefilename) {
+    bool elementhasKey(string templatefilename) {
         return (bool)_getElementFileName(templatefilename);
     }
     
@@ -673,8 +673,8 @@ static string contentType() {
     }
 
     // Check if a block exists
-   bool exists(string blockName) {
-        return _blocks.exists(blockName);
+   bool hasKey(string blockName) {
+        return _blocks.hasKey(blockName);
     }
 
     /**

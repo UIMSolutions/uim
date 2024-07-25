@@ -124,7 +124,7 @@ class DJsonView : DSerializedView {
                 if (isNumeric(aliasKey.key)) {
                     aliasKey.key = aliasKey.value;
                 }
-                if (array_key_exists(aliasKey.value, this.viewVars)) {
+                if (array_key_hasKey(aliasKey.value, this.viewVars)) {
                     mydata[aliasKey.key] = this
                         .viewVars[aliasKey.value];
                 }

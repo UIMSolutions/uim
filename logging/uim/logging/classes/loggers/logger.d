@@ -47,7 +47,7 @@ class DLogger : ILogger {
                 continue;
             }
             if (isObject(aValue)) {
-                if (method_exists(aValue, "toArray")) {
+                if (method_hasKey(aValue, "toArray")) {
                     replacements.set("{" ~ aKey ~ "}", Json_encode(aValue.toJString(), JsonFlags));
                     continue;
                 }
@@ -59,7 +59,7 @@ class DLogger : ILogger {
                     replacements.set("{" ~ aKey ~ "}", to!string(aValue));
                     continue;
                 }
-                if (method_exists(aValue, "__debugInfo")) {
+                if (method_hasKey(aValue, "__debugInfo")) {
                     replacements.set("{" ~ aKey ~ "}", Json_encode(aValue.__debugInfo(), JsonFlags));
                     continue;
                 }

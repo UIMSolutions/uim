@@ -101,7 +101,7 @@ class Hash {
             [mytoken, myconditions] = _splitConditions(mytoken);
 
             mycontext[_key].each!((item) {
-                if (isObject(item) && method_exists(item, "toArray")) {
+                if (isObject(item) && method_hasKey(item, "toArray")) {
                     myitem = myitem.toArray();
                 }
                 item.byKeyValue
@@ -165,8 +165,8 @@ class Hash {
             }
             
             auto myattrPresent = isArray(data)
-                ? array_key_exists(myattr, data)
-                : data.offsetExists(myattr);
+                ? array_key_hasKey(myattr, data)
+                : data.offsethasKey(myattr);
 
             // Empty attribute = fail.
             if (!myattrPresent) {
@@ -424,7 +424,7 @@ class Hash {
         for (myj = 0; myj < countData; myj++) {
             myargs = null;
             for (index = 0; index < mycountTwo; index++) {
-                if (array_key_exists(myj, data[index])) {
+                if (array_key_hasKey(myj, data[index])) {
                     myargs ~= data[index][myj];
                 }
             }
@@ -445,14 +445,14 @@ class Hash {
             auto value = needle.get(aKey);
             needle.remove(aKey);
 
-            if (array_key_exists(aKey, data) && isArray(myval)) {
+            if (array_key_hasKey(aKey, data) && isArray(myval)) {
                 mynext = data[aKey];
                 data.tremove(aKey);
 
                 if (!myval.isEmpty) {
                     mystack ~= [myval, mynext];
                 }
-            } else if (!array_key_exists(aKey, data) || data[aKey] != myval) {
+            } else if (!array_key_hasKey(aKey, data) || data[aKey] != myval) {
                 return false;
             }
             if (isEmpty(needle) && !empty(mystack)) {
@@ -546,7 +546,7 @@ class Hash {
 
             auto mykeyHash = &myhash;
             someKeys.each!((key) {
-                if (!array_key_exists(key, mykeyHash)) {
+                if (!array_key_hasKey(key, mykeyHash)) {
                     mykeyHash[key] = null;
                 }
                 mykeyHash = &mykeyHash[key];
@@ -869,7 +869,7 @@ class Hash {
             return data;
         }
         foreach (aKey, myvalue; compareData) {
-            if (!array_key_exists(aKey, data)) {
+            if (!array_key_hasKey(aKey, data)) {
                 data[aKey] = myvalue;
             } else if (myvalue.isArray && isArray(data[aKey])) {
                 data[aKey] = mergeDiff(data[aKey], myvalue);

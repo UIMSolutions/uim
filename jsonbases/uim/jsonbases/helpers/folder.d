@@ -9,12 +9,12 @@ unittest {
 }
 
 @safe:
-bool folderExists(IFolder aFolder) {
+bool folderhasKey(IFolder aFolder) {
   return (aFolder !is null && aFolder.exists);
 }
 
-bool subfolderExists(IFolder aFolder, string aName) {
-  return folderExists(aFolder)
+bool subfolderhasKey(IFolder aFolder, string aName) {
+  return folderhasKey(aFolder)
     ? aFolder.folder(aName) !is null
     : false;
 }

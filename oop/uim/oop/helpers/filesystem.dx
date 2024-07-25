@@ -73,7 +73,7 @@ class HFilesystem {
         if (!isDir(mydir)) {
             this.mkdir(mydir);
         }
-        myexists = fileExists(filepath);
+        myexists = filehasKey(filepath);
 
         mysuccess = (this.isStream(filepath)) 
             ? @file_put_contents(filepath, contentToDump)
@@ -111,7 +111,7 @@ class HFilesystem {
      * string mypath Directory path.
      */
     bool deleteDir(string mypath) {
-        if (!fileExists(mypath)) {
+        if (!filehasKey(mypath)) {
             return true;
         }
         if (!isDir(mypath)) {

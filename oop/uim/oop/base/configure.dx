@@ -58,7 +58,7 @@ class DFileConfigEngine {
             .each!(nameValue => _values = Hash.insert(_values, nameValue.key, nameValue.value));
 
         if (configData.hasKey("debug")) {
-            // TODO _hasIniSet ?  ?  = function_exists("ini_set");
+            // TODO _hasIniSet ?  ?  = function_hasKey("ini_set");
 
             if (_hasIniSet) {
                 ini_set("display_errors", configuration.get("debug") ? "1" : "0");
@@ -341,7 +341,7 @@ class DFileConfigEngine {
     static bool store(string storageName, string cacheConfig = "default",  Json[string] data = null) {
         data = data ?  data : _values;
 
-        if (!class_exists(Cache.classname)) {
+        if (!class_hasKey(Cache.classname)) {
             throw new DException("You must install UIM/cache to use Configure.store()");
         }
         return Cache.write(storageName, someData, cacheConfig); */
@@ -352,7 +352,7 @@ class DFileConfigEngine {
      * values will overwrite existing ones.
      */
     static bool restore(string name, string cacheConfig = "default") {
-        if (!class_exists(Cache.classname)) {
+        if (!class_hasKey(Cache.classname)) {
             throw new DException("You must install UIM/cache to use Configure.restore()");
         }
 

@@ -32,7 +32,7 @@ class DApp {
      */
     static string classname(string nameOfClass, string classType = "", string classnameSuffix = null) {
         if (nameOfClass.contains("\\")) {
-            return class_exists(nameOfClass) ?  nameOfClass : null;
+            return class_hasKey(nameOfClass) ?  nameOfClass : null;
         }
         [plugin, name] = pluginSplit(nameOfClass);
         
@@ -124,7 +124,7 @@ class DApp {
      * aNamespace = Namespace.
      */
     protected static bool _classExistsInBase(string classname, string namespace) {
-        return class_exists(namespace ~ classname);
+        return class_hasKey(namespace ~ classname);
     }
     
     /**

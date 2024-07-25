@@ -775,7 +775,7 @@ class DMessage { //: JsonSerializable {
             } else if (isString(dirEntry["file"])) {
                 string fileName = dirEntry["file"];
                 dirEntry["file"] = realpath(dirEntry["file"]);
-                if (dirEntry["file"] == false || !fileExists(dirEntry["file"])) {
+                if (dirEntry["file"] == false || !filehasKey(dirEntry["file"])) {
                     throw new DInvalidArgumentException("File not found: `%s`".format(fileName));
                 }
                 if (isInteger(attName)) {
@@ -791,7 +791,7 @@ class DMessage { //: JsonSerializable {
                 !dirEntry.hasKey("mimetype")
                 && dirEntry.hasKey("file")
                 && isString(dirEntry["file"])
-                && function_exists("mime_content_type")
+                && function_hasKey("mime_content_type")
            ) {
                 dirEntry["mimetype"] = mime_content_type(dirEntry["file"]);
             }
@@ -1304,7 +1304,7 @@ class DMessage { //: JsonSerializable {
      */
     string getContentTypeCharset() {
         string charset = this.charset.upper;
-        return array_key_exists(charset, this.contentTypeCharset))
+        return array_key_hasKey(charset, this.contentTypeCharset))
             ? this.contentTypeCharset[charset].upper
             : this.charset.upper;
     }

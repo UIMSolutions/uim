@@ -86,7 +86,7 @@ class DRedisCacheEngine : DCacheEngine {
                );
             }
         } catch (RedisException anException) {
-            if (class_exists(Log.classname)) {
+            if (class_hasKey(Log.classname)) {
                 Log.error("RedisEngine could not connect. Got error: " ~  anException.message());
             }
             return false;

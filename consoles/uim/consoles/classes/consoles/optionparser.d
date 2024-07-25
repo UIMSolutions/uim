@@ -555,7 +555,7 @@ class DConsoleOptionParser {
         auto isBoolean = option.isBoolean();
         auto nextValue = _nextToken();
         auto emptyNextValue = (isEmpty(nextValue) && nextValue != "0");
-        if (!isBoolean && !emptyNextValue && !_optionExists(nextValue)) {
+        if (!isBoolean && !emptyNextValue && !_optionhasKey(nextValue)) {
             array_shift(_tokens);
             aValue = nextValue;
         } else if (isBoolean) {
@@ -574,7 +574,7 @@ class DConsoleOptionParser {
     }
 
     // Check to see if name has an option (short/long) defined for it.
-    protected bool _optionExists(string optionName) {
+    protected bool _optionhasKey(string optionName) {
         if (optionName.startsWith("--")) {
             return _options.hasKey(subString(optionName, 2));
         }

@@ -39,23 +39,29 @@ abstract class DAbstractLocator : ILocator {
 
     ILocator set(string repositoryAlias, IRepository repository) {
         return _instances.set(repositoryAlias, repository);
-
-        return this;
     }
 
-
-    bool exists(string repositoryAlias) {
+    bool hasKey(string repositoryAlias) {
         return _instances.hasKey(repositoryAlias);
     }
 
+    // #region remove
+    ILocator remove(string[] aliasNames...) {
+        return remove(aliasName.dup);
+    }
 
-    ILocator remove(string aliasNameName) {
-        _instances.remove(aliasNameName);
-        configuration.remove(aliasNameName);
-
+    ILocator remove(string[] aliasNames) {
+        aliasNames.each!(name => removeOne(name));
         return this;
     }
 
+    protected ILocator removeOne(string aliasName) {
+        _instances.remove(aliasName);
+        configuration.remove(aliasName);
+
+        return this;
+    }
+    // #endregion remove
 
     ILocator clear() {
         _instances = null;

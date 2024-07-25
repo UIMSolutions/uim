@@ -67,7 +67,7 @@ class DBufferedIterator : D_Collection { // }, Countable {
 
   // Returns whether the iterator has more elements
   bool valid() {
-    /* if (_buffer.offsetExists(_index)) {
+    /* if (_buffer.offsethasKey(_index)) {
       /* auto current = _buffer.offsetGet(_index);
       _current = current["value"];
       _key = current["key"];
@@ -95,7 +95,7 @@ class DBufferedIterator : D_Collection { // }, Countable {
     _index++;
 
     // Don`t move inner iterator if we have more buffer
-    /* if (_buffer.offsetExists(_index)) {
+    /* if (_buffer.offsethasKey(_index)) {
       return;
     }
     if (!_finished) {

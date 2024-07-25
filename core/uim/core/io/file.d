@@ -21,7 +21,7 @@ version (linux) {
 		if (!from.endsWith('/'))
 			from ~= "/";
 
-		if (!exists(from ~ fileName)) {
+		if (!hasKey(from ~ fileName)) {
 			return false;
 		}
 
@@ -30,17 +30,17 @@ version (linux) {
 			to ~= "/";
 
 		if (createMissingDirs) {
-			if (!exists(from))
+			if (!hasKey(from))
 				mkdir(from);
-			if (!exists(to))
+			if (!hasKey(to))
 				mkdir(to);
 		} else {
-			if (!exists(from) || !exists(to)) {
+			if (!hasKey(from) || !hasKey(to)) {
 				return false;
 			}
 		}
 
-		if (!overwriteExistingFile && exists(to ~ fileName)) {
+		if (!overwriteExistingFile && hasKey(to ~ fileName)) {
 			return false;
 		}
 
@@ -67,7 +67,7 @@ version (linux) {
 		if (!from.endsWith("/"))
 			from ~= "/";
 
-		if (!exists(from ~ fileName)) {
+		if (!hasKey(from ~ fileName)) {
 			return false;
 		}
 
@@ -76,20 +76,20 @@ version (linux) {
 			to ~= "/";
 
 		if (createMissingDirs) {
-			if (!exists(from))
+			if (!hasKey(from))
 				mkdir(from);
-			if (!exists(to))
+			if (!hasKey(to))
 				mkdir(to);
 		} else {
-			if (!exists(from)) {
+			if (!hasKey(from)) {
 				return false;
 			}
-			if (!exists(to)) {
+			if (!hasKey(to)) {
 				return false;
 			}
 		}
 
-		if (!overwriteExistingFile && exists(to ~ fileName)) {
+		if (!overwriteExistingFile && hasKey(to ~ fileName)) {
 			return false;
 		}
 

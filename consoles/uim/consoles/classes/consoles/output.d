@@ -149,7 +149,7 @@ class DConsoleOutput {
                 enviroment("ConEmuANSI") != "ON"
            ) ||
             (
-                function_exists("posix_isatty") &&
+                function_hasKey("posix_isatty") &&
                 !posix_isatty(_output)
            ) ||
             (

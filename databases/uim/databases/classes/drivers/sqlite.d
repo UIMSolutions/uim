@@ -86,7 +86,7 @@ class DSqliteDriver : DDriver {
         }
         chmodFile = false;
         if (configuration.getString("database") != ": memory:" && configuration.getString("mode") != "memory") {
-            chmodFile = !fileExists(configuration.get("database"));
+            chmodFile = !filehasKey(configuration.get("database"));
         }
         
         string[] params = null;

@@ -140,7 +140,7 @@ class DComponent { // TODO }: DEventListener {
 
         Json[string] myEvents;
         eventMap.byKeyValue
-            .filter!(kv => method_exists(this, kv.value))
+            .filter!(kv => method_hasKey(this, kv.value))
             .each!(eventMethod => myEvents[eventMethod.key] = eventMethod.value);
 
         return myEvents;

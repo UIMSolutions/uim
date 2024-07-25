@@ -225,12 +225,12 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * \UIM\Database\IExpression expression the inner query
      */
-    auto exists(IExpression expression) {
+    auto hasKey(IExpression expression) {
         return _add(new DUnaryExpression("EXISTS", expression, UnaryExpression.PREFIX));
     }
     
     //  Adds a new condition to the expression object in the form "NOT EXISTS (...)".
-    auto notExists(IExpression innerQuery) {
+    auto nothasKey(IExpression innerQuery) {
         return _add(new DUnaryExpression("NOT EXISTS", innerQuery, UnaryExpression.PREFIX));
     }
     

@@ -13,33 +13,37 @@ import uim.orm;
  * An Association is a relationship established between two tables and is used
  * to configure and customize the way interconnected records are retrieved.
  */
-class DAssociation : IAssociation {
-    mixin TConfigurable;
+class DAssociation : UIMObject, IAssociation {
+    mixin(AssociationThis!(""));
+
     // TODO use TConventions;
     mixin TLocatorAware;
 
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        this.initialize(initData);
+        super(initData);
     }
 
     this(string newName) {
-        this();
-        this.name(newName);
+        super(newName);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
+
+        _validStrategies = [
+            STRATEGY_JOIN,
+            STRATEGY_SELECT,
+            STRATEGY_SUBQUERY,
+        ];
 
         return true;
     }
-
-    // Name given to the association, it usually represents the alias assigned to the target associated table
-    mixin(TProperty!("string", "name"));
 
     // Sets whether cascaded deletes should also fire callbacks.
     mixin(TProperty!("bool", "cascadeCallbacks"));
@@ -81,7 +85,7 @@ class DAssociation : IAssociation {
      * The strategy name to be used to fetch associated records. Some association
      * types might not implement but one strategy to fetch records.
      */
-    protected string _strategy = STRATEGY_JOIN;
+    protected string _strategyName = STRATEGY_JOIN;
 
     // The class name of the target table object
     protected string _classname;
@@ -145,8 +149,9 @@ class DAssociation : IAssociation {
     // Target table instance
     protected IORMTable _targetTable;
 // Sets the table instance for the target side of the association.
-    void setTarget(DORMTable aTable) {
+    IAssociation setTarget(DORMTable aTable) {
         _targetTable = table;
+        return this;
     }
 
     // Gets the table instance for the target side of the association.
@@ -159,16 +164,15 @@ class DAssociation : IAssociation {
                 registryAlias = _name;
             }
 
-            tableLocator = getTableLocator();
-
-            myConfiguration = null;
-            exists = tableLocator.hasKey(registryAlias);
-            if (!exists) {
+            auto tableLocator = getTableLocator();
+            auto myConfiguration = null;
+            bool hasRegistryAlias = tableLocator.hasKey(registryAlias);
+            if (!hasRegistryAlias) {
                 myConfiguration = ["classname": _classname];
             }
             _targetTable = tableLocator.get(registryAlias, myConfiguration);
 
-            if (exists) {
+            if (hasRegistryAlias) {
                 classname = App.classname(_classname, "Model/Table", "Table") ?  : Table:
                  : class;
 
@@ -198,7 +202,7 @@ class DAssociation : IAssociation {
      *
      * @var array|string
      */
-    protected _finder = "all";
+    protected string _finder = "all";
  // Gets the default finder to use for fetching rows from the target table.
     Json[string] getFinder() {
         return _finder;
@@ -210,11 +214,7 @@ class DAssociation : IAssociation {
     }
 
     // Valid strategies for this association. Subclasses can narrow this down.
-    protected string[] _validStrategies = [
-        STRATEGY_JOIN,
-        STRATEGY_SELECT,
-        STRATEGY_SUBQUERY,
-    ];
+    protected string[] _validStrategies; 
 
     /**
      . Subclasses can override _options function to get the original
@@ -251,7 +251,7 @@ class DAssociation : IAssociation {
         _options(options);
 
         if (options.hasKey("strategy")) {
-            setStrategy(options.get("strategy"]);
+            setStrategyName(options.get("strategy"]);
         }
     }
 
@@ -277,7 +277,10 @@ class DAssociation : IAssociation {
      * Sets the name of the field representing the binding field with the target table.
      * When not manually specified the primary key of the owning side table is used.
      */
-    // void bindingKeys(string[]|string key) {
+    void bindingKeys(string[] key...) {
+        
+    }
+    
     void bindingKeys(string[] keys) {
         _bindingKeys = keys;
     }
@@ -340,9 +343,7 @@ class DAssociation : IAssociation {
         _joinType = type;
     }
 
-    /**
-     * Gets the type of join to be used when adding the association to a query.
-     */
+    // Gets the type of join to be used when adding the association to a query.
     string getJoinType() {
         return _joinType;
     }
@@ -363,10 +364,10 @@ class DAssociation : IAssociation {
         if (!_propertyName) {
             _propertyName = _propertyName();
             if (isIn(_propertyName, _sourceTable.getSchema().columns(), true)) {
-                msg = "Association property name '%s' clashes with field of same name of table '%s'." ~
+                message = "Association property name '%s' clashes with field of same name of table '%s'." ~
                     " You should explicitly specify the " propertyName" option.";
                 trigger_error(
-                    msg.format(_propertyName, _sourceTable.getTable()),
+                    message.format(_propertyName, _sourceTable.getTable()),
                     ERRORS.USER_WARNING
                );
             }
@@ -387,14 +388,14 @@ class DAssociation : IAssociation {
      * that some association types might not implement but a default strategy,
      * rendering any changes to this setting void.
      */
-    void setStrategy(string strategyName) {
+    void setStrategyName(string strategyName) {
         if (!isIn(strategyName, _validStrategies, true)) {
             throw new DInvalidArgumentException(
                 "Invalid strategy '%s' was provided. Valid options are (%s)."
                     .format(strategyName, _validStrategies.join(", "))
            );
         }
-        _strategy = strategyName;
+        _strategyName = strategyName;
     }
 
     /**
@@ -403,7 +404,7 @@ class DAssociation : IAssociation {
      * rendering any changes to this setting void.
      */
     string getStrategy() {
-        return _strategy;
+        return _strategyName;
     }
 
    
@@ -440,38 +441,36 @@ class DAssociation : IAssociation {
         auto target = getTarget();
         auto table = target.getTable();
 
-        auto updatedOptions = options.setPath([
-            "includeFields": true.toJson,
-            "foreignKeys": foreignKeys(),
-            "conditions": Json.emptyArray,
-            "joinType": getJoinType(),
-            "fields": Json.emptyArray,
-            "table": table,
-            "finder": getFinder(),
-        ]);
+        options
+            .merge(["conditions", "fields"], Json.emptyArray)
+            .merge("includeFields", true)
+            .merge("foreignKeys", foreignKeys())
+            .merge("joinType", getJoinType())
+            .merge("table", table)
+            .merge("finder", getFinder());
 
         // This is set by joinWith to disable matching results
-        if (options.hasKey("fields"] == false) {
-            options.setNull("fields");
+        if (!options.isEmpty("fields")) {
+            options.set("fields", Json.emptyArray);
             options.set("includeFields", false);
         }
 
         if (options.hasKey("foreignKeys")) {
-            auto joinCondition = _joinCondition(options);
-            if (joinCondition) {
-                auto conditions = options.getArray("conditions") ~ joinCondition;
-                options.set("conditions", conditions)
+            Json[string] joinConditions = _joinConditions(options);
+            if (!joinConditions.isNull) {
+                auto conditions = options.getArray("conditions") ~ joinConditions;
+                options.set("conditions", conditions);
             }
         }
 
-        [finder, opts] = _extractFinder(options.get("finder"]);
+        [finder, opts] = _extractFinder(options.get("finder"));
         auto dummy = this
             .find(finder, opts)
             .eagerLoaded(true);
 
         if (options.hasKey("queryBuilder")) {
-            dummy = options.get("queryBuilder")(dummy);
-            if (!cast(Query)dummy) {
+            auto dummy = options.get("queryBuilder")(dummy);
+            if (!cast(DQuery)dummy) {
                 throw new DRuntimeException(format(
                     "Query builder for association '%s' did not return a query",
                     getName()
@@ -481,7 +480,7 @@ class DAssociation : IAssociation {
 
         if (
             options.hasKey("matching") &&
-            _strategy == STRATEGY_JOIN &&
+            _strategyName == STRATEGY_JOIN &&
             dummy.getContain()
            ) {
             throw new DRuntimeException(
@@ -489,7 +488,7 @@ class DAssociation : IAssociation {
            );
         }
 
-        dummy.where(options.get("conditions"]);
+        dummy.where(options.get("conditions"));
         _dispatchBeforeFind(dummy);
 
         query.join([
@@ -527,7 +526,7 @@ class DAssociation : IAssociation {
      * Correctly nests a result row associated values into the correct array keys inside the
      * source results.
      */
-    array transformRow(Json[string] row, string nestKey, bool isJoined, string targetProperty = null) {
+    Json[string] transformRow(Json[string] row, string nestKey, bool isJoined, string targetProperty = null) {
         string sourceAlias = source().aliasName();
         string nestKey = nestKey ?  nestKey : _name;
         auto targetProperty = targetProperty ? targetProperty : getProperty();
@@ -548,7 +547,7 @@ class DAssociation : IAssociation {
     Json[string] defaultRowValue(Json[string] row, bool isJoined) {
         auto sourceAlias = source().aliasName();
         if (row.hasKey(sourceAlias)) {
-            row[sourceAlias][getProperty()] = null;
+            row.setPath([sourceAlias, getProperty()], Json(null));
         }
 
         return row;
@@ -732,21 +731,21 @@ class DAssociation : IAssociation {
      * Returns a single or multiple conditions to be appended to the generated join
      * clause for getting the results on the target table.
      */
-    protected Json[string] _joinCondition(Json[string] options = null) {
+    protected Json[string] _joinConditions(Json[string] options = null) {
         auto conditions = null;
         auto tAlias = _name;
-        auto sAlias = source().aliasName();
-        auto foreignKeys = /* (array) */ options.get("foreignKeys"];
+        string sourceAlias = source().aliasName();
+        auto foreignKeys = options.getArray("foreignKeys");
         auto bindingKeys = /* (array) */ bindingKeys();
 
         if (count(foreignKeys) != count(bindingKeys)) {
             if (bindingKeys.isEmpty) {
-                table = getTarget().getTable();
+                auto table = getTarget().getTable();
                 if (this.isOwningSide(source())) {
                     table = source().getTable();
                 }
-                msg = "The '%s' table does not define a primary key, and cannot have join conditions generated.";
-                throw new DRuntimeException(format(msg, table));
+                auto message = "The '%s' table does not define a primary key, and cannot have join conditions generated.";
+                throw new DRuntimeException(format(message, table));
             }
 
             string message = "Cannot match provided foreignKeys for '%s', got '(%s)' but expected foreign key for '(%s)'";
@@ -759,7 +758,7 @@ class DAssociation : IAssociation {
         }
 
         foreignKeys.byKeyValue.each!((kv) {
-            auto field = "%s.%s".format(sAlias, bindingKeys[kv.key]);
+            auto field = "%s.%s".format(sourceAlias, bindingKeys[kv.key]);
             auto value = new DIdentifierExpression(format("%s.%s", tAlias, kv.value));
             conditions[field] = value;
         });

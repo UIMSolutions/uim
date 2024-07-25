@@ -18,6 +18,19 @@ import uim.orm;
 class DHasManyAssociation : DAssociation {
     mixin(AssociationThis!("HasMany"));
 
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
+
+    _validStrategies = [
+        STRATEGY_SELECT,
+        STRATEGY_SUBQUERY,
+    ];
+
+        return true;
+    }
+
     // Saving strategy that will only append to the links set
     const string SAVE_APPEND = "append";
 
@@ -37,13 +50,7 @@ class DHasManyAssociation : DAssociation {
     protected string _joinType = Query.JOIN_TYPE_INNER;
 
     // The strategy name to be used to fetch associated records.
-    protected string _strategy = STRATEGY_SELECT;
-
-    // Valid strategies for this type of association
-    protected string[] _validStrategies = [
-        STRATEGY_SELECT,
-        STRATEGY_SUBQUERY,
-    ];
+    protected string _strategyName = STRATEGY_SELECT;
 
     // #region saveStrategy
     // Saving strategy to be used by this association

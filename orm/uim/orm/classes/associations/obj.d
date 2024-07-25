@@ -3,7 +3,7 @@ module orm.uim.orm.classes.associations.obj;
 import uim.oop;
 @safe:
 
-remove(ject : INamed {
+class ORMOject : INamed {
     mixin TConfigurable;
 
     this() {

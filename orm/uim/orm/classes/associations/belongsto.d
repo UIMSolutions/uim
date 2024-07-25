@@ -18,6 +18,19 @@ import uim.orm;
 class DBelongsToAssociation : DAssociation {
     mixin(AssociationThis!("BelongsTo"));
 
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
+
+        _validStrategies = [
+            STRATEGY_JOIN,
+            STRATEGY_SELECT,
+        ];
+
+        return true;
+    }
+
     // Sets the name of the field representing the foreign key to the target table.
     void foreignKeys(string[] keys...) {
         foreignKeys(keys.dup);
@@ -36,12 +49,6 @@ class DBelongsToAssociation : DAssociation {
       return _foreignKeys;
     }
     
-    // Valid strategies for this type of association
-    protected string[] _validStrategies = [
-        STRATEGY_JOIN,
-        STRATEGY_SELECT,
-    ];
-
     /**
      * Handle cascading deletes.
      *
@@ -111,8 +118,8 @@ class DBelongsToAssociation : DAssociation {
 
         if (count(foreignKeys) != count(bindingKeys)) {
             if (bindingKeys.isEmpty) {
-                msg = "The '%s' table does not define a primary key. Please set one.";
-                throw new DRuntimeException(msg.format(getTarget().getTable()));
+                message = "The '%s' table does not define a primary key. Please set one.";
+                throw new DRuntimeException(message.format(getTarget().getTable()));
             }
 
             string message = ;

@@ -19,6 +19,19 @@ import uim.orm;
 class DBelongsToManyAssociation : DAssociation {
     mixin(AssociationThis!("BelongsToMany"));
 
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
+
+        _validStrategies = [
+            STRATEGY_SELECT,
+            STRATEGY_SUBQUERY,
+        ];
+
+        return true;
+    }
+
     // Saving strategy that will only append to the links set
     const string SAVE_APPEND = "append";
 
@@ -41,7 +54,7 @@ class DBelongsToManyAssociation : DAssociation {
     protected string _joinType = DQuery.JOIN_TYPE_INNER;
 
     // The strategy name to be used to fetch associated records.
-    protected string _strategy = STRATEGY_SELECT;
+    protected string _strategyName = STRATEGY_SELECT;
 
     // Junction table instance
     protected DORMTable _junctionTable;
@@ -54,12 +67,6 @@ class DBelongsToManyAssociation : DAssociation {
 
     // The table instance for the junction relation.
     protected DORMTable _through;
-
-    // Valid strategies for this type of association
-    protected  string[]_validStrategies = [
-        STRATEGY_SELECT,
-        STRATEGY_SUBQUERY,
-    ];
 
     /**
      * Whether the records on the joint table should be removed when a record
@@ -199,7 +206,7 @@ class DBelongsToManyAssociation : DAssociation {
                 "targetTable": junction,
                 "bindingKey": targetBindingKey,
                 "foreignKeys": tarforeignKeys(),
-                "strategy": _strategy,
+                "strategy": _strategyName,
             ]);
         }
         if (!target.hasAssociation(sourceAlias)) {
@@ -210,7 +217,7 @@ class DBelongsToManyAssociation : DAssociation {
                 "targetForeignKey": foreignKeys(),
                 "through": junction,
                 "conditions": getConditions(),
-                "strategy": _strategy,
+                "strategy": _strategyName,
             ]);
         }
     }
@@ -238,7 +245,7 @@ class DBelongsToManyAssociation : DAssociation {
                 "targetTable": junctionTable,
                 "bindingKey": sourceBindingKey,
                 "foreignKeys": foreignKeys(),
-                "strategy": _strategy,
+                "strategy": _strategyName,
             ]);
         }
     }

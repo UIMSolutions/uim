@@ -15,7 +15,7 @@ class DSelectLoader {
         _sourceAlias = options.getString("sourceAlias");
         _targetAlias = options.getString("targetAlias");
         _foreignKey = options.getStringArray("foreignKeys");
-        _strategy = options.getString("strategy");
+        _strategyName = options.getString("strategy");
         _bindingKey = options.getString("bindingKey");
         _finder = options.get("finder");
         _associationType = options.get("associationType");
@@ -37,7 +37,7 @@ class DSelectLoader {
     protected string[] _foreignKeys;
 
     // The strategy to use for loading, either select or subquery
-    protected string _strategy;
+    protected string _strategyName;
 
     // The binding key for the source association.
     protected string _bindingKey;
@@ -72,7 +72,7 @@ class DSelectLoader {
         return [
             "foreignKeys": Json(_foreignKey),
             "conditions": Json.emptyArray,
-            "strategy": Json(_strategy),
+            "strategy": Json(_strategyName),
             "nestKey": Json(_alias),
             "sort": Json(_sort),
         ];

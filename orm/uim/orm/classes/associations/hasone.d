@@ -18,11 +18,18 @@ import uim.orm;
 class DHasOneAssociation : DAssociation {
     mixin(AssociationThis!("HasOne"));
     
-    // Valid strategies for this type of association
-    protected string[] _validStrategies = [
-        STRATEGY_JOIN,
-        STRATEGY_SELECT,
-    ];
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
+
+        _validStrategies = [
+            STRATEGY_JOIN,
+            STRATEGY_SELECT,
+        ];
+
+        return true;
+    }
 
     // Gets the name of the field representing the foreign key to the target table.
     string[] foreignKeys() {

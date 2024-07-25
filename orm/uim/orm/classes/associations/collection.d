@@ -155,11 +155,11 @@ class DAssociationCollection { // }: IteratorAggregate {
             }
             relation = get(aliasName);
             if (!relation) {
-                msg =
+                message =
                     "Cannot save %s, it is not associated to %s"
                     .format(aliasName, ormTable.aliasName())
                );
-                throw new DInvalidArgumentException(msg);
+                throw new DInvalidArgumentException(message);
             }
             if (relation.isOwningSide(ormTable) != isOwningSide) {
                 continue;

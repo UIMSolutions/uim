@@ -82,7 +82,7 @@ class DFixtureHelper {
     void runPerConnection(DClosure aCallback, IFixture[] fixtures) {
         auto anGroups = null;
         fixtures
-            .each!(fixture => anGroups[fixture.connection()] ~= fixture);
+            .each!(fixture => anGroups[fixture.connection()).concat( fixture);
 
         anGroups.byKeyValue
             .each!(nameFixtures => aCallback(ConnectionManager.get(nameFixtures.key), nameFixtures.value));

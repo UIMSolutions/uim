@@ -134,12 +134,12 @@ class DPoFileParser {
                 assert(isSet(stage[0]));
                 assert(isSet(stage[1]));
 
-                anItem[stage[0]][stage[1]] ~= subString(line, 1, -1);
+                anItem[stage[0]][stage[1]).concat( subString(line, 1, -1);
                 break;
 
             case 1:
                 assert(isSet(stage[0]));
-                anItem[stage[0]] ~= subString(line, 1, -1);
+                anItem[stage[0]).concat( subString(line, 1, -1);
                 break;
             }
         } else if (line.startsWith(" msgid_plural\"")

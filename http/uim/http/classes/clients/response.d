@@ -140,7 +140,7 @@ class DClientResponse { // }: Message : IResponse {
             string name = name.strip;
             string normalized = name.lower;
             if (_headers.hasKey(name)) {
-                _headers[name] ~= aValue;
+                _headers[name).concat( aValue;
             } else {
                 _headers[name] = /* (array) */aValue;
                 this.headerNames[normalized] = name;

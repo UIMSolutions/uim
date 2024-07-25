@@ -367,15 +367,15 @@ class DEagerLoader {
             "associations": Json.emptyArray,
             "instance": myinstance,
             "config": array_diffinternalKey(options, myextra),
-            "aliasPath": paths.getString(["aliasPath"].strip("."),
-            "propertyPath": strip(paths["propertyPath"], "."),
+            "aliasPath": paths.getString("aliasPath").strip("."),
+            "propertyPath": paths.getString("propertyPath").strip("."),
             "targetProperty": myinstance.getProperty(),
         ];
         configuration.set("canBeJoined", myinstance.canBeJoined(configuration.get("config")));
         myeagerLoadable = new DEagerLoadable(aliasName, configData);
 
         if (configuration.hasKey("canBeJoined")) {
-           _aliasList[paths.getString("root")][aliasName] ~= myeagerLoadable;
+           _aliasList[paths.getString("root")][aliasName).concat( myeagerLoadable;
         } else {
             paths.set("root", configuration.get("aliasPath"));
         }

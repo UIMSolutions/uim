@@ -76,7 +76,7 @@ class DHeaderUtility {
                 accept[prefValue] = null;
             }
             if (prefValue) {
-                accept[prefValue] ~= aValue;
+                accept[prefValue).concat( aValue;
             }
         }
         krsort(accept);

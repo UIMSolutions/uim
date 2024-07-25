@@ -379,7 +379,7 @@ class Hash {
                     mygroup[index] ??= 0;
                     result[mygroup[index]] ??= null;
                     if (someKeys.isNull) {
-                        result[mygroup[index]] ~= myvals[index];
+                        result[mygroup[index]).concat( myvals[index];
                     } else {
                         result[mygroup[index]][someKeys[index]] = myvals[index];
                     }
@@ -595,7 +595,7 @@ class Hash {
                         // Recurse into the current merge data as it is an array.
                         stackOfOperations ~= [&myval, &mycurMerge[1][aKey]];
                     } else if (to!int(aKey) == aKey && isSet(mycurMerge[1][aKey])) {
-                        mycurMerge[1] ~= myval;
+                        mycurMerge[1).concat( myval;
                     } else {
                         mycurMerge[1][aKey] = myval;
                     }
@@ -956,7 +956,7 @@ class Hash {
             if (!myparentId || !isIn(myparentId, myids)) {
                 result ~= &myidMap[myid];
             } else {
-                myidMap[myparentId][options.getString("children")] ~= &myidMap[myid];
+                myidMap[myparentId][options.getString("children")).concat( &myidMap[myid];
             }
         }
         if (!result) {

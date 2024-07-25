@@ -370,7 +370,7 @@ class DEagerLoader {
         auto instance = parent.getAssociation(aliasName);
 
         paths += ["aliasPath": "", "propertyPath": "", "root": aliasName];
-        paths["aliasPath"] ~= "." ~ aliasName;
+        paths["aliasPath").concat( "." ~ aliasName;
 
         if (
             options.hasKey("matching") &&
@@ -378,7 +378,7 @@ class DEagerLoader {
        ) {
             paths["propertyPath"] = "_matchingData." ~ aliasName;
         } else {
-            paths["propertyPath"] ~= "." ~ instance.getProperty();
+            paths["propertyPath").concat( "." ~ instance.getProperty();
         }
 
         auto table = instance.getTarget();

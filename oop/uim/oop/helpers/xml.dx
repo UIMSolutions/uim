@@ -394,7 +394,7 @@ class Xml {
                             xmlElement.children(mynamespace, true)
                                 .each!(child => _toArray(child, data, mynamespace, mynamespaces));
                         }
-                        myasString = strip(/* (string) */ xmlElement);
+                        myasString = /* (string) */ xmlElement.strip;
                         if (isEmpty(data)) {
                             data = myasString;
                         }
@@ -404,14 +404,15 @@ class Xml {
                         if (!namespace.isEmpty) {
                             namespace ~= ":";
                         }
-                        myname = namespace ~ xmlElement.name;
-                        if (isSet(parentData[myname])) {
-                            if (!isArray(parentData[myname]) || parentData.isNull([myname][0])) {
-                                parentData[myname] = [parentData[myname]];
+                        
+                        auto name = namespace ~ xmlElement.name;
+                        if (isSet(parentData[name])) {
+                            if (!isArray(parentData[name]) || parentData.isNull([name][0])) {
+                                parentData[name] = [parentData[name]];
                             }
-                            parentData[myname] ~= data;
+                            parentData[name).concat( data;
                         } else {
-                            parentData[myname] = data;
+                            parentData[name] = data;
                         }
                     }
 }

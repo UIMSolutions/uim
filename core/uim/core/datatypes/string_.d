@@ -458,7 +458,7 @@ string stripText(string text, string[] chars) {
 	if (text.isEmpty) { return null; }
 	if (chars.isEmpty) { return text.strip; }
 	foreach(c; chars) {
-		text = strip(text, c);
+		text = text.strip(c);
 	}
 	return text; 
 }

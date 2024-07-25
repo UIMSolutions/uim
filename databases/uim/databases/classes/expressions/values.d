@@ -80,7 +80,7 @@ class DValuesExpression : DExpression {
      */
     protected Json[string] _columnNames() {
         auto someColumns = _columns
-            .map!(col => isString(col) ? strip(col, "`[]'") : col);
+            .map!(col => isString(col) ? col.strip("`[]'") : col);
 
         return someColumns;
     }

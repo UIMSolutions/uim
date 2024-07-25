@@ -432,7 +432,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * be extracted.
      */
     protected /* IExpression| */ string _parseCondition(string acondition, Json valueToBound) {
-        auto expression = strip(condition);
+        auto expression = condition.strip;
         string operator = "=";
         size_t spaces = substr_count(expression, " ");
         // Handle expression values that contain multiple spaces, such as

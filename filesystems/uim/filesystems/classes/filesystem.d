@@ -58,7 +58,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   }
 
   void name(string newName) {
-    _name = strip(newName);
+    _name = newName.strip;
   }
 
   // Returns information about the type of the filesystem

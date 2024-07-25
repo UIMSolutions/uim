@@ -198,32 +198,18 @@ class DServerRequest { // }: IServerRequest {
      * - `input` The data that would come from D://input this is useful for simulating
      * requests with put, patch or delete data.
      * - `session` An instance of a Session object
-     * Params:
-     * Json[string] configData An array of request data to create a request with.
      */
     this(Json[string] configData = null) {
-        configData += [
-            "params": _params,
-            "query": Json.emptyArray,
-            "post": Json.emptyArray,
-            "files": Json.emptyArray,
-            "cookies": Json.emptyArray,
-            "environment": Json.emptyArray,
-            "url": "",
-            "uri": Json(null),
-            "base": "",
-            "webroot": "",
-            "input": Json(null),
-        ];
+        configData
+            .merge("params", _params)
+            .merge(["query", "post", "files", "cookies", "environment"], Json.emptyArray)
+            .merge(["url", "base", "webroot"], "")
+            .merge(["uri", "input"], Json(null));
 
        _setConfig(configData);
     }
     
-    /**
-     * Process the config/settings data into properties.
-     * Params:
-     * Json[string] configData The config data to use.
-     */
+    // Process the config/settings data into properties.
     protected void _setConfig(Json[string] configData = null) {
         if (isEmpty(configData["session"])) {
             configData["session"] = new DSession([
@@ -241,7 +227,7 @@ class DServerRequest { // }: IServerRequest {
             }
             anUri = configData["uri"];
         } else {
-            if (configData["url"] != "") {
+            if (configData.getString("url") != "") {
                 configData = this.processUrlOption(configData);
             }
             ["uri": anUri] = UriFactory.marshalUriAndBaseFromSapi(configData["environment"]);
@@ -254,7 +240,7 @@ class DServerRequest { // }: IServerRequest {
 
         DStream stream;
         if (configData.hasKey("input")) {
-            stream = new DStream("D://memory", "rw");
+            auto stream = new DStream("D://memory", "rw");
             stream.write(configData["input"]);
             stream.rewind();
         } else {
@@ -280,14 +266,13 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Set environment vars based on `url` option to facilitate IUri instance generation.
-     *
      * `query` option is also updated based on URL`s querystring.
      */
     protected Json[string] processUrlOption(Json[string] configData = null) {
         if (configData["url"][0] != "/") {
             configData.set("url", "/" ~ configData.getString("url"));
         }
-        if (configData["url"].contains("?")) {
+        if (configData.getString("url").contains("?")) {
             [configData.get("url"), configData.get("environment.QUERY_STRING")] = split("?", configData.get("url"));
 
             parse_str(configData["environment.QUERY_STRING"], aQueryArgs);
@@ -298,35 +283,27 @@ class DServerRequest { // }: IServerRequest {
         return configData;
     }
     
-    /**
-     * Get the content type used in this request.
-     */
+    // Get the content type used in this request.
     string contentType() {
-        return _getEnvironmentData("CONTENT_TYPE") ?: getEnvironmentData("HTTP_CONTENT_TYPE");
+        return _getEnvironmentData("CONTENT_TYPE") ? _getEnvironmentData("CONTENT_TYPE") : getEnvironmentData("HTTP_CONTENT_TYPE");
     }
     
-    /**
-     * Returns the instance of the Session object for this request
-     */
-    Session getSession() {
+    // Returns the instance of the Session object for this request
+    DSession getSession() {
         return _session;
     }
     
-    /**
-     * Returns the instance of the FlashMessage object for this request
-     */
-    FlashMessage getFlash() {
+    // Returns the instance of the FlashMessage object for this request
+    DFlashMessage getFlash() {
         return _flash;
     }
     
-    /**
-     * Get the IP the client is using, or says they are using.
-     */
+    // Get the IP the client is using, or says they are using.
     string clientIp() {
-        if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_FOR")) {
-            addresses = array_map("trim", split(",", (string)getEnvironmentData("HTTP_X_FORWARDED_FOR")));
-            trusted = (count(this.trustedProxies) > 0);
-            n = count(addresses);
+        if (_trustProxy && getEnvironmentData("HTTP_X_FORWARDED_FOR")) {
+            auto addresses = array_map("trim", split(",", (string)getEnvironmentData("HTTP_X_FORWARDED_FOR")));
+            auto trusted = (count(this.trustedProxies) > 0);
+            auto n = count(addresses);
 
             if (trusted) {
                 trusted = array_diff(addresses, this.trustedProxies);
@@ -337,9 +314,9 @@ class DServerRequest { // }: IServerRequest {
             }
             return addresses[n - 1];
         }
-        if (this.trustProxy && getEnvironmentData("HTTP_X_REAL_IP")) {
+        if (_trustProxy && getEnvironmentData("HTTP_X_REAL_IP")) {
              anIpaddr = getEnvironmentData("HTTP_X_REAL_IP");
-        } else if (this.trustProxy && getEnvironmentData("HTTP_CLIENT_IP")) {
+        } else if (_trustProxy && getEnvironmentData("HTTP_CLIENT_IP")) {
              anIpaddr = getEnvironmentData("HTTP_CLIENT_IP");
         } else {
              anIpaddr = getEnvironmentData("REMOTE_ADDR");
@@ -347,20 +324,14 @@ class DServerRequest { // }: IServerRequest {
         return strip((string) anIpaddr);
     }
     
-    /**
-     * register trusted proxies
-     * Params:
-     * string[] proxies ips list of trusted proxies
-     */
+    // register trusted proxies
     void setTrustedProxies(Json[string] proxies) {
         this.trustedProxies = proxies;
-        this.trustProxy = true;
+        _trustProxy = true;
         this.uri = this.uri.withScheme(this.scheme());
     }
     
-    /**
-     * Get trusted proxies
-     */
+    // Get trusted proxies
     string[] getTrustedProxies() {
         return _trustedProxies;
     }
@@ -799,7 +770,7 @@ class DServerRequest { // }: IServerRequest {
      * Get the host that the request was handled on.
      */
     string host() {
-        if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_HOST")) {
+        if (_trustProxy && getEnvironmentData("HTTP_X_FORWARDED_HOST")) {
             return _getEnvironmentData("HTTP_X_FORWARDED_HOST");
         }
         return _getEnvironmentData("HTTP_HOST");
@@ -809,7 +780,7 @@ class DServerRequest { // }: IServerRequest {
      * Get the port the request was handled on.
      */
     string port() {
-        if (this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PORT")) {
+        if (_trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PORT")) {
             return _getEnvironmentData("HTTP_X_FORWARDED_PORT");
         }
         return _getEnvironmentData("SERVER_PORT");
@@ -820,7 +791,7 @@ class DServerRequest { // }: IServerRequest {
      * e.g. 'http", or 'https'
      */
     string scheme() {
-        return this.trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PROTO")
+        return _trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PROTO")
             ? getEnvironmentData("HTTP_X_FORWARDED_PROTO")
             : _getEnvironmentData("HTTPS") ? "https' : 'http";
     }

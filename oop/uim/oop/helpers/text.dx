@@ -263,19 +263,19 @@ class DText {
     }
     static string wrap(string textToFormat, Json[string] options= null) {
         auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
-        if (options.hasKey("wordWrap"]) {
-            mywrapped = wordWrap(textToFormat, options.get("width"], "\n");
+        if (options.hasKey("wordWrap")) {
+            mywrapped = wordWrap(textToFormat, options.get("width"), "\n");
         } else {
             mylength = options.getLong("width") - 1;
             if (mylength < 1) {
                 throw new DInvalidArgumentException("Length must be `int<1, max>`.");
             }
-            mywrapped = strip(chunk_split(textToFormat, mylength, "\n"));
+            mywrapped = chunk_split(textToFormat, mylength, "\n").strip;
         }
         if (!options.isEmpty("indent")) {
             string[] mychunks = mywrapped.split("\n");
-            for (index = options.get("indentAt"], mylen = count(mychunks); index < mylen; index++) {
-                mychunks[index] = options.get("indent"] ~ mychunks[index];
+            for (index = options.getLong("indentAt"), mylen = count(mychunks); index < mylen; index++) {
+                mychunks[index] = options.getString("indent") ~ mychunks[index];
             }
             mywrapped = mychunks.join("\n");
         }
@@ -296,7 +296,7 @@ class DText {
     static string wrapBlock(string textToFormat, int options) {
         return wrapBlock(textToFormat, ["width": options])
     }
-    static string wrapBlock(string textToFormat, Json[string] options= null) {
+    static string wrapBlock(string textToFormat, Json[string] options = null) {
         auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
         auto mywrapped = wrap(textToFormat, options);
 
@@ -312,8 +312,9 @@ class DText {
                 mytoRewrap ~= mb_subString(mychunks[index], myindentationLength) ~ " ";
                 remove(mychunks[index]);
             }
-            options.get("width"] -= myindentationLength;
-            options.get("indentAt"] = 0;
+            options
+                .set("width",  -= myindentationLeh)
+                .set("indentAt", 0);
             myrewrapped = wrap(mytoRewrap, options);
             
             string[] mynewChunks = myrewrapped.split("\n");

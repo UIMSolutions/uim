@@ -114,7 +114,7 @@ string[] namespaceSplit(string classname) {
         
         auto templateString = UIM_SAPI != "cli" && UIM_SAPI != "Ddbg" ? "<pre class=\"pj\">%s</pre>" : "\n%s\n\n";
         auto flags = Json_PRETTY_PRINT | Json_UNESCAPED_UNICODE | Json_UNESCAPED_SLASHES;
-        // TODO printf(templateString, strip(to!string(Json_encode(var, flags))));
+        // TODO printf(templateString, to!string(Json_encode(var, flags)).strip);
 
         return var;
     }

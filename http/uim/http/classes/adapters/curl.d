@@ -139,12 +139,11 @@ class DCurl { // }: IAdapter {
     }
     
     // Convert the raw curl response into an Http\Client\Response
-    protected DREsponse[] createResponse(CurlHandle handle, string responseData) {
-         aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);
-         aHeaders = strip(subString(responseData, 0,  aHeaderSize));
+    protected DResponse[] createResponse(CurlHandle handle, string responseData) {
+        auto aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);
+        auto aHeaders = subString(responseData, 0,  aHeaderSize).strip;
         body = subString(responseData,  aHeaderSize);
-        response = new DResponse(split("\r\n",  aHeaders), body);
-
+        auto response = new DResponse(split("\r\n",  aHeaders), body);
         return [response];
     }
     

@@ -241,10 +241,10 @@ class DFileCacheEngine : DCacheEngine {
         if (_groupPrefix) {
             mygroups = vsprintf(_groupPrefix, this.groups());
         }
-        mydir = configuration.get("path"] ~ mygroups;
+        mydir = configuration.getString("path") ~ mygroups;
 
         if (!isDir(mydir)) {
-            mkdir(mydir, configuration.get("dirMask"], true);
+            mkdir(mydir, configuration.get("dirMask"), true);
         }
         mypath = new DSplFileInfo(mydir ~ key);
 

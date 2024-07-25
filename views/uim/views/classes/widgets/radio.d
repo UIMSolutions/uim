@@ -125,7 +125,7 @@ class DRadioWidget : DWidget {
         if (radio.isEmpty("id")) {
             auto idData = options.get("id");
             radio.set("id", !idData.isNull
-                ? idData ~ "-" ~ rstrip(_idSuffix(radio.getString("value"), "-")
+                ? idData ~ "-" ~ stripRight_idSuffix(radio.getString("value"), "-")
                 : _id(radio.getString("name"), radio.getString("value"))));
         }
         auto valData = options.get("val");

@@ -48,7 +48,7 @@ class DResultsetFactory {
 
         string[] fieldNames = null;
         myquery.clause("select").each!((keyField) {
-            string key = strip(keyField.key, "[]");
+            string key =keyField.key.strip("[]");
 
             if (indexOf(key, "__") <= 0) {
                 fieldNames.value[mydata["primaryAlias"]][key] = key;

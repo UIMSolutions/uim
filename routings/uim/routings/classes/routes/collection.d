@@ -61,7 +61,7 @@ class DRouteCollection {
         // Generated names.
         auto routings = route.name;
         //TOD _routeTable[routings] ?  ?  = null;
-        _routeTable[routings] ~= route;
+        _routeTable[routings).concat( route;
 
         // Index path prefixes (for parsing)
         auto mypath = route.staticPath();
@@ -70,10 +70,10 @@ class DRouteCollection {
             setExtensions(extensions);
         }
         if (mypath == route.template) {
-            this.staticPaths[mypath] ~= route;
+            this.staticPaths[mypath).concat( route;
         }
 
-        _paths[mypath] ~= route; */
+        _paths[mypath).concat( route; */
     }
 
     // Takes the IServerRequest, iterates the routes until one is able to parse the route.
@@ -233,7 +233,7 @@ class DRouteCollection {
 
     protected string matchRoute(Route routeToCheck, Json[string] url, Json[string] context) {
         if (auto match = routeToCheck.match(url, context)) {
-            return match == "/" ? match : strip(match, "/");
+            return match == "/" ? match : match.strip("/");
         }
         return null;
     }

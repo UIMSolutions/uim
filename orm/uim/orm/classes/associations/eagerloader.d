@@ -375,7 +375,7 @@ class DEagerLoader {
         myeagerLoadable = new DEagerLoadable(aliasName, configData);
 
         if (configuration.hasKey("canBeJoined")) {
-           _aliasList[paths.getString("root")][aliasName).concat( myeagerLoadable;
+           _aliasList[paths.getString("root")][aliasName).concat(myeagerLoadable;
         } else {
             paths.set("root", configuration.get("aliasPath"));
         }

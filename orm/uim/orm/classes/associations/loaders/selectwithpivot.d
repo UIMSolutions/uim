@@ -140,7 +140,7 @@ class DSelectWithPivotLoader : DSelectLoader {
             }
 
             auto values = keys.each!(key => result[_junctionProperty][k]);
-            resultMap[values.join(";")] ~= result;
+            resultMap[values.join(";")).concat( result;
         }
 
         return resultMap;

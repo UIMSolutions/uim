@@ -451,13 +451,13 @@ class DI18nExtractCommand : DCommand {
     
     // Prepare a file to be stored
     protected void _store(string domainName, string headerContent, string sentenceToStore) {
-       _storage[domainName] = _storage.get(domainName);
+       _storage.set(domainName, _storage.get(domainName));
 
         _storage.setPath([domainName, sentence], 
-            _storage[domainName].hasKey(sentence))
-            ? _storage[domainName][sentence] ~ headerContent
-            : headerContent;
-
+            _storage.hasKeyPath([domainName, sentence])
+            ? _storage.getStringPath([domainName, sentence]) ~ headerContent
+            : headerContent
+        );
     }
     
     // Write the files that need to be stored
@@ -467,7 +467,7 @@ class DI18nExtractCommand : DCommand {
         if (commandArguments.getOption("overwrite")) {
             overwriteAll = true;
         }
-        foreach (_storage as domain: sentences) {
+        foreach (domain, sentencesM _storage) {
             auto outputHeader = _writeHeader(domain);
             auto lengthOfFileheader = outputHeader.length;
             auto sentences.byKeyValue

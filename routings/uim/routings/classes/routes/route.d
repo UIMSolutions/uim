@@ -355,7 +355,7 @@ class DRoute : IRoute {
                 continue;
             }
             if (isInteger(aKey)) {
-                myroute["pass"] ~= myvalue;
+                myroute["pass").concat( myvalue;
                 continue;
             }
             myroute[aKey] = myvalue;

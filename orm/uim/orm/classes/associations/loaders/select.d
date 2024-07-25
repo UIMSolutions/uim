@@ -428,7 +428,7 @@ class DSelectLoader {
                         ";")] = result;
             } else {
                 resultMap[values.join(
-                        ";")] ~= result;
+                        ";")).concat( result;
             }
         }
 

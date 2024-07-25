@@ -1271,7 +1271,7 @@ protected static string _getDateString(Json[string] items) {
                );
             }
         } */
-    return strip(myformatted);
+    return myformatted.strip(;
 }
 
 // Lazily populate the IP address patterns used for validations

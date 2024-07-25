@@ -11,7 +11,7 @@ import uim.filesystems;
 class DLinuxFolder : DFolder {
   mixin(FolderThis!("Linux"));
 
-	override bool exists() {
+	override bool hasKey() {
     version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
 		if (filesystem is null) { return false; }

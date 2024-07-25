@@ -19,7 +19,7 @@ bool testFilesystem(IFilesystem aFilesystem) {
 
 	if (auto myFolder = aFilesystem.folder("testFolder")) {
 		// debug writeln(myFolder.debugInfo);		
-		assert(myFolder.exists(), "testFilesystem: FolderObj testFolder missing");
+		assert(myFolder.hasKey(), "testFilesystem: FolderObj testFolder missing");
 	}
 	else {
 		assert(false, "testFilesystem: FolderObj missing");

@@ -43,7 +43,7 @@ class DResponseEmitter {
         } else {
             this.emitBody(response);
         }
-        if (function_exists("fastcgi_finish_request")) {
+        if (function_hasKey("fastcgi_finish_request")) {
             fastcgi_finish_request();
         }
         return true;

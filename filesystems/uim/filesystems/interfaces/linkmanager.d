@@ -36,7 +36,7 @@ interface ILinkManager {
   bool moveLink(string[] fromPath, string[] toPath);
 
   // Checks if a specified link exists.
-  final bool linksExists(ILink[] someLinks) {
+  final bool linkshasKey(ILink[] someLinks) {
     if (someLinks.isEmpty) {
       return false;
     }

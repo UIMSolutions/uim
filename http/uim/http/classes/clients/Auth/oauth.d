@@ -133,7 +133,7 @@ class DOauth {
      * Use RSA-SHA1 signing.
      * This method is suitable for plain HTTP or HTTPS. */
     protected string _rsaSha1(Request request, Json[string] authCredentials) {
-        if (!function_exists("openssl_pkey_get_private")) {
+        if (!function_hasKey("openssl_pkey_get_private")) {
             throw new DException("RSA-SHA1 signature method requires the OpenSSL extension.");
         }
         auto nonce = authCredentials.get("nonce", bin2hex(Security.randomBytes(16)));

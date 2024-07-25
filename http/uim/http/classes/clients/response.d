@@ -100,7 +100,7 @@ class DClientResponse { // }: Message : IResponse {
      * string abody Gzip encoded body.
      */
     protected string _decodeGzipBody(string encodedBody) {
-        if (!function_exists("gzinflate")) {
+        if (!function_hasKey("gzinflate")) {
             throw new DException("Cannot decompress gzip response body without gzinflate()");
         }
         

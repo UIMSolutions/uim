@@ -23,7 +23,7 @@ class DHtmlErrorRenderer : IErrorRenderer {
         file = error.getFile();
 
         // Some of the error data is not HTML safe so we escape everything.
-        Json description = htmlAttributeEscape(error.getMessage());
+        Json description = htmlAttributeEscape(error.message());
         Json somePath = htmlAttributeEscape(file);
         Json trace = htmlAttributeEscape(error.getTraceAsString());
         auto line = error.getLine();

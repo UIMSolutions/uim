@@ -46,7 +46,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
                 .format(
                     parent ? "Caused by " : "",
                     exceptionToRender.classname,
-                    exceptionToRender.getMessage(),
+                    exceptionToRender.message(),
                     exceptionToRender.getFile(),
                     exceptionToRender.getLine()
                ),

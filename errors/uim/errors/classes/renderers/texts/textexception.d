@@ -29,7 +29,7 @@ class DTextExceptionRenderer {
     string render() {
         return "%s : %s on line %s of %s\nTrace:\n%s".format(
             _error.code(),
-            _error.getMessage(),
+            _error.message(),
             _error.getLine(),
             _error.getFile(),
             _error.getTraceAsString(),

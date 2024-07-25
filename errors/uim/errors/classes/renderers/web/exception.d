@@ -244,7 +244,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
 
     // Get error message.
     protected string errorMessage(Throwable exception, int errorCode) {
-        string result = exception.getMessage();
+        string result = exception.message();
 
         if (
             !configuration.hasKey("debug") &&

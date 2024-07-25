@@ -290,7 +290,7 @@ class DExceptionTrap {
             "[%s] %s (%s:%s)" // Keeping same message format
             .format(
                 logException.classname,
-                logException.getMessage(),
+                logException.message(),
                 logException.getFile(),
                 logException.getLine(),
            );

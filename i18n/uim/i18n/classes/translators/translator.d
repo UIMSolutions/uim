@@ -52,11 +52,11 @@ class DTranslator : UIMObject, ITranslator {
     }
 
     // Gets the message translation by its key.
-    protected string[] getMessage(string key) {
+    protected string[] message(string key) {
         string[] message = _catalog.get(key);
 
         if (message.isEmpty && _fallback) {
-            /* if (auto message = _fallback.getMessage(messageKey)) {
+            /* if (auto message = _fallback.message(messageKey)) {
                 catalog.addMessage(messageKey, message);
             } */
         }
@@ -74,14 +74,14 @@ class DTranslator : UIMObject, ITranslator {
         string[] message;
     /* 
         if (tokensValues.hasKey("_count")) { // use plural
-            message = getMessage(PLURAL_PREFIX ~ messageKey);
+            message = message(PLURAL_PREFIX ~ messageKey);
             if (message.isEmpty) { // Fallback to singular
-                message = getMessage(messageKey);
+                message = message(messageKey);
             }
         } else { // Use singular
-            message = getMessage(messageKey);
+            message = message(messageKey);
             if (message.isEmpty) { // fallback to plural
-                message = getMessage(PLURAL_PREFIX ~ messageKey);
+                message = message(PLURAL_PREFIX ~ messageKey);
             }
         } */ 
         if (message.isEmpty) { // Fallback to the message key

@@ -373,8 +373,8 @@ class DSocket {
                 }
                 enableCryptoResult = stream_socket_enable_crypto(_connection, enable, method);
             } catch (Exception anException) {
-                setLastError(null, anException.getMessage());
-                throw new DSocketException(anException.getMessage(), null, anException);
+                setLastError(null, anException.message());
+                throw new DSocketException(anException.message(), null, anException);
             }
             if (enableCryptoResult == true) {
                 this.encrypted = enable;

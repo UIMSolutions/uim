@@ -110,7 +110,7 @@ class DFlashMessage {
             "params.code": exception.code().toJson
         ]);
 
-        set(exception.getMessage(), options);
+        set(exception.message(), options);
     }
     
     // Get the messages for given key and remove from session.

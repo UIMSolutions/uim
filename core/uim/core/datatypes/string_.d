@@ -384,10 +384,7 @@ unittest {
 }
 
 string toPath(string[] pathItems, string separator = ".") {
-	return pathItems
-		.map!(item => std.string.strip(item))
-		.map!(item => std.string.strip(item, separator))
-		.map!(item => std.string.strip(item))
+	return pathItems.stripText(" ", separator, " ")
 		.filter!(item => item.length > 0)
 		.join(separator);
 }
@@ -443,31 +440,201 @@ unittest {
 }
 
 // #region strip
-string[] strip(string[] texts) {
+// #region stripText
+string[] stripText(string[] texts, string[] chars...) {
+	return stripText(texts, chars.dup);
+}
+string[] stripText(string[] texts, string[] chars) {
 	return texts
-		.map!(text => std.string.strip(text))
+		.map!(text => stripText(text, chars))
 		.array;
+}
+
+string stripText(string text, string[] chars...) {
+	return stripText(text, chars.dup);
+}
+
+string stripText(string text, string[] chars) {
+	if (text.isEmpty) { return null; }
+	if (chars.isEmpty) { return strip(text); }
+	foreach(c; chars) {
+		text = strip(text, c);
+	}
+	return text; 
 }
 
 unittest {
-	// TODO
+	assert("a".stripText == "a");
+	assert(" a".stripText == "a");
+	assert("a ".stripText == "a");
+	assert(" a ".stripText == "a");
+
+	assert("a".stripText(["."]) == "a");
+	assert(" a".stripText(["."]) == " a");
+	assert("a ".stripText(["."]) == "a ");
+	assert(" a ".stripText(["."]) == " a ");
+
+	assert("a".stripText(".") == "a");
+	assert(" a".stripText(".") == " a");
+	assert("a ".stripText(".") == "a ");
+	assert(" a ".stripText(".") == " a ");
+
+	assert("a".stripText(".") == "a");
+	assert(".a".stripText(".") == "a");
+	assert("a.".stripText(".") == "a");
+	assert(".a.".stripText(".") == "a");
+
+	assert("a".stripText(".") == "a");
+	assert(".a".stripText(".") == "a");
+	assert("a.".stripText(".") == "a");
+	assert(".a.".stripText(".") == "a");
+
+	assert("a".stripText(" ") == "a");
+	assert(".a".stripText(" ") == ".a");
+	assert("a.".stripText(" ") == "a.");
+	assert(".a.".stripText(" ") == ".a.");
+
+	assert("a".stripText(".", " ") == "a");
+	assert(".a ".stripText(".", " ") == "a");
+	assert(" a.".stripText(".", " ") == "a");
+	assert(" .a. ".stripText(".", " ") == ".a.");
+	assert(" .a. ".stripText(" ", ".") == "a");
+
+	assert(["a", "b", "c"].stripText == ["a", "b", "c"]);
+	assert([" a", "b ", " c "].stripText == ["a", "b", "c"]);
+	assert([".a", "b.", ".c."].stripText(["."]) == ["a", "b", "c"]);
+}
+// #endregion stripText
+
+// #region stripTextLeft
+string[] stripTextLeft(string[] texts, string[] chars...) {
+	return stripTextLeft(texts, chars.dup);
 }
 
-string[] stripLeft(string[] texts) {
+string[] stripTextLeft(string[] texts, string[] chars) {
 	return texts
-		.map!(text => std.string.stripLeft(text))
+		.map!(text => stripTextLeft(text, chars))
 		.array;
+}
+
+string stripTextLeft(string text, string[] chars...) {
+	return stripTextLeft(text, chars.dup);
+}
+
+string stripTextLeft(string text, string[] chars) {
+	if (text.isEmpty) { return null; }
+	if (chars.isEmpty) { return stripLeft(text); }
+	foreach(c; chars) {
+		text = stripLeft(text, c);
+	}
+	return text; 
 }
 
 unittest {
-	// TODO
+	assert("a".stripTextLeft == "a");
+	assert(" a".stripTextLeft == "a");
+	assert("a ".stripTextLeft == "a ");
+	assert(" a ".stripTextLeft == "a ");
+
+	assert("a".stripTextLeft(["."]) == "a");
+	assert(" a".stripTextLeft(["."]) == " a");
+	assert("a ".stripTextLeft(["."]) == "a ");
+	assert(" a ".stripTextLeft(["."]) == " a ");
+
+	assert("a".stripTextLeft(".") == "a");
+	assert(" a".stripTextLeft(".") == " a");
+	assert("a ".stripTextLeft(".") == "a ");
+	assert(" a ".stripTextLeft(".") == " a ");
+
+	assert("a".stripTextLeft(".") == "a");
+	assert(".a".stripTextLeft(".") == "a");
+	assert("a.".stripTextLeft(".") == "a.");
+	assert(".a.".stripTextLeft(".") == "a.");
+
+	assert("a".stripTextLeft(".") == "a");
+	assert(".a".stripTextLeft(".") == "a");
+	assert("a.".stripTextLeft(".") == "a.");
+	assert(".a.".stripTextLeft(".") == "a.");
+
+	assert("a".stripTextLeft(" ") == "a");
+	assert(".a".stripTextLeft(" ") == ".a");
+	assert("a.".stripTextLeft(" ") == "a.");
+	assert(".a.".stripTextLeft(" ") == ".a.");
+
+	assert("a".stripTextLeft(".", " ") == "a");
+	assert(".a ".stripTextLeft(".", " ") == "a ");
+	assert(" a.".stripTextLeft(".", " ") == "a.");
+	assert(" .a. ".stripTextLeft(".", " ") == ".a. ");
+	assert(" .a. ".stripTextLeft(" ", ".") == "a. ");
+
+	assert(["a", "b", "c"].stripTextLeft == ["a", "b", "c"]);
+	assert([" a", "b ", " c "].stripTextLeft == ["a", "b ", "c "]);
+	assert([".a", "b.", ".c."].stripTextLeft(["."]) == ["a", "b.", "c."]);
+}
+// #endregion stripTextLeft
+
+// #region stripTextRight
+string[] stripTextRight(string[] texts, string[] chars...) {
+	return stripTextRight(texts, chars.dup);
 }
 
-string[] stripRight(string[] texts) {
+string[] stripTextRight(string[] texts, string[] chars) {
 	return texts
-		.map!(text => std.string.stripRight(text))
+		.map!(text => stripTextRight(text, chars))
 		.array;
 }
+
+string stripTextRight(string text, string[] chars...) {
+	return stripTextRight(text, chars.dup);
+}
+
+string stripTextRight(string text, string[] chars) {
+	if (text.isEmpty) { return null; }
+	if (chars.isEmpty) { return stripRight(text); }
+	foreach(c; chars) {
+		text = stripRight(text, c);
+	}
+	return text; 
+}
+
+unittest {
+	assert("a".stripTextRight == "a");
+	assert(" a".stripTextRight == " a");
+	assert("a ".stripTextRight == "a");
+	assert(" a ".stripTextRight == " a");
+
+	assert("a".stripTextRight(["."]) == "a");
+	assert(" a".stripTextRight(["."]) == " a");
+	assert("a ".stripTextRight(["."]) == "a ");
+	assert(" a ".stripTextRight(["."]) == " a ");
+
+	assert("a".stripTextRight(".") == "a");
+	assert(" a".stripTextRight(".") == " a");
+	assert("a ".stripTextRight(".") == "a ");
+	assert(" a ".stripTextRight(".") == " a ");
+
+	assert("a".stripTextRight(".") == "a");
+	assert(".a".stripTextRight(".") == ".a");
+	assert("a.".stripTextRight(".") == "a");
+	assert(".a.".stripTextRight(".") == ".a");
+
+	assert("a".stripTextRight(".") == "a");
+	assert(".a".stripTextRight(".") == ".a");
+	assert("a.".stripTextRight(".") == "a");
+	assert(".a.".stripTextRight(".") == ".a");
+
+	assert("a".stripTextRight(" ") == "a");
+	assert(".a".stripTextRight(" ") == ".a");
+	assert("a.".stripTextRight(" ") == "a.");
+	assert(".a.".stripTextRight(" ") == ".a.");
+
+	assert("a".stripTextRight(".", " ") == "a");
+	assert(".a ".stripTextRight(".", " ") == ".a");
+	assert(" a.".stripTextRight(".", " ") == " a");
+	assert(" .a. ".stripTextRight(".", " ") == " .a.");
+	assert(" .a. ".stripTextRight(" ", ".") == " .a");
+}
+// #endregion stripTextRight
 // #endregion strip
 
 // #region replace

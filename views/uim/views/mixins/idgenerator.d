@@ -28,7 +28,7 @@ mixin template TIdGenerator() {
         auto idAttName = _domId(attributename);
         string mysuffix = _idSuffix(attributeValue);
 
-        return strip(idAttName ~ "-" ~ mysuffix, "-");
+        return (idAttName ~ "-" ~ mysuffix).strip("-");
     }
     
     /**
@@ -38,10 +38,10 @@ mixin template TIdGenerator() {
      * Params:
      * string myval The ID attribute value.
      */
-    protected string _idSuffix(string myval) {
-        string myidSuffix = myval.replace(["/", "@", "<", ">", " ", """, "\""], "-").lower;
-        mycount = 1;
-        mycheck = myidSuffix;
+    protected string _idSuffix(string idAttribute) {
+        string myidSuffix = idAttribute.replace(["/", "@", "<", ">", " ", """, "\""], "-").lower;
+        auto mycount = 1;
+        auto mycheck = myidSuffix;
         while (isIn(mycheck, _idSuffixes, true)) {
             mycheck = myidSuffix ~ mycount++;
         }

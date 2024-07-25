@@ -132,7 +132,7 @@ class DRadioWidget : DWidget {
         if (!valData.isNull && valData.isBoolean) {
             options.set("val", options.hasKey("val") ? 1 : 0);
         }
-        if (!valData.isNull && /* (string) */valData == radio.getString("value")) {
+        if (!valData.isNull && valData == radio.getString("value")) {
             radio.set("checked", true);
             radio.set("templateVars.activeClass", "active");
         }

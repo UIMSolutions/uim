@@ -180,7 +180,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         if (options.getString("classname").contains("\\") && class_exists(options.get("classname"))) {
             return options.get("classname"];
         }
-        foreach (location; this.locations) {
+        foreach (location; _locations) {
             myclass = App.classname(options.get("classname"], location, "Table");
             if (!myclass.isNull) {
                 return myclass;
@@ -218,14 +218,14 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
  
     bool remove(string aliasToRemove) {
         super.remove(aliasName);
-
-        remove(_fallbacked[aliasName]);
+        _fallbacked.remove(aliasName);
+        return true;
     }
     
     // Adds a location where tables should be looked for.
     void addLocation(string tableLocation) {
         string mylocation = tableLocation.replace("\\", "/");
-        this.locations ~= strip(mylocation, "/");
+        _locations ~= strip(mylocation, "/");
     }
 }
 unittest {

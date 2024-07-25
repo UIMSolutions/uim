@@ -344,7 +344,7 @@ class DText {
         }
         while (mb_strlen(textToFormat) > 0) {
             if (widthToWarp >= mb_strlen(textToFormat)) {
-                myparts ~= strip(textToFormat);
+                myparts ~= textToFormat.strip;
                 break;
             }
             mypart = mb_subString(textToFormat, 0, widthToWarp);
@@ -355,14 +355,14 @@ class DText {
                     mybreakAt = mb_indexOf(textToFormat, " ", widthToWarp);
                 }
                 if (mybreakAt == false) {
-                    myparts ~= strip(textToFormat);
+                    myparts ~= textToFormat.strip;
                     break;
                 }
                 mypart = mb_subString(textToFormat, 0, mybreakAt);
             }
-            mypart = strip(mypart);
+            mypart =mypart.strip(;
             myparts ~= mypart;
-            textToFormat = strip(mb_subString(textToFormat, mb_strlen(mypart)));
+            textToFormat = mb_subString(textToFormat, mb_strlen(mypart)).strip;
         }
         return join(breakText, myparts);
     }
@@ -399,7 +399,7 @@ class DText {
                 if (options.hasKey("html")) {
                     mysegment = "(?![^<]+>)mysegment(?![^<]+>)";
                 }
-                mywith ~= isArray(options.get("format"]) ? options.get("format"][aKey] : options.get("format"];
+                mywith ~= isArray(options.get("format")) ? options.get("format")[aKey] : options.get("format");
                 myreplace ~= options.getString("regex").format(mysegment);
             }
             return (string)preg_replace(myreplace, mywith, searchText, options.get("limit"));
@@ -440,7 +440,7 @@ class DText {
         mytruncate = mb_subString(textToTruncate, mb_strlen(textToTruncate) - mylength + mb_strlen(ellipsis));
         if (!options.hasKey("exact")) {
             myspacepos = mb_indexOf(mytruncate, " ");
-            mytruncate = myspacepos == false ? "" : strip(mb_subString(mytruncate, myspacepos));
+            mytruncate = myspacepos == false ? "" : mb_subString(mytruncate, myspacepos).strip;
         }
         return ellipsis ~ mytruncate;
     }

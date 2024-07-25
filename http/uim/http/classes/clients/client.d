@@ -436,7 +436,7 @@ class DClient { // }: IClient {
     }
 
     result ~= !options.isEmpty("basePath")
-      ? "/" ~ options.get("basePath"].strip("/")
+      ? "/" ~ options.getString("basePath").strip("/")
       : "/" ~ fullUrl.stripLeft("/");
 
     return result;
@@ -451,7 +451,7 @@ class DClient { // }: IClient {
     }
     if (isString(requestBody) && myheaders.isNull("Content-Type") && 
         myheaders.isNull("content-type")) {
-      myheaders["Content-Type"] = "application/x-www-form-urlencoded";
+      myheaders.set("Content-Type", "application/x-www-form-urlencoded");
     }
     auto newRequest = new DRequest(url, httpMethod, myheaders, requestBody);
     newRequest = newRequest.withProtocolVersion(_configData.hasKey("protocolVersion"));

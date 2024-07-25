@@ -56,14 +56,9 @@ class DFormProtector {
         return false;
     }
     
-    /**
-     * Construct.
-     * Params:
-     * Json[string] someData Data array, can contain key `unlockedFields` with list of unlocked fields.
-     */
-    this(Json[string] data= null) {
-        if (!someData.isEmpty("unlockedFields")) {
-            this.unlockedFields = someData["unlockedFields"];
+    this(Json[string] initData = null) {
+        if (!initData.isEmpty("unlockedFields")) {
+            _unlockedFields = initData["unlockedFields"];
         }
     }
     
@@ -75,12 +70,12 @@ class DFormProtector {
      */
     auto addField(string[] afield, bool shouldLock = true, Json value = null) {
         if (isString(field)) {
-            field = getFieldNameArray(field);
+            field = getFieldNameParts(field);
         }
         if (isEmpty(field)) {
             return this;
         }
-        foreach (unlockField; this.unlockedFields) {
+        foreach (unlockField; _unlockedFields) {
             string[] unlockParts = unlockField.split(".");
             if (array_values(array_intersect(field, unlockParts)) == unlockParts) {
                 return this;
@@ -112,20 +107,18 @@ class DFormProtector {
      * field hash. If fieldname is of form Model[field] or Model.field an array of
      * fieldname parts like ["Model", "field"] is returned.
      */
-    protected string[] getFieldNameArray(string attributeName) {
-        if (isEmpty(attributeName) && attributeName != "0") {
+    protected string[] getFieldNameParts(string name) {
+        if (name != "0") {
             return null;
         }
-        if (!attributeName.contains("[")) {
-            return Hash.filter(split(".", attributeName));
+
+        if (!name.contains("[")) {
+            return name.split(".");
         }
         
-        string[] someParts = attributeName.split("[");
-        someParts = array_map(function (el) {
-            return strip(el, "]");
-        }, someParts);
+        string[] parts = name.split("[").strip("]").strip;
 
-        return Hash.filter(someParts, "strlen");
+        return Hash.filter(parts, "strlen");
     }
     
     /**
@@ -134,8 +127,8 @@ class DFormProtector {
      * Unlocked fields are not included in the field hash.
      */
     auto unlockField(string fieldName) { // fieldName - dot separated name
-        if (!isIn(name, this.unlockedFields, true)) {
-            this.unlockedFields ~= fieldName;
+        if (!isIn(name, _unlockedFields, true)) {
+            _unlockedFields ~= fieldName;
         }
          anIndex = array_search(fieldName, this.fields, true);
         if (anIndex == true) {
@@ -245,7 +238,7 @@ class DFormProtector {
         }
         unlockedFields = array_unique(
             chain(
-                this.unlockedFields,
+                _unlockedFields,
                 unlocked
            )
        );
@@ -320,7 +313,7 @@ class DFormProtector {
             "debug": urlencode(/* (string) */Json_ncode([
                 url,
                 this.fields,
-                this.unlockedFields,
+                _unlockedFields,
             ])),
         ];
     }
@@ -447,7 +440,7 @@ class DFormProtector {
     Json[string] debugInfo() {
         return [
             "fields": this.fields,
-            "unlockedFields": this.unlockedFields,
+            "unlockedFields": _unlockedFields,
             "debugMessage": this.debugMessage,
         ];
     }

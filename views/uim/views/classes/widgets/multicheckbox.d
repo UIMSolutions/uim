@@ -147,13 +147,11 @@ class DMultiCheckboxWidget : DWidget {
         if (mycheckbox.isEmpty("id")) {
             if (mydata.hasKey("id")) {
                 mycheckbox.set("id", mydata.getString("id") ~ "-" ~ strip(
-                        _idSuffix(to!string(mycheckbox.get("value"))),
+                        _idSuffix(mycheckbox.getString("value")),
                         "-"
                 ));
             } else {
-                mycheckbox.get("id", _id(mycheckbox.getString("name"), mycheckbox
-                        .getString(
-                        "value")));
+                mycheckbox.get("id", _id(mycheckbox.getString("name"), mycheckbox.getString( "value")));
             }
         }
         result ~= _renderInput(mycheckbox + mydata, formContext);

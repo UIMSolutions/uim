@@ -658,12 +658,12 @@ class DRouter {
             mydefaults.set("prefix", mymatches.get("prefix"));
         }
         if (mymatches.hasKey("params") && !mymatches.isEmpty("params")) {
-            string[] myparamsArray = strip(mymatches["params"], "/").split("/");
-            foreach (myparam; myparamsArray) {
-                if (indexOf(myparam, "=") == true) {
-                    if (!preg_match("/(?<key>.+?)=(?<value>.*)/", myparam, myparamMatches)) {
+            string[] params = mymatches.getString("params").strip("/").split("/");
+            foreach (param; params) {
+                if (param.contains("=")) {
+                    if (!preg_match("/(?<key>.+?)=(?<value>.*)/", param, myparamMatches)) {
                         throw new DInvalidArgumentException(
-                            "Could not parse a key=value from `{myparam}` in route path `{url}`."
+                            "Could not parse a key=value from `{param}` in route path `{url}`."
                        );
                     }
                     myparamKey = myparamMatches["key"];
@@ -672,9 +672,9 @@ class DRouter {
                             "Param key `{myparamKey}` is not valid in route path `{url}`."
                        );
                     }
-                    mydefaults[myparamKey] = myparamMatches["value"].strip(`"`);
+                    mydefaults.set(myparamKey, myparamMatches.getString("value").strip(`"`));
                 } else {
-                    mydefaults ~= myparam;
+                    mydefaults ~= param;
                 }
             }
         }

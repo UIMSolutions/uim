@@ -47,12 +47,12 @@ class DPluginUnloadCommand : DCommand {
             return "`CONFIG/plugins.d` not found or does not return an array";
         }
         configData = Hash.normalize(configData);
-        if (!array_key_exists(pluginName, configData)) {
+        if (!array_key_hasKey(pluginName, configData)) {
             return "plugin-`%s` could not be found".format(pluginName);
         }
         configData.remove(pluginName);
 
-        string exported = class_exists(VarExporter.classname)
+        string exported = class_hasKey(VarExporter.classname)
             ? VarExporter.export_(configData)
             : var_export_(configData, true);
         contents = "" ~ "\n" ~ "return " ~ exported ~ ";";

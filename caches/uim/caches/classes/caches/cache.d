@@ -121,7 +121,7 @@ class DCache : UIMObject, ICache {
         /*        try {
             myRegistry.load(configName, configData);
         } catch (RuntimeException exception) {
-            if (!array_key_exists("fallback", configData)) {
+            if (!array_key_hasKey("fallback", configData)) {
                 myRegistry.set(configName, new DNullEngine());
                 trigger_error(exception.message(), ERRORS.USER_WARNING);
 

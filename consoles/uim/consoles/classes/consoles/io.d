@@ -420,7 +420,7 @@ class DConsoleIo {
         writeln();
         shouldOverwrite = shouldOverwrite || _forceOverwrite;
 
-        if (fileExists(fileCreationPath) && shouldOverwrite == false) {
+        if (filehasKey(fileCreationPath) && shouldOverwrite == false) {
             warning("File `{fileCreationPath}` exists");
             aKey = askChoice("Do you want to overwrite?", [
                     "y", "n", "a", "q"
@@ -445,7 +445,7 @@ class DConsoleIo {
         /* try {
             // Create the directory using the current user permissions.
             directory = dirname(fileCreationPath);
-            if (!fileExists(directory)) {
+            if (!filehasKey(directory)) {
                 mkdir(directory, 0777 ^ umask(), true);
             }
             file = new DSplFileObject(fileCreationPath, "w");
@@ -456,7 +456,7 @@ class DConsoleIo {
         } */
         file.rewind();
         file.fwrite(contentsForFile);
-        if (fileExists(fileCreationPath)) {
+        if (filehasKey(fileCreationPath)) {
             writeln("<success>Wrote</success> `{fileCreationPath}`");
 
             return true;

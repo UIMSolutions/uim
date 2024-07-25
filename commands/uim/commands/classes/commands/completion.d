@@ -136,7 +136,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
                 aValue = reflection.newInstance();
                 assert(cast(BaseCommand) aValue);
             }
-            if (method_exists(aValue, "getOptionParser")) {
+            if (method_hasKey(aValue, "getOptionParser")) {
                 aParser = aValue.getOptionParser();
 
                  aParser.options().byKeyValue

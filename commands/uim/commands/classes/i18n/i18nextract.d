@@ -481,7 +481,7 @@ class DI18nExtractCommand : DCommand {
             }
             
             string response = "";
-            while (overwriteAll == false && fileExists(outputPath) && strtoupper(response) != "Y") {
+            while (overwriteAll == false && filehasKey(outputPath) && strtoupper(response) != "Y") {
                 aConsoleIo.writeln();
                 response = aConsoleIo.askChoice(
                     "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format(filename),
@@ -534,7 +534,7 @@ class DI18nExtractCommand : DCommand {
      * Compares the sha1 hashes of the old and new file without header.
      */
     protected bool checkUnchanged(string oldFile, int lengthOfFileheader, string newFileContent) {
-        if (!fileExists(oldFile)) {
+        if (!filehasKey(oldFile)) {
             return false;
         }
         

@@ -145,7 +145,7 @@ if (configuration.isEmpty("username"] && !configuration.isEmpty("login")) {
  );
 }
 if (configuration.hasKeys("username", "password")) {
-  if (!method_exists(_memory, "setSaslAuthData")) {
+  if (!method_hasKey(_memory, "setSaslAuthData")) {
     throw new DInvalidArgumentException(
       "Memory extension is not built with SASL support"
    );

@@ -96,7 +96,7 @@ class DCommandRunner { // }: IEventDispatcher {
         auto myCommands = new DCommandCollection([
             "help": HelpCommand.classname,
         ]);
-        if (class_exists(VersionCommand.classname)) {
+        if (class_hasKey(VersionCommand.classname)) {
             myCommands.add("version", VersionCommand.classname);
         }
         myCommands = _app.console(myCommands);

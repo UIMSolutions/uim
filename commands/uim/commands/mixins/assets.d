@@ -68,7 +68,7 @@ mixin template TPluginAssets() {
             }
             
             string dest = configuration.getString("destDir") ~ configuration.getString("link");
-            if (fileExists(dest)) {
+            if (filehasKey(dest)) {
                 if (overwriteExisting && !_remove(configData)) {
                     continue;
                 } else if (!overwriteExisting) {
@@ -114,7 +114,7 @@ mixin template TPluginAssets() {
         }
         
         string destDirLink = configuration.getString("destDir") ~ configuration.getString("link");
-        if (!fileExists(destDirLink)) {
+        if (!filehasKey(destDirLink)) {
             _io.verbose(
                 destDirLink ~ " does not exist",
                 1

@@ -75,7 +75,7 @@ class DPluginLoadCommand : DCommand {
     }
  */
     /* configuration.set(pluginName, options);
-    auto Json[string] = class_exists(VarExporter.classname)
+    auto Json[string] = class_hasKey(VarExporter.classname)
         ? VarExporter.export_(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) 
         : var_export_(configData, true);
 

@@ -36,7 +36,7 @@ class DLink : DFilesystemEntry, ILink {
 		return false;
 	}
 
-	override bool exists() {
+	override bool hasKey() {
 		return (hasFilesystem ? filesystem.existsLink(name) : false);
 	}
 

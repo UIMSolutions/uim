@@ -140,8 +140,9 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     
     // Create translator instance.
     protected ITranslator createInstance(string catalogName, string localName = null) {
-        /* ICatalog catalog = _catalogLocator.get(catalogName, localName);
-        auto fallback = catalog.fallback();
+        ICatalog catalog = _catalogLocator.get(catalogName, localName);
+        
+        /* auto fallback = catalog.fallback();
         if (!fallback.isNull) {
             fallback = get(fallback, localName);
         }
@@ -197,7 +198,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     }
     
     // Set domain fallback for loader.
-    auto setLoaderFallback(string catalogName, ILoader loader) {
+    ICatalog setLoaderFallback(string catalogName, ILoader loader) {
         string fallbackDomain = "default";
         if (!_useFallback || catalogName == fallbackDomain) {
             return loader;

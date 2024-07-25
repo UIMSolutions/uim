@@ -59,7 +59,7 @@ class DPoFileParser {
      * Items with an empty id are ignored.
      */
     Json[string] parse(string resourceFilepath) {
-        /* if (!exists(resourceFilepath)){
+        /* if (!hasKey(resourceFilepath)){
             throw new DException("Not found file `%s`".format(resourceFilepath));
         }
 

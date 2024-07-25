@@ -23,14 +23,14 @@ class DEventList { // }: ArrayAccess, Countable {
     }
 
     // Whether a offset exists
-    bool offsetExists(Json anOffset) {
+    bool offsethasKey(Json anOffset) {
         // TODO return _events.hasValue(anOffset);
         return false;
     }
 
     // Offset to retrieve
     IEvent offsetGet(Json offsetToRetrieve) {
-        /* return offsetExists(offsetToRetrieve)
+        /* return offsethasKey(offsetToRetrieve)
             ? _events[offsetToRetrieve] : null; */
             return null; 
     }

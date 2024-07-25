@@ -57,7 +57,7 @@ interface IFileManager {
   bool moveFile(string[] fromPath, string[] toPath);
 
   // Checks if a specified file exists. False, ifsomeFiles is empty
-  final bool filesExists(IFile[] files) {
+  final bool fileshasKey(IFile[] files) {
     if (files.isEmpty) { return false; }
 
     return files.all!(file => file.exists);

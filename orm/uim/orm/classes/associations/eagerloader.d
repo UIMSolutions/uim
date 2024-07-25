@@ -214,7 +214,7 @@ class DEagerLoader {
         }
         mycontain = null;
         foreach (aliasName, options; _containments) {
-            if (!options.isEmpty("instance"])) {
+            if (options.hasKey("instance"])) {
                 mycontain = _containments;
                 break;
             }

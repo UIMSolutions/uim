@@ -36,7 +36,7 @@ class DORMEntity { // }: IORMEntity, IInvalidProperty {
             "source": Json(null),
         ]);
 
-        if (!options.isEmpty("source")) {
+        if (options.hasKey("source")) {
             setSource(options.get("source"));
         }
         if (!options.isNull("markNew")) {

@@ -250,7 +250,7 @@ class DAssociation : IAssociation {
 
         _options(options);
 
-        if (!options.isEmpty("strategy")) {
+        if (options.hasKey("strategy")) {
             setStrategy(options.get("strategy"]);
         }
     }
@@ -456,7 +456,7 @@ class DAssociation : IAssociation {
             options.set("includeFields", false);
         }
 
-        if (!options.isEmpty("foreignKeys")) {
+        if (options.hasKey("foreignKeys")) {
             auto joinCondition = _joinCondition(options);
             if (joinCondition) {
                 auto conditions = options.getArray("conditions") ~ joinCondition;
@@ -469,7 +469,7 @@ class DAssociation : IAssociation {
             .find(finder, opts)
             .eagerLoaded(true);
 
-        if (!options.isEmpty("queryBuilder")) {
+        if (options.hasKey("queryBuilder")) {
             dummy = options.get("queryBuilder")(dummy);
             if (!cast(Query)dummy) {
                 throw new DRuntimeException(format(
@@ -480,7 +480,7 @@ class DAssociation : IAssociation {
         }
 
         if (
-            !options.isEmpty("matching") &&
+            options.hasKey("matching") &&
             _strategy == STRATEGY_JOIN &&
             dummy.getContain()
            ) {
@@ -511,7 +511,7 @@ class DAssociation : IAssociation {
      */
     protected void _appendNotMatching(DORMQuery queryToModify, Json[string] options = null) {
         auto target = _targetTable;
-        if (!options.isEmpty("negateMatch")) {
+        if (options.hasKey("negateMatch")) {
             // TODO
             /* 
             primaryKeys = queryToModify.aliasFields((array) target.primaryKeys(), _name);

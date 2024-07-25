@@ -117,15 +117,15 @@ class DSelectLoader {
             fetchQuery = _addFilteringCondition(fetchQuery, key, filter);
         }
 
-        if (!options.isEmpty("sort")) {
+        if (options.hasKey("sort")) {
             fetchQuery.order(options.get("sort"]);
         }
 
-        if (!options.isEmpty("contain")) {
+        if (options.hasKey("contain")) {
             fetchQuery.contain(options.get("contain"]);
         }
 
-        if (!options.isEmpty("queryBuilder")) {
+        if (options.hasKey("queryBuilder")) {
             fetchQuery = options.get("queryBuilder")(fetchQuery);
         }
 

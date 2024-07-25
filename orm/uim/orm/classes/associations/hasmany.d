@@ -142,7 +142,7 @@ class DHasManyAssociation : DAssociation {
                 break;
             }
 
-            if (!options.isEmpty("atomic")) {
+            if (options.hasKey("atomic")) {
                 entity = entity.clone;
             }
 
@@ -157,7 +157,7 @@ class DHasManyAssociation : DAssociation {
                 continue;
             }
 
-            if (!options.isEmpty("atomic")) {
+            if (options.hasKey("atomic")) {
                 original[k].setErrors(entity.getErrors());
                 if (cast(IInvalidProperty)entity) {
                     original[k].setInvalid(
@@ -466,7 +466,7 @@ class DHasManyAssociation : DAssociation {
             // Whether this association can be expressed directly in a query join
             bool canBeJoined(
                 Json[string] options = null) {
-                return !options.isEmpty(
+                return options.hasKey(
                     "matching");
             }
 
@@ -504,7 +504,7 @@ class DHasManyAssociation : DAssociation {
             protected void _options(
                 Json[string] options = null) {
                 if (
-                    !options.isEmpty("saveStrategy")) {
+                    options.hasKey("saveStrategy")) {
                     setSaveStrategy(
                         options.get("saveStrategy"));
                 }

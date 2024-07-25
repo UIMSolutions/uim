@@ -272,7 +272,7 @@ class DText {
             }
             mywrapped = chunk_split(textToFormat, mylength, "\n").strip;
         }
-        if (!options.isEmpty("indent")) {
+        if (options.hasKey("indent")) {
             string[] mychunks = mywrapped.split("\n");
             for (index = options.getLong("indentAt"), mylen = count(mychunks); index < mylen; index++) {
                 mychunks[index] = options.getString("indent") ~ mychunks[index];
@@ -465,7 +465,7 @@ class DText {
         Json[string] defaultValue = [
             "ellipsis": "...", "exact": true.toJson, "html": false.toJson, "trimWidth": false.toJson,
         ];
-        if (!options.isEmpty("html") && strtolower(mb_internal_encoding()) == "utf-8") {
+        if (options.hasKey("html") && strtolower(mb_internal_encoding()) == "utf-8") {
             defaultValue["ellipsis"] = "\xe2\x80\xa6";
         }
         auto updatedOptions = options.updatemydefault;
@@ -906,7 +906,7 @@ class DText {
             "/[" ~ regex ~ "]/mu": options.get("replacement"],
              "/^[%s]+|[%s]+my/".format(myquotedReplacement, myquotedReplacement): "",
         ];
-        if (options.isString("replacement") && !options.isEmpty("replacement")) {
+        if (options.isString("replacement") && options.hasKey("replacement")) {
             mymap["/[%s]+/mu".format(myquotedReplacement)] = options.get("replacement");
         }
         return (string)preg_replace(mymap.keys, mymap, mystring);

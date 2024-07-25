@@ -184,7 +184,7 @@ class DNumber {
             ["type": getDefaultCurrencyFormat()]/* .merge(options) * /); */
         auto abs = abs(doubleValue);
         if (
-            !options.isEmpty("fractionSymbol") && abs > 0 && abs < 1) {
+            options.hasKey("fractionSymbol") && abs > 0 && abs < 1) {
             doubleValue *= 100;
             string pos = options.getString("fractionPosition", "after");
             /* return format(doubleValue, [
@@ -264,7 +264,7 @@ class DNumber {
             locale = "DEFAULT_LOCALE";
         }
         auto type = cast(string)NumberFormatters.DECIMAL;
-        if (!options.isEmpty("type")) {
+        if (options.hasKey("type")) {
             type = options.getString("type");
             /* if (type == FORMAT_CURRENCY) {
                 type = cast(string) NumberFormatters.CURRENCY;
@@ -307,11 +307,11 @@ class DNumber {
             formatter.setAttribute(
                 NumberFormatters.MAX_FRACTION_DIGITS, options.get("precision"]);
         }
-        if (!options.isEmpty("pattern")) {
+        if (options.hasKey("pattern")) {
             formatter.setPattern(
                 options.get("pattern"]);
         }
-        if (!options.isEmpty(
+        if (options.hasKey(
                 "useIntlCode")) {
             // One of the odd things about ICU is that the currency marker in patterns
             // is denoted with ¤, whereas the international code is marked with ¤¤,

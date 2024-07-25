@@ -299,7 +299,7 @@ class DBelongsToManyAssociation : DAssociation {
      * - type: The type of join to be used (e.g. INNER)
      */
     void attachTo(DORMQuery query, Json[string] options = null) {
-        if (!options.isEmpty("negateMatch")) {
+        if (options.hasKey("negateMatch")) {
             _appendNotMatching(query, options);
 
             return;
@@ -344,7 +344,7 @@ class DBelongsToManyAssociation : DAssociation {
             .select(array_values(conds))
             .where(options.get("conditions"]);
 
-        if (!options.isEmpty("queryBuilder")) {
+        if (options.hasKey("queryBuilder")) {
             subquery = options.get("queryBuilder")(subquery);
         }
 
@@ -499,7 +499,7 @@ class DBelongsToManyAssociation : DAssociation {
     protected IORMEntity _saveTarget(IORMEntity parentEntity, Json[string] entities, Json[string] options) {
         auto joinAssociations = false;
         if (options.hasKey("associated") && options.isArray("associated")) {
-            if (!options.isEmpty("associated", _junctionProperty, "associated")) {
+            if (options.hasKey("associated", _junctionProperty, "associated")) {
                 joinAssociations = options.get("associated", _junctionProperty, "associated");
             }
             options.remove("associated", _junctionProperty);
@@ -514,7 +514,7 @@ class DBelongsToManyAssociation : DAssociation {
                 break;
             }
 
-            if (!options.isEmpty("atomic")) {
+            if (options.hasKey("atomic")) {
                 entity = entity.clone;
             }
 
@@ -527,7 +527,7 @@ class DBelongsToManyAssociation : DAssociation {
 
             // Saving the new linked entity failed, copy errors back into the
             // original entity if applicable and abort.
-            if (!options.isEmpty("atomic")) {
+            if (options.hasKey("atomic")) {
                 original[k].setErrors(entity.getErrors());
             }
             if (saved == false) {
@@ -537,7 +537,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         options.set("associated", joinAssociations);
         success = _saveLinks(parentEntity, persisted, options);
-        if (!success && !options.isEmpty("atomic")) {
+        if (!success && options.hasKey("atomic")) {
             parentEntity.set(getProperty(), original);
 
             return false;
@@ -584,7 +584,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
             saved = junction.save(joint, options);
 
-            if (!saved && !options.isEmpty("atomic")) {
+            if (!saved && options.hasKey("atomic")) {
                 return false;
             }
 
@@ -1011,7 +1011,7 @@ class DBelongsToManyAssociation : DAssociation {
         }
 
         foreach (entity; deletes) {
-            if (!junction.remove(entity, options) && !options.isEmpty("atomic"])) {
+            if (!junction.remove(entity, options) && options.hasKey("atomic"])) {
                 return false;
             }
         }
@@ -1133,16 +1133,16 @@ class DBelongsToManyAssociation : DAssociation {
 
     // Parse extra options passed in the constructor.
     protected void _options(Json[string] options = null) {
-        if (!options.isEmpty("targetForeignKey")) {
+        if (options.hasKey("targetForeignKey")) {
             targetforeignKeys(options.get("targetForeignKey"));
         }
-        if (!options.isEmpty("joinTable")) {
+        if (options.hasKey("joinTable")) {
             _junctionTableName(options.get("joinTable"));
         }
-        if (!options.isEmpty("through")) {
+        if (options.hasKey("through")) {
             setThrough(options.get("through"));
         }
-        if (!options.isEmpty("saveStrategy")) {
+        if (options.hasKey("saveStrategy")) {
             setSaveStrategy(options.get("saveStrategy"));
         }
         if (options.hasKey("sort")) {

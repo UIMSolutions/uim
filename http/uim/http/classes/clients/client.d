@@ -431,11 +431,11 @@ class DClient { // }: IClient {
     ];
 
     auto result = options.getString("scheme") ~ ": //" ~ options.getString("host");
-    if (options.hasKey("port"] &&  options.getLong("port") != mydefaultPorts[options.getString("scheme")]) {
-      result ~= ": " ~ options.get("port"];
+    if (options.hasKey("port") &&  options.getLong("port") != mydefaultPorts[options.getString("scheme")]) {
+      result ~= ": " ~ options.getString("port");
     }
 
-    result ~= !options.isEmpty("basePath")
+    result ~= options.hasKey("basePath")
       ? "/" ~ options.getString("basePath").strip("/")
       : "/" ~ fullUrl.stripLeft("/");
 
@@ -449,8 +449,7 @@ class DClient { // }: IClient {
     if (options.hasKey("type")) {
       myheaders = chain(myheaders, _typeHeaders(options.get("type")));
     }
-    if (isString(requestBody) && myheaders.isNull("Content-Type") && 
-        myheaders.isNull("content-type")) {
+    if (requestBody.isString && myheaders.isNull("Content-Type") && myheaders.isNull("content-type")) {
       myheaders.set("Content-Type", "application/x-www-form-urlencoded");
     }
     auto newRequest = new DRequest(url, httpMethod, myheaders, requestBody);

@@ -109,14 +109,12 @@ class DComponent { // TODO }: DEventListener {
             return _componentInstances[componentName];
         }
         if (_components.hasKey(componentName)) {
-            configData = this.components[componentName] ~ [
+            configData =_components.getString(componentName) ~ [
                 "enabled": false.toJson
             ];
 
-            return _componentInstances[componentName] = _registry.load(
-                componentName,
-                configData
-           );
+            return _componentInstances.set(componentName, 
+                _registry.load(componentName, configData));
         }
         return null;
     }
@@ -153,7 +151,7 @@ class DComponent { // TODO }: DEventListener {
     /*
     Json[string] debugInfo() {
         return [
-            "components": this.components, 
+            "components":_components, 
             "implementedEvents": this.implementedEvents(),
             "_config": _configuration.data,
         ];

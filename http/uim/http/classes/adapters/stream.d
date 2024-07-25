@@ -151,7 +151,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         if (options.isEmpty("ssl_cafile")) {
             options.set("ssl_cafile", CaBundle.getBundledCaBundlePath());
         }
-        if (!options.isEmpty("ssl_verify_host")) {
+        if (options.hasKey("ssl_verify_host")) {
             auto url = request.getUri();
             auto host = parse_url(url.toString, UIM_URL_HOST);
            _sslContextOptions.set("peer_name", host);

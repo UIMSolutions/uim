@@ -462,8 +462,8 @@ abstract class DQuery : IQuery { // : IExpression {
             if (!cast(IExpression)t["conditions"]) {
                 t["conditions"] = this.newExpr().add(t["conditions"], typeMap);
             }
-            aliasName = isString(aliasName) ? aliasName : null;
-             joins[aliasName ?:  index++] = t ~ ["type": JOIN_TYPE_INNER, "aliasName": aliasName];
+            aliasName = aliasName.isString ? aliasName : null;
+            joins[aliasName ?:  index++] = t ~ ["type": JOIN_TYPE_INNER, "aliasName": aliasName];
         }
         _parts["join"] = shouldOverwrite ?  joins : array_merge(_parts["join"],  joins);
        _isChanged();

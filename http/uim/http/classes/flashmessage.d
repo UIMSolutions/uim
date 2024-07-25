@@ -100,7 +100,7 @@ class DFlashMessage {
             "params": options.get("params"),
         ];
 
-        _session.write("Flash." ~ options.get("key"), messages);
+        _session.write("Flash." ~ options.getString("key"), messages);
     }
     
     // Set an exception`s message as flash message.

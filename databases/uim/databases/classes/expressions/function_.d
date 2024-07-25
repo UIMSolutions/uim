@@ -58,7 +58,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
             return;
         }
         
-        quto type = typeMap.type(myKey);
+        auto type = typeMap.type(myKey);
         if (!type.isNull && !cast(IExpression)p) {
             condition = _castToExpression(p, type);
         }
@@ -92,6 +92,6 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      */
     size_t count() {
         return 1 + count(_conditions);
-    } */
+    }
 }
 mixin(ExpressionCalls!("Function"));

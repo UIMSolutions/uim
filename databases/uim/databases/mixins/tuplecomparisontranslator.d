@@ -28,7 +28,7 @@ mixin template TTupleComparisonTranslator() {
     protected void _transformTupleComparison(TupleComparison expressionToTransform, Query queryToUpdate) {
         string[] fieldNames = expressionToTransform.getFieldNames();
         string operator = expressionToTransform.getOperator().upper;
-        if (!isIn(operator, ["IN", "="])) {
+        if (!operator.isIn(["IN", "="])) {
             throw new DInvalidArgumentException(
                 "Tuple comparison transform only supports the `IN` and `=` operators, `%s` given."
                     .format(operator)
@@ -39,7 +39,7 @@ mixin template TTupleComparisonTranslator() {
 
         if (cast(DSelectQuery) aValue) {
             string[] selected = aValue.clause("select").values;
-            foreach (index : field; fields) {
+            foreach (index, field; fields) {
                 aValue.andWhere([field: new DIdentifierExpression(selected[index])]);
             }
             aValue.select(true, true);
@@ -65,9 +65,10 @@ mixin template TTupleComparisonTranslator() {
         }
         conditions = ["OR": Json.emptyArray];
         aValue.each!((tuple) {
-            auto items = null; foreach (index : value2; tuple.values) {
+            auto items = null; 
+            foreach (index : value2; tuple.values) {
                 items ~= [fields[index]: value2];}
-                conditions["OR").concat( items;});
+                conditions.concat("OR", items);
                 surrogate.where(conditions, typeMap);
 
                 expressionToTransform.setFieldNames(true);

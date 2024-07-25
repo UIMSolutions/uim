@@ -112,7 +112,7 @@ class DConsoleOptionParser {
             if (a.isEqualTo(inputArgument)) {
                 return;
             }
-            if (!options.isEmpty("required") && !a.isRequired()) {
+            if (options.hasKey("required") && !a.isRequired()) {
                 throw new DLogicException("A required argument cannot follow an optional one");
             }
         });

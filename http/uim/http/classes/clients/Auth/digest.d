@@ -60,9 +60,9 @@ class DDigest {
             throw new DInvalidArgumentException("Invalid Algorithm. Valid ones are: " ~
                 HASH_ALGORITHMS.keys.join(","));
         }
-        this.algorithm = algorithm;
-        this.isSessAlgorithm = indexOf(this.algorithm, "-sess") == true;
-        _hashType = Hash.get(HASH_ALGORITHMS, this.algorithm);
+        _algorithm = algorithm;
+        this.isSessAlgorithm = indexOf(_algorithm, "-sess") == true;
+        _hashType = Hash.get(HASH_ALGORITHMS, _algorithm);
     }
     
     // Add Authorization header to the request.
@@ -117,12 +117,12 @@ class DDigest {
         auto somePath = request.getRequestTarget();
 
         if (this.isSessAlgorithm) {
-            credentials["cnonce"] = generateCnonce();
+            credentials.set("cnonce", generateCnonce());
             a1 = hash(_hashType, authCredentials.getString("username") ~ ": " ~
                     authCredentials.getString("realm") ~ ": " ~ authCredentials.getString("password")) ~ ": " ~
                 authCredentials.getString("nonce") ~ ": " ~ authCredentials.getString("cnonce");
         } else {
-            a1 = authCredentials.getString("username") ~ ": " ~ authCredentials["realm"] ~ ": " ~ authCredentials["password"];
+            a1 = authCredentials.getString("username") ~ ": " ~ authCredentials.getString("realm") ~ ": " ~ authCredentials.getString("password");
         }
         auto ha1 = hash(_hashType, a1);
         auto a2 = request.getMethod() ~ ": " ~ somePath;
@@ -130,7 +130,7 @@ class DDigest {
 
         if (credentials.isEmpty("qop")) {
             ha2 = hash(_hashType, a2);
-            response = hash(_hashType, ha1 ~ ": " ~ credentials["nonce"] ~ ": " ~ ha2);
+            response = hash(_hashType, ha1 ~ ": " ~ credentials.getString("nonce") ~ ": " ~ ha2);
         } else {
             if (!isIn(credentials["qop"], [QOP_AUTH, QOP_AUTH_INT])) {
                 throw new DInvalidArgumentException("Invalid QOP parameter. Valid types are: " ~ [QOP_AUTH, QOP_AUTH_INT].join(","));
@@ -145,27 +145,27 @@ class DDigest {
             auto ha2 = hash(_hashType, a2);
             auto response = hash(
                 _hashType,
-                ha1 ~ ": " ~ credentials["nonce"] ~ ": " ~ nc ~ ": " .
-                credentials["cnonce"] ~ ": " ~ credentials["qop"] ~ ": " ~ ha2
+                ha1 ~ ": " ~ credentials.getString("nonce") ~ ": " ~ nc ~ ": " .
+                credentials["cnonce"] ~ ": " ~ credentials.getString("qop") ~ ": " ~ ha2
            );
         }
         string result = "Digest ";
-        result ~= "username=\"" ~ credentials.getString("username").replace(["\\", """], ["\\\\", "\\""]) ~ "\", ";
+        result ~= "username=\"" ~ credentials.getString("username").replace(["\\", "\""], ["\\\\", "\\""]) ~ "\", ";
         result ~= "realm=\"" ~ credentials.getString("realm") ~ "\", ";
         result ~= "nonce=\"" ~ credentials.getString("nonce") ~ "\", ";
-        result ~= "uri=\"" ~ somePath ~ "", ";
-        result ~= "algorithm="" ~ this.algorithm ~ """;
+        result ~= "uri=\"" ~ somePath ~ "\", ";
+        result ~= "algorithm=\"" ~ _algorithm ~ "\"";
 
         if (!authCredentials.isEmpty("qop")) {
-            result ~= ", qop=" ~ credentials["qop"];
+            result ~= ", qop=" ~ credentials.getString("qop");
         }
         if (this.isSessAlgorithm || !authCredentials.isEmpty("qop")) {
-            result ~= ", nc=" ~ nc ~ ", cnonce="" ~ credentials["cnonce"] ~ """;
+            result ~= ", nc=" ~ nc ~ ", cnonce ="" ~ credentials.getString("cnonce") ~ """;
         }
         result ~= ", response="" ~ response ~ """;
 
         if (!authCredentials.isEmpty("opaque")) {
-            result ~= ", opaque="" ~ credentials["opaque"] ~ """;
+            result ~= ", opaque="" ~ credentials.getString("opaque") ~ """;
         }
         return result;
     }

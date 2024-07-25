@@ -797,7 +797,7 @@ mixin template TEntity() {
       // while more complex error structures need their
       // keys preserved for nested validator.
       if (isString(error)) {
-        _fieldErrors[f] ~= error;
+        _fieldErrors[f).concat( error;
       } else {
         errors.byKeyValue.each!(kv => _fieldErrors[f][kv.key] = kv.value);
       }

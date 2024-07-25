@@ -36,7 +36,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
                  classname = classname.classname;
             }*/
             myInvert.require(classname, null);
-            myInvert[classname] ~= name;
+            myInvert[classname).concat( name;
         }
 
         auto anGrouped = null;
@@ -60,7 +60,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
                 string[] names = shortestName.split(".");
                 if (names > 1) { shortestName = names[1..$].join("."); }
             }
-            anGrouped[prefix] ~= [
+            anGrouped[prefix).concat( [
                 "name": shortestName,
                 "description": isSubclass_of(classname, BaseCommand.classname) 
                     ?  classname.getDescription()

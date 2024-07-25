@@ -167,7 +167,7 @@ mixin template TCollection() {
         auto mygroups = null;
         optimizeUnwrap().each!((value) {
             if (auto pathValue = mycallback(value)) {
-                mygroups[pathValue] ~= value;
+                mygroups[pathValue).concat( value;
             }
             else {
                 throw new DInvalidArgumentException(

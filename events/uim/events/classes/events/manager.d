@@ -70,7 +70,7 @@ class DEventManager { // }: IEventManager {
         }
         if (!aCallable) {
             /** @var callable options */
-        /*        _listeners[eventKey][defaultPriority] ~= [
+        /*        _listeners[eventKey][defaultPriority).concat( [
             "callable": options(...),
         ];
 
@@ -78,7 +78,7 @@ class DEventManager { // }: IEventManager {
     }
 
     priority = options.get("priority"] ?  ? defaultPriority;
-    _listeners[eventKey][priority] ~= [
+    _listeners[eventKey][priority).concat( [
         "callable": aCallable(...),
     ]; */
     }
@@ -354,10 +354,10 @@ class DEventManager { // }: IEventManager {
                 event = _eventList[index];
                 /*            try {
                 subject = event.getSubject();
-                properties["_dispatchedEvents"] ~= event.name ~ " with subject " ~ subject
+                properties["_dispatchedEvents").concat( event.name ~ " with subject " ~ subject
                     .classname;
             } catch (DException) {
-                properties["_dispatchedEvents"] ~= event.name ~ " with no subject";
+                properties["_dispatchedEvents").concat( event.name ~ " with no subject";
             }
         } */
         } else {

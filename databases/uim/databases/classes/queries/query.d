@@ -294,7 +294,7 @@ abstract class DQuery : IQuery { // : IExpression {
                );
             }
         }
-       _parts["with"] ~= cte;
+       _parts["with").concat( cte;
        _isChanged();
 
     

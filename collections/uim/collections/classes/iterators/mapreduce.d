@@ -87,7 +87,7 @@ class DMapReduce { // }: IteratorAggregate {
      * of mapping a single record from the original data.
      * /
     void emitIntermediate(Json storeData, string bucketName) {
-       _intermediate[bucketName] ~= storeData;
+       _intermediate[bucketName).concat( storeData;
     }
     
     /**

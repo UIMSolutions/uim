@@ -63,7 +63,7 @@ class DPostgresDriver : DDriver {
         setSchema(configuration.get("schema"));
     }
     if (!configuration.isEmpty("timezone")) {
-        configuration.get("init"] ~= "SET timezone = %s".format(getPdo().quote(configuration.get("timezone")));
+        configuration.get("init").concat( "SET timezone = %s".format(getPdo().quote(configuration.get("timezone")));
     }
     configuration.get("init").each!(command => getPdo().exec(command));
 }

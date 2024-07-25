@@ -67,7 +67,7 @@ mixin template TTupleComparisonTranslator() {
         aValue.each!((tuple) {
             auto items = null; foreach (index : value2; tuple.values) {
                 items ~= [fields[index]: value2];}
-                conditions["OR"] ~= items;});
+                conditions["OR").concat( items;});
                 surrogate.where(conditions, typeMap);
 
                 expressionToTransform.setFieldNames(true);

@@ -200,7 +200,7 @@ class DAsset {
 
         auto themeName = options.getString("theme");
         if (themeName) {
-            file = strip(file, "/");
+            file = file.strip("/");
             auto theme = inflectString(themeName) ~ "/";
 
             if (DIRECTORY_SEPARATOR == "\\") {

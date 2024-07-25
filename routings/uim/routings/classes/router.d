@@ -666,7 +666,7 @@ class DRouter {
                             "Could not parse a key=value from `{param}` in route path `{url}`."
                        );
                     }
-                    myparamKey = myparamMatches["key"];
+                    myparamKey = myparamMatches.getString("key");
                     if (!preg_match("/^[a-zA-Z_][a-zA-Z0-9_]*my/", myparamKey)) {
                         throw new DInvalidArgumentException(
                             "Param key `{myparamKey}` is not valid in route path `{url}`."

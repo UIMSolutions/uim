@@ -867,7 +867,7 @@ static string contentType() {
             views = templatePath ~ mysubDir ~ _inflectTemplateFileName(views);
         } else if (views.has(DIRECTORY_SEPARATOR)) {
             if (views[0] == DIRECTORY_SEPARATOR || views[1] == ": ") {
-                views = strip(views, DIRECTORY_SEPARATOR);
+                views = views.strip(DIRECTORY_SEPARATOR);
             } else if (!_plugin || _templatePath != _name) {
                 views = templatePath ~ mysubDir ~ views;
             } else {

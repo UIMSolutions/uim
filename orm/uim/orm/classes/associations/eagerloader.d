@@ -345,28 +345,29 @@ class DEagerLoader {
     
     // Auxiliary auto responsible for fully normalizing deep associations defined using `contain()`.
     protected DEagerLoadable _normalizeContain(DORMTable myparent, string aliasName, Json[string] options, Json[string] paths) {
-        auto mydefaults = _containOptions;
+        auto defaults = _containOptions;
         auto myinstance = myparent.getAssociation(aliasName);
 
-        paths += ["aliasPath": "", "propertyPath": "", "root": aliasName];
-        paths["aliasPath"] ~= "." ~ aliasName;
+        paths
+            .merge("aliasPath", "")
+            .merge("propertyPath", "")
+            .merge("root", aliasName);
 
-        if (
-            options.hasKey("matching") &&
-            options.get("matching"] == true
-       ) {
-            paths["propertyPath"] = "_matchingData." ~ aliasName;
-        } else {
-            paths["propertyPath"] ~= "." ~ myinstance.getProperty();
+        paths.set("aliasPath", paths.getString("aliasPath") ~ "." ~ aliasName);
+
+        paths.set("propertyPath",
+            options.hasKey("matching") && options.get("matching") == true
+            ? "_matchingData." ~ aliasName
+            : paths.getString("propertyPath") ~ "." ~ myinstance.getProperty());
         }
-        ormtable = myinstance.getTarget();
-
-        Json[string] myextra = array_diffinternalKey(options, mydefaults);
-        configData = [
+        
+        auto ormtable = myinstance.getTarget();
+        Json[string] myextra = array_diffinternalKey(options, defaults);
+        Json[string] configData = [
             "associations": Json.emptyArray,
             "instance": myinstance,
             "config": array_diffinternalKey(options, myextra),
-            "aliasPath": strip(paths["aliasPath"], "."),
+            "aliasPath": paths.getString(["aliasPath"].strip("."),
             "propertyPath": strip(paths["propertyPath"], "."),
             "targetProperty": myinstance.getProperty(),
         ];

@@ -337,8 +337,8 @@ class DText {
         if (shouldWrap) {
             while (mb_strlen(textToFormat) > 0) {
                 mypart = mb_subString(textToFormat, 0, widthToWarp);
-                myparts ~= strip(mypart);
-                textToFormat = strip(mb_subString(textToFormat, mb_strlen(mypart)));
+                myparts ~= mypart.strip(;
+                textToFormat = mb_subString(textToFormat, mb_strlen(mypart)).strip;
             }
             return join(breakText, myparts);
         }
@@ -461,7 +461,7 @@ class DText {
      * string textToTruncate String to truncate.
      */
     static string truncate(string textToTruncate, int textLength = 100, Json[string] options = null) {
-        defaultValue = [
+        Json[string] defaultValue = [
             "ellipsis": "...", "exact": true.toJson, "html": false.toJson, "trimWidth": false.toJson,
         ];
         if (!options.isEmpty("html") && strtolower(mb_internal_encoding()) == "utf-8") {
@@ -519,8 +519,8 @@ class DText {
             if (mytotalLength <= textLength) {
                 return textToTruncate;
             }
-            textToTruncate = mytruncate;
-            textLength = mytruncateLength;
+            auto textToTruncate = mytruncate;
+            auto textLength = mytruncateLength;
 
             foreach (myopenTags as mytag) {
                 mysuffix ~= "</" ~ mytag ~ ">";
@@ -529,7 +529,7 @@ class DText {
             if (_strlen(textToTruncate, options) <= textLength) {
                 return textToTruncate;
             }
-            myellipsisLength = _strlen(options.get("ellipsis"], options);
+            myellipsisLength = _strlen(options.get("ellipsis"), options);
         }
         string result = _subString(textToTruncate, 0, textLength - myellipsisLength, options);
 
@@ -609,8 +609,8 @@ class DText {
 
         size_t desiredLength ??= _strlen(inputText, options);
         if (desiredLength < 0) {
-            inputText = _subString(inputText, startPosition, null, options);
-            startPosition = 0;
+            auto inputText = _subString(inputText, startPosition, null, options);
+            auto startPosition = 0;
             desiredLength += _strlen(inputText, options);
         }
         if (desiredLength <= 0) {

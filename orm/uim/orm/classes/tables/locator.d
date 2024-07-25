@@ -225,7 +225,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     // Adds a location where tables should be looked for.
     void addLocation(string tableLocation) {
         string mylocation = tableLocation.replace("\\", "/");
-        _locations ~= strip(mylocation, "/");
+        _locations ~= mylocation.strip("/");
     }
 }
 unittest {

@@ -374,7 +374,7 @@ class DEagerLoader {
 
         if (
             options.hasKey("matching") &&
-            options.get("matching"] == true
+            options.get("matching") == true
        ) {
             paths["propertyPath"] = "_matchingData." ~ aliasName;
         } else {
@@ -387,8 +387,8 @@ class DEagerLoader {
             "associations": Json.emptyArray,
             "instance": instance,
             "config": array_diffinternalKey(options, extra),
-            "aliasPath": strip(paths["aliasPath"], "."),
-            "propertyPath": strip(paths["propertyPath"], "."),
+            "aliasPath": paths.getString("aliasPath").strip("."),
+            "propertyPath": paths.getString("propertyPath").strip("."),
             "targetProperty": instance.getProperty(),
         ];
         configuration.set("canBeJoined", instance.canBeJoined(configuration.get("config")));

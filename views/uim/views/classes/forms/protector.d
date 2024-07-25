@@ -116,7 +116,7 @@ class DFormProtector {
             return name.split(".");
         }
         
-        string[] parts = name.split("[").strip("]").strip;
+        string[] parts = name.split("[").stripText("]", " ");
 
         return Hash.filter(parts, "strlen");
     }

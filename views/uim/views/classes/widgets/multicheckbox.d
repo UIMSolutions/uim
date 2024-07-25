@@ -135,8 +135,7 @@ class DMultiCheckboxWidget : DWidget {
         }
         if (!mydata.isEmpty("templateVars")) {
             mycheckbox.set("templateVars", array_merge(data.get("templateVars"), mycheckbox
-                    .get(
-                    "templateVars")));
+                    .get( "templateVars")));
         }
 
         mycheckbox.set(mydata.getKeys("name", "escape"));
@@ -146,10 +145,8 @@ class DMultiCheckboxWidget : DWidget {
                 mycheckbox.getString("value"), data.get("disabled")));
         if (mycheckbox.isEmpty("id")) {
             if (mydata.hasKey("id")) {
-                mycheckbox.set("id", mydata.getString("id") ~ "-" ~ strip(
-                        _idSuffix(mycheckbox.getString("value")),
-                        "-"
-                ));
+                mycheckbox.set("id", mydata.getString("id") ~ "-" ~ 
+                    _idSuffix(mycheckbox.getString("value")).strip("-"));
             } else {
                 mycheckbox.get("id", _id(mycheckbox.getString("name"), mycheckbox.getString( "value")));
             }

@@ -542,7 +542,7 @@ class DDebugger : UIMObject {
                     return node;
                 } catch (Exception anException) {
                     return new DSpecialNode(
-                        "(unable to export object: { anException.getMessage()})");
+                        "(unable to export object: { anException.message()})");
                 }
             }
             outputMask = outputMask();

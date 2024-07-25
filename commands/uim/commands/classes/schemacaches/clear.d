@@ -33,7 +33,7 @@ class DSchemacacheClearCommand : DCommand {
 
       cache = new DSchemaCache(aConnection);
     } catch (RuntimeException anException) {
-      aConsoleIo.error(anException.getMessage());
+      aConsoleIo.error(anException.message());
 
       return CODE_ERROR;
     }

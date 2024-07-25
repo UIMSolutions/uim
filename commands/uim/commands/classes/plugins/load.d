@@ -50,7 +50,7 @@ class DPluginLoadCommand : DCommand {
         } catch (MissingPluginException anException) {
             /** @psalm-suppress InvalidArgument */
             if (options.isEmpty("optional")) {
-                aConsoleIo.writeErrorMessages(anException.getMessage());
+                aConsoleIo.writeErrorMessages(anException.message());
                 aConsoleIo.writeErrorMessages("Ensure you have the correct spelling and casing.");
 
                 return CODE_ERROR;

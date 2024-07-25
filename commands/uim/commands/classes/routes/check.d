@@ -51,7 +51,7 @@ class DRoutesCheckCommand : DCommand {
     } catch (DRedirectException anException) {
       output = [
         ["URI template", "Redirect"],
-        [url, anException.getMessage()],
+        [url, anException.message()],
       ];
       aConsoleIo.helper("table").output(output);
       aConsoleIo.out ();

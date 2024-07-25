@@ -55,7 +55,7 @@ class DCacheClearCommand : DCommand {
       }
     }
  catch (InvalidArgumentException anException) {
-      aConsoleIo.error(anException.getMessage());
+      aConsoleIo.error(anException.message());
       this.abort();
     }
     return CODE_SUCCESS;

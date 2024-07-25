@@ -91,7 +91,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
                 aParser.argumentNames()
             );
         } catch (ConsoleException anException) {
-            aConsoleIo.writeErrorMessages("Error: " ~ anException.getMessage());
+            aConsoleIo.writeErrorMessages("Error: " ~ anException.message());
 
             return CODE_ERROR;
         }

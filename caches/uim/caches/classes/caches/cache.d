@@ -123,7 +123,7 @@ class DCache : UIMObject, ICache {
         } catch (RuntimeException exception) {
             if (!array_key_exists("fallback", configData)) {
                 myRegistry.set(configName, new DNullEngine());
-                trigger_error(exception.getMessage(), ERRORS.USER_WARNING);
+                trigger_error(exception.message(), ERRORS.USER_WARNING);
 
                 return;
             }

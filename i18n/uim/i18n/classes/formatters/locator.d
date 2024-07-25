@@ -23,8 +23,8 @@ class DFormatterLocator {
     }
 
     void set(string key, string classname) {
-        _formatters[key] = classname;
-        _converted[key] = false; 
+        _formatters.set(key, classname);
+        _converted.set(key, false); 
     }
     
     // Gets a formatter from the locator by name.

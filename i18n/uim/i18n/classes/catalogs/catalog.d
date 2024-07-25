@@ -69,21 +69,30 @@ class DMessageCatalog : ICatalog {
 
     keys
       .filter!(key => messages.hasKey(key))
-      .each(key => result[key] = messages[key]);
+      .each!(key => result[key] = messages[key]);
 
     return result;
   }
 
-  string[] message(string key) {
-    return messages.hasKey(key) 
-      ? _messages[key]
-      : null;
-  }
   ///
   unittest {
     auto catalog = MessageCatalog;
     catalog.message("test");
   }
+
+  // #region get
+    string[][string] get(string[] keys) {
+       string[][string] results;
+       keys
+        .filter!(key => hasKey(key))
+        .each!(key => resuls[key] = get(key));
+    }
+
+    string[] get(string key) {
+      return messages.hasKey(key) 
+        ? _messages[key]
+        : null;
+    }
   // #endregion get
 
   // #region set

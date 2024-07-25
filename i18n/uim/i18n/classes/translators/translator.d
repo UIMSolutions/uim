@@ -52,8 +52,8 @@ class DTranslator : UIMObject, ITranslator {
     }
 
     // Gets the message translation by its key.
-    protected string[] getMessage(string messageKey) {
-        string[] message = catalog.message(messageKey);
+    protected string[] getMessage(string key) {
+        string[] message = _catalog.get(key);
 
         if (message.isEmpty && _fallback) {
             /* if (auto message = _fallback.getMessage(messageKey)) {
@@ -70,9 +70,9 @@ class DTranslator : UIMObject, ITranslator {
     }
 
     // Translates the message formatting any placeholders
-    /* 
-    string translate(string messageKey, STRINGAA tokensValues) {
+    string translate(string key, STRINGAA tokensValues) {
         string[] message;
+    /* 
         if (tokensValues.hasKey("_count")) { // use plural
             message = getMessage(PLURAL_PREFIX ~ messageKey);
             if (message.isEmpty) { // Fallback to singular
@@ -83,13 +83,13 @@ class DTranslator : UIMObject, ITranslator {
             if (message.isEmpty) { // fallback to plural
                 message = getMessage(PLURAL_PREFIX ~ messageKey);
             }
-        }
+        } */ 
         if (message.isEmpty) { // Fallback to the message key
-            message = messageKey;
+            message = [key];
         }
 
         // Check for missing/invalid context
-        if (tokensValues.hasKey("_context")) {
+        /* if (tokensValues.hasKey("_context")) {
             message = resolveContext(messageKey, message, tokensValues);
             tokensValues.remove("_context");
         }
@@ -116,8 +116,9 @@ class DTranslator : UIMObject, ITranslator {
             }
         }
         tokensValues.remove("_count", "_singular");
-        return formatter.format(_locale, message, tokensValues);
-    } */
+        return formatter.format(_locale, message, tokensValues); */
+        return null; 
+    } 
 
     // Resolve a message`s context structure.
     protected string[] resolveContext(string messageKey, string[][string][string] messageContent, STRINGAA variables) {

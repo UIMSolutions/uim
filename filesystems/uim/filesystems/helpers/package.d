@@ -17,8 +17,10 @@ string[] toPathItems(string aPath, string aSeparator = "/") {
   import std.array;
   import std.algorithm;
   import std.string;
+  import uim.core;
   return aPath
-    .split(aSeparator ? aSeparator : "/").stripText
+    .split(aSeparator ? aSeparator : "/")    
+    .stripText
     .filter!(item => item.length > 0)
     .array;
 }

@@ -72,12 +72,12 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     }
     
     // Sets the default locale code.
-    void localeName(string localName) {
-        _localName = localName;
+    void localeName(string name) {
+        _localName = name;
     }
     
     // Returns the default locale code.
-    string locale() {
+    string localName() {
         return _localName;
     }
     
@@ -99,7 +99,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     // Gets a translator from the registry by catalog for a locale.
     // alias get = DObjectRegistry.get;
     DTranslator get(string catalogName, string localName = null) {
-        localName = localName.ifEmpty(localName());
+        localName = localName ? localName : localName();
 
     /*
         if (registry.hasKey([catalogName, localName])) {
@@ -124,19 +124,18 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     
     // Gets a translator from the registry by catalog for a locale.
     protected ITranslator _getTranslator(string catalogName, string localName) {
-        /* if (_catalogLocator.has(catalogName, localName)) {
-            return _createInstance(catalogName, localname);
-        } */
+        if (_catalogLocator.has(catalogName, localName)) {
+            return createInstance(catalogName, localname);
+        }
 
        /* ICatalog catalog = _loaders.hasKey(catalogName)
             ? _loaders[catalogName](catalogName, localname)
             : _loaders[FALLBACK_LOADER](catalogName, localname);
 
         catalog = setFallbackPackage(catalogName, catalog);
-        _catalogLocator.set(catalogName, localname, catalog);
+        _catalogLocator.set(catalogName, localname, catalog); */ 
 
-        return _createInstance(catalogName, localname); */
-        return null; 
+        return createInstance(catalogName, localname);
     }
     
     // Create translator instance.

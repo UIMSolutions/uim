@@ -32,7 +32,7 @@ class DNumber {
     const string FORMAT_CURRENCY_ACCOUNTING = "currency_accounting";
 
     // A list of number formatters indexed by locale and type
-    // protected static array<int, mixed>[string] _formatters;
+    protected static Json[int][string] _formatters;
 
     // Default currency used by Number.currency()
     protected static string _defaultCurrency;
@@ -83,10 +83,9 @@ class DNumber {
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
      */
     static string toPercentage(Json value, int precision = 2, Json[string] options = null) {
-        options.merge([
-            "multiply": false.toJson,
-            "type": NumberFormatters.PERCENT.toJson
-        ]);
+        options
+            .merge("multiply", false)
+            .merge("type", NumberFormatters.PERCENT);
         
         auto doubleValue = 0.0;
         if (!options.getBoolean("multiply")) {

@@ -106,7 +106,7 @@ class DI18n {
 
         if (translatorLocale) {
             auto currentLocale = translators.locale();
-            translators.localeNametranslatorLocale);
+            translators.localeName(translatorLocale);
         }
         
         auto translator = translators.get(domainName);

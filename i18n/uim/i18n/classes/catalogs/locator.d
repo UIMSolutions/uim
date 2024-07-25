@@ -36,12 +36,10 @@ class DCatalogLocator {
 
   void set(string catalogName, string catalogLocale, ICatalog catalog) {
     if (!hasKey(catalogName)) {
-      ICatalog[string] local = [catalogLocale: catalog];
-      _catalogs[catalogName] = local;
-      return;
-    } 
+      set(catalogName, [catalogLocale: catalog]);
+    }
 
-    _catalogs[catalogName][catalogLocale] = local;
+    _catalogs[catalogName][catalogLocale] = catalog;
   }
   // #endregion set
 

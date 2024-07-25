@@ -23,9 +23,8 @@ interface ICatalog {
         // Set message
         ICatalog set(string[][string] messages); 
 
-        ICatalog set(string key, string messages...); 
+        ICatalog set(string key, string[] messages...); 
 
-        // Adds or update one message for this catalog.
         ICatalog set(string key, string[] messages); 
     // #endregion set
 

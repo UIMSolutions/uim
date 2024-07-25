@@ -62,7 +62,7 @@ Json[string] merge(T)(Json[string] items, string[] keys, Json value) {
 
 Json[string] merge(T)(Json[string] values, string key, T value) {
   if (key !in values) {
-    values[key] = Json(T);
+    values[key] = Json(value);
   }
   return values;
 }

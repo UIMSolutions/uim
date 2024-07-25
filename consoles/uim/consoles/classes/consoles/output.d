@@ -204,7 +204,7 @@ class DConsoleOutput {
     protected string _replaceTags(STRINGAA matchesToReplace) {
        /* auto style = getStyle(matchesToReplace.get("tag"));
         if (style.isEmpty) {
-            return "<" ~ matchesToReplace.getString("tag") ~ ">" ~ matchesToReplace.getStringget("text") ~ "</" ~ matchesToReplace.getString("tag") ~ ">";
+            return "<" ~ matchesToReplace.getString("tag") ~ ">" ~ matchesToReplace.getString("text") ~ "</" ~ matchesToReplace.getString("tag") ~ ">";
         }
         
         auto styleInfo = null;

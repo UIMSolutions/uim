@@ -265,7 +265,7 @@ class DFormHelper : DHelper {
         }
         mytemplater = this.templater();
 
-        if (!options.isEmpty("templates")) {
+        if (options.hasKey("templates")) {
             mytemplater.push();
             methodName = isString(options.get("templates"]) ? "load" : "add";
             mytemplater.{methodName}(options.get("templates"]);
@@ -314,7 +314,7 @@ class DFormHelper : DHelper {
         }
         _requestType = options.getString("type").lower;
 
-        if (!options.isEmpty("encoding")) {
+        if (options.hasKey("encoding")) {
             myhtmlAttributes.set("accept-, set"], options.get("encoding"));
         }
         options.remove("type", "encoding");
@@ -798,63 +798,59 @@ class DFormHelper : DHelper {
         options = _parseOptions(fieldName, options);
         auto options = options.update["id": _domId(fieldName)];
 
-        mytemplater = this.templater();
-        mynewTemplates = options.get("templates"];
+        auto mytemplater = this.templater();
+        auto mynewTemplates = options.get("templates");
 
         if (mynewTemplates) {
             mytemplater.push();
-            mytemplateMethod = isString(options.get("templates"]) ? "load" : "add";
-            mytemplater.{mytemplateMethod}(options.get("templates"]);
+            mytemplateMethod = isString(options.getString("templates") ? "load" : "add");
+            mytemplater.{mytemplateMethod}(options.getString("templates"));
         }
         options.remove("templates");
 
         // Hidden inputs don"t need aria.
         // Multiple checkboxes can"t have aria generated for them at this layer.
-        if (options.hasKey("type"] != "hidden" && (options.get("type"] != "select" && !options.hasKey("multiple"))) {
+        if (options.getString("type") != "hidden" && (options.getString("type") != "select" && !options.hasKey("multiple"))) {
             bool isFieldError = isFieldError(fieldName);
-            auto options = options.update[
-                "aria-required": options.get("required"] ? "true" : null,
-                "aria-invalid": isFieldError ? "true" : null,
-            ];
+            options
+                .update("aria-required", options.getBoolean("required") ? "true" : null)
+                .update("aria-invalid", isFieldError ? "true" : null);
+
             // Don"t include aria-describedby unless we have a good chance of
             // having error message show up.
             if (
-                mytemplater.get("error").contains("{{id}}") &&
-                mytemplater.get("inputContainerError").contains("{{error}}")
+                mytemplater.getString("error").contains("{{id}}") &&
+                mytemplater.getString("inputContainerError").contains("{{error}}")
            ) {
-                options = options.update[
-                   "aria-describedby": isFieldError ? _domId(fieldName) ~ "-error" : null,
-                ];
+                options.update("aria-describedby", isFieldError ? _domId.getString(fieldName) ~ "-error" : null);
             }
-            if (options.hasKey("placeholder"]) && options.get("label"] == false) {
-                options = options.update[
-                    "aria-label": options.get("placeholder"],
-                ];
+            if (options.hasKey("placeholder") && options.get("label") == false) {
+                options.update("aria-label", options.get("placeholder"));
             }
         }
         
         auto myerror = null;
         auto myerrorSuffix = "";
-        if (options.getString("type") != "hidden" && options.get("error"] == true) {
-            myError = isArray(options.get("error"])
-                ? error(fieldName, options.get("error"], options.get("error"])
-                : error(fieldName, options.get("error"]);
+        if (options.getString("type") != "hidden" && options.get("error") == true) {
+            myError = options.isArray("error")
+                ? error(fieldName, options.get("error"), options.get("error"))
+                : error(fieldName, options.get("error"));
 
             myerrorSuffix = myerror.isEmpty ? "" : "Error";
             options.remove("error");
         }
-        auto mylabel = options.get("label"];
+        auto mylabel = options.get("label");
         options.remove("label");
 
-        mylabelOptions = options.get("labelOptions"];
+        auto mylabelOptions = options.get("labelOptions");
         options.remove("labelOptions");
 
-        bool mynestedInput = options.getString("type") == "checkbox";
-        mynestedInput = options.getBoolean("nestedInput", mynestedInput);
+        bool isNestedInput = options.getString("type") == "checkbox";
+        isNestedInput = options.getBoolean("nestedInput", isNestedInput);
         options.remove("nestedInput");
 
         if (
-            mynestedInput == true
+            isNestedInput == true
             && options.getString("type") == "checkbox"
             && !array_key_exists("hiddenField", options)
             && mylabel == true
@@ -870,8 +866,9 @@ class DFormHelper : DHelper {
             return myinput;
         }
         
-        mylabel = _getLabel(fieldName, compact("input", "label", "error", "nestedInput") + options);
-        result = mynestedInput
+        auto mylabel = _getLabel(fieldName, compact("input", "label", "error", "nestedInput").merge(options));
+        
+        auto result = isNestedInput
             ? _groupTemplate(compact("label", "error", "options"))
             : _groupTemplate(compact("input", "label", "error", "options"));
 
@@ -891,11 +888,11 @@ class DFormHelper : DHelper {
     
     // Generates an group template element
     protected string _groupTemplate(Json[string] options = null) {
-        string mygroupTemplate = options.getString("options.type") ~ "FormGroup";
-        if (!this.templater().get(mygroupTemplate)) {
-            mygroupTemplate = "formGroup";
+        string groupTemplate = options.getString("options.type") ~ "FormGroup";
+        if (!this.templater().get(groupTemplate)) {
+            groupTemplate = "formGroup";
         }
-        return _formatTemplate(mygroupTemplate, [
+        return _formatTemplate(groupTemplate, [
             "input": options.get("input"),
             "label": options.get("label"),
             "error": options.get("error"),
@@ -909,15 +906,15 @@ class DFormHelper : DHelper {
      * Json[string] options The options for input container template
      */
     protected string _inputContainerTemplate(Json[string] options = null) {
-        myinputContainerTemplate = options.get("options.type"] ~ "Container" ~ options.get("errorSuffix"];
+        myinputContainerTemplate = options.getString("options.type") ~ "Container" ~ options.getString("errorSuffix");
         if (!this.templater().get(myinputContainerTemplate)) {
-            myinputContainerTemplate = "inputContainer" ~ options.get("errorSuffix"];
+            myinputContainerTemplate = "inputContainer" ~ options.getString("errorSuffix");
         }
         return _formatTemplate(myinputContainerTemplate, [
-            "content": options.get("content"],
+            "content": options.get("content"),
             "error": options.get("error"),
             "label": options.getString("label", ""),
-            "required": options.get("options.required"] ? " " ~ this.templater().get("requiredClass") : "",
+            "required": options.get("options.required") ? " " ~ this.templater().get("requiredClass") : "",
             "type": options.get("options.type"),
             "templateVars": options.get("options.templateVars", null),
         ]);
@@ -1446,7 +1443,7 @@ class DFormHelper : DHelper {
         auto options = options.dup.addKeys(["block", "confirm"]);
 
         auto myrequestMethod = "POST";
-        if (!options.isEmpty("method")) {
+        if (options.hasKey("method")) {
             myrequestMethod = options.getString("method").upper;
             options.remove("method");
         }

@@ -221,15 +221,13 @@ class DEagerLoader {
         }
 
         contain = null;
-        foreach (_containments as aliasName: options) {
+        foreach (aliasName,  options; _containments) {
             if (options.hasKey("instance")) {
                 contain = _containments;
                 break;
             }
             contain[aliasName] = _normalizeContain(
-                repository,
-                aliasName,
-                options,
+                repository, aliasName, options,
                 ["root": Json(null)]
            );
         }
@@ -259,13 +257,13 @@ class DEagerLoader {
             }
 
             if (_containOptions.hasKey(table)) {
-                pointer.set(table, options;
+                pointer.set(table, options);
                 continue;
             }
 
-            if (indexOf(table, ".")) {
-                path = explode(".", table);
-                table = array_pop(path);
+            if (table.contains(".")) {
+                auto path = explode(".", table);
+                auto table = array_pop(path);
                 foreach (path as t) {
                     pointer += [t: []];
                     pointer = &pointer[t];

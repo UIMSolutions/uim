@@ -775,17 +775,17 @@ static bool range(Json value, float lowerLimit = 0.0, float upperLimit = 0.0) {
      * - an optional fragment (anchor tag) as defined in RFC 3986
      */
 static bool url(Json valueToCheck, bool isStrict = false) {
-    /* if (!isString(valueToCheck)) {
+        if (!valueToCheck.isString) {
             return false;
         }
-        _populateIp();
+        /* _populateIp();
 
-        myemoji = "\x{1F190}-\x{1F9EF}";
-        myalpha = "0-9\p{L}\p{N}" ~ myemoji;
-        myhex = "(%[0-9a-f]{2})";
-        mysubDelimiters = preg_quote("/!"my&\"()*+,-.@_:;=~[]", "/");
-        mypath = "([" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
-        myfragmentAndQuery = "([\?" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
+        auto myemoji = "\x{1F190}-\x{1F9EF}";
+        auto myalpha = "0-9\p{L}\p{N}" ~ myemoji;
+        auto myhex = "(%[0-9a-f]{2})";
+        auto mysubDelimiters = preg_quote("/!"my&\"()*+,-.@_:;=~[]", "/");
+        auto mypath = "([" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
+        auto myfragmentAndQuery = "([\?" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
          Generic.Files.LineLength
         regex = "/^(?:(?:https?|ftps?|sftp|file|news|gopher):\/\/)" ~ (isStrict ? "" : "?") .
             "(?:" ~ _pattern["IPv4"] ~ "|\[" ~ _pattern.getString("IPv6") ~ "\]|" ~ _pattern.getString("hostname") ~ ")(?.[1-9][0-9]{0,4})?" .

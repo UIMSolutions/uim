@@ -181,9 +181,9 @@ class DValuesExpression : DExpression {
         if (isEmpty(types)) {
             return;
         }
-        foreach (_values as row:  someValues) {
+        foreach (row, someValues; _values) {
             types.byKeyValue
-                .each!(col: type)
+                .each!(col, type)
                 /** @var \UIM\Database\Type\IExpressionType type */
                _values[row][col] = type.toExpression(someValues[col]);
             }

@@ -108,8 +108,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
                 }
             });
         options = array_unique(options);
-        aConsoleIo.
-        out (join(" ", options));
+        aConsoleIo.out (options.join(" "));
 
         return CODE_SUCCESS;
     }
@@ -120,7 +119,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         auto subcommand = commandArguments.getArgument("subcommand");
 
         auto options = null;
-        foreach (_commands as aKey : aValue) {
+        foreach (aKey, aValue, _commands) {
             string[] someParts = aKey.split(" ");
             if (someParts[0] != commandName) {
                 continue;
@@ -150,7 +149,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             }
         }
         options = array_unique(options);
-        aConsoleIo.out (join(" ", options));
+        aConsoleIo.out (options.join(" "));
 
         return static.CODE_SUCCESS;
     } */

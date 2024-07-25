@@ -381,9 +381,7 @@ class DHasManyAssociation : DAssociation {
             if (
                 count(exclusions) > 0) {
                 conditions = [
-                    "NOT": [
-                        "OR": exclusions,
-                    ],
+                    "NOT": ["OR": exclusions],
                     foreignKeyReference,
                 ];
             }
@@ -416,9 +414,8 @@ class DHasManyAssociation : DAssociation {
                                     myField
                                 .isString) {
                                     entry.setField(
-                                        targetTable
-                                        .aliasField(
-                                        myField));}
+                                        targetTable.aliasField(myField));
+                                    }
                                 }
                         });
                         myQuery = this.find()
@@ -426,7 +423,7 @@ class DHasManyAssociation : DAssociation {
                                 conditions);
                         ok = true;
                         foreach (
-                            myQuery as assoc) {
+                            assoc; myQuery) {
                             ok = ok && targetTable.remove(
                                 assoc, options);
                         }

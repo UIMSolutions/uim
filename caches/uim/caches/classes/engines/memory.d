@@ -330,7 +330,7 @@ override bool merge(Json[string] items, long timeToLive = 0) {
   string[] result;
   /* auto mygroups = mygroups.values;
     foreach (index, mygroup; configuration.get("groups")) {
-      result ~= mygroup ~ mygroups[index];
+      result ~= mygroup ~ mygroups.getString(index);
     } */
   return result;
 }

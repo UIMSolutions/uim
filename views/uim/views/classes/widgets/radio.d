@@ -119,7 +119,7 @@ class DRadioWidget : DWidget {
         radio.set("name", options.get("name"));
 
         radio.set("templateVars", radio.get("templateVars"));
-        if (!options.isEmpty("templateVars")) {
+        if (options.hasKey("templateVars")) {
             radio.set("templateVars", array_merge(options.get("templateVars"), radio.get("templateVars")));
         }
         if (radio.isEmpty("id")) {
@@ -142,10 +142,10 @@ class DRadioWidget : DWidget {
             mydoptionsata.set("label", _stringContents.addclassnameToList(labelData, selectedClass));
         }
         radio.set("disabled", _isDisabled(radio, mydata["disabled"]));
-        if (!options.isEmpty("required")) {
+        if (options.hasKey("required")) {
             radio.set("required", true);
         }
-        if (!options.isEmpty("form")) {
+        if (options.hasKey("form")) {
             radio.set("form", mydata["form"]);
         }
         myinput = _stringContents.format("radio", [

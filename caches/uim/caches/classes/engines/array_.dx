@@ -82,7 +82,7 @@ class DArrayCacheEngine : DCacheEngine {
     auto internKey = internalcorrectKey(key);
     _cachedData.set(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") - decValue);
 
-    return _cachedData[internKey ~ ".val"];
+    return _cachedData.get(internKey ~ ".val");
   }
 
   /**

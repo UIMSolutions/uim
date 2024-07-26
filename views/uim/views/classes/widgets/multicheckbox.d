@@ -14,26 +14,6 @@ class DMultiCheckboxWidget : DWidget {
     mixin(WidgetThis!("MultiCheckbox"));
     mixin TIdGenerator;
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        configuration
-            .setDefaults(["disabled", "val", "idPrefix"], Json(null))
-            .setDefaults("name", ""),
-            .setDefaults(["escape": true.toJson,
-            .setDefaults(["label": true.toJson,
-            .setDefaults(["options": Json.emptyArray,            
-            .setDefaults(["templateVars": Json.emptyArray,
-        ]);
-
-        return true;
-    }
-
-    // Label widget instance.
-    protected DLabelWidget _label;
-
     /**
      * Render multi-checkbox widget.
      *
@@ -47,10 +27,27 @@ class DMultiCheckboxWidget : DWidget {
      * - `multicheckboxWrapper` Renders a wrapper around grouped inputs.
      * - `multicheckboxTitle` Renders the title element for grouped inputs.
      */
-    this(DStringContents newTemplate, LabelWidget labelWidget) {
+    this(DStringContents newTemplate, DLabelWidget labelWidget) {
         super(newTemplate);
         _label = labelWidget;
     }
+
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        configuration
+            .setDefaults(["disabled", "val", "idPrefix"], Json(null))
+            .setDefaults("name", "")
+            .setDefaults(["escape", "label"], true)
+            .setDefaults(["options", "templateVars"], Json.emptyArray);
+
+        return true;
+    }
+
+    // Label widget instance.
+    protected DLabelWidget _label;
 
     /**
      * Render multi-checkbox widget.

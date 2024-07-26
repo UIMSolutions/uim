@@ -17,14 +17,12 @@ class DDateTimeWidget : DWidget {
         if (!super.initialize(initData)) {
             return false; 
             }
-            configuration.setDefaults([
-                "name": "".toJson,
-                "val": Json(null),
-                "type": Json("datetime-local"),
-                "escape": true.toJson,
-                "timezone": Json(null),
-                "templateVars": Json.emptyArray,
-            ]);
+            configuration
+                .setDefaults("name", "")
+                .setDefaults(["timezone", "val"], Json(null))
+                .setDefaults("type", "datetime-local")
+                .setDefaults("escape", true)
+                .setDefaults("templateVars", Json.emptyArray);
 
             _formatMap = [
                 "datetime-local": "Y-m-d\\TH:i:s",
@@ -38,13 +36,9 @@ class DDateTimeWidget : DWidget {
             * Step size for various input types.
             * If not set, defaults to browser default.
             */
-            _defaultStep = [
-                "datetime-local": Json("1"),
-                "date": Json(null),
-                "time": Json("1"),
-                "month": Json(null),
-                "week": Json(null),
-            ];
+            _defaultStep
+                .set(["datetime-local", "time"], "1")
+                .set(["date", "month", "week"], Json(null));
 
             return true;
     }

@@ -332,7 +332,7 @@ class DCache : UIMObject, ICache {
      * ```
      */
     static bool deleteMany(string[] someKeys, string configName = "default") {
-        // TODO return pool(configName).removeItems(someKeys);
+        // TODO return pool(configName).remove(someKeys);
         return false;
     }
 

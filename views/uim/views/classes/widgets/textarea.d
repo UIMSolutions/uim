@@ -18,13 +18,11 @@ class DTextareaWidget : DWidget {
             return false;
         }
 
-        configuration.setDefaults([
-            "val": "".toJson,
-            "name": "".toJson,
-            "escape": true.toJson,
-            "rows": Json(5),
-            "templateVars": Json.emptyArray,
-        ]);
+        configuration
+            .setDefaults(["val", "name"], "")            
+            .setDefaults("escape", true)
+            .setDefaults("rows", 5)
+            .setDefaults("templateVars", Json.emptyArray);
 
         return true;
     }
@@ -43,22 +41,19 @@ class DTextareaWidget : DWidget {
      * Json[string] mydata The data to build a textarea with.
      */
     string render(Json[string] renderData, IContext formContext) {
-        auto updatedData = renderData.merge(formContext.data);
+        renderData.merge(formContext.data);
 
         if (
             !array_key_hasKey("maxlength", mydata)
             && mydata.hasKey("fieldName")
             ) {
-            mydata = setMaxLength(mydata, formContext, mydata["fieldName"]);
+            mydata = setMaxLength(mydata, formContext, mydata.getString("fieldName"));
         }
         return _stringContents.format("textarea", [
-                "name": mydata.getString(],
-                "value": mydata["escape"] ? htmlAttributeEscape(mydata["val"]): mydata["val"],
-                "templateVars": mydata["templateVars"],
-                "attrs": _stringContents.formatAttributes(
-                    mydata,
-                    ["name", "val"]
-                ),
+                "name": mydata.getString,
+                "value": mydata["escape"] ? htmlAttributeEscape(mydata["val"]): mydata.get("val"),
+                "templateVars": mydata.get("templateVars"),
+                "attrs": _stringContents.formatAttributes(mydata, ["name", "val"]),
             ]);
     }
 }

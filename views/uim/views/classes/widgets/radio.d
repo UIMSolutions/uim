@@ -30,26 +30,18 @@ class DRadioWidget : DWidget {
             return false;
         }
 
-        // Data defaults.
-        configuration.setDefaults([
-            "name": StringData,
-            "options": Json.emptyArray,
-            "disabled": Json(null),
-            "val": Json(null),
-            "escape": true.toJson,
-            "label": true.toJson,
-            "empty": false.toJson,
-            "idPrefix": Json(null),
-            "templateVars": Json.emptyArray
-        ]);
+        configuration
+            .setDefaults("name", "")
+            .setDefaults(["options", "templateVars"], Json.emptyArray)
+            .setDefaults(["disabled", "val", "idPrefix"], Json(null))
+            .setDefaults(["escape", "label"], true)
+            .setDefaults("empty", false);
 
         return true;
     }
 
     // Label instance.
     protected DLabelWidget _label;
-
-
     
     /**
      * Render a set of radio buttons.

@@ -18,13 +18,10 @@ class DFileWidget : DWidget {
             return false;
         }
 
-        configuration.setDefaults([
-            // `name` - Set the input name.
-            "name": "".toJson,
-            // `escape` - Set to false to disable HTML escaping.
-            "escape": true.toJson,
-            "templateVars": Json.emptyArray,
-        ]);
+        configuration
+            .setDefaults("name", "") // `name` - Set the input name.
+            .setDefaults("escape", true) // `escape` - Set to false to disable HTML escaping.
+            .setDefaults("templateVars", Json.emptyArray);
 
         return true;
     }
@@ -39,12 +36,12 @@ class DFileWidget : DWidget {
      * ignored.
      */
     override string render(Json[string] renderData, IContext formContext) {
-        auto updatedData = renderData.merge(formContext.data);
-        updatedData.remove("val");
+        renderData.merge(formContext.data);
+        renderData.remove("val");
 
         /* return _stringContents.format("file", 
-            updatedData.data(["name", "templateVars"])
-                .setPath(["attrs": _stringContents.formatAttributes(updatedData, ["name"])]);  */
+            renderData.data(["name", "templateVars"])
+                .setPath(["attrs": _stringContents.formatAttributes(renderData, ["name"])]);  */
         return null; 
     }
 }

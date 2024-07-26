@@ -18,15 +18,12 @@ class DSelectBoxWidget : DWidget {
             return false;
         }
 
-        configuration.setDefaults([
-            "name": "".toJson,
-            "empty": false.toJson,
-            "escape": true.toJson,
-            "options": Json.emptyArray,
-            "disabled": Json(null),
-            "val": Json(null),
-            "templateVars": Json.emptyArray,
-        ]);
+        configuration
+            .setDefaults("name", "")
+            .setDefaults("empty", false)
+            .setDefaults("escape", true)
+            .setDefaults(["disabled", "val"], Json(null))
+            .setDefaults(["options", "templateVars"], Json.emptyArray);
 
         return true;
     }
@@ -102,11 +99,11 @@ class DSelectBoxWidget : DWidget {
      * nest complex types as required.
      */
     string render(Json[string] renderData, IContext formContext) {
-        auto updatedData = renderData.merge(formContext.data);
+        renderData.merge(formContext.data);
 
         options = _renderContent(renderData);
         auto nameData = renderData["name"];
-        renderData.removeItems("name", "options", "empty", "val", "escape");
+        renderData.remove("name", "options", "empty", "val", "escape");
         if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
             renderData.remove("disabled");
         }
@@ -144,7 +141,7 @@ class DSelectBoxWidget : DWidget {
         if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
             disabledOptions = renderData.get("disabled", null)];
         }
-        templateVariables = renderData["templateVars"];
+        auto templateVariables = renderData["templateVars"];
 
         return _renderOptions(options, disabledOptions, selectedValues, templateVariables, renderData["escape"]);
     }

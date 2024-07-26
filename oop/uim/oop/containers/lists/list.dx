@@ -128,16 +128,16 @@ class DList(T) : DContainer!T, IList  {
   }
 
   // Removes from this list all of its elements that are contained in the specified collection (optional operation).
-  override bool removeAll(DContainer!T removeItems) {
-    return removeAll(removeItems.toArray);
+  override bool removeAll(DContainer!T remove) {
+    return removeAll(remove.toArray);
   }
 
-  override bool removeAll(T[] removeItems...) {
-    return removeAll(removeItems.dup);
+  override bool removeAll(T[] remove...) {
+    return removeAll(remove.dup);
   }
 
-  override bool removeAll(T[] removeItems) {
-    return removeItems.all!(item => remove(myItem));
+  override bool removeAll(T[] remove) {
+    return remove.all!(item => remove(myItem));
   }
 
   // Removes all of the elements from this list.

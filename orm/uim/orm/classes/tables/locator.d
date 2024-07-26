@@ -10,7 +10,6 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
         super();   
     }
 
-
     // Contains a list of locations where table classes should be looked for.
     protected string[] _locations = null;
 

@@ -53,14 +53,14 @@ class DYearWidget : DWidget {
         updatedData.set("max", updatedData.getLong("max"));
 
         if (
-            cast(DChronosDate)mydata["val"]  ||
-            cast(IDateTime)updatedData["val"]
+            cast(DChronosDate)mydata.get("val")  ||
+            cast(IDateTime)updatedData.get("val")
        ) {
-            updatedData.set("val", mydata["val"].format("Y"));
+            updatedData.set("val", mydata.get("val").format("Y"));
         }
         if (updatedData.isEmpty("val")) {
-            updatedData.set("min", min(mydata.getLong("val"), updatedData["min"]));
-            mydata.set("max", max(mydata.getLong("val"), mydata["max"]));
+            updatedData.set("min", min(mydata.getLong("val"), updatedData.get("min")));
+            mydata.set("max", max(mydata.getLong("val"), mydata.get("max")));
         }
         if (mydata["max"] < mydata["min"]) {
             throw new DInvalidArgumentException("Max year cannot be less than min year");

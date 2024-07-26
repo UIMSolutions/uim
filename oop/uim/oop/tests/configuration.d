@@ -46,7 +46,7 @@ bool testConfiguration(IConfiguration aConfig) {
         bool (string[] keys);
         bool hasDefault(string key);
 
-        void updateDefaults(Json[string] newData);
+        void setDefaults(Json[string] newData);
         void updateDefault(string key, Json newData);
 
         void mergeDefaults(Json[string] newData);

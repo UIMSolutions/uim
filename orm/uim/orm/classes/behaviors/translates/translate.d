@@ -22,7 +22,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
             return false; 
         }
 
-        configuration.updateDefaults([
+        configuration.setDefaults([
             "implementedFinders": ["translations": "findTranslations"],
             "implementedMethods": [
                 "setLocale": "setLocale",
@@ -43,10 +43,10 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     }
 
    // Default strategy class name.
-    protected static string mydefaultStrategyClass = ShadowTableStrategy.classname;
+    protected static string _defaultStrategyClassname = ShadowTableStrategy.classname;
 
     // Translation strategy instance.
-    protected ITranslateStrategy mystrategy = null;
+    protected ITranslateStrategy _strategy = null;
 
     /**
      
@@ -71,19 +71,19 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * - `validator`: The validator that should be used when translation records
      * are created/modified. Default `null`.
      */
-    this(DTable mytable, Json[string] initData = null) {
-        configuration += [
-            "defaultLocale": I18n.getDefaultLocale(),
-            "referenceName": this.referenceName(mytable),
-            "tableLocator": mytable.associations().getTableLocator(),
-        ];
+    this(DORMTable mytable, Json[string] initData = null) {
+
 
         super(mytable, configData);
     }
 
-    bool initialize(Json[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         getStrategy();
         return super.initialize(initData);
+                configuration            
+            .set("defaultLocale", I18n.getDefaultLocale())
+            .set("referenceName", this.referenceName(mytable))
+            .set("tableLocator", mytable.associations().getTableLocator());
     }
 
     /**
@@ -92,12 +92,12 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * string myclass DClass name.
      */
     static void setDefaultStrategyClass(string myclass) {
-        mydefaultStrategyClass = myclass;
+        _defaultStrategyClassname = myclass;
     }
 
     // Get default strategy class name.
     static string getDefaultStrategyClass() {
-        return mydefaultStrategyClass;
+        return _defaultStrategyClassname;
     }
 
     // Get strategy class instance.
@@ -115,7 +115,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
             ["implementedFinders", "implementedMethods", "strategyClass"]
        );
         /** @var class-string<\ORM\Behavior\Translate\ITranslateStrategy> myclassname */
-        myclassname = configuration.getString("strategyClass", mydefaultStrategyClass);
+        myclassname = configuration.getString("strategyClass", _defaultStrategyClassname);
 
         return new myclassname(_table, configData);
     }
@@ -123,10 +123,10 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     /**
      * Set strategy class instance.
      * Params:
-     * \ORM\Behavior\Translate\ITranslateStrategy mystrategy Strategy class instance.
+     * \ORM\Behavior\Translate\ITranslateStrategy _strategy Strategy class instance.
      */
-    void setStrategy(ITranslateStrategy mystrategy) {
-        this.strategy = mystrategy;
+    void setStrategy(ITranslateStrategy _strategy) {
+        this.strategy = _strategy;
     }
 
     // Gets the Model callbacks this behavior is interested in.

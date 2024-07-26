@@ -33,7 +33,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        configuration.updateDefaults([
+        configuration.setDefaults([
             "fields": Json.emptyArray,
             "defaultLocale": Json(null),
             "referencename": "".toJson,

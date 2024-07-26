@@ -24,7 +24,7 @@ class DTimestampBehavior : DBehavior {
      * and call setTimestamp() on the behavior class before use.
      *
      */
-    protected Json[string] configuration.updateDefaults([
+    protected Json[string] configuration.setDefaults([
         "implementedFinders": Json.emptyArray,
         "implementedMethods": [
             "timestamp": "timestamp",

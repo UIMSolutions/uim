@@ -7,7 +7,7 @@ import uim.orm;
 class DDeleteQuery : DQuery {
     mixin TCommonQuery();
 
-    this(DTable mytable) {
+    this(DORMTable mytable) {
         super(table.getConnection());
 
         setRepository(table);

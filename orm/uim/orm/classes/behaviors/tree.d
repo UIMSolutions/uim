@@ -23,7 +23,7 @@ class DTreeBehavior : DBehavior {
 
     /* 
     override bool initialize(Json[string] myConfiguration) {
-        configuration.updateDefaults([
+        configuration.setDefaults([
         "implementedFinders": [
             "path": "findPath",
             "children": "findChildren",

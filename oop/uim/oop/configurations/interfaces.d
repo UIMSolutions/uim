@@ -18,7 +18,7 @@ interface IConfiguration : INamed {
         bool hasDefault(string key);
         Json getDefault(string key);
 
-        bool updateDefaults(Json[string] items);
+        bool setDefaults(Json[string] items);
         bool updateDefault(string key, Json items);
 
         bool mergeDefaults(Json[string] items);

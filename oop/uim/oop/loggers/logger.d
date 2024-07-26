@@ -12,7 +12,7 @@ class DLogger : UIMObject, ILogger {
             return false;
         }
 
-        configuration.updateDefaults([
+        configuration.setDefaults([
             "levels": Json.emptyArray,
             "scopes": Json.emptyArray,
             "formatter": StandardLogFormatter.classname.toJson

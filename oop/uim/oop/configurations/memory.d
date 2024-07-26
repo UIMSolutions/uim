@@ -35,7 +35,7 @@ class DMemoryConfiguration : DConfiguration {
         return (key in _defaultData) ? _defaultData[key] : Json(null);
     }
 
-    override bool updateDefaults(Json[string] newDefaults) {
+    override bool setDefaults(Json[string] newDefaults) {
         return newDefaults.byKeyValue
             .all!(kv => updateDefault(kv.key, kv.value));
     }

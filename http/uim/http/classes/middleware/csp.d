@@ -44,7 +44,7 @@ class DCspMiddleware { // }: IHttpMiddleware {
     protected ICSPBuilder csp;
 
     // Configuration options.
-    configuration.updateDefaults([
+    configuration.setDefaults([
         "scriptNonce": false.toJson,
         "styleNonce": false.toJson,
     ];

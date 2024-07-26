@@ -66,7 +66,7 @@ class DExceptionTrap {
      *  encountered. This allows breathing room to complete logging or error handling.
      * - `stderr` Used in console environments so that renderers have access to the current console output stream.
      */
-    configuration.updateDefaults([
+    configuration.setDefaults([
         "exceptionRenderer": Json(null),
         "logger": ErrorLogger.classname,
         "stderr": Json(null),

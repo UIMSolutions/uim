@@ -53,7 +53,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      *  which returns a uim.errorss.IExceptionRenderer instance.
      *  Defaults to uim.errorss.ExceptionRenderer
      */
-    configuration.updateDefaults([
+    configuration.setDefaults([
         "skipLog": Json.emptyArray,
         "log": true.toJson,
         "trace": false.toJson,

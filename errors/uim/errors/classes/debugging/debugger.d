@@ -32,7 +32,7 @@ class DDebugger {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        configuration.updateDefaults([
+        configuration.setDefaults([
             "outputMask": Json.emptyArray,
             "exportFormatter": Json(null),
             "editor": Json("Dstorm")

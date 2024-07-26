@@ -92,7 +92,7 @@ class DClient { // }: IClient {
     configuration(MemoryConfiguration);
     configuration.data(initData);
 
-    configuration.updateDefaults([
+    configuration.setDefaults([
       "auth": Json(null),
       "adapter": Json(null),
       "host": Json(null),

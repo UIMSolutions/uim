@@ -28,7 +28,7 @@ class DDebugger : UIMObject {
             return false;
         }
 
-        configuration.updateDefaults([
+        configuration.setDefaults([
             "outputMask": Json.emptyArray,
             "exportFormatter": Json(null),
             "editor": Json("Dstorm"),

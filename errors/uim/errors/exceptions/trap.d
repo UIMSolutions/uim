@@ -77,7 +77,7 @@ class DExceptionTrap {
     }
 
   bool initialize(Json[string] initData = null) {
-    configuration.updateDefaults([
+    configuration.setDefaults([
       "exceptionRenderer": Json(null),
       "logger": Json(ErrorLogger.classname),
       "stderr": Json(null),

@@ -12,7 +12,7 @@ class UrlHelper : DHelper {
     protected string _assetUrlclassname;
 
     /* 
-    configuration.updateDefaults([
+    configuration.setDefaults([
         "assetUrlclassname": Asset.classname,
     ];
 

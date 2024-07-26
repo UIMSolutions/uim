@@ -100,7 +100,7 @@ class DFormHelper : DHelper {
                 "requiredClass": `required`,
             ].toJson;
 
-        configuration.updateDefaults([
+        configuration.setDefaults([
             "idPrefix": Json(null),
             "errorClass": Json("form-error"),
             "typeMap": typeMap,

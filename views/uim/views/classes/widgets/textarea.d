@@ -18,7 +18,7 @@ class DTextareaWidget : DWidget {
             return false;
         }
 
-        configuration.updateDefaults([
+        configuration.setDefaults([
             "val": "".toJson,
             "name": "".toJson,
             "escape": true.toJson,

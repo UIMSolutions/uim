@@ -14,7 +14,7 @@ class DTimeHelper : DHelper {
     mixin TStringContents;
 
     /* 
-    configuration.updateDefaults([
+    configuration.setDefaults([
                 "outputTimezone": Json(null),
     ];
 

@@ -19,7 +19,7 @@ class DBreadcrumbsHelper : DHelper {
     protected string[] _helpers = ["Url"];
 
     // Default config for the helper.
-    configuration.updateDefaults([
+    configuration.setDefaults([
         "templates": [
             "wrapper": "<ul{{attrs}}>{{content}}</ul>",
             "item": "<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>{{separator}}",

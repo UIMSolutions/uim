@@ -31,7 +31,7 @@ class DRadioWidget : DWidget {
         }
 
         // Data defaults.
-        configuration.updateDefaults([
+        configuration.setDefaults([
             "name": StringData,
             "options": Json.emptyArray,
             "disabled": Json(null),

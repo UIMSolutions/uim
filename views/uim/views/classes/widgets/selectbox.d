@@ -18,7 +18,7 @@ class DSelectBoxWidget : DWidget {
             return false;
         }
 
-        configuration.updateDefaults([
+        configuration.setDefaults([
             "name": "".toJson,
             "empty": false.toJson,
             "escape": true.toJson,

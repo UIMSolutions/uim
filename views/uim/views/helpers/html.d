@@ -23,7 +23,7 @@ class DHtmlHelper : DHelper {
       return false;
     }
 
-    configuration.updateDefaults([
+    configuration.setDefaults([
         "templates": [
             "meta": "<meta{{attrs}}>",
             "metalink": "<link href=\"{{url}}\"{{attrs}}>",

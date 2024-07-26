@@ -45,7 +45,7 @@ class DPaginatorHelper : DHelper {
      * Templates: the templates used by this class
      *
      */
-    configuration.updateDefaults([
+    configuration.setDefaults([
             "params": Json.emptyArray,
             "options": Json.emptyArray,
             "templates": [

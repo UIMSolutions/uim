@@ -18,7 +18,7 @@ class DFileWidget : DWidget {
             return false;
         }
 
-        configuration.updateDefaults([
+        configuration.setDefaults([
             // `name` - Set the input name.
             "name": "".toJson,
             // `escape` - Set to false to disable HTML escaping.

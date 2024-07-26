@@ -95,9 +95,8 @@ import uim.orm;
  * - `afterremove(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `afterDeleteCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  */
-class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorAware {
+class DORMTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
-    mixin TConfigurable;
     mixin TConventions;
     mixin TLocatorAware;
     mixin TRulesAware;
@@ -116,9 +115,10 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         this.name(newName);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         /**
         * Initializes a new instance
@@ -136,42 +136,51 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         * validation set, or an associative array, where key is the name of the
         * validation set and value the Validator instance. */
 
-        if (!configuration.isEmpty("registryAlias"))) {
+        if (!configuration.isEmpty("registryAlias")) {
             this.registryKey(configuration.get("registryAlias"));
         }
 
         // table: Name of the database table to represent
-        if (!igData.isEmpty("table"))) {
+        if (configuration.hasKey("table")) {
             setTable(configuration.get("table"));
         }
-        if (!configuration.isEmpty("alias"))) {
+        if (configuration.hasKey("alias")) {
             aliasName(configuration.get("alias"));
         }
-        if (!configuration.isEmpty("connection"))) {
+        if (configuration.hasKey("connection")) {
             setConnection(configuration.get("connection"));
         }
-        if (!configuration.isEmpty("queryFactory"))) {
-            this.queryFactory = configuration.get("queryFactory");
+        if (configuration.hasKey("queryFactory"))) {
+            _queryFactory = configuration.get("queryFactory");
         }
 
-        // schema: A \UIM\Database\Schema\TableISchema object or an array that can be passed to it.
-        if (!configuration.isEmpty("schema"))) {
+        if (configuration.hasKey("schema")) {
             setSchema(configuration.get("schema"));
         }
-        if (!configuration.isEmpty("entityClass")) {
+        if (configuration.hasKey("entityClass")) {
             setEntityClass(configuration.get("entityClass"));
         }
-        myeventManager = mybehaviors = myassociations = null;
-        if (!configuration.isEmpty("eventManager")) {
-            myeventManager = configuration.get("eventManager");
+
+        auto eventManager = null;
+        auto mybehaviors = null;
+        auto myassociations = null;
+        if (configuration.hasKey("eventManager")) {
+            eventManager = configuration.get("eventManager");
         }
-        if (!configuration.isEmpty("behaviors")) {
+        _eventManager = eventManager.ifNull(new DEventManager());
+
+        if (configuration.hasKey("behaviors")) {
             mybehaviors = configuration.get("behaviors");
         }
-        if (!configuration.isEmpty("associations")) {
+        _behaviors = mybehaviors.ifNull(new BehaviorRegistry());
+        _behaviors.setTable(this);
+
+        if (configuration.hasKey("associations")) {
             myassociations = configuration.get("associations");
         }
-        if (!configuration.isEmpty("validator")) {
+        _associations = myassociations.ifNull(new AssociationCollection());
+
+        if (configuration.hasKey("validator")) {
             if (!isArray(configuration.get("validator"))) {
                 setValidator(DEFAULT_VALIDATOR, configuration.get("validator"));
             } else {
@@ -180,13 +189,8 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
                             .value));
             }
         }
-        _eventManager = myeventManager.ifNull(new DEventManager());
-        _behaviors = mybehaviors.ifNull(new BehaviorRegistry());
-        _behaviors.setTable(this);
-        _associations = myassociations.ifNull(new AssociationCollection());
-        /** @psalm-suppress TypeDoesNotContainType */
-        queryFactory = queryFactory.ifNull(new DQueryFactory());
 
+        _queryFactory = _queryFactory.ifNull(new DQueryFactory());
         assert(_eventManager !is null, "EventManager not available");
 
         _eventManager.on(this);
@@ -194,9 +198,6 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
 
         return true;
     }
-
-    // Name given to the association, it usually represents the alias assigned to the target associated table
-    mixin(TProperty!("string", "name"));
 
     // Name of default validation set.
     const string DEFAULT_VALIDATOR = "default";
@@ -611,16 +612,12 @@ class DTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorA
         return _behaviors;
     }
     
-    /**
-     * Get a behavior from the registry.
-     * Params:
-     * string myname The behavior alias to get from the registry.
-     */
+    // Get a behavior from the registry.
     DArrayAttributeBehavior getBehavior(string behaviorAlias) {
         if (!_behaviors.has(behaviorAlias)) {
             throw new DInvalidArgumentException(
                 "The `%s` behavior is not defined on `%s`."
-                .format(behaviorAlias, class)
+                .format(behaviorAlias, this.classname)
            );
         }
 

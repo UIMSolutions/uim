@@ -5,9 +5,12 @@ import uim.orm;
 @safe:
 
 // Provides a default registry/factory for Table objects.
-class DTableLocator { // TODO }: DAbstractLocator : ILocator {
-    this() {        
+class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
+    this() {     
+        super();   
     }
+
+
     // Contains a list of locations where table classes should be looked for.
     protected string[] _locations = null;
 
@@ -15,25 +18,21 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     protected bool _allowFallbackClass = true;
 
     // Instances that belong to the registry.
-    protected DTable[string] _instances = null;
+    protected DORMTable[string] _instances = null;
 
     /**
      * Contains a list of Table objects that were created out of the
      * built-in Table class. The list is indexed by table alias */
-    protected DTable[] _fallbacked = null;
+    protected DORMTable[] _fallbacked = null;
 
     // Fallback class to use
-    protected string _fallbackclassname = (new DTable).classname;
+    protected string _fallbackclassname = (new DORMTable).classname;
+
     // Set fallback class name.
     void setFallbackclassname(string fallbackclassname) {
         _fallbackclassname = fallbackclassname;
     }
 
-    /**
-     * Configuration for aliases.
-     *
-     * @var array<string, array|null>
-     */
     protected Json[string] configuration = null;
 
     protected IQueryFactory myqueryFactory;

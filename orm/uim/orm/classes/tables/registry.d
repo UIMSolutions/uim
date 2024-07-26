@@ -36,7 +36,7 @@ import uim.orm;
  * mytable = TableRegistry.getTableLocator().get("Users", configData);
  * ```
  */
-class DTableRegistry : DObjectRegistry!DTable {
+class DTableRegistry : DObjectRegistry!DORMTable {
     /* 
     // Returns a singleton instance of ILocator implementation.
     static ILocator getTableLocator() {

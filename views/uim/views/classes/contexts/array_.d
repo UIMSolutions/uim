@@ -65,7 +65,7 @@ class DArrayContext : DContext {
             return false;
         }
         
-        configuration.updateDefaults([
+        configuration.setDefaults([
             "data": Json.emptyObject,
             "schema": Json.emptyObject,
             "required": Json.emptyObject,

@@ -19,15 +19,13 @@ class DMultiCheckboxWidget : DWidget {
             return false;
         }
 
-        configuration.updateDefaults([
-            "name": "".toJson,
-            "escape": true.toJson,
-            "options": Json.emptyArray,
-            "disabled": Json(null),
-            "val": Json(null),
-            "idPrefix": Json(null),
-            "templateVars": Json.emptyArray,
-            "label": true.toJson,
+        configuration
+            .setDefaults(["disabled", "val", "idPrefix"], Json(null))
+            .setDefaults("name", ""),
+            .setDefaults(["escape": true.toJson,
+            .setDefaults(["label": true.toJson,
+            .setDefaults(["options": Json.emptyArray,            
+            .setDefaults(["templateVars": Json.emptyArray,
         ]);
 
         return true;

@@ -17,7 +17,7 @@ class DDateTimeWidget : DWidget {
         if (!super.initialize(initData)) {
             return false; 
             }
-            configuration.updateDefaults([
+            configuration.setDefaults([
                 "name": "".toJson,
                 "val": Json(null),
                 "type": Json("datetime-local"),

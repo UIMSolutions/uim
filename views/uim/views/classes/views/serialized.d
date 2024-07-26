@@ -14,7 +14,7 @@ class DSerializedView : DView {
         }
 
         // `serialize` : Option to convert a set of view variables into a serialized response.
-        configuration.updateDefaults([
+        configuration.setDefaults([
             "serialize": Json.emptyArray // string[]
         ]);
 

@@ -13,7 +13,7 @@ import uim.logging;
  */
 class DArrayLogger : DLogger { 
     /*
-    configuration.updateDefaults([
+    configuration.setDefaults([
         "levels": Json.emptyArray,
         "scopes": Json.emptyArray,
         "formatter": [

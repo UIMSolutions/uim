@@ -6,7 +6,7 @@ import uim.logging;
 
 // Console logging. Writes logs to console output.
 class DConsoleLogger : DLogger { 
-    /* configuration.updateDefaults([
+    /* configuration.setDefaults([
         "stream": "D://stderr",
         "levels": Json(null),
         "scopes": Json.emptyArray,

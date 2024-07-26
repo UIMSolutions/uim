@@ -33,7 +33,7 @@ class DSysLogger : DLogger {
      * ```
      *
      */
-    configuration.updateDefaults([
+    configuration.setDefaults([
         "levels": Json.emptyArray,
         "scopes": Json.emptyArray,
         "flag": LOG_ODELAY.toJson,

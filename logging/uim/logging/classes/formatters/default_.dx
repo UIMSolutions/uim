@@ -6,7 +6,7 @@ class StandardLogFormatter : DAbstractFormatter {
   	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
     
-        donfiguration.updateDefaults([
+        donfiguration.setDefaults([
             "dateFormat": "Y-m-d H:i:s",
             "includeTags": false.toJson,
             "includeDate": true.toJson,

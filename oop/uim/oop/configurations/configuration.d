@@ -45,7 +45,7 @@ abstract class DConfiguration : IConfiguration {
     abstract bool hasDefault(string key);
     abstract Json getDefault(string key);
 
-    override bool updateDefaults(Json[string] newData) {
+    override bool setDefaults(Json[string] newData) {
         return newData.byKeyValue
             .all!(kv => updateDefault(kv.key, kv.value));
     }

@@ -125,7 +125,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     // Gets a translator from the registry by catalog for a locale.
     protected ITranslator _getTranslator(string catalogName, string localName) {
         if (_catalogLocator.has(catalogName, localName)) {
-            return createInstance(catalogName, localname);
+            return createInstance(catalogName, localName);
         }
 
        /* ICatalog catalog = _loaders.hasKey(catalogName)
@@ -135,7 +135,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         catalog = setFallbackPackage(catalogName, catalog);
         _catalogLocator.set(catalogName, localname, catalog); */ 
 
-        return createInstance(catalogName, localname);
+        return createInstance(catalogName, localName);
     }
     
     // Create translator instance.
@@ -200,9 +200,9 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     // Set domain fallback for loader.
     ICatalog setLoaderFallback(string catalogName, ILoader loader) {
         string fallbackDomain = "default";
-        if (!_useFallback || catalogName == fallbackDomain) {
+        /* if (!_useFallback || catalogName == fallbackDomain) {
             return loader;
-        }
+        } */
         /* return ICatalog () use (loader, fallbackDomain) {
             ICatalog catalog = loader.catalog();
             if (!catalog.fallback) {

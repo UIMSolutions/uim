@@ -447,7 +447,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
             "before": " - ",
             "after": Json(null),
         ];
-        auto updatedOptions = options.updatedefaults;
+        auto updatedOptions = options.setDefaults;
         auto anGroup = options.get("group");
         auto regex = null;
         if (isString(regexFilter)) {

@@ -51,7 +51,7 @@ class DFileLogger : DLogger {
      * - `dirMask` The mask used for created folders.
      *
      */
-    configuration.updateDefaults([
+    configuration.setDefaults([
         "path": Json(null),
         "file": Json(null),
         "types": Json(null),

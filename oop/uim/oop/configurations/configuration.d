@@ -45,20 +45,72 @@ abstract class DConfiguration : IConfiguration {
     abstract bool hasDefault(string key);
     abstract Json getDefault(string key);
 
-    override bool setDefaults(Json[string] newData) {
-        return newData.byKeyValue
-            .all!(kv => updateDefault(kv.key, kv.value));
+    // #region setDefaults
+    IConfiguration setDefaults(T)(T[string] items) {
+        items.byKeyValue.each!(item => setDefault(item.key, item.value));
+        return this;
     }
 
-    abstract bool updateDefault(string key, Json newValue);
-
-    override bool mergeDefaults(Json[string] newData) {
-        return newData.byKeyValue
-            .all!(kv => mergeDefault(kv.key, kv.value));
+    IConfiguration setDefaults(T)(string[] keys, T value) {
+        keys.each!(item => setDefault(item.key, item.value));
+        return this;
     }
 
-    abstract bool mergeDefault(string key, Json newValue);
-    // #endregion defaultData
+    IConfiguration setDefault(T)(string key, T value) {
+        setDefault(key, Json(value));
+        return this;
+    }
+
+    abstract IConfiguration setDefault(string key, Json value);
+    // #endregion setDefaults
+
+    // #region updateDefault
+    IConfiguration updateDefaults(T)(T[string] items) {
+        items.byKeyValue.each!(item => updateDefault(item.key, item.value));
+        return this;
+    }
+
+    IConfiguration updateDefaults(T)(string[] keys, T value) {
+        keys.each!(item => updateDefault(item.key, item.value));
+        return this;
+    }
+
+    IConfiguration updateDefaults(T)(string key, T value) {
+        updateDefault(key, Json(value));
+        return this;
+    }
+
+    IConfiguration updateDefault(string key, Json value) {
+        if (hasKey(key)) {
+            setDefault(key, value);
+        }
+        return this;
+    }
+    // #endregion updateDefault
+
+    // #region mergeDefault
+    IConfiguration mergeDefaults(T)(T[string] items) {
+        items.byKeyValue.each!(item => mergeDefault(item.key, item.value));
+        return this;
+    }
+
+    IConfiguration mergeDefaults(T)(string[] keys, T value) {
+        keys.each!(item => mergeDefault(item.key, item.value));
+        return this;
+    }
+
+    IConfiguration mergeDefaults(T)(string key, T value) {
+        mergeDefault(key, Json(value));
+        return this;
+    }
+
+    IConfiguration mergeDefault(string key, Json value) {
+        if (!hasKey(key)) {
+            setDefault(key, value);
+        }
+        return this;
+    }
+    // #endregion mergeDefault
 
     // #region data
     abstract Json[string] data();
@@ -178,9 +230,8 @@ abstract class DConfiguration : IConfiguration {
 
     IConfiguration set(Json[string] newData, string[] keys = null) {
         keys.isNull
-            ? keys.each!(key => set(key, newData[key]))
-            : keys.filter!(key => key in newData)
-                .each!(key => set(key, newData[key]));
+            ? keys.each!(key => set(key, newData[key])) : keys.filter!(key => key in newData)
+            .each!(key => set(key, newData[key]));
 
         return this;
     }
@@ -229,10 +280,9 @@ abstract class DConfiguration : IConfiguration {
     // #region update
     IConfiguration update(Json[string] newItems, string[] includedKeys = null) {
         includedKeys.isNull
-            ? newItems.byKeyValue.each!(item => update(item.key, item.value)) 
-            : newItems.byKeyValue
-                .filter!(item => includedKeys.has(item.key))
-                .each!(item => update(item.key, item.value));
+            ? newItems.byKeyValue.each!(item => update(item.key, item.value)) : newItems.byKeyValue
+            .filter!(item => includedKeys.has(item.key))
+            .each!(item => update(item.key, item.value));
 
         return this;
     }
@@ -240,57 +290,56 @@ abstract class DConfiguration : IConfiguration {
     IConfiguration update(T)(string key, T newValue) {
         return update(key, Json(T));
     }
+
     abstract IConfiguration update(string key, Json newValue);
     // #region update
 
     // #region merge
     IConfiguration merge(Json[string] items, string[] includedKeys = null) {
         includedKeys.isNull
-            ? items.byKeyValue.each!(item => merge(item.key, item.value)) 
-            : items.byKeyValue
-                .filter!(item => includedKeys.has(item.key))
-                .each!(item => merge(item.key, item.value));
+            ? items.byKeyValue.each!(item => merge(item.key, item.value)) : items.byKeyValue
+            .filter!(item => includedKeys.has(item.key))
+            .each!(item => merge(item.key, item.value));
 
         return this;
     }
-    
+
     IConfiguration merge(T)(string key, T newValue) {
         return merge(key, Json(T));
     }
+
     abstract IConfiguration merge(string key, Json newValue);
     // #endregion merge
 
     // #region remove - clear
-        IConfiguration clear() {
-            remove(keys);
-            return this;
-        }
+    IConfiguration clear() {
+        remove(keys);
+        return this;
+    }
 
-        IConfiguration remove(Json json) {
-            if (json.isObject) {
-                json.byKeyValue.each!(kv => remove(kv.key));
+    IConfiguration remove(Json json) {
+        if (json.isObject) {
+            json.byKeyValue.each!(kv => remove(kv.key));
+        } else if (json.isArray) {
+            foreach (value; json.get!(Json[])) {
+                remove(value.getString);
             }
-            else if (json.isArray) {
-                foreach(value; json.get!(Json[])) {
-                    remove(value.getString);
-                }
-            }
-            else if (json.isString) {
-                remove(json.getString);
-            }
-            return this;
+        } else if (json.isString) {
+            remove(json.getString);
         }
+        return this;
+    }
 
-        IConfiguration remove(Json[string] items) {
-            remove(items.keys);
-            return this;
-        }
+    IConfiguration remove(Json[string] items) {
+        remove(items.keys);
+        return this;
+    }
 
-        IConfiguration remove(string[] keys...) {
-            remove(keys.dup);
-            return this;
-        }
+    IConfiguration remove(string[] keys...) {
+        remove(keys.dup);
+        return this;
+    }
 
-        abstract IConfiguration remove(string[] keys);
+    abstract IConfiguration remove(string[] keys);
     // #region remove - clear
 }

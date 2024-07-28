@@ -38,22 +38,16 @@ class DMemoryCacheEngine : DCacheEngine {
      *  appropriate serializer support.
      *  Use the \Memory.OPT_* constants as keys.
      */
-    configuration.setDefault([
-      "compress": false.toJson,
-      "duration": 3600.toJson,
-      "groups": Json.emptyArray,
-      "host": Json(null),
-      "username": "".toJson,
-      "password": Json(null),
-      "persistent": Json(null),
-      "port": Json(null),
-      "prefix": Json("uim_"),
-      "serialize": Json("d"),
-      // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
-      "servers": ["127.0.0.1"].toJson,
-      // `options` - Additional options for the memcached client. Should be an array of option: value.
-      "options": Json.emptyArray,
-    ]);
+    configuration
+      .setDefault("compress", false)
+      .setDefault("duration", 3600)
+      .setDefault("username", "")
+      .setDefault(["host", "password", "persistent", "port"], Json(null))
+      .setDefault("prefix", "uim_")
+      .setDefault("serialize", "d")
+      .setDefault("servers", ["127.0.0.1"]) // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
+      .setDefault("groups", Json.emptyArray)
+      .setDefault("options", Json.emptyArray); // `options` - Additional options for the memcached client. Should be an array of option: value.
 
     return true;
   }

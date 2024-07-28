@@ -29,7 +29,7 @@ class DWidgetLocator {
     // Array of widgets + widget configuration.
     protected Json[string] _widgets = null;
      
-    this(DStringContents newTemplate, DView newView, Json[string] widgets= null) {
+    this(DStringContents newTemplate, DView newView, Json[string] widgets = null) {
        _stringContents = newTemplate;
        _view = newView;
 
@@ -65,13 +65,11 @@ class DWidgetLocator {
      * The above shows how to define widgets as instances or as
      * descriptions including dependencies. Classes can be defined
      * with plugin notation, or fully namespaced class names.
-     * Params:
-     * array mywidgets Array of widgets to use.
      */
-    void add(Json[string] mywidgets) {
-        auto myfiles = null;
+    void add(Json[string] newWidgets) {
+        Json[] myfiles = null;
 
-        foreach (aKey: mywidget; mywidgets) {
+        foreach (aKey, mywidget; newWidgets) {
             if (isInteger(aKey)) {
                 myfiles ~= mywidget;
                 continue;

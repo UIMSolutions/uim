@@ -35,29 +35,10 @@ class DMemoryConfiguration : DConfiguration {
         return (key in _defaultData) ? _defaultData[key] : Json(null);
     }
 
-    override bool setDefaults(Json[string] newDefaults) {
-        return newDefaults.byKeyValue
-            .all!(kv => updateDefault(kv.key, kv.value));
-    }
-
-    override bool updateDefault(string key, Json value) {
+    override IConfiguration setDefault(string key, Json value) {
         _defaultData[key] = value;
-        return true;
+        return this;
     }
-
-    override bool mergeDefaults(Json[string] newData) {
-        return newData.byKeyValue
-            .all!(kv => mergeDefault(kv.key, kv.value));
-    }
-
-    override bool mergeDefault(string key, Json value) {
-        if (!hasDefault(key)) {
-            _defaultData[key] = value;
-            return true;
-        }
-        return false;
-    }
-    // #endregion defaultData
 
     // #region data
     // Set and get data

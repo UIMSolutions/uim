@@ -40,11 +40,11 @@ import uim.views;
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
 class DView : UIMObject, IView { //  }: IEventDispatcher {
+    mixin(ViewThis!(""));
+
     // @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
     mixin TEventDispatcher;
     mixin TLog;
-
-    mixin(ViewThis!(""));
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -191,11 +191,6 @@ static string contentType() {
     protected DHelperRegistry _helpers = null;
 
 */ 
-
-
- 
-
-
 
     // List of variables to collect from the associated controller.
     protected string[] _passedVars = [
@@ -362,20 +357,14 @@ static string contentType() {
         _theme = themeName;
     }
 
-    /**
-     * Get the name of the template file to render. The name specified is the
-     * filename in `templates/<SubFolder>/` without the .d extension.
-     */
-    string getTemplate() {
-        return _template;
+    // Get the name of the template file to render.
+    string templateFilename() {
+        return _templateFilename;
     }
 
-    /**
-     * Set the name of the template file to render. The name specified is the
-     * filename in `templates/<SubFolder>/` without the .d extension.
-     */
-    void setTemplate(string views) {
-        _template = views;
+    // Set the name of the template file to render.
+    void templateFilename(string views) {
+        _templateFilename = views;
     }
 
     /**
@@ -855,7 +844,7 @@ static string contentType() {
                 mysubDir = "";
             }
         }
-        views = views ? views : _template;
+        views = views ? views : _templateFilename;
 
         if (views.isEmpty) {
             throw new DException("Template name not provided");
@@ -876,7 +865,7 @@ static string contentType() {
         }
         views ~= _ext;
         paths = _paths(_plugin);
-        foreach (paths as path) {
+        foreach (path; paths) {
             if (isFile(path ~ views)) {
                 return _checkFilePath(path ~ views, path);
             }
@@ -1064,7 +1053,7 @@ static string contentType() {
     
     // Generate the cache configuration options for an element.
     protected Json[string] _elementCache(string elementName, Json[string] data, Json[string] options = null) {
-        if (options.hasKey("cache.key"), options.get("cache.config"]) {
+        if (options.hasKey("cache.key"), options.get("cache.config")) {
             /** @psalm-var array{key:string, config:string} mycache */
             auto mycache = options.get("cache");
             mycache.set("key", "element_" ~ mycache.getString("key"));

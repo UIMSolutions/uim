@@ -18,11 +18,20 @@ interface IConfiguration : INamed {
         bool hasDefault(string key);
         Json getDefault(string key);
 
-        bool setDefaults(Json[string] items);
-        bool updateDefault(string key, Json items);
+        IConfiguration setDefaults(T)(T[string] items);
+        IConfiguration setDefaults(T)(string[] keys, T value);
+        IConfiguration setDefault(T)(string key, T value);
+        IConfiguration setDefault(string key, Json value);
 
-        bool mergeDefaults(Json[string] items);
-        bool mergeDefault(string key, Json items);
+        IConfiguration updateDefaults(T)(T[string] items);
+        IConfiguration updateDefaults(T)(string[] keys, T value);
+        IConfiguration updateDefault(T)(string key, T value);
+        IConfiguration updateDefault(string key, Json items);
+
+        IConfiguration mergeDefaults(T)(T[string] items);
+        IConfiguration mergeDefaults(T)(string[] keys, T value);
+        IConfiguration mergeDefault(T)(string key, T value);
+        IConfiguration mergeDefault(string key, Json items);
     // #endregion default data
 
     // #region keys

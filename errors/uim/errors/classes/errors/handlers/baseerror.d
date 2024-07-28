@@ -35,7 +35,7 @@ abstract class DERRErrorHandler {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        configuration.updateDefaults([
+        configuration.setDefault([
             "log": true.toJson,
             "trace": false.toJson,
             "skipLog": Json.emptyArray,

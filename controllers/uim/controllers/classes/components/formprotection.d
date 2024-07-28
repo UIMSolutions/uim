@@ -34,14 +34,11 @@ class DFormProtectionComponent : DComponent {
         * failure. Must be a valid Closure. Unset by default in which case
         * exception is thrown on validation failure.
         */
-        configuration.setDefault([
-            // `validate` - Whether to validate request body / data. Set to false to disable
-            // for data coming from 3rd party services, etc.
-            "validate": true.toJson,
-            "unlockedFields": Json.emptyArray,
-            "unlockedActions": Json.emptyArray,
-            "validationFailureCallback": Json(null),
-        ]);
+        configuration[
+            .setDefault("validate", true.toJson, // `validate` - Whether to validate request body / data. Set to false to disable for data coming from 3rd party services, etc.
+           .setDefault("unlockedFields", Json.emptyArray)
+           .setDefault("unlockedActions", Json.emptyArray)
+           .setDefault( "validationFailureCallback", Json(null));
 
         return true;
     }

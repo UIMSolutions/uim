@@ -35,11 +35,11 @@ abstract class DERRErrorHandler {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        configuration.setDefault([
-            "log": true.toJson,
-            "trace": false.toJson,
-            "skipLog": Json.emptyArray,
-            "errorLogger": Json(ErrorLogger.classname)
+        configuration.[
+            .setDefault("log", true)
+            .setDefault("trace", false)
+            .setDefault("skipLog", Json.emptyArray)
+            .setDefault("errorLogger", ErrorLogger.classname)
         ]);
 
         return true;

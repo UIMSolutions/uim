@@ -40,13 +40,12 @@ class DErrorTrap {
         * - `logger` - string - The class name of the error logger to use.
         * - `trace` - boolean - Whether or not backtraces should be included in logged errors.
         */
-        configuration.setDefaults([
+        configuration
             // TODOD "errorLevel": E_ALL,
-            "errorRenderer": Json(null),
-            "log": true.toJson,
+            .setDefault("errorRenderer", Json(null))
+            .setDefault("log", true)
             // TODO "logger": ErrorLogger.classname,
-            "trace": false.toJson,
-        ]);
+            .setDefault("trace", false);
 
         return true;
     }

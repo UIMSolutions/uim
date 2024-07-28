@@ -11,19 +11,18 @@ class DPostgresDriver : DDriver {
             return false;
         }
 
-        configuration.setDefault([
-            "persistent": true.toJson,
-            "host": Json("localhost"),
-            "username": Json("root"),
-            "password": "".toJson,
-            "database": Json("uim"),
-            "schema": Json("public"),
-            "port": Json(5432),
-            "encoding": Json("utf8"),
-            "timezone": Json(null),
-            "flags": Json.emptyArray,
-            "init": Json.emptyArray,
-        ]);
+        configuration
+            .setDefault("persistent", true.toJson)
+            .setDefault("host", Json("localhost"))
+            .setDefault("username", Json("root"))
+            .setDefault("password", "".toJson)
+            .setDefault("database", Json("uim"))
+            .setDefault("schema", Json("public"))
+            .setDefault("port", Json(5432))
+            .setDefault("encoding", Json("utf8"))
+            .setDefault("timezone", Json(null))
+            .setDefault("flags", Json.emptyArray)
+            .setDefault("init", Json.emptyArray);
 
         // String used to start a database identifier quoting to make it safe
         startQuote("\"");

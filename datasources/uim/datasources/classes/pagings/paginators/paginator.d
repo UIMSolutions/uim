@@ -41,15 +41,12 @@ class DPaginator : IPaginator {
         * - `allowedParameters` - A list of parameters users are allowed to set using request
         *  parameters. Modifying this list will allow users to have more influence
         *  over pagination, be careful with what you permit.
-        *
-        * @var Json[string]
         */
-        configuration.setDefault([
-            "page": Json(1),
-            "limit": Json(20),
-            "maxLimit": Json(100),
-            // TODO "allowedParameters": Json.emptyArray(["limit", "sort", "page", "direction"]),
-        ]);
+        configuration
+            .setDefault("page", 1)
+            .setDefault("limit", 20)
+            .setDefault("maxLimit", 100)
+            .setDefault("allowedParameters", ["limit", "sort", "page", "direction"]);
 
         return true;
     }

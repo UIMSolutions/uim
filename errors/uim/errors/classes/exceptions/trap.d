@@ -66,15 +66,14 @@ class DExceptionTrap {
      *  encountered. This allows breathing room to complete logging or error handling.
      * - `stderr` Used in console environments so that renderers have access to the current console output stream.
      */
-    configuration.setDefaults([
-        "exceptionRenderer": Json(null),
-        "logger": ErrorLogger.classname,
-        "stderr": Json(null),
-        "log": true.toJson,
-        "skipLog": Json.emptyArray,
-        "trace": false.toJson,
-        "extraFatalErrorMemory": 4,
-    ]);
+    configuration
+        .setDefault("exceptionRenderer", Json(null))
+        .setDefault("logger", ErrorLogger.classname)
+        .setDefault("stderr", Json(null))
+        .setDefault("log", true)
+        .setDefault("skipLog", Json.emptyArray)
+        .setDefault("trace", false)
+        .setDefault("extraFatalErrorMemory", 4);
 
         return true;
     }

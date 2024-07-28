@@ -31,30 +31,19 @@ class DCspMiddleware { // }: IHttpMiddleware {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
+        configuration
+            .setDefault("scriptNonce", false)
+            .setDefault("styleNonce", false);
+
         return true;
     }
 
     mixin(TProperty!("string", "name"));
 
-    /**
-     * CSP Builder
-     *
-     * @var \ParagonIE\CSPBuilder\CSPBuilder csp CSP Builder or config array
-     */
+    // CSP Builder
     protected ICSPBuilder csp;
 
-    // Configuration options.
-    configuration.setDefaults([
-        "scriptNonce": false.toJson,
-        "styleNonce": false.toJson,
-    ];
-
-    /**
-     
-     * Params:
-     * \ParagonIE\CSPBuilder\CSPBuilder|array csp CSP object or config array
-     */
-    this(ICSPBuilder|Json[string] cspObject, Json[string] configData = null) {
+    this(/* ICSPBuilder| */Json[string] cspObject, Json[string] configData = null) {
         if (!class_hasKey(CSPBuilder.classname)) {
             throw new DException("You must install paragonie/csp-builder to use CspMiddleware");
         }

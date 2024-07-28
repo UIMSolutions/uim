@@ -92,26 +92,25 @@ class DClient { // }: IClient {
     configuration(MemoryConfiguration);
     configuration.data(initData);
 
-    configuration.setDefaults([
-      "auth": Json(null),
-      "adapter": Json(null),
-      "host": Json(null),
-      "port": Json(null),
-      "scheme": Json("http"),
-      "basePath": "".toJson,
-      "timeout": Json(30),
-      "ssl_verify_peer": true.toJson,
-      "ssl_verify_peer_name": true.toJson,
-      "ssl_verify_depth": Json(5),
-      "ssl_verify_host": true.toJson,
-      "redirect": false.toJson,
-      "protocolVersion": Json("1.1"),
-    ]);
+    configuration
+      .setDefault("auth", Json(null))
+      .setDefault("adapter", Json(null))
+      .setDefault("host", Json(null))
+      .setDefault("port", Json(null))
+      .setDefault("scheme", Json("http"))
+      .setDefault("basePath", "".toJson)
+      .setDefault("timeout", Json(30))
+      .setDefault("ssl_verify_peer", true.toJson)
+      .setDefault("ssl_verify_peer_name", true.toJson)
+      .setDefault("ssl_verify_depth", Json(5))
+      .setDefault("ssl_verify_host", true.toJson)
+      .setDefault("redirect", false.toJson)
+      .setDefault("protocolVersion", Json("1.1"));
 
     return true;
   }
 
-  mixin(TProperty!("string", "name")); /* 
+  mixin(TProperty!("string", "name"));  
 
   /**
      * List of cookies from responses made with this client.

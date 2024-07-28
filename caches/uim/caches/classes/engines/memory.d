@@ -42,7 +42,7 @@ class DMemoryCacheEngine : DCacheEngine {
       .setDefault("compress", false)
       .setDefault("duration", 3600)
       .setDefault("username", "")
-      .setDefault(["host", "password", "persistent", "port"], Json(null))
+      .setDefaults(["host", "password", "persistent", "port"], Json(null))
       .setDefault("prefix", "uim_")
       .setDefault("serialize", "d")
       .setDefault("servers", ["127.0.0.1"]) // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.

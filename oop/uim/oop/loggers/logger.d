@@ -12,11 +12,10 @@ class DLogger : UIMObject, ILogger {
             return false;
         }
 
-        configuration.setDefaults([
-            "levels": Json.emptyArray,
-            "scopes": Json.emptyArray,
-            "formatter": StandardLogFormatter.classname.toJson
-        ]);
+        configuration
+            .setDefault("levels", Json.emptyArray)
+            .setDefault("scopes", Json.emptyArray)
+            .setDefault("formatter", StandardLogFormatter.classname);
 
         if (configuration.hasKey("scopes")) {
            configuration.set("scopes", configuration.getArray("scopes"));

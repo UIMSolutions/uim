@@ -37,17 +37,16 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        configuration.setDefaults([
-            "fields": Json.emptyArray,
-            "translationTable": "I18n".toJson,
-            "defaultLocale": Json(null),
-            "referencename": "".toJson,
-            "allowEmptyTranslations": true.toJson,
-            "onlyTranslated": false.toJson,
-            "strategy": "subquery".toJson,
-            "tableLocator": Json(null),
-            "validator": false.toJson,
-        ]);
+        configuration
+            .setDefault("fields", Json.emptyArray)
+            .setDefault("translationTable", "I18n".toJson)
+            .setDefault("defaultLocale", Json(null))
+            .setDefault("referencename", "".toJson)
+            .setDefault("allowEmptyTranslations", true.toJson)
+            .setDefault("onlyTranslated", false.toJson)
+            .setDefault("strategy", "subquery".toJson)
+            .setDefault("tableLocator", Json(null))
+            .setDefault("validator", false.toJson);
 
         return true;
     }

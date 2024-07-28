@@ -1,57 +1,53 @@
- module uim.logging.classes.loggers.console;
+module uim.logging.classes.loggers.console;
 
 import uim.logging;
 
 @safe:
 
 // Console logging. Writes logs to console output.
-class DConsoleLogger : DLogger { 
-    /* configuration.setDefaults([
-        "stream": "D://stderr",
-        "levels": Json(null),
-        "scopes": Json.emptyArray,
-        "outputAs": Json(null),
-        "formatter": [
-            "classname": StandardLogFormatter.classname,
-            "includeTags": true.toJson,
-        ],
-    ];
+class DConsoleLogger : DLogger {
 
+  override bool initialize(Json[string] initvalue = null) {
+    if (!super.initialize(initvalue)) {
+      return false;
+    }
+
+    configuration
+      .setDefault("stream", "D://stderr") // `stream` the path to save logs on.
+      .setDefault("levels", Json(null)) // `levels` string or array, levels the engine is interested in
+      .setDefault("scopes", Json.emptyArray) // `scopes` string or array, scopes the engine is interested in
+      .setDefault("outputAs", Json(null)) // `outputAs` integer or ConsoleOutput.[RAW|PLAIN|COLOR]
+      .setDefault("formatter", [
+          "classname": StandardLogFormatter.classname,
+          "includeTags": true.toJson,
+        ]);
+      // `dateFormat` UIM date() format.
+
+    return true;
+  }
+  /*
     // Output stream
     protected IConsoleOutput _output;
 
-    /**
-     * Constructs a new DConsole Logger.
-     *
-     * Config
-     *
-     * - `levels` string or array, levels the engine is interested in
-     * - `scopes` string or array, scopes the engine is interested in
-     * - `stream` the path to save logs on.
-     * - `outputAs` integer or ConsoleOutput.[RAW|PLAIN|COLOR]
-     * - `dateFormat` UIM date() format.
-     *
-     * configData - Options for the FileLog, see above.
-     */
-    this(Json[string] configData = null) {
-        super(configData);
+  this(Json[string] configData = null) {
+    super(configData);
 
-        configData = configuration;
-        if (cast(DConsoleOutput)configuration.get("stream")) {
-           _output = configuration.get("stream");
-        }  else if (configuration.isString("stream")) {
-           _output = new DConsoleOutput(configuration.get("stream"));
-        } else {
-            throw new DInvalidArgumentException("`stream` not a ConsoleOutput nor string");
-        }
-        if (configuration.hasKey("outputAs")) {
-           _output.setOutputAs(configuration.get("outputAs"));
-        }
+    configData = configuration;
+    if (cast(DConsoleOutput) configuration.get("stream")) {
+      _output = configuration.get("stream");
+    } else if (configuration.isString("stream")) {
+      _output = new DConsoleOutput(configuration.get("stream"));
+    } else {
+      throw new DInvalidArgumentException("`stream` not a ConsoleOutput nor string");
     }
-    
-    // : writing to console.
-    void log(Json logLevel, string messageToLog, Json context = null) {
-        string resultMessage = this.interpolate(messageToLog, context);
-       _output.write(this.formatter.format(logLevel, resultMessage, context));
+    if (configuration.hasKey("outputAs")) {
+      _output.setOutputAs(configuration.get("outputAs"));
     }
+  }
+
+  // : writing to console.
+  void log(Json logLevel, string messageToLog, Json context = null) {
+    string resultMessage = this.interpolate(messageToLog, context);
+    _output.write(this.formatter.format(logLevel, resultMessage, context));
+  } */
 }

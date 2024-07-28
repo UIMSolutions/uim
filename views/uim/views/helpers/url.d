@@ -11,32 +11,30 @@ class UrlHelper : DHelper {
     // Asset URL engine class name
     protected string _assetUrlclassname;
 
-    /* 
-    configuration.setDefaults([
-        "assetUrlclassname": Asset.classname,
-    ];
-
-
     /**
      * Check proper configuration
      * Params:
      * Json[string] configData The configuration settings provided to this helper.
      */
-  	override bool initialize(Json[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
-        myengineClassConfig = configurationData.hasKey("assetUrlclassname");
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        auto myengineClassConfig = configurationData.hasKey("assetUrlclassname");
 
         /** @var class-string<\UIM\Routing\Asset>|null myengineClass */
-        myengineClass = App.classname(myengineClassConfig, "Routing");
+        auto myengineClass = App.classname(myengineClassConfig, "Routing");
         if (myengineClass.isNull) {
             throw new DException("Class for `%s` could not be found.".format(myengineClassConfig));
         }
-       _assetUrlclassname = myengineClass;
+
+        _assetUrlclassname = myengineClass;
+        configuration.setDefault("assetUrlclassname", Asset.classname);
+
+        return true;
     }
-    
+
     /**
      * Returns a URL based on provided parameters.
      *
@@ -50,21 +48,19 @@ class UrlHelper : DHelper {
      *  an array of URL parameters. Using an array for URLs will allow you to leverage
      *  the reverse routing features of UIM.
      */
-    string build(string[] myurl = null, Json[string] options  = null) {
+    string build(string[] myurl = null, Json[string] options = null) {
         mydefaults = [
             "fullBase": false.toJson,
             "escape": true.toJson,
         ];
-        auto updatedOptions = options.updatetions.updatetions.updatetions.updatetions.updatemydefaults;
+        auto updatedOptions = options.updatetions.updatetions.updatetions
+            .updatetions.updatemydefaults;
 
-        myurl = Router.url(myurl, options.get("fullBase"]);
-        if (options.hasKey("escape"]) {
-            myurl = to!string(h(myurl));
-        }
-        return myurl;
-    }
-    
-    /**
+        myurl = Router.url(myurl, options.get("fullBase"]); if (options.hasKey("escape"]) {
+                    myurl = to!string(h(myurl)); }
+                    return myurl; }
+
+                    /**
      * Returns a URL from a route path string.
      *
      * ### Options:
@@ -73,45 +69,47 @@ class UrlHelper : DHelper {
      *  escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
      */
-    string buildFromPath(string routePath, Json[string] params = [], Json[string] options  = null) {
-        return _build(["_path": routePath] + params, options);
-    }
-    
-    /**
+                    string buildFromPath(string routePath, Json[string] params = [
+                    ], Json[string] options = null) {
+                        return _build(["_path": routePath] + params, options); }
+
+                        /**
      * Generates URL for given image file.
      *
      * Depending on options passed provides full URL with domain name. Also calls
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
-    string image(string path, Json[string] options  = null) {
-        auto updatedOptions = options.setPath(["theme": _View.getTheme()]);
-        return htmlAttributeEscape(_assetUrlclassname.imageUrl(path, options));
-    }
-    
-    /**
+                        string image(string path, Json[string] options = null) {
+                            auto updatedOptions = options.setPath([
+                                "theme": _View.getTheme()
+                            ]); return htmlAttributeEscape(
+                            _assetUrlclassname.imageUrl(path, options)); }
+
+                            /**
      * Generates URL for given CSS file.
      *
      * Depending on options passed provides full URL with domain name. Also calls
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
-    string css(string path, Json[string] options  = null) {
-        auto updatedOptions = options.setPath(["theme": _View.getTheme()]);
+                            string css(string path, Json[string] options = null) {
+                                auto updatedOptions = options.setPath([
+                                    "theme": _View.getTheme()
+                                ]); return htmlAttributeEscape(
+                                _assetUrlclassname.cssUrl(path, options)); }
 
-        return htmlAttributeEscape(_assetUrlclassname.cssUrl(path, options));
-    }
-    
-    /**
+                                /**
      * Generates URL for given javascript file.
      *
      * Depending on options passed provides full URL with domain name. Also calls
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
-    string script(string path, Json[string] options  = null) {
-        auto updatedOptions = options.set("theme", _View.getTheme());
-        return htmlAttributeEscape(_assetUrlclassname.scriptUrl(path, updatedOptions));
-    }
-    
-    /**
+                                string script(string path, Json[string] options = null) {
+                                    auto updatedOptions = options.set("theme", _View.getTheme());
+                                    return htmlAttributeEscape(
+                                    _assetUrlclassname.scriptUrl(path, updatedOptions));
+                                }
+
+                                /**
      * Generates URL for given asset file.
      *
      * Depending on options passed provides full URL with domain name. Also calls
@@ -131,36 +129,35 @@ class UrlHelper : DHelper {
      * Params:
      * string mypath Path string or URL array
      */
-    string assetUrl(string mypath, Json[string] options  = null) {
-        auto updatedOptions = options.update["theme": _View.getTheme()];
+                                string assetUrl(string mypath, Json[string] options = null) {
+                                    auto updatedOptions = options.update["theme": _View.getTheme()];
 
-        return htmlAttributeEscape(_assetUrlclassname.url(mypath, options));
-    }
-    
-    /**
+                                    return htmlAttributeEscape(
+                                    _assetUrlclassname.url(mypath, options)); }
+
+                                    /**
      * Adds a timestamp to a file based resource based on the value of `Asset.timestamp` in
      * Configure. If Asset.timestamp is true and debug is true, or Asset.timestamp == "force"
      * a timestamp will be added.
      */
-    string assetTimestamp(string path, string timestamp = null) {
-        return htmlAttributeEscape(_assetUrlclassname.assetTimestamp(path, timestamp));
-    }
-    
-    /**
+                                    string assetTimestamp(string path, string timestamp = null) {
+                                        return htmlAttributeEscape(
+                                        _assetUrlclassname.assetTimestamp(path, timestamp));
+                                    }
+
+                                    /**
      * Checks if a file exists when theme is used, if no file is found default location is returned
      * Params:
      * string myfile The file to create a webroot path to.
      */
-    string webroot(string myfile) {
-        options = ["theme": _View.getTheme()];
+                                    string webroot(string myfile) {
+                                        options = ["theme": _View.getTheme()]; return htmlAttributeEscape(
+                                        _assetUrlclassname.webroot(myfile, options));
+                                    }
 
-        return htmlAttributeEscape(_assetUrlclassname.webroot(myfile, options));
-    }
-    
-    /**
+                                    /**
      * Event listeners.
      */
-    IEvent[] implementedEvents() {
-        return null;
-    }
-}
+                                    IEvent[] implementedEvents() {
+                                        return null; }
+                                    }

@@ -33,16 +33,15 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        configuration.setDefaults([
+        configuration
             .setDefault("fields", Json.emptyArray)
             .setDefault("defaultLocale", Json(null))
-            .setDefault("referencename", "".toJson)
-            .setDefault("allowEmptyTranslations", true.toJson)
-            .setDefault("onlyTranslated", false.toJson)
-            .setDefault("strategy", "subquery".toJson)
+            .setDefault("referencename", "")
+            .setDefault("allowEmptyTranslations", true)
+            .setDefault("onlyTranslated", false)
+            .setDefault("strategy", "subquery")
             .setDefault("tableLocator", Json(null))
-            .setDefault("validator", false.toJson)
-        ]);
+            .setDefault("validator", false);
 
         return true;
     }

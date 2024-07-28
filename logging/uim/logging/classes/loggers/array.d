@@ -17,9 +17,9 @@ class DArrayLogger : DLogger {
         configuration.data(initData);
     
         configuration
-            .setDefaults("levels", Json.emptyArray)
-            .setDefaults("scopes", Json.emptyArray)
-            .setDefaults("formatter", [
+            .setDefault("levels", Json.emptyArray)
+            .setDefault("scopes", Json.emptyArray)
+            .setDefault("formatter", [
                 "classname": StandardLogFormatter.classname,
                 "includeDate": false
             ]);

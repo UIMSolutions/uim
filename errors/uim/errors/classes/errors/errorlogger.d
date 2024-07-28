@@ -19,10 +19,7 @@ class DErrorLogger : IErrorLogger {
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
-        configuration.setDefaults([
-            // `trace` = Should error logs include stack traces?
-            "trace": false.toJson,
-        ]);
+        configuration.setDefault("trace", false); // `trace` = Should error logs include stack traces?
         
         return true;
     }

@@ -11,11 +11,10 @@ class DJsonLogFormatter : DLogFormatter {
       return false;
     }
 
-    configuration.setDefaults([
-      "dateFormat": Json("DATE_ATOM"),
-      "flags": Json("JSON_UNESCAPED_UNICODE | Json_UNESCAPED_SLASHES"),
-      "appendNewline": true.toJson,
-    ]);
+    configuration
+      .setDefault("dateFormat", "DATE_ATOM")
+      .setDefault("flags", "JSON_UNESCAPED_UNICODE | Json_UNESCAPED_SLASHES")
+      .setDefault("appendNewline", true);
 
     return true;
   }

@@ -23,21 +23,21 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     }
 
     configuration
-      .setDefaults("implementedFinders", ["translations": "findTranslations"])
-      .setDefaults("implementedMethods", [
+      .setDefault("implementedFinders", ["translations": "findTranslations"])
+      .setDefault("implementedMethods", [
           "setLocale": "setLocale",
           "getLocale": "getLocale",
           "translationField": "translationField",
 
         ])
-      .setDefaults("fields", [])
-      .setDefaults("defaultLocale", null)
-      .setDefaults("referenceName", "")
-      .setDefaults("allowEmptyTranslations", true)
-      .setDefaults("onlyTranslated", false)
-      .setDefaults("strategy", "subquery")
-      .setDefaults("tableLocator", null)
-      .setDefaults("validator", false);
+      .setDefault("fields", [])
+      .setDefault("defaultLocale", null)
+      .setDefault("referenceName", "")
+      .setDefault("allowEmptyTranslations", true)
+      .setDefault("onlyTranslated", false)
+      .setDefault("strategy", "subquery")
+      .setDefault("tableLocator", null)
+      .setDefault("validator", false);
       
     return true;
   }

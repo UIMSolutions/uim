@@ -65,11 +65,11 @@ class DJsonView : DSerializedView {
      *   for finding the JsonP callback name.
      *
      */
-    configuration.setDefaults([
+    configuration
             .setDefault("serialize", Json(null))
             .setDefault("JsonOptions", Json(null))
             .setDefault("Jsonp", Json(null));
-        ]);
+
         return true;
     }
 

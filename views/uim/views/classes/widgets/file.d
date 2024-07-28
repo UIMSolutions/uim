@@ -19,9 +19,9 @@ class DFileWidget : DWidget {
         }
 
         configuration
-            .setDefaults("name", "") // `name` - Set the input name.
-            .setDefaults("escape", true) // `escape` - Set to false to disable HTML escaping.
-            .setDefaults("templateVars", Json.emptyArray);
+            .setDefault("name", "") // `name` - Set the input name.
+            .setDefault("escape", true) // `escape` - Set to false to disable HTML escaping.
+            .setDefault("templateVars", Json.emptyArray);
 
         return true;
     }

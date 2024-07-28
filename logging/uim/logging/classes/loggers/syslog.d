@@ -31,19 +31,17 @@ class DSysLogger : DLogger {
      *    "prefix": "Web Server 01"
      * ]);
      * ```
-     *
      */
-    configuration.setDefaults([
-        "levels": Json.emptyArray,
-        "scopes": Json.emptyArray,
-        "flag": LOG_ODELAY.toJson,
-        "prefix": "".toJson,
-        "facility": LOG_USER.toJson,
-        "formatter": [
+    configuration
+        .setDefault("levels", Json.emptyArray)
+        .setDefault("scopes", Json.emptyArray)
+        .setDefault("flag", LOG_ODELAY.toJson)
+        .setDefault("prefix", "".toJson)
+        .setDefault("facility", LOG_USER.toJson)
+        .setDefault("formatter", [
             "classname": StandardLogFormatter.classname.toJson,
-            "includeDate": false.toJson,
-        ].toJson
-    ];
+            "includeDate": false.toJson
+        ]);
 
     // Used to map the string names back to their LOG_* constants
     protected int[string] _levelMap = [

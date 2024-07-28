@@ -18,11 +18,11 @@ class DDateTimeWidget : DWidget {
             return false; 
             }
             configuration
-                .setDefaults("name", "")
+                .setDefault("name", "")
                 .setDefaults(["timezone", "val"], Json(null))
-                .setDefaults("type", "datetime-local")
-                .setDefaults("escape", true)
-                .setDefaults("templateVars", Json.emptyArray);
+                .setDefault("type", "datetime-local")
+                .setDefault("escape", true)
+                .setDefault("templateVars", Json.emptyArray);
 
             _formatMap = [
                 "datetime-local": "Y-m-d\\TH:i:s",

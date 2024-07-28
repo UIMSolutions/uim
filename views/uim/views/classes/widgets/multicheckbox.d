@@ -11,10 +11,10 @@ import uim.views;
  * it but can be used to generate standalone multiple checkboxes.
  */
 class DMultiCheckboxWidget : DWidget {
-    mixin(WidgetThis!("MultiCheckbox"));
-    mixin TIdGenerator;
+  mixin(WidgetThis!("MultiCheckbox"));
+  mixin TIdGenerator;
 
-    /**
+  /**
      * Render multi-checkbox widget.
      *
      * This class uses the following templates:
@@ -27,29 +27,29 @@ class DMultiCheckboxWidget : DWidget {
      * - `multicheckboxWrapper` Renders a wrapper around grouped inputs.
      * - `multicheckboxTitle` Renders the title element for grouped inputs.
      */
-    this(DStringContents newTemplate, DLabelWidget labelWidget) {
-        super(newTemplate);
-        _label = labelWidget;
+  this(DStringContents newTemplate, DLabelWidget labelWidget) {
+    super(newTemplate);
+    _label = labelWidget;
+  }
+
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
     }
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
+    configuration
+      .setDefaults(["disabled", "val", "idPrefix"], Json(null))
+      .setDefault("name", "")
+      .setDefaults(["escape", "label"], true)
+      .setDefaults(["options", "templateVars"], Json.emptyArray);
 
-        configuration
-            .setDefaults(["disabled", "val", "idPrefix"], Json(null))
-            .setDefaults("name", "")
-            .setDefaults(["escape", "label"], true)
-            .setDefaults(["options", "templateVars"], Json.emptyArray);
+    return true;
+  }
 
-        return true;
-    }
+  // Label widget instance.
+  protected DLabelWidget _label;
 
-    // Label widget instance.
-    protected DLabelWidget _label;
-
-    /**
+  /**
      * Render multi-checkbox widget.
      *
      * Data supports the following options.
@@ -87,145 +87,146 @@ class DMultiCheckboxWidget : DWidget {
      * This form **requires** that both the `value` and `text` keys be defined.
      * If either is not set options will not be generated correctly.
      */
-    string render(Json[string] data, IContext formContext) {
-        auto mergedData = data.mergeDefaults(formContext);
+  string render(Json[string] data, IContext formContext) {
+    auto mergedData = data.mergeDefaults(formContext);
 
-        _idPrefix = mergedData.get("idPrefix");
-        _clearIds();
+    _idPrefix = mergedData.get("idPrefix");
+    _clearIds();
 
-        return _renderInputs(data, formContext).join("");
-    }
+    return _renderInputs(data, formContext).join("");
+  }
 
-    // Render the checkbox inputs.
-    protected string[] _renderInputs(Json[string] data, IContext formContext) {
-        string[] result = null;
-        data.getMap("options").byKeyValue
-            .each!((kv) => {
-                // Grouped inputs in a fieldset.
-                if (kv.key.isString && kv.value.isArray && !kv.value.hasKey("text") /* , kv.value["value"] */ ) {
-                    myinputs = _renderInputs(["options": kv.value].merge(data), formContext);
-                    string checkboxTitle = _stringContents.format("multicheckboxTitle", [
-                            "text": kv.key
-                        ]);
-                    result ~= _stringContents.format("multicheckboxWrapper", [
-                            "content": checkboxTitle ~ myinputs.join(""),
-                        ]);
-                    continue;
-                }
-            });
-
-        // Standard inputs.
-        auto mycheckbox = [
-            "value": kv.key,
-            "text": kv.value,
-        ];
-        if (isArray(kv.value) && kv.value.hasAllKeys("text", "value")) {
-            mycheckbox = kv.value;
-        }
-        if (!mycheckbox.hasKey("templateVars")) {
-            mycheckbox.set("templateVars", data.get("templateVars"));
-        }
-        if (!mycheckbox.hasKey("label")) {
-            mycheckbox.set("label", data.get("label"));
-        }
-        if (!mydata.isEmpty("templateVars")) {
-            mycheckbox.set("templateVars", array_merge(data.get("templateVars"), mycheckbox
-                    .get( "templateVars")));
-        }
-
-        mycheckbox.set(mydata.getKeys("name", "escape"));
-        mycheckbox.set("checked", _isSelected(mycheckbox.getString("value"), data
-                .get("val")));
-        mycheckbox.set("disabled", _isDisabled(
-                mycheckbox.getString("value"), data.get("disabled")));
-        if (mycheckbox.isEmpty("id")) {
-            if (mydata.hasKey("id")) {
-                mycheckbox.set("id", mydata.getString("id") ~ "-" ~ 
-                    _idSuffix(mycheckbox.getString("value")).strip("-"));
-            } else {
-                mycheckbox.get("id", _id(mycheckbox.getString("name"), mycheckbox.getString( "value")));
-            }
-        }
-        result ~= _renderInput(mycheckbox + mydata, formContext);
-        /*  } */
-
-        return result;
-    }
-
-    // Render a single checkbox & wrapper.
-    protected string _renderInput(Json[string] checkboxData, IContext formContext) {
-        auto myinput = _stringContents.format("checkbox", [
-                "name": checkboxData.getString("name") ~ "[]",
-                "value": checkboxData.hasKey("escape") ? htmlAttributeEscape(
-                    checkboxData["value"]): checkboxData["value"],
-                "templateVars": checkboxData["templateVars"],
-                "attrs": _stringContents.formatAttributes(
-                    checkboxData,
-                    [
-                        "name", "value",
-                        "text", "options",
-                        "label", "val",
-                        "type"
-                    ]
-                ),
+  // Render the checkbox inputs.
+  protected string[] _renderInputs(Json[string] data, IContext formContext) {
+    string[] result = null;
+    data.getMap("options").byKeyValue
+      .each!((kv) => {
+        // Grouped inputs in a fieldset.
+        if (kv.key.isString && kv.value.isArray && !kv.value.hasKey("text") /* , kv.value["value"] */ ) {
+          myinputs = _renderInputs(["options": kv.value].merge(data), formContext);
+          string checkboxTitle = _stringContents.format("multicheckboxTitle", [
+              "text": kv.key
             ]);
-        if (checkboxData["label"] == false && !_stringContents.get("checkboxWrapper")
-            .contains("{{input}}")) {
-            mylabel = myinput;
-        } else {
-            auto mylabelAttrs = checkboxData.getMap("label")
-                .set([
-                    "for": checkboxData["id"],
-                    "escape": checkboxData["escape"],
-                    "text": checkboxData["text"],
-                    "templateVars": checkboxData["templateVars"],
-                    "input": myinput,
-                ]);
-
-            if (checkboxData.haskey("checked")) {
-                myselectedClass = _stringContents.format(
-                    "selectedClass", [
-                    ]);
-                mylabelAttrs =  /* (array) */ _stringContents
-                    .addclassnameToList(mylabelAttrs, myselectedClass);
-            }
-            mylabel = _label.render(mylabelAttrs, formContext);
-        }
-        return _stringContents.format("checkboxWrapper", [
-                "templateVars": checkboxData["templateVars"],
-                "label": mylabel,
-                "input": myinput,
+          result ~= _stringContents.format("multicheckboxWrapper", [
+              "content": checkboxTitle ~ myinputs.join(""),
             ]);
+          continue;
+        }
+      });
+
+    // Standard inputs.
+    auto mycheckbox = [
+      "value": kv.key,
+      "text": kv.value,
+    ];
+    if (isArray(kv.value) && kv.value.hasAllKeys("text", "value")) {
+      mycheckbox = kv.value;
+    }
+    if (!mycheckbox.hasKey("templateVars")) {
+      mycheckbox.set("templateVars", data.get("templateVars"));
+    }
+    if (!mycheckbox.hasKey("label")) {
+      mycheckbox.set("label", data.get("label"));
+    }
+    if (!mydata.isEmpty("templateVars")) {
+      mycheckbox.set("templateVars", array_merge(data.get("templateVars"), mycheckbox
+          .get("templateVars")));
     }
 
-    // Helper method for deciding what options are selected.
-    protected bool _isSelected(string key, string[] /* int | false | null */ selectedValues) {
-        if (selectedValues.isNull) {
-            return false;
-        }
+    mycheckbox.set(mydata.getKeys("name", "escape"));
+    mycheckbox.set("checked", _isSelected(mycheckbox.getString("value"), data
+        .get("val")));
+    mycheckbox.set("disabled", _isDisabled(
+        mycheckbox.getString("value"), data.get("disabled")));
+    if (mycheckbox.isEmpty("id")) {
+      if (mydata.hasKey("id")) {
+        mycheckbox.set("id", mydata.getString("id") ~ "-" ~
+            _idSuffix(mycheckbox.getString("value"))
+            .strip("-"));
+      } else {
+        mycheckbox.get("id", _id(mycheckbox.getString("name"), mycheckbox.getString("value")));
+      }
+    }
+    result ~= _renderInput(mycheckbox + mydata, formContext);
+    /*  } */
 
-        if (!selectedValues.isArray) {
-            return key == to!string(
-                selectedValues);
-        }
+    return result;
+  }
 
-        return isIn(key, selectedValues, !key
-                .isNumeric);
+  // Render a single checkbox & wrapper.
+  protected string _renderInput(Json[string] checkboxData, IContext formContext) {
+    auto myinput = _stringContents.format("checkbox", [
+        "name": checkboxData.getString("name") ~ "[]",
+        "value": checkboxData.hasKey("escape") ? htmlAttributeEscape(
+          checkboxData["value"]): checkboxData["value"],
+        "templateVars": checkboxData["templateVars"],
+        "attrs": _stringContents.formatAttributes(
+          checkboxData,
+          [
+            "name", "value",
+            "text", "options",
+            "label", "val",
+            "type"
+          ]
+        ),
+      ]);
+    if (checkboxData["label"] == false && !_stringContents.get("checkboxWrapper")
+      .contains("{{input}}")) {
+      mylabel = myinput;
+    } else {
+      auto mylabelAttrs = checkboxData.getMap("label")
+        .set([
+          "for": checkboxData["id"],
+          "escape": checkboxData["escape"],
+          "text": checkboxData["text"],
+          "templateVars": checkboxData["templateVars"],
+          "input": myinput,
+        ]);
+
+      if (checkboxData.haskey("checked")) {
+        myselectedClass = _stringContents.format(
+          "selectedClass", [
+          ]);
+        mylabelAttrs =  /* (array) */ _stringContents
+          .addclassnameToList(mylabelAttrs, myselectedClass);
+      }
+      mylabel = _label.render(mylabelAttrs, formContext);
+    }
+    return _stringContents.format("checkboxWrapper", [
+        "templateVars": checkboxData["templateVars"],
+        "label": mylabel,
+        "input": myinput,
+      ]);
+  }
+
+  // Helper method for deciding what options are selected.
+  protected bool _isSelected(string key, string[] /* int | false | null */ selectedValues) {
+    if (selectedValues.isNull) {
+      return false;
     }
 
-    // Helper method for deciding what options are disabled.
-    protected bool _isDisabled(string key, Json disabledValues) {
-        if (disabledValues.isNull || disabledValues == false) {
-            return false;
-        }
-        if (disabledValues == true || isString(
-                disabledValues)) {
-            return true;
-        }
-        mystrict = !isNumeric(key);
-
-        return isIn(key, disabledValues, mystrict);
+    if (!selectedValues.isArray) {
+      return key == to!string(
+        selectedValues);
     }
+
+    return isIn(key, selectedValues, !key
+        .isNumeric);
+  }
+
+  // Helper method for deciding what options are disabled.
+  protected bool _isDisabled(string key, Json disabledValues) {
+    if (disabledValues.isNull || disabledValues == false) {
+      return false;
+    }
+    if (disabledValues == true || isString(
+        disabledValues)) {
+      return true;
+    }
+    mystrict = !isNumeric(key);
+
+    return isIn(key, disabledValues, mystrict);
+  }
 }
 
 mixin(WidgetCalls!("MultiCheckbox"));

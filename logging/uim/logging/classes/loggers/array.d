@@ -12,15 +12,17 @@ import uim.logging;
  * be used in scenarios where you need to capture logs in application code.
  */
 class DArrayLogger : DLogger { 
-    /*
-    configuration.setDefaults([
-        "levels": Json.emptyArray,
-        "scopes": Json.emptyArray,
-        "formatter": [
-            "classname": StandardLogFormatter.classname,
-            "includeDate": false.toJson
-        ]
-    ];
+    bool initialize(Json[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+    
+        configuration
+            .setDefaults("levels", Json.emptyArray)
+            .setDefaults("scopes", Json.emptyArray)
+            .setDefaults("formatter", [
+                "classname": StandardLogFormatter.classname,
+                "includeDate": false
+            ]);
 
     // Captured messages
     protected string[] _content;

@@ -28,11 +28,10 @@ class DDebugger : UIMObject {
             return false;
         }
 
-        configuration.setDefaults([
-            "outputMask": Json.emptyArray,
-            "exportFormatter": Json(null),
-            "editor": Json("Dstorm"),
-        ]);
+        configuration
+            .setDefault("outputMask", Json.emptyArray)
+            .setDefault("exportFormatter", Json(null))
+            .setDefault("editor", "Dstorm");
 
         _editors = [
             "atom": "atom://core/open/file?filename={file}&line={line}",
@@ -46,8 +45,6 @@ class DDebugger : UIMObject {
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     // A map of editors to their link templates.
     protected STRINGAA _editors;

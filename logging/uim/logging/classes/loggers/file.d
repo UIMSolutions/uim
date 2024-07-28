@@ -19,21 +19,8 @@ class DFileLogger : DLogger {
     // Max file size, used for log file rotation.
     protected int _size = null;
     
-    // Get filename
-    protected string _getFilename(string logLevel) {
-        string[] debugTypes = ["notice", "info", "debug"];
-
-        string result;
-        if (!_file.isEmpty) {
-            return _file;
-        } else if (logLevel == "error" || logLevel == "warning") {
-            return "error.log";
-        } else if (debugTypes.has(logLevel)) {
-            return "debug.log";
-        } 
-        return logLevel ~ ".log";
-    }
-    /**
+    override bool initialize() {
+            /**
      * Default config for this class
      *
      * - `levels` string or array, levels the engine is interested in
@@ -51,21 +38,32 @@ class DFileLogger : DLogger {
      * - `dirMask` The mask used for created folders.
      *
      */
-    configuration.setDefaults([
-        "path": Json(null),
-        "file": Json(null),
-        "types": Json(null),
-        "levels": Json.emptyArray,
-        "scopes": Json.emptyArray,
-        "rotate": 10.toJson,
-        "size": 10485760.toJson, // 10MB
-        "mask": Json(null),
-        "dirMask": 0770.toJson,
-        "formatter": [
-            "classname": StandardLogFormatter.classname,
-        ].toJson,
-    ]);
+    configuration
+        .setDefault("path", Json(null))
+        .setDefault("file", Json(null))
+        .setDefault("types", Json(null))
+        .setDefault("levels", Json.emptyArray)
+        .setDefault("scopes", Json.emptyArray)
+        .setDefault("rotate", 10)
+        .setDefault("size", 10485760) // 10M)
+        .setDefault("mask", Json(null))
+        .setDefault("dirMask", 0770)
+        .setDefault("formatter", ["classname": StandardLogFormatter.classname]);
+    }
+    // Get filename
+    protected string _getFilename(string logLevel) {
+        string[] debugTypes = ["notice", "info", "debug"];
 
+        string result;
+        if (!_file.isEmpty) {
+            return _file;
+        } else if (logLevel == "error" || logLevel == "warning") {
+            return "error.log";
+        } else if (debugTypes.has(logLevel)) {
+            return "debug.log";
+        } 
+        return logLevel ~ ".log";
+    }
 
 
     // Sets protected properties based on config provided

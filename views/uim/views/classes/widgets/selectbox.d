@@ -11,24 +11,24 @@ import uim.views;
  * it but can be used to generate standalone select boxes.
  */
 class DSelectBoxWidget : DWidget {
-    mixin(WidgetThis!("SelectBox"));
+  mixin(WidgetThis!("SelectBox"));
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        configuration
-            .setDefaults("name", "")
-            .setDefaults("empty", false)
-            .setDefaults("escape", true)
-            .setDefaults(["disabled", "val"], Json(null))
-            .setDefaults(["options", "templateVars"], Json.emptyArray);
-
-        return true;
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
     }
 
-    /**
+    configuration
+      .setDefault("name", "")
+      .setDefault("empty", false)
+      .setDefault("escape", true)
+      .setDefaults(["disabled", "val"], Json(null))
+      .setDefaults(["options", "templateVars"], Json.emptyArray);
+
+    return true;
+  }
+
+  /**
      * Render a select box form input.
      *
      * Render a select box input given a set of data. Supported keys
@@ -98,173 +98,173 @@ class DSelectBoxWidget : DWidget {
      * You are free to mix each of the forms in the same option set, and
      * nest complex types as required.
      */
-    string render(Json[string] renderData, IContext formContext) {
-        renderData.merge(formContext.data);
+  string render(Json[string] renderData, IContext formContext) {
+    renderData.merge(formContext.data);
 
-        options = _renderContent(renderData);
-        auto nameData = renderData["name"];
-        renderData.remove("name", "options", "empty", "val", "escape");
-        if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
-            renderData.remove("disabled");
-        }
-        auto mytemplate = "select";
-        if (!renderData.isEmpty("multiple")) {
-            mytemplate = "selectMultiple";
-            renderData.remove("multiple");
-        }
-        myattrs = _stringContents.formatAttributes(renderData);
+    options = _renderContent(renderData);
+    auto nameData = renderData["name"];
+    renderData.remove("name", "options", "empty", "val", "escape");
+    if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
+      renderData.remove("disabled");
+    }
+    auto mytemplate = "select";
+    if (!renderData.isEmpty("multiple")) {
+      mytemplate = "selectMultiple";
+      renderData.remove("multiple");
+    }
+    myattrs = _stringContents.formatAttributes(renderData);
 
-        return _stringContents.format(mytemplate, [
-                "name": nameData,
-                "templateVars": renderData["templateVars"],
-                "attrs": myattrs,
-                "content": options.join(""),
-            ]);
+    return _stringContents.format(mytemplate, [
+        "name": nameData,
+        "templateVars": renderData["templateVars"],
+        "attrs": myattrs,
+        "content": options.join(""),
+      ]);
+  }
+
+  // Render the contents of the select element.
+  protected string[] _renderContent(Json[string] renderData) {
+    Json options = renderData.get("options", null);
+
+    if (cast(Traversable) options) {
+      options = iterator_to_array(options);
+    }
+    if (!renderData.isEmpty("empty")) {
+      options = _emptyValue(renderData["empty"]) + (array) options;
+    }
+    if (options.isEmpty) {
+      return null;
     }
 
-    // Render the contents of the select element.
-    protected string[] _renderContent(Json[string] renderData) {
-        Json options = renderData.get("options", null);
+    Json selectedValues = renderData.get("val", null);
+    Json disabledOptions = null;
+    if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
+      disabledOptions = renderData.get("disabled", null)];
+    }
+    auto templateVariables = renderData["templateVars"];
 
-        if (cast(Traversable) options) {
-            options = iterator_to_array(options);
-        }
-        if (!renderData.isEmpty("empty")) {
-            options = _emptyValue(renderData["empty"]) + (array) options;
-        }
-        if (options.isEmpty) {
-            return null;
-        }
+    return _renderOptions(options, disabledOptions, selectedValues, templateVariables, renderData["escape"]);
+  }
 
-        Json selectedValues = renderData.get("val", null);
-        Json disabledOptions = null;
-        if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
-            disabledOptions = renderData.get("disabled", null)];
-        }
-        auto templateVariables = renderData["templateVars"];
+  // Generate the empty value based on the input.
+  protected Json[string] _emptyValue(bool myvalue) {
+    return myvalue
+      ? ["": "".toJson] : ["": Json(myvalue)];
+  }
 
-        return _renderOptions(options, disabledOptions, selectedValues, templateVariables, renderData["escape"]);
+  protected Json[string] _emptyValue(Json[string] values) {
+    return myvalue.isEmpty
+      ? ["": myvalue] : myvalue;
+  }
+
+  // Render the contents of an optgroup element.
+  protected string _renderOptgroup(
+    string labelText,/* ArrayAccess | array */
+    Json[string] myoptgroup,
+    Json[string] disabledOptions,
+    Json selectedValues,
+    Json[string] templateVariables,
+    bool isEscapeHTML
+  ) {
+    auto myopts = myoptgroup;
+    auto myattrs = null;
+    if (myoptgroup.hasKeys("options", "text")) {
+      myopts = myoptgroup["options"];
+      labelText = myoptgroup.getString("text");
+      myattrs = (array) myoptgroup;
     }
 
-    // Generate the empty value based on the input.
-    protected Json[string] _emptyValue(bool myvalue) {
-        return myvalue
-            ? ["": "".toJson] : ["": Json(myvalue)];
-    }
+    auto mygroupOptions = _renderOptions(myopts, disabledOptions, selectedValues, templateVariables, isEscapeHTML);
+    return _stringContents.format("optgroup", [
+        "label": isEscapeHTML ? htmlAttributeEscape(labelText): labelText,
+        "content": mygroupOptions.join(""),
+        "templateVars": templateVariables,
+        "attrs": _stringContents.formatAttributes(myattrs, ["text", "options"]),
+      ]);
+  }
 
-    protected Json[string] _emptyValue(Json[string] values) {
-        return myvalue.isEmpty
-            ? ["": myvalue] : myvalue;
-    }
-
-    // Render the contents of an optgroup element.
-    protected string _renderOptgroup(
-        string labelText,
-        /* ArrayAccess | array */ Json[string] myoptgroup,
-        Json[string] disabledOptions,
-        Json selectedValues,
-        Json[string] templateVariables,
-        bool isEscapeHTML
-    ) {
-        auto myopts = myoptgroup;
-        auto myattrs = null;
-        if (myoptgroup.hasKeys("options", "text")) {
-            myopts = myoptgroup["options"];
-            labelText = myoptgroup.getString("text");
-            myattrs = (array) myoptgroup;
-        }
-
-        auto mygroupOptions = _renderOptions(myopts, disabledOptions, selectedValues, templateVariables, isEscapeHTML);
-        return _stringContents.format("optgroup", [
-                "label": isEscapeHTML ? htmlAttributeEscape(labelText): labelText,
-                "content": mygroupOptions.join(""),
-                "templateVars": templateVariables,
-                "attrs": _stringContents.formatAttributes(myattrs, ["text", "options"]),
-            ]);
-    }
-
-    /**
+  /**
      * Render a set of options.
      * Will recursively call itself when option groups are in use.
      */
-    protected string[] _renderOptions(
-        Json[string] options,
-        Json[string] disabledOptions,
-        Json selectedValues,
-        Json[string] templateVariables,
-        bool isEscapeHTML
-    ) {
-        auto result = null;
-        options.byKeyValue
-            .each!((kv) {
-                // Option groups
-                myisRange = is_iterable(kv.value);
-                if (
-                    (!isInteger(kv.key) && myisIterable) ||
-                (isInteger(kv.key) && myisRange &&
-                (myval.hasKey("options") || !myval.hasKey("value"))
-                )
-                    ) {
-                    /** @var \ArrayAccess<string, mixed>|Json[string] myval */
-                    result ~= _renderOptgroup( /* (string) */ kv.key, kv.value, disabledOptions, selectedValues, templateVariables, isEscapeHTML);
-                    continue;
-                }
-                // Basic options
-                myoptAttrs = [
-                    "value": kv.key,
-                    "text": kv.value,
-                    "templateVars": Json.emptyArray,
-                ];
-                if (isArray(kv.value) && kv.value.hasAllKeys("text", "value")) {
-                    /** @var Json[string] myoptAttrs */
-                    myoptAttrs = kv.value;
-                    kv.key = myoptAttrs["value"];
-                }
-                myoptAttrs["templateVars"] ?  ?  = null;
-                if (_isSelected(to!string(kv.key), selectedValues)) {
-                    myoptAttrs.set("selected", true);
-                }
-                if (_isDisabled(to!string(kv.key), disabledOptions)) {
-                    myoptAttrs.set("disabled", true);
-                }
-                if (!templateVariables.isEmpty) {
-                    myoptAttrs.set("templateVars", array_merge(templateVariables, myoptAttrs["templateVars"]));
-                }
-                myoptAttrs.set("escape", escapeHTML);
+  protected string[] _renderOptions(
+    Json[string] options,
+    Json[string] disabledOptions,
+    Json selectedValues,
+    Json[string] templateVariables,
+    bool isEscapeHTML
+  ) {
+    auto result = null;
+    options.byKeyValue
+      .each!((kv) {
+        // Option groups
+        myisRange = is_iterable(kv.value);
+        if (
+          (!isInteger(kv.key) && myisIterable) ||
+        (isInteger(kv.key) && myisRange &&
+        (myval.hasKey("options") || !myval.hasKey("value"))
+        )
+          ) {
+          /** @var \ArrayAccess<string, mixed>|Json[string] myval */
+          result ~= _renderOptgroup( /* (string) */ kv.key, kv.value, disabledOptions, selectedValues, templateVariables, isEscapeHTML);
+          continue;
+        }
+        // Basic options
+        myoptAttrs = [
+          "value": kv.key,
+          "text": kv.value,
+          "templateVars": Json.emptyArray,
+        ];
+        if (isArray(kv.value) && kv.value.hasAllKeys("text", "value")) {
+          /** @var Json[string] myoptAttrs */
+          myoptAttrs = kv.value;
+          kv.key = myoptAttrs["value"];
+        }
+        myoptAttrs["templateVars"] ?  ?  = null;
+        if (_isSelected(to!string(kv.key), selectedValues)) {
+          myoptAttrs.set("selected", true);
+        }
+        if (_isDisabled(to!string(kv.key), disabledOptions)) {
+          myoptAttrs.set("disabled", true);
+        }
+        if (!templateVariables.isEmpty) {
+          myoptAttrs.set("templateVars", array_merge(templateVariables, myoptAttrs["templateVars"]));
+        }
+        myoptAttrs.set("escape", escapeHTML);
 
-                result ~= _stringContents.format("option", [
-                        "value": isEscapeHTML ? htmlAttributeEscape(myoptAttrs["value"]): myoptAttrs["value"],
-                        "text": isEscapeHTML ? htmlAttributeEscape(myoptAttrs["text"]): myoptAttrs["text"],
-                        "templateVars": myoptAttrs.get("templateVars"),
-                        "attrs": _stringContents.formatAttributes(myoptAttrs, [
-                            "text", "value"
-                        ]),
-                    ]);
-            });
-        return result;
+        result ~= _stringContents.format("option", [
+            "value": isEscapeHTML ? htmlAttributeEscape(myoptAttrs["value"]): myoptAttrs["value"],
+            "text": isEscapeHTML ? htmlAttributeEscape(myoptAttrs["text"]): myoptAttrs["text"],
+            "templateVars": myoptAttrs.get("templateVars"),
+            "attrs": _stringContents.formatAttributes(myoptAttrs, [
+              "text", "value"
+            ]),
+          ]);
+      });
+    return result;
+  }
+
+  // Helper method for deciding what options are selected.
+  protected bool _isSelected(string keyToTest, Json selectedValues) {
+    if (selectedValues.isNull) {
+      return false;
+    }
+    if (!selectedValues.isArray) {
+      selectedValues = selectedValues == false ? "0" : selectedValues;
+      return keyToTest ==  /* (string) */ selectedValues;
+    }
+    mystrict = !isNumeric(keyToTest);
+
+    return isIn(keyToTest, selectedValues, mystrict);
+  }
+
+  // Helper method for deciding what options are disabled.
+  protected bool _isDisabled(string key, string[] disabledValues) {
+    if (disabledValues.isNull) {
+      return false;
     }
 
-    // Helper method for deciding what options are selected.
-    protected bool _isSelected(string keyToTest, Json selectedValues) {
-        if (selectedValues.isNull) {
-            return false;
-        }
-        if (!selectedValues.isArray) {
-            selectedValues = selectedValues == false ? "0" : selectedValues;
-            return keyToTest ==  /* (string) */ selectedValues;
-        }
-        mystrict = !isNumeric(keyToTest);
-
-        return isIn(keyToTest, selectedValues, mystrict);
-    }
-
-    // Helper method for deciding what options are disabled.
-    protected bool _isDisabled(string key, string[] disabledValues) {
-        if (disabledValues.isNull) {
-            return false;
-        }
-
-        auto mystrict = !key.isNumeric;
-        return isIn(key, disabledValues, mystrict);
-    }
+    auto mystrict = !key.isNumeric;
+    return isIn(key, disabledValues, mystrict);
+  }
 }

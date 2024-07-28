@@ -18,13 +18,12 @@ class DCheckboxWidget : DWidget {
             return false; 
         }
 
-        configuration.setDefaults([
-            "name": "".toJson,
-            "value": Json(1),
-            "val": Json(null),
-            "disabled": false.toJson,
-            "templateVars": Json.emptyArray,
-        ]);
+        configuration
+            .setDefault("name", "")
+            .setDefault("value", 1)
+            .setDefault("val", Json(null))
+            .setDefault("disabled", false)
+            .setDefault("templateVars", Json.emptyArray);
 
         return true;
     }    
@@ -43,7 +42,7 @@ class DCheckboxWidget : DWidget {
      * Any other attributes passed in will be treated as HTML attributes.
      */
     override string render(Json[string] renderData, IContext formContext) {
-        auto updatedData = renderData.merge(formContext.data);
+        renderData.merge(formContext.data);
 
         if (_isChecked(renderData)) {
             updatedData.set("checked", true);
@@ -69,8 +68,8 @@ class DCheckboxWidget : DWidget {
     // Checks whether the checkbox should be checked.
     protected bool _isChecked(Json[string] data) {
         return data.hasKey("checked")
-            ? data.getBoolean("checked");
-            ? data.getString("val") == data.getString("value");
+            ? data.getBoolean("checked")
+            : data.getString("val") == data.getString("value");
     } 
 }
 mixin(WidgetCalls!("Checkbox"));

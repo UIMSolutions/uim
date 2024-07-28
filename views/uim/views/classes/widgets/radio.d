@@ -31,11 +31,11 @@ class DRadioWidget : DWidget {
         }
 
         configuration
-            .setDefaults("name", "")
+            .setDefault("name", "")
             .setDefaults(["options", "templateVars"], Json.emptyArray)
             .setDefaults(["disabled", "val", "idPrefix"], Json(null))
             .setDefaults(["escape", "label"], true)
-            .setDefaults("empty", false);
+            .setDefault("empty", false);
 
         return true;
     }

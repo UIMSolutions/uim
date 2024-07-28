@@ -40,7 +40,7 @@ class DNumericPaginator : IPaginator {
      *
      * @var Json[string]
      */
-        configuration.updateDefaults([
+        configuration.setDefault([
             "page": 1,
             "limit": 20,
             "maxLimit": 100,

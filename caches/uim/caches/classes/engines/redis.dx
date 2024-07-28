@@ -40,7 +40,7 @@ class DRedisCacheEngine : DCacheEngine {
             initData["server"] = host;
         } 
 
-        configuration.updateDefaults([
+        configuration.setDefault([
             "database": Json(0),
             "duration": Json(3600),
             "groups": Json.emptyArray,

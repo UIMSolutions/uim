@@ -34,12 +34,11 @@ class DCacheEngine : UIMObject, ICache, ICacheEngine {
             // TODO configuration.set("duration", configuration.get("duration").toTime - time());
         } */
 
-        configuration.updateDefaults([
-            "duration": Json(3600),
-            "groups": Json.emptyArray,
-            "prefix": Json("uim_"),
-            "warnOnWriteFailures": true.toJson,
-        ]);
+        configuration
+            .setDefault("duration", 3600)
+            .setDefault("groups", Json.emptyArray);
+            .setDefault("prefix", "uim_");
+            .setDefault("warnOnWriteFailures", true);
 
         return true;
     }

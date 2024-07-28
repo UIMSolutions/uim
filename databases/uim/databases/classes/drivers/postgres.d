@@ -11,7 +11,7 @@ class DPostgresDriver : DDriver {
             return false;
         }
 
-        configuration.updateDefaults([
+        configuration.setDefault([
             "persistent": true.toJson,
             "host": Json("localhost"),
             "username": Json("root"),

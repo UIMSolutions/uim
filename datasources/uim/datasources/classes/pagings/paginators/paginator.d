@@ -44,7 +44,7 @@ class DPaginator : IPaginator {
         *
         * @var Json[string]
         */
-        configuration.updateDefaults([
+        configuration.setDefault([
             "page": Json(1),
             "limit": Json(20),
             "maxLimit": Json(100),

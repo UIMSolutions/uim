@@ -19,24 +19,15 @@ class DFileCacheEngine : DCacheEngine {
             return false;
         }
 
-        configuration.updateDefaults([
-            // `duration` Specify how long items in this cache configuration last.
-            "duration": Json(3600),
-            // `groups` List of groups or "tags" associated to every key stored in this config.
-            "groups": Json.emptyArray,
-            // `lock` Used by FileCache. Should files be locked before writing to them?
-            "lock": true.toJson,
-            // `mask` The mask used for created files
-            // TODO "mask": std.conv.octal!"664",
-            // `dirMask` The mask used for created folders
-            // TODO "dirMask": std.conv.octal!"770",
-            // `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
-            "path": Json(null),
-            // `prefix` Prepended to all entries. 
-            "prefix": Json("uim_"),
-            // `serialize` Should cache objects be serialized first.
-            "serialize": true.toJson,
-        ]);
+        configuration
+            .setDefault("duration", 3600) // `duration` Specify how long items in this cache configuration last.
+            .setDefault("groups", Json.emptyArray) // `groups` List of groups or "tags" associated to every key stored in this config.
+            .setDefault("lock", true) // `lock` Used by FileCache. Should files be locked before writing to them?
+            .setDefault("mask", std.conv.octal!"664") // `mask` The mask used for created files
+            .setDefault("dirMask", std.conv.octal!"770") // `dirMask` The mask used for created folders
+            .setDefault("path", Json(null)) // `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
+            .setDefault("prefix", "uim_") // `prefix` Prepended to all entries. 
+            .setDefault("serialize", true); // `serialize` Should cache objects be serialized first.
 
         /* 
         string path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);

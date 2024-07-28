@@ -38,7 +38,7 @@ class DMemoryCacheEngine : DCacheEngine {
      *  appropriate serializer support.
      *  Use the \Memory.OPT_* constants as keys.
      */
-    configuration.updateDefaults([
+    configuration.setDefault([
       "compress": false.toJson,
       "duration": 3600.toJson,
       "groups": Json.emptyArray,

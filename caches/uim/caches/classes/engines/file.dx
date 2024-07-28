@@ -19,7 +19,7 @@ class DFileCacheEngine : DCacheEngine {
             return false;
         }
 
-        configuration.updateDefaults([
+        configuration.setDefault([
             // `duration` Specify how long items in this cache configuration last.
             "duration": Json(3600),
             // `groups` List of groups or "tags" associated to every key stored in this config.

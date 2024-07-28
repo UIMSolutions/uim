@@ -20,13 +20,12 @@ class DFlashComponent : DComponent {
             return false;
         }
 
-        configuration.updateDefaults([
-            "key": Json("flash"),
-            "element": Json("default"),
-            "params": Json.emptyArray,
-            "clear": false.toJson,
-            "duplicate": true.toJson
-        ]);
+        configuration
+            .setDefault("key", "flash")
+            .setDefault("element", "default")
+            .setDefault("params", Json.emptyArray)
+            .setDefault("clear", false)
+            .setDefault("duplicate", true);
 
         return true;
     }

@@ -4,13 +4,8 @@ import uim.views;
 
 @safe:
 
-/*
 
-/**
- * BreadcrumbsHelper to register and display a breadcrumb trail for your views
- *
- * @property \UIM\View\Helper\UrlHelper myUrl
- */
+// BreadcrumbsHelper to register and display a breadcrumb trail for your views
 class DBreadcrumbsHelper : DHelper {
     mixin(HelperThis!("Breadcrumbs"));
     mixin TStringContents;
@@ -19,14 +14,13 @@ class DBreadcrumbsHelper : DHelper {
     protected string[] _helpers = ["Url"];
 
     // Default config for the helper.
-    configuration.setDefaults([
-        "templates": [
+    configuration
+        .setDefault("templates", [
             "wrapper": "<ul{{attrs}}>{{content}}</ul>",
             "item": "<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>{{separator}}",
             "itemWithoutLink": "<li{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>{{separator}}",
             "separator": "<li{{attrs}}><span{{innerAttrs}}>{{separator}}</span></li>",
-        ],
-    ];
+        ]);
 
     // The crumb list.
     protected Json[string] _crumbs = null;

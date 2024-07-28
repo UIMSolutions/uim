@@ -49,16 +49,7 @@ class DJsonView : DSerializedView {
             return false;
         }
 
-        return true;
-    }
-
-    // Json layouts are located in the Json subdirectory of `Layouts/`
-    protected string _layoutPath = "Json";
-
-    // Json views are located in the "Json" subdirectory for controllers" views.
-    protected string _subDir = "Json";
-
-    /**
+/**
      * Default config options.
      *
      * Use ViewBuilder.setOption()/setOptions() in your controller to set these options.
@@ -75,12 +66,20 @@ class DJsonView : DSerializedView {
      *
      */
     configuration.setDefaults([
-            "serialize": Json(null),
-            "JsonOptions": Json(null),
-            "Jsonp": Json(null),
-        ]); /**
-     * Mime-type this view class renders as.
-     */
+            .setDefault("serialize", Json(null))
+            .setDefault("JsonOptions", Json(null))
+            .setDefault("Jsonp", Json(null));
+        ]);
+        return true;
+    }
+
+    // Json layouts are located in the Json subdirectory of `Layouts/`
+    protected string _layoutPath = "Json";
+
+    // Json views are located in the "Json" subdirectory for controllers" views.
+    protected string _subDir = "Json";
+
+    // Mime-type this view class renders as.
     static string contentType() {
         return "application/Json";
     }

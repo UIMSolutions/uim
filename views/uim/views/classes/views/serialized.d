@@ -13,10 +13,8 @@ class DSerializedView : DView {
             return false;
         }
 
+        configuration.setDefault("serialize", Json.emptyArray);  // string[]
         // `serialize` : Option to convert a set of view variables into a serialized response.
-        configuration.setDefaults([
-            "serialize": Json.emptyArray // string[]
-        ]);
 
         return true;
     }

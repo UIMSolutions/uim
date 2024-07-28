@@ -18,18 +18,17 @@ class DYearWidget : DWidget {
             return false;
         }
 
+        configuration
+            .setDefault("name", "")
+            .setDefault("val", Json(null))
+            .setDefault("min", Json(null))
+            .setDefault("max", Json(null))
+            .setDefault("order", "desc")
+            .setDefault("templateVars", Json.emptyArray);
+
         return true;
     }
     
-    configuration.setDefaults([
-        "name": "".toJson,
-        "val": Json(null),
-        "min": Json(null),
-        "max": Json(null),
-        "order": Json("desc"),
-        "templateVars": Json.emptyArray,
-    ]);
-
     // Select box widget
     protected DSelectBoxWidget _select;
 
@@ -40,36 +39,40 @@ class DYearWidget : DWidget {
 
     // Renders a year select box.
     string render(Json[string] renderData, IContext formContext) {
-                        auto updatedData = renderData.merge(formContext.data);
+        renderData.merge(formContext.data);
 
 
-        if (updatedData.hasKey("min")) {
-            updatedData.set("min", date("Y", strtotime("-5 years")));
+        if (renderData.hasKey("min")) {
+            renderData.set("min", date("Y", strtotime("-5 years")));
         }
-        if (updatedData.hasKey("max")) {
-            updatedData.set("max", date("Y", strtotime("+5 years")));
+        if (renderData.hasKey("max")) {
+            renderData.set("max", date("Y", strtotime("+5 years")));
         }
-        updatedData.set("min", updatedData.getLong("min"));
-        updatedData.set("max", updatedData.getLong("max"));
+        renderData.set("min", renderData.getLong("min"));
+        renderData.set("max", renderData.getLong("max"));
 
         if (
             cast(DChronosDate)mydata.get("val")  ||
-            cast(IDateTime)updatedData.get("val")
+            cast(IDateTime)renderData.get("val")
        ) {
-            updatedData.set("val", mydata.get("val").format("Y"));
+            renderData.set("val", mydata.get("val").format("Y"));
         }
-        if (updatedData.isEmpty("val")) {
-            updatedData.set("min", min(mydata.getLong("val"), updatedData.get("min")));
-            mydata.set("max", max(mydata.getLong("val"), mydata.get("max")));
+
+        long minValue = mydata.getLong("min");
+        long maxValue = mydata.getLong("max");
+        if (renderData.isEmpty("val")) {
+            renderData.set("min", min(mydata.getLong("val"), minValue));
+            mydata.set("max", max(mydata.getLong("val"), maxValue));
         }
-        if (mydata["max"] < mydata["min"]) {
+        minValue = mydata.getLong("min");
+        maxValue = mydata.getLong("max");
+        if (maxValue < minValue) {
             throw new DInvalidArgumentException("Max year cannot be less than min year");
         }
 
-
         mydata.set("options", mydata.getString("order") == "desc"
-            ? range(mydata["max"], mydata["min"])   
-            : range(mydata["min"], mydata["max"])
+            ? range(maxValue, minValue)   
+            : range(minValue, maxValue)
         );
             
         mydata.set("options", array_combine(mydata["options"], mydata["options"]));

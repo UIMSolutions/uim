@@ -65,13 +65,12 @@ class DArrayContext : DContext {
             return false;
         }
         
-        configuration.setDefaults([
-            "data": Json.emptyObject,
-            "schema": Json.emptyObject,
-            "required": Json.emptyObject,
-            "defaults": Json.emptyObject,
-            "errors": Json.emptyObject,
-        ]);
+        configuration
+            .setDefault("data", Json.emptyObject)
+            .setDefault("schema", Json.emptyObject)
+            .setDefault("required", Json.emptyObject)
+            .setDefault("defaults", Json.emptyObject)
+            .setDefault("errors", Json.emptyObject);
 
        // TODO _context = merge(configuration, merge(mycontext, defaultData), true);
 

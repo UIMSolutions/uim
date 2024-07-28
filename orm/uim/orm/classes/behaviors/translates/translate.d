@@ -17,38 +17,36 @@ import uim.orm;
  * you can use the custom `translations` finders that is exposed to the table.
  */
 class DTranslateBehavior : DBehavior { // IPropertyMarshal {
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false; 
-        }
-
-        configuration.setDefaults([
-            "implementedFinders": ["translations": "findTranslations"],
-            "implementedMethods": [
-                "setLocale": "setLocale",
-                "getLocale": "getLocale",
-                "translationField": "translationField",
-            
-        ],
-        "fields" : [],
-        "defaultLocale" : null,
-        "referenceName" : "",
-        "allowEmptyTranslations": true.toJson,
-        "onlyTranslated": false.toJson,
-        "strategy" : "subquery",
-        "tableLocator" : null,
-        "validator": false.toJson,]);
-
-        return true; 
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
     }
 
-   // Default strategy class name.
-    protected static string _defaultStrategyClassname = ShadowTableStrategy.classname;
+    configuration
+      .setDefaults("implementedFinders", ["translations": "findTranslations"])
+      .setDefaults("implementedMethods", [
+          "setLocale": "setLocale",
+          "getLocale": "getLocale",
+          "translationField": "translationField",
 
-    // Translation strategy instance.
-    protected ITranslateStrategy _strategy = null;
+        ])
+      .setDefaults("fields", [])
+      .setDefaults("defaultLocale", null)
+      .setDefaults("referenceName", "")
+      .setDefaults("allowEmptyTranslations", true)
+      .setDefaults("onlyTranslated", false)
+      .setDefaults("strategy", "subquery")
+      .setDefaults("tableLocator", null)
+      .setDefaults("validator", false);
+      
+    return true;
+  }
 
-    /**
+  // Default strategy class name.
+  protected static string _defaultStrategyClassname = ShadowTableStrategy.classname;
+
+  // Translation strategy instance.
+  protected ITranslateStrategy _strategy = null; /**
      
      *
      * ### Options
@@ -71,83 +69,84 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * - `validator`: The validator that should be used when translation records
      * are created/modified. Default `null`.
      */
-    this(DORMTable mytable, Json[string] initData = null) {
+  this(DORMTable mytable, Json[string] initData = null) {
 
+    super(mytable, configData);
+  }
 
-        super(mytable, configData);
-    }
+  override bool initialize(Json[string] initData = null) {
+    getStrategy();
+    return super.initialize(initData);
+    configuration
+      .set("defaultLocale", I18n.getDefaultLocale())
+      .set("referenceName", this.referenceName(mytable))
+      .set("tableLocator", mytable.associations().getTableLocator());
+  }
 
-    override bool initialize(Json[string] initData = null) {
-        getStrategy();
-        return super.initialize(initData);
-                configuration            
-            .set("defaultLocale", I18n.getDefaultLocale())
-            .set("referenceName", this.referenceName(mytable))
-            .set("tableLocator", mytable.associations().getTableLocator());
-    }
-
-    /**
+  /**
      * Set default strategy class name.
      * Params:
      * string myclass DClass name.
      */
-    static void setDefaultStrategyClass(string myclass) {
-        _defaultStrategyClassname = myclass;
+  static void setDefaultStrategyClass(string myclass) {
+    _defaultStrategyClassname = myclass;
+  }
+
+  // Get default strategy class name.
+  static string getDefaultStrategyClass() {
+    return _defaultStrategyClassname;
+  }
+
+  // Get strategy class instance.
+  ITranslateStrategy getStrategy() {
+    if (_strategy is null) {
+      _strategy = createStrategy();
     }
+    return _strategy;
+  }
 
-    // Get default strategy class name.
-    static string getDefaultStrategyClass() {
-        return _defaultStrategyClassname;
-    }
+  // Create strategy instance.
+  protected ITranslateStrategy createStrategy() {
+    configData = array_diffinternalKey(
+      configuration,
+      [
+        "implementedFinders", "implementedMethods",
+        "strategyClass"
+      ]
+    ); /** @var class-string<\ORM\Behavior\Translate\ITranslateStrategy> myclassname */
+    myclassname = configuration.getString("strategyClass", _defaultStrategyClassname);
 
-    // Get strategy class instance.
-    ITranslateStrategy getStrategy() {
-        if (_strategy is null) {
-            _strategy = createStrategy();
-        }
-        return _strategy;
-    }
+    return new myclassname(_table, configData);
+  }
 
-    // Create strategy instance.
-    protected ITranslateStrategy createStrategy() {
-        configData = array_diffinternalKey(
-            configuration,
-            ["implementedFinders", "implementedMethods", "strategyClass"]
-       );
-        /** @var class-string<\ORM\Behavior\Translate\ITranslateStrategy> myclassname */
-        myclassname = configuration.getString("strategyClass", _defaultStrategyClassname);
-
-        return new myclassname(_table, configData);
-    }
-
-    /**
+  /**
      * Set strategy class instance.
      * Params:
      * \ORM\Behavior\Translate\ITranslateStrategy _strategy Strategy class instance.
      */
-    void setStrategy(ITranslateStrategy _strategy) {
-        this.strategy = _strategy;
-    }
+  void setStrategy(ITranslateStrategy _strategy) {
+    this.strategy = _strategy;
+  }
 
-    // Gets the Model callbacks this behavior is interested in.
-    IEvent[] implementedEvents() {
-        return [
-            "Model.beforeFind": "beforeFind",
-            "Model.beforeMarshal": "beforeMarshal",
-            "Model.beforeSave": "beforeSave",
-            "Model.afterSave": "afterSave",
-        ];
-    }
+  // Gets the Model callbacks this behavior is interested in.
+  IEvent[] implementedEvents() {
+    return [
+      "Model.beforeFind": "beforeFind",
+      "Model.beforeMarshal": "beforeMarshal",
+      "Model.beforeSave": "beforeSave",
+      "Model.afterSave": "afterSave",
+    ];
+  }
 
-    /**
+  /**
      * Hoist fields for the default locale under `_translations` key to the root
      * in the data.
      *
      * This allows `_translations.{locale}.field_name` type naming even for the
      * default locale in forms.
      */
-     // TODO 
-/*    void beforeMarshal(IEvent myevent, Json[string] mydata, Json[string] options) {
+  // TODO 
+  /*    void beforeMarshal(IEvent myevent, Json[string] mydata, Json[string] options) {
         if (options.hasKey("translations") && !options.hasKey("translations"]) {
             return;
         }
@@ -161,16 +160,16 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
         remove(mydata["_translations"][mydefaultLocale]);
     } */
 
-    /**
+  /**
      * Add in `_translations` marshalling handlers. You can disable marshalling
      * of translations by setting `"translations": false.toJson` in the options
      * provided to `Table.newEntity()` or `Table.patchEntity()`.
      */
-    Json[string] buildMarshalMap(DMarshaller tableMarshaller, Json[string] propertyMap, Json[string] marshallingOptions) {
-        return _getStrategy().buildMarshalMap(tableMarshaller, propertyMap, marshallingOptions);
-    }
+  Json[string] buildMarshalMap(DMarshaller tableMarshaller, Json[string] propertyMap, Json[string] marshallingOptions) {
+    return _getStrategy().buildMarshalMap(tableMarshaller, propertyMap, marshallingOptions);
+  }
 
-    /**
+  /**
      * Sets the locale that should be used for all future find and save operations on
      * the table where this behavior is attached to.
      *
@@ -186,21 +185,21 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * in order to unset the current locale, and to make the behavior fall back to using the
      * globally configured locale.
      */
-    void localeName(string mylocale) {
-        getStrategy().localeNamemylocale);
-    }
+  void localeName(string mylocale) {
+    getStrategy().localeNamemylocale);
+  }
 
-    /**
+  /**
      * Returns the current locale.
      *
      * If no locale has been explicitly set via `localeName)`, this method will return
      * the currently configured global locale.
      */
-    string locale() {
-        return _getStrategy().locale();
-    }
+  string locale() {
+    return _getStrategy().locale();
+  }
 
-    /**
+  /**
      * Returns a fully aliased field name for translated fields.
      *
      * If the requested field is configured as a translation field, the `content`
@@ -209,11 +208,11 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Params:
      * string fieldName Field name to be aliased.
      */
-    string translationField(string fieldName) {
-        return _getStrategy().translationField(fieldName);
-    }
+  string translationField(string fieldName) {
+    return _getStrategy().translationField(fieldName);
+  }
 
-    /**
+  /**
      * Custom finder method used to retrieve all translations for the found records.
      * Fetched translations can be filtered by locale by passing the `locales` key
      * in the options array.
@@ -231,29 +230,32 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * If the `locales` array is not passed, it will bring all translations found
      * for each record.
      */
-    SelectQuery findTranslations(DSelectQuery queryToModify, Json[string] locales= null) {
-        auto mytargetAlias = getStrategy().getTranslationTable().aliasName();
-        return queryToModify
-            .contain([mytargetAlias: auto(IQuery queryToModify) use(mylocales, mytargetAlias) {
-                        if (locales) {
-                            queryToModify.where(["mytargetAlias.locale IN": mylocales]);
-                        }
-                        return queryToModify;}
+  SelectQuery findTranslations(DSelectQuery queryToModify, Json[string] locales = null) {
+    auto mytargetAlias = getStrategy().getTranslationTable().aliasName();
+    return queryToModify
+      .contain([mytargetAlias: auto(IQuery queryToModify) use(mylocales, mytargetAlias) {
+            if (locales) {
+              queryToModify.where([
+                  "mytargetAlias.locale IN": mylocales
+                ]);
+            }
+            return queryToModify;
+          }
 
-                        ])
-                            .formatResults(getStrategy()
-                                .groupTranslations(...), queryToModify.PREPEND);
-                    }
+        ])
+      .formatResults(getStrategy()
+          .groupTranslations(...), queryToModify.PREPEND);
+  }
 
-                    // Proxy method calls to strategy class instance.
-                    Json __call(string methodName, Json[string] methodArguments) {
-                        return _strategy. {
-                            methodName
-                        }
-                        (...myargs);
-                    }
+  // Proxy method calls to strategy class instance.
+  Json __call(string methodName, Json[string] methodArguments) {
+    return _strategy. {
+      methodName
+    }
+    (...myargs);
+  }
 
-                    /**
+  /**
      * Determine the reference name to use for a given table
      *
      * The reference name is usually derived from the class name of the table object
@@ -263,13 +265,13 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Params:
      * \ORM\Table mytable The table class to get a reference name for.
      */
-                    protected string referenceName(Table mytable) {
-                        myname = namespaceSplit(mytable.classname);
-                        myname = subString(to!string(end(myname)), 0,  - 5);
-                        if (myname.isEmpty) {
-                            myname = mytable.getTable() ?  : mytable.aliasName();
-                            myname = Inflector.camelize(myname);
-                        }
-                        return myname;
-                    }
+  protected string referenceName(Table mytable) {
+    myname = namespaceSplit(mytable.classname);
+    myname = subString(to!string(end(myname)), 0, -5);
+    if (myname.isEmpty) {
+      myname = mytable.getTable() ?  : mytable.aliasName();
+      myname = Inflector.camelize(myname);
+    }
+    return myname;
+  }
 }

@@ -100,12 +100,12 @@ class DFormHelper : DHelper {
                 "requiredClass": `required`,
             ].toJson;
 
-        configuration.setDefaults([
-            "idPrefix": Json(null),
-            "errorClass": Json("form-error"),
-            "typeMap": typeMap,
-            "templates" : MapData(), // set HTML5 validation message to custom required/empty messages
-                "autoSetCustomValidity" : true.toJson,]);
+        configuration
+            .setDefault("idPrefix", Json(null))
+            .setDefault("errorClass", "form-error")
+            .setDefault("typeMap", typeMap)
+            .setDefault("templates",  MapData()) // set HTML5 validation message to custom required/empty messages
+            .setDefault("autoSetCustomValidity", true);
 
             return true;
         }
@@ -241,23 +241,23 @@ class DFormHelper : DHelper {
             if (options.isEmpty("context")) {
                 options.et("context", Json(null));
             }
-            options.et("context.entity", formContext);
+            options.set("context.entity", formContext);
             formContext = _getContext(options.get("context"));
             options.remove("context");
         }
         myisCreate = formContext.isCreate();
 
-        auto options = options.updatetions.updatetions.updatetions.updatetions.update[
+        auto options = options.([
             "type": myisCreate ? "post" : "put",
             "url": Json(null),
             "encoding": configuration.get("App.encoding").lower.toJson,
             "templates": Json(null),
             "idPrefix": Json(null),
             "valueSources": Json(null),
-        ];
+        ]);
 
         if (options.hasKey("valueSources")) {
-            setValueSources(options.get("valueSources"]);
+            setValueSources(options.get("valueSources"));
             options.remove("valueSources");
         }
         if (options.hasKey("idPrefix")) {
@@ -267,12 +267,12 @@ class DFormHelper : DHelper {
 
         if (options.hasKey("templates")) {
             mytemplater.push();
-            methodName = isString(options.get("templates"]) ? "load" : "add";
-            mytemplater.{methodName}(options.get("templates"]);
+            methodName = isString(options.get("templates")) ? "load" : "add";
+            // TODO mytemplater.{methodName}(options.get("templates"));
         }
         options.remove("templates");
 
-        if (options.hasKey("url"] == false) {
+        if (!options.hasKey("url")) {
             myurl = _View.getRequest().getRequestTarget();
             myaction = null;
         } else {
@@ -283,7 +283,7 @@ class DFormHelper : DHelper {
         options.remove("ur","idPrefix");
 
         myhtmlAttributes = null;
-        switch (options.get("type"].lower) {
+        switch (options.get("type").lower) {
             case "get": 
                 myhtmlAttributes.get("method", "get");
                 break;

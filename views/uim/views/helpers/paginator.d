@@ -43,12 +43,11 @@ class DPaginatorHelper : DHelper {
      * can have values `"sort"`, `"direction"`, `"page"`.
      *
      * Templates: the templates used by this class
-     *
      */
-    configuration.setDefaults([
-            "params": Json.emptyArray,
-            "options": Json.emptyArray,
-            "templates": [
+    configuration
+            .setDefault("params", Json.emptyArray)
+            .setDefault("options", Json.emptyArray)
+            .setDefault("templates", [
                 "nextActive": "<li class=\"next\"><a rel=\"next\" href=\"{{url}}\">{{text}}</a></li>",
                 "nextDisabled": "<li class=\"next disabled\"><a href=\" \" onclick=\"return false;\">{{text}}</a></li>",
                 "prevActive": "<li class=\" prev\"><a rel=\"prev\" href=\"{{url}}\">{{text}}</a></li>",
@@ -65,8 +64,7 @@ class DPaginatorHelper : DHelper {
                 "sortDesc": "<a class=\"desc\" href=\"{{url}}\">{{text}}</a>",
                 "sortAscLocked": "<a class=\" asc locked\" href=\"{{url}}\">{{text}}</a>",
                 "sortDescLocked": "<a class=\"desc locked\" href=\"{{url}}\">{{text}}</a>",
-            ]
-        ]);
+            ]);
 
     // Paginated results
     protected IPaginated _paginated;

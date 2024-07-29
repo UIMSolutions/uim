@@ -133,7 +133,7 @@ version(test_uim_html) { unittest {
     mixin(H5Def!"canvas");
     version(test_uim_html) { unittest {
 /*	    assert(H5.canvas("test", [""]), `<canvas id="test"></canvas><script>function drawtest(){var canvas=document.getElementById('test');`~
-		`var context=canvas.getContext('2d');}window.addEventListener("load",drawtest,true);</script>`);
+		`var context=canvas.getContext('2d');}window.adIEventListener("load",drawtest,true);</script>`);
 */    }}
     
     mixin(H5Def!"caption");

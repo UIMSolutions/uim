@@ -95,7 +95,7 @@ import uim.orm;
  * - `afterremove(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `afterDeleteCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  */
-class DORMTable { //* }: IRepository, DEventListener, IEventDispatcher, IValidatorAware {
+class DORMTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
     mixin TConventions;
     mixin TLocatorAware;

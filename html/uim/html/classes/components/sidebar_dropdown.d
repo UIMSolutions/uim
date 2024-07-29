@@ -68,7 +68,7 @@ class DH5SidebarDropdown : DH5Component {
 var i;
 
 for (i = 0; i < dropdown.length; i++) {
-  dropdown[i].addEventListener("click", function() {
+  dropdown[i].adIEventListener("click", function() {
   this.classList.toggle("active");
   var dropdownContent = this.nextElementSibling;
   if (dropdownContent.style.display === "block") {

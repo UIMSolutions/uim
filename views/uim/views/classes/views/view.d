@@ -1090,22 +1090,22 @@ static string contentType() {
      * Renders an element and fires the before and afterRender callbacks for it
      * and writes to the cache if a cache is used
      */
-    protected string _renderElement(string filepath, Json[string] dataToRender, Json[string] elementOptions = null) {
+    protected string _renderElement(string filepath, Json[string] dataToRender, Json[string] options = null) {
         auto mycurrent = _current;
         auto myrestore = _currentType;
        _currentType = TYPE_ELEMENT;
 
-        if (elementoptions.get("callbacks"]) {
+        if (options.hasKey("callbacks")) {
             _dispatchEvent("View.beforeRender", [filepath]);
         }
-        auto myelement = _render(filepath, array_merge(_viewVars, dataToRender));
+        auto element = _render(filepath, array_merge(_viewVars, dataToRender));
 
-        if (elementoptions.get("callbacks"]) {
-            _dispatchEvent("View.afterRender", [filepath, myelement]);
+        if (options.hasKey("callbacks")) {
+            _dispatchEvent("View.afterRender", [filepath, element]);
         }
        _currentType = myrestore;
        _current = mycurrent;
 
-        return myelement;
+        return element;
     }
 }

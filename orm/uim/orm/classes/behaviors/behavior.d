@@ -96,7 +96,7 @@ import uim.orm;
  * findSlugged(Query query, Json[string] options = null)
  * ```
  */
-class DBehavior : DEventListener {
+class DBehavior : IEventListener {
     mixin TConfigurable;
 
     this() {

@@ -227,7 +227,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
     if (array_key_hasKey(objectName, _loaded)) {
       this.unload(objectName);
     }
-    if (cast(IEventDispatcher) this && cast(DEventListener) object) {
+    if (cast(IEventDispatcher) this && cast(IEventListener) object) {
       getEventManager().on(object);
     }
     _loaded[objName] = object;

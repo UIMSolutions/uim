@@ -641,9 +641,9 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext dump
             foreach (reflectionProperty; reflectionProperties) {
                 reflectionProperty.setAccessible(true);
 
-                value = hasMethod(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(objToConvert)
-                    ? new DSpecialNode(
-                        "[uninitialized]") : export_(reflectionProperty.getValue(objToConvert), dumpContext.withAddedDepth());
+                auuto value = hasMethod(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(objToConvert)
+                    ? new DSpecialNode("[uninitialized]") 
+                    : export_(reflectionProperty.getValue(objToConvert), dumpContext.withAddedDepth());
 
                 node.addProperty(
                     new DPropertyNode(

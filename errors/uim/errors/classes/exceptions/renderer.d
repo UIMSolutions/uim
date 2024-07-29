@@ -27,12 +27,21 @@ import uim.errors;
  * can configure your class in your config/app.D.
  */
 class DExceptionRenderer { // }: IExceptionRenderer
-    /**
-     * The exception being handled.
-     *
-     * @var \Throwable
-     */
-    protected myError;
+    this() {
+        initialize();
+    }
+
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        _allMethods = [ __traits(allMembers, DORMTable) ];
+        
+        return true;
+    }
+    // The exception being handled.
+    protected Throwable myError;
 
     /**
      * Controller instance.
@@ -165,7 +174,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         auto myTemplate = templateName(exception, method, code);
         clearOutput();
 
-        if (hasMethod(this, method)) {
+        if (hasMethod(method)) {
             return _customMethod(method, exception);
         }
 

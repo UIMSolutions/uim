@@ -68,7 +68,7 @@ mixin template TCell() {
 
             return myinstance;
         }
-        if (method_hasKey(this, "viewBuilder")) {
+        if (hasMethod(this, "viewBuilder")) {
             mybuilder.setTheme(viewBuilder().getTheme());
 
             if (viewBuilder().getClassname() !is null) {

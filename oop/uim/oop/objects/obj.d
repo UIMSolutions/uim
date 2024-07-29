@@ -24,15 +24,20 @@ class UIMObject : INamed {
         configuration(MemoryConfiguration);
         configuration.set(initData);
 
+        _methodNames = [ __traits(allMembers, UIMObject) ];
         return true;
     }
 
     mixin(TProperty!("string", "name"));
+    mixin(TProperty!("string[]", "methodNames"));
+    bool hasMethod(string name) {
+        return _methodNames.has(name);
+    }
 
     Json[string] debugInfo() {
-        return [
-            "name": name,
-        ].toJsonMap;
+        Json[string] info; 
+        info.set("name", name);
+        return info;
     } 
 }
 

@@ -46,16 +46,13 @@ class DEventManager : IEventManager {
         return _generalManager;
     }
 
-    void on( /* DEventListener |  */ string eventKey, /* callable | */
-        Json[string] options = null, /* callable callable = null */
+    void on(IEventListener eventKey, Json[string] options = null) {
+        _attachSubscriber(eventKey);
+    }
+    void on(string eventKey, /* callable | */ Json[string] options = null, /* callable callable = null */
     ) {
         // TODO
-        /*        if (cast(DEventListener)eventKey) {
-           _attachSubscriber(eventKey);
-
-            return;
-        }
-        if (!aCallable && !isCallable(options)) {
+        /* if (!aCallable && !isCallable(options)) {
             throw new DInvalidArgumentException(
                 "second argument of `EventManager.on()` must be a callable if `aCallable`.isNull."
            );
@@ -67,35 +64,32 @@ class DEventManager : IEventManager {
         ];
 
         return;
-    }
+        }*/
 
-    priority = options.get("priority"] ?  ? defaultPriority;
-    _listeners[eventKey][priority).concat( [
-        "callable": aCallable(...),
-    ]; */
+        auto priority = options.get("priority", defaultPriority);
+        // TODO  _listeners[eventKey][priority].concat("callable": aCallable(...)];    
     }
 
     /**
-     * Auxiliary auto to attach all implemented callbacks of a UIM\Event\DEventListener class instance
+     * Auxiliary auto to attach all implemented callbacks of a UIM\Event\IEventListener class instance
      * as individual methods on this manager
      */
-    protected void _attachSubscriber(DEventListener subscriber) {
-        /*    foreach (eventKey : handlers; subscriber.implementedEvents()) {
-        foreach (this.normalizeHandlers(subscriber, handlers) as handler) {
+    protected void _attachSubscriber(IEventListener subscriber) {
+        foreach (eventKey, handlers; subscriber.implementedEvents()) {
+/*         foreach (this.normalizeHandlers(subscriber, handlers) as handler) {
             this.on(eventKey, handler["settings"], handler["callable"]);
+        } */
         }
     }
- */
-    }
 
-    void off(DEventListener listener
+    void off(IEventListener listener
     ) {
         _detachSubscriber(listener);
     }
 
     auto off(
         /* callable */
-        string eventKey, /* DEventListener|callable */
+        string eventKey, /* IEventListener|callable */
         // TODO callable aCallable = null
 
         
@@ -105,7 +99,7 @@ class DEventManager : IEventManager {
         _listeners.keys.each!(name => off(name, eventKey)); 
         return this;
     }
- */ /* if (cast(DEventListener) aCallable) {
+ */ /* if (cast(IEventListener) aCallable) {
         _detachSubscriber(aCallable, eventKey);
 
         return this;
@@ -132,8 +126,8 @@ class DEventManager : IEventManager {
         return this;
     }
 
-    // Auxiliary auto to help detach all listeners provided by an object implementing DEventListener
-    protected void _detachSubscriber(DEventListener subscriber, string eventKey = null) {
+    // Auxiliary auto to help detach all listeners provided by an object implementing IEventListener
+    protected void _detachSubscriber(IEventListener subscriber, string eventKey = null) {
         // TODO
         /*    events = subscriber.implementedEvents();
     if (!eventKey.isEmpty && events.isEmpty(eventKey)) {
@@ -158,7 +152,7 @@ class DEventManager : IEventManager {
      * - `callable` - The event handler closure
      * - `settings` - The event handler settings
      */
-    protected Json[string] normalizeHandlers(DEventListener subscriber, Json[string] eventHandlers) {
+    protected Json[string] normalizeHandlers(IEventListener subscriber, Json[string] eventHandlers) {
         if (!eventHandlers.hasKey("callable")) {
 /*            eventHandlers.byKeyValue
                 .each!(kv => eventHandlers[kv.key] = normalizeHandler(subscriber, kv.value));
@@ -166,12 +160,12 @@ class DEventManager : IEventManager {
         return eventHandlers;
     }
 
-/*     protected Json[string] normalizeHandlers(DEventListener subscriber, DClosure eventHandler) {
+/*     protected Json[string] normalizeHandlers(IEventListener subscriber, DClosure eventHandler) {
         // TODO return [normalizeHandler(subscriber, eventHandler)];
         return null; 
     }
  */
-    protected Json[string] normalizeHandlers(DEventListener subscriber, /* Closure |  */ string eventHandler) {
+    protected Json[string] normalizeHandlers(IEventListener subscriber, /* Closure |  */ string eventHandler) {
         // TODO return [normalizeHandler(subscriber, eventHandler)];
         return null; 
     }
@@ -184,7 +178,7 @@ class DEventManager : IEventManager {
      * - `callable` - The event handler closure
      * - `settings` - The event handler settings
      */
-    protected Json[string] normalizeHandler(DEventListener subscriber, /* Closure|array| */ string eventHandler) {
+    protected Json[string] normalizeHandler(IEventListener subscriber, /* Closure|array| */ string eventHandler) {
         // auto callable = eventHandler;
         auto settings = null;
 

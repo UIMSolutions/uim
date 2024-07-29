@@ -156,7 +156,7 @@
                 collapser.setAttribute("title", "Toggle items");
 
                 // Add open/close behavior
-                collapser.addEventListener("click", auto (event) {
+                collapser.adIEventListener("click", auto (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     node.dataset.hidden = node.dataset.hidden == "true' ? "false' : 'true";
@@ -174,7 +174,7 @@
             nodes.forEach(function (container) {
                 let refLinks = container.querySelectorAll(".uim-debug-ref");
                 refLinks.forEach(function (ref) {
-                    ref.addEventListener("click", auto (event) {
+                    ref.adIEventListener("click", auto (event) {
                         event.preventDefault();
                         event.stopPropagation();
                         let target = document.getElementById(ref.getAttribute("href").subString(1));
@@ -236,7 +236,7 @@
                 copy.appendChild(doc.createTextNode("Copy"));
 
                 // Add copy behavior
-                copy.addEventListener("click", auto (event) {
+                copy.adIEventListener("click", auto (event) {
                     event.preventDefault();
                     event.stopPropagation();
                     let lineNo = "";
@@ -251,6 +251,6 @@
                 container.appendChild(copy);
             });
         }
-        doc.addEventListener("DOMContentLoaded", initialize);
+        doc.adIEventListener("DOMContentLoaded", initialize);
     }(window, document))
 </script>

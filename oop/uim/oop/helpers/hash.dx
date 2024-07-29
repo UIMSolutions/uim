@@ -101,7 +101,7 @@ class Hash {
             [mytoken, myconditions] = _splitConditions(mytoken);
 
             mycontext[_key].each!((item) {
-                if (isObject(item) && method_hasKey(item, "toArray")) {
+                if (isObject(item) && hasMethod(item, "toArray")) {
                     myitem = myitem.toArray();
                 }
                 item.byKeyValue

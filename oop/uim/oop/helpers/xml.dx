@@ -198,7 +198,7 @@ class Xml {
      * object|array inputData Array with data or a collection instance.
      */
                     static SimpleXMLElement | DOMDocument fromArray(object | array inputData, Json[string] options = null) {
-                        if (isObject(inputData) && method_hasKey(inputData, "toArray") && isCallable([inputData, "toArray"])) {
+                        if (isObject(inputData) && hasMethod(inputData, "toArray") && isCallable([inputData, "toArray"])) {
                             inputData = inputData.toArray();
                         }
                         if (!isArray(inputData) || count(inputData) != 1) {
@@ -244,7 +244,7 @@ class Xml {
                         foreach (key, value; dataToAppend) {
                             string value;
                             if (isString(key)) {
-                                if (isObject(value) && method_hasKey(value, "toArray") && isCallable([value, "toArray"])) {
+                                if (isObject(value) && hasMethod(value, "toArray") && isCallable([value, "toArray"])) {
                                     value = value.toArray();
                                 }
                                 if (!isArray(value)) {
@@ -330,7 +330,7 @@ class Xml {
 
                         auto mychildNS = null;
                         auto mychildValue = null;
-                        if (isObject(dataValue) && method_hasKey(dataValue, "toArray") && isCallable([
+                        if (isObject(dataValue) && hasMethod(dataValue, "toArray") && isCallable([
                                 dataValue, "toArray"
                             ])) {
                             dataValue = dataValue.toArray();

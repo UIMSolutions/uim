@@ -138,7 +138,7 @@ mixin template TValidatorAware() {
     
     // Checks if validation method exists.
     protected bool validationMethodhasKey(string methodName) {
-        return method_hasKey(this, methodName);
+        return hasMethod(this, methodName);
     }
     
     /**

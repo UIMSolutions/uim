@@ -126,7 +126,7 @@ class DHelper { // TODO }: IEventListener {
 
         auto myevents = null;
         myeventMap.byKeyValue
-            .filter!(eventMethod => method_hasKey(this, eventMethod.value))
+            .filter!(eventMethod => hasMethod(this, eventMethod.value))
             .each!(eventMethod => myevents[eventMethod.key] = eventMethod.value);
 
         return myevents;

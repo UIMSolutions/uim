@@ -117,6 +117,22 @@ class DBehavior : IEventListener {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
+        _eventMap = [
+            "Model.beforeMarshal": "beforeMarshal",
+            "Model.afterMarshal": "afterMarshal",
+            "Model.beforeFind": "beforeFind",
+            "Model.beforeSave": "beforeSave",
+            "Model.afterSave": "afterSave",
+            "Model.afterSaveCommit": "afterSaveCommit",
+            "Model.beforeDelete": "beforeDelete",
+            "Model.afterDelete": "afterDelete",
+            "Model.afterDeleteCommit": "afterDeleteCommit",
+            "Model.buildValidator": "buildValidator",
+            "Model.buildRules": "buildRules",
+            "Model.beforeRules": "beforeRules",
+            "Model.afterRules": "afterRules",
+        ];
+
         return true;
     }
 
@@ -143,12 +159,12 @@ class DBehavior : IEventListener {
             "implementedFinders",
             _defaultConfig,
             myConfiguration
-       );
+        );
         myConfiguration = _resolveMethodAliases(
             "implementedMethods",
             _defaultConfig,
             myConfiguration
-       );
+        );
         _table = attachedTable;
         configuration.set(myConfiguration);
         this.initialize(myConfiguration);
@@ -189,8 +205,7 @@ class DBehavior : IEventListener {
      * Checks that implemented keys contain values pointing at callable.
      */
     void verifyConfig() {
-        ["implementedFinders", "implementedMethods"]
-            filter(key => configuration.hasKey(key))
+        ["implementedFinders", "implementedMethods"] filter(key => configuration.hasKey(key))
             .each!((key) {
                 foreach (method; configuration.getStringArray(key)) {
                     if (!is_callable([this, method])) {
@@ -211,39 +226,18 @@ class DBehavior : IEventListener {
      * Override this method if you need to add non-conventional event listeners.
      * Or if you want your behavior to listen to non-standard events.
      */
+    protected STRINGAA _eventMap;
     Json[string] implementedEvents() {
-        eventMap = [
-            "Model.beforeMarshal": "beforeMarshal",
-            "Model.afterMarshal": "afterMarshal",
-            "Model.beforeFind": "beforeFind",
-            "Model.beforeSave": "beforeSave",
-            "Model.afterSave": "afterSave",
-            "Model.afterSaveCommit": "afterSaveCommit",
-            "Model.beforeDelete": "beforeDelete",
-            "Model.afterDelete": "afterDelete",
-            "Model.afterDeleteCommit": "afterDeleteCommit",
-            "Model.buildValidator": "buildValidator",
-            "Model.buildRules": "buildRules",
-            "Model.beforeRules": "beforeRules",
-            "Model.afterRules": "afterRules",
-        ];
         auto configData = configuration.data;
-        
+
         Json priority = configuration.get("priority");
         Json[string] events = null;
-        foreach (eventMap as event: method) {
-            if (!method_hasKey(this, method)) {
-                continue;
-            }
-            if (priority == null) {
-                events[event] = method;
-            } else {
-                events[event] = [
-                    "callable": method,
-                    "priority": priority,
-                ];
-            }
-        }
+        eventMap.byKeyValue // key = name, value = method
+            .filter(entry => hasMethod(this, entry.value))
+            .each!(entry => events[entry.key] = priority == null
+                    ? entry.value
+                    : ["callable": entry.value,
+                        "priority": priority]);
 
         return events;
     }
@@ -312,12 +306,12 @@ class DBehavior : IEventListener {
      * declared on uim\orm.Behavior
      */
     protected Json[string] _reflectionCache() {
-        class = class;
-        if (_reflectionCache.hasJey(class)) {
-            return _reflectionCache[class];
+        string classname = this.classname;
+        if (_reflectionCache.hasKey(classname)) {
+            return _reflectionCache[classname];
         }
 
-        auto events = this.implementedEvents();
+        auto events = implementedEvents();
         bool[string] eventMethods = null;
         foreach (binding; events) {
             if (binding.isArray && binding.hasKey("callable")) {
@@ -336,7 +330,7 @@ class DBehavior : IEventListener {
             _reflectionCache[baseClass] = baseMethods;
         }
 
-        return = [
+        return  = [
             "finders": Json.emptyArray,
             "methods": Json.emptyArray,
         ];
@@ -350,9 +344,9 @@ class DBehavior : IEventListener {
             }
 
             if (subString(methodName, 0, 4) == "find") {
-                return["finders"][lcfirst(subString(methodName, 4))] = methodName;
+                return ["finders"][lcfirst(subString(methodName, 4))] = methodName;
             } else {
-                return["methods"][methodName] = methodName;
+                return ["methods"][methodName] = methodName;
             }
         }
 

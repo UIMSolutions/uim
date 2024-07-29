@@ -95,7 +95,7 @@ import uim.orm;
  * - `afterremove(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `afterDeleteCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  */
-class DORMTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorAware {
+class DORMTable : IEventListener { //* }: IRepository, , IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
     mixin TConventions;
     mixin TLocatorAware;
@@ -119,6 +119,22 @@ class DORMTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidat
         if (!super.initialize(initData)) {
             return false;
         }
+
+        _allMethods = [ __traits(allMembers, DORMTable) ];
+        _eventMap = [
+            "Model.beforeMarshal": "beforeMarshal",
+            "Model.afterMarshal": "afterMarshal",
+            "Model.buildValidator": "buildValidator",
+            "Model.beforeFind": "beforeFind",
+            "Model.beforeSave": "beforeSave",
+            "Model.afterSave": "afterSave",
+            "Model.afterSaveCommit": "afterSaveCommit",
+            "Model.beforeDelete": "beforeDelete",
+            "Model.afterDelete": "afterDelete",
+            "Model.afterDeleteCommit": "afterDeleteCommit",
+            "Model.beforeRules": "beforeRules",
+            "Model.afterRules": "afterRules",
+        ];
 
         /**
         * Initializes a new instance
@@ -2054,13 +2070,13 @@ class DORMTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidat
      */
    bool hasFinder(string finderType) {
         auto finderName = "find" ~ finderType;
-        return method_hasKey(this, finderName) || _behaviors.hasFinder(finderType);
+        return hasMethod(this, finderName) || _behaviors.hasFinder(finderType);
     }
     
     // Calls a finder method and applies it to the passed query.
     SelectQuery<TSubject> callFinder(string finderType, DSelectQuery myquery, Json arguments) {
         string myfinder = "find" ~ finderType;
-        if (method_hasKey(this, myfinder)) {
+        if (hasMethod(this, myfinder)) {
             return _invokeFinder(this.{myfinder}(...), myquery, arguments);
         }
         if (_behaviors.hasFinder(finderType)) {
@@ -2492,25 +2508,10 @@ class DORMTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidat
      * - Model.beforeRules: beforeRules
      * - Model.afterRules: afterRules
      */
-    IEvent[] implementedEvents() {
-        auto eventMap = [
-            "Model.beforeMarshal": "beforeMarshal",
-            "Model.afterMarshal": "afterMarshal",
-            "Model.buildValidator": "buildValidator",
-            "Model.beforeFind": "beforeFind",
-            "Model.beforeSave": "beforeSave",
-            "Model.afterSave": "afterSave",
-            "Model.afterSaveCommit": "afterSaveCommit",
-            "Model.beforeDelete": "beforeDelete",
-            "Model.afterDelete": "afterDelete",
-            "Model.afterDeleteCommit": "afterDeleteCommit",
-            "Model.beforeRules": "beforeRules",
-            "Model.afterRules": "afterRules",
-        ];
-        
+    IEvent[] implementedEvents() {        
         IEvent[string] myevents = null;
         foreach (eventName, methodName; eventMap) {
-            if (!method_hasKey(this, methodName)) {
+            if (!hasMethod(this, methodName)) {
                 continue;
             }
             myevents[eventName] = methodName;
@@ -2559,7 +2560,7 @@ class DORMTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidat
     }
  
     protected bool validationMethodhasKey(string methodName) {
-        return method_hasKey(this, methodName) || this.behaviors().hasMethod(methodName);
+        return hasMethod(this, methodName) || this.behaviors().hasMethod(methodName);
     }
     
     /**

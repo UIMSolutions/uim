@@ -1053,7 +1053,7 @@ class DFormHelper : DHelper {
         myvalues = null;
         /** @var \BackedEnum mycase */
         foreach (mycase; enumclassname.cases()) {
-            myhasLabel = cast(IEnumLabel)mycase || method_hasKey(mycase, "label");
+            myhasLabel = cast(IEnumLabel)mycase || hasMethod(mycase, "label");
             myvalues[mycase.value] = myhasLabel ? mycase.label(): mycase.name;
         }
         return myvalues;

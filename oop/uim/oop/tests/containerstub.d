@@ -43,7 +43,7 @@ mixin template TContainerStub() {
         appArgs = _appArgs ? _appArgs : [CONFIG];
 
         auto app = null; // TODO new appClass(...appArgs);
-        if (!this.containerServices.isEmpty && method_hasKey(app, "getEventManager")) {
+        if (!this.containerServices.isEmpty && hasMethod(app, "getEventManager")) {
             app.getEventManager().on("Application.buildContainer", [this, "modifyContainer"]);
         }
         return app;

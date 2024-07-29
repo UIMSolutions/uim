@@ -32,7 +32,7 @@ class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkMa
     return (hasFilesystem ? filesystem.pathSeparator : null);
   }
 
-	override bool hasKey() {
+	override bool exists() {
 		return (hasFilesystem ? filesystem.existsFolder(path, name) : false);
 	}
 

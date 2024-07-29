@@ -36,8 +36,8 @@ class DCacheEngine : UIMObject, ICache, ICacheEngine {
 
         configuration
             .setDefault("duration", 3600)
-            .setDefault("groups", Json.emptyArray);
-            .setDefault("prefix", "uim_");
+            .setDefault("groups", Json.emptyArray)
+            .setDefault("prefix", "uim_")
             .setDefault("warnOnWriteFailures", true);
 
         return true;

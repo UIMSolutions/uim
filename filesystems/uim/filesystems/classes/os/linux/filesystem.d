@@ -129,7 +129,7 @@ class DLinuxFilesystem : DFilesystem {
 						debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 						debug writeln("aPath = \t", aPath); 
 						debug writeln("aFolderName = \t", aFolderName); }
-					return (std.file.hasKey(absolutePath(aPath~aFolderName)) && std.file.isDir(absolutePath(aPath~aFolderName)));
+					return (std.file.exists(absolutePath(aPath~aFolderName)) && std.file.isDir(absolutePath(aPath~aFolderName)));
 				}
 			// #endregion existsFolder()
 			
@@ -215,14 +215,14 @@ class DLinuxFilesystem : DFilesystem {
 					debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
 					debug writeln("aPath = \t", aPath, "\taFileName = \t", aFileName); }
 				string myabsolutePath = absolutePath(aPath~aFileName);
-				return std.file.hasKey(myabsolutePath) && std.file.isFile(myabsolutePath);
+				return std.file.exists(myabsolutePath) && std.file.isFile(myabsolutePath);
 			} 
 
 			alias file = DFilesystem.file;
 			override IFile file(string[] aPath, string aFileName) {
         version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 				string myabsolutePath = absolutePath(aPath~aFileName);
-				if (!std.file.hasKey(myabsolutePath) || !std.file.isFile(myabsolutePath)) { return null; }
+				if (!std.file.exists(myabsolutePath) || !std.file.isFile(myabsolutePath)) { return null; }
 
 				return LinuxFile(this, aPath, aFileName);
 			} 

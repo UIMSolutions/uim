@@ -4,11 +4,6 @@ import uim.events;
 
 @safe:
 
-/*
- * : UIM\Event\IEventDispatcher.
- *
- * @template TSubject of object
- */
 mixin template TEventDispatcher() {
     /**
      * Instance of the UIM\Event\EventManager this object is using
@@ -41,18 +36,13 @@ mixin template TEventDispatcher() {
        _eventManager = newEventManager;
     }
 
-    /**
-     * Wrapper for creating and dispatching events.
-     * Returns a dispatched event.
-     */
-    IEvent dispatchEvent(string eventName, Json[string] dataToListener = null, object eventSubject = null) {
-//TODO
-/*        eventSubject ??= this;
+    // Wrapper for creating and dispatching events.
+    IEvent dispatchEvent(string eventName, Json[string] dataToListener = null, Object eventSubject = null) {
+        eventSubject = eventSubject !is null ? eventSubject : this;
 
         auto event = new _eventClass(eventName, eventSubject, dataToListener);
         getEventManager().dispatch(event);
- */
-//TODO         return event;
-return null; 
+ 
+        return event;
     } 
 }

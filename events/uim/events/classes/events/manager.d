@@ -10,7 +10,7 @@ import uim.events;
  * can create multiple instances of this object to manage local events or keep a single instance
  * and pass it around to manage all events in your app.
  */
-class DEventManager { // }: IEventManager {
+class DEventManager : IEventManager {
     // The default priority queue value for new, attached listeners
     static int _defaultPriority = 10;
 
@@ -36,16 +36,11 @@ class DEventManager { // }: IEventManager {
      * communication
      *
      * If called with the first parameter, it will be set as the globally available instance
-     * Params:
-     * \UIM\Event\EventManager|null manager Event manager instance.
      */
     static DEventManager instance(DEventManager manager = null) {
-        if (cast(DEventManager) manager) {
-            _generalManager = manager;
+        if (_generalManager.isEmpty) {
+            _generalManager = new DEventManager();
         }
-        /* if (_generalManager.isEmpty) {
-            _generalManager = new static();
-        } */
         _generalManager._isGlobal = true;
 
         return _generalManager;
@@ -53,9 +48,6 @@ class DEventManager { // }: IEventManager {
 
     void on( /* DEventListener |  */ string eventKey, /* callable | */
         Json[string] options = null, /* callable callable = null */
-
-    
-
     ) {
         // TODO
         /*        if (cast(DEventListener)eventKey) {

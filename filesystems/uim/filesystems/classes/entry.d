@@ -76,7 +76,7 @@ class DFilesystemEntry : IFilesystemEntry {
 		return null;
 	}
 
-	bool hasKey() { // TODO
+	bool exists() { // TODO
 		return (hasFilesystem ? filesystem.existsFolder(name) : false);
 	}
 

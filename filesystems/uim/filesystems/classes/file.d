@@ -34,7 +34,7 @@ class DFile : DFilesystemEntry, IFile {
 	}
 
 	// Check if file exits
-	override bool hasKey() {
+	override bool exists() {
 		if (parentFolder)
 			return parentFolder.existsFolder(path, name);
 		return (hasFilesystem ? filesystem.existsFolder(path, name) : false);

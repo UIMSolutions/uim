@@ -78,7 +78,8 @@ interface IEventManager {
    );
 
     // Dispatches a new event to all configured listeners
-    IEvent dispatch(/* IEvent */ string event);
+    IEvent dispatch(IEvent  event);
+    IEvent dispatch(string eventName);
 
     // Returns a list of all listeners for an eventKey in the order they should be called
     Json[string] listeners(string eventKey);

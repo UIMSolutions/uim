@@ -60,6 +60,14 @@ class DComponent : IEventListener {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
+        _eventMap = [
+            "Controller.initialize": "beforeFilter",
+            "Controller.startup": "startup",
+            "Controller.beforeRender": "beforeRender",
+            "Controller.beforeRedirect": "beforeRedirect",
+            "Controller.shutdown": "afterFilter",
+        ];
+
         return true;
     }
 
@@ -129,18 +137,11 @@ class DComponent : IEventListener {
      * Override this method if you need to add non-conventional event listeners.
      * Or if you want components to listen to non-standard events.
      */
+    protected STRINGAA _eventMap;
     IEvent[] implementedEvents() {
-        auto eventMap = [
-            "Controller.initialize": "beforeFilter",
-            "Controller.startup": "startup",
-            "Controller.beforeRender": "beforeRender",
-            "Controller.beforeRedirect": "beforeRedirect",
-            "Controller.shutdown": "afterFilter",
-        ];
-
         Json[string] myEvents;
         eventMap.byKeyValue
-            .filter!(kv => method_hasKey(this, kv.value))
+            .filter!(kv => hasMethod(this, kv.value))
             .each!(eventMethod => myEvents[eventMethod.key] = eventMethod.value);
 
         return myEvents;

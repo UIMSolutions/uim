@@ -144,7 +144,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         auto templateText = templateName(exception, method, code);
         clearOutput();
 
-        if (method_hasKey(this, method)) {
+        if (hasMethod(this, method)) {
             return _customMethod(method, exception);
         }
         string message = errorMessage(exception, code);

@@ -157,7 +157,7 @@ class DExceptionRenderer : IExceptionRenderer {
         myTemplate = templateName(myException, method, code);
         clearOutput();
 
-        if (method_hasKey(this, method)) {
+        if (hasMethod(this, method)) {
             return _customMethod(method, myException);
         }
 

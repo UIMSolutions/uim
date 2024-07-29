@@ -531,7 +531,7 @@ class DDebugger : UIMObject {
         auto node = new DClassNode(classname, refNum);
         auto remaining = dumpContext.remainingDepth();
         if (remaining > 0) {
-            if (method_hasKey(objToConvert, "__debugInfo")) {
+            if (hasMethod(objToConvert, "__debugInfo")) {
                 try {
                     foreach (key, val; /* (array) */ objToConvert.__debugInfo()) {
                         node.addProperty(new DPropertyNode("'{key}'", null, export_(val, dumpContext)));
@@ -565,7 +565,7 @@ class DDebugger : UIMObject {
                     reflectionProperty.setAccessible(true);
 
                     if (
-                        method_hasKey(reflectionProperty, "isInitialized") &&
+                        hasMethod(reflectionProperty, "isInitialized") &&
                         !reflectionProperty.isInitialized(objToConvert)
                        ) {
                         aValue = new DSpecialNode("[uninitialized]");

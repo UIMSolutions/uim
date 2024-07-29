@@ -603,7 +603,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext dump
     auto node = new DClassNode(, refNum);
     auto remaining = dumpContext.remainingDepth();
     if (remaining > 0) {
-        if (method_hasKey(objToConvert, "__debugInfo")) {
+        if (hasMethod(objToConvert, "__debugInfo")) {
             try {
                 foreach (key , val;  /* (array) */ objToConvert.__debugInfo()) {
                     node.addProperty(new DPropertyNode("" {
@@ -641,7 +641,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext dump
             foreach (reflectionProperty; reflectionProperties) {
                 reflectionProperty.setAccessible(true);
 
-                value = method_hasKey(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(objToConvert)
+                value = hasMethod(reflectionProperty, "isInitialized") && !reflectionProperty.isInitialized(objToConvert)
                     ? new DSpecialNode(
                         "[uninitialized]") : export_(reflectionProperty.getValue(objToConvert), dumpContext.withAddedDepth());
 

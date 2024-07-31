@@ -39,24 +39,24 @@ import uim.controllers;
  * While the controller is not an explicit argument for the callback methods it
  * is the subject of each event and can be fetched using IEvent.getSubject().
  */
-class DComponent : IEventListener {
+class DComponent : UIMObject, IEventListener {
     mixin TConfigurable;
     mixin TLog;
 
     this() {
-        initialize;
+        supe;
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        supe(initData);
     }
 
     this(string name) {
-        this().name(name);
+        supe(name);
     }
 
     // Hook method
-    bool initialize(Json[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -72,8 +72,6 @@ class DComponent : IEventListener {
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     // Component registry class used to lazy load components.
     protected DComponentRegistry _registry;

@@ -33,9 +33,9 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
 
     mixin(TProperty!("string", "name"));
 
-    protected IContainer container;
+    protected IContainer _container;
 
-    protected IController controller;
+    protected IController _controller;
 
     /**
      * Create a controller for a given request.
@@ -59,19 +59,15 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             : reflection.newInstance(request);
     }
     
-    /**
-     * Invoke a controller`s action and wrapping methods.
-     * Params:
-     * \UIM\Controller\Controller controller The controller to invoke.
-     */
+    // Invoke a controller`s action and wrapping methods
     IResponse invoke(IController controller) {
         _controller = controller;
 
-         middlewares = controller.getMiddleware();
+         auto middlewares = controller.getMiddleware();
 
         if (middlewares) {
-             middlewareQueue = new DMiddlewareQueue(middlewares, this.container);
-             runner = new DRunner();
+            auto middlewareQueue = new DMiddlewareQueue(middlewares, this.container);
+            aut runner = new DRunner();
 
             return runner.run(middlewareQueue, controller.getRequest(), this);
         }
@@ -85,15 +81,15 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      */
     IResponse handle(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
-        controller = _controller;
+        auto controller = _controller;
         controller.setRequest(request);
 
-        result = controller.startupProcess();
+        auto result = controller.startupProcess();
         if (result) {
             return result;
         }
-        action = controller.getAction();
-        someArguments = getActionArgs(
+        auto action = controller.getAction();
+        auto someArguments = getActionArgs(
             action,
             /* (array) */controller.getRequest().getParam("pass").values
        );
@@ -112,8 +108,8 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * \Closure action Controller action.
      */
     protected Json[string] getActionArgs(Closure action, Json[string] passedParams) {
-         resolved = null;
-        function = new DReflectionFunction(action);
+         auto resolved = null;
+        auto function = new DReflectionFunction(action);
         foreach (parameter; function.getParameters()) {
             type = parameter.getType();
 

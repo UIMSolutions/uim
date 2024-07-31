@@ -49,8 +49,8 @@ import uim.controllers;
  * @property \UIM\Controller\Component\CheckHttpCacheComponent checkHttpCache
  * @implements \UIM\Event\IEventDispatcher<\UIM\Controller\Controller>
  */
-class DController : IController { // IEventListener, IEventDispatcher {    
-    mixin TConfigurable;
+class DController : UIMObject, IController { // IEventListener, IEventDispatcher {    
+    
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
     mixin TEventDispatcher;
     mixin TLocatorAware;
@@ -58,11 +58,11 @@ class DController : IController { // IEventListener, IEventDispatcher {
     mixin TViewVars;
 
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
     bool initialize(Json[string] initData = null) {
@@ -109,7 +109,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * over pagination, be careful with what you permit.
      * - `classname` - The paginator class to use. Defaults to `UIM\Datasource\Paging\NumericPaginator.classname`.
      */
-    protected Json[string] paginate;
+    protected Json[string] _paginate;
 
     // Set to true to automatically render the view after action logic.
     protected bool _autoRender = true;
@@ -133,8 +133,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * which must also be updated here. The properties that get set are:
      *
      * - this.request - To the  request parameter
-     * Params:
-     * \UIM\Http\ServerRequest serverRequest Request instance.
+
      */
     void setRequest(DServerRequest serverRequest) {
         _request = serverRequest;
@@ -191,7 +190,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     
     
     // Get the component registry for this controller.
-    ComponentRegistry components() {
+    DComponentRegistry components() {
         return _components ??= new DComponentRegistry(this);
     }
     
@@ -214,13 +213,14 @@ class DController : IController { // IEventListener, IEventDispatcher {
     }
     
     //  Magic accessor for the default table.
-    Table __get(string propertyName) {
+    DTable __get(string propertyName) {
         if (!_defaultTable.isEmpty) {
             if (_defaultTable.contains("\\")) {
                  classname = App.shortName(_defaultTable, "Model/Table", "Table");
             } else {
                 [,  classname] = pluginSplit(_defaultTable, true);
             }
+
             if (classname == propertyName) {
                 return _fetchTable();
             }
@@ -231,8 +231,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
 
         /** @var array<int, Json[string]> trace */
-        trace = debug_backtrace();
-        someParts = class.split("\\");
+        auto trace = debug_backtrace();
+        auto someParts = classname.split("\\");
         trigger_error(
             "Undefined property `%s.$%s` in `%s` on line %s"
                 .format(array_pop(someParts),
@@ -262,7 +262,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
         _autoRender = false;
     }
     
-
     // Get the closure for action to be invoked by ControllerFactory.
     IClosure getAction() {
          request = this.request;

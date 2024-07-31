@@ -163,7 +163,8 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             exceptions ~= previous;
             previous = previous.getPrevious();
         }
-        viewVars = [
+        
+        auto viewVars = [
             "message": message,
             "url": htmlAttributeEscape(url),
             "error": exception,

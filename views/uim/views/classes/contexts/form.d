@@ -4,12 +4,7 @@ import uim.views;
 
 @safe:
 
-/**
- * Provides a context provider for {@link \UIM\Form\Form} instances.
- *
- * This context provider simply fulfils the interface requirements
- * that FormHelper has and allows access to the form data.
- */
+// Provides a context provider for form instances.
 class DFormContext : DContext {
     mixin(ContextThis!("Form"));
 
@@ -24,19 +19,14 @@ class DFormContext : DContext {
             return false;
         }
 
-                /+ 
-            `entity` The Form class instance this context is operating on. **(required)**
-            `validator` Optional name of the validation method to call on the Form object.
-        +/
-        
-        assert(
+   // TODO      
+/*         assert(
             initData.hasKey("entity") && cast(DForm)initData["entity"],
             "`\mycontext["entity"]` must be an instance of " ~ Form.classname
        );
-
+ */
        _form = initData.getString("entity");
        _validatorName = initData.getString("validator", null);
-    }
 
         return true;
     }
@@ -53,37 +43,37 @@ class DFormContext : DContext {
         return true;
     }
 
-    /*
     auto val(string fieldName, Json[string] options  = null) {
-        auto updatedOptions = options.update[
-            "default": Json(null),
-            "schemaDefault": true.toJson,
-        ];
+        options
+            .merge("default", Json(null))
+            .merge("schemaDefault", true);
 
-        myval = _form[fieldName);
-        if (myval !is null) {
-            return myval;
+        auto value = _form.get(fieldName);
+        if (!value.isNull) {
+            return value;
         }
-        if (!options.hasKey("default"].isNull || !options.hasKey("schemaDefault"]) {
-            return options.get("default"];
+
+        if (options.hasKey("default") || !options.hasKey("schemaDefault")) {
+            return options.get("default");
         }
+
         return _schemaDefault(fieldName);
     }
 
     // Get default value from form schema for given field.
     protected Json _schemaDefault(string fieldName) {
         auto fieldSchema = _form.getSchema().field(fieldName);
-        if (!fieldSchema) {
-            return null;
-        }
-        return fieldSchema["default"];
-    } */
+        return fieldSchema.isNull
+            ? null
+            : fieldSchema.get("default");
+    }
  
     bool isRequired(string fieldName) {
         /* auto formValidator = _form.getValidator(_validatorName);
         if (!formValidator.hasField(fieldName)) {
             return false;
         } 
+        
         if (this.type(fieldName) != "boolean") {
             return !formValidator.isEmptyAllowed(fieldName, this.isCreate());
         } */ 

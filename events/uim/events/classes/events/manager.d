@@ -82,29 +82,21 @@ class DEventManager : IEventManager {
         }
     }
 
-    void off(IEventListener listener
-    ) {
+    void off(IEventListener listener) {
         _detachSubscriber(listener);
+        // TODO _detachSubscriber(aCallable, eventKey);
     }
 
     auto off(
         /* callable */
         string eventKey, /* IEventListener|callable */
         // TODO callable aCallable = null
-
-        
-
     ) {
         /*    if (!isString(eventKey)) {
         _listeners.keys.each!(name => off(name, eventKey)); 
         return this;
     }
- */ /* if (cast(IEventListener) aCallable) {
-        _detachSubscriber(aCallable, eventKey);
-
-        return this;
-    }
- */
+ */ 
         /*    if (aCallable.isNull) {
         _listeners.remove(eventKey);
 

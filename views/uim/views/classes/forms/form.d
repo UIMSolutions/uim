@@ -43,7 +43,7 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
     // #endregion Constants
 
     // DSchema class.
-    // TODO protected string _schemaclassname = Schema.classname;
+    protected string _schemaclassname = Schema.classname;
 
     // #region Schema
     // The schema used by this form.

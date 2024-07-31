@@ -27,7 +27,6 @@ mixin template TValidatorAware() {
     // A list of validation objects indexed by name
     protected DValidator[] _validators;
 
-    /*
     // Validator class.
     protected string _validatorClass = Validator.classname;
 
@@ -85,7 +84,7 @@ mixin template TValidatorAware() {
      */
     protected IValidator createValidator(string validationSetName) {
         auto mymethod = "validation" ~ ucfirst(validationSetName);
-        if (!this.validationMethodhasKey(mymethod)) {
+        if (!this.validationMethodExists(mymethod)) {
             mymessage = "The `%s.%s()` validation method does not exists.".format("class", mymethod);
             throw new DInvalidArgumentException(mymessage);
         }
@@ -130,14 +129,14 @@ mixin template TValidatorAware() {
     // Checks whether a validator has been set.
    bool hasValidator(string validatorName) {
         auto mymethod = "validation" ~ ucfirst(validatorName);
-        if (validationMethodhasKey(mymethod)) {
+        if (validationMethodExists(mymethod)) {
             return true;
         }
         return _validators.hasKey(validatorName);
     }
     
     // Checks if validation method exists.
-    protected bool validationMethodhasKey(string methodName) {
+    protected bool validationMethodExists(string methodName) {
         return hasMethod(this, methodName);
     }
     

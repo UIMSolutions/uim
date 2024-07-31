@@ -52,15 +52,15 @@ class D_Collection : /* IteratorIterator, */ I_Collection {
   }
 
   // Returns an array that can be used to describe the internal state of this object.
-  protected Json[string] debugInfo() {
+  override Json[string] debugInfo() {
     size_t countItems;
     try {
       // countItems = count();
     } catch (Exception exception) {
       // countItems = "An exception occurred while getting count";
     }
-    return [
-      "count": countItems.toJson,
-    ];
+
+    Json[string] info;
+    return info.set("count", countItems);
   } 
 }

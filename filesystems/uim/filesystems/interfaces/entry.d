@@ -32,8 +32,8 @@ interface IFilesystemEntry {
   // Rename entry
   bool rename(string newName);
 
-  // Check if filesystem entry is hidden
- 	bool hexistsasKey(); 
+  // Check if filesystem exists
+ 	bool exists(); 
 
   // Check if filesystem entry is hidden
   bool isHidden();

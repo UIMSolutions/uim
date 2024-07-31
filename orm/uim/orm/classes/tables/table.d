@@ -95,7 +95,7 @@ import uim.orm;
  * - `afterremove(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `afterDeleteCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  */
-class DORMTable : IEventListener { //* }: IRepository, , IEventDispatcher, IValidatorAware {
+class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
     mixin TConventions;
     mixin TLocatorAware;
@@ -468,21 +468,16 @@ class DORMTable : IEventListener { //* }: IRepository, , IEventDispatcher, IVali
      *
      * Delegates to the schema object and checks for column presence
      * using the Schema\Table instance.
-     * Params:
-     * string fieldName The field to check for.
      */
     bool hasField(string fieldName) {
         return _getSchema().getColumn(fieldName) !is null;
     }
     
-    /**
-     * Sets the primary key field name.
-     * Params:
-     * string[]|string aKey Sets a new name to be used as primary key
-     */
+    // Sets the primary key field name.
     void primaryKeys(string[] keys...) {
        primaryKeys(keys.dup);
     }
+
     void primaryKeys(string[] keys) {
        _primaryKeys = keys;
     }
@@ -2076,7 +2071,7 @@ class DORMTable : IEventListener { //* }: IRepository, , IEventDispatcher, IVali
     // Calls a finder method and applies it to the passed query.
     SelectQuery<TSubject> callFinder(string finderType, DSelectQuery myquery, Json arguments) {
         string myfinder = "find" ~ finderType;
-        if (hasMethod(this, myfinder)) {
+        if (hasMethod(myfinder)) {
             return _invokeFinder(this.{myfinder}(...), myquery, arguments);
         }
         if (_behaviors.hasFinder(finderType)) {
@@ -2509,21 +2504,15 @@ class DORMTable : IEventListener { //* }: IRepository, , IEventDispatcher, IVali
      * - Model.afterRules: afterRules
      */
     IEvent[] implementedEvents() {        
-        IEvent[string] myevents = null;
-        foreach (eventName, methodName; eventMap) {
-            if (!hasMethod(this, methodName)) {
-                continue;
-            }
-            myevents[eventName] = methodName;
-        }
-        return myevents;
+        IEvent[string] events = null;
+        eventMap.byKeyValue
+            .filter(kv => hasMethod(methodName))
+            .each!(kv => events[kv.key] = kv.value);
+
+        return events;
     }
     
-    /**
- Params:
-     * \ORM\RulesChecker myrules The rules object to be modified.
-     */
-    RulesChecker buildRules(RulesChecker myrules) {
+    DRulesChecker buildRules(DRulesChecker myrules) {
         return myrules;
     }
     
@@ -2559,25 +2548,20 @@ class DORMTable : IEventListener { //* }: IRepository, , IEventDispatcher, IVali
         return (new DLazyEagerLoader()).loadInto(entities, mycontain, this);
     }
  
-    protected bool validationMethodhasKey(string methodName) {
+    protected bool validationMethodExists(string methodName) {
         return hasMethod(this, methodName) || this.behaviors().hasMethod(methodName);
     }
     
-    /**
-     * Returns an array that can be used to describe the internal state of this object.
-     */
-    Json[string] debugInfo() {
-        myconn = getConnection();
-
-        return [
-            "registryAlias": this.registryKey(),
-            "table": getTable(),
-            "alias": aliasName(),
-            "entityClass": getEntityClass(),
-            "associations": _associations.keys(),
-            "behaviors": _behaviors.loaded(),
-            "defaultConnection": defaultConnectionName(),
-            "connectionName": myconn.configName(),
-        ];
+    // Returns an array that can be used to describe the internal state of this object.
+    override Json[string] debugInfo() {
+        return super.debugInfo
+            .set("registryAlias", registryKey())
+            .set("table", getTable())
+            .set("alias", aliasName())
+            .set("entityClass", getEntityClass())
+            .set("associations", _associations.keys())
+            .set("behaviors", _behaviors.loaded())
+            .set("defaultConnection", defaultConnectionName())
+            .set("connectionName", getConnection().configName());
     }
 }

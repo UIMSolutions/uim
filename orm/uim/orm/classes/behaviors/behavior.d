@@ -117,6 +117,8 @@ class DBehavior : IEventListener {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
+        _allMethods = [ __traits(allMembers, DORMTable) ];
+
         _eventMap = [
             "Model.beforeMarshal": "beforeMarshal",
             "Model.afterMarshal": "afterMarshal",

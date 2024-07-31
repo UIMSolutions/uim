@@ -95,24 +95,22 @@ import uim.orm;
  * - `afterremove(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `afterDeleteCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  */
-class DORMTable : IEventListener { //* }: IRepository, , IEventDispatcher, IValidatorAware {
+class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
-    mixin TConventions;
     mixin TLocatorAware;
     mixin TRulesAware;
     mixin TValidatorAware;
 
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        this.initialize(initData);
+        super(initData);
     }
 
     this(string newName) {
-        this();
-        this.name(newName);
+        super(newName);
     }
 
     override bool initialize(Json[string] initData = null) {
@@ -334,7 +332,7 @@ class DORMTable : IEventListener { //* }: IRepository, , IEventDispatcher, IVali
     // Returns the table alias.
     string aliasName() {
         if (_aliasName.isNull) {
-            aliasName = namespaceSplit(class);
+            aliasName = namespaceSplit(classname);
             aliasName = subString(to!string(end(aliasName), 0, -5)) ?: _table;
             if (!aliasName) {
                 throw new DException(
@@ -351,19 +349,14 @@ class DORMTable : IEventListener { //* }: IRepository, , IEventDispatcher, IVali
      * If field is already aliased it will result in no-op.
      */
     string aliasField(string fieldName) {
-        if (fieldName.contains(".")) {
-            return fieldName;
-        }
-        return _aliasNameName() ~ "." ~ fieldName;
+        returnfieldName.contains(".")
+          ? fieldName
+          : _aliasNameName() ~ "." ~ fieldName;
     }
     
-    /**
-     * Sets the table registry key used to create this table instance.
-     * Params:
-     * string myregistryAlias The key used to access this object.
-     */
-    void registryKey(string key) {
-       _registryAlias = key;
+    // Sets the table registry key used to create this table instance
+    void registryKey(string registryAlias) {
+       _registryAlias = registryAlias;
     }
     
     // Returns the table registry key used to create this table instance.

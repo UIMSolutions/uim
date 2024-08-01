@@ -344,6 +344,7 @@ V[K] set(K, V)(V[K] values, K key, V value = Null!V) {
 unittest {
   string[string] testmap;
   assert(testmap.set("a", "A")["a"] == "A");
+  assert(testmap.set("a", "A").set("b", "B")["b"] == "B");
 }
 // #endregion set
 
@@ -504,4 +505,110 @@ K keyByValue(K, V)(V[K] items, V searchValue) {
       return key;
   }
   return Null!K;
+}
+
+// #region intersect 
+V[K] intersect(K, V)(V[K] left, V[K] right) {
+  return left.intersect(right.keys);
+}
+
+V[K] intersect(K, V)(V[K] left, K[] right) {
+  V[K] result;
+  right
+    .filter!(key => left.hasKey(key))
+    .each!(key => result[key] = left[key]);
+
+  return result;
+}
+
+V[K] intersect(K, V)(V[K] left, Json right) {
+  return right.isArray
+    ? intersect(left,
+      right.toArray.map!(val => val.get!K).array)
+    : null; 
+}
+
+T[string] intersect(T)(T[string] left, Json right) {
+  if (right.isArray) {
+    return intersect(left,
+      right.toArray.map!(val => val.get!T).array);
+  }
+  if (right.isObject) {
+    return intersect(left,
+      right.keys
+        .map!(key => val.get(key, Null!T)).array);
+  }
+  return null; 
+}
+
+unittest {
+  string[string] left = ["a": "A"].set("b", "B").set("c", "C");
+
+  string[] keys = ["a", "x", "y"];
+  assert(left.intersect(keys).length == 1);
+  assert(left.intersect(keys)["a"] == "A");
+  assert(!left.intersect(keys).hasKey("b"));
+
+  string[string] right =  ["a": "A"].set("x", "X").set("y", "Y");
+  assert(left.intersect(right).length == 1);
+  assert(left.intersect(right)["a"] == "A");
+  assert(!intersect(left, right).hasKey("b"));
+}
+// #endregion intersect 
+
+// #region diff 
+// Computes the difference of maps
+V[K] diff(K, V)(V[K] left, V[K] right) {
+  return left.diff(right.keys);
+}
+
+V[K] diff(K, V)(V[K] left, K[] right) {
+  V[K] result;
+  right
+    .filter!(key => !left.hasKey(key))
+    .each!(key => result[key] = left[key]);
+
+  return result;
+}
+
+V[K] diff(K, V)(V[K] left, Json right) {
+  return right.isArray
+    ? diff(left,
+      right.toArray.map!(val => val.get!K).array)
+    : null; 
+}
+
+T[string] diff(T)(T[string] left, Json right) {
+  if (right.isArray) {
+    return diff(left,
+      right.toArray.map!(val => val.get!T).array);
+  }
+  if (right.isObject) {
+    return diff(left,
+      right.keys
+        .map!(key => val.get(key, Null!T)).array);
+  }
+  return null; 
+}
+
+unittest {
+  string[string] left = ["a": "A"].set("b", "B").set("c", "C");
+
+// TODO 
+/*   string[] keys = ["a", "x", "y"];
+  assert(left.diff(keys).length == 2);
+  assert(left.diff(keys)["b"] == "B");
+  assert(!left.diff(keys).hasKey("b"));
+
+  string[string] right =  ["a": "A"].set("x", "X").set("y", "Y");
+  assert(left.diff(right).length == 2);
+  assert(left.diff(right)["a"] == "A");
+  assert(!diff(left, right).hasKey("b")); */
+}
+// #endregion diff 
+
+V[K] column(V, K)(V[K][] values, K key) {
+  return    values
+    .filter!(value => value.hasKey(key))
+    .map!(value => value[key]).array;
 }

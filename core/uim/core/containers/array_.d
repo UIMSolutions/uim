@@ -499,3 +499,79 @@ unittest {
   assert(["a", "b", "c"].removeLast.length == 2);
 }
 // #endregion remove
+
+// #region intersect 
+T[] intersect(T)(T[] left, T[] right) {
+  return left.filter!(item => right.has(item)).array;
+}
+
+T[] intersect(T)(T[] left, Json right) {
+  if (right.isArray) {
+    return intersect(left,
+      right.getArray.map!(val => val.get!T).array);
+  }
+  return null; 
+}
+unittest {
+  assert(intersect(["a", "b", "c"], ["a"]) == ["a"]);
+  Json json = Json.emptyArray;
+  json ~= "a";
+  assert(intersect(["a", "b", "c"], json) == ["a"]);
+}
+// #endregion intersect 
+
+// #region shift
+T shift(T)(ref T[] values) {
+  switch(values.length) {
+    case 0: return Null!T;
+    case 1: 
+      T value = values[0];
+      values = null;
+      return value; 
+    default:
+      T value = values[0];
+      values = values[1..$].dup;
+      return value; 
+  }
+}
+
+unittest {
+  string[] testValues;
+  assert(testValues.shift is null);
+
+  testValues = ["a"];
+  assert(testValues.length == 1);
+  assert(testValues.shift == "a");
+  assert(testValues.length == 0);
+  
+  testValues = ["a", "b", "c"];
+  assert(testValues.length == 3);
+  assert(testValues.shift == "a");
+  assert(testValues.length == 2);
+}
+// #endregion shift
+
+// #region unshift
+T[] unshift(T)(ref T[] values, T[] addings...) {
+  return unshift(values, addings.dup);
+}
+
+T[] unshift(T)(ref T[] values, T[] addings) {
+  values = addings ~ values;
+  return values;
+}
+
+unittest {
+  string[] testValues = ["a", "b", "c"];
+  assert(testValues.unshift("x").length == 4);
+
+  testValues = ["a", "b", "c"];
+  assert(testValues.unshift("x", "y").length == 5);
+  assert(testValues.has("x"));
+
+  testValues = ["a", "b", "c"];
+  assert(testValues.unshift(["x", "y"]).length == 5);
+  assert(testValues.has("y"));
+}
+// #endregion unshift
+

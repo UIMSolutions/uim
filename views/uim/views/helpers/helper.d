@@ -54,6 +54,16 @@ class DHelper { // TODO }: IEventListener {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
+        _allMethods = [ __traits(allMembers, DORMTable) ];
+        _eventMap = [
+            "View.beforeRenderFile": "beforeRenderFile",
+            "View.afterRenderFile": "afterRenderFile",
+            "View.beforeRender": "beforeRender",
+            "View.afterRender": "afterRender",
+            "View.beforeLayout": "beforeLayout",
+            "View.afterLayout": "afterLayout",
+        ];
+
         return true;
     }
 
@@ -115,14 +125,6 @@ class DHelper { // TODO }: IEventListener {
      * Or if you want helpers to listen to non-standard events.
      */
     IEvent[] implementedEvents() {
-        auto myeventMap = [
-            "View.beforeRenderFile": "beforeRenderFile",
-            "View.afterRenderFile": "afterRenderFile",
-            "View.beforeRender": "beforeRender",
-            "View.afterRender": "afterRender",
-            "View.beforeLayout": "beforeLayout",
-            "View.afterLayout": "afterLayout",
-        ];
 
         auto myevents = null;
         myeventMap.byKeyValue

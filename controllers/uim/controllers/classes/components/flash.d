@@ -71,11 +71,7 @@ class DFlashComponent : DComponent {
         flash().configuration.set(aKey, valueToSet, merge);
     }
 
-    /**
-     * Proxy method to FlashMessage instance.
-     * Params:
-     * string aKey The key to get or null for the whole config.
-     */
+    // Proxy method to FlashMessage instance.
     Json getConfig(string aKey = null, Json defaultValue = Json(null)) {
         return _flash().configuration.get(aKey, default);
     }

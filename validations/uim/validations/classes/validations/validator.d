@@ -341,7 +341,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string errorMessage = null, /*Closure|*/
         string mywhen = null
     ) {
-        /* Json[string] myextra = array_filter(["message": errorMessage, "on": mywhen]);
+        /* Json[string] myextra = filterValues((["message": errorMessage, "on": mywhen]);
 
         auto myvalidationSet = this.field(rootfieldName); */
         /* myvalidationSet.add(NESTED, myextra ~ ["rule": auto (myvalue, context) use (validator, errorMessage) {
@@ -377,7 +377,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string errorMessage = null, 
         /*Closure|*/ string mywhen = null
     ) {
-        /* Json[string] myextra = array_filter(["message": errorMessage, "on": mywhen]);
+        /* Json[string] myextra = filterValues((["message": errorMessage, "on": mywhen]);
 
         auto myvalidationSet = this.field(rootFieldName); */
         /*        myvalidationSet.add(NESTED, myextra ~ ["rule": auto (myvalue, context) use (myvalidator, errorMessage) {
@@ -692,7 +692,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "This field cannot be left empty")`;
         }
 
-        // Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        // Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         /* return _add(fieldName, "notBlank", myextra ~ [
                 "rule": "notBlank",
             ]); */
@@ -708,7 +708,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be alphanumeric")`;
         }
 
-        // Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        // Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         /* return _add(fieldName, "alphaNumeric", myextra ~ [
                 "rule": "alphaNumeric",
             ]); */
@@ -724,7 +724,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must not be alphanumeric")`;
         }
 
-        // Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        // Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         /* return _add(fieldName, "notAlphaNumeric", myextra ~ [
                 "rule": "notAlphaNumeric",
             ]); */
@@ -740,7 +740,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be ASCII-alphanumeric")`;
         }
 
-        // Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        // Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         /* return _add(fieldName, "asciiAlphaNumeric", myextra ~ [
                 "rule": "asciiAlphaNumeric",
             ]); */
@@ -756,7 +756,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must not be ASCII-alphanumeric")`;
         }
 
-        // Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        // Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         /*        return _add(fieldName, "notAsciiAlphaNumeric", myextra ~ [
                 "rule": "notAsciiAlphaNumeric",
             ]);
@@ -789,7 +789,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ]);
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "lengthBetween", myextra ~ [
                 "rule": ["lengthBetween", lowerBound, upperBound],
             ]);
@@ -833,7 +833,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             }
         }
 
-        // Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        // Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         /* return _add(fieldName, "creditCard", myextra ~ [
                 "rule": ["creditCard", allowedTypeOfCards, true],
             ]); */
@@ -853,7 +853,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be greater than '{0}'", valueToCompare)`;
         }
 
-        // TODO Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        // TODO Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         /* return _add(fieldName, "greaterThan", myextra ~ ["rule": ["comparison", Validation.COMPARE_GREATER, valueToCompare]]); */
         return null;
     }
@@ -871,7 +871,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be greater than or equal to '{0}'", valueToCompare)`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "greaterThanOrEqual", myextra ~ [
                 "rule": [
                     "comparison", Validation.COMPARE_GREATER_OR_EQUAL, valueToCompare
@@ -894,7 +894,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be less than '{0}'", valueToCompare)`;
         }
 
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "lessThan", myextra ~ [
                 "rule": ["comparison", Validation.COMPARE_LESS, valueToCompare],
             ]); */
@@ -914,7 +914,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be less than or equal to '%s'".format(valueToCompare);
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "lessThanOrEqual", myextra ~ [
                 "rule": [
                     "comparison", Validation.COMPARE_LESS_OR_EQUAL, valueToCompare
@@ -936,7 +936,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? "The provided value must be equal to '%s'".format(
                     valueToCompare) : `__d("uim", "The provided value must be equal to '{0}'", valueToCompare)`;
         }
-        // Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        // Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         /* return _add(fieldName, "equals", myextra ~ [
                 "rule": ["comparison", Validation.COMPARE_EQUAL, value],
@@ -958,7 +958,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must not be equal to '{0}'", valueToCompare)`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "notEquals", myextra ~ [
                 "rule": ["comparison", Validation.COMPARE_NOT_EQUAL, value],
             ]);
@@ -981,7 +981,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be same as '{0}'", secondField)`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "sameAs", myextra ~ [
                 "rule": [
                     "compareFields", secondField, Validation.COMPARE_SAME
@@ -1005,7 +1005,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must not be same as '{0}'", secondField)`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "notSameAs", myextra ~ [
                 "rule": [
                     "compareFields", secondField, Validation.COMPARE_NOT_SAME
@@ -1032,7 +1032,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        // TODO Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]); 
+        // TODO Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]); 
         /* return _add(fieldName, "equalToField", myextra ~ [
                 "rule": [
                     "compareFields", secondField, Validation.COMPARE_EQUAL
@@ -1058,7 +1058,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "notEqualToField", myextra ~ [
                 "rule": [
                     "compareFields", secondField, Validation.COMPARE_NOT_EQUAL
@@ -1085,7 +1085,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "greaterThanField", myextra ~ [
                 "rule": [
                     "compareFields", secondField, Validation.COMPARE_GREATER
@@ -1113,7 +1113,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "greaterThanOrEqualToField", myextra ~ [
                 "rule": [
                     "compareFields", secondField,
@@ -1140,7 +1140,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "lessThanField", myextra ~ [
                 "rule": [
                     "compareFields", secondField, Validation.COMPARE_LESS
@@ -1169,7 +1169,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "lessThanOrEqualToField", myextra ~ [
                 "rule": [
                     "compareFields", secondField,
@@ -1199,7 +1199,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "date", myextra ~ [
                 "rule": ["date", dateFormats],
             ]); */
@@ -1223,7 +1223,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     myformatEnumeration
                 )`;
         }
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "dateTime", myextra ~ [
                 "rule": ["datetime", dateFormats],
@@ -1239,7 +1239,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be a time")`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "time", myextra ~ [
                 "rule": "time",
             ]); */
@@ -1261,7 +1261,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be a localized time, date or date and time")`;
         }
 
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "localizedTime", myextra ~ [
                 "rule": ["localizedTime", parserType],
             ]); */
@@ -1275,7 +1275,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? "The provided value must be a boolean"
                 : `__d("uim", "The provided value must be a boolean")`;
         }
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "boolean", myextra ~ [
                 "rule": "boolean",
@@ -1308,7 +1308,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     )`;
             }
         }
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "decimal", myextra ~ [
                 "rule": ["decimal", numberOfPlaces],
@@ -1328,7 +1328,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? "The provided value must be an e-mail address"
                 : `__d("uim", "The provided value must be an e-mail address")`;
         }
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "email", myextra ~ [
                 "rule": ["email", shouldCheckMX],
@@ -1358,7 +1358,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be one of '{0}'", mycaseOptions)`;
 
         }
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "enum", myextra ~ [
                 "rule": ["enum", myenumclassname],
@@ -1379,7 +1379,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be an IP address")`;
 
         }
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "ip", myextra ~ [
                 "rule": "ip",
@@ -1395,7 +1395,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be an IPv4 address";
 
         }
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "ipv4", myextra ~ [
                 "rule": ["ip", "ipv4"],
@@ -1410,7 +1410,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be an IPv6 address")`
                 : "The provided value must be an IPv6 address";
         }
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "ipv6", myextra ~ [
                 "rule": ["ip", "ipv6"],
@@ -1425,7 +1425,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be at least '{0}' characters long", mymin)`
                 : "The provided value must be at least '%s' characters long".format(mymin);
         }
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "minLength", myextra ~ ["rule": ["minLength", requiredMinLength],
             ]); */
@@ -1440,7 +1440,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be at least '%s' bytes long".format(requiredMinLength);
         }
 
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "minLengthBytes", myextra ~ [
                 "rule": ["minLengthBytes", requiredMinLength],
             ]); */
@@ -1455,7 +1455,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be at most '%s' characters long".format(mymax);
         }
 
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "maxLength", myextra ~ [
                 "rule": ["maxLength", allowedMaxlength],
             ]);*/
@@ -1470,7 +1470,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be at most '%s' bytes long".format(mymax);
         }
 
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "maxLengthBytes", myextra ~ [
                 "rule": ["maxLengthBytes", allowedMaxlength],
             ]); */
@@ -1485,7 +1485,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be numeric";
 
         }
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "numeric", myextra ~ [
                 "rule": "numeric",
@@ -1500,7 +1500,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be a natural number")`
                 : "The provided value must be a natural number";
         }
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "naturalNumber", myextra ~ [
                 "rule": ["naturalNumber", false],
@@ -1515,7 +1515,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be a non-negative integer")`
                 : "The provided value must be a non-negative integer";
         }
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "nonNegativeInteger", myextra ~ [
                 "rule": ["naturalNumber", true],
@@ -1540,7 +1540,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`
                 : "The provided value must be between '%s' and '%s', inclusively".format(lowerBound, upperBound);
         }
-        /*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "range", myextra ~ [
                 "rule": ["range", lowerBound, upperBound],
@@ -1559,7 +1559,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be a URL";
         }
 
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "url", myextra ~ ["rule": ["url", false],]); */
         return null;
 
@@ -1577,7 +1577,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be a URL with protocol";
         }
         
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "urlWithProtocol", myextra ~ [
                 "rule": ["url", true],
             ]); */
@@ -1597,7 +1597,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-/*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+/*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "inList", myextra ~ [
                 "rule": ["inList", validOptions],
             ]); */
@@ -1612,7 +1612,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be a UUID")`;
         }
         
-/*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+/*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "uuid", myextra ~ [
                 "rule": "uuid",
             ]); */
@@ -1631,7 +1631,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be an uploaded file")`
                 : "The provided value must be an uploaded file";
         }
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "uploadedFile", myextra ~ [
                 "rule": ["uploadedFile", options],
@@ -1650,7 +1650,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             ? `__d("uim", "The provided value must be a latitude/longitude coordinate")`
             : "The provided value must be a latitude/longitude coordinate";
         }
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "latLong", myextra ~ [
             "rule": "geoCoordinate",
         ]); */
@@ -1664,7 +1664,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be a latitude")`
                 : "The provided value must be a latitude";
         }
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "latitude", myextra ~ [
                 "rule": "latitude",
@@ -1681,7 +1681,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
         }
 
-/*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+/*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "longitude", myextra ~ [
                 "rule": "longitude",
             ]); */
@@ -1696,7 +1696,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be ASCII bytes only";
         }
 
-/*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+/*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "ascii", myextra ~ [
                 "rule": "ascii",
             ]); */
@@ -1711,7 +1711,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be UTF-8 bytes only";
         }
 
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "utf8", myextra ~ [
                 "rule": ["utf8", ["extended": false.toJson]],
             ]); */
@@ -1730,7 +1730,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be 3 and 4 byte UTF-8 sequences only")`;
         }
 
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "utf8Extended", myextra ~ [
                 "rule": ["utf8", ["extended": true.toJson]],
             ]); */
@@ -1745,7 +1745,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be an integer"; 
         }
 
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "integer", myextra ~ [
                 "rule": "isInteger",
             ]); */
@@ -1760,7 +1760,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be an array")`;
         }
 
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "array", myextra ~ [
                 "rule": "isArray",
             ]); */
@@ -1775,7 +1775,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be scalar";
         }
 
-        /* Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        /* Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "scalar", myextra ~ [
                 "rule": "isScalar",
             ]); */
@@ -1790,7 +1790,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be a hex color";
         }
 
-/*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+/*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         return _add(fieldName, "hexColor", myextra ~ [
                 "rule": "hexColor",
             ]); */
@@ -1811,7 +1811,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be a set of multiple options";
         }
 
-/*        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+/*        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
         auto mycaseInsensitive = options.getBoolean("caseInsensitive", false);
         options.remove("caseInsensitive");
 
@@ -1832,7 +1832,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must have at least '%s' elements".format(numberOfElements); 
 
         }
-        // Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        // Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         /* return _add(fieldName, "hasAtLeast", myextra ~ [
             "rule": auto (myvalue) use (numberOfElements) {
@@ -1855,7 +1855,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must have at most '{0}' elements", mycount)`
                 : "The provided value must have at most '%s' elements".format(countElements); 
         }
-        // Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        // Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         /* return _add(fieldName, "hasAtMost", myextra ~ [
             "rule": auto (myvalue) use (countElements) {
@@ -1895,7 +1895,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? "The provided value must match against the pattern '%s'".format(regex)
                 : __d("uim", "The provided value must match against the pattern '{0}'", regex);
         }
-        Json[string] myextra = array_filter(["on": mywhen, "message": errorMessage]);
+        Json[string] myextra = filterValues((["on": mywhen, "message": errorMessage]);
 
         return _add(fieldName, "regex", myextra ~ [
             "rule": ["custom", regex],

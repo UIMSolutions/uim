@@ -878,7 +878,7 @@ class DTreeBehavior : DBehavior {
                                                                                     configuration.get(
                                                                                     "right")
                                                                                 ];
-                                                                                values = array_filter(
+                                                                                values = filterValues((
                                                                                 entity.extract(
                                                                                 fields));
                                                                                 if (count(values) == count(

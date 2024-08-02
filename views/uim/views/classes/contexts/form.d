@@ -85,7 +85,7 @@ class DFormContext : DContext {
         string[] myparts = fieldName.split(".");
 
         auto myvalidator = _form.getValidator(_validatorName);
-        auto fieldName = array_pop(myparts);
+        auto fieldName = myparts.pop();
         if (!myvalidator.hasField(fieldName)) {
             return null;
         }

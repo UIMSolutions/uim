@@ -465,7 +465,7 @@ class DEntityContext : DContext {
      * Json[string] pathParts Each one of the parts in a path for a field name
      */
     protected IValidator _getValidator(Json[string] pathParts) {
-        string[] mykeyParts = array_filter(array_slice(pathParts, 0, -1), auto (mypart) {
+        string[] mykeyParts = filterValues((array_slice(pathParts, 0, -1), auto (mypart) {
             return !isNumeric(mypart);
         });
         string aKey = mykeyParts.join(".");
@@ -503,7 +503,7 @@ class DEntityContext : DContext {
             return _tables[_rootName];
         }
 
-        string[] mynormalized = array_slice(array_filter(pathParts, auto (mypart) {
+        string[] mynormalized = array_slice(filterValues((pathParts, auto (mypart) {
             return !isNumeric(mypart);
         }), 0, -1);
 

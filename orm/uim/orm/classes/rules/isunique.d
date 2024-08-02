@@ -35,7 +35,7 @@ class DIsUnique {
             return true;
         }
         fieldNames = entity.extract(_fields);
-        if (_options.get("allowMultipleNulls"] && array_filter(fieldNames, "is_null")) {
+        if (_options.get("allowMultipleNulls"] && filterValues((fieldNames, "is_null")) {
             return true;
         }
         auto aliasName = options.get("repository").aliasName();

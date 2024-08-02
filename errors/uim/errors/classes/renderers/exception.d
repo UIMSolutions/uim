@@ -193,7 +193,7 @@ class DExceptionRenderer : IExceptionRenderer {
                 "line": myException.getLine() ?: "null",
             ];
             // Traces don"t include the origin file/line.
-            array_unshift(trace, origin);
+            trace.unshift(origin);
             viewVars.set("trace", trace);
             viewVars += origin;
             serialize ~= "file";

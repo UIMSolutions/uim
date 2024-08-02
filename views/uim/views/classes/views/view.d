@@ -989,14 +989,10 @@ static string contentType() {
         string[] paths = [basePath];
         if (_request.getParam("prefix")) {
             string[] myprefixPath =_request.getParam("prefix"). split("/");
-            path = "";
+            string path = "";
             foreach (myprefixPart; myprefixPath) {
                 path ~= Inflector.camelize(myprefixPart) ~ DIRECTORY_SEPARATOR;
-
-                array_unshift(
-                    paths,
-                    path ~ basePath
-               );
+                paths.unshift(path ~ basePath);
             }
         }
         return paths;

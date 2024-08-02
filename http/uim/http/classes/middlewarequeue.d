@@ -58,27 +58,19 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         _queue ~= middleware;
     }
     
-    /**
-     * Alias for MiddlewareQueue.add().
-     * Params:
-     * \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string[] amiddleware The middleware(s) to append.
-     */
+    // Alias for MiddlewareQueue.add().
     MiddlewareQueue push(IHttpMiddleware|/*Closure|*/ string[] amiddleware) {
         return _add(middleware);
     }
     
-    /**
-     * Prepend a middleware to the start of the queue.
-     * Params:
-     * \Psr\Http\Server\IHttpMiddleware|\/*Closure|*/ string[] amiddleware The middleware(s) to prepend.
-     */
+    // Prepend a middleware to the start of the queue.
     auto prepend(IHttpMiddleware|/*Closure|*/ string[] amiddleware) {
         if (middleware.isArray) {
             _queue = chain(middleware, _queue);
 
             return this;
         }
-        array_unshift(_queue, middleware);
+        _queue.unshift(middleware);
 
         return this;
     }

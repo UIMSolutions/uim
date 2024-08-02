@@ -192,18 +192,18 @@ class DEntityContext : DContext {
                 return value;
             }
             if (
-                updatedoptions.get("default"] !is null
-                || !updatedoptions.get("schemaDefault"]
+                updatedoptions.hasKey("default")
+                || !updatedoptions.get("schemaDefault")
                 || !myentity.isNew()
            ) {
-                return updatedoptions.get("default"];
+                return updatedoptions.get("default");
             }
             return _schemaDefault(pathParts);
         }
         if (isArray(myentity) || cast(DArrayAccess)myentity) {
             aKey = array_pop(pathParts);
 
-            return myentity.get(aKey, updatedoptions.get("default"]);
+            return myentity.get(aKey, updatedoptions.get("default"));
         }
         return null;
     }
@@ -258,12 +258,13 @@ class DEntityContext : DContext {
         if (mypath.isNull) {
             return _context["entity"];
         }
-        myoneElement = count(mypath) == 1;
-        if (myoneElement && _isCollection) {
+
+        auto isOneElement = mypath.length == 1;
+        if (isOneElement && _isCollection) {
             return null;
         }
         myentity = _context["entity"];
-        if (myoneElement) {
+        if (isOneElement) {
             return myentity;
         }
         if (mypath[0] == _rootName) {
@@ -307,30 +308,33 @@ class DEntityContext : DContext {
      * or null to get the entity passed in constructor context.
      */
     protected Json[string] leafEntity(Json[string] mypath = null) {
-        if (mypath.isNull) {
+        if (mypath.length == 0) {
             return _context["entity"];
         }
-        auto myoneElement = count(mypath) == 1;
-        if (myoneElement && _isCollection) {
+
+        bool isOneElement = mypath.length == 1;
+        if (isOneElement && _isCollection) {
             throw new DException(
                 "Unable to fetch property `%s`."
                 .format(join(".", mypath)));
         }
-        myentity = _context["entity"];
-        if (myoneElement) {
+        
+        auto myentity = _context["entity"];
+        if (isOneElement) {
             return [myentity, mypath];
         }
         if (mypath[0] == _rootName) {
             mypath = array_slice(mypath, 1);
         }
-        mylen = count(mypath);
-        myleafEntity = myentity;
+        
+        auto pathLength = mypath.length;
+        auto myleafEntity = myentity;
         for (index = 0; index < mylen; index++) {
-            myprop = mypath[index];
-            mynext = _getProp(myentity, myprop);
+            auto myprop = mypath[index];
+            auto mynext = _getProp(myentity, myprop);
 
             // Did not dig into an entity, return the current one.
-            if (isArray(myentity) && !(cast(IEntity)mynext || cast(Traversable)mynext)) {
+            if (myentity.isArray && !(cast(IEntity)mynext || cast(Traversable)mynext)) {
                 return [myleafEntity, array_slice(mypath, index - 1)];
             }
             if (cast(IEntity)mynext) {
@@ -338,8 +342,8 @@ class DEntityContext : DContext {
             }
             // If we are at the end of traversable elements
             // return the last entity found.
-            myisTraversable = (
-                isArray(mynext) ||
+            auto myisTraversable = (
+                mynext.isArray ||
                 cast(Traversable)mynext ||
                 cast(IEntity)mynext
            );
@@ -358,12 +362,15 @@ class DEntityContext : DContext {
      * Params:
      * Json mytarget The entity/array/collection to fetch fieldName from.
      */
+    protected Json _getProp(IEntity mytarget, string fieldName) {
+        return myTarget is null
+            ? Json(null)
+            : mytarget.get(fieldName);
+    }
+    
     protected Json _getProp(Json mytarget, string fieldName) {
-        if (isArray(mytarget) && mytarget.hasKey(fieldName)) {
+        if (mytarget.isArray && mytarget.hasKey(fieldName)) {
             return mytarget[fieldName];
-        }
-        if (cast(IEntity)mytarget) {
-            return mytarget.get(fieldName);
         }
         if (cast(Traversable)mytarget) {
             foreach (index, myval; mytarget) {

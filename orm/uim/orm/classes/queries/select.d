@@ -403,7 +403,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             return;
         }
         if (formatterMode == PREPEND) {
-            array_unshift(_formatters, myformatter);
+            _formatters.unshift(myformatter);
 
             return 
         }

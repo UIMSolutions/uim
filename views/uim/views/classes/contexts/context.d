@@ -4,27 +4,16 @@ import uim.views;
 
 @safe:
 
-class DContext : IContext {
-    mixin TConfigurable; 
+class DContext : UIMObject, IContext {
+    mixin(ContextThis!(""));
 
-    this() {
-        initialize; this.name("DContext");
-    }
-    this(Json[string] initData) {
-        this().initialize(initData);
-    }
-    this(string name) {
-        this().name(name);
-    }
-
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
+    override bool initialize(Json[string] initData = null) {
+        if (super.initialize(initData)) {
+            return false;
+        }
+        
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     const string[] VALID_ATTRIBUTES = [
         "length", "precision", "comment", "null", "default"

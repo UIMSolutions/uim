@@ -133,17 +133,16 @@ class DRoutesCommand : DCommand {
                 usort(output, auto(a, b) {
                     return strcasecmp(a[0], b[0]);});
                 }
-                array_unshift(output, aHeader);
+                output.unshift(aHeader);
 
                 aConsoleIo.helper("table").output(output);
                 aConsoleIo.writeln();
 
                 auto someDuplicateRoutes = null;
-
                 foreach (myRoute; someAvailableRoutes) {
-                    string[] someMethods = myRoute.defaults.hasKey(
-                        "_method") ?  /* (array) * /
-                        myRoute.defaults["_method"] : [""];
+                    string[] someMethods = myRoute.defaults.hasKey("_method") 
+                        ?  /* (array) * /myRoute.defaults["_method"] 
+                        : [""];
 
                     someMethods.each((method) {
                         if (

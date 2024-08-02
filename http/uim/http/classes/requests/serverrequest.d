@@ -418,7 +418,7 @@ class DServerRequest { // }: IServerRequest {
     protected bool _is(string requestType, Json[string] someArguments) {
         auto detect = _detectors[requestType];
         /* if (cast(DClosure)detect) {
-            array_unshift(someArguments, this);
+            someArguments.unshift(this);
 
             return detect(...someArguments);
         } */

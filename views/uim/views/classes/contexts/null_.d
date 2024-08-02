@@ -4,7 +4,7 @@ import uim.views;
 
 @safe:
 
-/* * Provides a context provider that does nothing.
+/** Provides a context provider that does nothing.
  * This context provider simply fulfils the interface requirements that FormHelper has.
  */
 class DNullContext : DContext {

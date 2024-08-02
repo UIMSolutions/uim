@@ -214,7 +214,7 @@ class DCounterCacheBehavior : DBehavior {
     
     // Checks if the count should be updated given a set of conditions.
     protected bool _shouldUpdateCount(Json[string] conditions) {
-        return !empty(filterValues((conditions, auto (myvalue) {
+        return !empty(filterValues(conditions, auto (myvalue) {
             return myvalue !is null;
         }));
     }

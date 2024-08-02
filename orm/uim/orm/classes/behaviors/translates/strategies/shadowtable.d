@@ -173,7 +173,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             return true;
         }
 
-        auto select = filterValues((query.clause(
+        auto select = filterValues(query.clause(
                 "select"), function(
                 field) { return field
                 .isString; });

@@ -91,7 +91,7 @@ class DAssociationCollection { // }: IteratorAggregate {
 
         // TODO
         /* 
-        out  = filterValues((_items, function(assoc) use(class) {
+        out  = filterValues(_items, function(assoc) use(class) {
             [, name] = namespaceSplit(get_class(assoc)); return isIn(name.lower, classname, true);
         });
 

@@ -1679,7 +1679,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         string[] primaryKeys = primaryKeys.combine(myid);
         primaryKeys = intersectinternalKey(mydata, primaryKeys) + primaryKeys;
 
-        string[] myfilteredKeys = filterValues((primaryKeys, auto (value) {
+        string[] myfilteredKeys = filterValues(primaryKeys, auto (value) {
             return value !is null;
         });
         mydata += myfilteredKeys;

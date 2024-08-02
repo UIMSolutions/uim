@@ -914,7 +914,7 @@ mixin template TEntity() {
                 return val.getErrors();
               }
             }, /* (array) */ object);
-            return filterValues((
+            return filterValues(
               array);
           }
 

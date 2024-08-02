@@ -57,7 +57,7 @@ class DHeaderUtility {
             return accept;
         }
         string[] aHeaders = headerValue.split(",");
-        foreach (aValue; filterValues((aHeaders)) {
+        foreach (aValue; filterValues(aHeaders)) {
             auto prefValue = "1.0";
             auto aValue = aValue.strip;
 

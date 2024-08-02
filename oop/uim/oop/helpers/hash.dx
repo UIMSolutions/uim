@@ -484,7 +484,7 @@ class Hash {
             .filter!(kv => isArray(kv.value))
             .each!(kv => data[kv.key] = filter(kv.value, mycallback));
 
-        return filterValues((data, mycallback ?? [class, "_filter"]);
+        return filterValues(data, mycallback ?? [class, "_filter"]);
     }
     
     // Callback auto for filtering.
@@ -615,7 +615,7 @@ class Hash {
         if (isEmpty(data)) {
             return false;
         }
-        return data == filterValues((data, "isNumeric");
+        return data == filterValues(data, "isNumeric");
     }
     
     /**

@@ -556,7 +556,7 @@ class DConsoleOptionParser {
         auto nextValue = _nextToken();
         auto emptyNextValue = (isEmpty(nextValue) && nextValue != "0");
         if (!isBoolean && !emptyNextValue && !_optionhasKey(nextValue)) {
-            array_shift(_tokens);
+            _tokens.shift();
             aValue = nextValue;
         } else if (isBoolean) {
             aValue = true;

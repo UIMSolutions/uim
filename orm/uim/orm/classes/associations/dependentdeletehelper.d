@@ -30,7 +30,7 @@ class DDependentDeleteHelper {
         if (isIn(null, bindingValue, true)) {
             return true;
         }
-        conditions = array_combine(foreignKeys, bindingValue);
+        conditions = foreignKeys.combine(bindingValue);
 
         if (anAssociation.getCascadeCallbacks()) {
             return anAssociation.find().where(conditions).all().toList().all!(related => table.remove(related, options));

@@ -1090,8 +1090,8 @@ class DBelongsToManyAssociation : DAssociation {
         unions = null;
         foreach (key; missing) {
             unions ~= hasMany.find()
-                .where(array_combine(foreignKeys, sourceKey))
-                .where(array_combine(assocForeignKey, key));
+                .where(foreignKeys.combine(sourceKey))
+                .where(assocForeignKey.combine(key));
         }
 
         query = unions.shift();

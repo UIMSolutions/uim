@@ -33,7 +33,7 @@ class DInsertIterator : D_Collection {
        sourceValues = new D_Collection(sourceValues);
     }
     string[] pathParts = propertyPath.split(".");
-    auto mytarget = array_pop(pathParts);
+    auto mytarget = pathParts.pop();
    _path = propertyPath;
    _target = target;
    _values = sourceValues; */

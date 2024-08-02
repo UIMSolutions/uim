@@ -842,8 +842,7 @@ mixin template TEntity() {
             auto entity = this;
             size_t pathLength = count(somePath);
             /* while (pathLength) {
-      string part = array_shift(
-        somePath);
+      string part = somePath.shift;
       pathLength = count(somePath);
       auto val = null;
       if (cast(IDatasourceEntity) entity) {

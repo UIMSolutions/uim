@@ -490,7 +490,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
             });
             return anGroupedIdentifiers;
         }
-        return array_combine(anIdentifiers, anIdentifiers); 
+        return anIdentifiers.combine(anIdentifiers); 
     } */
 
     // Returns a string that should be serialized when converting this object to Json

@@ -611,7 +611,7 @@ class DValidation {
  * /    }
 
     else if(isArray(valueToCheck)) {
-        return extension(array_shift(valueToCheck), myextensions);
+        return extension(valueToCheck.shift(), myextensions);
     }
     auto myextension = pathinfo(valueToCheck, PATHINFO_EXTENSION).lower;
     return validExtensions.any!(value => myextension == myvalue.lower);

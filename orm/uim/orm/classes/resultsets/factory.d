@@ -107,7 +107,7 @@ class DResultsetFactory {
         }
         tableMetadata["fields"].byKeyValue
             .each!((tableKeys) {
-                results[tableKeys.key] = array_combine(tableKeys.value, intersectinternalKey(myrow, tableKeys.value));
+                results[tableKeys.key] = tableKeys.value.combine(intersectinternalKey(myrow, tableKeys.value));
                 mypresentAliases[tableKeys.key] = true;
             });
         // If the default table is not in the results, set

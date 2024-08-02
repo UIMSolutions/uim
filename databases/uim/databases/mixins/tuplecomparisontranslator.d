@@ -49,12 +49,9 @@ mixin template TTupleComparisonTranslator() {
             return;
         }
         auto myType = expressionToTransform.getType();
-        typeMap = if (myType) {
-            /** @var STRINGAA typeMap */
-            = array_combine(fields, myType) ?  : [];
-        } else {
-            typeMap = null;
-        }
+        STRINGAA typeMap = myType
+            ? fields.combine(myType) 
+            : null;
 
         surrogate = queryToUpdate.getConnection()
             .selectQuery()

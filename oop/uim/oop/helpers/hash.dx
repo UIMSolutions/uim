@@ -355,7 +355,7 @@ class Hash {
 
         auo myvals = null;
         if (!valuePath.isEmpty && isArray(valuePath)) {
-            myformat = array_shift(valuePath);
+            myformat = valuePath.shift();
             myvals = format(data, valuePath, myformat);
             assert(isArray(myvals));
         } else if (!valuePath.isEmpty) {

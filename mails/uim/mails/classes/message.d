@@ -857,7 +857,7 @@ class DMessage { //: JsonSerializable {
         this.createBoundary();
         string[] message;
 
-        auto contentIds = array_filter(/* (array) */Hash.extract(_attachments, "{s}.contentId"));
+        auto contentIds = filterValues((/* (array) */Hash.extract(_attachments, "{s}.contentId"));
         auto hasInlineAttachments = count(contentIds) > 0;
         auto hasAttachments = !_attachments.isEmpty;
         auto hasMultipleTypes = this.emailFormat == MESSAGE_BOTH;
@@ -1325,7 +1325,7 @@ class DMessage { //: JsonSerializable {
             }
         });
 
-        return array_filter(array, auto (index) {
+        return filterValues((array, auto (index) {
             return index !is null && !isArray(index) && !isBoolean(index) && index.length || !index.isEmpty;
         });
     }

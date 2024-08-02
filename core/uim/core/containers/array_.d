@@ -608,7 +608,7 @@ unittest {
 }
 // #endregion pop
 
-T[] slice(T[] values, int startPos, int length = 0) {
+T[] slice(T)(T[] values, int startPos, int length = 0) {
   if (values.length == 0) {
     return null;
   }
@@ -625,3 +625,25 @@ T[] slice(T[] values, int startPos, int length = 0) {
     ? values[0..(min(values.length, length))]
     : values[(min(values.length, length))..$];
 }
+
+// #region filterValues
+T[] filterValues(T)(T[] values) {
+  return values.filter!(value => !value.isNull).array;
+}
+T[] filterValues(T)(T[] values, bool delegate(T value) check) {
+  T[] results; 
+  () @trusted {
+    results = values.filter!(value => check(value)).array;
+  }();
+  return results;
+}
+
+unittest {
+  string[] testString = ["1", null, "3"];
+  assert(testString.filterValues().length == 2);
+
+  int[] testValues = [1, 2, 3];
+  @safe bool foo(int i) { return i > 1; }
+  assert(testValues.filterValues(&foo).length == 2);
+}
+// #endregion filterValues

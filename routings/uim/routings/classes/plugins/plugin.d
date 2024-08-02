@@ -65,7 +65,7 @@ class DPlugin : IPlugin {
         }
         
         string[] pathParts = _classnamePath.split("\\");
-        // TODO array_pop(someParts);
+        // TODO someParts.pop();
         _name = pathParts.join("/");
 
         return _name;

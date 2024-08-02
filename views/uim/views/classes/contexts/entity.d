@@ -129,9 +129,9 @@ class DEntityContext : DContext {
         if (!mytable) {
             return false;
         }
-        myprimaryKey = (array)mytable.primaryKeys();
 
-        return isIn(array_pop(pathParts), myprimaryKey, true);
+        string[] primaryKeys = mytable.primaryKeys();
+        return isIn(pathParts.pop(), primaryKeys, true);
     }
     
     /**
@@ -201,9 +201,8 @@ class DEntityContext : DContext {
             return _schemaDefault(pathParts);
         }
         if (isArray(myentity) || cast(DArrayAccess)myentity) {
-            aKey = array_pop(pathParts);
-
-            return myentity.get(aKey, updatedoptions.get("default"));
+            string key = pathParts.pop();
+            return myentity.get(key, updatedoptions.get("default"));
         }
         return null;
     }
@@ -397,7 +396,7 @@ class DEntityContext : DContext {
             myisNew = myentity.isNew();
         }
         auto myvalidator = _getValidator(pathParts);
-        auto fieldName = array_pop(pathParts);
+        auto fieldName = pathParts.pop();
         if (!myvalidator.hasField(fieldName)) {
             return null;
         }
@@ -411,7 +410,7 @@ class DEntityContext : DContext {
         string[] pathParts = fieldName.split(".");
 
         myvalidator = _getValidator(pathParts);
-        fieldName = array_pop(pathParts);
+        fieldName = pathParts.pop();
         if (!myvalidator.hasField(fieldName)) {
             return null;
         }
@@ -430,7 +429,7 @@ class DEntityContext : DContext {
     int getMaxLength(string fieldPath) {
         string[] pathParts = fieldPath.split(".");
         auto myvalidator = _getValidator(pathParts);
-        auto fieldName = array_pop(pathParts);
+        auto fieldName = pathParts.pop();
 
         if (myvalidator.hasField(fieldName)) {
             foreach (myrule; myvalidator.field(fieldName).rules()) {
@@ -548,7 +547,7 @@ class DEntityContext : DContext {
         string[] pathParts = fieldPath.split(".");
         auto mytable = _getTable(pathParts);
 
-        return mytable?.getSchema().baseColumnType(array_pop(pathParts));
+        return mytable?.getSchema().baseColumnType(pathParts.pop());
     }
     
     /**
@@ -563,7 +562,7 @@ class DEntityContext : DContext {
             return null;
         }
         return intersectinternalKey(
-            (array)mytable.getSchema().getColumn(array_pop(pathParts)),
+            (array)mytable.getSchema().getColumn(pathParts.pop()),
             array_flip(VALID_ATTRIBUTES)
        );
     }
@@ -601,7 +600,7 @@ class DEntityContext : DContext {
             if (myerror) {
                 return myerror;
             }
-            return myentity.getError(array_pop(pathParts));
+            return myentity.getError(pathParts.pop());
         }
         return null;
     }

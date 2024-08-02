@@ -184,10 +184,10 @@ class DCommandRunner { // }: IEventDispatcher {
      */
     protected Json[string] longestCommandName(CommandCollection commandsToCheck, Json[string] cliArguments) {
         for (index = 3; index > 1; index--) {
-            someParts = array_slice(cliArguments, 0, index);
+            someParts = cliArguments.slice(0, index);
             name = someParts.join(" ");
             if (commandsToCheck.has(name)) {
-                return [name, array_slice(cliArguments, index)];
+                return [name, cliArguments.slice(index)];
             }
         }
         name = cliArguments.shift();

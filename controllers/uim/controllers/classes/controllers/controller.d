@@ -235,7 +235,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
         auto someParts = classname.split("\\");
         trigger_error(
             "Undefined property `%s.$%s` in `%s` on line %s"
-                .format(array_pop(someParts),
+                .format(someParts.pop(),
                     propertyName,
                     trace[0]["file"],
                     trace[0]["line"]

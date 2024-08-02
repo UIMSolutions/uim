@@ -862,8 +862,7 @@ mixin template TEntity() {
       }
     }
     if (count(somePath) <= 1) {
-      return _readError(entity, array_pop(
-          somePath));
+      return _readError(entity, somePath.pop());
     } */
             return null;
           }

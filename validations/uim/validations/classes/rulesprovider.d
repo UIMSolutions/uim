@@ -36,7 +36,7 @@ class DRulesProvider {
         /* auto method = _reflection.getMethod(mymethod);
         myargumentList = method.getParameters();
 
-        ReflectionParameter myargument = array_pop(methodArguments);
+        ReflectionParameter myargument = methodArguments.pop();
         if (myargument.name() != "context") {
             methodArguments = array_slice(methodArguments, 0, -1);
         }

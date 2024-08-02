@@ -182,7 +182,7 @@ class DStringContents {
        // TODO if (configurationStack.isEmpty) {
         // TODO     return;
         // TODO }
-        // TODO [configuration, _compiledtemplates] = array_pop(configurationStack);
+        // TODO [configuration, _compiledtemplates] = configurationStack.pop();
     } 
 
     // Format a template string with data

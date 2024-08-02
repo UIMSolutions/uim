@@ -519,7 +519,7 @@ class Hash {
                 result[path ~ aKey] = myelement;
             }
             if (isEmpty(data) && !empty(mystack)) {
-                [data, path] = array_pop(mystack);
+                [data, path] = mystack.pop();
                 reset(data);
             }
         }

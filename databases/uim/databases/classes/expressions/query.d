@@ -248,7 +248,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      */
-    static and(/* IExpression|Closure */string[] aconditions, STRINGAA passedTypes = null) {
+    static and(/* IExpression|Closure */string[] conditions, STRINGAA passedTypes = null) {
         return cast(DClosure)conditions
             ? conditions(new static([], getTypeMap().setTypes(passedTypes)))
             : new static(conditions, getTypeMap().setTypes(passedTypes));
@@ -258,11 +258,11 @@ class DQueryExpression : DExpression { // }, Countable {
      * Returns a new QueryExpression object containing all the conditions passed
      * and set up the conjunction to be "OR"
      * Params:
-     * \UIM\Database\IExpression|\/*Closure|*/ string[] aconditions to be joined with OR
+     * \UIM\Database\IExpression|\/*Closure|* / string[] aconditions to be joined with OR
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      */
-    static or(/* IExpression|Closure */string[] aconditions, STRINGAA passedTypes = null) {
+    static or(/* IExpression|Closure */string[] conditions, STRINGAA passedTypes = null) {
         if (cast(DClosure)conditions) {
             return conditions(new static([], getTypeMap().setTypes(passedTypes), "OR"));
         }
@@ -275,7 +275,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * "NOT ((condition1) AND (conditions2))" conjunction depends on the one
      * currently configured for this object.
      * Params:
-     * \UIM\Database\IExpression|\/*Closure|*/ string[] aconditions to be added and negated
+     * \UIM\Database\IExpression|\/*Closure| * / string[] aconditions to be added and negated
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      */
@@ -446,7 +446,7 @@ class DQueryExpression : DExpression { // }, Countable {
                 auto second = someParts.pop();
                 someParts ~= "{second} {last}".mustache(["second": second, "last": last]);
             }
-             operator = array_pop(someParts);
+             operator = someParts.pop();
             expression = someParts.join(" ");
         } else if (spaces == 1) {
             string[] someParts = split(" ", expression, 2);

@@ -252,7 +252,7 @@ mixin template TCollection() {
     Json last() {
         auto myiterator = optimizeUnwrap();
         if (isArray(myiterator)) {
-            return array_pop(myiterator);
+            return myiterator.pop();
         }
         if (cast(DCountable)myiterator) {
             mycount = count(myiterator);
@@ -580,11 +580,10 @@ mixin template TCollection() {
     I_Collection zipWith(Json[string] myitems, mycallback) {
         if (func_num_args() > 2) {
             myitems = func_get_args();
-            mycallback = array_pop(myitems);
+            mycallback = myitems.pop();
         } else {
             myitems = [myitems];
         }
-        /** @var callable aCallback * /
         return new DZipIterator(chain([unwrap()], myitems), mycallback);
     }
  

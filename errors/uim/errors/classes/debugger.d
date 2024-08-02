@@ -223,13 +223,11 @@ class DDebugger : UIMObject {
      * - `args` - Should arguments for functions be shown? If true, the arguments for each method call
      * will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
-     * Params:
-     * Json[string] options Format for outputting stack trace.
      */
     static string[] trace(Json[string] options = null) {
         // Remove the frame for Debugger.trace()
         backtrace = debug_backtrace();
-        array_shift(backtrace);
+        backtrace.shift;
 
         return Debugger.formatTrace(backtrace, options);
     }

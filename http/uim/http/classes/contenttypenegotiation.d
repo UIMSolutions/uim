@@ -59,13 +59,12 @@ class DContentTypeNegotiation {
             return null;
         }
         if (supportedChoices.isEmpty) {
-            auto preferred = array_shift(parsed);
+            auto preferred = parsed.shift;
             return preferred[0];
         }
         foreach (acceptTypes; parsed) {
-            auto common = intersect(acceptTypes, supportedContenttypeChoices);
-            if (common) {
-                return array_shift(common);
+            if (auto common = intersect(acceptTypes, supportedContenttypeChoices)) {
+                return common.shift;
             }
         }
         return null;
@@ -76,8 +75,6 @@ class DContentTypeNegotiation {
      *
      * Language codes in the request will be normalized to lower case and have
      * `_` replaced with `-`.
-     * Params:
-     * \Psr\Http\Message\IRequest request The request to read headers from.
      */
     string[] acceptedLanguages(IRequest request) {
         auto raw = this.parseAcceptLanguage(request);
@@ -96,7 +93,6 @@ class DContentTypeNegotiation {
     
     /**
      * Check if the request accepts a given language code.
-     *
      * Language codes in the request will be normalized to lower case and have `_` replaced with `-`.
      */
     bool acceptLanguage(IRequest request, string langCode) {

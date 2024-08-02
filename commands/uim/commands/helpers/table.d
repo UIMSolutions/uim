@@ -112,7 +112,7 @@ class DTableHelper : UIMObject { // }: Helper {
 
     _rowSeparator(widths);
     if (configuration.hasKey("headers")) {
-      _render(array_shift(commandArguments), widths, [
+      _render(commandArguments.shift, widths, [
           "style": configuration.get("headerStyle")
         ]);
       _rowSeparator(widths);

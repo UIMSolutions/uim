@@ -519,10 +519,10 @@ class DConsoleOptionParser {
     protected Json[string] _parseShortOption(string optionToParse, Json[string] paramsToAppen) {
         string aKey = subString(optionToParse, 1);
         if (aKey.length > 1) {
-            flags = str_split(aKey);
+            string[] flags = aKey.split;
             aKey = flags[0];
             for (index = 1, len = count(flags); index < len; index++) {
-                array_unshift(_tokens, "-" ~ flags[index]);
+                _tokens.unshift("-" ~ flags[index]);
             }
         }
         if (!_shortOptions.hasKey(aKey)) {

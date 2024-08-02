@@ -340,7 +340,7 @@ class Hash {
         }
 
         if (isArray(keyPath)) {
-            string myformat = array_shift(keyPath);
+            string myformat = keyPath.shift;
             someKeys = format(data, keyPath, myformat);
             assert(someKeys.isArray);
         } else if (keyPath.isNull) {
@@ -387,10 +387,10 @@ class Hash {
                 return result;
             }
         }
-        if (isEmpty(myvals)) {
-            return null;
-        }
-        return array_combine(someKeys ?? range(0, count(myvals) - 1), myvals);
+        
+        return isEmpty(myvals)
+            ? null
+            : array_combine(someKeys ?? range(0, count(myvals) - 1), myvals);
     }
     
     /**
@@ -939,12 +939,12 @@ class Hash {
         assert(myids.isArray);
 
         string[] myidKeys = options.getString("idPath").split(".")
-        array_shift(myidKeys);
+        myidKeys.shift;
 
         string[] myparentKeys = options.getString("parentPath").split(".");
-        array_shift(myparentKeys);
+        myparentKeys.shift();
 
-        foreach (data as result) {
+        foreach (result; data) {
             result[options.getString("children")] = null;
 
             myid = get(result, myidKeys);

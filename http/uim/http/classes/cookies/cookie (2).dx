@@ -149,8 +149,8 @@ class DCookie : ICookie {
             someParts = preg_split("/\;[\t]*/", cookieHeader) ?: [];
         }
         
-        string[] nameValues = split("=", (string)array_shift(someParts), 2);
-        string name = array_shift(nameValues);
+        string[] nameValues = split("=", someParts.shift, 2);
+        string name = nameValues.shift;
         string aValue = array_shift(nameValues) ?? "";
 
         auto someData = [

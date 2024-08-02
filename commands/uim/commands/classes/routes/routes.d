@@ -162,7 +162,7 @@ class DRoutesCommand : DCommand {
                         });
                     }
                     if (someDuplicateRoutes) {
-                        array_unshift(someDuplicateRoutes, aHeader);
+                        someDuplicateRoutes.unshift(aHeader);
                         aConsoleIo.warning(
                             "The following possible route collisions were detected.");
                         aConsoleIo.helper("table").output(someDuplicateRoutes);

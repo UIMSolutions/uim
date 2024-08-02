@@ -77,7 +77,7 @@ class DFormProtector {
         }
         foreach (unlockField; _unlockedFields) {
             string[] unlockParts = unlockField.split(".");
-            if (array_values(array_intersect(field, unlockParts)) == unlockParts) {
+            if (array_values(intersect(field, unlockParts)) == unlockParts) {
                 return this;
             }
         }
@@ -250,7 +250,7 @@ class DFormProtector {
             if (!unlockedFields.isEmpty) {
                 foreach (off; unlockedFields) {
                     string[] offs = off.split(".");
-                    field = array_intersect(aKey.split("."), offs).values;
+                    field = intersect(aKey.split("."), offs).values;
                      isUnlocked = (field == off);
                     if (isUnlocked) {
                         break;

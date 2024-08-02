@@ -1091,7 +1091,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                 groupFields
            );
             auto mycolumns = getSchema().columns();
-            if (count(fieldNames) == count(array_intersect(fieldNames, mycolumns))) {
+            if (count(fieldNames) == count(intersect(fieldNames, mycolumns))) {
                 myquery.select(fieldNames);
             }
         }
@@ -1676,7 +1676,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
 
         // Generate primary keys preferring values in mydata.
         string[] primaryKeys = array_combine(primaryKeys, myid);
-        primaryKeys = array_intersectinternalKey(mydata, primaryKeys) + primaryKeys;
+        primaryKeys = intersectinternalKey(mydata, primaryKeys) + primaryKeys;
 
         string[] myfilteredKeys = array_filter(primaryKeys, auto (value) {
             return value !is null;

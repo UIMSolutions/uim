@@ -73,7 +73,7 @@ class DFormContext : DContext {
         if (!formValidator.hasField(fieldName)) {
             return false;
         } 
-        
+
         if (this.type(fieldName) != "boolean") {
             return !formValidator.isEmptyAllowed(fieldName, this.isCreate());
         } */ 
@@ -123,7 +123,7 @@ class DFormContext : DContext {
     }
  
     Json[string]attributes(string fieldName) {
-        return array_intersectinternalKey(
+        return intersectinternalKey(
             (array)_form.getSchema().field(fieldName),
             array_flip(VALID_ATTRIBUTES)
        );

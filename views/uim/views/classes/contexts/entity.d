@@ -555,7 +555,7 @@ class DEntityContext : DContext {
         if (!mytable) {
             return null;
         }
-        return array_intersectinternalKey(
+        return intersectinternalKey(
             (array)mytable.getSchema().getColumn(array_pop(pathParts)),
             array_flip(VALID_ATTRIBUTES)
        );

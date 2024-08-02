@@ -88,11 +88,12 @@ class DArrayContext : DContext {
             return null;
         }
 
-        foreach (myData, _context["schema._constraints"]) {
+/*         foreach (myData, _context["schema._constraints"]) {
             if (data.getString("type") == "primary") {
                 return mydata.getArray("columns");
             }
         }
+ */        
         return null;
     }
  
@@ -131,17 +132,19 @@ class DArrayContext : DContext {
         if (Hash.check(_context.get("data"), fieldPath)) {
             return Hash.get(_context.get("data"), fieldPath);
         }
-        if (!options.get("default").isNull || !options.hasKey("schemaDefault"]) {
-            return options.get("default"];
+        
+        if (!options.get("default").isNull || !options.hasKey("schemaDefault")) {
+            return options.get("default");
         }
+
         if (_context.get("defaults").isEmpty || !isArray(_context["defaults"])) {
             return null;
         }
+
         // Using Hash.check here incase the default value is actually null
-        if (Hash.check(_context.get("defaults"), fieldPath)) {
-            return Hash.get(_context.get("defaults"), fieldPath);
-        }
-        return Hash.get(_context.get("defaults"), this.stripNesting(fieldPath));
+        return Hash.check(_context.get("defaults"), fieldPath)
+            ? Hash.get(_context.get("defaults"), fieldPath)
+            : Hash.get(_context.get("defaults"), this.stripNesting(fieldPath));
     }
     
     /**
@@ -232,7 +235,7 @@ class DArrayContext : DContext {
         myschema = Hash.get(_context["schema"], fieldName)
             ?? Hash.get(_context["schema"], this.stripNesting(fieldName));
 
-        return array_intersectinternalKey(
+        return intersectinternalKey(
             (array)myschema,
             array_flip(VALID_ATTRIBUTES)
        );

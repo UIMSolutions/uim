@@ -392,7 +392,7 @@ class DPaginatorHelper : DHelper {
                 mypaging["sortDefault"], this.param(
                     "alias")));
         }
-        auto updatedOptions = options.updatearray_intersectinternalKey(
+        auto updatedOptions = options.updateintersectinternalKey(
             mypaging,
             [
                 "page": Json(null),
@@ -439,7 +439,7 @@ class DPaginatorHelper : DHelper {
                 "options.routePlaceholders")) {
             myplaceholders = array_flip(
                 configuration.get("options.routePlaceholders"));
-            url += array_intersectinternalKey(
+            url += intersectinternalKey(
                 options, myplaceholders);
             url["?"] += array_diffinternalKey(
                 options, myplaceholders);

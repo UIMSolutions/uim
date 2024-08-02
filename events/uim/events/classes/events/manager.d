@@ -46,10 +46,11 @@ class DEventManager : IEventManager {
         return _generalManager;
     }
 
-    void on(IEventListener eventKey, Json[string] options = null) {
+    IEventManager on(IEventListener eventKey, Json[string] options = null) {
         _attachSubscriber(eventKey);
     }
-    void on(string eventKey, /* callable | */ Json[string] options = null, /* callable callable = null */
+
+    IEventManager on(string eventKey, /* callable | */ Json[string] options = null, /* callable callable = null */
     ) {
         // TODO
         /* if (!aCallable && !isCallable(options)) {
@@ -74,20 +75,22 @@ class DEventManager : IEventManager {
      * Auxiliary auto to attach all implemented callbacks of a UIM\Event\IEventListener class instance
      * as individual methods on this manager
      */
-    protected void _attachSubscriber(IEventListener subscriber) {
+    protected IEventManager _attachSubscriber(IEventListener subscriber) {
         foreach (eventKey, handlers; subscriber.implementedEvents()) {
 /*         foreach (this.normalizeHandlers(subscriber, handlers) as handler) {
             this.on(eventKey, handler["settings"], handler["callable"]);
         } */
         }
+        return this; 
     }
 
-    void off(IEventListener listener) {
+    IEventManager off(IEventListener listener) {
         _detachSubscriber(listener);
         // TODO _detachSubscriber(aCallable, eventKey);
+        return this; 
     }
 
-    auto off(
+    IEventManager off(
         /* callable */
         string eventKey, /* IEventListener|callable */
         // TODO callable aCallable = null

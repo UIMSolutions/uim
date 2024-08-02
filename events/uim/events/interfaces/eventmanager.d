@@ -39,7 +39,7 @@ interface IEventManager {
      * Params:
      * callable|null callable The callable auto you want invoked.
      */
-    void on(
+    IEventManager on(
         /* IEventListener */ string eventKey,
         /* callable| */ Json[string] options = null // ,
         /* callable callable = null */
@@ -72,7 +72,7 @@ interface IEventManager {
      * manager.off(aCallback);
      * ```
      */
-    Json off(
+    IEventManager off(
         /* IEventListener|callable */ string eventKey,
         /* IEventListener|callable */ // TODO callable aCallable = null
    );

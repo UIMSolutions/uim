@@ -317,7 +317,7 @@ class DLog {
             }
             auto correctLevel = levels.isEmpty || isIn(severityLevel, levels, true);
              anInScope = scopes.isNull && contextData.isEmpty("scope") || scopes is null ||
-                isArray(scopes) && array_intersect(/* (array) */contextData["scope"], scopes);
+                isArray(scopes) && intersect(/* (array) */contextData["scope"], scopes);
 
             if (correctLevel &&  anInScope) {
                 logger.log(severityLevel, messageToLog, contextData);

@@ -288,7 +288,7 @@ class DFileConfigEngine {
         
         auto someValues = _values;
         if (!someKeys.isEmpty) {
-            someValues = array_intersectinternalKey(someValues, array_flip(someKeys));
+            someValues = intersectinternalKey(someValues, array_flip(someKeys));
         }
         return myEngine.dump(key, someValues);
     }

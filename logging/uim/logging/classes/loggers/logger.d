@@ -20,7 +20,7 @@ class DLogger : ILogger {
             return formattedMessage;
         }
 
-        auto placeholders = array_intersect(matches[1], context.keys);
+        auto placeholders = intersect(matches[1], context.keys);
         auto replacements = null;
         auto JsonFlags = Json_THROW_ON_ERROR | Json_UNESCAPED_UNICODE;
         foreach (aKey; placeholders) {

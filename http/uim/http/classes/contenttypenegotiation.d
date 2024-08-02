@@ -63,7 +63,7 @@ class DContentTypeNegotiation {
             return preferred[0];
         }
         foreach (acceptTypes; parsed) {
-            auto common = array_intersect(acceptTypes, supportedContenttypeChoices);
+            auto common = intersect(acceptTypes, supportedContenttypeChoices);
             if (common) {
                 return array_shift(common);
             }

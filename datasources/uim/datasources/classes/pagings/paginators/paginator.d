@@ -377,7 +377,7 @@ class DPaginator : IPaginator {
         }
 
         allowedParameters = getAllowedParameters();
-        requestData = array_intersectinternalKey(
+        requestData = intersectinternalKey(
             requestData, array_flip(allowedParameters));
 
         return array_merge(settingsData, requestData);

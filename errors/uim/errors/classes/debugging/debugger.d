@@ -117,7 +117,7 @@ class DDebugger {
             define("ERRORS.RECOVERABLE_ERROR", 4096);
         }
 
-        aConfig = array_intersectinternalKey( /* (array) */ Configure.read("Debugger"), _defaultConfig);
+        aConfig = intersectinternalKey( /* (array) */ Configure.read("Debugger"), _defaultConfig);
         configuration.set(aConfig);
 
         e = `<pre class="uim-error">`;

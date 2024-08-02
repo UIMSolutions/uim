@@ -371,7 +371,7 @@ class DNumericPaginator : IPaginator {
         }
 
         auto allowed = getAllowedParameters();
-        auto params = array_intersectinternalKey(requestData, array_flip(allowed));
+        auto params = intersectinternalKey(requestData, array_flip(allowed));
         return array_merge(settingsToMerge, requestData);
     }
 

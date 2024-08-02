@@ -612,10 +612,9 @@ class Hash {
      * Json[string] data The array to check.
      */
     static bool numeric(Json[string] data) {
-        if (isEmpty(data)) {
-            return false;
-        }
-        return data == filterValues(data, "isNumeric");
+        return data.isEmpty
+            ? false
+            : data == data.filterValues("isNumeric");
     }
     
     /**

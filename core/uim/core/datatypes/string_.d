@@ -671,9 +671,10 @@ unittest {
 	// TODO create test
 }
 
+
 string ifNull(string[] values...) {
 	foreach(value; values) {
-		if (value !is null) { return value; }
+		if (!value.isNull) { return value; }
 	}
 	return null;
 }

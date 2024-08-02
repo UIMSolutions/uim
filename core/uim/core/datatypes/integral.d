@@ -121,3 +121,7 @@ unittest {
   assert(isLong("0"));
   assert(!isLong("0.0"));
 } */
+
+bool isNull(long value) {
+  return value == 0;
+}

@@ -48,7 +48,7 @@ class DFixtureHelper {
                     name ~ "Fixture",
                 ];
                 /** @var class-string<\UIM\Datasource\IFixture>  classname * /
-                string classname = filterValues(nameSegments).join("\\");
+                string classname = nameSegments.filterValues.join("\\");
             } else {
                 /** @var class-string<\UIM\Datasource\IFixture>  classname * /
                  classname = fixtureName;

@@ -894,8 +894,9 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be less than '{0}'", valueToCompare)`;
         }
 
-        /* Json[string] myextra = filterValues(["on": mywhen, "message": errorMessage]);
-        return _add(fieldName, "lessThan", myextra ~ [
+        Json[string] extraData = ["on": mywhen, "message": errorMessage].filterValues;
+        /*
+        return _add(fieldName, "lessThan", extraData ~ [
                 "rule": ["comparison", Validation.COMPARE_LESS, valueToCompare],
             ]); */
         return null;

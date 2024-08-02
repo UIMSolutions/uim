@@ -643,7 +643,7 @@ unittest {
   assert(testString.filterValues().length == 2);
 
   int[] testValues = [1, 2, 3];
-  @safe bool foo(int i) { return i > 1; }
+  bool foo(int i) { return i > 1; }
   assert(testValues.filterValues(&foo).length == 2);
 }
 // #endregion filterValues

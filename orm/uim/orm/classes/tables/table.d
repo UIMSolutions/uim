@@ -1679,13 +1679,11 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         string[] primaryKeys = primaryKeys.combine(myid);
         primaryKeys = intersectinternalKey(mydata, primaryKeys) + primaryKeys;
 
-        string[] myfilteredKeys = filterValues(primaryKeys, auto (value) {
-            return value !is null;
-        });
+        string[] myfilteredKeys = primaryKeys.filterValues;
         mydata += myfilteredKeys;
 
         if (count(primaryKeys) > 1) {
-            myschema = getSchema();
+            auto myschema = getSchema();
             foreach (key, value; myprimary) {
                 if (!mydata.hasKey(key) && myschema.getColumn(key).isEmpty("autoIncrement")) {
                     auto message = "Cannot insert row, some of the primary key values are missing. ";

@@ -297,7 +297,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
  */
     void add(string fieldName, string[] ruleNames, DValidationRule[] validationRules = null) {
-        // TODO auto myvalidationSet = this.field(fieldName);
+        // TODO auto myvalidationSet = field(fieldName);
 
         /*        if (!isArray(ruleNames)) {
             validationRules = [ruleNames: ruleName];
@@ -341,10 +341,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string errorMessage = null, /*Closure|*/
         string mywhen = null
     ) {
-        /* Json[string] myextra = filterValues(["message": errorMessage, "on": mywhen]);
-
-        auto myvalidationSet = this.field(rootfieldName); */
-        /* myvalidationSet.add(NESTED, myextra ~ ["rule": auto (myvalue, context) use (validator, errorMessage) {
+        auto extraData = ["message": errorMessage, "on": mywhen].filterValues;
+        /* 
+        auto myvalidationSet = field(rootfieldName); */
+        /* myvalidationSet.add(NESTED, extraData ~ ["rule": auto (myvalue, context) use (validator, errorMessage) {
             if (!isArray(myvalue)) {
                 return false;
             }
@@ -379,7 +379,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     ) {
         /* Json[string] myextra = filterValues(["message": errorMessage, "on": mywhen]);
 
-        auto myvalidationSet = this.field(rootFieldName); */
+        auto myvalidationSet = field(rootFieldName); */
         /*        myvalidationSet.add(NESTED, myextra ~ ["rule": auto (myvalue, context) use (myvalidator, errorMessage) {
             if (!isArray(myvalue)) { return false; }
 
@@ -447,7 +447,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             mysettings = _convertValidatorToArray((string)fieldName, mydefaults, mysetting);
             string fieldName = currentValue(mysettings.keys);
 
-            this.field((string)fieldName).requirePresence(mysettings[fieldName]["mode"]);
+            field((string)fieldName).requirePresence(mysettings[fieldName]["mode"]);
             if (mysettings[fieldName]["message"]) {
                _presenceMessages[fieldName] = mysettings[fieldName]["message"];
             }
@@ -1875,7 +1875,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         // auto data = null;
         // auto context = compact("data", "newRecord", "field", "providers");
 
-        // return _canBeEmpty(this.field(fieldName), context);
+        // return _canBeEmpty(field(fieldName), context);
         return false;
     }
 
@@ -1885,7 +1885,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         data = null;
         context = compact("data", "newRecord", "field", "providers");
 
-        return !_checkPresence(this.field(fieldName), context); */
+        return !_checkPresence(field(fieldName), context); */
         return false;
     }
 

@@ -38,9 +38,9 @@ class DRulesProvider {
 
         ReflectionParameter myargument = methodArguments.pop();
         if (myargument.name() != "context") {
-            methodArguments = array_slice(methodArguments, 0, -1);
+            methodArguments = methodArguments.slice(0, -1);
         }
-        myobject = isString(_proxyclassname) ? null : _proxyclassname;
+        myobject = _proxyclassname.isString ? null : _proxyclassname;
 
         return method.invokeArgs(myobject, methodArguments); */
         return false; 

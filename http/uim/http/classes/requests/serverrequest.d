@@ -809,9 +809,9 @@ class DServerRequest { // }: IServerRequest {
         }
         
         string[] segments = host.split(".");
-        auto domain = array_slice(segments, -1 * (tldLength + 1));
+        auto domain = segments.slice(-1 * (tldLength + 1));
 
-        return join(".", domain);
+        return domain.join(".");
     }
     
     /**

@@ -683,7 +683,7 @@ abstract class DTestCase : DBaseTestCase {
         if (isoptions.isEmpty("entityClass"]) && mock.getEntityClass() == Entity.classname) {
             string[] someParts = classname.split("\\");
             entityAlias = Inflector.classify(Inflector.underscore(subString(someParts.pop(), 0, -5)));
-            entityClass = array_slice(someParts, 0, -1).join("\\") ~ "\\Entity\\" ~ entityAlias;
+            entityClass = someParts.slice(0, -1).join("\\") ~ "\\Entity\\" ~ entityAlias;
             if (class_hasKey(entityClass)) {
                 mock.setEntityClass(entityClass);
             }

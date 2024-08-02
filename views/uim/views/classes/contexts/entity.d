@@ -465,7 +465,7 @@ class DEntityContext : DContext {
      * Json[string] pathParts Each one of the parts in a path for a field name
      */
     protected IValidator _getValidator(Json[string] pathParts) {
-        string[] mykeyParts = filterValues(array_slice(pathParts, 0, -1), auto (mypart) {
+        string[] mykeyParts = filterValues(pathParts.slice(0, -1), auto (mypart) {
             return !isNumeric(mypart);
         });
         string aKey = mykeyParts.join(".");

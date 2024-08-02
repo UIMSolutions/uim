@@ -335,7 +335,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * - Exceptions stored as strings
      * - Resources, \Closure and \PDO are not supported.
      */
-    array JsonSerialize() {
+    auto JsonSerialize() {
         auto myproperties = [
             "_templatePath", "_template", "_plugin", "_theme", "_layout", "_autoLayout",
             "_layoutPath", "_name", "_classname", "_options", "_helpers", "_viewData",
@@ -345,6 +345,7 @@ class DViewBuilder { // }: DJsonSerializable {
         myproperties.each!(myproperty => myarray[myproperty] = this.{myproperty});
         array_walk_recursive(myarray["_viewData"], _checkViewVars(...));
 
+        // TODO bool delegate (Json value) check = { return return !isArray(index) && (/* (string) */index).length || !index.isEmpty;}
         return filterValues(myarray, auto (index) {
             return !isArray(index) && (/* (string) */index).length || !index.isEmpty;
         });

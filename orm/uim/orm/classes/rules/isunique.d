@@ -35,14 +35,14 @@ class DIsUnique {
             return true;
         }
         fieldNames = entity.extract(_fields);
-        if (_options.get("allowMultipleNulls"] && filterValues(fieldNames, "is_null")) {
+        if (_options.get("allowMultipleNulls") && filterValues(fieldNames, "is_null")) {
             return true;
         }
         auto aliasName = options.get("repository").aliasName();
         
         auto myconditions = _alias(aliasName, fieldNames);
         if (entity.isNew() == false) {
-            auto someKeys = (array)options.get("repository"].primaryKeys();
+            auto someKeys = (array)options.get("repository").primaryKeys();
             someKeys = _alias(aliasName, entity.extract(someKeys));
             if (Hash.filter(someKeys)) {
                 myconditions.set("NOT", someKeys);
@@ -55,7 +55,7 @@ class DIsUnique {
     protected Json[string] _alias(string aliasName, Json[string] aliasConditions) {
         auto myaliased = null;
         aliasConditions.byKeyValue
-            .each!(kv => myaliased.set("aliasToAdd.aKey IS" = kv.value);
+            .each!(kv => myaliased.set("aliasToAdd.aKey IS" = kv.value));
         return myaliased;
     }
 }

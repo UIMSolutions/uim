@@ -338,12 +338,11 @@ mixin template TCollection() {
                 mybucket = (++mybucket) % mylength;
                 myoffset++;
             });
-            myoffset = myoffset % mylength;
-            myhead = array_slice(result, myoffset);
-            mytail = array_slice(result, 0, myoffset);
+            auto myoffset = myoffset % mylength;
+            auto myhead = result.slice(myoffset);
+            auto mytail = result.slice(0, myoffset);
 
             myhead.each!(v =>  yield v[0]: v[1]);
-
             mytail.each!(v => yield v[0]: v[1]);
         };
 

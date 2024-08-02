@@ -566,7 +566,7 @@ class Hash {
      * This auto will work with an unlimited amount of arguments and typecasts non-array parameters into arrays.
      */
     static Json[string] merge(Json[string] data, Json valueToMerge) {
-        auto myargs = array_slice(func_get_args(), 1);
+        auto myargs =func_get_args().slice(1);
         auto result = data;
         auto mystack = null;
 

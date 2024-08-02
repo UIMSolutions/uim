@@ -88,11 +88,7 @@ class DExistsIn {
             mybindingKey
         );
 
-        auto myconditions = array_combine(
-            myprimary,
-            myentity.extract(fieldNames)
-        );
-
+        auto myconditions = myprimary.combine(myentity.extract(fieldNames));
         return mytarget.hasKey(myconditions);
     }
 

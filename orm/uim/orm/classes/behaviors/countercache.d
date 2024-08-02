@@ -173,10 +173,10 @@ class DCounterCacheBehavior : DBehavior {
         }
         
         string[] bindingKeys = association.getBindingKeys();
-        auto myupdateConditions = array_combine(bindingKeys, mycountConditions);
+        auto myupdateConditions = bindingKeys.combine(mycountConditions);
         auto mycountOriginalConditions = ormEntity.extractOriginalChanged(myforeignKeys);
         if (mycountOriginalConditions !is null) {
-            myupdateOriginalConditions = array_combine(bindingKeys, mycountOriginalConditions);
+            myupdateOriginalConditions = bindingKeys.combine(mycountOriginalConditions);
         }
 
         mysettings.byKeyValue

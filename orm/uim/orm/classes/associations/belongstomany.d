@@ -884,17 +884,17 @@ class DBelongsToManyAssociation : DAssociation {
 
         return _junction().getConnection().transactional(
             function () use (sourceEntity, targetEntities, primaryValue, options) {
-                junction = this.junction();
-                target = getTarget();
+                auto junction = this.junction();
+                auto target = getTarget();
 
-                foreignKeys = /* (array) */foreignKeys();
-                assocForeignKey = (array)junction.getAssociation(target.aliasName()).foreignKeys();
+                auto foreignKeys = /* (array) */foreignKeys();
+                auto assocForeignKey = (array)junction.getAssociation(target.aliasName()).foreignKeys();
 
-                prefixedForeignKey = array_map([junction, "aliasField"], foreignKeys);
-                junctionPrimaryKey = (array)junction.primaryKeys();
-                junctionQueryAlias = junction.aliasName() ~ "__matches";
+                auto prefixedForeignKey = array_map([junction, "aliasField"], foreignKeys);
+                auto junctionPrimaryKey = (array)junction.primaryKeys();
+                auto junctionQueryAlias = junction.aliasName() ~ "__matches";
 
-                keys = matchesConditions = null;
+                auto keys = matchesConditions = null;
                 foreach (array_merge(assocForeignKey, junctionPrimaryKey) as key) {
                     aliased = junction.aliasField(key);
                     keys[key] = aliased;
@@ -905,7 +905,7 @@ class DBelongsToManyAssociation : DAssociation {
                 // with finders & association conditions.
                 matches = _appendJunctionJoin(this.find())
                     .select(keys)
-                    .where(array_combine(prefixedForeignKey, primaryValue));
+                    .where(prefixedForeignKey.combine(primaryValue));
 
                 // Create a subquery join to ensure we get
                 // the correct entity passed to callbacks.
@@ -916,8 +916,8 @@ class DBelongsToManyAssociation : DAssociation {
                         matchesConditions
                    );
 
-                jointEntities = _collectJointEntities(sourceEntity, targetEntities);
-                inserts = _diffLinks(existing, jointEntities, targetEntities, options);
+                auto jointEntities = _collectJointEntities(sourceEntity, targetEntities);
+                auto inserts = _diffLinks(existing, jointEntities, targetEntities, options);
                 if (inserts == false) {
                     return false;
                 }
@@ -926,11 +926,10 @@ class DBelongsToManyAssociation : DAssociation {
                     return false;
                 }
 
-                property = getProperty();
+                auto roperty = getProperty();
 
                 if (count(inserts)) {
-                    inserted = array_combine(
-                        inserts.keys,
+                    inserted = inserts.keys.combine(
                         (array)sourceEntity.get(property)
                    ) ?: [];
                     targetEntities = inserted + targetEntities;

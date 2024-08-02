@@ -616,8 +616,8 @@ class DMarshaller {
                             fieldNames = array_map([
                                 _table,
                                 "aliasField"
-                            ], myprimary); myconditions["OR").concat( array_combine(
-                            fieldNames, someKeys); return myconditions;}, ["OR": Json
+                            ], myprimary); myconditions["OR").concat( fieldNames.combine(
+                            someKeys); return myconditions;}, ["OR": Json
                                 .emptyArray]);
                             mymaybeExistentQuery = _table.find()
                             .where(myconditions);

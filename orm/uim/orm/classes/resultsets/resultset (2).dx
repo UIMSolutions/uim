@@ -339,10 +339,8 @@ class DResultset : IResultset {
 
         foreach (alias, keys; _matchingMapColumns) {
             matching = _matchingMap[aliasName];
-            results["_matchingData"][aliasName] = array_combine(
-                keys,
-                intersectinternalKey(row, keys)
-            );
+            results["_matchingData"][aliasName] = keys.combine(
+                intersectinternalKey(row, keys));
             if (_hydrate) {
                 /** @var DORMDORMTable aTable */
                 table = matching["instance"];
@@ -354,7 +352,7 @@ class DResultset : IResultset {
         }
 
         foreach (table, keys; _map) {
-            results.set(table, array_combine(keys, intersectinternalKey(row, keys)));
+            results.set(table, keys.combine(intersectinternalKey(row, keys)));
             presentAliases.set(table, true);
         }
 

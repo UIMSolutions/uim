@@ -166,7 +166,7 @@ class DText {
         auto mydataKeys = mydata.keys;
         myhashKeys = array_map("md5", mydataKeys);
         /** @var STRINGAA mytempData */
-        mytempData = array_combine(mydataKeys, myhashKeys);
+        mytempData = mydataKeys.combine(myhashKeys);
         krsort(mytempData);
 
         foreach (mytempData as aKey: myhashVal) {
@@ -174,7 +174,7 @@ class DText {
             placeholder = (string)preg_replace(aKey, myhashVal, placeholder));
         }
         /** @var Json[string] mydataReplacements */
-        mydataReplacements = array_combine(myhashKeys, array_values(mydata));
+        mydataReplacements = myhashKeys.combine(array_values(mydata));
         foreach (mytmpHash, mytmpValue; mydataReplacements) {
             mytmpValue = mytmpValue.isArray ? "" : mytmpValue.toString;
             placeholder = (string)placeholder.replace(mytmpHash, mytmpValue);

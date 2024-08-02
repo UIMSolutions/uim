@@ -75,7 +75,7 @@ class DYearWidget : DWidget {
             : range(minValue, maxValue)
         );
             
-        mydata.set("options", array_combine(mydata["options"], mydata["options"]));
+        mydata.set("options", mydata["options"].combine(mydata["options"]));
 
         mydata.remove("order", "min", "max");
         return _select.render(mydata, formContext);

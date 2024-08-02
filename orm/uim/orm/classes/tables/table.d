@@ -1211,7 +1211,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                 .format(getTable(), join(", ", primaryKey)
            ));
         }
-        myconditions = array_combine(keys, primaryKey);
+        myconditions = keys.combine(primaryKey);
 
         if (isArray(myfinder)) {
             deprecationWarning(
@@ -1326,8 +1326,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             return myrow;
         }
         ormEntity = this.newEmptyEntity();
-        if (options.hasKey("defaults"] && isArray(mysearch)) {
-            myaccessibleFields = array_combine(mysearch.keys, array_fill(0, count(mysearch), true));
+        if (options.hasKey("defaults") && isArray(mysearch)) {
+            myaccessibleFields = mysearch.keys.combine(array_fill(0, count(mysearch), true));
             ormEntity = this.patchEntity(ormEntity, mysearch, ["accessibleFields": myaccessibleFields]);
         }
         if (mycallback !is null) {
@@ -1348,7 +1348,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Params:
      * \ORM\Query\SelectQuery|callable|array mysearch The criteria to find existing records by.
      */
-    protected ISelectQuery _getFindOrCreateQuery(SelectQuery|callable|array mysearch) {
+    protected ISelectQuery _getFindOrCreateQuery(DSelectQuery/* |callable|array  */mysearch) {
         if (isCallable(mysearch)) {
             myquery = this.find();
             mysearch(myquery);
@@ -1361,17 +1361,17 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     }
     
     // Creates a new DSelectQuery instance for a table.
-    SelectQuery query() {
+    DSelectQuery query() {
         return _selectQuery();
     }
     
     // Creates a new select query
-    SelectQuery selectQuery() {
+    DSelectQuery selectQuery() {
         return _queryFactory.select(this);
     }
     
     // Creates a new insert query
-    InsertQuery insertQuery() {
+    DInsertQuery insertQuery() {
         return _queryFactory.insert(this);
     }
     
@@ -1675,7 +1675,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         auto myid = _newId(primaryKeys) ~ someKeys;
 
         // Generate primary keys preferring values in mydata.
-        string[] primaryKeys = array_combine(primaryKeys, myid);
+        string[] primaryKeys = primaryKeys.combine(myid);
         primaryKeys = intersectinternalKey(mydata, primaryKeys) + primaryKeys;
 
         string[] myfilteredKeys = array_filter(primaryKeys, auto (value) {

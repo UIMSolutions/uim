@@ -76,7 +76,7 @@ class DLinkConstraint {
                 count(myvalues)
            ));
         }
-        return array_combine(fieldNames, myvalues);
+        return fieldNames.combine(myvalues);
     }
     
     // Count links.

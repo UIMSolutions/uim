@@ -91,8 +91,7 @@ class DResultsetFactory {
 
         foreach (aliasName, someKeys; tableMetadata["matchingColumns"]) {
             mymatching = metadata["matchingAssoc"][aliasName];
-            results["_matchingData"][aliasName] = array_combine(
-                someKeys,
+            results["_matchingData"][aliasName] = someKeys.combine(
                 intersectinternalKey(myrow, someKeys)
            );
             if (tableMetadata["hydrate"]) {

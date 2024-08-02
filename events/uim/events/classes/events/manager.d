@@ -12,7 +12,7 @@ import uim.events;
  */
 class DEventManager : IEventManager {
     // The default priority queue value for new, attached listeners
-    static int _defaultPriority = 10;
+    static long _defaultPriority = 10;
 
     // The event list object.
     protected DEventList _eventList = null;
@@ -38,7 +38,7 @@ class DEventManager : IEventManager {
      * If called with the first parameter, it will be set as the globally available instance
      */
     static DEventManager instance(DEventManager manager = null) {
-        if (_generalManager.isEmpty) {
+        if (_generalManager is null) {
             _generalManager = new DEventManager();
         }
         _generalManager._isGlobal = true;
@@ -67,8 +67,9 @@ class DEventManager : IEventManager {
         return;
         }*/
 
-        auto priority = options.get("priority", defaultPriority);
-        // TODO  _listeners[eventKey][priority].concat("callable": aCallable(...)];    
+        long priority = options.getLong("priority", _defaultPriority);
+        // TODO  _listeners[eventKey][priority].concat("callable": aCallable(...)];  
+        return this;  
     }
 
     /**

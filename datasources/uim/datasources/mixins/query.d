@@ -326,13 +326,11 @@ mixin template TQuery() {
             if (mode != OVERWRITE) {
                 throw new DInvalidArgumentException("formatter can be null only when mode is overwrite.");
             }
-
             return;
         }
 
         if (mode == PREPEND) {
-            array_unshift(_formatters, formatter);
-
+            _formatters.unshift(formatter);
             return 
         }
 

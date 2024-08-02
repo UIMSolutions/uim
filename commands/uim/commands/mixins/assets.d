@@ -35,18 +35,18 @@ mixin template TPluginAssets() {
             string link = Inflector.underscore(plugin);
             auto wwwRoot = configuration.get("App.wwwRoot");
             string dir = wwwRoot;
-            auto namespaced = false;
+            bool isNamespaced = false;
             if (link.contains("/")) {
-                namespaced = true;
+                isNamespaced = true;
                 string[] someParts = link.split("/");
-                link = array_pop(someParts);
+                link = someParts.pop;
                 dir = wwwRoot ~ someParts.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
             }
             plugins.set(plugin, [
                 "srcPath": Plugin.path(plugin) ~ "webroot",
                 "destDir": dir,
                 "link": link,
-                "namespaced": namespaced,
+                "namespaced": isNamespaced,
             ]);
         });
 
@@ -55,7 +55,7 @@ mixin template TPluginAssets() {
     
     // Process plugins
     protected void _process(Json[string] pluginsToProcess, bool copyMode = false, bool overwriteExisting = false) {
-        foreach (plugin: configData; pluginsToProcess) {
+        foreach (plugin, configData; pluginsToProcess) {
             _io.writeln();
             _io.writeln("For plugin: " ~ plugin);
             _io.hr();

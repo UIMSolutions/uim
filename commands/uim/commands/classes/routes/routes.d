@@ -60,7 +60,7 @@ class DRoutesCommand : DCommand {
                 usort(output, auto(a, b) {
                     return strcasecmp(a[0], b[0]);});
                 }
-                array_unshift(output, aHeader);
+                output.unshift(aHeader);
 
                 aConsoleIo.helper("table").output(output);
                 aConsoleIo.writeln();
@@ -90,7 +90,7 @@ class DRoutesCommand : DCommand {
                         });
                     }
                     if (someDuplicateRoutes) {
-                        array_unshift(someDuplicateRoutes, aHeader);
+                        someDuplicateRoutes.unshift(aHeader);
                         aConsoleIo.warning(
                             "The following possible route collisions were detected.");
                         aConsoleIo.helper("table").output(someDuplicateRoutes);

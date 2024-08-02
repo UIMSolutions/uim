@@ -173,16 +173,15 @@ class DArrayContext : DContext {
         if (!_context["required"].isArray) {
             return null;
         }
-        myrequired = Hash.get(_context["required"], fieldName)
-            ?? Hash.get(_context["required"], this.stripNesting(fieldName));
+        string required;
+        required = Hash.get(_context["required"], fieldName)
+            ? Hash.get(_context["required"], fieldName) 
+            : Hash.get(_context["required"], this.stripNesting(fieldName));
 
-        if (myrequired == false) {
+        if (required.isEmpty) {
             return null;
         }
-        if (myrequired == true) {
-            myrequired = __d("uim", "This field cannot be left empty");
-        }
-        return myrequired;
+        return __d("uim", "This field cannot be left empty");
     }
     
     /**
@@ -208,35 +207,30 @@ class DArrayContext : DContext {
         return myschema.keys;
     }
     
-    /**
-     * Get the abstract field type for a given field name.
-     * Params:
-     * string fieldName A dot separated path to get a schema type for.
-     */
+    // Get the abstract field type for a given field name.
     string type(string fieldName) {
         if (!isArray(_context["schema"])) {
             return null;
         }
-        myschema = Hash.get(_context["schema"], fieldName)
-            ?? Hash.get(_context["schema"], this.stripNesting(fieldName));
+        
+        auto myschema = Hash.get(_context["schema"], fieldName)
+            ? Hash.get(_context["schema"], fieldName) : Hash.get(_context["schema"], this.stripNesting(fieldName));
 
         return myschema.get("type");
     }
 
-    /**
-     * Get an associative array of other attributes for a field name.
-     * Params:
-     * string fieldName A dot separated path to get additional data on.
-     */
+    // Get an associative array of other attributes for a field name.
     Json[string]attributes(string fieldName) {
         if (!_context["schema"].isArray) {
             return null;
         }
-        myschema = Hash.get(_context["schema"], fieldName)
-            ?? Hash.get(_context["schema"], this.stripNesting(fieldName));
+        
+        auto myschema = Hash.get(_context["schema"], fieldName)
+            ? Hash.get(_context["schema"], fieldName)
+            : Hash.get(_context["schema"], this.stripNesting(fieldName));
 
         return intersectinternalKey(
-            (array)myschema,
+            /* (array) */myschema,
             array_flip(VALID_ATTRIBUTES)
        );
     }
@@ -256,7 +250,7 @@ class DArrayContext : DContext {
     Json[string] error(string pathToField) {
         return _context.isEmpty("errors")
             ? null
-            : (array)Hash.get(_context["errors"], pathToField);
+            : /* (array) */Hash.get(_context["errors"], pathToField);
     }
 
     /**

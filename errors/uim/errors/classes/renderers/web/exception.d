@@ -175,7 +175,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         auto serialize = ["message", "url", "code"];
         auto isDebug = configuration.get("debug");
         if (isDebug) {
-            trace = (array) Debugger.formatTrace(exception.getTrace(), [
+            trace =/*  (array) */ Debugger.formatTrace(exception.getTrace(), [
                     "format": "array",
                     "args": true.toJson,
                 ]);
@@ -184,7 +184,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
                 "line": exception.getLine().ifEmpty("null"),
             ];
             // Traces don`t include the origin file/line.
-            array_unshift(trace, origin);
+            trace.unshift(origin);
             viewVars.set("trace", trace);
             viewVars += origin;
             serialize ~= "file";
@@ -206,15 +206,12 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Params:
      * \Psr\Http\Message\IResponse|string aoutput The response to output.
      */
-    void write(IResponse | string aoutput) {
-        if (isString(output)) {
-            writeln(output;
-
-            return;
-        }
-
-        emitter = new DResponseEmitter();
-        emitter.emit(output);
+    void write(string outputText) {
+        writeln(output);
+    }
+    void write(IResponse outputResponse) {
+        auto emitter = new DResponseEmitter();
+        emitter.emit(outputResponse);
     }
 
     // Render a custom error method/template.

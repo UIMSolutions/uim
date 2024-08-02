@@ -506,7 +506,7 @@ class DConsoleOptionParser {
         string name = subString(optionToParse, 2);
         if (name.contains("=")) {
             [name, aValue] = split("=", name, 2);
-            array_unshift(_tokens, aValue);
+            _tokens.unshift(aValue);
         }
         return _parseOption(name, paramsData);
     }

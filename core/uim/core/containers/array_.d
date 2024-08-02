@@ -575,3 +575,53 @@ unittest {
 }
 // #endregion unshift
 
+// Pop the element off the end of array
+// #region pop
+T pop(T)(ref T[] values) {
+  switch (values.length) {
+    case 0: 
+      return Null!T;
+    case 1: 
+      T value = values[0];
+      values = null; 
+      return value;
+    default: 
+      T value = values[$-1];
+      values = values[0..$-1]; 
+      return value;
+  }
+}
+
+unittest {
+  string[] testValues;
+  assert(testValues.pop is null);
+
+  testValues = ["a"];
+  assert(testValues.length == 1);
+  assert(testValues.pop == "a");
+  assert(testValues.length == 0);
+  
+  testValues = ["a", "b", "c"];
+  assert(testValues.length == 3);
+  assert(testValues.pop == "c");
+  assert(testValues.length == 2);
+}
+// #endregion pop
+
+T[] slice(T[] values, int startPos, int length = 0) {
+  if (values.length == 0) {
+    return null;
+  }
+
+  if (startPos == 0) {
+    return values[0..(min(values.length, length))];
+  }
+
+  if (abs(startPos) > values.length) {
+    return null;
+  }
+
+  return startPos > 0
+    ? values[0..(min(values.length, length))]
+    : values[(min(values.length, length))..$];
+}

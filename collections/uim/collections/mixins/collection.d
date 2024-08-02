@@ -270,7 +270,7 @@ mixin template TCollection() {
         }
         myiterator = optimizeUnwrap();
         if (isArray(myiterator)) {
-            return _newCollection(array_slice(myiterator, mylength * -1));
+            return _newCollection(myiterator.slice(mylength * -1));
         }
         if (cast(DCountable)myiterator) {
             mycount = count(myiterator);

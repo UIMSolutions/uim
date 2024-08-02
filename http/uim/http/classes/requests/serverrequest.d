@@ -370,7 +370,7 @@ class DServerRequest { // }: IServerRequest {
         /* if (name.startWith("is")) {
             auto type = subString(methodName, 2).lower;
 
-            array_unshift(params, type);
+            params.unshift(type);
 
             return _is(...params);
         } */

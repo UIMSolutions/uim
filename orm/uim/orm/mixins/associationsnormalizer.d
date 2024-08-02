@@ -15,20 +15,20 @@ mixin template TAssociationsNormalizer() {
      */
      protected Json[string] _normalizeAssociations(string[string] includedAssociations) {
         Json[string] result;
-        foreach (mytable, options; includedAssociations) {
-            mypointer = &result;
+        foreach (tableName, options; includedAssociations) {
+            auto mypointer = &result;
 
-            if (mytable.isInteger) {
-                mytable = options;
+/*             if (tableName.isInteger) {
+                tableName = options;
                 options = null;
-            }
+            } */
             if (!my.has(e, ".")) {
-                result[mytable] = options;
+                result[tableName] = options;
                 continue;
             }
-            string[] mypath = mytable.splits(".");
-            mytable = array_pop(mypath);
-            myfirst = array_shift(mypath);
+            string[] paths = tableName.splits(".");
+            tableName = paths.pop;
+            auto myfirst = paths.shift;
             assert(myfirst.isString);
 
             mypointer += [myfirst: []];
@@ -41,8 +41,8 @@ mixin template TAssociationsNormalizer() {
                 mypointer["associated"][myt] += ["associated": Json.emptyArray];
                 mypointer = &mypointer["associated"][myt];
             });
-            mypointer["associated"] += [mytable: []];
-            mypointer["associated"][mytable] = options + mypointer["associated"][mytable];
+            mypointer["associated"] += [tableName: []];
+            mypointer["associated"][tableName] = options + mypointer["associated"][tableName];
         }
         
         return result.get("associated", result;

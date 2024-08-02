@@ -105,11 +105,10 @@ class DCommandRunner { // }: IEventDispatcher {
             myCommands = _app.pluginConsole(myCommands);
         }
         dispatchEvent("Console.buildCommands", ["commands": myCommands]);
-        this.loadRoutes();
+        loadRoutes();
 
         // Remove the root executable segment
-        array_shift(argv);
-
+        argv.shift();
         aConsoleIo = aConsoleIo ? aConsoleIo : new DConsoleIo();
 
         try {
@@ -126,10 +125,10 @@ class DCommandRunner { // }: IEventDispatcher {
         if (result.isNull) {
             return ICommand.CODE_SUCCESS;
         }
-        if (result >= 0 && result <= 255) {
-            return result;
-        }
-        return ICommand.CODE_ERROR;
+        
+        return result >= 0 && result <= 255
+            ? result
+            : ICommand.CODE_ERROR;
     }
 
     /**

@@ -413,7 +413,7 @@ class DConsoleOptionParser {
         _tokens = argToParse;
 
         afterDoubleDash = false;
-        while ((token = array_shift(_tokens)) !is null) {
+        while ((token = _tokens.shift()) !is null) {
             token = to!string(token);
             if (token == "--") {
                 afterDoubleDash = true;

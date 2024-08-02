@@ -632,8 +632,8 @@ class Hash {
             return 0;
         }
         reset(data);
-        mydepth = 1;
-        while (myelem = array_shift(data)) {
+        size_t mydepth = 1;
+        while (myelem = data.shift) {
             if (isArray(myelem)) {
                 mydepth++;
                 data = myelem;

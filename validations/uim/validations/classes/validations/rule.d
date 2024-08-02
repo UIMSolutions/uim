@@ -122,8 +122,8 @@ class DValidationRule {
                 continue;
             }
             if (aKey == "rule" && isArray(myvalue) && !isCallable(myvalue)) {
-               _pass = array_slice(myvalue, 1);
-                myvalue = array_shift(myvalue);
+               _pass = myvalue.slice(, 1);
+                myvalue = myvalue.shift();
             }
             if (isIn(aKey, ["rule", "on", "message", "last", "provider", "pass"], true)) {
                 this.{"_aKey"} = myvalue;

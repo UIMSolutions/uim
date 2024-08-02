@@ -767,16 +767,16 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     // Add an rule that ensures a string length is within a range.
     auto lengthBetween(
         string fieldName,
-        Json[string] minmaxLength,
+        Json[string] minmaxLengths,
         string errorMessage = null, 
         /*Closure|*/ string mywhen = null
     ) {
-        // if (count(minmaxLength) != 2) {
-            // TODO throw new DInvalidArgumentException("The minmaxLength argument requires 2 numbers");
+        // if (count(minmaxLengths) != 2) {
+            // TODO throw new DInvalidArgumentException("The minmaxLengths argument requires 2 numbers");
         // }
 
-        auto lowerBound = "0"; // array_shift(minmaxLength);
-        auto upperBound = "1"; // array_shift(minmaxLength);
+        auto lowerBound = "0"; // minmaxLengths.shift();
+        auto upperBound = "1"; // array_shift(minmaxLengths);
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The length of the provided value must be between '%s' and '%s', inclusively"
@@ -1528,8 +1528,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         // if (count(bounds) != 2) {
             // TODO throw new DInvalidArgumentException("The minmaxLength argument requires 2 numbers");
         // }
-        auto lowerBound = "0"; // array_shift(minmaxLength);
-        auto upperBound = "1"; // array_shift(minmaxLength);
+        auto lowerBound = "0"; // minmaxLength.shift();
+        auto upperBound = "1"; // minmaxLength.shift();
 
         if (errorMessage.isNull) {
             errorMessage = _useI18n

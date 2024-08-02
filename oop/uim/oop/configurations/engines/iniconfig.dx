@@ -82,7 +82,7 @@ class DIniConfig : DConfigEngine {
                      someValues[section] = _parseNestedValues(attribs);
                 } else {
                     parse = _parseNestedValues([attribs]);
-                     someValues[section] = array_shift(parse);
+                     someValues[section] = parse.shift;
                 }
             }
         }

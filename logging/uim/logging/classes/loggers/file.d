@@ -144,7 +144,7 @@ class DFileLogger : DLogger {
         if (files) {
             size_t filesToDelete = files.length - rotate;
             while (filesToDelete > 0) {
-                unlink(to!string(array_shift(files)));
+                unlink(to!string(files.shift()));
                 filesToDelete--;
             }
         }

@@ -2162,7 +2162,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                     count(fieldNames)
                ));
             }
-            fieldNames.each!(field => myconditions[this.aliasField(field)] = array_shift(arguments));
+            fieldNames.each!(field => myconditions[this.aliasField(field)] = arguments.shift());
             return myconditions;
         }; */
 

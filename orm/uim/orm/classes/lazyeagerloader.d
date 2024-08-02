@@ -29,8 +29,7 @@ class DLazyEagerLoader {
         auto myassociations = query.getContain().keys;
         auto myentities = _injectResults(myentities, query, myassociations, sourceTable);
 
-        /** @var \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity> */
-        return resultSingle ? array_shift(myentities): myentities;
+        return resultSingle ? myentities.shift : myentities;
     }
     
     /**

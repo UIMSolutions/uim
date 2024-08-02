@@ -376,7 +376,7 @@ class DI18nExtractCommand : DCommand {
 
                 if (mapCount == count(strings)) {
                     string singular = "";
-                    auto vars = array_combine(map, strings);
+                    auto vars = map.combine(strings);
                     extract(vars);
                     auto domain = domain.ifEmpty("default");
                     auto details = [

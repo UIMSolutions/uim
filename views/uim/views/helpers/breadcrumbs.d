@@ -67,7 +67,7 @@ class DBreadcrumbsHelper : DHelper {
             titles.each!(title => newCrumbs ~= title ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
             array_splice(_crumbs, 0, 0, newCrumbs);
         }
-        _crumbs.array_unshift(compact("title", "url", "options"));
+        _crumbs.unshift(compact("title", "url", "options"));
     }
     
     /**

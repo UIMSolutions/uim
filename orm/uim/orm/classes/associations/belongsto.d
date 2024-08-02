@@ -97,9 +97,8 @@ class DBelongsToAssociation : DAssociation {
             return false;
         }
 
-        auto properties = array_combine(
-            (array)foreignKeys(),
-            targetEntity.extract(/* (array) */getBindingKey())
+        auto properties =foreignKeys().combine(
+            targetEntity.extract(getBindingKeys())
        );
         ormEntity.set(properties, ["guard": false.toJson]);
         return ormEntity;
@@ -113,8 +112,8 @@ class DBelongsToAssociation : DAssociation {
         auto conditions = null;
         auto tAlias = _name;
         auto sAlias = _sourceTable.aliasName();
-        auto foreignKeys = /* (array) */options.get("foreignKeys"];
-        auto bindingKeys = /* (array) */getBindingKey();
+        string[] foreignKeys = options.getStringArray("foreignKeys");
+        string[] bindingKeys = getBindingKeys();
 
         if (count(foreignKeys) != count(bindingKeys)) {
             if (bindingKeys.isEmpty) {
@@ -122,7 +121,7 @@ class DBelongsToAssociation : DAssociation {
                 throw new DRuntimeException(message.format(getTarget().getTable()));
             }
 
-            string message = ;
+            string message = "";
             throw new DRuntimeException(
 "Cannot match provided foreignKeys for '%s', got '(%s)' but expected foreign key for '(%s)'"
                 .format(_name, foreignKeys.join(", "), bindingKeys.join(", ")
@@ -145,7 +144,7 @@ class DBelongsToAssociation : DAssociation {
             "sourceAlias": source().aliasName(),
             "targetAlias": getTarget().aliasName(),
             "foreignKeys": foreignKeys(),
-            "bindingKey": getBindingKey(),
+            "bindingKey": getBindingKeys(),
             "strategy": getStrategy(),
             "associationType": this.type(),
             "finder": [this, "find"],

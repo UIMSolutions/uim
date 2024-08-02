@@ -412,8 +412,8 @@ class DBelongsToManyAssociation : DAssociation {
         }
 
         auto foreignKeys = foreignKeys();
-        auto bindingKeys = bindingKeys();
-        auto bindingKeys = null;
+        string[] bindingKeys = bindingKeys();
+        string[] bindingKeys = null;
         if (!bindingKey.isEmpty) {
             conditions = chain(foreignKeys, entity.extract(bindingKeyx));
         }

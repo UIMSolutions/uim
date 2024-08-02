@@ -106,11 +106,7 @@ class DHasManyAssociation : DAssociation {
                 "Could not save %s, it cannot be traversed".format(myName););
         }
 
-        foreignKeyReference = array_combine(
-            /* (array) */
-            foreignKeys(),
-            sourceEntity.extract( /* (array) */ getBindingKeys())
-        );
+        foreignKeyReference = foreignKeys().combine(sourceEntity.extract(getBindingKeys()));
 
         options.set("_sourceTable", source());
 

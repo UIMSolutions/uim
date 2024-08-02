@@ -382,7 +382,7 @@ class DRoute : IRoute {
             while (myj--) {
                 /** @psalm-suppress PossiblyInvalidArgument * / 
                 if (myroute.hasKey(configuration.get("pass")[myj]])) {
-                    array_unshift(myroute["pass"], myroute[configuration.set("pass"][myj]]);
+                    myroute["pass"].unshift(myroute[configuration.set("pass"][myj]]);
                 }
             } */
         }

@@ -736,7 +736,7 @@ class DAssociation : UIMObject, IAssociation {
         auto tAlias = _name;
         string sourceAlias = source().aliasName();
         auto foreignKeys = options.getArray("foreignKeys");
-        auto bindingKeys = /* (array) */ bindingKeys();
+        string[] bindingKeys = /* (array) */ bindingKeys();
 
         if (count(foreignKeys) != count(bindingKeys)) {
             if (bindingKeys.isEmpty) {

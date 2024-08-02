@@ -608,7 +608,16 @@ unittest {
 // #endregion diff 
 
 V[K] column(V, K)(V[K][] values, K key) {
-  return    values
+  return  values
     .filter!(value => value.hasKey(key))
     .map!(value => value[key]).array;
+}
+
+V[K] combine(V, K)(K[] keys, V[] values) {
+  V[K] results;
+  size_t lastIndex = min(keys.length, values.length);
+  for(size_t i = 0; i < lastIndex; i++) {
+    results[keys[i]] = values[i]; 
+  } 
+  return results; 
 }

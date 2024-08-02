@@ -495,11 +495,11 @@ class DText {
                         )
                     ) {
                         if (preg_match("/<[\w]+[^>]*>/", tag[0])) {
-                            array_unshift(myopenTags, tag[2]);
+                            myopenTags.unshift(tag[2]);
                         } else if (preg_match("/<\/([\w]+)[^>]*>/", tag[0], mycloseTag)) {
                             mypos = array_search(mycloseTag[1], myopenTags, true);
                             if (mypos == true) {
-                                array_splice(myopenTags, mypos, 1);
+                                myopenTags.splice(mypos, 1);
                             }
                         }
                     }

@@ -1875,7 +1875,7 @@ class DFormHelper : DHelper {
                 myendsWithBrackets = "[]";
             }
             string[] pathParts = fieldName.split(".");
-            myfirst = array_shift(pathParts);
+            myfirst = pathParts.shift();
             options.set("name", myfirst ~ (!pathParts.isEmpty ? "[" ~ join(., pathParts) ~ "]" : "") ~ myendsWithBrackets);
         }
         if (options.hasKey("value") && !options.hasKey("val")) {

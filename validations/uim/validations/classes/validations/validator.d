@@ -776,7 +776,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         // }
 
         auto lowerBound = "0"; // minmaxLengths.shift();
-        auto upperBound = "1"; // array_shift(minmaxLengths);
+        auto upperBound = "1"; // minmaxLengths.shift();
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The length of the provided value must be between '%s' and '%s', inclusively"

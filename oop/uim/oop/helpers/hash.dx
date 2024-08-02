@@ -221,7 +221,7 @@ class Hash {
             return _simpleOp("insert", dataToInsert, mytokens, valuesToInsert);
         }
 
-        string mytoken = array_shift(mytokens);
+        string mytoken = mytokens.shift();
         string mynextPath = mytokens.join(".");
 
         [mytoken, myconditions] = _splitConditions(mytoken);
@@ -295,7 +295,7 @@ class Hash {
             return _simpleOp("remove", data, mytokens);
         }
 
-        string mytoken = array_shift(mytokens);
+        string mytoken = mytokens.shift();
         string mynextPath = join(".", mytokens);
 
         [mytoken, myconditions] = _splitConditions(mytoken);

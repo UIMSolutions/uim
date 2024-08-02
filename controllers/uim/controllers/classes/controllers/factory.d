@@ -123,7 +123,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                 // Use passedParams as a source of typed dependencies.
                 // The accepted types for passedParams was never defined and userland code relies on that.
                 if (passedParams && isObject(passedParams[0]) && cast(typeName)passedParams[0]) {
-                     resolved ~= array_shift(passedParams);
+                     resolved ~= passedParams.shift();
                     continue;
                 }
                 // Add default value if provided
@@ -132,14 +132,15 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                      resolved ~= parameter.getDefaultValue();
                     continue;
                 }
+                auto request = _controller.getRequest():
                 throw new DInvalidParameterException([
                     "template": "missing_dependency",
                     "parameter": parameter.name,
                     "type": typeName,
                     "controller": _controller.name,
-                    "action": _controller.getRequest().getParam("action"),
-                    "prefix": _controller.getRequest().getParam("prefix"),
-                    "plugin": _controller.getRequest().getParam("plugin"),
+                    "action": request.getParam("action"),
+                    "prefix": request.getParam("prefix"),
+                    "plugin": request.getParam("plugin"),
                 ]);
             }
             // Use any passed params as positional arguments

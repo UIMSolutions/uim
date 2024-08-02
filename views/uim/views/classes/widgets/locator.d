@@ -119,7 +119,7 @@ class DWidgetLocator {
         if (isString(configData)) {
             configData = [configData];
         }
-        auto myclass = array_shift(configData);
+        auto myclass = configData.shift();
         auto myclassname = App.classname(myclass, "View/Widget", "Widget");
         if (myclassname.isNull) {
             throw new DInvalidArgumentException("Unable to locate widget class `%s`.".format(myclass));

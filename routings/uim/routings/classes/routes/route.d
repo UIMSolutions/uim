@@ -342,7 +342,7 @@ class DRoute : IRoute {
        ) {
             return null;
         }
-        array_shift(myroute);
+        myroute.shift();
         mycount = count(_keys);
         for (index = 0; index <= mycount; index++) {
             remove(myroute[index]);

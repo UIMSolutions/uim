@@ -151,7 +151,7 @@ class DCookie : ICookie {
         
         string[] nameValues = split("=", someParts.shift, 2);
         string name = nameValues.shift;
-        string aValue = array_shift(nameValues) ?? "";
+        string aValue = nameValues.shift() ?? "";
 
         auto someData = [
                 "name": urldecode(name),

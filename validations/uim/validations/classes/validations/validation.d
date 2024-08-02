@@ -366,12 +366,12 @@ class DValidation {
         
         string[] myparts = preg_split("/[\sT]+/", valueToCheck);
         if (myparts && count(myparts) > 1) {
-            mydate = stripRight(array_shift(myparts), ",");
+            mydate = stripRight(myparts.shift(), ",");
             string mytime = myparts.join(" ");
             if (mydateFormat == DATETIME_ISO8601) {
                 mydateFormat = "ymd";
                 mytime = preg_split("/[TZ\-\+\.]/", mytime) ?: [];
-                mytime = array_shift(mytime);
+                mytime = mytime.shift();
             }
             myvalid = date(mydate, mydateFormat, regex) && isValidTime(mytime);
         }

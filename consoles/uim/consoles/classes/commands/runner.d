@@ -190,7 +190,7 @@ class DCommandRunner { // }: IEventDispatcher {
                 return [name, array_slice(cliArguments, index)];
             }
         }
-        name = array_shift(cliArguments);
+        name = cliArguments.shift();
 
         return [name, cliArguments];
     }

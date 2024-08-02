@@ -1074,26 +1074,27 @@ class DBelongsToManyAssociation : DAssociation {
             return result;
         }
 
-        belongsTo = junction.getAssociation(target.aliasName());
-        hasMany = source.getAssociation(junction.aliasName());
-        foreignKeys = (array)foreignKeys();
-        foreignKeys = array_map(function (key) {
+        auto belongsTo = junction.getAssociation(target.aliasName());
+        auto hasMany = source.getAssociation(junction.aliasName());
+        auto foreignKeys = (array)foreignKeys();
+        auto foreignKeys = array_map(function (key) {
             return key ~ " IS";
         }, foreignKeys);
-        assocForeignKey = (array)belongsTo.foreignKeys();
+        
+        auto assocForeignKey = (array)belongsTo.foreignKeys();
         assocForeignKey = array_map(function (key) {
             return key ~ " IS";
         }, assocForeignKey);
         sourceKey = sourceEntity.extract((array)source.primaryKeys());
 
         unions = null;
-        foreach (missing as key) {
+        foreach (key; missing) {
             unions ~= hasMany.find()
                 .where(array_combine(foreignKeys, sourceKey))
                 .where(array_combine(assocForeignKey, key));
         }
 
-        query = array_shift(unions);
+        query = unions.shift();
         foreach (unions as q) {
             query.union(q);
         }

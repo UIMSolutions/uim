@@ -184,7 +184,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         auto aliasName = "mainTableAlias";
         joinRequired = false;
         foreach (field; translatedFields()) {
-            if (array_intersect(select, [
+            if (intersect(select, [
                         field, "alias.field"
                     ])) {
                 joinRequired = true;

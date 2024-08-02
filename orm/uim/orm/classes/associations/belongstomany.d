@@ -321,7 +321,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         // Attach the junction table as well we need it to populate _joinData.
         auto assoc = _targetTable.getAssociation(junction.aliasName());
-        auto newOptions = array_intersectinternalKey(options, ["joinType": 1, "fields": 1]);
+        auto newOptions = intersectinternalKey(options, ["joinType": 1, "fields": 1]);
         newOptions += [
             "conditions": cond,
             "includeFields": includeFields,

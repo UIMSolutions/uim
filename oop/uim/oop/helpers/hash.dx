@@ -846,7 +846,7 @@ class Hash {
         if (isEmpty(compareData)) {
             return data;
         }
-        myintersection = array_intersectinternalKey(data, compareData);
+        myintersection = intersectinternalKey(data, compareData);
         while ((aKey = key(myintersection)) !is null) {
             if (data[aKey] == compareData[aKey]) {
                 remove(data[aKey], compareData[aKey]);

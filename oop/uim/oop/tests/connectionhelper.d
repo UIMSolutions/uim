@@ -63,7 +63,7 @@ class DConnectionHelper {
         collection = connection.getSchemaCollection();
         allTables = collection.listTablesWithoutViews();
 
-        tableNames = tableNames !is null ? array_intersect(tableNames, allTables): allTables;
+        tableNames = tableNames !is null ? intersect(tableNames, allTables): allTables;
         TableSchema[] schemas = array_map(fn (aTable) : collection.describe(aTable), tableNames);
 
         dialect = connection.getDriver().schemaDialect();
@@ -80,7 +80,7 @@ class DConnectionHelper {
          // TODO auto collection = connection.getSchemaCollection();
 
          // TODO auto allTables = collection.listTablesWithoutViews();
-         // TODO auto tableNames = tableNames !is null ? array_intersect(tableNames, allTables): allTables;
+         // TODO auto tableNames = tableNames !is null ? intersect(tableNames, allTables): allTables;
         /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
         // TODO schemas = array_map(fn (aTable): collection.describe(aTable), tableNames);
 

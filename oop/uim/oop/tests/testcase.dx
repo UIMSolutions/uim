@@ -664,7 +664,7 @@ abstract class DTestCase : DBaseTestCase {
             return method.name;
         }, reflection.getMethods());
 
-        auto existingMethods = array_intersect(classnameMethods,  methodsToMock);
+        auto existingMethods = intersect(classnameMethods,  methodsToMock);
         auto nonExistingMethods = array_diff(methodsToMock, existingMethods);
         auto builder = getMockBuilder(classname)
             .setConstructorArgs([options]);

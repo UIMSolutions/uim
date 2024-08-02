@@ -284,9 +284,9 @@ class DMarshaller {
             if (!isArray(myrow)) {
                 continue;
             }
-            if (array_intersectinternalKey(
+            if (intersectinternalKey(
                     myprimaryKeys, myrow) == myprimaryKeys) {
-                auto someKeys = array_intersectinternalKey(
+                auto someKeys = intersectinternalKey(
                     myrow, myprimaryKeys);
                 if (
                     count(

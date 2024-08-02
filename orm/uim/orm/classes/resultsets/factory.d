@@ -93,7 +93,7 @@ class DResultsetFactory {
             mymatching = metadata["matchingAssoc"][aliasName];
             results["_matchingData"][aliasName] = array_combine(
                 someKeys,
-                array_intersectinternalKey(myrow, someKeys)
+                intersectinternalKey(myrow, someKeys)
            );
             if (tableMetadata["hydrate"]) {
                 mytable = mymatching["instance"];
@@ -108,7 +108,7 @@ class DResultsetFactory {
         }
         tableMetadata["fields"].byKeyValue
             .each!((tableKeys) {
-                results[tableKeys.key] = array_combine(tableKeys.value, array_intersectinternalKey(myrow, tableKeys.value));
+                results[tableKeys.key] = array_combine(tableKeys.value, intersectinternalKey(myrow, tableKeys.value));
                 mypresentAliases[tableKeys.key] = true;
             });
         // If the default table is not in the results, set

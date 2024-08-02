@@ -128,7 +128,7 @@ class DPaginatorHelper : DHelper {
             configuration.set("params", options.get("paging"]);
             options.remove("paging");
         }
-        configuration.set("options", array_filter(options + configuration.get("options"));
+        configuration.set("options", filterValues(options + configuration.get("options"));
                 if (configuration.isEmpty("options/url")) ) {
             configuration.set("options/url", "");
         }

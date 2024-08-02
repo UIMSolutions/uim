@@ -697,7 +697,7 @@ static bool multiple(Json valueToCheck, Json[string] options = null, bool isCase
     /* auto defaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
         auto options = options.updatemydefaults;
 
-        auto valueToCheck = filterValues(((array)valueToCheck, auto (myvalue) {
+        auto valueToCheck = filterValues((array)valueToCheck, auto (myvalue) {
             return myvalue || isNumeric(myvalue);
         });
         if (valueToCheck.isEmpty) {

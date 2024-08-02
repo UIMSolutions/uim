@@ -261,7 +261,7 @@ static string contentType() {
 
         _request = serverRequest ? serverRequest : (Router.getRequest() ?: new DServerRequest(["base": "", "url": "", "webroot": "/"]));
         _response = _response ?: new DResponse();
-        _Blocks = new _viewBlockClass();
+        _blocks = new _viewBlockClass();
         _initialize();
         _loadHelpers();
     }
@@ -508,7 +508,7 @@ static string contentType() {
         mytemplateFileName = _getTemplateFileName(templateName);
        _currentType = TYPE_TEMPLATE;
         _dispatchEvent("View.beforeRender", [mytemplateFileName]);
-        _Blocks.set("content", _render(mytemplateFileName));
+        _blocks.set("content", _render(mytemplateFileName));
         _dispatchEvent("View.afterRender", [mytemplateFileName]);
 
         if (_autoLayout) {
@@ -518,7 +518,7 @@ static string contentType() {
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."
                );
             }
-            _Blocks.set("content", _renderLayout("", _layout));
+            _blocks.set("content", _renderLayout("", _layout));
         }
         if (layoutName !is null) {
             _layout = mydefaultLayout;
@@ -526,7 +526,7 @@ static string contentType() {
         if (mydefaultAutoLayout !is null) {
             _autoLayout = mydefaultAutoLayout;
         }
-        return _Blocks.get("content");
+        return _blocks.get("content");
     }
     
     /**
@@ -540,21 +540,21 @@ static string contentType() {
         auto layoutFilename = _getLayoutFileName(mylaylayoutNameout);
 
         if (!mycontent.isEmpty) {
-            _Blocks.set("content", mycontent);
+            _blocks.set("content", mycontent);
         }
         _dispatchEvent("View.beforeLayout", [layoutFilename]);
 
-        string mytitle = _Blocks.get("title");
+        string mytitle = _blocks.get("title");
         if (mytitle.isEmpty) {
             mytitle = Inflector.humanize(_templatePath.replace(DIRECTORY_SEPARATOR, "/"));
-            _Blocks.set("title", mytitle);
+            _blocks.set("title", mytitle);
         }
        _currentType = TYPE_LAYOUT;
-        _Blocks.set("content", _render(layoutFilename));
+        _blocks.set("content", _render(layoutFilename));
 
         _dispatchEvent("View.afterLayout", [layoutFilename]);
 
-        return _Blocks.get("content");
+        return _blocks.get("content");
     }
 
     // Returns a list of variables available in the current View context
@@ -637,7 +637,7 @@ static string contentType() {
      * existing content.
      */
     void assign(string blockName, Json value) {
-        _Blocks.set(blockName, myvalue);
+        _blocks.set(blockName, myvalue);
     }
 
     /**
@@ -658,7 +658,7 @@ static string contentType() {
 
     // End a capturing block. The compliment to View.start()
     void end() {
-        _Blocks.end();
+        _blocks.end();
     }
 
     // Check if a block exists
@@ -724,7 +724,7 @@ static string contentType() {
             mydata = _viewVars;
         }
        _current = templateFilename;
-        auto myinitialBlocks = count(_Blocks.unclosed());
+        auto myinitialBlocks = count(_blocks.unclosed());
 
         _dispatchEvent("View.beforeRenderFile", [templateFilename]);
 
@@ -739,14 +739,14 @@ static string contentType() {
             _assign("content", mycontent);
 
             mycontent = _render(_parents[templateFilename]);
-            _assign("content", array_pop(_stack));
+            _assign("content", _stack.pop());
         }
-        myremainingBlocks = count(_Blocks.unclosed());
+        myremainingBlocks = count(_blocks.unclosed());
 
         if (myinitialBlocks != myremainingBlocks) {
             throw new DLogicException(
                 "The `%s` block was left open. Blocks are not allowed to cross files."
-                .format(/* (string) */_Blocks.active())
+                .format(/* (string) */_blocks.active())
            );
         }
         return mycontent;

@@ -66,7 +66,7 @@ class DViewBlock {
         } else {
             this.concat(activeKey, blockContent, blockMode);
         }
-        //TODO array_pop(_activeBlocks);
+        //TODO _activeBlocks.pop();
     }
     
     /**

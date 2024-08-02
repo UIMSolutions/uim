@@ -309,7 +309,7 @@ class DRouteBuilder {
             }
             myaction = options.get("actions").get(mymethod, params.get("action"));
 
-            string myurl = "/" ~ join("/", filterValues(([
+            string myurl = "/" ~ join("/", filterValues([
                     options.get("path"], params["path"]
                 ]));
             auto params = [

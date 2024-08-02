@@ -568,7 +568,7 @@ class DFormHelper : DHelper {
                     "content": join("", myerrorText),
                 ]);
             } else {
-                myerror = array_pop(myerror);
+                myerror = myerror.pop();
             }
         }
         return _formatTemplate("error", [
@@ -634,7 +634,7 @@ class DFormHelper : DHelper {
             }
             if (text.contains(".")) {
                 string[] fieldNameElements = text.split(".");
-                text = array_pop(fieldNameElements);
+                text = fieldNameElements.pop();
             }
             if (text.endsWith("_id")) {
                 text = subString(text, 0, -3);
@@ -1926,7 +1926,7 @@ class DFormHelper : DHelper {
             }
             // Complex option types
             if (isArray(myfirst)) {
-                mydisabled = array_filter(
+                mydisabled = filterValues(
                     options.get("options"],
                     fn (index): isIn(index["value"], options.get("disabled"], true)
                );

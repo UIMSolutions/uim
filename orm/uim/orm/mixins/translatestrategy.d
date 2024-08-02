@@ -66,7 +66,7 @@ mixin template TTranslateStrategy() {
             auto translation = translation.extract(configuration.get("fields"));
             // If now, the current locale property is empty,
             // unset it completely.
-            if (filterValues((translation).isEmpty) {
+            if (filterValues(translation).isEmpty) {
                 remove(entity.get("_translations")[locale]);
             }
         }

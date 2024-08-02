@@ -262,7 +262,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
     bool valid() {
         auto result = _names.hasKey(_positions[_loopDepth]);
         if (!result) {
-            // TODO array_pop(_positions);
+            // TODO _positions.pop();
             _loopDepth -= 1;
         }
         return result;

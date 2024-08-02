@@ -442,8 +442,8 @@ class DQueryExpression : DExpression { // }, Countable {
         if (spaces > 1) {
             string[] someParts = expression.split(" ");
             if (preg_match("/(is not|not \w+)$/i", expression)) {
-                auto last = array_pop(someParts);
-                auto second = array_pop(someParts);
+                auto last = someParts.pop();
+                auto second = someParts.pop();
                 someParts ~= "{second} {last}".mustache(["second": second, "last": last]);
             }
              operator = array_pop(someParts);

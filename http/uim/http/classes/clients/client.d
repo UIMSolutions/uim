@@ -395,9 +395,7 @@ class DClient { // }: IClient {
       response = _adapter.send(requestToSend, options);
     }
     response.each!(response => _cookies = _cookies.addFromResponse(response, requestToSend));
-
-    /** @var \UIM\Http\Client\Response */
-    return array_pop(response);
+    return response.pop();
   }
 
   // Generate a URL based on the scoped client options.
@@ -405,13 +403,12 @@ class DClient { // }: IClient {
     if (options.isEmpty && queryData.isEmpty) {
       return fullUrl;
     }
-    auto updatedOptions = options.merge([
-      "host": Json(null),
-      "port": Json(null),
-      "scheme": Json("http"),
-      "basePath": "".toJson,
-      "protocolRelative": false.toJson
-      ]);
+    options
+      .merge("host", Json(null))
+      .merge("port", Json(null))
+      .merge("scheme", "http")
+      .merge("basePath", "".toJson)
+      .merge("protocolRelative", false.toJso);
 
     if (queryData) {
       fullUrl ~= fullUrl.contains("?") ? "&" : "?";
@@ -496,11 +493,13 @@ class DClient { // }: IClient {
      * and use its methods to add headers.
      */
   protected DRequest _addAuthentication(Request request, Json[string] optionsWithAuthKey = null) :  {
-    myauth = optionsWithAuthKey["auth"];
-    /** @var \UIM\Http\Client\Auth\Basic  myadapter */
-    myadapter = _createAuth(myauth, options);
+    /*
+    // TODO auto myauth = optionsWithAuthKey["auth"];
+    // var \UIM\Http\Client\Auth\Basic  myadapter  
+    auto myadapter = _createAuth(myauth, options);
 
-    return myadapter.authentication(request, optionsWithAuthKey["auth"]);
+    return myadapter.authentication(request, optionsWithAuthKey["auth"]); */
+    return null;
   }
 
   /**

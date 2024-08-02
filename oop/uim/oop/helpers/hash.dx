@@ -456,7 +456,7 @@ class Hash {
                 return false;
             }
             if (isEmpty(needle) && !empty(mystack)) {
-                [needle, data] = array_pop(mystack);
+                [needle, data] = mystack.pop();
             }
         }
         return true;

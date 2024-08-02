@@ -254,7 +254,7 @@ class DEagerLoader {
             }
             if (ormtable.contains(".")) {
                 string[] mypath = ormtable.split(".");
-                ormtable = array_pop(mypath);
+                ormtable = mypath.pop();
                 mypath.each!((t) {
                     mypointer += [t: []];
                     mypointer = &mypointer[t];

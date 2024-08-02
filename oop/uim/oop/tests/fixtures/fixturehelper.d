@@ -16,7 +16,7 @@ class DFixtureHelper {
             if (fixtureName.contains(".")) {
                 [type, somePathName] = split(".", fixtureName, 2);
                 string[] somePath = somePathName.split("/");
-                string name = array_pop(somePath);
+                string name = somePath.pop();
                 string additionalPath = somePath.join("\\");
 
                 string baseNamespace = "";

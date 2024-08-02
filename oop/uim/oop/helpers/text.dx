@@ -716,8 +716,8 @@ class DText {
         string andWord ??= __d("uim", "and");
         
         return count(listToJoin) > 1
-            ? join(separator, array_slice(listToJoin, 0, -1)) ~ " " ~ andWord ~ " " ~ array_pop(listToJoin)
-            : to!string(array_pop(listToJoin));
+            ? join(separator, array_slice(listToJoin, 0, -1)) ~ " " ~ andWord ~ " " ~ listToJoin.pop()
+            : to!string(listToJoin.pop());
     }
     
     // Check if the string contain multibyte characters

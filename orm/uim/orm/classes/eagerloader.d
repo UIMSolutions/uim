@@ -263,8 +263,8 @@ class DEagerLoader {
 
             if (table.contains(".")) {
                 auto path = explode(".", table);
-                auto table = array_pop(path);
-                foreach (path as t) {
+                auto table = path.pop();
+                foreach (t; path) {
                     pointer += [t: []];
                     pointer = &pointer[t];
                 }

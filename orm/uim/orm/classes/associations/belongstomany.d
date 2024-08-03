@@ -936,7 +936,7 @@ class DBelongsToManyAssociation : DAssociation {
                 }
 
                 ksort(targetEntities);
-                sourceEntity.set(property, array_values(targetEntities));
+                sourceEntity.set(property, targetEntities.values);
                 sourceEntity.setDirty(property, false);
 
                 return true;
@@ -1007,7 +1007,7 @@ class DBelongsToManyAssociation : DAssociation {
             if (!cast(IORMEntity)entity) {
                 continue;
             }
-            auto key = array_values(entity.extract(primary));
+            auto key = entity.extract(primary).values;
             foreach (i, data; present) {
                 if (key == data && !entity.get(jointProperty)) {
                     remove(targetEntities[k], present[i]);

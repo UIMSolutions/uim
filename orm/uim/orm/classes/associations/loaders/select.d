@@ -372,10 +372,8 @@ class DSelectLoader {
         auto fields = query.aliasFields(
             keys, this
                 .sourceAlias);
-        auto group = fields = array_values(
-            fields);
-        auto order = query.clause(
-            "order");
+        auto group = fields = fields.values;
+        auto order = query.clause("order");
         if (order) {
             auto columns = query.clause(
                 "select"); /* order.iterateParts(void (direction, field) use (&fields, columns) {

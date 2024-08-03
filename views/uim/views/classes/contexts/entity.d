@@ -323,7 +323,7 @@ class DEntityContext : DContext {
             return [myentity, mypath];
         }
         if (mypath[0] == _rootName) {
-            mypath = array_slice(mypath, 1);
+            mypath = mypath.slice(, 1);
         }
         
         auto pathLength = mypath.length;
@@ -347,7 +347,7 @@ class DEntityContext : DContext {
                 cast(IEntity)mynext
            );
             if (!myisTraversable) {
-                return [myleafEntity, array_slice(mypath, index)];
+                return [myleafEntity, mypath.slice(index)];
             }
             myentity = mynext;
         }
@@ -503,19 +503,17 @@ class DEntityContext : DContext {
             return _tables[_rootName];
         }
 
-        string[] mynormalized = array_slice(filterValues(pathParts, auto (mypart) {
-            return !isNumeric(mypart);
-        }), 0, -1);
+        string[] mynormalized = pathParts.filter!(part => !isNumeric(mypart)).array.slice(0, -1);
 
         auto mypath = mynormalized.join(".");
         if (_tables.hasKey(mypath)) {
             return _tables[mypath];
         }
         if (currentValue(mynormalized) == _rootName) {
-            mynormalized = array_slice(mynormalized, 1);
+            mynormalized = mynormalized.slice(1);
         }
-        mytable = _tables[_rootName];
-        myassoc = null;
+        auto mytable = _tables[_rootName];
+        auto myassoc = null;
         foreach (mypart; mynormalized) {
             if (mypart == "_joinData") {
                 if (myassoc !is null) {

@@ -48,6 +48,7 @@ class DEventManager : IEventManager {
 
     IEventManager on(IEventListener eventKey, Json[string] options = null) {
         _attachSubscriber(eventKey);
+        return this;
     }
 
     IEventManager on(string eventKey, /* callable | */ Json[string] options = null, /* callable callable = null */

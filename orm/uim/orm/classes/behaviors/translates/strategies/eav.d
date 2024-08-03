@@ -287,7 +287,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             ]);
         }
 
-        entity.set("_i18n", array_merge(bundled, array_values(modified + new)));
+        entity.set("_i18n", array_merge(bundled, (modified + new).values));
         entity.set("_locale", locale, ["setter": false.toJson]);
         entity.setDirty("_locale", false);
 

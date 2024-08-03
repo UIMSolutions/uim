@@ -95,7 +95,7 @@ class DAssociationCollection { // }: IteratorAggregate {
             [, name] = namespaceSplit(get_class(assoc)); return isIn(name.lower, classname, true);
         });
 
-        return array_values(out);
+        return out.values;
         */
         return null; 
     }

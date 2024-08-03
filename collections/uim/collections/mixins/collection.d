@@ -485,7 +485,7 @@ mixin template TCollection() {
         if (cast(DArrayIterator)myiterator) {
             myitems = myiterator.dup;
 
-            return mykeepKeys ? myitems : array_values(myitems);
+            return mykeepKeys ? myitems : myitems.values;
         }
         // RecursiveIteratorIterator can return duplicate key values causing
         // data loss when converted into an array

@@ -1025,7 +1025,7 @@ class DFormHelper : DHelper {
         } else if (fieldName.endsWith("_id")) {
             fieldName = subString(fieldName, 0, -3);
         }
-        fieldName = array_slice(fieldName.split("."), -1)[0];
+        fieldName = fieldName.split(".").slice(-1)[0];
 
         myvarName = Inflector.variable(
             mypluralize ? Inflector.pluralize(fieldName): fieldName

@@ -102,7 +102,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         [
             fNum, fWord, years, months, weeks, days, hours,
             minutes, seconds
-        ] = array_values(diffData);
+        ] = diffData.values;
         string[] relativeDate;
         if (fNum >= 1 && years > 0) {
             relativeDates ~= __dn("uim", "{0} year", "{0} years", years, years);
@@ -303,8 +303,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
                 options.get("format"]));
     }
     diffData = _diffData(futureTime, pastTime, backwards, options);
-    [fNum, fWord, years, months, weeks, days] = array_values(
-        diffData);
+    [fNum, fWord, years, months, weeks, days] = diffData.values;
     relativeDate = null;
     if (fNum >= 1 && years > 0) {
         relativeDate ~= __dn("uim", "{0} year", "{0} years", years, years);

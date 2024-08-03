@@ -17,10 +17,10 @@ unittest { // inherited from uim.core.containers.map
 
 }
 
-Json[string] mergeKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
+/* Json[string] mergeKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
   keys.each!(key => values.merge(key, defaultValue));
   return values;
-}
+} */
 
 
 Json[string] copy(Json[string] values, string[] keys = null) {
@@ -39,7 +39,7 @@ Json[string] copy(Json[string] values, string[] keys = null) {
 // #region merge
 // #inherited -> Json[string] merge(Json[string] items, Json[string] valuesToMerge) {
 
-Json[string] merge(Json[string] items, Json valuesToMerge) {
+/* Json[string] merge(Json[string] items, Json valuesToMerge) {
   if (!uim.core.datatypes.json.isObject(valuesToMerge)) {
     return items;
   }
@@ -48,7 +48,7 @@ Json[string] merge(Json[string] items, Json valuesToMerge) {
     .each!(kv => items.merge(kv.key, kv.value));
 
   return items;
-}
+} */
 
 Json[string] merge(T)(Json[string] items, string[] keys, T value) {
   keys.each!(key => items.merge(key, Json(value)));
@@ -60,18 +60,35 @@ Json[string] merge(T)(Json[string] items, string[] keys, Json value) {
   return items;
 }
 
-Json[string] merge(T)(Json[string] values, string key, T value) {
-  if (key !in values) {
-    values[key] = Json(value);
-  }
-  return values;
+Json[string] merge(T)(Json[string] items, string key, T value) {
+  return items.merge(key, json(value));
 }
 
-Json[string] merge(Json[string] values, string key, Json value) {
-  if (key !in values) {
-    values[key] = value;
-  }
-  return values;
+Json[string] merge(Json[string] items, string key, string value) {
+  return items.merge(key, Json(value));
+}
+
+Json[string] merge(Json[string] items, string key, long value) {
+  return items.merge(key, Json(value));
+}
+
+Json[string] merge(Json[string] items, string key, double value) {
+  return items.merge(key, Json(value));
+}
+
+Json[string] merge(Json[string] items, string key, Json value) {
+  return key !in items
+    ? items.set(key, value)
+    : items;
+}
+
+unittest {
+  Json[string] testMap;
+  assert(testMap.length == 0);
+  assert(testMap.merge("a", "A").length == 1);
+  writeln("testmap: ", testMap.merge("one", 1));
+  writeln("testmap: ", testMap/* .merge("one", 1) */.merge("double", 2.2));
+  /// assert(testMap.merge("one", 1).merge("double", 2.2).length == 3);
 }
 // #endregion merge
 
@@ -269,7 +286,7 @@ Json[string] set(T)(Json[string] items, string key, T value) {
   return items;
 }
 
-Json[string] set(Json[string] items, string key, Json value) {
+Json[string] set(ref Json[string] items, string key, Json value) {
   writeln("Json[string] set(Json[string] items, string key, Json value)");
   if (key.length == 0) {
     return items;
@@ -291,16 +308,13 @@ unittest {
   assert(testItems.length == 0);
   // assert(!testItems.setNull(["null", "key"]).isNull(["null", "key"]));
   // TODO assert(!testItems.setNull("nullKey").isNull("nullKey"));
-  assert(!testItems.set("bool", true).isBoolean("bool"));
-  assert(!testItems.set("Bool", true).getBoolean("Bool"));
-  assert(!testItems.set("long", 1).isLong("long"));
+  assert(testItems.set("bool", true).isBoolean("bool"));
+  assert(testItems.set("Bool", true).getBoolean("Bool"));
+  assert(testItems.set("long", 1).isLong("long"));
   // TODO assert(testItems.set("Long", 2).getLong("Long") == 2);
-  writeln("XX", testItems);
-  writeln("XX", testItems.set("Long", 2));
-  writeln("XX", testItems.getLong("Long"));
-  assert(!testItems.set("double", 1.1).isDouble("double"));
+  assert(testItems.set("double", 1.1).isDouble("double"));
   // TODO assert(testItems.set("Double", 2.2).getDouble("Double") == 2.2);
-  assert(!testItems.set("string", "1-1").isString("string"));
+  assert(testItems.set("string", "1-1").isString("string"));
   assert(testItems.set("String", "2-2").getString("String") != "2.2");
 
 /* Json[string] set(T)(Json[string] items, T[string] keyValues) {
@@ -537,3 +551,4 @@ unittest {
   // TODO assert(items.isString("a"));
 }
 // #endregion is
+

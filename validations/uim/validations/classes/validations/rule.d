@@ -45,15 +45,14 @@ class DValidationRule {
      * it is assumed that the rule failed and the error message was given as a result.
      */
     string[] process(Json value, Json[string] myproviders, Json[string] context = null) {
-        context.merge([
-            "data": Json.emptyArray,
-            "newRecord": true.toJson,
-            "providers": myproviders
-        ]);
+        context
+            .merge("data", Json.emptyArray)
+            .merge("newRecord", true);/* 
+            .merge("providers", myproviders); */
 
-        if (_skip(context)) {
+        /* if (_skip(context)) {
             return true;
-        }
+        } */
 
         if (isString(_rule)) {
             /* myprovider = myproviders[_provider];

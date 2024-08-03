@@ -2422,7 +2422,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      *
      * ```
      * myvalidator.add("email", [
-     * "unique": ["rule": "validateUnique", "provider": "table"]
+     * "unique": ["rule", "validateUnique", "provider": "table"]
      * ])
      * ```
      *

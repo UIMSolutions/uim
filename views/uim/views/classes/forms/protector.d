@@ -234,17 +234,12 @@ class DFormProtector {
             }
         }
         if (!multi.isEmpty) {
-            fieldList += array_unique(multi);
+            fieldList += multi.unique;
         }
-        unlockedFields = array_unique(
-            chain(
-                _unlockedFields,
-                unlocked
-           )
-       );
+        unlockedFields = chain(_unlockedFields, unlocked).unique;
 
         /** @var string aKey */
-        foreach (index: aKey; fieldList) {
+        foreach (index, aKey; fieldList) {
              isLocked = isIn(aKey, locked, true);
 
             if (!unlockedFields.isEmpty) {

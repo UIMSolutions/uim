@@ -13,11 +13,11 @@ interface IValidatorAware {
      * You can configure your default validator name in a `DEFAULT_VALIDATOR`
      * class DConstant.
      */
-    DValidator getValidator(string name = null);
+    /* DValidator getValidator(string name = null); */
 
     // This method stores a custom validator under the given name.
-    void setValidator(string validatorName, DValidator validator);
+    /* void setValidator(string validatorName, DValidator validator);
 
     // Checks whether a validator has been set.
-   bool hasValidator(string validatorName);
+    bool hasValidator(string validatorName); */
 }

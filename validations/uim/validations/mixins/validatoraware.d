@@ -46,8 +46,8 @@ mixin template TValidatorAware() {
      * auto validationForSubscription(myvalidator)
      * {
      *   return myvalidator
-     *       .add("email", "valid-email", ["rule": "email"])
-     *       .add("password", "valid", ["rule": "notBlank"])
+     *       .add("email", "valid-email", ["rule", "email"])
+     *       .add("password", "valid", ["rule", "notBlank"])
      *       .requirePresence("username");
      * }
      *
@@ -113,8 +113,8 @@ mixin template TValidatorAware() {
      * ```
      * myvalidator = new \UIM\Validation\Validator();
      * myvalidator
-     *   .add("email", "valid-email", ["rule": "email"])
-     *   .add("password", "valid", ["rule": "notBlank"])
+     *   .add("email", "valid-email", ["rule", "email"])
+     *   .add("password", "valid", ["rule", "notBlank"])
      *   .allowEmpty("bio");
      * setValidator("forSubscription", myvalidator);
      * ```

@@ -672,3 +672,14 @@ unittest {
   assert(["a":"A", "b":"B", "c":"C", "d":"C"].unique.length == 3);
 }
 // #endregion unique
+
+V[K] create(K, V)(ref V[K] items) {
+  V[K] newItems;
+  items = newItems;
+  return items;
+}
+
+V[K] clear(K, V)(ref V[K] items) {
+  items = null;
+  return items;
+}

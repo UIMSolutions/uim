@@ -63,7 +63,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * ```
      *    myset
-     *        .add("notBlank", ["rule": "notBlank"])
+     *        .add("notBlank", ["rule", "notBlank"])
      *        .add("inRange", ["rule": ["between", 4, 10])
      * ```
      */

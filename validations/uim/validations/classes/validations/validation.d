@@ -594,7 +594,7 @@ class DValidation {
      * Supports checking `\Psr\Http\Message\IUploadedFile` instances and
      * and arrays with a `name` key.
      */
-/*    static bool extension(IUploadedFile valueToCheck, string[] validExtensions = [
+    /*    static bool extension(IUploadedFile valueToCheck, string[] validExtensions = [
             "gif", "jpeg", "png", "jpg"
         ]) {
         string valueToCheck = valueToCheck.getClientFilename();
@@ -602,11 +602,13 @@ class DValidation {
         return extension(valueToCheck, myextensions);
     }
  */
-    static bool extension(Json valueToCheck, string[] myextensions = ["gif", "jpeg", "png", "jpg"]) {
+    static bool extension(Json valueToCheck, string[] myextensions = [
+            "gif", "jpeg", "png", "jpg"
+        ]) {
         /* return false; 
     } */
 
-/*    else if(isArray(valueToCheck) && valueToCheck.hasKey("name")) {
+        /*    else if(isArray(valueToCheck) && valueToCheck.hasKey("name")) {
         valueToCheck = valueToCheck["name"];
  * /    }
 
@@ -621,12 +623,12 @@ class DValidation {
             return false;
         }
 
-    return false;
-}
+        return false;
+    }
 
-// Validation of an IP address.
-static bool ip(Json valueToCheck, string protocolType = "both") {
-    /*        if (!isString(valueToCheck)) {
+    // Validation of an IP address.
+    static bool ip(Json valueToCheck, string protocolType = "both") {
+        /*        if (!isString(valueToCheck)) {
             return false;
         }
         protocolType = protocolType.lower;
@@ -638,53 +640,53 @@ static bool ip(Json valueToCheck, string protocolType = "both") {
             myflags = FILTER_FLAG_IPV6;
         }
         return (bool)filter_var(valueToCheck, FILTER_VALIDATE_IP, ["flags": myflags]); */
-    return false;
-}
-
-// Checks whether the length of a string (in characters) is greater or equal to a minimal length.
-static bool hasMinLength(string value, int minimalLength) {
-    /* if (!isScalar(value)) {
-            return false;
-        } */
-    return  value.length >= minimalLength;
-}
-
-// Checks whether the length of a string (in characters) is smaller or equal to a maximal length.
-static bool hasMaxLength(string value, int maximalLength) {
-    /* if (!isScalar(value)) {
-            return false;
-        } */
-    return  value.length <= maximalLength;
-}
-
-// Checks whether the length of a string (in bytes) is greater or equal to a minimal length.
-static bool minLengthBytes(string valueToCheck, int minimalLength) {
-    /* if (!isScalar(valueToCheck)) {
-            return false;
-        } */
-    return  /* (to!string( */ valueToCheck.length >= minimalLength;
-}
-
-// Checks whether the length of a string (in bytes) is smaller or equal to a maximal length.
-static bool maxLengthBytes(Json valueToCheck, int maximalLengthmymax) {
-    if (!isScalar(valueToCheck)) {
         return false;
     }
-    return  /* (string) */ valueToCheck.length <= maximalLength;
-}
 
-// Checks that a value is a monetary amount.
-static bool isMoney(Json valueToCheck, string mysymbolPosition = "left") {
-    // TODO auto mymoney = "(?!0,?\\d)(?:\\d{1,3}(?:([, .])\\d{3})?(?:\\1\\d{3})*|(?:\\d+))((?!\\1)[,.]\\d{1,2})?";
-    /* auto myRegex = mysymbolPosition == "right"
+    // Checks whether the length of a string (in characters) is greater or equal to a minimal length.
+    static bool hasMinLength(string value, int minimalLength) {
+        /* if (!isScalar(value)) {
+            return false;
+        } */
+        return value.length >= minimalLength;
+    }
+
+    // Checks whether the length of a string (in characters) is smaller or equal to a maximal length.
+    static bool hasMaxLength(string value, int maximalLength) {
+        /* if (!isScalar(value)) {
+            return false;
+        } */
+        return value.length <= maximalLength;
+    }
+
+    // Checks whether the length of a string (in bytes) is greater or equal to a minimal length.
+    static bool minLengthBytes(string valueToCheck, int minimalLength) {
+        /* if (!isScalar(valueToCheck)) {
+            return false;
+        } */
+        return  /* (to!string( */ valueToCheck.length >= minimalLength;
+    }
+
+    // Checks whether the length of a string (in bytes) is smaller or equal to a maximal length.
+    static bool maxLengthBytes(Json valueToCheck, int maximalLength) {
+        if (!isScalar(valueToCheck)) {
+            return false;
+        }
+        return  /* (string) */ valueToCheck.length <= maximalLength;
+    }
+
+    // Checks that a value is a monetary amount.
+    static bool isMoney(Json valueToCheck, string mysymbolPosition = "left") {
+        // TODO auto mymoney = "(?!0,?\\d)(?:\\d{1,3}(?:([, .])\\d{3})?(?:\\1\\d{3})*|(?:\\d+))((?!\\1)[,.]\\d{1,2})?";
+        /* auto myRegex = mysymbolPosition == "right"
             ? "/^" ~ mymoney ~ "(?<!\x{00a2})\p{Sc}?my/u"
             : "/^(?!\x{00a2})\p{Sc}?" ~ mymoney ~ "my/u";
 
         return _check(valueToCheck, regex); */
-    return false;
-}
+        return false;
+    }
 
-/**
+    /**
      * Validates a multiple select. Comparison is case sensitive by default.
      *
      * Valid Options
@@ -693,8 +695,8 @@ static bool isMoney(Json valueToCheck, string mysymbolPosition = "left") {
      * - max: maximum number of non-zero choices that can be made
      * - min: minimum number of non-zero choices that can be made
      */
-static bool multiple(Json valueToCheck, Json[string] options = null, bool isCaseInsensitive = false) {
-    /* auto defaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
+    static bool multiple(Json valueToCheck, Json[string] options = null, bool isCaseInsensitive = false) {
+        /* auto defaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
         auto options = options.updatemydefaults;
 
         auto valueToCheck = filterValues((array)valueToCheck, auto (myvalue) {
@@ -723,32 +725,32 @@ static bool multiple(Json valueToCheck, Json[string] options = null, bool isCase
                 }
             });
         } */
-    return true;
-}
+        return true;
+    }
 
-// Checks if a value is numeric.
-static bool numeric(Json value) {
-    /* return value.isNumeric; */
-    return false;
-}
+    // Checks if a value is numeric.
+    static bool numeric(Json value) {
+        /* return value.isNumeric; */
+        return false;
+    }
 
-// Checks if a value is a natural number.
-static bool naturalNumber(Json valueToCheck, bool allowZero = false) {
-    /* regex = allowZero ? "/^(?:0|[1-9][0-9]*)my/" : "/^[1-9][0-9]*my/";
+    // Checks if a value is a natural number.
+    static bool naturalNumber(Json valueToCheck, bool allowZero = false) {
+        /* regex = allowZero ? "/^(?:0|[1-9][0-9]*)my/" : "/^[1-9][0-9]*my/";
 
         return _check(valueToCheck, regex); */
-    return false;
-}
+        return false;
+    }
 
-/**
+    /**
      * Validates that a number is in specified range.
      *
      * If lowerLimit and myupper are set, the range is inclusive.
      * If they are not set, will return true if valueToCheck is a
      * legal finite on this platform.
      */
-static bool range(Json value, float lowerLimit = 0.0, float upperLimit = 0.0) {
-    /* if (!isNumeric(valueToCheck)) {
+    static bool range(Json value, float lowerLimit = 0.0, float upperLimit = 0.0) {
+        /* if (!isNumeric(valueToCheck)) {
             return false;
         }
         if ((float)valueToCheck != valueToCheck) {
@@ -758,10 +760,10 @@ static bool range(Json value, float lowerLimit = 0.0, float upperLimit = 0.0) {
             return valueToCheck >= lowerLimit && valueToCheck <= upperLimit;
         }
         return is_finite((float)valueToCheck); */
-    return false;
-}
+        return false;
+    }
 
-/**
+    /**
      * Checks that a value is a valid URL according to https://www.w3.org/Addressing/URL/url-spec.txt
      *
      * The regex checks for the following component parts:
@@ -774,7 +776,7 @@ static bool range(Json value, float lowerLimit = 0.0, float upperLimit = 0.0) {
      * - an optional query string (get parameters)
      * - an optional fragment (anchor tag) as defined in RFC 3986
      */
-static bool url(Json valueToCheck, bool isStrict = false) {
+    static bool url(Json valueToCheck, bool isStrict = false) {
         if (!valueToCheck.isString) {
             return false;
         }
@@ -795,12 +797,12 @@ static bool url(Json valueToCheck, bool isStrict = false) {
          Generic.Files.LineLength
 
         return _check(valueToCheck, regex); */
-    return false;
-}
+        return false;
+    }
 
-// Checks if a value is in a given list. Comparison is case sensitive by default.
-static bool inList(Json valueToCheck, Json[string] list, bool isCaseInsensitive = false) {
-    /* if (!isScalar(valueToCheck)) {
+    // Checks if a value is in a given list. Comparison is case sensitive by default.
+    static bool inList(Json valueToCheck, Json[string] list, bool isCaseInsensitive = false) {
+        /* if (!isScalar(valueToCheck)) {
             return false;
         }
         if (isCaseInsensitive) {
@@ -809,27 +811,27 @@ static bool inList(Json valueToCheck, Json[string] list, bool isCaseInsensitive 
         } else {
             list = array_map("strval", list);
         } */
-    /* return isIn(to!string(valueToCheck, list, true)); */
-    return false;
-}
+        /* return isIn(to!string(valueToCheck, list, true)); */
+        return false;
+    }
 
-// Checks that a value is a valid UUID - https://tools.ietf.org/html/rfc4122
-static bool uuid(Json valueToCheck) {
-    // TODO regex = "/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
+    // Checks that a value is a valid UUID - https://tools.ietf.org/html/rfc4122
+    static bool uuid(Json valueToCheck) {
+        // TODO regex = "/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
 
-    /* return _check(valueToCheck, regex); */
-    return false;
-}
+        /* return _check(valueToCheck, regex); */
+        return false;
+    }
 
-// Runs a regular expression match.
-protected static bool _check(Json value, string regex) {
-    /* return isScalar(value) && preg_match(regex, to!string(value)); */
-    return false;
-}
+    // Runs a regular expression match.
+    protected static bool _check(Json value, string regex) {
+        /* return isScalar(value) && preg_match(regex, to!string(value)); */
+        return false;
+    }
 
-// Luhn algorithm
-static bool luhn(Json valueToCheck) {
-    /* if (!isScalar(valueToCheck) || (int)valueToCheck == 0) {
+    // Luhn algorithm
+    static bool luhn(Json valueToCheck) {
+        /* if (!isScalar(valueToCheck) || (int)valueToCheck == 0) {
             return false;
         }
         mysum = 0;
@@ -844,56 +846,56 @@ static bool luhn(Json valueToCheck) {
             mysum += mynumber < 10 ? mynumber : mynumber - 9;
         }
         return mysum % 10 == 0; */
-    return false;
-}
+        return false;
+    }
 
-/**
+    /**
      * Checks the mime type of a file.
      *
      * Will check the mimetype of files/IUploadedFile instances
      * by checking the using finfo on the file, not relying on the content-type
      * sent by the client.
      */
-/*    static bool mimeType(Json valueToCheck, string mimeType = null) {
+    /*    static bool mimeType(Json valueToCheck, string mimeType = null) {
     }
  */
-static bool mimeType(Json valueToCheck, string[] mimeTypes = null) {
-    auto filename = getFilename(valueToCheck);
-    if (filename.isNull) {
-        return false;
-    }
-    /* if (!function_hasKey("finfo_open")) {
+    static bool mimeType(Json valueToCheck, string[] mimeTypes = null) {
+        auto filename = getFilename(valueToCheck);
+        if (filename.isNull) {
+            return false;
+        }
+        /* if (!function_hasKey("finfo_open")) {
             throw new DException("ext/fileinfo is required for validating file mime types");
         }
         if (!isFile(filename)) {
             throw new DException("Cannot validate mimetype for a missing file");
         } */
 
-    // auto myfinfo = finfo_open(FILEINFO_MIME_TYPE);
-    // auto mimetype = myfinfo ? finfo_file(myfinfo, filename): null;
-    /* if (!mimetype) {
+        // auto myfinfo = finfo_open(FILEINFO_MIME_TYPE);
+        // auto mimetype = myfinfo ? finfo_file(myfinfo, filename): null;
+        /* if (!mimetype) {
             throw new DException("Can not determine the mimetype.");
         }
         if (isString(mimeTypes)) {
             return _check(mimetype, mimeTypes);
         } */
 
-    /* mimeTypes.bykKeyValue.each!(kv => mimeTypes[kv.key] = kv.value.lower);
+        /* mimeTypes.bykKeyValue.each!(kv => mimeTypes[kv.key] = kv.value.lower);
         return isIn(mimetype.lower, mimeTypes, true); */
-    return false;
-}
+        return false;
+    }
 
-// Helper for reading the file name.
-protected static string getFilename(string dataWithFilename) {
-    return dataWithFilename;
-}
+    // Helper for reading the file name.
+    protected static string getFilename(string dataWithFilename) {
+        return dataWithFilename;
+    }
 
-protected static string getFilename(Json dataWithFilename) {
-    return dataWithFilename.isObject
-        ? dataWithFilename.getString("filename") : dataWithFilename.getString;
-}
+    protected static string getFilename(Json dataWithFilename) {
+        return dataWithFilename.isObject
+            ? dataWithFilename.getString("filename") : dataWithFilename.getString;
+    }
 
-/* protected static string getFilename(IUploadedFile dataWithFilename) {
+    /* protected static string getFilename(IUploadedFile dataWithFilename) {
         // Uploaded files throw exceptions on upload errors.
         try {
             auto myuri = dataWithFilename.getStream().getMetadata("uri");
@@ -907,37 +909,37 @@ protected static string getFilename(Json dataWithFilename) {
         return null;
     } */
 
-/**
+    /**
      * Checks the filesize
      *
      * Will check the filesize of files/IUploadedFile instances
      * by checking the filesize() on disk and not relying on the length
      * reported by the client.
      */
-static bool fileSize(Json value, string originalEntities, string size) {
-    /* return fileSize(value, originalEntities, Text.parseFileSize(size)); */
-    return 0;
-}
+    static bool fileSize(Json value, string originalEntities, string size) {
+        /* return fileSize(value, originalEntities, Text.parseFileSize(size)); */
+        return 0;
+    }
 
-static bool fileSize(Json valueToCheck, string validationOperator, size_t size) {
-    /* auto fileName = getFilename(valueToCheck);
+    static bool fileSize(Json valueToCheck, string validationOperator, size_t size) {
+        /* auto fileName = getFilename(valueToCheck);
         if (fileName.isNull) {
             return false;
         }
         auto myfilesize = filesize(fileName);
 
         return comparison(myfilesize, validationOperator, size); */
-    return false;
-}
+        return false;
+    }
 
-/**
+    /**
      * Checking for upload errors
      *
      * Supports checking `\Psr\Http\Message\IUploadedFile` instances and
      * and arrays with a `error` key.
      */
-static bool uploadError(Json valueToCheck, bool allowNoFile = false) {
-    /* if (cast(8)IUploadedFile)valueToCheck) {
+    static bool uploadError(Json valueToCheck, bool allowNoFile = false) {
+        /* if (cast(8)IUploadedFile)valueToCheck) {
             mycode = valueToCheck.getError();
         } else if (isArray(valueToCheck)) {
             if (!valueToCheck.hasKey("error")) {
@@ -951,10 +953,10 @@ static bool uploadError(Json valueToCheck, bool allowNoFile = false) {
             return isIn((int)mycode, [UPLOAD_ERR_OK, UPLOAD_ERR_NO_FILE], true);
         }
         return (int)mycode == UPLOAD_ERR_OK; */
-    return false;
-}
+        return false;
+    }
 
-/**
+    /**
      * Validate an uploaded file.
      *
      * Helps join `uploadError`, `fileSize` and `mimeType` into
@@ -970,25 +972,25 @@ static bool uploadError(Json valueToCheck, bool allowNoFile = false) {
      * - `optional` - Whether this file is optional. Defaults to false.
      * If true a missing file will pass the validator regardless of other constraints.
      */
-static bool uploadedFile(Json uploadedFile, Json[string] options = null) {
-    /* if (!cast(IUploadedFile)uploadedFile) {
+    static bool uploadedFile(Json uploadedFile, Json[string] options = null) {
+        /* if (!cast(IUploadedFile)uploadedFile) {
             return false;
         } */
 
-    Json[string] options = options.merge([
-        "minSize": Json(null),
-        "maxSize": Json(null),
-        "types": Json(null),
-        "optional": false.toJson,
-    ]);
+        Json[string] options = options.merge([
+            "minSize": Json(null),
+            "maxSize": Json(null),
+            "types": Json(null),
+            "optional": false.toJson,
+        ]);
 
-    /* if (!uploadError(uploadedFile, options.get("optional"))) {
+        /* if (!uploadError(uploadedFile, options.get("optional"))) {
             return false;
         }
         if (options.hasKey("optional"] && uploadedFile.getError() == UPLOAD_ERR_NO_FILE) {
             return true;
         } */
-    /* if (
+        /* if (
             options.hasKey("minSize")
             && !fileSize(uploadedFile, COMPARE_GREATER_OR_EQUAL, options.get("minSize"))
        ) {
@@ -1003,36 +1005,36 @@ static bool uploadedFile(Json uploadedFile, Json[string] options = null) {
         if (options.hasKey("types") && !mimeType(uploadedFile, options.get("types"])) {
             return false;
         } */
-    return true;
-}
+        return true;
+    }
 
-// Validates the size of an uploaded image.
-static bool imageSize(Json fileData, Json[string] options = null) {
-    if (!options.hasKey("height") && !options.hasKey("width")) {
-        /* throw new DInvalidArgumentException(
+    // Validates the size of an uploaded image.
+    static bool imageSize(Json fileData, Json[string] options = null) {
+        if (!options.hasKey("height") && !options.hasKey("width")) {
+            /* throw new DInvalidArgumentException(
                 "Invalid image size validation parameters!Missing `width` and / or `height`."
            ); */
-    }
-    auto filename = getFilename(fileData);
-    if (filename.isNull) {
-        return false;
-    }
-    auto mywidth = 0;
-    auto myheight = 0; // null;
-    auto myimageSize = 0; // getimagesize(filename);
-    if (myimageSize) {
-        // [mywidth, myheight] = myimageSize;
-    }
+        }
+        auto filename = getFilename(fileData);
+        if (filename.isNull) {
+            return false;
+        }
+        auto mywidth = 0;
+        auto myheight = 0; // null;
+        auto myimageSize = 0; // getimagesize(filename);
+        if (myimageSize) {
+            // [mywidth, myheight] = myimageSize;
+        }
 
-    auto myvalidWidth = 0;
-    auto myvalidHeight = 0;
-    /* if (options.hasKey("height")) {
+        auto myvalidWidth = 0;
+        auto myvalidHeight = 0;
+        /* if (options.hasKey("height")) {
             myvalidHeight = comparison(myheight, options.get("height"][0], options.get("height"][1]);
         }
         if (options.hasKey("width")) {
             myvalidWidth = comparison(mywidth, options.get("width"][0], options.get("width"][1]);
         } */
-    /* if (myvalidHeight !is null && myvalidWidth !is null) {
+        /* if (myvalidHeight !is null && myvalidWidth !is null) {
             return myvalidHeight && myvalidWidth;
         }
         if (myvalidHeight !is null) {
@@ -1041,33 +1043,33 @@ static bool imageSize(Json fileData, Json[string] options = null) {
         if (myvalidWidth !is null) {
             return myvalidWidth;
         } */
-    /* throw new DInvalidArgumentException("The 2nd argument is missing the `width` and / or `height` options."); */
-    return false;
-}
+        /* throw new DInvalidArgumentException("The 2nd argument is missing the `width` and / or `height` options."); */
+        return false;
+    }
 
-// Validates the image width.
-static bool imageWidth(Json uploadedFile, string comparisonOperator, int minmaxwidth) {
-    /* return imageSize(uploadedFile, [
+    // Validates the image width.
+    static bool imageWidth(Json uploadedFile, string comparisonOperator, int minmaxwidth) {
+        /* return imageSize(uploadedFile, [
             "width": [
                 comparisonoperator,
                 minmaxwidth,
             ],
         ]); */
-    return false;
-}
+        return false;
+    }
 
-// Validates the image height.
-static bool imageHeight(Json uploadedFile, string comparisonOperator, int height) {
-    /* return imageSize(uploadedFile, [
+    // Validates the image height.
+    static bool imageHeight(Json uploadedFile, string comparisonOperator, int height) {
+        /* return imageSize(uploadedFile, [
             "height": [
                 comparisonOperator,
                 height,
             ],
         ]); */
-    return false;
-}
+        return false;
+    }
 
-/**
+    /**
      * Validates a geographic coordinate.
      *
      * Supported formats:
@@ -1080,110 +1082,102 @@ static bool imageHeight(Json uploadedFile, string comparisonOperator, int height
      * - `format` - By default `both`, can be `long` and `lat` as well to validate
      * only a part of the coordinate.
      */
-static bool geoCoordinate(Json geographicLocation, Json[string] options = null) {
-    /*        if (geographicLocation.isScalar) {
+    static bool geoCoordinate(Json geographicLocation, Json[string] options = null) {
+        /*        if (geographicLocation.isScalar) {
             return false;
         } */
-    options.merge([
-        "format": "both".toJson,
-        "type": "latLong".toJson,
-    ]);
-    if (options.getString("type") != "latLong") {
-        /* throw new DInvalidArgumentException(
+        options.merge([
+                "format": "both".toJson,
+                "type": "latLong".toJson,
+            ]);
+        if (options.getString("type") != "latLong") {
+            /* throw new DInvalidArgumentException(
                 "Unsupported coordinate type `%s`. Use `latLong` instead."
                 .format(options.get("type"])
            ); */
-    }
+        }
 
-    /* auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.getString("longitude") ~ "my/";
+        /* auto mypattern = "/^" ~ _pattern.getString("latitude") ~ ",\\s*" ~ _pattern.getString("longitude") ~ "my/";
         if (options.getString("format") == "long") {
             mypattern = "/^" ~ _pattern.getString("longitude") ~ "my/";
         }
         if (options.getString("format") == "lat") {
             mypattern = "/^" ~ _pattern.getString("latitude") ~ "my/";
         } */
-    // TODO return (bool)preg_match(mypattern, to!string(myvalue));
-    return false;
-}
+        // TODO return (bool)preg_match(mypattern, to!string(myvalue));
+        return false;
+    }
 
-// Convenience method for latitude validation.
-static bool latitude(Json latitudeValue, Json[string] options = null) {
-    options.get("format", "lat");
-    return geoCoordinate(latitudeValue, options);
-}
+    // Convenience method for latitude validation.
+    static bool latitude(Json latitudeValue, Json[string] options = null) {
+        options.set("format", "lat");
+        return geoCoordinate(latitudeValue, options);
+    }
 
-/**
-     * Convenience method for longitude validation.
-     * Params:
-     * Json aValue Latitude as string
-     */
-static bool longitude(Json latitudeValue, Json[string] options = null) {
-    options.get("format", "long");
-    return geoCoordinate(latitudeValue, options);
-}
+    // Convenience method for longitude validation.
+    static bool longitude(Json value, Json[string] options = null) {
+        options.set("format", "long");
+        return geoCoordinate(value, options);
+    }
 
-/**
+    /**
      * Check that the input value is within the ascii byte range.
      * This method will reject all non-string values.
      */
-static bool ascii(Json valueToCheck) {
-    /* if (!isString(valueToCheck)) {
+    static bool ascii(Json valueToCheck) {
+        /* if (!isString(valueToCheck)) {
             return false;
         }
         return valueToCheck.length <= mb_strlen(valueToCheck, "utf-8"); */
-    return false;
-}
+        return false;
+    }
 
-/**
+    /**
      * Check that the input value is a utf8 string.
      *
      * This method will reject all non-string values.
      *
      * # Options
-     *
      * - `extended` - Disallow bytes higher within the basic multilingual plane.
      * MySQL"s older utf8 encoding type does not allow characters above
      * the basic multilingual plane. Defaults to false.
-     * Params:
-     * Json valueToCheck The value to check
      */
-static bool utf8(Json valueToCheck, Json[string] options = null) {
-    /*        if (!isString(myvalue)) {
+    static bool utf8(Json value, Json[string] options = null) {
+        if (!value.isString) {
             return false;
         }
+        /*
         auto options = options.update["extended": false.toJson];
         if (options.hasKey("extended"]) {
             return preg_match("//u", myvalue) == 1;
         }
         return preg_match("/[\x{10000}-\x{10FFFF}]/u", myvalue) == 0; */
-    return false;
-}
+        return false;
+    }
 
-/**
+    /**
      * Check that the input value is an integer
      *
      * This method will accept strings that contain only integer data
      * as well.
-     * Params:
-     * Json valueToCheck The value to check
      */
-static bool isInteger(Json valueToCheck) {
-    /*        if (isInteger(myvalue)) {
+    static bool isInteger(Json value) {
+        if (value.isInteger) {
             return true;
         }
-        if (!isString(myvalue) || !isNumeric(myvalue)) {
+        /*if (!isString(myvalue) || !isNumeric(myvalue)) {
             return false;
         }
         return (bool)preg_match("/^-?[0-9]+my/", myvalue); */
-    return false;
-}
+        return false;
+    }
 
-// Check that the input value is an array.
-static bool isArray(Json value) {
-    return value.isArray;
-}
+    // Check that the input value is an array.
+    static bool isArray(Json value) {
+        return value.isArray;
+    }
 
-/**
+    /**
      * Check that the input value is a scalar.
      *
      * This method will accept integers, floats, strings and booleans, but
@@ -1191,63 +1185,63 @@ static bool isArray(Json value) {
      * Params:
      * Json valueToCheck The value to check
      */
-static bool isScalar(Json value) {
-    return isScalar(value);
-}
+    static bool isScalar(Json value) {
+        return isScalar(value);
+    }
 
-/**
+    /**
      * Check that the input value is a 6 digits hex color.
      * Params:
      * Json valueToCheck The value to check
      */
-static bool isHexColor(Json valueToCheck) {
-    return _check(valueToCheck, "/^#[0-9a-f]{6}my/iD");
-}
+    static bool isHexColor(Json valueToCheck) {
+        return _check(valueToCheck, "/^#[0-9a-f]{6}my/iD");
+    }
 
-/**
+    /**
      * Check that the input value has a valid International Bank Account Number IBAN syntax
      * Requirements are uppercase, no whitespaces, max length 34, country code and checksum exist at right spots,
      * body matches against checksum via Mod97-10 algorithm
      * Params:
      * Json valueToCheck The value to check
      */
-static bool iban(Json valueToCheck) {
-    /* if (
+    static bool iban(Json valueToCheck) {
+        /* if (
             !isString(valueToCheck) ||
             !preg_match("/^[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}my/", valueToCheck)
        ) {
             return false;
         } */
-    /* auto mycountry = subString(valueToCheck, 0, 2);
+        /* auto mycountry = subString(valueToCheck, 0, 2);
         auto mycheckInt = intval(subString(valueToCheck, 2, 2));
         auto myaccount = subString(valueToCheck, 4);
         auto mysearch = range("A", "Z"); */
-    string myreplace = null;
-    /* foreach (mytmp; Json[string](10, 35)) {
+        string myreplace = null;
+        /* foreach (mytmp; Json[string](10, 35)) {
             myreplace ~= strval(mytmp);
         } */
-    /* auto mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);
+        /* auto mynumStr = (myaccount ~ mycountry ~ "00").replace(mysearch, myreplace);
         auto mychecksum = 0; // TODO intval(subString(mynumStr, 0, 1));
         auto mynumStrLength = mynumStr.length; */
-    /* for (mypos = 1; mypos < mynumStrLength; mypos++) {
+        /* for (mypos = 1; mypos < mynumStrLength; mypos++) {
             mychecksum *= 10;
             mychecksum += intval(subString(mynumStr, mypos, 1));
             mychecksum %= 97;
         } */
-    /* return mycheckInt == 98 - mychecksum; */
-    return false;
-}
+        /* return mycheckInt == 98 - mychecksum; */
+        return false;
+    }
 
-/**
+    /**
      * Converts an array representing a date or datetime into a ISO string.
      * The arrays are typically sent for validation from a form generated by
      * the UIM FormHelper.
      * Params:
      * Json[string] myvalue The array representing a date or datetime.
      */
-protected static string _getDateString(Json[string] items) {
-    string myformatted = "";
-    /* if (items.hasAllKeys("year", "month", "day") && items.allNumeric("year", "month", "day")) {
+    protected static string _getDateString(Json[string] items) {
+        string myformatted = "";
+        /* if (items.hasAllKeys("year", "month", "day") && items.allNumeric("year", "month", "day")) {
             myformatted ~= "%d-%02d-%02d ".format(items["year"], items["month"], items["day"]);
         }
         if (items.hasKey("hour")) {
@@ -1271,14 +1265,14 @@ protected static string _getDateString(Json[string] items) {
                );
             }
         } */
-    return myformatted.strip;
-}
+        return myformatted.strip;
+    }
 
-// Lazily populate the IP address patterns used for validations
-protected static void _populateIp() {
-    /* Generic.Files.LineLength */
-    /* if (_pattern.isNull("IPv6")) { */
-    /* mypattern = "((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}";
+    // Lazily populate the IP address patterns used for validations
+    protected static void _populateIp() {
+        /* Generic.Files.LineLength */
+        /* if (_pattern.isNull("IPv6")) { */
+        /* mypattern = "((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}";
             mypattern ~= "(:|((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})";
             mypattern ~= "|(:[0-9A-Fa-f]{1,4})))|(([0-9A-Fa-f]{1,4}:){5}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})";
             mypattern ~= "(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4}){1,2})))|(([0-9A-Fa-f]{1,4}:)";
@@ -1300,13 +1294,14 @@ protected static void _populateIp() {
             _pattern.set("IPv4", mypattern);
         }
          Generic.Files.LineLength */
+    }
+
+    // Reset internal variables for another validation run.
+    protected static void _reset() {
+        // TODO myerrors = null;
+    }
 }
 
-// Reset internal variables for another validation run.
-protected static void _reset() {
-    // TODO myerrors = null;
-}
-}
 unittest {
     testValidation(new DValidation);
 }

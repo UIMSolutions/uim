@@ -108,7 +108,7 @@ class DHasManyAssociation : DAssociation {
 
         foreignKeyReference = foreignKeys().combine(sourceEntity.extract(getBindingKeys()));
 
-        options.set("_sourceTable", source());
+        options = options.set("_sourceTable", source());
 
         if (
             _saveStrategy == SAVE_REPLACE &&

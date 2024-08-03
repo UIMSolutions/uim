@@ -342,7 +342,7 @@ class DBelongsToManyAssociation : DAssociation {
         if (options.isEmpty("negateMatch")) {
             return;
         }
-        options.set("conditions", options.getArray("conditions"));
+        options = options.set("conditions", options.getArray("conditions"));
         auto junction = this.junction();
         auto belongsTo = junction.getAssociation(source().aliasName());
         auto conds = belongsTo._joinCondition(["foreignKeys": belongsTo.foreignKeys()]);
@@ -542,7 +542,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
         }
 
-        options.set("associated", joinAssociations);
+        options = options.set("associated", joinAssociations);
         success = _saveLinks(parentEntity, persisted, options);
         if (!success && options.hasKey("atomic")) {
             parentEntity.set(getProperty(), original);

@@ -144,7 +144,7 @@ class DNumber {
      * Params:
      */
     static string formatDelta(Json value, Json[string] options = null) {
-        auto updatedOptions = options.set("places", 0);
+        auto updatedOptions = options = options.set("places", 0);
         /* auto doubleValue = number_format(
             value.getDouble, updatedoptions.get("places"], ".", "");
         string sign = doubleValue > 0 ? "+" : "";

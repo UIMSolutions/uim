@@ -451,15 +451,15 @@ class DAssociation : UIMObject, IAssociation {
 
         // This is set by joinWith to disable matching results
         if (!options.isEmpty("fields")) {
-            options.set("fields", Json.emptyArray);
-            options.set("includeFields", false);
+            options = options.set("fields", Json.emptyArray);
+            options = options.set("includeFields", false);
         }
 
         if (options.hasKey("foreignKeys")) {
             Json[string] joinConditions = _joinConditions(options);
             if (!joinConditions.isNull) {
                 auto conditions = options.getArray("conditions") ~ joinConditions;
-                options.set("conditions", conditions);
+                options = options.set("conditions", conditions);
             }
         }
 

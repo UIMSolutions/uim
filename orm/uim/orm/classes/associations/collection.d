@@ -47,7 +47,7 @@ class DAssociationCollection { // }: IteratorAggregate {
 
     // Creates and adds the Association object to this collection.
     DORMAssociation load(string associationClassname, string associated, Json[string] options = null) {
-        options.set("tableLocator", getTableLocator());
+        options = options.set("tableLocator", getTableLocator());
 
         auto association = new classname(associationClassname, someOptions);
         return _add(association.getName(), association);

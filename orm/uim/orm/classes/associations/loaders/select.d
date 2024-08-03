@@ -89,7 +89,7 @@ class DSelectLoader {
         auto useSubquery = options.get("strategy") == Association
             .STRATEGY_SUBQUERY;
         auto finder = this.finder;
-        options.set("fields", options.get("fields")); /** @var DORMQuery query */
+        options = options.set("fields", options.get("fields")); /** @var DORMQuery query */
         DORMQuery query = finder();
         if (options.hasKey("finder")) {
             [finderName, opts] = _extractFinder(options.get("finder"]);

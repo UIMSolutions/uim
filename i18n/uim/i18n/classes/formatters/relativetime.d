@@ -345,7 +345,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     // Build the options for relative date formatting.
     protected Json[string] _options(Json[string] options, string classname) {
 
-        options.set([
+        options = options.set([
                 "from": "classname.now()".toJson,
                 "timezone": Json(null),
                 /* "format": classname.wordFormat.toJson,
@@ -357,12 +357,12 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
 
         if (options.isString("accuracy")) {
             /* auto accuracy = options.get("accuracy");
-            options.set("accuracy", Json(null)); */
+            options = options.set("accuracy", Json(null)); */
             /* classname.wordAccuracy.byKeyValue
-            .each!(keyLevel => options.set(
+            .each!(keyLevel => options = options.set(
                     "accuracy", "" ~ keyLevel.key, accuracy)); */
         } else {
-            /* options.set("accuracy", += classname.wordAccuracy); */
+            /* options = options.set("accuracy", += classname.wordAccuracy); */
         }
         return options;
     }

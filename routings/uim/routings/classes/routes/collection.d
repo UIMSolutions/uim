@@ -266,10 +266,7 @@ class DRouteCollection {
     // Set the extensions that the route collection can handle.
     void setExtensions(Json[string] extensions, bool shouldMerge = true) {
         if (shouldMerge) {
-            extensions = array_unique(array_merge(
-                    _extensions,
-                    extensions
-           ));
+            extensions = array_merge(_extensions, extensions).unique;
         }
         _extensions = extensions;
     }

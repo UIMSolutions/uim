@@ -358,7 +358,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         if (_elseType.isNull) {
             types ~= _elseType;
         }
-        types = array_unique(types);
+        types = types.unique;
         
         return count(types) == 1
             ? types[0]

@@ -107,7 +107,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
                     options ~= someParts.slice(1).join(" ");
                 }
             });
-        options = array_unique(options);
+        options = options.unique;
         aConsoleIo.out (options.join(" "));
 
         return CODE_SUCCESS;
@@ -148,7 +148,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
                 });
             }
         }
-        options = array_unique(options);
+        options = options.unique;
         aConsoleIo.out (options.join(" "));
 
         return static.CODE_SUCCESS;

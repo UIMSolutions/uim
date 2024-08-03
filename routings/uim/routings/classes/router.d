@@ -542,12 +542,12 @@ class DRouter {
     static string[] extensions(string[]/* string */ myextensions = null, bool shouldMerge = true) {
         auto mycollection = _collection;
         if (myextensions.isNull) {
-            return array_unique(chain(_defaultExtensions, mycollection.getExtensions()));
+            return chain(_defaultExtensions, mycollection.getExtensions()).unique;
         }
         
-        myextensions = (array)myextensions;
+        myextensions = /* (array) */myextensions;
         if (shouldMerge) {
-            myextensions = array_unique(array_merge(_defaultExtensions, myextensions));
+            myextensions = array_merge(_defaultExtensions, myextensions).unique;
         }
         return _defaultExtensions = myextensions;
     }

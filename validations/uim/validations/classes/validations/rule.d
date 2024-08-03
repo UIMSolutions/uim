@@ -36,18 +36,18 @@ class DValidationRule {
     protected Json[string] _pass = null;
 
     this(Json[string] options) {
-       _addValidatorProps(options);
+        _addValidatorProps(options);
     }
-    
+
     /**
      * Dispatches the validation rule to the given validator method and returns
      * a boolean indicating whether the rule passed or not. If a string is returned
      * it is assumed that the rule failed and the error message was given as a result.
      */
-    string[] process(Json value, Json[string] myproviders, Json[string] context= null) {
+    string[] process(Json value, Json[string] myproviders, Json[string] context = null) {
         context.merge([
-            "data": Json.emptyArray, 
-            "newRecord": true.toJson, 
+            "data": Json.emptyArray,
+            "newRecord": true.toJson,
             "providers": myproviders
         ]);
 
@@ -56,15 +56,15 @@ class DValidationRule {
         }
 
         if (isString(_rule)) {
-            myprovider = myproviders[_provider];
-            /** @var callable mycallable * /
+            /* myprovider = myproviders[_provider];
+            /** @var callable mycallable* /
             mycallable = [myprovider, _rule];
             myisCallable = isCallable(mycallable);
         } else {
             mycallable = _rule;
-            myisCallable = true;
+            myisCallable = true; */
         }
-        
+
         if (!myisCallable) {
             /** @var string mymethod  * /
             mymethod = _rule;
@@ -76,19 +76,19 @@ class DValidationRule {
            );
             throw new DInvalidArgumentException(mymessage);
         } */
-/*        if (_pass) {
+            /*        if (_pass) {
             myargs = array_merge([myvalue], _pass, [context]).values;
             result = mycallable(...myargs);
         } else {
             result = mycallable(myvalue, context);
         } */
-/*        if (result == false) {
-            return _message ?: false;
-        } */
+            /*        if (result == false) {
+            return _message ?: false; */
+        }
         // return result;
-        return null; 
+        return null;
     }
-    
+
     /**
      * Checks if the validation rule should be skipped
      * Params:
@@ -101,7 +101,7 @@ class DValidationRule {
      * be passed as the last argument for the validation method
      */
     protected bool _skip(Json[string] context) {
-/*        if (isString(_on)) {
+        /*        if (isString(_on)) {
             mynewRecord = context["newRecord"];
 
             return (_on == Validator.WHEN_CREATE && !mynewRecord)
@@ -114,10 +114,10 @@ class DValidationRule {
         } */
         return false;
     }
-    
+
     // Sets the rule properties from the rule entry in validate
     protected void _addValidatorProps(Json[string] myvalidator = null) {
-/*        foreach (aKey: myvalue; myvalidator) {
+        /*        foreach (aKey: myvalue; myvalidator) {
             if (isEmpty(myvalue)) {
                 continue;
             }
@@ -130,14 +130,14 @@ class DValidationRule {
             }
         } */
     }
-    
+
     /**
      * Returns the value of a property by name
      * Params:
      * string myproperty The name of the property to retrieve.
     */
     // Json get(string propertyName) {
-/*        myproperty = "_" ~ myproperty;
+    /*        myproperty = "_" ~ myproperty;
         return _{myproperty} ? _{myproperty} : null;
- */   //  }
+ */ //  }
 }

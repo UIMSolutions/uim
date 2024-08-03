@@ -603,8 +603,8 @@ class DValidation {
     }
  */
     static bool extension(Json valueToCheck, string[] myextensions = ["gif", "jpeg", "png", "jpg"]) {
-        return false; 
-    }
+        /* return false; 
+    } */
 
 /*    else if(isArray(valueToCheck) && valueToCheck.hasKey("name")) {
         valueToCheck = valueToCheck["name"];
@@ -1271,7 +1271,7 @@ protected static string _getDateString(Json[string] items) {
                );
             }
         } */
-    return myformatted.strip(;
+    return myformatted.strip;
 }
 
 // Lazily populate the IP address patterns used for validations

@@ -52,7 +52,7 @@ class DMapReduce { // }: IteratorAggregate {
      * };
      *
      * reducer = auto (numbers, type, mr) {
-     *    mr.emit(array_unique(numbers), type);
+     *    mr.emit(numbers.unique, type);
      * };
      * results = new DMapReduce(someData, mapper, reducer);
      * ```

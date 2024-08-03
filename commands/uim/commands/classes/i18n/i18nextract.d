@@ -418,7 +418,7 @@ class DI18nExtractCommand : DCommand {
                     string aHeader = "";
                     if (!commandArguments.getOption("no-location")) {
                         files.byKeyValue.each!(fileLines => 
-                            array_unique(fileLines.value)
+                            fileLines.value.unique
                                 .each!(line => occurrences ~= fileLines.key ~ ": " ~ line)
                         );
                         auto occurrences = occurrences.join("\n#: ");

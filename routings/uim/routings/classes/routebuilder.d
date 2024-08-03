@@ -131,8 +131,8 @@ class DRouteBuilder {
      * string[]|string myextensions One or more extensions to add
      */
     void addExtensions(string[] myextensions) {
-        myextensions = array_merge(_extensions, (array) myextensions);
-        _extensions = array_unique(myextensions);
+        myextensions = array_merge(_extensions, /* (array) */ myextensions);
+        _extensions = myextensions.unique;
     }
 
     // Get the path this scope is for.
@@ -747,7 +747,7 @@ class DRouteBuilder {
                 throw new DInvalidArgumentException(mymessage);
             }
         }
-        _middleware = array_unique(chain(_middleware, routingss));
+        _middleware = chain(_middleware, routingss).unique;
     }
 
     // Get the middleware that this builder will apply to routes.

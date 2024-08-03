@@ -244,8 +244,7 @@ class DEventManager : IEventManager {
     auto globalListeners = instance().prioritisedListeners(eventKey);
     globalListeners = empty(globalListeners) ? [] : globalListeners;
 
-    priorities = array_merge(globalListeners.keys, localListeners.keys);
-    priorities = array_unique(priorities);
+    priorities = array_merge(globalListeners.keys, localListeners.keys).unique;
     asort(priorities);
 
 /*    auto result;

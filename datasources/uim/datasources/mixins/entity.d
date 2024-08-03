@@ -457,7 +457,7 @@ mixin template TEntity() {
     }
 
     auto mergedFields = chain(_hidden, fieldsToHide);
-    _hidden = array_unique(mergedFields);
+    _hidden = mergedFields.unique;
   }
 
   // Gets the hidden fields.
@@ -473,7 +473,7 @@ mixin template TEntity() {
       return;
     }
     fieldNames = chain(_virtual, fieldNames);
-    _virtual = array_unique(fieldNames);
+    _virtual = fieldNames.unique;
   }
 
   // Gets the virtual fields on this entity.

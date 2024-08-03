@@ -652,3 +652,23 @@ unittest {
   assert(testValues.filterValues(&foo).length == 2);
 }
 // #endregion filterValues
+
+// #region unique
+/// Unique - Reduce duplicates in array
+V[K] unique(K, V)(V[K] items) {
+	V[K] results;
+  V[V] values;
+	items.byKeyValue.each!((item) {
+    if (!values.hasKey(item.value)) {
+      values[item.value] = item.value;
+      results[item.key] = item.value;
+    }
+	});
+	return results;
+}
+
+unittest {
+  assert(["a":"A", "b":"B", "c":"C"].unique.length == 3);
+  assert(["a":"A", "b":"B", "c":"C", "d":"C"].unique.length == 3);
+}
+// #endregion unique

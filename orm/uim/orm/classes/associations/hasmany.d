@@ -197,13 +197,11 @@ class DHasManyAssociation : DAssociation {
         setSaveStrategy(SAVE_APPEND);
         auto property = getProperty();
 
-        currentEntities = array_unique(
-            array_merge(
+        currentEntities = array_merge(
                 /* (array) */
                 sourceEntity.get(property),
                 targetEntities
-        )
-        );
+        ).unique;
         sourceEntity.set(property, currentEntities);
 
         // TODO 

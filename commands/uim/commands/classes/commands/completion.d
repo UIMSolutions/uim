@@ -81,7 +81,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             string[] someParts = aKey.split(" ");
             options ~= someParts[0];
         }
-        options = array_unique(options);
+        options = options.unique;
         aConsoleIo.
         out (join(" ", options));
 

@@ -793,7 +793,7 @@ class Hash {
         }
         array_multisort(myvalues, mydir, directionType, someKeys, mydir, directionType);
         mysorted = null;
-        someKeys = array_unique(someKeys);
+        someKeys = someKeys.unique;
 
         foreach (someKeys as myKey) {
             if (mynumeric) {

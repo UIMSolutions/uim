@@ -657,7 +657,7 @@ class DI18nExtractCommand : DCommand {
             }
            _fileNames = chain(_fileNames, files);
         });
-       _fileNames = array_unique(_fileNames);
+       _fileNames = _fileNames.unique;
     }
     
     /**

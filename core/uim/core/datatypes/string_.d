@@ -180,21 +180,7 @@ unittest {
 }
 // #endregion remove
 
-/// Unique - Reduce duplicates in array
-string[] unique(string[] someValues) {
-	STRINGAA results;
-	foreach (value; someValues) {
-		results[value] = value;
-	}
-	return results.keys.array;
-}
 
-version (test_uim_core) {
-	unittest {
-		assert(["a", "b", "c"].unique == ["a", "b", "c"]);
-		assert(["a", "b", "c", "c"].unique == ["a", "b", "c"]);
-	}
-}
 
 bool startsWith(string text, string[] startings) {
 	if (text.length == 0) {

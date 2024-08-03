@@ -713,7 +713,7 @@ class DValidation {
         }
         if (options.hasKey("in"] && isArray(options.get("in"])) {
             if (isCaseInsensitive) {
-                options.set("in", array_map("mb_strtolower", options.get("in"]));
+                options = options.set("in", array_map("mb_strtolower", options.get("in"]));
             }
             valueToCheck.each((myval) {
                 isStrict = !isNumeric(myval);
@@ -1110,13 +1110,13 @@ class DValidation {
 
     // Convenience method for latitude validation.
     static bool latitude(Json latitudeValue, Json[string] options = null) {
-        options.set("format", "lat");
+        options = options.set("format", "lat");
         return geoCoordinate(latitudeValue, options);
     }
 
     // Convenience method for longitude validation.
     static bool longitude(Json value, Json[string] options = null) {
-        options.set("format", "long");
+        options = options.set("format", "long");
         return geoCoordinate(value, options);
     }
 

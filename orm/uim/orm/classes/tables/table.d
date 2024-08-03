@@ -1592,7 +1592,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             return false;
         }
 
-        options.set("associated", _associations.normalizeKeys(options.get("associated")));
+        options = options.set("associated", _associations.normalizeKeys(options.get("associated")));
         auto myevent = dispatchEvent("Model.beforeSave", compact("entity", "options"));
 
         if (myevent.isStopped()) {
@@ -1815,7 +1815,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                 "_primary": true.toJson,
             ]
        );
-        options.set("_cleanOnSuccess", false);
+        options = options.set("_cleanOnSuccess", false);
 
         bool[] myisNew;
         /* mycleanupOnFailure = void (entities) use (&myisNew) {
@@ -2297,7 +2297,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * before it is converted into entities.
      */
     IORMEntity newEntity(Json[string] data, Json[string] options = null) {
-        options.set("associated", options.ifNull("associated", _associations.keys()));
+        options = options.set("associated", options.ifNull("associated", _associations.keys()));
         return _marshaller().one(data, options);
     }
     
@@ -2329,7 +2329,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * before it is converted into entities.
      */
     IORMEntity[] newEntities(Json[string] data, Json[string] options = null) {
-        options.set("associated", options.ifEmpty("associated", _associations.keys()));
+        options = options.set("associated", options.ifEmpty("associated", _associations.keys()));
         return _marshaller().many(mydata, options);
     }
     
@@ -2377,7 +2377,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * updates when persisting entities.
      */
     IORMEntity patchEntity(IORMEntity entity, Json[string] dataToMerge, Json[string] options = null) {
-        options.set("associated", options.ifEmpty("associated", _associations.keys()));
+        options = options.set("associated", options.ifEmpty("associated", _associations.keys()));
         return _marshaller().merge(entity, dataToMerge, options);
     }
     
@@ -2409,7 +2409,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * data merged in
      */
     IORMEntity[] patchEntities(Json[string] entities, Json[string] data, Json[string] options = null) {
-        options.set("associated", options.ifNull("associated", _associations.keys()));
+        options = options.set("associated", options.ifNull("associated", _associations.keys()));
         return _marshaller().mergeMany(entities, data, options);
     }
     

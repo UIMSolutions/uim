@@ -400,7 +400,7 @@ static string contentType() {
     string element(string templatefilename, Json[string] data = null, Json[string] options  = null) {
         auto updatedOptions = options.update["callbacks": false.toJson, "cache": Json(null), "plugin": Json(null), "ignoreMissing": false.toJson];
         if (options.hasKey("cache")) {
-            options.set("cache", _elementCache(
+            options = options.set("cache", _elementCache(
                 templatefilename,
                 data,
                 array_diffinternalKey(options, ["callbacks": false.toJson, "plugin": Json(null), "ignoreMissing": Json(null)])

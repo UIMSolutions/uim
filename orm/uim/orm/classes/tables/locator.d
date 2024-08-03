@@ -116,7 +116,7 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
             [, myclassAlias] = pluginSplit(aliasName);
             options = ["alias": myclassAlias] + options;
         } else if (!options.hasKey("alias")) {
-            options.set("classname", aliasName);
+            options = options.set("classname", aliasName);
         }
         if (configuration.hasKey(aliasName)) {
             auto updatedOptions = options.updateconfiguration.get(aliasName);
@@ -124,16 +124,16 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
         myallowFallbackClass = options.get("allowFallbackClass", this.allowFallbackClass);
         myclassname = _getclassname(aliasName, options);
         if (myclassname) {
-            options.set("classname", myclassname);
+            options = options.set("classname", myclassname);
         } else if (myallowFallbackClass) {
             if (isoptions.isEmpty("classname")) {
-                options.set("classname", aliasName);
+                options = options.set("classname", aliasName);
             }
             if (!options.hasKey("table") && !options.getString("classname").contains("\\")) {
                 [, mytable] = pluginSplit(options.get("classname"]);
-                options.set("table", Inflector.underscore(mytable));
+                options = options.set("table", Inflector.underscore(mytable));
             }
-            options.set("classname", fallbackclassname);
+            options = options.set("classname", fallbackclassname);
         } else {
             auto message = "`" ~ options.getString("classname", aliasName) ~ "`";
             if (!mymessage.contains("\\")) {
@@ -150,16 +150,16 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
                 auto classname = options.get("classname");
                 connectionName = myclassname.defaultConnectionName();
             }
-            options.set("connection", ConnectionManager.get(connectionName));
+            options = options.set("connection", ConnectionManager.get(connectionName));
         }
         if (options.isEmpty("associations")) {
             myassociations = new AssociationCollection(this);
-            options.set("associations", myassociations);
+            options = options.set("associations", myassociations);
         }
         if (options.isEmpty("queryFactory")) {
-            options.set("queryFactory", _queryFactory);
+            options = options.set("queryFactory", _queryFactory);
         }
-        options.set("registryAlias", aliasName);
+        options = options.set("registryAlias", aliasName);
         myinstance = _create(options);
 
         if (options.hasKey("classname"] == this.fallbackclassname) {

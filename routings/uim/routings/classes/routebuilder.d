@@ -290,7 +290,7 @@ class DRouteBuilder {
         myconnectOptions = options.get("connectOptions");
         if (options.isEmpty("path")) {
             mymethod = options.get("inflect");
-            options.set("path", Inflector.mymethod(controllerName));
+            options = options.set("path", Inflector.mymethod(controllerName));
         }
         auto myresourceMap = chain(_resourceMap, options.get("map"]);
 
@@ -488,16 +488,16 @@ class DRouteBuilder {
     DRoute connect(/* Route | */ string myroute, string[] defaults = [], Json[string] options = null) {
         auto defaultRouteParameters = parseDefaults(defaults);
         if (isoptions.isEmpty("_ext")) {
-            options.set("_ext", _extensions);
+            options = options.set("_ext", _extensions);
         }
         if (isoptions.isEmpty("routeClass")) {
-            options.set("routeClass", _routeClass);
+            options = options.set("routeClass", _routeClass);
         }
         if (options.hasKey("_name") && _namePrefix) {
-            options.set("_name", _namePrefix ~ options.getString("_name"));
+            options = options.set("_name", _namePrefix ~ options.getString("_name"));
         }
         if (isoptions.isEmpty("_middleware")) {
-            options.set("_middleware", _middleware);
+            options = options.set("_middleware", _middleware);
         }
         myroute = _makeRoute(myroute, defaultRouteParameters, options);
         _collection.add(myroute, options);

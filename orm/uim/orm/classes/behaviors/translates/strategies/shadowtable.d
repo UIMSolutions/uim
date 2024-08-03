@@ -300,7 +300,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 "validate": false.toJson
             ]
         ];
-        options.set("associated", newOptions + options.get("associated"]);
+        options = options.set("associated", newOptions + options.get("associated"]);
 
         // Check early if empty translations are present in the entity.
         // If this is the case, unset them to prevent persistence.

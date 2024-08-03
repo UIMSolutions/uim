@@ -72,7 +72,7 @@ class DAssetMiddleware : IRoutingMiddleware {
             string[] pluginPart ~= Inflector.camelize(someParts[index]);
             string plugin = pluginPart.join("/");
             if (Plugin.isLoaded(plugin)) {
-                someParts = array_slice(someParts,  index + 1);
+                someParts =someParts.slice(index + 1);
                 fileFragment = someParts.join(DIRECTORY_SEPARATOR);
                 pluginWebroot = Plugin.path(plugin) ~ "webroot" ~ DIRECTORY_SEPARATOR;
 

@@ -70,7 +70,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             /** @psalm-suppress InvalidOperand */
             auto end = isSet(anIndexes[index + 1]) ?  anIndexes[index + 1] - start : null;
             /** @psalm-suppress PossiblyInvalidArgument */
-            auto headerSlice = array_slice(requestHeaders, start, end);
+            auto headerSlice = requestHeaders.slice(start, end);
             string bodyText = index == last ? responseContent : "";
             responses ~= _buildResponse(headerSlice, bodyText);
         }

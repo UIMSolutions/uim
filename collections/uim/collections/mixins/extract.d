@@ -65,7 +65,7 @@ mixin template TExtract() {
                 return null;
             }
             if (isCollectionTransform) {
-                rest = array_slice(someParts,  index).join(".");
+                rest = someParts.slice(index).join(".");
 
                 return (new D_Collection(someData)).extract(rest);
             }

@@ -542,7 +542,7 @@ class Hash {
                 continue;
             }
             auto myvalueKey = end(someKeys);
-            someKeys = array_slice(someKeys, 0, -1);
+            someKeys = someKeys.slice(0, -1);
 
             auto mykeyHash = &myhash;
             someKeys.each!((key) {

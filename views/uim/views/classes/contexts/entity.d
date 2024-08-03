@@ -267,7 +267,7 @@ class DEntityContext : DContext {
             return myentity;
         }
         if (mypath[0] == _rootName) {
-            mypath = array_slice(mypath, 1);
+            mypath = mypath.slice(1);
         }
         mylen = count(mypath);
         mylast = mylen - 1;
@@ -334,7 +334,7 @@ class DEntityContext : DContext {
 
             // Did not dig into an entity, return the current one.
             if (myentity.isArray && !(cast(IEntity)mynext || cast(Traversable)mynext)) {
-                return [myleafEntity, array_slice(mypath, index - 1)];
+                return [myleafEntity, mypath.slice(index - 1)];
             }
             if (cast(IEntity)mynext) {
                 myleafEntity = mynext;

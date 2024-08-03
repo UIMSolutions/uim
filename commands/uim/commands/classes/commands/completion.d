@@ -104,7 +104,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
                 // Space separate command name, collect
                 // hits as subcommands
                 if (count(someParts) > 1) {
-                    options ~= array_slice(someParts, 1).join(" ");
+                    options ~= someParts.slice(1).join(" ");
                 }
             });
         options = array_unique(options);

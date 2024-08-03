@@ -982,7 +982,7 @@ class DFormHelper : DHelper {
         if (internalType !is null && mymap.hasKey(internalType)) {
             mytype = mymap[internalType];
         }
-        auto fieldName = array_slice(fieldName.split("."), -1)[0];
+        auto fieldName = fieldName.split(".").slice(, -1)[0];
 
         return match (true) {
             options.hasKey("checked"]): "checkbox",

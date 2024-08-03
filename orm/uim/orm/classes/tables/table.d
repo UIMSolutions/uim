@@ -525,7 +525,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                 return _entityClass;
             }
             string aliasName = Inflector.classify(Inflector.underscore(subString(myparts.pop(), 0, -5)));
-            string myname = array_slice(myparts, 0, -1).join("\\") ~ "\\Entity\\" ~ aliasName;
+            string myname = myparts.slice(0, -1).join("\\") ~ "\\Entity\\" ~ aliasName;
             if (!class_hasKey(myname)) {
                 return _entityClass = defaultValue;
             }

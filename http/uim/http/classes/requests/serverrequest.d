@@ -827,7 +827,7 @@ class DServerRequest { // }: IServerRequest {
         }
         
         string[] segments = host.split(".");
-        return array_slice(segments, 0, -1 * (tldLength + 1));
+        return segments.slice(0, -1 * (tldLength + 1));
     }
     
     /**

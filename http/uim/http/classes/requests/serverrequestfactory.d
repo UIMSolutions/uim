@@ -120,7 +120,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         serverOptions.set("REQUEST_METHOD", httpMethod);
         auto options = ["environment": serverOptions].toJsonMap;
 
-        options.set("uri", uri);
+        options = options.set("uri", uri);
 
         return new DServerRequest(options);
     }

@@ -60,10 +60,10 @@ class DFlashMessage : UIMObject {
      * - `escape` Set to false to allow templates to print out HTML content.
      */
     void set(string messageToBeFlashed, Json[string] options = null) {
-        auto auto updatedOptions = options.set(this.configuration.data);
+        auto auto updatedOptions = options = options.set(this.configuration.data);
 
         if (options.hasKey("escape") && !options.hasKey("params.escape")) {
-            options.set("params.escape", options.get("escape"));
+            options = options.set("params.escape", options.get("escape"));
         }
         [plugin, anElement] = pluginSplit(options.get("element"));
         if (options.hasKey("plugin"]) {
@@ -104,7 +104,7 @@ class DFlashMessage : UIMObject {
      * The `'element'` option will be set to  ``success'`.
      */
                             void success(string successMessage, Json[string] options = null) {
-                                options.set("element", "Success"); set(successMessage, options);
+                                options = options.set("element", "Success"); set(successMessage, options);
                             }
 
                             /**
@@ -112,7 +112,7 @@ class DFlashMessage : UIMObject {
      * The `'element'` option will be set to  `'error'`.
      */
                             void error(string errorMessage, Json[string] options = null) {
-                                options.set("element", "error"); set(errorMessage, options);
+                                options = options.set("element", "error"); set(errorMessage, options);
                             }
 
                             /**
@@ -120,7 +120,7 @@ class DFlashMessage : UIMObject {
      * The `'element'` option will be set to  `'warning'`.
      */
                             void warning(string warningMessage, Json[string] options = null) {
-                                options.set("element", "warning"); set(warningMessage, options);
+                                options = options.set("element", "warning"); set(warningMessage, options);
                             }
 
                             /**
@@ -128,6 +128,6 @@ class DFlashMessage : UIMObject {
      * The `'element'` option will be set to  `'info'`.
      */
                             void info(string infoMessage, Json[string] options = null) {
-                                options.set("element", "info"); set(infoMessage, options);
+                                options = options.set("element", "info"); set(infoMessage, options);
                             }
                         }

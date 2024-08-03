@@ -396,7 +396,7 @@ class DResponse : IResponse {
            _setStatus(options.get("status"));
         }
         if (!options.hasKey("charset")) {
-            options.set("charset", configuration.get("App.encoding"));
+            options = options.set("charset", configuration.get("App.encoding"));
         }
        _charset = options.get("charset");
         auto type = "text/html";

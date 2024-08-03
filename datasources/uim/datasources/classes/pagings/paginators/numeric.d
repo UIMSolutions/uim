@@ -210,7 +210,7 @@ class DNumericPaginator : IPaginator {
         options = this.checkLimit(options);
 
         options.merge(["page": 1, "scope": Json(null)]);
-        options.set("page", options.getLong("page") < 1 ? 1 : options.getLong("page"));
+        options = options.set("page", options.getLong("page") < 1 ? 1 : options.getLong("page"));
         [finder, options] = _extractFinder(options);
 
         return [
@@ -534,7 +534,7 @@ class DNumericPaginator : IPaginator {
         if (limitOption < 1) {
             limitOption = 1;
         }
-        options.set("limit", max(min(limitOption, options.getLong("maxLimit")), 1));
+        options = options.set("limit", max(min(limitOption, options.getLong("maxLimit")), 1));
         return options;
     }
 }

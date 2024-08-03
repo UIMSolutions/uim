@@ -33,17 +33,17 @@ class DPluginLoadCommand : DCommand {
         auto plugin = arguments.getString("plugin");
         auto options = null;
         if (arguments.hasKey("only-debug")) {
-            options.set("onlyDebug", true);
+            options = options.set("onlyDebug", true);
         }
         if (arguments.hasKey("only-cli")) {
-            options.set("onlyCli", true);
+            options = options.set("onlyCli", true);
         }
         if (arguments.hasKey("optional")) {
-            options.set("optional", true);
+            options = options.set("optional", true);
         }
         IPlugin.VALID_HOOKS
             .filter!(hook => arguments.hasKey("no-" ~ hook))
-            .each!(hook => options.set(hook, false));
+            .each!(hook => options = options.set(hook, false));
 
         try {
             Plugin.getCollection().findPath(plugin);

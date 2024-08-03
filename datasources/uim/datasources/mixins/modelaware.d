@@ -69,7 +69,7 @@ mixin template TModelAware() {
         if (indexOf(modelClass, "\\") == false) {
             [, aliasName] = pluginSplit(modelClass, true);
         } else {
-            options.set("classname", modelClass);
+            options = options.set("classname", modelClass);
 
             string aliasName = subString(
                 modelClass,

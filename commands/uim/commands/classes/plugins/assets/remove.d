@@ -23,7 +23,7 @@ class DPluginAssetsRemoveCommand : DCommand {
 
     
     // Remove plugin assets from app`s webroot.
-    override ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+    override size_t execute(Json[string] arguments, IConsoleIo consoleIo) {
         _io = consoleIo;
         _args = arguments;
 

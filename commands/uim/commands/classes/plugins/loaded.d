@@ -20,7 +20,7 @@ class DPluginLoadedCommand : DCommand {
         return "plugin-loaded";
     }
 
-    override ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+    override size_t execute(Json[string] arguments, IConsoleIo consoleIo) {
         return super.execute(arguments, consoleIo);
     }
 
@@ -28,7 +28,7 @@ class DPluginLoadedCommand : DCommand {
     //  Displays all currently loaded plugins.
      * Params:
      * \UIM\Console\Json[string] arguments The command arguments.
-  override ulong execute(Json[string] arguments, IConsole aConsole = null) {
+  override size_t execute(Json[string] arguments, IConsole aConsole = null) {
         loaded = Plugin. loaded();
         aConsoleIo.out (loaded);
 

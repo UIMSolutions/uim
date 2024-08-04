@@ -22,11 +22,11 @@ class DPluginUnloadCommand : DCommand {
         return "plugin-unload";
     }
 
-    override ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+    override size_t execute(Json[string] arguments, IConsoleIo consoleIo) {
         return super.execute(arguments, consoleIo);
     }
 
-    ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+    size_t execute(Json[string] arguments, IConsoleIo consoleIo) {
         string pluginName = arguments.getString("plugin");
 
         auto modificationResult = modifyConfigFile(pluginName);

@@ -271,35 +271,33 @@ Json[string] setPath(Json[string] items, string[] path, Json value) {
  return null;
  }
 
+Json[string] set(T)(Json[string] items, string key, T[string] value) {
+  Json[string] convertedValues;
+  value.byKeyValue.each!(kv => convertedValues[kv.key] = Json(kv.value));
+  map.set(key, convertedValues);
+  return items;
+}
+
 Json[string] set(T)(Json[string] items, T[string] keyValues) {
   keyValues.byKeyValue.each!(kv => set(items, kv.key, kv.value));
   return items;
 }
 
 Json[string] set(T)(Json[string] items, string[] keys, T value) {
+  writeln("Json[string] set(T)(Json[string] items, string[] keys, T value)");
   keys.each!(key => set(items, key, value));
   return items;
 }
 
 Json[string] set(T)(Json[string] items, string key, T value) {
-  set(items, key, Json(value));
-  return items;
+  writeln("Json[string] set(T)(Json[string] items, string key, T value)");
+  return set(items, key, Json(value));
 }
 
-Json[string] set(ref Json[string] items, string key, Json value) {
-  if (key.length == 0) {
-    return items;
-  }
-
+Json[string] set(Json[string] items, string key, Json value) {
+  writeln("Json[string] set(Json[string] items, string key, Json value)");
   items[key] = value;
   return items;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
-}
-
-Json[string] set(T)(Json[string] items, string key, T[string] value) {
-  Json[string] convertedValues;
-  value.byKeyValue.each!(kv => convertedValues[kv.key] = Json(kv.value));
-  map.set(key, convertedValues);
-  return items;
 }
 
 unittest {
@@ -310,9 +308,9 @@ unittest {
   assert(testItems.set("bool", true).isBoolean("bool"));
   assert(testItems.set("Bool", true).getBoolean("Bool"));
   assert(testItems.set("long", 1).isLong("long"));
-  // TODO assert(testItems.set("Long", 2).getLong("Long") == 2);
+  assert(testItems.set("Long", 2).getLong("Long") == 2);
   assert(testItems.set("double", 1.1).isDouble("double"));
-  // TODO assert(testItems.set("Double", 2.2).getDouble("Double") == 2.2);
+  assert(testItems.set("Double", 2.2).getDouble("Double") == 2.2);
   assert(testItems.set("string", "1-1").isString("string"));
   assert(testItems.set("String", "2-2").getString("String") != "2.2");
 
@@ -559,6 +557,12 @@ unittest {
   writeln(createMap!(string, Json).set("x", "X").set("y", "Y"));
   writeln(createMap!(string, Json).set("bool", true));
   writeln(createMap!(string, Json).set("bool", true).set("x", "X"));
+
+  writeln(createMap!(string, Json).set("x", Json("X")));
+  writeln(createMap!(string, Json).set("x", Json("X")).set("x", Json("X")));
+  writeln(createMap!(string, Json).set("x", Json("X")).set("y", "Y"));
+  writeln(createMap!(string, Json).set("bool", Json(true)));
+  writeln(createMap!(string, Json).set("bool", Json(true)).set("x", Json("X")));
 
   auto testMap = createMap!(string, Json).set("x", "X");
   writeln(testMap.set("x", "X"));

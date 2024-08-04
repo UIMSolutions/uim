@@ -119,7 +119,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         auto myerrors = null;
         foreach (ruleNames, fieldName; _fields) {
             auto ruleNames = to!string(ruleNames);
-            auto mykeyPresent = hasKey(ruleNames, data);
+            auto mykeyPresent = data.hasKey(ruleNames);
 
             auto providers = _providers;
             auto context = compact("data", "newRecord", "field", "providers");

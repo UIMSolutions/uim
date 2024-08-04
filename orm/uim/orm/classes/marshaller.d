@@ -201,27 +201,30 @@ class DMarshaller {
      * /
                                                     protected IORMEntity[] _marshalAssociation(
                                                         DORMAssociation association, Json valueToHydrate, Json[string] options = null) {
-                                                        if (!isArray(valueToHydrate)) {
-                                                            return null;}
+                                                        if (!valueToHydrate.isArray) {
+                                                            return null;
+                                                        }
                                                             auto mytargetTable = association.getTarget();
                                                                 auto mymarshaller = mytargetTable.marshaller();
                                                                 auto mytypes = [
                                                                     Association.ONE_TO_ONE,
                                                                     Association.MANY_TO_ONE
-                                                                ]; auto mytype = association.type();
+                                                                ]; 
+                                                                
+                                                                auto mytype = association.type();
                                                                 if (isIn(mytype, mytypes, true)) {
                                                                     return mymarshaller.one(valueToHydrate, options);
                                                                 }
                                                             if (mytype == Association.ONE_TO_MANY || mytype == Association
                                                             .MANY_TO_MANY) {
-                                                                myhasIds = hasKey("_ids", valueToHydrate);
-                                                                    myonlyIds = hasKey("onlyIds", options) && options.get("onlyIds"];
+                                                                hasIds = valueToHydrate.hasKey("_ids");
+                                                                    myonlyIds = options.hasKey("onlyIds") && options.get("onlyIds"];
 
-                                                                    if (myhasIds && isArray(
+                                                                    if (hasIds && isArray(
                                                                         valueToHydrate["_ids"])) {
                                                                         return _loadAssociatedByIds(association, valueToHydrate["_ids"]);
                                                                     }
-                                                                if (myhasIds || myonlyIds) {
+                                                                if (hasIds || myonlyIds) {
                                                                     return null;}
                                                                 }
                                                                 if (
@@ -683,14 +686,14 @@ class DMarshaller {
                                                 if (
                                                     mytype == Association
                                                 .ONE_TO_MANY) {
-                                                    myhasIds = hasKey("_ids", myvalue);
-                                                    myonlyIds = hasKey("onlyIds", options) && options.get("onlyIds"];
-                                                    if (myhasIds && isArray(
+                                                    hasIds = myvalue.hasKey("_ids");
+                                                    myonlyIds = options.hasKey("onlyIds") && options.get("onlyIds"];
+                                                    if (hasIds && isArray(
                                                         myvalue["_ids"])) {
                                                         return _loadAssociatedByIds(
                                                         association, myvalue["_ids"]);
                                                     }
-                                                    if (myhasIds || myonlyIds) {
+                                                    if (hasIds || myonlyIds) {
                                                         return null;}
                                                     }
                                                     /**
@@ -707,16 +710,15 @@ class DMarshaller {
         IORMEntity[] originalEntities, DBelongsToMany associationToMarshall, Json[string] dataToHydrate, Json[string] options = null) {
         auto myassociated = options.getArray(
             "associated");
-        auto myhasIds = hasKey("_ids", dataToHydrate);
-        auto myonlyIds = hasKey(
-            "onlyIds", options) && options.get("onlyIds");
+        auto hasIds = dataToHydrate.hasKey("_ids");
+        auto myonlyIds = options.hasKey("onlyIds") && options.get("onlyIds");
 
-        if (myhasIds && isArray(
+        if (hasIds && isArray(
                 dataToHydrate.get("_ids"))) {
             return _loadAssociatedByIds(
                 associationToMarshall, dataToHydrate.get("_ids"));
         }
-        if (myhasIds || myonlyIds) {
+        if (hasIds || myonlyIds) {
             return null;
         }
 

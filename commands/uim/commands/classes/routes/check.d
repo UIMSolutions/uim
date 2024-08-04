@@ -69,10 +69,10 @@ class DRoutesCheckCommand : DCommand {
       "Check a URL string against the routes. " ~
         "Will output the routing parameters the route resolves to."
    )
-      .addArgument("url", [
-          "help": "The URL to check.",
-          "required": true.toJson,
-        ]);
+      .addArgument("url", createMap!(string, Json)
+          .set("help", "The URL to check.")
+          .set("required", true.toJson)
+        );
 
     return parserToUpdate;
   } */

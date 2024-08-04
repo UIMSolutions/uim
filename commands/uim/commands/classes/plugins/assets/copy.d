@@ -31,16 +31,16 @@ class DPluginAssetsCopyCommand : DCommand {
         // TODO parserToUpdate.description("Copy plugin assets to app`s webroot.");
 
         /* 
-        parserToUpdate.addArgument("name", [
-            "help": "A specific plugin you want to copy assets for.",
-            "required": false.toJson,
-        ]);
+        parserToUpdate.addArgument("name", createMap!(string, Json)
+            .set("help", "A specific plugin you want to copy assets for.")
+            .set("required", false)
+        );
         
-        parserToUpdate.addOption("overwrite", [
-            "help": "Overwrite existing symlink / folder / files.",
-            "default": false.toJson,
-            "boolean": true.toJson,
-        ]); */
+        parserToUpdate.addOption("overwrite", createMap!(string, Json)
+            .set("help", "Overwrite existing symlink / folder / files.")
+            .set("default", false)
+            .set("boolean", true)
+        ); */
 
         return parserToUpdate;
     } 

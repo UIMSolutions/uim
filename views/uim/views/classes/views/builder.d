@@ -144,7 +144,7 @@ class DViewBuilder { // }: DJsonSerializable {
         
     // Check if view var is set.
    bool hasVar(string viewName) {
-        return hasKey(viewName, _viewData);
+        return ._viewData.hasKey(viewName);
     }
        
 

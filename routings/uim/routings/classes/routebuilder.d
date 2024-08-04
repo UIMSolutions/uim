@@ -148,21 +148,14 @@ class DRouteBuilder {
         return _path;
     }
 
-    /**
-     * Get the parameter names/values for this scope.
-     *
-     */
+    // Get the parameter names/values for this scope.
     Json[string] params() {
         return _params;
     }
 
-    /**
-     * Checks if there is already a route with a given name.
-     * Params:
-     * string routings Name.
-     */
-    bool namehasKey(string routings) {
-        return hasKey(routings, _collection.named());
+    // Checks if there is already a route with a given name.
+    bool hasRouting(string routings) {
+        return routings.hasKey(_collection.named());
     }
 
     /**

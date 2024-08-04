@@ -598,7 +598,7 @@ class DRouter {
      */
     protected static Json[string] unwrapShortString(Json[string] url) {
         foreach (aKey; ["plugin", "prefix", "controller", "action"]) {
-            if (array_key_hasKey(aKey, url)) {
+            if (hasKey(aKey, url)) {
                 throw new DInvalidArgumentException(
                     "`aKey` cannot be used when defining route targets with a string route path."
                );

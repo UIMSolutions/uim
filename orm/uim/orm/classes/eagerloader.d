@@ -509,7 +509,7 @@ class DEagerLoader {
                 // be attached to joined associations.
                 if (
                     indexOf(path, ".") == false &&
-                    (!array_key_hasKey(path, collected) || !array_key_hasKey(aliasName, collected[path]))
+                    (!hasKey(path, collected) || !hasKey(aliasName, collected[path]))
                ) {
                     message = "Unable to load `{path}` association. Ensure foreign key in `{aliasName}` is selected.";
                     throw new DInvalidArgumentException(message);
@@ -654,7 +654,7 @@ class DEagerLoader {
             foreach (nestKey, parts; collectKeys) {
                 if (parts[2] == true) {
                     // Missed joins will have null in the results.
-                    if (!array_key_hasKey(parts[1][0], result)) {
+                    if (!hasKey(parts[1][0], result)) {
                         continue;
                     }
                     // Assign empty array to avoid not found association when optional.

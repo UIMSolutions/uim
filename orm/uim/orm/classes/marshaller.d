@@ -214,8 +214,8 @@ class DMarshaller {
                                                                 }
                                                             if (mytype == Association.ONE_TO_MANY || mytype == Association
                                                             .MANY_TO_MANY) {
-                                                                myhasIds = array_key_hasKey("_ids", valueToHydrate);
-                                                                    myonlyIds = array_key_hasKey("onlyIds", options) && options.get("onlyIds"];
+                                                                myhasIds = hasKey("_ids", valueToHydrate);
+                                                                    myonlyIds = hasKey("onlyIds", options) && options.get("onlyIds"];
 
                                                                     if (myhasIds && isArray(
                                                                         valueToHydrate["_ids"])) {
@@ -521,7 +521,7 @@ class DMarshaller {
         foreach (fieldName;  /* (array) */ options.get("fields"]) {
             assert(
                 isString(fieldName));
-            if (!array_key_hasKey(fieldName, myproperties)) {
+            if (!hasKey(fieldName, myproperties)) {
                 continue;
             }
             myentity.set(fieldName, myproperties[fieldName]);
@@ -683,8 +683,8 @@ class DMarshaller {
                                                 if (
                                                     mytype == Association
                                                 .ONE_TO_MANY) {
-                                                    myhasIds = array_key_hasKey("_ids", myvalue);
-                                                    myonlyIds = array_key_hasKey("onlyIds", options) && options.get("onlyIds"];
+                                                    myhasIds = hasKey("_ids", myvalue);
+                                                    myonlyIds = hasKey("onlyIds", options) && options.get("onlyIds"];
                                                     if (myhasIds && isArray(
                                                         myvalue["_ids"])) {
                                                         return _loadAssociatedByIds(
@@ -707,8 +707,8 @@ class DMarshaller {
         IORMEntity[] originalEntities, DBelongsToMany associationToMarshall, Json[string] dataToHydrate, Json[string] options = null) {
         auto myassociated = options.getArray(
             "associated");
-        auto myhasIds = array_key_hasKey("_ids", dataToHydrate);
-        auto myonlyIds = array_key_hasKey(
+        auto myhasIds = hasKey("_ids", dataToHydrate);
+        auto myonlyIds = hasKey(
             "onlyIds", options) && options.get("onlyIds");
 
         if (myhasIds && isArray(

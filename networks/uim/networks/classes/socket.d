@@ -354,7 +354,7 @@ class DSocket {
                                                                         }
                                                                     // Encrypts current stream socket, using one of the defined encryption methods
                                                                     void enableCrypto(string type, string clientOrServer = "client", bool enable = true) {
-                                                                        if (!array_key_hasKey(
+                                                                        if (!hasKey(
                                                                             type ~ "_" ~ clientOrServer, _encryptMethods)) {
                                                                             throw new DInvalidArgumentException(
                                                                                 "Invalid encryption scheme chosen");

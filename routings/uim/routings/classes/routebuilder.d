@@ -162,7 +162,7 @@ class DRouteBuilder {
      * string routings Name.
      */
     bool namehasKey(string routings) {
-        return array_key_hasKey(routings, _collection.named());
+        return hasKey(routings, _collection.named());
     }
 
     /**

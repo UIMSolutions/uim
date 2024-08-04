@@ -306,7 +306,7 @@ class DRouteCollection {
      * string groupName The name of the middleware group to check.
      */
     bool hasMiddlewareGroup(string groupName) {
-        return array_key_hasKey(groupName, _middlewareGroups);
+        return hasKey(groupName, _middlewareGroups);
     }
 
     // Check if the named middleware has been registered.

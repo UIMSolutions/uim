@@ -111,7 +111,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
 
     string failure;
     configData.keys
-      .filter(key => !array_key_hasKey(key, existingConfig))
+      .filter(key => !hasKey(key, existingConfig))
       .each!(
         key => failure = " The `%s` was not defined in the previous configuration data.".format(
           key));
@@ -224,7 +224,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      */
   void set(string objectName, objectobject) {
     [, objName] = pluginSplit(objectName); // Just call unload if the object was loaded before
-    if (array_key_hasKey(objectName, _loaded)) {
+    if (hasKey(objectName, _loaded)) {
       this.unload(objectName);
     }
     if (cast(IEventDispatcher) this && cast(IEventListener) object) {

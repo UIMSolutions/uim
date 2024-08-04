@@ -30,7 +30,7 @@ class DFormData { // }: Countable {
         if (_boundary) {
             return _boundary;
         }
-       _boundary = md5(uniqid(to!string(time())));
+       _boundary = uniqid(to!string(time()))md5;
 
         return _boundary;
     }

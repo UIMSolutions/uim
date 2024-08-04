@@ -230,7 +230,7 @@ string[] namespaceSplit(string classname) {
                 );
         }
         static errors = null;
-        checksum = md5(outputMessage);
+        checksum = outputMessage.md5;
         
         // TODO 
         /* bool isDuplicate = (bool)configuration.get("Error.allowDuplicateDeprecations", false);

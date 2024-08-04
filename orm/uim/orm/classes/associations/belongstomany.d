@@ -1078,11 +1078,8 @@ class DBelongsToManyAssociation : DAssociation {
         auto hasMany = source.getAssociation(junction.aliasName());
         string[] foreignKeys = foreignKeys().map!(key => key ~ " IS").array;
         
-        string[] assocForeignKeys = /* (array) */belongsTo.foreignKeys();
-        assocForeignKeys = array_map(function (key) {
-            return key ~ " IS";
-        }, assocForeignKeys);
-        auto sourceKey = sourceEntity.extract(/* (array) */source.primaryKeys());
+        string[] assocForeignKeys = belongsTo.foreignKeys().map!(key => key ~ " IS").array;
+        auto sourceKey = sourceEntity.extract(source.primaryKeys());
 
         auto unions = null;
         foreach (key; missing) {

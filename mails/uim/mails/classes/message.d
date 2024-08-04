@@ -583,11 +583,11 @@ class DMessage { //: JsonSerializable {
         aHeaders.get("MIME-Version", "1.0");
         if (_attachments) {
              aHeaders.set("Content-Type", "multipart/mixed; boundary="" ~ /* (string) */_boundary ~ """);
-        } else if (this.emailFormat == MESSAGE_BOTH) {
+        } else if (_emailFormat == MESSAGE_BOTH) {
              aHeaders.set("Content-Type", "multipart/alternative; boundary="" ~ /* (string) */_boundary ~ """);
-        } else if (this.emailFormat == MESSAGE_TEXT) {
+        } else if (_emailFormat == MESSAGE_TEXT) {
              aHeaders.set("Content-Type", "text/plain; charset=" ~ getContentTypeCharset());
-        } else if (this.emailFormat == MESSAGE_HTML) {
+        } else if (_emailFormat == MESSAGE_HTML) {
              aHeaders.set("Content-Type", "text/html; charset=" ~ getContentTypeCharset());
         }
          aHeaders["Content-Transfer-Encoding"] = getContentTransferEncoding();
@@ -647,7 +647,7 @@ class DMessage { //: JsonSerializable {
         if (!isIn(aformat, this.emailFormatAvailable, true)) {
             throw new DInvalidArgumentException("Format not available.");
         }
-        this.emailFormat = format;
+        _emailFormat = format;
     }
     
     // Gets email format.
@@ -833,17 +833,13 @@ class DMessage { //: JsonSerializable {
         return lines.join(eol,);
     }
     
-    /**
-     * Create unique boundary identifier
-     */
+    // Create unique boundary identifier
     protected void createBoundary() {
-        if (
-            _boundary.isNull &&
+        if (_boundary.isNull &&
             (
                 _attachments ||
-                this.emailFormat == MESSAGE_BOTH
-           )
-       ) {
+                _emailFormat == MESSAGE_BOTH
+           )) {
             _boundary = md5(Security.randomBytes(16));
         }
     }
@@ -856,7 +852,7 @@ class DMessage { //: JsonSerializable {
         auto contentIds = filterValues(/* (array) */Hash.extract(_attachments, "{s}.contentId"));
         auto hasInlineAttachments = count(contentIds) > 0;
         auto hasAttachments = !_attachments.isEmpty;
-        auto hasMultipleTypes = this.emailFormat == MESSAGE_BOTH;
+        auto hasMultipleTypes = _emailFormat == MESSAGE_BOTH;
         auto multiPart = (hasAttachments || hasMultipleTypes);
 
         string boundary = !_boundary.isEmpty ? _boundary : "";
@@ -867,7 +863,8 @@ class DMessage { //: JsonSerializable {
             message ~= "--" ~ boundary;
             message ~= "Content-Type: multipart/related; boundary="rel-" ~ boundary ~ """;
             message ~= "";
-            relBoundary = textBoundary = "rel-" ~ boundary;
+            textBoundary = "rel-" ~ boundary;
+            relBoundary = textBoundary;
         }
         if (hasMultipleTypes && hasAttachments) {
             message ~= "--" ~ relBoundary;
@@ -876,8 +873,8 @@ class DMessage { //: JsonSerializable {
             textBoundary = "alt-" ~ boundary;
         }
         if (
-            this.emailFormat == MESSAGE_TEXT
-            || this.emailFormat == MESSAGE_BOTH
+            _emailFormat == MESSAGE_TEXT
+            || _emailFormat == MESSAGE_BOTH
        ) {
             if (multiPart) {
                 message ~= "--" ~ textBoundary;
@@ -891,8 +888,8 @@ class DMessage { //: JsonSerializable {
             message ~= "";
         }
         if (
-            this.emailFormat == MESSAGE_HTML
-            || this.emailFormat == MESSAGE_BOTH
+            _emailFormat == MESSAGE_HTML
+            || _emailFormat == MESSAGE_BOTH
        ) {
             if (multiPart) {
                 message ~= "--" ~ textBoundary;

@@ -98,7 +98,7 @@ mixin template TQuery() {
      * query.cache(function (q) {
      *  key = serialize(q.clause("select"));
      *  key ~= serialize(q.clause("where"));
-     *  return md5(key);
+     *  return key.md5;
      * });
      *
      * Using a pre-built cache engine.

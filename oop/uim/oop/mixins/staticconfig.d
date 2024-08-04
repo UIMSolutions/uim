@@ -116,9 +116,7 @@ mixin template TStaticConfig() {
 
     // Returns an array containing the named configurations
     static string[] configured() {
-        configDataurations = _config.keys;
-
-        return array_map(function(aKey) { return to!string(aKey); }, configDataurations);
+        return _config.keys,map!(key => to!string(aKey)).array;
     }
 
     /**

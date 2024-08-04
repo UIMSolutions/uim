@@ -193,14 +193,10 @@ class DPoFileParser {
             plurals += empties;
             ksort(plurals);
 
-            plurals = array_map("stripcslashes", plurals);
-            auto key = stripcslashes(ids["plural"]);
-
-            if (!context is null) {
-                messages.setPath([Translator.PLURAL_PREFIX ~ key, "_context", context], plurals);
-            } else {
-                messages.setPath([Translator.PLURAL_PREFIX ~ key, "_context."], plurals);
-            } 
+            // TODO plurals = array_map("stripcslashes", plurals);
+            auto key = ids["plural"]; // TODO stripcslashes(;
+            messages.setPath(!context is null ? 
+                [Translator.PLURAL_PREFIX ~ key, "_context", context]: [Translator.PLURAL_PREFIX ~ key, "_context."], plurals);
         }*/
     }
 }

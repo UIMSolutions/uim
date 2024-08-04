@@ -200,9 +200,7 @@ class DFileConfigEngine {
 
     // Gets the names of the configured Engine objects.
     static string[] configured() {
-        engines = _engines.keys;
-
-        return array_map(function(key) { return to!string(key); }, engines);
+        return _engines.keys.map!(key => to!string(key)).array;
     }
 
     /**

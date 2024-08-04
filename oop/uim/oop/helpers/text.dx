@@ -164,7 +164,7 @@ class DText {
         }
         
         auto mydataKeys = mydata.keys;
-        myhashKeys = array_map("md5", mydataKeys);
+        myhashKeys = mydataKeys.md5;
         /** @var STRINGAA mytempData */
         mytempData = mydataKeys.combine(myhashKeys);
         krsort(mytempData);

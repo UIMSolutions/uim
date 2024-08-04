@@ -673,13 +673,11 @@ unittest {
 }
 // #endregion unique
 
-V[K] create(K, V)(ref V[K] items) {
-  V[K] newItems;
-  items = newItems;
-  return items;
+pure V[K] createMap(K, V)() {
+  V[K] map = null;
+  return map;
 }
 
-V[K] clear(K, V)(ref V[K] items) {
-  items = null;
-  return items;
+pure V[K] clear(K, V)(V[K] items) {
+  return null;
 }

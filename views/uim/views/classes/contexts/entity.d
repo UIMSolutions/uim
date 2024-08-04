@@ -171,7 +171,7 @@ class DEntityContext : DContext {
         ]);
 
         if (_context.isEmpty("entity")) {
-            return updatedoptions.get("default"];
+            return updatedoptions.get("default");
         }
         
         string[] pathParts = fieldPath.split(".");
@@ -498,13 +498,16 @@ class DEntityContext : DContext {
     }
     
     //  Get the table instance from a property path
+    protected ITable _getTable(string pathParts, bool isFallback = true) {
+        return _tables[_rootName];
+    }
+
     protected ITable _getTable(/* IEntity| */string[] pathParts, bool isFallback = true) {
-        if (!isArray(pathParts) || count(pathParts) == 1) {
+        if (count(pathParts) == 1) {
             return _tables[_rootName];
         }
 
-        string[] mynormalized = pathParts.filter!(part => !isNumeric(mypart)).array.slice(0, -1);
-
+        string[] mynormalized = pathParts.filter!(part => !isNumeric(part)).array.slice(0, -1);
         auto mypath = mynormalized.join(".");
         if (_tables.hasKey(mypath)) {
             return _tables[mypath];
@@ -514,8 +517,8 @@ class DEntityContext : DContext {
         }
         auto mytable = _tables[_rootName];
         auto myassoc = null;
-        foreach (mypart; mynormalized) {
-            if (mypart == "_joinData") {
+        foreach (part; mynormalized) {
+            if (part == "_joinData") {
                 if (myassoc !is null) {
                     mytable = myassoc.junction();
                     myassoc = null;
@@ -523,7 +526,7 @@ class DEntityContext : DContext {
                 }
             } else {
                 myassociationCollection = mytable.associations();
-                myassoc = myassociationCollection.getByProperty(mypart);
+                myassoc = myassociationCollection.getByProperty(part);
             }
             if (myassoc.isNull) {
                 if (isFallback) {

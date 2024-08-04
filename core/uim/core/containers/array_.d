@@ -667,3 +667,15 @@ unittest {
   assert(["a", "b", "c", "c"].unique == ["a", "b", "c"]);
 }
 // #endregion unique
+
+pure V[] createArray(V)() {
+  V[] values = null;
+  return values;
+}
+
+pure V[] clear(V)(V[] items) {
+  return null;
+}
+unittest {
+    
+}

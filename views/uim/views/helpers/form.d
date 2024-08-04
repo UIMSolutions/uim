@@ -241,7 +241,7 @@ class DFormHelper : DHelper {
             if (options.isEmpty("context")) {
                 options.et("context", Json(null));
             }
-            options.set("context.entity", formContext);
+            options = options.set("context.entity", formContext);
             formContext = _getContext(options.get("context"));
             options.remove("context");
         }
@@ -290,7 +290,7 @@ class DFormHelper : DHelper {
             // Set enctype for form
             case "file": 
                 myhtmlAttributes.get("enctype", "multipart/form-data");
-                options.set("type", myisCreate ? "post" : "put");
+                options = options.set("type", myisCreate ? "post" : "put");
             // Move on
             case "put": 
             // Move on
@@ -955,7 +955,7 @@ class DFormHelper : DHelper {
         auto myneedsMagicType = false;
         if (options.isEmpty("type")) {
             myneedsMagicType = true;
-            options.set("type", _inputType(fieldName, options));
+            options = options.set("type", _inputType(fieldName, options));
         }
         return _magicOptions(fieldName, options, myneedsMagicType);
     }
@@ -1012,9 +1012,9 @@ class DFormHelper : DHelper {
             mydbType = TypeFactory.build(internalType);
             if (cast(EnumType)mydbType) {
                 if (options.getString("type") != "radio") {
-                    options.set("type", "select");
+                    options = options.set("type", "select");
                 }
-                options.set("options", this.enumOptions(mydbType.getEnumclassname()));
+                options = options.set("options", this.enumOptions(mydbType.getEnumclassname()));
                 return options;
             }
         }
@@ -1035,9 +1035,9 @@ class DFormHelper : DHelper {
             return options;
         }
         if (options.hasKey("type"] != "radio") {
-            options.set("type", "select");
+            options = options.set("type", "select");
         }
-        options.set("options", myvarOptions);
+        options = options.set("options", myvarOptions);
 
         return options;
     }
@@ -1072,9 +1072,9 @@ class DFormHelper : DHelper {
             options = _optionsOptions(fieldName, options);
         }
         if (allowOverride && fieldName.endsWith("._ids")) {
-            options.set("type", "select");
+            options = options.set("type", "select");
             if (!options.hasKey("multiple"]) || (options.get("multiple"] && options.get("multiple"] != "checkbox")) {
-                options.set("multiple", true);
+                options = options.set("multiple", true);
             }
         }
         return options;
@@ -1089,7 +1089,7 @@ class DFormHelper : DHelper {
         mycontext = _getContext();
 
         if (!options.hasKey("required") && options.getString("type") != "hidden") {
-            options.set("required", mycontext.isRequired(fieldName));
+            options = options.set("required", mycontext.isRequired(fieldName));
         }
         mymessage = mycontext.getRequiredMessage(fieldName);
         mymessage = htmlAttributeEscape(mymessage);
@@ -1098,11 +1098,11 @@ class DFormHelper : DHelper {
             options.get("templateVars.customValidityMessage"] = mymessage;
 
             if (configuration.hasKey("autoSetCustomValidity")) {
-                options.set("data-validity-message", mymessage);
-                options.set("oninvalid", 
+                options = options.set("data-validity-message", mymessage);
+                options = options.set("oninvalid", 
                     "setCustomValidity(\"\"); " ~
                     "if (!this.value) setCustomValidity(this.dataset.validityMessage)");
-                options.set("oninput", "setCustomValidity(\"\")");
+                options = options.set("oninput", "setCustomValidity(\"\")");
             }
         }
         return options;
@@ -1186,7 +1186,7 @@ class DFormHelper : DHelper {
         myvalue = options.get("value");
         options.remove("value");
         options = _initInputField(fieldName, options);
-        options.set("value", myvalue);
+        options = options.set("value", myvalue);
 
         string outputText = "";
         if (options.hasKey("hiddenField"] == true && isScalar(options.get("hiddenField"])) {
@@ -1284,7 +1284,7 @@ class DFormHelper : DHelper {
                 "Missing field name for `FormHelper.%s`.".format(methodName));
         }
         options = params[1] ? params[1] : [];
-        options.set("type", options.get("type", methodName));
+        options = options.set("type", options.get("type", methodName));
         options = _initInputField(params[0], options);
 
         return _widget(options.get("type"], options);
@@ -1328,7 +1328,7 @@ class DFormHelper : DHelper {
                 options.get("val"] == false ? "0" : options.getString("val")
            );
         }
-        options.set("type", "hidden");
+        options = options.set("type", "hidden");
 
         return _widget("hidden", options);
     }
@@ -1364,14 +1364,14 @@ class DFormHelper : DHelper {
             "secure": false.toJson,
             "confirm": Json(null),
         ]);
-        options.set("text", title);
+        options = options.set("text", title);
 
         auto confirmMessage = options.get("confirm");
         options.remove("confirm");
         if (confirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
-            options.set("data-confirm-message", confirmMessage);
-            options.set("onclick", this.templater().format("confirmJs", [
+            options = options.set("data-confirm-message", confirmMessage);
+            options = options.set("onclick", this.templater().format("confirmJs", [
                 "confirmMessage": htmlAttributeEscape(confirmMessage),
                 "confirm": myconfirm,
             ]));
@@ -1517,11 +1517,11 @@ class DFormHelper : DHelper {
                 "formName": myformName,
                 "confirm": myonClick,
             ]);
-            options.set("data-confirm-message", confirmMessage);
+            options = options.set("data-confirm-message", confirmMessage);
         } else {
             myonClick ~= " event.returnValue = false; return false;";
         }
-        options.set("onclick", myonClick);
+        options = options.set("onclick", myonClick);
 
         result ~= _html.link(title, myurl, options);
         return result;
@@ -1580,16 +1580,16 @@ class DFormHelper : DHelper {
             }
         }
         if (myisUrl) {
-            options.set("src", caption);
+            options = options.set("src", caption);
         } else if (myisImage) {
             myUrl = caption[0] != "/" 
                 ? _url.webroot(configuration.getString("App.imageBaseUrl") ~ caption)
                 : _url.webroot(trim(caption, "/"));
 
             myurl = _url.assetTimestamp(myurl);
-            options.set("src", myurl);
+            options = options.set("src", myurl);
         } else {
-            options.set("value", caption);
+            options = options.set("value", caption);
         }
         
         auto myinput = formatTemplate("inputSubmit", [
@@ -1789,7 +1789,7 @@ class DFormHelper : DHelper {
         ];
 
         options = _initInputField(fieldName, options);
-        options.set("type", "month");
+        options = options.set("type", "month");
 
         return _widget("datetime", options);
     }
@@ -1805,8 +1805,8 @@ class DFormHelper : DHelper {
     string dateTime(string fieldName, Json[string] options  = null) {
         auto options = options.merge(["value": Json(null)]);
         options = _initInputField(fieldName, options);
-        options.set("type", "datetime-local");
-        options.set("fieldName", fieldName);
+        options = options.set("type", "datetime-local");
+        options = options.set("fieldName", fieldName);
 
         return _widget("datetime", options);
     }
@@ -1861,12 +1861,12 @@ class DFormHelper : DHelper {
         auto options = options.update["fieldName": fieldName];
 
         if (!options.hasKey("secure")) {
-            options.set("secure", _View.getRequest().getAttribute("formTokenData").isNull ? false : true);
+            options = options.set("secure", _View.getRequest().getAttribute("formTokenData").isNull ? false : true);
         }
         auto mycontext = _getContext();
 
         if (options.hasKey("id") && options.get("id"] == true) {
-            options.set("id", _domId(fieldName));
+            options = options.set("id", _domId(fieldName));
         }
         if (!options.hasKey("name"))) {
             myendsWithBrackets = "";
@@ -1876,10 +1876,10 @@ class DFormHelper : DHelper {
             }
             string[] pathParts = fieldName.split(".");
             myfirst = pathParts.shift();
-            options.set("name", myfirst ~ (!pathParts.isEmpty ? "[" ~ join(., pathParts) ~ "]" : "") ~ myendsWithBrackets);
+            options = options.set("name", myfirst ~ (!pathParts.isEmpty ? "[" ~ join(., pathParts) ~ "]" : "") ~ myendsWithBrackets);
         }
         if (options.hasKey("value") && !options.hasKey("val")) {
-            options.set("val", options.getJson("value"));
+            options = options.set("val", options.getJson("value"));
             options.remove("value");
         }
         if (!options.hasKey("val")) {
@@ -1887,7 +1887,7 @@ class DFormHelper : DHelper {
                 "default": options.get("default"),
                 "schemaDefault": options.get("schemaDefault", true),
             ];
-            options.set("val", getSourceValue(fieldName, myvalOptions));
+            options = options.set("val", getSourceValue(fieldName, myvalOptions));
         }
         if (!options.hasKey("val") && options.hasKey("default")) {
             options.get("val"] = options.get("default"];
@@ -1895,14 +1895,14 @@ class DFormHelper : DHelper {
         options.remove("value", "default");
 
         if (cast(BackedEnum)options.get("val"]) {
-            options.set("val", options.get("val"].value);
+            options = options.set("val", options.get("val"].value);
         }
         if (mycontext.hasError(fieldName)) {
             options = addClass(options, configuration.get("errorClass"));
         }
         myisDisabled = _isDisabled(options);
         if (myisDisabled) {
-            options.set("secure", SECURE_SKIP);
+            options = options.set("secure", SECURE_SKIP);
         }
         return options;
     }

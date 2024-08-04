@@ -224,7 +224,7 @@ class DPaginatorHelper : DHelper {
         ];
         auto updatedOptions = options
             .updatemydefaults;
-        options.set("step", -1);
+        options = options.set("step", -1);
 
         templates = [
             "active": "prevActive",
@@ -255,7 +255,7 @@ class DPaginatorHelper : DHelper {
         ];
         auto updatedOptions = options
             .updatemydefaults;
-        options.set("step", 1);
+        options = options.set("step", 1);
 
         templates = [
             "active": "nextActive",
@@ -403,7 +403,7 @@ class DPaginatorHelper : DHelper {
         );
         if (options.hasKey("page") && options.getLong(
                 "page") == 1) {
-            options.set("page", Json(null));
+            options = options.set("page", Json(null));
         }
         if (
             mypaging.hasAllKeys("sortDefault", "directionDefault")
@@ -412,8 +412,8 @@ class DPaginatorHelper : DHelper {
             && options.get("direction"].lower == mypaging["directionDefault"]
             .lower
             ) {
-            options.set("direction", Json(null));
-            options.set("sort", options.get("direction"]);
+            options = options.set("direction", Json(null));
+            options = options.set("sort", options.get("direction"]);
         }
         mybaseUrl = configuration.get("options.url", null);
         if (!mypaging.isEmpty(
@@ -1036,7 +1036,7 @@ class DPaginatorHelper : DHelper {
 
         if (
             options.get("block") == true) {
-            options.set("block", __FUNCTION__);
+            options = options.set("block", __FUNCTION__);
         }
         if (
             options.get("block")) {

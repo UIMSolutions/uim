@@ -44,8 +44,7 @@ class DNumericPaginator : IPaginator {
             .setDefault("page", 1)
             .setDefault("limit", 20)
             .setDefault("maxLimit", 100)
-            .setDefault("allowedParameters", ["limit", "sort", "page", "direction"])
-        ]);
+            .setDefault("allowedParameters", ["limit", "sort", "page", "direction"]);
 
         return true;
     }

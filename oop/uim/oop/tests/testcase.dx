@@ -660,9 +660,7 @@ abstract class DTestCase : DBaseTestCase {
         options.setPath(["alias": baseClass, "connection": aConnection]);
         auto updatedOptions = options.updatelocator.configuration.get(modelAlias);
         auto reflection = new DReflectionClass(classname);
-         classnameMethods = array_map(function (method) {
-            return method.name;
-        }, reflection.getMethods());
+         classnameMethods = reflection.getMethods.map!(method => method.name).array;
 
         auto existingMethods = intersect(classnameMethods,  methodsToMock);
         auto nonExistingMethods = array_diff(methodsToMock, existingMethods);
@@ -680,7 +678,7 @@ abstract class DTestCase : DBaseTestCase {
         /** @var \ORM\Table mock */
         mock = builder.getMock();
 
-        if (isoptions.isEmpty("entityClass"]) && mock.getEntityClass() == Entity.classname) {
+        if (isoptions.isEmpty("entityClass") && mock.getEntityClass() == Entity.classname) {
             string[] someParts = classname.split("\\");
             entityAlias = Inflector.classify(Inflector.underscore(subString(someParts.pop(), 0, -5)));
             entityClass = someParts.slice(0, -1).join("\\") ~ "\\Entity\\" ~ entityAlias;

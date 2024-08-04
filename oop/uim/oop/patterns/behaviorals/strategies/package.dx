@@ -40,7 +40,7 @@ class DContext {
     _strategy = strategy;
   }
 
-  ulong executeStrategy(int num1, int num2) {
+  size_t executeStrategy(int num1, int num2) {
     return _strategy.doOperation(num1, num2);
   }
 }

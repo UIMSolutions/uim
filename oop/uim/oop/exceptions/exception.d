@@ -11,13 +11,13 @@ import uim.oop;
 class DException : Exception {
   this() {
     this.initialize;
-    super(message, __FILE__, cast(ulong) __LINE__, null);
+    super(message, __FILE__, cast(size_t) __LINE__, null);
   }
 
   this(
     string msg,
     string file = __FILE__,
-    ulong line = cast(ulong) __LINE__,
+    size_t line = cast(size_t) __LINE__,
     Throwable nextInChain = null
   ) {
     super(msg, file, line, nextInChain);

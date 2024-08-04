@@ -1203,18 +1203,16 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         }
         if (count(keys) != count(primaryKey)) {
             primaryKey = primaryKey ? primaryKey : [null];
-            primaryKey = array_map(function (keys) {
-                return var_export_(keys, true);
-            }, primaryKey);
+            primaryKey = primaryKey.map!(key => var_export_(keys, true)).array;
 
             throw new DInvalidPrimaryKeyException(
                 "Record not found in table `%s` with primary key `[%s]`."
                 .format(getTable(), join(", ", primaryKey)
            ));
         }
-        myconditions = keys.combine(primaryKey);
-
-        if (isArray(myfinder)) {
+        
+        auto myconditions = keys.combine(primaryKey);
+        if (myfinder.isArray) {
             deprecationWarning(
                 "5.0.0",
                 "Calling Table.get() with options array is deprecated."

@@ -9,14 +9,14 @@ import uim.oop;
 @safe:
 
 interface IError {
-  ulong code();
+  size_t code();
 
   void message(string message);
   string message();
 
   string fileName();
 
-  ulong lineNumber();
+  size_t lineNumber();
 
-  ulong[string][] trace();
+  size_t[string][] trace();
 }

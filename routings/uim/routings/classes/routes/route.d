@@ -595,9 +595,7 @@ class DRoute : IRoute {
      * Composes the string URL using the template used to create the route.
      */
     protected string _writeUrl(Json[string] options, Json[string] mypass = null, Json[string] query = null) {
-        mypass = array_map(function (myvalue) {
-            return rawUrlEncode(/* (string) */myvalue);
-        }, mypass);
+        mypass = mypass.map!(myvalue => rawUrlEncode(/* (string) */myvalue)).array;
         string mypass = mypass.join("/");
         string result = _template;
 

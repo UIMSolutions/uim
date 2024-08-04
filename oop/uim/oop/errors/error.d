@@ -14,11 +14,11 @@ class DError : UIMObject, IError {
   mixin(ErrorThis!(""));
 
   this(
-    ulong errorCode,
+    size_t errorCode,
     string errorMessage,
     string filenameOfError = "",
-    ulong lineOfError = 0,
-    ulong[string][] traceDataForError = null
+    size_t lineOfError = 0,
+    size_t[string][] traceDataForError = null
   ) {
     code(errorCode);
     message(errorMessage);
@@ -62,19 +62,19 @@ class DError : UIMObject, IError {
     return true;
   }
 
-  mixin(TProperty!("ulong", "code"));
+  mixin(TProperty!("size_t", "code"));
 
   mixin(TProperty!("string", "message"));
 
   mixin(TProperty!("string", "fileName"));
 
-  mixin(TProperty!("ulong", "lineNumber"));
+  mixin(TProperty!("size_t", "lineNumber"));
 
-  mixin(TProperty!("ulong[string][]", "trace"));
+  mixin(TProperty!("size_t[string][]", "trace"));
 
-  private string[ulong] _levelMap;
+  private string[size_t] _levelMap;
 
-  private ulong[string] _logMap;
+  private size_t[string] _logMap;
 
   /* // Get the mapped LOG_ constant.
   int logLevel() {

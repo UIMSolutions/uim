@@ -161,7 +161,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * myquery.cache(function (myq) {
      * key = serialize(myq.clause("select"));
      * key ~= serialize(myq.clause("where"));
-     * return md5(key);
+     * return key.md5;
      * });
      *
      * Using a pre-built cache engine.

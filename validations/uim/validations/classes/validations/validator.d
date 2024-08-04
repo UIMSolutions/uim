@@ -501,7 +501,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     void allowEmptyFor(
         string fieldName,
-        ulong flags = 0, /*Closure|*/
+        size_t flags = 0, /*Closure|*/
         string when = null  /* = true */ ,
         string message = null
     ) {
@@ -2248,8 +2248,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             ]); */
 
         return info
-            .set("_presenceMessages", _presenceMessages)
-            .set("_allowEmptyMessages", _allowEmptyMessages)
+            // TODO .set("_presenceMessages", _presenceMessages)
+            // .set("_allowEmptyMessages", _allowEmptyMessages)
             .set("_allowEmptyFlags", _allowEmptyFlags)
             .set("_useI18n", _useI18n)
             .set("_stopOnFailure", _stopOnFailure)

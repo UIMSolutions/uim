@@ -20,7 +20,7 @@ string exceptionThis(string exceptionName) {
   this(
     string msg,
     string file = __FILE__,
-    ulong line = cast(ulong) __LINE__,
+    size_t line = cast(size_t) __LINE__,
     Throwable nextInChain = null
  ) {
     super(msg, file, line, nextInChain);

@@ -15,9 +15,7 @@ class DContentsContainRow : DContentsRegExp {
      * Json other Row
      */
     bool matches(Json other) {
-        string[] row = array_map(function (cell) {
-            return preg_quote(cell, "/");
-        }, /* (array) */ other);
+        string[] row = other.map!(cell => preg_quote(cell, "/")).array;
         
         string cells = row.join("\s+\|\s+", );
         somePattern = "/" ~ cells ~ "/";

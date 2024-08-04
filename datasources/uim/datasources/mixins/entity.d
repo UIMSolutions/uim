@@ -907,15 +907,8 @@ mixin template TEntity() {
               cast(IDatasourceEntity) object) {
               return object.getErrors();
             }
-            Json[string] = array_map(
-              function(val) {
-              if (
-                cast(IDatasourceEntity) val) {
-                return val.getErrors();
-              }
-            }, /* (array) */ object);
-            return filterValues(
-              array);
+            Json[string] values = object.filter!(val => cast(IDatasourceEntity) val).map!(val => val.getErrors()).array;
+            return filterValues(values);
           }
 
           /**

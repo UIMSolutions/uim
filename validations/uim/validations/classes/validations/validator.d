@@ -1913,7 +1913,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     // Add a validation rule to ensure a field is an integer value.
     auto integer(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
-            message = _useI18n
+            errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be an integer")`
                 : "The provided value must be an integer";
         }
@@ -1949,7 +1949,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     // Add a validation rule to ensure that a field contains a scalar.
     auto scalar(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
-            message = _useI18n
+            errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be scalar")`
                 : "The provided value must be scalar";
         }
@@ -1967,7 +1967,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     // Add a validation rule to ensure a field is a 6 digits hex color value.
     auto hexColor(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
         if (errorMessage.isNull) {
-            message = _useI18n
+            errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be a hex color")`
                 : "The provided value must be a hex color";
         }
@@ -1987,11 +1987,11 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto multipleOptions(
         string fieldName,
         Json[string] options = null,
-        string message = null, /*Closure|*/
+        string errorMessage = null, /*Closure|*/
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
-            message = _useI18n
+            errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be a set of multiple options")`
                 : "The provided value must be a set of multiple options";
         }
@@ -2020,7 +2020,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must have at least '%s' elements".format(numberOfElements);
 
         }
-        // Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createMap!(string, Json)()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;

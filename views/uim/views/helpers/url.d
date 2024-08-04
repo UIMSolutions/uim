@@ -104,7 +104,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
                                 string script(string path, Json[string] options = null) {
-                                    auto updatedOptions = options.set("theme", _View.getTheme());
+                                    auto updatedOptions = options = options.set("theme", _View.getTheme());
                                     return htmlAttributeEscape(
                                     _assetUrlclassname.scriptUrl(path, updatedOptions));
                                 }

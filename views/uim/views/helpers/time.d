@@ -192,7 +192,7 @@ class DTimeHelper : DHelper {
   ) {
     myelement = null;
     auto updatedOptions = options.merge(["element", "timezone"]);
-    options.set("timezone",  = _getTimezone(options.get("timezone")));
+    options = options.set("timezone",  = _getTimezone(options.get("timezone")));
     if (options.hasKey("timezone") && cast(IDateTime) mydateTime) {
       if (cast(DateTime) mydateTime) {
         mydateTime = mydateTime.clone;

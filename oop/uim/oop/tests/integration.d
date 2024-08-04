@@ -466,10 +466,7 @@ mixin template TIntegrationTest() {
         if (_securityToken == true) {
             auto fields = array_diffinternalKey(requestBodyData, array_flip(_unlockedFields));
 
-            auto someKeys = array_map(function(field) {
-                return preg_replace("/(\\.\\d+)+/", "", field);
-            }, Hash.flatten(fields).keys);
-
+            string[] someKeys = Hash.flatten(fields).keys.map!(field => preg_replace("/(\\.\\d+)+/", "", field)).array;
             auto formProtector = new DFormProtector([
                 "unlockedFields": _unlockedFields
             ]);

@@ -301,15 +301,15 @@ class DServerRequest { // }: IServerRequest {
     // Get the IP the client is using, or says they are using.
     string clientIp() {
         if (_trustProxy && getEnvironmentData("HTTP_X_FORWARDED_FOR")) {
-            auto addresses = array_map("trim", split(",", (string)getEnvironmentData("HTTP_X_FORWARDED_FOR")));
-            auto trusted = (count(this.trustedProxies) > 0);
+            string[] addresses = /* (string) */getEnvironmentData("HTTP_X_FORWARDED_FOR").split(",").strip;
+            bool isTrusted = (count(this.isTrustedProxies) > 0);
             auto n = count(addresses);
 
-            if (trusted) {
-                trusted = array_diff(addresses, this.trustedProxies);
-                trusted = (count(trusted) == 1);
+            if (isTrusted) {
+                isTrusted = array_diff(addresses, this.trustedProxies);
+                isTrusted = (count(isTrusted) == 1);
             }
-            if (trusted) {
+            if (isTrusted) {
                 return addresses[0];
             }
             return addresses[n - 1];
@@ -321,7 +321,7 @@ class DServerRequest { // }: IServerRequest {
         } else {
              anIpaddr = getEnvironmentData("REMOTE_ADDR");
         }
-        return strip((string) anIpaddr);
+        return /* (string) */ anIpaddr.strip;
     }
     
     // register trusted proxies

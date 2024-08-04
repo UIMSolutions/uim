@@ -601,18 +601,16 @@ class DMessage { //: JsonSerializable {
     string getHeadersString(Json[string] includeHeader = [], string eol = "\r\n", DClosure callback = null) {
         auto lines = getHeaders(includeHeader);
 
-        if (callback) {
+        /* if (callback) {
             lines = array_map(callback, lines);
-        }
+        } */
         
-        auto aHeaders = null;
+        string[] aHeaders = null;
         foreach (key, value; lines) {
             if (aValue.isEmpty && value != "0") {
                 continue;
             }
-            foreach (v; /* (array) */value) {
-                 aHeaders ~= key ~ ": " ~ v;
-            }
+            aHeaders ~= value.map!(v => key ~ ": " ~ v).array;
         }
         return join(eol,  aHeaders);
     }
@@ -623,8 +621,6 @@ class DMessage { //: JsonSerializable {
      * If the address contains non alphanumeric/whitespace characters, it will
      * be quoted as characters like `:` and `,` are known to cause issues
      * in address header fields.
-     * Params:
-     * Json[string] address Addresses to format.
      */
     protected string[] formatAddress(Json[string] address) {
         string[] results;

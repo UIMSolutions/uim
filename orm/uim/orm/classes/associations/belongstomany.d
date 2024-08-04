@@ -562,7 +562,7 @@ class DBelongsToManyAssociation : DAssociation {
         auto entityClass = junction.getEntityClass();
         auto belongsTo = junction.getAssociation(target.aliasName());
         auto foreignKeys = foreignKeys();
-        auto assocForeignKey = /* (array) */belongsTo.foreignKeys();
+        auto assocForeignKeys = /* (array) */belongsTo.foreignKeys();
         auto targetBindingKey = /* (array) */belongsTo.getBindingKey();
         auto bindingKey = /* (array) */getBindingKey();
         auto jointProperty = _junctionProperty;
@@ -574,11 +574,11 @@ class DBelongsToManyAssociation : DAssociation {
                 joint = new DORMEntityClass([], ["markNew": true.toJson, "source": junctionRegistryAlias]);
             }
             sourceKeys = array_combine(foreignKeys, sourceEntity.extract(bindingKey));
-            targetKeys = array_combine(assocForeignKey, e.extract(targetBindingKey));
+            targetKeys = array_combine(assocForeignKeys, e.extract(targetBindingKey));
 
             changedKeys = (
                 sourceKeys != joint.extract(foreignKeys) ||
-                targetKeys != joint.extract(assocForeignKey)
+                targetKeys != joint.extract(assocForeignKeys)
            );
             // Keys were changed, the junction table record _could_ be
             // new. By clearing the primary key values, and marking the entity
@@ -888,14 +888,14 @@ class DBelongsToManyAssociation : DAssociation {
                 auto target = getTarget();
 
                 auto foreignKeys = /* (array) */foreignKeys();
-                auto assocForeignKey = (array)junction.getAssociation(target.aliasName()).foreignKeys();
+                auto assocForeignKeys = (array)junction.getAssociation(target.aliasName()).foreignKeys();
 
                 auto prefixedForeignKey = array_map([junction, "aliasField"], foreignKeys);
                 auto junctionPrimaryKey = (array)junction.primaryKeys();
                 auto junctionQueryAlias = junction.aliasName() ~ "__matches";
 
                 auto keys = matchesConditions = null;
-                foreach (array_merge(assocForeignKey, junctionPrimaryKey) as key) {
+                foreach (array_merge(assocForeignKeys, junctionPrimaryKey) as key) {
                     aliased = junction.aliasField(key);
                     keys[key] = aliased;
                     matchesConditions[aliased] = new DIdentifierExpression(junctionQueryAlias ~ "." ~ key);
@@ -959,14 +959,14 @@ class DBelongsToManyAssociation : DAssociation {
         auto target = getTarget();
         auto belongsTo = junction.getAssociation(target.aliasName());
         auto foreignKeys = (array)foreignKeys();
-        auto assocForeignKey = (array)belongsTo.foreignKeys();
+        auto assocForeignKeys = (array)belongsTo.foreignKeys();
 
-        auto keys = array_merge(foreignKeys, assocForeignKey);
+        auto keys = array_merge(foreignKeys, assocForeignKeys);
         auto deletes = unmatchedEntityKeys = present = null;
 
         foreach (i, entity; jointEntities) {
             unmatchedEntityKeys[i] = entity.extract(keys);
-            present[i] = array_values(entity.extract(assocForeignKey));
+            present[i] = array_values(entity.extract(assocForeignKeys));
         }
 
         foreach (existing as existingLink) {
@@ -1076,26 +1076,23 @@ class DBelongsToManyAssociation : DAssociation {
 
         auto belongsTo = junction.getAssociation(target.aliasName());
         auto hasMany = source.getAssociation(junction.aliasName());
-        auto foreignKeys = (array)foreignKeys();
-        auto foreignKeys = array_map(function (key) {
-            return key ~ " IS";
-        }, foreignKeys);
+        string[] foreignKeys = foreignKeys().map!(key => key ~ " IS").array;
         
-        auto assocForeignKey = (array)belongsTo.foreignKeys();
-        assocForeignKey = array_map(function (key) {
+        string[] assocForeignKeys = /* (array) */belongsTo.foreignKeys();
+        assocForeignKeys = array_map(function (key) {
             return key ~ " IS";
-        }, assocForeignKey);
-        sourceKey = sourceEntity.extract((array)source.primaryKeys());
+        }, assocForeignKeys);
+        auto sourceKey = sourceEntity.extract(/* (array) */source.primaryKeys());
 
-        unions = null;
+        auto unions = null;
         foreach (key; missing) {
             unions ~= hasMany.find()
                 .where(foreignKeys.combine(sourceKey))
-                .where(assocForeignKey.combine(key));
+                .where(assocForeignKeys.combine(key));
         }
 
-        query = unions.shift();
-        foreach (unions as q) {
+        auto query = unions.shift();
+        foreach (q; unions) {
             query.union(q);
         }
 

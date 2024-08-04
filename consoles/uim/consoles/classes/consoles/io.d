@@ -309,11 +309,7 @@ class DConsoleIo {
 
     string askChoice(string aprompt, string[] choices, string defaultValue = null) {
         string printChoices = "(" ~ choices.join("/") ~ ")";
-        choices = chain(
-            array_map("strtolower", choices),
-            array_map("strtoupper", choices),
-            choices
-        );
+        choices = chain(choices.lower, choices.upper, choices);
 
         string anIn = "";
         while (anIn.isEmpty || !anIn.isIn(choices)) {

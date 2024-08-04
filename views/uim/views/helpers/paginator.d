@@ -184,7 +184,7 @@ class DPaginatorHelper : DHelper {
             return result;
         }
         
-        auto url = this.generateUrl(
+        auto url = generateUrl(
             [
                 "page": paginated()
                 .currentPage() + options.get("step"]
@@ -313,8 +313,8 @@ class DPaginatorHelper : DHelper {
                 mysortKey == aliasName ~ "." ~ key ||
                 mytable ~ "." ~ fieldName == aliasName ~ "." ~ mysortKey
         );
-        mytemplate = "sort";
-        mydir = mydefaultDir;
+        auto mytemplate = "sort";
+        auto mydir = mydefaultDir;
         if (myisSorted) {
             if (mylocked) {
                 mytemplate = mydir == "asc" ? "sortDescLocked" : "sortAscLocked";
@@ -323,18 +323,16 @@ class DPaginatorHelper : DHelper {
                 mytemplate = mydir == "asc" ? "sortDesc" : "sortAsc";
             }
         }
-        if (linkTitle.isArray && hasKey(
-                mydir, linkTitle)) {
+        if (linkTitle.isArray && linkTitle.hasKey(mydir)) {
             linkTitle = linkTitle[mydir];
         }
-        mypaging = [
-            "sort": key,
-            "direction": mydir,
-            "page": 1
-        ];
-        myvars = [
-            "text": options.get("escape"] ? htmlAttributeEscape(mytitle): mytitle,
-            "url": this.generateUrl(mypaging, url),
+        
+        auto mypaging = createMap!(string, Json)
+            .set("sort", key).set("direction", mydir).set("page", 1);
+
+        auto myvars = [
+            "text": options.get("escape") ? htmlAttributeEscape(mytitle): mytitle,
+            "url": generateUrl(mypaging, url),
         ];
         return _templater().format(mytemplate, myvars);
     }
@@ -412,8 +410,8 @@ class DPaginatorHelper : DHelper {
             && options.get("direction"].lower == mypaging["directionDefault"]
             .lower
             ) {
-            options = options.set("direction", Json(null));
-            options = options.set("sort", options.get("direction"]);
+            options.set("direction", Json(null));
+            options.set("sort", options.get("direction"));
         }
         mybaseUrl = configuration.get("options.url", null);
         if (!mypaging.isEmpty(
@@ -682,7 +680,7 @@ class DPaginatorHelper : DHelper {
         }
         result ~= contentTemplater.format("current", [
                 "text": this.Number.format(params.getString("currentPage")),
-                "url": this.generateUrl(["page": params.get("currentPage")], options.get("url")),
+                "url": generateUrl(["page": params.get("currentPage")], options.get("url")),
             ]);
         mystart = (int) params["currentPage"] + 1;
         index = mystart;
@@ -831,7 +829,7 @@ class DPaginatorHelper : DHelper {
             for (index = 1; index <= myfirst; index++) {
                 result ~= this.templater()
                     .format("number", [
-                            "url": this.generateUrl(
+                            "url": generateUrl(
                                 ["page": index], options.get("url")),
                             "text": this
                             .Number
@@ -901,7 +899,7 @@ class DPaginatorHelper : DHelper {
                 index = mylower; index <= mypageCount; index++) {
                 result ~= this.templater()
                     .format("number", [
-                            "url": this.generateUrl(
+                            "url": generateUrl(
                                 ["page": index], options.get("url")),
                             "text": this
                             .Number
@@ -917,7 +915,7 @@ class DPaginatorHelper : DHelper {
                     mylast) : mylast;
             result ~= this.templater()
                 .format("last", [
-                        "url": this.generateUrl(
+                        "url": generateUrl(
                             ["page": mypageCount], options.get("url")),
                         "text": mylast,
                     ]);
@@ -966,7 +964,7 @@ class DPaginatorHelper : DHelper {
         if (options.hasKey("prev"] && this.hasPrev()) {
             mylinks ~= _html.meta(
                 "prev",
-                this.generateUrl(
+                generateUrl(
                     [
                         "page": paginated()
                         .currentPage() - 1
@@ -984,7 +982,7 @@ class DPaginatorHelper : DHelper {
         if (options.hasKey("next"] && this.hasNext()) {
             mylinks ~= _html.meta(
                 "next",
-                this.generateUrl(
+                generateUrl(
                     [
                         "page": paginated()
                         .currentPage() + 1
@@ -1003,7 +1001,7 @@ class DPaginatorHelper : DHelper {
             options.get("first")) {
             mylinks ~= _html.meta(
                 "first",
-                this.generateUrl([
+                generateUrl([
                         "page": 1
                     ], [
                     ], [
@@ -1016,7 +1014,7 @@ class DPaginatorHelper : DHelper {
         if (options.hasKey("last")) {
             mylinks ~= _html.meta(
                 "last",
-                this.generateUrl(
+                generateUrl(
                     [
                         "page": paginated()
                         .pageCount()

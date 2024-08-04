@@ -71,7 +71,7 @@ class DRoutesCheckCommand : DCommand {
    )
       .addArgument("url", createMap!(string, Json)
           .set("help", "The URL to check.")
-          .set("required", true.toJson)
+          .set("required", true)
         );
 
     return parserToUpdate;

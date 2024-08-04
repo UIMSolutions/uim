@@ -13,21 +13,20 @@ class DSqlserverDriver : DDriver {
             return false;
         }
 
-        configuration.setPath([
-            "host": Json("localhost\\SQLEXPRESS"),
-            "username": "".toJson,
-            "password": "".toJson,
-            "database": Json("uim"),
-            "port": "".toJson,
+        configuration
+            .merge("host", "localhost\\SQLEXPRESS")
+            .merge("username", "")
+            .merge("password", "")
+            .merge("database", "uim")
+            .merge("port", "")
             // PDO.SQLSRV_ENCODING_UTF8
-            "encoding": Json(65_001),
-        ])
-        .merge(
-            ["flags", "init", "settings", "attributes"], Json.emptyArray
-        )
-        .merge(
-            ["app", "connectionPooling", "failoverPartner", "loginTimeout", "multiSubnetFailover", "encrypt", "trustServerCertificate"],
-            Json(null));
+            .merge("encoding", 65_001)
+            .merge(
+                ["flags", "init", "settings", "attributes"], Json.emptyArray
+            )
+            .merge(
+                ["app", "connectionPooling", "failoverPartner", "loginTimeout", "multiSubnetFailover", "encrypt", "trustServerCertificate"],
+                Json(null));
 
         startQuote("[");
         endQuote("]");

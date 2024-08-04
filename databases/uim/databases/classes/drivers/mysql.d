@@ -21,18 +21,17 @@ class DMysqlDriver : DDriver {
         }
 
         // Base configuration settings for MySQL driver
-        configuration.merge([
-            "persistent": true.toJson,
-            "host": Json("localhost"),
-            "username": Json("root"),
-            "password": "".toJson,
-            "database": Json("uim"),
-            "port": Json("3306"),
-            "flags": Json.emptyArray,
-            "encoding": Json("utf8mb4"),
-            "timezone": Json(null),
-            "init": Json.emptyArray,
-        ]);
+        configuration
+            .merge("persistent", true)
+            .merge("host", "localhost")
+            .merge("username", "root")
+            .merge("password", "")
+            .merge("database", "uim")
+            .merge("port", "3306")
+            .merge("flags", Json.emptyArray)
+            .merge("encoding", "utf8mb4")
+            .merge("timezone", null)
+            .merge("init", Json.emptyArray);
 
         startQuote("`");
         endQuote("`");

@@ -775,10 +775,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * Be careful about using it without proper sanity checks.
      */
     auto whereNotInList(string fieldName, Json[string] someValues, Json[string] options = null) {
-        options.merge([
-            "types": Json.emptyArray,
-            "allowEmpty": false.toJson
-        ]);
+        options
+            .merge("types", Json.emptyArray)
+            .merge("allowEmpty", false);
 
         if (options.hasKey("allowEmpty") && !someValues) {
             return _where([fieldName ~ " IS NOT": Json(null)]);

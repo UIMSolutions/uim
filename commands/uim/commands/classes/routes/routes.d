@@ -175,14 +175,13 @@ class DRoutesCommand : DCommand {
                     DConsoleOptionParser buildOptionParser aParser) {
                     aParser
                         .description("Get the list of routes connected in this application.")
-                        .addOption("sort", [
-                                "help": "sorts alphabetically by route name A-Z",
-                                "short": "s",
-                                "boolean": true.toJson,
-                            ]);
+                        .addOption("sort", createMap!(string, Json)
+                            .set("help", "sorts alphabetically by route name A-Z")
+                            .set("short", "s")
+                            .set("boolean", true)
+                        );
 
                     return aParser;
                 }
             }
-
-            * / 
+            */ 

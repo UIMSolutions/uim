@@ -45,21 +45,21 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * Json[string] options The options to use. See above.
      */
     this(Json[string] options = null) {
-        auto updatedOptions = options.update["Json": true.toJson, "xml": false.toJson, "methods": Json(null)];
-        if (options.hasKey("Json"]) {
+        options.merge(["Json": true.toJson, "xml": false.toJson, "methods": Json(null)]);
+        if (options.hasKey("Json")) {
             this.addParser(
                 ["application/Json", "text/Json"],
                 this.decodeJson(...)
            );
         }
-        if (options.hasKey("xml"]) {
+        if (options.hasKey("xml")) {
             this.addParser(
                 ["application/xml", "text/xml"],
                 this.decodeXml(...)
            );
         }
-        if (options.hasKey("methods"]) {
-            setMethods(options.get("methods"]);
+        if (options.hasKey("methods")) {
+            setMethods(options.get("methods"));
         }
     }
     
@@ -83,7 +83,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
     void addParser(Json[string] contentTypeHeaders, Closure parserFunction) {
         types
             .map!(contentTypeHeaders => contentTypeHeaders.lower)
-            .each!(contentTypeHeaders => this.parsers[contentTypeHeaders] = parserFunction);
+            .each!(contentTypeHeaders => _parsers[contentTypeHeaders] = parserFunction);
     }
     
     // Get the current parsers
@@ -99,22 +99,21 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      */
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
-        if (!isIn(request.getMethod(), this.methods, true)) {
-            return requestHandler.handle(request);
+        if (!isIn(serverRequest.getMethod(), this.methods, true)) {
+            return requestHandler.handle(serverRequest);
         }
-        [type] = request.getHeaderLine("Content-Type").split(";");
+        [type] = serverRequest.getHeaderLine("Content-Type").split(";");
         type = type.lower;
-        if (!this.parsers.hasKey(type)) {
-            return requestHandler.handle(request);
+        if (!_parsers.hasKey(type)) {
+            return requestHandler.handle(serverRequest);
         }
-         aParser = this.parsers[type];
-        result = aParser(request.getBody().getContents());
+        
+        auto result = _parsers[type](serverRequest.getBody().getContents());
         if (!isArray(result)) {
             throw new BadRequestException();
         }
-        request = request.withParsedBody(result);
-
-        return requestHandler.handle(request);
+        return requestHandler.handle(
+            serverRequest.withParsedBody(result));
     }
     
     // Decode Json into an array.

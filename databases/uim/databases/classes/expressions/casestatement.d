@@ -133,12 +133,12 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *   .case()
      *   .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
      *       return whenThen
-     *           .when(["Table.column": true.toJson])
+     *           .when(["Table.column": true])
      *           .then("Yes");
      *   })
      *   .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
      *       return whenThen
-     *           .when(["Table.column": false.toJson])
+     *           .when(["Table.column": false])
      *           .then("No");
      *   })
      *   .else("Maybe");
@@ -258,9 +258,9 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * ```
      * case
-     *   .when(["Table.column": true.toJson])
+     *   .when(["Table.column": true])
      *   .then("Yes")
-     *   .when(["Table.column": false.toJson])
+     *   .when(["Table.column": false])
      *   .then("No")
      *   .else("Maybe");
      * ```
@@ -269,14 +269,14 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * ```
      * case
-     *   .when(["Table.column": true.toJson])
-     *   .when(["Table.column": false.toJson])
+     *   .when(["Table.column": true])
+     *   .when(["Table.column": false])
      *   // ...
      * ```
      *
      * ```
      * case
-     *   .when(["Table.column": true.toJson])
+     *   .when(["Table.column": true])
      *   .else("Maybe")
      *   // ...
      * ```
@@ -289,7 +289,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * ```
      * case
-     *   .when(["Table.column": true.toJson])
+     *   .when(["Table.column": true])
      *   .then("Yes")
      *   .then("No")
      *   // ...

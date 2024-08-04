@@ -34,7 +34,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *  FormHelper.
      *
      */
-    protected Json _config = [
+    protected Json[sting] _config = [
         "cookieName": "csrfToken",
         "expiry": 0.toJson,
         "secure": false.toJson,

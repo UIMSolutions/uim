@@ -407,8 +407,8 @@ class DClient { // }: IClient {
       .merge("host", Json(null))
       .merge("port", Json(null))
       .merge("scheme", "http")
-      .merge("basePath", "".toJson)
-      .merge("protocolRelative", false.toJso);
+      .merge("basePath", "")
+      .merge("protocolRelative", false);
 
     if (queryData) {
       fullUrl ~= fullUrl.contains("?") ? "&" : "?";

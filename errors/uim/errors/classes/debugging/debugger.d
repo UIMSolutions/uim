@@ -568,7 +568,7 @@ protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContex
     if (remaining >= 0) {
         outputMask = outputMask();
         foreach (valueToExport as key : val) {
-            if (array_key_hasKey(key, outputMask)) {
+            if (hasKey(key, outputMask)) {
                 node = new DScalarNode("string", outputMask[key]);
             }
             else if(val != valueToExport) {
@@ -621,7 +621,7 @@ protected static IErrorNode exportObject(object objToConvert, DDebugContext dump
         auto outputMask = outputMask();
         auto objectVars = get_object_vars(objToConvert);
         foreach (key, value; objectVars) {
-            if (array_key_hasKey(key, outputMask)) {
+            if (hasKey(key, outputMask)) {
                 value = outputMask[key];
             }
             /** @psalm-suppress RedundantCast */

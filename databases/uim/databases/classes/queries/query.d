@@ -1206,7 +1206,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * - union: array
      */
     Json clause(string clauseName) {
-/*        if (!array_key_hasKey(clauseName, _parts)) {
+/*        if (!hasKey(clauseName, _parts)) {
             auto clauses = _parts.keys;
             array_walk(clauses, fn (&$x): $x = "`$x`");
             clauses = clauses.join(", ");

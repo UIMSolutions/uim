@@ -287,7 +287,6 @@ Json[string] set(T)(Json[string] items, string key, T value) {
 }
 
 Json[string] set(ref Json[string] items, string key, Json value) {
-  writeln("Json[string] set(Json[string] items, string key, Json value)");
   if (key.length == 0) {
     return items;
   }
@@ -552,3 +551,26 @@ unittest {
 }
 // #endregion is
 
+unittest {
+  writeln("--- JMap all");
+
+  writeln(createMap!(string, Json).set("x", "X"));
+  writeln(createMap!(string, Json).set("x", "X").set("x", "X"));
+  writeln(createMap!(string, Json).set("x", "X").set("y", "Y"));
+  writeln(createMap!(string, Json).set("bool", true));
+  writeln(createMap!(string, Json).set("bool", true).set("x", "X"));
+
+  auto testMap = createMap!(string, Json).set("x", "X");
+  writeln(testMap.set("x", "X"));
+  writeln(testMap.set("x", "X").set("x", "X"));
+  writeln(testMap.set("x", "X").set("y", "Y"));
+  writeln(testMap);
+  writeln(testMap.set("bool", true));
+  writeln(testMap.set("long", 1).set("x", "X"));
+  writeln(testMap.set("double", 1.1).set("y", "Y"));
+  writeln(testMap);
+  writeln(testMap.update("bool", false).update("long", 2).update("double", 2.1));
+  writeln(testMap);
+  writeln(testMap.merge("boolx", false).merge("longx", 2).merge("doublex", 2.1));
+  writeln(testMap);
+}

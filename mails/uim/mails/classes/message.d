@@ -1297,7 +1297,7 @@ class DMessage { //: JsonSerializable {
      */
     string getContentTypeCharset() {
         string charset = this.charset.upper;
-        return array_key_hasKey(charset, this.contentTypeCharset))
+        return hasKey(charset, this.contentTypeCharset))
             ? this.contentTypeCharset[charset].upper
             : this.charset.upper;
     }

@@ -1058,7 +1058,7 @@ class DServerRequest { // }: IServerRequest {
      */
     string getEnvironmentData(string key, string defaultValue = null) {
         auto key = key.upper;
-        if (!array_key_hasKey(key, _environmentData)) {
+        if (!hasKey(key, _environmentData)) {
            _environmentData[key] = enviroment(key);
         }
         return _environmentData[key] !is null ? (string)_environmentData[key] : default;
@@ -1194,7 +1194,7 @@ class DServerRequest { // }: IServerRequest {
             }
             return _{attributeName};
         }
-        if (array_key_hasKey(attributeName, this.attributes)) {
+        if (hasKey(attributeName, this.attributes)) {
             return _attributes[attributeName];
         }
         return default;

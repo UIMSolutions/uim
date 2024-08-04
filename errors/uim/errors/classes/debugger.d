@@ -496,7 +496,7 @@ class DDebugger : UIMObject {
         if (remaining >= 0) {
             outputMask = outputMask();
             foreach (key : val; exportValues) {
-                if (array_key_hasKey(key, outputMask)) {
+                if (hasKey(key, outputMask)) {
                     node = new DScalarNode("string", outputMask[key]);
                 } else if (val != exportValues) {
                     // Dump all the items without increasing depth.

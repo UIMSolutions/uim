@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
 **********************************************************************************************************/
-module uim.models.classes.attributes.ulongs;
+module uim.models.classes.attributes.size_ts;
 
 import uim.models;
 @safe:

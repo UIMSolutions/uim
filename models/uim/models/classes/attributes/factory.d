@@ -40,7 +40,7 @@ class DAttributeFactory {
             break;
         case "long": 
             break;
-        case "ulong": 
+        case "size_t": 
             break;
         case "float": 
             break;

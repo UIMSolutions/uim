@@ -299,7 +299,7 @@ class DData : UIMObject, IData {
   }
   // #endregion key/keys
 
-  ulong length() {
+  size_t length() {
     return 0;
   }
 

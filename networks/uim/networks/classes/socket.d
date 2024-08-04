@@ -137,7 +137,7 @@ class DSocket {
                                 ref int errorNumber,
                                 ref string errorString,
                                 int timeout,
-                                ulong connectFlags,
+                                size_t connectFlags,
                                 Json[string] context
                             ) {
                                 auto resource = stream_socket_client(

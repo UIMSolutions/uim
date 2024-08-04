@@ -4,5 +4,5 @@ import uim.oop;
 @safe:
 
 interface ICommand :INamed {
-    ulong execute(Json[string] options, IConsole console = null);
+    size_t execute(Json[string] options, IConsole console = null);
 }

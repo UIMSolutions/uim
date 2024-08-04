@@ -144,7 +144,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
      * Params:
      * \UIM\Console\Json[string] commandArguments The command arguments.
      */
-    abstract ulong execute(Json[string] commandArguments, DConsoleIo aConsoleIo);
+    abstract size_t execute(Json[string] commandArguments, DConsoleIo aConsoleIo);
 
     // Halt the current process with a StopException.
     /* never abort(int exitCode = CODE_ERROR) {
@@ -158,7 +158,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
      * will not be resolved with the application container. Instead you will
      * need to pass the command as an object with all of its dependencies.
      */
-    ulong executeCommand(string commandclassname, Json[string] commandArguments = null, DConsoleIo aConsoleIo = null) {
+    size_t executeCommand(string commandclassname, Json[string] commandArguments = null, DConsoleIo aConsoleIo = null) {
         /* assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
@@ -169,7 +169,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
         return 0; 
     }
 
-    ulong executeCommand(DCommand acommand, Json[string] commandArguments = null,  DConsoleIo aConsoleIo = null) {
+    size_t executeCommand(DCommand acommand, Json[string] commandArguments = null,  DConsoleIo aConsoleIo = null) {
         // auto myConsoleIo = aConsoleIo ?  : new DConsoleIo();
 
         /* try {

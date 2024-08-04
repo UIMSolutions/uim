@@ -172,8 +172,7 @@ class DCacheEngine : UIMObject, ICache, ICacheEngine {
      */
     protected string internalKey(string key) {
         string prefix = groupName
-            ? groups().join("_") //TODO md5(groups().join("_"))
-             : "";
+            ? groups().join("_").md5 : "";
 
         // TODO auto changedKey = key.replaceAll.regex(r"/[\s]+/", "_");
         return configuration.getString("prefix") ~ prefix; //  ~ changedKey;

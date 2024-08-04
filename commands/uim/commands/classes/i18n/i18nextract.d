@@ -96,7 +96,7 @@ class DI18nExtractCommand : DCommand {
     }
 
     // Execute the command
-  ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+  size_t execute(Json[string] arguments, IConsoleIo consoleIo) {
         string myPlugin = "";
         if (arguments.hasKey("exclude")) {
            _exclude = arguments.getString("exclude").split(",");
@@ -243,56 +243,52 @@ class DI18nExtractCommand : DCommand {
             "source files are parsed and string literal format strings " ~
             "provided to the <info>__</info> family of functions are extracted."
        );
-        aParser.addOption("app", [
-            "help": Json("Directory where your application is located."),
-        ]);
-        aParser.addOption("paths", [
-            "help": Json("2'Comma separated list of paths that are searched for source files."),
-        ]);
-        aParser.addOption("merge", [
-            "help": Json("Merge all domain strings into a single default.po file."),
-            "default": Json("no"),
-            "choices": ["yes", "no"],
-        ]);
-        aParser.addOption("output", [
-            "help": Json("Full path to output directory.")
-        ]);
-        aParser.addOption("files", [
-            "help": Json("Comma separated list of files to parse.")
-        ]);
-        aParser.addOption("exclude-plugins", [
-            "boolean": true.toJson,
-            "default": true.toJson,
-            "help": Json("Ignores all files in plugins if this command is run inside from the same app directory."),
-        ]);
-        aParser.addOption("plugin", [
-            "help": Json("Extracts tokens only from the plugin specified and " ~ 
-                "puts the result in the plugin\`s `locales` directory."),
-            "short": Json("p"),
-        ]);
-        aParser.addOption("exclude", [
-            "help": Json("Comma separated list of directories to exclude." ~
+        aParser.addOption("app", createMap!(string, Json)
+            .set("help", "Directory where your application is located.")
+        );
+        aParser.addOption("paths", createMap!(string, Json)
+            .set("help", "2'Comma separated list of paths that are searched for source files.")
+        );
+        aParser.addOption("merge", createMap!(string, Json)
+            .set("help", "Merge all domain strings into a single default.po file.")
+            .set("default", "no")
+            .set("choices", ["yes", "no"])
+        );
+        aParser.addOption("output", createMap!(string, Json)
+            .set("help", "Full path to output directory.")
+        );
+        aParser.addOption("files", createMap!(string, Json)
+            .set("help", "Comma separated list of files to parse.")
+        );
+        aParser.addOption("exclude-plugins", createMap!(string, Json)
+            .set("boolean", true).set("default", true)
+            .set("help", "Ignores all files in plugins if this command is run inside from the same app directory.")
+        );
+        aParser.addOption("plugin", createMap!(string, Json)
+            .set("help", "Extracts tokens only from the plugin specified and " ~ 
+                "puts the result in the plugin\`s `locales` directory.")
+            .set("short", "p")
+        );
+        aParser.addOption("exclude", createMap!(string, Json)
+            .set("help", "Comma separated list of directories to exclude." ~
                 " Any path containing a path segment with the provided values will be skipped. E.g. test,vendors")
-        ]);
-        aParser.addOption("overwrite", [
-            "boolean": true.toJson,
-            "default": false.toJson,
-            "help": Json("Always overwrite existing .pot files.")
-        ]);
-        aParser.addOption("extract-core", [
-            "help": "Extract messages from the UIM core libraries.",
-            "choices": ["yes", "no"],
-        ]);
-        aParser.addOption("no-location", [
-            "boolean": true.toJson,
-            "default": false.toJson,
-            "help": Json("Do not write file locations for each extracted message.",
-        ]);
-        aParser.addOption("marker-error", [
-            "boolean": true.toJson,
-            "default": false.toJson,
-            "help": Json("Do not display marker error.",
-        ]);
+        );
+        aParser.addOption("overwrite", createMap!(string, Json)
+            .set("boolean", true).set("default", false)
+            .set("help", "Always overwrite existing .pot files.")
+        );
+        aParser.addOption("extract-core", createMap!(string, Json)
+            .set("help", "Extract messages from the UIM core libraries.")
+            .set("choices", ["yes", "no"])
+        );
+        aParser.addOption("no-location", createMap!(string, Json)
+            .set("boolean", true).set("default", false)
+            .set("help", "Do not write file locations for each extracted message.")
+        );
+        aParser.addOption("marker-error", createMap!(string, Json)
+            .set("boolean", true).set("default", false)
+            .set("help", "Do not display marker error.")
+        );
 
         return aParser;
     }

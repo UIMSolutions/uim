@@ -17,7 +17,7 @@ class DI18nCommand : DCommand {
     }
 
     // Execute interactive mode
-    ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+    size_t execute(Json[string] arguments, IConsoleIo consoleIo) {
         consoleIo.writeln("<info>I18n Command</info>");
         consoleIo.hr();
         consoleIo.writeln("[E]xtract POT file from sources");

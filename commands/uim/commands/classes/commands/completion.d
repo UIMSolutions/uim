@@ -65,7 +65,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     }
 
     // Main auto Prints out the list of commands.
-    override ulong execute(Json[string] arguments, IConsole aConsole = null) {
+    override size_t execute(Json[string] arguments, IConsole aConsole = null) {
         return match(commandArguments.getArgument("mode")) {
             "commands" : getCommands(commandArguments, aConsoleIo),
             "subcommands" : getSubcommands(commandArguments, aConsoleIo),

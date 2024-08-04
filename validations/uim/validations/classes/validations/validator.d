@@ -119,7 +119,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         auto myerrors = null;
         foreach (ruleNames, fieldName; _fields) {
             auto ruleNames = to!string(ruleNames);
-            auto mykeyPresent = array_key_hasKey(ruleNames, data);
+            auto mykeyPresent = hasKey(ruleNames, data);
 
             auto providers = _providers;
             auto context = compact("data", "newRecord", "field", "providers");
@@ -253,7 +253,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Unsets the rule set for a field
-    void offsetUnset(Json fieldName) {
+    void offsetUnset(string fieldName) {
         _fields.remove(fieldName);
     }
 
@@ -685,7 +685,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "This field cannot be left empty")`;
         }
 
-        // Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createMap!(string, Json)()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;

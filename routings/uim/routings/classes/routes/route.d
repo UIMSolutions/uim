@@ -228,7 +228,7 @@ class DRoute : IRoute {
             mysearch = preg_quote(mymatchArray[0][0]);
             if (isSet(configuration.set(routings))) {
                 string myoption = "";
-                if (routings != "plugin" && array_key_hasKey(routings, _defaults)) {
+                if (routings != "plugin" && hasKey(routings, _defaults)) {
                     myoption = "?";
                 }
                 // Dcs:disable Generic.Files.LineLength
@@ -443,7 +443,7 @@ class DRoute : IRoute {
      */
     protected Json[string] _persistParams(Json[string] url, Json[string] options) {
         foreach (persistKey, configuration.getStringArray("persist")) {
-            if (array_key_hasKey(mypersistKey, options) && url.isNull(mypersistKey)) {
+            if (hasKey(mypersistKey, options) && url.isNull(mypersistKey)) {
                 url.set(mypersistKey, options.get(mypersistKey]);
             }
         }
@@ -541,7 +541,7 @@ class DRoute : IRoute {
         auto mypass = null;
         foreach (aKey, myvalue; url) {
             // If the key is a routed key, it"s not different yet.
-            if (array_key_hasKey(aKey, keyName)) {
+            if (hasKey(aKey, keyName)) {
                 continue;
             }
             // pull out passed args
@@ -602,7 +602,7 @@ class DRoute : IRoute {
         auto mysearch = null;
         auto myreplace = null;
         _keys.each!((key) {
-            if (!array_key_hasKey(key, options)) {
+            if (!hasKey(key, options)) {
                 throw new DInvalidArgumentException(
                     "Missing required route key `%s`.".format(key));
             }

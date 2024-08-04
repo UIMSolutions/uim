@@ -240,7 +240,7 @@ class DValidation {
      * Return true if the comparison matches the expected result.
      */
     static bool compareFields(Json value, string fieldName, string originalEntities, Json[string] context) {
-        /* if (context.isNull("data") || !array_key_hasKey(fieldName, context["data"])) {
+        /* if (context.isNull("data") || !hasKey(fieldName, context["data"])) {
             return false;
         } */
         // TODO return comparison(value, originalEntities, context["data"][fieldName]);

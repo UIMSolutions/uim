@@ -852,7 +852,7 @@ class DFormHelper : DHelper {
         if (
             isNestedInput == true
             && options.getString("type") == "checkbox"
-            && !array_key_hasKey("hiddenField", options)
+            && !hasKey("hiddenField", options)
             && mylabel == true
        ) {
             options.get("hiddenField", "_split");
@@ -1126,7 +1126,7 @@ class DFormHelper : DHelper {
     
     // Extracts a single option from an options array.
     protected Json _extractOption(string optionName, Json[string] optionsToExtract, Json defaultValue = Json(null)) {
-        return array_key_hasKey(optionName, optionsToExtract)
+        return hasKey(optionName, optionsToExtract)
             ? optionsToExtract[optionName]
             : defaultValue;
     }

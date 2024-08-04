@@ -220,7 +220,7 @@ class DEntityContext : DContext {
         
         auto fieldName = end(pathParts);
         auto mydefaults = mytable.getSchema().defaultValues();
-        if (fieldName == false || !array_key_hasKey(fieldName, mydefaults)) {
+        if (fieldName == false || !hasKey(fieldName, mydefaults)) {
             return null;
         }
         return mydefaults[fieldName];

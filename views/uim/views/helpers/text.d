@@ -42,7 +42,7 @@ class DTextHelper : DHelper {
      */
     string autoLinkUrls(string text, Json[string] options  = null) {
         _placeholders = null;
-        auto updatedOptions = options.update["escape": true.toJson];
+        options.merge("escape", true);
 
        /*  Generic.Files.LineLength
         mypattern = "/(?:(?<!href="|src="|">)
@@ -137,8 +137,8 @@ class DTextHelper : DHelper {
      * - `escape` Control HTML escaping of input. Defaults to true.
      */
     string autoLinkEmails(string text, Json[string] options  = null) {
-        auto updatedOptions = options.update["escape": true.toJson];
-       _placeholders = null;
+        options.merge("escape", true);
+        _placeholders = null;
 
         auto myatom = "[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]";
         text = preg_replace_callback(
@@ -146,7 +146,7 @@ class DTextHelper : DHelper {
             [&this, "_insertPlaceholder"],
             text
        );
-        if (updatedOptions.hasKey("escape")) {
+        if (options.hasKey("escape")) {
             text = htmlAttributeEscape(text);
         }
         return _linkEmails(text, options);

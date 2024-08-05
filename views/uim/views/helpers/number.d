@@ -77,9 +77,8 @@ class DNumberHelper : DHelper {
 
     string currency(string mynumber, string currencyName = null, Json[string] options  = null) {
         auto formattedCurrency = Number.currency(mynumber, currencyName, options);
-        auto updatedOptions = options.update["escape": true.toJson];
-
-        return updatedOptions.hasKey("escape") ? htmlAttributeEscape(formattedCurrency) : formattedCurrency;
+        options.merge("escape", true);
+        return options.hasKey("escape") ? htmlAttributeEscape(formattedCurrency) : formattedCurrency;
     }
     
     /**
@@ -100,7 +99,7 @@ class DNumberHelper : DHelper {
 
     string formatDelta(string value, Json[string] options  = null) {
         auto formattedNumber = Number.formatDelta(value, options);
-        auto updatedOptions = options.update["escape": true.toJson];
-        return updatedOptions.hasKey("escape") ? htmlAttributeEscape(formattedNumber) : formattedNumber;
+        options.merge("escape", true);
+        return options.hasKey("escape") ? htmlAttributeEscape(formattedNumber) : formattedNumber;
     }
 }

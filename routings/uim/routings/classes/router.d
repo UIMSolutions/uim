@@ -605,11 +605,11 @@ class DRouter {
             }
         }
         url += parseRoutePath(url["_path"]);
-        url += [
-            "plugin": false.toJson,
-            "prefix": false.toJson,
-        ];
-        remove(url["_path"]);
+        url += createMap!(string, Json)
+            .set("plugin", false)
+            .set("prefix", false);
+
+        url.remove("_path");
 
         return url;
     }

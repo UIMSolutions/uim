@@ -33,27 +33,21 @@ class DLabelWidget : DWidget {
 
     // Render a label widget.
     override string render(Json[string] renderData, IContext formContext) {
-        auto updatedData = renderData.merge([
-            // `text` The text for the label.
-            "text": "".toJson,
-            // `input` The input that can be formatted into the label if the template allows it.
-            "input": "".toJson,
-            "hidden": "".toJson,
-            // `escape` Set to false to disable HTML escaping.
-            "escape": true.toJson,
-            "templateVars": Json.emptyArray(),
-        ]);
+        renderData
+            .merge("text", "") // `text` The text for the label.
+            .merge("input", "") // `input` The input that can be formatted into the label if the template allows it.
+            .merge("hidden", "")
+            .merge("escape", true) // `escape` Set to false to disable HTML escaping.
+            .merge("templateVars", Json.emptyArray());
 
-        return null; 
-        _stringContents.format(_labelTemplate, [
-                "text": updatedData["escape"] ? htmlAttributeEscape(updatedData["text"]): updatedData["text"],
-                "input": updatedData["input"],
-                "hidden": updatedData["hidden"],
-                "templateVars": updatedData["templateVars"],
-                "attrs": _stringContents.formatAttributes(updatedData, [
-                        "text", "input", "hidden"
-                    ]),
-            ]); */
+        return _stringContents.format(_labelTemplate, createMap!(string, Json)
+            .set("text", updatedData.hasKey("escape") ? htmlAttributeEscape(updatedData.get("text")): updatedData.get("text"))
+            .set("input", updatedData.get("input"))
+            .set("hidden", updatedData.get("hidden"))
+            .set("templateVars", updatedData.get("templateVars"))
+            .set("attrs", _stringContents.formatAttributes(updatedData, [
+                "text", "input", "hidden"
+            ])))
     }
 }
 

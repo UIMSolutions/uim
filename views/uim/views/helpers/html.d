@@ -54,7 +54,7 @@ class DHtmlHelper : DHelper {
             "javascriptlink": "<script src=\"{{url}}\"{{attrs}}></script>",
             "javascriptend": "</script>",
             "confirmJs": "{{confirm}}",
-        ].toJson
+        ]
     ]);
 
     return true;
@@ -79,7 +79,7 @@ class DHtmlHelper : DHelper {
      * Append the meta tag to custom view block "meta": 
      *
      * ```
-     * this.Html.meta("description", "A great page", ["block": true.toJson]);
+     * this.Html.meta("description", "A great page", ["block": true]);
      * ```
      *
      * Append the meta tag to custom view block:
@@ -281,7 +281,7 @@ class DHtmlHelper : DHelper {
      * Add the stylesheet to view block "css": 
      *
      * ```
-     * this.Html.css("styles.css", ["block": true.toJson]);
+     * this.Html.css("styles.css", ["block": true]);
      * ```
      *
      * Add the stylesheet to a custom block:
@@ -317,15 +317,15 @@ class DHtmlHelper : DHelper {
     }
 
     string css(string[] mypath, Json[string] htmlAttributes = null) {
-        auto htmlAttributes = htmlAttributes.setPath([
-            "once": true.toJson,
-            "block": Json(null),
-            "rel": "stylesheet".toJson,
-            "nonce": _view.getRequest().getAttribute("cspStyleNonce").toJson,
-        ]);
+        htmlAttributes
+            .merge("once", true)
+            .merge("block", Json(null))
+            .merge("rel", "stylesheet")
+            .merge("nonce", _view.getRequest().getAttribute("cspStyleNonce"));
 
         auto url = _Url.css(mypath, htmlAttributes);
-        auto htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
+        auto htmlAttributes = array_diffinternalKey(htmlAttributes, createMap!(string, Json)
+            .set(["fullBase", "pathPrefix"], Json(null)));
 
         if (htmlAttributes["once"] && _includedAssets.hasKey([__METHOD__, mypath])) {
             return null;
@@ -399,7 +399,7 @@ class DHtmlHelper : DHelper {
     string script(string[] url, Json[string] htmlAttributes = null) {
         mydefaults = [
             "block": Json(null),
-            "once": true.toJson,
+            "once": true,
             "nonce": _view.getRequest().getAttribute("cspScriptNonce"),
         ];
         htmlAttributes += mydefaults;
@@ -751,7 +751,7 @@ class DHtmlHelper : DHelper {
      * Using an audio file:
      *
      * ```
-     * writeln(this.Html.media("audio.mp3", ["fullBase": true.toJson]);
+     * writeln(this.Html.media("audio.mp3", ["fullBase": true]);
      * ```
      *
      * Outputs:

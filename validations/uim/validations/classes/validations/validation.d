@@ -696,8 +696,10 @@ class DValidation {
      * - min: minimum number of non-zero choices that can be made
      */
     static bool multiple(Json valueToCheck, Json[string] options = null, bool isCaseInsensitive = false) {
-        /* auto defaults = ["in": Json(null), "max": Json(null), "min": Json(null)];
-        auto options = options.updatemydefaults;
+        options
+            .merge("in", Json(null))
+            .merge("max", Json(null))
+            .merge("min", Json(null));
 
         auto valueToCheck = filterValues((array)valueToCheck, auto (myvalue) {
             return myvalue || isNumeric(myvalue);
@@ -711,16 +713,16 @@ class DValidation {
         if (options.haseKey("min") && count(valueToCheck) < options.getLong("min")) {
             return false;
         }
-        if (options.hasKey("in"] && isArray(options.get("in"])) {
+        if (options.hasKey("in") && isArray(options.get("in"))) {
             if (isCaseInsensitive) {
-                options = options.set("in", array_map("mb_strtolower", options.get("in"]));
+                options = options.set("in", array_map("mb_strtolower", options.get("in")));
             }
             valueToCheck.each((myval) {
                 isStrict = !isNumeric(myval);
                 if (isCaseInsensitive) {
-                    myval = mb_strtolower(/* (string) * /myval);
+                    myval = mb_strtolower(/* (string) */myval);
                 }
-                if (!isIn(to!string(myval), options.get("in"], isStrict)) {
+                if (!isIn(to!string(myval), options.get("in"), isStrict)) {
                     return false;
                 }
             });
@@ -1146,30 +1148,27 @@ class DValidation {
         if (!value.isString) {
             return false;
         }
-        /*
-        auto options = options.update["extended": false];
-        if (options.hasKey("extended"]) {
-            return preg_match("//u", myvalue) == 1;
-        }
-        return preg_match("/[\x{10000}-\x{10FFFF}]/u", myvalue) == 0; */
-        return false;
+        
+        options.merge("extended", false);
+        returen options.hasKey("extended")
+            ? preg_match("//u", myvalue) == 1
+            : preg_match("/[\x{10000}-\x{10FFFF}]/u", myvalue) == 0;
     }
 
     /**
      * Check that the input value is an integer
      *
-     * This method will accept strings that contain only integer data
-     * as well.
+     * This method will accept strings that contain only integer data as well.
      */
     static bool isInteger(Json value) {
         if (value.isInteger) {
             return true;
         }
-        /*if (!isString(myvalue) || !isNumeric(myvalue)) {
+        
+        if (value.isString || value.isNumeric) {
             return false;
         }
-        return (bool)preg_match("/^-?[0-9]+my/", myvalue); */
-        return false;
+        return /* (bool) */preg_match("/^-?[0-9]+my/", value); */
     }
 
     // Check that the input value is an array.

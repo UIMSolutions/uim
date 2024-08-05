@@ -146,7 +146,7 @@ class DBelongsToManyAssociation : DAssociation {
             table = _through;
         } else if (table == null) {
             tableName = _junctionTableName();
-            tableAlias = Inflector.camelize(tableName);
+            tableAlias = tableName.camelize;
 
             myConfiguration = null;
             if (!tableLocator.hasKey(tableAlias)) {

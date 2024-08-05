@@ -9,12 +9,12 @@ mixin template TConventions() {
     /*
     // Creates a fixture name
     protected string _fixtureName(string modelclassname) {
-        return Inflector.camelize(modelclassname);
+        return modelclassname.camelize;
     }
     
     //  Creates the proper entity name (singular) for the specified name
     protected string _entityName(string modelName) {
-        return Inflector.singularize(Inflector.camelize(modelName));
+        return Inflector.singularize(modelName.camelize);
     }
     
     /**
@@ -32,23 +32,15 @@ mixin template TConventions() {
     protected string _modelNameFromKey(string foreignKeys) {
         aKey = aKey.replace("_id", "");
 
-        return Inflector.camelize(Inflector.pluralize(aKey));
+        return Inflector.pluralize(aKey).camelize;
     }
     
-    /**
-     * Creates the singular name for use in views.
-     * Params:
-     * string aName Name to use
-     */
+    // Creates the singular name for use in views.
     protected string _singularName(string aName) {
-        return Inflecto.variable(Inflector.singularize(name));
+        return Inflector.variable(Inflector.singularize(name));
     }
     
-    /**
-     * Creates the plural variable name for views
-     * Params:
-     * string aName Name to use
-     */
+    // Creates the plural variable name for views
     protected string _variableName(string aName) {
         return Inflector.variable(name);
     }
@@ -59,31 +51,21 @@ mixin template TConventions() {
      * string aName Controller name
      */
     protected string _singularHumanName(string aName) {
-        return Inflector.humanize(Inflector.underscore(Inflector.singularize(name)));
+        return Inflector.underscore(Inflector.singularize(name)).humanize;
     }
     
-    /**
-     * Creates a camelized version of name
-     * Params:
-     * string aName name
-     */
+    // Creates a camelized version of name
     protected string _camelize(string aName) {
-        return Inflector.camelize(name);
+        return name.camelize;
     }
     
-    /**
-     * Creates the plural human name used in views
-     */
+    // Creates the plural human name used in views
     protected string _pluralHumanName(string controllerName) {
         return Inflector.underscore(controllerName).humanize;
     }
     
-    /**
-     * Find the correct path for a plugin. Scans pluginPaths for the plugin you want.
-     * Params:
-     * string pluginNameName Name of the plugin you want ie. DebugKit
-     */
-    protected string _pluginPath(string pluginNameName) {
+    // Find the correct path for a plugin. Scans pluginPaths for the plugin you want.
+    protected string _pluginPath(string pluginName) {
         if (Plugin.isLoaded(pluginName)) {
             return Plugin.path(pluginName);
         }

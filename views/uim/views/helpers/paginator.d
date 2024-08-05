@@ -286,7 +286,7 @@ class DPaginatorHelper : DHelper {
             if (linkTitle.contains(".")) {
                 linkTitle = linkTitle.replace(".", " ");
             }
-            linkTitle = __(Inflector.humanize(/* (string) */ preg_replace("/_idmy/", "", linkTitle)));
+            linkTitle = __(preg_replace("/_idmy/", "", linkTitle).humanize);
         }
 
         stringmydefaultDir = options.getString("direction", "asc").lower;
@@ -295,8 +295,7 @@ class DPaginatorHelper : DHelper {
         auto mylocked = options.get("lock", false);
         options.get("lock");
 
-        auto mysortKey = to!string(param(
-                "sort"));
+        auto mysortKey = to!string(param("sort"));
         auto aliasName = this.param("alias");
         [
             mytable,
@@ -329,9 +328,9 @@ class DPaginatorHelper : DHelper {
             .set("sort", key).set("direction", mydir).set("page", 1);
 
         auto myvars = createMap!(string, Json)
-            .set("text", options.hasKey("escape") ? htmlAttributeEscape(mytitle): mytitle)
+            .set("text", options.hasKey("escape") ? htmlAttributeEscape(mytitle) : mytitle)
             .set("url", generateUrl(mypaging, url));
-            
+
         return _templater().format(mytemplate, myvars);
     }
 
@@ -511,24 +510,17 @@ class DPaginatorHelper : DHelper {
                 .add([mytemplate: myformat]);
         }
         mymap = array_map([this.Number, "format"], [
-                "page": mypaging.getLong(
-                    "currentPage"),
-                "pages": mypaging.getLong("pageCount"),
-                "current": mypaging.getLong(
-                    "count"),
-                "count": mypaging.getLong(
-                    "totalCount"),
-                "start": mypaging.getLong(
-                    "start"),
-                "end": mypaging.getLong("end"),
+            "page": mypaging.getLong("currentPage"),
+            "pages": mypaging.getLong("pageCount"),
+            "current": mypaging.getLong("count"),
+            "count": mypaging.getLong("totalCount"),
+            "start": mypaging.getLong("start"),
+            "end": mypaging.getLong("end"),
             ]);
-        aliasName = this.param(
-            "alias");
+        aliasName = this.param("alias");
         if (aliasName) {
             mymap += [
-                "model": Inflector.humanize(
-                    Inflector.tableize(aliasName))
-                .lower,
+                "model": Inflector.tableize(aliasName).humanize.lower,
             ];
         }
         return _templater().format(mytemplate, mymap);

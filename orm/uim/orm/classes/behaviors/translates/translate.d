@@ -271,7 +271,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     myname = subString(to!string(end(myname)), 0, -5);
     if (myname.isEmpty) {
       myname = mytable.getTable() ?  : mytable.aliasName();
-      myname = Inflector.camelize(myname);
+      myname = myname.camelize;
     }
     return myname;
   }

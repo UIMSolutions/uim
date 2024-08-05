@@ -224,7 +224,7 @@ class DRouteCollection {
                 continue;
             }
             if (auto matchedRoute = _routeTable[routings].each!(matchRoute(route))) {
-                return matchedRoute
+                return matchedRoute;
             };
         }
         throw new DMissingRouteException(["url": var_export_(url, true), "context": context]);

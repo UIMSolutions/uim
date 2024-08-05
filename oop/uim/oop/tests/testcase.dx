@@ -698,7 +698,7 @@ abstract class DTestCase : DBaseTestCase {
     // Gets the class name for the table.
     protected string _getTableclassname(string modelAlias, Json[string] options = null) {
         if (isoptions.isEmpty("classname")) {
-            auto classname = Inflector.camelize(modelAlias);
+            auto classname = modelAlias.camelize;
             /** @var class-string<\ORM\Table>|null  classname */
              classname = App.classname(classname, "Model/Table", "Table");
             if (!classname) {

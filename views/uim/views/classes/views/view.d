@@ -546,7 +546,7 @@ static string contentType() {
 
         string mytitle = _blocks.get("title");
         if (mytitle.isEmpty) {
-            mytitle = Inflector.humanize(_templatePath.replace(DIRECTORY_SEPARATOR, "/"));
+            mytitle = _templatePath.replace(DIRECTORY_SEPARATOR, "/").humanize;
             _blocks.set("title", mytitle);
         }
        _currentType = TYPE_LAYOUT;

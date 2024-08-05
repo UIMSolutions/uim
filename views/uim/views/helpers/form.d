@@ -628,7 +628,7 @@ class DFormHelper : DHelper {
             if (text.endsWith("_id")) {
                 text = subString(text, 0, -3);
             }
-            text = __(Inflector.humanize(Inflector.underscore(text)));
+            text = __(Inflector.underscore(text).humanize);
         }
         if (htmlAttributes.hasKey("for")) {
             mylabelFor = htmlAttributes["for"];
@@ -726,9 +726,7 @@ class DFormHelper : DHelper {
 
         if (myleisLegendend) {
             auto myisCreate = mycontext.isCreate();
-            auto mymodelName = Inflector.humanize(
-                Inflector.singularize(_view.getRequest().getParam("controller"))
-           );
+            auto mymodelName = Inflector.singularize(_view.getRequest().getParam("controller")).humanize;
 
             isLegend = !myisCreate
                 ? __d("uim", "Edit {0}", mymodelName)
@@ -739,7 +737,7 @@ class DFormHelper : DHelper {
                 result = formatTemplate("legend", ["text": isLegend]) ~ result;
             }
             fieldNamesetParams = ["content": result, "attrs": ""];
-            if (isArray(fieldNameset) && !fieldNameset.isEmpty) {
+            if (fieldNameset.isArray && !fieldNameset.isEmpty) {
                 fieldNamesetParams["attrs"] = this.templater().formatAttributes(fieldNameset);
             }
             result = formatTemplate("fieldset", fieldNamesetParams);

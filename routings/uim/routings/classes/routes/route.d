@@ -606,13 +606,13 @@ class DRoute : IRoute {
                 throw new DInvalidArgumentException(
                     "Missing required route key `%s`.".format(key));
             }
-            mystring = options.get(key];
+            mystring = options.get(key);
             mysearch ~= key;
             myreplace ~= mystring;
         });
         if (_template.contains("**")) {
-            array_push(mysearch, "**", "%2F");
-            array_push(myreplace, mypass, "/");
+            mysearch.push("**", "%2F");
+            myreplace.push(mypass, "/");
         } else if (_template.contains("*")) {
             mysearch ~= "*";
             myreplace ~= mypass;
@@ -647,9 +647,7 @@ class DRoute : IRoute {
         return result;
     }
     
-    /**
-     * Get the static path portion for this route.
-     */
+    // Get the static path portion for this route.
     string staticPath() {
         mymatched = preg_match(
             PLACEHOLDER_REGEX,

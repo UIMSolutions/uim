@@ -202,7 +202,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
     void beforeSave(IEvent event, IORMEntity ormEntity, Json[string] options) {
         auto locale = ormEntity.get("_locale") ?: locale();
         auto newOptions = [_translationTable.aliasName(): ["validate": false.toJson]];
-        options = options.set("associated", newOptions + options.get("associated"));
+        options.set("associated", newOptions + options.get("associated"));
 
         // Check early if empty translations are present in the entity.
         // If this is the case, unset them to prevent persistence.

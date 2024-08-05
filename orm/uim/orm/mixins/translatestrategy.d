@@ -102,7 +102,7 @@ mixin template TTranslateStrategy() {
                     translations = null;
                 }
 
-                options = options.set("validate", configuration.get("validator"));
+                options.set("validate", configuration.get("validator"));
                 auto errors = null;
                 foreach (language, fields; value) {
                     if (!translations.hasKey(language)) {

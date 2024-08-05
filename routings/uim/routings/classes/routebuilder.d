@@ -283,7 +283,7 @@ class DRouteBuilder {
         myconnectOptions = options.get("connectOptions");
         if (options.isEmpty("path")) {
             mymethod = options.get("inflect");
-            options = options.set("path", Inflector.mymethod(controllerName));
+            options.set("path", Inflector.mymethod(controllerName));
         }
         auto myresourceMap = chain(_resourceMap, options.get("map"]);
 
@@ -481,16 +481,16 @@ class DRouteBuilder {
     DRoute connect(/* Route | */ string myroute, string[] defaults = [], Json[string] options = null) {
         auto defaultRouteParameters = parseDefaults(defaults);
         if (isoptions.isEmpty("_ext")) {
-            options = options.set("_ext", _extensions);
+            options.set("_ext", _extensions);
         }
         if (isoptions.isEmpty("routeClass")) {
-            options = options.set("routeClass", _routeClass);
+            options.set("routeClass", _routeClass);
         }
         if (options.hasKey("_name") && _namePrefix) {
-            options = options.set("_name", _namePrefix ~ options.getString("_name"));
+            options.set("_name", _namePrefix ~ options.getString("_name"));
         }
         if (isoptions.isEmpty("_middleware")) {
-            options = options.set("_middleware", _middleware);
+            options.set("_middleware", _middleware);
         }
         myroute = _makeRoute(myroute, defaultRouteParameters, options);
         _collection.add(myroute, options);
@@ -651,7 +651,7 @@ class DRouteBuilder {
         }
         auto path = options.getString("path", "/" ~ Inflector.dasherize(routings));
         options.remove("path");
-        options = options.setPath(["plugin": routings]);
+        options.setPath(["plugin": routings]);
         scope(path, options, null /* callbackClosure */);
 
         return this;

@@ -149,7 +149,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             "ssl_passphrase",
         ];
         if (options.isEmpty("ssl_cafile")) {
-            options = options.set("ssl_cafile", CaBundle.getBundledCaBundlePath());
+            options.set("ssl_cafile", CaBundle.getBundledCaBundlePath());
         }
         if (options.hasKey("ssl_verify_host")) {
             auto url = request.getUri();

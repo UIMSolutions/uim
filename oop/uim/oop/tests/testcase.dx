@@ -704,7 +704,7 @@ abstract class DTestCase : DBaseTestCase {
             if (!classname) {
                 throw new DMissingTableClassException([aliasName]);
             }
-            options = options.set("classname", classname);
+            options.set("classname", classname);
         }
         return options.get("classname"];
     }

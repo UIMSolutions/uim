@@ -144,11 +144,11 @@ class DNumber {
      * Params:
      */
     static string formatDelta(Json value, Json[string] options = null) {
-        auto updatedOptions = options = options.set("places", 0);
+        options.set("places", 0);
         /* auto doubleValue = number_format(
             value.getDouble, updatedoptions.get("places"], ".", "");
         string sign = doubleValue > 0 ? "+" : "";
-        updatedOptions.set("before", updatedOptions.getString("before") ~ sign);
+        options.set("before", updatedOptions.getString("before") ~ sign);
         return format
         (value, updatedOptions); */
         return null; 

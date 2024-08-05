@@ -84,7 +84,7 @@ class Xml {
             "readFile": BooleanData(false),
             "parseHuge": BooleanData(false)
         ];                
-        auto updatedOptions = options = options.set(defaultOptions);
+        auto updatedOptions = options.set(defaultOptions);
 
         if (isArray(inputData) || isObject(inputData)) {
             return fromArray(inputData, updatedOptions);
@@ -224,7 +224,7 @@ class Xml {
                         }
                         _fromArray(domDocument, domDocument, inputData, options.get("format"));
 
-                        options = options.set("return", options.getString("return").lower);
+                        options.set("return", options.getString("return").lower);
                         if (options.getString("return") == "simplexml" || options.getString("return") == "simplexmlelement") {
                             return new DSimpleXMLElement(to!string(domDocument.saveXML()));
                         }

@@ -383,7 +383,7 @@ class DResultset : IResultset {
             }
 
             auto target = instance.getTarget();
-            options = options.set("source", target.registryKey());
+            options.set("source", target.registryKey());
             presentAliases.remove(aliasName);
 
             if (assoc["canBeJoined"] && _autoFields == true) {
@@ -418,7 +418,7 @@ class DResultset : IResultset {
             results.setPath([defaultAlias, "_matchingData"], results["_matchingData"]);
         }
 
-        options = options.set("source", _defaultTable.registryKey());
+        options.set("source", _defaultTable.registryKey());
         if (results.hasKey(defaultAlias)) {
             results = results[defaultAlias];
         }

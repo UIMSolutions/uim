@@ -98,7 +98,7 @@ class DResultsetFactory {
                 mytable = mymatching["instance"];
                 assert(cast(Table)mytable || cast(DAssociation)mytable);
 
-                options = options.set("source", mytable.registryKey());
+                options.set("source", mytable.registryKey());
                 myentity = new mymatching["entityClass"](results["_matchingData"][aliasName], options);
                 assert(cast(IORMEntity)myentity);
 
@@ -134,7 +134,7 @@ class DResultsetFactory {
                 results.set(aliasName, myrow.get(aliasName));
             }
             mytarget = myinstance.getTarget();
-            options = options.set("source", mytarget.registryKey());
+            options.set("source", mytarget.registryKey());
             mypresentAliasesm.remove(yalias);
 
             if (myassoc["canBeJoined"] && tableMetadata["autoFields"] == true) {
@@ -164,7 +164,7 @@ class DResultsetFactory {
         if (results.hasKey("_matchingData")) {
             results.setPath([tableMetadata.getString("primaryAlias"), "_matchingData"], results.get("_matchingData"));
         }
-        options = options.set("source", tableMetadata.get("registryAlias"));
+        options.set("source", tableMetadata.get("registryAlias"));
         if (auto primaryAlias = tableMetadata.getString("primaryAlias")) {
             results = results[primaryAlias];
         }

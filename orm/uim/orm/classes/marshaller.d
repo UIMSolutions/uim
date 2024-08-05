@@ -36,7 +36,7 @@ class DMarshaller {
             } */
         }
         // Map associations
-        options = options.set("associated", options.getArray("associated"));
+        options.set("associated", options.getArray("associated"));
 
         auto myinclude = _normalizeAssociations(options.get("associated"]);
         foreach (key, mynested; myinclude) {
@@ -454,7 +454,7 @@ class DMarshaller {
             }
         }
         auto myerrors = _validate(mydata + someKeys, options.get("validate"), myisNew);
-        options = options.set("isMerge", true);
+        options.set("isMerge", true);
         auto mypropertyMap = _buildPropertyMap(
             mydata, options);
         auto myproperties = null;
@@ -755,7 +755,7 @@ class DMarshaller {
                 "_joinData")) {
             mynested = myassociated.getArray("_joinData");
         }
-        options = options.set("accessibleFields", ["_joinData": true]);
+        options.set("accessibleFields", ["_joinData": true]);
         auto myrecords = mergeMany(
             originalEntities, dataToHydrate, options);
         myrecords.each!(

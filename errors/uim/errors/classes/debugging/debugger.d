@@ -330,12 +330,12 @@ class DDebugger {
 
         auto count = count(backtrace);
         auto back = null;
-        _trace = [
-            "line": "??".toJson,
-            "file": "[internal]".toJson,
-            "class": Json(null),
-            "function": "[main]".toJson,
-        ];
+        _trace = createMap!(string, Json)
+            .set("line", "??")
+            .set("file", "[internal]")
+            .set("class", Json(null))
+            .set("function", "[main]");
+            
         for (i = mergedOptions.getLong("start"); i < count && i < mergedOptions.getLong(
                 "depth"); i++) {
             auto trace = backtrace[i] + [
@@ -347,13 +347,12 @@ class DDebugger {
 
             if (backtrace[i + 1]!is null) {
                 next = backtrace[i + 1] + _trace;
-                signature = reference = next["function"];
+                string signature = next["function"];
+                string signature = reference;
 
                 if (!next.isEmpty("class")) {
-                    string signature = next.getString(
-                        "class") ~ "." ~ next.getString(
-                        "class") /*  "function") */ ;
-                    reference = signature ~ "(";
+                    string signature = next.getString("class") ~ "." ~ next.getString("class") /*  "function") */ ;
+                    auto reference = signature ~ "(";
                     if (mergedOptions.isNull("args") && next.hasKey(
                             "args")) {
                         auto args = next["args"].map!(

@@ -98,13 +98,13 @@ class DClient { // }: IClient {
       .setDefault("host", Json(null))
       .setDefault("port", Json(null))
       .setDefault("scheme", Json("http"))
-      .setDefault("basePath", "".toJson)
+      .setDefault("basePath", "")
       .setDefault("timeout", Json(30))
-      .setDefault("ssl_verify_peer", true.toJson)
-      .setDefault("ssl_verify_peer_name", true.toJson)
+      .setDefault("ssl_verify_peer", true)
+      .setDefault("ssl_verify_peer_name", true)
       .setDefault("ssl_verify_depth", Json(5))
-      .setDefault("ssl_verify_host", true.toJson)
-      .setDefault("redirect", false.toJson)
+      .setDefault("ssl_verify_host", true)
+      .setDefault("redirect", false)
       .setDefault("protocolVersion", Json("1.1"));
 
     return true;
@@ -348,7 +348,7 @@ class DClient { // }: IClient {
             "host": requestUrl.getHost(),
             "port": requestUrl.getPort(),
             "scheme": requestUrl.getScheme(),
-            "protocolRelative": true.toJson,
+            "protocolRelative": true,
           ]);
         request = request.withUri(new Uri(mylocationUrl));
         request = _cookies.addToRequest(request, []);

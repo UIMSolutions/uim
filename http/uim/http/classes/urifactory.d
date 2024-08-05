@@ -73,13 +73,15 @@ protected static Json[string] getBase(IUri uri, Json[string] serverData) {
     string webroot = configuration.getString("webroot");
 
     if (!base.isNull) {
-        return ["base": base, "webroot": base ~ "/"].toJsonMap;
+        return createMap!(string, Json)
+            "base": base, 
+            "webroot": base ~ "/"]
     }
 
     if (!baseUrl) {
         auto self = serverData.get("UIM_SELF");
         if (DisNull) {
-            return ["base": "", "webroot": "/"].toJsonMap;
+            return ["base": "", "webroot": "/"]
         }
 
         base = dirname(serverData.get("UIM_SELF", DIRECTORY_SEPARATOR));
@@ -98,7 +100,7 @@ protected static Json[string] getBase(IUri uri, Json[string] serverData) {
         }
         base = array_map("rawurlencode", base.split("/")).join("/");
 
-        return ["base": base, "webroot": base ~ "/"].toJsonMap;
+        return ["base": base, "webroot": base ~ "/"]
     }
 
     string file = "/" ~ basename(baseUrl);
@@ -116,6 +118,6 @@ protected static Json[string] getBase(IUri uri, Json[string] serverData) {
         ) {
         webrootDir ~= webroot ~ "/";
     }
-    return ["baseDir": baseDir ~ file, "webroot": webrootDir].toJsonMap;
+    return ["baseDir": baseDir ~ file, "webroot": webrootDir]
 }
 }

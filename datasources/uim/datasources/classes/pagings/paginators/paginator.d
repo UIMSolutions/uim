@@ -288,20 +288,21 @@ class DPaginator : IPaginator {
     protected Json[string] addSortingParams(Json[string] paginatorData, Json[string] pagingParams) {
         auto defaults = pagingParams["defaults"];
         auto order = pagingParams.getArray("options.order");
-        bool sortDefault = directionDefault = false;
+        bool sortDefault = false;
+        bool directionDefault = false;
 
         if (!defaults.isEmpty("order") && count(defaults.get("order")) == 1) {
             sortDefault = key(defaults.get("order"));
             directionDefault = currentValue(defaults.get("order"));
         }
 
-        /* return paginatorData.set([
-            "sort": pagingParams.get("options.sort"),
-            /* "direction": (pagingParams.hasKey("options.sort") && count(
-                order) ? currentValue(order) : null).toJson, * /
-            "sortDefault": sortDefault.toJson,
-            "directionDefault": directionDefault.toJson,
-            "completeSort": order.toJson,
+        /* return paginatorData.set(createMap!(string, Json)
+            .set("sort", pagingParams.get("options.sort"))
+            .set("direction", (pagingParams.hasKey("options.sort") && count(
+                order) ? currentValue(order) : null))
+            .set("sortDefault", sortDefault)
+            .set("directionDefault", directionDefault)
+            .set("completeSort", order)
         ]); */
         return null;
     }

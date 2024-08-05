@@ -31,16 +31,15 @@ class DBetweenExpression : DExpression { // TODO}, IField {
     }
  
     string sql(DValueBinder aValueBinder) {
-        auto someParts = [
-            "from": _from.toJson,
-            "to": _to.toJson,
-        ];
+        auto someParts = createMap!(string, Json)
+            .set("from", _from)
+            .set("to", _to);
 
         auto field = _field;
         if (cast(IExpression)field) {
             field = field.sql(aValueBinder);
         }
-        foreach (name: part; someParts) {
+        foreach (name, part; someParts) {
             if (cast(IExpression)part) {
                 someParts.set(name, part.sql(aValueBinder));
                 continue;
@@ -54,7 +53,7 @@ class DBetweenExpression : DExpression { // TODO}, IField {
  
     void traverse(Closure aCallback) {
         [_field, _from, _to]
-            .map!(part => auto expression = cast(IExpression)part)
+            .map!(part => cast(IExpression)part)
             .each!(expression => aCallback(expression));
     }
 

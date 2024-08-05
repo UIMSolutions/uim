@@ -97,7 +97,7 @@ mixin template TEntity() {
     * means no fields are accessible for mass assigment.
     *
     * The special field '\*' can also be mapped, meaning that any other field
-    * not defined in the map will take its value. For example, `'*": true.toJson`
+    * not defined in the map will take its value. For example, `'*": true`
     * means that any field not defined in the map will be accessible for mass
     * assignment by default.
   */
@@ -199,8 +199,8 @@ mixin template TEntity() {
      * `options` parameter:
      *
      * ```
-     * entity.set("name", "Andrew", ["setter": false.toJson]);
-     * entity.setPath(["name": 'Andrew", "id": 1], ["setter": false.toJson]);
+     * entity.set("name", "Andrew", ["setter": false]);
+     * entity.setPath(["name": 'Andrew", "id": 1], ["setter": false]);
      * ```
      *
      * Mass assignment should be treated carefully when accepting user input, by default
@@ -208,7 +208,7 @@ mixin template TEntity() {
      * the guarding for a single set call with the `guard` option:
      *
      * ```
-     * entity.setPath(["name": 'Andrew", "id": 1], ["guard": false.toJson]);
+     * entity.setPath(["name": 'Andrew", "id": 1], ["guard": false]);
      * ```
      *
      * You do not need to use the guard option when assigning fields individually:
@@ -227,7 +227,7 @@ mixin template TEntity() {
      * entity.set("phone_number", "555-0134");
      * print_r(entity.getOriginalFields()) // prints ["name", "id"]
      *
-     * entity.set("phone_number", "555-0134", ["asOriginal": true.toJson]);
+     * entity.set("phone_number", "555-0134", ["asOriginal": true]);
      * print_r(entity.getOriginalFields()) // prints ["name", "id", "phone_number"]
      * ```
      * Params:
@@ -250,9 +250,9 @@ mixin template TEntity() {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
     auto updatedOptions = options.setPath([
-      "setter": true.toJson,
+      "setter": true,
       "guard": guard,
-      "asOriginal": false.toJson
+      "asOriginal": false
     ]);
 
     if (options.getBoolean("asOriginal")) {

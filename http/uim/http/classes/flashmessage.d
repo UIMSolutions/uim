@@ -33,7 +33,7 @@ class DFlashMessage : UIMObject {
             .setDefault("params", Json.emptyArray)
             .setDefault("clear", false)
             .setDefault("duplicate", true);
-            
+
         return true;
     }
 
@@ -80,54 +80,55 @@ class DFlashMessage : UIMObject {
                                 return; }
                             }
                         }
-                        messages ~= [
-                            "message": messageToBeFlashed,
-                            "key": options.get("key"),
-                            "element": options.get("element"),
-                            "params": options.get("params"),
-                        ]; _session.write("Flash." ~ options.getString("key"), messages);
-                    }
+                        messages ~= createMap!(string, Json)
+                            .set("message", messageToBeFlashed)
+                            .set("key", options.get("key"))
+                            .set("element", options.get("element"))
+                            .set("params", options.get("params")); 
+                            _session.write(
+                                "Flash." ~ options.getString("key"), messages); }
 
-                    // Set an exception`s message as flash message.
-                    void setExceptionMessage(Throwable exception, Json[string] options = null) {
-                        options = options.merge([
-                            "element": "error".toJson,
-                            "params.code": exception.code().toJson
-                        ]); set(exception.message(), options); }
+                        // Set an exception`s message as flash message.
+                        void setExceptionMessage(Throwable exception, Json[string] options = null) {
+                            options
+                                .merge("element", "error")
+                                .merge("params.code", exception.code()); set(
+                                    exception.message(), options); }
 
-                        // Get the messages for given key and remove from session.
-                        Json[string] consume(string messageKey) {
-                            return _session.consume("Flash.{aKey}"); }
+                            // Get the messages for given key and remove from session.
+                            Json[string] consume(string messageKey) {
+                                return _session.consume("Flash.{aKey}"); }
 
-                            /**
+                                /**
      * Set a success message.
      * The `'element'` option will be set to  ``success'`.
      */
-                            void success(string successMessage, Json[string] options = null) {
-                                options = options.set("element", "Success"); set(successMessage, options);
-                            }
+                                void success(string successMessage, Json[string] options = null) {
+                                    options = options.set("element", "Success"); set(
+                                        successMessage, options); }
 
-                            /**
+                                    /**
      * Set an success message.
      * The `'element'` option will be set to  `'error'`.
      */
-                            void error(string errorMessage, Json[string] options = null) {
-                                options = options.set("element", "error"); set(errorMessage, options);
-                            }
+                                    void error(string errorMessage, Json[string] options = null) {
+                                        options = options.set("element", "error");
+                                            set(errorMessage, options); }
 
-                            /**
+                                            /**
      * Set a warning message.
      * The `'element'` option will be set to  `'warning'`.
      */
-                            void warning(string warningMessage, Json[string] options = null) {
-                                options = options.set("element", "warning"); set(warningMessage, options);
-                            }
+                                            void warning(string warningMessage, Json[string] options = null) {
+                                                options = options.set("element", "warning");
+                                                    set(warningMessage, options);
+                                            }
 
-                            /**
+                                        /**
      * Set an info message.
      * The `'element'` option will be set to  `'info'`.
      */
-                            void info(string infoMessage, Json[string] options = null) {
-                                options = options.set("element", "info"); set(infoMessage, options);
-                            }
-                        }
+                                        void info(string infoMessage, Json[string] options = null) {
+                                            options = options.set("element", "info");
+                                                set(infoMessage, options); }
+                                        }

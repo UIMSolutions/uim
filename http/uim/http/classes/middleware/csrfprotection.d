@@ -34,14 +34,13 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *  FormHelper.
      *
      */
-    protected Json[sting] _config = [
-        "cookieName": "csrfToken",
-        "expiry": 0.toJson,
-        "secure": false.toJson,
-        "httponly": false.toJson,
-        "samesite": Json(null),
-        "field": "_csrfToken",
-    ];
+    protected Json[sting] _config = createMap!(string, Json)
+        .set("cookieName", "csrfToken")
+        .set("expiry", 0)
+        .set("secure", false)
+        .set("httponly", false)
+        .set("samesite", Json(null))
+        .set("field", "_csrfToken");
 
     /**
      * Callback for deciding whether to skip the token check for particular request.
@@ -86,7 +85,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
             throw new DException(
                 "A CSRF token is already set in the request.\n" ~
                 "Ensure you do not have the CSRF middleware applied more than once. " ~
-                "Check both your `Application.middleware()` method and `config/routes.d`.";
+                "Check both your `Application.middleware()` method and `config/routes.d`."
            );
         }
 
@@ -255,7 +254,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
         
         auto parsedBody = request.getParsedBody();
         if (isArray(parsedBody) || cast(DArrayAccess)parsedBody) {
-            post = to!string(Hash.get(parsedBody, configuration.get("field"));
+            post = to!string(Hash.get(parsedBody, configuration.get("field")));
             post = this.unsaltToken(post);
             if (hash_equals(post, cookie)) {
                 return;
@@ -285,5 +284,5 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
                 "samesite": configuration.get("samesite"),
             ]
        );
-    } */ 
+    } 
 }

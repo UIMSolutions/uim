@@ -32,17 +32,25 @@ class DSysLogger : DLogger {
      * ]);
      * ```
      */
-    configuration
+
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }    
+        
+        configuration
         .setDefault("levels", Json.emptyArray)
         .setDefault("scopes", Json.emptyArray)
-        .setDefault("flag", LOG_ODELAY.toJson)
-        .setDefault("prefix", "".toJson)
-        .setDefault("facility", LOG_USER.toJson)
-        .setDefault("formatter", [
-            "classname": StandardLogFormatter.classname.toJson,
-            "includeDate": false.toJson
-        ]);
+        .setDefault("flag", LOG_ODELAY)
+        .setDefault("prefix", "")
+        .setDefault("facility", LOG_USER)
+        .setDefault("formatter", createMap!(string, Json)
+            .set("classname", StandardLogFormatter.classname)
+            .set("includeDate", false)
+        );
 
+        return true; 
+    }
     // Used to map the string names back to their LOG_* constants
     protected int[string] _levelMap = [
         "emergency": LOG_EMERG,

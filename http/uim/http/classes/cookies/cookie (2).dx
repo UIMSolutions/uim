@@ -29,14 +29,13 @@ class DCookie : ICookie {
     protected ISameSiteEnum sameSite = null;
 
     // Default attributes for a cookie.
-    protected static @var Json[string] defaultAttributes = [
-        "expires": Json(null),
-        "path": Json("/"),
-        "domain": "".toJson,
-        "isSecure": false.toJson,
-        "httponly": false.toJson,
-        "samesite": Json(null),
-    ];
+    protected static @var Json[string] defaultAttributes = createMap!(string, Json)
+        .set("expires", Json(null))
+        .set("path", "/")
+        .set("domain", "")
+        .set("isSecure", false)
+        .set("httponly", false)
+        .set("samesite", Json(null));
 
     /**
      * Constructor
@@ -55,7 +54,7 @@ class DCookie : ICookie {
         bool isHttpOnly = null,
         /* SameSiteEnum| */ string sameSite = null
     ) {
-        this.validateName(name);
+        validateName(name);
         _name = name;
 
        _setValue(cookieValue);
@@ -225,7 +224,7 @@ class DCookie : ICookie {
     }
  
     static withName(string aName) {
-        this.validateName(name);
+        validateName(name);
         auto newCookie = this.clone;
         newCookie.name = name;
 

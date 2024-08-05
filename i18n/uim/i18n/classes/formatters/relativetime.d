@@ -344,20 +344,18 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
 
     // Build the options for relative date formatting.
     protected Json[string] _options(Json[string] options, string classname) {
-
-        options = options.set([
-                "from": "classname.now()".toJson,
-                "timezone": Json(null),
-                /* "format": classname.wordFormat.toJson,
-                "accuracy": classname.wordAccuracy.toJson,
-                "end": classname.wordEnd.toJson, */
-                "relativeString": `__d("uim", "%s ago")`.toJson,
-                "absoluteString": `__d("uim", "on %s")`.toJson,
-            ]);
+        options
+            .set("from", "classname.now()")
+            .set("timezone", Json(null))
+            .set("format", classname.wordFormat)
+            .set("accuracy", classname.wordAccuracy)
+            .set("end", classname.wordEnd)
+            .set("relativeString", `__d("uim", "%s ago")`)
+            .set("absoluteString", `__d("uim", "on %s")`);
 
         if (options.isString("accuracy")) {
-            /* auto accuracy = options.get("accuracy");
-            options = options.set("accuracy", Json(null)); */
+            auto accuracy = options.get("accuracy");
+            options = options.set("accuracy", Json(null));
             /* classname.wordAccuracy.byKeyValue
             .each!(keyLevel => options = options.set(
                     "accuracy", "" ~ keyLevel.key, accuracy)); */

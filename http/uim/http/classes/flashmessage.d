@@ -31,8 +31,8 @@ class DFlashMessage : UIMObject {
             .setDefault("element", Json("default"))
             .setDefault("plugin", Json(null))
             .setDefault("params", Json.emptyArray)
-            .setDefault("clear", false.toJson)
-            .setDefault("duplicate", true.toJson);
+            .setDefault("clear", false)
+            .setDefault("duplicate", true);
             
         return true;
     }

@@ -912,7 +912,7 @@ class DResponse : IResponse {
      * string afilename The name of the file as the browser will download the response
      */
     static withDownload(string afilename) {
-        return _withHeader("Content-Disposition", "attachment; filename="" ~ filename ~ """);
+        return _withHeader("Content-Disposition", "attachment; filename=\"" ~ filename ~ "\"");
     }
     
     /**
@@ -1124,7 +1124,7 @@ class DResponse : IResponse {
             } else if (agent && preg_match("/MSIE ([0-9].[0-9]{1,2})/", agent)) {
                 contentType = "application/force-download";
             }
-            if (isSet(contentType !is null) {
+            if (contentType !is null) {
                 newResponse = new.withType(contentType);
             }
             name = options.getString("name", file.getFileName);
@@ -1217,15 +1217,14 @@ class DResponse : IResponse {
     
     // Returns an array that can be used to describe the internal state of this object.
     Json[string] debugInfo() {
-        return [
-            "status": _status.toJson,
-            "contentType": getType().toJson,
-            "headers": _headers.toJson,
-            "file": _file.toJson,
-            "fileRange": _fileRange.toJson,
-            "cookies": _cookies.toJson,
-            "cacheDirectives": _cacheDirectives.toJson,
-            "body": getBody().toJson,
-        ];
+        return createMap!(string, Json)
+            .set("status", _status)
+            .set("contentType", getType())
+            .set("headers", _headers)
+            .set("file", _file)
+            .set("fileRange", _fileRange)
+            .set("cookies", _cookies)
+            .set("cacheDirectives", _cacheDirectives)
+            .set("body", getBody());
     }
 }

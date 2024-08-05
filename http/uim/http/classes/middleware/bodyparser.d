@@ -45,17 +45,21 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * Json[string] options The options to use. See above.
      */
     this(Json[string] options = null) {
-        options.merge(["Json": true.toJson, "xml": false.toJson, "methods": Json(null)]);
+        options
+            .merge("Json", true)
+            .merge("xml", false)
+            .merge("methods", Json(null));
+
         if (options.hasKey("Json")) {
             this.addParser(
                 ["application/Json", "text/Json"],
-                this.decodeJson(...)
+                // this.decodeJson(...)
            );
         }
         if (options.hasKey("xml")) {
             this.addParser(
                 ["application/xml", "text/xml"],
-                this.decodeXml(...)
+                // this.decodeXml(...)
            );
         }
         if (options.hasKey("methods")) {

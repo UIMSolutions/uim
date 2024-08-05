@@ -9,7 +9,6 @@ import uim.http;
  */
 class DatabaseSession { // }: SessionHandler {
     mixin TLocatorAware;
-    /* 
 
     // Reference to the table handling the session data
     protected ITable _table;
@@ -17,24 +16,23 @@ class DatabaseSession { // }: SessionHandler {
     // Number of seconds to mark the session as expired
     protected int _timeout;
 
-    /**
-     . Looks at Session configuration information and
-     * sets up the session model.
-     * Params:
-     * Json[string] configData The configuration for this engine. It requires the 'model'
-     * key to be present corresponding to the Table to use for managing the sessions.
-     */
+    // Looks at Session configuration information and sets up the session model.
     this(Json[string] configData = null) {
         if (configData.hasKey("tableLocator")) {
-            setTableLocator(configuration.get("tableLocator"]);
+            setTableLocator(configuration.get("tableLocator"));
         }
         aTableLocator = getTableLocator();
 
         if (configData.isEmpty("model")) {
-            configData = aTableLocator.hasKey("Sessions") ? [] : ["table": "sessions", "allowFallbackClass": true.toJson];
+            configData = aTableLocator.hasKey("Sessions") 
+            ? createMap!(string, Json) 
+            : createMap!(string, Json)
+                .set("table", "sessions")
+                .set("allowFallbackClass", true);
+
            _table = aTableLocator.get("Sessions", configData);
         } else {
-           _table = aTableLocator.get(configuration.get("model"]);
+           _table = aTableLocator.get(configuration.getString("model"));
         }
        _timeout = to!int(ini_get("session.gc_maxlifetime"));
     }
@@ -57,20 +55,13 @@ class DatabaseSession { // }: SessionHandler {
         return true;
     }
     
-    /**
-     * Method called on close of a database session.
-     *
-         */
+    // Method called on close of a database session.
     bool close() {
         return true;
     }
     
-    /**
-     * Method used to read from a database session.
-     * Params:
-     * string aid ID that uniquely identifies session in database.
-     */
-    string read(string aid) {
+    // Method used to read from a database session.
+    string read(string aId) {
         string[] primaryKeys = _table.primaryKeys();
         assert(isString(primaryKeys));
         result = _table
@@ -83,8 +74,9 @@ class DatabaseSession { // }: SessionHandler {
         if (result.isEmpty) {
             return null;
         }
-        if (isString(result["data"])) {
-            return result["data"];
+
+        if (result.isString("data")) {
+            return result.getString("data");
         }
         
         string result = stream_get_contents(result["data"]);
@@ -108,9 +100,9 @@ class DatabaseSession { // }: SessionHandler {
     /**
      * Method called on the destruction of a database session.
      * Params:
-     * string aid ID that uniquely identifies session in database.
+     * string aId ID that uniquely identifies session in database.
      */
-    bool destroy(string aid) {
+    bool destroy(string aId) {
         /** @var string apk) {  _table.deleteAll([primaryKeys:  anId]);
 
         return true;) {

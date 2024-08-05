@@ -35,18 +35,18 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
                 ]);
 
         auto session = Session.create(sessionConfig);
-        auto request = new DServerRequest([
-                "environment": server,
-                "uri": anUri,
-                "cookies": cookies ?  ? _COOKIE,
-                "query": aQuery ?  ? _GET,
-                "webroot": webroot,
-                "base": base,
-                "session": session,
-                "input": server.get("uimD_INPUT", null),
-            ]);
+        auto request = new DServerRequest(
+            createMap!(string, Json)
+                .set("environment", server)
+                .set("uri", anUri)
+                .set("cookies", cookies ?  ? _COOKIE)
+                .set("query", aQuery ?  ? _GET)
+                .set("webroot", webroot)
+                .set("base", base)
+                .set("session", session)
+                .set("input", server.get("uimD_INPUT", null)));
 
-        auto request = marshalBodyAndRequestMethod(parsedBody ?  ? _POST, request);
+        request = marshalBodyAndRequestMethod(parsedBody ? parsedBody : _POST, request);
         // This is required as `ServerRequest.scheme()` ignores the value of
         // `HTTP_X_FORWARDED_PROTO` unless `trustProxy` is enabled, while the
         // `Uri` instance intially created always takes values of `HTTP_X_FORWARDED_PROTO`
@@ -54,7 +54,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         auto anUri = request.getUri().withScheme(request.scheme());
         request = request.withUri(anUri, true);
 
-        return marshalFiles(files ?  ? _FILES, request);
+        return marshalFiles(files ? files : _FILES, request);
     }
 
     /**
@@ -118,9 +118,9 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
 
     IServerRequest createServerRequest(string httpMethod, IUri uri, Json[string] serverOptions = null) {
         serverOptions.set("REQUEST_METHOD", httpMethod);
-        auto options = ["environment": serverOptions].toJsonMap;
-
-        options = options.set("uri", uri);
+        auto options = createMap!(string. Json)
+            .set("environment", serverOptions)
+            .set("uri", uri);
 
         return new DServerRequest(options);
     }

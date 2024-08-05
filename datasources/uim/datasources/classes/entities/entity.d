@@ -56,13 +56,12 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
      * ```
      */
     this(Json[string] hashOfProperties = null, Json[string] options = null) {
-        options.merge([
-            "useSetters": true.toJson,
-            "markClean": false.toJson,
-            "markNew": Json(null),
-            "guard": false.toJson,
-            "source": Json(null),
-        ]);
+        options
+            .merge("useSetters", true)
+            .merge("markClean", false)
+            .merge("markNew", Json(null))
+            .merge("guard", false)
+            .merge("source", Json(null));
 
         if (options.hasKey("source")) {
             setSource(options.get("source"));

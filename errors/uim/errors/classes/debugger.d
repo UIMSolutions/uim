@@ -249,19 +249,18 @@ class DDebugger : UIMObject {
             backtrace = backtrace.getTrace();
         }
 
-        auto mergedOptions = options.merge([
-            "depth": 999.toJson,
-            "format": "text".toJson,
-            "args": false.toJson,
-            "start": 0.toJson,
-            "scope": Json(null),
-            "exclude": ["call_user_func_array", "trigger_error"].toJson,
-        ]);
+        options
+            .merge("depth", 999)
+            .merge("format", "text")
+            .merge("args", false)
+            .merge("start", 0)
+            .merge("scope", Json(null))
+            .merge("exclude", ["call_user_func_array", "trigger_error"]);
 
         auto count = count(backtrace) + 1;
         string[] back = null;
 
-        for (index = mergedOptions.getLong("start"); index < count && index < mergedOptions.getLong("depth"); index++) {
+        for (index = options.getLong("start"); index < count && index < options.getLong("depth"); index++) {
             frame = ["file": "[main]", "line": ""];
             if (isSet(backtrace[index])) {
                 frame = backtrace[index] ~ ["file": "[internal]", "line": "??"];
@@ -271,36 +270,37 @@ class DDebugger : UIMObject {
             if (!frame.isEmpty("class")) {
                 string signature = frame.getString("class") ~ frame.getString("type") ~ frame.getString("function");
                 string reference = signature ~ "(";
-                if (mergedOptions.hasKey("args") && frame.hasKey("args")) {
+                if (options.hasKey("args") && frame.hasKey("args")) {
                     reference ~= frame["args"].map!(arg => Debugger.exportVar(arg)).join(", ");
                 }
                 reference ~= ")";
             }
-            if (isIn(signature, mergedoptions.get("exclude"], true)) {
+            if (isIn(signature, options.get("exclude"), true)) {
                 continue;
             }
-            if (mergedOptions.getString("format") == "points") {
+
+            if (options.getString("format") == "points") {
                 back ~= [
                     "file": frame("file"),
                     "line": frame("line"),
                     "reference": reference
                 ];
-            } else if (mergedOptions.getString("format") == "array") {
-                if (!mergedOptions.get("args")) {
+            } else if (options.getString("format") == "array") {
+                if (!options.hasKey("args")) {
                     frame.remove("args");
                 }
                 back ~= frame;
-            } else if (mergedOptions.getString("format") == "text") {
+            } else if (options.getString("format") == "text") {
                 somePath = trimPath(frame["file"]);
                 back ~= "%s - %s, line %d".format(reference, somePath, frame["line"]);
             } else {
-                debug (mergedOptions);
+                debug (options);
                 throw new DInvalidArgumentException(
-                    "Invalid trace format of `{mergedoptions.get(\"format\"]}` chosen. Must be one of `array`, `points` or `text`."
+                    "Invalid trace format of `{options.get(\"format\"]}` chosen. Must be one of `array`, `points` or `text`."
                );
             }
         }
-        if (mergedOptions.getString("format") == "array" || mergedOptions.getString("format") == "points") {
+        if (options.getString("format") == "array" || options.getString("format") == "points") {
             return back;
         }
         return back.join("\n");

@@ -104,12 +104,12 @@ class DHelper { // TODO }: IEventListener {
     // Adds the given class to the element options
     Json[string] addClass(Json[string] options, string classname, string key = "class") {
         if (options.hasKey(key) && options.isArray(key)) {
-            options = options.set(key, options.getSTring(key) ~ classname);
+            options.set(key, options.getSTring(key) ~ classname);
         }
         else if(options.hasKey(key) && options.getString(key).strip) {
-            options = options.set(key, options.getString(key) ~ " " ~ classname);
+            options.set(key, options.getString(key) ~ " " ~ classname);
         } else {
-            options = options.set(key, classname);
+            options.set(key, classname);
         }
 
         return options;

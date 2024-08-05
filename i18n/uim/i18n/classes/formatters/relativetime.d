@@ -355,12 +355,12 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
 
         if (options.isString("accuracy")) {
             auto accuracy = options.get("accuracy");
-            options = options.set("accuracy", Json(null));
+            options.set("accuracy", Json(null));
             /* classname.wordAccuracy.byKeyValue
-            .each!(keyLevel => options = options.set(
+            .each!(keyLevel => options.set(
                     "accuracy", "" ~ keyLevel.key, accuracy)); */
         } else {
-            /* options = options.set("accuracy", += classname.wordAccuracy); */
+            /* options.set("accuracy", += classname.wordAccuracy); */
         }
         return options;
     }

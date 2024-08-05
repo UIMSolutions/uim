@@ -507,10 +507,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      */
     ICollection groupTranslations(IResultset results) {
         return results.map(
-            function(
-                row) {
-            translations = (
-                array) row["_i18n"];
+            function(row) {
+            translations = /* (array) */ row["_i18n"];
             if (translations.isEmpty && row
             .get(
             "_translations")) {

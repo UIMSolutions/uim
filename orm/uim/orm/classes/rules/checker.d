@@ -25,15 +25,12 @@ class DRulesChecker { // }: BaseRulesChecker {
      */
     RuleInvoker isUnique(Json[string] fieldNames, string[] errorMessage = null) {
         auto options = isArray(errorMessage) ? errorMessage : ["message": errorMessage];
-        auto errorMessage = options.get("message", null);
-        options.remove("message");
+        auto errorMessage = options.shift("message").getString;
 
         if (!errorMessage) {
-            if (_useI18n) {
-                errorMessage = __d("uim", "This value is already in use");
-            } else {
-                errorMessage = "This value is already in use";
-            }
+            errorMessage = _useI18n
+                ? __d("uim", "This value is already in use")
+                : errorMessage = "This value is already in use";
         }
         myerrorField = currentValue(fieldNames);
 
@@ -64,14 +61,13 @@ class DRulesChecker { // }: BaseRulesChecker {
      */
     DRuleInvoker existsIn(
         string[] /* string */ fieldName,
-        DORMTable/* /*Association|*/ string */ mytable,
+        DORMTable/* /*Association|* / string */ mytable,
         string[] /* string */ errorMessage = null
    ) {
         options = null;
         if (errorMessage.isArray) {
             options = errorMessage ~ ["message": Json(null)];
-            errorMessage = options.get("message");
-            options.remove("message");
+            errorMessage = options.shift("message").getString;
         }
         if (!errorMessage) {
             errorMessage = _useI18n

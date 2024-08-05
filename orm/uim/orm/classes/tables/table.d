@@ -1330,12 +1330,12 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             ormEntity = this.patchEntity(ormEntity, mysearch, ["accessibleFields": myaccessibleFields]);
         }
         if (mycallback !is null) {
-            ormEntity = mycallback(ormEntity) ?: ormEntity;
+            ormEntity = mycallback(ormEntity) ? mycallback(ormEntity) : ormEntity;
         }
         options.remove("defaults");
 
-        result = this.save(ormEntity, options);
-
+        
+        auto result = this.save(ormEntity, options);
         if (result == false) {
             throw new DPersistenceFailedException(ormEntity, ["findOrCreate"]);
         }

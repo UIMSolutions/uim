@@ -54,8 +54,8 @@ class DSelectWithPivotLoader : DSelectLoader {
         queryBuilder = false;
 
         if (options.hasKey("queryBuilder"])) {
-            queryBuilder = options.get("queryBuilder"];
-            options.remove("queryBuilder"]);
+            queryBuilder = options.get("queryBuilder");
+            options.remove("queryBuilder"));
         }
 
         query = super._buildQuery(options);
@@ -75,8 +75,8 @@ class DSelectWithPivotLoader : DSelectLoader {
         schema = assoc.getSchema();
         joinFields = types = null;
 
-        foreach (schema.typeMap() as f: type) {
-            key = tempName ~ "__" ~ f;
+        foreach (f, type; schema.typeMap()) {
+            string key = tempName ~ "__" ~ f;
             joinFields[key] = "name.f";
             types[key] = type;
         }
@@ -89,11 +89,11 @@ class DSelectWithPivotLoader : DSelectLoader {
             .getEagerLoader()
             .addToJoinsMap(tempName, assoc, false, _junctionProperty);
 
-        assoc.attachTo(query, [
-            "aliasPath": assoc.aliasName(),
-            "includeFields": false.toJson,
-            "propertyPath": _junctionProperty,
-        ]);
+        assoc.attachTo(query, createMap!(string, Json)
+            .set("aliasPath", assoc.aliasName())
+            .set("includeFields", false.toJson)
+            .set("propertyPath", _junctionProperty));
+
         query.getTypeMap().addDefaults(types);
 
         return query;
@@ -112,7 +112,7 @@ class DSelectWithPivotLoader : DSelectLoader {
         string[] links = null;
         name = this.junctionAssociationName;
 
-        foreach ((array)options.get("foreignKeys"] as key) {
+        foreach (key; /* (array) */options.get("foreignKeys")) {
             links ~=  "%s.%s".format(name, key);
         }
 

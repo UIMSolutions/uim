@@ -81,9 +81,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string image(string path, Json[string] options = null) {
-        auto updatedOptions = options.setPath([
-                "theme": _View.getTheme()
-            ]);
+        options.merge("theme", _view.getTheme());
         return htmlAttributeEscape(
             _assetUrlclassname.imageUrl(path, options));
     }
@@ -95,9 +93,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string css(string path, Json[string] options = null) {
-        auto updatedOptions = options.setPath([
-                "theme": _View.getTheme()
-            ]);
+        options.merge("theme", _view.getTheme());
         return htmlAttributeEscape(
             _assetUrlclassname.cssUrl(path, options));
     }
@@ -109,7 +105,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string script(string path, Json[string] options = null) {
-        auto updatedOptions = options.set("theme", _View.getTheme());
+        auto updatedOptions = options.set("theme", _view.getTheme());
         return htmlAttributeEscape(
             _assetUrlclassname.scriptUrl(path, updatedOptions));
     }
@@ -133,7 +129,7 @@ class UrlHelper : DHelper {
      *  enable timestamping regardless of debug value.
      */
     string assetUrl(string path, Json[string] options = null) {
-        options.merge("theme", _View.getTheme());
+        options.merge("theme", _view.getTheme());
 
         return htmlAttributeEscape(
             _assetUrlclassname.url(path, options));
@@ -151,7 +147,7 @@ class UrlHelper : DHelper {
 
     // Checks if a file exists when theme is used, if no file is found default location is returned
     string webroot(string filename) {
-        options.merge("theme", _View.getTheme());
+        options.merge("theme", _view.getTheme());
         return htmlAttributeEscape(
             _assetUrlclassname.webroot(filename, options));
     }

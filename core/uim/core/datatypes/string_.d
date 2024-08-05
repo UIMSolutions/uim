@@ -752,3 +752,65 @@ unittest {
 	assert(["abc", "xyz"].md5 != ["", ""]);
 }
 // #endregion md5
+
+// #region camelize
+// Returns the input lower_case_delimited_string as a CamelCasedString.
+string[] camelize(string[] texts, string delimiter = "_") {
+	return texts.map!(text => text.camelize(delimiter)).array;
+}
+
+string camelize(string text, string delimiter = "_") {
+	string cacheKey = __FUNCTION__ ~ delimiter;
+
+	string result; // = _cache(cacheKey, text);
+	if (result.isNull) {
+		result = std.string.replace(humanize(text, delimiter), " ", "");
+		// _cache(cacheKey, text, result);
+	}
+
+	return result;
+}
+
+unittest {
+	assert("aa".camelize == "Aa");
+	assert(["aa", "bb"].camelize == ["Aa", "Bb"]);
+}
+// #endregion camelize
+
+  /**
+     * Returns the input CamelCasedString as an dashed-string.
+     *
+     * Also replaces underscores with dashes
+     * Params:
+     * string text The string to dasherize.
+     */
+  /* static string dasherize(string stringToDasherize) {
+    return delimit(stringToDasherize.replace("_", "-"), "-");
+  } */
+
+	// #region humanize
+  /**
+     * Returns the input lower_case_delimited_string as "A Human Readable String".
+     * (Underscores are replaced by spaces and capitalized following words.)
+     */
+  string[] humanize(string[] texts, string delimiter = "_") {
+	return texts.map!(text => humanize(text, delimiter)).array;
+  }
+  string humanize(string text, string delimiter = "_") {
+    auto cacheKey = __FUNCTION__ ~ delimiter;
+
+    string result; // = _cache(cacheKey, text);
+    if (result.isEmpty) {
+      string[] parts = std.string.split(std.string.replace(text, delimiter, " "), " ");
+      result = parts.map!(part => std.string.capitalize(part)).join(" ");
+      // _cache(cacheKey, text, result);
+    }
+
+    return result;
+  }
+
+unittest {
+	assert(["i_am_not_here", "where_are_you"].humanize == ["I Am Not Here", "Where Are You"]);
+	assert("hello_world_and_mars".humanize == "Hello World And Mars");
+}
+// #endregion humanize

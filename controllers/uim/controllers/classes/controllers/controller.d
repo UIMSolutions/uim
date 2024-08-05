@@ -524,10 +524,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
     protected string _templatePath() {
         string templatePath = _name;
         if (_request.getParam("prefix")) {
-            prefixes = array_map(
-                "UIM\Utility\Inflector.camelize",
-                split("/", _request.getParam("prefix"))
-           );
+            prefixes = _request.getParam("prefix").split("/").camelize;
             templatePath = prefixes.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR ~ templatePath;
         }
         return templatePath;

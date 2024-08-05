@@ -75,7 +75,7 @@ mixin template TConventions() {
      * Creates the plural human name used in views
      */
     protected string _pluralHumanName(string controllerName) {
-        return Inflector.humanize(Inflector.underscore(controllerName));
+        return Inflector.underscore(controllerName).humanize;
     }
     
     /**

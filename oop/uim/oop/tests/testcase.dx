@@ -532,7 +532,7 @@ abstract class DTestCase : DBaseTestCase {
                 ];
             }
         }
-        foreach (index: assertion; regex) {
+        foreach (index, assertion; regex) {
             auto matches = false;
             if (assertion.hasKey("attrs")) {
                 // Json[string] assertion

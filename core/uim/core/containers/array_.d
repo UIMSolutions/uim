@@ -673,9 +673,34 @@ pure V[] createArray(V)() {
   return values;
 }
 
-pure V[] clear(V)(V[] items) {
-  return null;
+V[] clear(V)(ref V[] items) {
+  items.length = 0;
+  return items;
 }
 unittest {
-    
+  writeln("--- clear");
+  string[] testMap = ["a", "b", "c"];
+  assert(testMap.length == 3);
+  assert(testMap.clear.length == 0);
+  writeln(testMap);
+  assert(testMap.length == 0);
 }
+
+// #region push
+V[] push(V)(ref V[] items, V[] newItems...) {
+  return push(items, newItems.dup);
+}
+V[] push(V)(ref V[] items, V[] newItems) {
+  items ~= newItems;
+  return items;
+}
+
+unittest {
+  string[] testMap = ["a", "b", "c"];
+  assert(testMap.length == 3);
+  assert(testMap.push("d", "e").length == 5);
+  assert(testMap.length == 5);
+  assert(testMap.push(["x", "y"]).length == 7);
+  assert(testMap.length == 7);
+}
+// #endregion push

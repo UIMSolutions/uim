@@ -92,13 +92,13 @@ class DAssetMiddleware : IRoutingMiddleware {
 
         auto response = new DResponse(["stream": stream]);
 
-        contentType = (array)(response.getMimeType(file.getExtension()) ?: "application/octet-stream");
-        modified = file.getMTime();
-        expire = strtotime(this.cacheTime);
+        auto contentType = /* (array) */response.getMimeType(file.getExtension()) ? response.getMimeType(file.getExtension()) : "application/octet-stream";
+        auto modified = file.getMTime();
+        auto expire = strtotime(this.cacheTime);
         if (expire == false) {
             throw new DException("Invalid cache time value `%s`".format(this.cacheTime));
         }
-        maxAge = expire - time();
+        auto maxAge = expire - time();
 
         return response
             .withHeader("Content-Type", contentType[0])

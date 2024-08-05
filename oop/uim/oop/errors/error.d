@@ -85,7 +85,7 @@ class DError : UIMObject, IError {
 
   // Get the error code label
   string label() {
-    return _levelMap.get(this.code, "error");
+    return _levelMap.get(_code, "error");
   }
 
   // Get the stacktrace as a string.

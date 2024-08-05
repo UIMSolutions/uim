@@ -284,18 +284,15 @@ Json[string] set(T)(Json[string] items, T[string] keyValues) {
 }
 
 Json[string] set(T)(Json[string] items, string[] keys, T value) {
-  writeln("Json[string] set(T)(Json[string] items, string[] keys, T value)");
   keys.each!(key => set(items, key, value));
   return items;
 }
 
 Json[string] set(T)(Json[string] items, string key, T value) {
-  writeln("Json[string] set(T)(Json[string] items, string key, T value)");
   return set(items, key, Json(value));
 }
 
 Json[string] set(Json[string] items, string key, Json value) {
-  writeln("Json[string] set(Json[string] items, string key, Json value)");
   items[key] = value;
   return items;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
 }

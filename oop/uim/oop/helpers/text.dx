@@ -898,12 +898,12 @@ class DText {
             mystring = transliterate(mystring, options.get("transliteratorId"));
         }
         regex = "^\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}";
-        if (options.hasKey("preserve"]) {
-            regex ~= preg_quote(options.get("preserve"], "/");
+        if (options.hasKey("preserve")) {
+            regex ~= preg_quote(options.get("preserve"), "/");
         }
-        myquotedReplacement = preg_quote((string)options.get("replacement"], "/");
+        myquotedReplacement = preg_quote(options.getString("replacement"]), "/");
         mymap = [
-            "/[" ~ regex ~ "]/mu": options.get("replacement"],
+            "/[" ~ regex ~ "]/mu": options.get("replacement"),
              "/^[%s]+|[%s]+my/".format(myquotedReplacement, myquotedReplacement): "",
         ];
         if (options.isString("replacement") && options.hasKey("replacement")) {

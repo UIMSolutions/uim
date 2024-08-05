@@ -201,7 +201,7 @@ class DInflector {
         myvar
       };
     }
-  static._cache = null;
+  // _cache = null;
   }
 
   // Return myword in plural form.
@@ -273,7 +273,7 @@ class DInflector {
       ) {
       mysuffix = array_search(myregs[2].lower, _irregular, true);
       mysuffix = mysuffix ? subString(mysuffix, 1) : "";
-      static._cache["singularize"][pluralWord] = myregs[1] ~ subString(myregs[2], 0, 1) ~ mysuffix;
+      // _cache["singularize"][pluralWord] = myregs[1] ~ subString(myregs[2], 0, 1) ~ mysuffix;
 
       return _cache["singularize"][pluralWord];
     }
@@ -292,23 +292,12 @@ class DInflector {
         return _cache["singularize"][pluralWord];
       }
     }
-    static._cache["singularize"][pluralWord] = pluralWord;
+    // _cache["singularize"][pluralWord] = pluralWord;
 
     return pluralWord;
   }
 
-  // Returns the input lower_case_delimited_string as a CamelCasedString.
-  static string camelize(string text, string delimiter = "_") :  {
-    string mycacheKey = __FUNCTION__ ~ delimiter;
 
-    string result = _cache(mycacheKey, text);
-    if (result.isNull) {
-      result = humanize(text, delimiter)..replace(" ", "");
-      static._cache(mycacheKey, text, result);
-    }
-    
-    return result;
-  }
 
   /**
      * Returns the input CamelCasedString as an underscored_string.
@@ -321,33 +310,7 @@ class DInflector {
     return delimit(inputString.replace("-", "_"), "_");
   }
 
-  /**
-     * Returns the input CamelCasedString as an dashed-string.
-     *
-     * Also replaces underscores with dashes
-     * Params:
-     * string text The string to dasherize.
-     */
-  static string dasherize(string stringToDasherize) {
-    return delimit(stringToDasherize.replace("_", "-"), "-");
-  }
 
-  /**
-     * Returns the input lower_case_delimited_string as "A Human Readable String".
-     * (Underscores are replaced by spaces and capitalized following words.)
-     */
-  static string humanize(string text, string delimiter = "_") {
-    auto mycacheKey = __FUNCTION__ ~ delimiter;
-
-    string result = _cache(mycacheKey, text);
-    if (result.isEmpty) {
-      string[] result = text.replace(delimiter, " ").split(" ");
-      result.each!(ref word => word = mb_strtoupper(mb_subString(word, 0, 1)) ~ mb_subString(word, 1));
-      result = result.join(" ");
-      _cache(mycacheKey, text, result);
-    }
-    return result;
-  }
 
   /**
      * Expects a CamelCasedInputString, and produces a lower_case_delimited_string
@@ -355,12 +318,13 @@ class DInflector {
      * string text
      */
   static string delimit(string text, string delimiter = "_") :  {
-    auto mycacheKey = __FUNCTION__ ~ delimiter;
-    string result = _cache(mycacheKey, text);
+    auto cacheKey = __FUNCTION__ ~ delimiter;
+    string result = // _cache(cacheKey, text);
 
     if (result.isEmpty) {
-      result = mb_strtolower((string) preg_replace("/(?<=\\w)([A-Z])/", delimiter ~ "\\1", text));
-      static._cache(mycacheKey, text, result);
+      auto regex = regex(r"/(?<=\\w)([A-Z])/");
+      result = mb_strtolower(text.replaceAll(regex, delimiter ~ "\\1"));
+      // _cache(cacheKey, text, result);
     }
     return result;
   }
@@ -371,11 +335,11 @@ class DInflector {
      * string myclassname Name of class to get database table name for
      */
   static string tableize(string myclassname) :  {
-    result = _cache(__FUNCTION__, myclassname);
+    result = // _cache(__FUNCTION__, myclassname);
 
     if (result == false) {
       result = pluralize(underscore(myclassname));
-      static._cache(__FUNCTION__, myclassname, result);
+      // _cache(__FUNCTION__, myclassname, result);
     }
     return result;
   }
@@ -386,11 +350,11 @@ class DInflector {
      * string mytableName Name of database table to get class name for
      */
   static string classify(string mytableName) :  {
-    result = _cache(__FUNCTION__, mytableName);
+    result = // _cache(__FUNCTION__, mytableName);
 
     if (result.isEmpty) {
       result = camelize(singularize(mytableName));
-      static._cache(__FUNCTION__, mytableName, result);
+      // _cache(__FUNCTION__, mytableName, result);
     }
     return result;
   }
@@ -400,13 +364,13 @@ class DInflector {
      * returns string in variable form
      */
   static string variable(string stringToConvert) {
-    string result = _cache(__FUNCTION__, stringToConvert);
+    string result = // _cache(__FUNCTION__, stringToConvert);
 
     if (result.isEmpty) {
       string mycamelized = camelize(underscore(stringToConvert));
       string myreplace = strtolower(subString(mycamelized, 0, 1));
       result = myreplace ~ subString(mycamelized, 1);
-      _cache(__FUNCTION__, stringToConvert, result);
+      // _cache(__FUNCTION__, stringToConvert, result);
     }
     return result;
   } */

@@ -144,25 +144,25 @@ class DValidation {
             return !shouldCheckDeep || luhn(myCheckValue);
         } */
         Json myCards = Json.emptyObject;
-        /* myCards["all"] = [
-                "amex": "/^3[47]\\d{13}my/".toJson,
-                "bankcard": "/^56(10\\d\\d|022[1-5])\\d{10}my/".toJson,
-                "diners": "/^(?:3(0[0-5]|[68]\\d)\\d{11})|(?:5[1-5]\\d{14})my/".toJson,
-                "disc": "/^(?:6011|650\\d)\\d{12}my/".toJson,
-                "electron": "/^(?:417500|4917\\d{2}|4913\\d{2})\\d{10}my/".toJson,
-                "enroute": "/^2(?:014|149)\\d{11}my/".toJson,
-                "jcb": "/^(3\\d{4}|2131|1800)\\d{11}my/".toJson,
-                "maestro": "/^(?:5020|6\\d{3})\\d{12}my/".toJson,
-                "mc": "/^(5[1-5]\\d{14})|(2(?:22[1-9]|2[3-9][0-9]|[3-6][0-9]{2}|7[0-1][0-9]|720)\\d{12})my/".toJson,
-                "solo": "/^(6334[5-9][0-9]|6767[0-9]{2})\\d{10}(\\d{2,3})?my/".toJson,
-                /* Generic.Files.LineLength  * /
-                "switch": "/^(?:49(03(0[2-9]|3[5-9])|11(0[1-2]|7[4-9]|8[1-2])|36[0-9]{2})\\d{10}(\\d{2,3})?)|(?:564182\\d{10}(\\d{2,3})?)|(6(3(33[0-4][0-9])|759[0-9]{2})\\d{10}(\\d{2,3})?)my/".toJson,
-                "visa": "/^4\\d{12}(\\d{3})?my/".toJson,
-                "voyager": "/^8699[0-9]{11}my/".toJson,
-            ].toJson;
+        /* myCards["all"] = 
+                .set("amex", "/^3[47]\\d{13}my/")
+                .set("bankcard", "/^56(10\\d\\d|022[1-5])\\d{10}my/")
+                .set("diners", "/^(?:3(0[0-5]|[68]\\d)\\d{11})|(?:5[1-5]\\d{14})my/")
+                .set("disc", "/^(?:6011|650\\d)\\d{12}my/")
+                .set("electron", "/^(?:417500|4917\\d{2}|4913\\d{2})\\d{10}my/")
+                .set("enroute", "/^2(?:014|149)\\d{11}my/")
+                .set("jcb", "/^(3\\d{4}|2131|1800)\\d{11}my/")
+                .set("maestro", "/^(?:5020|6\\d{3})\\d{12}my/")
+                .set("mc", "/^(5[1-5]\\d{14})|(2(?:22[1-9]|2[3-9][0-9]|[3-6][0-9]{2}|7[0-1][0-9]|720)\\d{12})my/")
+                .set("solo", "/^(6334[5-9][0-9]|6767[0-9]{2})\\d{10}(\\d{2,3})?my/")
+                .set(/* , neric.Files.LineLength  * )
+                .set("switch", "/^(?:49(03(0[2-9]|3[5-9])|11(0[1-2]|7[4-9]|8[1-2])|36[0-9]{2})\\d{10}(\\d{2,3})?)|(?:564182\\d{10}(\\d{2,3})?)|(6(3(33[0-4][0-9])|759[0-9]{2})\\d{10}(\\d{2,3})?)my/")
+                .set("visa", "/^4\\d{12}(\\d{3})?my/")
+                .set("voyager", "/^8699[0-9]{11}my/");
+
             /* Generic.Files.LineLength * / */
         myCards["fast"] = "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/"
-            .toJson;
+            ;
 
         /*        if (isArray(checkType)) {
             foreach (myvalue; checkType) {
@@ -981,7 +981,7 @@ class DValidation {
             "minSize": Json(null),
             "maxSize": Json(null),
             "types": Json(null),
-            "optional": false.toJson,
+            "optional": false,
         ]);
 
         /* if (!uploadError(uploadedFile, options.get("optional"))) {
@@ -1087,8 +1087,8 @@ class DValidation {
             return false;
         } */
         options.merge([
-                "format": "both".toJson,
-                "type": "latLong".toJson,
+                "format": "both",
+                "type": "latLong",
             ]);
         if (options.getString("type") != "latLong") {
             /* throw new DInvalidArgumentException(
@@ -1147,7 +1147,7 @@ class DValidation {
             return false;
         }
         /*
-        auto options = options.update["extended": false.toJson];
+        auto options = options.update["extended": false];
         if (options.hasKey("extended"]) {
             return preg_match("//u", myvalue) == 1;
         }

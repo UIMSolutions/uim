@@ -193,7 +193,7 @@ class DMarshaller {
                                                     _table.dispatchEvent("Model.beforeMarshal", [
                                                             "data": data,
                                                             "options": options
-                                                        ].toJsonMap); return [(array) mydata, (
+                                                        ]); return [(array) mydata, (
                                                             array) options];}
 
                                                     /**

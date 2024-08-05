@@ -165,10 +165,9 @@ class DEntityContext : DContext {
      * string fieldPath The dot separated path to the value.
      */
     Json val(string fieldPath, Json[string] options  = null) {
-        auto updatedOptions = options.merge([
-            "default": Json(null),
-            "schemaDefault": true.toJson,
-        ]);
+        options
+            .merge("default", Json(null))
+            .merge("schemaDefault", true);
 
         if (_context.isEmpty("entity")) {
             return updatedoptions.get("default");

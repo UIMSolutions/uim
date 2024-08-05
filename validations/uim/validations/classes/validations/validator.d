@@ -1878,10 +1878,11 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be UTF-8 bytes only";
         }
 
-        /* Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createMap!(string, Json)()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
+        /*    
         return _add(fieldName, "utf8", extraData.set(
                 "rule": ["utf8", ["extended": false.toJson]],
             ]); */

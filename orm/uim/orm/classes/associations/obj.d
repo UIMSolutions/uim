@@ -32,7 +32,7 @@ class ORMOject : INamed {
     Json[string] debugInfo() {
         return [
             "name": name,
-        ].toJsonMap;
+        ]
     } 
 }
 

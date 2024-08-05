@@ -294,7 +294,7 @@ class DBehavior : IEventListener {
     Json[string] implementedMethods() {
         auto methods = configuration.get("implementedMethods");
         if (!methods.isNull) {
-            return methods.toJsonMap;
+            return methods
         }
 
         return _reflectionCache()["methods"];

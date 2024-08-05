@@ -291,7 +291,7 @@ class Xml {
                                                 "dom": dom, 
                                                 "node": node, 
                                                 "key": key, 
-                                                "format": format].toJsonMap;
+                                                "format": format]
 
                                             itemData.set("value", item); 
                                             _createChild(itemData);

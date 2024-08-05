@@ -225,7 +225,7 @@ abstract class DConfiguration : IConfiguration {
 
     //#region set
     IConfiguration set(STRINGAA data, string[] keys = null) {
-        return set(data.toJsonMap, keys);
+        return set(data, keys);
     }
 
     IConfiguration set(Json[string] newData, string[] keys = null) {

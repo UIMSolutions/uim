@@ -249,11 +249,10 @@ mixin template TEntity() {
     if (!isArray(fieldName)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
-    auto updatedOptions = options.setPath([
-      "setter": true,
-      "guard": guard,
-      "asOriginal": false
-    ]);
+    options      
+      .merge("setter", true)
+      .merge("guard", guard)
+      .merge("asOriginal", false);
 
     if (options.getBoolean("asOriginal")) {
       setOriginalField(fieldName.keys);

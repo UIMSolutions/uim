@@ -150,14 +150,15 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
         if (options.hasKey("translations") && !options.hasKey("translations"]) {
             return;
         }
-        mydefaultLocale = configuration.getString("defaultLocale");
+        
+        auto mydefaultLocale = configuration.getString("defaultLocale");
         if (!mydata["_translations"].hasKey(mydefaultLocale)) {
             return;
         }
         foreach (fieldName, myvalue; mydata["_translations"][mydefaultLocale]) {
-            mydata[fieldName] = myvalue;
+            mydata.set(fieldName, myvalue);
         }
-        remove(mydata["_translations"][mydefaultLocale]);
+        mydata.remove(["_translations"][mydefaultLocale]);
     } */
 
   /**

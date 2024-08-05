@@ -177,11 +177,11 @@ class DEagerLoader {
             _matching = new static();
         }
 
-        auto updatedOptions = options.setPath(["joinType": Query.JOIN_TYPE_INNER]);
+        options.merge("joinType", Query.JOIN_TYPE_INNER);
         auto sharedOptions = ["negateMatch": false.toJson, "matching": true.toJson] + options;
 
         auto contains = null;
-        nested = &contains;
+        auto nested = &contains;
         foreach (association; explode(".", associationPath)) {
             // Add contain to parent contain using association name as key
             nested[association] = sharedOptions;
@@ -368,13 +368,13 @@ class DEagerLoader {
         auto instance = parent.getAssociation(aliasName);
 
         paths += ["aliasPath": "", "propertyPath": "", "root": aliasName];
-        paths["aliasPath").concat( "." ~ aliasName;
+        paths()"aliasPath").concat( "." ~ aliasName);
 
         if (
             options.hasKey("matching") &&
             options.get("matching") == true
        ) {
-            paths["propertyPath"] = "_matchingData." ~ aliasName;
+            paths.set("propertyPath", "_matchingData." ~ aliasName);
         } else {
             paths["propertyPath").concat( "." ~ instance.getProperty();
         }

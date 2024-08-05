@@ -681,3 +681,19 @@ pure V[K] createMap(K, V)() {
 pure V[K] clear(K, V)(V[K] items) {
   return null;
 }
+
+V shift(K, V)(V[K] items, K key) {
+  V result = items.get(key);
+  items.remove(key);
+  return result;
+}
+unittest {
+  STRINGAA testMap = ["a":"A", "b":"B", "c":"C"];
+  assert(testMap.length == 3);
+  assert(testMap.shift("b") == "B");
+  assert(testMap.length == 2);
+}
+
+V get(K, V)(V[K] items, K key, V defaultValue = Null!V) {
+  return key in items ? items[key] : defaultValue;
+}

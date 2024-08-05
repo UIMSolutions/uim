@@ -51,13 +51,13 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
             .merge("methods", Json(null));
 
         if (options.hasKey("Json")) {
-            this.addParser(
+            addParser(
                 ["application/Json", "text/Json"],
                 // this.decodeJson(...)
            );
         }
         if (options.hasKey("xml")) {
-            this.addParser(
+            addParser(
                 ["application/xml", "text/xml"],
                 // this.decodeXml(...)
            );

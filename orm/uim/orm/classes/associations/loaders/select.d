@@ -110,7 +110,7 @@ class DSelectLoader {
         }
 
         if (useSubquery) {
-            filter = _buildSubquery(options.get("query"]);
+            filter = _buildSubquery(options.get("query"));
             fetchQuery = _addFilteringJoin(
                 fetchQuery, key, filter);
         } else {
@@ -118,11 +118,11 @@ class DSelectLoader {
         }
 
         if (options.hasKey("sort")) {
-            fetchQuery.order(options.get("sort"]);
+            fetchQuery.order(options.get("sort"));
         }
 
         if (options.hasKey("contain")) {
-            fetchQuery.contain(options.get("contain"]);
+            fetchQuery.contain(options.get("contain"));
         }
 
         if (options.hasKey("queryBuilder")) {

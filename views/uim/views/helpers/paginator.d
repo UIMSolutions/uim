@@ -275,13 +275,11 @@ class DPaginatorHelper : DHelper {
      * - `lock` Lock direction. Will only use the default direction then, defaults to false.
      */
     string sort(string key, string[] linkTitle = null, Json[string] options = null) {
-        auto updatedOptions = options.setPath([
-            "url": Json.emptyArray,
-            "escape": true
-        ]);
-        auto url = updatedoptions.get("url");
-        updatedOptions.remove("url");
+        options
+            .merge("url", Json.emptyArray)
+            .merge("escape", true);
 
+        auto url = options.shift("url");
         if (linkTitle.isEmpty) {
             linkTitle = key;
 
@@ -295,7 +293,7 @@ class DPaginatorHelper : DHelper {
         options.remove("direction");
 
         auto mylocked = options.get("lock", false);
-        options.get("lock"];
+        options.get("lock");
 
         auto mysortKey = to!string(param(
                 "sort"));
@@ -330,10 +328,10 @@ class DPaginatorHelper : DHelper {
         auto mypaging = createMap!(string, Json)
             .set("sort", key).set("direction", mydir).set("page", 1);
 
-        auto myvars = [
-            "text": options.get("escape") ? htmlAttributeEscape(mytitle): mytitle,
-            "url": generateUrl(mypaging, url),
-        ];
+        auto myvars = createMap!(string, Json)
+            .set("text", options.hasKey("escape") ? htmlAttributeEscape(mytitle): mytitle)
+            .set("url", generateUrl(mypaging, url));
+            
         return _templater().format(mytemplate, myvars);
     }
 

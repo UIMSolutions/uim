@@ -120,19 +120,19 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     
     // Build miscellaneous options for the request.
     protected void _buildOptions(IRequest request, Json[string] options = null) {
-       _contextOptions.set("method", request.getMethod());
-       _contextOptions.set("protocol_version", request.getProtocolVersion());
-       _contextOptions.set("ignore_errors", true);
+       _contextOptions
+        .set("method", request.getMethod())
+        .set("protocol_version", request.getProtocolVersion())
+        .set("ignore_errors", true);
 
-        if (options.hasKey("timeout")) {
-           _contextOptions.set("timeout", options.get("timeout"));
-        }
+        _contextOptions.update("timeout", options.get("timeout"));
         // Redirects are handled in the client layer because of cookie handling issues.
        _contextOptions.set("max_redirects", 0);
 
         if (options.hasKey("proxy.proxy")) {
-           _contextOptions.set("request_fulluri", true);
-           _contextOptions.set("proxy", options.get("proxy.proxy"));
+           _contextOptions
+            .set("request_fulluri", true)
+            .set("proxy", options.get("proxy.proxy"));
         }
     }
     

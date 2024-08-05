@@ -7,10 +7,9 @@ import uim.routings;
 // Returns an array URL from a route path string.
 Json[string] urlArray(string path, Json[string] params= null) {
     auto url = Router.parseRoutePath(somePath);
-    url += [
-        "plugin": false.toJson,
-        "prefix": false.toJson,
-    ];
+    url
+        .merge("plugin", false)
+        .merge("prefix", false);
 
     return url + params;
 }

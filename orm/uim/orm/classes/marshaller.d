@@ -107,14 +107,14 @@ class DMarshaller {
      *
      * ```
      * result = mymarshaller.one(mydata, [
-     * "associated": ["Tags": ["onlyIds": true.toJson]]
+     * "associated": ["Tags": ["onlyIds": true]]
      * ]);
      * ```
      *
      * ```
      * result = mymarshaller.one(mydata, [
      * "associated": [
-     *   "Tags": ["accessibleFields": ["*": true.toJson]]
+     *   "Tags": ["accessibleFields": ["*": true]]
      * ]
      * ]);
      * ```
@@ -153,11 +153,11 @@ class DMarshaller {
                             foreach (fieldName; options.getStringArray("fields")) {
                                 if (fieldName.isIn(myproperties)) {
                                     myentity.set(fieldName, myproperties[fieldName], [
-                                            "asOriginal": true.toJson
+                                            "asOriginal": true
                                         ]);}
                                 }
                             } else {
-                                myentity.set(myproperties, ["asOriginal": true.toJson]);
+                                myentity.set(myproperties, ["asOriginal": true]);
                             }
                             // Don"t flag clean association entities as
                             // dirty so we don"t persist empty records.
@@ -179,8 +179,7 @@ class DMarshaller {
 
                                             // Returns data and options prepared to validate and marshall.
                                             protected Json[string] _prepareDataAndOptions(Json[string] data, Json[string] options = null) {
-                                                auto updatedOptions = options
-                                                    .update["validate": true.toJson];
+                                                options.merge("validate", true);
 
                                                 auto mytableName = _table.aliasName();
                                                     if (mydata.hasKey(mytableName) && isArray(
@@ -432,7 +431,7 @@ class DMarshaller {
      *
      * ```
      * result = mymarshaller.merge(myentity, mydata, [
-     * "associated": ["Tags": ["onlyIds": true.toJson]]
+     * "associated": ["Tags": ["onlyIds": true]]
      * ]);
      * ```
      */
@@ -756,7 +755,7 @@ class DMarshaller {
                 "_joinData")) {
             mynested = myassociated.getArray("_joinData");
         }
-        options = options.set("accessibleFields", ["_joinData": true.toJson]);
+        options = options.set("accessibleFields", ["_joinData": true]);
         auto myrecords = mergeMany(
             originalEntities, dataToHydrate, options);
         myrecords.each!(

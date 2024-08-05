@@ -575,9 +575,7 @@ class DRouteBuilder {
         return redirect(routeTemplate, ["redirect": url], options);
     }
     DRoute redirect(string routeTemplate, STRINGAA myurl, Json[string] options = null) {
-        auto options = options.merge([
-            "routeClass": RedirectRoute.classname.toJson
-        ]);
+        options.merge("routeClass", RedirectRoute.classname);
         return _connect(routeTemplate, myurl, options);
     }
 

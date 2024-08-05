@@ -211,7 +211,7 @@ class DPaginator : IPaginator {
         options = checkLimit(options);
 
         auto updatedOptions = options.update["page": 1, "scope": null];
-        options = options.set("page", options.getInteger("page") < 1 ? 1 : options.getInteger("page"));
+        options.set("page", options.getInteger("page") < 1 ? 1 : options.getInteger("page"));
         [myFinder, options] = _extractFinder(options);
         return compact("defaults", "options", "finder");
     }
@@ -550,8 +550,8 @@ class DPaginator : IPaginator {
     // Check the limit parameter and ensure it"s within the maxLimit bounds.
     Json[string] checkLimit(Json[string] options = null) {
         auto limit = options.getInteger("limit");
-        options = options.set("limit", limit < 1 ? 1 : limit);
-        options = options.set("limit", max(min(options.getInteger("limit"), options.getInteger(
+        options.set("limit", limit < 1 ? 1 : limit);
+        options.set("limit", max(min(options.getInteger("limit"), options.getInteger(
                 "maxLimit")), 1));
 
         return options;

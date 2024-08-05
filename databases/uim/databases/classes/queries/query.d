@@ -754,10 +754,10 @@ abstract class DQuery : IQuery { // : IExpression {
      */
     auto whereInList(string fieldName, Json[string] someValues, Json[string] options = null) {
         // `types` - Associative array of type names used to bind values to query
-        options = options.set("types", ArrayData);
+        options.set("types", ArrayData);
 
         // `allowEmpty` - Allow empty array.
-        options = options.set("allowEmpty", false);
+        options.set("allowEmpty", false);
 
         if (options.getBoolean("allowEmpty") && !someValues) {
             return _where("1=0");
@@ -796,7 +796,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Be careful about using it without proper sanity checks.
      */
     auto whereNotInListOrNull(string fieldName, Json[string] someValues, Json[string] options = null) {
-        auto auto updatedOptions = options = options.set() [
+        options.set() [
             "types": Json.emptyArray,
             "allowEmpty": false.toJson,
         ];

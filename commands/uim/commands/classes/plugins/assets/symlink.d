@@ -27,20 +27,18 @@ class DPluginAssetsSymlinkCommand : DCommand {
     }
 
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
-        // TODO parserToUpdate.description("symlink (copy as fallback) plugin assets to app`s webroot.");
-        
-        /* 
-        parserToUpdate.addArgument("name", [
-            "help": "A specific plugin you want to symlink assets for.",
-            "required": false.toJson,
-        ]); */
-        
-        /* TODO parserToUpdate.addOption("overwrite", [
-            "help": "Overwrite existing symlink / folder / files.",
-            "default": false.toJson,
-            "boolean": true.toJson,
-        ]); */
+        with (parserToUpdate) {
+            description("symlink (copy as fallback) plugin assets to app`s webroot.");
 
+            addArgument("name", createMap!(string, Json)
+                    .set("help", "A specific plugin you want to symlink assets for.")
+                    .set("required", false));
+
+            addOption("overwrite", createMap!(string, Json)
+                    .set("help", "Overwrite existing symlink / folder / files.")
+                    .set("default", false)
+                    .set("boolean", true));
+        }
         return parserToUpdate;
     }
 
@@ -54,8 +52,8 @@ class DPluginAssetsSymlinkCommand : DCommand {
         _args = commandArguments;
 
         auto name = commandArguments.getArgument("name");
-       auto overwrite = arguments.getBoolean("overwrite");
-       _process(_list(name), false, overwrite);
+        auto overwrite = arguments.getBoolean("overwrite");
+        _process(_list(name), false, overwrite);
 
         return CODE_SUCCESS;
     }

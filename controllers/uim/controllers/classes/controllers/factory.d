@@ -150,16 +150,15 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                     typedArgument = this.coerceStringToType(argument, type);
 
                     if (typedArgument.isNull) {
-                        throw new DInvalidParameterException([
-                            "template": "failed_coercion".toJson,
-                            "passed": argument.toJson,
-                            "type": type.name.toJson,
-                            "parameter": parameter.name.toJson,
-                            "controller": _controller.name.toJson,
-                            "action": _controller.getRequest().getParam("action").toJson,
-                            "prefix": _controller.getRequest().getParam("prefix").toJson,
-                            "plugin": _controller.getRequest().getParam("plugin").toJson,
-                        ]);
+                        throw new DInvalidParameterException(createMap!(string, Json)
+                            .set("template", "failed_coercion")
+                            .set("passed", argument)
+                            .set("type", type.name)
+                            .set("parameter", parameter.name)
+                            .set("controller", _controller.name)
+                            .set("action", _controller.getRequest().getParam("action"))
+                            .set("prefix", _controller.getRequest().getParam("prefix"))
+                            .set("plugin", _controller.getRequest().getParam("plugin")));
                     }
                     argument = typedArgument;
                 }
@@ -175,14 +174,13 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             if (parameter.isVariadic()) {
                 continue;
             }
-            throw new DInvalidParameterException([
-                "template": "missing_parameter",
-                "parameter": parameter.name,
-                "controller": _controller.name,
-                "action": _controller.getRequest().getParam("action"),
-                "prefix": _controller.getRequest().getParam("prefix"),
-                "plugin": _controller.getRequest().getParam("plugin"),
-            ]);
+            throw new DInvalidParameterException(createMap!(string, Json)
+                .set("template", "missing_parameter")
+                .set("parameter", parameter.name)
+                .set("controller", _controller.name)
+                .set("action", _controller.getRequest().getParam("action"))
+                .set("prefix", _controller.getRequest().getParam("prefix"))
+                .set("plugin", _controller.getRequest().getParam("plugin")));
         }
         return array_merge(resolved, passedParams);
     }

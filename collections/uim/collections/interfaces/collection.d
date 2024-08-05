@@ -796,7 +796,7 @@ zip * /
      * Get elements until the first unapproved message is found:
      *
      * ```
-     * comments = (new D_Collection(comments)).stopWhen(["is_approved": false.toJson]);
+     * comments = (new D_Collection(comments)).stopWhen(["is_approved": false]);
      * ```
      * /
     I_Collection stopWhen(Json[string] condition);

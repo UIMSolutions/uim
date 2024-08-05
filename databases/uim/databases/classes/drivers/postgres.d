@@ -12,14 +12,14 @@ class DPostgresDriver : DDriver {
         }
 
         configuration
-            .setDefault("persistent", true.toJson)
-            .setDefault("host", Json("localhost"))
-            .setDefault("username", Json("root"))
-            .setDefault("password", "".toJson)
-            .setDefault("database", Json("uim"))
-            .setDefault("schema", Json("public"))
-            .setDefault("port", Json(5432))
-            .setDefault("encoding", Json("utf8"))
+            .setDefault("persistent", true)
+            .setDefault("host", "localhost")
+            .setDefault("username", "root")
+            .setDefault("password", "")
+            .setDefault("database", "uim")
+            .setDefault("schema", "public")
+            .setDefault("port", 5432)
+            .setDefault("encoding", "utf8")
             .setDefault("timezone", Json(null))
             .setDefault("flags", Json.emptyArray)
             .setDefault("init", Json.emptyArray);

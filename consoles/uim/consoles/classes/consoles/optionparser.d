@@ -48,7 +48,7 @@ import uim.consoles;
  * declare arguments as optional, by setting the required param to false.
  *
  * ```
- * aParser.addArgument("model", ["required": false.toJson]);
+ * aParser.addArgument("model", ["required": false]);
  * ```
  *
  * ### Providing Help text
@@ -95,12 +95,12 @@ class DConsoleOptionParser {
     // #endregion description
 
     void addArgument(string argName, Json[string] params = null) {
-        Json[string] defaultOptions = [
-            "name": Json(argName),
-            "help": "".toJson,
-            "index": LongData(count(_args)),
-            "required": false.toJson,
-            "choices": Json.emptyArray,
+        Json[string] defaultOptions = createMap!(string, Json)
+            .set("name", Json(argName))
+            .set("help", "")
+            .set("index", LongData(count(_args)))
+            .set("required", false)
+            .set("choices", Json.emptyArray)
         ];
 
         auto newParams = params.merge(defaultOptions);
@@ -175,29 +175,28 @@ class DConsoleOptionParser {
     this(string newCommand = "", bool isVerboseAndQuiet = true) {
         setCommand(command);
 
-        addOption("help", [
-                "short": "h",
-                "help": "Display this help.",
-                "boolean": true.toJson,
-            ]);
+        addOption("help", createMap!(string, Json)
+                .set("short", "h")
+                .set("help", "Display this help.")
+                .set("boolean", true));
 
         if (isVerboseAndQuiet) {
-            addOption("verbose", [
-                    "short": "v",
-                    "help": "Enable verbose output.",
-                    "boolean": true.toJson,
-                ]).addOption("quiet", [
-                    "short": "q",
-                    "help": "Enable quiet output.",
-                    "boolean": true.toJson,
-                ]);
+            addOption("verbose", createMap!(string, Json)
+                    .set("short", "v")
+                    .set("help", "Enable verbose output.")
+                    .set("boolean", true));
+
+            addOption("quiet", createMap!(string, Json)
+                    .set("short", "q")
+                    .set("help", "Enable quiet output.")
+                    .set("boolean", true));
         }
     }
 
     // Static factory method for creating new DOptionParsers so you can chain methods off of them.
     static auto create(string commandName, bool useDefaultOptions = true) {
         /* return new static(commandName, useDefaultOptions); */
-        return this; 
+        return this;
     }
 
     /**
@@ -233,7 +232,7 @@ class DConsoleOptionParser {
             aParser.setEpilog(sepcData["epilog"]);
         }
         return aParser; */
-        return null; 
+        return null;
     }
 
     // Returns an array representation of this parser.
@@ -295,15 +294,15 @@ class DConsoleOptionParser {
      * options An array of parameters that define the behavior of the option
      */
     void addOption(string optionName, Json[string] behaviorOptions = null) {
-        defaultValues = [
-            "short": "".toJson,
-            "help": "".toJson,
-            "default": Json(null),
-            "boolean": false.toJson,
-            "multiple": false.toJson,
-            "choices": Json.emptyArray,
-            "required": false.toJson,
-            "prompt": Json(null),
+        defaultValues = createMap!(string, Json)
+            .set("short", "")
+            .set("help", "")
+            .set("default", Json(null))
+            .set("boolean", false)
+            .set("multiple", false)
+            .set("choices", Json.emptyArray)
+            .set("required", false)
+            .set("prompt", Json(null))
         ];
         behaviorOptions = behaviorOptions.set(defaultValues);
 
@@ -534,7 +533,7 @@ class DConsoleOptionParser {
                 aKey, options
             );
         }
-        
+
         auto name = _shortOptions.getString(aKey);
         return _parseOption(name, paramsToAppen);
     }
@@ -564,7 +563,7 @@ class DConsoleOptionParser {
             aValue = to!string(option.defaultValue());
         }
         option.validChoice(aValue);
-        
+
         if (option.acceptsMultiple()) {
             params.append(nameToParse, aValue);
         } else {
@@ -610,6 +609,6 @@ class DConsoleOptionParser {
 
     // Find the next token in the argv set.
     protected string _nextToken() {
-        return _tokens[0] ? _tokens[0] :  "";
+        return _tokens[0] ? _tokens[0] : "";
     }
 }

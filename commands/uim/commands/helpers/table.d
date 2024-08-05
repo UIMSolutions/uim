@@ -13,11 +13,11 @@ class DTableHelper : UIMObject { // }: Helper {
     if (!super.initialize(initData)) {
       return false;
     }
-    configuration.mergeDefaults([
-      "headers": true.toJson,
-      "rowSeparator": false.toJson,
-      "headerStyle": Json("info")
-    ]);
+    
+    configuration.mergeDefaults(createMap!(string, Json)
+      .set("headers", true)
+      .set("rowSeparator", false)
+      .set("headerStyle", "info"));
 
     return true;
   }

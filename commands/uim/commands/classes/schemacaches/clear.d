@@ -6,20 +6,22 @@ import uim.commands;
 
 // Provides CLI tool for clearing schema cache.
 class DSchemacacheClearCommand : DCommand {
-   mixin(CommandThis!("SchemacacheClear"));
+  mixin(CommandThis!("SchemacacheClear"));
 
-  	override bool initialize(Json[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+    return true;
+  }
 
   // Get the command name.
   static string defaultName() {
     return "schema_cache-clear";
   }
-  
-    override override size_t execute(Json[string] arguments, IConsole aConsole = null) {
+
+  override override size_t execute(Json[string] arguments, IConsole aConsole = null) {
     return super.execute(arguments, aConsoleIo);
   }
 
@@ -43,22 +45,26 @@ class DSchemacacheClearCommand : DCommand {
     aConsoleio.out ("<success>Cache clear complete</success>");
 
     return CODE_SUCCESS;
-  }
+  } */
 
   // Get the option parser.
   DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
-    parserToUpdate.description(
-      "Clear all metadata caches for the connection. If a table name is provided, only that table will be removed."
-   )
-      .addOption("connection", [
-          "help": "The connection to build/clear metadata cache data for.",
-          "short": "c",
-          "default": "default",
-        ]).addArgument("name", [
-          "help": "A specific table you want to clear cached data for.",
-          "required": false.toJson,
-        ]);
+    with (parserToUpdate) {
+      description(
+        "Clear all metadata caches for the connection. If a table name is provided, only that table will be removed."
+      );
 
+      addOption("connection", createMap!(string, Json)
+          .set("help", "The connection to build/clear metadata cache data for.")
+          .set("short", "c")
+          .set("default", "default")
+      );
+
+      addArgument("name", createMap!(string, Json)
+          .set("help", "A specific table you want to clear cached data for.")
+          .set("required", false)
+      );
+    }
     return parserToUpdate;
-  } */
+  }
 }

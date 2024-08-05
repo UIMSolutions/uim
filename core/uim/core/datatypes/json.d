@@ -510,10 +510,10 @@ T minValue(T)(Json[] jsons, string key) {
 unittest {
   assert(minValue!string(
       [
-      ["a": "5"].toJson,
-      ["a": "2"].toJson,
-      ["a": "1"].toJson,
-      ["a": "4"].toJson
+      ["a": "5"],
+      ["a": "2"],
+      ["a": "1"],
+      ["a": "4"]
     ], "a") == "1");
 }
 
@@ -544,10 +544,10 @@ version (test_uim_core) {
   unittest {
     assert(maxValue!string(
         [
-        ["a": "5"].toJson,
-        ["a": "2"].toJson,
-        ["a": "1"].toJson,
-        ["a": "4"].toJson
+        ["a": "5"],
+        ["a": "2"],
+        ["a": "1"],
+        ["a": "4"]
       ], "a") == "5");
   }
 }

@@ -107,7 +107,7 @@ class DI18nExtractCommand : DCommand {
         if (arguments.getOption("paths")) {
            _paths = arguments.getString("paths").split(",");
         } else if (arguments.getOption("plugin")) {
-            myPlugin = Inflector.camelize(commandArguments.getString("plugin"));
+            myPlugin = commandArguments.getString("plugin").camelize;
            _paths = [Plugin.classPath(myPlugin), Plugin.templatePath(myPlugin)];
         } else {
            _getPaths(aConsoleIo);

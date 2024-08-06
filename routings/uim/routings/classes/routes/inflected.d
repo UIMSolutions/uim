@@ -33,10 +33,10 @@ class DInflectedRoute : DRoute {
         }
         if (!params.isEmpty("plugin")) {
             if (!params["plugin"].contains("/")) {
-                params.set("plugin", Inflector.camelize(params.getString("plugin")));
+                params.set("plugin", params.getString("plugin").camelize);
             } else {
                 [myvendor, myplugin] = params.getString("plugin").split("/", 2);
-                params.set("plugin", Inflector.camelize(myvendor) ~ "/" ~ Inflector.camelize(myplugin));
+                params.set("plugin", myvendor.camelize ~ "/" ~ myplugin.camelize);
             }
         }
         return params;

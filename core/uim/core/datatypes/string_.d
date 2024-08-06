@@ -814,3 +814,47 @@ unittest {
 	assert("hello_world_and_mars".humanize == "Hello World And Mars");
 }
 // #endregion humanize
+
+ /**
+     * Returns the input CamelCasedString as an underscored_string.
+     * Also replaces dashes with underscores
+     */
+  string underscore(string inputString) {
+    return delimit(std.string.replace(inputString, "-", "_"), "_");
+  }
+  unittest {
+	writeln("underscore");
+	writeln(underscore("camel-cased-input-string"));
+	writeln(underscore("  camel-cased-input-string  "));
+  }
+
+// Expects a CamelCasedInputString, and produces a lower_case_delimited_string
+  string delimit(string text, string delimiter = "_") {
+    // auto cacheKey = __FUNCTION__ ~ delimiter;
+    string result;// = _cache(cacheKey, text);
+
+    if (result.isEmpty) {
+      /* auto regex = regex(r"/(?<=\\w)([A-Z])/");
+      result = text.replaceAll(regex, delimiter ~ "\\1").lower; */
+      // _cache(cacheKey, text, result);
+	  dchar lastChar;
+	  foreach(index, c; text) {
+		if (std.uni.isUpper(c) && index > 0 && !std.uni.isWhite(lastChar)) {
+			result ~= delimiter ~ c;
+		}
+		else {
+			result ~= c;
+		}
+		lastChar = c;
+	  }
+    }
+    return result.lower;
+  }
+
+  unittest {
+	writeln("delimit");
+	writeln(delimit("CamelCasedInputString"));
+	writeln(delimit("  CamelCasedInputString  x"));
+	writeln(delimit("  CamelCasedInputString  x"));
+	writeln(delimit("xX  CamelCasedInputString  xX"));
+  }

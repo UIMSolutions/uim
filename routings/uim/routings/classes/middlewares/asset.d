@@ -69,7 +69,7 @@ class DAssetMiddleware : IRoutingMiddleware {
             if (someParts.isNull(index)) {
                 break;
             }
-            string[] pluginPart ~= Inflector.camelize(someParts[index]);
+            string[] pluginPart ~= someParts[index].camelize
             string plugin = pluginPart.join("/");
             if (Plugin.isLoaded(plugin)) {
                 someParts =someParts.slice(index + 1);

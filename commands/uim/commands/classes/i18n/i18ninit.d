@@ -31,7 +31,7 @@ class DI18nInitCommand : DCommand {
         
         auto somePaths = App.path("locales");
         if (arguments.hasKey("plugin")) {
-            plugin = Inflector.camelize(arguments.getString("plugin"));
+            plugin = arguments.getString("plugin").camelize;
             somePaths = [Plugin.path(plugin) ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR];
         }
         response = consoleIo.ask("What folder?", stripRight(somePaths[0], DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);

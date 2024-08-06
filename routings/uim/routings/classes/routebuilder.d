@@ -611,7 +611,7 @@ class DRouteBuilder {
         }
 
         string path = "/" ~ Inflector.dasherize(routingPrefix);
-        string routings = Inflector.camelize(routingPrefix);
+        string routings = routingPrefix.camelize;
         if (params.hasKey("path")) {
             path = params["path"];
             params.remove("path");

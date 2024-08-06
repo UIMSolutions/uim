@@ -299,41 +299,9 @@ class DInflector {
 
 
 
-  /**
-     * Returns the input CamelCasedString as an underscored_string.
-     *
-     * Also replaces dashes with underscores
-     * Params:
-     * string text CamelCasedString to be "underscorized"
-     */
-  static string underscore(string inputString) :  {
-    return delimit(inputString.replace("-", "_"), "_");
-  }
+ 
 
-
-
-  /**
-     * Expects a CamelCasedInputString, and produces a lower_case_delimited_string
-     * Params:
-     * string text
-     */
-  static string delimit(string text, string delimiter = "_") :  {
-    auto cacheKey = __FUNCTION__ ~ delimiter;
-    string result = // _cache(cacheKey, text);
-
-    if (result.isEmpty) {
-      auto regex = regex(r"/(?<=\\w)([A-Z])/");
-      result = mb_strtolower(text.replaceAll(regex, delimiter ~ "\\1"));
-      // _cache(cacheKey, text, result);
-    }
-    return result;
-  }
-
-  /**
-     * Returns corresponding table name for given model myclassname. ("people" for the model class "Person").
-     * Params:
-     * string myclassname Name of class to get database table name for
-     */
+  // Returns corresponding table name for given model myclassname. ("people" for the model class "Person").
   static string tableize(string myclassname) :  {
     result = // _cache(__FUNCTION__, myclassname);
 

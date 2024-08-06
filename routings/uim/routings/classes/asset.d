@@ -151,8 +151,8 @@ class DAsset {
         if (somePath.contains("?")) {
             return somePath;
         }
-        timestamp = timestamp.ifNull(configuration.getString("Asset.timestamp"));
-        timestampEnabled = timestamp == "force" || (timestamp == true && configuration.get("debug"));
+        auto timestamp = timestamp.ifNull(configuration.getString("Asset.timestamp"));
+        auto timestampEnabled = timestamp == "force" || (timestamp == true && configuration.get("debug"));
         if (timestampEnabled) {
             string filepath = /* (string) */preg_replace(
                 "/^" ~ preg_quote(requestWebroot(), "/") ~ "/", "", urldecode(somePath)
@@ -166,7 +166,7 @@ class DAsset {
             string[] segments = stripLeft(filepath, "/").split("/");
             plugin = Inflector.camelize(segments[0]);
             if (!Plugin.isLoaded(plugin) && count(segments) > 1) {
-                string plugin = join("/", [plugin, Inflector.camelize(segments[1])]);
+                string plugin = join("/", [plugin, segments[1].camelize]);
                 remove(segments[1]);
             }
             if (Plugin.isLoaded(plugin)) {

@@ -991,7 +991,7 @@ static string contentType() {
             string[] myprefixPath =_request.getParam("prefix"). split("/");
             string path = "";
             foreach (myprefixPart; myprefixPath) {
-                path ~= Inflector.camelize(myprefixPart) ~ DIRECTORY_SEPARATOR;
+                path ~= myprefixPart.camelize ~ DIRECTORY_SEPARATOR;
                 paths.unshift(path ~ basePath);
             }
         }
@@ -1022,7 +1022,7 @@ static string contentType() {
             _pluginPaths ~= Plugin.templatePath(pluginName);
         }
         if (!_theme.isEmpty) {
-            mythemePath = Plugin.templatePath(Inflector.camelize(_theme));
+            mythemePath = Plugin.templatePath(_theme.camelize);
 
             if (pluginName) {
                 mythemePaths ~= mythemePath

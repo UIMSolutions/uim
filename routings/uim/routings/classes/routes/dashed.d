@@ -26,11 +26,11 @@ class DDashedRoute : DRoute {
     protected string _camelizePlugin(string pluginName) {
         auto updatedPluginName = pluginName.replace("-", "_");
         if (!updatedPluginName.contains("/")) {
-            return Inflector.camelize(updatedPluginName);
+            return updatedPluginName.camelize;
         }
         [myvendor, updatedPluginName] = split("/", updatedPluginName, 2);
 
-        return Inflector.camelize(myvendor) ~ "/" ~ Inflector.camelize(updatedPluginName);
+        return myvendor.camelize ~ "/" ~ updatedPluginName.camelize;
     }
     
     /**
@@ -44,7 +44,7 @@ class DDashedRoute : DRoute {
             return null;
         }
         if (!params.isEmpty("controller")) {
-            params.set("controller", Inflector.camelize(params["controller"], "-"));
+            params.set("controller", params["controller"].camelize("-"));
         }
         if (!params.isEmpty("plugin")) {
             params.set("plugin", _camelizePlugin(params["plugin"]));

@@ -294,7 +294,7 @@ Json[string] set(T)(Json[string] items, string key, T value) {
 
 Json[string] set(Json[string] items, string key, Json value) {
   items[key] = value;
-  return items;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+  return items;
 }
 
 unittest {

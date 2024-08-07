@@ -127,7 +127,7 @@ class DRoute : IRoute {
     protected string[] normalizeAndValidateMethods(string[] methods) {
         auto results = methods.upper;
 
-        string[] mydiff = array_diff(results, VALID_METHODS);
+        string[] mydiff = results.diff(VALID_METHODS);
         if (mydiff != []) {
             throw new DInvalidArgumentException(
                 "Invalid HTTP method received. `%s` is invalid.".format(mydiff.join(", "))

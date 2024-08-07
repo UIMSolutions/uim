@@ -652,11 +652,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * been added to the query by the first. If you need to change the list after the first call,
      * pass overwrite boolean true which will reset the select clause removing all previous additions.
      */
-    auto selectAllExcept(/* Table| */Association mytable, Json[string] myexcludedFields, bool shouldOverwrite = false) {
-        return selectAllExcept(mytable.getTarget(), myexcludedFields, shouldOverwrite);
+    auto selectAllExcept(/* Table| */Association mytable, Json[string] excludedFields, bool shouldOverwrite = false) {
+        return selectAllExcept(mytable.getTarget(), excludedFields, shouldOverwrite);
     }
-    auto selectAllExcept(DORMTable mytable, Json[string] myexcludedFields, bool shouldOverwrite = false) {
-        fieldNames = array_diff(mytable.getSchema().columns(), myexcludedFields);
+    auto selectAllExcept(DORMTable mytable, Json[string] excludedFields, bool shouldOverwrite = false) {
+        fieldNames = mytable.getSchema().columns().diff(excludedFields);
         if (_aliasingEnabled) {
             fieldNames = this.aliasFields(fieldNames);
         }

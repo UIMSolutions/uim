@@ -486,7 +486,7 @@ mixin template TEntity() {
     */
   string[] visibleFields() {
     auto fieldKeys = chain(_fields.keys, _virtual);
-    return array_diff(fieldKeys, _hidden);
+    return fieldKeys.diff(_hidden);
   }
 
   /**

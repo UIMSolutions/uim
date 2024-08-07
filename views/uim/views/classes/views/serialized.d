@@ -45,10 +45,7 @@ class DSerializedView : DView {
                 _defaultConfigData.keys
            );
 
-            shouldSerialize = array_diff(
-                _viewVars.keys,
-                options
-           );
+            shouldSerialize = _viewVars.keys.diff(options);
         }
 
         if (shouldSerialize == true) {

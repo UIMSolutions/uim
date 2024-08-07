@@ -1206,9 +1206,7 @@ abstract class DQuery : IQuery { // : IExpression {
      */
     Json clause(string clauseName) {
 /*        if (!hasKey(clauseName, _parts)) {
-            auto clauses = _parts.keys;
-            array_walk(clauses, fn (&$x): $x = "`$x`");
-            clauses = clauses.join(", ");
+            auto clauses = _parts.keys.map!(key => "`"~key~"`").join(", ");
             throw new DInvalidArgumentException(
                 "The `%s` clause is not defined. Valid clauses are: %s."
                 .format(clauseName, clauses)

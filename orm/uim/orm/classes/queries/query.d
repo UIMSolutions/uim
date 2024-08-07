@@ -168,7 +168,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     }
 
     IQuery select(DORMTable anTable, bool canOverwrite = false) {
-      string[] fieldNames = this.aliasingEnabled
+      string[] fieldNames = _aliasingEnabled
         ? this.aliasFields(anTable.getSchema().columns(), anTable.aliasName())
         : anTable.getSchema().columns();
 
@@ -200,8 +200,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             throw new DInvalidArgumentException("You must provide either an Association or a Table object");
         }
 
-        fields = array_diff(table.getSchema().columns(), excludedFields);
-        if (this.aliasingEnabled) {
+        auto fields = table.getSchema().columns().diff(excludedFields);
+        if (_aliasingEnabled) {
             fields = this.aliasFields(fields);
         }
 
@@ -970,7 +970,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             select = clause("select");
         }
 
-        if (this.aliasingEnabled) {
+        if (_aliasingEnabled) {
             select = this.aliasFields(select, repository.aliasName());
         }
         this.select(select, true);

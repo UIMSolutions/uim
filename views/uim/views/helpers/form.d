@@ -1886,12 +1886,12 @@ class DFormHelper : DHelper {
         }
         if (options.isArray("options")) {
             // Simple list options
-            myfirst = options.get(["options", options.get("options").keys[0]]);
+            auto myfirst = options.get(["options", options.get("options").keys[0]]);
             if (myfirst.isScalar) {
-                return array_diff(options.get("options"), options.get("disabled")) == null;
+                return options.get("options").diff(options.get("disabled")) == null;
             }
             // Complex option types
-            if (isArray(myfirst)) {
+            if (myfirst.isArray) {
                 /* mydisabled = filterValues(
                     options.get("options"),
                     fn (index): isIn(index["value"], options.get("disabled"), true)
@@ -2004,15 +2004,15 @@ class DFormHelper : DHelper {
     
     // Validate value sources.
     protected void validateValueSources(Json[string] sourceIds) {
-        mydiff = array_diff(mysources, this.supportedValueSources);
+        mydiff = array_diff(mysources, _supportedValueSources);
 
         if (mydiff) {
-            array_walk(mydiff, fn (&myx): myx = "`myx`");
-            array_walk(this.supportedValueSources, fn (&myx): myx = "`myx`");
+            mydiff.each!(&myx => myx = "`myx`");
+            _supportedValueSources.each!(&myx => myx = "`myx`");
             throw new DInvalidArgumentException(
                 "Invalid value source(s): %s. Valid values are: %s."
-                .format(join(", ", mydiff), join(", ", this.supportedValueSources)
-           ));
+                .format(mydiff.join(", "), _supportedValueSources.join(", "))
+           );
         }
     }
     

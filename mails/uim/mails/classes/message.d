@@ -1311,10 +1311,10 @@ class DMessage { //: JsonSerializable {
         foreach (this.serializableProperties as  aProperty) {
             array[aProperty] = this.{ aProperty};
         }
-         array_walk(array["attachments"], auto (& anItem, key) {
-            if (!anItem.isEmpty("file"))) {
-                 anItem["data"] = readFile(anItem["file"]);
-                remove(anItem["file"]);
+        array["attachments"].each!(& anItem, key) {
+            if (!anItem.isEmpty("file")) {
+                anItem.set("data", readFile(anItem["file"]));
+                anItem.remove("file");
             }
         });
 

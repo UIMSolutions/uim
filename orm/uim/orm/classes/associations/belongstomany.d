@@ -698,7 +698,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
         });
 
-        sourceEntity.set(property, array_values(existing));
+        sourceEntity.set(property, existing.values);
         sourceEntity.setDirty(property, false);
 
         return true;
@@ -966,7 +966,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         foreach (i, entity; jointEntities) {
             unmatchedEntityKeys[i] = entity.extract(keys);
-            present[i] = array_values(entity.extract(assocForeignKeys));
+            present[i] = entity.extract(assocForeignKeys).values;
         }
 
         foreach (existing as existingLink) {
@@ -974,7 +974,7 @@ class DBelongsToManyAssociation : DAssociation {
             auto found = false;
             foreach (i, unmatchedKeys; unmatchedEntityKeys) {
                 matched = false;
-                foreach (keys as key) {
+                foreach (key; keys) {
                     if (is_object(unmatchedKeys[key]) && is_object(existingKeys[key])) {
                         // If both sides are an object then use == so that value objects
                         // are seen as equivalent.

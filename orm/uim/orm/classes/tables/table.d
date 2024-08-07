@@ -584,20 +584,16 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * ```
      */
     void addBehaviors(Json[string] behaviorsToLoad) {
-        foreach (myname, options; behaviorsToLoad) {
-            if (isInteger(myname)) {
+        behaviorsToLoad.byKeyValue.each!(item => addBehavior(item.key, item.value));
+            /* if (isInteger(myname)) {
                 myname = options;
                 options = null;
-            }
-            this.addBehavior(myname, options);
-        }
+            } */
     }
     
     /**
      * Removes a behavior from this table"s behavior registry.
-     *
      * Example:
-     *
      * Remove a behavior from this table.
      *
      * ```
@@ -610,9 +606,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
        _behaviors.unload(myname);
     }
     
-    /**
-     * Returns the behavior registry for this table.
-     */
+    // Returns the behavior registry for this table.
     BehaviorRegistry behaviors() {
         return _behaviors;
     }
@@ -667,7 +661,6 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Checks whether a specific association exists on this Table instance.
      *
      * The name argument also supports dot syntax to access deeper associations.
-     *
      * ```
      * myhasUsers = this.hasAssociation("Articles.Comments.Users");
      * ```
@@ -680,7 +673,6 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Returns an association object configured for the specified alias if any.
      *
      * The name argument also supports dot syntax to access deeper associations.
-     *
      * ```
      * myusers = getAssociation("Articles.Comments.Users");
      * ```
@@ -702,10 +694,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         return result;
     }
     
-    /**
-     * Get the associations collection for this table.
-     */
-    AssociationCollection associations() {
+    // Get the associations collection for this table.
+    DAssociationCollection associations() {
         return _associations;
     }
     
@@ -768,10 +758,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      *
      * This method will return the association object that was built.
      */
-    BelongsTo belongsTo(string associatedName, Json[string] options = null) {
-        auto updatedOptions = options.update["sourceTable": this];
-
-        /** @var \ORM\Association\BelongsTo */
+    DBelongsTo belongsTo(string associatedName, Json[string] options = null) {
+        options.merge("sourceTable", this);
         return _associations.load(BelongsTo.classname, associatedName, options);
     }
     
@@ -807,8 +795,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * This method will return the association object that was built.
      */
     HasOne hasOne(string associatedName, Json[string] options = null) {
-        auto updatedOptions = options.update["sourceTable": this];
-
+        options.merge("sourceTable", this);
         return _associations.load(HasOne.classname, associatedName, options);
     }
     
@@ -853,9 +840,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * uniquely identify the association
      */
     HasMany hasMany(string myassociated, Json[string] options = null) {
-        auto updatedOptions = options.update["sourceTable": this];
-
-        /** @var \ORM\Association\HasMany */
+        options.merge("sourceTable", this);
         return _associations.load(HasMany.classname, myassociated, options);
     }
     
@@ -902,9 +887,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * uniquely identify the association
      */
     BelongsToMany belongsToMany(string myassociated, Json[string] options = null) {
-        auto updatedOptions = options.update["sourceTable": this];
-
-        /** @var \ORM\Association\BelongsToMany */
+        options.merge("sourceTable", this);
         return _associations.load(BelongsToMany.classname, myassociated, options);
     }
     
@@ -1071,14 +1054,14 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * \ORM\Query\SelectQuery myquery The query to find with
      */
     DSelectQuery findList(
-        SelectQuery myquery,
+        DSelectQuery myquery,
        /* Closure */ string[]/* |string */ keyFields = null,
        /* Closure */ string[]/* |string */ valuesFields = null,
        /* Closure */ string[]/* |string */ groupFields = null,
         string myvalueSeparator = ";"
    ) {
-        keyFields = keyFields.ifEmpty(primaryKeys());
-        valuesFields = valuesFields.ifEmpty(displayfields());
+        auto keyFields = keyFields.ifEmpty(primaryKeys());
+        auto valuesFields = valuesFields.ifEmpty(displayfields());
 
         if (
             !myquery.clause("select") &&
@@ -1134,8 +1117,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
        /* Closure */ /* string[]| */string parentField = "parent_id",
         string nestingKey = "children"
    ) {
-        keyFields = keyFields.ifEmpty(this.primaryKeys());
-        options = _setFieldMatchers(compact("keyFields", "parentField"), ["keyFields", "parentField"]);
+        auto keyFields = keyFields.ifEmpty(this.primaryKeys());
+        auto options = _setFieldMatchers(compact("keyFields", "parentField"), ["keyFields", "parentField"]);
 
         /* return selectquery.formatResults(fn (ICollection results) =>
             results.nest(options.get("keyFields"], options.get("parentField"], nestingKey)); */
@@ -1152,11 +1135,11 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      */
     protected Json[string] _setFieldMatchers(Json[string] options, Json[string] keys) {
         keys.each!((field) {
-            if (!options.get(field].isArray) {
+            if (!options.isArray(field)) {
                 continue;
             }
-            if (count(options.get(field]) == 1) {
-                options.get(field] = currentValue(options.get(field]);
+            if (count(options.getLong(field)) == 1) {
+                options.set(field, currentValue(options.get(field)));
                 continue;
             }
             

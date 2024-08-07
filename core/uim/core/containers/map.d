@@ -332,16 +332,24 @@ V ifNull(K, V)(V[K] map, K key, V defaultValue) {
 // #endregion ifNull
 
 // #region isSet
-bool isSetAny(V[K] map, K[] keys) {
+bool isSetAny(K, V)(V[K] map, K[] keys...) {
+  return isSetAny(map, keys.dup);
+}
+
+bool isSetAny(K, V)(V[K] map, K[] keys) {
   return keys.any!(key => isSet(map, key));
 }
 
-bool isSetAll(V[K] map, K[] keys) {
+bool isSetAll(K, V)(V[K] map, K[] keys...) {
+  return isSetAll(map, keys.dup);
+}
+
+bool isSetAll(K, V)(V[K] map, K[] keys) {
   return keys.all!(key => isSet(map, key));
 }
 
-bool isSet(V[K] map, K key) {
-  return (key in map);
+bool isSet(K, V)(V[K] map, K key) {
+  return (key in map) ? true : false;
 }
 
 unittest {

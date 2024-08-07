@@ -605,11 +605,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         auto table = _translationTable;
         fields = table.getSchema()
             .columns();
-        fields = array_values(
-            array_diff(
-                fields, [
-                    "id", "locale"
-                ]));
+        fields = array_diff(fields, ["id", "locale"]).values;
         configuration.set("fields", fields);
         return fields;
     }

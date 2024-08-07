@@ -1225,3 +1225,27 @@ Json match(K)(Json[K] matchValues, K key, Json defaultValue = Json(null)) {
 bool isScalar(Json value) {
   return !value.isArray && !value.isObject;
 }
+
+// #region isSet
+bool isSetAll(Json json, string[] keys...) {
+  return isSetAll(json, keys.dup);
+}
+
+bool isSetAll(Json json, string[] keys) {
+  return keys.all!(key => isSet(json, key));
+}
+
+bool isSetAny(Json json, string[] keys...) {
+  return isSetAny(json, keys.dup);
+}
+
+bool isSetAny(Json json, string[] keys) {
+  return keys.any!(key => isSet(json, key));
+}
+
+bool isSet(Json json, string key) {
+  return json.isObject
+    ? json.byKeyValue.any!(kv => kv.key == key)
+    : false;
+}
+// #endregion isSet

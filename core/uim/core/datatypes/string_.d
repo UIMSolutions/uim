@@ -711,8 +711,8 @@ unittest {
 }
 
 // #region mustache
-string mustache(string text, STRINGAA values) {
-	items.each!(item => text = text.mustache(item.key, item.value));
+string mustache(string text, STRINGAA items) {
+	items.byKeyValue.each!(item => text = text.mustache(item.key, item.value));
 	return text;
 }
 
@@ -728,7 +728,7 @@ unittest {
 
 // #region doubleMustache
 string doubleMustache(string text, STRINGAA items) {
-	items.each!(item => text = text.doubleMustache(item.key, item.value));
+	items.byKeyValue.each!(item => text = text.doubleMustache(item.key, item.value));
 	return text;
 }
 
@@ -784,10 +784,10 @@ string[] camelize(string[] texts, string delimiter = "_") {
 string camelize(string text, string delimiter = "_") {
 	string cacheKey = __FUNCTION__ ~ delimiter;
 
-	string result; // = _cache(cacheKey, text);
+	string result; // = _caching(cacheKey, text);
 	if (result.isNull) {
 		result = std.string.replace(humanize(text, delimiter), " ", "");
-		// _cache(cacheKey, text, result);
+		// _caching(cacheKey, text, result);
 	}
 
 	return result;
@@ -822,11 +822,11 @@ string[] humanize(string[] texts, string delimiter = "_") {
 string humanize(string text, string delimiter = "_") {
 	auto cacheKey = __FUNCTION__ ~ delimiter;
 
-	string result; // = _cache(cacheKey, text);
+	string result; // = _caching(cacheKey, text);
 	if (result.isEmpty) {
 		string[] parts = std.string.split(std.string.replace(text, delimiter, " "), " ");
 		result = parts.map!(part => std.string.capitalize(part)).join(" ");
-		// _cache(cacheKey, text, result);
+		// _caching(cacheKey, text, result);
 	}
 
 	return result;
@@ -867,16 +867,16 @@ string[] delimit(string[] texts, string delimiter = "_") {
 
 string delimit(string text, string delimiter = "_") {
 	// auto cacheKey = __FUNCTION__ ~ delimiter;
-	string result; // = _cache(cacheKey, text);
+	string result; // = _caching(cacheKey, text);
 
 	if (result.isEmpty) {
 		/* auto regex = regex(r"/(?<=\\w)([A-Z])/");
       result = text.replaceAll(regex, delimiter ~ "\\1").lower; */
-		// _cache(cacheKey, text, result);
+		// _caching(cacheKey, text, result);
 		dchar lastChar;
 		foreach (index, c; text) {
 			result ~= std.uni.isUpper(c) && index > 0 && !std.uni.isWhite(lastChar)
-				? delimiter ~ c : c;
+				? delimiter ~ c : "" ~ c;
 			lastChar = c;
 		}
 	}
@@ -945,15 +945,15 @@ string[] tableize(string[] classnames) {
 }
 
 string tableize(string classname) {
-	string result; // = _cache(__FUNCTION__, myclassname);
+	string result; // = _caching(__FUNCTION__, myclassname);
 	if (result.isEmpty) {
 		result = classname.underscore.pluralize;
-		// _cache(__FUNCTION__, myclassname, result);
+		// _caching(__FUNCTION__, myclassname, result);
 	}
 	return result;
 }
 
-unitest {
+unittest {
 	// 
 }
 // #endregion tableize
@@ -965,11 +965,11 @@ string[] classify(string[] tableNames) {
 }
 
 string classify(string tableName) {
-	string result; // = _cache(__FUNCTION__, mytableName);
+	string result; // = _caching(__FUNCTION__, mytableName);
 
 	if (result.isEmpty) {
 		result = tableName.singularize.camelize;
-		// _cache(__FUNCTION__, mytableName, result);
+		// _caching(__FUNCTION__, mytableName, result);
 	}
 	return result;
 }
@@ -980,12 +980,12 @@ string classify(string tableName) {
      * returns string in variable form
      */
 string variable(string stringToConvert) {
-	string result; // = // _cache(__FUNCTION__, stringToConvert);
+	string result; // = // _caching(__FUNCTION__, stringToConvert);
 	if (result.isEmpty) {
 		string camelized = stringToConvert.underscore.camelize;
 		string replaced = subString(camelized, 0, 1).lower;
 		result = replaced ~ subString(camelized, 1);
-		// _cache(__FUNCTION__, stringToConvert, result);
+		// _caching(__FUNCTION__, stringToConvert, result);
 	}
 	return result;
 }
@@ -1035,14 +1035,18 @@ string pluralize(string singularWord) {
 }
 
 // Cache inflected values, and return if already available
-string _cache(string inflectionType, string originalValue, string inflectedValue = null) {
+STRINGAA[string] _cache;
+string _caching(string inflectionType, string originalValue, string inflectedValue = null) {
 	originalValue = "_" ~ originalValue;
 	inflectionType = "_" ~ inflectionType;
 	if (!inflectedValue.isEmpty) {
+		if (!_cache.isSet(inflectionType)) {
+			_cache[inflectionType] = null;	
+		}
 		_cache[inflectionType][originalValue] = inflectedValue;
 		return inflectedValue;
 	}
 
-	return _cache.isSetPath(inflectionType, originalValue)
+	return _cache.isSet(inflectionType) && _cache[inflectionType].isSet(originalValue)
 		? _cache[inflectionType][originalValue] : null;
 }

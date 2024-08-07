@@ -10,4 +10,5 @@ public {
   import uim.core.containers.array_;
   import uim.core.containers.general;
   import uim.core.containers.stringaa;
+  import uim.core.containers.stringmap;
 }

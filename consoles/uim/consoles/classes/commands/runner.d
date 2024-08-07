@@ -214,7 +214,7 @@ class DCommandRunner { // }: IEventDispatcher {
 
         string cliArgumentName = _aliases.getString(cliArgumentName, cliArgumentName);
         if (!comandsToCheck.has(cliArgumentName)) {
-            cliArgumentName = Inflector.underscore(cliArgumentName);
+            cliArgumentName = cliArgumentName.underscore;
         }
         if (!comandsToCheck.has(cliArgumentName)) {
             throw new DMissingOptionException(

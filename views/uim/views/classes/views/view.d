@@ -875,7 +875,7 @@ static string contentType() {
     
     // Change the name of a view template file into underscored format.
     protected string _inflectTemplateFileName(string filename) {
-        return Inflector.underscore(filename);
+        return filename.underscore;
     }
     
     /**
@@ -1059,12 +1059,12 @@ static string contentType() {
         [_plugin, elementName] = _pluginSplit(elementName);
 
         string _pluginKey = !_plugin.isNull
-            ? Inflector.underscore(_plugin).replace("/", "_")
+            ? _plugin.underscore.replace("/", "_")
             : null;
 
         auto myelementKey = str_replace(["\\", "/"], "_", elementName);
 
-        mycache = options.get("cache");
+        auto mycache = options.get("cache");
         options.remove("cache");
         auto someKeys = array_merge(
             [_pluginKey, myelementKey],

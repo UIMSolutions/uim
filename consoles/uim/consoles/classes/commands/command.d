@@ -59,7 +59,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
         /* size_t pos = class.indexOf("\\");
         /** @psalm-suppress PossiblyFalseOperand * /
         string name = class.subString(pos + 1,  - 7);
-        return Inflector.underscore(name); */
+        return name.underscore; */
         return null;
     }
 

@@ -527,9 +527,7 @@ mixin template TEntity() {
     return get(anOffset);
   }
 
-  /**
-     * entity[anOffset] = aValue;
-    */
+  // entity[anOffset] = aValue;
   void offsetSet(Json offsetToSet, Json valueToSet) {
     set(offsetToSet, valueToSet);
   }
@@ -566,9 +564,9 @@ mixin template TEntity() {
       }
 
       auto stringfield = lcfirst(subString(method, 4));
-      auto snakeField = Inflector.underscore(field);
+      string snakeField = field.underscore;
       auto titleField = ucfirst(field);
-      auto clPrefix = classname ~ "." ~ prefix;
+      string clPrefix = classname ~ "." ~ prefix;
       _accessors.set(clPrefix ~ "." ~ snakeField, method);
       _accessors.set(clPrefix ~ "." ~ field, method);
       _accessors.set(clPrefix ~ "." ~ titleField, method);

@@ -1119,10 +1119,10 @@ class DBelongsToManyAssociation : DAssociation {
     protected string _junctionTableName(string tableName = null) {
         if (tableName.isNull) {
             if (_junctionTableName.isEmpty) {
-                tablesNames = array_map("uim\Utility\Inflector.underscore", [
+                tablesNames = [
                     source().getTable(),
                     getTarget().getTable(),
-                ])().sort;
+                ].underscore.sort;
                 _junctionTableName = tablesNames.join("_");
             }
 

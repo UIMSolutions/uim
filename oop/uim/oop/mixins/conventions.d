@@ -45,13 +45,9 @@ mixin template TConventions() {
         return Inflector.variable(name);
     }
     
-    /**
-     * Creates the singular human name used in views
-     * Params:
-     * string aName Controller name
-     */
-    protected string _singularHumanName(string aName) {
-        return Inflector.underscore(Inflector.singularize(name)).humanize;
+    // Creates the singular human name used in views
+    protected string _singularHumanName(string controllerName) {
+        return Inflector.singularize(controllerName).underscore.humanize;
     }
     
     // Creates a camelized version of name
@@ -61,15 +57,14 @@ mixin template TConventions() {
     
     // Creates the plural human name used in views
     protected string _pluralHumanName(string controllerName) {
-        return Inflector.underscore(controllerName).humanize;
+        return controllerName.underscore.humanize;
     }
     
     // Find the correct path for a plugin. Scans pluginPaths for the plugin you want.
     protected string _pluginPath(string pluginName) {
-        if (Plugin.isLoaded(pluginName)) {
-            return Plugin.path(pluginName);
-        }
-        return currentValue(App.path("plugins")) ~ pluginName ~ DIRECTORY_SEPARATOR;
+        return Plugin.isLoaded(pluginName)
+            ? Plugin.path(pluginName)
+            : currentValue(App.path("plugins")) ~ pluginName ~ DIRECTORY_SEPARATOR;
     }
     
     // Return plugin`s namespace

@@ -321,7 +321,7 @@ class DRouteBuilder {
             this.connect(myurl, params, myrouteOptions);
         }
         if (nestedCallback !is null) {
-            auto myidName = Inflector.singularize(Inflector.underscore(controllerName)) ~ "_id";
+            auto myidName = Inflector.singularize(controllerName.underscore) ~ "_id";
             auto path = "/" ~ options.getString("path") ~ "/{" ~ myidName ~ "}";
             scope(path, [], nestedCallback);
         }

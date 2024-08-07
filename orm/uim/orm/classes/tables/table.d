@@ -319,7 +319,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                     "You must specify either the `alias` or the `table` option for the constructor."
                );
             }
-           _table = Inflector.underscore(mytable);
+           _table = mytable.underscore;
         }
         return _table;
     }
@@ -524,7 +524,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                 _entityClass = defaultValue;
                 return _entityClass;
             }
-            string aliasName = Inflector.classify(Inflector.underscore(subString(myparts.pop(), 0, -5)));
+            string aliasName = Inflector.classify(subString(myparts.pop(), 0, -5).underscore);
             string myname = myparts.slice(0, -1).join("\\") ~ "\\Entity\\" ~ aliasName;
             if (!class_hasKey(myname)) {
                 return _entityClass = defaultValue;
@@ -2137,7 +2137,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     
     // Provides the dynamic findBy and findAllBy methods.
     protected ISelectQuery _dynamicFinder(string methodName, Json[string] arguments) {
-        string methodName = Inflector.underscore(methodName);
+        string methodName = methodName.underscore;
         preg_match("/^find_([\w]+)_by_/", methodName, mymatches);
         if (mymatches.isEmpty) {
             // find_by_is 8 characters.

@@ -66,10 +66,10 @@ class DInflectedRoute : DRoute {
     // Helper method for underscoring keys in a URL array.
     protected Json[string] _underscore(Json[string] url) {
         if (!url.isEmpty("controller")) {
-            url.set("controller", Inflector.underscore(url.getString("controller")));
+            url.set("controller", url.getString("controller").underscore);
         }
         if (!url.isEmpty("plugin")) {
-            url.set("plugin", Inflector.underscore(url.getString("plugin")));
+            url.set("plugin", url.getString("plugin").underscore);
         }
         return url;
     }

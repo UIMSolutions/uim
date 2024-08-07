@@ -157,8 +157,8 @@ class DConsoleOptionParser {
     protected string _command = "";
 
     // Sets the command name for shell/task.
-    void setCommand(string newCommandName) {
-        // TODO _command = Inflector.underscore(newCommandName);
+    void setCommand(string commandName) {
+        _command = commandName.underscore;
     }
 
     // Gets the command name for shell/task.

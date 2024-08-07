@@ -50,7 +50,7 @@ mixin template TCell() {
         DCell myinstance = new myclassname(this.request, this.response, getEventManager(), options);
 
         auto mybuilder = myinstance.viewBuilder();
-        mybuilder.setTemplate(Inflector.underscore(actionName));
+        mybuilder.setTemplate(actionName.underscore);
 
         if (!pluginName.isEmpty) {
             mybuilder.setPlugin(pluginName);

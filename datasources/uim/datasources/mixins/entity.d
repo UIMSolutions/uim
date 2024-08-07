@@ -565,7 +565,7 @@ mixin template TEntity() {
 
       auto stringfield = lcfirst(subString(method, 4));
       string snakeField = field.underscore;
-      auto titleField = ucfirst(field);
+      auto titleField = capitalize(field);
       string clPrefix = classname ~ "." ~ prefix;
       _accessors.set(clPrefix ~ "." ~ snakeField, method);
       _accessors.set(clPrefix ~ "." ~ field, method);

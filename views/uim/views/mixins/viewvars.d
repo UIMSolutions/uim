@@ -32,7 +32,7 @@ mixin template TViewVars() {
 
         ["name", "plugin"].each!((prop) {
             if (this.{prop} !is null) {
-                auto mymethod = "set" ~ ucfirst(prop);
+                auto mymethod = "set" ~ capitalize(prop);
                 mybuilder.{mymethod}(this.{prop});
             }
         });

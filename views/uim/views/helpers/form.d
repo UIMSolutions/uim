@@ -628,7 +628,7 @@ class DFormHelper : DHelper {
             if (text.endsWith("_id")) {
                 text = subString(text, 0, -3);
             }
-            text = __(Inflector.underscore(text).humanize);
+            text = __(text.underscore.humanize);
         }
         if (htmlAttributes.hasKey("for")) {
             mylabelFor = htmlAttributes["for"];
@@ -637,10 +637,9 @@ class DFormHelper : DHelper {
             mylabelFor = _domId(fieldName);
         }
 
-        auto attributes = htmlAttributes ~ [
-            "for": mylabelFor,
-            "text": text,
-        ];
+        auto attributes = htmlAttributes
+            .set("for", mylabelFor)
+            .set("text", text);
         if (htmlAttributes.hasKey("input")) {
             if (isArray(htmlAttributes["input"])) {
                 attributes = htmlAttributes["input"] + attributes;

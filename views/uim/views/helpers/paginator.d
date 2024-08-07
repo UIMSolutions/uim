@@ -501,7 +501,7 @@ class DPaginatorHelper : DHelper {
         switch (myformat) {
         case "range":
         case "pages":
-            mytemplate = "counter" ~ ucfirst(
+            mytemplate = "counter" ~ capitalize(
                 myformat);
             break;
         default:

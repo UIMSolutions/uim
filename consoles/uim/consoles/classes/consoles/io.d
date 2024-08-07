@@ -398,7 +398,7 @@ class DConsoleIo {
      * returns = Created helper instance.
      */
     Helper helper(string nameToRender, Json[string] initData = null) {
-        auto renderName = ucfirst(nameToRender);
+        auto renderName = capitalize(nameToRender);
         return _helpers.load(renderName, initData);
     }
 

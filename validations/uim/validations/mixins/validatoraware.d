@@ -83,7 +83,7 @@ mixin template TValidatorAware() {
      * string myname The name of the validation set to create.
      */
     protected IValidator createValidator(string validationSetName) {
-        auto mymethod = "validation" ~ ucfirst(validationSetName);
+        auto mymethod = "validation" ~ capitalize(validationSetName);
         if (!this.validationMethodExists(mymethod)) {
             mymessage = "The `%s.%s()` validation method does not exists.".format("class", mymethod);
             throw new DInvalidArgumentException(mymessage);
@@ -128,7 +128,7 @@ mixin template TValidatorAware() {
     
     // Checks whether a validator has been set.
    bool hasValidator(string validatorName) {
-        auto mymethod = "validation" ~ ucfirst(validatorName);
+        auto mymethod = "validation" ~ capitalize(validatorName);
         if (validationMethodExists(mymethod)) {
             return true;
         }

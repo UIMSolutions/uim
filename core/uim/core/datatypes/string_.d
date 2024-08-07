@@ -858,3 +858,92 @@ unittest {
 	writeln(delimit("  CamelCasedInputString  x"));
 	writeln(delimit("xX  CamelCasedInputString  xX"));
   }
+
+  /**
+     * Return myword in singular form.
+     * Params:
+     * string myword Word in plural
+     */
+  string singularize(string pluralWord) {
+/*     if (isSet(_cache["singularize"][pluralWord])) {
+      return _cache["singularize"][pluralWord];
+    }
+ */
+    /* auto irregularWords = _cache.get("irregular", null);
+    if (!irregularWords.isSet("singular")) {
+      mywordList = _irregular.values;
+      static.irregularWords.set("singular", "/(.*?(?:\\b|_))(" ~ mywordList.join("|") ~ ")my/i");
+
+      myupperWordList = array_map("ucfirst", mywordList);
+      static.irregularWords.set("singularUpper", "/(.*?(?:\\b|[a-z]))("~myupperWordList.join("|""))
+        .")my/";
+    }
+
+    if (
+      preg_match(irregularWords["singular"], pluralWord, myregs) ||
+      preg_match(irregularWords["singularUpper"], pluralWord, myregs)
+      ) {
+      mysuffix = array_search(myregs[2].lower, _irregular, true);
+      mysuffix = mysuffix ? subString(mysuffix, 1) : "";
+      // _cache["singularize"][pluralWord] = myregs[1] ~ subString(myregs[2], 0, 1) ~ mysuffix;
+
+      return _cache["singularize"][pluralWord];
+    }
+    if (!_cache.isSet("uninflected")) {
+      _cache["uninflected"] = "/^(" ~ _uninflected.join("|") ~ ")my/i";
+    }
+    if (preg_match(_cache["uninflected"], pluralWord, myregs)) {
+      _cache["pluralize"][pluralWord] = pluralWord;
+
+      return pluralWord;
+    }
+
+    foreach (myrule, myreplacement; _singular) {
+      if (preg_match(myrule, pluralWord)) {
+        _cache["singularize"][pluralWord] = to!string(preg_replace(myrule, myreplacement, pluralWord));
+
+        return _cache["singularize"][pluralWord];
+      }
+    }
+    // _cache["singularize"][pluralWord] = pluralWord;
+
+    return pluralWord; */
+	return null; 
+  } 
+
+    // Returns corresponding table name for given model myclassname. ("people" for the model class "Person").
+  static string tableize(string myclassname) {
+    string result; // = _cache(__FUNCTION__, myclassname);
+    if (result.isEmpty) {
+      result = myclassname.underscore.pluralize;
+      // _cache(__FUNCTION__, myclassname, result);
+    }
+    return result;
+  }
+
+  // Returns uim model class name ("Person" for the database table "people".) for given database table.
+  static string classify(string tableName) {
+    string result; // = _cache(__FUNCTION__, mytableName);
+
+    if (result.isEmpty) {
+      result = tableName.singularize().camelize;
+      // _cache(__FUNCTION__, mytableName, result);
+    }
+    return result;
+  }
+
+  /**
+     * Returns camelBacked version of an underscored string.
+     * returns string in variable form
+     */
+  string variable(string stringToConvert) {
+    string result; // = // _cache(__FUNCTION__, stringToConvert);
+
+    if (result.isEmpty) {
+      string camelized = stringToConvert.underscore.camelize;
+      string replaced = subString(camelized, 0, 1).lower;
+      result = replaced ~ subString(camelized, 1);
+      // _cache(__FUNCTION__, stringToConvert, result);
+    }
+    return result;
+  }

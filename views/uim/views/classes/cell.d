@@ -167,9 +167,9 @@ abstract class DCell { // }: IEventDispatcher {
         if (_cache.isEmpty) {
             return null;
         }
-        templateName = templateName ? templateName : "default";
-        string key = "cell_" ~ Inflector.underscore(class) ~ "_" ~ invokedaction ~ "_" ~ templateName;
-        string aKey = key.replace("\\", "_");
+        
+        string templateName = templateName ? templateName : "default";
+        string key = ("cell_" ~ classname.underscore ~ "_" ~ invokedaction ~ "_" ~ templateName).replace("\\", "_");
         defaultValue = [
             "config": "default",
             "key": aKey,

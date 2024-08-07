@@ -98,7 +98,7 @@ class DMessagesFileLoader {
             return null;
         }
 
-        string name = ucfirst(_extension);
+        string name = capitalize(_extension);
         auto classname = App.classname(name, "I18n\Parser", "FileParser");
         if (!classname) {
             throw new DException("Could not find class `%s`.".format("{name}FileParser"));

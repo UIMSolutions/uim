@@ -115,7 +115,7 @@ class DCollection(T : UIMObject) : UIMObject, IKeyAndPath, ICollection!T {
         }
 
         T get(string key) {
-            return _items.get(key, null);
+            return key in _items ? _items[key] : null;
         }
     // #endregion getter
 

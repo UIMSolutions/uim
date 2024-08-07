@@ -9,7 +9,7 @@ import uim.oop;
 @safe:
 
 interface IError {
-  size_t code();
+  ERRORS code();
 
   void message(string message);
   string message();

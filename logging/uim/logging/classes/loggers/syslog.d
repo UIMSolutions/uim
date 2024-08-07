@@ -56,9 +56,9 @@ class DSysLogger : DLogger {
         "emergency": LOG_EMERG,
         "alert": LOG_ALERT,
         "critical": LOG_CRIT,
-        "error": LOG.ERROR,
-        "warning": LOG.WARNING,
-        "notice": LOG.NOTICE,
+        "error": LOGS.ERROR,
+        "warning": LOGS.WARNING,
+        "notice": LOGS.NOTICE,
         "info": LOG_INFO,
         "debug": LOG_DEBUG,
     ];

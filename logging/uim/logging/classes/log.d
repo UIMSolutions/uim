@@ -75,7 +75,7 @@ import uim.logging;
  *
  * ```
  * Log.error("Something horrible happened");
- * Log.write(LOG.ERROR, "Something horrible happened");
+ * Log.write(LOGS.ERROR, "Something horrible happened");
  * ```
  *
  * ### Logging scopes
@@ -135,9 +135,9 @@ class DLog {
         "emergency": LOG_EMERG,
         "alert": LOG_ALERT,
         "critical": LOG_CRIT,
-        "error": LOG.ERROR,
-        "warning": LOG.WARNING,
-        "notice": LOG.NOTICE,
+        "error": LOGS.ERROR,
+        "warning": LOGS.WARNING,
+        "notice": LOGS.NOTICE,
         "info": LOG_INFO,
         "debug": LOG_DEBUG,
     ];
@@ -253,9 +253,9 @@ class DLog {
      * - `LOG_EMERG`: "emergency",
      * - `LOG_ALERT`: "alert",
      * - `LOG_CRIT`: "critical",
-     * - `LOG.ERROR`: "error",
-     * - `LOG.WARNING`: "warning",
-     * - `LOG.NOTICE`: "notice",
+     * - `LOGS.ERROR`: "error",
+     * - `LOGS.WARNING`: "warning",
+     * - `LOGS.NOTICE`: "notice",
      * - `LOG_INFO`: "info",
      * - `LOG_DEBUG`: "debug",
      *

@@ -49,7 +49,7 @@ class DException : Exception {
   protected STRINGAA _stringContents;
 
   string messageTemplate(string templateName = "default") {
-    return _stringContents.get(templateName, null);
+    return (templateName in _stringContents) ? templateName : null;
   };
 
   void messageTemplate(string templateName, string templateText) {

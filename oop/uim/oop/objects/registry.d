@@ -96,7 +96,7 @@ class DObjectRegistry(T : UIMObject) {
 	}
 
 	T get(string key) {
-		return _objects.get(correctKey(key), _nullValue);
+		return correctKey(key) in _objects ? [_objects[correctKey(key)] : _nullValue;
 	}
 	// #endregion objects
 

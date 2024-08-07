@@ -34,7 +34,7 @@ class DErrorLogger : IErrorLogger {
         }
         label = error.getLabel();
         level = match (label) {
-            "strict": LOG.NOTICE,
+            "strict": LOGS.NOTICE,
             "deprecated": LOG_DEBUG,
             default: label,
         };

@@ -131,7 +131,7 @@ abstract class DERRErrorHandler {
         }
         _handled = true;
         [myError, myLog] = mapErrorCode(errorCode);
-        if (myLog == LOG.ERROR) {
+        if (myLog == LOGS.ERROR) {
             return _handleFatalError(errorCode, errorDescription, fileWithError, triggerErrorLine);
         }
         data = [
@@ -199,7 +199,7 @@ abstract class DERRErrorHandler {
             "line": errorTriggerLine,
             "error": "Fatal Error",
         ];
-        _logError(LOG.ERROR, data);
+        _logError(LOGS.ERROR, data);
 
         this.handleException(new DFatalErrorException(errorDescription, 500, fileWithError, errorTriggerLine));
 
@@ -302,11 +302,11 @@ abstract class DERRErrorHandler {
             ERRORS.USER_DEPRECATED: "deprecated",
         ];
         logMap = [
-            "error": LOG.ERROR,
-            "warning": LOG.WARNING,
-            "notice": LOG.NOTICE,
-            "strict": LOG.NOTICE,
-            "deprecated": LOG.NOTICE,
+            "error": LOGS.ERROR,
+            "warning": LOGS.WARNING,
+            "notice": LOGS.NOTICE,
+            "strict": LOGS.NOTICE,
+            "deprecated": LOGS.NOTICE,
         ];
 
         error = levelMap[code];

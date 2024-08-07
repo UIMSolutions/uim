@@ -13,7 +13,7 @@ enum ERRORS : size_t {
     USER_WARNING = 512, // User-generated warning message. This is like an ERRORS.WARNING, except it is generated in UIM code by using the UIM function trigger_error().
     USER_NOTICE = 1024, // User-generated notice message. This is like an ERRORS.NOTICE, except it is generated in UIM code by using the UIM function trigger_error().
     STRICT = 2048, // Enable to have UIM suggest changes to your code which will ensure the best interoperability and forward compatibility of your code.
-    RECOVERABLE_ERROR = 4096, // Catchable fatal error. It indicates that a probably dangerous error occurred, but did not leave the Engine in an unstable state. If the error is not caught by a user defined handle (see also set_error_handler()), the application aborts as it was an ERRORS.ERROR.
+    RECOVERABLE_ERROR = 4096, // Catchable fatal error. It indicates that a probably dangerous error occurred, but did not leave the Engine in an unstable state. If the error is not caught by a user defined handle (see also set_error_handler()), the application aborts as it was an ERRORS.ERRORS.
     DEPRECATED = 8192, // Run-time notices. Enable this to receive warnings about code that will not work in future versions.
     USER_DEPRECATED = 16384, // User-generated warning message. This is like an ERRORS.DEPRECATED, except it is generated in UIM code by using the UIM function trigger_error().
     // Future

@@ -14,7 +14,7 @@ class DError : UIMObject, IError {
   mixin(ErrorThis!(""));
 
   this(
-    size_t errorCode,
+    ERRORS errorCode,
     string errorMessage,
     string filenameOfError = "",
     size_t lineOfError = 0,
@@ -50,19 +50,18 @@ class DError : UIMObject, IError {
       ERRORS.USER_DEPRECATED: "deprecated",
     ]);
 
-    // TODO
-    /* _logMap = [
-      "error": LOG.ERROR,
-      "warning": LOG.WARNING,
-      "notice": LOG.NOTICE,
-      "strict": LOG.NOTICE,
-      "deprecated": LOG.NOTICE,
-    ]; */
+    _logMap = [
+      "error": LOGS.ERROR,
+      "warning": LOGS.WARNING,
+      "notice": LOGS.NOTICE,
+      "strict": LOGS.NOTICE,
+      "deprecated": LOGS.NOTICE,
+    ];
 
     return true;
   }
 
-  mixin(TProperty!("size_t", "code"));
+  mixin(TProperty!("ERRORS", "code"));
 
   mixin(TProperty!("string", "message"));
 
@@ -72,20 +71,20 @@ class DError : UIMObject, IError {
 
   mixin(TProperty!("size_t[string][]", "trace"));
 
-  private string[size_t] _levelMap;
+  private string[ERRORS] _levelMap;
 
-  private size_t[string] _logMap;
+  private LOGS[string] _logMap;
 
   /* // Get the mapped LOG_ constant.
   int logLevel() {
       auto myLabel = this.label();
 
-      return _logMap.get(myLabel, LOG.ERROR);
+      return _logMap.get(myLabel, LOGS.ERROR);
   } */
 
   // Get the error code label
   string label() {
-    return _levelMap.get(_code, "error");
+    return (_code in _levelMap) ? _levelMap[_code] : "error";
   }
 
   // Get the stacktrace as a string.

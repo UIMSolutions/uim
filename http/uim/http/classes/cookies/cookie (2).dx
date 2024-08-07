@@ -409,7 +409,7 @@ class DCookie : ICookie {
         return match (true) {
             sameSite.isNull: sameSite,
             cast(SameSiteEnum)sameSite: sameSite,
-            default: SameSiteEnum.from(ucfirst(sameSite).lower),
+            default: SameSiteEnum.from(capitalize(sameSite).lower),
         };
     }
     

@@ -525,7 +525,7 @@ class DClient { // }: IClient {
     if (isEmpty(myauth["type"])) {
       myauth["type"] = "basic";
     }
-    myname = ucfirst(myauth["type"]);
+    myname = capitalize(myauth["type"]);
     myclass = App.classname(myname, "Http/Client/Auth");
     if (!myclass) {
       throw new DException(

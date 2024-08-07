@@ -312,6 +312,6 @@ abstract class DERRErrorHandler {
         error = levelMap[code];
         log = logMap[error];
 
-        return [ucfirst(error), log];
+        return [capitalize(error), log];
     } */
 }

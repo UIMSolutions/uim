@@ -9,8 +9,8 @@ import uim.core;
 
 @safe:
 
-V Null(V:string)(){
-	return null; 
+V Null(V : string)() {
+	return null;
 }
 
 /// create a string with defined length and content
@@ -126,14 +126,14 @@ bool containsAll(string base, string[] values) {
 
 unittest {
 	assert("One Two Three".contains("One"));
-/* 	assert(!"One Two Three".contains("Five", "Four", "Three"));
+	/* 	assert(!"One Two Three".contains("Five", "Four", "Three"));
 	assert(!"One Two Three".contains("Five", "Four"));
- */}
+ */
+}
 
 bool contains(string text, string checkValue) {
-	return (text.length == 0 || checkValue.length == 0 || checkValue.length > text.length) 
-		? false
-		: (text.indexOf(checkValue) >= 0);
+	return (text.length == 0 || checkValue.length == 0 || checkValue.length > text.length)
+		? false : (text.indexOf(checkValue) >= 0);
 }
 
 /* bool hasValue(string base, string checkValue) {
@@ -179,8 +179,6 @@ unittest {
 	assert(removeValue(["a", "b", "c", "b"], "b") == ["a", "c"]);
 }
 // #endregion remove
-
-
 
 bool startsWith(string text, string[] startings) {
 	if (text.length == 0) {
@@ -430,6 +428,7 @@ unittest {
 string[] stripText(string[] texts, string[] chars...) {
 	return stripText(texts, chars.dup);
 }
+
 string[] stripText(string[] texts, string[] chars) {
 	return texts
 		.map!(text => stripText(text, chars))
@@ -441,12 +440,16 @@ string stripText(string text, string[] chars...) {
 }
 
 string stripText(string text, string[] chars) {
-	if (text.isEmpty) { return null; }
-	if (chars.isEmpty) { return text.strip; }
-	foreach(c; chars) {
+	if (text.isEmpty) {
+		return null;
+	}
+	if (chars.isEmpty) {
+		return text.strip;
+	}
+	foreach (c; chars) {
 		text = text.strip(c);
 	}
-	return text; 
+	return text;
 }
 
 unittest {
@@ -508,12 +511,16 @@ string stripTextLeft(string text, string[] chars...) {
 }
 
 string stripTextLeft(string text, string[] chars) {
-	if (text.isEmpty) { return null; }
-	if (chars.isEmpty) { return stripLeft(text); }
-	foreach(c; chars) {
+	if (text.isEmpty) {
+		return null;
+	}
+	if (chars.isEmpty) {
+		return stripLeft(text);
+	}
+	foreach (c; chars) {
 		text = stripLeft(text, c);
 	}
-	return text; 
+	return text;
 }
 
 unittest {
@@ -575,12 +582,16 @@ string stripTextRight(string text, string[] chars...) {
 }
 
 string stripTextRight(string text, string[] chars) {
-	if (text.isEmpty) { return null; }
-	if (chars.isEmpty) { return stripRight(text); }
-	foreach(c; chars) {
+	if (text.isEmpty) {
+		return null;
+	}
+	if (chars.isEmpty) {
+		return stripRight(text);
+	}
+	foreach (c; chars) {
 		text = stripRight(text, c);
 	}
-	return text; 
+	return text;
 }
 
 unittest {
@@ -657,10 +668,11 @@ unittest {
 	// TODO create test
 }
 
-
 string ifNull(string[] values...) {
-	foreach(value; values) {
-		if (!value.isNull) { return value; }
+	foreach (value; values) {
+		if (!value.isNull) {
+			return value;
+		}
 	}
 	return null;
 }
@@ -681,8 +693,10 @@ unittest {
 }
 
 string ifEmpty(string[] values...) {
-	foreach(value; values) {
-		if (value.length > 0) { return value; }
+	foreach (value; values) {
+		if (value.length > 0) {
+			return value;
+		}
 	}
 	return null;
 }
@@ -696,48 +710,52 @@ unittest {
 	assert(!"x".isIn(["a", "b", "c"]));
 }
 
+// #region mustache
 string mustache(string text, STRINGAA values) {
-	foreach(key, value; values) {
-		text = text.mustache(key, value);
-	}
+	items.each!(item => text = text.mustache(item.key, item.value));
 	return text;
-}
-string mustache(string text, string key, string value) {
-	return std.string.replace(text, "{"~key~"}", value);
-}
-unittest {
-	assert("A:{a}, B:{b}".mustache(["a":"x", "b":"y"]) == "A:x, B:y");
-	assert("A:{a}, B:{b}".mustache(["a":"a", "b":"b"]) != "A:x, B:y");
 }
 
-string doubleMustache(string text, STRINGAA values) {
-	foreach(key, value; values) {
-		text = text.doubleMustache(key, value);
-	}
+string mustache(string text, string key, string value) {
+	return std.string.replace(text, "{" ~ key ~ "}", value);
+}
+
+unittest {
+	assert("A:{a}, B:{b}".mustache(["a": "x", "b": "y"]) == "A:x, B:y");
+	assert("A:{a}, B:{b}".mustache(["a": "a", "b": "b"]) != "A:x, B:y");
+}
+// #endregion mustache
+
+// #region doubleMustache
+string doubleMustache(string text, STRINGAA items) {
+	items.each!(item => text = text.doubleMustache(item.key, item.value));
 	return text;
 }
+
 string doubleMustache(string text, string key, string value) {
-	return std.string.replace(text, "{{"~key~"}}", value);
+	return std.string.replace(text, "{{" ~ key ~ "}}", value);
 }
+
 unittest {
-	assert("A:{{a}}, B:{{b}}".doubleMustache(["a":"x", "b":"y"]) == "A:x, B:y");
-	assert("A:{{a}}, B:{{b}}".doubleMustache(["a":"a", "b":"b"]) != "A:x, B:y");
+	assert("A:{{a}}, B:{{b}}".doubleMustache(["a": "x", "b": "y"]) == "A:x, B:y");
+	assert("A:{{a}}, B:{{b}}".doubleMustache(["a": "a", "b": "b"]) != "A:x, B:y");
 
 	string text = "A:{{a}}, B:{{b}}";
-	assert(text.doubleMustache(["a":"x", "b":"y"]) == "A:x, B:y");
+	assert(text.doubleMustache(["a": "x", "b": "y"]) == "A:x, B:y");
 	assert(text == "A:{{a}}, B:{{b}}");
 }
+// #endregion doubleMustache
 
 string match(K)(string[K] matchValues, K key, string defaultValue = null) {
-  return key in matchValues 
-    ? matchValues[key]
-    : defaultValue;
+	return key in matchValues
+		? matchValues[key] : defaultValue;
 }
 
 // #region md5
 string[] md5(string[] values) {
 	return values.map!(value => md5(value)).array;
 }
+
 string md5(string value) {
 	return toHexString(md5Of(value).dup);
 }
@@ -747,8 +765,12 @@ unittest {
 	assert("abc".md5 == "900150983CD24FB0D6963F7D28E17F72");
 	assert("abc".md5 != "");
 
-	assert(md5(["abc", "xyz"]) == ["900150983CD24FB0D6963F7D28E17F72", "D16FB36F0911F878998C136191AF705E"]);
-	assert(["abc", "xyz"].md5 == ["900150983CD24FB0D6963F7D28E17F72", "D16FB36F0911F878998C136191AF705E"]);
+	assert(md5(["abc", "xyz"]) == [
+			"900150983CD24FB0D6963F7D28E17F72", "D16FB36F0911F878998C136191AF705E"
+		]);
+	assert(["abc", "xyz"].md5 == [
+			"900150983CD24FB0D6963F7D28E17F72", "D16FB36F0911F878998C136191AF705E"
+		]);
 	assert(["abc", "xyz"].md5 != ["", ""]);
 }
 // #endregion md5
@@ -777,104 +799,110 @@ unittest {
 }
 // #endregion camelize
 
-  /**
+/**
      * Returns the input CamelCasedString as an dashed-string.
      *
      * Also replaces underscores with dashes
      * Params:
      * string text The string to dasherize.
      */
-  /* static string dasherize(string stringToDasherize) {
+/* static string dasherize(string stringToDasherize) {
     return delimit(stringToDasherize.replace("_", "-"), "-");
   } */
 
-	// #region humanize
-  /**
+// #region humanize
+/**
      * Returns the input lower_case_delimited_string as "A Human Readable String".
      * (Underscores are replaced by spaces and capitalized following words.)
      */
-  string[] humanize(string[] texts, string delimiter = "_") {
+string[] humanize(string[] texts, string delimiter = "_") {
 	return texts.map!(text => humanize(text, delimiter)).array;
-  }
-  string humanize(string text, string delimiter = "_") {
-    auto cacheKey = __FUNCTION__ ~ delimiter;
+}
 
-    string result; // = _cache(cacheKey, text);
-    if (result.isEmpty) {
-      string[] parts = std.string.split(std.string.replace(text, delimiter, " "), " ");
-      result = parts.map!(part => std.string.capitalize(part)).join(" ");
-      // _cache(cacheKey, text, result);
-    }
+string humanize(string text, string delimiter = "_") {
+	auto cacheKey = __FUNCTION__ ~ delimiter;
 
-    return result;
-  }
+	string result; // = _cache(cacheKey, text);
+	if (result.isEmpty) {
+		string[] parts = std.string.split(std.string.replace(text, delimiter, " "), " ");
+		result = parts.map!(part => std.string.capitalize(part)).join(" ");
+		// _cache(cacheKey, text, result);
+	}
+
+	return result;
+}
 
 unittest {
-	assert(["i_am_not_here", "where_are_you"].humanize == ["I Am Not Here", "Where Are You"]);
+	assert(["i_am_not_here", "where_are_you"].humanize == [
+			"I Am Not Here", "Where Are You"
+		]);
 	assert("hello_world_and_mars".humanize == "Hello World And Mars");
 }
 // #endregion humanize
 
- /**
-     * Returns the input CamelCasedString as an underscored_string.
-     * Also replaces dashes with underscores
-     */
-  string underscore(string inputString) {
-    return delimit(std.string.replace(inputString, "-", "_"), "_");
-  }
-  unittest {
+// #region underscore
+// Returns the input CamelCasedString as an underscored_string. Also replaces dashes with underscores
+string[] underscore(string[] texts) {
+	return texts.map!(text => text.underscore).array;
+}
+
+string underscore(string text) {
+	return delimit(std.string.replace(text, "-", "_"), "_");
+}
+
+unittest {
 	writeln("underscore");
 	writeln(underscore("camel-cased-input-string"));
 	writeln(underscore("  camel-cased-input-string  "));
-  }
+
+	writeln(underscore("camel-cased-input-string"));
+	writeln(underscore("  camel-cased-input-string  "));
+}
+// #endregion underscore
 
 // Expects a CamelCasedInputString, and produces a lower_case_delimited_string
-  string delimit(string text, string delimiter = "_") {
-    // auto cacheKey = __FUNCTION__ ~ delimiter;
-    string result;// = _cache(cacheKey, text);
+string[] delimit(string[] texts, string delimiter = "_") {
+	return texts.map!(text => text.delimit(delimiter)).array;
+}
 
-    if (result.isEmpty) {
-      /* auto regex = regex(r"/(?<=\\w)([A-Z])/");
+string delimit(string text, string delimiter = "_") {
+	// auto cacheKey = __FUNCTION__ ~ delimiter;
+	string result; // = _cache(cacheKey, text);
+
+	if (result.isEmpty) {
+		/* auto regex = regex(r"/(?<=\\w)([A-Z])/");
       result = text.replaceAll(regex, delimiter ~ "\\1").lower; */
-      // _cache(cacheKey, text, result);
-	  dchar lastChar;
-	  foreach(index, c; text) {
-		if (std.uni.isUpper(c) && index > 0 && !std.uni.isWhite(lastChar)) {
-			result ~= delimiter ~ c;
+		// _cache(cacheKey, text, result);
+		dchar lastChar;
+		foreach (index, c; text) {
+			result ~= std.uni.isUpper(c) && index > 0 && !std.uni.isWhite(lastChar)
+				? delimiter ~ c : c;
+			lastChar = c;
 		}
-		else {
-			result ~= c;
-		}
-		lastChar = c;
-	  }
-    }
-    return result.lower;
-  }
+	}
+	return result.lower;
+}
 
-  unittest {
+unittest {
 	writeln("delimit");
 	writeln(delimit("CamelCasedInputString"));
 	writeln(delimit("  CamelCasedInputString  x"));
 	writeln(delimit("  CamelCasedInputString  x"));
 	writeln(delimit("xX  CamelCasedInputString  xX"));
-  }
+}
 
-  /**
-     * Return myword in singular form.
-     * Params:
-     * string myword Word in plural
-     */
-  string singularize(string pluralWord) {
-/*     if (isSet(_cache["singularize"][pluralWord])) {
+// Return myword in singular form.
+string singularize(string pluralWord) {
+	/*     if (isSet(_cache["singularize"][pluralWord])) {
       return _cache["singularize"][pluralWord];
     }
  */
-    /* auto irregularWords = _cache.get("irregular", null);
+	/* auto irregularWords = _cache.get("irregular", null);
     if (!irregularWords.isSet("singular")) {
       mywordList = _irregular.values;
       static.irregularWords.set("singular", "/(.*?(?:\\b|_))(" ~ mywordList.join("|") ~ ")my/i");
 
-      myupperWordList = array_map("ucfirst", mywordList);
+      myupperWordList = mywordList.capitalize;
       static.irregularWords.set("singularUpper", "/(.*?(?:\\b|[a-z]))("~myupperWordList.join("|""))
         .")my/";
     }
@@ -901,49 +929,120 @@ unittest {
     foreach (myrule, myreplacement; _singular) {
       if (preg_match(myrule, pluralWord)) {
         _cache["singularize"][pluralWord] = to!string(preg_replace(myrule, myreplacement, pluralWord));
-
         return _cache["singularize"][pluralWord];
       }
     }
     // _cache["singularize"][pluralWord] = pluralWord;
 
     return pluralWord; */
-	return null; 
-  } 
+	return null;
+}
 
-    // Returns corresponding table name for given model myclassname. ("people" for the model class "Person").
-  static string tableize(string myclassname) {
-    string result; // = _cache(__FUNCTION__, myclassname);
-    if (result.isEmpty) {
-      result = myclassname.underscore.pluralize;
-      // _cache(__FUNCTION__, myclassname, result);
-    }
-    return result;
-  }
+// #region tableize
+// Returns corresponding table name for given model myclassname. ("people" for the model class "Person").
+string[] tableize(string[] classnames) {
+	return classnames.map!(name => name.tableize).array;
+}
 
-  // Returns uim model class name ("Person" for the database table "people".) for given database table.
-  static string classify(string tableName) {
-    string result; // = _cache(__FUNCTION__, mytableName);
+string tableize(string classname) {
+	string result; // = _cache(__FUNCTION__, myclassname);
+	if (result.isEmpty) {
+		result = classname.underscore.pluralize;
+		// _cache(__FUNCTION__, myclassname, result);
+	}
+	return result;
+}
 
-    if (result.isEmpty) {
-      result = tableName.singularize().camelize;
-      // _cache(__FUNCTION__, mytableName, result);
-    }
-    return result;
-  }
+unitest {
+	// 
+}
+// #endregion tableize
 
-  /**
+// #region classify
+// Returns uim model class name ("Person" for the database table "people".) for given database table.
+string[] classify(string[] tableNames) {	
+	return tableNames.map!(name => name.classify).array;
+}
+
+string classify(string tableName) {
+	string result; // = _cache(__FUNCTION__, mytableName);
+
+	if (result.isEmpty) {
+		result = tableName.singularize.camelize;
+		// _cache(__FUNCTION__, mytableName, result);
+	}
+	return result;
+}
+// #endregion classify
+
+/**
      * Returns camelBacked version of an underscored string.
      * returns string in variable form
      */
-  string variable(string stringToConvert) {
-    string result; // = // _cache(__FUNCTION__, stringToConvert);
+string variable(string stringToConvert) {
+	string result; // = // _cache(__FUNCTION__, stringToConvert);
+	if (result.isEmpty) {
+		string camelized = stringToConvert.underscore.camelize;
+		string replaced = subString(camelized, 0, 1).lower;
+		result = replaced ~ subString(camelized, 1);
+		// _cache(__FUNCTION__, stringToConvert, result);
+	}
+	return result;
+}
 
-    if (result.isEmpty) {
-      string camelized = stringToConvert.underscore.camelize;
-      string replaced = subString(camelized, 0, 1).lower;
-      result = replaced ~ subString(camelized, 1);
-      // _cache(__FUNCTION__, stringToConvert, result);
-    }
-    return result;
-  }
+// Return myword in plural form.
+string pluralize(string singularWord) {
+	/* auto pluralizeWords = _cache.get("pluralize", null);
+	if (pluralizeWords.isSet(singularWord)) { // Found in cache
+		return pluralizeWords[singularWord];
+	}
+
+	auto irregularWords = _cache.get("irregular", null);
+	if (irregularWords.isNull("pluralize")) {
+		mywords = _irregular.keys;
+		static.irregularWords["pluralize"] = "/(.*?(?:\\b|_))(" ~ join("|", mywords)~")my/i";
+
+		myupperWords = array_map("ucfirst", mywords);
+		static.irregularWords.set("upperPluralize", "/(.*?(?:\\b|[a-z]))(" ~ join("|", myupperWords) ~ ")my/");
+	}
+	if (
+		preg_match(irregularWords["pluralize"], singularWord, myregs) ||
+		preg_match(irregularWords["upperPluralize"], singularWord, myregs)
+		) {
+		pluralizeWords[singularWord] = myregs[1] ~ subString(myregs[2], 0, 1)
+			.subString(
+				_irregular[strtolower(myregs[2])], 1);
+
+		return pluralizeWords[singularWord];
+	}
+	if (!_cache.isSet("uninflected")) {
+		_cache.set("uninflected", "/^(" ~ _uninflected.join("|") ~ ")my/i");
+	}
+	if (preg_match(_cache["uninflected"], singularWord, myregs)) {
+		pluralizeWords[singularWord] = singularWord;
+
+		return singularWord;
+	}
+	foreach (_plural as myrule : myreplacement) {
+		if (preg_match(myrule, singularWord)) {
+			pluralizeWords[singularWord] = (string) preg_replace(myrule, myreplacement, singularWord);
+
+			return pluralizeWords[singularWord];
+		}
+	}
+	return singularWord; */
+	return null;
+}
+
+// Cache inflected values, and return if already available
+string _cache(string inflectionType, string originalValue, string inflectedValue = null) {
+	originalValue = "_" ~ originalValue;
+	inflectionType = "_" ~ inflectionType;
+	if (!inflectedValue.isEmpty) {
+		_cache[inflectionType][originalValue] = inflectedValue;
+		return inflectedValue;
+	}
+
+	return _cache.isSetPath(inflectionType, originalValue)
+		? _cache[inflectionType][originalValue] : null;
+}

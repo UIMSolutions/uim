@@ -139,19 +139,7 @@ class DInflector {
   // The initial state of Inflector so reset() works.
   protected static Json[string] _initialState = null;
 
-  // Cache inflected values, and return if already available
-  protected static string _cache(string inflectionType, string originalValue, string inflectedValue = null)  {
-    auto key = "_" ~ originalValue;
-    auto inflectionType = "_" ~ inflectionType;
-    if (!inflectedValue.isEmpty) {
-      _cache[inflectionType][originalValue] = inflectedValue;
-      return inflectedValue;
-    }
 
-    return _cache[inflectionType].isSet(originalValue) 
-      ? _cache[inflectionType][originalValue]
-      : null;
-  }
 
   /**
      * Clears Inflectors inflected value caches. And resets the inflection
@@ -204,142 +192,10 @@ class DInflector {
   // _cache = null;
   }
 
-  // Return myword in plural form.
-  static string pluralize(string singularWord) {
-    auto pluralizeWords = _cache.get("pluralize", null);
-    if (pluralizeWords.isSet(singularWord)) { // Found in cache
-      return pluralizeWords[singularWord];
-    }
 
-    auto irregularWords = _cache.get("irregular", null);
-    if (irregularWords.isNull("pluralize")) {
-      mywords = _irregular.keys;
-      static.irregularWords["pluralize"] = "/(.*?(?:\\b|_))(" ~ join("|", mywords) ~ ")my/i";
-
-      myupperWords = array_map("ucfirst", mywords);
-      static.irregularWords.set("upperPluralize", "/(.*?(?:\\b|[a-z]))(" ~ join("|", myupperWords) ~ ")my/");
-    }
-    if (
-      preg_match(irregularWords["pluralize"], singularWord, myregs) ||
-      preg_match(irregularWords["upperPluralize"], singularWord, myregs)
-      ) {
-      pluralizeWords[singularWord] = myregs[1] ~ subString(myregs[2], 0, 1)
-        .subString(
-          _irregular[strtolower(myregs[2])], 1);
-
-      return pluralizeWords[singularWord];
-    }
-    if (!_cache.isSet("uninflected")) {
-      _cache.set("uninflected", "/^(" ~ _uninflected.join("|") ~ ")my/i");
-    }
-    if (preg_match(_cache["uninflected"], singularWord, myregs)) {
-      pluralizeWords[singularWord] = singularWord;
-
-      return singularWord;
-    }
-    foreach (_plural as myrule : myreplacement) {
-      if (preg_match(myrule, singularWord)) {
-        pluralizeWords[singularWord] = (string) preg_replace(myrule, myreplacement, singularWord);
-
-        return pluralizeWords[singularWord];
-      }
-    }
-    return singularWord;
-  }
-
-  /**
-     * Return myword in singular form.
-     * Params:
-     * string myword Word in plural
-     */
-  static string singularize(string pluralWord) {
-    if (isSet(_cache["singularize"][pluralWord])) {
-      return _cache["singularize"][pluralWord];
-    }
-
-    auto irregularWords = _cache.get("irregular", null);
-    if (!irregularWords.isSet("singular")) {
-      mywordList = _irregular.values;
-      static.irregularWords.set("singular", "/(.*?(?:\\b|_))(" ~ mywordList.join("|") ~ ")my/i");
-
-      myupperWordList = array_map("ucfirst", mywordList);
-      static.irregularWords.set("singularUpper", "/(.*?(?:\\b|[a-z]))("~myupperWordList.join("|""))
-        .")my/";
-    }
-
-    if (
-      preg_match(irregularWords["singular"], pluralWord, myregs) ||
-      preg_match(irregularWords["singularUpper"], pluralWord, myregs)
-      ) {
-      mysuffix = array_search(myregs[2].lower, _irregular, true);
-      mysuffix = mysuffix ? subString(mysuffix, 1) : "";
-      // _cache["singularize"][pluralWord] = myregs[1] ~ subString(myregs[2], 0, 1) ~ mysuffix;
-
-      return _cache["singularize"][pluralWord];
-    }
-    if (!_cache.isSet("uninflected")) {
-      _cache["uninflected"] = "/^(" ~ _uninflected.join("|") ~ ")my/i";
-    }
-    if (preg_match(_cache["uninflected"], pluralWord, myregs)) {
-      _cache["pluralize"][pluralWord] = pluralWord;
-
-      return pluralWord;
-    }
-    foreach (_singular as myrule : myreplacement) {
-      if (preg_match(myrule, pluralWord)) {
-        _cache["singularize"][pluralWord] = to!string(preg_replace(myrule, myreplacement, pluralWord));
-
-        return _cache["singularize"][pluralWord];
-      }
-    }
-    // _cache["singularize"][pluralWord] = pluralWord;
-
-    return pluralWord;
-  }
+  
 
 
 
  
 
-  // Returns corresponding table name for given model myclassname. ("people" for the model class "Person").
-  static string tableize(string myclassname) :  {
-    result = // _cache(__FUNCTION__, myclassname);
-
-    if (result == false) {
-      result = pluralize(underscore(myclassname));
-      // _cache(__FUNCTION__, myclassname, result);
-    }
-    return result;
-  }
-
-  /**
-     * Returns uim model class name ("Person" for the database table "people".) for given database table.
-     * Params:
-     * string mytableName Name of database table to get class name for
-     */
-  static string classify(string mytableName) :  {
-    result = // _cache(__FUNCTION__, mytableName);
-
-    if (result.isEmpty) {
-      result = camelize(singularize(mytableName));
-      // _cache(__FUNCTION__, mytableName, result);
-    }
-    return result;
-  }
-
-  /**
-     * Returns camelBacked version of an underscored string.
-     * returns string in variable form
-     */
-  static string variable(string stringToConvert) {
-    string result = // _cache(__FUNCTION__, stringToConvert);
-
-    if (result.isEmpty) {
-      string mycamelized = camelize(underscore(stringToConvert));
-      string myreplace = strtolower(subString(mycamelized, 0, 1));
-      result = myreplace ~ subString(mycamelized, 1);
-      // _cache(__FUNCTION__, stringToConvert, result);
-    }
-    return result;
-  } */
-}

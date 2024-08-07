@@ -29,7 +29,7 @@ class DHtmlErrorRenderer : IErrorRenderer {
         auto line = error.getLine();
 
         string errorMessage = "<b>%s</b> (%s)"
-            .format(h(ucfirst(error.getLabel())), htmlAttributeEscape(error.code())
+            .format(h(capitalize(error.getLabel())), htmlAttributeEscape(error.code())
        );
         toggle = this.renderToggle(errorMessage,  anId, "trace");
         codeToggle = this.renderToggle("Code",  anId, "code");

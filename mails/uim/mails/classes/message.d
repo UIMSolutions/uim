@@ -1007,7 +1007,7 @@ class DMessage { //: JsonSerializable {
         ];
         simpleMethods.each!((method) {
             if (configuration.hasKey(method))) {
-                this.{"set" ~ ucfirst(method)}(configData[method]);
+                this.{"set" ~ capitalize(method)}(configData[method]);
             }
         });
         if (configuration.hasKey("headers")) {

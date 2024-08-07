@@ -228,7 +228,7 @@ class DEventManager : IEventManager {
     // Calls a listener.
     /* protected Json _callListener(callable listenerToTrigger, IEvent event) {
     // TODO 
-/*    return listener(event, ...array_values(event.getData()));
+/*    return listener(event, ...event.getData().values);
  * /
  }
  */

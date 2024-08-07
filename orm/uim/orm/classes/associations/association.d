@@ -380,7 +380,7 @@ class DAssociation : UIMObject, IAssociation {
     protected string _propertyName() {
         [, name] = pluginSplit(_name);
 
-        return Inflector.underscore(name);
+        return name.underscore;
     }
 
     /**
@@ -406,8 +406,6 @@ class DAssociation : UIMObject, IAssociation {
     string getStrategy() {
         return _strategyName;
     }
-
-   
 
     /**
      * Override this function to initialize any concrete association class, it will

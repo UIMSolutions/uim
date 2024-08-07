@@ -24,7 +24,7 @@ mixin template TConventions() {
      */
     protected string _modelKey(string modelclassname) {
         // TODO [, name] = pluginSplit(modelclassname);    
-        // return Inflector.underscore(Inflector.singularize(name)) ~ "_id";
+        // return Inflector.singularize(name).underscore ~ "_id";
         return null; 
     }
     

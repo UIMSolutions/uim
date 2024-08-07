@@ -676,12 +676,11 @@ abstract class DTestCase : DBaseTestCase {
             builder.addMethods(nonExistingMethods);
         }
         /** @var \ORM\Table mock */
-        mock = builder.getMock();
-
+        auto mock = builder.getMock();
         if (isoptions.isEmpty("entityClass") && mock.getEntityClass() == Entity.classname) {
             string[] someParts = classname.split("\\");
-            entityAlias = Inflector.classify(Inflector.underscore(subString(someParts.pop(), 0, -5)));
-            entityClass = someParts.slice(0, -1).join("\\") ~ "\\Entity\\" ~ entityAlias;
+            auto entityAlias = Inflector.classify(subString(someParts.pop(), 0, -5).underscore);
+            auto entityClass = someParts.slice(0, -1).join("\\") ~ "\\Entity\\" ~ entityAlias;
             if (class_hasKey(entityClass)) {
                 mock.setEntityClass(entityClass);
             }

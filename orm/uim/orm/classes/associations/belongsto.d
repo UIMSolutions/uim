@@ -62,7 +62,7 @@ class DBelongsToAssociation : DAssociation {
     protected string _propertyName() {
         [, name] = pluginSplit(_name);
 
-        return Inflector.underscore(Inflector.singularize(name));
+        return Inflector.singularize(name).underscore;
     }
 
     /**

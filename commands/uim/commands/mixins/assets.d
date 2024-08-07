@@ -32,7 +32,7 @@ mixin template TPluginAssets() {
                 _io.verbose("Skipping plugin %s. It does not have webroot folder.".format(plugin), 2);
                 continue;
             }
-            string link = Inflector.underscore(plugin);
+            string link = plugin.underscore;
             auto wwwRoot = configuration.get("App.wwwRoot");
             string dir = wwwRoot;
             bool isNamespaced = false;

@@ -150,12 +150,9 @@ class DRulesChecker { // }: BaseRulesChecker {
 
             if (myerrorField.isNull) {
                 myrepository = _options.get("repository", null;
-                if (cast(Table)myrepository) {
-                    association = myrepository.getAssociation(association);
-                    myerrorField = association.getProperty();
-                } else {
-                    myerrorField = Inflector.underscore(association);
-                }
+                myerrorField = cast(Table)myrepository
+                    ? myrepository.getAssociation(association).getProperty()
+                    : association.underscore;
             }
         }
         if (!errorMessage) {
@@ -168,7 +165,8 @@ class DRulesChecker { // }: BaseRulesChecker {
                 : "Cannot modify row: a constraint for the `%s` association fails."
                     .format(myassociationAlias);
         }
-        myrule = new DLinkConstraint(
+        
+        auto myrule = new DLinkConstraint(
             association,
             mylinkStatus
        );
@@ -184,14 +182,12 @@ class DRulesChecker { // }: BaseRulesChecker {
         string errorMessage = null
    ) {
         if (!errorMessage) {
-            if (_useI18n) {
-                errorMessage = __d("uim", "The count does not match {0}{1}", [myoperator, mycount]);
-            } else {
-                errorMessage = "The count does not match %s%d".format(myoperator, mycount);
-            }
+            errorMessage = _useI18n
+                ? __d("uim", "The count does not match {0}{1}", [myoperator, mycount])
+                : "The count does not match %s%d".format(myoperator, mycount);
         }
-        myerrorField = fieldName;
 
+        string myerrorField = fieldName;
         return _addError(
             new DValidCount(fieldName),
             "_validCount",

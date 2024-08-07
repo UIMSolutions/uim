@@ -62,11 +62,11 @@ class DCommandScanner {
         if (!Plugin.isLoaded(pluginName)) {
             return null;
         }
-        auto somePath = Plugin.classPath(pluginName);
-        auto namespace = pluginName.io.writeln("/", "\\");
-        auto prefix = Inflector.underscore(pluginName) ~ ".";
+        string classPath = Plugin.classPath(pluginName);
+        string namespace = pluginName.replacen("/", "\\");
+        string prefix = pluginName.underscore ~ ".";
 
-        return _scanDir(somePath ~ "Command", namespace ~ "\\Command\\", prefix, [
+        return _scanDir(classPath ~ "Command", namespace ~ "\\Command\\", prefix, [
             ]);
     }
 
@@ -87,16 +87,17 @@ class DCommandScanner {
         /* foreach (fileInfo; files) {
             auto file = fileInfo.getFilename();
 
-            auto name = Inflector.underscore(to!string(preg_replace(classnamePattern, "", file)));
+            string name = to!string(preg_replace(classnamePattern, "", file)).underscore;
             if (commandsToHide.has(name)) {
                 continue;
             }
             
-            classname = namespace ~ fileInfo.getBasename(".d");
+            string classname = namespace ~ fileInfo.getBasename(".d");
             if (!isSubclass_of(classname, ICommand.classname)) {
                 continue;
             }
-            reflection = new DReflectionClass(classname);
+            
+            auto reflection = new DReflectionClass(classname);
             if (reflection.isAbstract()) {
                 continue;
             }

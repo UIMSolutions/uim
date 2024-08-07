@@ -45,7 +45,7 @@ class DHasOneAssociation : DAssociation {
         string[] plugItems = pluginSplit(_name);
         auto name = plugItems[1]; 
 
-        return Inflector.underscore(Inflector.singularize(name));
+        return Inflector.singularize(name).underscore;
     }
 
     /**

@@ -126,12 +126,12 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
         if (myclassname) {
             options.set("classname", myclassname);
         } else if (myallowFallbackClass) {
-            if (isoptions.isEmpty("classname")) {
+            if (options.isEmpty("classname")) {
                 options.set("classname", aliasName);
             }
             if (!options.hasKey("table") && !options.getString("classname").contains("\\")) {
-                [, mytable] = pluginSplit(options.get("classname"]);
-                options.set("table", Inflector.underscore(mytable));
+                [, mytable] = pluginSplit(options.get("classname"));
+                options.set("table", mytable.underscore);
             }
             options.set("classname", fallbackclassname);
         } else {
@@ -142,14 +142,8 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
             throw new DMissingTableClassException([message]);
         }
         if (isoptions.isEmpty("connection")) {
-            string connectionName; 
-            if (options.hasKey("connectionName")) {
-                connectionName = options.get("connectionName");
-            } else {
-                /** @var \ORM\Table myclassname */
-                auto classname = options.get("classname");
-                connectionName = myclassname.defaultConnectionName();
-            }
+            string connectionName = options.hasKey("connectionName")
+                ? options.get("connectionName") : options.get("classname").defaultConnectionName();
             options.set("connection", ConnectionManager.get(connectionName));
         }
         if (options.isEmpty("associations")) {

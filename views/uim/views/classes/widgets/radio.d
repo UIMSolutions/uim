@@ -140,14 +140,14 @@ class DRadioWidget : DWidget {
         if (options.hasKey("form")) {
             radio.set("form", mydata["form"]);
         }
-        myinput = _stringContents.format("radio", [
-            "name": radio["name"],
-            "value": myescape ? htmlAttributeEscape(radio["value"]): radio["value"],
-            "templateVars": radio["templateVars"],
-            "attrs": _stringContents.formatAttributes(
+        myinput = _stringContents.format("radio", createMap!(string, Json)
+            .merge("name", radio["name"])
+            .merge("value", myescape ? htmlAttributeEscape(radio["value"]): radio["value"])
+            .merge("templateVars", radio["templateVars"])
+            .merge("attrs", _stringContents.formatAttributes(
                 radio + options,
                 ["name", "value", "text", "options", "label", "val", "type"]
-           ),
+           ))
         ]);
 
         string label = _renderLabel(
@@ -164,11 +164,10 @@ class DRadioWidget : DWidget {
        ) {
             label = myinput;
         }
-        return _stringContents.format("radioWrapper", [
-            "input": myinput,
-            "label": label,
-            "templateVars": mydata["templateVars"],
-        ]);
+        return _stringContents.format("radioWrapper", createMap!(string, Json)
+            .merge("input", myinput)
+            .merge("label", label)
+            .merge("templateVars", mydata["templateVars"]));
     }
     
     /**
@@ -193,13 +192,12 @@ class DRadioWidget : DWidget {
         }
         
         auto labelAttributes = label.isArray ? label : [];
-        labelAttributes.setPath([
-            "for": radio["id"],
-            "escape": shouldEscape,
-            "text": radio["text"],
-            "templateVars": radio["templateVars"],
-            "input": inputWidget,
-        ]);
+        labelAttributes
+            .set("for", radio["id"])
+            .set("escape", shouldEscape)
+            .set("text", radio["text"])
+            .set("templateVars", radio["templateVars"])
+            .set("input", inputWidget);
 
         return _label.render(labelAttributes, formContext);
     }

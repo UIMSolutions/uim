@@ -255,9 +255,7 @@ protected ISelectQuery _pagingSubquery(SelectQuery original, int numberOfRows, i
                 // Decorate the original query as that is what the
                 // end developer will be calling execute() on originally.
                 original.decorateResults(function(row) {
-                    if (row.hasKey(["_uim_page_rownum_"])) {
-                        row.remove("_uim_page_rownum_");
-                    }
+                    row.remove("_uim_page_rownum_");
                     return row;
                 });
 
@@ -265,16 +263,16 @@ protected ISelectQuery _pagingSubquery(SelectQuery original, int numberOfRows, i
             }
 
         protected ISelectQuery _transformDistinct(SelectQuery aQuery) {
-            if (!isArray(aQuery.clause("distinct"))) {
+            if (!aQuery.clause("distinct").isArray) {
                 return aQuery;
             }
-            original = aQuery;
+            auto original = aQuery;
             aQuery = original.clone;
 
-            distinct = aQuery.clause("distinct");
+            auto distinct = aQuery.clause("distinct");
             aQuery.distinct(false);
 
-            order = new DOrderByExpression(distinct);
+            auto order = new DOrderByExpression(distinct);
             aQuery
                 .select(function(q) use(distinct, order) {
                     over = q.newExpr("ROW_NUMBER() OVER")

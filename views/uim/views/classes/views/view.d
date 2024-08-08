@@ -398,7 +398,12 @@ static string contentType() {
      * is not found in the plugin, the normal view path cascade will be searched.
      */
     string element(string templatefilename, Json[string] data = null, Json[string] options  = null) {
-        auto updatedOptions = options.update["callbacks": false.toJson, "cache": Json(null), "plugin": Json(null), "ignoreMissing": false.toJson];
+        options
+            .merge("callbacks", false.toJson)
+            .merge("cache", Json(null))
+            .merge("plugin", Json(null))
+            .merge("ignoreMissing", false.toJson);
+
         if (options.hasKey("cache")) {
             options.set("cache", _elementCache(
                 templatefilename,
@@ -409,15 +414,15 @@ static string contentType() {
 
         bool _pluginCheck = options.get("plugin") == true;
         auto filepath = _getElementFileName(templatefilename, _pluginCheck);
-        if (filepath && options.get("cache"]) {
+        if (filepath && options.get("cache")) {
             return _cache(void () use (filepath, mydata, options) {
-                writeln(_renderElement(filepath, mydata, options);
-            }, options.get("cache"]);
+                writeln(_renderElement(filepath, mydata, options));
+            }, options.get("cache"));
         }
         if (filepath) {
             return _renderElement(filepath, mydata, options);
         }
-        if (options.hasKey("ignoreMissing"]) {
+        if (options.hasKey("ignoreMissing")) {
             return null;
         }
         [_plugin, myelementName] = _pluginSplit(templatefilename, _pluginCheck);
@@ -437,15 +442,15 @@ static string contentType() {
      * callable myblock The block of code that you want to cache the output of.
      */
     string cache(callable myblock, Json[string] options  = null) {
-        Json[string] options = options.merge([
-            "key": "".toJson, 
-            "config": Json(_elementCache)]);
+        options
+            .merge("key", "".toJson) 
+            .merge("config", Json(_elementCache));
         
         if (options.isEmpty("key")) {
             throw new DInvalidArgumentException("Cannot cache content with an empty key");
         }
         
-        auto result = Cache.read(options.get("key"], options.get("config"]);
+        auto result = Cache.read(options.get("key"), options.get("config"));
         if (result) {
             return result;
         }
@@ -462,7 +467,7 @@ static string contentType() {
         }
         result = to!string(ob_get_clean());
 
-        Cache.write(options.get("key"], result, options.get("config"]);
+        Cache.write(options.get("key"), result, options.get("config"));
 
         return result;
     }

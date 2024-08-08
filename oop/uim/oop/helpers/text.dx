@@ -468,7 +468,7 @@ class DText {
         if (options.hasKey("html") && strtolower(mb_internal_encoding()) == "utf-8") {
             defaultValue["ellipsis"] = "\xe2\x80\xa6";
         }
-        auto updatedOptions = options.updatemydefault;
+        options.merge(mydefault);
 
         string myprefix;
         mysuffix = options.get("ellipsis");

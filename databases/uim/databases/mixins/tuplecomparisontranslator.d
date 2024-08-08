@@ -53,17 +53,17 @@ mixin template TTupleComparisonTranslator() {
             ? fields.combine(myType) 
             : null;
 
-        surrogate = queryToUpdate.getConnection()
+        auto surrogate = queryToUpdate.getConnection()
             .selectQuery()
             .select(true);
 
-        if (!isArray(currentValue(aValue))) {
+        if (!currentValue(aValue).isArray) {
             aValue = [aValue];
         }
-        conditions = ["OR": Json.emptyArray];
+        auto conditions = ["OR": Json.emptyArray];
         aValue.each!((tuple) {
             auto items = null; 
-            foreach (index : value2; tuple.values) {
+            foreach (index, value2; tuple.values) {
                 items ~= [fields[index]: value2];}
                 conditions.concat("OR", items);
                 surrogate.where(conditions, typeMap);
@@ -71,6 +71,6 @@ mixin template TTupleComparisonTranslator() {
                 expressionToTransform.setFieldNames(true);
                 expressionToTransform.setValue(surrogate);
                 expressionToTransform.setOperator("=");
-            }
+            });
         }
     }

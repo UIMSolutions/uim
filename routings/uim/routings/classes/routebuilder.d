@@ -91,18 +91,10 @@ class DRouteBuilder {
         _collection = routeCollection;
         _path = path;
         _params = params;
-        if (options.hasKey("routeClass")) {
-            _routeClass = options.get("routeClass");
-        }
-        if (options.hasKey("extensions")) {
-            _extensions = options.get("extensions");
-        }
-        if (options.hasKey("namePrefix")) {
-            _namePrefix = options.get("namePrefix");
-        }
-        if (options.hasKey("middleware")) {
-            _middleware = options.getArray("middleware");
-        }
+        _routeClass = options.get("routeClass", _routeClass);
+        _extensions = options.get("extensions", _extensions);
+        _namePrefix = options.get("namePrefix", _namePrefix);
+        _middleware = options.getArray("middleware", _middleware);
     }
 
     /**
@@ -262,37 +254,34 @@ class DRouteBuilder {
             options = null;
         }
 
-        auto updatedOptions = options.update[
-            "connectOptions": Json.emptyArray,
-            "inflect": "dasherize",
-            "id": ID ~ "|" ~ UUID,
-            "only": Json.emptyArray,
-            "actions": Json.emptyArray,
-            "map": Json.emptyArray,
-            "prefix": Json(null),
-            "path": Json(null),
-        ];
+        options
+            .merge("connectOptions", Json.emptyArray)
+            .merge("inflect", "dasherize")
+            .merge("id", ID ~ "|" ~ UUID)
+            .merge("only", Json.emptyArray)
+            .merge("actions", Json.emptyArray)
+            .merge("map", Json.emptyArray)
+            .merge("prefix", Json(null))
+            .merge("path", Json(null));
 
-        foreach (myKey, mymapped; options.get("map"]) {
+        foreach (myKey, mymapped; options.get("map")) {
             options.get("map"][myKey] += ["method": "GET", "path": myKey, "action": ""];
         }
-        myext = null;
-        if (options.hasKey("_ext")) {
-            myext = options.get("_ext");
-        }
-        myconnectOptions = options.get("connectOptions");
+        
+        auto myext = options.get("_ext");
+        auto myconnectOptions = options.get("connectOptions");
         if (options.isEmpty("path")) {
             mymethod = options.get("inflect");
             options.set("path", Inflector.mymethod(controllerName));
         }
-        auto myresourceMap = chain(_resourceMap, options.get("map"]);
+        auto myresourceMap = chain(_resourceMap, options.get("map"));
 
         string[] myonly =  options.getStringArray("only");
         if (isEmpty(myonly)) {
             myonly = myresourceMap.keys;
         }
 
-        string myprefix = options.getStrinf("prefix");
+        string myprefix = options.getString("prefix");
         if (_params.hasKey("prefix") && myprefix) {
             myprefix = _params.getString("prefix") ~ "/" ~ myprefix;
         }
@@ -318,7 +307,7 @@ class DRouteBuilder {
                 "pass": ["id"],
                 "_ext": myext,
             ];
-            this.connect(myurl, params, myrouteOptions);
+            connect(myurl, params, myrouteOptions);
         }
         if (nestedCallback !is null) {
             auto myidName = Inflector.singularize(controllerName.underscore) ~ "_id";
@@ -707,8 +696,8 @@ class DRouteBuilder {
      */
     void fallbacks(string routeClassname = null) {
         routeClassname = routeClassname.ifEmpty(_routeClass);
-        this.connect("/{controller}", ["action": "index"], compact("routeClass"));
-        this.connect("/{controller}/{action}/*", [], compact("routeClass"));
+        connect("/{controller}", ["action": "index"], compact("routeClass"));
+        connect("/{controller}/{action}/*", [], compact("routeClass"));
     }
 
     /**

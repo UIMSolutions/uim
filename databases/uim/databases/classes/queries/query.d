@@ -453,14 +453,16 @@ abstract class DQuery : IQuery { // : IExpression {
         auto joins = null;
         anto index = count(_parts["join"]);
         foreach (aliasName, t; aTables) {
-            if (!isArray(t)) {
+            if (!t.isArray) {
                 t = ["table": t, "conditions": this.newExpr()];
             }
-            if (cast(DClosure)t["conditions"]) {
-                t["conditions"] = t["conditions"](this.newExpr(), this);
+            auto conditions = t["conditions"];
+            if (cast(DClosure)conditions) {
+                t["conditions"] = conditions(this.newExpr(), this);
             }
-            if (!cast(IExpression)t["conditions"]) {
-                t["conditions"] = this.newExpr().add(t["conditions"], typeMap);
+            conditions = t["conditions"];
+            if (!cast(IExpression)conditions) {
+                t["conditions"] = this.newExpr().add(conditions, typeMap);
             }
             aliasName = aliasName.isString ? aliasName : null;
             joins[aliasName ?:  index++] = t ~ ["type": JOIN_TYPE_INNER, "aliasName": aliasName];

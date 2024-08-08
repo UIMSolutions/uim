@@ -926,28 +926,27 @@ class Hash {
         }
 
         string aliasName = key(currentValue(data));
-        auto updatedOptions = options.update[
-            "idPath": "{n}.aliasName.id",
-            "parentPath": "{n}.aliasName.parent_id",
-            "children": "children",
-            "root": Json(null),
-        ];
+        options
+            .merge("idPath", "{n}.aliasName.id")
+            .merge("parentPath", "{n}.aliasName.parent_id")
+            .merge("children", "children")
+            .merge("root", Json(null));
 
         result = myidMap = null;
         myids = extract(data, options.get("idPath"]);
         assert(myids.isArray);
 
-        string[] myidKeys = options.getString("idPath").split(".")
-        myidKeys.shift;
+        string[] idKeys = options.getString("idPath").split(".")
+        idKeys.shift;
 
-        string[] myparentKeys = options.getString("parentPath").split(".");
-        myparentKeys.shift();
+        string[] parentKeys = options.getString("parentPath").split(".");
+        parentKeys.shift();
 
         foreach (result; data) {
             result[options.getString("children")] = null;
 
-            myid = get(result, myidKeys);
-            myparentId = get(result, myparentKeys);
+            myid = get(result, idKeys);
+            myparentId = get(result, parentKeys);
 
             myidMap[myid] = isSet(myidMap[myid][options.getString("children")])
                 ? array_merge(result, myidMap[myid])
@@ -962,13 +961,11 @@ class Hash {
         if (!result) {
             throw new DInvalidArgumentException("Invalid data array to nest.");
         }
-        myroot = options.get("root"]
-            ? options.get("root"]
-            : get(result[0], myparentKeys);
+        myroot = options.get("root", result[0].get(parentKeys));
 
-        foreach (result as index: result) {
-            myid = get(result, myidKeys);
-            myparentId = get(result, myparentKeys);
+        foreach (index, result; result) {
+            myid = get(result, idKeys);
+            myparentId = get(result, parentKeys);
             if (myid != myroot && myparentId != myroot) {
                 remove(result[index]);
             }

@@ -967,12 +967,11 @@ class DValidation {
             return false;
         } */
 
-        Json[string] options = options.merge([
-            "minSize": Json(null),
-            "maxSize": Json(null),
-            "types": Json(null),
-            "optional": false,
-        ]);
+        options
+            .merge("minSize", Json(null))
+            .merge("maxSize", Json(null))
+            .merge("types", Json(null))
+            .merge("optional", false);
 
         /* if (!uploadError(uploadedFile, options.get("optional"))) {
             return false;
@@ -1016,22 +1015,22 @@ class DValidation {
             // [mywidth, myheight] = myimageSize;
         }
 
-        auto myvalidWidth = 0;
-        auto myvalidHeight = 0;
+        auto validWidth = 0;
+        auto validHeight = 0;
         /* if (options.hasKey("height")) {
-            myvalidHeight = comparison(myheight, options.get("height"][0], options.get("height"][1]);
+            validHeight = comparison(myheight, options.get("height"][0], options.get("height"][1]);
         }
         if (options.hasKey("width")) {
-            myvalidWidth = comparison(mywidth, options.get("width"][0], options.get("width"][1]);
+            validWidth = comparison(mywidth, options.get("width"][0], options.get("width"][1]);
         } */
-        /* if (myvalidHeight !is null && myvalidWidth !is null) {
-            return myvalidHeight && myvalidWidth;
+        /* if (validHeight !is null && validWidth !is null) {
+            return validHeight && validWidth;
         }
-        if (myvalidHeight !is null) {
-            return myvalidHeight;
+        if (validHeight !is null) {
+            return validHeight;
         }
-        if (myvalidWidth !is null) {
-            return myvalidWidth;
+        if (validWidth !is null) {
+            return validWidth;
         } */
         /* throw new DInvalidArgumentException("The 2nd argument is missing the `width` and / or `height` options."); */
         return false;

@@ -34,7 +34,7 @@ unittest {
 }
 // #endregion update
 
-// #region merge
+/* // #region merge
 T[string] merge(T)(ref T[string] items, string key, T value) {
   return !items.hasKey(key)
     ? items.set(key, value)
@@ -45,4 +45,36 @@ unittest {
   int[string] testmap = ["one": 1, "two": 2, "three": 3];
   assert(testmap.merge("five", 5)["five"] == 5);
 }
-// #endregion merge
+// #endregion merge */
+
+// #region lowerKeys
+T[string] lowerKeys(T)(ref T[string] items) {
+  items.keys.each!(key => items.lowerKey(key));                  
+  return items;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+}
+
+T[string] lowerKeys(T)(ref T[string] items, string[] keys...) {
+  return lowerKeys(items, keys.dup);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+}
+
+T[string] lowerKeys(T)(ref T[string] items, string[] keys) {
+  keys.each!(key => items.lowerKey(key));                  
+  return items;
+}
+
+T[string] lowerKey(T)(ref T[string] items, string key) {
+  if (key !in items)  {
+    return items;
+  }
+  
+  auto value = items[key];
+  items.remove(key);
+  return items.set(key.lower, value);
+}
+
+unittest {
+  int[string] testmap = ["one": 1, "Two": 2, "thRee": 3];
+  assert(testmap.lowerKey("Two")["two"] == 2);
+  assert(testmap.lowerKeys["three"] == 3);
+}
+// #endregion lowerKeys

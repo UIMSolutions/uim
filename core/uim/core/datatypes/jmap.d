@@ -56,31 +56,35 @@ Json[string] merge(T)(Json[string] items, string[] keys, T value) {
 }
 
 Json[string] merge(T)(Json[string] items, string[] keys, Json value) {
-  keys.each!(key => items.merge(key, value));
+  keys.each!(key => uim.core.containers.map.merge(items, key, value));
   return items;
 }
 
-Json[string] merge(T)(Json[string] items, string key, T value) {
-  return items.merge(key, json(value));
+/* Json[string] merge(T)(Json[string] items, string key, T value) {
+  return items.merge(key, Json(value));
+}
+ */
+Json[string] merge(Json[string] items, string key, bool value) {
+  return uim.core.containers.map.merge(items, key, Json(value));
 }
 
 Json[string] merge(Json[string] items, string key, string value) {
-  return items.merge(key, Json(value));
+  return uim.core.containers.map.merge(items, key, Json(value));
 }
 
 Json[string] merge(Json[string] items, string key, long value) {
-  return items.merge(key, Json(value));
+  return uim.core.containers.map.merge(items, key, Json(value));
 }
 
 Json[string] merge(Json[string] items, string key, double value) {
-  return items.merge(key, Json(value));
+  return uim.core.containers.map.merge(items, key, Json(value));
 }
 
-Json[string] merge(Json[string] items, string key, Json value) {
+/* Json[string] merge(Json[string] items, string key, Json value) {
   return key !in items
     ? items.set(key, value)
     : items;
-}
+}  */
 
 unittest {
   Json[string] testMap;

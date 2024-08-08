@@ -251,7 +251,7 @@ mixin template TCollection() {
  
     Json last() {
         auto myiterator = optimizeUnwrap();
-        if (isArray(myiterator)) {
+        if (myiterator.isArray) {
             return myiterator.pop();
         }
         if (cast(DCountable)myiterator) {

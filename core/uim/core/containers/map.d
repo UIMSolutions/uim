@@ -398,12 +398,12 @@ V[K] merge(K, V)(V[K] items, V[K] mergeItems, K[] includedKeys = null) {
   return items;
 }
 
-V[K] merge(K, V)(V[K] items, K[] keys, V value = Null!V) {
+V[K] merge(K, V)(V[K] items, K[] keys, V value) {
   keys.each!(key => items.merge(key, value));
   return items;
 }
 
-V[K] merge(K, V)(V[K] items, K key, V value = Null!V) {
+V[K] merge(K, V)(V[K] items, K key, V value) {
   if (!items.hasKey(key)) {
     items[key] = value;
   }

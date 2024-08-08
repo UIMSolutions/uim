@@ -239,14 +239,14 @@ mixin template TEntity() {
 
   void set(string[] fieldName, Json valueToSet = null, Json[string] options = null) {
     bool guard;
-    if (isString(fieldName) && !fieldName.isEmpty) {
+    if (fieldName.isString && !fieldName.isEmpty) {
       guard = false;
       fieldName = [fieldName: valueToSet];
     } else {
       guard = true;
       options =  /* (array) */ valueToSet;
     }
-    if (!isArray(fieldName)) {
+    if (!fieldName.isArray) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
     options      
@@ -499,8 +499,8 @@ mixin template TEntity() {
   Json[string] toArray() {
     Json[string] dataMap;
     visibleFields.each!((field) {
-      aValue = get(field);
-      if (isArray(aValue)) {
+      auto aValue = get(field);
+      if (aValue.isArray) {
         dataMap[field] = null;
         aValue.byKeyValue
           .each!(keyEntity => dataMap[field][keyEntity.key] = cast(IDatasourceEntity) keyEntity.value
@@ -875,12 +875,10 @@ mixin template TEntity() {
               .hasErrors()) {
               return true;
             }
-            if (isArray(object)) {
-              foreach (
-                object as aValue) {
+            if (object.isArray) {
+              foreach (aValue; object) {
                 if (
-                  _readHasErrors(
-                    aValue)) {
+                  _readHasErrors(aValue)) {
                   return true;
                 }
               }

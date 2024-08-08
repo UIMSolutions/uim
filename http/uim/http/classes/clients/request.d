@@ -50,18 +50,16 @@ class DRequest { // }: Message, IRequest {
      *
      * Array data will be serialized with {@link \UIM\Http\FormData},
      * and the content-type will be set.
-     * Params:
-     * string[] requestBody The body for the request.
      */
     protected void setContent(string[] requestBody) {
-        if (isArray(content)) {
+        if (content.isArray) {
             formData = new DFormData();
             formData.addMany(requestBody);
             /** @Dstan-var array<non-empty-string, non-empty-string>  aHeaders *
             /
              aHeaders = ["Content-Type": formData.contentType()];
             this.addHeaders(aHeaders);
-            auto myFormData = (string)formData;
+            auto myFormData = (string)formData; */
         }
         stream = new DStream("D://memory", "rw");
         stream.write(myFormData);

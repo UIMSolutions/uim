@@ -131,8 +131,8 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      */
     protected IServerRequest _unsetTokenField(IServerRequest serverRequest) {
         auto parsedBody = serverRequest.getParsedBody();
-        if (isArray(parsedBody)) {
-            remove(parsedBody[configuration.get("field")]);
+        if (parsedBody.isArray) {
+            parsedBody.remove(configuration.getString("field"));
             serverRequest = serverRequest.withParsedBody(parsedBody);
         }
         return serverRequest;
@@ -140,9 +140,9 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
     
     // Create a new token to be used for CSRF protection
     string createToken() {
-        aValue = Security.randomBytes(TOKEN_VALUE_LENGTH);
+        auto value = Security.randomBytes(TOKEN_VALUE_LENGTH);
 
-        return base64_encode(aValue ~ hash_hmac("sha1", aValue, Security.getSalt()));
+        return base64_encode(value ~ hash_hmac("sha1", value, Security.getSalt()));
     }
     
     /**
@@ -155,7 +155,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * string atoken The token to salt.
      */
     string saltToken(string atoken) {
-        if (this.isHexadecimalToken(token)) {
+        if (isHexadecimalToken(token)) {
             return token;
         }
         decoded = base64_decode(token, true);
@@ -182,15 +182,15 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * string atoken The token that could be salty.
      */
     string unsaltToken(string atoken) {
-        if (this.isHexadecimalToken(token)) {
+        if (isHexadecimalToken(token)) {
             return token;
         }
-        decoded = base64_decode(token, true);
+        auto decoded = base64_decode(token, true);
         if (decoded == false || decoded.length != TOKEN_WITH_CHECKSUM_LENGTH * 2) {
             return token;
         }
-        salted = subString(decoded, 0, TOKEN_WITH_CHECKSUM_LENGTH);
-        salt = subString(decoded, TOKEN_WITH_CHECKSUM_LENGTH);
+        auto salted = subString(decoded, 0, TOKEN_WITH_CHECKSUM_LENGTH);
+        auto salt = subString(decoded, TOKEN_WITH_CHECKSUM_LENGTH);
 
         string unsalted = "";
         for (index = 0;  index < TOKEN_WITH_CHECKSUM_LENGTH;  index++) {
@@ -204,18 +204,17 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
     protected bool _verifyToken(string csrfToken) {
         // If we have a hexadecimal value we're in a compatibility mode from before
         // tokens were salted on each request.
-        string decoded = this.isHexadecimalToken(csrfToken)
+        string decoded = isHexadecimalToken(csrfToken)
             ? csrfToken
             : base64_decode(csrfToken, true);
 
         if (!decoded || decoded.length <= TOKEN_VALUE_LENGTH) {
             return false;
         }
-        aKey = subString(decoded, 0, TOKEN_VALUE_LENGTH);
-        hmac = subString(decoded, TOKEN_VALUE_LENGTH);
+        auto aKey = subString(decoded, 0, TOKEN_VALUE_LENGTH);
+        auto hmac = subString(decoded, TOKEN_VALUE_LENGTH);
 
-        expectedHmac = hash_hmac("sha1", aKey, Security.getSalt());
-
+        auto expectedHmac = hash_hmac("sha1", aKey, Security.getSalt());
         return hash_equals(hmac, expectedHmac);
     }
     
@@ -225,11 +224,10 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
         IServerRequest serverRequest,
         IResponse response
    ) {
-        cookie = _createCookie(tokenToAdd, serverRequest);
-        if (cast(Response)response) {
-            return response.withCookie(cookie);
-        }
-        return response.withAddedHeader("Set-Cookie", cookie.toHeaderValue());
+        auto cookie = _createCookie(tokenToAdd, serverRequest);
+        return cast(Response)response
+            ? response.withCookie(cookie)
+            : response.withAddedHeader("Set-Cookie", cookie.toHeaderValue());
     }
     
     /**
@@ -253,14 +251,14 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
         }
         
         auto parsedBody = request.getParsedBody();
-        if (isArray(parsedBody) || cast(DArrayAccess)parsedBody) {
-            post = to!string(Hash.get(parsedBody, configuration.get("field")));
+        if (parsedBody.isArray || cast(DArrayAccess)parsedBody) {
+            auto post = to!string(Hash.get(parsedBody, configuration.get("field")));
             post = this.unsaltToken(post);
             if (hash_equals(post, cookie)) {
                 return;
             }
         }
-         aHeader = request.getHeaderLine("X-CSRF-Token");
+         auto aHeader = request.getHeaderLine("X-CSRF-Token");
          aHeader = this.unsaltToken(aHeader);
         if (hash_equals(aHeader, cookie)) {
             return;

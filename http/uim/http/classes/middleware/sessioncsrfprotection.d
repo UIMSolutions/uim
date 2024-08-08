@@ -147,16 +147,14 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
     /**
      * Remove CSRF protection token from request data.
      *
-     * This ensures that the token does not cause failures during
-     * form tampering protection.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request object.
+     * This ensures that the token does not cause failures during form tampering protection.
      */
     protected IServerRequest unsetTokenField(IServerRequest serverRequest) {
-        body = request.getParsedBody();
-        if (isArray(body)) {
-            remove(body[configuration.get("field"]]);
-            request = request.withParsedBody(body);
+        auto parsedBody = request.getParsedBody();
+        IServerRequest request = serverRequest; 
+        if (parsedBody.isArray) {
+            parsedBody.remove(configuration.getString("field"));
+            request = request.withParsedBody(parsedBody);
         }
         return request;
     }
@@ -171,25 +169,21 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
         return base64_encode(Security.randomBytes(TOKEN_VALUE_LENGTH));
     }
     
-    /**
-     * Validate the request data against the cookie token.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request to validate against.
-     */
+    // Validate the request data against the cookie token.
     protected void validateToken(IServerRequest serverRequest, DSession session) {
         auto token = session.read(configuration.getString("key"));
         if (!token || !isString(token)) {
             throw new DInvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF session key"));
         }
-        body = request.getParsedBody();
-        if (isArray(body) || cast(DArrayAccess)body) {
-            post = to!string(Hash.get(body, configuration.get("field"]));
+        auto parsedBody = request.getParsedBody();
+        if (parsedBody.isArray || cast(DArrayAccess)parsedBody) {
+            auto post = to!string(Hash.get(body, configuration.get("field")));
             post = this.unsaltToken(post);
             if (hash_equals(post, token)) {
                 return;
             }
         }
-         aHeader = request.getHeaderLine("X-CSRF-Token");
+        auto aHeader = request.getHeaderLine("X-CSRF-Token");
          aHeader = this.unsaltToken(aHeader);
         if (hash_equals(aHeader, token)) {
             return;

@@ -280,16 +280,16 @@ class DCookie : ICookie {
      * string[]|float|bool aValue The value to store.
      */
     protected void _setValue(string[]|float|bool aValue) {
-        _isExpanded = isArray(aValue);
-        this.value = isArray(aValue) ? aValue : (string)aValue;
+        _isExpanded = aValue.isArray;
+        this.value = aValue.isArray ? aValue : (string)aValue;
     }
  
     auto withPath(string aPath): static
     {
-        new = this.clone;
-        new.path = somePath;
+        auto newCookie = this.clone;
+        newCookie.path = somePath;
 
-        return new;
+        return newCookie;
     }
  
     string getPath() {
@@ -298,10 +298,10 @@ class DCookie : ICookie {
  
     auto withDomain(string adomain): static
     {
-        new = this.clone;
-        new.domain = domain;
+        auto newCookie = this.clone;
+        newCookie.domain = domain;
 
-        return new;
+        return newCookie;
     }
  
     string getDomain() {
@@ -312,20 +312,19 @@ class DCookie : ICookie {
         return _secure;
     }
  
-    auto withSecure(bool isSecure): static
-    {
-        new = this.clone;
-        new.isSecure = isSecure;
+    static auto withSecure(bool isSecure) {
+        auto newCookie = this.clone;
+        newCookie.isSecure = isSecure;
 
-        return new;
+        return newCookie;
     }
  
     auto withHttpOnly(bool isHttpOnly): static
     {
-        new = this.clone;
-        new.httpOnly = isHttpOnly;
+        auto newCookie = this.clone;
+        newCookie.httpOnly = isHttpOnly;
 
-        return new;
+        return newCookie;
     }
  
     bool isHttpOnly() {
@@ -337,14 +336,13 @@ class DCookie : ICookie {
         if (cast(DateTime)dateTime) {
             dateTime = dateTime.clone;
         }
-        new = this.clone;
+        auto newCookie = this.clone;
         new.expiresAt = dateTime.setTimezone(new DateTimeZone("GMT"));
 
         return new;
     }
  
-    auto getExpiry(): IDateTime
-    {
+    IDateTime getExpiry() {
         return _expiresAt;
     }
  
@@ -423,7 +421,7 @@ class DCookie : ICookie {
             assert(isString(this.value), "aValue is not a string");
             this.value = _expand(this.value);
         }
-        assert(isArray(this.value), "aValue is not an array");
+        assert(this.value.isArray, "aValue is not an array");
 
         return Hash.check(this.value, pathToCheck);
     }

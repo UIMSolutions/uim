@@ -1389,13 +1389,13 @@ class DFormHelper : DHelper {
             myformOptions.set("type", options.get("method"));
             options.remove("method");
         }
-        if (options.hasKey("form") && isArray(options.get("form"])) {
-            myformOptions = options.get("form"] + myformOptions;
+        if (options.hasKey("form") && options.isArray("form")) {
+            myformOptions = options.get("form") + myformOptions;
             options.remove("form");
         }
         result = create(null, myformOptions);
-        if (options.hasKey("data") && isArray(options.get("data"])) {
-            foreach (Hash.flatten(options.get("data"]) as aKey: myvalue) {
+        if (options.hasKey("data") && options.isArray("data")) {
+            foreach (aKey, myvalue; Hash.flatten(options.get("data"))) {
                 result ~= hidden(aKey, ["value": myvalue]);
             }
             options.remove("data");

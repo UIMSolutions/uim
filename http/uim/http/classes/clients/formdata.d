@@ -58,12 +58,12 @@ class DFormData { // }: Countable {
      */
     void add( /* FormDataPart| */ string partName, Json partValue = null) {
         if (isString(partName)) {
-            if (isArray(partValue)) {
+            if (partValue.isArray) {
                 this.addRecursive(partName, partValue);
             } else if (isResource(partValue) || cast(IUploadedFile) partValue) {
                 this.addFile(partName, partValue);
             } else {
-                _parts ~= this.newPart(partName, (string) partValue);
+                _parts ~= this.newPart(partName, /* (string) */ partValue);
             }
         } else {
             _hasComplexPart = true;

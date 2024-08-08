@@ -125,7 +125,7 @@ class DHtmlHelper : DHelper {
             if (mytypes.hasKey(mytype)) {
                 mytype = mytypes[mytype];
             } else if (!htmlAttributes.hasKey("type") && content !is null) {
-                mytype = isArray(content) && content.hasKey("_ext")
+                mytype = content.isArray && content.hasKey("_ext")
                     ? mytypes[content.getString("_ext")]
                     : ["name": mytype, "content": content];
 
@@ -582,7 +582,7 @@ class DHtmlHelper : DHelper {
         string result = null;
         foreach (tableName; tableNames) {
             string content; 
-            if (!isArray(tableName)) {
+            if (!tableName.isArray) {
                 content = tableName;
                 attributes = thOptions;
             } else if (tableName.has(0) && tableName.has(1)) {
@@ -651,7 +651,7 @@ class DHtmlHelper : DHelper {
         linesToRender.each!((cell) {
             auto cellOptions = null;
 
-            if (isArray(cell)) {
+            if (cell.isArray) {
                 cellOptions = cell[1];
                 cell = cell[0];
             }

@@ -42,7 +42,7 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
      * same URL with https or throws an exception.
      */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
-        if (cast(ServerRequest)request  && isArray(configuration.get("trustedProxies"))) {
+        if (cast(ServerRequest)request  && configuration.isArray("trustedProxies")) {
             request.setTrustedProxies(configuration.get("trustedProxies"));
         }
         if (
@@ -51,7 +51,7 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
        ) {
             response = handler.handle(request);
             if (configuration.hasKey("hsts")) {
-                response = this.addHsts(response);
+                response = this.addHosts(response);
             }
             return response;
         }
@@ -63,8 +63,8 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
             }
             return new DRedirectResponse(
                 requestUri,
-                configuration.get("statusCode"],
-                configuration.get("headers"]
+                configuration.get("statusCode"),
+                configuration.get("headers")
            );
         }
         throw new BadRequestException(
@@ -77,7 +77,7 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
      * Params:
      * \Psr\Http\Message\IResponse response Response
      */
-    protected IResponse addHsts(IResponse response) {
+    protected IResponse addHosts(IResponse response) {
         auto configData = configuration.get("hsts"];
         if (!isArray(configData)) {
             throw new DUnexpectedValueException("The `hsts` config must be an array.");

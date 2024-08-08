@@ -466,7 +466,7 @@ class DRoute : IRoute {
 
         if (
             !configuration..isEmpty("persist")) &&
-            isArray(configuration.set("persist"])
+            configuration.isArray("persist"))
        ) {
             url = _persistParams(url, requestContext["params"]);
         }
@@ -478,10 +478,10 @@ class DRoute : IRoute {
             if (!myhostOptions.hasKey("_host") && !configuration.getString("_host").contains("*")) {
                 myhostOptions.set("_host", configuration.get("_host"));
             }
-            myhostoptions.get("_host"] ? myhostoptions.get("_host"] : requestContext["_host"];
+            myhostoptions.get("_host"] ? myhostoptions.get("_host") : requestContext["_host"];
 
             // The host did not match the route preferences
-            if (!hostMatches(/* (string) */myhostoptions.get("_host"])) {
+            if (!hostMatches(/* (string) */myhostoptions.get("_host"))) {
                 return null;
             }
         }

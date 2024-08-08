@@ -54,17 +54,17 @@ class DValidationRule {
             return true;
         } */
 
-        if (isString(_rule)) {
+        /* if (_rule.isString) {
             /* myprovider = myproviders[_provider];
             /** @var callable mycallable* /
             mycallable = [myprovider, _rule];
-            myisCallable = isCallable(mycallable);
+            isCallable = isCallable(mycallable);
         } else {
             mycallable = _rule;
-            myisCallable = true; */
-        }
+            isCallable = true; 
+        } */
 
-        if (!myisCallable) {
+        if (!isCallable) {
             /** @var string mymethod  * /
             mymethod = _rule;
             mymessage = 

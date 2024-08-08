@@ -645,7 +645,7 @@ class DRouteBuilder {
      * string routings The plugin name to build routes for
      */
     auto plugin(string routings, /* Closure| */ Json[string] options = null/* , Closure callbackClosure = null */) {
-        if (!isArray(options)) {
+        if (!options.isArray) {
             callbackClosure = options;
             options = null;
         }

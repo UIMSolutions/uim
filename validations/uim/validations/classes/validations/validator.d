@@ -338,7 +338,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         /* 
         auto myvalidationSet = field(rootfieldName); */
         /* myvalidationSet.add(NESTED, extraData ~ ["rule": auto (myvalue, context) use (validator, errorMessage) {
-            if (!isArray(myvalue)) {
+            if (!myvalue.isArray) {
                 return false;
             }
             providers().each!(name => validator.setProvider(name, getProvider(name)));
@@ -2183,7 +2183,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (data is null && (myflags & myarrayTypes)) {
             return true;
         }
-        if (isArray(data)) {
+        if (data.isArray) {
             auto myallFieldsAreEmpty = true;
             foreach (fieldName; data) {
                 if (fieldName !is null && fieldName != "") {

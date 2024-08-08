@@ -495,7 +495,7 @@ class DRouter {
      * It will not unify the casing and underscoring of the input value.
      */
     static string normalize(string[] url = "/") {
-        if (isArray(url)) {
+        if (url.isArray) {
             url = url(url);
         }
         if (preg_match("/^[a-z\-]+:\/\//", url)) {

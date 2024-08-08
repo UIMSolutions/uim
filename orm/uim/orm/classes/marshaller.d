@@ -255,7 +255,7 @@ class DMarshaller {
     IORMEntity[] many(Json[string] data, Json[string] options = null) {
         auto myoutput = null;
         foreach (myrecord; mydata) {
-            if (!isArray(myrecord)) {
+            if (!myrecord.isArray) {
                 continue;
             }
             myoutput ~= this.one(myrecord, options);

@@ -1307,8 +1307,9 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         if (myrow !is null) {
             return myrow;
         }
-        ormEntity = this.newEmptyEntity();
-        if (options.hasKey("defaults") && isArray(mysearch)) {
+        
+        auto ormEntity = newEmptyEntity();
+        if (options.hasKey("defaults") && mysearch.isArray) {
             myaccessibleFields = mysearch.keys.combine(array_fill(0, count(mysearch), true));
             ormEntity = this.patchEntity(ormEntity, mysearch, ["accessibleFields": myaccessibleFields]);
         }
@@ -1334,7 +1335,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         if (isCallable(mysearch)) {
             myquery = this.find();
             mysearch(myquery);
-        } else if (isArray(mysearch)) {
+        } else if (mysearch.isArray) {
             myquery = this.find().where(mysearch);
         } else {
             myquery = mysearch;

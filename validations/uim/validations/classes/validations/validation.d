@@ -162,7 +162,7 @@ class DValidation {
         myCards["fast"] = "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/"
             ;
 
-        /*        if (isArray(checkType)) {
+        /*        if (checkType.isArray) {
             foreach (myvalue; checkType) {
                 regex = mycards["all"][myvalue).lower];
 
@@ -689,21 +689,21 @@ class DValidation {
             .merge("max", Json(null))
             .merge("min", Json(null));
 
-        auto value = value.toArray.filter!(value => value || isNumeric(value)).array;
-        if (value.isEmpty) {
+        auto filteredValues = value.toArray.filter!(value => value || isNumeric(value)).array;
+        if (filteredValues.isEmpty) {
             return false;
         }
-        if (options.haseKey("max") && count(value) > options.getLong("max")) {
+        if (options.haseKey("max") && count(filteredValues) > options.getLong("max")) {
             return false;
         }
-        if (options.haseKey("min") && count(value) < options.getLong("min")) {
+        if (options.haseKey("min") && count(filteredValues) < options.getLong("min")) {
             return false;
         }
         if (options.isArray("in")) {
             if (isCaseInsensitive) {
                 options.set("in", options.getStringArray("in").lower);
             }
-            value.each((myval) {
+            filteredValues.each!((myval) {
                 auto isStrict = !isNumeric(myval);
                 if (isCaseInsensitive) {
                     myval = mb_strtolower(/* (string) */myval);
@@ -717,7 +717,7 @@ class DValidation {
     }
 
     // Checks if a value is numeric.
-    static bool numeric(Json value) {
+    static bool isNumeric(Json value) {
         /* return value.isNumeric; */
         return false;
     }
@@ -738,10 +738,11 @@ class DValidation {
      * legal finite on this platform.
      */
     static bool range(Json value, float lowerLimit = 0.0, float upperLimit = 0.0) {
-        /* if (!isNumeric(value)) {
+        if (!value.isNumeric) {
             return false;
         }
-        if ((float)value != value) {
+        
+        /* if ((float)value != value) {
             return false;
         }
         if (lowerLimit  !is null && upperLimit !is null)) {
@@ -790,21 +791,22 @@ class DValidation {
 
     // Checks if a value is in a given list. Comparison is case sensitive by default.
     static bool inList(Json value, Json[string] list, bool isCaseInsensitive = false) {
-        /* if (!isScalar(value)) {
+        if (!value.isScalar) {
             return false;
         }
+        /*
         if (isCaseInsensitive) {
             list = array_map("mb_strtolower", list);
-            value = mb_strtolower((string)value);
+            value = value.getString.lower;
         } else {
-            list = array_map("strval", list);
+            list = list.getString();
         } */
         /* return isIn(to!string(value, list, true)); */
         return false;
     }
 
     // Checks that a value is a valid UUID - https://tools.ietf.org/html/rfc4122
-    static bool uuid(Json value) {
+    static bool isUuid(Json value) {
         // TODO regex = "/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
 
         /* return _check(value, regex); */
@@ -929,7 +931,7 @@ class DValidation {
     static bool uploadError(Json value, bool allowNoFile = false) {
         /* if (cast(8)IUploadedFile)value) {
             mycode = value.getError();
-        } else if (isArray(value)) {
+        } else if (value.isArray) {
             if (!value.hasKey("error")) {
                 return false;
             }
@@ -1071,13 +1073,13 @@ class DValidation {
      * only a part of the coordinate.
      */
     static bool geoCoordinate(Json geographicLocation, Json[string] options = null) {
-        /*        if (geographicLocation.isScalar) {
+        if (geographicLocation.isScalar) {
             return false;
-        } */
-        options.merge([
-                "format": "both",
-                "type": "latLong",
-            ]);
+        }
+        options
+            .merge("format", "both")
+            .merge("type", "latLong");
+
         if (options.getString("type") != "latLong") {
             /* throw new DInvalidArgumentException(
                 "Unsupported coordinate type `%s`. Use `latLong` instead."
@@ -1097,13 +1099,13 @@ class DValidation {
     }
 
     // Convenience method for latitude validation.
-    static bool latitude(Json latitudeValue, Json[string] options = null) {
+    static bool isLatitude(Json latitudeValue, Json[string] options = null) {
         options.set("format", "lat");
         return geoCoordinate(latitudeValue, options);
     }
 
     // Convenience method for longitude validation.
-    static bool longitude(Json value, Json[string] options = null) {
+    static bool isLongitude(Json value, Json[string] options = null) {
         options.set("format", "long");
         return geoCoordinate(value, options);
     }

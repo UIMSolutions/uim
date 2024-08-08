@@ -19,7 +19,7 @@ class DTextareaWidget : DWidget {
         }
 
         configuration
-            .setDefaults(["val", "name"], "")            
+            .setDefaults(["val", "name"], "")
             .setDefault("escape", true)
             .setDefault("rows", 5)
             .setDefault("templateVars", Json.emptyArray);
@@ -44,18 +44,19 @@ class DTextareaWidget : DWidget {
         renderData.merge(formContext.data);
 
         if (
-            !hasKey("maxlength", mydata)
+            !renderData.hasKey("maxlength")
             && mydata.hasKey("fieldName")
             ) {
             mydata = setMaxLength(mydata, formContext, mydata.getString("fieldName"));
         }
-        return _stringContents.format("textarea", [
-                "name": mydata.getString,
-                "value": mydata["escape"] ? htmlAttributeEscape(mydata["val"]): mydata.get("val"),
-                "templateVars": mydata.get("templateVars"),
-                "attrs": _stringContents.formatAttributes(mydata, ["name", "val"]),
-            ]);
+        return _stringContents.format("textarea", createMap!(string, Json)
+                .set("name", mydata.getString)
+                .set("value", mydata.hasKey("escape")
+                    ? htmlAttributeEscape(mydata["val"]) 
+                    : mydata.get("val"))
+                .set("templateVars", mydata.get("templateVars"))
+                .set("attrs", _stringContents.formatAttributes(mydata, ["name", "val"]));
     }
 }
 
-mixin(WidgetCalls!("Textarea"));
+mixin(WidgetCalls!("Textarea")); 

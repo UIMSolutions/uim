@@ -58,13 +58,14 @@ version (test_uim_core) {
 }
 
 /// Translates value to bool
-pure bool toBool(T)(T value, T ifValue) {
+pure bool toBoolean(T)(T value, T ifValue) {
 	return value == ifValue;
 }
 ///
 version (test_uim_core) {
 	unittest {
-		assert(!toBool("YES", "NO"), "Error in toBool(T, T)");
-		assert(toBool("YES", "YES") == true, "Error in toBool(bool, T, T)");
+		assert(!toBoolean("YES", "NO"), "Error in toBoolean(T, T)");
+		assert(toBoolean("YES", "YES") == true, "Error in toBoolean(bool, T, T)");
 	}
 }
+

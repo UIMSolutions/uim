@@ -173,10 +173,10 @@ class Hash {
                 return false;
             }
             auto myprop = data.getString(myattr);
-            auto myisBool = isBoolean(myprop);
-            if (myisBool && isNumeric(myval)) {
+            bool isBool = myprop.isBoolean;
+            if (isBool && isNumeric(myval)) {
                 myprop = myprop ? "1" : "0";
-            } else if (myisBool) {
+            } else if (isBool) {
                 myprop = myprop ? "true" : "false";
             } else if (isNumeric(myprop)) {
                 myprop = to!string(myprop);

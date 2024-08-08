@@ -46,10 +46,10 @@ auto H5Attribute() {
     return new DH5Attribute;
 }
 
-auto H5Attribute(string name, bool isBoolean = false) {
-    return new DH5Attribute(name, isBoolean);
+auto H5Attribute(string name, bool isBooleanAttribute = false) {
+    return new DH5Attribute(name, isBooleanAttribute);
 }
 
-auto H5Attribute(string name, string value, bool isBoolean = false) {
-    return new DH5Attribute(name, value, isBoolean);
+auto H5Attribute(string name, string value, bool isBooleanAttribute = false) {
+    return new DH5Attribute(name, value, isBooleanAttribute);
 }

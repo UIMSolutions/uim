@@ -56,11 +56,10 @@ unittest {
 // #region isBoolean
 bool isBooleanLike(Json value) {
   if (value.isString) {
-    auto converted = value.getString.lower;
-    return (converted == "true" || converted == "false" || converted == "0" || converted == "1" || converted == "on" || converted == "off");
+    return uim.core.datatypes.string_.isBoolean(value.getString);
   }
   if (value.isLong || value.isInteger) {
-    return true;    
+    return true; // 0 - false; >0 - true   
   }
   return value.isBoolean;
 }

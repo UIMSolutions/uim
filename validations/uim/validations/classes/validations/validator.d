@@ -704,7 +704,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be alphanumeric")`;
         }
 
-        // Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createMap!(string, Json)()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -723,7 +723,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must not be alphanumeric")`;
         }
 
-        // Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createMap!(string, Json)()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -742,7 +742,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be ASCII-alphanumeric")`;
         }
 
-        // Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createMap!(string, Json)()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -2047,7 +2047,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must have at most '{0}' elements", mycount)`
                 : "The provided value must have at most '%s' elements".format(countElements);
         }
-        // Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createMap!(string, Json)()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -2250,8 +2250,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
         return info
             // TODO .set("_presenceMessages", _presenceMessages)
-            // .set("_allowEmptyMessages", _allowEmptyMessages)
-            .set("_allowEmptyFlags", _allowEmptyFlags)
+            .set("_allowEmptyMessages", _allowEmptyMessages)
+            .set("_allowEmptyFlags", _allowEmptyFlags.toJson)
             .set("_useI18n", _useI18n)
             .set("_stopOnFailure", _stopOnFailure)
             .set("_providers", _providers.keys)

@@ -175,11 +175,9 @@ class DRadioWidget : DWidget {
      *
      * In the future this might be refactored into a separate widget as other
      * input types (multi-checkboxes) will also need labels generated.
-     * Params:
-     * Json[string] radio The input properties.
      */
     protected string _renderLabel(
-        array radio,
+        Json[string] radio,
         string[]/* Json[string]|bool|null */ label,
         string inputWidget,
         IContext formContext,

@@ -102,24 +102,21 @@ class DMultiCheckboxWidget : DWidget {
     data.getMap("options").byKeyValue
       .each!((kv) => {
         // Grouped inputs in a fieldset.
-        if (kv.key.isString && kv.value.isArray && !kv.value.hasKey("text") /* , kv.value["value"] */ ) {
-          myinputs = _renderInputs(["options": kv.value].merge(data), formContext);
-          string checkboxTitle = _stringContents.format("multicheckboxTitle", [
-              "text": kv.key
-            ]);
-          result ~= _stringContents.format("multicheckboxWrapper", [
-              "content": checkboxTitle ~ myinputs.join(""),
-            ]);
+        if (kv.value.isArray && !kv.value.hasKey("text") /* , kv.value["value"] */ ) {
+          auto myinputs = _renderInputs(["options": kv.value].merge(data), formContext);
+          string checkboxTitle = _stringContents.format("multicheckboxTitle", createMap!(string, Json)
+            .set("text", kv.key));
+          result ~= _stringContents.format("multicheckboxWrapper", createMap!(string, Json)
+              .set("content", checkboxTitle ~ myinputs.join("")));
           continue;
         }
       });
 
     // Standard inputs.
-    auto mycheckbox = [
-      "value": kv.key,
-      "text": kv.value,
-    ];
-    if (isArray(kv.value) && kv.value.hasAllKeys("text", "value")) {
+    auto mycheckbox = createMap!(string, Json)
+      .set("value", kv.key)
+      .set("text", kv.value);
+    if (kv.value.isArray && kv.value.hasAllKeys("text", "value")) {
       mycheckbox = kv.value;
     }
     if (!mycheckbox.hasKey("templateVars")) {

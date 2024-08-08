@@ -1050,3 +1050,7 @@ string _caching(string inflectionType, string originalValue, string inflectedVal
 	return _cache.isSet(inflectionType) && _cache[inflectionType].isSet(originalValue)
 		? _cache[inflectionType][originalValue] : null;
 }
+
+bool isBoolean(string value) {
+	return ["yes", "no", "true", "false", "0", "1", "on", "off"].has(value.lower);
+}

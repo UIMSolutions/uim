@@ -171,16 +171,15 @@ class DSelectBoxWidget : DWidget {
     if (myoptgroup.hasKeys("options", "text")) {
       myopts = myoptgroup["options"];
       labelText = myoptgroup.getString("text");
-      myattrs = (array) myoptgroup;
+      myattrs = /* (array) */ myoptgroup;
     }
 
     auto mygroupOptions = _renderOptions(myopts, disabledOptions, selectedValues, templateVariables, isEscapeHTML);
-    return _stringContents.format("optgroup", [
-        "label": isEscapeHTML ? htmlAttributeEscape(labelText): labelText,
-        "content": mygroupOptions.join(""),
-        "templateVars": templateVariables,
-        "attrs": _stringContents.formatAttributes(myattrs, ["text", "options"]),
-      ]);
+    return _stringContents.format("optgroup", createMap!(string, Json)
+        .set("label", isEscapeHTML ? htmlAttributeEscape(labelText): labelText)
+        .set("content", mygroupOptions.join(""))
+        .set("templateVars", templateVariables)
+        .set("attrs", _stringContents.formatAttributes(myattrs, ["text", "options"])));
   }
 
   /**
@@ -220,7 +219,6 @@ class DSelectBoxWidget : DWidget {
           myoptAttrs = kv.value;
           kv.key = myoptAttrs["value"];
         }
-        myoptAttrs["templateVars"] ?  ?  = null;
         if (_isSelected(to!string(kv.key), selectedValues)) {
           myoptAttrs.set("selected", true);
         }
@@ -232,14 +230,13 @@ class DSelectBoxWidget : DWidget {
         }
         myoptAttrs.set("escape", escapeHTML);
 
-        result ~= _stringContents.format("option", [
-            "value": isEscapeHTML ? htmlAttributeEscape(myoptAttrs["value"]): myoptAttrs["value"],
-            "text": isEscapeHTML ? htmlAttributeEscape(myoptAttrs["text"]): myoptAttrs["text"],
-            "templateVars": myoptAttrs.get("templateVars"),
-            "attrs": _stringContents.formatAttributes(myoptAttrs, [
+        result ~= _stringContents.format("option", createMap!(string, Json)
+            .set("value", isEscapeHTML ? htmlAttributeEscape(myoptAttrs["value"]) : myoptAttrs["value"])
+            .set("text", isEscapeHTML ? htmlAttributeEscape(myoptAttrs["text"]) : myoptAttrs["text"])
+            .set("templateVars", myoptAttrs.get("templateVars"))
+            .set("attrs", _stringContents.formatAttributes(myoptAttrs, [
               "text", "value"
-            ]),
-          ]);
+            ])));
       });
     return result;
   }

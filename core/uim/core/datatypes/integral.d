@@ -96,6 +96,34 @@ unittest {
   assert(800.isGreater([10, 100]));
   assert(!80.isGreater([10, 100]));
 }
+/* 
+bool isLong(string aValue) {
+  return aValue.isNumeric 
+    ? to!string(to!long(to!double(aValue))) == aValue
+    : false;
+        /**
+     * Check that the input value is an integer
+     * This method will accept strings that contain only integer data as well.
+     * /
+    static bool isInteger(Json value) {
+        if (value.isBoolean) {
+            return false;
+        }
+
+        if (value.isInteger) {
+            return true;
+        }
+        
+        if (value.isString || value.isNumeric) {
+            return false;
+        }
+        return /* (bool) * /preg_match(r"/^-?[0-9]+my/", value); 
+    }
+}
+unittest {
+  assert(isLong("0"));
+  assert(!isLong("0.0"));
+}  */
 
 /* bool isInteger(string aValue) {
   try {
@@ -112,16 +140,6 @@ unittest {
   assert(!isInt("0.0"));
 }
 
-bool isLong(string aValue) {
-  return aValue.isNumeric 
-    ? to!string(to!long(to!double(aValue))) == aValue
-    : false;
-}
-unittest {
-  assert(isLong("0"));
-  assert(!isLong("0.0"));
-} */
-
 bool isNull(long value) {
   return value == 0;
-}
+} */

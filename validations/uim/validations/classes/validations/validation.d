@@ -1142,20 +1142,7 @@ class DValidation {
             : preg_match(r"/[\x{10000}-\x{10FFFF}]/u", myvalue) == 0;
     }
 
-    /**
-     * Check that the input value is an integer
-     * This method will accept strings that contain only integer data as well.
-     */
-    static bool isInteger(Json value) {
-        if (value.isInteger) {
-            return true;
-        }
-        
-        if (value.isString || value.isNumeric) {
-            return false;
-        }
-        return /* (bool) */preg_match(r"/^-?[0-9]+my/", value); 
-    }
+
 
     // Check that the input value is an array.
     static bool isArray(Json value) {

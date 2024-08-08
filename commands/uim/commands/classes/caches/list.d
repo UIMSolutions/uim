@@ -28,7 +28,7 @@ class DCacheListCommand : DCommand {
   }
 
   // Get the list of cache prefixes
-  override size_t execute(Json[string] arguments, IConsole aConsole = null) {
+  override ulong execute(Json[string] arguments, IConsole aConsole = null) {
     auto myEngines = Cache.configured();
     myEngines
       .each!(engine => aConsoleIo.writeln("- %s".format(engine)));

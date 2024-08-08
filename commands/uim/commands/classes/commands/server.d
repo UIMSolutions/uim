@@ -70,7 +70,7 @@ class DServerCommand : DCommand {
         } */
     }
 
-  overwrite override size_t execute(Json[string] arguments, IConsole aConsole = null) {
+  overwrite override ulong execute(Json[string] arguments, IConsole aConsole = null) {
         this.startup(commandArguments,  aConsoleIo);
         DBinary = to!string(enviroment("D", "d"));
         string commandText = "%s -S %s:%d -t %s"

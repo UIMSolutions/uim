@@ -40,7 +40,7 @@ class DCacheClearGroupCommand : DCommand {
   }
 
   // Clears the cache group
-  override size_t execute(Json[string] arguments, IConsole aConsole = null) {
+  override ulong execute(Json[string] arguments, IConsole aConsole = null) {
     auto anGroup = to!string(commandArguments.getArgument("group"));
     try {
       anGroupConfigs = Cache.groupConfigs(anGroup);

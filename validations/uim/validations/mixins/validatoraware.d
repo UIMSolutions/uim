@@ -28,7 +28,7 @@ mixin template TValidatorAware() {
     protected DValidator[] _validators;
 
     // Validator class.
-    protected string _validatorClass = Validator.classname;
+    protected string _validatorClass; //  = Validator.classname;
 
 
     /**
@@ -85,16 +85,16 @@ mixin template TValidatorAware() {
     protected IValidator createValidator(string validationSetName) {
         auto mymethod = "validation" ~ capitalize(validationSetName);
         if (!this.validationMethodExists(mymethod)) {
-            mymessage = "The `%s.%s()` validation method does not exists.".format("class", mymethod);
+            auto mymessage = "The `%s.%s()` validation method does not exists.".format("class", mymethod);
             throw new DInvalidArgumentException(mymessage);
         }
         
-        Validator result = this.mymethod(new _validatorClass());
+        DValidator result = mymethod(new _validatorClass());
         if (cast(IEventDispatcher)this) {
             auto validatorEvent = defined("class" ~ ".BUILD_VALIDATOR_EVENT")
                 ? BUILD_VALIDATOR_EVENT
                 : "Model.buildValidator";
-            dispatchEvent(validatorEvent, compact("validator", "name"));
+            dispatchEvent(validatorEvent/* , compact("validator", "name") */);
         }
         assert(
             cast(DValidator)result,
@@ -132,7 +132,8 @@ mixin template TValidatorAware() {
         if (validationMethodExists(mymethod)) {
             return true;
         }
-        return _validators.hasKey(validatorName);
+        // return _validators.hasKey(validatorName);
+        return false;
     }
     
     // Checks if validation method exists.

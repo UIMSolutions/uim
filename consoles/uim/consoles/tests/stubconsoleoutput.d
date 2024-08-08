@@ -20,7 +20,7 @@ class DStubConsoleOutput : DConsoleOutput {
     protected string[] _out = null;
 
     // Write output to the buffer.
-    int write(string[] outputMessage, int newlinesToAppend = 1) {
+    override int write(string[] outputMessage, int newlinesToAppend = 1) {
         /* (array) */ outputMessage.each!(line => _out ~= line);
 
         /* int newlinesToAppend--;

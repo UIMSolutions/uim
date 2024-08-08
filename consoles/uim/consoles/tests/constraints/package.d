@@ -1,7 +1,7 @@
 module uim.consoles.tests.constraints;
 
 public {
-  // TODO import uim.consoles.tests.constraints.contents;  
+  import uim.consoles.tests.constraints.contents;  
 }
 
 public {

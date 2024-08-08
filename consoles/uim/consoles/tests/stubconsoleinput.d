@@ -23,7 +23,7 @@ class DStubConsoleInput : DConsoleInput {
     }
     
     // Read a reply
-    string read() {
+    override string read() {
         _currentIndex += 1;
 
         if (!_replies.hasKey(_currentIndex)) {

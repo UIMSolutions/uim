@@ -29,9 +29,10 @@ class DArguments {
 
     // Get positional arguments by index.
     string argumentAt(size_t index) {
-      return hasArgumentAt(index) 
+      /* return hasArgumentAt(index) 
         ? _arguments[index]
-        : Json(null);
+        : Json(null); */
+      return null; 
     }
 
     // Positional arguments.

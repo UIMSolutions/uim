@@ -9,17 +9,18 @@ import uim.consoles;
  * @internal
  */
 class DContentsNotContain : DContentsBase {
+    this() {}
     /**
      * Checks if contents contain expected
      * Params:
      * Json other Expected
       */
-    bool matches(Json other) {
+/*     bool matches(Json other) {
         return mb_indexOf(this.contents, other) == false;
-    }
+    } */
     
     // Assertion message
-    string toString() {
+    override string toString() {
         return "is not in %s".format(_output);
     } 
 } 

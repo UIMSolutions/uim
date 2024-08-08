@@ -65,7 +65,7 @@ class DHelperRegistry { // }: ObjectRegistry {
      */
     // TODO protected DHelper _create(object obj, string helperAlias, Json[string] initData) {
 
-    protected DHelper _create(string classnameToCreate, string helperAlias, Json[string] initData) {
+/*     protected DHelper _create(string classnameToCreate, string helperAlias, Json[string] initData) {
         return new classname(_io, initData);
-    } 
+    }  */
 }

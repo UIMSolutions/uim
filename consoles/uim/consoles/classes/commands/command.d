@@ -79,37 +79,37 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
         return null;
     }
 
-    int run(Json[string] argv, DConsoleIo aConsoleIo) {
+    int run(Json[string] arguments, DConsoleIo aConsoleIo) {
         this.initialize();
 
-        aParser = getOptionParser();
+        auto aParser = getOptionParser();
         try {
-            [options, arguments] = aParser.parse(argv, aConsoleIo);
-            someArguments = new Json[string](
-                arguments,
-                options,
+            auto parsedResults = aParser.parse(argv, aConsoleIo);
+            auto arguments = createMap!(string, Json);
+                /* parsedResults[1],
+                parsedResults[0],
                 aParser.argumentNames()
-            );
-        } catch (ConsoleException anException) {
+            ); */
+        } catch (DConsoleException anException) {
             aConsoleIo.writeErrorMessages("Error: " ~ anException.message());
 
-            return CODE_ERROR;
+            return 0; //CODE_ERROR;
         }
-        setOutputLevel(someArguments, aConsoleIo);
+        setOutputLevel(arguments, aConsoleIo);
 
-        if (someArguments.getOption("help")) {
-            this.displayHelp(aParser, someArguments, aConsoleIo);
+        if (arguments.getOption("help")) {
+            displayHelp(aParser, arguments, aConsoleIo);
 
             return CODE_SUCCESS;
         }
-        if (someArguments.getOption("quiet")) {
+        if (arguments.getOption("quiet")) {
             aConsoleIo.setInteractive(false);
         }
-        dispatchEvent("Command.beforeExecute", ["args": someArguments]);
+        dispatchEvent("Command.beforeExecute", ["args": arguments]);
         /** @var int result  */
-        result = this.execute(someArguments, aConsoleIo);
+        auto result = this.execute(arguments, aConsoleIo);
         dispatchEvent("Command.afterExecute", [
-                "args": someArguments,
+                "args": arguments,
                 "result": result
             ]);
 
@@ -117,23 +117,23 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
     }
 
     // Output help content
-    protected void displayHelp(DConsoleOptionParser optionParser, Json[string] someArguments, DConsoleIo aConsoleIo) {
+    protected void displayHelp(DConsoleOptionParser optionParser, Json[string] arguments, DConsoleIo aConsoleIo) {
         string format = "text";
-        if (someArguments.getArgumentAt(0) == "xml") {
+        if (arguments.getArgumentAt(0) == "xml") {
             format = "xml";
-            aConsoleIo.setOutputAs(ConsoleOutput.RAW);
+            aConsoleIo.setOutputAs(DConsoleOutput.RAW);
         }
         aConsoleIo.writeln(optionParser.help(format));
     }
 
     // Set the output level based on the Json[string].
-    protected void setOutputLevel(Json[string] someArguments, DConsoleIo aConsoleIo) {
+    protected void setOutputLevel(Json[string] arguments, DConsoleIo aConsoleIo) {
         aConsoleIo.setLoggers(DConsoleIo.NORMAL);
-        if (someArguments.hasKey("quiet")) {
+        if (arguments.hasKey("quiet")) {
             aConsoleIo.level(DConsoleIo.QUIET);
             aConsoleIo.setLoggers(DConsoleIo.QUIET);
         }
-        if (someArguments.hasKey("verbose")) {
+        if (arguments.hasKey("verbose")) {
             aConsoleIo.level(DConsoleIo.VERBOSE);
             aConsoleIo.setLoggers(DataGetConsoleIo.VERBOSE);
         }

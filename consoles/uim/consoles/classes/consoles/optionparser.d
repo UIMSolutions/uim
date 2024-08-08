@@ -407,11 +407,11 @@ class DConsoleOptionParser {
      * Params:
      * Json[string] argv Array of args (argv) to parse.
      */
-    Json[string] parse(Json[string] argToParse, IConsoleIo aConsoleIo = null) {
-        params = someArguments = null;
+    Json[string] parse(Json[string] argToParse, DConsoleIo aConsoleIo = null) {
+        auto params = someArguments = null;
         _tokens = argToParse;
 
-        afterDoubleDash = false;
+        bool afterDoubleDash = false;
         while ((token = _tokens.shift()) !is null) {
             token = to!string(token);
             if (token == "--") {
@@ -442,18 +442,18 @@ class DConsoleOptionParser {
             }
         }
         _options.each!((option) {
-            name = option.name();
-            isBoolean = option.isBoolean();
-            defaultValue = option.defaultValue();
+            auto name = option.name();
+            auto isBoolean = option.isBoolean();
+            auto defaultValue = option.defaultValue();
 
-            useDefault = !params.hasKey(name);
+            auto useDefault = !params.hasKey(name);
             if (defaultValue !is null && useDefault && !isBoolean) {
                 params.set(name, defaultValue);
             }
             if (isBoolean && useDefault) {
                 params.set(name, false);
             }
-            prompt = option.prompt();
+            auto prompt = option.prompt();
             if (!params.hasKey(name) && prompt) {
                 if (!aConsoleIo) {
                     throw new DConsoleException(
@@ -461,9 +461,9 @@ class DConsoleOptionParser {
                         "Please provide a ` aConsoleIo` parameter to `parse()`."
                     );
                 }
-                choices = option.choices();
+                auto choices = option.choices();
 
-                aValue = choices
+                auto aValue = choices
                     ? aConsoleIo.askChoice(prompt, choices) : aConsoleIo.ask(prompt);
 
                 params[name] = aValue;

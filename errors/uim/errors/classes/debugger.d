@@ -391,7 +391,7 @@ class DDebugger : UIMObject {
         auto anInstance = getInstance();
         auto classname = anInstance.configuration.get("exportFormatter");
         if (!classname) {
-            if (ConsoleFormatter.environmentMatches()) {
+            if (DConsoleFormatter.environmentMatches()) {
                 classname = ConsoleFormatter.classname;
             } else if (HtmlFormatter.environmentMatches()) {
                 classname = HtmlFormatter.classname;

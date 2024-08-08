@@ -22,7 +22,7 @@ class DHelpFormatter : UIMObject {
         super(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -131,7 +131,7 @@ class DHelpFormatter : UIMObject {
      * Params:
      * array<\UIM\Console\ConsoleInputOption|\UIM\Console\> collection The collection to find a max length of.
      */
-    protected int _getMaxLength(ConsoleInputArgument[] collection) {
+    protected int _getMaxLength(DConsoleInputArgument[] collection) {
         int result = 0;
         collection
             .each(item => result = max(anItem.name.length, result));

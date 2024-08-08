@@ -530,7 +530,7 @@ IErrorFormatter getExportFormatter() {
         .getConfig(
             "exportFormatter");
     if (!formaterClassname) {
-        if (ConsoleFormatter.environmentMatches()) {
+        if (DConsoleFormatter.environmentMatches()) {
             formaterClassname = ConsoleFormatter
                 .classname;
         } else if (

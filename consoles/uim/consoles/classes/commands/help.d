@@ -137,7 +137,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         commandNames.byKeyValue
             .each(nameclassname => shells.addCommandToShells(nameclassname.key, nameclassname.value));
 
-        /*        aConsoleIo.setOutputAs(ConsoleOutput.RAW);
+        /*        aConsoleIo.setOutputAs(DConsoleOutput.RAW);
         aConsoleIo.out(castto!string(xmlShells.saveXML())); */
     }
 

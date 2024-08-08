@@ -181,7 +181,7 @@ class DConsoleIo {
     }
 
     // Halts the the current process with a StopException.
-    void abort(string errorMessage, int errorCode = DCommand.CODE_ERROR) {
+    void abort(string errorMessage, int errorCode /* = DCommand.CODE_ERROR */) {
         error(errorMessage);
 
         throw new DStopException(errorMessage, errorCode);
@@ -249,7 +249,7 @@ class DConsoleIo {
      * linefeedMultiplier = Number of times the linefeed sequence should be repeated
      */
     string nl(int linefeedMultiplier = 1) {
-        return str_repeat(ConsoleOutput.LF, linefeedMultiplier);
+        return str_repeat(DConsoleOutput.LF, linefeedMultiplier);
     }
 
     // Outputs a series of minus characters to the standard output, acts as a visual separator.
@@ -389,10 +389,10 @@ class DConsoleIo {
      * initData - Configuration data for the helper.
      * returns = Created helper instance.
      */
-    DHelper helper(string nameToRender, Json[string] initData = null) {
+    /* DHelper helper(string nameToRender, Json[string] initData = null) {
         auto renderName = capitalize(nameToRender);
         return _helpers.load(renderName, initData);
-    }
+    } */
 
     /**
      * Create a file at the given path.

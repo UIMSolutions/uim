@@ -4,7 +4,7 @@ import uim.oop;
 @safe:
 
 // Base class for validators
-class DValidator : UIMObject, IValidator {
+class DUIMValidator : UIMObject, IValidator {
 /*    mixin TLocatorAware;
     mixin TLog; */
 

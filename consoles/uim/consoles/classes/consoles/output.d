@@ -74,6 +74,18 @@ class DConsoleOutput {
             "blink": 5,
             "reverse": 7,
         ];
+        
+        _styles["emergency"] = ["text": "red"];
+        _styles["alert"] = ["text": "red"];
+        _styles["critical"] = ["text": "red"];
+        _styles["error"] = ["text": "red"];
+        _styles["warning"] = ["text": "yellow"];
+        _styles["info"] = ["text": "cyan"];
+        _styles["debug"] = ["text": "yellow"];
+        _styles["success"] = ["text": "green"];
+        _styles["comment"] = ["text": "blue"];
+        _styles["question"] = ["text": "magenta"];
+        _styles["notice"] = ["text": "cyan"];
 
         return true;
     }
@@ -111,19 +123,7 @@ class DConsoleOutput {
      * Styles that are available as tags in console output.
      * You can modify these styles with ConsoleOutput.styles()
      */
-    protected static STRINGAA[string] _styles = [
-        "emergency": ["text": "red"],
-        "alert": ["text": "red"],
-        "critical": ["text": "red"],
-        "error": ["text": "red"],
-        "warning": ["text": "yellow"],
-        "info": ["text": "cyan"],
-        "debug": ["text": "yellow"],
-        "success": ["text": "green"],
-        "comment": ["text": "blue"],
-        "question": ["text": "magenta"],
-        "notice": ["text": "cyan"],
-    ];
+    protected static STRINGAA[string] _styles;
 
     /**
      * Construct the output object.

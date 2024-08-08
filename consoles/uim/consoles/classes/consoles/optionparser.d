@@ -303,7 +303,7 @@ class DConsoleOptionParser {
             .set("choices", Json.emptyArray)
             .set("required", false)
             .set("prompt", Json(null));
-            
+
         behaviorOptions = behaviorOptions.set(defaultValues);
 
         auto inputOption = new DConsoleInputOption(
@@ -316,7 +316,7 @@ class DConsoleOptionParser {
     /* addOption(inputOption, behaviorOptions) {
     } */
 
-    void addOption(ConsoleInputOption inputOption, Json[string] behaviorOptions = null) {
+    void addOption(DConsoleInputOption inputOption, Json[string] behaviorOptions = null) {
         string optionName = inputOption.name();
 
         /* _options.set(optionName, inputOption);
@@ -348,7 +348,7 @@ class DConsoleOptionParser {
      * \UIM\Console\ConsoleInputArgument|string aName The name of the argument.
      * Will also accept an instance of ConsoleInputArgument.
      */
-    void addArgument(ConsoleInputArgument aName, Json[string] argumentParameters = null) {
+    void addArgument(DConsoleInputArgument aName, Json[string] argumentParameters = null) {
         // TODO
     }
 
@@ -387,7 +387,7 @@ class DConsoleOptionParser {
     }
 
     // Gets the arguments defined in the parser.
-    ConsoleInputArgument[] arguments() {
+    DConsoleInputArgument[] arguments() {
         return _args;
     }
 
@@ -398,7 +398,7 @@ class DConsoleOptionParser {
     }
 
     // Get the defined options in the parser.
-    ConsoleInputOption[string] options() {
+    DConsoleInputOption[string] options() {
         return _options;
     }
 

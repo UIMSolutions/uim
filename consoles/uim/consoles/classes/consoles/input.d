@@ -26,7 +26,7 @@ class DConsoleInput {
     mixin(TProperty!("string", "name"));
 
     // Input value.
-    protected resource _input;
+    protected UIMObject _input;
 
     /**
      * Can this instance use readline?

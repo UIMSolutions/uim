@@ -146,13 +146,13 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         addCommandToShells(shells, commandName, command.classname);
     } */
 
-    void addCommandToShells(DSimpleXMLElement shells, string commandName, string commandclassname) {
+    /* void addCommandToShells(DSimpleXMLElement shells, string commandName, string commandclassname) {
         auto shell = shells.addChild("shell");
         shell.addAttribute("name", commandName);
         shell.addAttribute("call_as", commandName);
         shell.addAttribute("provider", commandclassname);
         shell.addAttribute("help", commandName ~ " -h");
-    }
+    } */
 
     // Gets the option parser instance and configures it.
     override protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBuild) {

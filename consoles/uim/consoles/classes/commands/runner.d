@@ -88,7 +88,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * Params:
      * Json[string] argv The arguments from the CLI environment.
      */
-    int run(Json[string] argv, IConsoleIo aConsoleIo = null) {
+    int run(Json[string] argv, DConsoleIo aConsoleIo = null) {
         assert(!argv.isEmpty, "Cannot run any commands. No arguments received.");
 
         bootstrap();

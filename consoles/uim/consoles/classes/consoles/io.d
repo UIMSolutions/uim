@@ -55,13 +55,13 @@ class DConsoleIo {
     protected bool _isInteractive = true;
 
     // The output stream
-    protected IConsoleOutput _out;
+    protected DConsoleOutput _out;
 
     // The error stream
-    protected IConsoleOutput _err;
+    protected DConsoleOutput _err;
 
     // The input stream
-    protected IConsoleInput _in;
+    protected DConsoleInput _in;
 
     // The helper registry.
     protected DHelperRegistry _helpers;
@@ -83,14 +83,10 @@ class DConsoleIo {
         _interactive = aValue;
     }
 
-    /**
-     * Get/set the current output level.
-     * Params:
-     * int level The current output level.
-     */
-    int level(int level = 0) {
-        if (level != 0) {
-            _level = level;
+    // Get/set the current output level.
+    int level(int outputLevel = 0) {
+        if (outputLevel != 0) {
+            _level = outputLevel;
         }
         return _level;
     }
@@ -185,17 +181,13 @@ class DConsoleIo {
     }
 
     // Halts the the current process with a StopException.
-    never abort(string errorMessage, int errorCode = ICommand.CODE_ERROR) {
+    void abort(string errorMessage, int errorCode = DCommand.CODE_ERROR) {
         error(errorMessage);
 
         throw new DStopException(errorMessage, errorCode);
     }
 
-    /**
-     * Wraps a message with a given message type, e.g. <warning>
-     * Params:
-     * string amessageType The message type, e.g. "warning".
-     */
+    // Wraps a message with a given message type, e.g. <warning>
     protected string[] wrapMessageWithType(string amessageType, string[] messagesToWrap) {
         return messages
             .map!(message => wrapMessageWithType(messageType, message))
@@ -397,7 +389,7 @@ class DConsoleIo {
      * initData - Configuration data for the helper.
      * returns = Created helper instance.
      */
-    Helper helper(string nameToRender, Json[string] initData = null) {
+    DHelper helper(string nameToRender, Json[string] initData = null) {
         auto renderName = capitalize(nameToRender);
         return _helpers.load(renderName, initData);
     }

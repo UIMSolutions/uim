@@ -26,9 +26,9 @@ abstract class DConsoleHelper {
         return true;
     }
     
-    protected IConsoleIo _io;
+    protected DConsoleIo _io;
 
-    this(IConsoleIo aConsoleIo, Json[string] configData = null) {
+    this(DConsoleIo aConsoleIo, Json[string] configData = null) {
         this();
         initialize(configData);
     }

@@ -42,12 +42,11 @@ class DMemoryCacheEngine : DCacheEngine {
       .setDefault("compress", false)
       .setDefault("duration", 3600)
       .setDefault("username", "")
-      .setDefaults(["host", "password", "persistent", "port"], Json(null))
+      .setDefault(["host", "password", "persistent", "port"], Json(null))
       .setDefault("prefix", "uim_")
       .setDefault("serialize", "d")
-      .setDefault("servers", ["127.0.0.1"]) // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
-      .setDefault("groups", Json.emptyArray)
-      .setDefault("options", Json.emptyArray); // `options` - Additional options for the memcached client. Should be an array of option: value.
+      .setDefault("servers", ["127.0.0.1"].toJson) // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
+      .setDefault(["groups", "options"], Json.emptyArray); // `options` - Additional options for the memcached client. Should be an array of option: value.
 
     return true;
   }
@@ -86,16 +85,16 @@ class DMemoryCacheEngine : DCacheEngine {
     super.initialize(initData);
 
     if (!configuration.isEmpty("host")) {
-      configuration.get("servers") = configuration.isEmpty("port")
-        ? [configuration.get("host")] : [
-          "%s:%d".format(configuration.getString("host"), configuration.getString("port"))
-        ];
+      configuration.set("servers", configuration.isEmpty("port")
+        ? [configuration.get("host")] 
+        : ["%s:%d".format(configuration.getString("host"), configuration.getString("port"))
+        );
     }
     /* if (configData.hasKey("servers")) {
       configuration.set("servers", configuration.get("servers"], false);
     } */
   /* if (!configuration.isArray("servers")) {
-      configuration.set("servers", [configuration.get("servers")]);
+      configuration.set("servers", [configuration.getArray("servers")]);
     } * / 
     if (!_memory is null) {
       return true;

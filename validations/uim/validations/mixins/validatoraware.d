@@ -121,7 +121,7 @@ mixin template TValidatorAware() {
      * Params:
      * string myname The name of a validator to be set.
      */
-    void setValidator(string name, Validator validator) {
+    void setValidator(string name, DValidator validator) {
         validator.setProvider(VALIDATOR_PROVIDER_NAME, this);
        _validators[name] = validator;
     }

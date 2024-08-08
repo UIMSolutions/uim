@@ -72,24 +72,20 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
        );
     }
     
-    /**
-     * Adds Strict-Transport-Security header to response.
-     * Params:
-     * \Psr\Http\Message\IResponse response Response
-     */
+    // Adds Strict-Transport-Security header to response.
     protected IResponse addHosts(IResponse response) {
-        auto configData = configuration.get("hsts"];
+        auto configData = configuration.get("hsts");
         if (!isArray(configData)) {
             throw new DUnexpectedValueException("The `hsts` config must be an array.");
         }
         
-        string aValue = "max-age=" ~ configuration.getString("maxAge");
+        string hostInfo = "max-age=" ~ configuration.getString("maxAge");
         if (configuration.hasKey("includeSubDomains")) {
-            aValue ~= "; includeSubDomains";
+            hostInfo ~= "; includeSubDomains";
         }
         if (configuration.hasKey("preload")) {
-            aValue ~= "; preload";
+            hostInfo ~= "; preload";
         }
-        return response.withHeader("strict-transport-security", aValue);
+        return response.withHeader("strict-transport-security", hostInfo);
     }
 }

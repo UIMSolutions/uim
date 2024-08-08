@@ -105,7 +105,7 @@ class DConsoleInputArgument : UIMObject {
     }
 
     // Append this arguments XML representation to the passed in SimpleXml object.
-    DSimpleXMLElement xml(SimpleXMLElement parentElement) {
+    // DSimpleXMLElement xml(SimpleXMLElement parentElement) {
        /* auto option = parentElement.addChild("argument");
         option.addAttribute("name", _name);
         option.addAttribute("help", _help);
@@ -114,6 +114,6 @@ class DConsoleInputArgument : UIMObject {
         auto choices = option.addChild("choices");
         choices.each!(valid => choices.addChild("choice", valid));
         return parentElement; */
-        return null; 
-    }
+        /* return null; 
+    } */
 }

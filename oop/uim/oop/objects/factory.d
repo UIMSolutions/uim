@@ -99,7 +99,7 @@ class DFactory(T : UIMObject) : IKeyAndPath, INamed {
         _workers[workerName] = workFunc;
     }
 
-    T get(string[] path, Json[string] options = null) @safe {
+    T getPath(string[] path, Json[string] options = null) @safe {
         return get(correctKey(path), options);
     }
 

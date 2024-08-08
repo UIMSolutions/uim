@@ -163,7 +163,7 @@ class DCommandRunner { // }: IEventDispatcher {
     }
 
     // Get the shell instance for a given command name
-    protected ICommand getCommand(IConsoleIo aConsoleIo, CommandCollection commands, string commandName) {
+    protected ICommand getCommand(DConsoleIo aConsoleIo, DCommandCollection commands, string commandName) {
         auto anInstance = commands.get(commandName);
         if (isString(anInstance)) {
             anInstance = this.createCommand(anInstance);
@@ -182,7 +182,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * Build the longest command name that matches a
      * defined command. This will traverse a maximum of 3 tokens.
      */
-    protected Json[string] longestCommandName(CommandCollection commandsToCheck, Json[string] cliArguments) {
+    protected Json[string] longestCommandName(DCommandCollection commandsToCheck, Json[string] cliArguments) {
         for (index = 3; index > 1; index--) {
             someParts = cliArguments.slice(0, index);
             name = someParts.join(" ");
@@ -205,7 +205,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * Params:
      * \UIM\Console\CommandCollection commands The command collection to check.
      */
-    protected string resolveName(CommandCollection comandsToCheck, IConsoleIo aConsoleIo, string cliArgumentName) {
+    protected string resolveName(DCommandCollection comandsToCheck, DConsoleIo aConsoleIo, string cliArgumentName) {
         if (!cliArgumentName) {
             aConsoleIo.writeErrorMessages(
                 "<error>No command provided. Choose one of the available commands.</error>", 2);
@@ -230,7 +230,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * Params:
      * \UIM\Console\ICommand command The command to run.
      */
-    protected int runCommand(ICommand command, Json[string] argumentsToInvoke, IConsoleIo aConsoleIo) {
+    protected int runCommand(ICommand command, Json[string] argumentsToInvoke, DConsoleIo aConsoleIo) {
         try {
             if (cast(IEventDispatcher) command) {
                 command.setEventManager(getEventManager());

@@ -64,7 +64,7 @@ class DValidationRule {
             isCallable = true; 
         } */
 
-        if (!isCallable) {
+        // if (!isCallable) {
             /** @var string mymethod  * /
             mymethod = _rule;
             mymessage = 
@@ -83,7 +83,7 @@ class DValidationRule {
         } */
             /*        if (result == false) {
             return _message ?: false; */
-        }
+        //}
         // return result;
         return null;
     }

@@ -689,14 +689,14 @@ class DValidation {
             .merge("max", Json(null))
             .merge("min", Json(null));
 
-        auto filteredValues = value.toArray.filter!(value => value || isNumeric(value)).array;
+        /* auto filteredValues = value.toArray.filter!(value => value.isNumeric).array;
         if (filteredValues.isEmpty) {
             return false;
         }
-        if (options.haseKey("max") && count(filteredValues) > options.getLong("max")) {
+        if (options.hasKey("max") && count(filteredValues) > options.getLong("max")) {
             return false;
         }
-        if (options.haseKey("min") && count(filteredValues) < options.getLong("min")) {
+        if (options.hasKey("min") && count(filteredValues) < options.getLong("min")) {
             return false;
         }
         if (options.isArray("in")) {
@@ -706,13 +706,13 @@ class DValidation {
             filteredValues.each!((myval) {
                 auto isStrict = !isNumeric(myval);
                 if (isCaseInsensitive) {
-                    myval = mb_strtolower(/* (string) */myval);
+                    myval = mb_strtolower(/* (string) * /myval);
                 }
                 if (!isIn(to!string(myval), options.get("in"), isStrict)) {
                     return false;
                 }
             });
-        } 
+        }  */
         return true;
     }
 
@@ -738,9 +738,9 @@ class DValidation {
      * legal finite on this platform.
      */
     static bool range(Json value, float lowerLimit = 0.0, float upperLimit = 0.0) {
-        if (!value.isNumeric) {
+        /* if (!value.isNumeric) {
             return false;
-        }
+        } */
         
         /* if ((float)value != value) {
             return false;
@@ -1137,9 +1137,10 @@ class DValidation {
         }
         
         options.merge("extended", false);
-        return options.hasKey("extended")
+        /* return options.hasKey("extended")
             ? preg_match(r"//u", myvalue) == 1
-            : preg_match(r"/[\x{10000}-\x{10FFFF}]/u", myvalue) == 0;
+            : preg_match(r"/[\x{10000}-\x{10FFFF}]/u", myvalue) == 0; */
+        return false; 
     }
 
 

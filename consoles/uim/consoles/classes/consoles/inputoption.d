@@ -193,7 +193,7 @@ class DConsoleInputOption {
     }
     
     // Append the option`s XML into the parent.
-    DSimpleXMLElement xml(DSimpleXMLElement parent) {
+    /* DSimpleXMLElement xml(DSimpleXMLElement parent) {
         auto option = parent.addChild("option");
         option.addAttribute("name", "--" ~ _name);
         
@@ -210,10 +210,10 @@ class DConsoleInputOption {
         option.addAttribute("short", shortAlias);
         option.addAttribute("help", _help);
         option.addAttribute("boolean", to!string(to!int(_isBooleanOption)));
-        option.addAttribute("required", to!string(/* (int */_required));
+        option.addAttribute("required", to!string(/* (int * /_required));
         option.addChild("default", to!string(defaultValue));
         choices = option.addChild("choices");
         _choices.each!(valid => choices.addChild("choice", valid));
         return parent;
-    } 
+    }  */
 }

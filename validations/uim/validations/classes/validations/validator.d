@@ -116,8 +116,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     // Validates and returns an array of failed fields and their error messages.
     auto validate(Json[string] data, bool isNewRecord = true) {
-        auto myerrors = null;
-        foreach (ruleNames, fieldName; _fields) {
+        Json[string] myerrors = null;
+        /* foreach (ruleNames, fieldName; _fields) {
             auto ruleNames = to!string(ruleNames);
             auto mykeyPresent = data.hasKey(ruleNames);
 
@@ -151,7 +151,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             if (result) {
                 myerrors.set(ruleNames, result);
             }
-        }
+        } */
         return myerrors;
     }
 
@@ -588,7 +588,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     // Require a non-empty date value
     auto notEmptyDate(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
-        auto mywhen = invertWhenClause(mywhen);
+        mywhen = invertWhenClause(mywhen);
 
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, errorMessage);
         return null;
@@ -2250,11 +2250,11 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
         return info
             // TODO .set("_presenceMessages", _presenceMessages)
-            .set("_allowEmptyMessages", _allowEmptyMessages)
-            .set("_allowEmptyFlags", _allowEmptyFlags.toJson)
+            // .set("_allowEmptyMessages", _allowEmptyMessages.toJson)
+            // .set("_allowEmptyFlags", _allowEmptyFlags.toJson)
             .set("_useI18n", _useI18n)
-            .set("_stopOnFailure", _stopOnFailure)
-            .set("_providers", _providers.keys)
-            .set("_fields", fieldNames);
+            /* .set("_stopOnFailure", _stopOnFailure)
+            .set("_providers", _providers.keys) *//* 
+            .set("_fields", fieldNames) */;
     }
 }

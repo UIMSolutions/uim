@@ -13,7 +13,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     }
 
     // Main auto Prints out the list of commands.
-    size_t execute(Json[string] arguments, DConsoleIo aConsoleIo) {
+    override size_t execute(Json[string] arguments, DConsoleIo aConsoleIo) {
         auto commandIterator = _commands.getIterator();
         if (cast(DArrayIterator) commandIterator) {
             commandIterator.ksort();
@@ -35,8 +35,8 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             /* if (isObject(classname)) {
                  classname = classname.classname;
             }*/
-            myInvert.require(classname, null);
-            myInvert[classname).concat( name;
+           /*  myInvert.require(classname, null);
+            myInvert[classname).concat( name; */
         }
 
         auto anGrouped = null;
@@ -155,7 +155,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     }
 
     // Gets the option parser instance and configures it.
-    protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBuild) {
+    override protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBuild) {
         parserToBuild.description("Get the list of available commands for this application.");
 
         auto addOption = Json.emptyObject;

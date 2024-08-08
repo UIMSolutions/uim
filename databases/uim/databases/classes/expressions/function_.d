@@ -41,14 +41,14 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
 
     // Adds one or more arguments for the auto call.
     void add(/* IExpression| */ string[] conditionArguments, Json[string] associatedTypes = null, bool prependOrAppend = false) {
-        string put = prependOrAppend ? "array_unshift" : "array_push";
-        typeMap = getTypeMap().setTypes(associatedTypes);
+        string put = prependOrAppend ? "unshift" : "push";
+        auto typeMap = getTypeMap().setTypes(associatedTypes);
 
         conditions.byKeyValue
             .each!(kv => addCondition(conditionArguments, kv.key, kv.value));
     }
 
-    protected addCondition(string key, string condition) {
+    protected void addCondition(string key, string condition) {
         if (condition == "literal") {
             put(_conditions, key);
             return;

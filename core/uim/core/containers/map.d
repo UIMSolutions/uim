@@ -302,7 +302,11 @@ bool isEmpty(V, K)(V[K] someValues) {
 }
 ///
 unittest {
-  // TODO 
+  STRINGAA map = ["a":"A", "b": "B"];
+  assert(map.length == 2, "Wrong length: Should be 2");
+  map.clear;
+  assert(map.length == 0, "Wrong length: Should be 0");
+  assert(map.isEmpty, "Wrong result for isEmpty: Should be true");
 }
 
 V[K] setValues(K, V)(V[K] target, V[K] someValues) {
@@ -714,13 +718,14 @@ pure V[K] createMap(K, V)() {
   return map;
 }
 
-pure V[K] clear(K, V)(V[K] items) {
-  return null;
+V[K] clear(K, V)(ref V[K] items) {
+  items = null;
+  return items;
 }
 
 // #region shift
 V shift(K, V)(V[K] items, K key) {
-  V result = items.get(key);
+  V result = items.value(key);
   items.remove(key);
   return result;
 }
@@ -733,6 +738,6 @@ unittest {
 }
 // #endregion shift
 
-V get(K, V)(V[K] items, K key, V defaultValue = Null!V) {
+V value(K, V)(V[K] items, K key, V defaultValue = Null!V) {
   return key in items ? items[key] : defaultValue;
 }

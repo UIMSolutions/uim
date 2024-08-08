@@ -98,12 +98,12 @@ class DCommonTableExpression : IExpression {
 
     // Sets this CTE as materialized.
     void materialized() {
-        this.materialized = "MATERIALIZED";
+        _materialized = "MATERIALIZED";
     }
 
     // Sets this CTE as not materialized.
     void notMaterialized() {
-        this.materialized = "NOT MATERIALIZED";
+        _materialized = "NOT MATERIALIZED";
     }
 
     // Gets whether this CTE is recursive.
@@ -119,11 +119,11 @@ class DCommonTableExpression : IExpression {
     string sql(DValueBinder aBinder) {
         string myFields = "";
         if (_fields) {
-            someExpressions = array_map(fn (IdentifierExpression  anException):  anException.sql(aBinder), _fields);
+            someExpressions = _fields.map!(exception => exception.sql(aBinder)).array;
             myFields = "(%s)".format(join(", ", someExpressions));
         }
 
-        strng suffix = this.materialized ? this.materialized ~ " " : "";
+        strng suffix = _materialized ? _materialized ~ " " : "";
         return 
             "%s%s AS %s(%s)".format(
             _name.sql(aBinder),
@@ -152,8 +152,8 @@ class DCommonTableExpression : IExpression {
         if (_query) {
             _query = _query.clone;
         }
-        foreach (aKey: field; _fields) {
-            _fields[aKey] = field.clone;
+        foreach (key, field; _fields) {
+            _fields[key] = field.clone;
         }
-    } */
+    } 
 }

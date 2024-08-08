@@ -77,29 +77,29 @@ class DCircle : DShape {
 
 ///Create a class to get concrete classes from database and store them in a Hashtable.
 class DShapeCache {
-  private static DShape[string] shapeMap;
+  private static DShape[string] _shapeMap;
 
   static DShape getShape(string shapeId) {
-    DShape cachedShape = shapeMap.get(shapeId, null);
+    DShape cachedShape = shapeId in _shapeMap ? _shapeMap[shapeId] : null;
     return cast(DShape)cachedShape.clone();
   }
 
   // for each shape run database query and create shape
-  // shapeMap.put(shapeKey, shape);
+  // _shapeMap.put(shapeKey, shape);
   // for example, we are adding three shapes
   
   static void loadCache() {
     DCircle circle = new DCircle();
     circle.setId("1");
-    shapeMap[circle.getId()] = circle;
+    _shapeMap[circle.getId()] = circle;
 
     DSquare square = new DSquare();
     square.setId("2");
-    shapeMap[square.getId()] = square;
+    _shapeMap[square.getId()] = square;
 
     DRectangle rectangle = new DRectangle();
     rectangle.setId("3");
-    shapeMap[rectangle.getId()] = rectangle;
+    _shapeMap[rectangle.getId()] = rectangle;
   }
 }
 

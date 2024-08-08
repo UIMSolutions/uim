@@ -390,7 +390,7 @@ class Hash {
         
         return isEmpty(myvals)
             ? null
-            : array_combine(someKeys ?? range(0, count(myvals) - 1), myvals);
+            : combine(someKeys ?? range(0, count(myvals) - 1), myvals);
     }
     
     /**

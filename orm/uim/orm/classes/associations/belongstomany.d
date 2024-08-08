@@ -573,8 +573,8 @@ class DBelongsToManyAssociation : DAssociation {
             if (!joint || !cast(IORMEntity)joint) {
                 joint = new DORMEntityClass([], ["markNew": true.toJson, "source": junctionRegistryAlias]);
             }
-            sourceKeys = array_combine(foreignKeys, sourceEntity.extract(bindingKey));
-            targetKeys = array_combine(assocForeignKeys, e.extract(targetBindingKey));
+            sourceKeys = combine(foreignKeys, sourceEntity.extract(bindingKey));
+            targetKeys = combine(assocForeignKeys, e.extract(targetBindingKey));
 
             changedKeys = (
                 sourceKeys != joint.extract(foreignKeys) ||

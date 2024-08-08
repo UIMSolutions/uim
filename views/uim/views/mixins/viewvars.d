@@ -51,7 +51,7 @@ void set(string viewName, Json aValue = null) {
     }
     void set(string[] views, Json aValue = null) {
         auto mydata = myvalue.isArray
-                ? array_combine(views, myvalue)
+                ? combine(views, myvalue)
                 : views;
      
         viewBuilder().setData(mydata);

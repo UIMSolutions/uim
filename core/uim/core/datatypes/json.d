@@ -53,6 +53,18 @@ unittest {
   assert(!parseJsonString(`1`).isBigInteger);
 }
 
+// #region isBoolean
+bool isBooleanLike(Json value) {
+  if (value.isString) {
+    auto converted = value.getString.lower;
+    return (converted == "true" || converted == "false" || converted == "0" || converted == "1" || converted == "on" || converted == "off");
+  }
+  if (value.isLong || value.isInteger) {
+    return true;    
+  }
+  return value.isBoolean;
+}
+
 bool isBoolean(Json value) {
   return (value.type == Json.Type.bool_);
 }
@@ -62,6 +74,7 @@ unittest {
   assert(parseJsonString(`false`).isBoolean);
   assert(!parseJsonString(`1`).isBoolean);
 }
+// #region isBoolean
 
 bool isFloat(Json value) {
   return (value.type == Json.Type.float_);

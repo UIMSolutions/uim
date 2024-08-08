@@ -572,8 +572,8 @@ static string contentType() {
         if (views.isArray) {
             if (myvalue.isArray) {
                 /** @var array|false mydata Coerce Dstan to accept failure case */
-                mydata = array_combine(views, myvalue);
-                if (mydata == false) {
+                auto mydata = combine(views, myvalue);
+                if (mydata.isEmpty) {
                     throw new DException(
                         "Invalid data provided for array_combine() to work: Both views and myvalue require same count."
                    );

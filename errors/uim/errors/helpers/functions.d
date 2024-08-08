@@ -1,4 +1,4 @@
-module uim.errors.helpers.functions;
+wmodule uim.errors.helpers.functions;
 
 import uim.errors;
 @safe:

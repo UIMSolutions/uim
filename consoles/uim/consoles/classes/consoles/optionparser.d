@@ -128,7 +128,7 @@ class DConsoleOptionParser {
     //  Positional argument definitions.
     protected DConsoleInputArgument[] _args;
 
-    // Array of args (argv).
+    // Array of args (arguments).
     // TODO protected Json[string] _token;
     */
 
@@ -403,9 +403,9 @@ class DConsoleOptionParser {
     }
 
     /**
-     * Parse the argv array into a set of params and args.
+     * Parse the arguments array into a set of params and args.
      * Params:
-     * Json[string] argv Array of args (argv) to parse.
+     * Json[string] arguments Array of args (arguments) to parse.
      */
     Json[string] parse(Json[string] argToParse, DConsoleIo aConsoleIo = null) {
         auto params = someArguments = null;
@@ -607,7 +607,7 @@ class DConsoleOptionParser {
         return someArguments;
     }
 
-    // Find the next token in the argv set.
+    // Find the next token in the arguments set.
     protected string _nextToken() {
         return _tokens[0] ? _tokens[0] : "";
     }

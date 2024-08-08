@@ -77,7 +77,7 @@ class DCommandRunner { // }: IEventDispatcher {
     }
 
     /**
-     * Run the command contained in argv.
+     * Run the command contained in arguments.
      *
      * Use the application to do the following:
      *
@@ -86,10 +86,10 @@ class DCommandRunner { // }: IEventDispatcher {
      * - Trigger the `Console.buildCommands` event of auto-wiring plugins.
      * - Run the requested command.
      * Params:
-     * Json[string] argv The arguments from the CLI environment.
+     * Json[string] arguments The arguments from the CLI environment.
      */
-    int run(Json[string] argv, DConsoleIo aConsoleIo = null) {
-        assert(!argv.isEmpty, "Cannot run any commands. No arguments received.");
+    ulong run(Json[string] arguments, DConsoleIo aConsoleIo = null) {
+        assert(!arguments.isEmpty, "Cannot run any commands. No arguments received.");
 
         bootstrap();
 
@@ -108,11 +108,11 @@ class DCommandRunner { // }: IEventDispatcher {
         loadRoutes();
 
         // Remove the root executable segment
-        argv.shift();
+        arguments.shift();
         aConsoleIo = aConsoleIo ? aConsoleIo : new DConsoleIo();
 
         try {
-            [name, argv] = this.longestCommandName(myCommands, argv);
+            [name, arguments] = this.longestCommandName(myCommands, arguments);
             name = this.resolveName(myCommands, aConsoleIo, name);
         } catch (MissingOptionException anException) {
             aConsoleIo.error(anException.getFullMessage());
@@ -121,7 +121,7 @@ class DCommandRunner { // }: IEventDispatcher {
         }
         auto command = getCommand(aConsoleIo, myCommands, name);
 
-        auto result = this.runCommand(command, argv, aConsoleIo);
+        auto result = this.runCommand(command, arguments, aConsoleIo);
         if (result.isNull) {
             return ICommand.CODE_SUCCESS;
         }
@@ -199,7 +199,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * Resolve the command name into a name that exists in the collection.
      *
      * Apply backwards compatible inflections and aliases.
-     * Will step forward up to 3 tokens in argv to generate
+     * Will step forward up to 3 tokens in arguments to generate
      * a command name in the CommandCollection. More specific
      * command names take precedence over less specific ones.
      * Params:

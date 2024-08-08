@@ -148,10 +148,10 @@ mixin template TConsoleIntegrationTest() {
         return new DCommandRunner(myApp);
     }
 
-    // Creates an argv array from a command string
+    // Creates an arguments array from a command string
     protected string[] commandStringToArgs(string commandString) {
         size_t charCount = commandString.length;
-        string[] argv = null;
+        string[] arguments = null;
         string argument;
         auto anInDQuote = false;
         auto anInSQuote = false;
@@ -161,7 +161,7 @@ mixin template TConsoleIntegrationTest() {
             // end of argument
             if (oneChar == " " && !anInDQuote && !anInSQuote) {
                 if (!argument.isEmpty) {
-                    argv ~= argument;
+                    arguments ~= argument;
                 }
                 argument = null;
                 continue;
@@ -188,8 +188,8 @@ mixin template TConsoleIntegrationTest() {
             }
             argument ~= oneChar;
         }
-        argv ~= argument;
+        arguments ~= argument;
 
-        return argv;
+        return arguments;
     }
 }

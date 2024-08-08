@@ -79,12 +79,12 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
         return null;
     }
 
-    int run(Json[string] arguments, DConsoleIo aConsoleIo) {
-        this.initialize();
+    ulong run(Json[string] arguments, DConsoleIo aConsoleIo) {
+        initialize();
 
         auto aParser = getOptionParser();
         try {
-            auto parsedResults = aParser.parse(argv, aConsoleIo);
+            auto parsedResults = aParser.parse(arguments, aConsoleIo);
             auto arguments = createMap!(string, Json);
                 /* parsedResults[1],
                 parsedResults[0],
@@ -100,18 +100,17 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
         if (arguments.getOption("help")) {
             displayHelp(aParser, arguments, aConsoleIo);
 
-            return CODE_SUCCESS;
+            return 0; // CODE_SUCCESS;
         }
         if (arguments.getOption("quiet")) {
             aConsoleIo.setInteractive(false);
         }
         dispatchEvent("Command.beforeExecute", ["args": arguments]);
-        /** @var int result  */
-        auto result = this.execute(arguments, aConsoleIo);
-        dispatchEvent("Command.afterExecute", [
-                "args": arguments,
-                "result": result
-            ]);
+
+        auto result = execute(arguments, aConsoleIo);
+        dispatchEvent("Command.afterExecute", createMap!(string, Json)
+            .set("args", arguments)
+            .set("result", result));
 
         return result;
     }
@@ -139,12 +138,8 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
         }
     }
 
-    /**
-     * Implement this method with your command`s logic.
-     * Params:
-     * \UIM\Console\Json[string] commandArguments The command arguments.
-     */
-    abstract size_t execute(Json[string] commandArguments, DConsoleIo aConsoleIo);
+    // Implement this method with your command`s logic.
+    abstract ulong execute(Json[string] commandArguments, DConsoleIo aConsoleIo);
 
     // Halt the current process with a StopException.
     /* never abort(int exitCode = CODE_ERROR) {
@@ -169,11 +164,11 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
         return 0; 
     }
 
-    size_t executeCommand(DCommand acommand, Json[string] commandArguments = null,  DConsoleIo aConsoleIo = null) {
-        // auto myConsoleIo = aConsoleIo ?  : new DConsoleIo();
+    size_t executeCommand(DCommand command, Json[string] commandArguments = null,  DConsoleIo aConsoleIo = null) {
+        auto consoleIo = aConsoleIo ? aConsoleIo : new DConsoleIo();
 
         /* try {
-                return acommand.run(commandArguments, myConsoleIo);
+                return command.run(commandArguments, consoleIo);
             }
             catch (StopException anException) {
                 return anException.code();

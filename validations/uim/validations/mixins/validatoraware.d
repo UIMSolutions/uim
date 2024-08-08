@@ -91,10 +91,10 @@ mixin template TValidatorAware() {
         
         DValidator result = mymethod(new _validatorClass());
         if (cast(IEventDispatcher)this) {
-            auto validatorEvent = defined("class" ~ ".BUILD_VALIDATOR_EVENT")
+            /* auto validatorEvent = defined("class" ~ ".BUILD_VALIDATOR_EVENT")
                 ? BUILD_VALIDATOR_EVENT
                 : "Model.buildValidator";
-            dispatchEvent(validatorEvent/* , compact("validator", "name") */);
+            dispatchEvent(validatorEvent/* , compact("validator", "name") * /); */
         }
         assert(
             cast(DValidator)result,

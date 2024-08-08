@@ -18,13 +18,13 @@ class DRoutesGenerateCommand : DCommand {
     return "routes-generate";
   }
 
-  override override size_t execute(Json[string] arguments, IConsole aConsole = null) {
+  override override ulong execute(Json[string] arguments, IConsole aConsole = null) {
     return super.execute(arguments, aConsoleIo);
   }
 
   /* 
   // Display all routes in an application
-  override size_t execute(Json[string] arguments, IConsole aConsole = null) {
+  override ulong execute(Json[string] arguments, IConsole aConsole = null) {
     try {
       commandArguments = _splitArgs(commandArguments.getArguments());
       auto routerUrl = Router.url(commandArguments);

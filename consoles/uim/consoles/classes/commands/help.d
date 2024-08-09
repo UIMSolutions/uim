@@ -14,7 +14,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
 
     // Main auto Prints out the list of commands.
     override ulong execute(Json[string] arguments, DConsoleIo aConsoleIo) {
-        auto commandIterator = _commands.getIterator();
+/*         auto commandIterator = _commands.getIterator();
         if (cast(DArrayIterator) commandIterator) {
             commandIterator.ksort();
         }
@@ -26,18 +26,19 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         asText(aConsoleIo, commandIterator);
 
         return CODE_SUCCESS;
+ */        return 0; 
     }
 
     // Output text.
     protected void asText(DConsoleIo aConsoleIo, STRINGAA commandCollection) {
         string[][string] myInvert = null;
-        foreach (name, classname; commands) {
+       /*  foreach (name, classname; commands) {
             /* if (isObject(classname)) {
                  classname = classname.classname;
-            }*/
+            }* /
            /*  myInvert.require(classname, null);
-            myInvert[classname).concat( name; */
-        }
+            myInvert[classname).concat( name; * /
+        } */
 
         auto anGrouped = null;
         auto plugins = Plugin.loaded();
@@ -93,12 +94,12 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     // Output relevant paths if defined
     protected void outputPaths(DConsoleIo aConsoleIo) {
         STRINGAA myPaths;
-        if (Configure.check("App.dir")) {
-            string appPath = stripRight(Configure.read("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+        if (configuration.check("App.dir")) {
+            /* string appPath = stripRight(configuration.read("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
             // Extra space is to align output
-            myPaths.set("app", " " ~ appPath);
+            myPaths.set("app", " " ~ appPath); */
         }
-        if (defined("ROOT")) {
+        /* if (defined("ROOT")) {
             myPaths.set("root", stripRight(ROOT, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
         }
         if (defined("CORE_PATH")) {
@@ -106,7 +107,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         }
         if (!count(myPaths)) {
             return;
-        }
+        } */
         /*         aConsoleIo.out("<info>Current Paths:</info>", 2);
         myPaths.each!(kv => aConsoleIo.out("* %s: %s".format(kv.key, kv.value)));
          aConsoleIo.out(""); */
@@ -120,26 +121,28 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             return names[0];
         }
 
-        auto names = names.sort("a.length < b.length");
-        return names[0];
+        /* auto names = names.sort!("a.length < b.length");
+        return names[0]; */
+        return null; 
     }
 
     // Output as XML
     protected void asXml(DConsoleIo aConsoleIo, DCommand[string] commands) {
-        STRINGAA names = commands.byKeyValue
-            .each(nameCommand => names[nameCommand.key] = nameCommand.value);
+        STRINGAA names;
+        commands.byKeyValue
+            .each!(nameCommand => names[nameCommand.key] = nameCommand.value);
 
-        asXml(aConsoleIo, names);
+/*         asXml(aConsoleIo, names); */
     }
 
-    protected void asXml(DConsoleIo aConsoleIo, STRINGAA commandNames) {
+    /* protected void asXml(DConsoleIo aConsoleIo, STRINGAA commandNames) {
         auto shells = new DSimpleXMLElement("<shells></shells>");
         commandNames.byKeyValue
             .each(nameclassname => shells.addCommandToShells(nameclassname.key, nameclassname.value));
 
         /*        aConsoleIo.setOutputAs(DConsoleOutput.RAW);
-        aConsoleIo.out(castto!string(xmlShells.saveXML())); */
-    }
+        aConsoleIo.out(castto!string(xmlShells.saveXML())); * /
+    } */
 
     // TODO
 /*    void addCommandToShells(DSimpleXMLElement shells, string commandName, DCommand command) {
@@ -154,15 +157,16 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         shell.addAttribute("help", commandName ~ " -h");
     } */
 
-    // Gets the option parser instance and configures it.
+    // Gets the option parser instance and configurations it.
     override protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBuild) {
-        parserToBuild.description("Get the list of available commands for this application.");
+        /* parserToBuild.description("Get the list of available commands for this application.");
 
         auto addOption = Json.emptyObject;
         addOption.set("help", "Get the listing as XML.");
-        addOption.set("boolean", true);
-        parserToBuild.addOption("xml", addOption);
+        addOption.set("boolean", true); */
+/*         parserToBuild.addOption("xml", addOption); */
 
-        return parserToBuild;
+        // return parserToBuild;
+        return null; 
     }
 }

@@ -82,14 +82,14 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
     ulong run(Json[string] arguments, DConsoleIo aConsoleIo) {
         initialize();
 
-        auto aParser = getOptionParser();
+/*         auto aParser = getOptionParser();
         try {
             auto parsedResults = aParser.parse(arguments, aConsoleIo);
             auto arguments = createMap!(string, Json);
                 /* parsedResults[1],
                 parsedResults[0],
                 aParser.argumentNames()
-            ); */
+            ); * /
         } catch (DConsoleException anException) {
             aConsoleIo.writeErrorMessages("Error: " ~ anException.message());
 
@@ -110,32 +110,32 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
         auto result = execute(arguments, aConsoleIo);
         dispatchEvent("Command.afterExecute", createMap!(string, Json)
             .set("args", arguments)
-            .set("result", result));
+            .set("result", result)); */
 
-        return result;
+        return 0; // result;
     }
 
     // Output help content
     protected void displayHelp(DConsoleOptionParser optionParser, Json[string] arguments, DConsoleIo aConsoleIo) {
-        string format = "text";
+        /* string format = "text";
         if (arguments.getArgumentAt(0) == "xml") {
             format = "xml";
             aConsoleIo.setOutputAs(DConsoleOutput.RAW);
         }
-        aConsoleIo.writeln(optionParser.help(format));
+        aConsoleIo.writeln(optionParser.help(format)); */
     }
 
     // Set the output level based on the Json[string].
     protected void setOutputLevel(Json[string] arguments, DConsoleIo aConsoleIo) {
-        aConsoleIo.setLoggers(DConsoleIo.NORMAL);
-        if (arguments.hasKey("quiet")) {
+        // aConsoleIo.setLoggers(DConsoleIo.NORMAL);
+       /*  if (arguments.hasKey("quiet")) {
             aConsoleIo.level(DConsoleIo.QUIET);
             aConsoleIo.setLoggers(DConsoleIo.QUIET);
         }
         if (arguments.hasKey("verbose")) {
             aConsoleIo.level(DConsoleIo.VERBOSE);
             aConsoleIo.setLoggers(DataGetConsoleIo.VERBOSE);
-        }
+        } */
     }
 
     // Implement this method with your command`s logic.
@@ -159,7 +159,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
         ); */
 
-        auto newCommand = new command();
+        // auto newCommand = new command();
         // return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? DConsoleIo aConsoleIo = null);
         return 0; 
     }

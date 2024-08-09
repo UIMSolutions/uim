@@ -41,18 +41,18 @@ class DConsoleInputArgument : UIMObject {
     }
 
     this(STRINGAA aName, string ahelp = "", bool isArgumentRequired = false, string[] optionChoices = null) {
-        if (names.contains("name")) {
+        /* if (names.contains("name")) {
             foreach (aKey, aValue; names) {
                 /* this. {
                     "_" ~ aKey
                 }
-                 = aValue; */
+                 = aValue; * /
             }
-        }
+        } */
     }
 
     // Checks if this argument is equal to another argument.
-    bool isEqualTo(DConsoleInputArgument argumentToCompare) {
+    bool isEqualTo(DConsoleInputArgument argument) {
         return _name() == argument.name() &&
             this.usage() == argument.usage();
     }
@@ -65,7 +65,7 @@ class DConsoleInputArgument : UIMObject {
     string help(int width = 0) {
         auto helpName = _name;
         if (helpName.length < width) {
-            helpName = str_pad(helpName, width, " ");
+            /* helpName = str_pad(helpName, width, " "); */
         }
         optional = "";
         if (!isRequired()) {

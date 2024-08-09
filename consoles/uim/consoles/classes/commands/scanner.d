@@ -46,7 +46,7 @@ class DCommandScanner {
 
     // Scan the application for shells & commands.
     Json[string] scanApp() {
-        appNamespace = configuration.get("App.namespace");
+        auto appNamespace = configuration.get("App.namespace");
 
         /* return _scanDir(
             App.classPath("Command")[0],
@@ -59,7 +59,7 @@ class DCommandScanner {
 
     // Scan the named plugin for shells and commands
     Json[string] scanPlugin(string pluginName) {
-        if (!Plugin.isLoaded(pluginName)) {
+        /* if (!Plugin.isLoaded(pluginName)) {
             return null;
         }
         string classPath = Plugin.classPath(pluginName);
@@ -67,7 +67,8 @@ class DCommandScanner {
         string prefix = pluginName.underscore ~ ".";
 
         return _scanDir(classPath ~ "Command", namespace ~ "\\Command\\", prefix, [
-            ]);
+            ]); */
+        return null; 
     }
 
     // Scan a directory for .d files and return the class names that should be within them.

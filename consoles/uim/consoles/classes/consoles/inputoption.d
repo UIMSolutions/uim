@@ -88,14 +88,14 @@ class DConsoleInputOption {
        _choices = validChoices;
        acceptsMultiple(acceptsMultiple);
         _isRequired = isRequiredOption;
-        _prompt = promptText;
+        /* _prompt = promptText; */
 
-        if (isBooleanOption) {
-           _default =/* (bool)  */defaultValue != "true";
+        /* if (isBooleanOption) {
+           _default =/* (bool)  * /defaultValue != "true";
         } else if (!defaultValue.isNull) {
            _default = to!string(defaultValue);
-        }
-        if (_shortalias.length > 1) {
+        } */
+        /* if (_shortalias.length > 1) {
             throw new DConsoleException(
                 "Short option `%s` is invalid, short options must be one letter.".format(_shortalias)
            );
@@ -105,7 +105,7 @@ class DConsoleInputOption {
                 "You cannot set both `prompt` and `default` options. " ~
                 "Use either a static `default` or interactive `prompt`"
            );
-        }
+        } */
     }
     
 

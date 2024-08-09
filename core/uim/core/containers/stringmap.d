@@ -10,10 +10,10 @@ import std.algorithm : startsWith, endsWith;
 import uim.core;
 
 // #region set
-T[string] set(T)(ref T[string] items, string key, T value) {
+/* T[string] set(T)(ref T[string] items, string key, T value) {
   items[key] = value;
   return items;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
-}
+} */
 
 unittest {
   int[string] testmap = ["one": 1, "two": 2, "three": 3];

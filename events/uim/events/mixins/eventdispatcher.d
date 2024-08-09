@@ -21,10 +21,11 @@ mixin template TEventDispatcher() {
      * object events, or create your own events and trigger them at will.
      */
     IEventManager eventManager() {
-        return _eventManager ? _eventManager : {
+        if (_eventManager is null) {
             _eventManager = new DEventManager();
-            return _eventManager; };
-    }
+        }
+        return _eventManager;
+    };
 
     /**
      * Returns the UIM\Event\IEventManager instance for this object.
@@ -33,16 +34,17 @@ mixin template TEventDispatcher() {
      * object events, or create your own events and trigger them at will.
      */
     void eventManager(IEventManager newEventManager) {
-       _eventManager = newEventManager;
+        _eventManager = newEventManager;
     }
 
     // Wrapper for creating and dispatching events.
     IEvent dispatchEvent(string eventName, Json[string] dataToListener = null, Object eventSubject = null) {
         eventSubject = eventSubject !is null ? eventSubject : this;
 
-        auto event = new _eventClass(eventName, eventSubject, dataToListener);
+        /* auto event = new _eventClass(eventName, eventSubject, dataToListener);
         getEventManager().dispatch(event);
- 
-        return event;
-    } 
+
+        return event; */
+        return null;
+    }
 }

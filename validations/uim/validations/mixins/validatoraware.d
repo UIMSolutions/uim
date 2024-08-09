@@ -89,20 +89,21 @@ mixin template TValidatorAware() {
             throw new DInvalidArgumentException(mymessage);
         }
         
-        DValidator result = mymethod(new _validatorClass());
+        /* DValidator result = mymethod(new _validatorClass());
         if (cast(IEventDispatcher)this) {
             /* auto validatorEvent = defined("class" ~ ".BUILD_VALIDATOR_EVENT")
                 ? BUILD_VALIDATOR_EVENT
                 : "Model.buildValidator";
-            dispatchEvent(validatorEvent/* , compact("validator", "name") * /); */
+            dispatchEvent(validatorEvent/* , compact("validator", "name") * /);  * /
         }
         assert(
             cast(DValidator)result,
                 "The `%s.%s()` validation method must return an instance of `%s`."
                 .format("class", mymethod, result.classname)
-       );
+       ); */
 
-        return result;
+        // return result;
+        return null;
     }
     
     /**
@@ -122,8 +123,8 @@ mixin template TValidatorAware() {
      * string myname The name of a validator to be set.
      */
     void setValidator(string name, DValidator validator) {
-        validator.setProvider(VALIDATOR_PROVIDER_NAME, this);
-       _validators[name] = validator;
+        /* validator.setProvider(VALIDATOR_PROVIDER_NAME, this);
+       _validators[name] = validator; */
     }
     
     // Checks whether a validator has been set.
@@ -138,7 +139,8 @@ mixin template TValidatorAware() {
     
     // Checks if validation method exists.
     protected bool validationMethodExists(string methodName) {
-        return hasMethod(this, methodName);
+        // return hasMethod(this, methodName);
+        return false;
     }
     
     /**

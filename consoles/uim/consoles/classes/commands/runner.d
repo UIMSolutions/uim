@@ -93,42 +93,42 @@ class DCommandRunner { // }: IEventDispatcher {
 
         bootstrap();
 
-        auto myCommands = new DCommandCollection([
+        auto myCommands = new DCommandCollection(/* [
             "help": HelpCommand.classname,
-        ]);
-        if (class_hasKey(VersionCommand.classname)) {
+        ] */);
+/*         if (class_hasKey(VersionCommand.classname)) {
             myCommands.add("version", VersionCommand.classname);
         }
-        myCommands = _app.console(myCommands);
+ */        /* myCommands = _app.console(myCommands); */
 
-        if (cast(IPluginApplication) _app) {
+        /* if (cast(IPluginApplication) _app) {
             myCommands = _app.pluginConsole(myCommands);
-        }
-        dispatchEvent("Console.buildCommands", ["commands": myCommands]);
-        loadRoutes();
+        } */
+        /* dispatchEvent("Console.buildCommands", ["commands": myCommands]);
+        loadRoutes(); */
 
         // Remove the root executable segment
-        arguments.shift();
+        // TODO arguments.shift();
         aConsoleIo = aConsoleIo ? aConsoleIo : new DConsoleIo();
 
-        try {
+        /* try {
             [name, arguments] = this.longestCommandName(myCommands, arguments);
             name = this.resolveName(myCommands, aConsoleIo, name);
         } catch (MissingOptionException anException) {
             aConsoleIo.error(anException.getFullMessage());
 
             return ICommand.CODE_ERROR;
-        }
+        } */
         auto command = getCommand(aConsoleIo, myCommands, name);
 
         auto result = this.runCommand(command, arguments, aConsoleIo);
-        if (result.isNull) {
-            return ICommand.CODE_SUCCESS;
-        }
+        /* if (result.isNull) {
+            return 0; // ICommand.CODE_SUCCESS;
+        } */
         
         return result >= 0 && result <= 255
             ? result
-            : ICommand.CODE_ERROR;
+            : 0; // ICommand.CODE_ERROR;
     }
 
     /**
@@ -140,16 +140,17 @@ class DCommandRunner { // }: IEventDispatcher {
     protected void bootstrap() {
         _app.bootstrap();
         if (cast(IPluginApplication) _app) {
-            _app.pluginBootstrap();
+            // _app.pluginBootstrap();
         }
     }
 
     // Get the application`s event manager or the global one.
     IEventManager getEventManager() {
         if (cast(IPluginApplication) _app) {
-            return _app.getEventManager();
+            // return _app.getEventManager();
         }
-        return EventManager.instance();
+        // return EventManager.instance();
+        return null; 
     }
 
     // Set the application`s event manager.
@@ -159,12 +160,12 @@ class DCommandRunner { // }: IEventDispatcher {
             "Cannot set the event manager, the application does not support events."
        );
 
-        _app.setEventManager(newEventManager);
+        // _app.setEventManager(newEventManager);
     }
 
     // Get the shell instance for a given command name
     protected ICommand getCommand(DConsoleIo aConsoleIo, DCommandCollection commands, string commandName) {
-        auto anInstance = commands.get(commandName);
+        /* auto anInstance = commands.get(commandName);
         if (isString(anInstance)) {
             anInstance = this.createCommand(anInstance);
         }
@@ -173,7 +174,8 @@ class DCommandRunner { // }: IEventDispatcher {
         if (cast(ICommandCollectionAware) anInstance) {
             anInstance.commandCollection(commands);
         }
-        return anInstance;
+        return anInstance; */
+        return null; 
     }
 
     /**
@@ -183,7 +185,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * defined command. This will traverse a maximum of 3 tokens.
      */
     protected Json[string] longestCommandName(DCommandCollection commandsToCheck, Json[string] cliArguments) {
-        for (index = 3; index > 1; index--) {
+        /* for (index = 3; index > 1; index--) {
             someParts = cliArguments.slice(0, index);
             name = someParts.join(" ");
             if (commandsToCheck.has(name)) {
@@ -192,7 +194,8 @@ class DCommandRunner { // }: IEventDispatcher {
         }
         name = cliArguments.shift();
 
-        return [name, cliArguments];
+        return [name, cliArguments]; */
+        return null; 
     }
 
     /**
@@ -202,55 +205,52 @@ class DCommandRunner { // }: IEventDispatcher {
      * Will step forward up to 3 tokens in arguments to generate
      * a command name in the CommandCollection. More specific
      * command names take precedence over less specific ones.
-     * Params:
-     * \UIM\Console\CommandCollection commands The command collection to check.
      */
     protected string resolveName(DCommandCollection comandsToCheck, DConsoleIo aConsoleIo, string cliArgumentName) {
         if (!cliArgumentName) {
-            aConsoleIo.writeErrorMessages(
+            /* aConsoleIo.writeErrorMessages(
                 "<error>No command provided. Choose one of the available commands.</error>", 2);
-            cliArgumentName = "help";
+            cliArgumentName = "help"; */
         }
 
-        string cliArgumentName = _aliases.getString(cliArgumentName, cliArgumentName);
+        /* string cliArgumentName = _aliases.getString(cliArgumentName, cliArgumentName);
         if (!comandsToCheck.has(cliArgumentName)) {
             cliArgumentName = cliArgumentName.underscore;
-        }
-        if (!comandsToCheck.has(cliArgumentName)) {
+        } */
+        /* if (!comandsToCheck.has(cliArgumentName)) {
             throw new DMissingOptionException(
                 "Unknown command `{this.root} {cliArgumentName}`. "~
                 "Run `{this.root} --help` to get the list of commands.".format(
                 cliArgumentName, comandsToCheck.keys()));
-        }
-        return cliArgumentName;
+        } */
+        /* return cliArgumentName; */
+        return null;
     }
 
-    /**
-     * Execute a Command class.
-     * Params:
-     * \UIM\Console\ICommand command The command to run.
-     */
-    protected int runCommand(ICommand command, Json[string] argumentsToInvoke, DConsoleIo aConsoleIo) {
-        try {
+    // Execute a Command class.
+    protected ulong runCommand(ICommand command, Json[string] argumentsToInvoke, DConsoleIo aConsoleIo) {
+        /* try {
             if (cast(IEventDispatcher) command) {
                 command.setEventManager(getEventManager());
             }
             return command.run(argumentsToInvoke, aConsoleIo);
         } catch (StopException anException) {
             return anException.code();
-        }
+        } */
+        return 0;
     }
 
     // The wrapper for creating command instances.
     protected ICommand createCommand(string classname) {
-        if (!this.factory) {
-            container = null;
-            if (cast(IContainerApplication) this.app) {
+        if (!_factory) {
+            /* container = null;
+            if (cast(IContainerApplication) _app) {
                 container = _app.getContainer();
             }
-            this.factory = new DCommandFactory(container);
+            _factory = new DCommandFactory(container); */
         }
-        return _factory.create(classname);
+        /* return _factory.create(classname); */
+        return null;
     }
 
     /**
@@ -258,14 +258,14 @@ class DCommandRunner { // }: IEventDispatcher {
      * Console commands and shells often need to generate URLs.
      */
     protected void loadRoutes() {
-        if (!(cast(IRoutingApplication) this.app)) {
+        /* if (!(cast(IRoutingApplication)_app)) {
             return;
-        }
-        builder = Router.createRouteBuilder("/");
-
-        _app.routes(builder);
-        if (cast(IPluginApplication) this.app) {
+        } */
+        
+        auto builder = Router.createRouteBuilder("/");
+        /* _app.routes(builder);
+        if (cast(IPluginApplication)_app) {
             _app.pluginRoutes(builder);
-        }
+        } */
     }
 }

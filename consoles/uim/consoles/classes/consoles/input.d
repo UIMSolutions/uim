@@ -38,11 +38,11 @@ class DConsoleInput {
     protected bool _canReadline;
 
     this(string streamLocation = "uim://stdin") {
-        bool _canReadline = (extension_loaded("readline") && streamLocation == "uim://stdin");
+        /* bool _canReadline = (extension_loaded("readline") && streamLocation == "uim://stdin");
         auto anInput = fopen(streamLocation, "rb");
         if (!anInput) {
             throw new DException("Cannot open handle `%s`".format(streamLocation));
-        }
+        } */
         _input = anInput;
     }
 
@@ -56,7 +56,7 @@ class DConsoleInput {
                 readline_add_history(line);
             } */
         } else {
-            line = fgets(_input);
+            /* line = fgets(_input); */
         }
 
         return !line.isEmpty

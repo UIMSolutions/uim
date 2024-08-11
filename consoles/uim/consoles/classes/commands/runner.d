@@ -262,7 +262,7 @@ class DCommandRunner { // }: IEventDispatcher {
             return;
         } */
         
-        auto builder = Router.createRouteBuilder("/");
+        /* auto builder = Router.createRouteBuilder("/"); */
         /* _app.routes(builder);
         if (cast(IPluginApplication)_app) {
             _app.pluginRoutes(builder);

@@ -43,14 +43,14 @@ class DConsoleInput {
         if (!anInput) {
             throw new DException("Cannot open handle `%s`".format(streamLocation));
         } */
-        _input = anInput;
+        /* _input = anInput; */
     }
 
     // Read a value from the stream
     string read() {
         string line;
         if (_canReadline) {
-            line = readline("");
+            /* line = readline(""); */
 
             /* if (!line.isEmpty) {
                 readline_add_history(line);

@@ -53,8 +53,9 @@ class DConsoleInputArgument : UIMObject {
 
     // Checks if this argument is equal to another argument.
     bool isEqualTo(DConsoleInputArgument argument) {
-        return _name() == argument.name() &&
-            this.usage() == argument.usage();
+        /* return _name() == argument.name() &&
+            this.usage() == argument.usage(); */
+            return false;
     }
 
     /**
@@ -67,7 +68,7 @@ class DConsoleInputArgument : UIMObject {
         if (helpName.length < width) {
             /* helpName = str_pad(helpName, width, " "); */
         }
-        optional = "";
+        auto optional = "";
         if (!isRequired()) {
             optional = " <comment>(optional)</comment>";
         }
@@ -95,12 +96,12 @@ class DConsoleInputArgument : UIMObject {
         if (_choices.isEmpty) {
             return true;
         }
-        if (!_choices.has(choiceToValidate)) {
+        /* if (!_choices.has(choiceToValidate)) {
             throw new DConsoleException(
                 "`%s` is not a valid value for `%s`. Please use one of `%s`"
                     .format(choiceToValidate, _name, _choices.join(", "))
            );
-        }
+        } */
         return true;
     }
 

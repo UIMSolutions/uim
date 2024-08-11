@@ -41,7 +41,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         } */
 
         auto anGrouped = null;
-        auto plugins = Plugin.loaded();
+        /* auto plugins = Plugin.loaded(); */
         myInvert.byKeyValue.each!((classname) {
             // preg_match("/^(.+)\\\\Command\\\\/",  classname, matches);
             // Probably not a useful class
@@ -94,11 +94,11 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     // Output relevant paths if defined
     protected void outputPaths(DConsoleIo aConsoleIo) {
         STRINGAA myPaths;
-        if (configuration.check("App.dir")) {
+        /* if (configuration.check("App.dir")) {
             /* string appPath = stripRight(configuration.read("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
             // Extra space is to align output
-            myPaths.set("app", " " ~ appPath); */
-        }
+            myPaths.set("app", " " ~ appPath); * /
+        } */
         /* if (defined("ROOT")) {
             myPaths.set("root", stripRight(ROOT, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
         }
@@ -129,8 +129,8 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     // Output as XML
     protected void asXml(DConsoleIo aConsoleIo, DCommand[string] commands) {
         STRINGAA names;
-        commands.byKeyValue
-            .each!(nameCommand => names[nameCommand.key] = nameCommand.value);
+        /* commands.byKeyValue
+            .each!(nameCommand => names[nameCommand.key] = nameCommand.value); */
 
 /*         asXml(aConsoleIo, names); */
     }

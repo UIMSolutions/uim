@@ -81,8 +81,8 @@ class DCommandScanner {
 
         string classnamePattern = "/Command\\.d$/";
         auto fs = new DFilesystem();
-        /** @var array<\SplFileInfo> files */
-        auto files = fs.find(somePath, classnamePattern);
+        /* /** @var array<\SplFileInfo> files * /
+        auto files = fs.find(somePath, classnamePattern); */
 
         Json[string] commands = null;
         /* foreach (fileInfo; files) {

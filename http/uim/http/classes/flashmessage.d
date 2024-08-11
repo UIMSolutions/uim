@@ -80,7 +80,7 @@ class DFlashMessage : UIMObject {
                                 return; }
                             }
                         }
-                        messages ~= createMap!(string, Json)
+                        messages ~= createJsonMap()
                             .set("message", messageToBeFlashed)
                             .set("key", options.get("key"))
                             .set("element", options.get("element"))

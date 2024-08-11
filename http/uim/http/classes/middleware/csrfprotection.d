@@ -34,7 +34,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *  FormHelper.
      *
      */
-    protected Json[sting] _config = createMap!(string, Json)
+    protected Json[sting] _config = createJsonMap()
         .set("cookieName", "csrfToken")
         .set("expiry", 0)
         .set("secure", false)

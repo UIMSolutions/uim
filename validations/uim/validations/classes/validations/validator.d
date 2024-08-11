@@ -685,7 +685,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "This field cannot be left empty")`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -704,7 +704,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be alphanumeric")`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -723,7 +723,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must not be alphanumeric")`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -742,7 +742,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be ASCII-alphanumeric")`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -761,7 +761,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must not be ASCII-alphanumeric")`;
         }
 
-        Json[string] extraData = createMap!(string, Json)
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -795,7 +795,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     ]);
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -840,7 +840,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     )`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -864,7 +864,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be greater than '{0}'", valueToCompare)`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -885,7 +885,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be greater than or equal to '{0}'", valueToCompare)`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -913,7 +913,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be less than '{0}'", valueToCompare)`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -937,7 +937,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be less than or equal to '%s'".format(valueToCompare);
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -964,7 +964,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     valueToCompare)
                 : `__d("uim", "The provided value must be equal to '{0}'", valueToCompare)`;
         }
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -990,7 +990,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must not be equal to '{0}'", value)`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1019,7 +1019,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be same as '{0}'", secondField)`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1047,7 +1047,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must not be same as '{0}'", secondField)`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1082,7 +1082,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1115,7 +1115,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1146,7 +1146,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1178,7 +1178,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1209,7 +1209,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1242,7 +1242,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1275,7 +1275,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1304,7 +1304,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1323,7 +1323,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be a time")`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1349,7 +1349,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be a localized time, date or date and time")`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1368,7 +1368,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be a boolean")`;
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1404,7 +1404,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             }
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1427,7 +1427,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? "The provided value must be an e-mail address"
                 : `__d("uim", "The provided value must be an e-mail address")`;
         }
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1461,7 +1461,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
         }
         
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1486,7 +1486,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1505,7 +1505,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be an IPv4 address";
 
         }
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1523,7 +1523,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be an IPv6 address")`
                 : "The provided value must be an IPv6 address";
         }
-        /*        Json[string] extraData = createMap!(string, Json)()
+        /*        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1542,7 +1542,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be at least '%s' characters long".format(
                     requiredMinLength);
         }
-        /*        Json[string] extraData = createMap!(string, Json)()
+        /*        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1579,7 +1579,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be at most '%s' characters long".format(allowedMaxlength);
         }
 
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1597,7 +1597,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be at most '%s' bytes long".format(allowedMaxlength);
         }
 
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1615,7 +1615,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be numeric";
 
         }
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1633,7 +1633,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be a natural number")`
                 : "The provided value must be a natural number";
         }
-        /*        Json[string] extraData = createMap!(string, Json)()
+        /*        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1651,7 +1651,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be a non-negative integer")`
                 : "The provided value must be a non-negative integer";
         }
-        /*        Json[string] extraData = createMap!(string, Json)()
+        /*        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1678,7 +1678,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     lowerBound, upperBound
                 )` : "The provided value must be between '%s' and '%s', inclusively".format(lowerBound, upperBound);
         }
-        /*        Json[string] extraData = createMap!(string, Json)()
+        /*        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1700,7 +1700,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be a URL";
         }
 
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1721,7 +1721,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be a URL with protocol";
         }
 
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1743,7 +1743,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 )`;
         }
 
-        /*        Json[string] extraData = createMap!(string, Json)()
+        /*        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1761,7 +1761,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be a UUID")`;
         }
 
-        /*        Json[string] extraData = createMap!(string, Json)()
+        /*        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1783,7 +1783,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be an uploaded file")`
                 : "The provided value must be an uploaded file";
         }
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1805,7 +1805,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be a latitude/longitude coordinate")`
                 : "The provided value must be a latitude/longitude coordinate";
         }
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1822,7 +1822,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must be a latitude")`
                 : "The provided value must be a latitude";
         }
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1842,7 +1842,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
         }
 
-        /*        Json[string] extraData = createMap!(string, Json)()
+        /*        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1860,7 +1860,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be ASCII bytes only";
         }
 
-        /*        Json[string] extraData = createMap!(string, Json)()
+        /*        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1878,7 +1878,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be UTF-8 bytes only";
         }
 
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1901,7 +1901,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be 3 and 4 byte UTF-8 sequences only")`;
         }
 
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1919,7 +1919,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be an integer";
         }
 
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1937,7 +1937,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : `__d("uim", "The provided value must be an array")`;
         }
 
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1955,7 +1955,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be scalar";
         }
 
-        /* Json[string] extraData = createMap!(string, Json)()
+        /* Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1973,7 +1973,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be a hex color";
         }
 
-        /*        Json[string] extraData = createMap!(string, Json)()
+        /*        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -1997,7 +1997,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must be a set of multiple options";
         }
 
-        /*        Json[string] extraData = createMap!(string, Json)()
+        /*        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -2021,7 +2021,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 : "The provided value must have at least '%s' elements".format(numberOfElements);
 
         }
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -2047,7 +2047,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? `__d("uim", "The provided value must have at most '{0}' elements", mycount)`
                 : "The provided value must have at most '%s' elements".format(countElements);
         }
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;
@@ -2090,7 +2090,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 ? "The provided value must match against the pattern '%s'".format(regex)
                 : __d("uim", "The provided value must match against the pattern '{0}'", regex);
         }
-        Json[string] extraData = createMap!(string, Json)()
+        Json[string] extraData = createJsonMap()
             .set("on", mywhen)
             .set("message", errorMessage)
             .filterValues;

@@ -86,7 +86,7 @@ mixin template TValidatorAware() {
         auto mymethod = "validation" ~ capitalize(validationSetName);
         if (!this.validationMethodExists(mymethod)) {
             auto mymessage = "The `%s.%s()` validation method does not exists.".format("class", mymethod);
-            throw new DInvalidArgumentException(mymessage);
+            /* throw new DInvalidArgumentException(mymessage); */
         }
         
         /* DValidator result = mymethod(new _validatorClass());

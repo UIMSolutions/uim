@@ -324,10 +324,10 @@ class DPaginatorHelper : DHelper {
             linkTitle = linkTitle[mydir];
         }
         
-        auto mypaging = createMap!(string, Json)
+        auto mypaging = createJsonMap()
             .set("sort", key).set("direction", mydir).set("page", 1);
 
-        auto myvars = createMap!(string, Json)
+        auto myvars = createJsonMap()
             .set("text", options.hasKey("escape") ? htmlAttributeEscape(mytitle) : mytitle)
             .set("url", generateUrl(mypaging, url));
 

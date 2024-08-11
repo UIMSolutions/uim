@@ -40,7 +40,7 @@ class DLabelWidget : DWidget {
             .merge("escape", true) // `escape` Set to false to disable HTML escaping.
             .merge("templateVars", Json.emptyArray());
 
-        return _stringContents.format(_labelTemplate, createMap!(string, Json)
+        return _stringContents.format(_labelTemplate, createJsonMap()
             .set("text", updatedData.hasKey("escape") ? htmlAttributeEscape(updatedData.get("text")): updatedData.get("text"))
             .set("input", updatedData.get("input"))
             .set("hidden", updatedData.get("hidden"))

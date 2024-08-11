@@ -43,7 +43,8 @@ class DHelperRegistry { // }: ObjectRegistry {
      * Part of the template method for {@link \UIM\Core\ObjectRegistry.load()}.
      */
     protected string _resolveclassname(string classname) {
-        return App.classname(classname, "Command/Helper", "Helper");
+        /* return App.classname(classname, "Command/Helper", "Helper"); */
+        return null;
     }
 
     /**
@@ -53,10 +54,10 @@ class DHelperRegistry { // }: ObjectRegistry {
      * and UIM\Core\ObjectRegistry.unload()
      */
     protected void _throwMissingClassError(string classname, string pluginName) {
-        throw new DMissingHelperException([
-            "class": classname,
-            "plugin": pluginName,
-        ]);
+        throw new DMissingHelperException(createLMap
+            .set("class", classname)
+            .set("plugin", pluginame)
+        );
     }
 
     /**

@@ -374,7 +374,7 @@ V[K] set(K, V)(V[K] values, K[] keys, V value = Null!V) {
   return values;
 }
 
-V[K] set(K, V)(V[K] values, K key, V value = Null!V) {
+V[K] set(K, V)(V[K] values, K key, V value = Null!V) if (!isType!Json) {
   values[key] = value;
   return values;
 }

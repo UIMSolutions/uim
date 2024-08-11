@@ -26,8 +26,8 @@ class DStubConsoleInput : DConsoleInput {
     override string read() {
         _currentIndex += 1;
 
-        if (!_replies.hasKey(_currentIndex)) {
-            auto total = count(this.replies);
+        /* if (!_replies.hasKey(_currentIndex)) {
+            auto total = count(_replies);
             auto formatter = new NumberFormatters("en", NumberFormatters.ORDINAL);
             auto nth = formatter.format(_currentIndex + 1);
             auto repliesText = replies.join(", ");
@@ -37,7 +37,7 @@ class DStubConsoleInput : DConsoleInput {
                 "only {total} %s replies were set.\nThe provided replies are: {repliesText} %s")
                 .format(nth, total, repliesText);
             throw new DMissingConsoleInputException(message);
-        }
+        } */
         return _replies[_currentIndex];
     }
     

@@ -73,7 +73,7 @@ class DConsoleInputArgument : UIMObject {
             optional = " <comment>(optional)</comment>";
         }
         if (_choices) {
-            optional ~= " <comment>(choices: %s)</comment>".format(join("|", _choices));
+            optional ~= " <comment>(choices: %s)</comment>".format(_choices.join("|"));
         }
         return "%s%s%s".format(helpName, _help, optional);
     }

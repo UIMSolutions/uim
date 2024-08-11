@@ -134,11 +134,11 @@ class DConsoleOutput {
      * resource|string astream The identifier of the stream to write output to.
      */
     this(string streamIdentifier = "uim://stdout") {
-        auto fileStream = fopen(streamIdentifier, "wb");
+        /* auto fileStream = fopen(streamIdentifier, "wb");
         if (!isResource(fileStream)) {
             throw new DConsoleException("Invalid stream in constructor. It is not a valid resource.");
         }
-       _output = fileStream;
+       _output = fileStream; */
 /* 
         if (
             (
@@ -165,11 +165,13 @@ class DConsoleOutput {
      * are passed, outputs just a newline.
      */
     int write(string[] messages, int numberOfLines = 1) {
-        return write(messages.join(LF), numberOfLines);
+        /* return write(messages.join(LF), numberOfLines); */
+        return 0;
     }
 
     int write(string message, int numberOfLines = 1) {
-        return _write(this.styleText(message ~ str_repeat(LF, numberOfLines)));
+       /*  return _write(this.styleText(message ~ str_repeat(LF, numberOfLines))); */
+       return 0; 
     }
     
     // Apply styling to text.
@@ -190,10 +192,11 @@ class DConsoleOutput {
                 return output;
             } */
         }
-        tags = _styles.keys.join("|");
-        output = preg_replace("#</?(?:" ~ tags ~ ")>#", "", stylingText);
-
-        return output ? output : stylingText;
+        /* auto tags = _styles.keys.join("|");
+        auto output = preg_replace("#</?(?:" ~ tags ~ ")>#", "", stylingText);
+ */
+        /* return output ? output : stylingText; */
+        return null; 
     }
     
     /**
@@ -225,7 +228,8 @@ class DConsoleOutput {
     
     // Writes a message to the output stream.
     protected int _write(string messageToWrite) {
-        return to!int(fwrite(_output, messageToWrite));
+       /*  return to!int(fwrite(_output, messageToWrite)); */
+       return 0; 
     }
     
     // Gets the current styles offered
@@ -249,11 +253,11 @@ class DConsoleOutput {
      * ```
      */
     void setStyle(string styleToSet, Json[string] styleDefinition) {
-        if (!styleDefinition) {
+        /* if (!styleDefinition) {
             _styles.remove(styleToSet);
             return;
         }
-        _styles[styleToSet] = styleDefinition;
+        _styles[styleToSet] = styleDefinition; */
     }
     
     // Gets all the style definitions.
@@ -268,17 +272,17 @@ class DConsoleOutput {
     
     // Set the output type on how formatting tags are treated.
     void setOutputAs(int outputType) {
-        if (!isIn(outputType, [RAW, PLAIN, COLOR], true)) {
+        /* if (!isIn(outputType, [RAW, PLAIN, COLOR], true)) {
             throw new DInvalidArgumentException("Invalid output type `%s`.".format(outputType));
-        }
+        } */
        _outputAs = outputType;
     }
     
     // Clean up and close handles
-    auto __destruct() {
+    void __destruct() {
         /** @psalm-suppress RedundantCondition */
-        if (isResource(_output)) {
+        /* if (isResource(_output)) {
             fclose(_output);
-        }
+        } */
     } 
 }

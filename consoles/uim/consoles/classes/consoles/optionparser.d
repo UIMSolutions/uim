@@ -167,13 +167,8 @@ class DConsoleOptionParser {
     }
     // #endregion command
 
-    /**
-     * Construct an OptionParser so you can define its behavior
-     * Params:
-     * string acommand The command name this parser is for. The command name is used for generating help.
-     */
-    this(string newCommand = "", bool isVerboseAndQuiet = true) {
-        setCommand(command);
+    this(string commandName = "", bool isVerboseAndQuiet = true) {
+        /* setCommand(command);
 
         addOption("help", createJsonMap()
                 .set("short", "h")
@@ -190,7 +185,7 @@ class DConsoleOptionParser {
                     .set("short", "q")
                     .set("help", "Enable quiet output.")
                     .set("boolean", true));
-        }
+        } */
     }
 
     // Static factory method for creating new DOptionParsers so you can chain methods off of them.
@@ -364,11 +359,11 @@ class DConsoleOptionParser {
      */
     void addArguments(Json[string] someArguments) {
         foreach (name, params; someArguments) {
-            if (cast(DConsoleInputArgument) params) {
+            /* if (cast(DConsoleInputArgument) params) {
                 name = params;
                 params = null;
             }
-            this.addArgument(name, params);
+            this.addArgument(name, params); */
         }
     }
 
@@ -388,7 +383,8 @@ class DConsoleOptionParser {
 
     // Gets the arguments defined in the parser.
     DConsoleInputArgument[] arguments() {
-        return _args;
+        // return _args;
+        return null;
     }
 
     // Get the list of argument names.
@@ -408,7 +404,7 @@ class DConsoleOptionParser {
      * Json[string] arguments Array of args (arguments) to parse.
      */
     Json[string] parse(Json[string] argToParse, DConsoleIo aConsoleIo = null) {
-        auto params = someArguments = null;
+        /* auto params = someArguments = null;
         _tokens = argToParse;
 
         bool afterDoubleDash = false;
@@ -475,7 +471,8 @@ class DConsoleOptionParser {
                 );
             }
         });
-        return [params, someArguments];
+        return [params, someArguments]; */
+        return null; 
     }
 
     /**
@@ -516,7 +513,7 @@ class DConsoleOptionParser {
      * they will be shifted onto the token stack and parsed individually.
      */
     protected Json[string] _parseShortOption(string optionToParse, Json[string] paramsToAppen) {
-        string aKey = subString(optionToParse, 1);
+        /* string aKey = subString(optionToParse, 1);
         if (aKey.length > 1) {
             string[] flags = aKey.split;
             aKey = flags[0];
@@ -535,7 +532,8 @@ class DConsoleOptionParser {
         }
 
         auto name = _shortOptions.getString(aKey);
-        return _parseOption(name, paramsToAppen);
+        return _parseOption(name, paramsToAppen); */
+        return null; 
     }
 
     /**
@@ -545,7 +543,7 @@ class DConsoleOptionParser {
      * returns Params with option added in.
      */
     protected Json[string] _parseOption(string nameToParse, Json[string] params) {
-        if (!_options.hasKey(nameToParse)) {
+        /* if (!_options.hasKey(nameToParse)) {
             throw new DMissingOptionException(
                 "Unknown option `%s`.".format(nameToParse), nameToParse, _options.keys
             );
@@ -569,7 +567,8 @@ class DConsoleOptionParser {
         } else {
             params.set(nameToParse, aValue);
         }
-        return params;
+        return params; */
+        return null; 
     }
 
     // Check to see if name has an option (short/long) defined for it.
@@ -588,7 +587,7 @@ class DConsoleOptionParser {
      * and that the argument is a valid choice.
      */
     protected string[] _parseArg(string argumentToAppend, Json[string] someArguments) {
-        if (_args.isEmpty) {
+        /* if (_args.isEmpty) {
             someArguments ~= argumentToAppend;
             return someArguments;
         }
@@ -604,11 +603,13 @@ class DConsoleOptionParser {
         _args[next].validChoice(argument);
         someArguments ~= argument;
 
-        return someArguments;
+        return someArguments; */
+        return null; 
     }
 
     // Find the next token in the arguments set.
     protected string _nextToken() {
-        return _tokens[0] ? _tokens[0] : "";
+        /* return _tokens[0] ? _tokens[0] : ""; */
+        return null; 
     }
 }

@@ -13,7 +13,8 @@ class DContentsContain : UIMObject /* DContentsBase */ {
     
     // Assertion message
     override string toString() {
-        return "is in %s," ~ D_EOL ~ "actual result:" ~ D_EOL ~ "`%s`"
-        .format(_output, _contents);
+        /* return "is in %s," ~ D_EOL ~ "actual result:" ~ D_EOL ~ "`%s`"
+        .format(_output, _contents); */
+        return null;
     } 
 } 

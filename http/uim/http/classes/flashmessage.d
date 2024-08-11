@@ -66,11 +66,11 @@ class DFlashMessage : UIMObject {
             options.set("params.escape", options.get("escape"));
         }
         [plugin, anElement] = pluginSplit(options.get("element"));
-        if (options.hasKey("plugin"]) {
+        if (options.hasKey("plugin")) {
                 plugin = options.get("plugin"); }
 
-                options.get("element"] = plugin
-                    ? plugin ~ ".flash/" ~ anElement : "flash/" ~ anElement; auto messages = null;
+                options.set("element", plugin
+                    ? plugin ~ ".flash/" ~ anElement : "flash/" ~ anElement); auto messages = null;
                 if (!options.hasKey("clear")) {
                     messages = (array) _session.read(
                         "Flash." ~ options.getString("key")); }

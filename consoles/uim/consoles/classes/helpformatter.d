@@ -105,7 +105,7 @@ class DHelpFormatter : UIMObject {
      * be indicated with []
      */
     protected string _generateUsage() {
-        string[] usage = [_alias ~ " " ~ _parser.getCommand()];
+        /* string[] usage = [_alias ~ " " ~ _parser.getCommand()];
         auto options = _parser.options()
             .map!(options => option.usage())
             .array;
@@ -123,7 +123,8 @@ class DHelpFormatter : UIMObject {
             someArguments = ["[arguments]"];
         }
         
-        return chain(usage, someArguments).join(" ");
+        return chain(usage, someArguments).join(" "); */
+        return null; 
     }
     
     /**

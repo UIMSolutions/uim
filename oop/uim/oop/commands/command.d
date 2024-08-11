@@ -5,6 +5,7 @@ import uim.oop;
 
 // Base class for commands
 class DCommand : UIMObject, ICommand {
+    mixin(CommandThis!(""));
 /*    mixin TLocatorAware;
     mixin TLog; */
 

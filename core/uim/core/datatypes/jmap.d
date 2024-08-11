@@ -553,19 +553,19 @@ unittest {
 unittest {
   writeln("--- JMap all");
 
-  writeln(createMap!(string, Json).set("x", "X"));
-  writeln(createMap!(string, Json).set("x", "X").set("x", "X"));
-  writeln(createMap!(string, Json).set("x", "X").set("y", "Y"));
-  writeln(createMap!(string, Json).set("bool", true));
-  writeln(createMap!(string, Json).set("bool", true).set("x", "X"));
+  writeln(createJsonMap().set("x", "X"));
+  writeln(createJsonMap().set("x", "X").set("x", "X"));
+  writeln(createJsonMap().set("x", "X").set("y", "Y"));
+  writeln(createJsonMap().set("bool", true));
+  writeln(createJsonMap().set("bool", true).set("x", "X"));
 
-  writeln(createMap!(string, Json).set("x", Json("X")));
-  writeln(createMap!(string, Json).set("x", Json("X")).set("x", Json("X")));
-  writeln(createMap!(string, Json).set("x", Json("X")).set("y", "Y"));
-  writeln(createMap!(string, Json).set("bool", Json(true)));
-  writeln(createMap!(string, Json).set("bool", Json(true)).set("x", Json("X")));
+  writeln(createJsonMap().set("x", Json("X")));
+  writeln(createJsonMap().set("x", Json("X")).set("x", Json("X")));
+  writeln(createJsonMap().set("x", Json("X")).set("y", "Y"));
+  writeln(createJsonMap().set("bool", Json(true)));
+  writeln(createJsonMap().set("bool", Json(true)).set("x", Json("X")));
 
-  auto testMap = createMap!(string, Json).set("x", "X");
+  auto testMap = createJsonMap().set("x", "X");
   writeln(testMap.set("x", "X"));
   writeln(testMap.set("x", "X").set("x", "X"));
   writeln(testMap.set("x", "X").set("y", "Y"));
@@ -578,4 +578,9 @@ unittest {
   writeln(testMap);
   writeln(testMap.merge("boolx", false).merge("longx", 2).merge("doublex", 2.1));
   writeln(testMap);
+}
+
+Json[string] createJsonMap(Json[string] init = null) {
+  Json[string] created = init;
+  return created;
 }

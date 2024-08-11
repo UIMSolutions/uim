@@ -95,7 +95,7 @@ class DConsoleOptionParser {
     // #endregion description
 
     void addArgument(string argName, Json[string] params = null) {
-        Json[string] defaultOptions = createMap!(string, Json)
+        Json[string] defaultOptions = createJsonMap()
             .set("name", Json(argName))
             .set("help", "")
             .set("index", LongData(count(_args)))
@@ -175,18 +175,18 @@ class DConsoleOptionParser {
     this(string newCommand = "", bool isVerboseAndQuiet = true) {
         setCommand(command);
 
-        addOption("help", createMap!(string, Json)
+        addOption("help", createJsonMap()
                 .set("short", "h")
                 .set("help", "Display this help.")
                 .set("boolean", true));
 
         if (isVerboseAndQuiet) {
-            addOption("verbose", createMap!(string, Json)
+            addOption("verbose", createJsonMap()
                     .set("short", "v")
                     .set("help", "Enable verbose output.")
                     .set("boolean", true));
 
-            addOption("quiet", createMap!(string, Json)
+            addOption("quiet", createJsonMap()
                     .set("short", "q")
                     .set("help", "Enable quiet output.")
                     .set("boolean", true));
@@ -194,10 +194,10 @@ class DConsoleOptionParser {
     }
 
     // Static factory method for creating new DOptionParsers so you can chain methods off of them.
-    static auto create(string commandName, bool useDefaultOptions = true) {
-        /* return new static(commandName, useDefaultOptions); */
+    /* static auto create(string commandName, bool useDefaultOptions = true) {
+        /* return new static(commandName, useDefaultOptions); * /
         return this;
-    }
+    } */
 
     /**
      * Build a parser from an array. Uses an array like
@@ -238,9 +238,9 @@ class DConsoleOptionParser {
     // Returns an array representation of this parser.
     Json[string] toArray() {
         return [
-            "command": Json(_command),
-            "arguments": Json(_args),
-            "options": Json(_options),
+            /* "command": Json(_command), */
+            /* "arguments": Json(_args), */
+            /* "options": Json(_options), */
             "description": Json(_description),
             "epilog": Json(_epilog),
         ];
@@ -252,11 +252,11 @@ class DConsoleOptionParser {
      * \UIM\Console\DConsoleOptionParser buildOptionParser|array spec DConsoleOptionParser buildOptionParser or spec to merge with.
      */
     void merge(DConsoleOptionParser buildOptionParser) {
-        merge(spec.toJString());
+       /*  merge(spec.toJString()); */
     }
 
     void merge(Json[string] spec) {
-        if (!spec.isEmpty("arguments")) {
+        /* if (!spec.isEmpty("arguments")) {
             addArguments(spec["arguments"]);
         }
         if (!spec.isEmpty("options")) {
@@ -267,7 +267,7 @@ class DConsoleOptionParser {
         }
         if (!spec.isEmpty("epilog")) {
             setEpilog(spec["epilog"]);
-        }
+        } */
     }
 
     /**
@@ -294,7 +294,7 @@ class DConsoleOptionParser {
      * options An array of parameters that define the behavior of the option
      */
     void addOption(string optionName, Json[string] behaviorOptions = null) {
-        auto defaultValues = createMap!(string, Json)
+        auto defaultValues = createJsonMap()
             .set("short", "")
             .set("help", "")
             .set("default", Json(null))
@@ -306,10 +306,10 @@ class DConsoleOptionParser {
 
         behaviorOptions = behaviorOptions.set(defaultValues);
 
-        auto inputOption = new DConsoleInputOption(
+        /* auto inputOption = new DConsoleInputOption(
             name,
             behaviorOptions.getMap("short", "help", "boolean", "default", "choices", "multiple", "required", "prompt")
-        );
+        ); */
     }
 
     // TODO 
@@ -329,7 +329,7 @@ class DConsoleOptionParser {
 
     // Remove an option from the option parser.
     void removeOption(string optionName) {
-        _options.remove(optionName);
+        /* _options.remove(optionName); */
     }
 
     /**

@@ -72,15 +72,15 @@ class DConsoleIo {
         DConsoleInput input = null,
         DHelperRegistry helpers = null
     ) {
-        _out = output ? result : new DConsoleOutput("uim://stdout");
+        /* _out = output ? result : new DConsoleOutput("uim://stdout"); */
         _err = errOutput.ifNull(new DConsoleOutput("uim://stderr"));
         _in = input.ifNull(new DConsoleInput("uim://stdin"));
         _helpers = helpers.ifNull(new DHelperRegistry());
-        _helpers.setIo(this);
+        /* _helpers.setIo(this); */
     }
 
     void setInteractive(bool aValue) {
-        _interactive = aValue;
+        /* _interactive = aValue; */
     }
 
     // Get/set the current output level.
@@ -92,21 +92,25 @@ class DConsoleIo {
     }
 
     // Output at the verbose level.
-    int verbose(string[] messages...) {
-        return verbose(messages.dup);
+    ulong verbose(string[] messages...) {
+        /* return verbose(messages.dup); */
+        return 0;
     }
 
-    int verbose(string[] messages, int newLinesToAppend = 1) {
-        return _writeln(messages, newLinesToAppend, VERBOSE);
+    ulong verbose(string[] messages, int newLinesToAppend = 1) {
+        /* return _writeln(messages, newLinesToAppend, VERBOSE); */
+        return 0;
     }
 
     // Output at all levels.
-    int quiet(string[] outputMessages...) {
-        return quiet(outputMessages.dup);
+    ulong quiet(string[] outputMessages...) {
+        // return quiet(outputMessages.dup);
+        return 0;
     }
 
-    int quiet(string[] outputMessages, int newLinesToAppend = 1) {
-        return _writeln(outputMessages, newLinesToAppend, QUIET);
+    ulong quiet(string[] outputMessages, int newLinesToAppend = 1) {
+        /* return _writeln(outputMessages, newLinesToAppend, QUIET); */
+        return 0;
     }
 
     /**
@@ -132,32 +136,36 @@ class DConsoleIo {
 
     // Convenience method for out() that wraps message between <info> tag
     int info(string[] outputMessages...) {
-        return info(ouztputMessages.dup);
+        // return info(outputMessages.dup);
+        return 0;
     }
 
-    int info(string[] outputMessages, int newLinesToAppend = 1, int outputLevel = NORMAL) {
+    int info(string[] messages, int newLinesToAppend = 1, int outputLevel = NORMAL) {
         string messageType = "info";
-        auto myOutputMessages = wrapMessageWithType(messageType, outputMessages);
+        auto outputMessages = wrapMessageWithType(messageType, messages);
 
-        return _writeln(myOutputMessages, newLinesToAppend, outputLevel);
+        // return _writeln(outputMessages, newLinesToAppend, outputLevel);
+        return 0;
     }
 
     // Convenience method for out() that wraps message between <comment> tag
     int comment(string[] outputMessages...) {
-        return comment(outputMessages.dup);
+        /* return comment(outputMessages.dup); */
+        return 0;
     }
 
     int comment(string[] outputMessages, int newLinesToAppendToAppend = 1, int outputLevel = NORMAL) {
-        auto message = wrapMessageWithType("comment", message);
-
-        return _writeln(message, newLinesToAppend, outputLevel);
+        /* auto message = wrapMessageWithType("comment", outputMessages);
+        return _writeln(message, newLinesToAppend, outputLevel); */
+        return 0;
     }
 
     // Convenience method for writeErrorMessages() that wraps message between <warning> tag
     int warning(string[] outputMessages, int newLinesToAppend = 1) {
-        auto message = wrapMessageWithType("warning", outputMessages);
+/*         auto message = wrapMessageWithType("warning", outputMessages);
 
-        return _writeErrorMessages(message, newLinesToAppend);
+        return _writeErrorMessages(message, newLinesToAppend); */
+        return 0;
     }
 
     /**
@@ -165,36 +173,38 @@ class DConsoleIo {
      * Params:
      * string[]|string amessage A string or an array of strings to output
      */
-    int error(string[] messagesToOutput, int newLinesToAppend = 1) {
-        string messageType = "error";
-        auto message = wrapMessageWithType(messageType, messagesToOutput);
+    int error(string[] message, int newLinesToAppend = 1) {
+        /* string messageType = "error";
+        message = wrapMessageWithType(messageType, message); */
 
-        return _writeErrorMessages(message, newLinesToAppend);
+        // return _writeErrorMessages(message, newLinesToAppend);
+        return 0;
     }
 
     // Convenience method for out() that wraps message between <success> tag
-    int success(string[] messagesToOutput, int newLinesToAppend = 1, int outputLevel = NORMAL) {
+    int success(string[] message, int newLinesToAppend = 1, int outputLevel = NORMAL) {
         string messageType = "success";
         message = wrapMessageWithType(messageType, message);
 
-        return _writeln(message, newLinesToAppend, outputLevel);
+        // return _writeln(message, newLinesToAppend, outputLevel);
+        return 0;
     }
 
     // Halts the the current process with a StopException.
     void abort(string errorMessage, int errorCode /* = DCommand.CODE_ERROR */) {
-        error(errorMessage);
+        // error(errorMessage);
 
-        throw new DStopException(errorMessage, errorCode);
+        // throw new DStopException(errorMessage, errorCode);
     }
 
     // Wraps a message with a given message type, e.g. <warning>
-    protected string[] wrapMessageWithType(string amessageType, string[] messagesToWrap) {
+    protected string[] wrapMessageWithType(string messageType, string[] messages) {
         return messages
             .map!(message => wrapMessageWithType(messageType, message))
             .array;
     }
 
-    protected string wrapMessageWithType(string amessageType, string message) {
+    protected string wrapMessageWithType(string messageType, string message) {
         return "<%s>%s</%s>".format(messageType, message, messageType);
     }
 
@@ -212,14 +222,14 @@ class DConsoleIo {
         bytesToOverwrite = bytesToOverwrite ? bytesToOverwrite : _lastWritten;
 
         // Output backspaces.
-        writeln(str_repeat("\x08", bytesToOverwrite), 0);
+        // writeln(str_repeat("\x08", bytesToOverwrite), 0);
 
-        auto newBytes = /* (int) */ writeln(message, 0);
+        auto newBytes = 0; ///* (int) */ writeln(message, 0);
 
         // Fill any remaining bytes with spaces.
         auto fill = bytesToOverwrite - newBytes;
         if (fill > 0) {
-            writeln(str_repeat(" ", fill), 0);
+            // writeln(str_repeat(" ", fill), 0);
         }
         if (newLinesToAppend) {
             writeln(this.nl(newLinesToAppend), 0);
@@ -236,26 +246,25 @@ class DConsoleIo {
      * are passed outputs just a newline.
      */
     int writeErrorMessages(string[] messages...) {
-        return writeErrorMessages(messages.dup);
+        // return writeErrorMessages(messages.dup);
+        return 0;
     }
 
     int writeErrorMessages(string[] messages, int newLinesToAppend = 1) {
-        return _err.write(messages, newLinesToAppend);
+        // return _err.write(messages, newLinesToAppend);
+        return 0;
     }
 
-    /**
-     * Returns a single or multiple linefeeds sequences.
-     * Params:
-     * linefeedMultiplier = Number of times the linefeed sequence should be repeated
-     */
+    // Returns a single or multiple linefeeds sequences.
     string nl(int linefeedMultiplier = 1) {
-        return str_repeat(DConsoleOutput.LF, linefeedMultiplier);
+        // return str_repeat(DConsoleOutput.LF, linefeedMultiplier);
+        return null;
     }
 
     // Outputs a series of minus characters to the standard output, acts as a visual separator.
     void hr(int newLinesToAppend = 0, int widthOfLine = 79) {
         writeln("", newLinesToAppend);
-        writeln(str_repeat("-", widthOfLine));
+        // writeln(str_repeat("-", widthOfLine));
         writeln("", newLinesToAppend);
     }
 
@@ -301,29 +310,29 @@ class DConsoleIo {
 
     string askChoice(string aprompt, string[] choices, string defaultValue = null) {
         string printChoices = "(" ~ choices.join("/") ~ ")";
-        choices = chain(choices.lower, choices.upper, choices);
+        // choices = chain(choices.lower, choices.upper, choices);
 
         string anIn = "";
-        while (anIn.isEmpty || !anIn.isIn(choices)) {
-            anIn = _getInput(prompt, printOptions, defaultValue);
-        }
+        /* while (anIn.isEmpty || !anIn.isIn(choices)) {
+            // anIn = _getInput(prompt, printOptions, defaultValue);
+        } */
         return anIn;
     }
 
     // Prompts the user for input, and returns it.
-    protected string _getInput(string promptText, string options, string defaultInputValue) {
-        if (!_interactive) {
-            return to!string(defaultInputValue);
-        }
+    protected string _getInput(string promptText, string options, string defaultValue) {
+        /* if (!_interactive) {
+            return to!string(defaultValue);
+        } */
 
-        string optionsText = isSet(options)
+        string optionsText = !options.isEmpty
             ? " options " : "";
 
-        string defaultText = !defaultInputValue.isNull ? "[%s] ".format(defaultInputValue) : "";
+        string defaultText = !defaultValue.isNull ? "[%s] ".format(defaultValue) : "";
         // _out.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
         string result = _in.read();
 
-        string result = !result.isNull
+        result = !result.isNull
             ? result.strip : "";
 
         return !result.isEmpty
@@ -347,7 +356,7 @@ class DConsoleIo {
      * QUIET disables notice, info and debug logs.
      */
     void setLoggers(bool enable) {
-        Log.drop("stdout");
+        /* Log.drop("stdout");
         Log.drop("stderr");
         if (enable == false) {
             return;
@@ -359,24 +368,23 @@ class DConsoleIo {
             if (cast(DConsoleLog) log) {
                 return;
             }
-        });
+        }); */
 
         string[] outLevels = ["notice", "info"];
         if (enable == VERBOSE || enable == true) {
             outLevels ~= "debug";
         }
         if (enable != QUIET) {
-            stdout = new DConsoleLog([
+            /* stdout = new DConsoleLog([
                     "types": outLevels,
                     "stream": _out,
                 ]);
-            Log.configuration.set("stdout", ["engine": stdout]);
+            Log.configuration.set("stdout", ["engine": stdout]); */
         }
-        stderr = new DConsoleLog([
-            "types": ["emergency", "alert", "critical", "error", "warning"],
-            "stream": _err,
-        ]);
-        Log.configuration.set("stderr", ["engine": stderr]);
+        /* auto stderr = new DConsoleLog(createmap!(string, Json)
+            .set("types", ["emergency", "alert", "critical", "error", "warning"])
+            .set("stream", _err); */
+        // Log.configuration.set("stderr", ["engine": stderr]);
     }
 
     /**
@@ -405,10 +413,10 @@ class DConsoleIo {
      * be coerced to true and all files will be overwritten.
      */
     bool createFile(string fileCreationPath, string contentsForFile, bool shouldOverwrite = false) {
-        writeln();
-        shouldOverwrite = shouldOverwrite || _forceOverwrite;
+        /* writeln();
+        shouldOverwrite = shouldOverwrite || _forceOverwrite; */
 
-        if (filehasKey(fileCreationPath) && shouldOverwrite == false) {
+/*         if (filehasKey(fileCreationPath) && shouldOverwrite == false) {
             warning("File `{fileCreationPath}` exists");
             aKey = askChoice("Do you want to overwrite?", [
                     "y", "n", "a", "q"
@@ -430,7 +438,7 @@ class DConsoleIo {
         } else {
             writeln("Creating file {fileCreationPath}");
         }
-        /* try {
+ */        /* try {
             // Create the directory using the current user permissions.
             directory = dirname(fileCreationPath);
             if (!filehasKey(directory)) {
@@ -442,14 +450,14 @@ class DConsoleIo {
 
             return false;
         } */
-        file.rewind();
-        file.fwrite(contentsForFile);
-        if (filehasKey(fileCreationPath)) {
+        /* file.rewind();
+        file.fwrite(contentsForFile); */
+        /* if (filehasKey(fileCreationPath)) {
             writeln("<success>Wrote</success> `{fileCreationPath}`");
 
             return true;
-        }
-        error("Could not write to `{fileCreationPath}`.", 2);
+        } */
+        /* error("Could not write to `{fileCreationPath}`.", 2); */
         return false;
     }
 }

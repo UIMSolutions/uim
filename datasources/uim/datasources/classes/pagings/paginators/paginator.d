@@ -296,7 +296,7 @@ class DPaginator : IPaginator {
             directionDefault = currentValue(defaults.get("order"));
         }
 
-        /* return paginatorData.set(createMap!(string, Json)
+        /* return paginatorData.set(createJsonMap()
             .set("sort", pagingParams.get("options.sort"))
             .set("direction", (pagingParams.hasKey("options.sort") && count(
                 order) ? currentValue(order) : null))

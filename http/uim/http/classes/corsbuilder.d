@@ -93,7 +93,7 @@ protected Json[string] normalizeDomain(string domainName) {
         preg = (_isSsl ? "https://' : 'http://") ~ domainName;
     }
     preg = "@^" ~ preg_quote(preg, "@").replace("\*", ".*") ~ "@";
-    return createMap!(string, Json)
+    return createJsonMap()
         .set("original", original)
         .set("preg", preg);
 }

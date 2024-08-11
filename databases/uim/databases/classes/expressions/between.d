@@ -31,7 +31,7 @@ class DBetweenExpression : DExpression { // TODO}, IField {
     }
  
     string sql(DValueBinder aValueBinder) {
-        auto someParts = createMap!(string, Json)
+        auto someParts = createJsonMap()
             .set("from", _from)
             .set("to", _to);
 

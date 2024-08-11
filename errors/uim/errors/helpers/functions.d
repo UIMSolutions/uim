@@ -60,12 +60,12 @@ void dd(Json varForDebugInfo, bool showHtml = null) {
         return;
     }
 
-    auto trace = Debugger.trace(createMap!(string, Json)
+    auto trace = Debugger.trace(createJsonMap()
         .set("start", 0)
         .set("depth", 2)
         .set("format", "array"));
 
-    auto location = createMap!(string, Json)
+    auto location = createJsonMap()
         .set("line", trace[0]["line"])
         .set("file", trace[0]["file"]);
 

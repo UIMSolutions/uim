@@ -54,14 +54,14 @@ class DConsoleInputOption {
     bool isRequired() {
         return _isRequired;
     }
-    
+
     // Check if this option is a boolean option
     // Is the option a boolean option. Boolean options do not consume a parameter.
     protected bool _isBooleanOption;
     bool isBoolean() {
         return _isBooleanOption;
     }
-    
+
     // Check if this option accepts multiple values.
     // Can the option accept multiple value definition.
     protected bool _acceptsMultiple;
@@ -80,13 +80,13 @@ class DConsoleInputOption {
         bool acceptsMultiple = false,
         bool isRequiredOption = false,
         string promptText = null
-   ) {
-       _name = name;
-       _shortAlias = newShortAlias;
-       _help = helpText;
-       _isBooleanOption = isBooleanOption;
-       _choices = validChoices;
-       acceptsMultiple(acceptsMultiple);
+    ) {
+        _name = name;
+        _shortAlias = newShortAlias;
+        _help = helpText;
+        _isBooleanOption = isBooleanOption;
+        _choices = validChoices;
+        /* acceptsMultiple(acceptsMultiple); */
         _isRequired = isRequiredOption;
         /* _prompt = promptText; */
 
@@ -107,9 +107,7 @@ class DConsoleInputOption {
            );
         } */
     }
-    
 
-    
     /**
      * Generate the help for this this option.
      * Params:
@@ -117,7 +115,7 @@ class DConsoleInputOption {
      */
     string help(int width = 0) {
         string defaultHelpText;
-        if (_default && _default != true) {
+        /* if (_default && _default != true) {
             defaultHelpText = " <comment>(default: %s)</comment>".format(_default);
         }
         if (_choices) {
@@ -138,12 +136,13 @@ class DConsoleInputOption {
             ? " <comment>(%s)</comment>".format(_required)
             : "";
 
-        return "%s%s%s%s".format(name, _help, defaultHelpText, required);
+        return "%s%s%s%s".format(name, _help, defaultHelpText, required); */
+        return null;
     }
-    
+
     // Get the usage value for this option
     string usage() {
-        name = _shortalias is null ? "--" ~ _name : "-" ~ _shortalias;
+        /* name = _shortalias is null ? "--" ~ _name : "-" ~ _shortalias;
         string defaultText = "";
         if (!_default.isNull && !isBoolean(_default) && !_default.isEmpty) {
             defaultText = " " ~ _default;
@@ -156,42 +155,42 @@ class DConsoleInputOption {
             isRequired()
             ? "%s%s" : "[%s%s]";
 
-        return templateText.format(name, defaultText);
+        return templateText.format(name, defaultText); */
+        return null;
     }
-    
+
     // Get the default value for this option
     string defaultValue() {
-        return _default;
+        /* return _default; */
+        return null;
     }
-    
-    /**
-     * Check that a value is a valid choice for this option.
-     * Params:
-     * string aValue The choice to validate.
-     */
+
+    // Check that a value is a valid choice for this option.
     bool validChoice(string aValue) {
         if (_choices.isEmpty) {
             return true;
         }
-        if (!isIn(aValue, _choices, true)) {
+        /* if (!isIn(aValue, _choices, true)) {
             throw new DConsoleException(
                 "`%s` is not a valid value for `--%s`. Please use one of `%s`"
-                .format(to!string(aValue), _name, join(", ", _choices))
-           );
-        }
+                    .format(to!string(aValue), _name, join(", ", _choices))
+            );
+        } */
         return true;
     }
-    
+
     // Get the list of choices this option has.
     Json[string] choices() {
-        return _choices;
+        /* return _choices; */
+        return null;
     }
-    
+
     // Get the prompt string
     string prompt() {
-        return to!string(_prompt);
+        /* return to!string(_prompt); */
+        return null;
     }
-    
+
     // Append the option`s XML into the parent.
     /* DSimpleXMLElement xml(DSimpleXMLElement parent) {
         auto option = parent.addChild("option");

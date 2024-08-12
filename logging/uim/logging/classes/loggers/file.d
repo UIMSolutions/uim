@@ -47,8 +47,8 @@ class DFileLogger : DLogger {
         .setDefault("rotate", 10)
         .setDefault("size", 10485760) // 10M)
         .setDefault("mask", Json(null))
-        .setDefault("dirMask", 0770)
-        .setDefault("formatter", ["classname": StandardLogFormatter.classname]);
+        // .setDefault("dirMask", 0770)
+        .setDefault("formatter", createMap!(string, Json).set("classname", StandardLogFormatter.classname));
     }
     // Get filename
     protected string _getFilename(string logLevel) {

@@ -389,23 +389,21 @@ class DConsoleOptionParser {
 
     // Get the list of argument names.
     string[] argumentNames() {
-        auto results = _args.map(arg => arg.name()).array;
-        return results;
+        /* auto results = _args.map(arg => arg.name()).array;
+        return results; */
+        return null;
     }
 
     // Get the defined options in the parser.
     DConsoleInputOption[string] options() {
-        return _options;
+        /* return _options; */
+        return null; 
     }
 
-    /**
-     * Parse the arguments array into a set of params and args.
-     * Params:
-     * Json[string] arguments Array of args (arguments) to parse.
-     */
-    Json[string] parse(Json[string] argToParse, DConsoleIo aConsoleIo = null) {
+    // Parse the arguments array into a set of params and args.
+    Json[string] parse(Json[string] arguments, DConsoleIo aConsoleIo = null) {
         /* auto params = someArguments = null;
-        _tokens = argToParse;
+        _tokens = arguments;
 
         bool afterDoubleDash = false;
         while ((token = _tokens.shift()) !is null) {
@@ -430,7 +428,7 @@ class DConsoleOptionParser {
         if (params.hasKey("help")) {
             return [params, someArguments];
         }
-        foreach (index, arg; argToParse) {
+        foreach (index, arg; arguments) {
             if (arg.isRequired() && !someArguments.has(index)) {
                 throw new DConsoleException(
                     "Missing required argument. The `%s` argument is required.".format(arg.name())
@@ -482,7 +480,7 @@ class DConsoleOptionParser {
      * in the parser.
      */
     string help(string outputFormat = "text", int formatWidth = 72) {
-        auto formatter = new DHelpFormatter(this);
+        /* auto formatter = new DHelpFormatter(this);
         formatter.aliasName(_rootName);
 
         if (outputFormat == "text") {
@@ -491,7 +489,8 @@ class DConsoleOptionParser {
         if (outputFormat == "xml") {
             return to!string(formatter.xml());
         }
-        throw new DConsoleException("Invalid format. Output format can be text or xml.");
+        throw new DConsoleException("Invalid format. Output format can be text or xml."); */
+        return null;
     }
 
     /**
@@ -500,10 +499,10 @@ class DConsoleOptionParser {
      */
     protected Json[string] _parseLongOption(string optionToParse, Json[string] paramsData) {
         string name = subString(optionToParse, 2);
-        if (name.contains("=")) {
+        /* if (name.contains("=")) {
             [name, aValue] = split("=", name, 2);
             _tokens.unshift(aValue);
-        }
+        } */
         return _parseOption(name, paramsData);
     }
 
@@ -573,12 +572,13 @@ class DConsoleOptionParser {
 
     // Check to see if name has an option (short/long) defined for it.
     protected bool _optionhasKey(string optionName) {
-        if (optionName.startsWith("--")) {
+/*         if (optionName.startsWith("--")) {
             return _options.hasKey(subString(optionName, 2));
         }
         if (optionName[0] == "-" && optionName[1] != "-") {
             return _shortOptions.hasKey(optionName[1]);
         }
+ */        
         return false;
     }
 

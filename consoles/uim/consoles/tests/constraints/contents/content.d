@@ -11,7 +11,7 @@ abstract class DContentsBase : DConstraint {
 
     // TODO 
     this(string[] contents, string outputType) {
-        _content = contents.join(D_EOL);
+        // _content = contents.join(D_EOL);
         _output = outputType;
     }
 }

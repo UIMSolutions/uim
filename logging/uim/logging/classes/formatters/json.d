@@ -25,7 +25,7 @@ class DJsonLogFormatter : DLogFormatter {
         auto Json = Json_encode(log, Json_THROW_ON_ERROR | configuration.get("flags"]);
 
         return configuration.get("appendNewline"] ? Json ~ "\n" : Json;
-    }
+    } */
 }
 
 mixin(LogFormatterCalls!("Json"));

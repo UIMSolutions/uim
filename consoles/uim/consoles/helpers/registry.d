@@ -54,10 +54,10 @@ class DHelperRegistry { // }: ObjectRegistry {
      * and UIM\Core\ObjectRegistry.unload()
      */
     protected void _throwMissingClassError(string classname, string pluginName) {
-        throw new DMissingHelperException(createLMap
+        /* throw new DMissingHelperException(createMap!(string, Json)
             .set("class", classname)
-            .set("plugin", pluginame)
-        );
+            .set("plugin", pluginName)
+        ); */
     }
 
     /**

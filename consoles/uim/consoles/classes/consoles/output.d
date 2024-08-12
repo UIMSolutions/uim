@@ -234,7 +234,8 @@ class DConsoleOutput {
     
     // Gets the current styles offered
     Json[string] getStyle(string styleName) {
-        return _styles.get(styleName, null);
+        // return _styles.get(styleName, null);
+        return null; 
     }
     
     /**
@@ -262,7 +263,8 @@ class DConsoleOutput {
     
     // Gets all the style definitions.
     Json[string] styles() {
-        return _styles;
+        /* return _styles; */
+        return null; 
     }
     
     // Get the output type on how formatting tags are treated.

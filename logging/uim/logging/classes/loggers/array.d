@@ -19,10 +19,10 @@ class DArrayLogger : DLogger {
         configuration
             .setDefault("levels", Json.emptyArray)
             .setDefault("scopes", Json.emptyArray)
-            .setDefault("formatter", [
-                "classname": StandardLogFormatter.classname,
-                "includeDate": false
-            ]);
+            .setDefault("formatter", createMap!(string, Json)
+                .set("classname", StandardLogFormatter.classname)
+                .set("includeDate", false));
+    }
 
     // Captured messages
     protected string[] _content;

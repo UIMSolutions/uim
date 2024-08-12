@@ -89,9 +89,7 @@ import uim.logging;
  * of your application and also use standard log levels.
  */
 class DLog {
-    /**
-     * Internal flag for tracking whether configuration has been changed.
-     */
+    // Internal flag for tracking whether configuration has been changed.
     protected static bool _isDirtyConfig = false;
 
     protected static LogEngineRegistry _registry;
@@ -99,21 +97,17 @@ class DLog {
     /* 
     mixin template TStaticConfig() {
         setConfig as protected _setConfig;
-    }
+    } */
     
-    /**
-     * An array mapping url schemes to fully qualified Log engine class names
-     */
+    // An array mapping url schemes to fully qualified Log engine class names
     protected static STRINGAA _dsnClassMap = [
-        "console": Engine\ConsoleLog.classname,
-        "file": Engine\FileLog.classname,
-        "syslog": Engine\SyslogLog.classname,
+        "console": ConsoleLog.classname,
+        "file": FileLog.classname,
+        "syslog": SyslogLog.classname,
     ];
 
 
-    /**
-     * Handled log levels
-     */
+    // Handled log levels
     protected static string[] _levels = [
         "emergency",
         "alert",
@@ -147,7 +141,7 @@ class DLog {
      * adapters if config isn"t loaded.
      */
     protected static LogEngineRegistry getRegistry() {
-        _registry = _registry : new DLogEngineRegistry();
+        _registry = _registry ? _registry : new DLogEngineRegistry();
 
         if (_isDirtyConfig) {
             foreach (name, properties; configuration) {
@@ -226,22 +220,19 @@ class DLog {
      * ```
      */
     static void configuration.set(string[] configName, /* ILogger|Closure|array|null */ Json[string] configData = null) {
-        configurationuration.set(configName, configData);
+        configuration.set(configName, configData);
         _isDirtyConfig = true;
     }
     
-    /**
-     * Get a logging engine.
-     * Params:
-     * string aName Key name of a configured adapter to get.
-     */
-    static ILogger engine(string aName) {
+    // Get a logging engine.
+    static ILogger engine(string adapterName) {
         auto registry = getRegistry();
-        
-        return !registry.{name}
+
+        return null;      
+/*         return !registry.{adapterName}
             ? null
-            : registry.{name};
-    }
+            : registry.{adapterName};
+ */    }
     
     /**
      * Writes the given message and type to all the configured log adapters.
@@ -287,9 +278,10 @@ class DLog {
      * by inspecting the return of write(). If false the message was not handled.
      */
     static bool write(int severityLevel, string messageToLog, string[] contextData = null) {
-        return isIn(severityLevel, _levelMap, true)
+        /* return isIn(severityLevel, _levelMap, true)
             ? write(array_search(severityLevel, _levelMap, true), messageToLog, contextData) {
-            : false; 
+            : false;  */
+        return false;
     }
 
     static bool write(string severityLevel, string messageToLog, string[] contextData = null) {
@@ -299,7 +291,7 @@ class DLog {
                 "Invalid log level `%s`".format(level));
         }
         auto logged = false;
-        contextArray = /* (array) */contextData;
+        auto contextArray = /* (array) */contextData;
         if (isSet(contextArray[0])) {
             contextArray = ["scope": contextArray];
         }
@@ -307,8 +299,7 @@ class DLog {
 
         auto registry = getRegistry();
         registry.loaded().each!((streamName) {
-            /** @var \Psr\Log\ILogger logger */
-            auto logger = registry.{streamName};
+            /* ILogger logger = registry.{streamName};
             auto levels = scopes = null;
 
             if (cast(BaseLog)logger) {
@@ -317,12 +308,12 @@ class DLog {
             }
             auto correctLevel = levels.isEmpty || isIn(severityLevel, levels, true);
              anInScope = scopes.isNull && contextData.isEmpty("scope") || scopes is null ||
-                isArray(scopes) && intersect(/* (array) */contextData["scope"], scopes);
+                isArray(scopes) && intersect(/* (array) * /contextData["scope"], scopes);
 
             if (correctLevel &&  anInScope) {
                 logger.log(severityLevel, messageToLog, contextData);
                 logged = true;
-            }
+            } */
         });
         return logged;
     }

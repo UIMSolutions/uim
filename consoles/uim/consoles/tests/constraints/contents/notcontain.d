@@ -4,13 +4,12 @@ import uim.consoles;
 
 @safe:
 
-/* * ContentsNotContain
- *
- * @internal
- */
+// ContentsNotContain
 class DContentsNotContain : DContentsBase {
-    this() {}
-    /**
+    this(string[] contents, string outputType) {
+        super(contents, outputType);
+    }
+        /**
      * Checks if contents contain expected
      * Params:
      * Json other Expected

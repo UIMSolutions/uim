@@ -134,16 +134,16 @@ class DHelpFormatter : UIMObject {
      */
     protected int _getMaxLength(DConsoleInputArgument[] collection) {
         int result = 0;
-        collection
-            .each(item => result = max(anItem.name.length, result));
-        return result;
+/*         collection
+            .each!(item => result = max(anItem.name.length, result));
+ */        return result;
     }
     
     // Get the help as an XML string.
-    /* DSimpleXMLElement| */string xml(bool returnString = true) {
-        auto myParser = _parser;
+    /* DSimpleXMLElement| * /string xml(bool returnString = true) {
+        /* auto myParser = _parser;
         auto xml = new DSimpleXMLElement("<shell></shell>");
-        /* xml.addChild("command", myParser.getCommand());
+         *//* xml.addChild("command", myParser.getCommand());
         xml.addChild("description", myParser.getDescription());
 
         auto xmlOptions = xml.addChild("options");
@@ -155,6 +155,6 @@ class DHelpFormatter : UIMObject {
         xml.addChild("epilog", myParser.getEpilog());
 
         return returnString ? to!string(xml.asXML()) : xml; */
-        return null; 
+/*         return null; 
     } 
-}
+ */}

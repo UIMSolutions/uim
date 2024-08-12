@@ -3,30 +3,27 @@ module uim.logging.classes.formatters.formatter;
 import uim.logging;
 
 @safe:
-class DLogFormatter : ILogFormatter {
-  mixin TConfigurable;
-
+class DLogFormatter : UIMObject {
   this() {
-    initialize;
+    super();
   }
 
   this(Json[string] initData) {
-    initialize(initData);
+    super(initData);
   }
 
   this(string name) {
-    this().name(name);
+    super(name);
   }
 
   // Hook method
-  bool initialize(Json[string] initData = null) {
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
     return true;
   }
-
-  mixin(TProperty!("string", "name"));
 
   // Formats message.
   string format(Json loggingLevel, string loggingMessage, Json[string] loggingData = null) {

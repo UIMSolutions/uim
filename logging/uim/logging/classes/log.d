@@ -219,7 +219,7 @@ class DLog {
      * Log.configuration.set(arrayOfConfig);
      * ```
      */
-    static void configuration.set(string[] configName, /* ILogger|Closure|array|null */ Json[string] configData = null) {
+    static void configurationSet(string[] configName, /* ILogger|Closure|array|null */ Json[string] configData = null) {
         configuration.set(configName, configData);
         _isDirtyConfig = true;
     }

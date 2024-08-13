@@ -11,7 +11,7 @@ import uim.oop;
  * be used in scenarios where you need to capture logs in application code.
  */
 class DMemoryLogger : DLogger {
-    mixin(LoggerThis!(""));
+    mixin(LoggerThis!("Memory"));
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -33,9 +33,9 @@ class DMemoryLogger : DLogger {
     protected string[] _content;
 
     // Writing to the internal storage.
-    ILogger log(Json logLevel, string logMessage, Json[string] logContext = null) {
+    override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
         auto interpolatedMessage = interpolate(logMessage, logContext);
-        _content ~= _formatter.format(logLevel, interpolatedMessage, logContext);
+        // TODO _content ~= _formatter.format(logLevel, interpolatedMessage, logContext);
         return this;
     }
 
@@ -49,3 +49,4 @@ class DMemoryLogger : DLogger {
         _content = null;
     }
 }
+mixin(LoggerCalls!("Memory"));

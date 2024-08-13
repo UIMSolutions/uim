@@ -1,7 +1,7 @@
 module uim.oop.logformatters;
 
 public { // Main class
-    import uim.oop.logging.formatters.logformatter;
+    import uim.oop.logging.formatters.formatter;
 }
 
 public { // Helper modules

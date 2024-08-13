@@ -44,57 +44,56 @@ class DLogger : UIMObject, ILogger {
         return configuration.getStringArray("scopes");
     }
 
-    // Replaces placeholders in message string with context values.
-    protected string interpolate(string message, Json[string] context = null) {
-        if (!message.contains("{", "}")) { // No placeholders
+    // Replaces placeholders in message string with logContext values.
+    protected string interpolate(string message, Json[string] logContext = null) {
+        if (!message.containsAll("{", "}")) { // No placeholders
             return message;
         }
 
-        STRINGAA replacements = null;
-        context.keys.each!((key) {
-            auto value = context[key];
-
-            if (aValue.isScalar) {
+        STRINGAA replacements;
+        logContext.byKeyValue.each!(kv => replacements[kv.key] = kv.value.toString);
+            /* if (value.isScalar) {
                 replacements.set(key, value.toString);
                 continue;
             }
-            if (isArray(aValue)) {
-                replacements.set(key, Json_encode(aValue, JsonFlags));
+            if (isArray(value)) {
+                replacements.set(key, Json_encode(value, JsonFlags));
                 continue;
             }
-            if (cast(JsonSerializable)aValue) {
-                replacements.set(key, Json_encode(aValue, JsonFlags));
+            if (cast(JsonSerializable)value) {
+                replacements.set(key, Json_encode(value, JsonFlags));
                 continue;
             }
-            if (cast(DJson[string])aValue) {
-                replacements.set(key, Json_encode(aValue.dup, JsonFlags));
+            if (cast(DJson[string])value) {
+                replacements.set(key, Json_encode(value.dup, JsonFlags));
                 continue;
             }
-            if (cast(DSerializable)aValue) {
-                replacements.set(key, aValue.serialize());
+            if (cast(DSerializable)value) {
+                replacements.set(key, value.serialize());
                 continue;
             }
-            if (aValue.isObject) {
-                if (aValue.hasKey("toArray")) {
-                    replacements.set(key, Json_encode(aValue.toJString(), JsonFlags));
+            if (value.isObject) {
+                if (value.hasKey("toArray")) {
+                    replacements.set(key, Json_encode(value.toJString(), JsonFlags));
                     continue;
                 }
-                if (cast(DSerializable)aValue) {
-                    replacements.set(key, serialize(aValue));
+                if (cast(DSerializable)value) {
+                    replacements.set(key, serialize(value));
                     continue;
                 }
-                if (cast(DStringable)aValue) {
-                    replacements.set(key, to!string(aValue));
+                if (cast(DStringable)value) {
+                    replacements.set(key, to!string(value));
                     continue;
                 }
-                if (aValue.hasKey("__debugInfo")) {
-                    replacements.set(key, Json_encode(aValue.__debugInfo(), JsonFlags));
+                if (value.hasKey("__debugInfo")) {
+                    replacements.set(key, Json_encode(value.__debugInfo(), JsonFlags));
                     continue;
                 }
             }
-            replacements.set(key, "[unhandled value of type %s]".format(get_debug_type(aValue)));
+            /* replacements.set(key, "[unhandled value of type %s]".format(get_debug_type(value))); * /
         });
-        return message.mustache(replacements);
+        return message.mustache(replacements); */
+        return message.mustache(logContext);
     }
 
     abstract ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null); 

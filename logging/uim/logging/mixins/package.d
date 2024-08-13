@@ -4,5 +4,4 @@ public {
     import uim.logging.mixins.engine;
     import uim.logging.mixins.formatter;
     import uim.logging.mixins.log;
-    import uim.logging.mixins.logger;
 }

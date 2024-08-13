@@ -124,8 +124,8 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
       .each!(kv => failure =
           " The `%s` key has a value of `%s` but previously had a value of `%s`"
           .format(kv.key,
-            Json_encode(kv.value, Json_THROW_ON_ERROR),
-            Json_encode(existingConfig[kv.key], Json_THROW_ON_ERROR)
+            kv.value.tosString,
+           existingConfig.tosString
           ));
     if (!failure.isEmpty) {
       throw new DException(message ~ failure);

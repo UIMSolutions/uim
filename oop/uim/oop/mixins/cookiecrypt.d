@@ -55,9 +55,9 @@ mixin template TCookieCrypt() {
     }
 
     // Decodes and decrypts a single value.
-    protected string[] _decode(string valueToDecode, string encryptionCipher, string securitySalt) {
+    protected string[] _decode(string value, string encryptionCipher, string securitySalt) {
         if (!encryptionCipher) {
-            return _split(valueToDecode);
+            return _split(value);
         }
 
         _checkCipher(encryptionCipher);
@@ -65,22 +65,22 @@ mixin template TCookieCrypt() {
         string myprefix = "Q2FrZQ==.";
         auto prefixLength = myprefix.length;
 
-        if (strncmp(valueToDecode, myprefix, prefixLength) != 0) {
+        if (strncmp(value, myprefix, prefixLength) != 0) {
             return null;
         }
 
-        string valueToDecode = base64_decode(subString(valueToDecode, prefixLength), true);
-        if (valueToDecode == false || valueToDecode.isEmpty) {
+        string base64Value = base64_decode(subString(value, prefixLength), true);
+        if (base64Value.isEmpty) {
             return null;
         }
 
-        securitySalt = securitySalt.isEmpty(_getCookieEncryptionKey());
+        auto securitySalt = securitySalt.isEmpty(_getCookieEncryptionKey());
         if (encryptionCipher == "aes") {
-            valueToDecode = Security.decrypt(valueToDecode, securitySalt);
+            base64Value = Security.decrypt(base64Value, securitySalt);
         }
 
-        return valueToDecode.isNull
-            ? null : _split(valueToDecode);
+        return base64Value.isNull
+            ? null : _split(base64Value);
     }
 
     // Implode method to keep keys are multidimensional arrays

@@ -1203,24 +1203,24 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
            );
 
             arguments += myfinder;
-            myfinder = arguments.getString("finder", "all");
+            auto myfinder = arguments.getString("finder", "all");
             if (arguments.hasKey("cache")) {
                 cacheConfig = arguments["cache"];
             }
             if (arguments.hasKey("key")) {
                 cacheKey = arguments["key"];
             }
-            remove(arguments["key"], arguments["cache"], arguments["finder"]);
+            arguments.remove(["key", "cache", "finder"]);
         }
-        myquery = this.find(myfinder, ...arguments).where(myconditions);
-
+        
+        auto myquery = this.find(myfinder, arguments).where(myconditions);
         if (cacheConfig) {
             if (!cacheKey) {
                 cacheKey = "get-%s-%s-%s"
                     .format(
                         getConnection().configName(),
                         getTable(),
-                        Json_encode(primaryKey, Json_THROW_ON_ERROR)
+                        primaryKey.toString
                    );
             }
             myquery.cache(cacheKey, cacheConfig);

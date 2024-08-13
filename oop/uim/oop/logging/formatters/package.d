@@ -1,7 +1,13 @@
-module uim.oop.logformatters;
+module uim.oop.logging.formatters;
 
 public { // Main class
     import uim.oop.logging.formatters.formatter;
+}
+
+public { // Sub classes
+    import uim.oop.logging.formatters.html;
+    import uim.oop.logging.formatters.json;
+    import uim.oop.logging.formatters.text;
 }
 
 public { // Helper modules
@@ -12,6 +18,3 @@ public { // Helper modules
     import uim.oop.logging.formatters.registry;
 }
 
-public { // Main class
-    import uim.oop.logging.formatters.standard;
-}

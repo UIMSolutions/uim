@@ -1,6 +1,6 @@
- module uim.logging.classes.formatters.html;
+ module uim.oop.logging.formatters.html;
 
-import uim.logging;
+import uim.oop;
 
 @safe:
 

@@ -92,7 +92,7 @@ class DLog {
     // Internal flag for tracking whether configuration has been changed.
     protected static bool _isDirtyConfig = false;
 
-    protected static LogEngineRegistry _registry;
+    protected static DLogEngineRegistry _registry;
 
     /* 
     mixin template TStaticConfig() {

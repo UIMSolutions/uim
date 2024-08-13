@@ -6,6 +6,7 @@ public { // Main class
 
 public { // Helper modules
     import uim.oop.logging.loggers.collection;
+    import uim.oop.logging.loggers.enumerations;
     import uim.oop.logging.loggers.factory;
     import uim.oop.logging.loggers.interfaces;
     import uim.oop.logging.loggers.mixins;

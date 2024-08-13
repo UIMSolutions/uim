@@ -10,7 +10,7 @@ mixin template TLog() {
      * for more information on writing to logs.
      */
     bool log(string logMessage,
-        LOGLEVELS errorLevel = LOGLEVELS.ERROR,
+        LogLevels errorLevel = LogLevels.ERROR,
         Json[string] logData = null
    ) {
         return Log.write(errorLevel, logMessage, logData);

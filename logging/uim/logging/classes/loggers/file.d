@@ -88,9 +88,9 @@ class DFileLogger : DLogger {
     }
     
     // writing to log files.
-    void log(logLevel, string messageToLog, Json[string] messageContext = null) {
+    void log(int logLevel, string messageToLog, Json[string] messageContext = null) {
         string message = this.interpolate(messageToLog, messageContext);
-        message = this.formatter.format(logLevel, message, messageContext);
+        message = _formatter.format(logLevel, message, messageContext);
 
         string filename = _getFilename(logLevel);
         if (_size) {

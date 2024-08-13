@@ -711,9 +711,18 @@ unittest {
 }
 
 // #region mustache
+string mustache(string text, Json[string] items) {
+	items.byKeyValue.each!(item => text = text.mustache(item.key, item.value));
+	return text;
+}
+
 string mustache(string text, STRINGAA items) {
 	items.byKeyValue.each!(item => text = text.mustache(item.key, item.value));
 	return text;
+}
+
+string mustache(string text, string key, Json value) {
+	return std.string.replace(text, "{" ~ key ~ "}", value.toString);
 }
 
 string mustache(string text, string key, string value) {
@@ -727,10 +736,20 @@ unittest {
 // #endregion mustache
 
 // #region doubleMustache
+string doubleMustache(string text, Json[string] items) {
+	items.byKeyValue.each!(item => text = text.doubleMustache(item.key, item.value));
+	return text;
+}
+
 string doubleMustache(string text, STRINGAA items) {
 	items.byKeyValue.each!(item => text = text.doubleMustache(item.key, item.value));
 	return text;
 }
+
+string doubleMustache(string text, string key, Json value) {
+	return std.string.replace(text, "{" ~ key ~ "}", value.toString);
+}
+
 
 string doubleMustache(string text, string key, string value) {
 	return std.string.replace(text, "{{" ~ key ~ "}}", value);

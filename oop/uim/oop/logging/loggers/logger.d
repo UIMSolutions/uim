@@ -45,66 +45,57 @@ class DLogger : UIMObject, ILogger {
     }
 
     // Replaces placeholders in message string with context values.
-    protected string interpolate(string formattedMessage, Json[string] context = null) {
-        if (!formattedMessage.contains("{", "}")) {
-            return formattedMessage;
-        }
-        /* preg_match_all(
-            "/(?<!" ~ preg_quote("\\", "/") ~ ")\{([a-z0-9-_]+)\}/i",
-            formattedMessage,
-            matches
-       ); */
-        if (isEmpty(matches)) {
-            return formattedMessage;
+    protected string interpolate(string message, Json[string] context = null) {
+        if (!message.contains("{", "}")) { // No placeholders
+            return message;
         }
 
-        auto placeholders = intersect(matches[1], context.keys);
-        auto replacements = null;
-        auto JsonFlags = Json_THROW_ON_ERROR | Json_UNESCAPED_UNICODE;
-        foreach (aKey; placeholders) {
-            auto value = context[aKey];
+        STRINGAA replacements = null;
+        context.keys.each!((key) {
+            auto value = context[key];
 
-            if (isScalar(aValue)) {
-                replacements.set("{" ~ aKey ~ "}", value.toString);
+            if (aValue.isScalar) {
+                replacements.set(key, value.toString);
                 continue;
             }
             if (isArray(aValue)) {
-                replacements.set("{" ~ aKey ~ "}", Json_encode(aValue, JsonFlags));
+                replacements.set(key, Json_encode(aValue, JsonFlags));
                 continue;
             }
             if (cast(JsonSerializable)aValue) {
-                replacements.set("{" ~ aKey ~ "}", Json_encode(aValue, JsonFlags));
+                replacements.set(key, Json_encode(aValue, JsonFlags));
                 continue;
             }
             if (cast(DJson[string])aValue) {
-                replacements.set("{" ~ aKey ~ "}", Json_encode(aValue.dup, JsonFlags));
+                replacements.set(key, Json_encode(aValue.dup, JsonFlags));
                 continue;
             }
             if (cast(DSerializable)aValue) {
-                replacements.set("{" ~ aKey ~ "}", aValue.serialize());
+                replacements.set(key, aValue.serialize());
                 continue;
             }
-            if (isObject(aValue)) {
-                if (hasMethod(aValue, "toArray")) {
-                    replacements.set("{" ~ aKey ~ "}", Json_encode(aValue.toJString(), JsonFlags));
+            if (aValue.isObject) {
+                if (aValue.hasKey("toArray")) {
+                    replacements.set(key, Json_encode(aValue.toJString(), JsonFlags));
                     continue;
                 }
                 if (cast(DSerializable)aValue) {
-                    replacements.set("{" ~ aKey ~ "}", serialize(aValue));
+                    replacements.set(key, serialize(aValue));
                     continue;
                 }
                 if (cast(DStringable)aValue) {
-                    replacements.set("{" ~ aKey ~ "}", to!string(aValue));
+                    replacements.set(key, to!string(aValue));
                     continue;
                 }
-                if (hasMethod(aValue, "__debugInfo")) {
-                    replacements.set("{" ~ aKey ~ "}", Json_encode(aValue.__debugInfo(), JsonFlags));
+                if (aValue.hasKey("__debugInfo")) {
+                    replacements.set(key, Json_encode(aValue.__debugInfo(), JsonFlags));
                     continue;
                 }
             }
-            replacements.set("{" ~ aKey ~ "}", "[unhandled value of type %s]".format(get_debug_type(aValue)));
-        }
-        /** @psalm-suppress InvalidArgument */
-        return formattedMessage.replace(replacements.keys, replacements);
+            replacements.set(key, "[unhandled value of type %s]".format(get_debug_type(aValue)));
+        });
+        return message.mustache(replacements);
     }
+
+    abstract ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null); 
 }

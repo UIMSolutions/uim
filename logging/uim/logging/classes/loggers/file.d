@@ -19,7 +19,7 @@ class DFileLogger : DLogger {
     // Max file size, used for log file rotation.
     protected int _size = null;
     
-    override bool initialize() {
+    override bool initialize(Json[string] initData = null) {
             /**
      * Default config for this class
      *

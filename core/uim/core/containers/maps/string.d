@@ -3,7 +3,7 @@
 *	License: Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt]                                       *
 *	Authors: Ozan Nurettin Süel (UIManufaktur)										                         * 
 ***********************************************************************************************************************/
-module uim.core.containers.stringaa;
+module uim.core.containers.maps.string;
 
 @safe:
 import std.algorithm : startsWith, endsWith;
@@ -210,3 +210,91 @@ unittest {
   assert(set(testmap, "a", "A").set("b", "B")["b"] == "B");
 }
 // #endregion set
+
+// #region update
+STRINGAA update(STRINGAA items, string key, bool value) {
+  return items.update(key, to!string(value));
+}
+
+STRINGAA update(STRINGAA items, string key, long value) {
+  return items.update(key, to!string(value));
+}
+
+STRINGAA update(STRINGAA items, string key, double value) {
+  return items.update(key, to!string(value));
+}
+
+STRINGAA update(STRINGAA items, string key, Json value) {
+  return items.update(key, value.toString);
+}
+
+STRINGAA update(STRINGAA items, string key, string value = null) {
+  items[key] = value;
+  return items;
+}
+
+unittest {
+  string[string] testmap = ["a": "a", "b", "b"];
+  assert(update(testmap, "a", "A")["a"] == "A");
+}
+// #endregion update
+
+// #region merge
+STRINGAA merge(STRINGAA items, string key, bool value) {
+  return items.merge(key, to!string(value));
+}
+
+STRINGAA merge(STRINGAA items, string key, long value) {
+  return items.merge(key, to!string(value));
+}
+
+STRINGAA merge(STRINGAA items, string key, double value) {
+  return items.merge(key, to!string(value));
+}
+
+STRINGAA merge(STRINGAA items, string key, Json value) {
+  return items.merge(key, value.toString);
+}
+
+STRINGAA merge(STRINGAA items, string key, string value = null) {
+  items[key] = value;
+  return items;
+}
+
+unittest {
+  string[string] testmap;
+  assert(merge(testmap, "a", "A")["a"] == "A");
+}
+// #endregion merge
+
+// #region lowerKeys
+T[string] lowerKeys(T)(ref T[string] items) {
+  items.keys.each!(key => items.lowerKey(key));                  
+  return items;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+}
+
+T[string] lowerKeys(T)(ref T[string] items, string[] keys...) {
+  return lowerKeys(items, keys.dup);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+}
+
+T[string] lowerKeys(T)(ref T[string] items, string[] keys) {
+  keys.each!(key => items.lowerKey(key));                  
+  return items;
+}
+
+T[string] lowerKey(T)(ref T[string] items, string key) {
+  if (key !in items)  {
+    return items;
+  }
+  
+  auto value = items[key];
+  items.remove(key);
+  return items.set(key.lower, value);
+}
+
+unittest {
+  int[string] testmap = ["one": 1, "Two": 2, "thRee": 3];
+  assert(testmap.lowerKey("Two")["two"] == 2);
+  assert(testmap.lowerKeys["three"] == 3);
+}
+// #endregion lowerKeys

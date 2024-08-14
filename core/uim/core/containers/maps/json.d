@@ -1,4 +1,4 @@
-module uim.core.datatypes.jmap;
+module uim.core.containers.maps.json;
 
 import uim.core;
 import uim.core.datatypes.json;
@@ -8,13 +8,13 @@ import uim.core.datatypes.json;
 alias JMAP = Json[string];
 
 unittest { // inherited from uim.core.containers.map
-  Json[string] values = [
+  Json[string] items = [
     "a": Json("A"),
     "b": Json("B"),
     "c": Json("C")
   ];
 
-  assert(values.sortedKeys == ["a", "b", "c"]);
+  assert(items.sortedKeys == ["a", "b", "c"]);
 
 }
 

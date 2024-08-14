@@ -29,7 +29,7 @@ class DCookie : ICookie {
     protected ISameSiteEnum sameSite = null;
 
     // Default attributes for a cookie.
-    protected static @var Json[string] defaultAttributes = createJsonMap()
+    protected static @var Json[string] defaultAttributes = createMap!(string, Json)()
         .set("expires", Json(null))
         .set("path", "/")
         .set("domain", "")

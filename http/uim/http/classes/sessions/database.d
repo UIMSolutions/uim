@@ -25,8 +25,8 @@ class DatabaseSession { // }: SessionHandler {
 
         if (configData.isEmpty("model")) {
             configData = aTableLocator.hasKey("Sessions") 
-            ? createJsonMap() 
-            : createJsonMap()
+            ? createMap!(string, Json)() 
+            : createMap!(string, Json)()
                 .set("table", "sessions")
                 .set("allowFallbackClass", true);
 

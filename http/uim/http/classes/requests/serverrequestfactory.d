@@ -36,7 +36,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
 
         auto session = Session.create(sessionConfig);
         auto request = new DServerRequest(
-            createJsonMap()
+            createMap!(string, Json)()
                 .set("environment", server)
                 .set("uri", anUri)
                 .set("cookies", cookies ?  ? _COOKIE)

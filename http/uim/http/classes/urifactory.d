@@ -73,7 +73,7 @@ protected static Json[string] getBase(IUri uri, Json[string] serverData) {
     string webroot = configuration.getString("webroot");
 
     if (!base.isNull) {
-        return createJsonMap()
+        return createMap!(string, Json)()
             "base": base, 
             "webroot": base ~ "/"]
     }

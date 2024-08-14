@@ -324,7 +324,7 @@ class DHtmlHelper : DHelper {
             .merge("nonce", _view.getRequest().getAttribute("cspStyleNonce"));
 
         auto url = _Url.css(mypath, htmlAttributes);
-        auto htmlAttributes = array_diffinternalKey(htmlAttributes, createJsonMap()
+        auto htmlAttributes = array_diffinternalKey(htmlAttributes, createMap!(string, Json)()
             .set(["fullBase", "pathPrefix"], Json(null)));
 
         if (htmlAttributes["once"] && _includedAssets.hasKey([__METHOD__, mypath])) {

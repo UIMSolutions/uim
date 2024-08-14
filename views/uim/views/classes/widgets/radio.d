@@ -140,7 +140,7 @@ class DRadioWidget : DWidget {
         if (options.hasKey("form")) {
             radio.set("form", mydata["form"]);
         }
-        myinput = _stringContents.format("radio", createJsonMap()
+        myinput = _stringContents.format("radio", createMap!(string, Json)()
             .merge("name", radio["name"])
             .merge("value", myescape ? htmlAttributeEscape(radio["value"]): radio["value"])
             .merge("templateVars", radio["templateVars"])
@@ -164,7 +164,7 @@ class DRadioWidget : DWidget {
        ) {
             label = myinput;
         }
-        return _stringContents.format("radioWrapper", createJsonMap()
+        return _stringContents.format("radioWrapper", createMap!(string, Json)()
             .merge("input", myinput)
             .merge("label", label)
             .merge("templateVars", mydata["templateVars"]));

@@ -89,7 +89,7 @@ class DSelectWithPivotLoader : DSelectLoader {
             .getEagerLoader()
             .addToJoinsMap(tempName, assoc, false, _junctionProperty);
 
-        assoc.attachTo(query, createJsonMap()
+        assoc.attachTo(query, createMap!(string, Json)()
             .set("aliasPath", assoc.aliasName())
             .set("includeFields", false.toJson)
             .set("propertyPath", _junctionProperty));

@@ -605,7 +605,7 @@ class DRouter {
             }
         }
         url += parseRoutePath(url["_path"]);
-        url += createJsonMap()
+        url += createMap!(string, Json)()
             .set("plugin", false)
             .set("prefix", false);
 

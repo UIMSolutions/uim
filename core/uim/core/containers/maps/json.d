@@ -7,22 +7,6 @@ import uim.core.datatypes.json;
 
 alias JMAP = Json[string];
 
-unittest { // inherited from uim.core.containers.map
-  Json[string] items = [
-    "a": Json("A"),
-    "b": Json("B"),
-    "c": Json("C")
-  ];
-
-  assert(items.sortedKeys == ["a", "b", "c"]);
-
-}
-
-/* Json[string] mergeKeys(Json[string] values, string[] keys, Json defaultValue = Json(null)) {
-  keys.each!(key => values.merge(key, defaultValue));
-  return values;
-} */
-
 Json[string] copy(Json[string] values, string[] keys = null) {
   if (keys.length == 0) {
     return values.dup;
@@ -56,7 +40,7 @@ Json[string] merge(T)(Json[string] items, string[] keys, T value) {
 }
 
 Json[string] merge(T)(Json[string] items, string[] keys, Json value) {
-  keys.each!(key => uim.core.containers.map.merge(items, key, value));
+  keys.each!(key => uim.core.containers.maps.map.merge(items, key, value));
   return items;
 }
 
@@ -65,19 +49,19 @@ Json[string] merge(T)(Json[string] items, string[] keys, Json value) {
 }
  */
 Json[string] merge(Json[string] items, string key, bool value) {
-  return uim.core.containers.map.merge(items, key, Json(value));
+  return uim.core.containers.maps.map.merge(items, key, Json(value));
 }
 
 Json[string] merge(Json[string] items, string key, string value) {
-  return uim.core.containers.map.merge(items, key, Json(value));
+  return uim.core.containers.maps.map.merge(items, key, Json(value));
 }
 
 Json[string] merge(Json[string] items, string key, long value) {
-  return uim.core.containers.map.merge(items, key, Json(value));
+  return uim.core.containers.maps.map.merge(items, key, Json(value));
 }
 
 Json[string] merge(Json[string] items, string key, double value) {
-  return uim.core.containers.map.merge(items, key, Json(value));
+  return uim.core.containers.maps.map.merge(items, key, Json(value));
 }
 
 /* Json[string] merge(Json[string] items, string key, Json value) {
@@ -248,7 +232,7 @@ Json[string] filterKeys(Json[string] values, string[] keys) {
 }
 
 // #region set
-Json[string] setNull(Json[string] items, string[] path) {
+/* Json[string] setNull(Json[string] items, string[] path) {
   return set(items, path, Json(null));
 }
 
@@ -268,13 +252,13 @@ Json[string] setPath(Json[string] items, string[] path, Json value) {
 
   if (path.length == 1) {
     return set(items, path[0], value);
-  }
+  } */
 
   /*   Json json = Json.emptyObject;
   return set(items, path[0], json.set(path[1..$], value));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
  */
-  return null;
-}
+/*   return null;
+} */
 
 Json[string] set(T)(Json[string] items, string key, T[string] value) {
   Json[string] convertedValues;
@@ -297,7 +281,11 @@ Json[string] set(T)(Json[string] items, string key, T value) {
   return set(items, key, Json(value));
 }
 
-Json[string] set(Json[string] items, string key, Json value) {
+Json[string] set(T:Json)(Json[string] items, string key, T value) {
+  writeln("xxx");
+/*   if (items is null) {
+    items = createMap!(string, Json)();
+  } */
   items[key] = value;
   return items;
 }
@@ -530,29 +518,29 @@ bool isUndefined(Json[string] items, string key) {
 
 unittest {
   Json[string] items;
-  items
+  items = items
     .set("a", "A");
 
-  // TODO assert(items.isString("a"));
+  assert(items.isString("a"));
 }
 // #endregion is
 
 unittest {
-  writeln("--- JMap all");
+  // writeln("--- JMap all");
 
-  writeln(createJsonMap().set("x", "X"));
-  writeln(createJsonMap().set("x", "X").set("x", "X"));
-  writeln(createJsonMap().set("x", "X").set("y", "Y"));
-  writeln(createJsonMap().set("bool", true));
-  writeln(createJsonMap().set("bool", true).set("x", "X"));
+  /* writeln(createMap!(string, Json)().set("x", "X"));
+  writeln(createMap!(string, Json)().set("x", "X").set("x", "X"));
+  writeln(createMap!(string, Json)().set("x", "X").set("y", "Y"));
+  writeln(createMap!(string, Json)().set("bool", true));
+  writeln(createMap!(string, Json)().set("bool", true).set("x", "X"));
 
-  writeln(createJsonMap().set("x", Json("X")));
-  writeln(createJsonMap().set("x", Json("X")).set("x", Json("X")));
-  writeln(createJsonMap().set("x", Json("X")).set("y", "Y"));
-  writeln(createJsonMap().set("bool", Json(true)));
-  writeln(createJsonMap().set("bool", Json(true)).set("x", Json("X")));
+  writeln(createMap!(string, Json)().set("x", Json("X")));
+  writeln(createMap!(string, Json)().set("x", Json("X")).set("x", Json("X")));
+  writeln(createMap!(string, Json)().set("x", Json("X")).set("y", "Y"));
+  writeln(createMap!(string, Json)().set("bool", Json(true)));
+  writeln(createMap!(string, Json)().set("bool", Json(true)).set("x", Json("X")));
 
-  auto testMap = createJsonMap().set("x", "X");
+  auto testMap = createMap!(string, Json)().set("x", "X");
   writeln(testMap.set("x", "X"));
   writeln(testMap.set("x", "X").set("x", "X"));
   writeln(testMap.set("x", "X").set("y", "Y"));
@@ -564,24 +552,32 @@ unittest {
   writeln(testMap.update("bool", false).update("long", 2).update("double", 2.1));
   writeln(testMap);
   writeln(testMap.merge("boolx", false).merge("longx", 2).merge("doublex", 2.1));
-  writeln(testMap);
+  writeln(testMap); */
 }
 
-Json[string] createJsonMap(Json[string] init = null) {
+/* Json[string] createMap(string, Json)(Json[string] init = null) {
   Json[string] created = init;
   return created;
-}
+} */
 
-string toString(Json[string] items) {
-  return "[" ~ items.byKeyValue.map!(kv => "%s:%s".format(kv.key, kv.value)).join() ~ "]";
+string toString(Json[string] items, string[] keys = null) {
+  return keys is null
+    ? "[" ~ items.byKeyValue.map!(item => `"%s":%s`.format(item.key, item.value)).join(",") ~ "]"
+    : "[" ~ items.byKeyValue
+      .filter!(item => keys.has(item.key))
+      .map!(item => `"%s":%s`.format(item.key, item.value)).join(",") ~ "]";
 }
 
 unittest {
   Json[string] testItems;
-  testItems
+  testItems = testItems
     .set("bool", true)
     .set("long", 1)
     .set("double", 1.1)
-    .set("string", "1-1");
+    .set("string", "1-1")
+    .set("json", Json("abc"));
+
+  writeln("toString -> ", testItems);
   writeln("toString -> ", testItems.toString);
+  writeln("toString -> ", testItems.toString(["long", "string"]));
 }

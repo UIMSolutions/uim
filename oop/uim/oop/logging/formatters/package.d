@@ -5,9 +5,12 @@ public { // Main class
 }
 
 public { // Sub classes
+    import uim.oop.logging.formatters.csv;
     import uim.oop.logging.formatters.html;
     import uim.oop.logging.formatters.json;
+    import uim.oop.logging.formatters.standard;
     import uim.oop.logging.formatters.text;
+    import uim.oop.logging.formatters.xml;
 }
 
 public { // Helper modules

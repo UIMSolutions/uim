@@ -18,9 +18,9 @@ class DJsonLogFormatter : DLogFormatter {
     return true;
   }
 
-  string format(LogLevels logLevel, string logMessage, Json[string] logData = null) {
+  override string format(LogLevels logLevel, string logMessage, Json[string] logData = null) {
     Json[string] log = createMap!(string, Json)
-      .set("date", date(configuration.get("dateFormat")))
+      .set("date", uim.core.datatypes.datetime.toString(nowDateTime, configuration.getString("dateFormat"))) 
       .set("level", to!string(logLevel))
       .set("message", logMessage);
 

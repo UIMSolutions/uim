@@ -1,13 +1,15 @@
-module uim.oop.logging.formatters.standard;
+module uim.oop.logging.formatters.xml;
 
 import uim.oop;
 
 @safe:
 
-// Base class for LogFormatters
-class DStandardLogFormatter : DLogFormatter {
-    mixin(LogFormatterThis!("Standard"));
+static this() {
+    LogFormatterRegistry.register(XmlLogFormatter);
+}
 
+class DXmlLogFormatter : DLogFormatter {
+    mixin(LogFormatterThis!("Xml"));
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
@@ -23,4 +25,4 @@ class DStandardLogFormatter : DLogFormatter {
     }
 }
 
-mixin(LogFormatterCalls!("Standard"));
+mixin(LogFormatterCalls!("Xml"));

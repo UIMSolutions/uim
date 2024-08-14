@@ -103,13 +103,18 @@ class DObjectRegistry(T : UIMObject) {
 	/// Get registeredobject by index
 
 	// #region register
-	O register(this O)(string[] path, T newObject) {
-		register(correctKey(path), newObject);
+	void opIndexAssign(string key, T newObject) {
+		register(key, newObject);
+	}
+
+	O register(this O)(T newObject) {
+		this.register(newObject.classname, newObject);
 		return cast(O) this;
 	}
 
-	void opIndexAssign(string key, T newObject) {
-		register(key, newObject);
+	O register(this O)(string[] path, T newObject) {
+		this.register(correctKey(path), newObject);
+		return cast(O) this;
 	}
 
 	O register(this O)(string key, T newObject) {

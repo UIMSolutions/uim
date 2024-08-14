@@ -381,8 +381,8 @@ V[K] set(K, V)(V[K] values, K key, V value = Null!V) if (!isType!Json) {
 
 unittest {
   string[string] testmap;
-  assert(testmap.set("a", "A")["a"] == "A");
-  assert(testmap.set("a", "A").set("b", "B")["b"] == "B");
+  assert(set(testmap, "a", "A")["a"] == "A");
+  assert(set(testmap, "a", "A").set("b", "B")["b"] == "B");
 }
 // #endregion set
 

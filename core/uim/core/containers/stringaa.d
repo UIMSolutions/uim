@@ -181,3 +181,32 @@ version (test_uim_core) {
     /// TODO Add Tests
   }
 }
+
+// #region set
+STRINGAA set(STRINGAA items, string key, bool value) {
+  return items.set(key, to!string(value));
+}
+
+STRINGAA set(STRINGAA items, string key, long value) {
+  return items.set(key, to!string(value));
+}
+
+STRINGAA set(STRINGAA items, string key, double value) {
+  return items.set(key, to!string(value));
+}
+
+STRINGAA set(STRINGAA items, string key, Json value) {
+  return items.set(key, value.toString);
+}
+
+STRINGAA set(STRINGAA items, string key, string value = null) {
+  items[key] = value;
+  return items;
+}
+
+unittest {
+  string[string] testmap;
+  assert(set(testmap, "a", "A")["a"] == "A");
+  assert(set(testmap, "a", "A").set("b", "B")["b"] == "B");
+}
+// #endregion set

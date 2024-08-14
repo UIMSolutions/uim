@@ -573,7 +573,7 @@ Json[string] createJsonMap(Json[string] init = null) {
 }
 
 string toString(Json[string] items) {
-  return "[" ~ items.byKeyvalue.map!(kv => "%s:%s".format(kv.key, kv.value.toString)).join() ~ "]";
+  return "[" ~ items.byKeyValue.map!(kv => "%s:%s".format(kv.key, kv.value)).join() ~ "]";
 }
 
 unittest {

@@ -2,6 +2,7 @@ module uim.core.datatypes.jmap;
 
 import uim.core;
 import uim.core.datatypes.json;
+
 @safe:
 
 alias JMAP = Json[string];
@@ -11,7 +12,7 @@ unittest { // inherited from uim.core.containers.map
     "a": Json("A"),
     "b": Json("B"),
     "c": Json("C")
-    ];
+  ];
 
   assert(values.sortedKeys == ["a", "b", "c"]);
 
@@ -21,7 +22,6 @@ unittest { // inherited from uim.core.containers.map
   keys.each!(key => values.merge(key, defaultValue));
   return values;
 } */
-
 
 Json[string] copy(Json[string] values, string[] keys = null) {
   if (keys.length == 0) {
@@ -91,7 +91,7 @@ unittest {
   assert(testMap.length == 0);
   assert(testMap.merge("a", "A").length == 1);
   writeln("testmap: ", testMap.merge("one", 1));
-  writeln("testmap: ", testMap/* .merge("one", 1) */.merge("double", 2.2));
+  writeln("testmap: ", testMap /* .merge("one", 1) */ .merge("double", 2.2));
   /// assert(testMap.merge("one", 1).merge("double", 2.2).length == 3);
 }
 // #endregion merge
@@ -114,7 +114,7 @@ Json getJson(Json[string] values, string key) {
 }
 
 unittest {
-/*   Json[string] Json[string];
+  /*   Json[string] Json[string];
   Json[string]["a"] = Json("a");
   Json[string]["b"] = Json("b");
   Json[string]["a.b"] = Json("a.b");
@@ -125,7 +125,7 @@ unittest {
   jObj["c.d"] = "c.d";
   jObj["x"] = jObj;
 
-/*   Json[string]["z"] = jObj;
+  /*   Json[string]["z"] = jObj;
 
   assert(Json[string].getString("a") == "a");
   assert(Json[string].getString("b") != "a");
@@ -137,7 +137,8 @@ unittest {
   assert(Json[string].getString("z.x.d") != "c");
   assert(Json[string].getString("z.x.c.d") == "c.d");
   writeln("z.x.c.d = ", Json[string].getString("z.x.c.d"));
- */}
+ */
+}
 
 bool getBoolean(Json[string] values, string key, bool defaultValue = false) {
   auto json = getJson(values, key);
@@ -266,14 +267,14 @@ Json[string] setPath(Json[string] items, string[] path, Json value) {
   }
 
   if (path.length == 1) {
-    return set(items, path[0], value)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+    return set(items, path[0], value);
   }
 
-/*   Json json = Json.emptyObject;
+  /*   Json json = Json.emptyObject;
   return set(items, path[0], json.set(path[1..$], value));                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
  */
- return null;
- }
+  return null;
+}
 
 Json[string] set(T)(Json[string] items, string key, T[string] value) {
   Json[string] convertedValues;
@@ -315,7 +316,7 @@ unittest {
   assert(testItems.set("string", "1-1").isString("string"));
   assert(testItems.set("String", "2-2").getString("String") != "2.2");
 
-/* Json[string] set(T)(Json[string] items, T[string] keyValues) {
+  /* Json[string] set(T)(Json[string] items, T[string] keyValues) {
   keyValues.byKeyValue.each!(kv => set(items, kv.key, kv.value));
   return items;
 }
@@ -372,47 +373,47 @@ Json[string] set(T)(Json[string] items, string key, T[string] value) {
 // #endregion setter
 
 // #region update
-  // TODO
-  /*   Json[string] update(Json[string] items, string[] keys, Json defaultValue = Json(null)) {
+// TODO
+/*   Json[string] update(Json[string] items, string[] keys, Json defaultValue = Json(null)) {
     keys.each!(key => items.update(key, defaultValue));
     return items;
   } */
 
-  Json[string] update(Json[string] items, Json[string] updateItems) {
-    updateItems.byKeyValue.each!(item => items.update(item.key, item.value));
-    return items;
-  }
+Json[string] update(Json[string] items, Json[string] updateItems) {
+  updateItems.byKeyValue.each!(item => items.update(item.key, item.value));
+  return items;
+}
 
-  Json[string] update(Json[string] items, string[] keys, Json defaultValue = Json(null)) {
-    keys.each!(key => items.update(key, defaultValue));
-    return items;
-  }
-  
-  Json[string] update(T)(Json[string] items, string key, T value) {
-    if (items.hasKey(key)) {
-      items.set(key, value);
-    }
-    return items;
-  }
+Json[string] update(Json[string] items, string[] keys, Json defaultValue = Json(null)) {
+  keys.each!(key => items.update(key, defaultValue));
+  return items;
+}
 
-  Json[string] update(Json[string] items, string key, Json value = Json(null)) {
-    if (items.hasKey(key)) {
-      items.set(key, value);
-    }
-    return items;
+Json[string] update(T)(Json[string] items, string key, T value) {
+  if (items.hasKey(key)) {
+    items.set(key, value);
   }
+  return items;
+}
 
-  unittest {
-    Json[string] items = [
-      "a": Json("A"),
-      "one": Json(1),
-      "pi": Json(3.14),
-      "bool": Json(true)
-    ];
-    assert(items.length == 4);
-    assert(items.getString("a") == "A");
-    assert(items.update("a", "B").getString("a") == "B");
+Json[string] update(Json[string] items, string key, Json value = Json(null)) {
+  if (items.hasKey(key)) {
+    items.set(key, value);
   }
+  return items;
+}
+
+unittest {
+  Json[string] items = [
+    "a": Json("A"),
+    "one": Json(1),
+    "pi": Json(3.14),
+    "bool": Json(true)
+  ];
+  assert(items.length == 4);
+  assert(items.getString("a") == "A");
+  assert(items.update("a", "B").getString("a") == "B");
+}
 // #endregion update
 
 // #region convert
@@ -459,86 +460,72 @@ unittest {
 // #region is
 bool isArray(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isArray(items[key])
-    : false;
+    ? uim.core.datatypes.json.isArray(items[key]) : false;
 }
 
 bool isBigInteger(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isBigInteger(items[key])
-    : false;
+    ? uim.core.datatypes.json.isBigInteger(items[key]) : false;
 }
 
 bool isBoolean(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isBoolean(items[key])
-    : false;
+    ? uim.core.datatypes.json.isBoolean(items[key]) : false;
 }
 
 bool isDouble(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isDouble(items[key])
-    : false;
+    ? uim.core.datatypes.json.isDouble(items[key]) : false;
 }
 
 bool isEmpty(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isEmpty(items[key])
-    : false;
+    ? uim.core.datatypes.json.isEmpty(items[key]) : false;
 }
 
 bool isFloat(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isFloat(items[key])
-    : false;
+    ? uim.core.datatypes.json.isFloat(items[key]) : false;
 }
 
 bool isInteger(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isInteger(items[key])
-    : false;
+    ? uim.core.datatypes.json.isInteger(items[key]) : false;
 }
 
 bool isIntegral(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isIntegral(items[key])
-    : false;
+    ? uim.core.datatypes.json.isIntegral(items[key]) : false;
 }
 
 bool isLong(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isLong(items[key])
-    : false;
+    ? uim.core.datatypes.json.isLong(items[key]) : false;
 }
 
 bool isNull(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isNull(items[key])
-    : false;
+    ? uim.core.datatypes.json.isNull(items[key]) : false;
 }
 
 bool isObject(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isObject(items[key])
-    : false;
+    ? uim.core.datatypes.json.isObject(items[key]) : false;
 }
 
 bool isScalar(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isScalar(items[key])
-    : false;
+    ? uim.core.datatypes.json.isScalar(items[key]) : false;
 }
 
 bool isString(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isString(items[key])
-    : false;
+    ? uim.core.datatypes.json.isString(items[key]) : false;
 }
 
 bool isUndefined(Json[string] items, string key) {
   return items.hasKey(key)
-    ? uim.core.datatypes.json.isUndefined(items[key])
-    : false;
+    ? uim.core.datatypes.json.isUndefined(items[key]) : false;
 }
 
 unittest {
@@ -583,4 +570,18 @@ unittest {
 Json[string] createJsonMap(Json[string] init = null) {
   Json[string] created = init;
   return created;
+}
+
+string toString(Json[string] items) {
+  return "[" ~ items.byKeyvalue.map!(kv => "%s:%s".format(kv.key, kv.value.toString)).join() ~ "]";
+}
+
+unittest {
+  Json[string] testItems;
+  testItems
+    .set("bool", true)
+    .set("long", 1)
+    .set("double", 1.1)
+    .set("string", "1-1");
+  writeln("toString -> ", testItems.toString);
 }

@@ -155,3 +155,40 @@ string toYYYYMMDD(DateTime datetime, string separator = "") {
 version(test_uim_core) { unittest {
 	assert(DateTime(Date(1999, 7, 6)).toYYYYMMDD("-") == "1999-07-06");
 }}
+
+string toString(DateTime datetime, string format = "YYYYMMD") {
+	auto sysTime = SysTime(datetime);
+	int iDay = sysTime.day;
+	string sDay = to!string(iDay);
+	auto tMon = sysTime.month;
+	auto iMonth = cast(int)sysTime.month;
+	auto sMonth = to!string(iMonth);
+	int iYear = sysTime.year;
+	string sYear = (iYear < 10 ? "0" : "") ~ to!string(iYear);
+	string hour = to!string(sysTime.hour);
+	string min = to!string(sysTime.minute);
+	string sec = to!string(sysTime.second);
+	
+	if (format.contains("YYYY")) {
+		format = format.replace("YYYY", sYear);
+	} else if (format.contains("YY")) {
+		format = format.replace("YY", sYear[2-$..$]);
+	} else if (format.contains("Y")) {
+		format = format.replace("Y", sYear[1-$..$]);
+	}
+
+	if (format.contains("MM")) {
+		format = format.replace("MM", sMonth);
+	} else if (format.contains("M")) {
+		format = format.replace("M", sMonth[1-$..$]);
+	}
+
+	if (format.contains("DD")) {
+		format = format.replace("DD", sDay);
+	} else if (format.contains("D")) {
+		format = format.replace("D", sDay[1-$..$]);
+	}
+
+	// TODO
+	return format;
+}

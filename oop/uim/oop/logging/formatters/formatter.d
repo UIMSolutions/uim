@@ -13,7 +13,12 @@ class DLogFormatter : UIMObject, ILogFormatter {
         if (!super.initialize(initData)) {
             return false;
         }
-
+    
+        configuration
+            .setDefault("dateFormat", "Y-m-d H:i:s")
+            .setDefault("includeTags", false)
+            .setDefault("includeDate", true);
+		
         return true;
     }
 

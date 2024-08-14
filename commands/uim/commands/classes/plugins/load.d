@@ -89,39 +89,39 @@ class DPluginLoadCommand : DCommand {
 DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
     with (parserToUpdate) {
         description("Command for loading plugins.");
-        addArgument("plugin", createJsonMap()
+        addArgument("plugin", createMap!(string, Json)()
             .set("help", "Name of the plugin to load. Must be in CamelCase format. Example: uim plugin load Example")
             .set("required", true)
         );
-        addOption("only-debug", createJsonMap()
+        addOption("only-debug", createMap!(string, Json)()
             .set("boolean", true)
             .set("help", "Load the plugin only when `debug` is enabled.")
         );
-        addOption("only-cli", createJsonMap()
+        addOption("only-cli", createMap!(string, Json)()
             .set("boolean", true) 
             .set("help", "Load the plugin only for CLI.")
         );
-        addOption("optional", createJsonMap()
+        addOption("optional", createMap!(string, Json)()
             .set("boolean", true)
             .set("help", "Do not throw an error if the plugin is not available.")
         );
-        addOption("no-bootstrap", createJsonMap()
+        addOption("no-bootstrap", createMap!(string, Json)()
             .set("boolean", true)
             .set("help", "Do not run the `bootstrap()` hook.")
         );
-        addOption("no-console", createJsonMap()
+        addOption("no-console", createMap!(string, Json)()
             .set("boolean", true)
             .set("help", "Do not run the `console()` hook.")
         );
-        addOption("no-middleware", createJsonMap()
+        addOption("no-middleware", createMap!(string, Json)()
             .set("boolean", true)
             .set("help", "Do not run the `middleware()` hook..")
         );
-        addOption("no-routes", createJsonMap()
+        addOption("no-routes", createMap!(string, Json)()
             .set("boolean", true)
             .set("help", "Do not run the `routes()` hook.")
         );
-        addOption("no-services", createJsonMap()
+        addOption("no-services", createMap!(string, Json)()
             .set("boolean", true)
             .set("help", "Do not run the `services()` hook.")
         );

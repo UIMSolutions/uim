@@ -66,7 +66,7 @@ class DPluginUnloadCommand : DCommand {
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parsertoUpdate) {
         parsertoUpdate.description("Command for unloading plugins.");
         
-        parsertoUpdate.addArgument("plugin", createJsonMap()
+        parsertoUpdate.addArgument("plugin", createMap!(string, Json)()
                 .set("help", "Name of the plugin to unload.")
                 .set("required", true)
             );

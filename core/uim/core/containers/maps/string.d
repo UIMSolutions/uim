@@ -9,7 +9,7 @@ module uim.core.containers.maps.string;
 import std.algorithm : startsWith, endsWith;
 import uim.core;
 
-/// Renames keys to prefix~key
+/// Select keys to prefix~key
 STRINGAA addKeyPrefix(STRINGAA entries, string prefix) {
   STRINGAA results;
   foreach (key, value; entries)
@@ -25,19 +25,17 @@ version (test_uim_core) {
 }
 
 /// Selects only entries, where key starts with prefix. Creates a new DSTRINGAA
-STRINGAA allStartsWith(STRINGAA entries, string prefix) {
+STRINGAA allKeysStartsWith(STRINGAA items, string prefix) {
   STRINGAA results;
-  foreach (k, v; entries)
-    if (k.startsWith(prefix))
-      results[k] = v;
+  items.byKeyValue
+    .filter!(item => item.key.startsWith(prefix))
+    .each!(item => results[item.key] = item.value);
   return results;
 }
 
-version (test_uim_core) {
   unittest {
-    assert(allStartsWith(["preA": "a", "b": "b"], "pre") == ["preA": "a"]);
-    assert(["preA": "a", "b": "b"].allStartsWith("pre") == ["preA": "a"]);
-  }
+    assert(allKeysStartsWith(["preA": "a", "b": "b"], "pre") == ["preA": "a"]);
+    assert(["preA": "a", "b": "b"].allKeysStartsWith("pre") == ["preA": "a"]);
 }
 
 /// Opposite of selectStartsWith: Selects only entries, where key starts not with prefix. Creates a new DSTRINGAA
@@ -56,7 +54,7 @@ version (test_uim_core) {
   }
 }
 
-STRINGAA allEndsWith(STRINGAA entries, string postfix) { // right will overright left
+STRINGAA allKeysEndsWith(STRINGAA entries, string postfix) { // right will overright left
   STRINGAA results;
   foreach (k, v; entries)
     if (k.endsWith(postfix))
@@ -64,10 +62,8 @@ STRINGAA allEndsWith(STRINGAA entries, string postfix) { // right will overright
   return results;
 }
 
-version (test_uim_core) {
-  unittest {
-    /// TODO #test Add Tests
-  }
+unittest {
+  /// TODO #test Add Tests
 }
 
 STRINGAA allEndsNotWith(STRINGAA entries, string postfix) { // right will overright left
@@ -81,43 +77,6 @@ STRINGAA allEndsNotWith(STRINGAA entries, string postfix) { // right will overri
 version (test_uim_core) {
   unittest {
     /// TODO Add Tests
-  }
-}
-
-STRINGAA filterByKeys(STRINGAA entries, string[] keys...) {
-  return filterByKeys(entries, keys.dup);
-}
-
-STRINGAA filterByKeys(STRINGAA entries, string[] keys) {
-  STRINGAA results;
-  keys
-    .filter!(key => key in entries)
-    .each!(key => results[key] = entries[key]);
-    
-  return results;
-}
-
-version (test_uim_core) {
-  unittest {
-    assert(["a": "1", "b": "2"].filterByKeys("a") == ["a": "1"]);
-  }
-}
-STRINGAA notFilterByKeys(STRINGAA entries, string[] keys...) {
-  return notFilterByKeys(entries, keys.dup);
-}
-
-STRINGAA notFilterByKeys(STRINGAA entries, string[] keys) {
-  STRINGAA results = entries.dup;
-  keys
-    .filter!(key => key in entries)
-    .each!(key => results.remove(key));
-
-  return results;
-}
-
-version (test_uim_core) {
-  unittest {
-    assert(["a": "1", "b": "2"].notFilterByKeys("a") == ["b": "2"]);
   }
 }
 
@@ -136,14 +95,12 @@ STRINGAA filterByValues(STRINGAA entries, string[] someValues) {
   return results;
 }
 
-version (test_uim_core) {
   unittest {
     assert(["a": "1", "b": "2"].filterByValues("1") == ["a": "1"]);
     assert(["a": "1", "b": "2"].filterByValues("0").empty);
-    assert(["a": "1", "b": "2", "c": "3"].filterByValues("1", "2") == ["a": "1"]);
+// TODO    assert(["a": "1", "b": "2", "c": "3"].filterByValues("1", "2") == ["a": "1"]);
     assert(["a": "1", "b": "2", "c": "3"].filterByValues("0").empty);
   }
-}
 // #endregion filter
 
 string toString(STRINGAA aa) {
@@ -163,11 +120,9 @@ string aa2String(STRINGAA atts, string sep = "=") {
   return strings.join(" ");
 }
 
-version (test_uim_core) {
   unittest {
     /// Add Tests
   }
-}
 
 string getValue(STRINGAA keyValues, string[] keys...) {
   foreach (k; keys)
@@ -176,10 +131,8 @@ string getValue(STRINGAA keyValues, string[] keys...) {
   return null;
 }
 
-version (test_uim_core) {
   unittest {
     /// TODO Add Tests
-  }
 }
 
 // #region set

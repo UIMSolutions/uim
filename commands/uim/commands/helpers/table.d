@@ -14,7 +14,7 @@ class DTableHelper : UIMObject { // }: Helper {
       return false;
     }
     
-    configuration.mergeDefaults(createJsonMap()
+    configuration.mergeDefaults(createMap!(string, Json)()
       .set("headers", true)
       .set("rowSeparator", false)
       .set("headerStyle", "info"));

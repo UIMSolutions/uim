@@ -278,14 +278,11 @@ Json[string] set(T)(Json[string] items, string[] keys, T value) {
 }
 
 Json[string] set(T)(Json[string] items, string key, T value) {
-  return set(items, key, Json(value));
+  Json json = value.toJson;
+  return uim.core.containers.maps.map.set!(string, Json)(items, key, json);
 }
 
-Json[string] set(T:Json)(Json[string] items, string key, T value) {
-  writeln("xxx");
-/*   if (items is null) {
-    items = createMap!(string, Json)();
-  } */
+Json[string] set(Json[string] items, string key, Json value) {
   items[key] = value;
   return items;
 }
@@ -379,14 +376,14 @@ Json[string] update(Json[string] items, string[] keys, Json defaultValue = Json(
 
 Json[string] update(T)(Json[string] items, string key, T value) {
   if (items.hasKey(key)) {
-    items.set(key, value);
+    items = items.set(key, value);
   }
   return items;
 }
 
 Json[string] update(Json[string] items, string key, Json value = Json(null)) {
   if (items.hasKey(key)) {
-    items.set(key, value);
+    items = set(items, key, value);
   }
   return items;
 }

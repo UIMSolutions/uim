@@ -9,6 +9,7 @@ import uim.oop;
  * based on the level of log it is.
  */
 class DFileLogger : DLogger {
+    mixin(LoggerThis!("File"));
 
     // Path to save log files on.
     protected string _path;
@@ -50,6 +51,22 @@ class DFileLogger : DLogger {
             .setDefault("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
                     .classname));
 
+        /* auto _path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
+        if (!isDir(_path)) {
+            mkdir(_path, configuration.get("dirMask"), true);
+        }
+        if (!configuration.isEmpty("file")) {
+           _filename = configuration.getString("file");
+            if (!_filename.endsWith(".log")) {
+               _filename ~= ".log";
+            }
+        }
+        if (!configuration.isEmpty("size")) {
+            _size = isNumeric(configuration.get("size"))
+                ? configuration.toLong("size")
+                : Text.parseFileSize(configuration.get("size"));
+        } */
+
         return true;
     }
     // Get filename
@@ -67,26 +84,6 @@ class DFileLogger : DLogger {
         return logLevel ~ ".log";
     }
 
-    // Sets protected properties based on config provided
-    this(Json[string] configData = null) {
-        super(configData);
-
-        /* auto _path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
-        if (!isDir(_path)) {
-            mkdir(_path, configuration.get("dirMask"), true);
-        }
-        if (!configuration.isEmpty("file")) {
-           _filename = configuration.getString("file");
-            if (!_filename.endsWith(".log")) {
-               _filename ~= ".log";
-            }
-        }
-        if (!configuration.isEmpty("size")) {
-            _size = isNumeric(configuration.get("size"))
-                ? configuration.toLong("size")
-                : Text.parseFileSize(configuration.get("size"));
-        } */
-    }
 
     // writing to log files.
     void log(int logLevel, string messageToLog, Json[string] messageContext = null) {
@@ -149,4 +146,9 @@ class DFileLogger : DLogger {
         } */
         return result;
     }
+
+  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
+    return this; 
+  }
 }
+    mixin(LoggerCalls!("File"));

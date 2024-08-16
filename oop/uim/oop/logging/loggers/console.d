@@ -6,6 +6,7 @@ import uim.oop;
 
 // Console logging. Writes logs to console output.
 class DConsoleLogger : DLogger {
+    mixin(LoggerThis!("Console"));
 
   override bool initialize(Json[string] initvalue = null) {
     if (!super.initialize(initvalue)) {
@@ -49,4 +50,9 @@ class DConsoleLogger : DLogger {
     string resultMessage = this.interpolate(messageToLog, context);
     _output.write(this.formatter.format(logLevel, resultMessage, context));
   } */
+  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
+    return this; 
+  }
+
 }
+    mixin(LoggerCalls!("Console"));

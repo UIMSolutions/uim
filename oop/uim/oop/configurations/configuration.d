@@ -33,7 +33,7 @@ abstract class DConfiguration : IConfiguration {
     abstract IConfiguration defaultData(Json[string] newData);
 	@property auto byKeyValue()
 	@trusted {
-		return data.byKeyValue.map!(kv => KeyValue(kv.key, kv.value)).trustedRange;
+		return data.byKeyValue.map!(kv => KeyValue(kv.key, kv.value)).array;
 	}
 
     bool hasAnyDefaults(string[] keys) {

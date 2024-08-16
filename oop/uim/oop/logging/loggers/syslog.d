@@ -107,4 +107,9 @@ class DSysLogger : DLogger {
     auto __destruct() {
        /*  closelog(); */
     }
+
+  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
+    return this; 
+  }
 }
+mixin(LoggerCalls!("Sys"));

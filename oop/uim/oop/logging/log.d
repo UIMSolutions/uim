@@ -90,7 +90,7 @@ import uim.oop;
  */
 class DLog : UIMObject {
     this() {
-        super;
+        super();
     }
 
     this(Json[string] initData = null) {
@@ -103,9 +103,9 @@ class DLog : UIMObject {
         }
 
         _dsnClassMap = [
-            "console": ConsoleLog.classname,
-            "file": FileLog.classname,
-            "syslog": SyslogLog.classname,
+            "console": ConsoleLogger.classname,
+            "file": uim.oop.logging.loggers.file.FileLogger.classname,
+            "syslog": SysLogger.classname,
         ];
 
         // Handled log levels
@@ -120,7 +120,7 @@ class DLog : UIMObject {
             "debug",
         ];
 
-_levelMap = [
+        /* _levelMap = [
         "emergency": LOG_EMERG,
         "alert": LOG_ALERT,
         "critical": LOG_CRIT,
@@ -130,31 +130,31 @@ _levelMap = [
         "info": LOG_INFO,
         "debug": LOG_DEBUG,
     ];
-
+ */
         return true;
     }
 
     // Internal flag for tracking whether configuration has been changed.
-    protected static bool _isDirtyConfig = false;
+    protected bool _isDirtyConfig = false;
 
-    // protected static DLogEngineRegistry _registry;
+    // protected  DLogEngineRegistry _registry;
 
     // An array mapping url schemes to fully qualified Log engine class names
-    protected static STRINGAA _dsnClassMap;
+    protected STRINGAA _dsnClassMap;
 
     // Handled log levels
-    protected static string[] _levels;
+    protected string[] _levels;
 
     // Log levels as detailed in RFC 5424
-    protected static Json[string] _levelMap;
+    protected Json[string] _levelMap;
 
     /**
      * Creates registry if doesn"t exist and creates all defined logging
      * adapters if config isn"t loaded.
      */
-    protected static DLogEngineRegistry getRegistry() {
+    /*     protected  DLogEngineRegistry getRegistry() {
          if (_isDirtyConfig) {
-            foreach (key, value; configuration.data) {
+            foreach (key, value; configuration.byKeyValue) {
                 if (value.hasKey("engine")) {
                     value.set("classname", value.get("engine"));
                 }
@@ -167,7 +167,7 @@ _levelMap = [
 
         return LogEngineRegistry;
     }
-
+ */
     /**
      * Reset all the connected loggers. This is useful to do when changing the logging
      * configuration or during testing when you want to reset the internal state of the
@@ -176,21 +176,20 @@ _levelMap = [
      * Resets the configured logging adapters, as well as any custom logging levels.
      * This will also clear the configuration data.
      */
-    static void reset() {
-        if (isSet(_registry)) {
+    void reset() {
+        /* if (isSet(_registry)) {
             _registry.reset();
-        }
-        configuration.clear;
+        } */
+        // configuration.clear;
         _isDirtyConfig = true;
     }
 
     /**
      * Gets log levels
      *
-     * Call this method to obtain current
-     * level configuration.
+     * Call this method to obtain current level configuration.
      */
-    static string[] levels() {
+    string[] levels() {
         return _levels;
     }
 
@@ -229,14 +228,14 @@ _levelMap = [
      * Log.configuration.set(arrayOfConfig);
      * ```
      */
-    static void configurationSet(string[] configName, /* ILogger|Closure|array|null */ Json[string] configData = null) {
-        configuration.set(configName, configData);
+    void configurationSet(string[] configName, /* ILogger|Closure|array|null */ Json[string] configData = null) {
+        // configuration.set(configName, configData);
         _isDirtyConfig = true;
     }
 
     // Get a logging engine.
-    static ILogger engine(string adapterName) {
-        auto registry = getRegistry();
+    ILogger engine(string adapterName) {
+        auto registry = LogEngineRegistry;
 
         return null;
         /*         return !registry.{adapterName}
@@ -288,29 +287,29 @@ _levelMap = [
      * then the logged message will be ignored and silently dropped. You can check if this has happened
      * by inspecting the return of write(). If false the message was not handled.
      */
-    static bool write(int logLevel, string logMessage, string[] logContext = null) {
+    bool write(int logLevel, string logMessage, Json[string] logContext = null) {
         /* return isIn(logLevel, _levelMap, true)
             ? write(array_search(logLevel, _levelMap, true), logMessage, logContext) {
             : false;  */
         return false;
     }
 
-    static bool write(string logLevel, string logMessage, string[] logContext = null) {
-        if (!isIn(logLevel, _levels, true)) {
-            /** @psalm-suppress PossiblyFalseArgument */
-/*             throw new DInvalidArgumentException(
+    bool write(string logLevel, string logMessage, Json[string] logContext = null) {
+        // if (!isIn(logLevel, _levels, true)) {
+        /** @psalm-suppress PossiblyFalseArgument */
+        /*             throw new DInvalidArgumentException(
                 "Invalid log level `%s`".format(level));
- */        }
+ */ //   }
         auto logged = false;
         auto contextArray =  /* (array) */ logContext;
-/*         if (isSet(contextArray[0])) {
+        /*         if (isSet(contextArray[0])) {
             contextArray = ["scope": contextArray];
         }
- */        
-        logContext ~= ["scope": Json.emptyArray];
-        auto registry = getRegistry();
-        registry.loaded().each!((streamName) {
-            /* ILogger logger = registry.{streamName};
+ */
+        logContext = logContext.set("scope", Json.emptyArray);
+        auto registry = LogEngineRegistry;
+        // registry.loaded().each!((streamName) {
+        /* ILogger logger = registry.{streamName};
             auto levels = scopes = null;
 
             if (cast(BaseLog)logger) {
@@ -325,7 +324,7 @@ _levelMap = [
                 logger.log(logLevel, logMessage, logContext);
                 logged = true;
             } */
-        });
+        // });
         return logged;
     }
 
@@ -336,38 +335,38 @@ _levelMap = [
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      */
-    static bool emergency(string logMessage, string[] logContext = null) {
+    bool emergency(string logMessage, Json[string] logContext = null) {
         return write(__FUNCTION__, logMessage, logContext);
     }
 
     // Convenience method to log alert messages
-    static bool alert(string logMessage, string[] logContext = null) {
+    bool alert(string logMessage, Json[string] logContext = null) {
         return write(__FUNCTION__, logMessage, logContext);
     }
 
     // Convenience method to log critical messages
-    static bool critical(string logMessage, string[] logContext = null) {
+    bool critical(string logMessage, Json[string] logContext = null) {
         return write(__FUNCTION__, logMessage, logContext);
     }
 
     // Convenience method to log error messages
-    static bool error(string logMessage, string[] logContext = null) {
+    bool error(string logMessage, Json[string] logContext = null) {
         return write(__FUNCTION__, logMessage, logContext);
     }
 
     // Convenience method to log warning messages
-    static bool warning(string logMessage, string[] logContext = null) {
+    bool warning(string logMessage, Json[string] logContext = null) {
         return write(__FUNCTION__, logMessage, logContext);
     }
 
     // Convenience method to log notice messages
-    static bool notice(string logMessage, string[] logContext = null) {
+    bool notice(string logMessage, Json[string] logContext = null) {
         return write(__FUNCTION__, logMessage, logContext);
     }
 
     // Convenience method to log debug messages
-    static bool shouldDebug(string logMessage, string[] dataForLoggingMessage = null) {
-        return write(__FUNCTION__, logMessage, dataForLoggingMessage);
+    bool shouldDebug(string logMessage, Json[string] logContext = null) {
+        return write(__FUNCTION__, logMessage, logContext);
     }
 
     /**
@@ -376,7 +375,7 @@ _levelMap = [
      * log engines to be used. If a string or a numerically indexed array is passed, it
      * will be treated as the `scope` key.
      */
-    static bool info(string logMessage, string[] logContext = null) {
+    bool info(string logMessage, Json[string] logContext = null) {
         return write(__FUNCTION__, logMessage, logContext);
     }
 }

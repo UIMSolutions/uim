@@ -1,6 +1,6 @@
-module uim.logging.classes.log;
+module uim.oop.logging.log;
 
-import uim.logging;
+import uim.oop;
 
 @safe:
 

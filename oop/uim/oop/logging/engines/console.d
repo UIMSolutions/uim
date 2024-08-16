@@ -1,6 +1,6 @@
-module uim.logging.classes.engines.console;
+module uim.oop.logging.engines.console;
 
-import uim.logging;
+import uim.oop;
  
 @safe:
 // Console logging. Writes logs to console output.

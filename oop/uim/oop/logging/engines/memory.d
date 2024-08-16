@@ -1,6 +1,6 @@
-module uim.logging.classes.engines.memory;
+module uim.oop.logging.engines.memory;
 
-import uim.logging;
+import uim.oop;
 
 /**
  * Memory Log engine.

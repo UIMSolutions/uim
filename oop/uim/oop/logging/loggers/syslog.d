@@ -41,9 +41,9 @@ class DSysLogger : DLogger {
         configuration
         .setDefault("levels", Json.emptyArray)
         .setDefault("scopes", Json.emptyArray)
-        .setDefault("flag", LOG_ODELAY)
+        //.setDefault("flag", LOG_ODELAY)
         .setDefault("prefix", "")
-        .setDefault("facility", LOG_USER)
+        // .setDefault("facility", LOG_USER)
         .setDefault("formatter", createMap!(string, Json)()
             .set("classname", StandardLogFormatter.classname)
             .set("includeDate", false)
@@ -74,16 +74,16 @@ class DSysLogger : DLogger {
      */
     void log(Json severityLevel, string messageToLog, Json[string] context = null) {
         if (!_open) {
-            configData = configuration;
+            /* configData = configuration;
            _open(configuration.get("prefix"), configuration.get("flag"), configuration.get("facility"));
-           _open = true;
+           _open = true; */
         }
-        auto priority = LOG_DEBUG;
+        /* auto priority = LOG_DEBUG;
         if (_levelMap.hasKey(severityLevel)) {
             priority = _levelMap[level];
-        }
-        interpolate(messageToLog, context).split("\n")
-            .each!(line => _write(priority, _formatter.format(severityLevel, line, context)));
+        } */
+        /* interpolate(messageToLog, context).split("\n")
+            .each!(line => _write(priority, _formatter.format(severityLevel, line, context))); */
     }
     
     /**
@@ -99,11 +99,12 @@ class DSysLogger : DLogger {
      * will perform the actual write in the system logger
      */
     protected bool _write(int priority, string logMessage) {
-        return syslog(priority, logMessage);
+        /* return syslog(priority, logMessage); */
+        return false;
     }
     
     // Closes the logger connection
     auto __destruct() {
-        closelog();
+       /*  closelog(); */
     }
 }

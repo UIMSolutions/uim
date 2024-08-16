@@ -8,7 +8,7 @@ import uim.oop;
  * File Storage stream for Logging. Writes logs to different files
  * based on the level of log it is.
  */
-class DFileLogger : DLogger { 
+class DFileLogger : DLogger {
 
     // Path to save log files on.
     protected string _path;
@@ -18,9 +18,9 @@ class DFileLogger : DLogger {
 
     // Max file size, used for log file rotation.
     protected int _size = 0;
-    
+
     override bool initialize(Json[string] initData = null) {
-            /**
+        /**
      * Default config for this class
      *
      * - `levels` string or array, levels the engine is interested in
@@ -38,17 +38,19 @@ class DFileLogger : DLogger {
      * - `dirMask` The mask used for created folders.
      *
      */
-    configuration
-        .setDefault("path", Json(null))
-        .setDefault("file", Json(null))
-        .setDefault("types", Json(null))
-        .setDefault("levels", Json.emptyArray)
-        .setDefault("scopes", Json.emptyArray)
-        .setDefault("rotate", 10)
-        .setDefault("size", 10485760) // 10M)
-        .setDefault("mask", Json(null))
-        // .setDefault("dirMask", 0770)
-        .setDefault("formatter", createMap!(string, Json).set("classname", StandardLogFormatter.classname));
+        configuration
+            .setDefault("path", Json(null))
+            .setDefault("file", Json(null))
+            .setDefault("types", Json(null))
+            .setDefault("levels", Json.emptyArray)
+            .setDefault("scopes", Json.emptyArray)
+            .setDefault("rotate", 10)
+            .setDefault("size", 10_485_760) // 10M)
+            .setDefault("mask", Json(null)) // .setDefault("dirMask", 0770)
+            .setDefault("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
+                    .classname));
+
+        return true;
     }
     // Get filename
     protected string _getFilename(string logLevel) {
@@ -61,16 +63,15 @@ class DFileLogger : DLogger {
             return "error.log";
         } else if (debugTypes.has(logLevel)) {
             return "debug.log";
-        } 
+        }
         return logLevel ~ ".log";
     }
-
 
     // Sets protected properties based on config provided
     this(Json[string] configData = null) {
         super(configData);
 
-       auto _path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
+        /* auto _path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
         if (!isDir(_path)) {
             mkdir(_path, configuration.get("dirMask"), true);
         }
@@ -84,43 +85,41 @@ class DFileLogger : DLogger {
             _size = isNumeric(configuration.get("size"))
                 ? configuration.toLong("size")
                 : Text.parseFileSize(configuration.get("size"));
-        }
+        } */
     }
-    
+
     // writing to log files.
     void log(int logLevel, string messageToLog, Json[string] messageContext = null) {
-        string message = this.interpolate(messageToLog, messageContext);
-        message = _formatter.format(logLevel, message, messageContext);
+        string message; /* = this.interpolate(messageToLog, messageContext);
+        message = _formatter.format(logLevel, message, messageContext); */
 
-        string filename = _getFilename(logLevel);
+        string filename; // = _getFilename(logLevel);
         if (_size) {
-           _rotateFile(filename);
+            _rotateFile(filename);
         }
-        
+
         string filePath = _path ~ filename;
         Json mask = configuration.get("mask");
-        if (!mask) {
+        /* if (!mask) {
             file_put_contents(filePath, message ~ "\n", FILE_APPEND);
 
             return;
-        }
+        } */
 
         bool fileExists = isFile(filePath);
-        file_put_contents(filePath, message ~ "\n", FILE_APPEND);
-        
+        /* file_put_contents(filePath, message ~ "\n", FILE_APPEND); */
+
         bool selfError = false;
-        if (!selfError && !fileExists && !chmod(filePath, to!int(mask))) {
+        /* if (!selfError && !fileExists && !chmod(filePath, to!int(mask))) {
             selfError = true;
             trigger_error(
                 "Could not apply permission mask `%s` on log file `%s`"
                     .format(mask, filePath),
                     ERRORS.USER_WARNING);
             selfError = false;
-        }
+        } */
     }
-    
 
-    
     /**
      * Rotate log file if size specified in config is reached.
      * Also if `rotate` count is reached oldest file is removed.
@@ -128,26 +127,26 @@ class DFileLogger : DLogger {
      * string logFilename Log file name
      */
     protected bool _rotateFile(string logFilename) {
+        bool result = false;
         string logFilepath = _path ~ logFilename;
-        clearstatcache(true, logFilepath);
+        /* clearstatcache(true, logFilepath); */
 
-        if (!isFile(logFilepath) || filesize(logFilepath) < _size) {
+        /* if (!isFile(logFilepath) || filesize(logFilepath) < _size) {
             return null;
-        }
-        
-        size_t rotate = configuration.get("rotate");
-        result = rotate == 0 
-            ? unlink(logFilepath)
-            : rename(logFilepath, logFilepath ~ "." ~ time());
-        
-        auto files = glob(logFilepath ~ ".*");
+        } */
+
+        /* size_t rotate = configuration.get("rotate");
+        result = rotate == 0
+            ? unlink(logFilepath) : rename(logFilepath, logFilepath ~ "." ~ time()); */
+
+        /* auto files = glob(logFilepath ~ ".*");
         if (files) {
             size_t filesToDelete = files.length - rotate;
             while (filesToDelete > 0) {
                 unlink(to!string(files.shift()));
                 filesToDelete--;
             }
-        }
+        } */
         return result;
     }
 }

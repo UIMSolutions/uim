@@ -1,6 +1,6 @@
- module uim.logging.classes.loggers.file;
+module uim.oop.logging.loggers.file;
 
-import uim.logging;
+import uim.oop;
 
 @safe:
 
@@ -17,7 +17,7 @@ class DFileLogger : DLogger {
     protected string _file = null;
 
     // Max file size, used for log file rotation.
-    protected int _size = null;
+    protected int _size = 0;
     
     override bool initialize(Json[string] initData = null) {
             /**

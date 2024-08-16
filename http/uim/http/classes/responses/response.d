@@ -366,7 +366,7 @@ class DResponse : IResponse {
      *
      * @var resource|string
      */
-    protected _streamTarget = "D://memory";
+    protected _streamTarget = "d://memory";
 
     /**
      

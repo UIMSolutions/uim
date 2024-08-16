@@ -240,11 +240,11 @@ class DServerRequest { // }: IServerRequest {
 
         DStream stream;
         if (configData.hasKey("input")) {
-            auto stream = new DStream("D://memory", "rw");
+            auto stream = new DStream("d://memory", "rw");
             stream.write(configData["input"]);
             stream.rewind();
         } else {
-            stream = new DStream("D://input");
+            stream = new DStream("d://input");
         }
         _stream = stream;
 

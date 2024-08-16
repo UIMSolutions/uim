@@ -4,6 +4,13 @@ public { // Main class
     import uim.oop.logging.loggers.logger;
 }
 
+public { // Sub classes
+    import uim.oop.logging.loggers.console;
+    import uim.oop.logging.loggers.file;
+    import uim.oop.logging.loggers.memory;
+    import uim.oop.logging.loggers.syslog;
+}
+
 public { // Helper modules
     import uim.oop.logging.loggers.collection;
     import uim.oop.logging.loggers.enumerations;

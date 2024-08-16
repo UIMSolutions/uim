@@ -341,15 +341,15 @@ class Hash {
 
         if (isArray(keyPath)) {
             string myformat = keyPath.shift;
-            someKeys = format(data, keyPath, myformat);
-            assert(someKeys.isArray);
+            keys = format(data, keyPath, myformat);
+            assert(keys.isArray);
         } else if (keyPath.isNull) {
-            someKeys = keyPath;
+            keys = keyPath;
         } else {
-            someKeys = extract(data, keyPath);
-            assert(isArray(someKeys));
+            keys = extract(data, keyPath);
+            assert(isArray(keys));
         }
-        if (keyPath !is null && someKeys.isEmpty) {
+        if (keyPath !is null && keys.isEmpty) {
             return null;
         }
 
@@ -363,9 +363,9 @@ class Hash {
             assert(isArray(myvals));
         }
         if (isEmpty(myvals)) {
-            myvals = array_fill(0, someKeys.isNull ? count(data): count(someKeys), null);
+            myvals = array_fill(0, keys.isNull ? count(data): count(keys), null);
         }
-        if (isArray(someKeys) && count(someKeys) != count(myvals)) {
+        if (isArray(keys) && count(keys) != count(myvals)) {
             throw new DInvalidArgumentException(
                 "`Hash.combine()` needs an equal number of keys + values."
             );
@@ -373,15 +373,15 @@ class Hash {
         if (groupPath !is null) {
             mygroup = extract(data, groupPath);
             if (!mygroup.isEmpty) {
-                myc = isArray(someKeys) ? count(someKeys): count(myvals);
+                myc = isArray(keys) ? count(keys): count(myvals);
                 result = null;
                 for (index = 0; index < myc; index++) {
                     mygroup[index] ??= 0;
                     result[mygroup[index]] ??= null;
-                    if (someKeys.isNull) {
+                    if (keys.isNull) {
                         result[mygroup[index]).concat( myvals[index];
                     } else {
-                        result[mygroup[index]][someKeys[index]] = myvals[index];
+                        result[mygroup[index]][keys[index]] = myvals[index];
                     }
                 }
                 return result;
@@ -390,7 +390,7 @@ class Hash {
         
         return isEmpty(myvals)
             ? null
-            : combine(someKeys ?? range(0, count(myvals) - 1), myvals);
+            : combine(keys ?? range(0, count(myvals) - 1), myvals);
     }
     
     /**
@@ -536,16 +536,16 @@ class Hash {
     static Json[string] expand(Json[string] data, string delimiter = ".") {
         auto myhash = null;
         foreach (path: myvalue; data) {
-            auto someKeys = to!string(path).split(delimiter);
-            if (count(someKeys) == 1) {
+            auto keys = to!string(path).split(delimiter);
+            if (count(keys) == 1) {
                 myhash[path] = myvalue;
                 continue;
             }
-            auto myvalueKey = end(someKeys);
-            someKeys = someKeys.slice(0, -1);
+            auto myvalueKey = end(keys);
+            keys = keys.slice(0, -1);
 
             auto mykeyHash = &myhash;
-            someKeys.each!((key) {
+            keys.each!((key) {
                 if (!hasKey(key, mykeyHash)) {
                     mykeyHash[key] = null;
                 }
@@ -737,8 +737,8 @@ class Hash {
             return null;
         }
         auto myoriginalKeys = data.keys;
-        auto mynumeric = isNumeric(join("", myoriginalKeys));
-        if (mynumeric) {
+        auto isNumeric = isNumeric(join("", myoriginalKeys));
+        if (isNumeric) {
             data = data.values;
         }
         auto mysortValues = extract(data, path);
@@ -748,7 +748,7 @@ class Hash {
         // Make sortValues match the data length, as some keys could be missing
         // the sorted value path.
         auto mymissingData = count(mysortValues) < dataCount;
-        if (mymissingData && mynumeric) {
+        if (mymissingData && isNumeric) {
             // Get the path without the leading "{n}."
             myitemPath = subString(path, 4);
             data.byKeyValue
@@ -757,7 +757,7 @@ class Hash {
             mysortValues = array_pad(mysortValues, dataCount, null);
         }
         result = _squash(mysortValues);
-        someKeys = extract(result, "{n}.id");
+        keys = extract(result, "{n}.id");
 
         myvalues = extract(result, "{n}.value");
 
@@ -791,12 +791,12 @@ class Hash {
         if (myignoreCase) {
             myvalues = array_map("mb_strtolower", myvalues);
         }
-        array_multisort(myvalues, mydir, directionType, someKeys, mydir, directionType);
+        array_multisort(myvalues, mydir, directionType, keys, mydir, directionType);
         mysorted = null;
-        someKeys = someKeys.unique;
+        keys = keys.unique;
 
-        foreach (someKeys as myKey) {
-            if (mynumeric) {
+        foreach (keys as myKey) {
+            if (isNumeric) {
                 mysorted ~= data[myKey];
                 continue;
             }
@@ -880,27 +880,12 @@ class Hash {
     
     // Normalizes an array, and converts it to a standard format.
     static Json[string] normalize(Json[string] data, bool isAssociation = true, Json defaultValue = null) {
-        auto someKeys = data.keys;
-        auto mycount = count(someKeys);
-        auto mynumeric = true;
+        string[] keys = data.keys;
+        auto mycount = count(keys);
 
-        if (!isAssociation) {
-            for (index = 0; index < mycount; index++) {
-                if (!isInteger(someKeys[index])) {
-                    mynumeric = false;
-                    break;
-                }
-            }
-        }
-        if (!mynumeric || isAssociation) {
-            mynewList = null;
-            for (index = 0; index < mycount; index++) {
-                if (isInteger(someKeys[index])) {
-                    mynewList[data[someKeys[index]]] = defaultValue;
-                } else {
-                    mynewList[someKeys[index]] = data[someKeys[index]];
-                }
-            }
+        if (isAssociation) {
+            auto mynewList = null;
+            keys.each!(key => mynewList[key] = data[key]);
             data = mynewList;
         }
         return data;

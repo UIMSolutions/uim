@@ -1,6 +1,6 @@
-module uim.logging.classes.loggers.console;
+module uim.oop.logging.loggers.console;
 
-import uim.logging;
+import uim.oop;
 
 @safe:
 
@@ -13,14 +13,13 @@ class DConsoleLogger : DLogger {
     }
 
     configuration
-      .setDefault("stream", "D://stderr") // `stream` the path to save logs on.
+      .setDefault("stream", "d://stderr") // `stream` the path to save logs on.
       .setDefault("levels", Json(null)) // `levels` string or array, levels the engine is interested in
       .setDefault("scopes", Json.emptyArray) // `scopes` string or array, scopes the engine is interested in
       .setDefault("outputAs", Json(null)) // `outputAs` integer or ConsoleOutput.[RAW|PLAIN|COLOR]
-      .setDefault("formatter", [
-          "classname": StandardLogFormatter.classname,
-          "includeTags": true.toJson,
-        ]);
+      .setDefault("formatter", createMap!(string, Json)
+          .set("classname", StandardLogFormatter.classname)
+          .set("includeTags", true));
       // `dateFormat` UIM date() format.
 
     return true;

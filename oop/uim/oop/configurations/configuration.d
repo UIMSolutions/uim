@@ -9,6 +9,8 @@ import uim.oop;
 
 @safe:
 
+private alias KeyValue = Tuple!(string, "key", Json, "value");
+
 // Configuration for handling config data = key: string / value: Json
 abstract class DConfiguration : IConfiguration {
     this() {
@@ -29,6 +31,10 @@ abstract class DConfiguration : IConfiguration {
     abstract Json[string] defaultData();
 
     abstract IConfiguration defaultData(Json[string] newData);
+	@property auto byKeyValue()
+	@trusted {
+		return data.byKeyValue.map!(kv => KeyValue(kv.key, kv.value)).trustedRange;
+	}
 
     bool hasAnyDefaults(string[] keys) {
         return keys

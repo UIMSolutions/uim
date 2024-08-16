@@ -88,44 +88,39 @@ import uim.oop;
  * application. By using scopes you can control logging for each part
  * of your application and also use standard log levels.
  */
-class DLog {
-    // Internal flag for tracking whether configuration has been changed.
-    protected static bool _isDirtyConfig = false;
+class DLog : UIMObject {
+    this() {
+        super;
+    }
 
-    protected static DLogEngineRegistry _registry;
+    this(Json[string] initData = null) {
+        super(initData);
+    }
 
-    /* 
-    mixin template TStaticConfig() {
-        setConfig as protected _setConfig;
-    } */
-    
-    // An array mapping url schemes to fully qualified Log engine class names
-    protected static STRINGAA _dsnClassMap = [
-        "console": ConsoleLog.classname,
-        "file": FileLog.classname,
-        "syslog": SyslogLog.classname,
-    ];
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
+        _dsnClassMap = [
+            "console": ConsoleLog.classname,
+            "file": FileLog.classname,
+            "syslog": SyslogLog.classname,
+        ];
 
-    // Handled log levels
-    protected static string[] _levels = [
-        "emergency",
-        "alert",
-        "critical",
-        "error",
-        "warning",
-        "notice",
-        "info",
-        "debug",
-    ];
+        // Handled log levels
+        _levels = [
+            "emergency",
+            "alert",
+            "critical",
+            "error",
+            "warning",
+            "notice",
+            "info",
+            "debug",
+        ];
 
-    /**
-     * Log levels as detailed in RFC 5424
-     * https://tools.ietf.org/html/rfc5424
-     *
-     * @var array<string, int>
-     */
-    protected static Json[string] _levelMap = [
+_levelMap = [
         "emergency": LOG_EMERG,
         "alert": LOG_ALERT,
         "critical": LOG_CRIT,
@@ -136,28 +131,43 @@ class DLog {
         "debug": LOG_DEBUG,
     ];
 
+        return true;
+    }
+
+    // Internal flag for tracking whether configuration has been changed.
+    protected static bool _isDirtyConfig = false;
+
+    // protected static DLogEngineRegistry _registry;
+
+    // An array mapping url schemes to fully qualified Log engine class names
+    protected static STRINGAA _dsnClassMap;
+
+    // Handled log levels
+    protected static string[] _levels;
+
+    // Log levels as detailed in RFC 5424
+    protected static Json[string] _levelMap;
+
     /**
      * Creates registry if doesn"t exist and creates all defined logging
      * adapters if config isn"t loaded.
      */
-    protected static LogEngineRegistry getRegistry() {
-        _registry = _registry ? _registry : new DLogEngineRegistry();
-
-        if (_isDirtyConfig) {
-            foreach (name, properties; configuration) {
-                if (properties.hasKey("engine")) {
-                    properties.set("classname", properties.get("engine"));
+    protected static DLogEngineRegistry getRegistry() {
+         if (_isDirtyConfig) {
+            foreach (key, value; configuration.data) {
+                if (value.hasKey("engine")) {
+                    value.set("classname", value.get("engine"));
                 }
-                if (!_registry.hasKey(to!string(name))) {
-                    _registry.load(to!string(name, properties));
+                if (!LogEngineRegistry.hasKey(key)) {
+                    // LogEngineRegistry.load(key, value);
                 }
             }
         }
         _isDirtyConfig = false;
 
-        return _registry;
+        return LogEngineRegistry;
     }
-    
+
     /**
      * Reset all the connected loggers. This is useful to do when changing the logging
      * configuration or during testing when you want to reset the internal state of the
@@ -170,10 +180,10 @@ class DLog {
         if (isSet(_registry)) {
             _registry.reset();
         }
-        configuration = null;
+        configuration.clear;
         _isDirtyConfig = true;
     }
-    
+
     /**
      * Gets log levels
      *
@@ -183,7 +193,7 @@ class DLog {
     static string[] levels() {
         return _levels;
     }
-    
+
     /**
      * This method can be used to define logging adapters for an application
      * or read existing configuration.
@@ -223,17 +233,18 @@ class DLog {
         configuration.set(configName, configData);
         _isDirtyConfig = true;
     }
-    
+
     // Get a logging engine.
     static ILogger engine(string adapterName) {
         auto registry = getRegistry();
 
-        return null;      
-/*         return !registry.{adapterName}
+        return null;
+        /*         return !registry.{adapterName}
             ? null
             : registry.{adapterName};
- */    }
-    
+ */
+    }
+
     /**
      * Writes the given message and type to all the configured log adapters.
      * Configured adapters are passed both the level and message variables. level
@@ -277,26 +288,26 @@ class DLog {
      * then the logged message will be ignored and silently dropped. You can check if this has happened
      * by inspecting the return of write(). If false the message was not handled.
      */
-    static bool write(int severityLevel, string messageToLog, string[] contextData = null) {
-        /* return isIn(severityLevel, _levelMap, true)
-            ? write(array_search(severityLevel, _levelMap, true), messageToLog, contextData) {
+    static bool write(int logLevel, string logMessage, string[] logContext = null) {
+        /* return isIn(logLevel, _levelMap, true)
+            ? write(array_search(logLevel, _levelMap, true), logMessage, logContext) {
             : false;  */
         return false;
     }
 
-    static bool write(string severityLevel, string messageToLog, string[] contextData = null) {
-        if (!isIn(severityLevel, _levels, true)) {
+    static bool write(string logLevel, string logMessage, string[] logContext = null) {
+        if (!isIn(logLevel, _levels, true)) {
             /** @psalm-suppress PossiblyFalseArgument */
-            throw new DInvalidArgumentException(
+/*             throw new DInvalidArgumentException(
                 "Invalid log level `%s`".format(level));
-        }
+ */        }
         auto logged = false;
-        auto contextArray = /* (array) */contextData;
-        if (isSet(contextArray[0])) {
+        auto contextArray =  /* (array) */ logContext;
+/*         if (isSet(contextArray[0])) {
             contextArray = ["scope": contextArray];
         }
-        contextData ~= ["scope": Json.emptyArray];
-
+ */        
+        logContext ~= ["scope": Json.emptyArray];
         auto registry = getRegistry();
         registry.loaded().each!((streamName) {
             /* ILogger logger = registry.{streamName};
@@ -306,18 +317,18 @@ class DLog {
                 levels = logger.levels();
                 scopes = logger.scopes();
             }
-            auto correctLevel = levels.isEmpty || isIn(severityLevel, levels, true);
-             anInScope = scopes.isNull && contextData.isEmpty("scope") || scopes is null ||
-                isArray(scopes) && intersect(/* (array) * /contextData["scope"], scopes);
+            auto correctLevel = levels.isEmpty || isIn(logLevel, levels, true);
+             anInScope = scopes.isNull && logContext.isEmpty("scope") || scopes is null ||
+                isArray(scopes) && intersect(/* (array) * /logContext["scope"], scopes);
 
             if (correctLevel &&  anInScope) {
-                logger.log(severityLevel, messageToLog, contextData);
+                logger.log(logLevel, logMessage, logContext);
                 logged = true;
             } */
         });
         return logged;
     }
-    
+
     /**
      * Convenience method to log emergency messages
      * Params:
@@ -325,47 +336,47 @@ class DLog {
      * log engines to be used. If a string or a numerically index array is passed, it
      * will be treated as the `scope` key.
      */
-    static bool emergency(string logMessage, string[] context = null) {
-        return write(__FUNCTION__, logMessage, context);
+    static bool emergency(string logMessage, string[] logContext = null) {
+        return write(__FUNCTION__, logMessage, logContext);
     }
-    
+
     // Convenience method to log alert messages
-    static bool alert(string logMessage, string[] contextData = null) {
-        return write(__FUNCTION__, logMessage, contextData);
+    static bool alert(string logMessage, string[] logContext = null) {
+        return write(__FUNCTION__, logMessage, logContext);
     }
-    
+
     // Convenience method to log critical messages
-    static bool critical(string logMessage, string[] context = null) {
-        return write(__FUNCTION__, logMessage, context);
+    static bool critical(string logMessage, string[] logContext = null) {
+        return write(__FUNCTION__, logMessage, logContext);
     }
-    
+
     // Convenience method to log error messages
-    static bool error(string logMessage, string[] contextData = null) {
-        return write(__FUNCTION__, logMessage, contextData);
+    static bool error(string logMessage, string[] logContext = null) {
+        return write(__FUNCTION__, logMessage, logContext);
     }
-    
+
     // Convenience method to log warning messages
-    static bool warning(string logMessage, string[] context = null) {
-        return write(__FUNCTION__, logMessage, context);
+    static bool warning(string logMessage, string[] logContext = null) {
+        return write(__FUNCTION__, logMessage, logContext);
     }
-    
+
     // Convenience method to log notice messages
-    static bool notice(string logMessage, string[] contextData = null) {
-        return write(__FUNCTION__, logMessage, context);
+    static bool notice(string logMessage, string[] logContext = null) {
+        return write(__FUNCTION__, logMessage, logContext);
     }
-    
+
     // Convenience method to log debug messages
-    static bool shouldDebug(string logMessage, string[] dataForLoggingMessage= null) {
+    static bool shouldDebug(string logMessage, string[] dataForLoggingMessage = null) {
         return write(__FUNCTION__, logMessage, dataForLoggingMessage);
     }
-    
+
     /**
      * Convenience method to log info messages
      * The special `scope` key can be passed to be used for further filtering of the
      * log engines to be used. If a string or a numerically indexed array is passed, it
      * will be treated as the `scope` key.
      */
-    static bool info(string logMessage, string[] contextData = null) {
-        return write(__FUNCTION__, logMessage, contextData);
+    static bool info(string logMessage, string[] logContext = null) {
+        return write(__FUNCTION__, logMessage, logContext);
     }
 }

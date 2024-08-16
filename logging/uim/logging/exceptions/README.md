@@ -3,5 +3,3 @@
 ## Packages
 
 ## Modules
-
-- uim.logging.exceptions.exception

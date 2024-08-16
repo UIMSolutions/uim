@@ -46,7 +46,6 @@ class DPluginUnloadCommand : DCommand {
         if (!configData.isArray) {
             return "`CONFIG/plugins.d` not found or does not return an array";
         }
-        configData = Hash.normalize(configData);
         if (!hasKey(pluginName, configData)) {
             return "plugin-`%s` could not be found".format(pluginName);
         }

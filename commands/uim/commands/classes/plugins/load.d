@@ -70,8 +70,6 @@ class DPluginLoadCommand : DCommand {
 
         configData = @include this.configFile;
         configData = !configData.isArray ? Json.empty;
-    } else {
-        configData = Hash.normalize(configData);
     }
  */
     /* configuration.set(pluginName, options);

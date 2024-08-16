@@ -14,7 +14,7 @@ class DStreamFactory { // }: IStreamFactory {
      * string acontent String content with which to populate the stream.
      */
     IStream createStream(string contenToPopulate= null) {
-        auto myResource = fopen("D://temp", "r+");
+        auto myResource = fopen("d://temp", "r+");
         assert(myResource == true, "Unable to create resource");
         fwrite(myResource, contenToPopulate);
         rewind(myResource);

@@ -85,7 +85,7 @@ class DClientResponse { // }: Message : IResponse {
         if (getHeaderLine("Content-Encoding") == "gzip") {
             responseBody = _decodeGzipBody(responseBody);
         }
-        stream = new DStream("D://memory", "wb+");
+        stream = new DStream("d://memory", "wb+");
         stream.write(responseBody);
         stream.rewind();
         this.stream = stream;

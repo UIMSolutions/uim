@@ -279,7 +279,7 @@ Json[string] set(T)(Json[string] items, string[] keys, T value) {
 
 Json[string] set(T)(Json[string] items, string key, T value) {
   Json json = value.toJson;
-  return uim.core.containers.maps.map.set!(string, Json)(items, key, json);
+  return set(items, key, json);
 }
 
 Json[string] set(Json[string] items, string key, Json value) {

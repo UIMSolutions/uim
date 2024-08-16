@@ -27,7 +27,7 @@ class DRequest { // }: Message, IRequest {
         ]));
 
         if (requestBodyData.isNull) {
-            _stream = new DStream("D://memory", "rw");
+            _stream = new DStream("d://memory", "rw");
         } else {
             setContent(requestBodyData);
         }
@@ -61,7 +61,7 @@ class DRequest { // }: Message, IRequest {
             this.addHeaders(aHeaders);
             auto myFormData = (string)formData; */
         }
-        stream = new DStream("D://memory", "rw");
+        stream = new DStream("d://memory", "rw");
         stream.write(myFormData);
         _stream = stream;
     }

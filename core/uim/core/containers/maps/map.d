@@ -277,12 +277,12 @@ unittest {
 // #endregion isSet
 
 // #region set
-V[K] set(K, V)(V[K] items, K[] keys, V value = Null!V) {
+V[K] set(K, V)(V[K] items, K[] keys, V value) if (!isType!Json) {
   keys.each!(key => items.set(key, value));
   return items;
 }
 
-V[K] set(K, V)(V[K] items, K key, V value = Null!V) {
+V[K] set(K, V)(V[K] items, K key, V value) if (!isType!Json) {
   items[key] = value;
   return items;
 }

@@ -19,5 +19,6 @@ public { // Helper modules
     import uim.oop.logging.formatters.interfaces;
     import uim.oop.logging.formatters.mixins;
     import uim.oop.logging.formatters.registry;
+    import uim.oop.logging.formatters.tests;
 }
 

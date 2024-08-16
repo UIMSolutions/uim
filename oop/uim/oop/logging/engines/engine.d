@@ -4,32 +4,17 @@ import uim.oop;
 
 @safe:
 // Base log engine class.
-class DLogEngine : ILogEngine {
-    mixin TConfigurable;
+class DLogEngine : UIMObject, ILogEngine {
+    mixin(LogEngineThis!(""));
 
-    this() {
-        initialize;
-        this.name("LogEngine");  
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
     }
 
-    this(Json[string] initData) {
-        this.initialize(initData);
-        this.name("LogEngine");  
-    }
-
-    this(string name) { 
-        this(); 
-        this.name(name); 
-    }
-
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-        
-        return true;
-    }
+    return true;
+  }
 
   mixin(TProperty!("ILogFormatter", "formatter"));
-  mixin(TProperty!("string", "name"));
   mixin(TProperty!("string", "classname"));
 }

@@ -674,10 +674,7 @@ class DFormHelper : DHelper {
     string allControls(Json[string] fieldNames = [], Json[string] options  = null) {
         auto mycontext = _getContext();
         auto mymodelFields = mycontext.fieldNames();
-        auto fieldNames = array_merge(
-            Hash.normalize(mymodelFields),
-            Hash.normalize(fieldNames)
-       );
+        auto fieldNames = array_merge(mymodelFields, fieldNames);
 
         return _controls(fieldNames, options);
     }
@@ -697,7 +694,6 @@ class DFormHelper : DHelper {
      * you to set custom types, labels, or other options.
      */
     string controls(Json[string] fieldNames, Json[string] options  = null) {
-        auto fieldNames = Hash.normalize(fieldNames);
         string result = "";
         foreach (views, myopts; fieldNames) {
             if (myopts == false) {

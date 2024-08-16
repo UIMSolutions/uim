@@ -50,9 +50,6 @@ mixin template TMergeVariables() {
         isIn(propertyName, mergingOptions.toArray("associative"), true)
    );
 
-    if (isAssoc) {
-      mythisValue = Hash.normalize(mythisValue);
-    }
     
     parentClasses.each!((classname) {
       auto parentProperties = get_class_vars(classname);
@@ -78,7 +75,7 @@ mixin template TMergeVariables() {
       return chain(parentClassData, currentData);
     }
 
-    Hash.normalize(parentClassData).byKeyValue
+    parentClassData.byKeyValue
       .filter!(kv => !currentData.hasKey(kv.key))
       .each!(key => currentData[kv.key] = kv.value);
 

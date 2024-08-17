@@ -300,17 +300,17 @@ class DCache : UIMObject, ICache {
      * Deleting from the active cache configuration.
      *
      * ```
-     * Cache.remove("_data");
+     * Cache.removeKey("_data");
      * ```
      *
      * Deleting from a specific cache configuration.
      *
      * ```
-     * Cache.remove("_data", "long_term");
+     * Cache.removeKey("_data", "long_term");
      * ```
      */
-    /* static bool remove(string key, string configName = "default") {
-        return pool(configName).remove(key);
+    /* static bool removeKey(string key, string configName = "default") {
+        return pool(configName).removeKey(key);
     } */
 
     /**
@@ -331,7 +331,7 @@ class DCache : UIMObject, ICache {
      * ```
      */
     static bool deleteMany(string[] someKeys, string configName = "default") {
-        // TODO return pool(configName).remove(someKeys);
+        // TODO return pool(configName).removeKey(someKeys);
         return false;
     }
 

@@ -49,7 +49,7 @@ class DPluginUnloadCommand : DCommand {
         if (!hasKey(pluginName, configData)) {
             return "plugin-`%s` could not be found".format(pluginName);
         }
-        configData.remove(pluginName);
+        configData.removeKey(pluginName);
 
         string exported = class_hasKey(VarExporter.classname)
             ? VarExporter.export_(configData)

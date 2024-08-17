@@ -136,16 +136,16 @@ class DCacheEngine : UIMObject, ICache, ICacheEngine {
     // #region remove
     // Delete all keys from the cache
     bool clear() {
-        return remove(keys);
+        return removeKey(keys);
     }
 
     // Deletes multiple cache items as a list
-    bool remove(string[] keys) {
-        return keys.all!(key => remove(key));
+    bool removeKey(string[] keys) {
+        return keys.all!(key => removeKey(key));
     }
 
     // Delete a key from the cache
-    bool remove(string key) {
+    bool removeKey(string key) {
         return false;
     }
     // #endregion remove

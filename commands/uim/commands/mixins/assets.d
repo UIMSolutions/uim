@@ -69,7 +69,7 @@ mixin template TPluginAssets() {
             
             string dest = configuration.getString("destDir") ~ configuration.getString("link");
             if (filehasKey(dest)) {
-                if (overwriteExisting && !_remove(configData)) {
+                if (overwriteExisting && !_removeKey(configData)) {
                     continue;
                 } else if (!overwriteExisting) {
                     _io.verbose(
@@ -103,7 +103,7 @@ mixin template TPluginAssets() {
      *
      * configData - Plugin config.
      */
-    protected bool _remove(Json[string] configData = null) {
+    protected bool _removeKey(Json[string] configData = null) {
         if (configuration.hasKey("namespaced") && !isDir(configuration.get("destDir"))) {
             _io.verbose(
                 configuration.getString("destDir") ~ configuration.getString("link") ~ " does not exist",

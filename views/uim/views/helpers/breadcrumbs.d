@@ -172,7 +172,7 @@ class DBreadcrumbsHelper : DHelper {
             optionsLink = null;
             if (options.hasKey("innerAttrs"])) {
                 optionsLink = options.get("innerAttrs"];
-                options.remove("innerAttrs");
+                options.removeKey("innerAttrs");
             }
             mytemplate = "item";
             mytemplateParams = [

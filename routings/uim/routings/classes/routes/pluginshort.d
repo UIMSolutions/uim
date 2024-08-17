@@ -35,7 +35,7 @@ class DPluginShortRoute : DInflectedRoute {
         }
         _defaults.set("controller", url.get("controller"));
         result = super.match(url, context);
-        _defaults.remove("controller");
+        _defaults.removeKey("controller");
 
         return result;
     }

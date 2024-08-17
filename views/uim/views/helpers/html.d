@@ -131,7 +131,7 @@ class DHtmlHelper : DHelper {
 
             } else if (htmlAttributes.hasKey("type") && mytypes.hasKey(htmlAttributes.getString("type"))) {
                 mytype = mytypes[htmlAttributes["type"]];
-                htmlAttributes.remove("type");
+                htmlAttributes.removeKey("type");
             } else {
                 mytype = null;
             }
@@ -207,7 +207,7 @@ class DHtmlHelper : DHelper {
         auto myescapeTitle = true;
         if (!url.isNull) {
             url = _Url.build(url, htmlAttributes);
-            htmlAttributes.remove("fullBase");
+            htmlAttributes.removeKey("fullBase");
         } else {
             url = _Url.build(title);
             title = htmlspecialchars_decode(url, ENT_QUOTES);
@@ -216,7 +216,7 @@ class DHtmlHelper : DHelper {
         }
         if (htmlAttributes.hasKey("escapeTitle")) {
             myescapeTitle = htmlAttributes["escapeTitle"];
-            htmlAttributes.remove("escapeTitle");
+            htmlAttributes.removeKey("escapeTitle");
         } else if (htmlAttributes.hasKey("escape")) {
             myescapeTitle = htmlAttributes["escape"];
         }
@@ -230,7 +230,7 @@ class DHtmlHelper : DHelper {
         myconfirmMessage = null;
         if (htmlAttributes.hasKey("confirm")) {
             myconfirmMessage = htmlAttributes["confirm"];
-            htmlAttributes.remove("confirm");
+            htmlAttributes.removeKey("confirm");
         }
         if (myconfirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
@@ -330,7 +330,7 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes["once"] && _includedAssets.hasKey([__METHOD__, mypath])) {
             return null;
         }
-        htmlAttributes.remove("once");
+        htmlAttributes.removeKey("once");
        _includedAssets[__METHOD__][mypath] = true;
 
         auto mytemplater = templater();
@@ -552,7 +552,7 @@ class DHtmlHelper : DHelper {
         auto url = false;
         if (!htmlAttributes.isEmpty("url"))) {
             url = htmlAttributes["url"];
-            htmlAttributes.remove("url");
+            htmlAttributes.removeKey("url");
         }
 
         auto mytemplater = templater();
@@ -693,7 +693,7 @@ class DHtmlHelper : DHelper {
     string tag(string tagName, string content = null, Json[string] htmlAttributes = null) {
         if (htmlAttributes.hasKey("escape") && htmlAttributes["escape"]) {
             Json content = htmlAttributeEscape(content);
-            remove(htmlAttributes["escape"]);
+            removeKey(htmlAttributes["escape"]);
         }
 
         auto tag = content.isNull ? "tagstart" : "tag";
@@ -830,9 +830,9 @@ class DHtmlHelper : DHelper {
                     "attrs": templater().formatAttributes(mysource),
                 ]);
             }
-            remove(mysource);
+            removeKey(mysource);
             htmlAttributes["text"] = mysourceTags ~ htmlAttributes["text"];
-            remove(htmlAttributes["fullBase"]);
+            removeKey(htmlAttributes["fullBase"]);
         } else {
             if (isEmpty(pathToImageFile) && !htmlAttributes.isEmpty("src"))) {
                 pathToImageFile = htmlAttributes["src"];

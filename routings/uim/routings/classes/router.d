@@ -298,7 +298,7 @@ class DRouter {
             if (url.hasKey("#")) {
                 myfrag = "#" ~ url["#"];
             }
-            url.remove("_https", "_full", "#");
+            url.removeKey("_https", "_full", "#");
 
             url = _applyUrlFilters(url);
 
@@ -453,7 +453,7 @@ class DRouter {
         auto mypass = params.getArray("pass");
 
         auto mytemplate = params.get("_matchedRoute", null);
-        remove(
+        removeKey(
             params["pass"],
             params["_matchedRoute"],
             params["_name"]
@@ -609,7 +609,7 @@ class DRouter {
             .set("plugin", false)
             .set("prefix", false);
 
-        url.remove("_path");
+        url.removeKey("_path");
 
         return url;
     }

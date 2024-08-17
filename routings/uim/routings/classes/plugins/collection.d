@@ -153,8 +153,8 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
     }
 
     // Remove a plugin from the collection if it exists.
-    bool remove(string pluginName) {
-        _plugins.remove(pluginName);
+    bool removeKey(string pluginName) {
+        _plugins.removeKey(pluginName);
         _names = _plugins.keys;
     }
 

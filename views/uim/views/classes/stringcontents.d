@@ -133,9 +133,9 @@ class DStringContents {
     } 
     
     // Remove the named template.
-    bool remove(string name) {
-        _templates.remove(name);
-        _compiledTemplates.remove(name);
+    bool removeKey(string name) {
+        _templates.removeKey(name);
+        _compiledTemplates.removeKey(name);
     }
 
     // #endregion manage templates
@@ -198,7 +198,7 @@ class DStringContents {
         Json templateVars;
         if (insertData.hasKey("templateVars")) {
             templateVars = insertData.getMap("templateVars");
-            insertData.remove("templateVars");
+            insertData.removeKey("templateVars");
         }
         
         string[] replaces;

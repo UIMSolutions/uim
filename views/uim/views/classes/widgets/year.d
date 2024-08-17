@@ -77,7 +77,7 @@ class DYearWidget : DWidget {
             
         mydata.set("options", mydata["options"].combine(mydata["options"]));
 
-        mydata.remove("order", "min", "max");
+        mydata.removeKey("order", "min", "max");
         return _select.render(mydata, formContext);
     }
 }

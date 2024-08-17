@@ -254,7 +254,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     // Unsets the rule set for a field
     void offsetUnset(string fieldName) {
-        _fields.remove(fieldName);
+        _fields.removeKey(fieldName);
     }
 
     // Returns an iterator for each of the fields to be validated
@@ -404,15 +404,15 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * ```
      *    myvalidator
-     *        .remove("title", "required")
-     *        .remove("user_id")
+     *        .removeKey("title", "required")
+     *        .removeKey("user_id")
      * ```
      */
-    void remove(string fieldName, string ruleName = null) {
+    void removeKey(string fieldName, string ruleName = null) {
         if (ruleName.isNull) {
-            _fields.remove(fieldName);
+            _fields.removeKey(fieldName);
         } else {
-            field(fieldName).remove(ruleName);
+            field(fieldName).removeKey(ruleName);
         }
     }
 
@@ -2002,7 +2002,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             .set("message", errorMessage)
             .filterValues;
         auto mycaseInsensitive = options.getBoolean("caseInsensitive", false);
-        options.remove("caseInsensitive");
+        options.removeKey("caseInsensitive");
 
         return _add(fieldName, "multipleOptions", extraData.set(
                 "rule": ["multiple", options, mycaseInsensitive],

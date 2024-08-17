@@ -92,7 +92,7 @@ class DFormProtector {
                     return this;
                 }
                 if (_fields.hasKey(field)) {
-                    fields.remove(field);
+                    fields.removeKey(field);
                 }
                 _fields ~= field;
             }
@@ -132,9 +132,9 @@ class DFormProtector {
         }
          anIndex = array_search(fieldName, this.fields, true);
         if (anIndex == true) {
-            remove(_fields[anIndex]);
+            removeKey(_fields[anIndex]);
         }
-        remove(_fields[fieldName]);
+        removeKey(_fields[fieldName]);
 
         return this;
     }
@@ -215,7 +215,7 @@ class DFormProtector {
         if (token.contains(": ")) {
             [, locked] = split(": ", token, 2);
         }
-        remove(formData["_Token"]);
+        removeKey(formData["_Token"]);
 
         string[] lockeds = locked ? locked.split("|") : null;
         string[] unlockeds = unlocked ? unlocked.split("|"): [];
@@ -228,7 +228,7 @@ class DFormProtector {
         foreach (index: aKey; fieldList) {
             if (isString(aKey) && preg_match("/(\.\d+){1,10}/", aKey)) {
                 multi[index] = preg_replace("/(\.\d+){1,10}/", "", aKey);
-                remove(fieldList[index]);
+                removeKey(fieldList[index]);
             } else {
                 fieldList[index] = /* (string) */aKey;
             }
@@ -253,7 +253,7 @@ class DFormProtector {
                 }
             }
             if (isUnlocked ||  isLocked) {
-                remove(fieldList[index]);
+                removeKey(fieldList[index]);
                 if (isLocked) {
                     lockedFields[aKey] = fields[aKey];
                 }
@@ -291,7 +291,7 @@ class DFormProtector {
                 }
                 if (!isInteger(kv.key)) {
                     locked[kv.key] = kv.value;
-                    remove(fields[kv.key]);
+                    removeKey(fields[kv.key]);
                 }
             });
         sort(unlockedFields, SORT_STRING);
@@ -401,14 +401,14 @@ class DFormProtector {
                 if (foundKey == false) {
                     messages ~= anIntKeyMessage.format(kv.value);
                 } else {
-                    expectedFields.remove(foundKey);
+                    expectedFields.removeKey(foundKey);
                 }
             } else {
                 if (expectedFields.hasKey(kv.key) && kv.value != expectedFields[kv.key]) {
                     messages ~= stringKeyMessage
                     .format(kv.key, expectedFields[kv.key], kv.value);
                 }
-                expectedFields.remove(kv.key);
+                expectedFields.removeKey(kv.key);
             }
         });
         return messages;

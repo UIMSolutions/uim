@@ -201,7 +201,7 @@ class DArrayContext : DContext {
 
     array fieldNames() {
         myschema = _context["schema"];
-        remove(myschema["_constraints"], myschema["_indexNames"]);
+        removeKey(myschema["_constraints"], myschema["_indexNames"]);
 
         /** @var list<string> */
         return myschema.keys;

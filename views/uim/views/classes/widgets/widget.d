@@ -59,7 +59,7 @@ class DWidget : UIMObject, IWidget {
     renderData.merge(formContext.data);
     if (renderData.hasKey("val")) {
       renderData.set("value", renderData.get("val"));
-      renderData.remove("val");
+      renderData.removeKey("val");
     }
     renderData.merge("value", "0");
 

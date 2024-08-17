@@ -73,7 +73,7 @@ class DPaginatorHelper : DHelper {
     this(IView myview, Json[string] configData = null) {
         super(myview, configData);
         auto myquery = _view.getRequest().queryArguments();
-        myquery.remove("page", "limit", "sort", "direction");
+        myquery.removeKey("page", "limit", "sort", "direction");
         /* configuration.set(
                 "options.url",
                 array_merge(_view.getRequest()
@@ -126,7 +126,7 @@ class DPaginatorHelper : DHelper {
     void options(Json[string] optionsForLinks = null) {
         if (options.hasKey("paging")) {
             configuration.set("params", options.get("paging"]);
-            options.remove("paging");
+            options.removeKey("paging");
         }
         configuration.set("options", filterValues(options + configuration.get("options"));
                 if (configuration.isEmpty("options/url")) ) {
@@ -290,7 +290,7 @@ class DPaginatorHelper : DHelper {
         }
 
         stringmydefaultDir = options.getString("direction", "asc").lower;
-        options.remove("direction");
+        options.removeKey("direction");
 
         auto mylocked = options.get("lock", false);
         options.get("lock");
@@ -364,7 +364,7 @@ class DPaginatorHelper : DHelper {
             "limit": Json(null)
         ];
         mypaging.set("page", mypaging["currentPage"]);
-        remove(mypaging["currentPage"]);
+        removeKey(mypaging["currentPage"]);
 
         if (
             !mypaging.isEmpty("sort"))
@@ -418,7 +418,7 @@ class DPaginatorHelper : DHelper {
                     mybaseUrl["?"][myscope])) {
                 auto updatedOptions = options
                     .updatetions.updatemybaseUrl["?"][myscope];
-                remove(
+                removeKey(
                     mybaseUrl["?"][myscope]);
             }
             options = [

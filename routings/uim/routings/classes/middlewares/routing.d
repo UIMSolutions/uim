@@ -53,7 +53,7 @@ class DRoutingMiddleware : IRoutingMiddleware {
                     middleware = params["_middleware"];
                 }
                 route = params["_route"];
-                remove(params["_middleware"], params["_route"]);
+                removeKey(params["_middleware"], params["_route"]);
 
                 myserverRequest = serverRequest.withAttribute("route", route);
                 myserverRequest = serverRequest.withAttribute("params", params);

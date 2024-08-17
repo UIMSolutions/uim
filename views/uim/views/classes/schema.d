@@ -100,7 +100,7 @@ class DSchema {
         }
 
         DSchema removeField(string fieldName) {
-            _fields.remove(fieldName);
+            _fields.removeKey(fieldName);
             return this;
         }
     // #endregion fields

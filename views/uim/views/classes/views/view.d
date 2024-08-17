@@ -1070,7 +1070,7 @@ static string contentType() {
         auto myelementKey = str_replace(["\\", "/"], "_", elementName);
 
         auto mycache = options.get("cache");
-        options.remove("cache");
+        options.removeKey("cache");
         auto someKeys = array_merge(
             [_pluginKey, myelementKey],
             options.keys,

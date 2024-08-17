@@ -161,7 +161,7 @@ class DTreeBehavior : DBehavior {
     }
 
     // Also deletes the nodes in the subtree of the entity to be delete
-    void beforeRemove(IEvent event, IORMEntity ormEntity) {
+    void beforeremoveKey(IEvent event, IORMEntity ormEntity) {
         auto configData = configuration.data;
         _ensureFields(entity);
         auto left = entity.get(configuration.get("left"));
@@ -178,12 +178,12 @@ class DTreeBehavior : DBehavior {
                     if (this.configuration.get("cascadeCallbacks")) {
                         entities = query.toJString();
                         foreach (entities as entityToDelete) {
-                            _table.remove(entityToDelete, [
+                            _table.removeKey(entityToDelete, [
                                     "atomic": false.toJson
                                 ]);
                         }
                     } else {
-                        query.remove();
+                        query.removeKey();
                         statement = query.execute();
                         statement.closeCursor();
                     }

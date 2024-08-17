@@ -59,7 +59,7 @@ mixin template TTranslateStrategy() {
             auto fields = translation.extract(configuration.getArray("fields"), false);
             foreach (field, value; fields) {
                 if (value is null) {
-                    translation.remove(field);
+                    translation.removeKey(field);
                 }
             }
 
@@ -67,14 +67,14 @@ mixin template TTranslateStrategy() {
             // If now, the current locale property is empty,
             // unset it completely.
             if (filterValues(translation).isEmpty) {
-                remove(entity.get("_translations")[locale]);
+                removeKey(entity.get("_translations")[locale]);
             }
         }
 
         // If now, the whole _translations property is empty,
         // unset it completely and return
         if (entity.isEmpty("_translations")) {
-            entity.remove("_translations");
+            entity.removeKey("_translations");
         }
     }
 
@@ -128,6 +128,6 @@ mixin template TTranslateStrategy() {
 
     // Unsets the temporary `_i18n` property after the entity has been saved
     void afterSave(IEvent event, IORMEntity anEntity) {
-        entity.remove("_i18n");
+        entity.removeKey("_i18n");
     }
 }

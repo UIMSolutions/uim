@@ -104,8 +104,8 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Drop/remove an association.
      * Once removed the association will no longer be reachable
      */
-    bool remove(string aliasName) {
-        return _items.remove(aliasName);
+    bool removeKey(string aliasName) {
+        return _items.removeKey(aliasName);
     }
 
     /**
@@ -114,7 +114,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      */
     void removeAll() {
         foreach (myAliasName, object; _items) {
-            remove(myAliasName);
+            removeKey(myAliasName);
         }
     }
 
@@ -146,7 +146,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         Json[string] options,
         bool isOwningSide
    ) {
-        options.remove("associated");
+        options.removeKey("associated");
         // TODO 
         /* foreach (aliasName, nested; associations ) {
             if (is_int(aliasName)) {
@@ -193,7 +193,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Cascade a delete across the various associations.
      * Cascade first across associations for which cascadeCallbacks is true.
      */
-    bool cascaderemove(IORMEntity ormEntity, Json[string] deleteOptions) {
+    bool cascaderemoveKey(IORMEntity ormEntity, Json[string] deleteOptions) {
         auto noCascade = null;
         foreach (assoc; _items) {
             if (!assoc.getCascadeCallbacks()) {
@@ -201,12 +201,12 @@ class DAssociationCollection { // }: IteratorAggregate {
                 continue;
             }
             
-            if (!assoc.cascaderemove(ormEntity, deleteOptions)) {
+            if (!assoc.cascaderemoveKey(ormEntity, deleteOptions)) {
                 return false;
             }
         }
 
-        return noCascade.all!(assoc => assoc.cascaderemove(ormEntity, deleteOptions));
+        return noCascade.all!(assoc => assoc.cascaderemoveKey(ormEntity, deleteOptions));
     }
 
     /**

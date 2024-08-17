@@ -462,7 +462,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 if (
                     empty(
                     row["translation"])) {
-                    row.set("_locale", locale); remove(
+                    row.set("_locale", locale); removeKey(
                     row["translation"]); 
                     if (
                         hydrated) {
@@ -492,7 +492,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                     }
                                 }
 
-                                remove(
+                                removeKey(
                                 row["translation"]); if (
                                     hydrated) {
                                     /** @psalm-suppress PossiblyInvalidMethodCall * /
@@ -517,12 +517,12 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
             result = null;
             foreach (translation; translations) {
-                translation.remove("id");
+                translation.removeKey("id");
                 result.set(translation.getString("locale"), translation);
             }
 
             row.set("_translations", result);
-            row.remove("_i18n");
+            row.removeKey("_i18n");
             if (
                 cast(
                 IORMEntity) row) {

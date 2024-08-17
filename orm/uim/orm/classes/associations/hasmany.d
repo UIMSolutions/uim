@@ -227,7 +227,7 @@ class DHasManyAssociation : DAssociation {
      *
      * ### Options
      *
-     * Additionally to the default options accepted by `Table.remove()`, the following
+     * Additionally to the default options accepted by `Table.removeKey()`, the following
      * keys are supported:
      *
      * - cleanProperty: Whether to remove all the objects in `targetEntities` that
@@ -425,7 +425,7 @@ class DHasManyAssociation : DAssociation {
                         ok = true;
                         foreach (
                             assoc; myQuery) {
-                            ok = ok && targetTable.remove(
+                            ok = ok && targetTable.removeKey(
                                 assoc, options);
                         }
 
@@ -534,9 +534,9 @@ class DHasManyAssociation : DAssociation {
                     options);
             }
 
-            bool cascaderemove(IORMEntity ormEntity, Json[string] options = null) {
+            bool cascaderemoveKey(IORMEntity ormEntity, Json[string] options = null) {
                 auto helper = new DependentDeleteHelper();
-                return helper.cascaderemove(this, ormEntity, options);
+                return helper.cascaderemoveKey(this, ormEntity, options);
             }
         }
 

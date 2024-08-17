@@ -55,7 +55,7 @@ class DSelectWithPivotLoader : DSelectLoader {
 
         if (options.hasKey("queryBuilder"])) {
             queryBuilder = options.get("queryBuilder");
-            options.remove("queryBuilder"));
+            options.removeKey("queryBuilder"));
         }
 
         query = super._buildQuery(options);

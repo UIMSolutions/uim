@@ -64,7 +64,7 @@ class DResultsetFactory {
                 continue;
             }
             mydata.setPath(["matchingColumns", nameAssoc.key], fieldNames[nameAssoc.key]);
-            fieldNames.remove(nameAssoc.key);
+            fieldNames.removeKey(nameAssoc.key);
         });
         mydata.set("fields", fieldNames);
 
@@ -114,7 +114,7 @@ class DResultsetFactory {
         // it to an empty array so that any contained
         // associations hydrate correctly.
         results.set(tableMetadata["primaryAlias"], results.get(tableMetadata.getString("primaryAlias"));
-        mypresentAliases.remove(tableMetadata.getString("primaryAlias"));
+        mypresentAliases.removeKey(tableMetadata.getString("primaryAlias"));
 
         foreach (myassoc; tableMetadata["containAssoc"]) {
             auto aliasName = myassoc.get("nestKey");
@@ -135,7 +135,7 @@ class DResultsetFactory {
             }
             mytarget = myinstance.getTarget();
             options.set("source", mytarget.registryKey());
-            mypresentAliasesm.remove(yalias);
+            mypresentAliasesm.removeKey(yalias);
 
             if (myassoc["canBeJoined"] && tableMetadata["autoFields"] == true) {
                 myhasData = false;

@@ -17,7 +17,7 @@ class DDependentDeleteHelper {
      * This method does nothing if the association is not dependent.
      * anAssociation - The association callbacks are being cascaded on.
      */
-    bool cascaderemove(DORMAssociation anAssociation, IORMEntity anEntity, Json[string] options = null) {
+    bool cascaderemoveKey(DORMAssociation anAssociation, IORMEntity anEntity, Json[string] options = null) {
         if (!anAssociation.getDependent()) {
             return true;
         }
@@ -33,7 +33,7 @@ class DDependentDeleteHelper {
         conditions = foreignKeys.combine(bindingValue);
 
         if (anAssociation.getCascadeCallbacks()) {
-            return anAssociation.find().where(conditions).all().toList().all!(related => table.remove(related, options));
+            return anAssociation.find().where(conditions).all().toList().all!(related => table.removeKey(related, options));
         }
 
         anAssociation.deleteAll(conditions);

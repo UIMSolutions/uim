@@ -114,7 +114,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * ### Example:
      *
      * ```
-     * myrules.addremove(myrules.isNotLinkedTo("Comments", "comments"));
+     * myrules.addremoveKey(myrules.isNotLinkedTo("Comments", "comments"));
      * ```
      *
      * On a `Articles` table that has a `hasMany Comments` association, this check would ensure that articles

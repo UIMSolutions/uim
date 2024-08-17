@@ -91,8 +91,8 @@ import uim.orm;
  * - `beforeSave(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `afterSave(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `afterSaveCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
- * - `beforeremove(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
- * - `afterremove(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
+ * - `beforeremoveKey(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
+ * - `afterremoveKey(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  * - `afterDeleteCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
  */
 class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispatcher, IValidatorAware {
@@ -407,7 +407,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
 
             if (newSchemas.hasKey("_constraints")) {
                 constraints = newSchemas["_constraints"];
-                newSchemas.remove("_constraints");
+                newSchemas.removeKey("_constraints");
             }
 
             newSchemas = getConnection().getDriver().newTableSchema(getTable(), newSchemas);
@@ -1210,7 +1210,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             if (arguments.hasKey("key")) {
                 cacheKey = arguments["key"];
             }
-            arguments.remove(["key", "cache", "finder"]);
+            arguments.removeKey(["key", "cache", "finder"]);
         }
         
         auto myquery = this.find(myfinder, arguments).where(myconditions);
@@ -1316,7 +1316,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         if (mycallback !is null) {
             ormEntity = mycallback(ormEntity) ? mycallback(ormEntity) : ormEntity;
         }
-        options.remove("defaults");
+        options.removeKey("defaults");
 
         
         auto result = this.save(ormEntity, options);
@@ -1367,7 +1367,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Creates a new delete query
      */
     DeleteQuery deleteQuery() {
-        return _queryFactory.remove(this);
+        return _queryFactory.removeKey(this);
     }
     
     /**
@@ -1612,7 +1612,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             mysuccess = _onSaveSuccess(entityToSave, options);
         }
         if (!mysuccess && myisNew) {
-            entityToSave.remove(this.primaryKeys());
+            entityToSave.removeKey(this.primaryKeys());
             entityToSave.setNew(true);
         }
         return mysuccess ? entityToSave : false;
@@ -1803,7 +1803,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         /* mycleanupOnFailure = void (entities) use (&myisNew) {
             foreach (key: ormEntity; entities) {
                 if (isSet(myisNew[key]) && myisNew[key]) {
-                    ormEntity.remove(this.primaryKeys());
+                    ormEntity.removeKey(this.primaryKeys());
                     ormEntity.setNew(true);
                 }
             }
@@ -1888,7 +1888,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Params:
      * \UIM\Datasource\IORMEntity ormEntity The entity to remove.
          */
-    bool remove(IORMEntity ormEntity, Json[string] options = null) {
+    bool removeKey(IORMEntity ormEntity, Json[string] options = null) {
         options = new Json[string](options ~ [
             "atomic": true.toJson,
             "checkRules": true.toJson,
@@ -1897,7 +1897,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
 
         bool mysuccess; 
         /* mysuccess = _executeTransaction(
-            fn (): _processremove(ormEntity, options),
+            fn (): _processremoveKey(ormEntity, options),
             options.get("atomic"]
        );
 
@@ -1951,7 +1951,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
 
         myfailed = _executeTransaction(function () use (entities, options) {
             foreach (entities as ormEntity) {
-                if (!_processremove(ormEntity, options)) {
+                if (!_processremoveKey(ormEntity, options)) {
                     return ormEntity;
                 }
             }
@@ -1975,7 +1975,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * \UIM\Datasource\IORMEntity ormEntity The entity to remove.
      */
     bool deleteOrFail(IORMEntity entityToRemove, Json[string] options = null) {
-        auto mydeleted = remove(entityToRemove, options);
+        auto mydeleted = removeKey(entityToRemove, options);
         if (!mydeleted) {
             throw new DPersistenceFailedException(entityToRemove, ["delete"]);
         }
@@ -1988,7 +1988,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Will delete the entity provided. Will remove rows from any
      * dependent associations, and clear out join tables for BelongsToMany associations.
      */
-    protected bool _processremove(IORMEntity ormEntity, Json[string] options) {
+    protected bool _processremoveKey(IORMEntity ormEntity, Json[string] options) {
         if (ormEntity.isNew()) {
             return false;
         }
@@ -2010,7 +2010,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         if (event.isStopped()) {
             return (bool)event.getResult();
         }
-        mysuccess = _associations.cascaderemove(
+        mysuccess = _associations.cascaderemoveKey(
             ormEntity,
             ["_primary": false.toJson + options.dup}
        );
@@ -2105,7 +2105,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             // Fetch custom args without the query options.
             arguments = myquery.getOptions();
 
-            remove(params[0]);
+            removeKey(params[0]);
             mylastParam = end(params);
             reset(params);
 
@@ -2113,7 +2113,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                 string[] myparamNames = params.map!(param => myparam.name).array;
                 arguments.byKeyValue
                     .filter(kv => isString(kv.key) && !myparamNames.has(kv.key))
-                    .each!(kv => remove(arguments[kv.key]));
+                    .each!(kv => removeKey(arguments[kv.key]));
             }
         }
         return mycallable(myquery, ...arguments);

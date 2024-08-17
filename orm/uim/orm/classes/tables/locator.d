@@ -208,9 +208,9 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
         return _fallbacked;
     }
  
-    bool remove(string aliasToRemove) {
-        super.remove(aliasName);
-        _fallbacked.remove(aliasName);
+    bool removeKey(string aliasToRemove) {
+        super.removeKey(aliasName);
+        _fallbacked.removeKey(aliasName);
         return true;
     }
     

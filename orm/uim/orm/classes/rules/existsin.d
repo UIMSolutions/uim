@@ -77,8 +77,8 @@ class DExistsIn {
             foreach (index, fieldName; fieldNames) {
                 if (myschema.getColumn(fieldName) && myschema.isNullable(fieldName) && ormEntity.get(
                         fieldName).isNull) {
-                    mybindingKey.remove(index);
-                    fieldNames.remove(index);
+                    mybindingKey.removeKey(index);
+                    fieldNames.removeKey(index);
                 }
             }
         }

@@ -5,3 +5,8 @@ public {
   import uim.core.containers.maps.json;
   import uim.core.containers.maps.string;
 }
+
+public {
+  import uim.core.containers.maps.keys;
+  import uim.core.containers.maps.values;
+}

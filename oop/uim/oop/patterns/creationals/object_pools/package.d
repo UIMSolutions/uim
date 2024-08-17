@@ -43,17 +43,17 @@ T checkOut() {
       t = e;
       if ((now - unlocked[t]) > expirationTime) {
         // object has expired
-        unlocked.remove(t);
+        unlocked.removeKey(t);
         expire(t);
         t = null;
       } else {
         if (validate(t)) {
-          unlocked.remove(t);
+          unlocked.removeKey(t);
           locked[t] = now;
           return (t);
         } else {
           // object failed validation
-          unlocked.remove(t);
+          unlocked.removeKey(t);
           expire(t);
           t = null;
         }
@@ -68,7 +68,7 @@ T checkOut() {
 
 /* synchronized * /
 void checkIn(T t) {
-  locked.remove(t);
+  locked.removeKey(t);
   unlocked[t] = toTimestamp(now());
 }
 }

@@ -38,7 +38,7 @@ interface ICollection2(T) { // : IIterable!T {
   // Iterator<E>	iterator();
 
   // Removes a single instance of the specified element from this collection, if it is present (optional operation).
-  bool remove(T anItem);
+  bool removeKey(T anItem);
 
   // Removes all of this collection's elements that are also contained in the specified collection (optional operation).
   bool removeAll(ICollection2!T aCollection);

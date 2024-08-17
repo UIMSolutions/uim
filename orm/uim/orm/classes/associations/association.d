@@ -531,7 +531,7 @@ class DAssociation : UIMObject, IAssociation {
         if (row.hasKey(sourceAlias)) {
             string key = row.getString(nestKey);
             row.setPath([sourceAlias, targetProperty], row.get(key));
-            row.remove(key);
+            row.removeKey(key);
         }
 
         return row;
@@ -852,7 +852,7 @@ class DAssociation : UIMObject, IAssociation {
      * Each implementing class should handle the cascaded delete as
      * required.
      */
-    abstract bool cascaderemove(IORMEntity anEntity, Json[string] options = null);
+    abstract bool cascaderemoveKey(IORMEntity anEntity, Json[string] options = null);
 
     /**
      * Returns whether the passed table is the owning side for this

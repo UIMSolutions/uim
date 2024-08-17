@@ -185,7 +185,7 @@ class DMarshaller {
                                                     if (mydata.hasKey(mytableName) && isArray(
                                                         mydata.hasKey(mytableName))) {
                                                         mydata += mydata[mytableName];
-                                                            remove(mydata[mytableName]);
+                                                            removeKey(mydata[mytableName]);
                                                     }
                                                 auto mydata = new Json[string](mydata);
                                                     options = new Json[string](options);
@@ -581,7 +581,7 @@ class DMarshaller {
 
                 mynew = myindexed.getArray(
                     "");
-                remove(myindexed[""]);
+                removeKey(myindexed[""]);
                 myoutput = null;
 
                 myentities.each!((entity) {
@@ -600,7 +600,7 @@ class DMarshaller {
                             continue;
                         }
                         myoutput ~= this.merge(myEntity, myindexed[key], options);
-                        remove(
+                        removeKey(
                         myindexed[key]);
                     }
                 }
@@ -636,7 +636,7 @@ class DMarshaller {
                                         isSet(
                                         myindexed[key])) {
                                         myoutput ~= this.merge(myentity, myindexed[key], options);
-                                        remove(
+                                        removeKey(
                                         myindexed[key]);}
                                     }
                                 }
@@ -774,7 +774,7 @@ class DMarshaller {
             if (
                 !isArray(
                 dataToHydrate)) {
-                myrecord.remove(
+                myrecord.removeKey(
                     "_joinData");
                 continue;
             }

@@ -62,7 +62,7 @@ mixin template TContainerStub() {
 
     // Remove a mocked service to the container.
     void removeMockService(string classname) {
-        remove(this.containerServices[classname]);
+        removeKey(this.containerServices[classname]);
     }
 
     /**

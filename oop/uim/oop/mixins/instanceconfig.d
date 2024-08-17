@@ -193,7 +193,7 @@ mixin template TInstanceConfig() {
     // Deletes a single config key.
     protected void _configDelete(string keyToDelete) {
         if (!keyToDelete.contains(".")) {
-            configuration.remove(keyToDelete);
+            configuration.removeKey(keyToDelete);
 
             return;
         }
@@ -210,7 +210,7 @@ mixin template TInstanceConfig() {
                 break;
             }
             if (index == stackLength - 1) {
-                remove(update[myKey]);
+                removeKey(update[myKey]);
                 break;
             }
             update = &update[myKey];

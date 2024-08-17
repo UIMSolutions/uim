@@ -41,7 +41,7 @@ class DStudentBO {
     _students ~= student2;		
   }
   void deleteStudent(DStudentVO student) {
-    _students.remove(student.id());
+    _students.removeKey(student.id());
     writeln("Student: Id ", student.id, ", deleted from database");
   }
 

@@ -227,7 +227,7 @@ abstract class DTestCase : DBaseTestCase {
      */
     void removePlugins(Json[string] pluginNames= null) {
         auto pluginCollection = Plugin.getCollection();
-        pluginNames.each!(name => pluginCollection.remove(name));
+        pluginNames.each!(name => pluginCollection.removeKey(name));
     }
     
     /**

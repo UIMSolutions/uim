@@ -406,7 +406,7 @@ class DBelongsToManyAssociation : DAssociation {
     } */
 
     // Clear out the data in the junction table for a given entity.
-    bool cascaderemove(IORMEntity ormEntity, Json[string] options = null) {
+    bool cascaderemoveKey(IORMEntity ormEntity, Json[string] options = null) {
         if (!getDependent()) {
             return true;
         }
@@ -422,7 +422,7 @@ class DBelongsToManyAssociation : DAssociation {
         auto hasMany = source().getAssociation(table.aliasName());
         if (_cascadeCallbacks) {
             return hasMany.find("all").where(conditions).all().toList()
-                .all!(related => table.remove(related, options));
+                .all!(related => table.removeKey(related, options));
         }
 
         auto assocConditions = hasMany.getConditions();
@@ -509,7 +509,7 @@ class DBelongsToManyAssociation : DAssociation {
             if (options.hasKey("associated", _junctionProperty, "associated")) {
                 joinAssociations = options.get("associated", _junctionProperty, "associated");
             }
-            options.remove("associated", _junctionProperty);
+            options.removeKey("associated", _junctionProperty);
         }
 
         auto table = getTarget();
@@ -586,7 +586,7 @@ class DBelongsToManyAssociation : DAssociation {
             // or if we are updating an existing link.
             if (changedKeys) {
                 joint.setNew(true);
-                joint.remove(junction.primaryKeys())
+                joint.removeKey(junction.primaryKeys())
                     .set(array_merge(sourceKeys, targetKeys), ["guard": false.toJson]);
             }
             saved = junction.save(joint, options);
@@ -643,7 +643,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * ### Options
      *
-     * Additionally to the default options accepted by `Table.remove()`, the following
+     * Additionally to the default options accepted by `Table.removeKey()`, the following
      * keys are supported:
      *
      * - cleanProperty: Whether to remove all the objects in `targetEntities` that
@@ -676,7 +676,7 @@ class DBelongsToManyAssociation : DAssociation {
         /* this.junction().getConnection().transactional(
             void () use (sourceEntity, targetEntities, options) {
                 links = _collectJointEntities(sourceEntity, targetEntities);
-                links.each!(entity => _junctionTable.remove(entity, options));
+                links.each!(entity => _junctionTable.removeKey(entity, options));
             }
        ); */
 
@@ -694,7 +694,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         existing.byKeyValue.each!((keyEntity){
             if (storage.contains(keyEntity.value)) {
-                existing.remove(keyEntity.key);
+                existing.removeKey(keyEntity.key);
             }
         });
 
@@ -990,7 +990,7 @@ class DBelongsToManyAssociation : DAssociation {
                 }
                 if (matched) {
                     // Remove the unmatched entity so we don"t look at it again.
-                    remove(unmatchedEntityKeys[i]);
+                    removeKey(unmatchedEntityKeys[i]);
                     found = true;
                     break;
                 }
@@ -1010,14 +1010,14 @@ class DBelongsToManyAssociation : DAssociation {
             auto key = entity.extract(primary).values;
             foreach (i, data; present) {
                 if (key == data && !entity.get(jointProperty)) {
-                    remove(targetEntities[k], present[i]);
+                    removeKey(targetEntities[k], present[i]);
                     break;
                 }
             }
         }
 
         foreach (entity; deletes) {
-            if (!junction.remove(entity, options) && options.hasKey("atomic"])) {
+            if (!junction.removeKey(entity, options) && options.hasKey("atomic"])) {
                 return false;
             }
         }

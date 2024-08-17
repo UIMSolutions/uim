@@ -18,7 +18,7 @@ abstract class DAbstractLocator : ILocator {
 
     IRepository get(string aliasNameName, Json[string] buildOptions = null) {
         auto storeOptions = buildOptions.dup;
-        storeOptions.remove("allowFallbackClass");
+        storeOptions.removeKey("allowFallbackClass");
 
         if (_instances.hasKey(aliasName)) {
             if (!storeOptions.isEmpty && configuration.get(aliasName) != storeOptions) {
@@ -46,18 +46,18 @@ abstract class DAbstractLocator : ILocator {
     }
 
     // #region remove
-    ILocator remove(string[] aliasNames...) {
-        return remove(aliasName.dup);
+    ILocator removeKey(string[] aliasNames...) {
+        return removeKey(aliasName.dup);
     }
 
-    ILocator remove(string[] aliasNames) {
+    ILocator removeKey(string[] aliasNames) {
         aliasNames.each!(name => removeOne(name));
         return this;
     }
 
     protected ILocator removeOne(string aliasName) {
-        _instances.remove(aliasName);
-        configuration.remove(aliasName);
+        _instances.removeKey(aliasName);
+        configuration.removeKey(aliasName);
 
         return this;
     }

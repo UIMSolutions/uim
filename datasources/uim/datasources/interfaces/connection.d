@@ -50,7 +50,7 @@ interface JsonSourceConnection { // : ILoggerAware
      *
      * ```
      * connection.transactional(function (connection) {
-     *  connection.newQuery().remove("users").execute();
+     *  connection.newQuery().removeKey("users").execute();
      * });
      * ```
      */
@@ -65,7 +65,7 @@ interface JsonSourceConnection { // : ILoggerAware
      *
      * ```
      * connection.disableConstraints(function (connection) {
-     *  connection.newQuery().remove("users").execute();
+     *  connection.newQuery().removeKey("users").execute();
      * });
      * ```
      */

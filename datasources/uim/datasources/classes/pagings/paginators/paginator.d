@@ -310,7 +310,7 @@ class DPaginator : IPaginator {
     // Extracts the finder name and options out of the provided pagination options.
     protected Json[string] _extractFinder(Json[string] options) {
         auto myType = options.getString("finder", "all");
-        // TODO options.remove("finder", options.get("maxLimit"]);
+        // TODO options.removeKey("finder", options.get("maxLimit"]);
 
         if (myType.isArray) {
             options =  /* (array) */ currentValue(myType) + options;
@@ -456,7 +456,7 @@ class DPaginator : IPaginator {
         } else {
             paginationData.set("sort", null);
         }
-        paginationData.remove("direction");
+        paginationData.removeKey("direction");
 
         if (paginationData.isEmpty("order")) {
             paginationData.set("order", null);

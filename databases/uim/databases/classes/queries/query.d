@@ -479,7 +479,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Useful when you are redefining joins or want to re-order the join clauses.
      */
     auto removeJoin(string joinName) {
-        _parts["join"].remove(joinName);
+        _parts["join"].removeKey(joinName);
        _isChanged();
 
         return this;

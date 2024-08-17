@@ -205,7 +205,7 @@ class DDebugger : UIMObject {
                 (tail["line"] == parentTail["line"])
            );
             if (isEqual) {
-                remove(frames[index]);
+                removeKey(frames[index]);
                 index--;
             }
         }
@@ -287,7 +287,7 @@ class DDebugger : UIMObject {
                 ];
             } else if (options.getString("format") == "array") {
                 if (!options.hasKey("args")) {
-                    frame.remove("args");
+                    frame.removeKey("args");
                 }
                 back ~= frame;
             } else if (options.getString("format") == "text") {

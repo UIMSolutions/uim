@@ -97,7 +97,7 @@ class DConnectionManager {
             data.set("driver", data.getString("classname"));
             data.set("classname", Connection.classname);
         }
-        data.remove("path");
+        data.removeKey("path");
         return data;
     }
 
@@ -132,7 +132,7 @@ class DConnectionManager {
      * connection may fail if there is no other connection with that name.
      */
     static void dropAlias(aliasToDrop) {
-        remove(_aliasMap[aliasToDrop]);
+        removeKey(_aliasMap[aliasToDrop]);
     }
 
     /**
@@ -196,7 +196,7 @@ class DConnectionManager {
             dsnData.set("driver", dsnData.get("classname"));
             dsnData.set("classname", Connection.classname);
         }
-        dsnData.remove("path");
+        dsnData.removeKey("path");
         return configData;
     }
 
@@ -230,7 +230,7 @@ class DConnectionManager {
      * connection may fail if there is no other connection with that name.
      */
     static void dropAlias(string connectionAlias) {
-        remove(_connectionAliases[connectionAlias]);
+        removeKey(_connectionAliases[connectionAlias]);
     }
 
     // Returns the current connection aliases and what they alias.

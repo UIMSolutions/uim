@@ -255,7 +255,7 @@ protected ISelectQuery _pagingSubquery(SelectQuery original, int numberOfRows, i
                 // Decorate the original query as that is what the
                 // end developer will be calling execute() on originally.
                 original.decorateResults(function(row) {
-                    row.remove("_uim_page_rownum_");
+                    row.removeKey("_uim_page_rownum_");
                     return row;
                 });
 
@@ -296,7 +296,7 @@ protected ISelectQuery _pagingSubquery(SelectQuery original, int numberOfRows, i
                     // end developer will be calling execute() on originally.
                     original.decorateResults(function(row) {
 
-                        row.remove("_uim_distinct_pivot_");
+                        row.removeKey("_uim_distinct_pivot_");
                         return row;
                     });
 

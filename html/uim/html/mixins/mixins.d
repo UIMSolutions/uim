@@ -212,14 +212,14 @@ template AttributeBoolean(string name, string clname = null) {
 	const char[] cl = (clname) ? clname : name;
 	const char[] AttributeBoolean = `
 	@safe @property auto is`~name.capitalize~`( { return ("`~cl~`" in _attributes); }
-	@safe @property O `~name~`(this O)(bool value = true) { if (value) _attributes["`~cl~`"]= "`~cl~`"; else _attributes.remove("`~cl~`"); return cast(O)this; }
+	@safe @property O `~name~`(this O)(bool value = true) { if (value) _attributes["`~cl~`"]= "`~cl~`"; else _attributes.removeKey("`~cl~`"); return cast(O)this; }
 `;
 }
 
 template AttributeString(string name) {
 	const char[] AttributeString = `
 	@safe @property auto `~name~`() { return ("`~name~`" in _attributes ? _attributes["`~name~`"] : null); }
-	@safe @property O `~name~`(this O)(string value) { if (value) _attributes["`~name~`"] = value; else _attributes.remove("`~name~`"); return cast(O)this; }
+	@safe @property O `~name~`(this O)(string value) { if (value) _attributes["`~name~`"] = value; else _attributes.removeKey("`~name~`"); return cast(O)this; }
 `;
 }
 

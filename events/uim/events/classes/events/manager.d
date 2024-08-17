@@ -103,7 +103,7 @@ class DEventManager : IEventManager {
     }
  */ 
         /*    if (aCallable.isNull) {
-        _listeners.remove(eventKey);
+        _listeners.removeKey(eventKey);
 
         return this;
     } */
@@ -183,7 +183,7 @@ class DEventManager : IEventManager {
         // callable = eventHandler["callable"];
 
         settings = eventHandler;
-        settings.remove("callable");
+        settings.removeKey("callable");
     } */
         // TODO
         /*    if (isString(aCallable)) {
@@ -346,7 +346,7 @@ class DEventManager : IEventManager {
             // properties["_dispatchedEvents"] = null;
         }
 
-        /*    properties.remove("_eventList");
+        /*    properties.removeKey("_eventList");
 
     return properties;
  */

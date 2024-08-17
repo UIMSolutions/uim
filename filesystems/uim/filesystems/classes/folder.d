@@ -95,7 +95,7 @@ class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkMa
 
 	// #region Methods
 		// Deletes file.
-		bool remove() {
+		bool removeKey() {
 			return false;
 		}
 	// #endregion Methods

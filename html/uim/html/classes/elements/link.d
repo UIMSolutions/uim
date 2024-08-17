@@ -12,7 +12,7 @@ class DH5Link : DH5Obj {
       attribues.set("rel", "stylesheet");
     } else {
       if (isStyleSheet)
-        attributes.remove("rel");
+        attributes.removeKey("rel");
     }
     cast(o) this;
   }
@@ -26,7 +26,7 @@ class DH5Link : DH5Obj {
       attribues.set("rel", "icon");
     } else {
       if (isIcon)
-        attributes.remove("rel");
+        attributes.removeKey("rel");
     }
     cast(o) this;
   }

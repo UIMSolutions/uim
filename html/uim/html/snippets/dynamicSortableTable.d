@@ -113,7 +113,7 @@ class dynamicSortableTable : DH5Component {
         ("<td></td>").append(
             ("<button class='btn btn-danger glyphicon glyphicon-remove row-remove'></button>")
                 .click(function() {
-                    (this).closest("tr").remove();
+                    (this).closest("tr").removeKey();
                 })
        ).appendTo((tr));
         * /
@@ -122,7 +122,7 @@ class dynamicSortableTable : DH5Component {
         (tr).appendTo(('#tab_logic'));
         
         (tr).find("td button.row-remove").on("click", function() {
-             (this).closest("tr").remove();
+             (this).closest("tr").removeKey();
         });
 });
 

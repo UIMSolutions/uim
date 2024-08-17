@@ -153,7 +153,7 @@ abstract class DERRErrorHandler {
             // to coerce the generated stack trace to the correct point.
             if (context.hasKey("_trace_frame_offset")) {
                 start += context["_trace_frame_offset"];
-                remove(context["_trace_frame_offset"]);
+                removeKey(context["_trace_frame_offset"]);
             }
             data += [
                 "context": context,

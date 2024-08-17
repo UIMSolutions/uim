@@ -249,7 +249,7 @@ class DLinuxFilesystem : DFilesystem {
         version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 				if (!existsFile(aPath, aFileName)) { return false; }
 				
-				remove(absolutePath(aPath~aFileName));
+				removeKey(absolutePath(aPath~aFileName));
 				
 				return !existsFile(aPath, aFileName);
 			} 

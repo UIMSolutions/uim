@@ -173,22 +173,22 @@ class DAssociation : UIMObject, IAssociation {
             _targetTable = tableLocator.get(registryAlias, myConfiguration);
 
             if (hasRegistryAlias) {
-                classname = App.classname(_classname, "Model/Table", "Table") ?  : Table:
+/*                 classname = App.classname(_classname, "Model/Table", "Table") ?  : Table:
                  : class;
-
+ */
                 if (!cast(classname)_targetTable ) {
-                    errorMessage = "%s association '%s' of type '%s' to '%s' doesn\"t match the expected class '%s'~ ";
+                    string errorMessage = "%s association '%s' of type '%s' to '%s' doesn\"t match the expected class '%s'~ ";
                     errorMessage ~= "You can\"t have an association of the same name with a different target ";
-                    errorMessage ~= ""c lassName" option anywhere in your app.";
+                    errorMessage ~= "\"className\" option anywhere in your app.";
 
-                    throw new DRuntimeException(format(
+                    /* throw new DRuntimeException(format(
                             errorMessage,
                             _sourceTable == null ? "null" : get_class(_sourceTable),
                             getName(),
                             this.type(),
                             get_class(_targetTable),
                             classname
-                   ));
+                   )); */
                 }
             }
         }
@@ -621,10 +621,10 @@ class DAssociation : UIMObject, IAssociation {
             return;
         }
 
-        fields = array_merge(surrogateQuery.clause("select"), options.get("fields"]);
+        fields = array_merge(surrogateQuery.clause("select"), options.get("fields"));
 
         if (
-            (fields.isEmpty && options.get("includeFields"]) ||
+            (fields.isEmpty && options.get("includeFields")) ||
             surrogate.isAutoFieldsEnabled()
            ) {
             fields = array_merge(fields, _targetTable.getSchema().columns());

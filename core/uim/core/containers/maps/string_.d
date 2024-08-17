@@ -3,35 +3,11 @@
 *	License: Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt]                                       *
 *	Authors: Ozan Nurettin Süel (UIManufaktur)										                         * 
 ***********************************************************************************************************************/
-module uim.core.containers.maps.string;
+module uim.core.containers.maps.string_;
 
 @safe:
 import std.algorithm : startsWith, endsWith;
 import uim.core;
-
-/// Add prefix to key
-STRINGAA addKeyPrefix(STRINGAA items, string prefix) {
-  items.byKeyValue
-    .each!(item => items = items.addKeyPrefix(item.key, prefix));
-  return items;
-}
-
-STRINGAA addKeyPrefix(STRINGAA items, string key, string prefix) {
-  return !items.hasKey(key) || prefix.isEmpty
-    ? items
-    : items.set(prefix~key).remove(key);
-}
-
-  unittest {
-assert(["a": "1", "b": "2"].addKeyPrefix("b", "x").hasKey("xb"));
-assert(["a": "1", "b": "2"].addKeyPrefix("a", "x").hasKey("a"));
-assert(["a": "1", "b": "2"].addKeyPrefix("b", "x")["xb"] == "2");
-assert(["a": "1", "b": "2"].addKeyPrefix("a", "x")["a"] == "1");
-
-    assert(["a": "1"].addKeyPrefix("x") == ["xa": "1"]);
-    assert(["a": "1", "b": "2"].addKeyPrefix("x").hasKey("xb"));
-  
-}
 
 /// Selects only entries, where key starts with prefix. Creates a new DSTRINGAA
 STRINGAA allKeysStartsWith(STRINGAA items, string prefix) {
@@ -42,9 +18,9 @@ STRINGAA allKeysStartsWith(STRINGAA items, string prefix) {
   return results;
 }
 
-  unittest {
-    assert(allKeysStartsWith(["preA": "a", "b": "b"], "pre") == ["preA": "a"]);
-    assert(["preA": "a", "b": "b"].allKeysStartsWith("pre") == ["preA": "a"]);
+unittest {
+  assert(allKeysStartsWith(["preA": "a", "b": "b"], "pre") == ["preA": "a"]);
+  assert(["preA": "a", "b": "b"].allKeysStartsWith("pre") == ["preA": "a"]);
 }
 
 /// Opposite of selectStartsWith: Selects only entries, where key starts not with prefix. Creates a new DSTRINGAA
@@ -63,12 +39,8 @@ version (test_uim_core) {
   }
 }
 
-STRINGAA allKeysEndsWith(STRINGAA entries, string postfix) { // right will overright left
-  STRINGAA results;
-  entriesentries.byKeyValue
-      .filter!(item => itemk.endsWith(postfix))
-      results[k] = v;
-  return results;
+STRINGAA allKeysEndsWith(STRINGAA items, string postfix) { // right will overright left
+  return items.byKeyValue.all!(item => item.endsWith(postfix));
 }
 
 unittest {
@@ -78,16 +50,14 @@ unittest {
 STRINGAA allEndsNotWith(STRINGAA entries, string postfix) { // right will overright left
   STRINGAA results;
   entries.byKeyValue
-      .filter!(item => !item.key.endsWith(postfix))
-      .each!(item => results[item.key] = item.value);
+    .filter!(item => !item.key.endsWith(postfix))
+    .each!(item => results[item.key] = item.value);
   return results;
 }
 
-
-  unittest {
-    /// TODO Add Tests
-  }
-
+unittest {
+  /// TODO Add Tests
+}
 
 // #region filter
 STRINGAA filterByValues(STRINGAA entries, string[] values...) {
@@ -104,12 +74,12 @@ STRINGAA filterByValues(STRINGAA entries, string[] someValues) {
   return results;
 }
 
-  unittest {
-    assert(["a": "1", "b": "2"].filterByValues("1") == ["a": "1"]);
-    assert(["a": "1", "b": "2"].filterByValues("0").empty);
-// TODO    assert(["a": "1", "b": "2", "c": "3"].filterByValues("1", "2") == ["a": "1"]);
-    assert(["a": "1", "b": "2", "c": "3"].filterByValues("0").empty);
-  }
+unittest {
+  assert(["a": "1", "b": "2"].filterByValues("1") == ["a": "1"]);
+  assert(["a": "1", "b": "2"].filterByValues("0").empty);
+  // TODO    assert(["a": "1", "b": "2", "c": "3"].filterByValues("1", "2") == ["a": "1"]);
+  assert(["a": "1", "b": "2", "c": "3"].filterByValues("0").empty);
+}
 // #endregion filter
 
 string toString(STRINGAA aa) {
@@ -129,9 +99,9 @@ string aa2String(STRINGAA atts, string sep = "=") {
   return strings.join(" ");
 }
 
-  unittest {
-    /// Add Tests
-  }
+unittest {
+  /// Add Tests
+}
 
 string getValue(STRINGAA keyValues, string[] keys...) {
   foreach (k; keys)
@@ -140,8 +110,8 @@ string getValue(STRINGAA keyValues, string[] keys...) {
   return null;
 }
 
-  unittest {
-    /// TODO Add Tests
+unittest {
+  /// TODO Add Tests
 }
 
 // #region set
@@ -223,24 +193,26 @@ unittest {
 
 // #region lowerKeys
 T[string] lowerKeys(T)(auto ref T[string] items) {
-  items.keys.each!(key => items.lowerKey(key));                  
-  return items;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+  items.keys.each!(key => items.lowerKey(key));
+  return items;
+  ;
 }
 
 T[string] lowerKeys(T)(auto ref T[string] items, string[] keys...) {
-  return lowerKeys(items, keys.dup);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ;
+  return lowerKeys(items, keys.dup);
+  ;
 }
 
 T[string] lowerKeys(T)(auto ref T[string] items, string[] keys) {
-  keys.each!(key => items.lowerKey(key));                  
+  keys.each!(key => items.lowerKey(key));
   return items;
 }
 
 T[string] lowerKey(T)(auto ref T[string] items, string key) {
-  if (key !in items)  {
+  if (key !in items) {
     return items;
   }
-  
+
   auto value = items[key];
   items.remove(key);
   return set(items, key.lower, value);

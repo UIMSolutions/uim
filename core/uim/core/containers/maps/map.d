@@ -385,19 +385,20 @@ unittest {
 // #endregion updateKeys
 
 // #region remove
-V[K] remove(K, V)(V[K] items, K[] keys...) {
+V[K] removeKeys(K, V)(V[K] items, K[] keys...) {
   remove(items, keys.dup);
   return items;
 }
 
-V[K] remove(K, V)(V[K] items, K[] keys) {
-  keys.each!(key => remove(items, key));
+V[K] removeKeys(K, V)(V[K] items, K[] keys) {
+  keys.each!(key => removeKey(items, key));
   return items;
 }
 
-V[K] remove(K, V)(V[K] items, K key) {
-  if (hasKey(items, key))
+V[K] removeKey(K, V)(V[K] items, K key) {
+  if (hasKey(items, key)) {
     items.remove(key);
+  }
   return items;
 }
 

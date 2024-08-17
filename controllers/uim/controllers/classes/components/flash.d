@@ -119,7 +119,7 @@ class DFlashComponent : DComponent {
             if (!someArguments[1].isEmpty("plugin")) {
                 options = createMap!(string, Json)()
                     .set("element", someArguments[1].getString("plugin") ~ "." ~ anElement);
-                someArguments[1].remove("plugin");
+                someArguments[1].removeKey("plugin");
             }
             auto updatedOptions = options.update/* (array) */ someArguments[1];
         }

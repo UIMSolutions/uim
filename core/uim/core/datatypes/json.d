@@ -196,7 +196,7 @@ unittest {
 }
 
 /// Searching key in json, if depth = true also in subnodes  
-bool hasKey(Json value, string[] path) {
+bool hasPath(Json value, string[] path) {
   if (!value.isObject || uim.core.containers.array_.isEmpty(path)) {
     return false;
   }

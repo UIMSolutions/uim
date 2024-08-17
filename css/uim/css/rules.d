@@ -24,8 +24,8 @@ class DCSSRules : DCSSObj {
 	}}
 
 	auto find(string selector) { foreach(i, rule; _rules) if (rule.selector == selector) return i; return -1; }
-	O remove(this O)(long index) { if (index < _rules.length) _rules = _rules.remove(index);}
-	o sub(this O)(string selector){ auto index = find(selector); remove(index); }
+	O removeKey(this O)(long index) { if (index < _rules.length) _rules = _rules.removeKey(index);}
+	o sub(this O)(string selector){ auto index = find(selector); removeKey(index); }
 
 	/// Adding CSS rules
 	O add(this O)(DCSSRules aRules) { _rules ~= aRules.rules; return cast(O)this; }

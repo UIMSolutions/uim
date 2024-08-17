@@ -183,7 +183,7 @@ class DSession {
 
         if (!configData.isEmpty("handler")) {
             auto classname = configuration.get("handler.engine");
-            configuration.remove("handler.engine");
+            configuration.removeKey("handler.engine");
             engine(classname, configuration.get("handler"));
         }
         _lifetime = (int) ini_get("session.gc_maxlifetime");
@@ -377,7 +377,7 @@ class DSession {
         Json result = this.read(key);
         if (!result.isNull) {
             /** @psalm-suppress InvalidScalarArgument */
-            _overwrite(_SESSION, Hash.remove(_SESSION, key));
+            _overwrite(_SESSION, Hash.removeKey(_SESSION, key));
         }
         return result;
     }
@@ -428,10 +428,10 @@ class DSession {
     }
 
     // Removes a variable from session.
-    bool remove(string sessionName) {
+    bool removeKey(string sessionName) {
         if (this.check(sessionName)) {
             /** @psalm-suppress InvalidScalarArgument */
-            _overwrite(_SESSION, Hash.remove(_SESSION, sessionName));
+            _overwrite(_SESSION, Hash.removeKey(_SESSION, sessionName));
         }
     }
 
@@ -440,7 +440,7 @@ class DSession {
        ) {
             oldValues.byKeyValue
                 .filter!(kv => newValues.isNull(kv.key))
-                .each!(kv => remove(oldValues[kv.key]));
+                .each!(kv => removeKey(oldValues[kv.key]));
 
             newValues.byKeyValue
                 .each!(kv => oldValues[kv.key] = kv.value);

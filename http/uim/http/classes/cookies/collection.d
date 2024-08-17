@@ -63,7 +63,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      *
      * Cookies are stored by id. This means that there can be duplicate
      * cookies if a cookie collection is used for cookies across multiple
-     * domains. This can impact how get(), has() and remove() behave.
+     * domains. This can impact how get(), has() and removeKey() behave.
      * Params:
      * \UIM\Http\Cookie\ICookie cookie Cookie instance to add.
      */
@@ -120,12 +120,12 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      *
      * If the cookie is not in the collection, this method will do nothing.
      */
-    static remove(string cookieName) {
+    static removeKey(string cookieName) {
         auto result = this.clone;
         aKey = mb_strtolower(cookieName);
         foreach (result.cookies as  index: cookie) {
             if (mb_strtolower(cookie.cookieName) == aKey) {
-                remove(result.cookies[index]);
+                removeKey(result.cookies[index]);
             }
         }
         return result;
@@ -252,7 +252,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             auto somePathMatches = somePath.startWith(cookie.getPath());
             auto hostMatches = preg_match(hostPattern, cookie.getDomain());
             if (somePathMatches && hostMatches) {
-                remove(_cookies[index]);
+                removeKey(_cookies[index]);
             }
         }
     }

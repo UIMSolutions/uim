@@ -21,7 +21,7 @@ import uim.http;
  * - get()
  * - post()
  * - put()
- * - remove()
+ * - removeKey()
  * - patch()
  *
  * ### Cookie management
@@ -213,7 +213,7 @@ class DClient { // }: IClient {
     }
     if (configuration.hasKey("path")) {
       configuration.set("basePath", configuration.get("path"));
-      remove(configuration.get("path"));
+      removeKey(configuration.get("path"));
     }
     return new static(configData);
   }
@@ -246,7 +246,7 @@ class DClient { // }: IClient {
     auto requestBody = null;
     if (isArray(queryData) && queryData.hasKey("_content")) {
       requestBody = queryData["_content"];
-      queryData.remove("_content");
+      queryData.removeKey("_content");
     }
 
     auto url = buildUrl(requestUrl, queryData, requestOptions);
@@ -290,7 +290,7 @@ class DClient { // }: IClient {
   }
 
   // Do a DELETE request.
-  Response remove(string requestUrl, Json sendData = null, Json[string] options = null) {
+  Response removeKey(string requestUrl, Json sendData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(requestUrl, [], requestOptions);
     return _doRequest(Request.METHOD_DELETE, url, sendData, requestOptions);
@@ -335,7 +335,7 @@ class DClient { // }: IClient {
     int myredirects = 0;
     if (options.hasKey("redirect")) {
       myredirects = options.getLong("redirect");
-      options.remove("redirect");
+      options.removeKey("redirect");
     }
     do {
       auto myresponse = _sendRequest(request, options);

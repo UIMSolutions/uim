@@ -153,7 +153,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
         auto parsedBody = request.getParsedBody();
         IServerRequest request = serverRequest; 
         if (parsedBody.isArray) {
-            parsedBody.remove(configuration.getString("field"));
+            parsedBody.removeKey(configuration.getString("field"));
             request = request.withParsedBody(parsedBody);
         }
         return request;

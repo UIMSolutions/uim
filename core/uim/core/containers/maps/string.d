@@ -56,8 +56,8 @@ version (test_uim_core) {
 
 STRINGAA allKeysEndsWith(STRINGAA entries, string postfix) { // right will overright left
   STRINGAA results;
-  foreach (k, v; entries)
-    if (k.endsWith(postfix))
+  entriesentries.byKeyValue
+      .filter!(item => itemk.endsWith(postfix))
       results[k] = v;
   return results;
 }
@@ -68,17 +68,17 @@ unittest {
 
 STRINGAA allEndsNotWith(STRINGAA entries, string postfix) { // right will overright left
   STRINGAA results;
-  foreach (k, v; entries)
-    if (!k.endsWith(postfix))
-      results[k] = v;
+  entries.byKeyValue
+      .filter!(item => !item.key.endsWith(postfix))
+      .each!(item => results[item.key] = item.value);
   return results;
 }
 
-version (test_uim_core) {
+
   unittest {
     /// TODO Add Tests
   }
-}
+
 
 // #region filter
 STRINGAA filterByValues(STRINGAA entries, string[] values...) {

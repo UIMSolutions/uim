@@ -234,7 +234,7 @@ T[string] lowerKey(T)(auto ref T[string] items, string key) {
   
   auto value = items[key];
   items.remove(key);
-  return uim.core.containers.maps.map.set(items, key.lower, value);
+  return set(items, key.lower, value);
 }
 
 unittest {

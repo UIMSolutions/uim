@@ -159,8 +159,8 @@ class DMemoryConfiguration : DConfiguration {
 
     // #region remove
     alias remove = DConfiguration.remove;
-    override IConfiguration remove(string[] keys) {
-        keys.each!(key => _data.remove(key));
+    override IConfiguration removeKey(string[] keys) {
+        keys.each!(key => _data.removeKey(key));
         return this;
     }
 
@@ -171,7 +171,7 @@ class DMemoryConfiguration : DConfiguration {
             .set("one", Json(1));
 
         assert(config.hasKey("a"));
-        assert(config.remove("a").hasKey("a") == false);
+        assert(config.removeKey("a").hasKey("a") == false);
     }
     // #endregion remove
 }

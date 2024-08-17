@@ -129,17 +129,17 @@ class HFilesystem {
             if (fileInfo.getType() == TYPE_DIR || myisWindowsLink) {
                 // Dcs:ignore
                 result = result && @rmdir(fileInfo.getPathname());
-                remove(fileInfo);
+                removeKey(fileInfo);
                 continue;
             }
             // Dcs:ignore
             result = result && @unlink(fileInfo.getPathname());
             // possible inner iterators need to be unset too in order for locks on parents to be released
-            remove(fileInfo);
+            removeKey(fileInfo);
         });
         // unsetting iterators helps releasing possible locks in certain environments,
         // which could otherwise make `rmdir()` fail
-        remove(myiterator);
+        removeKey(myiterator);
 
         // Dcs:ignore
         return result && @rmdir(mypath);

@@ -43,7 +43,7 @@ class DNamedContainer(T) {
     }
   }
 
-  void remove(string aName) {
-    _items.remove(aName);
+  void removeKey(string aName) {
+    _items.removeKey(aName);
   }
 }

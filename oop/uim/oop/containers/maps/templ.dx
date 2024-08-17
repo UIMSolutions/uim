@@ -72,12 +72,12 @@ class DMapTempl(K, V): DMap {
 	void opIndexAssign(V value, K key) {
 		_items[key] = to!V(value);
 	}
-	O remove(this O)(K key) {
-		_items.remove(key);
+	O removeKey(this O)(K key) {
+		_items.removeKey(key);
 		return cast(O)this;
 	}
-	O remove(this O)(K[] someKeys) {
-		someKeys.each!(key => _items.remove(key));
+	O removeKey(this O)(K[] someKeys) {
+		someKeys.each!(key => _items.removeKey(key));
 		return cast(O)this;
 	}
 	O clear(this O)() {

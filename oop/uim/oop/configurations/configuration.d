@@ -572,33 +572,33 @@ abstract class DConfiguration : IConfiguration {
 
     // #region remove - clear
     IConfiguration clear() {
-        remove(keys);
+        removeKey(keys);
         return this;
     }
 
-    IConfiguration remove(Json json) {
+    IConfiguration removeKey(Json json) {
         if (json.isObject) {
-            json.byKeyValue.each!(kv => remove(kv.key));
+            json.byKeyValue.each!(kv => removeKey(kv.key));
         } else if (json.isArray) {
             foreach (value; json.get!(Json[])) {
-                remove(value.getString);
+                removeKey(value.getString);
             }
         } else if (json.isString) {
-            remove(json.getString);
+            removeKey(json.getString);
         }
         return this;
     }
 
-    IConfiguration remove(Json[string] items) {
-        remove(items.keys);
+    IConfiguration removeKey(Json[string] items) {
+        removeKey(items.keys);
         return this;
     }
 
-    IConfiguration remove(string[] keys...) {
-        remove(keys.dup);
+    IConfiguration removeKey(string[] keys...) {
+        removeKey(keys.dup);
         return this;
     }
 
-    abstract IConfiguration remove(string[] keys);
+    abstract IConfiguration removeKey(string[] keys);
     // #region remove - clear
 }

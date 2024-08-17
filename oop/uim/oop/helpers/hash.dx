@@ -261,7 +261,7 @@ class Hash {
                 case "remove": 
                     if (index == mylast) {
                         if (isArray(_list)) {
-                            remove(_list[aKey]);
+                            removeKey(_list[aKey]);
                         }
                         return data;
                     }
@@ -281,12 +281,12 @@ class Hash {
      * You can use `{n}` and `{s}` to remove multiple elements
      * from data.
      */
-    static Json[string] remove(Json[string] data, string path) {
+    static Json[string] removeKey(Json[string] data, string path) {
         mynoTokens = !path.contains("[");
         mynoExpansion = !path.contains("{");
 
         if (mynoExpansion && mynoTokens && !path.contains(".")) {
-            data.remove(path);
+            data.removeKey(path);
             return data;
         }
 
@@ -305,19 +305,19 @@ class Hash {
                 if (myconditions) {
                     if (_matches(myv, myconditions)) {
                         if (!mynextPath.isEmpty) {
-                            data[myKey] = remove(myv, mynextPath);
+                            data[myKey] = removeKey(myv, mynextPath);
                         } else {
-                            remove(data[myKey]);
+                            removeKey(data[myKey]);
                         }
                     }
                 } else {
-                    data[myKey] = remove(myv, mynextPath);
+                    data[myKey] = removeKey(myv, mynextPath);
                 }
                 if (data.isEmpty(myKey)) {
-                    data.remove(myKey);
+                    data.removeKey(myKey);
                 }
             } else if (mymatch && mynextPath.isEmpty) {
-                data.remove(myKey);
+                data.removeKey(myKey);
             }
         }
         return data;
@@ -443,11 +443,11 @@ class Hash {
         while (!empty(needle)) {
             string aKey = key(needle);
             auto value = needle.get(aKey);
-            needle.remove(aKey);
+            needle.removeKey(aKey);
 
             if (hasKey(aKey, data) && isArray(myval)) {
                 mynext = data[aKey];
-                data.tremove(aKey);
+                data.tremoveKey(aKey);
 
                 if (!myval.isEmpty) {
                     mystack ~= [myval, mynext];
@@ -506,7 +506,7 @@ class Hash {
         while (!data.isEmpty) {
             aKey = key(data);
             myelement = data[aKey];
-            remove(data[aKey]);
+            removeKey(data[aKey]);
 
             if (isArray(myelement) && !empty(myelement)) {
                 if (!empty(data)) {
@@ -573,7 +573,7 @@ class Hash {
         foreach (&mycurArg; myargs) {
             mystack ~= [(array)mycurArg, &result];
         }
-        remove(mycurArg);
+        removeKey(mycurArg);
         _merge(mystack, result);
 
         return result;
@@ -600,9 +600,9 @@ class Hash {
                         mycurMerge[1][aKey] = myval;
                     }
                 }
-                stackOfOperations.remove(mycurKey);
+                stackOfOperations.removeKey(mycurKey);
             }
-            remove(mycurMerge);
+            removeKey(mycurMerge);
         }
     }
     
@@ -849,7 +849,7 @@ class Hash {
         auto myintersection = intersectinternalKey(data, compareData);
         while ((aKey = key(myintersection)) !is null) {
             if (data[aKey] == compareData[aKey]) {
-                remove(data[aKey], compareData[aKey]);
+                removeKey(data[aKey], compareData[aKey]);
             }
             next(myintersection);
         }
@@ -952,7 +952,7 @@ class Hash {
             myid = get(result, idKeys);
             myparentId = get(result, parentKeys);
             if (myid != myroot && myparentId != myroot) {
-                remove(result[index]);
+                removeKey(result[index]);
             }
         }
         /** @var list<array> */

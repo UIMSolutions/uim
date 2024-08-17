@@ -105,7 +105,7 @@ class DList(T) : DContainer!T, IList  {
   }
 
   // Removes the element at the specified position in this list (optional operation).
-  T	remove(size_t index) {
+  T	removeKey(size_t index) {
     if (index < _items.length-1) {
       auto myItem = _items[index];
       _items = _items[0..index]~_items[index+1..$];
@@ -120,9 +120,9 @@ class DList(T) : DContainer!T, IList  {
   }
 
   // Removes the first occurrence of the specified element from this list, if it is present (optional operation).
-  override bool remove(T removeItem) {
+  override bool removeKey(T removeItem) {
     foreach(index, myItem; _items) {
-      if (myItem == removeItem) { return !remove(index).isNull; }
+      if (myItem == removeItem) { return !removeKey(index).isNull; }
     }
     return false;
   }
@@ -137,7 +137,7 @@ class DList(T) : DContainer!T, IList  {
   }
 
   override bool removeAll(T[] remove) {
-    return remove.all!(item => remove(myItem));
+    return remove.all!(item => removeKey(myItem));
   }
 
   // Removes all of the elements from this list.
@@ -226,9 +226,9 @@ unittest {
   assert(list.indexOf(test1) != 2);
 
   with (list) {
-    remove(0);
+    removeKey(0);
     assert(size == 2);
-    remove(test2);
+    removeKey(test2);
     assert(size == 1);
 
     clear;

@@ -16,11 +16,11 @@ class DMap(T : Object) : IMap {
 	bool isEmpty() { return length == 0; }
 	size_t length() { return _values.length; }
 
-	bool remove(string[] keys) {
-		return keys.all!(key => _values.remove(key));
+	bool removeKey(string[] keys) {
+		return keys.all!(key => _values.removeKey(key));
 	}
 	bool removeItem(string key) {
-		return _values.remove(key);
+		return _values.removeKey(key);
 	}
 	void clear(this O)() { 
 		_values = null; 

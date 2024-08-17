@@ -9,19 +9,28 @@ module uim.core.containers.maps.string;
 import std.algorithm : startsWith, endsWith;
 import uim.core;
 
-/// Select keys to prefix~key
-STRINGAA addKeyPrefix(STRINGAA entries, string prefix) {
-  STRINGAA results;
-  foreach (key, value; entries)
-    results[prefix ~ key] = value;
-  return results;
+/// Add prefix to key
+STRINGAA addKeyPrefix(STRINGAA items, string prefix) {
+  items.byKeyValue
+    .each!(item => items = items.addKeyPrefix(item.key, prefix));
+  return items;
 }
 
-version (test_uim_core) {
+STRINGAA addKeyPrefix(STRINGAA items, string key, string prefix) {
+  return !items.hasKey(key) || prefix.isEmpty
+    ? items
+    : items.set(prefix~key).remove(key);
+}
+
   unittest {
+assert(["a": "1", "b": "2"].addKeyPrefix("b", "x").hasKey("xb"));
+assert(["a": "1", "b": "2"].addKeyPrefix("a", "x").hasKey("a"));
+assert(["a": "1", "b": "2"].addKeyPrefix("b", "x")["xb"] == "2");
+assert(["a": "1", "b": "2"].addKeyPrefix("a", "x")["a"] == "1");
+
     assert(["a": "1"].addKeyPrefix("x") == ["xa": "1"]);
     assert(["a": "1", "b": "2"].addKeyPrefix("x").hasKey("xb"));
-  }
+  
 }
 
 /// Selects only entries, where key starts with prefix. Creates a new DSTRINGAA

@@ -289,17 +289,15 @@ class DConsoleOptionParser {
      * options An array of parameters that define the behavior of the option
      */
     void addOption(string optionName, Json[string] behaviorOptions = null) {
-        Json[string] defaultValues = createMap!(string, Json)()
-            .set("short", "")
-            .set("help", "")
-            .set("default", Json(null))
-            .set("boolean", false)
-            .set("multiple", false)
-            .set("choices", Json.emptyArray)
-            .set("required", false)
-            .set("prompt", Json(null));
-
-        behaviorOptions = behaviorOptions.set(defaultValues);
+        behaviorOptions = behaviorOptions
+            .merge("short", "")
+            .merge("help", "")
+            .merge("default", Json(null))
+            .merge("boolean", false)
+            .merge("multiple", false)
+            .merge("choices", Json.emptyArray)
+            .merge("required", false)
+            .merge("prompt", Json(null));
 
         /* auto inputOption = new DConsoleInputOption(
             name,

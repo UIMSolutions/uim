@@ -86,7 +86,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * ```
      */
     bool removeKey(string ruleName) {
-        return _rules.removeKey(ruleName);
+        return _rules.remove(ruleName);
     }
     
     // Returns whether an index exists in the rule set

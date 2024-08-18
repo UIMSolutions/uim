@@ -112,7 +112,6 @@ version (linux) {
 	unittest {
 		// Todo
 	}
-}
 
 auto dirEntryInfos(string aPath) {
 	debug writeln(__MODULE__ ~ " - dirEntryInfos(path: %s)".format(aPath));

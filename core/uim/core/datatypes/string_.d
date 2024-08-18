@@ -303,7 +303,7 @@ string capitalizeWords(string aText, string separator = " ") {
 		assert("this is a test".capitalizeWords == "This Is A Test");
 		assert("this  is  a  test".capitalizeWords == "This  Is  A  Test");
 	}
-}
+
 
 size_t[string] countWords(string aText, bool caseSensitive = true) {
 	size_t[string] results;

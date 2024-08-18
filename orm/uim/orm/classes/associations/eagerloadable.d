@@ -49,7 +49,7 @@ class DEagerLoadable {
     protected bool _canBeJoined = false;
 
     // Whether this level was meant for a "matching" fetch operation
-    protected bool _forMatching = false;
+    protected bool _isForMatching = false;
 
     /**
      * The property name where the association result should be nested
@@ -89,11 +89,11 @@ class DEagerLoadable {
             "associations", "instance", "config", "canBeJoined",
             "aliasPath", "propertyPath", "forMatching", "targetProperty",
         ];
-        allowed
+/*         allowed
             .filter!(property => configuration.hasKey(property))
             .each!(property => this.{"_" ~ property} = configuration.get(property));
         }
-    }
+ */    }
     
     // Adds a new association to be loaded from this level.
     void addAssociation(string associationName, EagerLoadable associationToLoad) {
@@ -146,32 +146,10 @@ class DEagerLoadable {
    bool canBeJoined() {
         return _canBeJoined;
     }
-    
-    /**
-     * Sets the list of options to pass to the association object for loading
-     * the records.
-     *
-     * configData - The value to set.
-     */
-    void configuration.set(Json[string] configData = null) {
-       configuration = configData;
-    }
-    
-    /**
-     * Gets the list of options to pass to the association object for loading
-     * the records.
-     *
-     */
-    Json[string] configuration.data {
-        return configuration;
-    }
-    
-    /**
-     * Gets whether this level was meant for a
-     * "matching" fetch operation.
-     */
+            
+    // Gets whether this level was meant for a "matching" fetch operation.
     bool forMatching() {
-        return _forMatching;
+        return _isForMatching;
     }
     
     /**
@@ -183,7 +161,6 @@ class DEagerLoadable {
      * ```
      * myarticle.author.company.country
      * ```
-     *
      * The target property of `country` will be just `country`
      */
     string targetProperty() {
@@ -199,8 +176,8 @@ class DEagerLoadable {
             .map!(association => association.asContainArray()).array;
         
         auto configData = configuration.data;
-        if (_forMatching !is null) {
-            configData = configData.merge(["matching": _forMatching]);
+        if (_isForMatching !is null) {
+            configData = configData.merge(["matching": _isForMatching]);
         }
 
         return [
@@ -211,11 +188,9 @@ class DEagerLoadable {
         ];
     }
     
-    /**
-     * Handles cloning eager loadables.
-     */
+    // Handles cloning eager loadables.
     void clone() {
-        foreach (_associations as index: myassociation) {
+        foreach (index, myassociation; _associations) {
            _associations[index] = myassociation.clone;
         }
     }

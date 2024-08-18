@@ -126,7 +126,7 @@ class DAssociation : UIMObject, IAssociation {
      *
      * @var \Closure|array
      */
-    protected _conditions = null;
+    protected Json[string] _conditions = null;
 
     // Whether cascaded deletes should also fire callbacks.
     protected bool _cascadeCallbacks = false;
@@ -245,13 +245,13 @@ class DAssociation : UIMObject, IAssociation {
             _classname = aliasName;
         }
 
-        [, name] = pluginSplit(aliasName);
+/*         [, name] = pluginSplit(aliasName);
         _name = name;
-
+ */
         _options(options);
 
         if (options.hasKey("strategy")) {
-            setStrategyName(options.get("strategy"]);
+            setStrategyName(options.get("strategy"));
         }
     }
 
@@ -365,7 +365,7 @@ class DAssociation : UIMObject, IAssociation {
             _propertyName = _propertyName();
             if (isIn(_propertyName, _sourceTable.getSchema().columns(), true)) {
                 message = "Association property name '%s' clashes with field of same name of table '%s'." ~
-                    " You should explicitly specify the " propertyName" option.";
+                    " You should explicitly specify the \" propertyName\" option.";
                 trigger_error(
                     message.format(_propertyName, _sourceTable.getTable()),
                     ERRORS.USER_WARNING
@@ -378,9 +378,11 @@ class DAssociation : UIMObject, IAssociation {
 
     // Returns default property name based on association name.
     protected string _propertyName() {
-        [, name] = pluginSplit(_name);
+/*         [, name] = pluginSplit(_name);
 
         return name.underscore;
+ */ 
+    return null;    
     }
 
     /**
@@ -706,19 +708,19 @@ class DAssociation : UIMObject, IAssociation {
             return;
         }
 
-        newContain = null;
-        foreach (contain as alias : value) {
-            newContain[options.getString("aliasPath") ~ "." ~ alias] = value;
+        auto newContain = null;
+        foreach (aliasName, value; contain) {
+            newContain[options.getString("aliasPath") ~ "." ~ aliasName] = value;
         }
 
-        eagerLoader = query.getEagerLoader();
+        auto eagerLoader = query.getEagerLoader();
         if (newContain) {
             eagerLoader.contain(newContain);
         }
 
-        foreach (matching as alias : value) {
+        foreach (aliasName, value; matching) {
             eagerLoader.setMatching(
-                options.getString("aliasPath") ~ "." ~ alias,
+                options.getString("aliasPath") ~ "." ~ aliasName,
                 value["queryBuilder"],
                 value
            );
@@ -777,13 +779,14 @@ class DAssociation : UIMObject, IAssociation {
      * query.contain(["Comments": ["finder": ["translations": ["locales": ["en_US"]]]]]);
      */
     protected Json[string] _extractFinder(/*array*/string finderData) {
-        finderData = (array) finderData;
+        /* auto finderData = (array) finderData;
 
         if (key(finderData).isNumeric) {
             return [currentValue(finderData), []];
         }
 
-        return [key(finderData), currentValue(finderData)];
+        return [key(finderData), currentValue(finderData)]; */
+        return null; 
     }
 
     /**

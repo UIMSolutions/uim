@@ -50,7 +50,7 @@ class DEagerLoader {
     ];
 
     // A list of associations that should be loaded with a separate query.
-    protected DEagerLoadable<> _loadExternal = null;
+    protected DEagerLoadable[] _loadExternal = null;
 
     // Contains a list of the association names that are to be eagerly loaded.
     protected Json[string] _aliasList = null;
@@ -96,13 +96,14 @@ class DEagerLoader {
                 ],
             ];
         }
-        myassociations = (array)myassociations;
-        myassociations = _reformatContain(myassociations, _containments);
+        // myassociations = (array)myassociations;
+        // myassociations = _reformatContain(myassociations, _containments);
        _normalized = null;
        _loadExternal = null;
        _aliasList = null;
 
-        return _containments = myassociations;
+        // return _containments = myassociations;
+        return null; 
     }
     
     /**
@@ -166,20 +167,22 @@ class DEagerLoader {
      * - `fields`: Fields to contain
      * - `negateMatch`: Whether to add conditions negate match on target association
      */
-    void setMatching(string associationPath(, DClosure mybuilder = null, Json[string] options = null) {
+    void setMatching(string associationPath, DClosure mybuilder = null, Json[string] options = null) {
        _matching ? _matching : new static();
 
-        auto updatedOptions = options.update["joinType": SelectQuery.JOIN_TYPE_INNER];
-        auto mysharedOptions = ["negateMatch": false.toJson, "matching": true.toJson] + options;
+        auto updatedOptions = options.update("joinType", SelectQuery.JOIN_TYPE_INNER);
+        auto mysharedOptions = options
+            .merge("negateMatch", false)
+            .merge("matching", true);
 
         auto mycontains = null;
         auto mynested = &mycontains;
-        associationPath(.split(".")
+        associationPath.split(".")
             .each!((association) {
                 // Add contain to parent contain using association name as key
-                mynested[association] = mysharedOptions;
+                /* mynested[association] = mysharedOptions;
                 // Set to next nested level
-                mynested = &mynested[association];
+                mynested = &mynested[association]; */
             });
         // Add all options to target association contain which is the last in nested chain
         mynested = ["matching": true.toJson, "queryBuilder": mybuilder] + options;
@@ -187,12 +190,12 @@ class DEagerLoader {
     }
     
     // Returns the current tree of associations to be matched.
-    array getMatching() {
+/*     array getMatching() {
        _matching = _matching : new static();
 
         return _matching.getContain();
     }
-    
+ */    
     /**
      * Returns the fully normalized array of associations that should be eagerly
      * loaded for a table. The normalized array will restructure the original array
@@ -208,9 +211,9 @@ class DEagerLoader {
      * \ORM\Table repository The table containing the association that
      * will be normalized.
      */
-    array normalized(DORMTable repository) {
+/*     array normalized(DORMTable repository) {
         if (_normalized !is null || _containments.isEmpty) {
-            return /* (array) */_normalized;
+            return /* (array) * /_normalized;
         }
         mycontain = null;
         foreach (aliasName, options; _containments) {
@@ -227,7 +230,7 @@ class DEagerLoader {
         }
         return _normalized = mycontain;
     }
-    
+ */    
     /**
      * Formats the containments array so that associations are always set as keys
      * in the array. This auto merges the original associations array with

@@ -385,7 +385,7 @@ class DBelongsToManyAssociation : DAssociation {
 /*    DClosure eagerLoader(Json[string] options = null) {
         name = _junctionAssociationName();
         loader = new DSelectWithPivotLoader([
-            "alias": this.aliasName(),
+            "alias": aliasName(),
             "sourceAlias": source().aliasName(),
             "targetAlias": getTarget().aliasName(),
             "foreignKeys": foreignKeys(),
@@ -623,10 +623,10 @@ class DBelongsToManyAssociation : DAssociation {
      */
     bool link(IORMEntity sourceEntity, IORMEntity[string] targetEntities, Json[string] options = null) {
         _checkPersistenceStatus(sourceEntity, targetEntities);
-        property = getProperty();
-        links = sourceEntity.get(property) ?: [];
+        auto property = getProperty();
+        /* links = sourceEntity.get(property) ?: [];
         links = array_merge(links, targetEntities);
-        sourceEntity.set(property, links);
+        sourceEntity.set(property, links); */
 
         /* return _junction().getConnection().transactional(
             function () use (sourceEntity, targetEntities, options) {
@@ -736,15 +736,15 @@ class DBelongsToManyAssociation : DAssociation {
             return conditions;
         }
         matching = null;
-        auto aliasName = this.aliasName() ~ ".";
-        foreach (conditions as field: value) {
+        string aliasName = aliasName() ~ ".";
+/*         foreach (conditions as field: value) {
             if (field.isString && indexOf(field, alialiasNameas) == 0) {
                 matching.set(field, value);
-            } else if (is_int(field) || cast(IExpression)value) {
+            } else if (isInt(field) || cast(IExpression)value) {
                 matching.set(field, value);
             }
         }
-
+ */
         return _targetConditions = matching;
     }
 

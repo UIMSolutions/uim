@@ -86,7 +86,7 @@ class DBelongsToAssociation : DAssociation {
      * `options`
      */
     IORMEntity saveAssociated(IORMEntity ormEntity, Json[string] options = null) {
-        auto targetEntity = ormEntity.get(getProperty());
+/*         auto targetEntity = ormEntity.get(getProperty());
         if (targetEntity.isEmpty) || !(cast(IORMEntity)targetEntity)) {
             return ormEntity;
         }
@@ -100,8 +100,10 @@ class DBelongsToAssociation : DAssociation {
         auto properties =foreignKeys().combine(
             targetEntity.extract(getBindingKeys())
        );
-        ormEntity.set(properties, ["guard": false.toJson]);
+        ormEntity.set(properties, ["guard": Json(false)]);
         return ormEntity;
+ */ 
+    return null;    
     }
 
     /**

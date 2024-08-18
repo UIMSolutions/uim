@@ -3,7 +3,7 @@
 *	License: Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt]                                       *
 *	Authors: Ozan Nurettin Süel (UIManufaktur)										                         * 
 ***********************************************************************************************************************/
-module uim.core.containers.array_;
+module uim.core.containers.arrays.array_;
 
 import uim.core;
 
@@ -18,7 +18,7 @@ size_t[T] countDuplicates(T)(in T[] baseArray...) {
   return countDuplicates(baseArray.dup);
 }
 
-version (test_uim_core) {
+
   unittest {
     assert(countDuplicates(1) == [1: 1uL]);
     assert(countDuplicates(1, 1) == [1: 2uL]);
@@ -102,7 +102,7 @@ T[] add(T)(in T[] baseArray, in T[] newItems...) {
   return add(baseArray, newItems);
 }
 
-version (test_uim_core) {
+
   unittest {
     assert([1, 2, 3].add(4) == [1, 2, 3, 4]);
     assert([1, 2, 3].add(4, 5) == [1, 2, 3, 4, 5]);
@@ -118,7 +118,7 @@ T[] add(T)(in T[] baseArray, in T[] newItems) {
   return results;
 }
 
-version (test_uim_core) {
+
   unittest {
     assert([1, 2, 3].add([4, 5]) == [1, 2, 3, 4, 5]);
     assert([1.0, 2.0, 3.0].add([4.0, 5.0]) == [1.0, 2.0, 3.0, 4.0, 5.0]);
@@ -145,7 +145,7 @@ T[] change(T)(T[] values, size_t firstPosition, size_t secondPosition) {
   return results;
 }
 
-version (test_uim_core) {
+
   unittest {
     assert(change([1, 2, 3, 4], 1, 2) == [1, 3, 2, 4]);
     assert(change(["a", "b", "c", "d"], 3, 2) == ["a", "b", "d", "c"]);
@@ -170,12 +170,10 @@ T[] sub(T)(T[] lhs, T rhs, bool multiple = false) {
   return result;
 }
 
-version (test_uim_core) {
   unittest {
     assert([1, 2, 3].sub(2) == [1, 3]);
     assert([1, 2, 3, 2].sub(2, true) == [1, 3]);
   }
-}
 
 // sub(T)(T[] lhs, T[] rhs, bool multiple = false)
 T[] sub(T)(T[] lhs, T[] rhs, bool multiple = false) {
@@ -200,7 +198,7 @@ T[] filters(T)(T[] baseArray, T[] filterValues...) {
   return filters(baseArray, filterValues);
 }
 
-version (test_uim_core) {
+
   unittest {
     assert([1, 2, 3].filters(2) == [2]);
     assert([1, 2, 3].filters() is null);
@@ -215,7 +213,7 @@ T[] filters(T)(T[] baseArray, T[] filterValues) {
   return results;
 }
 
-version (test_uim_core) {
+
   unittest {
     assert([1, 2, 3].filters([2]) == [2]);
     assert([1, 2, 3].filters([]) == [
@@ -379,7 +377,7 @@ size_t[][T] indexes(T)(T[] values, T[] keys) {
   return results;
 }
 
-version (test_uim_core) {
+
   unittest {
     assert([1, 2, 3, 4].indexes(
         [1]) == [

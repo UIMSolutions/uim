@@ -49,7 +49,7 @@ pure size_t[V] indexAAReverse(V)(V[] values, size_t startPos = 0) {
   return results;
 }
 
-version (test_uim_core) {
+
   unittest {
     // Add Test
   }
@@ -282,7 +282,7 @@ V[K] set(K, V)(V[K] items, K[] keys, V value) if (!isType!Json) {
   return items;
 }
 
-V[K] set(K, V)(V[K] items, K key, V value) if (!isType!Json) {
+V[K] set(K, V)(V[K] items, K key, V value) /* if (!isType!Json)  */{
   items[key] = value;
   return items;
 }
@@ -386,7 +386,7 @@ unittest {
 
 // #region remove
 V[K] removeKeys(K, V)(V[K] items, K[] keys...) {
-  remove(items, keys.dup);
+  removeKeys(items, keys.dup);
   return items;
 }
 
@@ -404,13 +404,13 @@ V[K] removeKey(K, V)(V[K] items, K key) {
 
 unittest {
   assert(["a": "A", "b": "B", "c": "C"].length == 3);
-  assert(uim.core.containers.maps.map.remove(["a": "A", "b": "B", "c": "C"], "a").length == 2);
-  assert(uim.core.containers.maps.map.remove(["a": "A", "b": "B", "c": "C"], "a", "b").length == 1);
-  assert(uim.core.containers.maps.map.remove(["a": "A", "b": "B", "c": "C"], "a").length == 2);
+  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
+  assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b").length == 1);
+  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
 
-  assert(uim.core.containers.maps.map.remove(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
-  assert(uim.core.containers.maps.map.remove(["a": "A", "b": "B", "c": "C"], "a", "b")["c"] == "C");
-  assert(uim.core.containers.maps.map.remove(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
+  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
+  assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b")["c"] == "C");
+  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
 }
 // #endregion remove
 
@@ -741,4 +741,12 @@ V[K] notFilterByKeys(K, V)(V[K] entries, K[] keys) {
 
 unittest {
   assert(["a": "1", "b": "2"].notFilterByKeys("a") == ["b": "2"]);
+}
+
+V[K] replaceKey(K, V)(V[K] entries, K originalKey, K newKey) {
+  keys
+    .filter!(key => key in entries)
+    .each!(key => results.remove(key));
+
+  return results;
 }

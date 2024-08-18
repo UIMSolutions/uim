@@ -9,43 +9,7 @@ module uim.core.containers.maps.string_;
 import std.algorithm : startsWith, endsWith;
 import uim.core;
 
-/// Selects only entries, where key starts with prefix. Creates a new DSTRINGAA
-STRINGAA allKeysStartsWith(STRINGAA items, string prefix) {
-  STRINGAA results;
-  items.byKeyValue
-    .filter!(item => item.key.startsWith(prefix))
-    .each!(item => results[item.key] = item.value);
-  return results;
-}
 
-unittest {
-  assert(allKeysStartsWith(["preA": "a", "b": "b"], "pre") == ["preA": "a"]);
-  assert(["preA": "a", "b": "b"].allKeysStartsWith("pre") == ["preA": "a"]);
-}
-
-/// Opposite of selectStartsWith: Selects only entries, where key starts not with prefix. Creates a new DSTRINGAA
-STRINGAA allStartsNotWith(STRINGAA entries, string prefix) { // right will overright left
-  STRINGAA results;
-  foreach (k, v; entries)
-    if (!k.startsWith(prefix))
-      results[k] = v;
-  return results;
-}
-
-version (test_uim_core) {
-  unittest {
-    assert(allStartsNotWith(["preA": "a", "b": "b"], "pre") == ["b": "b"]);
-    assert(["preA": "a", "b": "b"].allStartsNotWith("pre") == ["b": "b"]);
-  }
-}
-
-STRINGAA allKeysEndsWith(STRINGAA items, string postfix) { // right will overright left
-  return items.byKeyValue.all!(item => item.endsWith(postfix));
-}
-
-unittest {
-  /// TODO #test Add Tests
-}
 
 STRINGAA allEndsNotWith(STRINGAA entries, string postfix) { // right will overright left
   STRINGAA results;
@@ -86,7 +50,7 @@ string toString(STRINGAA aa) {
   return "%s".format(aa);
 }
 
-version (test_uim_core) {
+
   unittest {
     /// Add Tests
   }
@@ -114,26 +78,7 @@ unittest {
   /// TODO Add Tests
 }
 
-// #region set
-STRINGAA set(T)(STRINGAA items, string key, T value) {
-  return items.set(key, to!string(value));
-}
 
-STRINGAA set(STRINGAA items, string key, Json value) {
-  return items.set(key, value.toString);
-}
-
-STRINGAA set(STRINGAA items, string key, string value = null) {
-  items[key] = value;
-  return items;
-}
-
-unittest {
-  string[string] testmap;
-  assert(set(testmap, "a", "A")["a"] == "A");
-  assert(set(testmap, "a", "A").set("b", "B")["b"] == "B");
-}
-// #endregion set
 
 // #region update
 STRINGAA update(STRINGAA items, string key, bool value) {
@@ -191,36 +136,4 @@ unittest {
 }
 // #endregion merge
 
-// #region lowerKeys
-T[string] lowerKeys(T)(auto ref T[string] items) {
-  items.keys.each!(key => items.lowerKey(key));
-  return items;
-  ;
-}
 
-T[string] lowerKeys(T)(auto ref T[string] items, string[] keys...) {
-  return lowerKeys(items, keys.dup);
-  ;
-}
-
-T[string] lowerKeys(T)(auto ref T[string] items, string[] keys) {
-  keys.each!(key => items.lowerKey(key));
-  return items;
-}
-
-T[string] lowerKey(T)(auto ref T[string] items, string key) {
-  if (key !in items) {
-    return items;
-  }
-
-  auto value = items[key];
-  items.remove(key);
-  return set(items, key.lower, value);
-}
-
-unittest {
-  int[string] testmap = ["one": 1, "Two": 2, "thRee": 3];
-  assert(testmap.lowerKey("Two")["two"] == 2);
-  // assert(testmap.lowerKeys["three"] == 3);
-}
-// #endregion lowerKeys

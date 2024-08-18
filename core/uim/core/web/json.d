@@ -48,7 +48,7 @@ string toJSONObjectItem(T)(string key, T value) {
   return "\"%s\": %s".format(key, value.toJSONValue);
 }
 
-version (test_uim_core) {
+
   unittest {
     assert(toJSONObjectItem("name", true) == `"name": true`);
     assert(toJSONObjectItem("name", 100) == `"name": 100`);

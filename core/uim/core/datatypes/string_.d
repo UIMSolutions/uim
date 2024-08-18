@@ -249,7 +249,7 @@ size_t[] indexOfAll(string text, string searchTxt) {
 	return results;
 }
 
-version (test_uim_core) {
+
 	unittest {
 	}
 }
@@ -298,7 +298,7 @@ string capitalizeWords(string aText, string separator = " ") {
 	return capitalize(std.string.split(aText, separator)).join(separator);
 }
 
-version (test_uim_core) {
+
 	unittest {
 		assert("this is a test".capitalizeWords == "This Is A Test");
 		assert("this  is  a  test".capitalizeWords == "This  Is  A  Test");
@@ -634,13 +634,7 @@ unittest {
 // #endregion stripTextRight
 // #endregion strip
 
-// #region replace
-string[] replace(string[] texts, string originText, string newText) {
-	return texts
-		.map!(text => std.string.replace(text, originText, newText))
-		.array;
-}
-// #endregion replace
+
 
 string[] split(string text, string splitText = " ", int limit) {
 	auto splits = std.string.split(text, splitText);

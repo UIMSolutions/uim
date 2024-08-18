@@ -112,7 +112,7 @@ V[string] concatPrefixInKeys(V)(V[string] leftValues, string preValue) { // righ
   return results;
 }
 
-version (test_uim_core) {
+
   unittest {
     assert(["a": "b"].concatPrefixInKeys("abc") == ["abca": "b"]);
   }
@@ -126,7 +126,7 @@ V[K] concatPostfixInKeys(V, K)(V[K] leftValues, V postValue) { // right will ove
   return results;
 }
 
-version (test_uim_core) {
+
   unittest {
     assert(["a": "b"].concatPostfixInKeys("abc") == ["aabc": "b"]);
   }

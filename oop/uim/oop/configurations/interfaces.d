@@ -169,8 +169,9 @@ interface IConfiguration : INamed {
         IConfiguration merge(string key, Json[string] newValue);
     //#endregion update
 
-    IConfiguration removeKey(Json jsonObj);
+/*     IConfiguration removeKey(Json jsonObj);
     IConfiguration removeKey(Json[string] items);
+ */    
     IConfiguration removeKey(string[] keys...);
     IConfiguration removeKey(string[] keys);
 

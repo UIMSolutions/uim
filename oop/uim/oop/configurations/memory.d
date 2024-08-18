@@ -158,7 +158,7 @@ class DMemoryConfiguration : DConfiguration {
     // #endregion set
 
     // #region remove
-    alias remove = DConfiguration.remove;
+    alias remove = DConfiguration.removeKey;
     override IConfiguration removeKey(string[] keys) {
         keys.each!(key => _data.removeKey(key));
         return this;

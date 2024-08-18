@@ -24,7 +24,7 @@ pure bool toggle(bool value) {
 	return !value;
 }
 
-version (test_uim_core) {
+
 	unittest {
 		assert(toggle(true) == false, "Error in toggle(bool)");
 		assert(toggle(toggle(true)) == true, "Error in toggle(bool)");
@@ -36,7 +36,7 @@ pure T translate(T)(bool value, T ifTrue, T ifFalse) {
 	return (value) ? ifTrue : ifFalse;
 }
 
-version (test_uim_core) {
+
 	unittest {
 		assert(translate(true, "YES", "NO") == "YES", "Error in translate(bool, T, T)");
 		assert(translate(false, "YES", "NO") == "NO", "Error in translate(bool, T, T)");
@@ -48,7 +48,7 @@ pure T fromBool(T)(bool value, T ifTrue, T ifFalse) {
 	return (value) ? ifTrue : ifFalse;
 }
 ///
-version (test_uim_core) {
+
 	unittest {
 		assert(fromBool(true, "YES", "NO") == "YES", "Error in fromBool(bool, T, T)");
 		assert(fromBool(false, "YES", "NO") == "NO", "Error in fromBool(bool, T, T)");
@@ -62,7 +62,7 @@ pure bool toBoolean(T)(T value, T ifValue) {
 	return value == ifValue;
 }
 ///
-version (test_uim_core) {
+
 	unittest {
 		assert(!toBoolean("YES", "NO"), "Error in toBoolean(T, T)");
 		assert(toBoolean("YES", "YES") == true, "Error in toBoolean(bool, T, T)");

@@ -78,7 +78,7 @@ bool isUUID(string uuid, bool stripInput = true) {
   return true;
 }
 
-version (test_uim_core) {
+
   unittest {
     assert(isUUID(randomUUID.toString));
     assert(!isUUID(randomUUID.toString[0 .. 4]));
@@ -92,7 +92,7 @@ string[] toString(UUID[] ids) {
   return result;
 }
 
-version (test_uim_core) {
+
   unittest {
     /// TODO
   }
@@ -118,7 +118,7 @@ string toStringCompact(UUID id) {
   return id.toString.replace("_", "");
 }
 
-version (test_uim_core) {
+
   unittest {
     /// TODO
   }

@@ -108,7 +108,7 @@ version (linux) {
 		return true;
 	}
 }
-version (test_uim_core) {
+
 	unittest {
 		// Todo
 	}

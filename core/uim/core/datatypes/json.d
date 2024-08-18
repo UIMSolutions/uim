@@ -196,19 +196,7 @@ unittest {
 }
 
 /// Searching key in json, if depth = true also in subnodes  
-bool hasPath(Json value, string[] path) {
-  if (!value.isObject || uim.core.containers.array_.isEmpty(path)) {
-    return false;
-  }
 
-  auto firstKey = path[0];
-  if (!value.hasKey(firstKey)) {
-    return false;
-  }
-
-  return path.length > 1
-    ? hasKey(value[firstKey], path.removeFirst) : true;
-}
 
 bool hasKey(Json aJson, string key, bool deepSearch = false) {
   if (aJson.isObject) {
@@ -238,7 +226,7 @@ bool hasKey(Json aJson, string key, bool deepSearch = false) {
   return false;
 }
 ///
-version (test_uim_core) {
+
   unittest {
     auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
     assert(json.hasKey("a"));
@@ -254,7 +242,7 @@ bool hasAllValues(Json aJson, Json[] values, bool deepSearch = false) {
   return true;
 }
 ///
-version (test_uim_core) {
+
   unittest {
     auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}], "i": "j"}`);
     assert(json.hasAllValues([Json("b"), Json("j")]));
@@ -267,7 +255,7 @@ bool hasAnyValue(Json jsonData, Json[] values, bool deepSearch = false) {
   return values.any!(value => hasValue(jsonData, value, deepSearch));
 }
 ///
-version (test_uim_core) {
+
   unittest {
     auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}], "i": "j"}`);
     assert(json.hasAllValues([Json("b"), Json("j")]));
@@ -314,25 +302,35 @@ unittest {
 }
 
 /// Check if jsonPath exists
-bool hasPath(Json aJson, string path) {
+bool hasPath(Json aJson, string path, string separator = "/") {
   if (!aJson.isObject) {
     return false;
   }
 
-  auto items = path.split("/");
-  if (items.length > 1) {
-    return hasPath(aJson, items[1 .. $]);
+  auto pathItems = path.split(separator);
+  return hasPath(aJson, pathItems);
+}
+
+bool hasPath(Json value, string[] path) {
+  if (!value.isObject || path.length == 0) {
+    return false;
   }
-  return false;
+
+  auto firstKey = path.shift;
+  if (!value.hasKey(firstKey)) {
+    return false;
+  }
+
+  return path.length > 0
+    ? value[firstKey].hasPath(path) : true;
 }
 ///
 unittest {
   auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
-  assert(json.hasPath("/c/d"));
-  assert(!json.hasPath("/x/y"));
+  assert(json.hasPath(["c", "d"]));
 }
 
-/// Check if jsonPath items exists
+/* /// Check if jsonPath items exists
 bool hasPath(Json json, string[] pathItems) {
   // In Check
   if (!json.isObject) {
@@ -353,7 +351,7 @@ bool hasPath(Json json, string[] pathItems) {
     }
   }
   return true;
-}
+} */
 ///
 unittest {
   auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
@@ -373,7 +371,7 @@ Json reduceKeys(Json json, string[] keys) {
   return Json(null); // Not object or keys
 }
 
-version (test_uim_core) {
+
   unittest {
     writeln("test uim_core");
     // TODO 
@@ -466,7 +464,7 @@ Json[] loadJsonsFromDirectory(string dirName) {
   return null;
 }
 
-version (test_uim_core) {
+
   unittest {
     /// TODO Add Tests
   }
@@ -479,7 +477,7 @@ Json[] loadJsons(string[] fileNames) {
     .array;
 }
 
-version (test_uim_core) {
+
   unittest {
     /// TODO(John) Add Tests
   }
@@ -491,7 +489,7 @@ Json loadJson(string name) {
   return name.exists ? parseJsonString(readText(name)) : Json(null);
 }
 
-version (test_uim_core) {
+
   unittest {
     /// TODO Add Tests
   }
@@ -552,7 +550,7 @@ T maxValue(T)(Json[] jsons, string key) {
   return result;
 }
 
-version (test_uim_core) {
+
   unittest {
     assert(maxValue!string(
         [
@@ -1161,7 +1159,7 @@ Json toJson(string aKey, string aValue) {
   return result;
 }
 
-version (test_uim_core) {
+
   unittest {
     assert(toJson("a", "3")["a"] == "3");
   }

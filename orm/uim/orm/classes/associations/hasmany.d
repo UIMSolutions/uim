@@ -20,13 +20,13 @@ class DHasManyAssociation : DAssociation {
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
-            return false; 
+            return false;
         }
 
-    _validStrategies = [
-        STRATEGY_SELECT,
-        STRATEGY_SUBQUERY,
-    ];
+        _validStrategies = [
+            STRATEGY_SELECT,
+            STRATEGY_SUBQUERY,
+        ];
 
         return true;
     }
@@ -41,9 +41,8 @@ class DHasManyAssociation : DAssociation {
     /**
      * DOrder in which target records should be returned
      *
-     * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\/* IExpression| */
-    string >  | string
-        *  /
+     * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\/* IExpression| string [] | string
+        */
         protected  /* IExpression|Closure */ string[] _sort = null;
 
     // The type of join to be used when adding the association to a query
@@ -82,13 +81,11 @@ class DHasManyAssociation : DAssociation {
     /**
      * Takes an entity from the source table and looks if there is a field
      * matching the property name for this association. The found entity will be
-     * saved on the target table for this association by passing supplied
-     * `options`
+     * saved on the target table for this association by passing supplied `options`
      */
     IORMEntity saveAssociated(IORMEntity sourceEntity, Json[string] options = null) {
-        targetEntities = sourceEntity.get(getProperty());
-
-        isEmpty = isIn(targetEntities, [null, [], "", false], true);
+        auto targetEntities = sourceEntity.get(getProperty());
+        auto isEmpty = isIn(targetEntities, [null, [], "", false], true);
         if (isEmpty) {
             if (
                 sourceEntity.isNew() ||
@@ -96,18 +93,16 @@ class DHasManyAssociation : DAssociation {
                 ) {
                 return sourceEntity;
             }
-
             targetEntities = null;
         }
 
         if (!is_iterable(targetEntities)) {
-            myName = getProperty();
+            string propertyName = getProperty();
             throw new DInvalidArgumentException(
-                "Could not save %s, it cannot be traversed".format(myName););
+                "Could not save %s, it cannot be traversed".format(propertyName));
         }
 
-        foreignKeyReference = foreignKeys().combine(sourceEntity.extract(getBindingKeys()));
-
+        auto foreignKeyReference = foreignKeys().combine(sourceEntity.extract(getBindingKeys()));
         options.set("_sourceTable", source());
 
         if (
@@ -162,7 +157,7 @@ class DHasManyAssociation : DAssociation {
 
             if (options.hasKey("atomic")) {
                 original[k].setErrors(entity.getErrors());
-                if (cast(IInvalidProperty)entity) {
+                if (cast(IInvalidProperty) entity) {
                     original[k].setInvalid(
                         entity.invalidFields());
                 }
@@ -198,9 +193,9 @@ class DHasManyAssociation : DAssociation {
         auto property = getProperty();
 
         currentEntities = array_merge(
-                /* (array) */
-                sourceEntity.get(property),
-                targetEntities
+            /* (array) */
+            sourceEntity.get(property),
+            targetEntities
         ).unique;
         sourceEntity.set(property, currentEntities);
 
@@ -362,7 +357,7 @@ class DHasManyAssociation : DAssociation {
         Json[string] remainingEntities = null,
         Json[string] options = null
     ) {
-        auto primaryKeys = /* (array) */ myTarget.primaryKeys();
+        auto primaryKeys =  /* (array) */ myTarget.primaryKeys();
         auto exclusions = new DCollection(remainingEntities);
         // TODO
         /* 

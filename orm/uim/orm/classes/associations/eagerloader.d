@@ -168,7 +168,7 @@ class DEagerLoader {
      * - `negateMatch`: Whether to add conditions negate match on target association
      */
     void setMatching(string associationPath, DClosure mybuilder = null, Json[string] options = null) {
-       _matching ? _matching : new static();
+       // _matching ? _matching : new static();
 
         auto updatedOptions = options.update("joinType", SelectQuery.JOIN_TYPE_INNER);
         auto mysharedOptions = options
@@ -251,7 +251,7 @@ class DEagerLoader {
                 ormtable = key(options);
                 options = currentValue(options);
             }
-            if (_containoptions.hasKey(ormtable))) {
+            if (_containoptions.hasKey(ormtable)) {
                 mypointer.set(ormtable, options);
                 continue;
             }

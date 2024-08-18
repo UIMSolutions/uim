@@ -252,7 +252,7 @@ size_t[] indexOfAll(string text, string searchTxt) {
 
 	unittest {
 	}
-}
+
 
 // subString() - returns a part of a string.
 // aText - String value

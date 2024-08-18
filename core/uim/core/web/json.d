@@ -54,4 +54,4 @@ string toJSONObjectItem(T)(string key, T value) {
     assert(toJSONObjectItem("name", 100) == `"name": 100`);
     assert(toJSONObjectItem("name", "value") == `"name": "value"`);
   }
-}
+

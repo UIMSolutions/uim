@@ -24,7 +24,7 @@ size_t[T] countDuplicates(T)(in T[] baseArray...) {
     assert(countDuplicates(1, 1) == [1: 2uL]);
     assert(countDuplicates(1, 2) == [1: 1U, 2: 1UL]);
   }
-}
+
 
 /// Counts the occourence of values in an array
 size_t[T] countDuplicates(T)(in T[] someValues) {
@@ -109,7 +109,7 @@ T[] add(T)(in T[] baseArray, in T[] newItems...) {
     assert([1.0, 2.0, 3.0].add(4.0, 5.0) == [1.0, 2.0, 3.0, 4.0, 5.0]);
     assert(["1", "2", "3"].add("4", "5") == ["1", "2", "3", "4", "5"]);
   }
-}
+
 
 /// Adds items into array - same like "baseArray~newItems"
 T[] add(T)(in T[] baseArray, in T[] newItems) {
@@ -124,7 +124,7 @@ T[] add(T)(in T[] baseArray, in T[] newItems) {
     assert([1.0, 2.0, 3.0].add([4.0, 5.0]) == [1.0, 2.0, 3.0, 4.0, 5.0]);
     assert(["1", "2", "3"].add(["4", "5"]) == ["1", "2", "3", "4", "5"]);
   }
-}
+
 
 /// Changes positions
 void change(T)(ref T left, ref T right) {
@@ -152,7 +152,7 @@ T[] change(T)(T[] values, size_t firstPosition, size_t secondPosition) {
     assert(change(["a", "b", "c", "d"], 1, 1) == ["a", "b", "c", "d"]);
     assert(change(["a", "b", "c", "d"], 1, 9) == ["a", "b", "c", "d"]);
   }
-}
+
 
 /// Removes
 T[] sub(T)(T[] lhs, T rhs, bool multiple = false) {
@@ -206,7 +206,7 @@ T[] filters(T)(T[] baseArray, T[] filterValues...) {
         1, 2, 3
       ].filters(1, 2) == [1, 2]);
   }
-}
+
 
 T[] filters(T)(T[] baseArray, T[] filterValues) {
   T[] results = baseArray.filter!(item => filterValues.has(item)).array;
@@ -219,7 +219,7 @@ T[] filters(T)(T[] baseArray, T[] filterValues) {
     assert([1, 2, 3].filters([]) == [
       ]);
   }
-}
+
 
 OUT[] castTo(OUT, IN)(IN[] values) {
   OUT[] results;
@@ -390,7 +390,7 @@ size_t[][T] indexes(T)(T[] values, T[] keys) {
         1: [0UL, 4UL]
       ]);
   }
-}
+
 // #endregion Searching
 
 T shiftFirst(T)(ref T[] values) {

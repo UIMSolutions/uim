@@ -229,7 +229,7 @@ template CascadeNotNull(alias A, alias B, alias C, alias D) {
   unittest {
     assert(stringAA2Array(["A": "B", "C": "D"], "/") == ["A/B", "C/D"]);
   }
-}
+
 
 void debugFunctionCall(string text) {
   /* 	debug writeln(StyledString(text)

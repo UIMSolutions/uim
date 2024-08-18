@@ -232,7 +232,7 @@ bool hasKey(Json aJson, string key, bool deepSearch = false) {
     assert(json.hasKey("a"));
     assert(json.hasKey("d", true));
   }
-}
+
 
 bool hasAllValues(Json aJson, Json[] values, bool deepSearch = false) {
   foreach (value; values)
@@ -248,7 +248,7 @@ bool hasAllValues(Json aJson, Json[] values, bool deepSearch = false) {
     assert(json.hasAllValues([Json("b"), Json("j")]));
     assert(json.hasAllValues([Json("h"), Json(1)], true));
   }
-}
+
 
 // Search if jsonData has any of the values
 bool hasAnyValue(Json jsonData, Json[] values, bool deepSearch = false) {
@@ -376,7 +376,7 @@ Json reduceKeys(Json json, string[] keys) {
     writeln("test uim_core");
     // TODO 
   }
-}
+
 
 /// Remove keys from Json Object
 Json remove(Json json, string[] delKeys...) {
@@ -468,7 +468,7 @@ Json[] loadJsonsFromDirectory(string dirName) {
   unittest {
     /// TODO Add Tests
   }
-}
+
 
 Json[] loadJsons(string[] fileNames) {
   // debug writeln("Found ", fileNames.length, " names -> ", fileNames);
@@ -481,7 +481,7 @@ Json[] loadJsons(string[] fileNames) {
   unittest {
     /// TODO(John) Add Tests
   }
-}
+
 
 Json loadJson(string name) {
   // debug writeln("In loadJson("~name~")");
@@ -493,7 +493,7 @@ Json loadJson(string name) {
   unittest {
     /// TODO Add Tests
   }
-}
+
 
 T minValue(T)(Json[] jsons, string key) {
   T result;
@@ -560,7 +560,7 @@ T maxValue(T)(Json[] jsons, string key) {
         ["a": "4"]
       ], "a") == "5");
   }
-}
+
 
 Json mergeJsonObject(Json baseJson, Json mergeJson) {
   Json result;

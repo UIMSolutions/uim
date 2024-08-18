@@ -29,7 +29,7 @@ pure bool toggle(bool value) {
 		assert(toggle(true) == false, "Error in toggle(bool)");
 		assert(toggle(toggle(true)) == true, "Error in toggle(bool)");
 	}
-}
+
 
 /// Translates boolean to defined values
 pure T translate(T)(bool value, T ifTrue, T ifFalse) {
@@ -41,7 +41,7 @@ pure T translate(T)(bool value, T ifTrue, T ifFalse) {
 		assert(translate(true, "YES", "NO") == "YES", "Error in translate(bool, T, T)");
 		assert(translate(false, "YES", "NO") == "NO", "Error in translate(bool, T, T)");
 	}
-}
+
 
 /// Translates boolean to defined values
 pure T fromBool(T)(bool value, T ifTrue, T ifFalse) {
@@ -55,7 +55,7 @@ pure T fromBool(T)(bool value, T ifTrue, T ifFalse) {
 		assert(true.fromBool("YES", "NO") == "YES", "Error in fromBool(bool, T, T)");
 		assert(false.fromBool("YES", "NO") == "NO", "Error in fromBool(bool, T, T)");
 	}
-}
+
 
 /// Translates value to bool
 pure bool toBoolean(T)(T value, T ifValue) {
@@ -67,5 +67,5 @@ pure bool toBoolean(T)(T value, T ifValue) {
 		assert(!toBoolean("YES", "NO"), "Error in toBoolean(T, T)");
 		assert(toBoolean("YES", "YES") == true, "Error in toBoolean(bool, T, T)");
 	}
-}
+
 

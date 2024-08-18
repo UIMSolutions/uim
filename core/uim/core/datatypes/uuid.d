@@ -83,7 +83,7 @@ bool isUUID(string uuid, bool stripInput = true) {
     assert(isUUID(randomUUID.toString));
     assert(!isUUID(randomUUID.toString[0 .. 4]));
   }
-}
+
 
 string[] toString(UUID[] ids) {
   auto result = new string[ids.length];
@@ -96,7 +96,7 @@ string[] toString(UUID[] ids) {
   unittest {
     /// TODO
   }
-}
+
 
 Json toJson(UUID id) {
   return Json(id.toString);
@@ -122,7 +122,7 @@ string toStringCompact(UUID id) {
   unittest {
     /// TODO
   }
-}
+
 
 UUID[] toUUID(string[] ids) {
   auto result = new UUID[ids.length];

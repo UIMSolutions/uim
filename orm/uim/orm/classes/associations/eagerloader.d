@@ -374,11 +374,11 @@ class DEagerLoader {
             "propertyPath": paths.getString("propertyPath").strip("."),
             "targetProperty": myinstance.getProperty(),
         ];
-        configuration.set("canBeJoined", myinstance.canBeJoined(configuration.get("config")));
-        myeagerLoadable = new DEagerLoadable(aliasName, configData);
+       /*  configuration.set("canBeJoined", myinstance.canBeJoined(configuration.get("config")));
+        myeagerLoadable = new DEagerLoadable(aliasName, configData); */
 
         if (configuration.hasKey("canBeJoined")) {
-           _aliasList[paths.getString("root")][aliasName).concat(myeagerLoadable;
+           // _aliasList[paths.getString("root")][aliasName).concat(myeagerLoadable;
         } else {
             paths.set("root", configuration.get("aliasPath"));
         }

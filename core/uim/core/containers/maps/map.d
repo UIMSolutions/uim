@@ -385,33 +385,33 @@ unittest {
 // #endregion updateKeys
 
 // #region remove
-V[K] removeKeys(K, V)(V[K] items, K[] keys...) {
-  removeKeys(items, keys.dup);
-  return items;
-}
-
-V[K] removeKeys(K, V)(V[K] items, K[] keys) {
-  keys.each!(key => removeKey(items, key));
-  return items;
-}
-
-V[K] removeKey(K, V)(V[K] items, K key) {
-  if (hasKey(items, key)) {
-    items.remove(key);
+  V[K] removeKeys(K, V)(V[K] items, K[] keys...) {
+    removeKeys(items, keys.dup);
+    return items;
   }
-  return items;
-}
 
-unittest {
-  assert(["a": "A", "b": "B", "c": "C"].length == 3);
-  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
-  assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b").length == 1);
-  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
+  V[K] removeKeys(K, V)(V[K] items, K[] keys) {
+    keys.each!(key => removeKey(items, key));
+    return items;
+  }
 
-  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
-  assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b")["c"] == "C");
-  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
-}
+  V[K] removeKey(K, V)(V[K] items, K key) {
+    if (hasKey(items, key)) {
+      items.remove(key);
+    }
+    return items;
+  }
+
+  unittest {
+    assert(["a": "A", "b": "B", "c": "C"].length == 3);
+    assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
+    assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b").length == 1);
+    assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
+
+    assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
+    assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b")["c"] == "C");
+    assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
+  }
 // #endregion remove
 
 // #region removeByValues

@@ -312,7 +312,7 @@ class DBelongsToManyAssociation : DAssociation {
             return;
         }
 
-        auto junction = this.junction();
+        auto junction = junction();
         auto belongsTo = junction.getAssociation(source().aliasName());
         auto cond = belongsTo._joinCondition(["foreignKeys": belongsTo.foreignKeys()]);
         cond += this.junctionConditions();
@@ -338,25 +338,24 @@ class DBelongsToManyAssociation : DAssociation {
     }
 
 
-    protected void _appendNotMatching(Query query, Json[string] options = null) {
+    protected void _appendNotMatching(DQuery query, Json[string] options = null) {
         if (options.isEmpty("negateMatch")) {
             return;
         }
         options.set("conditions", options.getArray("conditions"));
-        auto junction = this.junction();
+        auto junction = junction();
         auto belongsTo = junction.getAssociation(source().aliasName());
         auto conds = belongsTo._joinCondition(["foreignKeys": belongsTo.foreignKeys()]);
 
-        auto subquery = this.find()
+        auto subquery = find()
             .select(array_values(conds))
-            .where(options.get("conditions"]);
+            .where(options.get("conditions"));
 
         if (options.hasKey("queryBuilder")) {
             subquery = options.get("queryBuilder")(subquery);
         }
 
         subquery = _appendJunctionJoin(subquery);
-
         /* query
             .andWhere(function (QueryExpression exp) use (subquery, conds) {
                 auto identifiers = conds.keys.map!(field => new DIdentifierExpression(field));
@@ -398,7 +397,7 @@ class DBelongsToManyAssociation : DAssociation {
             "junctionAssoc": getTarget().getAssociation(name),
             "junctionConditions": this.junctionConditions(),
             "finder": function () {
-                return _appendJunctionJoin(this.find(), []);
+                return _appendJunctionJoin(find(), []);
             },
         ]);
 
@@ -411,14 +410,13 @@ class DBelongsToManyAssociation : DAssociation {
             return true;
         }
 
-        auto foreignKeys = foreignKeys();
+        string[] foreignKeys = foreignKeys();
         string[] bindingKeys = bindingKeys();
-        string[] bindingKeys = null;
         if (!bindingKey.isEmpty) {
             conditions = chain(foreignKeys, entity.extract(bindingKeyx));
         }
 
-        auto table = this.junction();
+        auto table = junction();
         auto hasMany = source().getAssociation(table.aliasName());
         if (_cascadeCallbacks) {
             return hasMany.find("all").where(conditions).all().toList()
@@ -444,9 +442,7 @@ class DBelongsToManyAssociation : DAssociation {
         return true;
     }
 
-    /**
-     * Sets the strategy that should be used for saving.
-     */
+    // Sets the strategy that should be used for saving.
      void setSaveStrategy(string strategyName) {
         if (![SAVE_APPEND, SAVE_REPLACE].has(strategyName)) {
             string message = "Invalid save strategy '%s'".format(strategyName);
@@ -558,7 +554,7 @@ class DBelongsToManyAssociation : DAssociation {
     // Creates links between the source entity and each of the passed target entities
     protected bool _saveLinks(IORMEntity sourceEntity, IORMEntity[string] targetEntities, Json[string] options = null) {
         auto target = getTarget();
-        auto junction = this.junction();
+        auto junction = junction();
         auto entityClass = junction.getEntityClass();
         auto belongsTo = junction.getAssociation(target.aliasName());
         auto foreignKeys = foreignKeys();
@@ -673,7 +669,7 @@ class DBelongsToManyAssociation : DAssociation {
         _checkPersistenceStatus(sourceEntity, targetEntities);
         auto property = getProperty();
 
-        /* this.junction().getConnection().transactional(
+        /* junction().getConnection().transactional(
             void () use (sourceEntity, targetEntities, options) {
                 links = _collectJointEntities(sourceEntity, targetEntities);
                 links.each!(entity => _junctionTable.removeKey(entity, options));
@@ -806,7 +802,7 @@ class DBelongsToManyAssociation : DAssociation {
 
     // Append a join to the junction table.
     protected DORMQuery _appendJunctionJoin(DORMQuery query, Json[string] conditions = null) {
-        auto junctionTable = this.junction();
+        auto junctionTable = junction();
         if (conditions == null) {
             auto belongsTo = junctionTable.getAssociation(getTarget().aliasName());
             auto conditions = belongsTo._joinCondition([
@@ -882,28 +878,28 @@ class DBelongsToManyAssociation : DAssociation {
             throw new DInvalidArgumentException(message);
         }
 
-        return _junction().getConnection().transactional(
+        /* return _junction().getConnection().transactional(
             function () use (sourceEntity, targetEntities, primaryValue, options) {
-                auto junction = this.junction();
+                auto junction = junction();
                 auto target = getTarget();
 
-                auto foreignKeys = /* (array) */foreignKeys();
-                auto assocForeignKeys = (array)junction.getAssociation(target.aliasName()).foreignKeys();
+                string[] foreignKeys = /* (array) */foreignKeys();
+                string[] assocForeignKeys = /* (array) */junction.getAssociation(target.aliasName()).foreignKeys();
 
                 auto prefixedForeignKey = array_map([junction, "aliasField"], foreignKeys);
-                auto junctionPrimaryKey = (array)junction.primaryKeys();
+                auto junctionPrimaryKey = /* (array) */junction.primaryKeys();
                 auto junctionQueryAlias = junction.aliasName() ~ "__matches";
 
                 auto keys = matchesConditions = null;
-                foreach (array_merge(assocForeignKeys, junctionPrimaryKey) as key) {
+                /* foreach (array_merge(assocForeignKeys, junctionPrimaryKey) as key) {
                     aliased = junction.aliasField(key);
                     keys[key] = aliased;
                     matchesConditions[aliased] = new DIdentifierExpression(junctionQueryAlias ~ "." ~ key);
-                }
+                } * /
 
                 // Use association to create row selection
                 // with finders & association conditions.
-                matches = _appendJunctionJoin(this.find())
+                matches = _appendJunctionJoin(find())
                     .select(keys)
                     .where(prefixedForeignKey.combine(primaryValue));
 
@@ -940,8 +936,9 @@ class DBelongsToManyAssociation : DAssociation {
                 sourceEntity.setDirty(property, false);
 
                 return true;
-            }
-       );
+            } * /
+       );*/
+       return false; 
     }
 
     /**
@@ -949,13 +946,13 @@ class DBelongsToManyAssociation : DAssociation {
      * `existing` and `jointEntities`. This method will return the values from
      * `targetEntities` that were not deleted from calculating the difference.
      */
-    protected function _diffLinks(
+    /* protected function _diffLinks(
         Query existing,
         IORMEntity[] jointEntities,
         IORMEntity[] targetEntities,
         Json[string] options = null
    ) {
-        auto junction = this.junction();
+        auto junction = junction();
         auto target = getTarget();
         auto belongsTo = junction.getAssociation(target.aliasName());
         auto foreignKeys = (array)foreignKeys();
@@ -1024,18 +1021,18 @@ class DBelongsToManyAssociation : DAssociation {
 
         return targetEntities;
     }
-
+ */
     // Throws an exception should any of the passed entities is not persisted.
     protected bool _checkPersistenceStatus(IORMEntity sourceEntity, IORMEntity[] targetEntities) {
         if (sourceEntity.isNew()) {
-            error = "Source entity needs to be persisted before links can be created or removed.";
-            throw new DInvalidArgumentException(error);
+            string errorMessage = "Source entity needs to be persisted before links can be created or removed.";
+            throw new DInvalidArgumentException(errorMessage);
         }
 
-        foreach (targetEntities as entity) {
+        foreach (entity; targetEntities) {
             if (entity.isNew()) {
-                error = "Cannot link entities that have not been persisted yet.";
-                throw new DInvalidArgumentException(error);
+                string errorMessage = "Cannot link entities that have not been persisted yet.";
+                throw new DInvalidArgumentException(errorMessage);
             }
         }
 
@@ -1049,9 +1046,9 @@ class DBelongsToManyAssociation : DAssociation {
     protected IORMEntity[] _collectJointEntities(IORMEntity sourceEntity, Json[string] targetEntities) {
         auto target = getTarget();
         auto source = source();
-        auto junction = this.junction();
+        auto junction = junction();
         auto jointProperty = _junctionProperty;
-        auto primary = (array)target.primaryKeys();
+        auto primary =/*  (array) */target.primaryKeys();
 
         auto result = null;
         auto missing = null;
@@ -1089,9 +1086,9 @@ class DBelongsToManyAssociation : DAssociation {
         }
 
         auto query = unions.shift();
-        foreach (q; unions) {
+        /* foreach (q; unions) {
             query.union(q);
-        }
+        } */
 
         return array_merge(result, query.toJString());
     }
@@ -1104,7 +1101,7 @@ class DBelongsToManyAssociation : DAssociation {
     protected string _junctionAssociationName() {
         if (!_junctionAssociationName) {
             _junctionAssociationName = getTarget()
-                .getAssociation(this.junction().aliasName())
+                .getAssociation(junction().aliasName())
                 .getName();
         }
 

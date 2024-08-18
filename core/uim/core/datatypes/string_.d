@@ -249,10 +249,8 @@ size_t[] indexOfAll(string text, string searchTxt) {
 	return results;
 }
 
-
-	unittest {
-	}
-
+unittest {
+}
 
 // subString() - returns a part of a string.
 // aText - String value
@@ -293,23 +291,33 @@ unittest {
 	assert("0123456789".subString(-4, -2) == "45");
 }
 
-// TODO
+// #region capitalizeWords
 string capitalizeWords(string aText, string separator = " ") {
 	return capitalize(std.string.split(aText, separator)).join(separator);
 }
 
+unittest {
+	assert("this is a test".capitalizeWords == "This Is A Test");
+	assert("this  is  a  test".capitalizeWords == "This  Is  A  Test");
+}
+// #endregion capitalizeWords
 
-	unittest {
-		assert("this is a test".capitalizeWords == "This Is A Test");
-		assert("this  is  a  test".capitalizeWords == "This  Is  A  Test");
-	}
-
-
-size_t[string] countWords(string aText, bool caseSensitive = true) {
+// #region countWords
+size_t[string] countWords(string selectText, bool caseSensitive = true) {
 	size_t[string] results;
 
 	// TODO missing caseSensitive = false
-	std.string.split(aText, " ")
+	std.string.split(selectText, " ")
+		.each!(word => results[word] = word in results ? results[word] + 1 : 1);
+
+	return countWords(selectText, caseSensitive);
+}
+
+size_t[string] countWords(string[] selectTexts, bool caseSensitive = true) {
+	size_t[string] results;
+
+	// TODO missing caseSensitive = false
+	selectTexts
 		.each!(word => results[word] = word in results ? results[word] + 1 : 1);
 
 	return results;
@@ -320,6 +328,7 @@ unittest {
 	assert(countWords("this is a test")["this"] == 1);
 	assert(countWords("this is a this")["this"] == 2);
 }
+// #endregion countWords
 
 string repeat(string text, size_t times) {
 	string result;
@@ -634,8 +643,6 @@ unittest {
 // #endregion stripTextRight
 // #endregion strip
 
-
-
 string[] split(string text, string splitText = " ", int limit) {
 	auto splits = std.string.split(text, splitText);
 	if (limit > 0 && limit < splits.length) {
@@ -743,7 +750,6 @@ string doubleMustache(string text, STRINGAA items) {
 string doubleMustache(string text, string key, Json value) {
 	return std.string.replace(text, "{" ~ key ~ "}", value.toString);
 }
-
 
 string doubleMustache(string text, string key, string value) {
 	return std.string.replace(text, "{{" ~ key ~ "}}", value);
@@ -973,7 +979,7 @@ unittest {
 
 // #region classify
 // Returns uim model class name ("Person" for the database table "people".) for given database table.
-string[] classify(string[] tableNames) {	
+string[] classify(string[] tableNames) {
 	return tableNames.map!(name => name.classify).array;
 }
 
@@ -1054,7 +1060,7 @@ string _caching(string inflectionType, string originalValue, string inflectedVal
 	inflectionType = "_" ~ inflectionType;
 	if (!inflectedValue.isEmpty) {
 		if (!_cache.isSet(inflectionType)) {
-			_cache[inflectionType] = null;	
+			_cache[inflectionType] = null;
 		}
 		_cache[inflectionType][originalValue] = inflectedValue;
 		return inflectedValue;

@@ -60,9 +60,10 @@ class DBelongsToAssociation : DAssociation {
 
     // Returns default property name based on association name.
     protected string _propertyName() {
-        [, name] = pluginSplit(_name);
+        /* [, name] = pluginSplit(_name);
 
-        return Inflector.singularize(name).underscore;
+        return Inflector.singularize(name).underscore; */
+        return null; 
     }
 
     /**

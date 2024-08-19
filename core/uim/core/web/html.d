@@ -9,6 +9,13 @@ import uim.core;
 
 @safe:
 // #region startTag
+string htmlStartTag(A, B)(string name, string id, A classes, B attributes/* , bool isClosed = false */) if (
+	is(A == Json) || is(A == Json[]) || 
+	is(B == Json) || is(B == Json[string]))
+{ 
+	return htmlStartTag(name, id, classes.toStringArray, attributes.toStringMap/* , bool isClosed = false */);
+}
+
 string htmlStartTag(string name, string id, string[] classes, string[string] attributes/* , bool isClosed = false */) {
 	if (id.length > 0) {
 		attributes.remove("id");

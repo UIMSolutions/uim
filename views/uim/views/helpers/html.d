@@ -903,7 +903,7 @@ class DHtmlHelper : DHelper {
         string result = "";
 
         auto myindex = 1;
-        foreach (aKey: myitem; myitems) {
+        foreach (aKey, myitem; myitems) {
             if (isArray(myitem)) {
                 myitem = aKey ~ this.nestedList(myitem, listAttributes, liAttributes);
             }

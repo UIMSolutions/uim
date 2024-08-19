@@ -29,13 +29,13 @@ class DEagerLoader {
      *
      * @var \ORM\EagerLoadable|array<\ORM\EagerLoadable>|null
      */
-    protected DEagerLoadable|array|null _normalized = null;
+    protected DEagerLoadable/* |array|null */ _normalized = null;
 
     /**
      * List of options accepted by associations in contain()
      * index by key for faster access.
      */
-    protected int<string> _containOptions = [
+    protected int[string] _containOptions = [
         "associations": 1,
         "foreignKeys": 1,
         "conditions": 1,
@@ -377,7 +377,7 @@ class DEagerLoader {
        /*  configuration.set("canBeJoined", myinstance.canBeJoined(configuration.get("config")));
         myeagerLoadable = new DEagerLoadable(aliasName, configData); */
 
-        if (configuration.hasKey("canBeJoined")) {
+        /* if (configuration.hasKey("canBeJoined")) {
            // _aliasList[paths.getString("root")][aliasName).concat(myeagerLoadable;
         } else {
             paths.set("root", configuration.get("aliasPath"));
@@ -388,8 +388,10 @@ class DEagerLoader {
                     tAssoc.key,
                     _normalizeContain(ormtable, tAssoc.key, tAssoc.value, paths)
                );
-            });
-        return myeagerLoadable;
+            }); */
+
+        return null; 
+        // return myeagerLoadable;
     }
     
     /**

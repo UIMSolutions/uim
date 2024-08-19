@@ -121,8 +121,8 @@ class DRadioWidget : DWidget {
                 : _id(radio.getString("name"), radio.getString("value"))));
         }
         auto valData = options.get("val");
-        if (!valData.isNull && valData.isBoolean) {
-            options.set("val", options.hasKey("val") ? 1 : 0);
+        if (options.isBoolean("val")) {
+            options.set("val", options.getBoolean("val") ? 1 : 0);
         }
         if (!valData.isNull && valData == radio.getString("value")) {
             radio.set("checked", true);

@@ -685,20 +685,42 @@ unittest {
 }
 
 // #region push
-V[] push(V)(ref V[] items, V[] newItems...) {
-  return push(items, newItems.dup);
+  V[] push(V)(ref V[] items, V[] newItems...) {
+    return push(items, newItems.dup);
+  }
+  V[] push(V)(ref V[] items, V[] newItems) {
+    items ~= newItems;
+    return items;
+  }
+
+  unittest {
+    string[] testMap = ["a", "b", "c"].push("d", "e");
+    assert(testMap == ["a", "b", "c", "d", "e"]);
+    assert(testMap.length == 5);
+
+    assert(testMap.push(["x", "y"]) == ["a", "b", "c", "d", "e", "x", "y"]);
+    assert(testMap.length == 7);
+  }
+// #endregion push
+
+string[] getStringArray(T)(T[] values) {
+  static if (is(T == string)) { 
+    return values;
+  }
+  else {
+    return null; 
+  }
 }
-V[] push(V)(ref V[] items, V[] newItems) {
-  items ~= newItems;
-  return items;
+
+string[] toStringArray(string[] values) {
+  static if (is(T == Object)) { 
+    return values.map!(value => value.toString).array;
+  }
+  else {
+    return values.map!(value => to!string(value)).array;
+  }
 }
 
 unittest {
-  string[] testMap = ["a", "b", "c"];
-  assert(testMap.length == 3);
-  assert(testMap.push("d", "e").length == 5);
-  assert(testMap.length == 5);
-  assert(testMap.push(["x", "y"]).length == 7);
-  assert(testMap.length == 7);
+  assert(["a", "b", "c"] == )
 }
-// #endregion push

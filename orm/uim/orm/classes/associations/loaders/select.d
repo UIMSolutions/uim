@@ -47,7 +47,7 @@ class DSelectLoader {
      *
      * @var callable
      */
-    protected finder;
+    // protected finder;
 
     // The type of the association triggering the load
     protected string associationType;
@@ -92,18 +92,18 @@ class DSelectLoader {
         options.set("fields", options.get("fields")); /** @var DORMQuery query */
         DORMQuery query = finder();
         if (options.hasKey("finder")) {
-            [finderName, opts] = _extractFinder(options.get("finder"]);
+            [finderName, opts] = _extractFinder(options.get("finder"));
             query = query.find(
                 finderName, opts);
         }
 
         auto fetchQuery = query
-            .select(options.get("fields"])
-            .where(options.get("conditions"])
+            .select(options.get("fields"))
+            .where(options.get("conditions"))
             .eagerLoaded(true)
-            .enableHydration(options.get("query"].isHydrationEnabled());
+            .enableHydration(options.get("query").isHydrationEnabled());
         if (
-            options.get("query"].isResultsCastingEnabled()) {
+            options.get("query").isResultsCastingEnabled()) {
             fetchQuery.enableResultsCasting();
         } else {
             fetchQuery.disableResultsCasting();
@@ -129,7 +129,7 @@ class DSelectLoader {
             fetchQuery = options.get("queryBuilder")(fetchQuery);
         }
 
-        _assertFieldsPresent(fetchQuery, (array) key);
+        _assertFieldsPresent(fetchQuery,/*  (array)  */key);
 
         return fetchQuery;
     }
@@ -422,12 +422,12 @@ class DSelectLoader {
             }
             if (
                 singleResult) {
-                resultMap[values.join(
+   /*              resultMap[values.join(
                         ";")] = result;
-            } else {
-                resultMap[values.join(
+    */         } else {
+/*                 resultMap[values.join(
                         ";")).concat( result;
-            }
+ */            }
         }
 
         return resultMap;

@@ -43,7 +43,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\/* IExpression| string [] | string
         */
-        protected  /* IExpression|Closure */ string[] _sort = null;
+    protected  /* IExpression|Closure */ string[] _sort = null;
 
     // The type of join to be used when adding the association to a query
     protected string _joinType = Query.JOIN_TYPE_INNER;
@@ -245,15 +245,13 @@ class DHasManyAssociation : DAssociation {
      *
      * `article.get("articles")` will contain only `[article4]` after deleting in the database
      */
-    void unlink(IORMEntity sourceEntity, Json[string] TargetEntities, Json[string] options = null) {
-        if (isBoolean(options)) {
-            options = [
-                "cleanProperty": options,
-            ];
-        } else {
-            auto updatedOptions = options
-                .update["cleanProperty": true];
-        }
+    void unlink(IORMEntity sourceEntity, Json[string] targetEntities, bool isCleanProperty) {
+        unlink(sourceEntity, targetEntities, ["cleanProperty": Json(isCleanProperty)]);
+    }    
+    void unlink(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
+        options = options
+            .merge("cleanProperty", true);
+
         if (count(targetEntities) == 0) {
             return;
         }
@@ -439,7 +437,7 @@ class DHasManyAssociation : DAssociation {
 
         // Checks the nullable flag of the foreign key
         protected bool _foreignKeyAcceptsNull(DORMTable myTable, Json[string] properties) {
-            return !isIn(
+            /* return !isIn(
                 false,
                 array_map(
                     function(prop) use(
@@ -449,91 +447,94 @@ class DHasManyAssociation : DAssociation {
                     properties
                     )
                     );
-                }
+                    */
+            return false;
 
-            // Get the relationship type.
-            string type() {
-                return ONE_TO_MANY;
+        }
+
+        // Get the relationship type.
+        string type() {
+            return ONE_TO_MANY;
+        }
+
+        // Whether this association can be expressed directly in a query join
+        bool canBeJoined(
+            Json[string] options = null) {
+            return options.hasKey(
+                "matching");
+        }
+
+        // Gets the name of the field representing the foreign key to the source table.
+        string[] foreignKeys() {
+            if (_foreignKey.isNull) {
+                _foreignKey = _modelKey(source()
+                        .getTable());
             }
 
-            // Whether this association can be expressed directly in a query join
-            bool canBeJoined(
-                Json[string] options = null) {
-                return options.hasKey(
-                    "matching");
+            return _foreignKey;
+        }
+
+        // Sets the sort order in which target records should be returned.
+        void sortOrder(Json[string] sort) {
+            _sort = sort;
+        }
+
+        // Gets the sort order in which target records should be returned.
+        Json sortOrder() {
+            return _sort;
+        }
+
+        array defaultRowValue(Json[string] row, bool joined) {
+            sourceAlias = source().aliasName();
+            if (row.hasKey(sourceAlias)) {
+                row[sourceAlias][getProperty()] = joined ? null : [
+                ];
             }
 
-            // Gets the name of the field representing the foreign key to the source table.
-            string[] foreignKeys() {
-                if (_foreignKey.isNull) {
-                    _foreignKey = _modelKey(source()
-                            .getTable());
-                }
+            return row;
+        }
 
-                return _foreignKey;
+        // Parse extra options passed in the constructor.
+        protected void _options(
+            Json[string] options = null) {
+            if (
+                options.hasKey("saveStrategy")) {
+                setSaveStrategy(
+                    options.get("saveStrategy"));
             }
 
-            // Sets the sort order in which target records should be returned.
-            void sortOrder(Json[string] sort) {
-                _sort = sort;
-            }
-
-            // Gets the sort order in which target records should be returned.
-            Json sortOrder() {
-                return _sort;
-            }
-
-            array defaultRowValue(Json[string] row, bool joined) {
-                sourceAlias = source().aliasName();
-                if (row.hasKey(sourceAlias)) {
-                    row[sourceAlias][getProperty()] = joined ? null : [
-                    ];
-                }
-
-                return row;
-            }
-
-            // Parse extra options passed in the constructor.
-            protected void _options(
-                Json[string] options = null) {
-                if (
-                    options.hasKey("saveStrategy")) {
-                    setSaveStrategy(
-                        options.get("saveStrategy"));
-                }
-
-                if (options.hasKey("sort")) {
-                    sortOrder(options.get("sort"));
-                }
-            }
-
-            Closure eagerLoader(
-                Json[string] options = null) {
-                auto loader = new DSelectLoader(
-                    [
-                    "alias": aliasName(),
-                    "sourceAlias": source().aliasName(),
-                    "targetAlias": getTarget()
-                    .aliasName(),
-                    "foreignKeys": foreignKeys(),
-                    "bindingKey": getBindingKeys(),
-                    "strategy": getStrategy(),
-                    "associationType": associationType(),
-                    "sort": getSort(),
-                    "finder": [
-                        this,
-                        "find"
-                    ],
-                ]);
-                return loader.buildEagerLoader(
-                    options);
-            }
-
-            bool cascaderemoveKey(IORMEntity ormEntity, Json[string] options = null) {
-                auto helper = new DependentDeleteHelper();
-                return helper.cascaderemoveKey(this, ormEntity, options);
+            if (options.hasKey("sort")) {
+                sortOrder(options.get("sort"));
             }
         }
 
-        mixin(AssociationCalls!(
-                "HasMany"));
+        Closure eagerLoader(
+            Json[string] options = null) {
+            auto loader = new DSelectLoader(
+                [
+                "alias": aliasName(),
+                "sourceAlias": source().aliasName(),
+                "targetAlias": getTarget()
+                .aliasName(),
+                "foreignKeys": foreignKeys(),
+                "bindingKey": getBindingKeys(),
+                "strategy": getStrategy(),
+                "associationType": associationType(),
+                "sort": getSort(),
+                "finder": [
+                    this,
+                    "find"
+                ],
+            ]);
+            return loader.buildEagerLoader(
+                options);
+        }
+
+        bool cascaderemoveKey(IORMEntity ormEntity, Json[string] options = null) {
+            auto helper = new DependentDeleteHelper();
+            return helper.cascaderemoveKey(this, ormEntity, options);
+        }
+    }
+
+    mixin(AssociationCalls!(
+            "HasMany"));

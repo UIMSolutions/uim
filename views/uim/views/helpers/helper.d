@@ -25,7 +25,7 @@ import uim.views;
  * - `afterRenderFile(IEvent myevent, myviewFile, mycontent)` - Called after any view fragment is rendered.
  * If a listener returns a non-null value, the output of the rendered file will be set to that.
  */
-class DHelper { // TODO }: IEventListener {
+class DHelper : UIMObject { // TODO }: IEventListener {
     mixin TConfigurable;
 
     this() {
@@ -49,10 +49,10 @@ class DHelper { // TODO }: IEventListener {
         }
     }
 
-    // Hook method
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initdata)) {
+            return false;
+        }
 
         _allMethods = [ __traits(allMembers, DORMTable) ];
         _eventMap = [

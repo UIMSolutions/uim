@@ -20,17 +20,7 @@ public {
   import uim.core.datatypes.uuid; 
 }
 
-/*
-T toogle(T)(T value, T checkValue, T changeValue) if (!isBoolean!T) {
-    if (value == checkValue) return changeValue;
-    if (value == changeValue) return checkValue;
-    return value;
-}
-version(test_uim_core) { unittest {
-    assert(1.toggle(1, 2) == 2);
-    assert(2.toggle(1, 2) == 1);
-    assert(3.toggle(1, 2) == 3);
-}*/
+
 
 T rotate(T)(T value, T[] values, bool directionRight = true) {
   if (values.length > 0)

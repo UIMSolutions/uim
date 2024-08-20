@@ -131,3 +131,15 @@ V[K] concatPostfixInKeys(V, K)(V[K] leftValues, V postValue) { // right will ove
     assert(["a": "b"].concatPostfixInKeys("abc") == ["aabc": "b"]);
   }
 
+// #region toogle
+T toogle(T)(T value, T checkValue, T changeValue) if (!isBoolean!T) {
+    if (value == checkValue) return changeValue;
+    if (value == changeValue) return checkValue;
+    return value;
+}
+unittest {
+    assert(1.toggle(1, 2) == 2);
+    assert(2.toggle(1, 2) == 1);
+    assert(3.toggle(1, 2) == 3);
+}
+// #endregion toogle

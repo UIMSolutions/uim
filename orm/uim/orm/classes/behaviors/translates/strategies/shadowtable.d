@@ -24,7 +24,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
     }
 
     this(string name) {
-       super(name);
+        super(name);
     }
 
     // Hook method
@@ -74,7 +74,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
      * Don"t create a hasOne association here as the join conditions are modified
      * in before find - so create/modify it there.
      */
-    protected void setupAssociations() {    
+    protected void setupAssociations() {
         auto targetAlias = _translationTable.aliasName();
         _table.hasMany(targetAlias, createMap!(string, Json)
                 .set("classname", configuration.get("translationTable"))
@@ -84,20 +84,20 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
                 .set("dependent", true));
     }
 
-,   /*)
+    /*)
      * Callback method that listens to the `beforeFind` event in the bound
      * table. It modifies the passed query by eager loading the translated fields
      * and adding a formatter to copy the values into the main table records.
      */
     void beforeFind(IEvent event, Query query, Json[string] options) {
-        auto locale = Hash.get(options, "locale", locale());
-        
-        if (
+        /* auto locale = Hash.get(options, "locale", locale()); */
+
+        /*    if (
             locale == configuration.get("defaultLocale")) {
             return;
-        }
+        } */
 
-        setupHasOneAssociation(locale, options);
+        /* setupHasOneAssociation(locale, options);
         auto fieldsAdded = this.addFieldsToQuery(query, myConfiguration);
         auto orderByTranslatedField = this.iterateClause(query, "order", myConfiguration);
         auto filteredByTranslatedField =
@@ -105,9 +105,9 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
             configuration.hasKeys("onlyTranslated", "filterByCurrentLocale");
         if (!fieldsAdded && !orderByTranslatedField && !filteredByTranslatedField) {
             return;
-        }
+        } */
 
-        query.contain([configuration.get("hasOneAlias")]);
+        /* query.contain([configuration.get("hasOneAlias")]); */
         // TODO
         /*
         query.formatResults(
@@ -119,7 +119,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
 
     // Create a hasOne association for record with required locale.
     protected void setupHasOneAssociation(string localeName, Json[string] options) {
-        
+
         [plugin] = pluginSplit(
             configuration.get("translationTable"));
         hasOneTargetAlias = plugin

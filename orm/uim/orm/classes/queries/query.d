@@ -3,7 +3,7 @@ module uim.orm.classes.queries.query;
 import uim.orm;
 
 @safe:
-    
+
 /**
  * : the base Query class to provide new methods related to association
  * loading, automatic fields selection, automatic type casting and to wrap results
@@ -49,7 +49,7 @@ import uim.orm;
  * @method bool isEmpty() Returns true if this query found no results.
  */
 class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
-/*
+    /*
     use TQuery() {
         cache as private _cache;
         all as private _all;
@@ -62,9 +62,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * and form the `FROM` clause.
      */
     IQuery repository(IRepository repository) {
-      _repository = repository;
+        _repository = repository;
 
-      return this;
+        return this;
     }
 
     // Indicates that the operation should append to the list
@@ -162,26 +162,26 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * all the fields in the schema of the table or the association will be added to
      * the select clause.
      */
-     
-    IQuery select(IExpression /* DORMTable|DORMAssociation|callable|array|string  */anExpression, bool canOverwrite = false) {
+
+    IQuery select(IExpression /* DORMTable|DORMAssociation|callable|array|string  */ anExpression, bool canOverwrite = false) {
         return this;
     }
 
     IQuery select(DORMTable anTable, bool canOverwrite = false) {
-      string[] fieldNames = _aliasingEnabled
-        ? this.aliasFields(anTable.getSchema().columns(), anTable.aliasName())
-        : anTable.getSchema().columns();
+        string[] fieldNames = _aliasingEnabled
+            ? this.aliasFields(anTable.getSchema().columns(), anTable.aliasName()) : anTable.getSchema()
+            .columns();
 
-      return fields(fieldNames, canOverwrite);
+        return fields(fieldNames, canOverwrite);
     }
 
     IQuery select(DORMAssociation anAssociation, bool canOverwrite = false) {
-      string[] fieldNames = anAssociation.getTarget();
-      return null; 
+        string[] fieldNames = anAssociation.getTarget();
+        return null;
     }
 
     IQuery select(string[] fieldNames, bool canOverwrite = false) {
-      return super.select(fields, canOverwrite);
+        return super.select(fields, canOverwrite);
     }
 
     /**
@@ -191,13 +191,14 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * been added to the query by the first. If you need to change the list after the first call,
      * pass overwrite boolean true which will reset the select clause removing all previous additions.
      */
-    IQuery selectAllExcept(DORMTable/* DORMAssociation */ table, Json[string] excludedFields, bool canOverwrite = false) {
-        if (cast(Association)table) {
+    IQuery selectAllExcept(DORMTable /* DORMAssociation */ table, Json[string] excludedFields, bool canOverwrite = false) {
+        if (cast(Association) table) {
             table = table.getTarget();
         }
 
-        if (!(cast(Table)table)) {
-            throw new DInvalidArgumentException("You must provide either an Association or a Table object");
+        if (!(cast(Table) table)) {
+            throw new DInvalidArgumentException(
+                "You must provide either an Association or a Table object");
         }
 
         auto fields = table.getSchema().columns().diff(excludedFields);
@@ -228,7 +229,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
     // Returns the current configured query `_eagerLoaded` value
     bool isEagerLoaded() {
-      return _eagerLoaded;
+        return _eagerLoaded;
     }
     /**
      * Sets the instance of the eager loader class to use for loading associations
@@ -241,7 +242,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     // Returns the currently configured instance.
     DORMEagerLoader getEagerLoader() {
         if (_eagerLoader == null) {
-          _eagerLoader = new DEagerLoader();
+            _eagerLoader = new DEagerLoader();
         }
 
         return _eagerLoader;
@@ -374,7 +375,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             getRepository(),
             getTypeMap(),
             loader.getContain()
-       );
+        );
     }
 
     /**
@@ -400,7 +401,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
             }
             association = table.getAssociation(name);
             target = association.getTarget();
-            primary = /* (array) */target.primaryKeys();
+            primary =  /* (array) */ target.primaryKeys();
             if (primary.isEmpty || typeMap.type(target.aliasField(primary[0])) == null) {
                 this.addDefaultTypes(target);
             }
@@ -455,8 +456,8 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
      */
-    void matching(string associationName/* , callable builder = null */) {
-        auto result = getEagerLoader().setMatching(associationName, null /* builder */).getMatching();
+    void matching(string associationName /* , callable builder = null */ ) {
+        auto result = getEagerLoader().setMatching(associationName, null  /* builder */ ).getMatching();
         _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
         _isChanged();
     }
@@ -519,12 +520,12 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
     */
-    void leftJoinWith(string associationName/* , callable builder = null */) {
+    void leftJoinWith(string associationName /* , callable builder = null */ ) {
         auto result = getEagerLoader()
-            .setMatching(associationName, null /* builder */, [
-                "joinType": Query.JOIN_TYPE_LEFT,
-                "fields": false.toJson,
-            ])
+            .setMatching(associationName, null  /* builder */ , [
+                    "joinType": Query.JOIN_TYPE_LEFT,
+                    "fields": false.toJson,
+                ])
             .getMatching();
         _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
         _isChanged();
@@ -559,12 +560,12 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This function works the same as `matching()` with the difference that it
      * will select no fields from the association.
      */
-    void innerJoinWith(string associationName/* , callable builder = null */) {
+    void innerJoinWith(string associationName /* , callable builder = null */ ) {
         auto result = getEagerLoader()
-            .setMatching(associationName, null /* builder */, [
-                "joinType": Query.JOIN_TYPE_INNER,
-                "fields": false.toJson,
-            ])
+            .setMatching(associationName, null  /* builder */ , [
+                    "joinType": Query.JOIN_TYPE_INNER,
+                    "fields": false.toJson,
+                ])
             .getMatching();
         _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
         _isChanged();
@@ -615,16 +616,15 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
      * add more complex clauses you can do it directly in the main query.
      */
-    void notMatching(string associationName/* , callable builder = null */) {
-        auto result = getEagerLoader()
-            .setMatching(associationName, null /* builder, */ [
-                "joinType": Query.JOIN_TYPE_LEFT,
-                "fields": false.toJson,
-                "negateMatch": true.toJson,
-            ])
+    void notMatching(string associationName /* , callable builder = null */ ) {
+        /* auto result = getEagerLoader()
+            .setMatching(associationName, null /* builder,  * / createMap!(string, Json)
+                .set("joinType", Query.JOIN_TYPE_LEFT)
+                .set("fields", false)
+                .set("negateMatch", true))
             .getMatching();
         _addAssociationsToTypeMap(getRepository(), getTypeMap(), result);
-        _isChanged();
+        _isChanged(); */
     }
 
     /**
@@ -726,7 +726,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This method creates query clones that are useful when working with subqueries.
      */
     static auto cleanCopy() {
-       /* auto clone = this.clone;
+        /* auto clone = this.clone;
         clone.triggerBeforeFind();
         clone.disableAutoFields();
         clone.limit(null);
@@ -738,7 +738,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         clone.decorateResults(null, true);
 
         return clone; */
-        return null; 
+        return null;
     }
 
     /**
@@ -781,19 +781,19 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         if (counter != null) {
             query.counter(null);
 
-            return (int)counter(query);
+            return  /* (int) */ counter(query);
         }
 
         complex = (
             query.clause("distinct") ||
-            count(query.clause("group")) ||
-            count(query.clause("union")) ||
-            query.clause("having")
-       );
+                count(query.clause("group")) ||
+                count(query.clause("union")) ||
+                query.clause("having")
+        );
 
         if (!complex) {
             // Expression fields could have bound parameters.
-            complex = query.clause("select").any!(field => cast(IExpression)field);
+            complex = query.clause("select").any!(field => cast(IExpression) field);
         }
 
         if (!complex && _valueBinder != null) {
@@ -820,8 +820,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         statement.closeCursor();
 
         return result == false
-            ? 0
-            : result.getLong("count");
+            ? 0 : result.getLong("count");
     }
 
     /**
@@ -839,7 +838,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * If the first param is a null value, the built-in counter function will be called
      * instead
      */
-/*     void counter(callable counter) {
+    /*     void counter(callable counter) {
         _counter = counter;
     } */
 
@@ -868,7 +867,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         return _hydrate;
     }
 
-    auto cache(/*Closure|*/ string key, /* DORMCache\CacheEngine| */string myConfiguration = "default") {
+    auto cache( /*Closure|*/ string key, /* DORMCache\CacheEngine| */ string myConfiguration = "default") {
         if (_type != "select" && _type != null) {
             throw new DRuntimeException("You cannot cache the results of non-select queries.");
         }
@@ -880,7 +879,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         if (_type != "select" && _type != null) {
             throw new DRuntimeException(
                 "You cannot call all() on a non-select query. Use execute() instead."
-           );
+            );
         }
 
         return _all();
@@ -897,13 +896,12 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
             repository = getRepository();
             repository.dispatchEvent("Model.beforeFind", [
-                this,
-                new Json[string](_options),
-                !this.isEagerLoaded(),
-            ]);
+                    this,
+                    new Json[string](_options),
+                    !this.isEagerLoaded(),
+                ]);
         }
     }
-
 
     string sql(DValueBinder aBinder = null) {
         _triggerBeforeFind();
@@ -923,7 +921,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     protected IResultset _execute() {
         _triggerBeforeFind();
         if (_results) {
-            decorator = _decoratorClass();
+            decorator = _decoratorClassname();
 
             return new decorator(_results);
         }
@@ -983,7 +981,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         auto types = null;
 
         foreach (aliasName, value; select) {
-            if (cast(ITypedResult)value) {
+            if (cast(ITypedResult) value) {
                 types[aliasName] = value.getReturnType();
                 continue;
             }
@@ -1021,7 +1019,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * This changes the query type to be "update".
      * Can be combined with set() and where() methods to create update queries.
      */
-    auto updateKey(/* IExpression| */ string table = null) {
+    auto updateKey( /* IExpression| */ string table = null) {
         if (!table) {
             repository = getRepository();
             table = repository.getTable();
@@ -1062,11 +1060,12 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     }
 
     // Returns a new Query that has automatic field aliasing disabled.
-    static auto subquery(DORMTable aTable) {
-        auto query = new static(table.getConnection(), table);
+    static DQuery subquery(DORMTable aTable) {
+        /* auto query = new static(table.getConnection(), table);
         query.aliasingEnabled = false;
 
-        return query;
+        return query; */
+        return null;
     }
 
     Json __call(string methodName, Json[string] arguments) {
@@ -1075,10 +1074,9 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         }
 
         throw new BadMethodCallException(
-             "Cannot call method '%s' on a '%s' query".format(methodName, this.type())
-       );
+            "Cannot call method '%s' on a '%s' query".format(methodName, this.type())
+        );
     }
-
 
     Json[string] __debugInfo() {
         eagerLoader = getEagerLoader();
@@ -1135,10 +1133,11 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
     protected IResultset _decorateResults(Traversable result) {
         result = _applyDecorators(result);
 
-        if (!cast(Resultset)result) && isBufferedResultsEnabled()) {
-            class = _decoratorClass();
+        /* if (!cast(Resultset) result)
+             && isBufferedResultsEnabled()) {
+            class = _decoratorClassname();
             result = new class(result.buffered());
-        }
+        } */
 
         return result;
     }

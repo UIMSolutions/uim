@@ -246,7 +246,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * ResultsetDecorator is a traversable object that : the methods found
      * on UIM\Collection\Collection.
      */
-    IResultset<mixed> all() {
+    /* IResultset<mixed> all() {
         if (_results !is null) {
             if (!(cast(IResultset)_results)) {
                _results = _decorateResults(_results);
@@ -266,7 +266,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
        _results = results;
 
         return _results;
-    }
+    } */
     
     /**
      * Returns an array representation of the results after executing the query.
@@ -407,7 +407,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
 
             return 
         }
-       _formatters ~= myformatter;
+       /* _formatters ~= myformatter; */
     }
     
     // Returns the list of previously registered format routines.
@@ -538,18 +538,18 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         ];
 
         ksort(optionsToApply);
-        foreach (myoption, myvalues; optionsToApply) {
+        /* foreach (myoption, myvalues; optionsToApply) {
             if (isSet(myvalid[myoption], myvalues)) {
                 this.{myvalid[myoption]}(myvalues);
             } else {
                _options.get(myoption] = myvalues;
             }
-        }
+        } */
     }
     
     // Decorates the results iterator with MapReduce routines and formatters
     protected IResultset _decorateResults(Json[string] result) {
-        auto mydecorator = _decoratorClass();
+        auto mydecorator = _decoratorClassname();
 
         auto result;
         if (!_mapReduce.isEmpty) {
@@ -568,11 +568,10 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         return result;
     }
     
-    /**
-     * Returns the name of the class to be used for decorating results
-     */
-    protected string _decoratorClass() {
-        return ResultsetDecorator.classname;
+    // Returns the name of the class to be used for decorating results
+    protected string _decoratorClassname() {
+        return null; 
+        // return ResultsetDecorator.classname;
     }
     
     /**
@@ -633,11 +632,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * Use this instead of calling `select()` then `enableAutoFields()` to re-enable auto-fields.
      * Params:
-     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\/* Closure */ string[] fieldNames Fields
+     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\/* Closure * / string[] fieldNames Fields
      * to be added to the list.
      */
     auto selectAlso(
-        IExpression|Table|Association|/* Closure */ string[] fieldNames
+        /* IExpression|Table|Association| */ /* Closure */ string[] fieldNames
    ) {
         this.select(fieldNames);
        _autoFields = true;
@@ -666,16 +665,14 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /**
      * Sets the instance of the eager loader class to use for loading associations
      * and storing containments.
-     * Params:
-     * \ORM\EagerLoader myinstance The eager loader to use.
      */
     void setEagerLoader(EagerLoader myinstance) {
        _eagerLoader = myinstance;
     }
     
     // Returns the currently configured instance.
-    EagerLoader getEagerLoader() {
-        return _eagerLoader ??= new DEagerLoader();
+    DEagerLoader getEagerLoader() {
+        return null; // _eagerLoader ??= new DEagerLoader();
     }
     
     /**

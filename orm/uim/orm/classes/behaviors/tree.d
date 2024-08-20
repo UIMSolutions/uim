@@ -390,8 +390,8 @@ class DTreeBehavior : DBehavior {
                 "{right} <": node.get(configuration.get("right")),
                 "{left} >": node.get(configuration.get("left")),
             ]); */
-            
-        return null; 
+
+        return null;
     }
 
     /**
@@ -646,337 +646,335 @@ class DTreeBehavior : DBehavior {
             targetNode = _scope(
                 _table.find())
                 .select([left, right])
-                .where(["parent IS": nodeParent])
-                .where(function(exp) use(
+                .where(["parent IS": nodeParent]) /* .where(function(exp) use(
                         myConfiguration, nodeRight) {
-                    /** @var DDBExpression\QueryExpression exp */
+                    /** @var DDBExpression\QueryExpression exp * /
                     return exp.gt(configuration.get(
-                        "leftField"), nodeRight);})
-                        .orderAsc(
-                            configuration.get(
-                            "leftField"))
-                        .offset(number - 1)
-                        .limit(1)
-                        .first();
-                }
-            if (!targetNode) {
-                /** @var DORMdatasources.IORMEntity|null targetNode */
-                targetNode = _scope(
-                    _table.find())
-                    .select([left, right])
-                    .where(["parent IS": nodeParent])
-                    .where(function(exp) use(
-                            myConfiguration, nodeRight) {
-                        /** @var DDBExpression\QueryExpression exp */
-                        return exp.gt(configuration.get(
-                            "leftField"), nodeRight);})
-                            .orderDesc(configuration.get(
-                                "leftField"))
-                            .limit(1)
-                            .first();
-                        if (!targetNode) {
-                            return node;
-                        }
-                    }
-
-                [, targetRight] = targetNode.extract(
-                    [left, right])
-                    .values;
-                auto edge = _getMax();
-                auto leftBoundary = nodeRight + 1;
-                auto rightBoundary = targetRight;
-                auto nodeToEdge = edge - nodeLeft + 1;
-                auto shift = nodeRight - nodeLeft + 1;
-                auto nodeToHole = edge - rightBoundary + shift;
-                _sync(nodeToEdge, "+", "BETWEEN {nodeLeft} AND {nodeRight}");
-                _sync(shift, "-", "BETWEEN {leftBoundary} AND {rightBoundary}");
-                _sync(nodeToHole, "-", "> {edge}");
-                node.set(left, targetRight - (
-                        nodeRight - nodeLeft));
-                node.set(right, targetRight);
-
-                node.setDirty(left, false);
-                node.setDirty(right, false);
-
-                return node;
-            }
-
-            // Returns a single node from the tree from its primary key
-            protected IORMEntity _getNode(
-                Json id) {
-                auto configData = configuration
-                    .data;
-                [
-                    parent,
-                    left,
-                    right
-                ] = [
-                    configuration.get("parent"),
-                    configuration.get("left"),
+                        "leftField"), nodeRight);}) */
+                .orderAsc(
                     configuration.get(
-                        "right")
-                ];
-                primaryKeys = primaryKeys();
-                fields = [
-                    parent,
-                    left,
-                    right
-                ];
-                if (
-                    configuration.hasKey(
-                        "level")) {
-                    fields ~= configuration.get(
-                        "level");
-                }
-
-                auto node = _scope(
-                    _table.find())
-                    .select(fields)
-                    .where([
-                            _table.aliasField(
-                                primaryKeys): id
-                        ])
-                    .first();
-                if (!node) {
-                    throw new DRecordNotFoundException(
-                        "Node \"{id}\" was not found in the tree.");
-                }
-
-                /** @psalm-suppress InvalidReturnStatement */
+                        "leftField"))
+                .offset(number - 1)
+                .limit(1)
+                .first();
+        }
+        if (!targetNode) {
+            /** @var DORMdatasources.IORMEntity|null targetNode */
+            targetNode = _scope(
+                _table.find())
+                .select([left, right])
+                .where(["parent IS": nodeParent]) /*                     .where(function(exp) use(
+                            myConfiguration, nodeRight) {
+                        /** @var DDBExpression\QueryExpression exp * /
+                        return exp.gt(configuration.get("leftField"), nodeRight);
+                        }) */
+                .orderDesc(configuration.get(
+                        "leftField"))
+                .limit(1)
+                .first();
+            if (!targetNode) {
                 return node;
             }
+        }
 
-            /**
+        /* [, targetRight] = targetNode.extract(
+            [left, right])
+            .values; */
+        auto edge = _getMax();
+        auto leftBoundary = nodeRight + 1;
+        auto rightBoundary = targetRight;
+        auto nodeToEdge = edge - nodeLeft + 1;
+        auto shift = nodeRight - nodeLeft + 1;
+        auto nodeToHole = edge - rightBoundary + shift;
+        _sync(nodeToEdge, "+", "BETWEEN {nodeLeft} AND {nodeRight}");
+        _sync(shift, "-", "BETWEEN {leftBoundary} AND {rightBoundary}");
+        _sync(nodeToHole, "-", "> {edge}");
+        node.set(left, targetRight - (
+                nodeRight - nodeLeft));
+        node.set(right, targetRight);
+
+        node.setDirty(left, false);
+        node.setDirty(right, false);
+
+        return node;
+    }
+
+    // Returns a single node from the tree from its primary key
+    protected IORMEntity _getNode(
+        Json id) {
+        auto configData = configuration
+            .data;
+        [
+            parent,
+            left,
+            right
+        ] = [
+            configuration.get("parent"),
+            configuration.get("left"),
+            configuration.get(
+                "right")
+        ];
+        primaryKeys = primaryKeys();
+        fields = [
+            parent,
+            left,
+            right
+        ];
+        if (
+            configuration.hasKey(
+                "level")) {
+            fields ~= configuration.get(
+                "level");
+        }
+
+        auto node = _scope(
+            _table.find())
+            .select(fields)
+            .where([
+                    _table.aliasField(
+                        primaryKeys): id
+                ])
+            .first();
+        if (!node) {
+            throw new DRecordNotFoundException(
+                "Node \"{id}\" was not found in the tree.");
+        }
+
+        /** @psalm-suppress InvalidReturnStatement */
+        return node;
+    }
+
+    /**
      * Recovers the lft and right column values out of the hierarchy defined by the
      * parent column.
      */
-            void recover() {
-                _table.getConnection()
-                    .transactional(
-                        void() {
-                        _recoverTree();}
+    void recover() {
+        /*         _table.getConnection()
+            .transactional(
+                void() {
+                _recoverTree();}
 
-                        );
-                    }
-                // Recursive method used to recover a single level of the tree
-                protected int _recoverTree(
-                    int lftRght = 1, Json parentId = Json(
-                        null), int nodeLevel = 0) {
-                    auto configData = configuration
-                        .data;
-                    [
-                        parent,
-                        left,
-                        right
-                    ] = configuration.getArray(
-                        "parent", "left", "right");
-                    auto primaryKeys = primaryKeys();
-                    auto order = configuration.getArray(
-                        "recoverOrder", primaryKeys);
+                ); */
+    }
+    // Recursive method used to recover a single level of the tree
+    protected int _recoverTree(
+        int lftRght = 1, Json parentId = Json(
+            null), int nodeLevel = 0) {
+        auto configData = configuration
+            .data;
+        [
+            parent,
+            left,
+            right
+        ] = configuration.getArray(
+            "parent", "left", "right");
+        auto primaryKeys = primaryKeys();
+        auto order = configuration.getArray(
+            "recoverOrder", primaryKeys);
 
-                    auto nodes = _scope(
-                        _table.query())
-                        .select(primaryKeys)
-                        .where([
-                                parent ~ " IS": parentId
-                            ])
-                        .order(order)
-                        .disableHydration()
-                        .all();
-                    nodes.each!((
-                            node) {
-                        auto nodeLft = lftRght++;
-                        auto lftRght = _recoverTree(
-                            lftRght, node[primaryKeys], nodeLevel + 1);
-                        auto fields = [
-                            left: nodeLft,
-                            right: lftRght++
-                        ];
-                        if (
-                            configuration.hasKey(
-                            "level")) {
-                            fields[configuration.get(
-                                    "level")] = nodeLevel;
-                        }
+        auto nodes = _scope(
+            _table.query())
+            .select(primaryKeys)
+            .where([
+                    parent ~ " IS": parentId
+                ])
+            .order(order)
+            .disableHydration()
+            .all();
+        nodes.each!((
+                node) {
+            auto nodeLft = lftRght++;
+            auto lftRght = _recoverTree(
+                lftRght, node[primaryKeys], nodeLevel + 1);
+            auto fields = [
+                left: nodeLft,
+                right: lftRght++
+            ];
+            if (
+                configuration.hasKey(
+                "level")) {
+                fields[configuration.get(
+                        "level")] = nodeLevel;
+            }
 
-                        _table.updateAll(
-                            fields,
-                            [
-                                primaryKeys: node[primaryKeys]
-                            ]
-                        );
-                    });
-                    return lftRght;
-                }
+            _table.updateAll(
+                fields,
+                [
+                    primaryKeys: node[primaryKeys]
+                ]
+            );
+        });
+        return lftRght;
+    }
 
-                // Returns the maximum index value in the table.
-                protected int _getMax() {
-                    auto field = configuration.get(
-                        "right");
-                    auto rightField = configuration.get(
-                        "rightField");
-                    auto edge = _scope(
-                        _table.find())
-                        .select([
-                                field
-                            ])
-                        .orderDesc(rightField)
-                        .first();
-                    return edge == null || edge.isEmpty(
-                        field)
-                        ? 0 : edge[field];
-                }
+    // Returns the maximum index value in the table.
+    protected int _getMax() {
+        auto field = configuration.get(
+            "right");
+        auto rightField = configuration.get(
+            "rightField");
+        auto edge = _scope(
+            _table.find())
+            .select([
+                    field
+                ])
+            .orderDesc(rightField)
+            .first();
+        return edge == null || edge.isEmpty(
+            field)
+            ? 0 : edge[field];
+    }
 
-                /**
+    /**
      * Auxiliary function used to automatically alter the value of both the left and
      * right columns by a certain amount that match the passed conditions
      */
-                protected void _sync(int shiftvalue, string dir, string conditions, bool shouldMark = false) {
-                    auto configData = configuration
-                        .data;
-                    foreach ([configuration.get(
-                                "leftField"), configuration.get(
-                                "rightField")] as field) {
-                        auto query = _scope(
-                            _table.query());
-                        auto exp = query.newExpr();
+    protected void _sync(int shiftvalue, string dir, string conditions, bool shouldMark = false) {
+        auto configData = configuration
+            .data;
+        foreach ([configuration.get(
+                    "leftField"), configuration.get(
+                    "rightField")] as field) {
+            auto query = _scope(
+                _table.query());
+            auto exp = query.newExpr();
 
-                        auto movement = exp
-                            .clone;
-                        movement.add(field)
-                            .add( /* (string) */ shiftvalue)
-                            .conjunctionType(
-                                dir);
-                        auto inverse = exp
-                            .clone;
-                        movement = shouldMark ?
-                            inverse.add(movement)
-                            .conjunctionType("*")
-                            .add(
-                                "-1") : movement;
+            auto movement = exp
+                .clone;
+            movement.add(field)
+                .add( /* (string) */ shiftvalue)
+                .conjunctionType(
+                    dir);
+            auto inverse = exp
+                .clone;
+            movement = shouldMark ?
+                inverse.add(movement)
+                .conjunctionType("*")
+                .add(
+                    "-1") : movement;
 
-                        auto where = exp
-                            .clone;
-                        where.add(field)
-                            .add(conditions)
-                            .conjunctionType(
-                                "");
-                        query.set()
-                            .set(exp.eq(field, movement))
-                            .where(
-                                where);
-                        query.execute()
-                            .closeCursor();
-                    }
-                }
+            auto where = exp
+                .clone;
+            where.add(field)
+                .add(conditions)
+                .conjunctionType(
+                    "");
+            query.set()
+                .set(exp.eq(field, movement))
+                .where(
+                    where);
+            query.execute()
+                .closeCursor();
+        }
+    }
 
-                /**
+    /**
      * Alters the passed query so that it only returns scoped records as defined
      * in the tree configuration.
      */
-                protected DORMQuery _scope(
-                    DORMQuery query) {
-                    auto scopeData = this.configuration
-                        .get("scope");
-                    if (
-                        scopeData
-                        .isArray) {
-                        return query.where(
-                            scopeData);
-                    }
-                    if (
-                        is_callable(
-                            scopeData)) {
-                        return scopeData(
-                            query);
-                    }
+    protected DORMQuery _scope(
+        DORMQuery query) {
+        auto scopeData = this.configuration
+            .get("scope");
+        if (
+            scopeData
+            .isArray) {
+            return query.where(
+                scopeData);
+        }
+        if (
+            is_callable(
+                scopeData)) {
+            return scopeData(
+                query);
+        }
 
-                    return query;
-                }
+        return query;
+    }
 
-                /**
+    /**
      * Ensures that the provided entity contains non-empty values for the left and
      * right fields
      */
-                protected void _ensureFields(
-                    IORMEntity ormEntity) {
-                    auto configData = configuration
-                        .data;
-                    fields = [
-                        configuration.get("left"),
-                        configuration.get(
-                            "right")
-                    ];
-                    auto values = filterValues(
-                        entity.extract(
-                            fields));
-                    if (
-                        count(values) == count(
-                            fields)) {
-                        return;
-                    }
+    protected void _ensureFields(
+        IORMEntity ormEntity) {
+        auto configData = configuration
+            .data;
+        fields = [
+            configuration.get("left"),
+            configuration.get(
+                "right")
+        ];
+        auto values = filterValues(
+            entity.extract(
+                fields));
+        if (
+            count(values) == count(
+                fields)) {
+            return;
+        }
 
-                    fresh = _table.get(
-                        entity.get(
-                            primaryKeys()));
-                    entity.set(fresh.extract(fields), [
-                            "guard": false
-                            .toJson
-                        ]);
-                    foreach (field; fields) {
-                        entity.setDirty(field, false);
-                    }
-                }
+        fresh = _table.get(
+            entity.get(
+                primaryKeys()));
+        entity.set(fresh.extract(fields), [
+                "guard": false
+                .toJson
+            ]);
+        foreach (field; fields) {
+            entity.setDirty(field, false);
+        }
+    }
 
-                // Returns a single string value representing the primary key of the attached table
-                protected string[] primaryKeys() {
-                    if (
-                        !_primaryKeys) {
-                        auto primaryKeys =  /* (array) */ _table
-                            .primaryKeys();
-                        _primaryKeys = primaryKeys[0];
-                    }
+    // Returns a single string value representing the primary key of the attached table
+    protected string[] primaryKeys() {
+        if (
+            !_primaryKeys) {
+            auto primaryKeys =  /* (array) */ _table
+                .primaryKeys();
+            _primaryKeys = primaryKeys[0];
+        }
 
-                    return _primaryKeys;
-                }
+        return _primaryKeys;
+    }
 
-                // Returns the depth level of a node in the tree.
-                int getLevel(entity) {
-                    auto primaryKeys = primaryKeys();
-                    auto id = entity;
-                    if (
-                        cast(
-                            IORMEntity) entity) {
-                        id = entity.get(
-                            primaryKeys);
-                    }
-                    auto configData = configuration
-                        .data;
-                    auto entity = _table.find("all")
-                        .select([
-                            configuration.get("left"),
-                            configuration.get(
-                                "right")
-                        ])
-                        .where([
-                                primaryKeys: id
-                            ])
-                        .first();
-                    if (
-                        entity == null) {
-                        return false;
-                    }
+    // Returns the depth level of a node in the tree.
+    int getLevel(entity) {
+        auto primaryKeys = primaryKeys();
+        auto id = entity;
+        if (
+            cast(
+                IORMEntity) entity) {
+            id = entity.get(
+                primaryKeys);
+        }
+        auto configData = configuration
+            .data;
+        auto entity = _table.find("all")
+            .select([
+                    configuration.get("left"),
+                    configuration.get(
+                        "right")
+                ])
+            .where([
+                    primaryKeys: id
+                ])
+            .first();
+        if (
+            entity == null) {
+            return false;
+        }
 
-                    auto query = _table.find("all")
-                        .where([
-                            configuration.get(
-                                "left") ~ " <": entity[configuration.get(
-                                    "left")],
-                            configuration.get(
-                                "right") ~ " >": entity[configuration.get(
-                                    "right")],
-                        ]);
-                    return _scope(
-                        query).count();
-                }
-            }
+        auto query = _table.find("all")
+            .where([
+                configuration.get(
+                    "left") ~ " <": entity[configuration.get(
+                        "left")],
+                configuration.get(
+                    "right") ~ " >": entity[configuration.get(
+                        "right")],
+            ]);
+        return _scope(
+            query).count();
+    }
+}

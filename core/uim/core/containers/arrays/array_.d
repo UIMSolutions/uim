@@ -9,34 +9,23 @@ import uim.core;
 
 @safe:
 
+// #region size
 size_t size(T)(T[] anArray) {
   return anArray.length;
 }
+// #region size
 
 // #region count
 size_t[T] countDuplicates(T)(in T[] baseArray...) {
   return countDuplicates(baseArray.dup);
 }
 
-unittest {
-  assert(countDuplicates(1) == [1: 1uL]);
-  assert(countDuplicates(1, 1) == [1: 2uL]);
-  assert(countDuplicates(1, 2) == [1: 1U, 2: 1UL]);
-}
-
-/// Counts the occourence of values in an array
 size_t[T] countDuplicates(T)(in T[] someValues) {
   size_t[T] results;
   someValues
     .each!(value => results[value] = value in results ? results[value] + 1 : 1);
 
   return results;
-}
-///
-unittest {
-  assert(countDuplicates([1]) == [1: 1uL]);
-  assert(countDuplicates([1, 1]) == [1: 2uL]);
-  assert(countDuplicates([1, 2]) == [1: 1uL, 2: 1uL]);
 }
 
 size_t countDuplicate(T)(T[] someValues, T aValue) {
@@ -45,14 +34,23 @@ size_t countDuplicate(T)(T[] someValues, T aValue) {
 
   return result;
 }
-///
+
 unittest {
   assert([1, 2, 3].countDuplicate(2) == 1);
   assert([1, 2, 3].countDuplicate(4) == 0);
   assert([1, 2, 2].countDuplicate(2) == 2);
-}
-// #endregion count
 
+  assert(countDuplicates([1]) == [1: 1uL]);
+  assert(countDuplicates([1, 1]) == [1: 2uL]);
+  assert(countDuplicates([1, 2]) == [1: 1uL, 2: 1uL]);
+
+  assert(countDuplicates(1) == [1: 1uL]);
+  assert(countDuplicates(1, 1) == [1: 2uL]);
+  assert(countDuplicates(1, 2) == [1: 1U, 2: 1UL]);
+}
+// #endregion countDuplicate
+
+// #region firstPosition
 size_t firstPosition(T)(in T[] baseArray, in T value) {
   foreach (index, item; baseArray)
     if (item == value)
@@ -63,6 +61,7 @@ size_t firstPosition(T)(in T[] baseArray, in T value) {
 unittest {
   assert(["1", "3", "5"].firstPosition("3") == 1);
 }
+// #endregion firstPosition
 
 /// Creates a associative array with all positions of a value in an array
 auto positions(T)(in T[] baseArray...) {

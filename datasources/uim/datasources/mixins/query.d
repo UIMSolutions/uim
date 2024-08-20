@@ -389,7 +389,7 @@ mixin template TQuery() {
 
     // Enables calling methods from the result set as if they were from this class
     Json __call(string methodName, Json[string] methodArguments) {
-        resultSetClass = _decoratorClass();
+        resultSetClass = _decoratorClassname();
         if (hasAllValues(methodName, get_class_methods(resultSetClass), true)) {
             deprecationWarning(
                 "Calling `%s` methods, such as `%s()`, on queries is deprecated~ " ~
@@ -415,7 +415,7 @@ mixin template TQuery() {
 
     // Decorates the results iterator with MapReduce routines and formatters
     protected IResultset _decorateResults(Traversable originalResults) {
-        auto decorator = _decoratorClass();
+        auto decorator = _decoratorClassname();
         _mapReduce.each!(functions => originalResults = new DMapReduce(originalResults, functions["mapper"], functions["reducer"]));
 
         if (!_mapReduce.isEmpty) {
@@ -432,7 +432,7 @@ mixin template TQuery() {
     }
 
     // Returns the name of the class to be used for decorating results
-    protected string _decoratorClass() {
+    protected string _decoratorClassname() {
         return ResultsetDecorator.classname;
     } 
 }

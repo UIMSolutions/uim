@@ -119,11 +119,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     return new myclassname(_table, configData);
   }
 
-  /**
-     * Set strategy class instance.
-     * Params:
-     * \ORM\Behavior\Translate\ITranslateStrategy _strategy Strategy class instance.
-     */
+  // Set strategy class instance.
   void setStrategy(ITranslateStrategy _strategy) {
     this.strategy = _strategy;
   }
@@ -187,7 +183,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * globally configured locale.
      */
   void localeName(string mylocale) {
-    getStrategy().localeNamemylocale);
+    getStrategy().localeName(mylocale);
   }
 
   /**
@@ -231,9 +227,9 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * If the `locales` array is not passed, it will bring all translations found
      * for each record.
      */
-  SelectQuery findTranslations(DSelectQuery queryToModify, Json[string] locales = null) {
+  DSelectQuery findTranslations(DSelectQuery queryToModify, Json[string] locales = null) {
     auto mytargetAlias = getStrategy().getTranslationTable().aliasName();
-    return queryToModify
+    /* return queryToModify
       .contain([mytargetAlias: auto(IQuery queryToModify) use(mylocales, mytargetAlias) {
             if (locales) {
               queryToModify.where([
@@ -245,15 +241,17 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
 
         ])
       .formatResults(getStrategy()
-          .groupTranslations(...), queryToModify.PREPEND);
+          .groupTranslations(...), queryToModify.PREPEND); */
+      return null;
   }
 
   // Proxy method calls to strategy class instance.
   Json __call(string methodName, Json[string] methodArguments) {
-    return _strategy. {
+    /* return _strategy. {
       methodName
     }
-    (...myargs);
+    (...myargs); */
+    return Json(null);
   }
 
   /**
@@ -263,16 +261,13 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * (PostsTable ~ Posts), however for autotable instances it is derived from
      * the database table the object points at - or as a last resort, the alias
      * of the autotable instance.
-     * Params:
-     * \ORM\Table mytable The table class to get a reference name for.
      */
-  protected string referenceName(Table mytable) {
-    myname = namespaceSplit(mytable.classname);
-    myname = subString(to!string(end(myname)), 0, -5);
-    if (myname.isEmpty) {
-      myname = mytable.getTable() ?  : mytable.aliasName();
-      myname = myname.camelize;
+  protected string referenceName(DORMTable mytable) {
+    string name = namespaceSplit(mytable.classname);
+    name = subString(to!string(end(myname)), 0, -5);
+    if (name.isEmpty) {
+      name = (mytable.getTable() ? mytable.getTable() : mytable.aliasName()).camelize;
     }
-    return myname;
+    return name;
   }
 }

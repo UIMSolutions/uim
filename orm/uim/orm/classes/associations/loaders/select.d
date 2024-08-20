@@ -129,7 +129,7 @@ class DSelectLoader {
             fetchQuery = options.get("queryBuilder")(fetchQuery);
         }
 
-        _assertFieldsPresent(fetchQuery,/*  (array)  */key);
+        _assertFieldsPresent(fetchQuery, /*  (array)  */ key);
 
         return fetchQuery;
     }
@@ -318,15 +318,12 @@ class DSelectLoader {
      * target table, it is constructed by cloning the original query that was used
      * to load records in the source table.
      */
-    protected DORMQuery _buildSubquery(
-        DORMQuery query) {
-        auto filterQuery = query
-            .clone;
+    protected DORMQuery _buildSubquery(DORMQuery query) {
+        auto filterQuery = query.clone;
         filterQuery.disableAutoFields();
         filterQuery.mapReduce(null, null, true);
         filterQuery.formatResults(null, true);
-        filterQuery.contain([
-            ], true);
+        filterQuery.contain([], true);
         filterQuery.setValueBinder(
             new DValueBinder()); // Ignore limit if there is no order since we need all rows to find matches
         if (!filterQuery.clause(
@@ -365,8 +362,9 @@ class DSelectLoader {
         if (
             _associationType == Association
             .MANY_TO_ONE) {
-            keys = /* (
-                array) */ _foreignKeys;
+            keys =  /* (
+                array) */
+                _foreignKeys;
         }
 
         auto fields = query.aliasFields(
@@ -410,24 +408,23 @@ class DSelectLoader {
                 .ONE_TO_MANY
             ], true)
             ? _foreignKeys : _bindingKeys;
-        string[] someKeys = (
-            array) keys;
-
+        
+        string[] someKeys =  /* (array) */ keys;
         foreach (
             result; fetchQuery.all()) {
             string[] values = null;
-            foreach (
-                key; someKeys) {
+            foreach (key; someKeys) {
                 values ~= result[key];
             }
-            if (
-                singleResult) {
-   /*              resultMap[values.join(
+            if (singleResult) {
+                /*              resultMap[values.join(
                         ";")] = result;
-    */         } else {
-/*                 resultMap[values.join(
+    */
+            } else {
+                /*                 resultMap[values.join(
                         ";")).concat( result;
- */            }
+ */
+            }
         }
 
         return resultMap;

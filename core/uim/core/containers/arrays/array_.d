@@ -380,32 +380,28 @@ unittest {
 
 // #endregion Searching
 
-T shiftFirst(T)(ref T[] values) {
-  // IN Check
-  if (values.isEmpty) {
-    return null;
-  }
+// #region shift
+  // #region shiftFirst
+    T shiftFirst(T)(ref T[] values) {
+      // IN Check
+      if (values.isEmpty) {
+        return null;
+      }
 
-  auto value = values[0];
+      T value = values[0];
+      values = values.length > 1
+        ? values[1 .. $] : null;
 
-  values = values.length > 1
-    ? values[1 .. $] : null;
-
-  return value;
-}
-///
-unittest {
-  string[] anArray = [
-    "x", "y",
-    "z"
-  ];
-  assert(
-    anArray.shiftFirst == "x");
-  assert(anArray == [
-      "y",
-      "z"
-    ]);
-}
+      return value;
+    }
+    ///
+    unittest {
+      string[] anArray = ["x", "y", "z"];
+      assert(anArray.shiftFirst == "x");
+      assert(anArray == ["y", "z"]);
+    }
+  // #endregion shiftFirst
+// #endregion shift
 
 T[] ifNull(T)(T[] values, T[] defaultValues = null) {
   return values.isNull ? defaultValues : values;
@@ -550,27 +546,27 @@ unittest {
 // #endregion shift
 
 // #region unshift
-  T[] unshift(T)(ref T[] values, T[] addings...) {
-    return unshift(values, addings.dup);
-  }
+T[] unshift(T)(ref T[] values, T[] addings...) {
+  return unshift(values, addings.dup);
+}
 
-  T[] unshift(T)(ref T[] values, T[] addings) {
-    values = addings ~ values;
-    return values;
-  }
+T[] unshift(T)(ref T[] values, T[] addings) {
+  values = addings ~ values;
+  return values;
+}
 
-  unittest {
-    string[] testValues = ["a", "b", "c"];
-    assert(testValues.unshift("x").length == 4);
+unittest {
+  string[] testValues = ["a", "b", "c"];
+  assert(testValues.unshift("x").length == 4);
 
-    testValues = ["a", "b", "c"];
-    assert(testValues.unshift("x", "y").length == 5);
-    assert(testValues.has("x"));
+  testValues = ["a", "b", "c"];
+  assert(testValues.unshift("x", "y").length == 5);
+  assert(testValues.has("x"));
 
-    testValues = ;
-    assert(testValues.unshift(["x", "y"]).length == 5);
-    assert(testValues == ["a", "b", "c", "x", "y"]);
-  }
+  testValues = ;
+  assert(testValues.unshift(["x", "y"]).length == 5);
+  assert(testValues == ["a", "b", "c", "x", "y"]);
+}
 // #endregion unshift
 
 // Pop the element off the end of array

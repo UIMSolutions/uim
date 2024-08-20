@@ -11,13 +11,13 @@ import uim.orm;
  * part of the result set.
  */
 class DEagerLoader {
-  /**
+    /**
      * Nested array describing the association to be fetched
      * and the options to apply for each of them, if any
      */
-  protected Json[string] _containments = null;
+    protected Json[string] _containments = null;
 
-  // #region AutoFieldEnabled
+    // #region AutoFieldEnabled
     /++
           + Controls whether fields from associated tables will be eagerly loaded. 
           + When set to false, no fields will be loaded from associations.
@@ -26,33 +26,33 @@ class DEagerLoader {
 
     // Sets whether contained associations will load fields automatically.
     void enableAutoFields(bool enable = true) {
-      _autoFields = enable;
+        _autoFields = enable;
     }
 
     // Disable auto loading fields of contained associations.
     void disableAutoFields() {
-      _autoFields = false;
+        _autoFields = false;
     }
 
     // Gets whether contained associations will load fields automatically.
     bool isAutoFieldsEnabled() {
-      return _autoFields;
+        return _autoFields;
     }
-  // #endregion AutoFieldEnabled
+    // #endregion AutoFieldEnabled
 
-  /**
+    /**
      * Contains a nested array with the compiled containments tree
      * This is a normalized version of the user provided containments array.
      *
      * @var DORMEagerLoadable|array<DORMEagerLoadable>|null
      */
-    protected _normalized;
+    protected DORMEagerLoadable[] _normalized;
 
     /**
      * List of options accepted by associations in contain()
      * index by key for faster access
      */
-    protected int[string]_containOptions = [
+    protected int[string] _containOptions = [
         "associations": 1,
         "foreignKeys": 1,
         "conditions": 1,
@@ -66,19 +66,11 @@ class DEagerLoader {
         "negateMatch": 1,
     ];
 
-    /**
-     * A list of associations that should be loaded with a separate query
-     *
-     * @var array<DORMEagerLoadable>
-     */
-    protected _loadExternal = null;
+    // A list of associations that should be loaded with a separate query
+    protected DORMEagerLoadable[] _loadExternal = null;
 
-    /**
-     * Contains a list of the association names that are to be eagerly loaded
-     *
-     * @var array
-     */
-    protected _aliasList = null;
+    // Contains a list of the association names that are to be eagerly loaded
+    protected string[] _aliasList = null;
 
     // Another EagerLoader instance that will be used for "matching" associations.
     protected DORMEagerLoader _matching;
@@ -88,8 +80,6 @@ class DEagerLoader {
      * for the query
      */
     protected DORMEagerLoadable[string] _joinsMap = null;
-
-
 
     /**
      * Sets the list of associations that should be eagerly loaded along for a
@@ -113,12 +103,12 @@ class DEagerLoader {
      * - strategy: The loading strategy to use (join, select, subquery)
      *
      */
-    Json[string] contain(/* array| */string associations, callable queryBuilder = null) {
+    Json[string] contain( /* array| */ string associations, callable queryBuilder = null) {
         if (queryBuilder) {
             if (!associations.isString) {
                 throw new DInvalidArgumentException(
                     "Cannot set containments. To use queryBuilder, associations must be a string"
-               );
+                );
             }
 
             associations = [
@@ -128,7 +118,7 @@ class DEagerLoader {
             ];
         }
 
-        associations = /* (array) */associations;
+        associations =  /* (array) */ associations;
         associations = _reformatContain(associations, _containments);
         _normalized = null;
         _loadExternal = null;
@@ -158,7 +148,7 @@ class DEagerLoader {
         _loadExternal = null;
         _aliasList = null;
     }
- 
+
     /**
      * Adds a new association to the list that will be used to filter the results of
      * any given query based on the results of finding records for that association.
@@ -173,12 +163,15 @@ class DEagerLoader {
      * - `negateMatch`: Whether to add conditions negate match on target association
      */
     void setMatching(string associationPath, callable builder = null, Json[string] options = null) {
-        if (_matching == null) {
+        /* if (_matching == null) {
             _matching = new static();
-        }
+        } */
 
         options.merge("joinType", Query.JOIN_TYPE_INNER);
-        auto sharedOptions = ["negateMatch": false.toJson, "matching": true.toJson] + options;
+        auto sharedOptions = [
+            "negateMatch": false.toJson,
+            "matching": true.toJson
+        ] + options;
 
         auto contains = null;
         auto nested = &contains;
@@ -197,7 +190,7 @@ class DEagerLoader {
     // Returns the current tree of associations to be matched.
     Json[string] getMatching() {
         if (_matching == null) {
-            _matching = new static();
+            /* _matching = new static(); */
         }
 
         return _matching.getContain();
@@ -217,11 +210,11 @@ class DEagerLoader {
      */
     auto normalized(DORMTable repository) {
         if (_normalized != null || _containments.isEmpty) {
-            return /* (array) */_normalized;
+            return  /* (array) */ _normalized;
         }
 
         contain = null;
-        foreach (aliasName,  options; _containments) {
+        foreach (aliasName, options; _containments) {
             if (options.hasKey("instance")) {
                 contain = _containments;
                 break;
@@ -229,7 +222,7 @@ class DEagerLoader {
             contain[aliasName] = _normalizeContain(
                 repository, aliasName, options,
                 ["root": Json(null)]
-           );
+            );
         }
 
         return _normalized = contain;
@@ -250,7 +243,7 @@ class DEagerLoader {
                 options = null;
             }
 
-            if (cast(EagerLoadable)options) {
+            if (cast(EagerLoadable) options) {
                 options = options.asContainArray();
                 string table = key(options);
                 options = currentValue(options);
@@ -271,16 +264,16 @@ class DEagerLoader {
             }
 
             if (options.isArray) {
-                options = options.hasKey("config") ?
-                    options.get("config"] + options.get("associations"] :
-                    options;
+                /* options = options.hasKey("config") ?
+                    /* options.get("config"] + options.get("associations"] :
+                    options; * /
                 options = _reformatContain(
                     options,
                     pointer.getArray(table)
-               );
+               ); */
             }
 
-            if (cast(DClosure)options) {
+            if (cast(DClosure) options) {
                 options = ["queryBuilder": options];
             }
 
@@ -289,7 +282,7 @@ class DEagerLoader {
             if (options.hasKey("queryBuilder") && pointer.hasKey(table, "queryBuilder")) {
                 auto first = pointer[table]["queryBuilder"];
                 auto second = options.get("queryBuilder");
-               /* options.get("queryBuilder"] = function (query) use (first, second) {
+                /* options.get("queryBuilder"] = function (query) use (first, second) {
                     return second(first(query));
                 }; */
             }
@@ -299,7 +292,7 @@ class DEagerLoader {
                 options = [options: []];
             }
 
-            pointer.set(table, options + pointer[table];
+            /* pointer.set(table, options + pointer[table]; */
         }
 
         return result;
@@ -319,7 +312,7 @@ class DEagerLoader {
         auto attachable = attachableAssociations(repository);
         auto processed = null;
         do {
-            foreach (attachable as aliasName: loadable) {
+            foreach (aliasName, loadable; attachable) {
                 myConfiguration = loadable.configuration.data + [
                     "aliasPath": loadable.aliasPath(),
                     "propertyPath": loadable.propertyPath(),
@@ -329,9 +322,10 @@ class DEagerLoader {
                 processed[aliasName] = true;
             }
 
-            newAttachable = attachableAssociations(repository);
+            auto newAttachable = attachableAssociations(repository);
             attachable = array_diffinternalKey(newAttachable, processed);
-        } while (!attachable.isEmpty);
+        }
+        while (!attachable.isEmpty);
     }
 
     /**
@@ -368,15 +362,15 @@ class DEagerLoader {
         auto instance = parent.getAssociation(aliasName);
 
         paths += ["aliasPath": "", "propertyPath": "", "root": aliasName];
-        paths()"aliasPath").concat( "." ~ aliasName);
+        /*  paths()"aliasPath").concat( "." ~ aliasName); */
 
         if (
             options.hasKey("matching") &&
             options.get("matching") == true
-       ) {
+            ) {
             paths.set("propertyPath", "_matchingData." ~ aliasName);
         } else {
-            paths["propertyPath").concat( "." ~ instance.getProperty();
+            /* paths["propertyPath").concat( "." ~ instance.getProperty(); */
         }
 
         auto table = instance.getTarget();
@@ -402,7 +396,7 @@ class DEagerLoader {
             eagerLoadable.addAssociation(
                 t,
                 _normalizeContain(table, t, association, paths)
-           );
+            );
         }
 
         return eagerLoadable;
@@ -453,15 +447,15 @@ class DEagerLoader {
      */
     protected DORMEagerLoadable[] _resolveJoins(DORMEagerLoadable[] associations, DORMEagerLoadable[] matching = null) {
         auto result = null;
-        foreach (matching as table: loadable) {
+        /* foreach (matching as table: loadable) {
             result.set(table, loadable;
             result += _resolveJoins(loadable.associations(), []);
-        }
+        } */
         foreach (table, loadable; associations) {
             bool inMatching = matching.hasKey(table);
             if (!inMatching && loadable.canBeJoined()) {
-                result.set(table, loadable;
-                result += _resolveJoins(loadable.associations(), []);
+                /* result.set(table, loadable;
+                result += _resolveJoins(loadable.associations(), []); */
                 continue;
             }
 
@@ -510,7 +504,7 @@ class DEagerLoader {
                 if (
                     indexOf(path, ".") == false &&
                     (!hasKey(path, collected) || !hasKey(aliasName, collected[path]))
-               ) {
+                    ) {
                     message = "Unable to load `{path}` association. Ensure foreign key in `{aliasName}` is selected.";
                     throw new DInvalidArgumentException(message);
                 }
@@ -522,7 +516,7 @@ class DEagerLoader {
                 }
             }
 
-            auto keys = collected.get(path~"."~aliasName, null);
+            auto keys = collected.get(path ~ "." ~ aliasName, null);
             auto f = instance.eagerLoader(
                 myConfiguration + [
                     "query": query,
@@ -530,7 +524,7 @@ class DEagerLoader {
                     "keys": keys,
                     "nestKey": meta.aliasPath(),
                 ]
-           );
+            );
             statement = new DCallbackStatement(statement, driver, f);
         }
 
@@ -567,23 +561,23 @@ class DEagerLoader {
      * associationsMap() method.
      */
     protected Json[string] _buildAssociationsMap(Json[string] map, DORMEagerLoadable[] level, bool isMatching = false) {
-        foreach (level as association: meta) {
+        foreach (association, meta; level) {
             auto canBeJoined = meta.canBeJoined();
             auto instance = meta.instance();
             auto associations = meta.associations();
             auto forMatching = meta.forMatching();
-            auto map ~= [
-                "aliasName": association,
-                "instance": instance,
-                "canBeJoined": canBeJoined,
-                "entityClass": instance.getTarget().getEntityClass(),
-                "nestKey": canBeJoined ? association : meta.aliasPath(),
-                "matching": forMatching ?? isMatching,
-                "targetProperty": meta.targetProperty(),
-            ];
-            if (canBeJoined && associations) {
+            map
+                .merge("aliasName", association)
+                .merge("instance", instance)
+                .merge("canBeJoined", canBeJoined)
+                .merge("entityClass", instance.getTarget().getEntityClass())
+                .merge("nestKey", canBeJoined ? association : meta.aliasPath())
+                .merge("matching", forMatching ? forMatching : isMatching)
+                .merge("targetProperty", meta.targetProperty());
+
+            /*  if (canBeJoined && associations) {
                 map = _buildAssociationsMap(map, associations, isMatching);
-            }
+            } */
         }
 
         return map;
@@ -599,14 +593,13 @@ class DEagerLoader {
         DORMAssociation association,
         bool isMatching = false,
         string targetProperty = null
-   ) {
-        _joinsMap[aliasName] = new DEagerLoadable(aliasName, [
-            "aliasPath": aliasName,
-            "instance": association,
-            "canBeJoined": true.toJson,
-            "forMatching": isMatching,
-            "targetProperty": targetProperty.ifEmpty(association.getProperty()),
-        ]);
+    ) {
+        _joinsMap[aliasName] = new DEagerLoadable(aliasName, createMap!(string, Json)
+            .set("aliasPath", aliasName)
+            .set("instance", association)
+            .set("canBeJoined", true.toJson)
+            .set("forMatching", isMatching)
+            .set("targetProperty", targetProperty.ifEmpty(association.getProperty())));
     }
 
     /**
@@ -622,22 +615,24 @@ class DEagerLoader {
             }
 
             auto source = instance.source();
-            auto keys = instance.type() == Association.MANY_TO_ONE ?
-                /* (array) */instance.foreignKeys() :
-                /* (array) */instance.getBindingKey();
+            auto keys = instance.type() == Association.MANY_TO_ONE 
+                ? /* (array) */ instance.foreignKeys() 
+                : /* (array) */ instance.getBindingKey();
 
             auto aliasName = source.aliasName();
             auto pkFields = null;
             foreach (key; keys) {
                 pkFields ~= key(query.aliasField(key, aliasName));
             }
-            collectKeys[meta.aliasPath()] = [aliasName, pkFields, count(pkFields) == 1];
+            collectKeys[meta.aliasPath()] = [
+                aliasName, pkFields, count(pkFields) == 1
+            ];
         }
         if (collectKeys.isEmpty) {
             return [[], statement];
         }
 
-        if (!cast(BufferedStatement)statement) {
+        if (!cast(BufferedStatement) statement) {
             statement = new BufferedStatement(statement, query.getConnection().getDriver());
         }
 
@@ -650,7 +645,7 @@ class DEagerLoader {
      */
     protected Json[string] _groupKeys(BufferedStatement statement, Json[string] collectKeys) {
         auto keys = null;
-        foreach (result; (statement.fetchAll("association") ?: [])) {
+        foreach (result; (statement.fetchAll("association") ? statement.fetchAll("association") : [])) {
             foreach (nestKey, parts; collectKeys) {
                 if (parts[2] == true) {
                     // Missed joins will have null in the results.

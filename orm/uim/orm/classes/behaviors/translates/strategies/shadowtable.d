@@ -63,7 +63,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
         configuration.set(myConfiguration);
         _table = table;
-        this.translationTable = getTableLocator()
+        _translationTable = getTableLocator()
             .get(
                 configuration.get("translationTable"),
                 ["allowFallbackClass": true.toJson]
@@ -79,7 +79,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      */
     protected void setupAssociations() {
         auto configData = configuration.data;
-        targetAlias = this.translationTable.aliasName();
+        targetAlias = _translationTable.aliasName();
         _table.hasMany(targetAlias, [
                 "classname": configuration.get("translationTable"),
                 "foreignKeys": Json("id"),
@@ -232,11 +232,11 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             }
 
             return c;
-        } */
+        } 
 
         
 
-        );
+        );*/
         return joinRequired;
     }
 
@@ -258,7 +258,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         auto mainTableAlias = configuration.get("mainTableAlias");
         auto mainTableFields = this.mainFields();
         auto joinRequired = false;
-        clause.traverse(
+        /* clause.traverse(
             function(
                 expression) use(
                 fields, alias, mainTableAlias, mainTableFields,  & joinRequired) {
@@ -279,13 +279,13 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 return;
             }
 
-            /** @psalm-suppress ParadoxicalCondition */
+            /** @psalm-suppress ParadoxicalCondition * /
             if (isIn(field, mainTableFields, true)) {
                 expression.setField(
                     "mainTableAlias.field");
             }
         }
-        );
+        ); */
         return joinRequired;
     }
 
@@ -296,40 +296,32 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
     void beforeSave(IEvent event, IORMEntity anEntity, Json[string] options) {
         auto locale = entity.get("_locale") ? entity.get("_locale") : locale();
         auto newOptions = [
-            this.translationTable.aliasName(): [
+            _translationTable.aliasName(): [
                 "validate": false.toJson
             ]
         ];
-        options.set("associated", newOptions + options.get("associated"]);
+        // options.set("associated", newOptions + options.get("associated"));
 
         // Check early if empty translations are present in the entity.
         // If this is the case, unset them to prevent persistence.
         // This only applies if configuration.get("allowEmptyTranslations"] is false
         if (
-            configuration.get(
-                "allowEmptyTranslations") == false) {
-            this.unsetEmptyFields(
-                entity);
+            configuration.get("allowEmptyTranslations") == false) {
+            unsetEmptyFields(entity);
         }
 
-        this.bundleTranslatedFields(
-            entity);
-        bundled = entity.get("_i18n") ?
-             : [];
-        noBundled = count(
-            bundled) == 0; // No additional translation records need to be saved,
+        bundleTranslatedFields(entity);
+        auto bundled = entity.get("_i18n") ? entity.get("_i18n") : [];
+        auto noBundled = count(bundled) == 0; // No additional translation records need to be saved,
         // as the entity is in the default locale.
         if (noBundled && locale == getConfig(
                 "defaultLocale")) {
             return;
         }
 
-        values = entity.extract(
-            translatedFields(), true);
-        fields = values
-            .keys;
-        noFields = empty(
-            fields); // If there are no fields and no bundled translations, or both fields
+        auto values = entity.extract(translatedFields(), true);
+        auto fields = values.keys;
+        auto noFields = empty(fields); // If there are no fields and no bundled translations, or both fields
         // in the default locale and bundled translations we can
         // skip the remaining logic as its not necessary.
         if (noFields && noBundled || (
@@ -337,17 +329,14 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        primaryKeys = (
-            array) _table
-            .primaryKeys();
-        id = entity.get(
+        auto primaryKeys =  /* (array) */ _table.primaryKeys();
+        auto id = entity.get(
             currentValue(
                 primaryKeys)); // When we have no key and bundled translations, we
         // need to mark the entity dirty so the root
         // entity persists.
         if (noFields && bundled && !id) {
-            foreach (
-                field; translatedFields()) {
+            foreach (field; translatedFields()) {
                 entity.setDirty(field, true);
             }
 
@@ -508,7 +497,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
     ICollection groupTranslations(IResultset results) {
         return results.map(
             function(row) {
-            translations = /* (array) */ row["_i18n"];
+            translations =  /* (array) */ row["_i18n"];
             if (translations.isEmpty && row
             .get(
             "_translations")) {
@@ -539,23 +528,25 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * entity. The result will be put into its `_i18n` property.
      */
     protected void bundleTranslatedFields(IORMEntity entity) {
-        translations = (
-            array) entity.get(
-            "_translations");
+        auto translations =  /* (
+            array) */
+            entity.get(
+                "_translations");
         if (translations.isEmpty && !entity
             .isChanged(
                 "_translations")) {
             return;
         }
 
-        primaryKeys = (
-            array) _table
+        auto primaryKeys =  /* (
+            array) */
+            _table
             .primaryKeys();
-        key = entity.get(
+        auto key = entity.get(
             currentValue(
                 primaryKeys));
         foreach (
-            translations as lang : translation) {
+            lang, translation; translations) {
             if (
                 !translation
                 .id) {
@@ -574,30 +565,24 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         entity.set("_i18n", translations);
     }
 
-    /**
-     * Lazy define and return the main table fields.
-     */
+    // Lazy define and return the main table fields.
     protected string[] mainFields() {
-        fields = configuration.get(
-            "mainTableFields");
+        auto fields = configuration.get("mainTableFields");
 
-        if (
-            fields) {
+        if (fields) {
             return fields;
         }
 
         fields = _table
             .getSchema()
             .columns();
-        configuration.set(
-            "mainTableFields", fields);
-
+        configuration.set("mainTableFields", fields);
         return fields;
     }
 
     // Lazy define and return the translation table fields.
     protected string[] translatedFields() {
-        auto fields = getConfig("fields");
+        auto fields = configuration.get("fields");
         if (fields) {
             return fields;
         }

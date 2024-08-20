@@ -1059,7 +1059,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
             
             auto joint = targetEntity.get(jointProperty);
-            if (!joint || !cast(IORMEntity)joint)) {
+            if (!joint || !cast(IORMEntity)joint) {
                 missing ~= targetEntity.extract(primary);
                 continue;
             }

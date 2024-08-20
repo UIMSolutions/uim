@@ -64,10 +64,10 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         configuration.set(myConfiguration);
         _table = table;
-        _translationTable = getTableLocator().get(
+        /* _translationTable = getTableLocator().get(
             configuration.get("translationTable"],
             ["allowFallbackClass": true.toJson]
-       );
+       ); */
 
         setupAssociations();
     }
@@ -91,7 +91,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         auto tableLocator = getTableLocator();
 
         foreach (field; fields) {
-            string name = alias ~ "_" ~ field ~ "_translation";
+            string name = aliasName ~ "_" ~ field ~ "_translation";
 
             if (!tableLocator.hasKey(name)) {
                 fieldTable = tableLocator.get(name, [
@@ -385,7 +385,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                     "markClean": true.toJson,
                 ]);
                 result[locale] = translation;
-            } */
+            } * /
 
             options = ["setter": false.toJson, "guard": false.toJson];
             row.set("_translations", result, options);
@@ -430,8 +430,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        results = this.findExistingTranslations(find);
-
+        auto results = this.findExistingTranslations(find);
         foreach (i, translation; find) {
             if (!empty(results[i])) {
                 contents[i].set("id", results[i], ["setter": false.toJson]);

@@ -13,28 +13,22 @@ module uim.orm.classes.eagerloadable;
  *
  * @internal
  */
-class DEagerLoadable {
-    // The name of the association to load.
-    protected string _name;
+class DEagerLoadable : UIMObject {
+    this() {
+        super();
+    }
 
     /*
     // A list of other associations to load from this level.
     protected DORMEagerLoadable[] _associations = null;
 
     // The Association class instance to use for loading the records.
-    /*
-     * @var DORMAssociation|null
-     */
-    protected _instance;
+    protected DORMAssociation _instance;
 
-    // A list of options to pass to the association object for loading
-     * the records.
-     *
-     * @var Json[string]
-     */
-    protected configuration = null;
+    // A list of options to pass to the association object for loading the records.
+    protected Json[string] configuration = null;
 
-    // A dotted separated string representing the path of associations
+    /* A dotted separated string representing the path of associations
      * that should be followed to fetch this level.
      */
     protected string _aliasPath;
@@ -55,15 +49,12 @@ class DEagerLoadable {
     protected string _propertyPath;
 
     // Whether this level can be fetched using a join.
-     */
     protected bool _canBeJoined = false;
 
-    // Whether this level was meant for a "matching" fetch
+    /* Whether this level was meant for a "matching" fetch
      * operation
-     *
-     * @var bool|null
      */
-    protected _forMatching;
+    protected bool _forMatching;
 
     /**
      * The property name where the association result should be nested
@@ -74,9 +65,7 @@ class DEagerLoadable {
      * ```
      * article.author.company.country
      * ```
-     *
      * The target property of `country` will be just `country`
-     *
      */
     protected string _targetProperty;
 
@@ -103,7 +92,7 @@ class DEagerLoadable {
         ];
         allowed.each!((property) {
             if (configData.hasKey(property)) {
-                this.{"_" ~ property} = configuration.get(property);
+                /* this.{"_" ~ property} = configuration.get(property); */
             }
         });
     }
@@ -120,9 +109,9 @@ class DEagerLoadable {
 
     // Gets the Association class instance to use for loading the records.
     DORMAssociation instance() {
-        if (_instance == null) {
+        /* if (_instance == null) {
             throw new \RuntimeException("No instance set.");
-        }
+        } */
 
         return _instance;
     }
@@ -158,19 +147,6 @@ class DEagerLoadable {
     }
 
     /**
-     * Sets the list of options to pass to the association object for loading
-     * the records.
-     */
-    void configuration.set(Json[string] myConfiguration) {
-        configuration = myConfiguration;
-    }
-
-    // Gets the list of options to pass to the association object for loading the records.
-    Json configuration.data {
-      return configuration;
-    }
-
-    /**
      * Gets whether this level was meant for a
      * "matching" fetch operation.
      */
@@ -201,7 +177,7 @@ class DEagerLoadable {
      */
     Json[string] asContainArray() {
         auto associations = _associations.map!(association => assoc.asContainArray()).join;
-        auto configData = configuration.data;
+        
         if (_forMatching != null) {
             configData = ["matching": _forMatching] + myConfiguration;
         }

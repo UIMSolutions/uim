@@ -18,13 +18,11 @@ size_t[T] countDuplicates(T)(in T[] baseArray...) {
   return countDuplicates(baseArray.dup);
 }
 
-
-  unittest {
-    assert(countDuplicates(1) == [1: 1uL]);
-    assert(countDuplicates(1, 1) == [1: 2uL]);
-    assert(countDuplicates(1, 2) == [1: 1U, 2: 1UL]);
-  }
-
+unittest {
+  assert(countDuplicates(1) == [1: 1uL]);
+  assert(countDuplicates(1, 1) == [1: 2uL]);
+  assert(countDuplicates(1, 2) == [1: 1U, 2: 1UL]);
+}
 
 /// Counts the occourence of values in an array
 size_t[T] countDuplicates(T)(in T[] someValues) {
@@ -102,14 +100,12 @@ T[] add(T)(in T[] baseArray, in T[] newItems...) {
   return add(baseArray, newItems);
 }
 
-
-  unittest {
-    assert([1, 2, 3].add(4) == [1, 2, 3, 4]);
-    assert([1, 2, 3].add(4, 5) == [1, 2, 3, 4, 5]);
-    assert([1.0, 2.0, 3.0].add(4.0, 5.0) == [1.0, 2.0, 3.0, 4.0, 5.0]);
-    assert(["1", "2", "3"].add("4", "5") == ["1", "2", "3", "4", "5"]);
-  }
-
+unittest {
+  assert([1, 2, 3].add(4) == [1, 2, 3, 4]);
+  assert([1, 2, 3].add(4, 5) == [1, 2, 3, 4, 5]);
+  assert([1.0, 2.0, 3.0].add(4.0, 5.0) == [1.0, 2.0, 3.0, 4.0, 5.0]);
+  assert(["1", "2", "3"].add("4", "5") == ["1", "2", "3", "4", "5"]);
+}
 
 /// Adds items into array - same like "baseArray~newItems"
 T[] add(T)(in T[] baseArray, in T[] newItems) {
@@ -118,13 +114,11 @@ T[] add(T)(in T[] baseArray, in T[] newItems) {
   return results;
 }
 
-
-  unittest {
-    assert([1, 2, 3].add([4, 5]) == [1, 2, 3, 4, 5]);
-    assert([1.0, 2.0, 3.0].add([4.0, 5.0]) == [1.0, 2.0, 3.0, 4.0, 5.0]);
-    assert(["1", "2", "3"].add(["4", "5"]) == ["1", "2", "3", "4", "5"]);
-  }
-
+unittest {
+  assert([1, 2, 3].add([4, 5]) == [1, 2, 3, 4, 5]);
+  assert([1.0, 2.0, 3.0].add([4.0, 5.0]) == [1.0, 2.0, 3.0, 4.0, 5.0]);
+  assert(["1", "2", "3"].add(["4", "5"]) == ["1", "2", "3", "4", "5"]);
+}
 
 /// Changes positions
 void change(T)(ref T left, ref T right) {
@@ -145,14 +139,12 @@ T[] change(T)(T[] values, size_t firstPosition, size_t secondPosition) {
   return results;
 }
 
-
-  unittest {
-    assert(change([1, 2, 3, 4], 1, 2) == [1, 3, 2, 4]);
-    assert(change(["a", "b", "c", "d"], 3, 2) == ["a", "b", "d", "c"]);
-    assert(change(["a", "b", "c", "d"], 1, 1) == ["a", "b", "c", "d"]);
-    assert(change(["a", "b", "c", "d"], 1, 9) == ["a", "b", "c", "d"]);
-  }
-
+unittest {
+  assert(change([1, 2, 3, 4], 1, 2) == [1, 3, 2, 4]);
+  assert(change(["a", "b", "c", "d"], 3, 2) == ["a", "b", "d", "c"]);
+  assert(change(["a", "b", "c", "d"], 1, 1) == ["a", "b", "c", "d"]);
+  assert(change(["a", "b", "c", "d"], 1, 9) == ["a", "b", "c", "d"]);
+}
 
 /// Removes
 T[] sub(T)(T[] lhs, T rhs, bool multiple = false) {
@@ -170,10 +162,10 @@ T[] sub(T)(T[] lhs, T rhs, bool multiple = false) {
   return result;
 }
 
-  unittest {
-    assert([1, 2, 3].sub(2) == [1, 3]);
-    assert([1, 2, 3, 2].sub(2, true) == [1, 3]);
-  }
+unittest {
+  assert([1, 2, 3].sub(2) == [1, 3]);
+  assert([1, 2, 3, 2].sub(2, true) == [1, 3]);
+}
 
 // sub(T)(T[] lhs, T[] rhs, bool multiple = false)
 T[] sub(T)(T[] lhs, T[] rhs, bool multiple = false) {
@@ -198,28 +190,24 @@ T[] filters(T)(T[] baseArray, T[] filterValues...) {
   return filters(baseArray, filterValues);
 }
 
-
-  unittest {
-    assert([1, 2, 3].filters(2) == [2]);
-    assert([1, 2, 3].filters() is null);
-    assert([
-        1, 2, 3
-      ].filters(1, 2) == [1, 2]);
-  }
-
+unittest {
+  assert([1, 2, 3].filters(2) == [2]);
+  assert([1, 2, 3].filters() is null);
+  assert([
+      1, 2, 3
+    ].filters(1, 2) == [1, 2]);
+}
 
 T[] filters(T)(T[] baseArray, T[] filterValues) {
   T[] results = baseArray.filter!(item => filterValues.has(item)).array;
   return results;
 }
 
-
-  unittest {
-    assert([1, 2, 3].filters([2]) == [2]);
-    assert([1, 2, 3].filters([]) == [
-      ]);
-  }
-
+unittest {
+  assert([1, 2, 3].filters([2]) == [2]);
+  assert([1, 2, 3].filters([]) == [
+    ]);
+}
 
 OUT[] castTo(OUT, IN)(IN[] values) {
   OUT[] results;
@@ -377,19 +365,18 @@ size_t[][T] indexes(T)(T[] values, T[] keys) {
   return results;
 }
 
+unittest {
+  assert([1, 2, 3, 4].indexes(
+      [1]) == [
+      1: [0UL]
+    ]);
 
-  unittest {
-    assert([1, 2, 3, 4].indexes(
-        [1]) == [
-        1: [0UL]
-      ]);
-
-    assert([
-        1, 2, 3, 4, 1
-      ].indexes([1]) == [
-        1: [0UL, 4UL]
-      ]);
-  }
+  assert([
+      1, 2, 3, 4, 1
+    ].indexes([1]) == [
+      1: [0UL, 4UL]
+    ]);
+}
 
 // #endregion Searching
 
@@ -419,8 +406,6 @@ unittest {
       "z"
     ]);
 }
-
-
 
 T[] ifNull(T)(T[] values, T[] defaultValues = null) {
   return values.isNull ? defaultValues : values;
@@ -463,38 +448,51 @@ unittest {
   assert(x.isEmpty);
   assert(![1, 2, 3, 4].isEmpty);
   assert([].isEmpty);
-}// #endregion isEmpty
-
+} // #endregion isEmpty
 
 // #region remove
 T[] removeFirst(T)(T[] values) {
-  if (values.isEmpty) { return values; }
-  if (values.length == 1) { values = null; }
-  else {
-    values = values[1..$];
+  if (values.isEmpty) {
+    return values;
+  }
+  if (values.length == 1) {
+    values = null;
+  } else {
+    values = values[1 .. $];
   }
 
   return values;
 }
+
 unittest {
-  writeln(["a", "b", "c"].removeFirst);
-  writeln([1, 3, 5].removeFirst);
   assert(["a", "b", "c"].removeFirst.length == 2);
+  assert(["a", "b", "c"].removeFirst == ["b", "c"]);
+
+  string[] testArray = ["a", "b", "c"];
+  testArray.removeFirst;
+  assert(testArray == ["b", "c"]);
 }
 
 T[] removeLast(T)(T[] values) {
-  if (values.isEmpty) { return values; }
-  if (values.length == 1) { values = null; }
-  else {
-    values = values[0..$-1];
+  if (values.isEmpty) {
+    return values;
+  }
+  if (values.length == 1) {
+    values = null;
+  } else {
+    values = values[0 .. $ - 1];
   }
 
   return values;
 }
+
 unittest {
-  writeln(["a", "b", "c"].removeLast);
-  writeln([1, 3, 5].removeLast);
+  assert(["a", "b", "c"].removeLast == ["a", "b"]);
   assert(["a", "b", "c"].removeLast.length == 2);
+
+  string[] testArray = ["a", "b", "c"];
+  testArray.removeLast;
+  assert(testArray == ["a", "b"]);
 }
 // #endregion remove
 
@@ -508,8 +506,9 @@ T[] intersect(T)(T[] left, Json right) {
     return intersect(left,
       right.getArray.map!(val => val.get!T).array);
   }
-  return null; 
+  return null;
 }
+
 unittest {
   assert(intersect(["a", "b", "c"], ["a"]) == ["a"]);
   Json json = Json.emptyArray;
@@ -520,16 +519,17 @@ unittest {
 
 // #region shift
 T shift(T)(ref T[] values) {
-  switch(values.length) {
-    case 0: return Null!T;
-    case 1: 
-      T value = values[0];
-      values = null;
-      return value; 
-    default:
-      T value = values[0];
-      values = values[1..$].dup;
-      return value; 
+  switch (values.length) {
+  case 0:
+    return Null!T;
+  case 1:
+    T value = values[0];
+    values = null;
+    return value;
+  default:
+    T value = values[0];
+    values = values[1 .. $].dup;
+    return value;
   }
 }
 
@@ -541,7 +541,7 @@ unittest {
   assert(testValues.length == 1);
   assert(testValues.shift == "a");
   assert(testValues.length == 0);
-  
+
   testValues = ["a", "b", "c"];
   assert(testValues.length == 3);
   assert(testValues.shift == "a");
@@ -550,43 +550,43 @@ unittest {
 // #endregion shift
 
 // #region unshift
-T[] unshift(T)(ref T[] values, T[] addings...) {
-  return unshift(values, addings.dup);
-}
+  T[] unshift(T)(ref T[] values, T[] addings...) {
+    return unshift(values, addings.dup);
+  }
 
-T[] unshift(T)(ref T[] values, T[] addings) {
-  values = addings ~ values;
-  return values;
-}
+  T[] unshift(T)(ref T[] values, T[] addings) {
+    values = addings ~ values;
+    return values;
+  }
 
-unittest {
-  string[] testValues = ["a", "b", "c"];
-  assert(testValues.unshift("x").length == 4);
+  unittest {
+    string[] testValues = ["a", "b", "c"];
+    assert(testValues.unshift("x").length == 4);
 
-  testValues = ["a", "b", "c"];
-  assert(testValues.unshift("x", "y").length == 5);
-  assert(testValues.has("x"));
+    testValues = ["a", "b", "c"];
+    assert(testValues.unshift("x", "y").length == 5);
+    assert(testValues.has("x"));
 
-  testValues = ["a", "b", "c"];
-  assert(testValues.unshift(["x", "y"]).length == 5);
-  assert(testValues.has("y"));
-}
+    testValues = ;
+    assert(testValues.unshift(["x", "y"]).length == 5);
+    assert(testValues == ["a", "b", "c", "x", "y"]);
+  }
 // #endregion unshift
 
 // Pop the element off the end of array
 // #region pop
 T pop(T)(ref T[] values) {
   switch (values.length) {
-    case 0: 
-      return Null!T;
-    case 1: 
-      T value = values[0];
-      values = null; 
-      return value;
-    default: 
-      T value = values[$-1];
-      values = values[0..$-1]; 
-      return value;
+  case 0:
+    return Null!T;
+  case 1:
+    T value = values[0];
+    values = null;
+    return value;
+  default:
+    T value = values[$ - 1];
+    values = values[0 .. $ - 1];
+    return value;
   }
 }
 
@@ -598,7 +598,7 @@ unittest {
   assert(testValues.length == 1);
   assert(testValues.pop == "a");
   assert(testValues.length == 0);
-  
+
   testValues = ["a", "b", "c"];
   assert(testValues.length == 3);
   assert(testValues.pop == "c");
@@ -612,7 +612,7 @@ T[] slice(T)(T[] values, int startPos, int length = 0) {
   }
 
   if (startPos == 0) {
-    return values[0..(min(values.length, length))];
+    return values[0 .. (min(values.length, length))];
   }
 
   if (abs(startPos) > values.length) {
@@ -620,19 +620,17 @@ T[] slice(T)(T[] values, int startPos, int length = 0) {
   }
 
   return startPos > 0
-    ? values[0..(min(values.length, length))]
-    : values[(min(values.length, length))..$];
+    ? values[0 .. (min(values.length, length))] : values[(min(values.length, length)) .. $];
 }
 
 // #region filterValues
 T[] filterValues(T)(T[] values) {
   return values.filter!(value => !value.isNull).array;
 }
+
 T[] filterValues(T)(T[] values, bool delegate(T value) check) {
-  T[] results; 
-  () @trusted {
-    results = values.filter!(value => check(value)).array;
-  }();
+  T[] results;
+  () @trusted { results = values.filter!(value => check(value)).array; }();
   return results;
 }
 
@@ -641,7 +639,10 @@ unittest {
   assert(testString.filterValues().length == 2);
 
   int[] testValues = [1, 2, 3];
-  bool foo(int i) { return i > 1; }
+  bool foo(int i) {
+    return i > 1;
+  }
+
   assert(testValues.filterValues(&foo).length == 2);
 }
 // #endregion filterValues
@@ -649,13 +650,13 @@ unittest {
 // #region unique
 /// Unique - Reduce duplicates in array
 T[] unique(T)(T[] values) {
-	T[] results;
-	values.each!((value) {
+  T[] results;
+  values.each!((value) {
     if (!results.has(value)) {
       results ~= value;
     }
-	});
-	return results;
+  });
+  return results;
 }
 
 unittest {
@@ -675,6 +676,7 @@ V[] clear(V)(ref V[] items) {
   items.length = 0;
   return items;
 }
+
 unittest {
   writeln("--- clear");
   string[] testMap = ["a", "b", "c"];
@@ -685,38 +687,37 @@ unittest {
 }
 
 // #region push
-  V[] push(V)(ref V[] items, V[] newItems...) {
-    return push(items, newItems.dup);
-  }
-  V[] push(V)(ref V[] items, V[] newItems) {
-    items ~= newItems;
-    return items;
-  }
+V[] push(V)(ref V[] items, V[] newItems...) {
+  return push(items, newItems.dup);
+}
 
-  unittest {
-    string[] testMap = ["a", "b", "c"].push("d", "e");
-    assert(testMap == ["a", "b", "c", "d", "e"]);
-    assert(testMap.length == 5);
+V[] push(V)(ref V[] items, V[] newItems) {
+  items ~= newItems;
+  return items;
+}
 
-    assert(testMap.push(["x", "y"]) == ["a", "b", "c", "d", "e", "x", "y"]);
-    assert(testMap.length == 7);
-  }
+unittest {
+  string[] testMap = ["a", "b", "c"].push("d", "e");
+  assert(testMap == ["a", "b", "c", "d", "e"]);
+  assert(testMap.length == 5);
+
+  assert(testMap.push(["x", "y"]) == ["a", "b", "c", "d", "e", "x", "y"]);
+  assert(testMap.length == 7);
+}
 // #endregion push
 
 string[] getStringArray(T)(T[] values) {
-  static if (is(T == string)) { 
+  static if (is(T == string)) {
     return values;
-  }
-  else {
-    return null; 
+  } else {
+    return null;
   }
 }
 
 string[] toStringArray(string[] values) {
-  static if (is(T == Object)) { 
+  static if (is(T == Object)) {
     return values.map!(value => value.toString).array;
-  }
-  else {
+  } else {
     return values.map!(value => to!string(value)).array;
   }
 }

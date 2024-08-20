@@ -1,6 +1,7 @@
 module orm.uim.orm.classes.associations.obj;
 
 import uim.oop;
+
 @safe:
 
 class ORMOject : INamed {
@@ -31,11 +32,7 @@ class ORMOject : INamed {
 
     Json[string] debugInfo() {
         return [
-            "name": name,
-        ]
-    } 
-}
-
-unittest {
-    assert(new UIMObject);
+            "name": name
+        ];
+    }
 }

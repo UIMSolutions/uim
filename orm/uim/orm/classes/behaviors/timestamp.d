@@ -25,8 +25,7 @@ class DTimestampBehavior : DBehavior {
      *
      */
     configuration
-      .setDefault("implementedFinders", Json.emptyArray)
-      .setDefault("implementedMethods", [
+      .setDefault("implementedFinders", Json.emptyArray) /* .setDefault("implementedMethods", [
           "timestamp": "timestamp",
           "touch": "touch",
         ],
@@ -35,8 +34,8 @@ class DTimestampBehavior : DBehavior {
             "created": "new",
             "modified": "always",
           ],
-        ])
-      .setDefault("refreshTimestamp" : true);
+        ]) */
+      .setDefault("refreshTimestamp", true);
     if (configuration.hasKey("events")) {
       configuration.set("events", configuration.get("events"), false);
     }
@@ -54,12 +53,12 @@ class DTimestampBehavior : DBehavior {
     auto myrefresh = configuration.get(
       "refreshTimestamp");
     foreach (fieldName, mywhen; myevents[myeventName]) {
-      if (!isIn(mywhen, ["always", "new", "existing"], true)) {
+      /* if (!isIn(mywhen, ["always", "new", "existing"], true)) {
         throw new DUnexpectedValueException(
           "When should be one of " always", "new " or " existing". The passed value `%s` is invalid."
             .format(mywhen
             ));
-      }
+      } */
       if (
         mywhen == "always" ||
         (
@@ -78,28 +77,32 @@ class DTimestampBehavior : DBehavior {
 
   /**
      * implementedEvents
-     *
      * The implemented events of this behavior depend on configuration
      */
   IEvent[] implementedEvents() {
-    return array_fill_keys(configuration.get("events"].keys, "handleEvent");}
+    return array_fill_keys(configuration.get("events").keys, "handleEvent");
+  }
 
-    /**
+  /**
      * Get or set the timestamp to be used
      *
      * Set the timestamp to the given DateTime object, or if not passed a new DateTime object
      * If an explicit date time is passed, the config option `refreshTimestamp` is
      * automatically set to false.
      */
-    DateTime timestamp(IDateTime timestamp = null, bool isRefreshedTimestamp = false) {
-      if (timestamp) {
-        if (configuration.hasKey("refreshTimestamp")) {
-          configuration.set("refreshTimestamp", false);}
-          _ts = new DateTime(timestamp);} else if (_ts.isNull || isRefreshedTimestamp) {
-            _ts = new DateTime();}
-            return _ts;}
+  DateTime timestamp(IDateTime timestamp = null, bool isRefreshedTimestamp = false) {
+    if (timestamp) {
+      if (configuration.hasKey("refreshTimestamp")) {
+        configuration.set("refreshTimestamp", false);
+      }
+      _ts = new DateTime(timestamp);
+    } else if (_ts.isNull || isRefreshedTimestamp) {
+      _ts = new DateTime();
+    }
+    return _ts;
+  }
 
-            /**
+  /**
      * Touch an entity
      *
      * Bumps timestamp fields for an entity. For any fields configured to be updated
@@ -108,32 +111,47 @@ class DTimestampBehavior : DBehavior {
      * Params:
      * \UIM\Datasource\IORMEntity myentity Entity instance.
      */
-            bool touch(IORMEntity myentity, string eventName = "Model.beforeSave") {
-              auto myevents = configuration.get("events"); if (
-                isEmpty(myevents[myeventName])) {
-                return false;}
+  bool touch(IORMEntity myentity, string eventName = "Model.beforeSave") {
+    auto myevents = configuration.get("events");
+    if (
+      isEmpty(myevents[myeventName])) {
+      return false;
+    }
 
-                auto result = false; auto myrefresh = configuration.get(
-                  "refreshTimestamp"); foreach (fieldName, mywhen; myevents[myeventName]) {
-                  if (isIn(mywhen, ["always", "existing"], true)) {
-                    result = true; myentity.setDirty(fieldName, false); _updateField(myentity, fieldName, myrefresh);
-                  }
-                }
-                return result;}
+    auto result = false;
+    auto myrefresh = configuration.get(
+      "refreshTimestamp");
+    foreach (fieldName, mywhen; myevents[myeventName]) {
+      if (isIn(mywhen, ["always", "existing"], true)) {
+        result = true;
+        myentity.setDirty(fieldName, false);
+        _updateField(myentity, fieldName, myrefresh);
+      }
+    }
+    return result;
+  }
 
-                // Update a field, if it hasn"t been updated already
-                protected void _updateField(IORMEntity entity, string fieldName, bool shouldRefreshTimestamp) {
-                  if (entity.isChanged(fieldName)) {
-                    return;}
-                    myts = this.timestamp(null, shouldRefreshTimestamp); mycolumnType = this.table()
-                      .getSchema()
-                      .getColumnType(fieldName); if (!mycolumnType) {
-                        return;}
-                        mytype = TypeFactory.build(mycolumnType); assert(
-                          cast(DateTimeType) mytype,
-                          "TimestampBehavior only supports columns of type `%s`."
-                            .format(DateTimeType.classname)
-                        ); myclass = mytype.getDateTimeclassname(); entity.set(
-                          fieldName, new myclass(
-                            myts));}
-                      }
+  // Update a field, if it hasn"t been updated already
+  protected void _updateField(IORMEntity entity, string fieldName, bool shouldRefreshTimestamp) {
+    if (entity.isChanged(fieldName)) {
+      return;
+    }
+    myts = this.timestamp(null, shouldRefreshTimestamp);
+    mycolumnType = this.table()
+      .getSchema()
+      .getColumnType(fieldName);
+    if (!mycolumnType) {
+      return;
+    }
+    mytype = TypeFactory.build(mycolumnType);
+    assert(
+      cast(DateTimeType) mytype,
+      "TimestampBehavior only supports columns of type `%s`."
+        .format(DateTimeType.classname)
+    );
+    myclass = mytype.getDateTimeclassname();
+    entity.set(
+      fieldName, new myclass(
+        myts));
+  }
+}

@@ -365,8 +365,8 @@ class DSelectLoader {
         if (
             _associationType == Association
             .MANY_TO_ONE) {
-            keys = (
-                array) _foreignKeys;
+            keys = /* (
+                array) */ _foreignKeys;
         }
 
         auto fields = query.aliasFields(

@@ -147,7 +147,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        auto conditions = function (field, locale, query, select) {
+        /* auto conditions = function (field, locale, query, select) {
             return function (q) use (field, locale, query, select) {
                 q.where([q.getRepository().aliasField("locale"): locale]);
 
@@ -161,7 +161,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
                 return q;
             };
-        };
+        }; */
 
         auto contain = null;
         auto fields = configuration.get("fields");
@@ -169,7 +169,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         auto select = query.clause("select");
 
         auto changeFilter = options.hasKey("filterByCurrentLocale") &&
-            options.get("filterByCurrentLocale"] != configuration.get("onlyTranslated");
+            options.get("filterByCurrentLocale") != configuration.get("onlyTranslated");
 
         foreach (field; fields) {
             auto name = aliasName ~ "_" ~ field ~ "_translation";
@@ -181,7 +181,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
            ));
 
             if (changeFilter) {
-                filter = options.get("filterByCurrentLocale"]
+                filter = options.get("filterByCurrentLocale")
                     ? Query.JOIN_TYPE_INNER
                     : Query.JOIN_TYPE_LEFT;
                 contain[name]["joinType"] = filter;
@@ -200,7 +200,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * in the database too.
      */
     void beforeSave(IEvent event, IORMEntity ormEntity, Json[string] options) {
-        auto locale = ormEntity.get("_locale") ?: locale();
+        /* auto locale = ormEntity.get("_locale") ?: locale();
         auto newOptions = [_translationTable.aliasName(): ["validate": false.toJson]];
         options.set("associated", newOptions + options.get("associated"));
 
@@ -232,7 +232,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        primaryKeys = /* (array) */_table.primaryKeys();
+        primaryKeys = /* (array) * /_table.primaryKeys();
         key = entity.get(currentValue(primaryKeys));
 
         // When we have no key and bundled translations, we
@@ -270,7 +270,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         foreach (field, translation; preexistent) {
             translation.set("content", values[field]);
             modified[field] = translation;
-        }
+        } */
 
         // TODO
 /*        new = array_diffinternalKey(values, modified);
@@ -322,8 +322,8 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * into each entity for a given locale.
      */
     protected DORMcollections rowMapper(IResultset results, string localeName) {
-        return results.map(function (row) use (localeName) {
-            /** @var DORMdatasources.IORMEntity|array|null row */
+        /* return results.map(function (row) use (localeName) {
+            /** @var DORMdatasources.IORMEntity|array|null row * /
             if (row == null) {
                 return row;
             }
@@ -348,12 +348,13 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
             row["_locale"] = locale;
             if (hydrated) {
-                /** @psalm-suppress PossiblyInvalidMethodCall */
+                /** @psalm-suppress PossiblyInvalidMethodCall * /
                 row.clean();
             }
 
             return row;
-        });
+        }); */
+        return null; 
     }
 
     /**
@@ -376,7 +377,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             grouped = new DCollection(translations);
 
             result = null;
-            foreach (grouped.combine("field", "content", "locale") as locale: keys) {
+            /* foreach (grouped.combine("field", "content", "locale") as locale: keys) {
                 entityClass = _table.getEntityClass();
                 translation = new DORMEntityClass(keys + ["locale": locale], [
                     "markNew": false.toJson,
@@ -384,7 +385,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                     "markClean": true.toJson,
                 ]);
                 result[locale] = translation;
-            }
+            } */
 
             options = ["setter": false.toJson, "guard": false.toJson];
             row.set("_translations", result, options);
@@ -407,13 +408,13 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        fields = configuration.get("fields");
-        primaryKeys = /* (array) */_table.primaryKeys();
-        key = entity.get(currentValue(primaryKeys));
-        find = null;
-        contents = null;
+        auto fields = configuration.get("fields");
+        string[] primaryKeys = /* (array) */_table.primaryKeys();
+        string key = entity.get(currentValue(primaryKeys));
+        auto find = null;
+        auto contents = null;
 
-        foreach (translations as lang: translation) {
+        /* foreach (translations as lang: translation) {
             foreach (fields as field) {
                 if (!translation.isChanged(field)) {
                     continue;
@@ -423,7 +424,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                     "useSetters": false.toJson,
                 ]);
             }
-        }
+        } */
 
         if (find.isEmpty) {
             return;
@@ -431,12 +432,12 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         results = this.findExistingTranslations(find);
 
-        foreach (find as i: translation) {
+        foreach (i, translation; find) {
             if (!empty(results[i])) {
                 contents[i].set("id", results[i], ["setter": false.toJson]);
                 contents[i].setNew(false);
             } else {
-                translation["model"] = configuration.get("referenceName"];
+                translation["model"] = configuration.get("referenceName");
                 contents[i].set(translation, ["setter": false.toJson, "guard": false.toJson]);
                 contents[i].setNew(true);
             }

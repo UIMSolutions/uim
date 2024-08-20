@@ -30,14 +30,14 @@ class DSelectWithPivotLoader : DSelectLoader {
      *
      * @var DDBIExpression|\Closure|array|string
      */
-    protected junctionConditions;
+    protected string junctionConditions;
 
     /*
     this(Json[string] options = null) {
         super((options);
         this.junctionAssociationName = options.get("junctionAssociationName"];
         _junctionProperty = options.get("junctionProperty"];
-        this.junctionAssoc = options.get("junctionAssoc"];
+        _junctionAssoc = options.get("junctionAssoc"];
         this.junctionConditions = options.get("junctionConditions"];
     }
 
@@ -49,14 +49,14 @@ class DSelectWithPivotLoader : DSelectLoader {
      * This is used for eager loading records on the target table based on conditions.
      */
     protected DORMQuery _buildQuery(Json[string] options = null) {
-        name = this.junctionAssociationName;
-        assoc = this.junctionAssoc;
-        queryBuilder = false;
+        auto name = this.junctionAssociationName;
+        auto assoc = _junctionAssoc;
+        auto queryBuilder = false;
 
-        if (options.hasKey("queryBuilder"])) {
+        /* if (options.hasKey("queryBuilder"])) {
             queryBuilder = options.get("queryBuilder");
             options.removeKey("queryBuilder"));
-        }
+        } */
 
         query = super._buildQuery(options);
 
@@ -131,7 +131,7 @@ class DSelectWithPivotLoader : DSelectLoader {
         auto resultMap = null;
         auto keys = options.getStringArray("foreignKeys");
 
-        foreach (result; fetchQuery.all()) {
+        /* foreach (result; fetchQuery.all()) {
             if (result.isNull(_junctionProperty)) {
                 throw new DRuntimeException(format(
                     "'%s' is missing from the belongsToMany results. Results cannot be created.",
@@ -141,7 +141,7 @@ class DSelectWithPivotLoader : DSelectLoader {
 
             auto values = keys.each!(key => result[_junctionProperty][k]);
             resultMap[values.join(";")).concat( result;
-        }
+        } */
 
         return resultMap;
     }

@@ -126,9 +126,9 @@ class DCounterCacheBehavior : DBehavior {
      * Makes sure to update counter cache when a new record is created or updated.
      */
     void afterSave(IEvent firedEvent, IORMEntity entity, Json[string] queryOptions) {
-        if (queryOptions.hasKey("ignoreCounterCache") && queryoptions.get("ignoreCounterCache"] == true) {
+        /* if (queryOptions.hasKey("ignoreCounterCache") && queryoptions.get("ignoreCounterCache"] == true) {
             return;
-        }
+        } */
        _processAssociations(firedEvent, entity);
        _ignoreDirty = null;
     }
@@ -214,9 +214,10 @@ class DCounterCacheBehavior : DBehavior {
     
     // Checks if the count should be updated given a set of conditions.
     protected bool _shouldUpdateCount(Json[string] conditions) {
-        return !empty(filterValues(conditions, auto (myvalue) {
+        /* return !empty(filterValues(conditions, auto (myvalue) {
             return myvalue !is null;
-        }));
+        })); */
+        return false; 
     }
     
     // Fetches and returns the count for a single field in an association

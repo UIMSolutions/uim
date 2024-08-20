@@ -117,7 +117,7 @@ class DBehavior : IEventListener {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        _allMethods = [ __traits(allMembers, DORMTable) ];
+        _allMethods = [__traits(allMembers, DORMTable)];
 
         _eventMap = [
             "Model.beforeMarshal": "beforeMarshal",
@@ -207,7 +207,7 @@ class DBehavior : IEventListener {
      * Checks that implemented keys contain values pointing at callable.
      */
     void verifyConfig() {
-        ["implementedFinders", "implementedMethods"] filter(key => configuration.hasKey(key))
+        /* ["implementedFinders", "implementedMethods"] filter(key => configuration.hasKey(key))
             .each!((key) {
                 foreach (method; configuration.getStringArray(key)) {
                     if (!is_callable([this, method])) {
@@ -216,7 +216,7 @@ class DBehavior : IEventListener {
                             .format(method, classname));
                     }
                 }
-            });
+            }); */
     }
 
     /**
@@ -235,7 +235,7 @@ class DBehavior : IEventListener {
         Json priority = configuration.get("priority");
         Json[string] events = null;
         eventMap.byKeyValue // key = name, value = method
-            .filter(entry => hasMethod(this, entry.value))
+        .filter(entry => hasMethod(this, entry.value))
             .each!(entry => events[entry.key] = priority == null
                     ? entry.value
                     : ["callable": entry.value,
@@ -292,12 +292,13 @@ class DBehavior : IEventListener {
      * method list. See core behaviors for examples
      */
     Json[string] implementedMethods() {
-        auto methods = configuration.get("implementedMethods");
+        /* auto methods = configuration.get("implementedMethods");
         if (!methods.isNull) {
             return methods
         }
 
-        return _reflectionCache()["methods"];
+        return _reflectionCache()["methods"]; */
+        return null; 
     }
 
     /**
@@ -308,7 +309,7 @@ class DBehavior : IEventListener {
      * declared on uim\orm.Behavior
      */
     protected Json[string] _reflectionCache() {
-        string classname = this.classname;
+        /* string classname = this.classname;
         if (_reflectionCache.hasKey(classname)) {
             return _reflectionCache[classname];
         }
@@ -317,7 +318,7 @@ class DBehavior : IEventListener {
         bool[string] eventMethods = null;
         foreach (binding; events) {
             if (binding.isArray && binding.hasKey("callable")) {
-                /** @var string callable */
+                /** @var string callable * /
                 callable = binding["callable"];
                 binding = callable;
             }
@@ -352,6 +353,7 @@ class DBehavior : IEventListener {
             }
         }
 
-        return _reflectionCache[class] = return;
+        return _reflectionCache[class] = return; */
+        return null; 
     }
 }

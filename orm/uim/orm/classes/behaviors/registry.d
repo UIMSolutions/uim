@@ -87,7 +87,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Enabled behaviors will be registered with the event manager.
      */
     protected IBehavior _create(string classname, string aliasname, Json[string] myConfiguration) {
-        DORMBehavior instance = new class(_table, myConfiguration);
+        /* DORMBehavior instance = new class(_table, myConfiguration);
         if (configuration.getBoolean("enabled", true)) {
             getEventManager().on(instance);
         }
@@ -96,7 +96,8 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         _methodMap ~= methodNames["methods"];
         _finderMap ~= methodNames["finders"];
 
-        return instance;
+        return instance; */
+        return null; 
     }
 
     /**
@@ -111,7 +112,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         auto finders = array_change_key_case(behavior.implementedFinders());
         auto methodNames = array_change_key_case(behavior.implementedMethods());
 
-        foreach (finder, myMethodName; finders) {
+       /*  foreach (finder, myMethodName; finders) {
             if (isset(_finderMap[finder]) && this.has(_finderMap[finder][0])) {
                 auto duplicate = _finderMap[finder];
                 auto error =
@@ -120,7 +121,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
                 throw new DLogicException(error);
             }
             finders[finder] = [aliasname, methodName];
-        }
+        } */
 
         foreach (myMethodKey, methodName; methods) {
             if (_methodMap.hasKey(myMethodKey) && this.has(_methodMap[myMethodKey][0])) {
@@ -161,7 +162,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     // Invoke a method on a behavior.
     Json call(string aMethodName, Json[string] methodsData = null) {
         aMethodName = strtolower(aMethodName);
-        if (hasMethod(aMethodName) && this.has(_methodMap[aMethodName][0])) {
+        /* if (hasMethod(aMethodName) && this.has(_methodMap[aMethodName][0])) {
             [behavior, callMethod] = _methodMap[aMethodName];
 
             return _loaded[behavior]. {
@@ -172,14 +173,14 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
 
         throw new BadMethodCallException(
             "Cannot call '%s' it does not belong to any attached behavior.".format(aMethodName)
-        );
+        ); */
     }
 
     // Invoke a finder on a behavior.
     DORMQuery callFinder(string finderType, Json[string] methodsData = null) {
         finderType = finderType.lower;
 
-        if (this.hasFinder(finderType) && this.has(_finderMap[finderType][0])) {
+        /* if (this.hasFinder(finderType) && this.has(_finderMap[finderType][0])) {
             [behavior, callMethod] = _finderMap[finderType];
             callable = [_loaded[behavior], callMethod];
 
@@ -189,7 +190,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
         throw new BadMethodCallException(
             "Cannot call finder '%s' it does not belong to any attached behavior.".format(
                 finderType)
-        );
+        ); */
     }
 }
 auto BehaviorRegistry() { // Singleton

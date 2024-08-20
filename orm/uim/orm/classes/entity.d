@@ -9,7 +9,7 @@ import uim.orm;
  * methods for retrieving and storing properties associated in this row.
  */
 class DORMEntity { // }: IORMEntity, IInvalidProperty {
-    mixin TEntity();
+    mixin TEntity;
 
     /**
      * Initializes the internal properties of this entity out of the

@@ -563,7 +563,7 @@ unittest {
   assert(testValues.unshift("x", "y").length == 5);
   assert(testValues.has("x"));
 
-  testValues = ;
+  testValues = ["a", "b", "c"];
   assert(testValues.unshift(["x", "y"]).length == 5);
   assert(testValues == ["a", "b", "c", "x", "y"]);
 }

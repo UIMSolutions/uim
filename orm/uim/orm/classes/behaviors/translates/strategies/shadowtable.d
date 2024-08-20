@@ -8,30 +8,30 @@ import uim.orm;
  * This class provides a way to translate dynamic data by keeping translations
  * in a separate shadow table where each row corresponds to a row of primary table.
  */
-class DShadowTableStrategy { // TODO }: ITranslateStrategy {
+class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
     mixin TConfigurable;
-
     mixin TLocatorAware;
     // TODO mixin TTranslateStrategy() {
     //     buildMarshalMap as private _buildMarshalMap;
     // }
 
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
     this(string name) {
-        this().name(name);
+       super(name);
     }
 
     // Hook method
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         configuration
             .setDefault("fields", Json.emptyArray)
@@ -45,8 +45,6 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     this(DORMTable table, Json[string] initData) {
         auto tableAlias = table.aliasName();

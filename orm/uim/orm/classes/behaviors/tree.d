@@ -369,27 +369,29 @@ class DTreeBehavior : DBehavior {
                 configuration.get("right")
             ]
         );
-        [for, direct] = [options.get("for"), options.get("direct")];
+        /* [for, direct] = [options.get("for"), options.get("direct")]; */
 
-        if (for.isEmpty) {
+        /* if (for.isEmpty) {
             throw new DInvalidArgumentException(
                 "The 'for' key is required for find('children')");
-        }
+        } */
 
         if (query.clause("order") == null) {
             query.order([left: "ASC"]);
         }
 
-        if (direct) {
+        /* if (direct) {
             return _scope(query).where([parent: for]);
-        }
+        } */
 
-        node = _getNode(for);
+        /* node = _getNode(for);
         return _scope(query)
             .where([
                 "{right} <": node.get(configuration.get("right")),
                 "{left} >": node.get(configuration.get("left")),
-            ]);
+            ]); */
+            
+        return null; 
     }
 
     /**

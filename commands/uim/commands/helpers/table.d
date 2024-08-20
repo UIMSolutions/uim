@@ -107,7 +107,7 @@ class DTableHelper : UIMObject { // }: Helper {
     }
     _io.setStyle("text-right", ["text": Json(null)]);
 
-    auto configData = configuration.data;
+    
     auto widths = _calculateWidths(commandArguments);
 
     _rowSeparator(widths);

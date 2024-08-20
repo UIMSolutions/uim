@@ -38,7 +38,7 @@ class DMarshaller {
         // Map associations
         options.set("associated", options.getArray("associated"));
 
-        auto myinclude = _normalizeAssociations(options.get("associated"]);
+        auto myinclude = _normalizeAssociations(options.get("associated"));
         foreach (key, mynested; myinclude) {
             if (isInteger(key) && isScalar(mynested)) {
                 key = mynested;
@@ -520,7 +520,7 @@ class DMarshaller {
 
             return myentity;
         }
-        foreach (fieldName;  /* (array) */ options.get("fields"]) {
+        /* foreach (fieldName;  /* (array) * / options.get("fields")) {
             assert(
                 isString(fieldName));
             if (!hasKey(fieldName, myproperties)) {
@@ -532,7 +532,7 @@ class DMarshaller {
                 myentity.setDirty(fieldName, myproperties[fieldName]
                         .isChanged());
             }
-        }
+        } */
         dispatchAfterMarshal(myentity, mydata, options);
 
         return myentity;

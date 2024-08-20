@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 class DDeleteQuery : DQuery {
-    mixin TCommonQuery();
+    mixin TCommonQuery;
 
     this(DORMTable mytable) {
         super(table.getConnection());

@@ -230,7 +230,7 @@ class DBehavior : IEventListener {
      */
     protected STRINGAA _eventMap;
     Json[string] implementedEvents() {
-        auto configData = configuration.data;
+        
 
         Json priority = configuration.get("priority");
         Json[string] events = null;

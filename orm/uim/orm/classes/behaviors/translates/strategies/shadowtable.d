@@ -48,20 +48,19 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
     mixin(TProperty!("string", "name"));
 
-    this(DORMTable table, Json[string] configData) {
+    this(DORMTable table, Json[string] initData) {
         auto tableAlias = table.aliasName();
         [plugin] = pluginSplit(table.registryKey(), true);
         auto tableReferenceName = configuration.get("referenceName");
-        auto myConfiguration += [
-            "mainTableAlias": tableAlias,
-            "translationTable": plugin.tableReferenceName ~ "Translations",
-            "hasOneAlias": tableAlias ~ "Translation",
-        ];
+        configuration
+            .merge("mainTableAlias", tableAlias)
+            .merge("translationTable", plugin.tableReferenceName ~ "Translations")
+            .merge("hasOneAlias", tableAlias ~ "Translation");
+
         if (configuration.contains("tableLocator")) {
             _tableLocator = configuration.get("tableLocator");
         }
 
-        configuration.set(myConfiguration);
         _table = table;
         _translationTable = getTableLocator()
             .get(
@@ -77,26 +76,24 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * Don"t create a hasOne association here as the join conditions are modified
      * in before find - so create/modify it there.
      */
-    protected void setupAssociations() {
-        auto configData = configuration.data;
-        targetAlias = _translationTable.aliasName();
-        _table.hasMany(targetAlias, [
-                "classname": configuration.get("translationTable"),
-                "foreignKeys": Json("id"),
-                "strategy": configuration.get("strategy"),
-                "propertyName": Json("_i18n"),
-                "dependent": true.toJson,
-            ]);
+    protected void setupAssociations() {    
+        auto targetAlias = _translationTable.aliasName();
+        _table.hasMany(targetAlias, createMap!(string, Json)
+                .set("classname", configuration.get("translationTable"))
+                .set("foreignKeys", "id")
+                .set("strategy", configuration.get("strategy"))
+                .set("propertyName", "_i18n")
+                .set("dependent", true));
     }
 
-    /**
+,   /*)
      * Callback method that listens to the `beforeFind` event in the bound
      * table. It modifies the passed query by eager loading the translated fields
      * and adding a formatter to copy the values into the main table records.
      */
     void beforeFind(IEvent event, Query query, Json[string] options) {
         auto locale = Hash.get(options, "locale", locale());
-        auto configData = configuration.data;
+        
         if (
             locale == configuration.get("defaultLocale")) {
             return;
@@ -124,7 +121,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
     // Create a hasOne association for record with required locale.
     protected void setupHasOneAssociation(string localeName, Json[string] options) {
-        auto configData = configuration.data;
+        
         [plugin] = pluginSplit(
             configuration.get("translationTable"));
         hasOneTargetAlias = plugin
@@ -233,9 +230,6 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
             return c;
         } 
-
-        
-
         );*/
         return joinRequired;
     }

@@ -7,5 +7,5 @@ module uim.orm.interfaces.propertymarshal;
  */
 interface IPropertyMarshal {
     // Build a set of properties that should be included in the marshalling process.
-    auto buildMarshalMap(DMarshaller marshaller, Json[string] mymap, Json[string] options = null);
+    /* auto buildMarshalMap(DMarshaller marshaller, Json[string] mymap, Json[string] options = null); */
 }

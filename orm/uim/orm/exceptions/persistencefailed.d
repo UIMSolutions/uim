@@ -21,14 +21,13 @@ class DPersistenceFailedException : DORMException {
 
         return true;
     }
-}
 
-mixin(ExceptionCalls!("PersistenceFailed"));
+    mixin(ExceptionCalls!("PersistenceFailed"));
 
     // The entity on which the persistence operation failed
     protected IORMEntity _entity;
 
-    protected _messageTemplate = "Entity %s failure.";
+    protected string _messageTemplate = "Entity %s failure.";
 
     this(IORMEntity entity, string[] myMessage, int errorCode = null, Throwable previousException = null) {
         string[] errors = Hash.flatten(entity.getErrors()).byKeyValue.each!(kv => kv.key ~ ": \"" ~ kv.value ~ "\"");
@@ -48,3 +47,4 @@ mixin(ExceptionCalls!("PersistenceFailed"));
     IORMEntity getEntity() {
         return _entity;
     } 
+}

@@ -165,11 +165,11 @@ class DText {
         
         auto mydataKeys = mydata.keys;
         myhashKeys = mydataKeys.md5;
-        /** @var STRINGAA mytempData */
-        mytempData = mydataKeys.combine(myhashKeys);
-        krsort(mytempData);
+        /** @var STRINGAA tempData */
+        tempData = mydataKeys.combine(myhashKeys);
+        krsort(tempData);
 
-        foreach (mytempData as aKey: myhashVal) {
+        foreach (aKey: myhashVal; tempData) {
             aKey = myformat.format(preg_quote(aKey, "/"));
             placeholder = /* (string) */preg_replace(aKey, myhashVal, placeholder);
         }
@@ -190,8 +190,6 @@ class DText {
      * options. The default method used is text but html is also available. The goal of this function
      * is to replace all whitespace and unneeded markup around placeholders that did not get replaced
      * by Text.insert().
-     * Params:
-     * string stringToClean String to clean.
      */
     static string cleanInsert(string textToClean, Json[string] options = null) {
         auto myclean = options.get("clean");
@@ -361,7 +359,7 @@ class DText {
                 }
                 mypart = mb_subString(textToFormat, 0, mybreakAt);
             }
-            mypart =mypart.strip(;
+            mypart =mypart.strip;
             myparts ~= mypart;
             textToFormat = mb_subString(textToFormat, mb_strlen(mypart)).strip;
         }

@@ -30,7 +30,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         if (!errorMessage) {
             errorMessage = _useI18n
                 ? __d("uim", "This value is already in use")
-                : errorMessage = "This value is already in use";
+                : "This value is already in use";
         }
         myerrorField = currentValue(fieldNames);
 

@@ -26,11 +26,11 @@ mixin template TLocatorAware() {
         if (isSet(_tableLocator)) {
             return _tableLocator;
         }
-        mylocator = FactoryLocator.get("Table");
-        assert(
-            cast(ILocator)mylocator,
+        auto locator = FactoryLocator.get("Table");
+        /* assert(
+            cast(ILocator)locator,
             "`FactoryLocator` must return an instance of UIM\ORM\ILocator for type `Table`."
-       );
+       ); */
 
         return _tableLocator = mylocator;
     }

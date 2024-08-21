@@ -150,12 +150,12 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         * validation set, or an associative array, where key is the name of the
         * validation set and value the Validator instance. */
 
-        if (!configuration.isEmpty("registryAlias")) {
+        /* if (!configuration.isEmpty("registryAlias")) {
             this.registryKey(configuration.get("registryAlias"));
-        }
+        } */
 
         // table: Name of the database table to represent
-        if (configuration.hasKey("table")) {
+        /* if (configuration.hasKey("table")) {
             setTable(configuration.get("table"));
         }
         if (configuration.hasKey("alias")) {
@@ -510,31 +510,31 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                 return _displayFields = column;
             }
         });
-        return _displayFields = this.primaryKeys();
+        return _displayFields = primaryKeys();
     }
     
     // Returns the class used to hydrate rows for this table.
     string getEntityClass() {
         if (!_entityClass) {
-            auto defaultValue = Entity.classname;
-            auto myself = class;
-            string[] myparts = mysplit("\\");
+            /* auto defaultValue = Entity.classname; */
+            /* auto myself = class; */
+            /* string[] myparts = mysplit("\\");
 
             if (myself == classname || count(myparts) < 3) {
                 _entityClass = defaultValue;
                 return _entityClass;
-            }
-            string aliasName = Inflector.classify(subString(myparts.pop(), 0, -5).underscore);
+            } */
+            /* string aliasName = Inflector.classify(subString(myparts.pop(), 0, -5).underscore);
             string myname = myparts.slice(0, -1).join("\\") ~ "\\Entity\\" ~ aliasName;
             if (!class_hasKey(myname)) {
                 return _entityClass = defaultValue;
             }
-            /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass */
+            /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass * /
             myclass = App.classname(myname, "Model/Entity");
             if (!myclass) {
                 throw new DMissingEntityException([myname]);
             }
-           _entityClass = myclass;
+           _entityClass = myclass; */
         }
         return _entityClass;
     }
@@ -1117,7 +1117,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
        /* Closure */ /* string[]| */string parentField = "parent_id",
         string nestingKey = "children"
    ) {
-        auto keyFields = keyFields.ifEmpty(this.primaryKeys());
+        auto keyFields = keyFields.ifEmpty(primaryKeys());
         auto options = _setFieldMatchers(compact("keyFields", "parentField"), ["keyFields", "parentField"]);
 
         /* return selectquery.formatResults(fn (ICollection results) =>
@@ -1375,7 +1375,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      *
      * This is useful for subqueries.
      */
-    SelectQuery subquery() {
+    DSelectQuery subquery() {
         return _queryFactory.select(this).disableAutoAliasing();
     }
     
@@ -1411,7 +1411,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * \UIM\Database\Expression\QueryExpression|\/*Closure|* / string[]|string myconditions Conditions to be used, accepts anything Query.where()
      * can take.
      */
-    int deleteAll(/* QueryExpression| Closure|string[]| */string myconditions) {
+    int deleteAll(/* QueryExpression| Closure|string[]| */string conditions) {
         /* auto mystatement = this.deleteQuery()
             .where(myconditions)
             .execute();
@@ -1561,12 +1561,12 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     
     // Performs the actual saving of an entity based on the passed options.
     protected /* IORMEntity| */bool _processSave(IORMEntity entityToSave, Json[string] options) {
-        auto myprimaryColumns = /* (array) */this.primaryKeys();
+        auto primaryColumns = /* (array) */primaryKeys();
 
-        if (options.hasKey("checkExisting") && myprimaryColumns && entityToSave.isNew() && entityToSave.has(myprimaryColumns)) {
+        if (options.hasKey("checkExisting") && primaryColumns && entityToSave.isNew() && entityToSave.has(primaryColumns)) {
             auto aliasName = aliasName();
             auto myconditions = null;
-            /* entityToSave.extract(myprimaryColumns).byKeyValue.each!(kv => myconditions.setPath(["aliasName", kv.key], kv.value));
+            /* entityToSave.extract(primaryColumns).byKeyValue.each!(kv => myconditions.setPath(["aliasName", kv.key], kv.value));
             entityToSave.setNew(!this.hasKey(myconditions)); */
         }
         auto mymode = entityToSave.isNew() ? RulesChecker.CREATE : RulesChecker.UPDATE;
@@ -1612,7 +1612,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             mysuccess = _onSaveSuccess(entityToSave, options);
         }
         if (!mysuccess && myisNew) {
-            entityToSave.removeKey(this.primaryKeys());
+            entityToSave.removeKey(primaryKeys());
             entityToSave.setNew(true);
         }
         return mysuccess ? entityToSave : false; */
@@ -1623,20 +1623,23 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Handles the saving of children associations and executing the afterSave logic
      * once the entity for this table has been saved successfully.
      */
-    protected bool _onSaveSuccess(IORMEntity entityToSave, Json[string] options) {
+    protected bool _onSaveSuccess(IORMEntity entity, Json[string] options) {
         mysuccess = _associations.saveChildren(
             this,
-            entityToSave,
+            entity,
             options.get("associated"),
-            options.dup.merge(["_primary": false.toJson]) 
+            options.merge("_primary", false) 
        );
 
-        if (!mysuccess && options.get("atomic"]) {
+        if (!mysuccess && options.get("atomic")) {
             return false;
         }
-        dispatchEvent("Model.afterSave", compact("entity", "options"));
+        dispatchEvent("Model.afterSave", createMap!(string, Json)
+            .set("entity", entity)
+            .set("options", options));
 
-        if (options.hasKey("atomic"] && !getConnection().inTransaction()) {
+
+        if (options.hasKey("atomic") && !getConnection().inTransaction()) {
             throw new DRolledbackTransactionException(["table": class]);
         }
         if (!options.hasKey("atomic") && !options.hasKey("_primary")) {
@@ -1687,23 +1690,24 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             .values(mydata)
             .execute();
 
-        bool mysuccess = false;
+        bool isSuccess = false;
         if (mystatement.rowCount() != 0) {
-            mysuccess = ormEntity;
+            isSuccess = ormEntity;
             ormEntity.set(myfilteredKeys, ["guard": false.toJson]);
-            myschema = getSchema();
-            mydriver = getConnection().getDriver();
+            
+            auto myschema = getSchema();
+            auto mydriver = getConnection().getDriver();
             foreach (key, value; myprimary) {
                 if (!mydata.hasKey(key)) {
-                    myid = mystatement.lastInsertId(getTable(), key);
-                    columnType = myschema.getColumnType(key);
+                    auto myid = mystatement.lastInsertId(getTable(), key);
+                    auto columnType = myschema.getColumnType(key);
                     assert(columnType !is null);
                     ormEntity.set(key, TypeFactory.build(columnType).ToD(myid, mydriver));
                     break;
                 }
             }
         }
-        return mysuccess;
+        return isSuccess;
     }
     
     /**
@@ -1732,22 +1736,22 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     
     // Auxiliary auto to handle the update of an entity"s data in the table
     protected IORMEntity _updateKey(IORMEntity ormEntity, Json[string] data) {
-        auto myprimaryColumns = this.primaryKeys();
-        auto primaryKey = ormEntity.extract(myprimaryColumns);
+        auto primaryColumns = primaryKeys();
+        auto primaryKey = ormEntity.extract(primaryColumns);
 
         auto mydata = array_diffinternalKey(mydata, primaryKey);
         if (isEmpty(mydata)) {
             return ormEntity;
         }
-        if (count(myprimaryColumns) == 0) {
+        if (count(primaryColumns) == 0) {
             myentityClass = ormEntity.classname;
             mytable = getTable();
             mymessage = "Cannot update `myentityClass`. The `mytable` has no primary key.";
             throw new DInvalidArgumentException(mymessage);
         }
-        if (!ormEntity.has(myprimaryColumns)) {
+        if (!ormEntity.has(primaryColumns)) {
             mymessage = "All primary key value(s) are needed for updating, ";
-            mymessage ~= ormEntity.classname ~ " is missing " ~ myprimaryColumns.join(", ");
+            mymessage ~= ormEntity.classname ~ " is missing " ~ primaryColumns.join(", ");
             throw new DInvalidArgumentException(mymessage);
         }
         mystatement = updateQuery()
@@ -1804,7 +1808,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         /* mycleanupOnFailure = void (entities) use (&myisNew) {
             foreach (key: ormEntity; entities) {
                 if (isSet(myisNew[key]) && myisNew[key]) {
-                    ormEntity.removeKey(this.primaryKeys());
+                    ormEntity.removeKey(primaryKeys());
                     ormEntity.setNew(true);
                 }
             }
@@ -1931,26 +1935,24 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Deletes multiple entities of a table.
      *
      * The records will be deleted in a transaction which will be rolled back if
-     * any one of the records fails to delete due to failed validation or database
-     * error.
+     * any one of the records fails to delete due to failed validation or database error.
      */
-    iterable<\UIM\Datasource\IORMEntity> deleteManyOrFail(IORMEntity[] entities, Json[string] options = null) {
-        auto myfailed = _deleteMany(entities, options);
+    IORMEntity[] deleteManyOrFail(IORMEntity[] entities, Json[string] options = null) {
+        /* auto myfailed = _deleteMany(entities, options);
 
         if (myfailed !is null) {
             throw new DPersistenceFailedException(myfailed, ["deleteMany"]);
-        }
+        } */
         return entities;
     }
     
     protected IORMEntity _deleteMany(Json[string] entities, Json[string] options = null) {
-        options = new Json[string](options ~ [
-                "atomic": true.toJson,
-                "checkRules": true.toJson,
-                "_primary": true.toJson,
-            ]);
+        options = options
+            .merge("atomic", true)
+            .merge("checkRules", true)
+            .merge("_primary", true);
 
-        myfailed = _executeTransaction(function () use (entities, options) {
+        /* myfailed = _executeTransaction(function () use (entities, options) {
             foreach (entities as ormEntity) {
                 if (!_processremoveKey(ormEntity, options)) {
                     return ormEntity;
@@ -1966,7 +1968,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                     "options": options.toJson,
                 ]));
         }
-        return myfailed;
+        return myfailed; */
+        return null;
     }
     
     /**
@@ -1994,28 +1997,27 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             return false;
         }
         
-        auto primaryKey = (array)this.primaryKeys();
+        auto primaryKey = /* (array) */primaryKeys();
         if (!ormEntity.has(primaryKey)) {
             mymsg = "Deleting requires all primary key values.";
             throw new DInvalidArgumentException(mymsg);
         }
-        if (options.hasKey("checkRules"] && !this.checkRules(ormEntity, RulesChecker.DELETE, options)) {
+        if (options.hasKey("checkRules") && !this.checkRules(ormEntity, RulesChecker.DELETE, options)) {
             return false;
         }
         
-        auto event = dispatchEvent("Model.beforeDelete", [
-            "entity": ormEntity.toJson,
-            "options": options.toJson,
-        ]);
+        auto event = dispatchEvent("Model.beforeDelete", createMap!(string, Json)
+            .set("entity", ormEntity)
+            .set("options", options));
 
         if (event.isStopped()) {
-            return (bool)event.getResult();
+            return /* (bool) */event.getResult();
         }
-        mysuccess = _associations.cascaderemoveKey(
+        /* mysuccess = _associations.cascaderemoveKey(
             ormEntity,
             ["_primary": false.toJson + options.dup}
-       );
-        if (!mysuccess) {
+       ); */
+        /* if (!mysuccess) {
             return mysuccess;
         }
         mystatement = this.deleteQuery()
@@ -2028,24 +2030,20 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         dispatchEvent("Model.afterDelete", [
             "entity": ormEntity.toJson,
             "options": options,
-        ]);
+        ]); */
 
         return true;
     }
     
-    /**
-     * Returns true if the finder exists for the table
-     * Params:
-     * string mytype name of finder to check
-     */
+    // Returns true if the finder exists for the table
    bool hasFinder(string finderType) {
         auto finderName = "find" ~ finderType;
         return hasMethod(this, finderName) || _behaviors.hasFinder(finderType);
     }
     
     // Calls a finder method and applies it to the passed query.
-    SelectQuery<TSubject> callFinder(string finderType, DSelectQuery myquery, Json arguments) {
-        string myfinder = "find" ~ finderType;
+    DSelectQuery/* <TSubject> */ callFinder(string finderType, DSelectQuery myquery, Json arguments) {
+        /* string myfinder = "find" ~ finderType;
         if (hasMethod(myfinder)) {
             return _invokeFinder(this.{myfinder}(...), myquery, arguments);
         }
@@ -2056,7 +2054,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             "Unknown finder method `%s` on `%s`.".format(
             finderType,
             class
-       ));
+       )); */
+       return null;
     }
     
     /* DSelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string] arguments) {
@@ -2123,7 +2122,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     // Provides the dynamic findBy and findAllBy methods.
     protected ISelectQuery _dynamicFinder(string methodName, Json[string] arguments) {
         string methodName = methodName.underscore;
-        preg_match("/^find_([\w]+)_by_/", methodName, mymatches);
+        /* preg_match("/^find_([\w]+)_by_/", methodName, mymatches);
         if (mymatches.isEmpty) {
             // find_by_is 8 characters.
             fieldNames = subString(methodName, 8);
@@ -2134,7 +2133,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         }
         auto myhasOr = fieldNames.contains("_or_");
         auto myhasAnd = fieldNames.contains("_and_");
-
+ */
         /* auto mymakeConditions = auto (fieldNames, arguments) {
             myconditions = null;
             if (count(arguments) < count(fieldNames)) {
@@ -2148,9 +2147,9 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             return myconditions;
         }; */
 
-        if (myhasOr == true && myhasAnd == true) {
+        /* if (myhasOr == true && myhasAnd == true) {
             throw new BadMethodCallException(
-                "Cannot mix "and" & "or" in a magic finder. Use find() instead."
+                "Cannot mix 'and' & 'or' in a magic finder. Use find() instead."
            );
         }
         if (myhasOr == false && myhasAnd == false) {
@@ -2164,7 +2163,9 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             string[] fieldNames = fieldNames.split("_and_");
             myconditions = mymakeConditions(fieldNames, arguments);
         }
-        return _find(myfindType, conditions: myconditions);
+        return _find(myfindType, conditions: myconditions); */
+
+        return null; 
     }
     
     /**
@@ -2174,15 +2175,16 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * they were on the table object.
      */
     Json __call(string methodToInvoke, Json[string] arguments) {
-        if (_behaviors.hasMethod(methodToInvoke)) {
+        /* if (_behaviors.hasMethod(methodToInvoke)) {
             return _behaviors.call(methodToInvoke, arguments);
         }
-        if (preg_match("/^find(?:\w+)?By/", methodToInvoke) > 0) {
+        if (preg_match("/^find(?:\\w+)?By/", methodToInvoke) > 0) {
             return _dynamicFinder(methodToInvoke, arguments);
         }
         throw new BadMethodCallException(
             "Unknown method `%s` called on `%s`".format(methodToInvoke, class)
-       );
+       ); */
+       return Json(null);
     }
     
     /**
@@ -2193,9 +2195,9 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         auto myassociation = _associations.get(associationName);
         if (!myassociation) {
             throw new DatabaseException(
-                "Undefined property `%s`. " .
+                "Undefined property `%s`. " ~
                 "You have not defined the `%s` association on `%s`."
-                .format(associationName, associationName, class));
+                .format(associationName, associationName, "class"));
         }
         return myassociation;
     }
@@ -2203,8 +2205,6 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     /**
      * Returns whether an association named after the passed value
      * exists for this table.
-     * Params:
-     * string myproperty the association name
      */
    bool __isSet(string associationName) {
         return _associations.has(associationName);

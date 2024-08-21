@@ -45,6 +45,6 @@ mixin template TAssociationsNormalizer() {
             mypointer["associated"][tableName] = options + mypointer["associated"][tableName];
         }
         
-        return result.get("associated", result;
+        return result.set("associated", result);
     }
 }

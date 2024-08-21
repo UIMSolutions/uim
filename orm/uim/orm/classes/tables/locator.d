@@ -173,7 +173,7 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
             return options.get("classname");
         }
         foreach (location; _locations) {
-            myclass = App.classname(options.get("classname"), location, "Table");
+            auto myclass = App.classname(options.get("classname"), location, "Table");
             if (!myclass.isNull) {
                 return myclass;
             }

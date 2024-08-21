@@ -257,17 +257,13 @@ class DSelectLoader {
      * Returns a TupleComparison object that can be used for matching all the fields
      * from keys with the tuple values in filter using the provided operator.
      */
-    protected TupleComparison _createTupleCondition(
-        DQuery query, string[] keys, Json filter, string operator) {
+    protected DTupleComparison _createTupleCondition(DQuery query, string[] keys, Json filter, string operator) {
         auto types = null;
-        auto defaults = query
-            .getDefaultTypes();
-        foreach (
-            key; keys) {
-            if (defaults.hasKey(
-                    key)) {
-                types ~= defaults[key];
-            }
+        auto defaults = query.getDefaultTypes();
+        
+        keys
+            .filter!(key => defaults.hasKey(key))
+            .each!(key => types ~= defaults[key]);
         }
 
         return new DTupleComparison(keys, filter, types, operator);
@@ -281,13 +277,11 @@ class DSelectLoader {
         Json[string] options = null) {
         auto links = null;
         auto name = _aliasName;
-        if (options.get(
-                "foreignKeys") == false && _associationType == Association
+        if (options.get("foreignKeys") == false && _associationType == Association
             .ONE_TO_MANY) {
             auto message = "Cannot have foreignKeys = false for hasMany associations~ " ~
                 "You must provide a foreignKeys column.";
-            throw new DRuntimeException(
-                message);
+            throw new DRuntimeException(message);
         }
 
         auto keys = isIn(

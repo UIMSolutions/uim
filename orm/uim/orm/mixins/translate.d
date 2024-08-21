@@ -26,19 +26,20 @@ mixin template TTranslate() {
         }
 
         if (isCreated || i18n.isEmpty(language) || !(cast(IORMEntity)i18n[language])) {
-            classname = class;
+            /* classname = class;
 
             i18n[language] = new classname();
-            isCreated = true;
+            isCreated = true; */
         }
 
-        if (isCreated) {
+        /* if (isCreated) {
             set("_translations", i18n);
-        }
+        } */
 
         // Assume the user will modify any of the internal translations, helps with saving
         setDirty("_translations", true);
 
-        return i18n[language];
+        // return i18n[language];
+        return null;
     } 
 }

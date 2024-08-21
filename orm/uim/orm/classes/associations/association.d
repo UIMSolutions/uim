@@ -136,19 +136,19 @@ class DAssociation : UIMObject, IAssociation {
     protected IORMTable _sourceTable;
 
     // Sets the table instance for the source side of the association.
-    void setSource(DORMTable table) {
+    void setSource(IORMTable table) {
         _sourceTable = table;
     }
 
     // Gets the table instance for the source side of the association.
-    Table source() {
+    IORMTable source() {
         return _sourceTable;
     }
 // #endregion sourceTable 
 
     // Target table instance
     protected IORMTable _targetTable;
-// Sets the table instance for the target side of the association.
+    // Sets the table instance for the target side of the association.
     IAssociation setTarget(DORMTable aTable) {
         _targetTable = table;
         return this;

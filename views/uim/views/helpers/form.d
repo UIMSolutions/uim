@@ -337,10 +337,10 @@ class DFormHelper : DHelper {
     
     // Create the URL for a form based on the options.
     protected string[] _formUrl(IContext formContext, Json[string] options = null) {
-        auto myrequest = _view.getRequest();
+        auto request = _view.getRequest();
 
         if (options.isNull("url")) {
-            return myrequest.getRequestTarget();
+            return request.getRequestTarget();
         }
         if (
             options.isString("url") ||
@@ -348,24 +348,20 @@ class DFormHelper : DHelper {
        ) {
             return options.get("url");
         }
-        myactionDefaults = createMap!(string, Json)()
-            .set("plugin", _view.pluginName)
-            .set("controller", myrequest.getParam("controller"))
-            .set("action", myrequest.getParam("action"));
 
-        return (array)options.get("url") + myactionDefaults;
+        return options.get("url")
+            .merge("plugin", _view.pluginName)
+            .merge("controller", request.getParam("controller"))
+            .merge("action", request.getParam("action"));
     }
     
-    /**
-     * Correctly store the last created form action URL.
-     * Params:
-     * string[] myurl The URL of the last form.
-     */
-    protected void _lastAction(string[] myurl = null) {   myaction = Router.url(myurl, true);
-        myquery = parse_url(myaction, D_URL_QUERY);
+    // Correctly store the last created form action URL.
+    protected void _lastAction(string[] myurl = null) {   
+        auto myaction = Router.url(myurl, true);
+        auto myquery = parse_url(myaction, D_URL_QUERY);
         myquery = myquery ? "?" ~ myquery : "";
 
-        mypath = parse_url(myaction, D_URL_PATH) ?: "";
+        auto mypath = parse_url(myaction, D_URL_PATH) ?: "";
        _lastAction = mypath ~ myquery;
     }
     
@@ -374,16 +370,14 @@ class DFormHelper : DHelper {
      * Used to secure forms in conjunction with CsrfMiddleware.
      */
     protected string _csrfField() {
-        myrequest = _view.getRequest();
-
-        mycsrfToken = myrequest.getAttribute("csrfToken");
-        if (!mycsrfToken) {
+        auto request = _view.getRequest();
+        auto csrfToken = request.getAttribute("csrfToken");
+        if (!csrfToken) {
             return null;
         }
-        return _hidden("_csrfToken", [
-            "value": mycsrfToken,
-            "secure": SECURE_SKIP,
-        ]);
+        return _hidden("_csrfToken", createMap!(string, Json)
+            .set("value", csrfToken)
+            .set("secure", SECURE_SKIP));
     }
     
     /**
@@ -396,7 +390,7 @@ class DFormHelper : DHelper {
      * into the hidden input elements generated for the Security Component.
      */
     string end(Json[string] secureAttributes= null) {
-        result = "";
+        string result = "";
 
         if (_requestType != "get" && !_view.getRequest().getAttribute("formTokenData").isNull) {
             result ~= this.secure([], secureAttributes);

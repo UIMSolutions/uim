@@ -51,14 +51,14 @@ interface ITranslateStrategy : IPropertyMarshal {
      * table. It modifies the passed query by eager loading the translated fields
      * and adding a formatter to copy the values into the main table records.
      */
-    void beforeFind(IEvent event, DORMQuery query, Json[string] options);
+    void beforeFind(IEvent event, DQuery query, Json[string] options);
 
     /**
      * Modifies the entity before it is saved so that translated fields are persisted
      * in the database too.
      */
-    void beforeSave(IEvent event, IORMEntity anEntity, Json[string] options);
+    void beforeSave(IEvent event, IORMEntity entity, Json[string] options);
 
     // Unsets the temporary `_i18n` property after the entity has been saved
-    void afterSave(IEvent event, IORMEntity anEntity);
+    void afterSave(IEvent event, IORMEntity entity);
 }

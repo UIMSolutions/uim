@@ -50,7 +50,7 @@ import uim.orm;
  * ```
  * [
  *    "Users": [
- *        "posts_published": function (IEvent event, IORMEntity anEntity, DORMTable aTable) {
+ *        "posts_published": function (IEvent event, IORMEntity entity, DORMTable aTable) {
  *            query = table.find("all").where([
  *                "published": true.toJson,
  *                "user_id": entity.get("user_id")

@@ -285,7 +285,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
      * Modifies the entity before it is saved so that translated fields are persisted
      * in the database too.
      */
-    void beforeSave(IEvent event, IORMEntity anEntity, Json[string] options) {
+    void beforeSave(IEvent event, IORMEntity entity, Json[string] options) {
         auto locale = entity.get("_locale") ? entity.get("_locale") : locale();
         auto newOptions = [
             _translationTable.aliasName(): [

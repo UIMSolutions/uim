@@ -38,7 +38,7 @@ class DPersistenceFailedException : DORMException {
         super(message, errorCode, previousException);
     }
 
-    this(IORMEntity anEntity, string message, int errorCode = null, Throwable previousException = null) {
+    this(IORMEntity entity, string message, int errorCode = null, Throwable previousException = null) {
         _entity = entity;
         super(message, errorCode, previousException);
     }

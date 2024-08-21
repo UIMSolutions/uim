@@ -34,7 +34,7 @@ mixin template TTranslateStrategy() {
      * configured one for that matter)!
      */
     void localeName(string locale) {
-        this.locale = locale;
+        _locale = locale;
     }
 
     /**
@@ -44,7 +44,7 @@ mixin template TTranslateStrategy() {
      * the currently configured global locale.
      */
     string locale() {
-        return _locale ?: I18n.locale();
+        return _locale.ifEmpty(I18n.locale());
     }
 
     /**
@@ -90,13 +90,13 @@ mixin template TTranslateStrategy() {
             return [];
         }
 
-        return [
+        /* return [
             "_translations": function (value, entity) use (marshaller, options) {
                 if (!value.isArray) {
                     return null;
                 }
 
-                /** @var array<string, DORMDatasource\IORMEntity>|null translations */
+                /** @var array<string, DORMDatasource\IORMEntity>|null translations * /
                 auto translations = entity.get("_translations");
                 if (translations == null) {
                     translations = null;
@@ -123,11 +123,12 @@ mixin template TTranslateStrategy() {
 
                 return translations;
             },
-        ];
+        ]; */
+        return null; 
     }
 
     // Unsets the temporary `_i18n` property after the entity has been saved
-    void afterSave(IEvent event, IORMEntity anEntity) {
+    void afterSave(IEvent event, IORMEntity entity) {
         entity.removeKey("_i18n");
     }
 }

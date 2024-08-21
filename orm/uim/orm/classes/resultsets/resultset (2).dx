@@ -345,7 +345,7 @@ class DResultset : IResultset {
                 /** @var DORMDORMTable aTable */
                 table = matching["instance"];
                 options.get("source", table.registryKey());
-                /** @var DORMdatasources.IORMEntity anEntity */
+                /** @var DORMdatasources.IORMEntity entity */
                 entity = new matching["entityClass"](results["_matchingData"][aliasName], options);
                 results.setPath(["_matchingData", aliasName], entity);
             }

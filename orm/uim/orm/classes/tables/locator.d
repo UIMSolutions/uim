@@ -61,7 +61,7 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
     void allowFallbackClass(bool enableFallback) {
         allowFallbackClass = enableFallback;
     }
-    void configuration.set(string[] aliasName, Json[string] options = null) {
+    void setConfiguration(string[] aliasName, Json[string] options = null) {
         if (!isString(aliasName)) {
            configuration = aliasName;
 
@@ -113,8 +113,8 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
  
     protected Table createInstance(string aliasName, Json[string] options = null) {
         if (!aliasName.contains("\\")) {
-            [, myclassAlias] = pluginSplit(aliasName);
-            options = ["alias": myclassAlias] + options;
+            /* [, myclassAlias] = pluginSplit(aliasName);
+            options = ["alias": myclassAlias] + options; */
         } else if (!options.hasKey("alias")) {
             options.set("classname", aliasName);
         }
@@ -130,8 +130,8 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
                 options.set("classname", aliasName);
             }
             if (!options.hasKey("table") && !options.getString("classname").contains("\\")) {
-                [, mytable] = pluginSplit(options.get("classname"));
-                options.set("table", mytable.underscore);
+                /* [, mytable] = pluginSplit(options.get("classname"));
+                options.set("table", mytable.underscore); */
             }
             options.set("classname", fallbackclassname);
         } else {
@@ -156,7 +156,7 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
         options.set("registryAlias", aliasName);
         myinstance = _create(options);
 
-        if (options.hasKey("classname"] == this.fallbackclassname) {
+        if (options.getSTring("classname") == _fallbackClassname) {
            _fallbacked.set(aliasName, myinstance);
         }
         return myinstance;
@@ -170,10 +170,10 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
     protected string _getclassname(string aliasName, Json[string] options = null) {
         options.merge("classname", aliasName);
         if (options.getString("classname").contains("\\") && class_hasKey(options.get("classname"))) {
-            return options.get("classname"];
+            return options.get("classname");
         }
         foreach (location; _locations) {
-            myclass = App.classname(options.get("classname"], location, "Table");
+            myclass = App.classname(options.get("classname"), location, "Table");
             if (!myclass.isNull) {
                 return myclass;
             }
@@ -183,7 +183,7 @@ class DTableLocator : UIMObject { // TODO }: DAbstractLocator : ILocator {
     
     // Wrapper for creating table instances
     protected ITable _create(Json[string] options = null) {
-        auto myclass = options.get("classname"];
+        auto myclass = options.get("classname") ;
         return new myclass(options);
     }
     

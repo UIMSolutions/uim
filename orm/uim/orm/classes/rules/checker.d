@@ -149,7 +149,7 @@ class DRulesChecker { // }: BaseRulesChecker {
             myassociationAlias = association;
 
             if (myerrorField.isNull) {
-                myrepository = _options.get("repository", null;
+                myrepository = _options.get("repository");
                 myerrorField = cast(Table)myrepository
                     ? myrepository.getAssociation(association).getProperty()
                     : association.underscore;

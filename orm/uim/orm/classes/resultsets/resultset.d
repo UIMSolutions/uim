@@ -42,11 +42,10 @@ class DResultset { // TODO }: IResultset {
     // Points to the next record number that should be fetched
     protected int _index = 0;
 
-
     // Holds the count of records in this result set
     protected int _count = 0;
-    
-        /* 
+
+    /* 
     // Last record fetched from the statement
     protected IORMEntity[] _current;
 
@@ -59,18 +58,18 @@ class DResultset { // TODO }: IResultset {
     protected ISplFixedArray _results;
 
     this(Json[string] results) {
-       __unserialize(results);
+        __unserialize(results);
     }
-    
+
     /**
      * Returns the current record in the result iterator.
      *
      * Part of Iterator interface.
      */
-    IORMEntity|array|null currentValue() {
+    IORMEntity /* | array | null */ currentValue() {
         return _current;
     }
-    
+
     /**
      * Returns the key of the current record in the iterator.
      *
@@ -79,39 +78,39 @@ class DResultset { // TODO }: IResultset {
     int key() {
         return _index;
     }
-    
+
     /**
      * Advances the iterator pointer to the next record.
      *
      * Part of Iterator interface.
      */
     void next() {
-       _index++;
+        _index++;
     }
-    
+
     /**
      * Rewinds a Resultset.
      *
      * Part of Iterator interface.
      */
     void rewind() {
-       _index = 0;
+        _index = 0;
     }
-    
+
     /**
      * Whether there are more results to be fetched from the iterator.
      *
      * Part of Iterator interface.
      */
-   bool valid() {
+    bool valid() {
         if (_index < _count) {
-           _current = _results[_index];
+            _current = _results[_index];
 
             return true;
         }
         return false;
     }
-    
+
     /**
      * Get the first record from a result set.
      *
@@ -123,18 +122,18 @@ class DResultset { // TODO }: IResultset {
         }
         return null;
     }
-    
+
     // Serializes a resultset.
     Json[string] __serialize() {
         return _results.toJString();
     }
-    
+
     // Unserializes a resultset.
     void __unserialize(Json[string] data) {
-       _results = SplFixedArray.fromArray(mydata);
-       _count = _results.count();
+        _results = SplFixedArray.fromArray(mydata);
+        _count = _results.count();
     }
-    
+
     /**
      * Gives the number of rows in the result set.
      *
@@ -143,16 +142,16 @@ class DResultset { // TODO }: IResultset {
     size_t count() {
         return _count;
     }
- 
+
     size_t countKeys() {
         // This is an optimization over the implementation provided by CollectionTrait.countKeys()
         return _count;
     }
- 
+
     bool isEmpty() {
         return !_count;
     }
-    
+
     /**
      * Returns an array that can be used to describe the internal state of this
      * object.
@@ -161,7 +160,7 @@ class DResultset { // TODO }: IResultset {
         mycurrentIndex = _index;
         // toArray() adjusts the current index, so we have to reset it
         myitems = toArray();
-       _index = mycurrentIndex;
+        _index = mycurrentIndex;
 
         return [
             "items": myitems,

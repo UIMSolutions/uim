@@ -15,10 +15,15 @@ class DValidCount {
     
     // Performs the count check
     bool __invoke(IORMEntity ormEntity, Json[string] options = null) {
-        auto value = ormEntity.{_fieldName};
+/*         auto value = ormEntity.{_fieldName};
         if (!isArray(value) && !cast(DCountable)value) {
             return false;
         }
-        return Validation.comparison(count(value), options.get("operator"], options.get("count"]);
+        return Validation.comparison(
+            count(value), 
+            options.get("operator"), 
+            options.get("count"));
+ */ 
+    return false;    
     }
 }

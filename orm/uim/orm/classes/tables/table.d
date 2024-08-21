@@ -312,8 +312,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      */
     string getTable() {
         if (_table.isNull) {
-            mytable = namespaceSplit(class);
-            mytable = subString(to!string(end(mytable)), 0, -5) ?: _aliasName;
+            auto mytable = namespaceSplit(classname);
+            mytable = subString(to!string(end(mytable)), 0, -5).ifEmpty(_aliasName);
             if (!mytable) {
                 throw new DException(
                     "You must specify either the `alias` or the `table` option for the constructor."
@@ -333,7 +333,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     string aliasName() {
         if (_aliasName.isNull) {
             aliasName = namespaceSplit(classname);
-            aliasName = subString(to!string(end(aliasName), 0, -5)) ?: _table;
+            aliasName = subString(to!string(end(aliasName), 0, -5)),ifEmpty(_table);
             if (!aliasName) {
                 throw new DException(
                     "You must specify either the `alias` or the `table` option for the constructor."
@@ -722,13 +722,13 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Json[string] params Set of associations to bind (indexed by association type)
      */
     void addAssociations(Json[string] params) {
-        foreach (myassocType: mytables; params) {
-            foreach (myassociated: options; mytables) {
+        foreach (myassocType, mytables; params) {
+            foreach (myassociated, options; mytables) {
                 if (isNumeric(myassociated)) {
                     myassociated = options;
                     options = null;
                 }
-                this.{myassocType}(myassociated, options);
+                // this.{myassocType}(myassociated, options);
             }
         }
     }
@@ -1285,8 +1285,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
 
         IORMEntity entity = null;
         /* entity = _executeTransaction(
-            fn (): _processFindOrCreate(mysearch, null /* mycallback */, options.dup),
-            options.get("atomic"]
+            fn (): _processFindOrCreate(mysearch, null /* mycallback * /, options.dup),
+            options.get("atomic")
        ); */
 
         if (entity && _transactionCommitted(options.get("atomic"), true)) {
@@ -1408,26 +1408,28 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * use database foreign keys + ON CASCADE rules if you need cascading deletes combined
      * with this method.
      * Params:
-     * \UIM\Database\Expression\QueryExpression|\/*Closure|*/ string[]|string myconditions Conditions to be used, accepts anything Query.where()
+     * \UIM\Database\Expression\QueryExpression|\/*Closure|* / string[]|string myconditions Conditions to be used, accepts anything Query.where()
      * can take.
      */
-    int deleteAll(QueryExpression|/*Closure|*/ string[]|string myconditions) {
-        auto mystatement = this.deleteQuery()
+    int deleteAll(/* QueryExpression| Closure|string[]| */string myconditions) {
+        /* auto mystatement = this.deleteQuery()
             .where(myconditions)
             .execute();
 
-        return mystatement.rowCount();
+        return mystatement.rowCount(); */
+        return 0;
     }
  
-    bool hasKey(QueryExpression|/*Closure|*/ string[]|string myconditions) {
-        return (bool)count(
+    bool hasKey(/* QueryExpression| Closure| string[]|*/string myconditions) {
+        /* return (bool)count(
             this.find("all")
             .select(["existing": 1])
             .where(myconditions)
             .limit(1)
             .disableHydration()
             .toJString()
-       );
+       ); */
+       return false;
     }
     
     /**
@@ -1509,17 +1511,14 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * myarticles.save(ormEntity, ["associated": false.toJson]);
      * ```
      */
-    IORMEntity save(IORMEntity entityToSave,
-        Json[string] options = null
-   ) {
-        options = new Json[string](options ~ [
-            "atomic": true.toJson,
-            "associated": true.toJson,
-            "checkRules": true.toJson,
-            "checkExisting": true.toJson,
-            "_primary": true.toJson,
-            "_cleanOnSuccess": true.toJson,
-        ]);
+    IORMEntity save(IORMEntity entityToSave, Json[string] options = null) {
+        option
+            .merge("atomic", true)
+            .merge("associated", true)
+            .merge("checkRules", true)
+            .merge("checkExisting", true)
+            .merge("_primary", true)
+            .merge("_cleanOnSuccess", true);
 
         if (entityToSave.hasErrors(options.getBoolean("associated"))) {
             return false;
@@ -1527,7 +1526,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         if (entityToSave.isNew() == false && !entityToSave.isChanged()) {
             return entityToSave;
         }
-        mysuccess = _executeTransaction(
+        /* mysuccess = _executeTransaction(
             fn (): _processSave(entityToSave, options),
             options.get("atomic"]
        );
@@ -1544,7 +1543,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                 entityToSave.setSource(this.registryKey());
             }
         }
-        return mysuccess;
+        return mysuccess; */
+        return null; 
     }
     
     /**
@@ -1560,22 +1560,22 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     }
     
     // Performs the actual saving of an entity based on the passed options.
-    protected IORMEntity|false _processSave(IORMEntity entityToSave, Json[string] options) {
-        auto myprimaryColumns = (array)this.primaryKeys();
+    protected /* IORMEntity| */bool _processSave(IORMEntity entityToSave, Json[string] options) {
+        auto myprimaryColumns = /* (array) */this.primaryKeys();
 
         if (options.hasKey("checkExisting") && myprimaryColumns && entityToSave.isNew() && entityToSave.has(myprimaryColumns)) {
             auto aliasName = aliasName();
             auto myconditions = null;
-            entityToSave.extract(myprimaryColumns).byKeyValue.each!(kv => myconditions.setPath(["aliasName", kv.key], kv.value));
-            entityToSave.setNew(!this.hasKey(myconditions));
+            /* entityToSave.extract(myprimaryColumns).byKeyValue.each!(kv => myconditions.setPath(["aliasName", kv.key], kv.value));
+            entityToSave.setNew(!this.hasKey(myconditions)); */
         }
         auto mymode = entityToSave.isNew() ? RulesChecker.CREATE : RulesChecker.UPDATE;
-        if (options.hasKey("checkRules"] && !this.checkRules(entityToSave, mymode, options)) {
+        /* if (options.hasKey("checkRules"] && !this.checkRules(entityToSave, mymode, options)) {
             return false;
-        }
+        } */
 
         options.set("associated", _associations.normalizeKeys(options.get("associated")));
-        auto myevent = dispatchEvent("Model.beforeSave", compact("entity", "options"));
+        /* auto myevent = dispatchEvent("Model.beforeSave", compact("entity", "options"));
 
         if (myevent.isStopped()) {
             auto result = myevent.getResult();
@@ -1590,21 +1590,21 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
                );
             }
             return result;
-        }
-        auto mysaved = _associations.saveParents(
+        } */
+        /* auto mysaved = _associations.saveParents(
             this,
             entityToSave,
             options.get("associated"],
             ["_primary": false.toJson] + options.dup
-       );
+       ); */
 
-        if (!mysaved && options.get("atomic"]) {
+        if (!mysaved && options.get("atomic")) {
             return false;
         }
         auto mydata = entityToSave.extract(getSchema().columns(), true);
         auto myisNew = entityToSave.isNew();
 
-        auto mysuccess = myisNew
+        /* auto mysuccess = myisNew
             ? _insert(entityToSave, mydata)
             : _updateKey(entityToSave, mydata);
 
@@ -1615,7 +1615,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             entityToSave.removeKey(this.primaryKeys());
             entityToSave.setNew(true);
         }
-        return mysuccess ? entityToSave : false;
+        return mysuccess ? entityToSave : false; */
+        return false;
     }
     
     /**

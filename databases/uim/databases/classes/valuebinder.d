@@ -13,14 +13,10 @@ class DValueBinder {
      */
     protected Json[string] _bindings;
 
-    /**
-     * A counter of the number of parameters bound in this expression object
-     */
+    // A counter of the number of parameters bound in this expression object
     protected int _bindingsCount = 0;
 
-    /**
-     * Associates a query placeholder to a value and a type
-     */
+    // Associates a query placeholder to a value and a type
     void bind(string placeholder, param, DValue aValue, aType = null) {
         _bindings[placeholder] = createMap!(string, Json)
             .set("value", aValue)

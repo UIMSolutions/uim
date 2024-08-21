@@ -8,9 +8,7 @@ import uim.orm;
 interface ILocator { // }: BaseILocator {
     /**
      * Returns configuration for an alias or the full configuration array for
-     * all aliases.
-     * Params:
-     * string aliasName Alias to get config for, null for complete config.
+     * all aliases. 
      */
     Json[string] getConfig(string aliasName = null);
 
@@ -20,11 +18,11 @@ interface ILocator { // }: BaseILocator {
      */
     // ILocator configuration.set(string[] aliasNames...);
     // ILocator configuration.set(string aliasName, Json[string] options = null);
-    ILocator configuration.set(string[] aliasNames, Json[string] options = null);
+    ILocator setConfiguration(string[] aliasNames, Json[string] options = null);
 
     // Get a table instance from the registry.
-    Table get(string aliasName, Json[string] options = null);
+    IORMTable get(string aliasName, Json[string] options = null);
 
     // Set a table instance.
-    Table set(string aliasName, IRepository repository);
+    IORMTable set(string aliasName, IRepository repository);
 }

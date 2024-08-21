@@ -5,19 +5,44 @@ import uim.databases;
 @safe:
 
 interface IDriver : INamed {
+    // Common Table Expressions (with clause) support.
+    const string FEATURE_CTE = "cte";
+
+    // Disabling constraints without being in transaction support.
+    const string FEATURE_DISABLE_CONSTRAINT_WITHOUT_TRANSACTION = "disable-constraint-without-transaction";
+
+    // Native JSON data type support.
+    const string FEATURE_JSON = "json";
+
+    // PDO::quote() support.
+    const string FEATURE_QUOTE = "quote";
+
+    // Transaction savepoint support.
+    const string FEATURE_SAVEPOINT = "savepoint";
+
+    // Truncate with foreign keys attached support.
+    const string FEATURE_TRUNCATE_WITH_CONSTRAINTS = "truncate-with-constraints";
+
+    // Window function support (all or partial clauses).
+    const string FEATURE_WINDOW = "window";
+    
     // Establishes a connection to the database server.
     IDriver connect();
 
     // String used to start a database identifier quoting to make it safe
     string startQuote();
+
     void startQuote(string quote);
 
     // String used to end a database identifier quoting to make it safe
     string endQuote();
     void endQuote(string quote);
 
-    // Get / Set connection resource or object that is internally used.
-    mixin(IProperty!("IConnection", "connection"));
+    // Returns correct connection resource or object that is internally used.
+    IConnection getConnection();
+
+    // Set the internal connection object.
+    IDriver setConnection(IConnection connection);
 
     // Is able to use this driver for connecting to database.
     bool enabled();
@@ -35,13 +60,15 @@ interface IDriver : INamed {
     bool rollbackTransaction();
 
     // Get the SQL for releasing a save point - myName Save point name or myid
-    string releaseSavePointSQL(UUID myId);
-    string releaseSavePointSQL(string myName);
+    string releaseSavePointSQL(UUID savePointId);
+    string releaseSavePointSQL(string savePointName);
 
     // Get the SQL for creating a save point.
+    string savePointSQL(UUID savePointId);
     string savePointSQL(string savePointName);
 
     // Get the SQL for rollingback a save point.
+    string rollbackSavePointSQL(UUID savePointId);
     string rollbackSavePointSQL(string savePointName);
 
     // Get the SQL for disabling foreign keys.
@@ -57,8 +84,8 @@ interface IDriver : INamed {
      * Returns a callable function that will be used to transform a passed Query object.
      * This function, in turn, will return an instance of a Query object that has been
      * transformed to accommodate any specificities of the SQL dialect in use.
-     * /
-    Closure queryTranslator(string queryType); /* select, insert, update, delete */ 
+     */
+    // Closure queryTranslator(string queryType); /* select, insert, update, delete */ 
 
     /**
      * Get the schema dialect.
@@ -68,8 +95,8 @@ interface IDriver : INamed {
      *
      * If all the tables that use this Driver specify their
      * own schemas, then this may return null.
-     * /
-    SchemaDialect schemaDialect();
+     */
+    // SchemaDialect schemaDialect();
 
     /**
      * Quotes a database identifier (a column name, table name, etc..) to

@@ -15,7 +15,7 @@ interface IConfigurable {
     // Sets configuration
     void configuration(IConfiguration newConfiguration);
 
-    fnal void setConfiguration(string key, Json value) {
+    final void setConfiguration(string key, Json value) {
         configuration.set(key, value);
     }
 

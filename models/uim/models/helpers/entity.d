@@ -3,8 +3,8 @@ module uim.models.helpers.entity;
 import uim.models;
 @safe:
 
-bool isNull(IEntity anEntity) {
-  return (anEntity is null ? true : false);
+bool isNull(IEntity entity) {
+  return (entity is null ? true : false);
 }
 
 unittest {

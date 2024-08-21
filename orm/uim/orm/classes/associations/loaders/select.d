@@ -50,32 +50,31 @@ class DSelectLoader {
     // protected finder;
 
     // The type of the association triggering the load
-    protected string associationType;
+    protected string _associationType;
 
     // The sorting options for loading the association
-    protected string sort;
+    protected string _sort;
 
     /**
      * Returns a callable that can be used for injecting association results into a given
      * iterator. The options accepted by this method are the same as `Association.eagerLoader()`
      */
-    Closure buildEagerLoader(Json[string] options = null) {
+    IClosure buildEagerLoader(Json[string] options = null) {
         auto updatedOptions = options.update_defaultOptions();
-        fetchQuery = _buildQuery(options);
-        resultMap = _buildResultMap(fetchQuery, options);
+        auto fetchQuery = _buildQuery(options);
+        auto resultMap = _buildResultMap(fetchQuery, options);
 
         return _resultInjector(fetchQuery, resultMap, options);
     }
 
     // Returns the default options to use for the eagerLoader
     protected Json[string] _defaultOptions() {
-        return [
-            "foreignKeys": Json(_foreignKey),
-            "conditions": Json.emptyArray,
-            "strategy": Json(_strategyName),
-            "nestKey": Json(_alias),
-            "sort": Json(_sort),
-        ];
+        return createMap!(string, Json)
+            .set("foreignKeys", Json(_foreignKey))
+            .set("conditions", Json.emptyArray)
+            .set("strategy", Json(_strategyName))
+            .set("nestKey", Json(_alias))
+            .set("sort", Json(_sort));
     }
 
     /**
@@ -147,7 +146,7 @@ class DSelectLoader {
      * query.contain(["Comments": ["finder": ["translations": ["locales": ["en_US"]]]]]);
      */
     protected Json[string] _extractFinder(string[] finderData) {
-        finderData =  /* (array) */ finderData;
+        // finderData =  /* (array) */ finderData;
 
         if (key(finderData).isNumeric) {
             return [
@@ -178,12 +177,10 @@ class DSelectLoader {
             return;
         }
 
-        auto missingKey = function(
-            fieldList, key) {
+        /* auto missingKey = function(fieldList, key) {
             return key.any!(field => !isIn(field, fieldList, true));
         };
-        auto missingFields = missingKey(
-            select, key);
+        auto missingFields = missingKey(select, key);
         if (missingFields) {
             driver = fetchQuery.getConnection()
                 .getDriver();
@@ -199,7 +196,7 @@ class DSelectLoader {
                 "You are required to select the '%s' field(s)"
                     .format(", ", key)
             );
-        }
+        } */
     }
 
     /**
@@ -207,10 +204,9 @@ class DSelectLoader {
      * target table query given a filter key and some filtering values when the
      * filtering needs to be done using a subquery.
      */
-    protected DQuery _addFilteringJoin(DQuery query, /* string[]| */ stringkey, DQuery filteringQuery) {
+    protected DQuery _addFilteringJoin(DQuery query, /* string[]| */ string key, DQuery filteringQuery) {
         auto filter = null;
-        auto aliasedTable = this
-            .sourceAlias;
+        auto aliasedTable = _sourceAlias;
 
         foreach (aliasedField, field; filteringQuery.clause("select")) {
             if (
@@ -466,7 +462,7 @@ class DSelectLoader {
      * for injecting the eager loaded rows when the matching needs to
      * be done with multiple foreign keys
      */
-    protected DClosure _multiKeysInjector(
+    protected IClosure _multiKeysInjector(
         Json[string] resultMap, string[] sourceKeys, string nestKey) {
         // TODO 
         /* return function (row) use (resultMap, sourceKeys, nestKey) {

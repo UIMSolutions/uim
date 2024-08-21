@@ -52,26 +52,26 @@ import uim.orm;
  *  Fired when the rules checking object for the table is being built. You can use this
  *  callback to add more rules to the set.
  *
- * - `beforeRules(IEvent event, IORMEntity anEntity, Json[string] options, operation)`
+ * - `beforeRules(IEvent event, IORMEntity entity, Json[string] options, operation)`
  *  Fired before an entity is validated using by a rules checker. By stopping this event,
  *  you can return the final value of the rules checking operation.
  *
- * - `afterRules(IEvent event, IORMEntity anEntity, Json[string] options, bool result, operation)`
+ * - `afterRules(IEvent event, IORMEntity entity, Json[string] options, bool result, operation)`
  *  Fired after the rules have been checked on the entity. By stopping this event,
  *  you can return the final value of the rules checking operation.
  *
- * - `beforeSave(IEvent event, IORMEntity anEntity, Json[string] options)`
+ * - `beforeSave(IEvent event, IORMEntity entity, Json[string] options)`
  *  Fired before each entity is saved. Stopping this event will abort the save
  *  operation. When the event is stopped the result of the event will be returned.
  *
- * - `afterSave(IEvent event, IORMEntity anEntity, Json[string] options)`
+ * - `afterSave(IEvent event, IORMEntity entity, Json[string] options)`
  *  Fired after an entity is saved.
  *
- * - `beforeremoveKey(IEvent event, IORMEntity anEntity, Json[string] options)`
+ * - `beforeremoveKey(IEvent event, IORMEntity entity, Json[string] options)`
  *  Fired before an entity is deleted. By stopping this event you will abort
  *  the delete operation.
  *
- * - `afterremoveKey(IEvent event, IORMEntity anEntity, Json[string] options)`
+ * - `afterremoveKey(IEvent event, IORMEntity entity, Json[string] options)`
  *  Fired after an entity has been deleted.
  *
  * In addition to the core events, behaviors can respond to any

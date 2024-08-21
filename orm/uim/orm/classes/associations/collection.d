@@ -193,7 +193,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Cascade a delete across the various associations.
      * Cascade first across associations for which cascadeCallbacks is true.
      */
-    bool cascaderemoveKey(IORMEntity ormEntity, Json[string] deleteOptions) {
+    bool cascadeRemoveKey(IORMEntity ormEntity, Json[string] deleteOptions) {
         auto noCascade = null;
         foreach (assoc; _items) {
             if (!assoc.getCascadeCallbacks()) {
@@ -201,12 +201,12 @@ class DAssociationCollection { // }: IteratorAggregate {
                 continue;
             }
             
-            if (!assoc.cascaderemoveKey(ormEntity, deleteOptions)) {
+            if (!assoc.cascadeRemoveKey(ormEntity, deleteOptions)) {
                 return false;
             }
         }
 
-        return noCascade.all!(assoc => assoc.cascaderemoveKey(ormEntity, deleteOptions));
+        return noCascade.all!(assoc => assoc.cascadeRemoveKey(ormEntity, deleteOptions));
     }
 
     /**

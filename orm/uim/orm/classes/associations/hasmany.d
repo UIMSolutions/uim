@@ -271,7 +271,7 @@ class DHasManyAssociation : DAssociation {
                     targetEntities))
             .map(
                 function(entity) use(myTargetPrimaryKey) {
-                /** @var DORMdatasources.IORMEntity anEntity * /
+                /** @var DORMdatasources.IORMEntity entity * /
                 return entity.extract(
                     myTargetPrimaryKey);})
                     .toList(),];
@@ -353,7 +353,7 @@ class DHasManyAssociation : DAssociation {
      */
     protected bool _unlinkAssociated(
         Json[string] foreignKeyReference,
-        IORMEntity anEntity,
+        IORMEntity entity,
         Table myTarget,
         Json[string] remainingEntities = null,
         Json[string] options = null
@@ -533,9 +533,9 @@ class DHasManyAssociation : DAssociation {
             options);
     }
 
-    bool cascaderemoveKey(IORMEntity ormEntity, Json[string] options = null) {
+    bool cascadeRemoveKey(IORMEntity ormEntity, Json[string] options = null) {
         auto helper = new DependentDeleteHelper();
-        return helper.cascaderemoveKey(this, ormEntity, options);
+        return helper.cascadeRemoveKey(this, ormEntity, options);
     }
 }
 

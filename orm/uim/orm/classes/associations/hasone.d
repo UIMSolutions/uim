@@ -102,9 +102,9 @@ class DHasOneAssociation : DAssociation {
     }
 
 
-    bool cascaderemoveKey(IORMEntity ormEntity, Json[string] options = null) {
+    bool cascadeRemoveKey(IORMEntity ormEntity, Json[string] options = null) {
         auto helper = new DependentDeleteHelper();
-        return helper.cascaderemoveKey(this, ormEntity, options);
+        return helper.cascadeRemoveKey(this, ormEntity, options);
     }
 }
 mixin(AssociationCalls!("HasOne"));

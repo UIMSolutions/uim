@@ -405,7 +405,7 @@ class DBelongsToManyAssociation : DAssociation {
     } */
 
     // Clear out the data in the junction table for a given entity.
-    bool cascaderemoveKey(IORMEntity ormEntity, Json[string] options = null) {
+    bool cascadeRemoveKey(IORMEntity ormEntity, Json[string] options = null) {
         if (!getDependent()) {
             return true;
         }

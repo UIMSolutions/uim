@@ -794,10 +794,9 @@ class DAssociation : UIMObject, IAssociation {
      * association"s associations
      */
     DORMAssociation __get(string propertyName) {
-/*         return _getTarget(). {
+        /* return _getTarget(). {
             propertyName
-        };
- */    
+        }; */    
         return null; 
     }
 
@@ -847,15 +846,13 @@ class DAssociation : UIMObject, IAssociation {
      * - strategy: The name of strategy to use for finding target table records
      * - nestKey: The array key under which results will be found when transforming the row
      */
-    abstract Closure eagerLoader(Json[string] options = null);
+    abstract IClosure eagerLoader(Json[string] options = null);
 
     /**
      * Handles cascading a delete from an associated model.
-     *
-     * Each implementing class should handle the cascaded delete as
-     * required.
+     * Each implementing class should handle the cascaded delete as required.
      */
-    abstract bool cascaderemoveKey(IORMEntity anEntity, Json[string] options = null);
+    abstract bool cascadeRemoveKey(IORMEntity entity, Json[string] options = null);
 
     /**
      * Returns whether the passed table is the owning side for this
@@ -868,5 +865,5 @@ class DAssociation : UIMObject, IAssociation {
      * Extract the target"s association data our from the passed entity and proxies
      * the saving operation to the target table.
      */
-    abstract IORMEntity saveAssociated(IORMEntity anEntity, Json[string] options = null);
+    abstract IORMEntity saveAssociated(IORMEntity entity, Json[string] options = null);
 }

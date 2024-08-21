@@ -826,7 +826,7 @@ mixin template TIntegrationTest() {
      * when trying to diagnose/debug unexpected failures in test cases.
      */
     void disableErrorHandlerMiddleware() {
-        Configuration.set("Error.exceptionRenderer", TestExceptionRenderer.classname);
+        configuration.set("Error.exceptionRenderer", TestExceptionRenderer.classname);
     }
 
     /**

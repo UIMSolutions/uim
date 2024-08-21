@@ -18,8 +18,8 @@ interface ILocator { // }: BaseILocator {
     ILocator setConfiguration(string[] aliasNames, Json[string] options = null);
 
     // Get a table instance from the registry.
-    IORMTable get(string aliasName, Json[string] options = null);
+    DORMTable get(string aliasName, Json[string] options = null);
 
     // Set a table instance.
-    IORMTable set(string aliasName, IRepository repository);
+    DORMTable set(string aliasName, IRepository repository);
 }

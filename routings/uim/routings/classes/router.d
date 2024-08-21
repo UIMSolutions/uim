@@ -398,7 +398,7 @@ class DRouter {
         }
         if (baseUrl !is null) {
             _fullBaseUrl = baseUrl;
-            Configuration.set("App.fullBaseUrl", baseUrl);
+            configuration.set("App.fullBaseUrl", baseUrl);
         } else {
             baseUrl = configuration.getString("App.fullBaseUrl");
 
@@ -412,7 +412,7 @@ class DRouter {
                 if (!_requestContext.isEmpty("_port")) {
                     baseUrl ~= ": " ~ _requestContext.getString("_port");
                 }
-                Configuration.set("App.fullBaseUrl", baseUrl);
+                configuration.set("App.fullBaseUrl", baseUrl);
 
                 return _fullBaseUrl = baseUrl;
             }

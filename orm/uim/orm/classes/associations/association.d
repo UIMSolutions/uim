@@ -133,21 +133,21 @@ class DAssociation : UIMObject, IAssociation {
 
 // #region sourceTable
     // Source table instance
-    protected IORMTable _sourceTable;
+    protected DORMTable _sourceTable;
 
     // Sets the table instance for the source side of the association.
-    void setSource(IORMTable table) {
+    void setSource(DORMTable table) {
         _sourceTable = table;
     }
 
     // Gets the table instance for the source side of the association.
-    IORMTable source() {
+    DORMTable source() {
         return _sourceTable;
     }
 // #endregion sourceTable 
 
     // Target table instance
-    protected IORMTable _targetTable;
+    protected DORMTable _targetTable;
     // Sets the table instance for the target side of the association.
     IAssociation setTarget(DORMTable aTable) {
         _targetTable = table;
@@ -812,7 +812,7 @@ class DAssociation : UIMObject, IAssociation {
     }
 
     // Proxies method calls to the target table.
-    Json __call(string methodName, arguments) {
+    Json __call(string methodName, Json[string] arguments) {
         return _getTarget().method(arguments);
     }
 

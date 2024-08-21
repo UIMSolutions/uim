@@ -264,7 +264,6 @@ class DSelectLoader {
         keys
             .filter!(key => defaults.hasKey(key))
             .each!(key => types ~= defaults[key]);
-        }
 
         return new DTupleComparison(keys, filter, types, operator);
     }

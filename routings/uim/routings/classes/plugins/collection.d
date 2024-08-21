@@ -106,7 +106,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         }
         
         auto Data = requirevendorFile;
-        Configuration.set(Data);
+        configuration.set(Data);
     }
 */
     /**

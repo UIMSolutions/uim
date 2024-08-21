@@ -84,7 +84,7 @@ abstract class DTestCase : DBaseTestCase {
     // Helper method for check deprecation methods
     void deprecated(Closure mycallable) {
         auto myduplicate = configuration.get("Error.allowDuplicateDeprecations");
-        Configuration.set("Error.allowDuplicateDeprecations", true);
+        configuration.set("Error.allowDuplicateDeprecations", true);
         /** @var bool mydeprecation Expand type for psalm */
         auto mydeprecation = false;
 
@@ -106,7 +106,7 @@ abstract class DTestCase : DBaseTestCase {
         } finally {
             restore_error_handler();
             if (myduplicate != configuration.get("Error.allowDuplicateDeprecations")) {
-                Configuration.set("Error.allowDuplicateDeprecations", myduplicate);
+                configuration.set("Error.allowDuplicateDeprecations", myduplicate);
             }
         }
         this.assertTrue(mydeprecation, "Should have at least one deprecation warning");
@@ -137,7 +137,7 @@ abstract class DTestCase : DBaseTestCase {
 
         if (_configure) {
             Configuration.clear();
-            Configuration.set(_configure);
+            configuration.set(_configure);
         }
         getTableLocator().clear();
        _configure = null;

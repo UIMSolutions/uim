@@ -437,7 +437,7 @@ class DAssociation : UIMObject, IAssociation {
      * - negateMatch: Will append a condition to the passed query for excluding matches.
      *  with this association.
      */
-    void attachTo(DORMQuery query, Json[string] options = null) {
+    void attachTo(DQuery query, Json[string] options = null) {
         auto target = getTarget();
         auto table = target.getTable();
 
@@ -508,7 +508,7 @@ class DAssociation : UIMObject, IAssociation {
      * Conditionally adds a condition to the passed Query that will make it find
      * records where there is no match with this association.
      */
-    protected void _appendNotMatching(DORMQuery queryToModify, Json[string] options = null) {
+    protected void _appendNotMatching(DQuery queryToModify, Json[string] options = null) {
         auto target = _targetTable;
         if (options.hasKey("negateMatch")) {
             // TODO
@@ -610,7 +610,7 @@ class DAssociation : UIMObject, IAssociation {
      * Triggers beforeFind on the target table for the query this association is
      * attaching to
      */
-    protected void _dispatchBeforeFind(DORMQuery query) {
+    protected void _dispatchBeforeFind(DQuery query) {
         query.triggerBeforeFind();
     }
 
@@ -618,7 +618,7 @@ class DAssociation : UIMObject, IAssociation {
      * Helper function used to conditionally append fields to the select clause of
      * a query from the fields found in another query object.
      */
-    protected void _appendFields(DORMQuery query, DORMQuery surrogateQuery, Json[string] options = null) {
+    protected void _appendFields(DQuery query, DQuery surrogateQuery, Json[string] options = null) {
         if (query.getEagerLoader().isAutoFieldsEnabled() == false) {
             return;
         }
@@ -643,7 +643,7 @@ class DAssociation : UIMObject, IAssociation {
      * applying the surrogate formatters to only the property corresponding to
      * such table.
      */
-    protected void _formatAssociationResults(DORMQuery query, DORMQuery surrogate, Json[string] options = null) {
+    protected void _formatAssociationResults(DQuery query, DQuery surrogate, Json[string] options = null) {
         auto formatters = surrogate.getResultFormatters();
         if (!formatters || options.isEmpty("propertyPath")) {
             return;
@@ -699,7 +699,7 @@ class DAssociation : UIMObject, IAssociation {
      * passed `query`. Containments are altered so that they respect the associations
      * chain from which they originated.
      */
-    protected void _bindNewAssociations(DORMQuery query, DORMQuery surrogateQuery, Json[string] options = null) {
+    protected void _bindNewAssociations(DQuery query, DQuery surrogateQuery, Json[string] options = null) {
         auto loader = surrogateQuery.getEagerLoader();
         auto contain = loader.getContain();
         auto matching = loader.getMatching();

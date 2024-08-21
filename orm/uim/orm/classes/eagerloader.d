@@ -304,7 +304,7 @@ class DEagerLoader {
      * This method will not modify the query for loading external associations, i.e.
      * those that cannot be loaded without executing a separate query.
      */
-    void attachAssociations(DORMQuery query, DORMTable repository, bool includeFields) {
+    void attachAssociations(DQuery query, DORMTable repository, bool includeFields) {
         if (_containments.isEmpty && _matching == null) {
             return;
         }
@@ -474,7 +474,7 @@ class DEagerLoader {
      * Decorates the passed statement object in order to inject data from associations
      * that cannot be joined directly.
      */
-    IStatement loadExternal(DORMQuery query, IStatement statement) {
+    IStatement loadExternal(DQuery query, IStatement statement) {
         auto table = query.getRepository();
         auto external = this.externalAssociations(table);
         if (external.isEmpty) {

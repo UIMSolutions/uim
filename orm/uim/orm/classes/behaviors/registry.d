@@ -177,7 +177,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     }
 
     // Invoke a finder on a behavior.
-    DORMQuery callFinder(string finderType, Json[string] methodsData = null) {
+    DQuery callFinder(string finderType, Json[string] methodsData = null) {
         finderType = finderType.lower;
 
         /* if (this.hasFinder(finderType) && this.has(_finderMap[finderType][0])) {

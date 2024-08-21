@@ -163,7 +163,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
      * Only add translations for fields that are in the main table, always
      * add the locale field though.
      */
-    protected bool addFieldsToQuery(DORMQuery query, Json[string] options) {
+    protected bool addFieldsToQuery(DQuery query, Json[string] options) {
         if (query.isAutoFieldsEnabled()) {
             return true;
         }
@@ -201,7 +201,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
      * prefixing fields with the appropriate table alias. This method currently
      * expects to receive an order clause only.
      */
-    protected bool iterateClause(DORMQuery query, string clauseName = "", Json[string] myConfiguration = null) {
+    protected bool iterateClause(DQuery query, string clauseName = "", Json[string] myConfiguration = null) {
         auto clause = query.clause(clauseName);
         if (!clause || !clause.count()) {
             return false;
@@ -239,7 +239,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
      * prefixing fields with the appropriate table alias. This method currently
      * expects to receive a where clause only.
      */
-    protected bool traverseClause(DORMQuery queryToCheck, string clauseName = "", Json[string] myConfiguration = null) {
+    protected bool traverseClause(DQuery queryToCheck, string clauseName = "", Json[string] myConfiguration = null) {
         auto clause = queryToCheck.clause(clauseName);
         if (!clause || !clause.count()) {
             return false;

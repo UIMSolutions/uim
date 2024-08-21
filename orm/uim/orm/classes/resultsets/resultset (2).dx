@@ -92,7 +92,7 @@ class DResultset : IResultset {
      */
     protected _driver;
 
-    this(DORMQuery query, IStatement statement) {
+    this(DQuery query, IStatement statement) {
         repository = query.getRepository();
         _statement = statement;
         _driver = query.getConnection().getDriver();
@@ -270,7 +270,7 @@ class DResultset : IResultset {
      * Calculates the list of associations that should get eager loaded
      * when fetching each record
      */
-    protected void _calculateAssociationMap(DORMQuery query) {
+    protected void _calculateAssociationMap(DQuery query) {
         auto map = query.getEagerLoader().associationsMap(_defaultTable);
         _matchingMap = (new DCollection(map))
             .match(["matching": true.toJson])
@@ -287,7 +287,7 @@ class DResultset : IResultset {
      * Creates a map of row keys out of the query select clause that can be
      * used to hydrate nested result sets more quickly.
      */
-    protected void _calculateColumnMap(DORMQuery query) {
+    protected void _calculateColumnMap(DQuery query) {
         auto map = null;
         foreach (key, field; query.clause("select")) {
             key = key.strip(""`[]");

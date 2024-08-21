@@ -83,14 +83,14 @@ class DSelectLoader {
      * in the target table that are associated to those specified in options from
      * the source table
      */
-    protected DORMQuery _buildQuery(Json[string] options = null) {
+    protected DQuery _buildQuery(Json[string] options = null) {
         auto key = _linkField(options);
         auto filter = options.get("keys");
         auto useSubquery = options.get("strategy") == Association
             .STRATEGY_SUBQUERY;
         auto finder = this.finder;
-        options.set("fields", options.get("fields")); /** @var DORMQuery query */
-        DORMQuery query = finder();
+        options.set("fields", options.get("fields")); /** @var DQuery query */
+        DQuery query = finder();
         if (options.hasKey("finder")) {
             [finderName, opts] = _extractFinder(options.get("finder"));
             query = query.find(
@@ -167,7 +167,7 @@ class DSelectLoader {
      * If the required fields are missing, throws an exception.
      */
     protected void _assertFieldsPresent(
-        DORMQuery fetchQuery, Json[string] key) {
+        DQuery fetchQuery, Json[string] key) {
         if (fetchQuery.isAutoFieldsEnabled()) {
             return;
         }
@@ -207,7 +207,7 @@ class DSelectLoader {
      * target table query given a filter key and some filtering values when the
      * filtering needs to be done using a subquery.
      */
-    protected DORMQuery _addFilteringJoin(DORMQuery query, /* string[]| */ stringkey, DORMQuery filteringQuery) {
+    protected DQuery _addFilteringJoin(DQuery query, /* string[]| */ stringkey, DQuery filteringQuery) {
         auto filter = null;
         auto aliasedTable = this
             .sourceAlias;
@@ -245,7 +245,7 @@ class DSelectLoader {
      * Appends any conditions required to load the relevant set of records in the
      * target table query given a filter key and some filtering values.
      */
-    protected DORMQuery _addFilteringCondition(DORMQuery query, /* string[]| */ string key, json filter) {
+    protected DQuery _addFilteringCondition(DQuery query, /* string[]| */ string key, json filter) {
         if (key.isArray) {
             conditions = _createTupleCondition(
                 query, key, filter, "IN");
@@ -262,7 +262,7 @@ class DSelectLoader {
      * from keys with the tuple values in filter using the provided operator.
      */
     protected TupleComparison _createTupleCondition(
-        DORMQuery query, string[] keys, Json filter, string operator) {
+        DQuery query, string[] keys, Json filter, string operator) {
         auto types = null;
         auto defaults = query
             .getDefaultTypes();
@@ -318,7 +318,7 @@ class DSelectLoader {
      * target table, it is constructed by cloning the original query that was used
      * to load records in the source table.
      */
-    protected DORMQuery _buildSubquery(DORMQuery query) {
+    protected DQuery _buildSubquery(DQuery query) {
         auto filterQuery = query.clone;
         filterQuery.disableAutoFields();
         filterQuery.mapReduce(null, null, true);
@@ -356,7 +356,7 @@ class DSelectLoader {
      * that need to be present to ensure the correct association data is loaded.
      */
     protected Json[string] _subqueryFields(
-        DORMQuery query) {
+        DQuery query) {
         string[] keys = _bindingKeys;
 
         if (
@@ -392,7 +392,7 @@ class DSelectLoader {
      * the foreignKeys value corresponding to this association.
      */
     protected Json[string] _buildResultMap(
-        DORMQuery fetchQuery, Json[string] options = null) {
+        DQuery fetchQuery, Json[string] options = null) {
         auto resultMap = null;
         auto singleResult = isIn(
             _associationType, [
@@ -435,7 +435,7 @@ class DSelectLoader {
      * for injecting the eager loaded rows
      */
     // TODO
-    /* protected Closure _resultInjector(DORMQuery fetchQuery, Json[string] resultMap, Json[string] options = null) {
+    /* protected Closure _resultInjector(DQuery fetchQuery, Json[string] resultMap, Json[string] options = null) {
         keys = _associationType == Association.MANY_TO_ONE ?
             _foreignKeys :
             _bindingKeys;

@@ -48,7 +48,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      *
      * This is used for eager loading records on the target table based on conditions.
      */
-    protected DORMQuery _buildQuery(Json[string] options = null) {
+    protected DQuery _buildQuery(Json[string] options = null) {
         auto name = this.junctionAssociationName;
         auto assoc = _junctionAssoc;
         auto queryBuilder = false;

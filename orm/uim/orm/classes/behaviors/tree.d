@@ -304,7 +304,7 @@ class DTreeBehavior : DBehavior {
      * to a specific node in the tree. This custom finder requires that the key "for"
      * is passed in the options containing the id of the node to get its path for.
      */
-    DORMQuery findPath(DORMQuery query, Json[string] options = null) {
+    DQuery findPath(DQuery query, Json[string] options = null) {
         if (options.isEmpty("for")) {
             throw new DInvalidArgumentException(
                 "The 'for' key is required for find('path')");
@@ -355,7 +355,7 @@ class DTreeBehavior : DBehavior {
      *
      * If the direct option is set to true, only the direct children are returned (based upon the parent_id field)
      */
-    DORMQuery findChildren(DORMQuery query, Json[string] options = null) {
+    DQuery findChildren(DQuery query, Json[string] options = null) {
 
         options
             .merge("for", Json(null))
@@ -407,7 +407,7 @@ class DTreeBehavior : DBehavior {
      *  return the value out of the provided row.
      * - spacer: A string to be used as prefix for denoting the depth in the tree for each item
      */
-    DORMQuery findTreeList(DORMQuery query, Json[string] options = null) {
+    DQuery findTreeList(DQuery query, Json[string] options = null) {
         auto left = _table.aliasField(
             this.configuration.get("left"));
         auto results = _scope(
@@ -432,7 +432,7 @@ class DTreeBehavior : DBehavior {
      *  return the value from the provided row.
      * - spacer: A string to be used as prefix for denoting the depth in the tree for each item.
      */
-    DORMQuery formatTreeList(DORMQuery query, Json[string] options = null) {
+    DQuery formatTreeList(DQuery query, Json[string] options = null) {
         /* return query.formatResults(
             function(ICollection results) use(options) {
             auto updatedOptions = options.update[
@@ -870,8 +870,8 @@ class DTreeBehavior : DBehavior {
      * Alters the passed query so that it only returns scoped records as defined
      * in the tree configuration.
      */
-    protected DORMQuery _scope(
-        DORMQuery query) {
+    protected DQuery _scope(
+        DQuery query) {
         auto scopeData = this.configuration
             .get("scope");
         if (

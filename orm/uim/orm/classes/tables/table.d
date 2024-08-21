@@ -1640,7 +1640,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
 
 
         if (options.hasKey("atomic") && !getConnection().inTransaction()) {
-            throw new DRolledbackTransactionException(["table": class]);
+           /*  throw new DRolledbackTransactionException(["table": "class"]); */
         }
         if (!options.hasKey("atomic") && !options.hasKey("_primary")) {
             entityToSave.clean();

@@ -305,7 +305,7 @@ class DBelongsToManyAssociation : DAssociation {
      * - fields: a list of fields in the target table to include in the result
      * - type: The type of join to be used (e.g. INNER)
      */
-    void attachTo(DORMQuery query, Json[string] options = null) {
+    void attachTo(DQuery query, Json[string] options = null) {
         if (options.hasKey("negateMatch")) {
             _appendNotMatching(query, options);
 
@@ -801,7 +801,7 @@ class DBelongsToManyAssociation : DAssociation {
     }
 
     // Append a join to the junction table.
-    protected DORMQuery _appendJunctionJoin(DORMQuery query, Json[string] conditions = null) {
+    protected DQuery _appendJunctionJoin(DQuery query, Json[string] conditions = null) {
         auto junctionTable = junction();
         if (conditions == null) {
             auto belongsTo = junctionTable.getAssociation(getTarget().aliasName());

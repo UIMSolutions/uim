@@ -12,16 +12,10 @@ class DExistsIn {
     // The list of fields to check
     protected string[] _fields;
 
-    /**
-     * The repository where the field will be looked for
-     *
-     * @var \ORM\Table|\ORM\Association|string
-     */
-    protected ITable | Association | string _repository;
+    // The repository where the field will be looked for
+    protected ITable /* | Association | string */ _repository;
 
-    /**
-     * Options for the constructor
-     */
+    // Options for the constructor
     protected Json[string] _options = null;
 
     /**
@@ -42,7 +36,7 @@ class DExistsIn {
             if (!options.hasKey("repository").hasAssociation(_repository)) {
                 throw new DatabaseException(
                     "ExistsIn rule for `%s` is invalid. `%s` is not associated with `%s`."
-                        .format(_fields.join(", "), _repository, get_class(options.get("repository"])
+                        .format(_fields.join(", "), _repository, get_class(options.get("repository"))
                         ));
             }
             myrepository = options.get("repository").getAssociation(_repository);
@@ -57,7 +51,7 @@ class DExistsIn {
             mybindingKey = /* (array) */ mytarget.primaryKeys();
             myrealTarget = mytarget;
         }
-        if (options.hasKey("_sourceTable") && myrealTarget == options.get("_sourceTable"]) {
+        if (options.hasKey("_sourceTable") && myrealTarget == options.get("_sourceTable")) {
             return true;
         }
         if (options.hasKey("repository")) {
@@ -72,8 +66,8 @@ class DExistsIn {
         if (_fieldsAreNull(ormEntity, mysource)) {
             return true;
         }
-        if (_options.get("allowNullableNulls"]) {
-            myschema = mysource.getSchema();
+        if (_options.get("allowNullableNulls")) {
+            auto myschema = mysource.getSchema();
             foreach (index, fieldName; fieldNames) {
                 if (myschema.getColumn(fieldName) && myschema.isNullable(fieldName) && ormEntity.get(
                         fieldName).isNull) {
@@ -83,13 +77,14 @@ class DExistsIn {
             }
         }
 
-        auto myprimary = array_map(
+        /* auto myprimary = array_map(
             fn(aKey) : mytarget.aliasField(aKey) ~ " IS",
             mybindingKey
         );
 
         auto myconditions = myprimary.combine(myentity.extract(fieldNames));
-        return mytarget.hasKey(myconditions);
+        return mytarget.hasKey(myconditions); */
+        return false;
     }
 
     // Checks whether the given entity fields are nullable and null.

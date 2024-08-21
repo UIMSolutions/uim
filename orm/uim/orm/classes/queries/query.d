@@ -772,19 +772,17 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         return _resultsCount;
     }
 
-    /**
-     * Performs and returns the COUNT(*) for the query.
-     */
+    // Performs and returns the COUNT(*) for the query.
     protected int _performCount() {
-        query = this.cleanCopy();
-        counter = _counter;
+        auto query = this.cleanCopy();
+        auto counter = _counter;
         if (counter != null) {
             query.counter(null);
 
             return  /* (int) */ counter(query);
         }
 
-        complex = (
+        auto complex = (
             query.clause("distinct") ||
                 count(query.clause("group")) ||
                 count(query.clause("union")) ||

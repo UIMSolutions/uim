@@ -830,9 +830,7 @@ class DTreeBehavior : DBehavior {
      * right columns by a certain amount that match the passed conditions
      */
     protected void _sync(int shiftvalue, string dir, string conditions, bool shouldMark = false) {
-        auto configData = configuration
-            .data;
-        foreach ([configuration.get(
+        /* foreach ([configuration.get(
                     "leftField"), configuration.get(
                     "rightField")] as field) {
             auto query = _scope(
@@ -842,7 +840,7 @@ class DTreeBehavior : DBehavior {
             auto movement = exp
                 .clone;
             movement.add(field)
-                .add( /* (string) */ shiftvalue)
+                .add( /* (string) * / shiftvalue)
                 .conjunctionType(
                     dir);
             auto inverse = exp
@@ -865,7 +863,7 @@ class DTreeBehavior : DBehavior {
                     where);
             query.execute()
                 .closeCursor();
-        }
+        } */
     }
 
     /**

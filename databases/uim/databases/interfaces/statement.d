@@ -5,13 +5,13 @@ import uim.databases;
 @safe:
 
 interface IStatement {
-    // Maps to PDO.FETCH_NUM.
+    // Used to designate that numeric indexes be returned in a result when calling fetch methods
     const string FETCH_TYPE_NUM = "num";
 
-    // Maps to PDO.FETCH_ASSOC.
+    // Used to designate that an associated array be returned in a result when calling fetch methods
     const string FETCH_TYPE_ASSOC = "assoc";
 
-    // Maps to PDO.FETCH_OBJ.
+    // Used to designate that a stdClass object be returned in a result when calling fetch methods
     const string FETCH_TYPE_OBJ = "obj";
 
     /**
@@ -24,85 +24,46 @@ interface IStatement {
      * ### Examples:
      *
      * ```
-     * statement.bindValue(1, "a title");
      * statement.bindValue("active", true, "boolean");
-     * statement.bindValue(5, new \DateTime(), "date");
      * ```
      */
-void bindValue(int column, Json valueToBind, string typeName = "string");
-    void bindValue(string column, Json valueToBind, string typeName = "string");
+    // void bindValue(Json binding);
+    void bindValue(string column, Json value, string typeName = "string");
 
     /**
-     * Closes the cursor, enabling the statement to be executed again.
-     *
-     * This behaves the same as `PDOStatement.closeCursor()`.
+     * Closes a cursor in the database, freeing up any resources and memory
+     * allocated to it. In most cases you don"t need to call this method, as it is
+     * automatically called after fetching all results from the result set.
      */
     void closeCursor();
 
-    /**
-     * Returns the number of columns in the result set.
-     *
-     * This behaves the same as `PDOStatement.columnCount()`.
-     */
-    int columnCount();
+    // Returns the number of columns in the result set.
+    int countColumns();
 
-    /**
-     * Fetch the SQLSTATE associated with the last operation on the statement handle.
-     *
-     * This behaves the same as `PDOStatement.errorCode()`.
-     */
+    // Returns the error code for the last error that occurred when executing this statement
     string errorCode();
 
-    /**
-     * Fetch extended error information associated with the last operation on the statement handle.
-     *
-     * This behaves the same as `PDOStatement.errorInfo()`.
-     */
+    // Returns the error information for the last error that occurred when executing this statement
     Json[string] errorInfo();
 
     /**
      * Executes the statement by sending the SQL query to the database. It can optionally
-     * take an array or arguments to be bound to the query variables. Please note
-     * that binding parameters from this method will not perform any custom type conversion
-     * as it would normally happen when calling `bindValue`.
-     * Params:
-     * array|null params list of values to be bound to query
-      */
-    bool execute(Json[string] params = null);
-
-    /**
-     * Fetches the next row from a result set
-     * and converts fields to types based on TypeMap.
-     *
-     * This behaves the same as `PDOStatement.fetch()`.
-     * Params:
-     * string|int mode PDO.FETCH_* constant or fetch mode name.
-     * Valid names are 'assoc", "num' or 'obj'.
-     */
-Json fetch(int mode = PDO.FETCH_NUM);
-
-    Json fetch(string mode = PDO.FETCH_NUM);
-
-    /**
-     * Fetches the remaining rows from a result set
-     * and converts fields to types based on TypeMap.
-     *
-     * This behaves the same as `PDOStatement.fetchAll()`.
-     * Params:
-     * string|int mode PDO.FETCH_* constant or fetch mode name.
-     * Valid names are 'assoc", "num' or 'obj'.
-     */
-Json[string] fetchAll(int mode = PDO.FETCH_NUM);
-    Json[string] fetchAll(string mode = PDO.FETCH_NUM);
-
-    /**
-     * Fetches the next row from a result set using PDO.FETCH_NUM
-     * and converts fields to types based on TypeMap.
-     *
-     * This behaves the same as `PDOStatement.fetch()` except only
-     * a specific column from the row is returned.
+     * take an array or arguments to be bound to the query variables. 
     */
-    Json fetchColumn(size_t columnIndex);
+    bool execute(Json[string] arguments = null);
+
+    /**
+     * Returns the next row for the result set after executing this statement.
+     * Rows can be fetched to contain columns as names or positions. If no
+     * rows are left in result set, this method will return false
+     */
+    Json fetch(string type = "num");
+
+    // Returns an array with all rows resulting from executing this statement
+    Json[string] fetchAll(string type = "num");
+
+    // Returns the value of the result at position.
+    Json fetchColumn(int position);
 
     /**
      * Fetches the next row from a result set using PDO.FETCH_ASSOC
@@ -113,15 +74,17 @@ Json[string] fetchAll(int mode = PDO.FETCH_NUM);
      */
     Json[string] fetchAssoc();
 
-    /**
-     * Returns the number of rows affected by the last SQL statement.
-     *
-     * This behaves the same as `PDOStatement.rowCount()`.
-     */
+    // Returns the number of rows affected by the last SQL statement.
     int rowCount();
 
+    /**
+     * Statements can be passed as argument for count()
+     * to return the number for affected rows from last execution
+     */
+    size_t count();
+
     // Binds a set of values to statement object with corresponding type.
-    void bind(Json[string] valuesToBound, Json[string] listOfTypes);
+    void bind(Json[string] values, Json[string] types);
 
     // Returns the latest primary inserted using this statement.
     string lastInsertId(string tableName = null, string columnName = null);

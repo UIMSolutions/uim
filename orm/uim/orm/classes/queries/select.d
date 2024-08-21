@@ -210,15 +210,15 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      */
     STRINGAA aliasField(string fieldName, string aliasName = null) {
         if (fieldName.contains(".")) {
-            myaliasedField = fieldName;
+            aliasedField = fieldName;
             [aliasName, fieldName] = fieldName.split(".");
         } else {
-            aliasName = aliasName ?: getRepository().aliasName();
-            myaliasedField = aliasName ~ "." ~ fieldName;
+            aliasName = aliasName.ifEmpty(getRepository().aliasName());
+            aliasedField = aliasName ~ "." ~ fieldName;
         }
         
         string key = "%s__%s".format(aliasName, fieldName);
-        return [key: myaliasedField];
+        return [key: aliasedField];
     }
     
     /**
@@ -268,9 +268,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         return _results;
     } */
     
-    /**
-     * Returns an array representation of the results after executing the query.
-     */
+    // Returns an array representation of the results after executing the query.
     Json[string] toArray() {
         return _all().toJString();
     }
@@ -405,7 +403,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         if (formatterMode == PREPEND) {
             _formatters.unshift(myformatter);
 
-            return 
+            return ;
         }
        /* _formatters ~= myformatter; */
     }
@@ -551,7 +549,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     protected IResultset _decorateResults(Json[string] result) {
         auto mydecorator = _decoratorClassname();
 
-        auto result;
+        IResultset result;
         if (!_mapReduce.isEmpty) {
             _mapReduce.each!(functions => result = new DMapReduce(result, functions["mapper"], functions["reducer"]));
             result = new mydecorator(result);
@@ -1263,7 +1261,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Get resultset factory.
      */
     protected DResultsetFactory resultSetFactory() {
-        return _resultSetFactory ??= new DResultsetFactory();
+        return _resultSetFactory ? _resultSetFactory : new DResultsetFactory();
     }
     
     /**
@@ -1316,7 +1314,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         auto myselect = this.clause("select");
         auto mytypes = null;
 
-        foreach (aliasName: myvalue; myselect) {
+        foreach (aliasName, myvalue; myselect) {
             if (cast(ITypedResult)myvalue) {
                 mytypes[aliasName] = myvalue.getReturnType();
                 continue;
@@ -1374,7 +1372,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Executes the query and converts the result set into Json.
      * Part of JsonSerializable interface.
      */
-    IResultset<(\UIM\Datasource\IORMEntity|mixed)> JsonSerialize() {
+    IResultset/* <(\UIM\Datasource\IORMEntity|mixed)> */ jsonSerialize() {
         return _all();
     }
     

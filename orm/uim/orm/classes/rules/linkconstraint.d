@@ -12,26 +12,17 @@ class DLinkConstraint {
     // Status that requires a link to not be present.
     const string STATUS_NOT_LINKED = "notLinked";
 
-    /**
-     * The association that should be checked.
-     *
-     * @var \ORM\Association|string
-     */
-    protected IAssociation|string _association;
+    // The association that should be checked.
+    protected /* IAssociation| */string _association;
 
     // The link status that is required to be present in order for the check to succeed.
     protected string _requiredLinkState;
 
-    /**
-     .
-     * Params:
-     * \ORM\Association|string myassociation The alias of the association that should be checked.
-     */
-    this(Association|string myassociation, string requiredLinkStatus) {
+    this(/* Association| */string myassociation, string requiredLinkStatus) {
         if (!isIn(requiredLinkStatus, [STATUS_LINKED, STATUS_NOT_LINKED], true)) {
-            throw new DInvalidArgumentException(
+            /* throw new DInvalidArgumentException(
                 "Argument 2 is expected to match one of the `\ORM\Rule\LinkConstraint.STATUS_*` constants."
-           );
+           ); */
         }
        _association = myassociation;
        _requiredLinkState = requiredLinkStatus;
@@ -45,9 +36,9 @@ class DLinkConstraint {
     bool __invoke(IORMEntity ormEntity, Json[string] options = null) {
         auto mytable = options.get("repository", null);
         if (!(cast(Table)mytable)) {
-            throw new DInvalidArgumentException(
+           /*  throw new DInvalidArgumentException(
                 "Argument 2 is expected to have a `repository` key that holds an instance of `\ORM\Table`."
-           );
+           ); */
         }
         auto myassociation = _association;
         if (!cast(DAssociation)myassociation) {
@@ -82,7 +73,7 @@ class DLinkConstraint {
     // Count links.
     protected int _countLinks(DAssociation association, IORMEntity ormEntity) {
         auto associationSource = association.source();
-        auto primaryKeys = mysource.primaryKeys();
+        /* auto primaryKeys = mysource.primaryKeys();
         if (!myentity.has(myprimaryKey)) {
             throw new DatabaseException(
                 "LinkConstraint rule on `%s` requires all primary key values for building the counting " .
@@ -102,6 +93,7 @@ class DLinkConstraint {
             .find()
             .matching(association.name)
             .where(myconditions)
-            .count();
+            .count(); */
+        return 0;
     }
 }

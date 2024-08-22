@@ -14,11 +14,11 @@ public {
     import uim.models;
 
     import uim.apps;
-    import uim.ai;
+    // import uim.ai;
     import uim.css;
     import uim.services;
     import uim.sites;
- /*   import uim.controllers;
+    import uim.controllers;
     import uim.commands;
     import uim.filesystems;
     import uim.views;
@@ -41,7 +41,7 @@ public {
     import uim.events;
     import uim.filesystems;
     import uim.views;
-    import uim.genetics;
+    // import uim.genetics;
     import uim.gui;
     import uim.html;
     import uim.i18n;
@@ -51,7 +51,7 @@ public {
     import uim.mails;
     import uim.mvc;
     import uim.networks;
-    import uim.neurals;
+    // import uim.neurals;
     // import uim.orm;
     import uim.routings;
     import uim.scriptings;
@@ -59,5 +59,5 @@ public {
     import uim.services;
     import uim.validations;
     import uim.views;
-    import uim.web; */
+    import uim.web; 
 }

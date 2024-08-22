@@ -77,7 +77,6 @@ class DNumber {
 
     /**
      * Formats a number into a percentage string.
-     *
      * Options:
      * - `multiply`: Multiply the input value by 100 for decimal percentages.
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
@@ -99,7 +98,6 @@ class DNumber {
      * Formats a number into the correct locale format
      *
      * Options:
-     *
      * - `places` - Minimum number or decimals to use, e.g 0
      * - `precision` - Maximum Number of decimal places to use, e.g. 2
      * - `pattern` - An ICU number pattern to use for formatting the number. e.g #,##0.00
@@ -109,10 +107,8 @@ class DNumber {
      */
     static string format(Json floatNumber, Json[string] options = null) {
         auto formatter = formatter(options);
-        options.merge(["before", "after"], "");
-        /* return updatedOptions.getString(
-            "before") ~ formatter.format(
-            floatNumber.getDouble) ~ updatedOptions.getString("after"); */
+        // options.merge(["before", "after"], "");
+        /* return updatedOptions.getString("before") ~ formatter.format(floatNumber.getDouble) ~ updatedOptions.getString("after"); */
         return null;
     }
 

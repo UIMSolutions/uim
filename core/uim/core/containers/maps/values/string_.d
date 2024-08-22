@@ -22,7 +22,7 @@ unittest {
     return items.set(key, value.toString);
   }
 
-  V[K] set(K, V:string)(V[K] items, K key, string value) {
+  V[K] set(K, V:string)(V[K] items, K key, V value) {
     items[key] = value;
     return items;
   }

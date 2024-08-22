@@ -84,8 +84,10 @@ class DMessageCatalog : ICatalog {
     string[][string] get(string[] keys) {
        string[][string] results;
        keys
-        .filter!(key => hasKey(key))
-        .each!(key => resuls[key] = get(key));
+        .filter!(key => messages.hasKey(key))
+        .each!(key => results[key] = get(key));
+
+      return results;
     }
 
     string[] get(string key) {
@@ -97,7 +99,7 @@ class DMessageCatalog : ICatalog {
 
   // #region set
     ICatalog set(string[][string] messages) {
-      messages.bykeyValue.each!(message => set(key, message));
+      messages.byKeyValue.each!(message => set(message.key, message.value));
       return this;
     }
 

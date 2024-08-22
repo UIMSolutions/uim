@@ -221,7 +221,7 @@ class Hash {
             return _simpleOp("insert", dataToInsert, mytokens, valuesToInsert);
         }
 
-        string mytoken = mytokens.shift();
+        string mytoken = mytokens.shift;
         string mynextPath = mytokens.join(".");
 
         [mytoken, myconditions] = _splitConditions(mytoken);

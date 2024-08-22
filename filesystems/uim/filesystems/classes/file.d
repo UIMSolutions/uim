@@ -190,7 +190,7 @@ class DFile : DFilesystemEntry, IFile {
 	}
 
 	// Deletes file.
-	bool removeKey() {
+	bool remove() {
 		return (hasFilesystem ? filesystem.removeFile(path, name) : false);
 	}
 

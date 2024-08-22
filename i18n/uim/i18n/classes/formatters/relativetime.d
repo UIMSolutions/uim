@@ -347,15 +347,15 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         options
             .set("from", "classname.now()")
             .set("timezone", Json(null))
-            .set("format", classname.wordFormat)
+/*             .set("format", classname.wordFormat)
             .set("accuracy", classname.wordAccuracy)
             .set("end", classname.wordEnd)
-            .set("relativeString", `__d("uim", "%s ago")`)
+ */            .set("relativeString", `__d("uim", "%s ago")`)
             .set("absoluteString", `__d("uim", "on %s")`);
 
         if (options.isString("accuracy")) {
-            auto accuracy = options.get("accuracy");
-            options.set("accuracy", Json(null));
+            /* auto accuracy = options.get("accuracy");
+            options.set("accuracy", Json(null)); */
             /* classname.wordAccuracy.byKeyValue
             .each!(keyLevel => options.set(
                     "accuracy", "" ~ keyLevel.key, accuracy)); */

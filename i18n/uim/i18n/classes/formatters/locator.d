@@ -10,7 +10,7 @@ class DFormatterLocator {
     protected string[string] _formatters = null;
 
     // Tracks whether a locator entry has been converted from a FQCN to a formatter object.
-    protected bool[] _converted;
+    protected bool[string] _converted;
 
     // locator An array of key-value pairs where the key is the formatter name the value is a FQCN for the formatter.
     this(STRINGAA entries = null) {
@@ -23,8 +23,8 @@ class DFormatterLocator {
     }
 
     void set(string key, string classname) {
-        _formatters.set(key, classname);
-        _converted.set(key, false); 
+        _formatters[key] = classname;
+        _converted[key] = false; 
     }
     
     // Gets a formatter from the locator by name.

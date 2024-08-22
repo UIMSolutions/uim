@@ -12,7 +12,7 @@ mixin template TTranslate() {
      * present, a new empty entity will be created so that values can be added to
      * it.
      */
-    IORMEntity translation(string language) {
+    DORMEntity translation(string language) {
         if (language == get("_locale")) {
             return this;
         }
@@ -25,7 +25,7 @@ mixin template TTranslate() {
             isCreated = true;
         }
 
-        if (isCreated || i18n.isEmpty(language) || !(cast(IORMEntity)i18n[language])) {
+        if (isCreated || i18n.isEmpty(language) || !(cast(DORMEntity)i18n[language])) {
             /* classname = class;
 
             i18n[language] = new classname();

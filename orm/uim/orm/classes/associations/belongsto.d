@@ -41,7 +41,7 @@ class DBelongsToAssociation : DAssociation {
     }
 
     // Gets the name of the field representing the foreign key to the target table.
-    string[] foreignKeys() {
+    override string[] foreignKeys() {
       if (_foreignKeys == null) {
         //TODO _foreignKeys = _modelKey(getTarget().aliasName());
       }
@@ -71,7 +71,7 @@ class DBelongsToAssociation : DAssociation {
      * association. This means that rows in the "target" table would miss important
      * or required information if the row in "source" did not exist.
      */
-    bool isOwningSide(DORMTable side) {
+    override bool isOwningSide(DORMTable side) {
         return side == getTarget();
     }
 
@@ -111,7 +111,7 @@ class DBelongsToAssociation : DAssociation {
      * Returns a single or multiple conditions to be appended to the generated join
      * clause for getting the results on the target table.
      */
-    protected IExpression[] _joinCondition(Json[string] options = null) {
+   /*  protected IExpression[] _joinCondition(Json[string] options = null) {
         auto conditions = null;
         auto tAlias = _name;
         auto sAlias = _sourceTable.aliasName();
@@ -139,10 +139,10 @@ class DBelongsToAssociation : DAssociation {
 
         return conditions;
     }
+ */
 
-
-    Closure eagerLoader(Json[string] options = null) {
-        loader = new DSelectLoader([
+    override IClosure eagerLoader(Json[string] options = null) {
+        /* loader = new DSelectLoader(
             "alias": this.aliasName(),
             "sourceAlias": source().aliasName(),
             "targetAlias": getTarget().aliasName(),
@@ -153,7 +153,8 @@ class DBelongsToAssociation : DAssociation {
             "finder": [this, "find"],
         ]);
 
-        return loader.buildEagerLoader(options);
+        return loader.buildEagerLoader(options); */
+        return null;
     }
 }
 mixin(AssociationCalls!("BelongsTo"));

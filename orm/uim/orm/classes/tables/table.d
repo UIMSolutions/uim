@@ -83,17 +83,17 @@ import uim.orm;
  *
  * - `beforeFind(IEvent myevent, SelectQuery myquery, Json[string] options, boolean myprimary)`
  * - `beforeMarshal(IEvent myevent, Json[string] mydata, Json[string] options)`
- * - `afterMarshal(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
+ * - `afterMarshal(IEvent myevent, DORMEntity ormEntity, Json[string] options)`
  * - `buildValidator(IEvent myevent, Validator myvalidator, string myname)`
  * - `buildRules(RulesChecker myrules)`
- * - `beforeRules(IEvent myevent, IORMEntity ormEntity, Json[string] options, string myoperation)`
- * - `afterRules(IEvent myevent, IORMEntity ormEntity, Json[string] options, bool result, string myoperation)`
- * - `beforeSave(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
- * - `afterSave(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
- * - `afterSaveCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
- * - `beforeremoveKey(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
- * - `afterremoveKey(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
- * - `afterDeleteCommit(IEvent myevent, IORMEntity ormEntity, Json[string] options)`
+ * - `beforeRules(IEvent myevent, DORMEntity ormEntity, Json[string] options, string myoperation)`
+ * - `afterRules(IEvent myevent, DORMEntity ormEntity, Json[string] options, bool result, string myoperation)`
+ * - `beforeSave(IEvent myevent, DORMEntity ormEntity, Json[string] options)`
+ * - `afterSave(IEvent myevent, DORMEntity ormEntity, Json[string] options)`
+ * - `afterSaveCommit(IEvent myevent, DORMEntity ormEntity, Json[string] options)`
+ * - `beforeremoveKey(IEvent myevent, DORMEntity ormEntity, Json[string] options)`
+ * - `afterremoveKey(IEvent myevent, DORMEntity ormEntity, Json[string] options)`
+ * - `afterDeleteCommit(IEvent myevent, DORMEntity ormEntity, Json[string] options)`
  */
 class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
@@ -529,7 +529,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             if (!class_hasKey(myname)) {
                 return _entityClass = defaultValue;
             }
-            /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass * /
+            /** @var class-string<\UIM\Datasource\DORMEntity>|null myclass * /
             myclass = App.classname(myname, "Model/Entity");
             if (!myclass) {
                 throw new DMissingEntityException([myname]);
@@ -541,7 +541,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     
     // Sets the class used to hydrate rows for this table.
     void setEntityClass(string nameOfClass) {
-        /** @var class-string<\UIM\Datasource\IORMEntity>|null myclass */
+        /** @var class-string<\UIM\Datasource\DORMEntity>|null myclass */
         auto myclass = App.classname(nameOfClass, "Model/Entity");
         if (myclass.isNull) {
             throw new DMissingEntityException([myname]);
@@ -1163,7 +1163,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * myarticle = myarticles.get(1, ["contain": ["Users", "Comments"]]);
      * ```
      */
-    IORMEntity get(
+    DORMEntity get(
         Json primaryKey,
         /* string[]| */string myfinder = "all",
         /* ICache| */string cacheConfig = null,
@@ -1273,7 +1273,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * records by. Note that when you pass a query object you"ll have to use
      * the 2nd arg of the method to modify the entity data before saving.
      */
-    IORMEntity findOrCreate(
+    DORMEntity findOrCreate(
         DSelectQuery/* callable|array */ mysearch,
         /* callable aCallback = null, */
         Json[string] options = null
@@ -1283,7 +1283,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             "defaults": true.toJson,
         ]);
 
-        IORMEntity entity = null;
+        DORMEntity entity = null;
         /* entity = _executeTransaction(
             fn (): _processFindOrCreate(mysearch, null /* mycallback * /, options.dup),
             options.get("atomic")
@@ -1296,7 +1296,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     }
     
     // Performs the actual find and/or create of an entity based on the passed options.
-    protected IORMEntity _processFindOrCreate(
+    protected DORMEntity _processFindOrCreate(
         DSelectQuery/* callable|array */ mysearch,
         // callable aCallback = null,
         Json[string] options = null
@@ -1511,7 +1511,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * myarticles.save(ormEntity, ["associated": false.toJson]);
      * ```
      */
-    IORMEntity save(IORMEntity entityToSave, Json[string] options = null) {
+    DORMEntity save(DORMEntity entityToSave, Json[string] options = null) {
         option
             .merge("atomic", true)
             .merge("associated", true)
@@ -1551,7 +1551,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Try to save an entity or throw a PersistenceFailedException if the application rules checks failed,
      * the entity contains errors or the save was aborted by a callback.
      */
-    IORMEntity saveOrFail(IORMEntity entityToSave, Json[string] options = null) {
+    DORMEntity saveOrFail(DORMEntity entityToSave, Json[string] options = null) {
         mysaved = this.save(entityToSave, options);
         if (mysaved == false) {
             throw new DPersistenceFailedException(entityToSave, ["save"]);
@@ -1560,7 +1560,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     }
     
     // Performs the actual saving of an entity based on the passed options.
-    protected /* IORMEntity| */bool _processSave(IORMEntity entityToSave, Json[string] options) {
+    protected /* DORMEntity| */bool _processSave(DORMEntity entityToSave, Json[string] options) {
         auto primaryColumns = /* (array) */primaryKeys();
 
         if (options.hasKey("checkExisting") && primaryColumns && entityToSave.isNew() && entityToSave.has(primaryColumns)) {
@@ -1584,8 +1584,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
             }
             if (result == true) {
                 assert(
-                    cast(IORMEntity)result,                    
-                    "The beforeSave callback must return `false` or `IORMEntity` instance. Got `%s` instead."
+                    cast(DORMEntity)result,                    
+                    "The beforeSave callback must return `false` or `DORMEntity` instance. Got `%s` instead."
                     .format(get_debug_type(result))
                );
             }
@@ -1623,7 +1623,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Handles the saving of children associations and executing the afterSave logic
      * once the entity for this table has been saved successfully.
      */
-    protected bool _onSaveSuccess(IORMEntity entity, Json[string] options) {
+    protected bool _onSaveSuccess(DORMEntity entity, Json[string] options) {
         mysuccess = _associations.saveChildren(
             this,
             entity,
@@ -1651,7 +1651,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     }
     
     // Auxiliary auto to handle the insert of an entity"s data in the table
-    protected IORMEntity _insert(IORMEntity ormEntity, Json[string] data) {
+    protected DORMEntity _insert(DORMEntity ormEntity, Json[string] data) {
         auto primaryKeys = primaryKeys();
         if (isEmpty(primaryKeys)) {
             mymsg = "Cannot insert row in `%s` table, it has no primary key."
@@ -1735,7 +1735,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
     }
     
     // Auxiliary auto to handle the update of an entity"s data in the table
-    protected IORMEntity _updateKey(IORMEntity ormEntity, Json[string] data) {
+    protected DORMEntity _updateKey(DORMEntity ormEntity, Json[string] data) {
         auto primaryColumns = primaryKeys();
         auto primaryKey = ormEntity.extract(primaryColumns);
 
@@ -1769,8 +1769,8 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * any one of the records fails to save due to failed validation or database
      * error.
      */
-    IORMEntity[] saveMany(
-        IORMEntity[] entities,
+    DORMEntity[] saveMany(
+        DORMEntity[] entities,
         Json[string] options = null
    ) {
         try {
@@ -1787,12 +1787,12 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * any one of the records fails to save due to failed validation or database
      * error.
      */
-    IORMEntity[] saveManyOrFail(IORMEntity[string] entities, Json[string] options = null) {
+    DORMEntity[] saveManyOrFail(DORMEntity[string] entities, Json[string] options = null) {
         return _saveMany(entities, options);
     }
     
-    protected IORMEntity[] _saveMany(
-        IORMEntity[] entities,
+    protected DORMEntity[] _saveMany(
+        DORMEntity[] entities,
         Json[string] options = null
    ) {
         options = new Json[string](
@@ -1839,16 +1839,16 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
 
             throw new DPersistenceFailedException(myfailed, ["saveMany"]);
         }
-        mycleanupOnSuccess = void (IORMEntity ormEntity) use (&mycleanupOnSuccess) {
+        mycleanupOnSuccess = void (DORMEntity ormEntity) use (&mycleanupOnSuccess) {
             ormEntity.clean();
             ormEntity.setNew(false);
 
             foreach (ormEntity.toJString().keys as fieldName) {
                 myvalue = ormEntity.get(fieldName);
 
-                if (cast(IORMEntity)myvalue) {
+                if (cast(DORMEntity)myvalue) {
                     mycleanupOnSuccess(myvalue);
-                } else if (isArray(myvalue) && cast(IORMEntity)currentValue(myvalue)) {
+                } else if (isArray(myvalue) && cast(DORMEntity)currentValue(myvalue)) {
                     myvalue.each!(associated => mycleanupOnSuccess(associated));
                 }
             }
@@ -1891,9 +1891,9 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * for the duration of the callbacks, this allows listeners to modify
      * the options used in the delete operation.
      * Params:
-     * \UIM\Datasource\IORMEntity ormEntity The entity to remove.
+     * \UIM\Datasource\DORMEntity ormEntity The entity to remove.
          */
-    bool removeKey(IORMEntity ormEntity, Json[string] options = null) {
+    bool removeKey(DORMEntity ormEntity, Json[string] options = null) {
         options = new Json[string](options ~ [
             "atomic": true.toJson,
             "checkRules": true.toJson,
@@ -1922,9 +1922,9 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * any one of the records fails to delete due to failed validation or database
      * error.
      * Params:
-     * iterable<\UIM\Datasource\IORMEntity> entities Entities to delete.
+     * iterable<\UIM\Datasource\DORMEntity> entities Entities to delete.
      */
-    IORMEntity[] deleteMany(Json[string] entities, Json[string] options = null) {
+    DORMEntity[] deleteMany(Json[string] entities, Json[string] options = null) {
         auto myfailed = _deleteMany(entities, options);
         return myfailed !is null
             ? false
@@ -1937,7 +1937,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * The records will be deleted in a transaction which will be rolled back if
      * any one of the records fails to delete due to failed validation or database error.
      */
-    IORMEntity[] deleteManyOrFail(IORMEntity[] entities, Json[string] options = null) {
+    DORMEntity[] deleteManyOrFail(DORMEntity[] entities, Json[string] options = null) {
         /* auto myfailed = _deleteMany(entities, options);
 
         if (myfailed !is null) {
@@ -1946,7 +1946,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         return entities;
     }
     
-    protected IORMEntity _deleteMany(Json[string] entities, Json[string] options = null) {
+    protected DORMEntity _deleteMany(Json[string] entities, Json[string] options = null) {
         options = options
             .merge("atomic", true)
             .merge("checkRules", true)
@@ -1976,9 +1976,9 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Try to delete an entity or throw a PersistenceFailedException if the entity is new,
      * has no primary key value, application rules checks failed or the delete was aborted by a callback.
      * Params:
-     * \UIM\Datasource\IORMEntity ormEntity The entity to remove.
+     * \UIM\Datasource\DORMEntity ormEntity The entity to remove.
      */
-    bool deleteOrFail(IORMEntity entityToRemove, Json[string] options = null) {
+    bool deleteOrFail(DORMEntity entityToRemove, Json[string] options = null) {
         auto mydeleted = removeKey(entityToRemove, options);
         if (!mydeleted) {
             throw new DPersistenceFailedException(entityToRemove, ["delete"]);
@@ -1992,7 +1992,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * Will delete the entity provided. Will remove rows from any
      * dependent associations, and clear out join tables for BelongsToMany associations.
      */
-    protected bool _processremoveKey(IORMEntity ormEntity, Json[string] options) {
+    protected bool _processremoveKey(DORMEntity ormEntity, Json[string] options) {
         if (ormEntity.isNew()) {
             return false;
         }
@@ -2220,7 +2220,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
         return new DMarshaller(this);
     }
     
-    IORMEntity newEmptyEntity() {
+    DORMEntity newEmptyEntity() {
         myclass = getEntityClass();
 
         return new myclass([], ["source": this.registryKey()]);
@@ -2279,7 +2279,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * You can use the `Model.beforeMarshal` event to modify request data
      * before it is converted into entities.
      */
-    IORMEntity newEntity(Json[string] data, Json[string] options = null) {
+    DORMEntity newEntity(Json[string] data, Json[string] options = null) {
         options.set("associated", options.ifNull("associated", _associations.keys()));
         return _marshaller().one(data, options);
     }
@@ -2311,7 +2311,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * You can use the `Model.beforeMarshal` event to modify request data
      * before it is converted into entities.
      */
-    IORMEntity[] newEntities(Json[string] data, Json[string] options = null) {
+    DORMEntity[] newEntities(Json[string] data, Json[string] options = null) {
         options.set("associated", options.ifEmpty("associated", _associations.keys()));
         return _marshaller().many(mydata, options);
     }
@@ -2359,7 +2359,7 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * property will not be marked as dirty. This is an optimization to prevent unnecessary field
      * updates when persisting entities.
      */
-    IORMEntity patchEntity(IORMEntity entity, Json[string] dataToMerge, Json[string] options = null) {
+    DORMEntity patchEntity(DORMEntity entity, Json[string] dataToMerge, Json[string] options = null) {
         options.set("associated", options.ifEmpty("associated", _associations.keys()));
         return _marshaller().merge(entity, dataToMerge, options);
     }
@@ -2388,10 +2388,10 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * You can use the `Model.beforeMarshal` event to modify request data
      * before it is converted into entities.
      * Params:
-     * iterable<\UIM\Datasource\IORMEntity> entities the entities that will get the
+     * iterable<\UIM\Datasource\DORMEntity> entities the entities that will get the
      * data merged in
      */
-    IORMEntity[] patchEntities(Json[string] entities, Json[string] data, Json[string] options = null) {
+    DORMEntity[] patchEntities(Json[string] entities, Json[string] data, Json[string] options = null) {
         options.set("associated", options.ifNull("associated", _associations.keys()));
         return _marshaller().mergeMany(entities, data, options);
     }
@@ -2515,11 +2515,11 @@ class DORMTable : UIMObject, IEventListener { //* }: IRepository, , IEventDispat
      * ```
      *
      * The properties for the associations to be loaded will be overwritten on each entity.
-     * \UIM\Datasource\IORMEntity|array<\UIM\Datasource\IORMEntity> entities a single entity or list of entities
+     * \UIM\Datasource\DORMEntity|array<\UIM\Datasource\DORMEntity> entities a single entity or list of entities
      */
-    /* IORMEntity[] loadInto(IORMEntity entities, Json[string] mycontain) {
+    /* DORMEntity[] loadInto(DORMEntity entities, Json[string] mycontain) {
     } */
-    IORMEntity[] loadInto(IORMEntity[] entities, Json[string] mycontain) {
+    DORMEntity[] loadInto(DORMEntity[] entities, Json[string] mycontain) {
         return (new DLazyEagerLoader()).loadInto(entities, mycontain, this);
     }
  

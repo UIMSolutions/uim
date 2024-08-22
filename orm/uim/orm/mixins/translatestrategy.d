@@ -52,7 +52,7 @@ mixin template TTranslateStrategy() {
      *
      * Should only be called if configuration.get("allowEmptyTranslations"] is false.
      */
-    protected void unsetEmptyFields(IORMEntity entity) {
+    protected void unsetEmptyFields(DORMEntity entity) {
         /** @var array<DORMEntity> translations */
         auto translations = entity.getArray("_translations");
         foreach (locale, translation; translations) {
@@ -96,7 +96,7 @@ mixin template TTranslateStrategy() {
                     return null;
                 }
 
-                /** @var array<string, DORMDatasource\IORMEntity>|null translations * /
+                /** @var array<string, DORMDatasource\DORMEntity>|null translations * /
                 auto translations = entity.get("_translations");
                 if (translations == null) {
                     translations = null;
@@ -128,7 +128,7 @@ mixin template TTranslateStrategy() {
     }
 
     // Unsets the temporary `_i18n` property after the entity has been saved
-    void afterSave(IEvent event, IORMEntity entity) {
+    void afterSave(IEvent event, DORMEntity entity) {
         entity.removeKey("_i18n");
     }
 }

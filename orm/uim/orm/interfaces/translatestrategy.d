@@ -57,8 +57,8 @@ interface ITranslateStrategy : IPropertyMarshal {
      * Modifies the entity before it is saved so that translated fields are persisted
      * in the database too.
      */
-    void beforeSave(IEvent event, IORMEntity entity, Json[string] options);
+    void beforeSave(IEvent event, DORMEntity entity, Json[string] options);
 
     // Unsets the temporary `_i18n` property after the entity has been saved
-    void afterSave(IEvent event, IORMEntity entity);
+    void afterSave(IEvent event, DORMEntity entity);
 }

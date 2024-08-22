@@ -31,7 +31,7 @@ class DExistsIn {
     }
 
     // Performs the existence check
-    bool __invoke(IORMEntity ormEntity, Json[string] options = null) {
+    bool __invoke(DORMEntity ormEntity, Json[string] options = null) {
         if (isString(_repository)) {
             if (!options.hasKey("repository").hasAssociation(_repository)) {
                 throw new DatabaseException(
@@ -88,7 +88,7 @@ class DExistsIn {
     }
 
     // Checks whether the given entity fields are nullable and null.
-    protected bool _fieldsAreNull(IORMEntity entityToCheck, DORMTable mysource) {
+    protected bool _fieldsAreNull(DORMEntity entityToCheck, DORMTable mysource) {
         auto schema = mysource.getSchema();
         auto mynulls = _fields
             .filter!(field => schema.getColumn(field) && schema.isNullable(

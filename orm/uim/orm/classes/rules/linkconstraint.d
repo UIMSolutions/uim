@@ -33,7 +33,7 @@ class DLinkConstraint {
      *
      * Performs the actual link check.
      */
-    bool __invoke(IORMEntity ormEntity, Json[string] options = null) {
+    bool __invoke(DORMEntity ormEntity, Json[string] options = null) {
         auto mytable = options.get("repository", null);
         if (!(cast(Table)mytable)) {
            /*  throw new DInvalidArgumentException(
@@ -71,7 +71,7 @@ class DLinkConstraint {
     }
     
     // Count links.
-    protected int _countLinks(DAssociation association, IORMEntity ormEntity) {
+    protected int _countLinks(DAssociation association, DORMEntity ormEntity) {
         auto associationSource = association.source();
         /* auto primaryKeys = mysource.primaryKeys();
         if (!myentity.has(myprimaryKey)) {

@@ -14,7 +14,7 @@ class DValidCount {
     }
     
     // Performs the count check
-    bool __invoke(IORMEntity ormEntity, Json[string] options = null) {
+    bool __invoke(DORMEntity ormEntity, Json[string] options = null) {
 /*         auto value = ormEntity.{_fieldName};
         if (!isArray(value) && !cast(DCountable)value) {
             return false;

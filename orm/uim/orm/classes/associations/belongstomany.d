@@ -100,12 +100,12 @@ class DBelongsToManyAssociation : DAssociation {
     }
 
     // Whether this association can be expressed directly in a query join
-    bool canBeJoined(Json[string] options = null) {
+    override bool canBeJoined(Json[string] options = null) {
         return options.hasKey("matching");
     }
 
     // Gets the name of the field representing the foreign key to the source table.
-    string[] foreignKeys() {
+    override string[] foreignKeys() {
         if (_foreignKey == null) {
             // TODO _foreignKey = _modelKey(source().getTable());
         }
@@ -305,7 +305,7 @@ class DBelongsToManyAssociation : DAssociation {
      * - fields: a list of fields in the target table to include in the result
      * - type: The type of join to be used (e.g. INNER)
      */
-    void attachTo(DQuery query, Json[string] options = null) {
+    override void attachTo(DQuery query, Json[string] options = null) {
         if (options.hasKey("negateMatch")) {
             _appendNotMatching(query, options);
 
@@ -337,8 +337,7 @@ class DBelongsToManyAssociation : DAssociation {
         thisJoin["conditions"].add(assoc._joinCondition(["foreignKeys": foreignKeys]));
     }
 
-
-    protected void _appendNotMatching(DQuery query, Json[string] options = null) {
+    override protected void _appendNotMatching(DQuery query, Json[string] options = null) {
         if (options.isEmpty("negateMatch")) {
             return;
         }
@@ -405,7 +404,7 @@ class DBelongsToManyAssociation : DAssociation {
     } */
 
     // Clear out the data in the junction table for a given entity.
-    bool cascadeRemoveKey(DORMEntity ormEntity, Json[string] options = null) {
+    override bool cascadeRemoveKey(DORMEntity ormEntity, Json[string] options = null) {
         if (!getDependent()) {
             return true;
         }
@@ -438,7 +437,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Returns boolean true, as both of the tables "own" rows in the other side
      * of the association via the joint table.
      */
-    bool isOwningSide(DORMTable tableWithOwnership) {
+    override bool isOwningSide(DORMTable tableWithOwnership) {
         return true;
     }
 
@@ -472,7 +471,7 @@ class DBelongsToManyAssociation : DAssociation {
      * of the entities intended to be saved by this method, they will be updated,
      * not deleted.
      */
-    DORMEntity saveAssociated(DORMEntity ormEntity, Json[string] options = null) {
+    override DORMEntity saveAssociated(DORMEntity ormEntity, Json[string] options = null) {
         auto targetEntity = entity.get(getProperty());
         auto strategy = getSaveStrategy();
 
@@ -659,10 +658,11 @@ class DBelongsToManyAssociation : DAssociation {
      * `article.get("tags")` will contain only `[tag4]` after deleting in the database
      */
     bool unlink(DORMEntity sourceEntity, Json[string] targetEntities, /* string[]  */bool isCleanProperty = null) {
-        unlink(sourceEntity, targetEntities, [
+        return unlink(sourceEntity, targetEntities, [
             "cleanProperty": isCleanProperty.toJson,
         ]);
     }
+
     bool unlink(DORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         options.merge("cleanProperty", true);
 
@@ -701,13 +701,13 @@ class DBelongsToManyAssociation : DAssociation {
     }
 
 
-    void setConditions(conditions) {
+/*     void setConditions(conditions) {
         super.setConditions(conditions);
         _targetConditions = _junctionConditions = null;
-    }
+    } */
 
     // Sets the current join table, either the name of the Table instance or the instance it
-    void setThrough(through) {
+    void setThrough(DORMTable through) {
         _through = through;
     }
 
@@ -722,7 +722,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Any string expressions, or expression objects will
      * also be returned in this list.
      */
-    protected json[string] targetConditions() {
+    protected Json[string] targetConditions() {
         if (_targetConditions != null) {
             return _targetConditions;
         }

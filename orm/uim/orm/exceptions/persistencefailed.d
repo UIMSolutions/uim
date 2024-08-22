@@ -25,11 +25,11 @@ class DPersistenceFailedException : DORMException {
     mixin(ExceptionCalls!("PersistenceFailed"));
 
     // The entity on which the persistence operation failed
-    protected IORMEntity _entity;
+    protected DORMEntity _entity;
 
     protected string _messageTemplate = "Entity %s failure.";
 
-    this(IORMEntity entity, string[] myMessage, int errorCode = null, Throwable previousException = null) {
+    this(DORMEntity entity, string[] myMessage, int errorCode = null, Throwable previousException = null) {
         string[] errors = Hash.flatten(entity.getErrors()).byKeyValue.each!(kv => kv.key ~ ": \"" ~ kv.value ~ "\"");
         if (errors) {
             message ~= errors.join(", ");
@@ -38,13 +38,13 @@ class DPersistenceFailedException : DORMException {
         super(message, errorCode, previousException);
     }
 
-    this(IORMEntity entity, string message, int errorCode = null, Throwable previousException = null) {
+    this(DORMEntity entity, string message, int errorCode = null, Throwable previousException = null) {
         _entity = entity;
         super(message, errorCode, previousException);
     }
 
     // Get the passed in entity
-    IORMEntity getEntity() {
+    DORMEntity getEntity() {
         return _entity;
     } 
 }

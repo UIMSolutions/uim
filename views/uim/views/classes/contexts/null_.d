@@ -46,16 +46,16 @@ class DNullContext : DContext {
         return null;
     }
  
-    /* Json[string] attributes(string fieldName) {
-        return null;
-    } */
+    Json[string] attributes(string fieldName) {
+        return Json(null);
+    }
  
     bool hasError(string fieldName) {
         return false;
     }
  
-   /* Json[string] error(string fieldName) {
-        return null;
-    }
+    Json[string] error(string fieldName) {
+        return Json(null);
+    } 
 }
 mixin(ContextCalls!("Null"));

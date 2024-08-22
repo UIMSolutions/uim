@@ -24,7 +24,7 @@ class DContextFactory {
      * Json[string] myproviders Array of provider callables. Each element should
      * be of form `["type": "a-string", "callable": ..]`
      */
-    static static createWithDefaults(Json[string] myproviders= null) {
+    /* static auto createWithDefaults(Json[string] myproviders= null) {
         auto myproviders = [
             [
                 "type": "orm",
@@ -70,7 +70,7 @@ class DContextFactory {
         ] + myproviders;
 
         return new static(myproviders);
-    }
+    } */
     
     /**
      * Add a new context type.

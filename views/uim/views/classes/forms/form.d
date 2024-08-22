@@ -25,7 +25,7 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
-            return false; 
+            return false;
         }
 
         return true;
@@ -98,14 +98,13 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
         keys
             .filter!(key => hasKey(key))
             .each!(key => result[key] = get(key));
-        
+
         return result;
     }
 
     Json get(string key, Json defaultValue = Json(null)) {
         return _data.hasKey(key)
-            ? _data[key]
-            : defaultValue;
+            ? _data[key] : defaultValue;
     }
     // #endregion data handling
 
@@ -140,15 +139,14 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
         return null;
     }
 
-
     // Used to check if someData passes this form`s validation.
     bool validate(Json[string] data, string validatorName = null) {
-       _errors = getValidator(validatorName ? validatorName : DEFAULT_VALIDATOR)
+        _errors = getValidator(validatorName ? validatorName : DEFAULT_VALIDATOR)
             .validate(data);
 
         return count(_errors) == 0;
     }
-    
+
     /**
      * Get the errors in the form
      * Will return the errors from the last call to `validate()` or `execute()`.
@@ -161,7 +159,7 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
     Json getError(string fieldName) {
         return _errors.ifNull(fieldName);
     }
-    
+
     /**
      * Set the errors in the form.
      *
@@ -176,9 +174,9 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
      * Json[string] errors Errors list.
      */
     void setErrors(Json[string] errors) {
-       _errors = errors;
+        _errors = errors;
     }
-    
+
     /**
      * Execute the form if it is valid.
      *
@@ -195,14 +193,15 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
      * Json[string] data Form data.
      */
     bool execute(Json[string] data, Json[string] options = null) {
-       _data = someData;
-        auto updatedOptions = options.update["validate": true.toJson];
+        _data = someData;
+        options.merge("validate", true);
         if (!options.getBoolean("validate")) {
             return _execute(someData);
         }
 
-        auto validator = options.getBoolean("validate") ? DEFAULT_VALIDATOR : options.getBoolean("validate");
-        return _validate(someData, validator) ? _execute(someData): false;
+        auto validator = options.getBoolean("validate") ? DEFAULT_VALIDATOR
+            : options.getBoolean("validate");
+        return _validate(someData, validator) ? _execute(someData) : false;
     }
 
     /**
@@ -216,20 +215,18 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
 
     // Get field data.
     Json getData(string fieldName = null) {
-        if (fieldName.isNull) {
-            return _data; // null - get all Data
-        }
-
-        return Hash.get(_data, field);
+        return fieldName.isNull
+            ? _data // null - get all Data
+            : Hash.get(_data, field);
     }
-    
+
     /**
      * Saves a variable or an associative array of variables for use inside form data.
      * Params:
      * string[] aName The key to write, can be a dot notation value.
      * Alternatively can be an array containing key(s) and value(s).
      */
-    void set(/* string[] */ string name, Json value = null) {
+    void set( /* string[] */ string name, Json value = null) {
         set([name: value]);
     }
 

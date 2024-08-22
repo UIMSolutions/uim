@@ -122,12 +122,12 @@ class DArrayContext : DContext {
      * - 
     */
     Json val(string fieldPath, Json[string] options  = null) {
-        Json options.setPath([
+        options.set(createMap!(string, Json)
             // `default`: Default value to return if no value found in data or context record.
-            "default": Json(null),
-            "schemaDefault": true.toJson
+            .merge("default", Json(null))
+            .merge("schemaDefault", true)
             // `schemaDefault`: Boolean indicating whether default value from context"s schema should be used if it"s not explicitly provided.
-        ]);
+        );
 
         if (Hash.check(_context.get("data"), fieldPath)) {
             return Hash.get(_context.get("data"), fieldPath);
@@ -235,15 +235,11 @@ class DArrayContext : DContext {
        );
     }
 
-    /**
-     * Check whether a field has an error attached to it
-     * Params:
-     * string fieldName A dot separated path to check errors on.
-     */
+    // Check whether a field has an error attached to it
     bool hasError(string fieldName) {
         return _context.isEmpty("errors") 
             ? false
-            : Hash.check(_context["errors"], fieldName);
+            : false; // Hash.check(_context["errors"], fieldName);
     }
 
     // Get the errors for a given field
@@ -255,11 +251,11 @@ class DArrayContext : DContext {
 
     /**
      * Strips out any numeric nesting
-     *
      * For example users.0.age will output as users.age
      */
     protected string stripNesting(string dotSeparatedPath) {
-        return (string)preg_replace("/\.\d*\./", ".", dotSeparatedPath);
+       // `return /* (string) */preg_replace("/\.\d*\./", ".", dotSeparatedPath);`
+       return null; 
     }
 }
 mixin(ContextCalls!("Array"));

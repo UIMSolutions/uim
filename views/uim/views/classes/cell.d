@@ -91,10 +91,10 @@ abstract class DCell { // }: IEventDispatcher {
         _response = response;
 
         _validCellOptions = array_merge(["action", "args"], _validCellOptions);
-        _validCellOptions
+        /* _validCellOptions
             .filter!(var => cellOptionsToApply.hasKey(var))
             .each!(var => this.{var} = cellOptionsToApply[myvar]);
-        }
+        } */
         if (!cellOptionsToApply.isEmpty("cache")) {
            _cache = cellOptionsToApply["cache"];
         }
@@ -108,11 +108,11 @@ abstract class DCell { // }: IEventDispatcher {
      * value will be used. This value is automatically set by `CellTrait.cell()`.
      */
     string render(string templateName = null) {
-        mycache = null;
+        auto mycache = null;
         if (_cache) {
             mycache = _cacheConfig(_action, templateName);
         }
-        myrender = auto () use (templateName) {
+        /* myrender = auto () use (templateName) {
             try {
                 myreflect = new DReflectionMethod(this, _action);
                 myreflect.invokeArgs(this, this.args);
@@ -128,7 +128,7 @@ abstract class DCell { // }: IEventDispatcher {
             }
             myclassname = class;
             viewsPrefix = "\View\Cell\\";
-            /** @psalm-suppress PossiblyFalseOperand */
+            /** @psalm-suppress PossiblyFalseOperand * /
             views = subString(myclassname, indexOf(myclassname, viewsPrefix) + viewsPrefix.length);
             views = subString(views, 0, -4);
             if (!mybuilder.getTemplatePath()) {
@@ -151,7 +151,7 @@ abstract class DCell { // }: IEventDispatcher {
                     exception
                );
             }
-        };
+        }; */
 
         return mycache 
             ? Cache.remember(mycache["key"], myrender, mycache["config"])

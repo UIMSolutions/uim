@@ -353,49 +353,38 @@ class DViewBuilder { // }: DJsonSerializable {
     
     // Iterates through hash to clean up and normalize.
     protected void _checkViewVars(Json &myitem, string key) {
-        if (cast(Exception)myitem) {
+        /* if (cast(Exception)myitem) {
             myitem = to!string(myitem);
-        }
-        if (
+        } */
+        /* if (
             isResource(myitem) ||
             cast(DClosure)myitem ||
             cast(PDO)myitem
-       ) {
-            throw new DInvalidArgumentException(
+       ) { */
+            /* throw new DInvalidArgumentException(
                 "Failed serializing the `%s` %s in the `%s` view var"
                 .format(isResource(myitem) ? get_resource_type(myitem): myitem.classname,
                 isResource(myitem) ? "resource" : "object",
                 key
-           ));
-        }
+           )); */
+       /*  } */
     }
     
-    /**
-     * Configures a view builder instance from serialized config.
-     * Params:
-     * Json[string] configData View builder configuration array.
-     */
+    // Configures a view builder instance from serialized config.
     auto createFromArray(Json[string] configData = null) {
-        foreach (myproperty, myvalue; configData) {
+        /* foreach (myproperty, myvalue; configData) {
             this.{myproperty} = myvalue;
-        }
+        } */
         return this;
     }
     
-    /**
-     * Magic method used for serializing the view builder object.
-     */
+    // Magic method used for serializing the view builder object.
     Json[string] __serialize() {
         return _JsonSerialize();
     }
     
-    /**
-     * Magic method used to rebuild the view builder object.
-     *
-     * Params:
-     * mydata Data array.
-     */
+    // Magic method used to rebuild the view builder object.
     void __unserialize(Json[string] data) {
-        this.createFromArray(mydata);
+        createFromArray(mydata);
     }
 }

@@ -25,7 +25,7 @@ class DFormProtector {
     string getError() {
         return _debugMessage;
     }
-    
+
     // Fields list.
     protected Json[string] _fields = null;
 
@@ -43,7 +43,7 @@ class DFormProtector {
             hashParts["unlockedFields"],
             formUrl,
             sessionId
-       );
+        );
 
         if (hash_equals(generatedToken, extractedToken)) {
             return true;
@@ -55,13 +55,13 @@ class DFormProtector {
         }
         return false;
     }
-    
+
     this(Json[string] initData = null) {
         if (!initData.isEmpty("unlockedFields")) {
             _unlockedFields = initData["unlockedFields"];
         }
     }
-    
+
     /**
      * Determine which fields of a form should be used for hash.
      * Params:
@@ -69,21 +69,22 @@ class DFormProtector {
      * separated string to indicate nesting or array of fieldname parts.
      */
     auto addField(string[] afield, bool shouldLock = true, Json value = null) {
-        if (isString(field)) {
+        if (field.isString) {
             field = getFieldNameParts(field);
         }
         if (isEmpty(field)) {
             return this;
         }
+
         foreach (unlockField; _unlockedFields) {
             string[] unlockParts = unlockField.split(".");
             if (intersect(field, unlockParts).values == unlockParts) {
                 return this;
             }
         }
-        field = field.join(".");
-        field = to!string(preg_replace("/(\.\d+)+/", "", field));
 
+        string field = field.join(".");
+        // field = to!string(preg_replace("/(\.\d+)+/", "", field));
         if (shouldLock) {
             if (!isIn(field, this.fields, true)) {
                 if (value !is null) {
@@ -101,7 +102,7 @@ class DFormProtector {
         }
         return this;
     }
-    
+
     /**
      * Parses the field name to create a dot separated name value for use in
      * field hash. If fieldname is of form Model[field] or Model.field an array of
@@ -115,12 +116,12 @@ class DFormProtector {
         if (!name.contains("[")) {
             return name.split(".");
         }
-        
+
         string[] parts = name.split("[").stripText("]", " ");
 
         return Hash.filter(parts, "strlen");
     }
-    
+
     /**
      * Add to the list of fields that are currently unlocked.
      *
@@ -130,7 +131,7 @@ class DFormProtector {
         if (!isIn(name, _unlockedFields, true)) {
             _unlockedFields ~= fieldName;
         }
-         anIndex = array_search(fieldName, this.fields, true);
+        anIndex = array_search(fieldName, this.fields, true);
         if (anIndex == true) {
             removeKey(_fields[anIndex]);
         }
@@ -138,9 +139,7 @@ class DFormProtector {
 
         return this;
     }
-    
 
-    
     /**
      * Extract token from data.
      * Params:
@@ -152,7 +151,7 @@ class DFormProtector {
 
             return null;
         }
-        
+
         string message = "`%s` was not found in request data.";
         if (!formData.hasKey("_Token")) {
             _debugMessage = message.format("_Token");
@@ -183,14 +182,14 @@ class DFormProtector {
             _debugMessage = "Unexpected `_Token.debug` found in request data";
             return null;
         }
-        
+
         string token = urldecode(formData["_Token.fields"]);
         if (token.contains(": ")) {
-            [token, ] = split(": ", token, 2);
+            [token,] = split(": ", token, 2);
         }
         return token;
     }
-    
+
     // Return hash parts for the token generation
     protected Json[string] extractHashParts(Json[string] formData) {
         auto fields = extractFields(formData);
@@ -201,7 +200,7 @@ class DFormProtector {
             "unlockedFields": unlockedFields,
         ];
     }
-    
+
     /**
      * Return the fields list for the hash calculation
      * Params:
@@ -212,34 +211,37 @@ class DFormProtector {
         string token = urldecode(formData["_Token.fields"]);
         string unlocked = urldecode(formData["_Token.unlocked"]);
 
-        if (token.contains(": ")) {
+        /* if (token.contains(": ")) {
             [, locked] = split(": ", token, 2);
         }
-        removeKey(formData["_Token"]);
+        removeKey(formData["_Token"]); */
 
-        string[] lockeds = locked ? locked.split("|") : null;
-        string[] unlockeds = unlocked ? unlocked.split("|"): [];
+        /* string[] lockeds = locked ? locked.split("|") : null;
+        string[] unlockeds = unlocked ? unlocked.split("|") : [];
 
         auto fields = Hash.flatten(formData);
         auto fieldList = fields.keys;
         auto multi = lockedFields = null;
-         auto isUnlocked = false;
+        auto isUnlocked = false; */
 
-        foreach (index: aKey; fieldList) {
+        /* foreach (index: aKey; fieldList) {
             if (isString(aKey) && preg_match("/(\.\d+){1,10}/", aKey)) {
                 multi[index] = preg_replace("/(\.\d+){1,10}/", "", aKey);
                 removeKey(fieldList[index]);
             } else {
-                fieldList[index] = /* (string) */aKey;
-            }
-        }
-        if (!multi.isEmpty) {
-            fieldList += multi.unique;
-        }
-        unlockedFields = chain(_unlockedFields, unlocked).unique;
+                fieldList[index] = /* (string) * /
+        aKey;
+    }
+}
 
-        /** @var string aKey */
-        foreach (index, aKey; fieldList) {
+if (!multi.isEmpty) {
+    fieldList += multi.unique;
+}
+unlockedFields = chain(_unlockedFields, unlocked).unique;
+ *  /
+
+     /** @var string aKey */
+        /* foreach (index, aKey; fieldList) {
              isLocked = isIn(aKey, locked, true);
 
             if (!unlockedFields.isEmpty) {
@@ -258,14 +260,14 @@ class DFormProtector {
                     lockedFields[aKey] = fields[aKey];
                 }
             }
-        }
-        fieldList = fieldList.sort(SORT_STRING);
-        ksort(lockedFields, SORT_STRING);
+        } */
+        auto fieldList = fieldList.sort(SORT_STRING);
+        // ksort(lockedFields, SORT_STRING);
         fieldList += lockedFields;
 
         return fieldList;
     }
-    
+
     /**
      * Get the sorted unlocked string
      * Params:
@@ -274,10 +276,9 @@ class DFormProtector {
     protected string[] sortedUnlockedFields(Json[string] formData) {
         string unlocked = urldecode(formData["_Token.unlocked"]);
         return !unlocked.isEmpty
-            ? unlocked.split("|").sort(SORT_STRING)
-            : null;        
+            ? unlocked.split("|").sort(SORT_STRING) : null;
     }
-    
+
     // Generate the token data.
     STRINGAA buildTokenData(string url = "", string sessionId = null) {
         auto fields = _fields.dup;
@@ -287,7 +288,7 @@ class DFormProtector {
         fields.byKeyValue
             .each!((kv) {
                 if (isNumeric(kv.value)) {
-                    kv.value = /* (string) */kv.value;
+                    kv.value =  /* (string) */ kv.value;
                 }
                 if (!isInteger(kv.key)) {
                     locked[kv.key] = kv.value;
@@ -305,14 +306,14 @@ class DFormProtector {
         return [
             "fields": urlencode(fields ~ ": " ~ locked),
             "unlocked": urlencode(join("|", unlockedFields)),
-            "debug": urlencode(/* (string) */Json_ncode([
-                url,
-                this.fields,
-                _unlockedFields,
-            ])),
+            "debug": urlencode( /* (string) */ Json_ncode([
+                    url,
+                    this.fields,
+                    _unlockedFields,
+                ])),
         ];
     }
-    
+
     // Generate validation hash.
     protected string generateHash(string[] fieldNames, Json[string] unlockedFields, string url, string sessionId) {
         hashParts = [
@@ -324,48 +325,49 @@ class DFormProtector {
 
         return hash_hmac("sha1", hashParts.join(""), Security.getSalt());
     }
-    
+
     // Create a message for humans to understand why Security token is not matching
     protected string debugTokenNotMatching(Json[string] formData, Json[string] hashParts) {
         auto messages = null;
         if (formData.isNull("_Token.debug")) {
             return "Form protection debug token not found.";
         }
-        
+
         auto expectedParts = Json_decode(urldecode(formData["_Token.debug"]), true);
         if (!isArray(expectedParts) || count(expectedParts) != 3) {
             return "Invalid form protection debug token.";
         }
-        
+
         auto expectedUrl = Hash.get(expectedParts, 0);
         auto url = Hash.get(hashParts, "url");
         if (expectedUrl != url) {
             messages ~= "URL mismatch in POST data (expected `%s` but found `%s`)"
                 .format(expectedUrl, url);
         }
-        auto expectedFields = Hash.get(expectedParts, 1);
-        auto dataFields = Hash.get(hashParts, "fields") ?: [];
+        /* auto expectedFields = Hash.get(expectedParts, 1);
+        auto dataFields = Hash.get(hashParts, "fields") ?  : [];
         auto fieldsMessages = this.debugCheckFields(
-            (array)dataFields,
+            (array) dataFields,
             expectedFields,
             "Unexpected field `%s` in POST data",
             "Tampered field `%s` in POST data (expected value `%s` but found `%s`)",
-            "Missing field `%s` in POST data"
-       );
-        auto expectedUnlockedFields = Hash.get(expectedParts, 2);
-        auto someDataUnlockedFields = Hash.get(hashParts, "unlockedFields") ?: [];
+            "Missing field `%s` in POST data" * /
+        );
+        /* auto expectedUnlockedFields = Hash.get(expectedParts, 2);
+        auto someDataUnlockedFields = Hash.get(hashParts, "unlockedFields") ?  : [];
         auto unlockFieldsMessages = this.debugCheckFields(
-            (array)someDataUnlockedFields,
+            (array) someDataUnlockedFields,
             expectedUnlockedFields,
             "Unexpected unlocked field `%s` in POST data",
             "",
             "Missing unlocked field: `%s`"
-       );
+        );
 
         messages = chain(messages, fieldsMessages, unlockFieldsMessages);
-        return messages.join(", ", );
+        return messages.join(", ",); */
+        return null; 
     }
-    
+
     /**
      * Iterates data array to check against expected
      * Params:
@@ -378,22 +380,22 @@ class DFormProtector {
         string intKeyMessage = "",
         string stringKeyMessage = "",
         string missingMessage = ""
-   ) {
-        auto messages = matchExistingFields(dataFields, expectedFields,  anIntKeyMessage, stringKeyMessage);
+    ) {
+        auto messages = matchExistingFields(dataFields, expectedFields, anIntKeyMessage, stringKeyMessage);
         auto expectedFieldsMessage = this.debugExpectedFields(expectedFields, missingMessage);
         if (!expectedFieldsMessage.isNull) {
             messages ~= expectedFieldsMessage;
         }
         return messages;
     }
-    
+
     // Generate array of messages for the existing fields in POST data, matching dataFields in expectedFields will be unset
     protected string[] matchExistingFields(
         Json[string] dataFields,
         Json[string] expectedFields,
         string intKeyMessage,
         string stringKeyMessage
-   ) {
+    ) {
         string[] messages = null;
         dataFields.byKeyValue.each!((kv) {
             if (isInteger(kv.key)) {
@@ -406,16 +408,16 @@ class DFormProtector {
             } else {
                 if (expectedFields.hasKey(kv.key) && kv.value != expectedFields[kv.key]) {
                     messages ~= stringKeyMessage
-                    .format(kv.key, expectedFields[kv.key], kv.value);
+                        .format(kv.key, expectedFields[kv.key], kv.value);
                 }
                 expectedFields.removeKey(kv.key);
             }
         });
         return messages;
     }
-    
+
     // Generate debug message for the expected fields
-    protected string debugExpectedFields(Json[string] expectedFields= null, string missingMessage= null) {
+    protected string debugExpectedFields(Json[string] expectedFields = null, string missingMessage = null) {
         if (count(expectedFields) == 0) {
             return null;
         }
@@ -425,12 +427,12 @@ class DFormProtector {
 
         return missingMessage.format(join(", ", expectedFieldNames));
     }
+
     protected string debugExpectedField(aKey, expectedField) {
         return isInteger(aKey)
-            ? expectedField
-            : aKey;
+            ? expectedField : aKey;
     }
-    
+
     // Return debug info
     Json[string] debugInfo() {
         return [

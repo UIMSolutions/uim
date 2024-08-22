@@ -18,7 +18,7 @@ public { // Required uim libraries
   // import uim.filesystems;
   import uim.logging;
   import uim.models;
-  import uim.orm;
+  // import uim.orm;
   import uim.consoles;
   import uim.validations;
 }

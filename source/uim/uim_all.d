@@ -34,7 +34,7 @@ public {
     import uim.collections;
     import uim.consoles;
     import uim.controllers;
-    import uim.databases;
+    // import uim.databases;
     import uim.datasources;
     import uim.entitybases;
     import uim.errors;
@@ -52,7 +52,7 @@ public {
     import uim.mvc;
     import uim.networks;
     import uim.neurals;
-    import uim.orm;
+    // import uim.orm;
     import uim.routings;
     import uim.scriptings;
     import uim.securities;

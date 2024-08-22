@@ -1,2 +1,0 @@
-module uim.neurals.helpers;
-

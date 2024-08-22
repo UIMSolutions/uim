@@ -21,7 +21,7 @@ public { // uim libraries
   import uim.events;
   import uim.logging;
   import uim.models;
-  import uim.orm;
+  // import uim.orm;
   import uim.views;
 }
 

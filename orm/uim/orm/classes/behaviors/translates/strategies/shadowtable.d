@@ -285,7 +285,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
      * Modifies the entity before it is saved so that translated fields are persisted
      * in the database too.
      */
-    void beforeSave(IEvent event, IORMEntity entity, Json[string] options) {
+    void beforeSave(IEvent event, DORMEntity entity, Json[string] options) {
         auto locale = entity.get("_locale") ? entity.get("_locale") : locale();
         auto newOptions = [
             _translationTable.aliasName(): [
@@ -347,7 +347,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
         if (id) {
             where.set("id", id);
 
-            /** @var DORMdatasources.IORMEntity|null translation */
+            /** @var DORMdatasources.DORMEntity|null translation */
             translation = this
                 .translationTable.find()
                 .select(array_merge([
@@ -431,7 +431,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
             function(
                 row) use(
                 allowEmpty, locale) {
-            /** @var DORMdatasources.IORMEntity|array|null row * /
+            /** @var DORMdatasources.DORMEntity|array|null row * /
             if (
                 row == null) {
                 return row;
@@ -506,7 +506,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
             row.removeKey("_i18n");
             if (
                 cast(
-                IORMEntity) row) {
+                DORMEntity) row) {
                 row.clean();
             }
 
@@ -519,7 +519,7 @@ class DShadowTableStrategy : UIMObject { // TODO }: ITranslateStrategy {
      * out of the data found in the `_translations` property in the passed
      * entity. The result will be put into its `_i18n` property.
      */
-    protected void bundleTranslatedFields(IORMEntity entity) {
+    protected void bundleTranslatedFields(DORMEntity entity) {
         auto translations =  /* (
             array) */
             entity.get(

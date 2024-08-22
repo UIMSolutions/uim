@@ -59,7 +59,7 @@ class DTreeBehavior : DBehavior {
      * Transparently manages setting the lft and rght fields if the parent field is
      * included in the parameters to be saved.
      */
-    void beforeSave(IEvent event, IORMEntity ormEntity) {
+    void beforeSave(IEvent event, DORMEntity ormEntity) {
         auto isNew = entity.isNew();
 
         auto parent = entity.get(configuration.get("parent"));
@@ -118,7 +118,7 @@ class DTreeBehavior : DBehavior {
      * After save listener.
      * Manages updating level of descendants of currently saved entity.
      */
-    void afterSave(IEvent event, IORMEntity entityToSave) {
+    void afterSave(IEvent event, DORMEntity entityToSave) {
         if (!configuration.hasKey("level") || entityToSave.isNew()) {
             return;
         }
@@ -127,7 +127,7 @@ class DTreeBehavior : DBehavior {
     }
 
     // Set level for descendants.
-    protected void _setChildrenLevel(IORMEntity ormEntity) {
+    protected void _setChildrenLevel(DORMEntity ormEntity) {
         if (entity.get(configuration.get("left")) + 1 == entity.get(configuration.get("right"))) {
             return;
         }
@@ -145,7 +145,7 @@ class DTreeBehavior : DBehavior {
                 "order": configuration.get("left"),
             ]);
 
-        /** @var DORMdatasources.IORMEntity node */
+        /** @var DORMdatasources.DORMEntity node */
         foreach (node; children) {
             auto parentIdValue = node.get(configuration.get("parent"));
             size_t depth = depths.getLong(parentIdValue) + 1;
@@ -159,7 +159,7 @@ class DTreeBehavior : DBehavior {
     }
 
     // Also deletes the nodes in the subtree of the entity to be delete
-    void beforeremoveKey(IEvent event, IORMEntity ormEntity) {
+    void beforeremoveKey(IEvent event, DORMEntity ormEntity) {
 
         _ensureFields(entity);
         auto left = entity.get(configuration.get("left"));
@@ -196,7 +196,7 @@ class DTreeBehavior : DBehavior {
      * updated to a new parent. It also makes the hole in the tree so the node
      * move can be done without corrupting the structure.
      */
-    protected void _setParent(IORMEntity ormEntity, Json parent) {
+    protected void _setParent(DORMEntity ormEntity, Json parent) {
 
         auto parentNode = _getNode(parent);
         _ensureFields(entity);
@@ -252,7 +252,7 @@ class DTreeBehavior : DBehavior {
      * a new root in the tree. It also modifies the ordering in the rest of the tree
      * so the structure remains valid
      */
-    protected void _setAsRoot(IORMEntity ormEntity) {
+    protected void _setAsRoot(DORMEntity ormEntity) {
 
         auto edge = _getMax();
         _ensureFields(entity);
@@ -328,7 +328,7 @@ class DTreeBehavior : DBehavior {
     }
 
     // Get the number of children nodes.
-    int countChildNodes(IORMEntity entityNode, bool shouldCountDirect = false) {
+    int countChildNodes(DORMEntity entityNode, bool shouldCountDirect = false) {
 
         auto parent = _table.aliasField(
             configData.get("parent"));
@@ -454,7 +454,7 @@ class DTreeBehavior : DBehavior {
      * Note that the node will not be deleted just moved away from its current position
      * without moving its children with it.
      */
-    IORMEntity removeFromTree(IORMEntity node) {
+    DORMEntity removeFromTree(DORMEntity node) {
         /* return _table.getConnection().transactional(function () use (node) {
             _ensureFields(node);
 
@@ -464,8 +464,8 @@ class DTreeBehavior : DBehavior {
     }
 
     // Helper function containing the actual code for removeFromTree
-    protected IORMEntity _removeFromTree(
-        IORMEntity nodeToRemove) {
+    protected DORMEntity _removeFromTree(
+        DORMEntity nodeToRemove) {
 
         auto left = nodeToRemove.get(
             configuration.get("left"));
@@ -517,7 +517,7 @@ class DTreeBehavior : DBehavior {
      * If the node is the first child, or is a top level node with no previous node
      * this method will return the same node without any changes
      */
-    IORMEntity moveUp(IORMEntity nodeToMove, size_t placesToMove = 1) {
+    DORMEntity moveUp(DORMEntity nodeToMove, size_t placesToMove = 1) {
         if (number < 1) {
             return false;
         }
@@ -530,7 +530,7 @@ class DTreeBehavior : DBehavior {
     }
 
     // Helper function used with the actual code for moveUp
-    protected IORMEntity _moveUp(IORMEntity nodeToMove, size_t placesToMove) {
+    protected DORMEntity _moveUp(DORMEntity nodeToMove, size_t placesToMove) {
         [
             parent, left,
             right
@@ -547,7 +547,7 @@ class DTreeBehavior : DBehavior {
 
         auto targetNode = null;
         if (number != true) {
-            /** @var DORMdatasources.IORMEntity|null targetNode */
+            /** @var DORMdatasources.DORMEntity|null targetNode */
             auto targetNode = _scope(
                 _table.find())
                 .select([
@@ -565,7 +565,7 @@ class DTreeBehavior : DBehavior {
                 .first();
         }
         if (!targetNode) {
-            /** @var DORMdatasources.IORMEntity|null targetNode */
+            /** @var DORMdatasources.DORMEntity|null targetNode */
             targetNode = _scope(
                 _table.find())
                 .select([left, right])
@@ -609,7 +609,7 @@ class DTreeBehavior : DBehavior {
      * If the node is the last child, or is a top level node with no subsequent node
      * this method will return the same node without any changes
      */
-    IORMEntity moveDown(IORMEntity node, int number = 1) {
+    DORMEntity moveDown(DORMEntity node, int number = 1) {
         if (number < 1) {
             return null;
         }
@@ -623,7 +623,7 @@ class DTreeBehavior : DBehavior {
     }
 
     // Helper function used with the actual code for moveDown
-    protected IORMEntity _moveDown(IORMEntity node, int number) {
+    protected DORMEntity _moveDown(DORMEntity node, int number) {
         [parent, left, right] = [
             configuration
             .get("parent"), configuration.get(
@@ -642,7 +642,7 @@ class DTreeBehavior : DBehavior {
 
         auto targetNode = null;
         if (number != true) {
-            /** @var DORMdatasources.IORMEntity|null targetNode */
+            /** @var DORMdatasources.DORMEntity|null targetNode */
             targetNode = _scope(
                 _table.find())
                 .select([left, right])
@@ -659,7 +659,7 @@ class DTreeBehavior : DBehavior {
                 .first();
         }
         if (!targetNode) {
-            /** @var DORMdatasources.IORMEntity|null targetNode */
+            /** @var DORMdatasources.DORMEntity|null targetNode */
             targetNode = _scope(
                 _table.find())
                 .select([left, right])
@@ -700,7 +700,7 @@ class DTreeBehavior : DBehavior {
     }
 
     // Returns a single node from the tree from its primary key
-    protected IORMEntity _getNode(
+    protected DORMEntity _getNode(
         Json id) {
         auto configData = configuration
             .data;
@@ -895,7 +895,7 @@ class DTreeBehavior : DBehavior {
      * right fields
      */
     protected void _ensureFields(
-        IORMEntity ormEntity) {
+        DORMEntity ormEntity) {
         auto configData = configuration
             .data;
         fields = [
@@ -942,7 +942,7 @@ class DTreeBehavior : DBehavior {
         auto id = entity;
         if (
             cast(
-                IORMEntity) entity) {
+                DORMEntity) entity) {
             id = entity.get(
                 primaryKeys);
         }

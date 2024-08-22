@@ -10,7 +10,7 @@ import uim.orm;
  * into a specific iterator that will be responsible for hydrating results if
  * required.
  *
- * @template TSubject of \UIM\Datasource\IORMEntity|array
+ * @template TSubject of \UIM\Datasource\DORMEntity|array
  * @extends \UIM\Database\Query\SelectQuery<TSubject>
  */
 class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
@@ -70,7 +70,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
 
     /**
      * Resultset factory
-     * @var \ORM\ResultsetFactory<\UIM\Datasource\IORMEntity|array>
+     * @var \ORM\ResultsetFactory<\UIM\Datasource\DORMEntity|array>
      */
     protected DResultsetFactory resultSetFactory;
 
@@ -1372,7 +1372,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Executes the query and converts the result set into Json.
      * Part of JsonSerializable interface.
      */
-    IResultset/* <(\UIM\Datasource\IORMEntity|mixed)> */ jsonSerialize() {
+    IResultset/* <(\UIM\Datasource\DORMEntity|mixed)> */ jsonSerialize() {
         return _all();
     }
     

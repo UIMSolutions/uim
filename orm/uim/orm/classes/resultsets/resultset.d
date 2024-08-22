@@ -10,7 +10,7 @@ import uim.orm;
  * the query, casting each field to the correct type and executing the extra
  * queries required for eager loading external associations.
  *
- * @template T of \UIM\Datasource\IORMEntity|array
+ * @template T of \UIM\Datasource\DORMEntity|array
  * @implements \UIM\Datasource\IResultset<T>
  */
 class DResultset { // TODO }: IResultset {
@@ -47,7 +47,7 @@ class DResultset { // TODO }: IResultset {
 
     /* 
     // Last record fetched from the statement
-    protected IORMEntity[] _current;
+    protected DORMEntity[] _current;
 
 
     /**
@@ -66,7 +66,7 @@ class DResultset { // TODO }: IResultset {
      *
      * Part of Iterator interface.
      */
-    IORMEntity /* | array | null */ currentValue() {
+    DORMEntity /* | array | null */ currentValue() {
         return _current;
     }
 
@@ -116,7 +116,7 @@ class DResultset { // TODO }: IResultset {
      *
      * This method will also close the underlying statement cursor.
      */
-    IORMEntity[] first() {
+    DORMEntity[] first() {
         foreach (result; this) {
             return result;
         }

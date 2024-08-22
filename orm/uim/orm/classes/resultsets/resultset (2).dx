@@ -327,7 +327,7 @@ class DResultset : IResultset {
     }
 
     // Correctly nests results keys including those coming from associations
-    protected IORMEntity _groupResult(Json[string] row) {
+    protected DORMEntity _groupResult(Json[string] row) {
         auto defaultAlias = _defaultAlias;
         auto results = presentAliases = null;
         options = [
@@ -345,7 +345,7 @@ class DResultset : IResultset {
                 /** @var DORMDORMTable aTable */
                 table = matching["instance"];
                 options.get("source", table.registryKey());
-                /** @var DORMdatasources.IORMEntity entity */
+                /** @var DORMdatasources.DORMEntity entity */
                 entity = new matching["entityClass"](results["_matchingData"][aliasName], options);
                 results.setPath(["_matchingData", aliasName], entity);
             }
@@ -422,7 +422,7 @@ class DResultset : IResultset {
         if (results.hasKey(defaultAlias)) {
             results = results[defaultAlias];
         }
-        if (_hydrate && !cast(IORMEntity)results) {
+        if (_hydrate && !cast(DORMEntity)results) {
             results = new _entityClass(results, options);
         }
 

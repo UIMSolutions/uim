@@ -11,7 +11,7 @@ import uim.orm;
  * It is responsible for correctly nesting result keys reported from the query
  * and hydrating entities.
  *
- * @template T of array|\UIM\Datasource\IORMEntity
+ * @template T of array|\UIM\Datasource\DORMEntity
  */
 class DResultsetFactory {
     IResultset createResultset(DSelectQuery resultQuery, Json[string] results) {
@@ -78,7 +78,7 @@ class DResultsetFactory {
      * Params:
      * Json[string] myrow Array containing columns and values.
      */
-    protected /* IORMEntity|array*/ Json[string] groupResult(Json[string] columnsValues, Json[string] tableMetadata) {
+    protected /* DORMEntity|array*/ Json[string] groupResult(Json[string] columnsValues, Json[string] tableMetadata) {
         // TODO
         /* 
         auto results = mypresentAliases = null;
@@ -100,7 +100,7 @@ class DResultsetFactory {
 
                 options.set("source", mytable.registryKey());
                 myentity = new mymatching["entityClass"](results["_matchingData"][aliasName], options);
-                assert(cast(IORMEntity)myentity);
+                assert(cast(DORMEntity)myentity);
 
                 results["_matchingData"][aliasName] = myentity;
             }
@@ -168,7 +168,7 @@ class DResultsetFactory {
         if (auto primaryAlias = tableMetadata.getString("primaryAlias")) {
             results = results[primaryAlias];
         }
-        if (tableMetadata["hydrate"] && !(cast(IORMEntity)results)) {
+        if (tableMetadata["hydrate"] && !(cast(DORMEntity)results)) {
             results = new tableMetadata["entityClass"](results, options);
         }
         return results;

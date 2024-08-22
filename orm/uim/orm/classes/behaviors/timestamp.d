@@ -45,7 +45,7 @@ class DTimestampBehavior : DBehavior {
 
   // Current timestamp
   protected DateTime _ts; // There is only one event handler, it can be configured to be called for any event
-  void handleEvent(IEvent myevent, IORMEntity myentity) {
+  void handleEvent(IEvent myevent, DORMEntity myentity) {
     auto myeventName = myevent.name;
     auto myevents = configuration.get("events");
 
@@ -109,9 +109,9 @@ class DTimestampBehavior : DBehavior {
      * "always" or "existing", update the timestamp value. This method will overwrite
      * any pre-existing value.
      * Params:
-     * \UIM\Datasource\IORMEntity myentity Entity instance.
+     * \UIM\Datasource\DORMEntity myentity Entity instance.
      */
-  bool touch(IORMEntity myentity, string eventName = "Model.beforeSave") {
+  bool touch(DORMEntity myentity, string eventName = "Model.beforeSave") {
     auto myevents = configuration.get("events");
     if (
       isEmpty(myevents[myeventName])) {
@@ -132,7 +132,7 @@ class DTimestampBehavior : DBehavior {
   }
 
   // Update a field, if it hasn"t been updated already
-  protected void _updateField(IORMEntity entity, string fieldName, bool shouldRefreshTimestamp) {
+  protected void _updateField(DORMEntity entity, string fieldName, bool shouldRefreshTimestamp) {
     if (entity.isChanged(fieldName)) {
       return;
     }

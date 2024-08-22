@@ -50,7 +50,7 @@ import uim.orm;
  * ```
  * [
  *    "Users": [
- *        "posts_published": function (IEvent event, IORMEntity entity, DORMTable aTable) {
+ *        "posts_published": function (IEvent event, DORMEntity entity, DORMTable aTable) {
  *            query = table.find("all").where([
  *                "published": true.toJson,
  *                "user_id": entity.get("user_id")
@@ -95,7 +95,7 @@ class DCounterCacheBehavior : DBehavior {
      * beforeSave callback.
      * Check if a field, which should be ignored, is dirty
      */
-    void beforeSave(IEvent myevent, IORMEntity ormEntity, Json[string] options) {
+    void beforeSave(IEvent myevent, DORMEntity ormEntity, Json[string] options) {
         if (options.hasKey("ignoreCounterCache") && options.getBoolean("ignoreCounterCache")) {
             return;
         }
@@ -125,7 +125,7 @@ class DCounterCacheBehavior : DBehavior {
      * afterSave callback.
      * Makes sure to update counter cache when a new record is created or updated.
      */
-    void afterSave(IEvent firedEvent, IORMEntity entity, Json[string] queryOptions) {
+    void afterSave(IEvent firedEvent, DORMEntity entity, Json[string] queryOptions) {
         /* if (queryOptions.hasKey("ignoreCounterCache") && queryoptions.get("ignoreCounterCache"] == true) {
             return;
         } */
@@ -138,7 +138,7 @@ class DCounterCacheBehavior : DBehavior {
      *
      * Makes sure to update counter cache when a record is deleted.
      */
-    void afterremoveKey(IEvent event, IORMEntity ormEntity, Json[string] options) {
+    void afterremoveKey(IEvent event, DORMEntity ormEntity, Json[string] options) {
         if (options.getBoolean("ignoreCounterCache")) {
             return;
         }
@@ -146,7 +146,7 @@ class DCounterCacheBehavior : DBehavior {
     }
     
     // Iterate all associations and update counter caches.
-    protected void _processAssociations(IEvent event, IORMEntity ormEntity) {
+    protected void _processAssociations(IEvent event, DORMEntity ormEntity) {
         configuration.byKeyValue
             .each!((assocSettings) {
                 auto tableAssociation = _table.getAssociation(assocSettings.key);
@@ -157,7 +157,7 @@ class DCounterCacheBehavior : DBehavior {
     // Updates counter cache for a single association
     protected void _processAssociation(
         IEvent myevent,
-        IORMEntity ormEntity,
+        DORMEntity ormEntity,
         DAssociation association,
         Json[string] mysettings
    ) {

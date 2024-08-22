@@ -199,7 +199,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * Modifies the entity before it is saved so that translated fields are persisted
      * in the database too.
      */
-    void beforeSave(IEvent event, IORMEntity ormEntity, Json[string] options) {
+    void beforeSave(IEvent event, DORMEntity ormEntity, Json[string] options) {
         /* auto locale = ormEntity.get("_locale") ?: locale();
         auto newOptions = [_translationTable.aliasName(): ["validate": false.toJson]];
         options.set("associated", newOptions + options.get("associated"));
@@ -323,7 +323,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      */
     protected DORMcollections rowMapper(IResultset results, string localeName) {
         /* return results.map(function (row) use (localeName) {
-            /** @var DORMdatasources.IORMEntity|array|null row * /
+            /** @var DORMdatasources.DORMEntity|array|null row * /
             if (row == null) {
                 return row;
             }
@@ -366,7 +366,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         // TODO
         /* 
         return resultsToModify.map(function (row) {
-            if (!cast(IORMEntity)row) {
+            if (!cast(DORMEntity)row) {
                 return row;
             }
             
@@ -401,7 +401,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * out of the data found in the `_translations` property in the passed
      * entity. The result will be put into its `_i18n` property.
      */
-    protected void bundleTranslatedFields(IORMEntity entity) {
+    protected void bundleTranslatedFields(DORMEntity entity) {
         auto translations = entity.getStringArray("_translations");
 
         if (translations.isEmpty && !entity.isChanged("_translations")) {

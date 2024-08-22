@@ -19,11 +19,7 @@ interface IConfigurable {
         configuration.set(key, value);
     }
 
-    /* 
-    void setConfigurationData(Json newData); 
-
-    void setConfigurationData(string key, Json newData); 
-    */
-
-    // TODO Json getConfigurationData(string key); 
+    final Json getConfiguration(string key) {
+        return configuration.get(key);
+    }
 }

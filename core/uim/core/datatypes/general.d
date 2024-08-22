@@ -6,6 +6,11 @@
 module uim.core.datatypes.general;
 
 import uim.core;
+@safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "  -----");
+}
 
 size_t indexIn(T)(T value, T[] values) {
   foreach (i, ref v; values)
@@ -132,14 +137,27 @@ V[K] concatPostfixInKeys(V, K)(V[K] leftValues, V postValue) { // right will ove
   }
 
 // #region toogle
-T toogle(T)(T value, T checkValue, T changeValue) if (!isBoolean!T) {
-    if (value == checkValue) return changeValue;
-    if (value == changeValue) return checkValue;
-    return value;
+bool toggle(bool value) {
+  return !value;
+}
+
+T toggle(T)(T value, T value0, T value1) {
+  return (value == value0) 
+    ? value1 
+    : ((value == value1) 
+      ? value0 
+      : value);
 }
 unittest {
+    assert(false.toggle == true);
+    assert(true.toggle == false);
+
     assert(1.toggle(1, 2) == 2);
     assert(2.toggle(1, 2) == 1);
     assert(3.toggle(1, 2) == 3);
+
+    assert("Yes".toggle("Yes", "No") == "No");
+    assert("No".toggle("Yes", "No") == "Yes");
+    assert("Bla".toggle("Yes", "No") == "Bla");
 }
 // #endregion toogle

@@ -6,9 +6,13 @@
 module uim.core.datatypes.datetime;
 
 import uim.core;
+@safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "  -----");
+}
 
 enum startUNIX = DateTime(1970, 1, 1, 0, 0, 0);
-@safe:
 
 long toTimestamp(SysTime untilTime) {
 	return (untilTime - cast(SysTime)startUNIX).total!"hnsecs"();

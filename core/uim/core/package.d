@@ -29,20 +29,7 @@ alias DOUBLEAA = double[double];
 
 const DIRECTORY_SEPARATOR = "\\";
 
-/+  +/
-T toggle(T, S)(S value) if (isBoolean!S) {
-  return !S;
-}
 
-T toggle(T, S)(S value, T defValue = 1, T zeroValue = 0) if (isNumeric!S) {
-  return (value != zeroValue
-      ? zeroValue : defValue);
-}
-
-/+ toggle between values +/
-T toggle(T)(T value, T value0, T value1) {
-  return (value == value0) ? value1 : value0;
-}
 
 /+ +/
 /// select values in array

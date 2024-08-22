@@ -682,17 +682,17 @@ unittest {
 }
 
 // #region push
-V[] push(V)(ref V[] items, V[] newItems...) {
+V[] push(V)(auto ref V[] items, V[] newItems...) {
   return push(items, newItems.dup);
 }
 
-V[] push(V)(ref V[] items, V[] newItems) {
+V[] push(V)(auto ref V[] items, V[] newItems) {
   items ~= newItems;
   return items;
 }
 
 unittest {
-  string[] testMap = ["a", "b", "c"].push("d", "e");
+  string[] testMap = push(["a", "b", "c"], "d", "e");
   assert(testMap == ["a", "b", "c", "d", "e"]);
   assert(testMap.length == 5);
 
@@ -718,5 +718,5 @@ string[] toStringArray(string[] values) {
 }
 
 unittest {
-  assert(["a", "b", "c"] == )
+  // assert(["a", "b", "c"] == )
 }

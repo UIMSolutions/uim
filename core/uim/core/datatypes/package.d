@@ -21,7 +21,6 @@ public {
 }
 
 
-
 T rotate(T)(T value, T[] values, bool directionRight = true) {
   if (values.length > 0)
   foreach(index, val; values) {

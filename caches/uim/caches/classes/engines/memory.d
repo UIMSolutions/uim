@@ -238,18 +238,18 @@ return true;
      * will be treated as real Unix time value rather than an offset from current time.
      */
   override bool updateKey(string itemKey, Json dataToCache, long timeToLive = 0) {
-      return false;
-      // TODO 
+    return false;
+    // TODO 
     // return _memory.set(internalKey(itemKey), dataToCache, duration(timeToLive));
   }
 
-override bool merge(Json[string] items, long timeToLive = 0) {
+  override bool merge(Json[string] items, long timeToLive = 0) {
     Json[string] cacheData = null;
     /* items.byKeyValue
       .each!(kv => cacheData.set(internalKey(kv.key), kv.value)); */
     // TODOreturn _memory.merge(cacheData, duration(timeToLive));
-    return false; 
-  } 
+    return false;
+  }
 
   // Write many cache entries to the cache at once
   /*  override bool updateKey(Json[string] items, long timeToLive = 0) {
@@ -283,20 +283,20 @@ override bool merge(Json[string] items, long timeToLive = 0) {
   // Delete a key from the cache
   override bool removeKey(string key) {
     // return _memory.removeKey(internalcorrectKey(key));
-    return false; 
+    return false;
   }
 
   // Delete all keys from the cache
   override bool clear() {
     string prefix = configuration.getString("prefix");
-/*    _memory.getAllKeys()
+    /*    _memory.getAllKeys()
       .filter!(key => key.startsWith(prefix))
       .each!(key => _memory.removeKey(key)); */
     return true;
   }
 
   // Add a key to the cache if it does not already exist.
-/*  override bool merge(string key, Json value, long timeToLive = 0) {
+  /*  override bool merge(string key, Json value, long timeToLive = 0) {
     auto internKey = internalcorrectKey(key);
     return _memory.add(internKey, value, duration);
   } */
@@ -320,21 +320,19 @@ override bool merge(Json[string] items, long timeToLive = 0) {
     /* ksort(mygroups); * /
   } */
 
-  string[] result;
-  /* auto mygroups = mygroups.values;
-    foreach (index, mygroup; configuration.get("groups")) {
-      result ~= mygroup ~ mygroups.getString(index);
-    } */
-  return result;
-}
+    auto groupValues = mygroups.values;
+    string[] result = configuration.getArray("groups").map!((index, group) => group ~ groupValues[index].getString).array;
+    return result;
+  }
 
-/**
+  /**
   * Increments the group value to simulate deletion of all keys under a group
   * old values will remain in storage until they expire.
   */
-override bool clearGroup(string groupName) {
-  // TODO return  /* (bool) */ _memory.increment(configuration.getString("prefix") ~ groupName);
-  return false;
+  override bool clearGroup(string groupName) {
+    // TODO return  /* (bool) */ _memory.increment(configuration.getString("prefix") ~ groupName);
+    return false;
+  }
 }
-}
+
 mixin(CacheEngineCalls!("Memory"));

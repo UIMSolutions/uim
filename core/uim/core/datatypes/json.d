@@ -8,6 +8,9 @@ module uim.core.datatypes.json;
 import uim.core;
 
 @safe:
+unittest {
+  writeln("-----  ", __MODULE__ , "  -----");
+}
 
 V Null(V : Json)() {
   return Json(null);
@@ -506,14 +509,13 @@ T minValue(T)(Json[] jsons, string key) {
     break;
   } // found value
 
-  foreach (j; jsons) { // compare values
-    if (key !in j)
-      continue;
-
-    T value = j[key].get!T;
-    if (value < result)
-      result = value;
-  }
+  jsons
+    .filter!(json => key in json)
+    .each!((json) {
+      T value = json[key].get!T;
+      if (value < result)
+        result = value;
+  });
   return result;
 }
 
@@ -559,6 +561,29 @@ T maxValue(T)(Json[] jsons, string key) {
       ], "a") == "5");
  */  }
 
+Json firstWithKey(Json[] jsons, string key) {
+  Json[] results = jsons.filter!(json => json.hasKey(key)).array;
+  return results.length > 0 
+    ? results[0]
+    : Json(null);
+}
+unittest{
+  Json[] jsons;
+  auto json = Json.emptyObject;
+  jsons ~= json
+    .set("a", 1)
+    .set("b", 1);
+  json = Json.emptyObject;
+  jsons ~= json
+    .set("a", 2)
+    .set("b", 2);
+  json = Json.emptyObject;
+  jsons ~= json
+    .set("a", 3)
+    .set("b", 4);
+  assert(jsons.firstWithKey("a").getLong("a") == 1);
+  assert(jsons.firstWithKey("x") == Json(null));
+}
 
 Json mergeJsonObject(Json baseJson, Json mergeJson) {
   Json result;
@@ -1039,42 +1064,42 @@ unittest {
 }
 // #endregion
 
-Json set(ref Json json, string key) {
+Json set(Json json, string key) {
   if (json.isObject) {
     json[key] = null;
   }
   return json;
 }
 
-Json set(ref Json json, string key, bool value) {
+Json set(Json json, string key, bool value) {
   if (json.isObject) {
     json[key] = value;
   }
   return json;
 }
 
-Json set(ref Json json, string key, int value) {
+Json set(Json json, string key, int value) {
   if (json.isObject) {
     json[key] = value;
   }
   return json;
 }
 
-Json set(ref Json json, string key, long value) {
+Json set(Json json, string key, long value) {
   if (json.isObject) {
     json[key] = value;
   }
   return json;
 }
 
-Json set(ref Json json, string key, float value) {
+Json set(Json json, string key, float value) {
   if (json.isObject) {
     json[key] = value;
   }
   return json;
 }
 
-Json set(ref Json json, string key, double value) {
+Json set(Json json, string key, double value) {
   if (json.isObject) {
     json[key] = value;
   }
@@ -1088,21 +1113,21 @@ Json set(Json json, string key, string value) {
   return json;
 }
 
-Json set(ref Json json, string key, Json value) {
+Json set(Json json, string key, Json value) {
   if (json.isObject) {
     json[key] = value;
   }
   return json;
 }
 
-Json set(ref Json json, string key, Json[] value) {
+Json set(Json json, string key, Json[] value) {
   if (json.isObject) {
     json[key] = value;
   }
   return json;
 }
 
-Json set(ref Json json, string key, STRINGAA value) {
+Json set(Json json, string key, STRINGAA value) {
   if (json.isObject) {
     Json[string] convertedValues;
     value.byKeyValue.each!(kv => convertedValues[kv.key] = kv.value.toJson);
@@ -1111,7 +1136,7 @@ Json set(ref Json json, string key, STRINGAA value) {
   return json;
 }
 
-Json set(ref Json json, string key, Json[string] value) {
+Json set(Json json, string key, Json[string] value) {
   if (json.isObject) {
     json[key] = value;
   }

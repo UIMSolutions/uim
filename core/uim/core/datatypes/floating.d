@@ -5,8 +5,12 @@
 ***********************************************************************************************************************/
 module uim.core.datatypes.floating;
 
-@safe:
 import uim.core;
+@safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "  -----");
+}
 
 V Null(V:float)(){
 	return 0.0; 

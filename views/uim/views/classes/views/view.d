@@ -248,7 +248,7 @@ static string contentType() {
         }
         foreach (myvar; _passedVars) {
             if (viewOptions.hasKey(myvar)) {
-                _{myvar} = viewoptions.get(myvar];
+                /* _{myvar} = viewoptions.get(myvar); */
             }
         }
         if (_helpers) {
@@ -259,11 +259,11 @@ static string contentType() {
             array_flip(_passedVars)
        ));
 
-        _request = serverRequest ? serverRequest : (Router.getRequest() ?: new DServerRequest(["base": "", "url": "", "webroot": "/"]));
-        _response = _response ?: new DResponse();
+        // _request = serverRequest ? serverRequest : (Router.getRequest() ?: new DServerRequest(["base": "", "url": "", "webroot": "/"]));
+        /* _response = _response ?: new DResponse();
         _blocks = new _viewBlockClass();
         _initialize();
-        _loadHelpers();
+        _loadHelpers(); */
     }
     
     /**
@@ -414,10 +414,10 @@ static string contentType() {
 
         bool _pluginCheck = options.get("plugin") == true;
         auto filepath = _getElementFileName(templatefilename, _pluginCheck);
-        if (filepath && options.get("cache")) {
-            return _cache(void () use (filepath, mydata, options) {
+        if (!filepath.isEmpty && options.hasKey("cache")) {
+            /* return _cache(void () use (filepath, mydata, options) {
                 writeln(_renderElement(filepath, mydata, options));
-            }, options.get("cache"));
+            }, options.get("cache")); */
         }
         if (filepath) {
             return _renderElement(filepath, mydata, options);
@@ -931,7 +931,7 @@ static string contentType() {
             }
             views = _layout;
         }
-        [_plugin, views] = _pluginSplit(views);
+        /* [_plugin, views] = _pluginSplit(views);
         views ~= _ext;
 
         foreach (path; _getLayoutPaths(_plugin)) {
@@ -940,7 +940,8 @@ static string contentType() {
             }
         }
         paths = iterator_to_array(_getLayoutPaths(_plugin));
-        throw new DMissingLayoutException(views, paths);
+        throw new DMissingLayoutException(views, paths); */
+        return true;
     }
     
     // Get an iterator for layout paths.
@@ -959,17 +960,17 @@ static string contentType() {
     }
     
     // Finds an element filename, returns false on failure.
-    protected string|int|false _getElementFileName(string elementname, bool shouldCheckPlugin = true)|false
+    protected string _getElementFileName(string elementname, bool shouldCheckPlugin = true)
     {
-        [_plugin, elementname] = _pluginSplit(elementname, shouldCheckPlugin);
+        /* [_plugin, elementname] = _pluginSplit(elementname, shouldCheckPlugin);
 
         auto elementname ~= _ext;
         foreach (path; _getElementPaths(_plugin)) {
             if (isFile(path ~ elementname)) {
                 return path ~ elementname;
             }
-        }
-        return false;
+        } */
+        return null;
     }
     
     // Get an iterator for element paths.

@@ -45,9 +45,9 @@ class DLabelWidget : DWidget {
             .set("input", updatedData.get("input"))
             .set("hidden", updatedData.get("hidden"))
             .set("templateVars", updatedData.get("templateVars"))
-            .set("attrs", _stringContents.formatAttributes(updatedData, [
+            /* .set("attrs", _stringContents.formatAttributes(updatedData, [
                 "text", "input", "hidden"
-            ])))
+            ])) */);
     }
 }
 

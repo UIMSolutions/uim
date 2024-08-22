@@ -106,15 +106,14 @@ class DStringContents {
     void set(string key, string newTemplate) {
         _templates[key] = newTemplate;
         // ? _compiledTemplates = newTemplates.keys;
-    }    
+    }
 
     string get(string key) {
         return _templates.hasKey(key)
-            ? _temolates[key]
-            : null; 
+            ? _temolates[key] : null;
     }
-    
-        /**
+
+    /**
      * Load a config file containing templates.
      *
      * Template files should define a `configData` variable containing
@@ -130,8 +129,8 @@ class DStringContents {
         auto myloader = new DPhpConfig();
         auto mytemplates = myloader.read(fileName);
         add(mytemplates); */
-    } 
-    
+    }
+
     // Remove the named template.
     bool removeKey(string name) {
         _templates.removeKey(name);
@@ -147,16 +146,17 @@ class DStringContents {
     protected void _compileAllTemplates() {
         _compileTemplates(configuration.keys);
     }
-    
+
     protected void _compileTemplates(string[] templateNames) {
         templateNames
-          .each!(name => compileTemplate(name));
+            .each!(name => compileTemplate(name));
     }
 
     protected void compileTemplate(string templateName) {
         string selectedTemplate = get(templateName);
         if (selectedTemplate.isNull) {
-            throw new DInvalidArgumentException("String template `%s` is not valid.".format(templateName));
+            throw new DInvalidArgumentException(
+                "String template `%s` is not valid.".format(templateName));
         }
 
         selectedTemplate = selectedTemplate.replace("%", "%%");
@@ -171,19 +171,19 @@ class DStringContents {
 
     // Push the current templates into the template stack.
     void push() {
-       //TODO configurationStack ~= [
-       //TODO     configuration,
-       //TODO     _compiledtemplates,
-       //TODO  ];
+        //TODO configurationStack ~= [
+        //TODO     configuration,
+        //TODO     _compiledtemplates,
+        //TODO  ];
     }
 
     // Restore the most recently pushed set of templates.
     void pop() {
-       // TODO if (configurationStack.isEmpty) {
+        // TODO if (configurationStack.isEmpty) {
         // TODO     return;
         // TODO }
         // TODO [configuration, _compiledtemplates] = configurationStack.pop();
-    } 
+    }
 
     // Format a template string with data
     string format(string key, Json[string] insertData) {
@@ -194,19 +194,18 @@ class DStringContents {
         // TODO }
         // TODO [mytemplate, myplaceholders] = _compiledtemplates[templateName];
         yTemplate; // TODO  = _compiledtemplates[templateName];
-        
+
         Json templateVars;
         if (insertData.hasKey("templateVars")) {
             templateVars = insertData.getMap("templateVars");
             insertData.removeKey("templateVars");
         }
-        
+
         string[] replaces;
         myplaceholders.each!((placeholder) {
             Json replacement = templateVars.get(placeholder);
-                replaces ~= replacement.isArray
-                    ? replacement.getStringArray.join("")
-                    : "";
+            replaces ~= replacement.isArray
+                ? replacement.getStringArray.join("") : "";
         });
 
         // TODO return mytemplate.format(replaces); 
@@ -233,9 +232,9 @@ class DStringContents {
      * these templates uses the `name` and `value` variables. You can modify these
      * templates to change how attributes are formatted.
      */
-     string formatAttributes(Json[string] options, string[] excludedKeys) {
+    string formatAttributes(Json[string] options, string[] excludedKeys) {
         bool[string] excludedOptions;
-        excludedKeys.each!(ex => excludedoptions.get(ex] = true);
+        excludedKeys.each!(key => excludedOptions[key] = true);
         return formatAttributes(options, excludedOptions);
     }
 
@@ -243,14 +242,18 @@ class DStringContents {
         string insertBefore = " ";
         Json[string] mergedOptions = options.merge(["escape": true]);
 
-        bool[string] mergedExcludedOptions = excludedOptions.merge(["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]);
-        bool useEscape = mergedoptions.get("escape"].to!bool;
-
-        string[] attributes = mergedOptions.byKeyValue
+        bool[string] mergedExcludedOptions = excludedOptions.merge([
+            "escape": true,
+            "idPrefix": true,
+            "templateVars": true,
+            "fieldName": true
+        ]);
+        bool useEscape = mergedoptions.getBoolean("escape");
+        string[] attributes = mergedOptions
+            .byKeyValue
             .filter!(kv => !mergedExcludedOptions.hasKey(kv.key))
             .map!(kv => _formatAttribute(kv.key, kv.value, useEscape))
             .array;
-
         string result = attributes.join(" ").strip;
         return result ? insertBefore ~ result : "";
     }
@@ -261,19 +264,18 @@ class DStringContents {
      */
     protected string _formatAttribute(string attributeKey, Json attributeData, bool shouldEscape = true) {
         string value = attributeData.isArray
-            ? attributeData.toStringArray.join(" ")
-            : attributeData.toString;
-
-        if (attributeKey.isNumeric) {
+            ? attributeData.toStringArray.join(" ") : attributeData.toString;
+        if (
+            attributeKey.isNumeric) {
             return `%s="%s"`.format(value, value);
         }
 
-        string key = attributeKey; 
+        string key = attributeKey;
         bool isMinimized = _compactAttributes.hasKey(key);
         if (!matchFirst(key, r"/\A(\w|[.-])+\z/")) {
             key = htmlAttributeEscape(key);
         }
-        
+
         if (isMinimized) {
             bool truthy = ["1", "true", key].any!(v => v == value);
             return truthy ? `%s="%s"`.format(key, key) : "";
@@ -281,15 +283,17 @@ class DStringContents {
 
         return `%s="%s"`.format((shouldEscape ? htmlAttributeEscape(value) : value));
     }
-    
+
     //  Adds a class and returns a unique list either in array or space separated
     string[] addclassnameToList(string[] classnames, string newclassname) {
-        string[] newclassnames = !newclassname.isEmpty ? newclassname.split(" ") : null;
-        return addclassnameToList(classnames, newclassnames); 
-    } 
+        string[] newclassnames = !newclassname.isEmpty ? newclassname.split(
+            " ") : null;
+        return addclassnameToList(classnames, newclassnames);
+    }
 
     string[] addclassnameToList(string[] classnames, string[] newclassnames) {
         return newclassnames.isEmpty
-? classnames : uniq(chain(classnames, newclassnames)).array; 
-    
+            ? classnames : uniq(chain(classnames, newclassnames)).array;
+
+    }
 }

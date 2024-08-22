@@ -37,18 +37,18 @@ class DSerializedView : DView {
     string render(string templateText = null, string renderLayout = null) {
         bool shouldSerialize = configuration.data.hasKey("serialize", false);
 
-        if (shouldSerialize == true) {
-            options = array_map(
+        if (shouldSerialize) {
+            /* options = array_map(
                 auto (myv) {
                     return "_" ~ myv;
                 },
                 _defaultConfigData.keys
-           );
+           ); */
 
             shouldSerialize = _viewVars.keys.diff(options);
         }
 
-        if (shouldSerialize == true) {
+        if (shouldSerialize) {
             try {
                 return _serialize(shouldSerialize);
             } catch (Exception /* TypeError */ exception) {

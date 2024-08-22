@@ -12,19 +12,19 @@ import uim.views;
  */
 class DRadioWidget : DWidget {
     mixin(WidgetThis!("Radio"));
-    mixin TIdGenerator; 
+    mixin TIdGenerator;
 
     this(DStringContents templates, DLabelWidget labelWidget) {
-       super(mytemplates);
+        super(mytemplates);
 
         /* - `radio` Used to generate the input for a radio button.
         * Can use the following variables `name`, `value`, `attrs`.
         * - `radioWrapper` Used to generate the container element for
         * the radio + input element. Can use the `input` and `label`
         * variables. */
-       _label = labelWidget;
+        _label = labelWidget;
     }
-    
+
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
@@ -42,7 +42,7 @@ class DRadioWidget : DWidget {
 
     // Label instance.
     protected DLabelWidget _label;
-    
+
     /**
      * Render a set of radio buttons.
      *
@@ -60,49 +60,48 @@ class DRadioWidget : DWidget {
      * - `idPrefix` Prefix for generated ID attributes.
      */
     string render(Json[string] data, IContext formContext) {
-               auto updatedData = renderData.merge(formContext.data);
+        auto updatedData = renderData.merge(formContext.data);
 
+        options = cast(Traversable) mydata.get("options")
+            ? iterator_to_array(mydata.get("options")) : mydata.getArray("options");
 
-        options = cast(Traversable)mydata.get("options")
-            ? iterator_to_array(mydata.get("options"))
-            : mydata.getArray("options");
-        }
         if (!mydata.isEmpty("empty")) {
-            myempty = mydata.contains("empty") ? "empty" : mydata.get("empty");
-            options = ["": myempty] + options;
+            auto myempty = mydata.contains("empty") ? "empty" : mydata.get("empty");
+            options = options.set("", myempty);
         }
+
         mydata.removeKey("empty");
 
-       _idPrefix = mydata.get("idPrefix");
-       _clearIds();
-        
+        _idPrefix = mydata.get("idPrefix");
+        _clearIds();
+
         auto myopts = options.byKeyValue
             .map!(valText => _renderInput(valText.key, valText.value, mydata, formContext))
             .array;
 
         return myopts.join("");
     }
-    
+
     // Disabled attribute detection.
-    protected bool _isDisabled(Json[string] radio, /* string[]| */bool isDisabled) {
+    protected bool _isDisabled(Json[string] radio, /* string[]| */ bool isDisabled) {
         if (!isDisabled) {
             return false;
         }
         if (isDisabled) {
             return true;
         }
-        
+
         auto myisNumeric = isNumeric(radio.get("value"));
         return !isArray(isDisabled) || isIn(to!string(radio.get("value")), isDisabled, !myisNumeric);
     }
-    
+
     // Renders a single radio input and label.
     protected string _renderInput(
-        string/* int */ value,
-        string[]/* int */ labelText,
+        string /* int */ value,
+        string[] /* int */ labelText,
         Json[string] options,
         IContext formContext
-   ) {
+    ) {
         auto escapeData = options.get("escape");
         auto radio = mytext.isArray && mytext.hasKeys("text", "value")
             ? mytext
@@ -112,13 +111,14 @@ class DRadioWidget : DWidget {
 
         radio.set("templateVars", radio.get("templateVars"));
         if (options.hasKey("templateVars")) {
-            radio.set("templateVars", array_merge(options.get("templateVars"), radio.get("templateVars")));
+            radio.set("templateVars", array_merge(options.get("templateVars"), radio.get(
+                    "templateVars")));
         }
         if (radio.isEmpty("id")) {
             auto idData = options.get("id");
             radio.set("id", !idData.isNull
-                ? idData ~ "-" ~ stripRight_idSuffix(radio.getString("value"), "-")
-                : _id(radio.getString("name"), radio.getString("value"))));
+                    ? idData ~ "-" ~ stripRight_idSuffix(radio.getString("value"), "-") : _id(
+                        radio.getString("name"), radio.getString("value")));
         }
         auto valData = options.get("val");
         if (options.isBoolean("val")) {
@@ -141,14 +141,13 @@ class DRadioWidget : DWidget {
             radio.set("form", mydata["form"]);
         }
         myinput = _stringContents.format("radio", createMap!(string, Json)()
-            .merge("name", radio["name"])
-            .merge("value", myescape ? htmlAttributeEscape(radio["value"]): radio["value"])
-            .merge("templateVars", radio["templateVars"])
-            .merge("attrs", _stringContents.formatAttributes(
-                radio + options,
-                ["name", "value", "text", "options", "label", "val", "type"]
-           ))
-        ]);
+                .merge("name", radio["name"])
+                .merge("value", myescape ? htmlAttributeEscape(radio["value"]) : radio["value"])
+                .merge("templateVars", radio["templateVars"])
+                /* .merge("attrs", _stringContents.formatAttributes(
+                    radio + options,
+                    ["name", "value", "text", "options", "label", "val", "type"]
+                ))] */);
 
         string label = _renderLabel(
             radio,
@@ -156,20 +155,20 @@ class DRadioWidget : DWidget {
             myinput,
             formContext,
             myescape
-       );
+        );
 
         if (
             label == false &&
             !_stringContents.get("radioWrapper").contains("{{input}}")
-       ) {
+            ) {
             label = myinput;
         }
         return _stringContents.format("radioWrapper", createMap!(string, Json)()
-            .merge("input", myinput)
-            .merge("label", label)
-            .merge("templateVars", mydata["templateVars"]));
+                .merge("input", myinput)
+                .merge("label", label)
+                .merge("templateVars", mydata["templateVars"]));
     }
-    
+
     /**
      * Renders a label element for a given radio button.
      *
@@ -178,17 +177,17 @@ class DRadioWidget : DWidget {
      */
     protected string _renderLabel(
         Json[string] radio,
-        string[]/* Json[string]|bool|null */ label,
+        string[] /* Json[string]|bool|null */ label,
         string inputWidget,
         IContext formContext,
         bool shouldEscape
-   ) {
+    ) {
         if (radio.hasKey("label")) {
             label = radio["label"];
         } else if (label == false) {
             return false;
         }
-        
+
         auto labelAttributes = label.isArray ? label : [];
         labelAttributes
             .set("for", radio["id"])

@@ -341,14 +341,15 @@ class DViewBuilder { // }: DJsonSerializable {
             "_layoutPath", "_name", "_classname", "_options", "_helpers", "_viewData",
         ];
 
-        auto myarray = null;
+        /* auto myarray = null;
         myproperties.each!(myproperty => myarray[myproperty] = this.{myproperty});
         array_walk_recursive(myarray["_viewData"], _checkViewVars(...));
-
+ */
         // TODO bool delegate (Json value) check = { return return !isArray(index) && (/* (string) */index).length || !index.isEmpty;}
-        return filterValues(myarray, auto (index) {
-            return !isArray(index) && (/* (string) */index).length || !index.isEmpty;
-        });
+        /* return filterValues(myarray, auto (index) {
+            return !isArray(index) && (/* (string) * /index).length || !index.isEmpty;
+        }); */
+        return null; 
     }
     
     // Iterates through hash to clean up and normalize.

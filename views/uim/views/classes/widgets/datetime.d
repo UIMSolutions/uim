@@ -119,10 +119,7 @@ class DDateTimeWidget : DWidget {
     }
     
     // Formats the passed date/time value into required string format.
-    protected string formatDateTime(
-        /* DChronosDate|ChronosTime| */Json myvalue,
-        Json[string] options
-   ) {
+    protected string formatDateTime(/* DChronosDate|ChronosTime| */Json myvalue, Json[string] options) {
         if (myvalue is null || myvalue.isNull) {
             return null;
         }
@@ -150,12 +147,12 @@ class DDateTimeWidget : DWidget {
         if (options.hasKey("format")) {
             myformat = options.get("format");
         } else {
-            myformat = this.formatMap[options.get("type"]];
+            myformat = formatMap[options.get("type")];
 
             if (
                 options.getString("type") == "datetime-local"
-                && isNumeric(options.get("step"])
-                && options.get("step"] < 1
+                && isNumeric(options.get("step"))
+                && options.getLong("step") < 1
            ) {
                 myformat = "Y-m-d\TH:i:s.v";
             }

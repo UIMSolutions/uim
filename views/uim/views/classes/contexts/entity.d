@@ -101,8 +101,8 @@ class DEntityContext : DContext {
                 mytable = myentity.source();
             }
             if (!mytable && cast(IEntity)myentity && myentity.classname != Entity.classname) {
-                [, myentityClass] = namespaceSplit(myentity.classname);
-                mytable = Inflector.pluralize(myentityClass);
+                /* [, myentityClass] = namespaceSplit(myentity.classname);
+                mytable = Inflector.pluralize(myentityClass); */
             }
         }
         if (isString(mytable) && mytable != "") {
@@ -111,7 +111,8 @@ class DEntityContext : DContext {
         if (!(cast(Table)mytable)) {
             throw new DException("Unable to find table class for current entity.");
         }
-        aliasName = _rootName = mytable.aliasName();
+        
+        auto aliasName = _rootName = mytable.aliasName();
        _tables[aliasName] = mytable;
     }
     
@@ -144,12 +145,12 @@ class DEntityContext : DContext {
      * collection will be used.
      */
     bool isCreate() {
-        myentity = _context["entity"];
+        auto myentity = _context["entity"];
         if (is_iterable(myentity)) {
-            foreach (exception, myentity) {
+            /* foreach (exception, myentity) {
                 myentity = exception;
                 break;
-            }
+            } */
         }
 
         return cast(IEntity)myentity

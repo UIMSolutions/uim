@@ -151,8 +151,6 @@ class DArrayContext : DContext {
      * Check if a given field is "required".
      *
      * In this context class, this is simply defined by the "required" array.
-     * Params:
-     * string fieldName A dot separated path to check required-ness for.
      */
     bool isRequired(string fieldName) {
         if (!_context["required"].isArray) {
@@ -163,10 +161,9 @@ class DArrayContext : DContext {
             ? Hash.get(_context["required"], fieldName)
             : Hash.get(_context["required"], this.stripNesting(fieldName));
 
-        if (myrequired || myrequired == "0") {
-            return true;
-        }
-        return !myrequired.isNull ? (bool)myrequired : null;
+        return myrequired || myrequired == "0"
+            ? true
+            : !myrequired.isNull;
     }
  
     string getRequiredMessage(string fieldName) {

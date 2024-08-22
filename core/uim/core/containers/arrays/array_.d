@@ -123,7 +123,7 @@ unittest {
 }
 
 /// Changes positions
-void change(T)(ref T left, ref T right) {
+void change(T)(auto ref T left, ref T right) {
   T buffer = left;
   left = right;
   right = buffer;
@@ -384,7 +384,7 @@ unittest {
 
 // #region shift
   // #region shiftFirst
-    T shiftFirst(T)(ref T[] values) {
+    T shiftFirst(T)(auto ref T[] values) {
       // IN Check
       if (values.isEmpty) {
         return null;
@@ -449,7 +449,7 @@ unittest {
 } // #endregion isEmpty
 
 // #region remove
-T[] removeFirst(T)(T[] values) {
+T[] removeFirst(T)(auto ref T[] values) {
   if (values.isEmpty) {
     return values;
   }
@@ -471,7 +471,7 @@ unittest {
   assert(testArray == ["b", "c"]);
 }
 
-T[] removeLast(T)(T[] values) {
+T[] removeLast(T)(auto ref T[] values) {
   if (values.isEmpty) {
     return values;
   }
@@ -516,7 +516,7 @@ unittest {
 // #endregion intersect 
 
 // #region shift
-T shift(T)(ref T[] values) {
+T shift(T)(auto ref T[] values) {
   switch (values.length) {
   case 0:
     return Null!T;
@@ -548,12 +548,12 @@ unittest {
 // #endregion shift
 
 // #region unshift
-T[] unshift(T)(ref T[] values, T[] addings...) {
-  return unshift(values, addings.dup);
+T[] unshift(T)(auto ref T[] values, T[] newValues...) {
+  return unshift(values, newValues.dup);
 }
 
-T[] unshift(T)(ref T[] values, T[] addings) {
-  values = addings ~ values;
+T[] unshift(T)(auto ref T[] values, T[] newValues) {
+  values = newValues ~ values;
   return values;
 }
 
@@ -567,13 +567,13 @@ unittest {
 
   testValues = ["a", "b", "c"];
   assert(testValues.unshift(["x", "y"]).length == 5);
-  assert(testValues == ["a", "b", "c", "x", "y"]);
+  assert(testValues == ["x", "y", "a", "b", "c"]);
 }
 // #endregion unshift
 
 // Pop the element off the end of array
 // #region pop
-T pop(T)(ref T[] values) {
+T pop(T)(auto ref T[] values) {
   switch (values.length) {
   case 0:
     return Null!T;

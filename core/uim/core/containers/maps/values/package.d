@@ -5,7 +5,3 @@ public {
     import uim.core.containers.maps.values.map;
     import uim.core.containers.maps.values.string_;
 }
-
-unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
-}

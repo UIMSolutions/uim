@@ -1,8 +1,11 @@
 module uim.core.helpers.classes;
 
 import uim.core;
-
 @safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 string baseName(ClassInfo classinfo) {
     string qualName = classinfo.name;

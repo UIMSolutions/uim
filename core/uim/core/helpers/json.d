@@ -1,8 +1,11 @@
 module uim.core.helpers.json;
 
 import uim.core;
-
 @safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 string jsonValue(bool value) {
     return value ? "true" : "false";

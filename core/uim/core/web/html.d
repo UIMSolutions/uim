@@ -6,8 +6,12 @@
 module uim.core.web.html;
 
 import uim.core;
-
 @safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 // #region startTag
 string htmlStartTag(A, B)(string name, string id, A classes, B attributes/* , bool isClosed = false */) if (
 	is(A == Json) || is(A == Json[]) || 

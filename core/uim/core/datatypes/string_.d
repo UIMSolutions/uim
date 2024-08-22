@@ -6,8 +6,11 @@
 module uim.core.datatypes.string_;
 
 import uim.core;
-
 @safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 V Null(V : string)() {
 	return null;

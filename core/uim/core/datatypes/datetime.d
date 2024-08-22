@@ -9,7 +9,7 @@ import uim.core;
 @safe:
 
 unittest {
-  writeln("-----  ", __MODULE__ , "  -----");
+  writeln("-----  ", __MODULE__ , "\t  -----");
 }
 
 enum startUNIX = DateTime(1970, 1, 1, 0, 0, 0);

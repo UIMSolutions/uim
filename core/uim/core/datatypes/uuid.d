@@ -6,8 +6,12 @@
 module uim.core.datatypes.uuid;
 
 import uim.core;
-
 @safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 enum NULLID = "00000000-0000-0000-0000-000000000000";
 enum NULLUUID = UUID(NULLID);
 

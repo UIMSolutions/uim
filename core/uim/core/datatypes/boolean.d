@@ -9,7 +9,7 @@ module uim.core.datatypes.boolean;
 import uim.core;
 
 unittest {
-  writeln("-----  ", __MODULE__ , "  -----");
+  writeln("-----  ", __MODULE__ , "\t  -----");
 }
 
 V Null(V : bool)() {

@@ -6,10 +6,10 @@
 module uim.core.datatypes.json;
 
 import uim.core;
-
 @safe:
+
 unittest {
-  writeln("-----  ", __MODULE__ , "  -----");
+  writeln("-----  ", __MODULE__ , "\t  -----");
 }
 
 V Null(V : Json)() {

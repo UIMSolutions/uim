@@ -6,8 +6,11 @@
 module uim.core.datatypes.integral;
 
 import uim.core;
-
 @safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 V Null(V:int)(){
 	return 0; 

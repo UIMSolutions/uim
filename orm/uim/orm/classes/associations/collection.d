@@ -124,7 +124,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Parent associations include any association where the given table
      * is the owning side.
      */
-    bool saveParents(DORMTable ormTable, IORMEntity ormEntity, Json[string] associations, Json[string] options = null) {
+    bool saveParents(DORMTable ormTable, DORMEntity ormEntity, Json[string] associations, Json[string] options = null) {
         return associations.isEmpty
             ? true : _saveAssociations(ormTable, ormEntity, associations, options, false);
     }
@@ -133,7 +133,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Save all the associations that are children of the given entity.
      * Child associations include any association where the given table is not the owning side.
      */
-    bool saveChildren(DORMTable ormTable, IORMEntity ormEntity, Json[string] associations, Json[string] options = null) {
+    bool saveChildren(DORMTable ormTable, DORMEntity ormEntity, Json[string] associations, Json[string] options = null) {
         return associations.isEmpty
             ? true : _saveAssociations(ormTable, ormEntity, associations, options, true);
     }
@@ -141,7 +141,7 @@ class DAssociationCollection { // }: IteratorAggregate {
     // Helper method for saving an association"s data.
     protected bool _saveAssociations(
         DORMTable ormTable,
-        IORMEntity ormEntity,
+        DORMEntity ormEntity,
         Json[string] associations,
         Json[string] options,
         bool isOwningSide
@@ -175,7 +175,7 @@ class DAssociationCollection { // }: IteratorAggregate {
     // Helper method for saving an association"s data.
     protected bool _save(
         DORMAssociation ormAssociation,
-        IORMEntity ormEntity,
+        DORMEntity ormEntity,
         Json[string] nested,
         Json[string] options
    ) {
@@ -193,7 +193,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * Cascade a delete across the various associations.
      * Cascade first across associations for which cascadeCallbacks is true.
      */
-    bool cascadeRemoveKey(IORMEntity ormEntity, Json[string] deleteOptions) {
+    bool cascadeRemoveKey(DORMEntity ormEntity, Json[string] deleteOptions) {
         auto noCascade = null;
         foreach (assoc; _items) {
             if (!assoc.getCascadeCallbacks()) {

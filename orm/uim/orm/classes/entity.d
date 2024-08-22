@@ -8,7 +8,7 @@ import uim.orm;
  * An entity represents a single result row from a repository. It exposes the
  * methods for retrieving and storing properties associated in this row.
  */
-class DORMEntity { // }: IORMEntity, IInvalidProperty {
+class DORMEntity { // }: DORMEntity, IInvalidProperty {
     mixin TEntity;
 
     /**

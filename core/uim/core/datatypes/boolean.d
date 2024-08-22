@@ -24,13 +24,22 @@ unittest {
 // char[] BOOL(bool toogleValue) { return cast(char[])((toogleValue) ? `true`:`false`); }
 
 /// Toggle boolean value (from true to false, false to true) -> in this function it's !value
-pure bool toggle(bool value) {
+bool toggle(bool value) {
 	return !value;
+}
+
+bool toggle(ref bool value) {
+	value = !value;
+	return value;
 }
 
 unittest {
 	assert(toggle(true) == false, "Error in toggle(bool)");
 	assert(toggle(toggle(true)) == true, "Error in toggle(bool)");
+
+	bool value = true;
+	assert(value.toggle == false);
+	assert(value == false);
 }
 
 /// Translates boolean to defined values

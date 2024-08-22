@@ -852,7 +852,7 @@ class DAssociation : UIMObject, IAssociation {
      * Handles cascading a delete from an associated model.
      * Each implementing class should handle the cascaded delete as required.
      */
-    abstract bool cascadeRemoveKey(IORMEntity entity, Json[string] options = null);
+    abstract bool cascadeRemoveKey(DORMEntity entity, Json[string] options = null);
 
     /**
      * Returns whether the passed table is the owning side for this
@@ -865,5 +865,5 @@ class DAssociation : UIMObject, IAssociation {
      * Extract the target"s association data our from the passed entity and proxies
      * the saving operation to the target table.
      */
-    abstract IORMEntity saveAssociated(IORMEntity entity, Json[string] options = null);
+    abstract DORMEntity saveAssociated(DORMEntity entity, Json[string] options = null);
 }

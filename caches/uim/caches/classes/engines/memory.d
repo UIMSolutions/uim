@@ -320,8 +320,8 @@ return true;
     /* ksort(mygroups); * /
   } */
 
-    auto groupValues = mygroups.values;
-    string[] result = configuration.getArray("groups").map!((index, group) => group ~ groupValues[index].getString).array;
+    // auto groupValues = mygroups.values;
+    string[] result; //  = configuration.getArray("groups").map!((index, group) => group ~ groupValues[index].getString).array;
     return result;
   }
 

@@ -18,10 +18,10 @@ class DLazyEagerLoader {
      *
      * The properties for the associations to be loaded will be overwritten on each entity.
      */
-    IORMEntity[] loadInto(IORMEntity[] myentities, Json[string] associationsToLoad, DORMTable sourceTable) {
+    DORMEntity[] loadInto(DORMEntity[] myentities, Json[string] associationsToLoad, DORMTable sourceTable) {
         auto resultSingle = false;
 
-        if (cast(IORMEntity)myentities) {
+        if (cast(DORMEntity)myentities) {
             myentities = [myentities];
             resultSingle = true;
         }
@@ -36,10 +36,10 @@ class DLazyEagerLoader {
      * Builds a query for loading the passed list of entity objects along with the
      * associations specified in associationsToLoad.
      */
-    protected ISelectQuery _getQuery(IORMEntity[] myentities, Json[string] associationsToLoad, DORMTable sourceTable) {
+    protected ISelectQuery _getQuery(DORMEntity[] myentities, Json[string] associationsToLoad, DORMTable sourceTable) {
         auto primaryKeys = sourceTable.primaryKeys();
         auto mymethod = isString(primaryKeys) ? "get" : "extract";
-        /// auto someKeys = Hash.map(myentities, "{*}", fn (IORMEntity myentity): myentity.{mymethod}(primaryKeys)); 
+        /// auto someKeys = Hash.map(myentities, "{*}", fn (DORMEntity myentity): myentity.{mymethod}(primaryKeys)); 
 
         ISelectQuery selectQuery = sourceTable
             .find()
@@ -82,8 +82,8 @@ class DLazyEagerLoader {
     }
     
     // Injects the results of the eager loader query into the original list of entities.
-    protected IORMEntity[] _injectResults(
-        IORMEntity[] myentities,
+    protected DORMEntity[] _injectResults(
+        DORMEntity[] myentities,
         DSelectQuery selectQuery,
         Json[string] myassociations,
         DORMTable sourceTable
@@ -91,10 +91,10 @@ class DLazyEagerLoader {
         auto myinjected = null;
         auto myproperties = _getPropertyMap(sourceTable, myassociations);
         auto primaryKeys = /* (array) */sourceTable.primaryKeys();
-        /** @var array<\UIM\Datasource\IORMEntity> results */
+        /** @var array<\UIM\Datasource\DORMEntity> results */
         /* auto results = selectQuery
             .all()
-            .indexBy(IORMEntity exception => exception.extract(primaryKeys).join(";"))
+            .indexBy(DORMEntity exception => exception.extract(primaryKeys).join(";"))
             .toJString();
 
         myentities.byKeyValue

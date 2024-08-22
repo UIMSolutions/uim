@@ -68,7 +68,7 @@ class DHasOneAssociation : DAssociation {
      * saved on the target table for this association by passing supplied
      * `options`
      */
-    IORMEntity saveAssociated(IORMEntity ormEntity, Json[string] options = null) {
+    DORMEntity saveAssociated(DORMEntity ormEntity, Json[string] options = null) {
         auto targetEntity = ormEntity.get(getProperty());
         if (targetEntity.isEmpty || !cast(DORMTable)targetEntity) {
             return entity;
@@ -102,7 +102,7 @@ class DHasOneAssociation : DAssociation {
     }
 
 
-    bool cascadeRemoveKey(IORMEntity ormEntity, Json[string] options = null) {
+    bool cascadeRemoveKey(DORMEntity ormEntity, Json[string] options = null) {
         auto helper = new DependentDeleteHelper();
         return helper.cascadeRemoveKey(this, ormEntity, options);
     }

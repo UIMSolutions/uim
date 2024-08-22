@@ -61,7 +61,7 @@ class DMarshaller {
                 mynested.set("forceNew", options.get("forceNew"));
             }
             if (options.hasKey("isMerge")) {
-                /* mycallback = auto(myvalue, IORMEntity myentity) use(association, mynested) {
+                /* mycallback = auto(myvalue, DORMEntity myentity) use(association, mynested) {
                     options = mynested ~ ["associated": Json.emptyArray, "association": association];
 
                     return _mergeAssociation(myentity.get(association.getProperty()), association, myvalue, options);
@@ -121,7 +121,7 @@ class DMarshaller {
      * Params:
      * Json[string] mydata The data to hydrate.
      */
-    /* IORMEntity one(Json[string] data, Json[string] options = null) {
+    /* DORMEntity one(Json[string] data, Json[string] options = null) {
         [mydata, options] = _prepareDataAndOptions(mydata, options);
 
         auto myprimaryKeys = _table.primaryKeys();
@@ -162,7 +162,7 @@ class DMarshaller {
                             // Don"t flag clean association entities as
                             // dirty so we don"t persist empty records.
                             myproperties.byKeyValue
-                                .filter!(fieldValue => cast(IORMEntity) fieldValue.value)
+                                .filter!(fieldValue => cast(DORMEntity) fieldValue.value)
                                 .each!(fieldValue => myentity.setDirty(fieldValue.key, fieldValue.value.isChanged()));
                             myentity.setErrors(myerrors); dispatchAfterMarshal(myentity, mydata, options);
 
@@ -198,7 +198,7 @@ class DMarshaller {
                                                     /**
      * Create a new sub-marshaller and marshal the associated data.
      * /
-                                                    protected IORMEntity[] _marshalAssociation(
+                                                    protected DORMEntity[] _marshalAssociation(
                                                         DORMAssociation association, Json valueToHydrate, Json[string] options = null) {
                                                         if (!valueToHydrate.isArray) {
                                                             return null;
@@ -252,7 +252,7 @@ class DMarshaller {
      * when primary key values are set, and a record does not already exist. Normally primary key
      * on missing entities would be ignored. Defaults to false.
      */
-    IORMEntity[] many(Json[string] data, Json[string] options = null) {
+    DORMEntity[] many(Json[string] data, Json[string] options = null) {
         auto myoutput = null;
         foreach (myrecord; mydata) {
             if (!myrecord.isArray) {
@@ -269,7 +269,7 @@ class DMarshaller {
      * Builds the related entities and handles the special casing
      * for junction table entities.
      */
-    protected IORMEntity[] _belongsToMany(
+    protected DORMEntity[] _belongsToMany(
         BelongsToMany association, Json[string] data, Json[string] options = null) {
         auto myassociated = options.getArray(
             "associated");
@@ -312,7 +312,7 @@ class DMarshaller {
             }
         }
         if (!myconditions.isEmpty) {
-            /** @var \Traversable<\UIM\Datasource\IORMEntity> results */
+            /** @var \Traversable<\UIM\Datasource\DORMEntity> results */
             results = mytarget.find()
                 /* .andWhere(
                     fn(QueryExpression myexp) : myexp.or(
@@ -369,7 +369,7 @@ class DMarshaller {
     }
 
     // Loads a list of belongs to many from ids.
-    protected IORMEntity[] _loadAssociatedByIds(
+    protected DORMEntity[] _loadAssociatedByIds(
         DAssociation association, Json[string] idsToLoad) {
         if (isEmpty(idsToLoad)) {
             return null;
@@ -435,7 +435,7 @@ class DMarshaller {
      * ]);
      * ```
      */
-    IORMEntity merge(IORMEntity myentity, Json[string] data, Json[string] options = null) {
+    DORMEntity merge(DORMEntity myentity, Json[string] data, Json[string] options = null) {
         [
             mydata,
             options
@@ -492,7 +492,7 @@ class DMarshaller {
                     )
                     || (
                         isObject(myvalue)
-                        && !(cast(IORMEntity) myvalue)
+                        && !(cast(DORMEntity) myvalue)
                         && myoriginal == myvalue
                     )
                     ) {
@@ -510,7 +510,7 @@ class DMarshaller {
 
             myproperties.byKeyValue
                 .filter!(fieldValue => cast(
-                        IORMEntity) fieldValue
+                        DORMEntity) fieldValue
                         .value)
                 .each!(fieldValue => myentity.setDirty(
                         fieldValue.key, fieldValue.value
@@ -528,7 +528,7 @@ class DMarshaller {
             }
             myentity.set(fieldName, myproperties[fieldName]);
             if (
-                cast(IORMEntity) myproperties[fieldName]) {
+                cast(DORMEntity) myproperties[fieldName]) {
                 myentity.setDirty(fieldName, myproperties[fieldName]
                         .isChanged());
             }
@@ -562,7 +562,7 @@ class DMarshaller {
      * the accessible fields list in the entity will be used.
      * - accessibleFields: A list of fields to allow or deny in entity accessible fields.
      */
-    /* IORMEntity[] mergeMany(Json[string] myentities, Json[string] data, Json[string] options = null) {
+    /* DORMEntity[] mergeMany(Json[string] myentities, Json[string] data, Json[string] options = null) {
         auto myprimary =  /* (array) * / _table
             .primaryKeys();
 
@@ -587,7 +587,7 @@ class DMarshaller {
                 myentities.each!((entity) {
                     if (
                         auto myEntity = cast(
-                        IORMEntity) entity)
+                        DORMEntity) entity)
 
                         
 
@@ -627,7 +627,7 @@ class DMarshaller {
                             if (!myindexed.isEmpty && count(
                                 mymaybeExistentQuery.clause(
                                 "where"))) {
-                                /** @var \Traversable<\UIM\Datasource\IORMEntity> myexistent * /
+                                /** @var \Traversable<\UIM\Datasource\DORMEntity> myexistent * /
                                 myexistent = mymaybeExistentQuery.all();
                                 myexistent.each!(
                                 (entity) {
@@ -650,8 +650,8 @@ class DMarshaller {
                                         return myoutput;}
 
                                         // Creates a new sub-marshaller and merges the associated data.
-                                        protected IORMEntity[] _mergeAssociation(
-                                        IORMEntity /* array | null * / myoriginal,
+                                        protected DORMEntity[] _mergeAssociation(
+                                        DORMEntity /* array | null * / myoriginal,
                                         DAssociation association,
                                         Json value,
                                         Json[string] options
@@ -669,14 +669,14 @@ class DMarshaller {
                                                     .MANY_TO_ONE
                                                 ]; auto mytype = association.type();
                                                 if (isIn(mytype, mytypes, true)) {
-                                                    /** @var \UIM\Datasource\IORMEntity myoriginal * /
+                                                    /** @var \UIM\Datasource\DORMEntity myoriginal * /
                                                     return mymarshaller.merge(myoriginal, myvalue, options);
                                                 }
                                                 if (
                                                     mytype == Association
                                                 .MANY_TO_MANY) {
                                                     /**
-             * @var array<\UIM\Datasource\IORMEntity> myoriginal
+             * @var array<\UIM\Datasource\DORMEntity> myoriginal
              * @var \ORM\Association\BelongsToMany association
              * /
                                                     return mymarshaller._mergeBelongsToMany(
@@ -696,7 +696,7 @@ class DMarshaller {
                                                         return null;}
                                                     }
                                                     /**
-         * @var array<\UIM\Datasource\IORMEntity> myoriginal
+         * @var array<\UIM\Datasource\DORMEntity> myoriginal
          * /
                                                     return mymarshaller.mergeMany(myoriginal, myvalue, options);
                                                 } */
@@ -705,8 +705,8 @@ class DMarshaller {
      * Creates a new sub-marshaller and merges the associated data for a BelongstoMany
      * association.
      */
-    protected IORMEntity[] _mergeBelongsToMany(
-        IORMEntity[] originalEntities, DBelongsToMany associationToMarshall, Json[string] dataToHydrate, Json[string] options = null) {
+    protected DORMEntity[] _mergeBelongsToMany(
+        DORMEntity[] originalEntities, DBelongsToMany associationToMarshall, Json[string] dataToHydrate, Json[string] options = null) {
         auto myassociated = options.getArray(
             "associated");
         auto hasIds = dataToHydrate.hasKey("_ids");
@@ -728,7 +728,7 @@ class DMarshaller {
     }
 
     // Merge the special _joinData property into the entity set.
-    protected IORMEntity[] _mergeJoinData(
+    protected DORMEntity[] _mergeJoinData(
         Json[string] originalEntities, DBelongsToMany association,
         Json[string] dataToHydrate, Json[string] options = null) {
         auto myassociated = options.getArray(
@@ -741,7 +741,7 @@ class DMarshaller {
             myjoinData = myentity.get(
                 "_joinData");
             if (myjoinData && cast(
-                    IORMEntity) myjoinData) {
+                    DORMEntity) myjoinData) {
                 myextra[spl_object_hash(
                         myentity)] = myjoinData;
             }
@@ -767,7 +767,7 @@ class DMarshaller {
 
             // Already an entity, no further marshalling required.
             if (
-                cast(IORMEntity) dataToHydrate) {
+                cast(DORMEntity) dataToHydrate) {
                 continue;
             }
             // Scalar data can"t be handled
@@ -795,7 +795,7 @@ class DMarshaller {
 
     // dispatch Model.afterMarshal event.
     protected void dispatchAfterMarshal(
-        IORMEntity myentity, Json[string] redaOnlyData, Json[string] redaOnlyOptions = null) {
+        DORMEntity myentity, Json[string] redaOnlyData, Json[string] redaOnlyOptions = null) {
         auto data = new Json[string](
             redaOnlyData);
         auto options = new Json[string](

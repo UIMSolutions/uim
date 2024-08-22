@@ -83,7 +83,7 @@ class DHasManyAssociation : DAssociation {
      * matching the property name for this association. The found entity will be
      * saved on the target table for this association by passing supplied `options`
      */
-    IORMEntity saveAssociated(IORMEntity sourceEntity, Json[string] options = null) {
+    DORMEntity saveAssociated(DORMEntity sourceEntity, Json[string] options = null) {
         auto targetEntities = sourceEntity.get(getProperty());
         auto isEmpty = isIn(targetEntities, [null, [], "", false], true);
         if (isEmpty) {
@@ -128,15 +128,15 @@ class DHasManyAssociation : DAssociation {
      */
     protected bool _saveTarget(
         Json[string] foreignKeyReference,
-        IORMEntity sourceEntity,
-        IORMEntity[] entities,
+        DORMEntity sourceEntity,
+        DORMEntity[] entities,
         Json[string] options
     ) {
         auto foreignKeys = foreignKeyReference.keys;
         auto myTable = getTarget();
         auto original = entities;
         foreach (k, entity; entities) {
-            if (!cast(IORMEntity) entity) {
+            if (!cast(DORMEntity) entity) {
                 break;
             }
 
@@ -187,7 +187,7 @@ class DHasManyAssociation : DAssociation {
      * ```
      * `myUser.get("articles")` will contain all articles in `allArticles` after linking
      */
-    bool link(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
+    bool link(DORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         auto saveStrategy = getSaveStrategy();
         setSaveStrategy(SAVE_APPEND);
         auto property = getProperty();
@@ -205,7 +205,7 @@ class DHasManyAssociation : DAssociation {
             function() use(sourceEntity, options) {
             return _saveAssociated(sourceEntity, options);}); */
 
-        // TODO ok = cast(IORMEntity) savedEntity;
+        // TODO ok = cast(DORMEntity) savedEntity;
         setSaveStrategy(saveStrategy);
         if (ok) {
             sourceEntity.set(property, savedEntity.get(property));
@@ -245,13 +245,13 @@ class DHasManyAssociation : DAssociation {
      *
      * `article.get("articles")` will contain only `[article4]` after deleting in the database
      */
-    void unlink(IORMEntity sourceEntity, Json[string] targetEntities, bool isCleanProperty) {
+    void unlink(DORMEntity sourceEntity, Json[string] targetEntities, bool isCleanProperty) {
         unlink(sourceEntity, targetEntities, [
                 "cleanProperty": Json(isCleanProperty)
             ]);
     }
 
-    void unlink(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
+    void unlink(DORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         options = options
             .merge("cleanProperty", true);
 
@@ -271,7 +271,7 @@ class DHasManyAssociation : DAssociation {
                     targetEntities))
             .map(
                 function(entity) use(myTargetPrimaryKey) {
-                /** @var DORMdatasources.IORMEntity entity * /
+                /** @var DORMdatasources.DORMEntity entity * /
                 return entity.extract(
                     myTargetPrimaryKey);})
                     .toList(),];
@@ -330,7 +330,7 @@ class DHasManyAssociation : DAssociation {
      *
      * `author.get("articles")` will contain only `[article1, article3]` at the end
      */
-    bool replace(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
+    bool replace(DORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         auto property = getProperty();
         sourceEntity.set(property, targetEntities);
         auto saveStrategy = getSaveStrategy();
@@ -338,7 +338,7 @@ class DHasManyAssociation : DAssociation {
             SAVE_REPLACE);
         auto myResult = this.saveAssociated(
             sourceEntity, options);
-        auto ok = (cast(IORMEntity) myResult);
+        auto ok = (cast(DORMEntity) myResult);
         if (ok) {
             sourceEntity = myResult;
         }
@@ -353,7 +353,7 @@ class DHasManyAssociation : DAssociation {
      */
     protected bool _unlinkAssociated(
         Json[string] foreignKeyReference,
-        IORMEntity entity,
+        DORMEntity entity,
         Table myTarget,
         Json[string] remainingEntities = null,
         Json[string] options = null
@@ -365,7 +365,7 @@ class DHasManyAssociation : DAssociation {
         exclusions = exclusions.map(
             function(ent) use(
                 primaryKeys) {
-            /** @var DORMdatasources.IORMEntity ent * /
+            /** @var DORMdatasources.DORMEntity ent * /
             return ent.extract(
                 primaryKeys);}
            )
@@ -533,7 +533,7 @@ class DHasManyAssociation : DAssociation {
             options);
     }
 
-    bool cascadeRemoveKey(IORMEntity ormEntity, Json[string] options = null) {
+    bool cascadeRemoveKey(DORMEntity ormEntity, Json[string] options = null) {
         auto helper = new DependentDeleteHelper();
         return helper.cascadeRemoveKey(this, ormEntity, options);
     }

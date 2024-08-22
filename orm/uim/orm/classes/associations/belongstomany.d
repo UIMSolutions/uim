@@ -405,7 +405,7 @@ class DBelongsToManyAssociation : DAssociation {
     } */
 
     // Clear out the data in the junction table for a given entity.
-    bool cascadeRemoveKey(IORMEntity ormEntity, Json[string] options = null) {
+    bool cascadeRemoveKey(DORMEntity ormEntity, Json[string] options = null) {
         if (!getDependent()) {
             return true;
         }
@@ -472,7 +472,7 @@ class DBelongsToManyAssociation : DAssociation {
      * of the entities intended to be saved by this method, they will be updated,
      * not deleted.
      */
-    IORMEntity saveAssociated(IORMEntity ormEntity, Json[string] options = null) {
+    DORMEntity saveAssociated(DORMEntity ormEntity, Json[string] options = null) {
         auto targetEntity = entity.get(getProperty());
         auto strategy = getSaveStrategy();
 
@@ -499,7 +499,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Persists each of the entities into the target table and creates links between
      * the parent entity and each one of the saved target entities.
      */
-    protected IORMEntity _saveTarget(IORMEntity parentEntity, Json[string] entities, Json[string] options) {
+    protected DORMEntity _saveTarget(DORMEntity parentEntity, Json[string] entities, Json[string] options) {
         auto joinAssociations = false;
         if (options.hasKey("associated") && options.isArray("associated")) {
             if (options.hasKey("associated", _junctionProperty, "associated")) {
@@ -513,7 +513,7 @@ class DBelongsToManyAssociation : DAssociation {
         auto persisted = null;
 
         foreach (k, entity; entities) {
-            if (!cast(IORMEntity)entity) {
+            if (!cast(DORMEntity)entity) {
                 break;
             }
 
@@ -552,7 +552,7 @@ class DBelongsToManyAssociation : DAssociation {
     }
 
     // Creates links between the source entity and each of the passed target entities
-    protected bool _saveLinks(IORMEntity sourceEntity, IORMEntity[string] targetEntities, Json[string] options = null) {
+    protected bool _saveLinks(DORMEntity sourceEntity, DORMEntity[string] targetEntities, Json[string] options = null) {
         auto target = getTarget();
         auto junction = junction();
         auto entityClass = junction.getEntityClass();
@@ -566,7 +566,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         foreach (e; targetEntities) {
             joint = e.get(jointProperty);
-            if (!joint || !cast(IORMEntity)joint) {
+            if (!joint || !cast(DORMEntity)joint) {
                 joint = new DORMEntityClass([], ["markNew": true.toJson, "source": junctionRegistryAlias]);
             }
             sourceKeys = combine(foreignKeys, sourceEntity.extract(bindingKey));
@@ -617,7 +617,7 @@ class DBelongsToManyAssociation : DAssociation {
      * ```
      * `article.get("tags")` will contain all tags in `newTags` after liking
      */
-    bool link(IORMEntity sourceEntity, IORMEntity[string] targetEntities, Json[string] options = null) {
+    bool link(DORMEntity sourceEntity, DORMEntity[string] targetEntities, Json[string] options = null) {
         _checkPersistenceStatus(sourceEntity, targetEntities);
         auto property = getProperty();
         /* links = sourceEntity.get(property) ?: [];
@@ -658,12 +658,12 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * `article.get("tags")` will contain only `[tag4]` after deleting in the database
      */
-    bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, /* string[]  */bool isCleanProperty = null) {
+    bool unlink(DORMEntity sourceEntity, Json[string] targetEntities, /* string[]  */bool isCleanProperty = null) {
         unlink(sourceEntity, targetEntities, [
             "cleanProperty": isCleanProperty.toJson,
         ]);
     }
-    bool unlink(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
+    bool unlink(DORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         options.merge("cleanProperty", true);
 
         _checkPersistenceStatus(sourceEntity, targetEntities);
@@ -676,13 +676,13 @@ class DBelongsToManyAssociation : DAssociation {
             }
        ); */
 
-        /** @var array<DORMDatasource\IORMEntity> existing */
+        /** @var array<DORMDatasource\DORMEntity> existing */
         auto existing = sourceEntity.getArray(property);
         if (!options.hasKey("cleanProperty") || existing.isEmpty) {
             return true;
         }
 
-        /** @var \SplObjectStorage<DORMDatasource\IORMEntity, null> storage */
+        /** @var \SplObjectStorage<DORMDatasource\DORMEntity, null> storage */
         auto storage = new DSplObjectStorage();
         foreach (entity; targetEntities) {
             storage.attach(entity);
@@ -869,7 +869,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * `article.get("tags")` will contain only `[tag1, tag3]` at the end
      */
-    bool replaceLinks(IORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
+    bool replaceLinks(DORMEntity sourceEntity, Json[string] targetEntities, Json[string] options = null) {
         auto bindingKey = /* (array) */getBindingKey();
         auto primaryValue = sourceEntity.extract(bindingKey);
 
@@ -948,8 +948,8 @@ class DBelongsToManyAssociation : DAssociation {
      */
     /* protected function _diffLinks(
         Query existing,
-        IORMEntity[] jointEntities,
-        IORMEntity[] targetEntities,
+        DORMEntity[] jointEntities,
+        DORMEntity[] targetEntities,
         Json[string] options = null
    ) {
         auto junction = junction();
@@ -1001,7 +1001,7 @@ class DBelongsToManyAssociation : DAssociation {
         auto primary = (array)target.primaryKeys();
         auto jointProperty = _junctionProperty;
         foreach (k, entity; targetEntities) {
-            if (!cast(IORMEntity)entity) {
+            if (!cast(DORMEntity)entity) {
                 continue;
             }
             auto key = entity.extract(primary).values;
@@ -1023,7 +1023,7 @@ class DBelongsToManyAssociation : DAssociation {
     }
  */
     // Throws an exception should any of the passed entities is not persisted.
-    protected bool _checkPersistenceStatus(IORMEntity sourceEntity, IORMEntity[] targetEntities) {
+    protected bool _checkPersistenceStatus(DORMEntity sourceEntity, DORMEntity[] targetEntities) {
         if (sourceEntity.isNew()) {
             string errorMessage = "Source entity needs to be persisted before links can be created or removed.";
             throw new DInvalidArgumentException(errorMessage);
@@ -1043,7 +1043,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Returns the list of joint entities that exist between the source entity
      * and each of the passed target entities
      */
-    protected IORMEntity[] _collectJointEntities(IORMEntity sourceEntity, Json[string] targetEntities) {
+    protected DORMEntity[] _collectJointEntities(DORMEntity sourceEntity, Json[string] targetEntities) {
         auto target = getTarget();
         auto source = source();
         auto junction = junction();
@@ -1054,12 +1054,12 @@ class DBelongsToManyAssociation : DAssociation {
         auto missing = null;
 
         foreach (targetEntity; targetEntities) {
-            if (!cast(IORMEntity)targetEntity) {
+            if (!cast(DORMEntity)targetEntity) {
                 continue;
             }
             
             auto joint = targetEntity.get(jointProperty);
-            if (!joint || !cast(IORMEntity)joint) {
+            if (!joint || !cast(DORMEntity)joint) {
                 missing ~= targetEntity.extract(primary);
                 continue;
             }

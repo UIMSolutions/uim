@@ -9,30 +9,23 @@ unittest {
 
 string baseName(ClassInfo classinfo) {
     string qualName = classinfo.name;
-
     size_t dotIndex = qualName.retro.countUntil('.');
 
-    if (dotIndex < 0) {
-        return qualName;
-    }
-
-    return qualName[($ - dotIndex) .. $];
+    return dotIndex < 0
+        ? qualName
+        : qualName[($ - dotIndex) .. $];
 }
 
 string classFullname(Object instance) {
-    if (instance is null) {
-        return "null";
-    }
-
-    return instance.classinfo.name;
+    return instance is null
+        ? "null"
+        : instance.classinfo.name;
 }
 
 string classname(Object instance) {
-    if (instance is null) {
-        return "null";
-    }
-
-    return instance.classinfo.baseName;
+    return instance is null
+        ? "null"
+        : instance.classinfo.baseName;
 }
 
 unittest {

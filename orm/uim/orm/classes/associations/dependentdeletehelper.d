@@ -17,7 +17,7 @@ class DDependentDeleteHelper {
      * This method does nothing if the association is not dependent.
      * anAssociation - The association callbacks are being cascaded on.
      */
-    bool cascadeRemoveKey(DORMAssociation anAssociation, IORMEntity entity, Json[string] options = null) {
+    bool cascadeRemoveKey(DORMAssociation anAssociation, DORMEntity entity, Json[string] options = null) {
         if (!anAssociation.getDependent()) {
             return true;
         }

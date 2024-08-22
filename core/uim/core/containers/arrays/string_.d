@@ -1,7 +1,11 @@
 module uim.core.containers.arrays.string_;
 
-@safe:
 import uim.core;
+@safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 // #region replace
   string[] replace(string[] texts, string originText, string newText) {

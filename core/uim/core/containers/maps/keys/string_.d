@@ -9,6 +9,10 @@ module uim.core.containers.maps.keys.string_;
 import std.algorithm : startsWith, endsWith;
 import uim.core;
 
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 /// Add prefix to key
 V[K] addPrefixKey(K : string, V)(V[K] items, string prefix) {
   items.dup.byKeyValue

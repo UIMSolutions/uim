@@ -1,7 +1,11 @@
 module uim.core.containers.arrays.json;
 
-@safe:
 import uim.core;
+@safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 string[] getStringArray(Json[] values) {
     return values

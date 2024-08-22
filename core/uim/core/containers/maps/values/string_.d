@@ -9,6 +9,10 @@ module uim.core.containers.maps.values.string_;
 import std.algorithm : startsWith, endsWith;
 import uim.core;
 
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 // #region set
   V[K] set(K, V:string, T)(V[K] items, K key, T value) if (!is(T == string) && !is(T == Json)) {
     return items.set(key, to!string(value));

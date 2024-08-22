@@ -6,8 +6,11 @@
 module uim.core.containers.arrays.array_;
 
 import uim.core;
-
 @safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 // #region size
 size_t size(T)(T[] anArray) {

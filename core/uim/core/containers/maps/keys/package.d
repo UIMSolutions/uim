@@ -6,3 +6,7 @@ public {
     import uim.core.containers.maps.keys.string_;
 }
 
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+

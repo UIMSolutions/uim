@@ -14,7 +14,10 @@ import uim.views;
  *
  * @internal
  */
-class DFormProtector {
+class DFormProtector : UIMObject {
+    this() {
+        super();
+    }
     // Unlocked fields.
     protected string[] unlockedFields;
 
@@ -33,12 +36,12 @@ class DFormProtector {
     bool validate(Json formData, string formUrl, string sessionId) {
         _debugMessage = null;
 
-        auto extractedToken = this.extractToken(formData);
+        auto extractedToken = extractToken(formData);
         if (extractedToken.isEmpty) {
             return false;
         }
         auto hashParts = extractHashParts(formData);
-        auto generatedToken = this.generateHash(
+        /* auto generatedToken = generateHash(
             hashParts["fields"],
             hashParts["unlockedFields"],
             formUrl,
@@ -47,20 +50,20 @@ class DFormProtector {
 
         if (hash_equals(generatedToken, extractedToken)) {
             return true;
-        }
-        if (configuration.hasKey("debug")) {
+        } */
+        /* if (configuration.hasKey("debug")) {
             if (auto debugMessage = debugTokenNotMatching(formData, hashParts + compact("url", "sessionId"))) {
                 _debugMessage = debugMessage;
             }
-        }
+        } */
         return false;
     }
 
-    this(Json[string] initData = null) {
+/*     this(Json[string] initData = null) {
         if (!initData.isEmpty("unlockedFields")) {
             _unlockedFields = initData["unlockedFields"];
         }
-    }
+    } */
 
     /**
      * Determine which fields of a form should be used for hash.
@@ -68,8 +71,8 @@ class DFormProtector {
      * string[]|string fieldName Reference to field to be secured. Can be dot
      * separated string to indicate nesting or array of fieldname parts.
      */
-    auto addField(string[] afield, bool shouldLock = true, Json value = null) {
-        if (field.isString) {
+    auto addField(string[] field, bool shouldLock = true, Json value = null) {
+        /* if (field.isString) {
             field = getFieldNameParts(field);
         }
         if (isEmpty(field)) {
@@ -99,7 +102,7 @@ class DFormProtector {
             }
         } else {
             this.unlockField(field);
-        }
+        } */
         return this;
     }
 
@@ -128,14 +131,14 @@ class DFormProtector {
      * Unlocked fields are not included in the field hash.
      */
     auto unlockField(string fieldName) { // fieldName - dot separated name
-        if (!isIn(name, _unlockedFields, true)) {
+        /* if (!isIn(name, _unlockedFields, true)) {
             _unlockedFields ~= fieldName;
         }
         anIndex = array_search(fieldName, this.fields, true);
         if (anIndex == true) {
             removeKey(_fields[anIndex]);
         }
-        removeKey(_fields[fieldName]);
+        removeKey(_fields[fieldName]); */
 
         return this;
     }
@@ -207,9 +210,9 @@ class DFormProtector {
      * Json[string] formData Data array
      */
     protected Json[string] extractFields(Json[string] formData) {
-        string locked = "";
+/*         string locked = "";
         string token = urldecode(formData["_Token.fields"]);
-        string unlocked = urldecode(formData["_Token.unlocked"]);
+        string unlocked = urldecode(formData["_Token.unlocked"]); */
 
         /* if (token.contains(": ")) {
             [, locked] = split(": ", token, 2);
@@ -274,9 +277,10 @@ unlockedFields = chain(_unlockedFields, unlocked).unique;
      * Json[string] formData Data array
      */
     protected string[] sortedUnlockedFields(Json[string] formData) {
-        string unlocked = urldecode(formData["_Token.unlocked"]);
+/*         string unlocked = urldecode(formData["_Token.unlocked"]);
         return !unlocked.isEmpty
-            ? unlocked.split("|").sort(SORT_STRING) : null;
+            ? unlocked.split("|").sort(SORT_STRING) : null; */
+        return null; 
     }
 
     // Generate the token data.
@@ -434,8 +438,8 @@ unlockedFields = chain(_unlockedFields, unlocked).unique;
     } */
 
     // Return debug info
-    Json[string] debugInfo() {
-        return createMap!(string, Json)
+    override Json[string] debugInfo() {
+        return super.debugInfo
             .set("fields", this.fields)
             .set("unlockedFields", _unlockedFields)
             .set("debugMessage", this.debugMessage);

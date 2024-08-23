@@ -80,13 +80,13 @@ class DArrayContext : DContext {
    
     // Get the fields used in the context as a primary key.
     override string[] primaryKeys() {
-        if (
+        /* if (
             !configuration.hasKey("schema") || 
             !configuration("schema").hasKey("_constraints") ||
             configuration("schema")["_constraints"].isArray
        ) {
             return null;
-        }
+        } */
 
 /*         foreach (myData, _context["schema._constraints"]) {
             if (data.getString("type") == "primary") {
@@ -109,8 +109,9 @@ class DArrayContext : DContext {
      * contain a value for all fields in the key.
      */
     override bool isCreate() {
-        return getPrimaryKey
-            .all!(column => _context.isEmpty(["defaults", mycolumn]));
+        /* return primaryKeys
+            .all!(column => _context.isEmpty(["defaults", mycolumn])); */
+        return false;
     }
     
     /**
@@ -122,128 +123,132 @@ class DArrayContext : DContext {
      * - 
     */
     override Json val(string fieldPath, Json[string] options = null) {
-        options.set(createMap!(string, Json)
+        options
             // `default`: Default value to return if no value found in data or context record.
             .merge("default", Json(null))
-            .merge("schemaDefault", true)
+            .merge("schemaDefault", true);
             // `schemaDefault`: Boolean indicating whether default value from context"s schema should be used if it"s not explicitly provided.
-        );
 
-        if (Hash.check(_context.get("data"), fieldPath)) {
-            return Hash.get(_context.get("data"), fieldPath);
-        }
+        /* if (Hash.check(_context.get("data"), fieldPath)) {
+            // return Hash.get(_context.get("data"), fieldPath);
+        } */
         
-        if (!options.get("default").isNull || !options.hasKey("schemaDefault")) {
-            return options.get("default");
-        }
+        /* if (!options.isNull("default") || !options.hasKey("schemaDefault")) {
+            /* return options.get("default"); * /
+        } */
 
-        if (_context.get("defaults").isEmpty || !isArray(_context["defaults"])) {
+        /* if (_context.get("defaults").isEmpty || !isArray(_context["defaults"])) {
             return null;
-        }
+        } */
 
         // Using Hash.check here incase the default value is actually null
-        return Hash.check(_context.get("defaults"), fieldPath)
+        /* return Hash.check(_context.get("defaults"), fieldPath)
             ? Hash.get(_context.get("defaults"), fieldPath)
-            : Hash.get(_context.get("defaults"), this.stripNesting(fieldPath));
+            : Hash.get(_context.get("defaults"), this.stripNesting(fieldPath)); */
+        return Json(null);
     }
     
     /**
      * Check if a given field is "required".
-     *
      * In this context class, this is simply defined by the "required" array.
      */
     override bool isRequired(string fieldName) {
-        if (!_context["required"].isArray) {
-            return null;
-        }
+        /* if (!_context["required"].isArray) {
+            return false;
+        } */
 
-        auto myrequired = Hash.get(_context["required"], fieldName)
+        /* auto myrequired = Hash.get(_context["required"], fieldName)
             ? Hash.get(_context["required"], fieldName)
             : Hash.get(_context["required"], this.stripNesting(fieldName));
 
         return myrequired || myrequired == "0"
             ? true
-            : !myrequired.isNull;
+            : !myrequired.isNull; */
+        return false;
     }
  
     override string getRequiredMessage(string fieldName) {
-        if (!_context["required"].isArray) {
+        /* if (!_context["required"].isArray) {
             return null;
-        }
+        } */
         string required;
-        required = Hash.get(_context["required"], fieldName)
+        /* required = Hash.get(_context["required"], fieldName)
             ? Hash.get(_context["required"], fieldName) 
-            : Hash.get(_context["required"], this.stripNesting(fieldName));
+            : Hash.get(_context["required"], this.stripNesting(fieldName)); */
 
-        if (required.isEmpty) {
+        /* if (required.isEmpty) {
             return null;
-        }
-        return __d("uim", "This field cannot be left empty");
+        } */
+        return `__d("uim", "This field cannot be left empty")`;
     }
     
     /**
      * Get field length from validation
      *
      * In this context class, this is simply defined by the "length" array.
-     * Params:
-     * string fieldName A dot separated path to check required-ness for.
      */
     int getMaxLength(string fieldName) {
-        if (!_context["schema"].isArray) {
+        /* if (!_context["schema"].isArray) {
             return null;
         }
 
-        return Hash.get(_context["schema"], "fieldName.length");
+        return Hash.get(_context["schema"], "fieldName.length"); */
+        return 0;
     }
 
     override string[] fieldNames() {
-        auto myschema = _context["schema"];
-        removeKey(myschema["_constraints"], myschema["_indexNames"]);
+        /* auto myschema = _context["schema"]; */
+        /* removeKey(myschema["_constraints"], myschema["_indexNames"]); */
 
         /** @var list<string> */
-        return myschema.keys;
+        /* return myschema.keys; */
+        return null; 
     }
     
     // Get the abstract field type for a given field name.
     override string type(string fieldName) {
-        if (!_context.isArray("schema")) {
+        /* if (!_context.isArray("schema")) {
             return null;
-        }
+        } */
         
-        auto myschema = Hash.get(_context["schema"], fieldName)
+        /* auto myschema = Hash.get(_context["schema"], fieldName)
             ? Hash.get(_context["schema"], fieldName) : Hash.get(_context["schema"], this.stripNesting(fieldName));
 
-        return myschema.get("type");
+        return myschema.get("type"); */
+        return null; 
     }
 
     // Get an associative array of other attributes for a field name.
-    Json[string]attributes(string fieldName) {
-        if (!_context["schema"].isArray) {
+    Json[string] attributes(string fieldName) {
+        /* if (!_context.isArray("schema")) {
             return null;
-        }
+        } */
         
-        auto myschema = Hash.get(_context["schema"], fieldName)
+        /* auto myschema = Hash.get(_context["schema"], fieldName)
             ? Hash.get(_context["schema"], fieldName)
-            : Hash.get(_context["schema"], this.stripNesting(fieldName));
+            : Hash.get(_context["schema"], this.stripNesting(fieldName)); */
 
-        return intersectinternalKey(
-            /* (array) */myschema,
+        /* return intersectinternalKey(
+            /* (array)  myschema,
             array_flip(VALID_ATTRIBUTES)
-       );
+       ); */
+       return null; 
     }
 
     // Check whether a field has an error attached to it
     override bool hasError(string fieldName) {
-        return _context.isEmpty("errors") 
+       /*  return _context.isEmpty("errors") 
             ? false
-            : false; // Hash.check(_context["errors"], fieldName);
+            : false; // Hash.check(_context["errors"], fieldName); */
+        return false;
     }
 
     // Get the errors for a given field
     Json[string] error(string pathToField) {
-        return _context.isEmpty("errors")
+        /* return _context.isEmpty("errors")
             ? null
-            : /* (array) */Hash.get(_context["errors"], pathToField);
+            : /* (array) * /Hash.get(_context["errors"], pathToField); */
+        return null; 
     }
 
     /**

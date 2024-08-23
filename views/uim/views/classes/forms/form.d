@@ -46,7 +46,7 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
     protected string _schemaclassname = Schema.classname;
 
     void data(Json[string] items) {
-        
+
     }
     // #region Schema
     // The schema used by this form.
@@ -65,8 +65,9 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
         * schema or load a pre-defined one.
         */
     DSchema schema() {
-        return !_schema.isNull
-            ? _schema : _buildSchema(new _schemaClass());
+        /* return !_schema.isNull
+            ? _schema : _buildSchema(new _schemaClass()); */
+        return null;
     }
 
     /**
@@ -120,10 +121,10 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
      * Defaults to a new instance.
      */
     this(DEventManager eventManager = null) {
-        if (eventManager !is null) {
+        /* if (eventManager !is null) {
             setEventManager(eventManager);
         }
-        getEventManager().on(this);
+        getEventManager().on(this);  */
     }
 
     /**
@@ -134,20 +135,21 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
      * - Form.buildValidator: buildValidator
      */
     IEvent[] implementedEvents() {
-        if (hasMethod(this, "buildValidator")) {
+        /* if (hasMethod(this, "buildValidator")) {
             return [
                 BUILD_VALIDATOR_EVENT: "buildValidator",
             ];
-        }
+        } */
         return null;
     }
 
     // Used to check if someData passes this form`s validation.
     bool validate(Json[string] data, string validatorName = null) {
-        _errors = getValidator(validatorName ? validatorName : DEFAULT_VALIDATOR)
+        /* _errors = getValidator(validatorName ? validatorName : DEFAULT_VALIDATOR)
             .validate(data);
 
-        return count(_errors) == 0;
+        return count(_errors) == 0; */
+        return false;
     }
 
     /**
@@ -155,12 +157,14 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
      * Will return the errors from the last call to `validate()` or `execute()`.
      */
     Json[string] getErrors() {
-        return _errors;
+       /*  return _errors; */
+       return null; 
     }
 
     // Returns validation errors for the given field
     Json getError(string fieldName) {
-        return _errors.ifNull(fieldName);
+        /* return _errors.ifNull(fieldName); */
+        return Json(null);
     }
 
     /**
@@ -196,7 +200,7 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
      * Json[string] data Form data.
      */
     bool execute(Json[string] data, Json[string] options = null) {
-        _data = someData;
+        /* _data = someData;
         options.merge("validate", true);
         if (!options.getBoolean("validate")) {
             return _execute(someData);
@@ -204,7 +208,8 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
 
         auto validator = options.getBoolean("validate") ? DEFAULT_VALIDATOR
             : options.getBoolean("validate");
-        return _validate(someData, validator) ? _execute(someData) : false;
+        return _validate(someData, validator) ? _execute(someData) : false; */
+        return false;
     }
 
     /**
@@ -218,9 +223,10 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
 
     // Get field data.
     Json getData(string fieldName = null) {
-        return fieldName.isNull
+        /* return fieldName.isNull
             ? _data // null - get all Data
-            : Hash.get(_data, field);
+             : Hash.get(_data, field); */
+        return Json(null);
     }
 
     /**

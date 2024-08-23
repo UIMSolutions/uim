@@ -12,11 +12,11 @@ class DContextFactory {
     // DContext providers.
     // TODO protected array<string, array> myproviders = null;
 
-    this(Json[string] myproviders= null) {
+    /* this(Json[string] myproviders= null) {
         foreach (myprovider; myproviders) {
             addProvider(myprovider["type"], myprovider["callable"]);
         }
-    }
+    } */
     
     /**
      * Create factory instance with providers "array", "form" and "orm".

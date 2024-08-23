@@ -16,9 +16,10 @@ mixin template TViewVars() {
 
     // Get the view builder being used.
     DViewBuilder viewBuilder() {
-        return !_viewBuilder.isNull ? _viewBuilder : new DViewBuilder();
+        // return _viewBuilder !is null ? _viewBuilder : new DViewBuilder();
+        return null;
     }
-    
+
     /**
      * Constructs the view class instance based on the current configuration.
      * Params:
@@ -36,25 +37,26 @@ mixin template TViewVars() {
                 mybuilder.{mymethod}(this.{prop});
             } */
         });
-        
+
         /* return mybuilder.build(
             _request.ifNull(null),
             this.response ?? null,
             cast(IEventDispatcher)this ? getEventManager(): null
        ); */
-       return null;
+        return null;
     }
-    
+
     // Saves a variable or an associative array of variables for use inside a template.
-void set(string viewName, Json aValue = null) {
-        auto mydata = [views: myvalue];
+    void set(string viewName, Json value = null) {
+        auto mydata = [viewName: value];
         viewBuilder().setData(mydata);
     }
-    void set(string[] views, Json aValue = null) {
-        auto mydata = myvalue.isArray
-                ? combine(views, myvalue)
-                : views;
-     
-        viewBuilder().setData(mydata);
+
+    void set(string[] views, Json value = null) {
+        /* auto mydata = value.isArray
+            ? combine(views, value) 
+            : views;
+
+        viewBuilder().setData(mydata); */
     }
-} 
+}

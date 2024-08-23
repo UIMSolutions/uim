@@ -335,14 +335,7 @@ unittest {
   assert([1, 2, 3, 4].index(0) == -1);
 }
 
-bool isIn(T)(T value, T[] values) {
-  return values.any!(v => v == value);
-}
-/// 
-unittest {
-  assert(1.isIn([1, 2, 3, 4]));
-  assert(!10.isIn([1, 2, 3, 4]));
-}
+
 
 size_t[] indexes(T)(T[] values, T value) {
   size_t[] results;
@@ -723,3 +716,14 @@ string[] toStringArray(string[] values) {
 unittest {
   // assert(["a", "b", "c"] == )
 }
+
+// #region isIn
+bool isIn(T)(T value, T[] values) {
+  return values.any!(v => v == value);
+}
+/// 
+unittest {
+  assert(1.isIn([1, 2, 3, 4]));
+  assert(!10.isIn([1, 2, 3, 4]));
+}
+// #endregion isIn

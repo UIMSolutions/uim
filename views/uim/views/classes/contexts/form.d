@@ -25,8 +25,8 @@ class DFormContext : DContext {
             "`\mycontext["entity"]` must be an instance of " ~ Form.classname
        );
  */
-       _form = initData.getString("entity");
-       _validatorName = initData.getString("validator", null);
+       /* _form = initData.getString("entity");
+       _validatorName = initData.getString("validator", null); */
 
         return true;
     }
@@ -40,7 +40,7 @@ class DFormContext : DContext {
     }
 
     override Json val(string fieldName, Json[string] options = null) {
-        options
+        /* options
             .merge("default", Json(null))
             .merge("schemaDefault", true);
 
@@ -53,15 +53,17 @@ class DFormContext : DContext {
             return options.get("default");
         }
 
-        return _schemaDefault(fieldName);
+        return _schemaDefault(fieldName); */
+        return Json(null);
     }
 
     // Get default value from form schema for given field.
     protected Json _schemaDefault(string fieldName) {
-        auto fieldSchema = _form.getSchema().field(fieldName);
+        /* auto fieldSchema = _form.getSchema().field(fieldName);
         return fieldSchema.isNull
             ? null
-            : fieldSchema.get("default");
+            : fieldSchema.get("default"); */
+        return Json(null);
     }
  
     override bool isRequired(string fieldName) {

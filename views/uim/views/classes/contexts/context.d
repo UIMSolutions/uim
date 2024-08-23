@@ -42,7 +42,8 @@ class DContext : UIMObject, IContext {
     }
 
     bool isPrimaryKey(string[] fieldPath) {
-        return isPrimaryKey(fieldPath.strip.join("."));
+        /* return isPrimaryKey(fieldPath.strip.join(".")); */
+        return false;
     }
 
     bool isPrimaryKey(string fieldName) {
@@ -54,7 +55,8 @@ class DContext : UIMObject, IContext {
     }
 
     bool isRequired(string[] fieldPath) {
-        return isRequired(fieldPath.strip.join("."));
+        // return isRequired(fieldPath.strip.join("."));
+        return false; 
     }
 
     bool isRequired(string fieldName) {

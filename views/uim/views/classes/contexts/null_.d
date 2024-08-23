@@ -43,7 +43,7 @@ class DNullContext : DContext {
     }
  
     Json[string] attributes(string fieldName) {
-        return Json(null);
+        return null;
     }
  
     override bool hasError(string fieldName) {
@@ -51,7 +51,7 @@ class DNullContext : DContext {
     }
  
     Json[string] error(string fieldName) {
-        return Json(null);
+        return null;
     } 
 }
 mixin(ContextCalls!("Null"));

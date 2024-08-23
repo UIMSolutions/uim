@@ -64,7 +64,7 @@ abstract class DCell { // }: IEventDispatcher {
     protected DResponse _response; */
 
     // Arguments to pass to cell"s action.
-    protected Json[string] _args = null;
+    protected Json[string] _arguments = null;
 
     /**
      * List of valid options (constructor"s fourth arguments)
@@ -107,9 +107,9 @@ abstract class DCell { // }: IEventDispatcher {
      */
     string render(string templateName = null) {
         auto mycache = null;
-        if (_cache) {
+        /* if (_cache) {
             mycache = _cacheConfig(_action, templateName);
-        }
+        } */
         /* myrender = auto () use (templateName) {
             try {
                 myreflect = new DReflectionMethod(this, _action);
@@ -151,9 +151,10 @@ abstract class DCell { // }: IEventDispatcher {
             }
         }; */
 
-        return mycache 
+        /* return mycache 
             ? Cache.remember(mycache["key"], myrender, mycache["config"])
-            : myrender();
+            : myrender(); */
+        return null; 
     }
     
     /**
@@ -166,11 +167,11 @@ abstract class DCell { // }: IEventDispatcher {
             return null;
         }
         
-        string templateName = templateName ? templateName : "default";
-        string key = ("cell_" ~ classname.underscore ~ "_" ~ invokedAction ~ "_" ~ templateName).replace("\\", "_");
+        templateName = templateName ? templateName : "default";
+        /* string key = ("cell_" ~ classname.underscore ~ "_" ~ invokedAction ~ "_" ~ templateName).replace("\\", "_");
         auto defaultValue = createMap!(string, Json)
             .set("config", "default")
-            .set("key", aKey);
+            .set("key", key); */
 
         /* if (_cache == true) {
             return defaultValue;
@@ -189,29 +190,30 @@ abstract class DCell { // }: IEventDispatcher {
      */
     override string toString() {
         try {
-            return _render();
+            // return _render();
+            return null; 
         } catch (Exception exception) {
-            trigger_error(
+            /* trigger_error(
                 "Could not render cell - %s [%s, line %d]"
                 .format(exception.message(), exception.getFile(), exception.getLine()), 
-                ERRORS.USER_WARNING);
+                ERRORS.USER_WARNING); */
 
             return null;
-        } catch (DError error) {
-            throw new DError(
+        } /* catch (DError error) {
+            /* throw new DError(
                 "Could not render cell - %s [%s, line %d]"
                 .format(error.message(), error.getFile(), error.getLine()), 
-                0, error);
-        }
+                0, error); * /
+        } */
     }
     
     // Debug info.
     Json[string] debugInfo() {
         return createMap!(string, Json)
             .set("action", _action)
-            .set("args", this.args)
-            .set("request", _request)
-            .set("response", _response)
-            .set("viewBuilder", viewBuilder());
+            .set("args", _arguments);
+            // .set("request", _request)
+            /* .set("response", _response)
+            .set("viewBuilder", viewBuilder() */;
     }
 }

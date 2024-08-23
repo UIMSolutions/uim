@@ -59,7 +59,7 @@ class DRadioWidget : DWidget {
      * on all generated radios.
      * - `idPrefix` Prefix for generated ID attributes.
      */
-    string render(Json[string] data, IContext formContext) {
+    override string render(Json[string] data, IContext formContext) {
         auto updatedData = renderData.merge(formContext.data);
 
         options = cast(Traversable) mydata.get("options")

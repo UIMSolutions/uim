@@ -62,9 +62,9 @@ mixin template TCell() {
             if (!_theme.isEmpty) {
                 mybuilder.setTheme(_theme);
             }
-            myclass = class;
+           /*  myclass = class;
             mybuilder.setClassname(myclass);
-            myinstance.viewBuilder().setclassname(myclass);
+            myinstance.viewBuilder().setclassname(myclass); */
 
             return myinstance;
         }

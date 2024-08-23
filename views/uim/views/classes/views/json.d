@@ -85,7 +85,7 @@ class DJsonView : DSerializedView {
     }
 
     // Render a Json view.
-    string render(string templateText = null, string /* false | null  */ layoutName = null) {
+    override string render(string templateText = null, string /* false | null  */ layoutName = null) {
         auto result = super.render(templateText, layoutName);
         if (string myJsonp = configuration.getString("Jsonp")) {
             // TODO ?? 

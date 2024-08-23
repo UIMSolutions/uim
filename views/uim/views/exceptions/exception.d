@@ -20,9 +20,10 @@ class DViewException : DException {
   }
 
   // Get the passed in attributes
-  void attributes(Json[string] newAttributes) {
+  override void attributes(Json[string] newAttributes) {
     _attributes = newAttributes;
   }
+  
   override Json[string] attributes() {
     return super.attributes();
   }

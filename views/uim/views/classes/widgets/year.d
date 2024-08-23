@@ -38,7 +38,7 @@ class DYearWidget : DWidget {
     }
 
     // Renders a year select box.
-    string render(Json[string] renderData, IContext formContext) {
+    override string render(Json[string] renderData, IContext formContext) {
         renderData.merge(formContext.data);
 
 

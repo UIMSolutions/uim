@@ -35,11 +35,9 @@ mixin template TIdGenerator() {
      * Generate an ID suffix.
      *
      * Ensures that id"s for a given set of fields are unique.
-     * Params:
-     * string myval The ID attribute value.
      */
     protected string _idSuffix(string idAttribute) {
-        string myidSuffix = idAttribute.replace(["/", "@", "<", ">", " ", """, "\""], "-").lower;
+        /* string myidSuffix = idAttribute.replace(["/", "@", "<", ">", " ", """, "\""], "-").lower;
         auto mycount = 1;
         auto mycheck = myidSuffix;
         while (isIn(mycheck, _idSuffixes, true)) {
@@ -47,14 +45,11 @@ mixin template TIdGenerator() {
         }
        _idSuffixes ~= mycheck;
 
-        return mycheck;
+        return mycheck; */
+        return null; 
     }
     
-    /**
-     * Generate an ID suitable for use in an ID attribute.
-     * Params:
-     * string myvalue The value to convert into an ID.
-     */
+    // Generate an ID suitable for use in an ID attribute.
     protected string _domId(string valueToConvert) {
         string mydomId = Text.slug(valueToConvert, "-").lower;
         if (_idPrefix) {

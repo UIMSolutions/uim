@@ -99,10 +99,10 @@ class DMultiCheckboxWidget : DWidget {
   // Render the checkbox inputs.
   protected string[] _renderInputs(Json[string] data, IContext formContext) {
     string[] result = null;
-    data.getMap("options").byKeyValue
+    /* data.getMap("options").byKeyValue
       .each!((kv) => {
         // Grouped inputs in a fieldset.
-        if (kv.value.isArray && !kv.value.hasKey("text") /* , kv.value["value"] */ ) {
+        if (kv.value.isArray && !kv.value.hasKey("text") /* , kv.value["value"] * / ) {
           auto myinputs = _renderInputs(["options": kv.value].merge(data), formContext);
           string checkboxTitle = _stringContents.format("multicheckboxTitle", createMap!(string, Json)
             .set("text", kv.key));
@@ -110,7 +110,7 @@ class DMultiCheckboxWidget : DWidget {
               .set("content", checkboxTitle ~ myinputs.join("")));
           continue;
         }
-      });
+      }); */
 
     // Standard inputs.
     auto mycheckbox = createMap!(string, Json)

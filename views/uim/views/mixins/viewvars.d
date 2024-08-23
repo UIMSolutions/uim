@@ -24,24 +24,25 @@ mixin template TViewVars() {
      * Params:
      * string namespacedclassname Optional namespaced class name of the View class to instantiate.
      */
-    View createView(string namespacedclassname = null) {
+    DView createView(string namespacedclassname = null) {
         auto mybuilder = viewBuilder();
         if (namespacedclassname) {
             mybuilder.setclassname(namespacedclassname);
         }
 
         ["name", "plugin"].each!((prop) {
-            if (this.{prop} !is null) {
+            /* if (this.{prop} !is null) {
                 auto mymethod = "set" ~ capitalize(prop);
                 mybuilder.{mymethod}(this.{prop});
-            }
+            } */
         });
         
-        return mybuilder.build(
+        /* return mybuilder.build(
             _request.ifNull(null),
             this.response ?? null,
             cast(IEventDispatcher)this ? getEventManager(): null
-       );
+       ); */
+       return null;
     }
     
     // Saves a variable or an associative array of variables for use inside a template.

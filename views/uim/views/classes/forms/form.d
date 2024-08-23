@@ -231,7 +231,7 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
     }
 
     // Get the printable version of a Form instance.
-    Json[string] debugInfo() {
+    override Json[string] debugInfo() {
         return createMap!(string, Json)
             .set("_schema", getSchema().__debugInfo())
             .set("_errors", getErrors())

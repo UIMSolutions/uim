@@ -119,9 +119,6 @@ class DApp {
      * _classExistsInBase
      *
      * Test isolation wrapper
-     * Params:
-     * classname = Class name.
-     * aNamespace = Namespace.
      */
     protected static bool _classExistsInBase(string classname, string namespace) {
         return class_hasKey(namespace ~ classname);

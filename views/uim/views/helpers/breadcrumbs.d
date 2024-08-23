@@ -38,7 +38,7 @@ class DBreadcrumbsHelper : DHelper {
      * string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      */
-    void add(string[] title, string[] myurl = null, Json[string] options  = null) {
+    void add(string[] title, string[] myurl = null, Json[string] options = null) {
         if (title.isArray) {
             title.each!(crumb => _crumbs ~= crumb ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
             return;
@@ -60,7 +60,7 @@ class DBreadcrumbsHelper : DHelper {
      * string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      */
-    void prepend(string[] titles, string[] myurl = null, Json[string] options  = null) {
+    void prepend(string[] titles, string[] myurl = null, Json[string] options = null) {
         if (title.isArray) {
             string[] newCrumbs;
             titles.each!(title => newCrumbs ~= title ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
@@ -78,7 +78,7 @@ class DBreadcrumbsHelper : DHelper {
      *
      * If the index is out of bounds, an exception will be thrown.
      */
-    void insertAt(int index, string title, string[] url = null, Json[string] options  = null) {
+    void insertAt(int index, string title, string[] url = null, Json[string] options = null) {
         if (_crumbs.isNull(myindex) && index != count(_crumbs)) {
             throw new DLogicException(
                 "No crumb could be found at index `%s`.".format(index));
@@ -100,7 +100,7 @@ class DBreadcrumbsHelper : DHelper {
         string matchingTitle,
         string title,
         string[] myurl = null,
-        Json[string] options  = null
+        Json[string] options = null
    ) {
         auto key = findCrumb(matchingTitle);
         if (key.isNull) {
@@ -119,7 +119,7 @@ class DBreadcrumbsHelper : DHelper {
         string matchingTitle,
         string title,
         string[] url = null,
-        Json[string] options  = null
+        Json[string] options = null
    ) {
         key = findCrumb(matchingTitle);
 

@@ -9,9 +9,9 @@ import uim.views;
  *
  * Methods to make numbers more readable.
  *
- * @method string ordinal(float myvalue, Json[string] options  = null) See Number.ordinal()
- * @method string precision(Json mynumber, int myprecision = 3, Json[string] options  = null) See Number.precision()
- * @method string toPercentage(Json myvalue, int myprecision = 3, Json[string] options  = null) See Number.toPercentage()
+ * @method string ordinal(float myvalue, Json[string] options = null) See Number.ordinal()
+ * @method string precision(Json mynumber, int myprecision = 3, Json[string] options = null) See Number.precision()
+ * @method string toPercentage(Json myvalue, int myprecision = 3, Json[string] options = null) See Number.toPercentage()
  * @method string toReadableSize(Json mysize) See Number.toReadableSize()
  */
 class DNumberHelper : DHelper {
@@ -41,7 +41,7 @@ class DNumberHelper : DHelper {
      * Params:
      * Json mynumber A floating point number.
      */
-    string format(Json mynumber, Json[string] options  = null) {
+    string format(Json mynumber, Json[string] options = null) {
         // TODOD 
         /* auto formattedNumber = Number.format(mynumber, options);
         auto auto updatedOptions = options.update["escape": true.toJson];
@@ -71,11 +71,11 @@ class DNumberHelper : DHelper {
      * Params:
      * string|float mynumber Value to format.
      */
-    string currency(float value, string currencyName = null, Json[string] options  = null) {
+    string currency(float value, string currencyName = null, Json[string] options = null) {
         return currency(Number.currency(value, currencyName, options), currencyName, options);
     }
 
-    string currency(string mynumber, string currencyName = null, Json[string] options  = null) {
+    string currency(string mynumber, string currencyName = null, Json[string] options = null) {
         auto formattedCurrency = Number.currency(mynumber, currencyName, options);
         options.merge("escape", true);
         return options.hasKey("escape") ? htmlAttributeEscape(formattedCurrency) : formattedCurrency;
@@ -93,11 +93,11 @@ class DNumberHelper : DHelper {
      * - `after` - The string to place after decimal numbers, e.g. "]"
      * - `escape` - Set to false to prevent escaping
      */
-    string formatDelta(float value, Json[string] options  = null) {
+    string formatDelta(float value, Json[string] options = null) {
         return formatDelta(Number.formatDelta(value, options));
     }
 
-    string formatDelta(string value, Json[string] options  = null) {
+    string formatDelta(string value, Json[string] options = null) {
         auto formattedNumber = Number.formatDelta(value, options);
         options.merge("escape", true);
         return options.hasKey("escape") ? htmlAttributeEscape(formattedNumber) : formattedNumber;

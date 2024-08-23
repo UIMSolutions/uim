@@ -950,10 +950,8 @@ class DHtmlHelper : DHelper {
         return result;
     }
 
-    /**
-     * Event listeners.
-     */
-    IEvent[] implementedEvents() {
+    // Event listeners.
+    override IEvent[] implementedEvents() {
         return null;
     }
 }

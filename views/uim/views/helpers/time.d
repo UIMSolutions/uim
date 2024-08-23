@@ -269,7 +269,7 @@ class DTimeHelper : DHelper {
     /* DChronosDate */
     Json date,
     string[] /* int  */ myformat = null,
-    string defaultValue = false,/* DateTimeZone | */
+    string defaultValue = null,/* DateTimeZone | */
     string timezone = null
   ) {
     return _i18nFormat(date, myformat, defaultValue, timezone);

@@ -65,8 +65,9 @@ class DPaginatorHelper : DHelper {
 
         return true;
     }
+    
     // Event listeners.
-    IEvent[] implementedEvents() {
+    override IEvent[] implementedEvents() {
         return null;
     }
 

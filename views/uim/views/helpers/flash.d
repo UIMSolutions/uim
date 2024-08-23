@@ -46,7 +46,7 @@ class DFlashHelper : DHelper {
      *
      * If you have several messages stored in the Session, each message will be rendered in its own element.
      */
-    string render(string key = "flash", Json[string] options  = null) {
+    string render(string key = "flash", Json[string] options = null) {
         // TODO 
         /* auto mymessages = _view.getRequest().getFlash().consume(key);
         if (mymessages.isNull) {

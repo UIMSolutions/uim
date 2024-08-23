@@ -11,11 +11,11 @@ import uim.views;
  *
  * @property \UIM\View\Helper\HtmlHelper myHtml
  * @method string excerpt(string text, string myphrase, int myradius = 100, string myending = "...") See Text.excerpt()
- * @method string highlight(string text, string[] myphrase, Json[string] options  = null) See Text.highlight()
+ * @method string highlight(string text, string[] myphrase, Json[string] options = null) See Text.highlight()
  * @method string slug(string mystring, string[] options= null) See Text.slug()
- * @method string tail(string text, int mylength = 100, Json[string] options  = null) See Text.tail()
+ * @method string tail(string text, int mylength = 100, Json[string] options = null) See Text.tail()
  * @method string toList(Json[string] mylist, string myand = null, string myseparator = ", ") See Text.toList()
- * @method string truncate(string text, int mylength = 100, Json[string] options  = null) See Text.truncate()
+ * @method string truncate(string text, int mylength = 100, Json[string] options = null) See Text.truncate()
  */
 class DTextHelper : DHelper {
     protected string[] _helpers = ["Html"];
@@ -186,7 +186,7 @@ class DTextHelper : DHelper {
     }
 
     // Event listeners.
-    IEvent[] implementedEvents() {
+    override IEvent[] implementedEvents() {
         return null;
     }
 }

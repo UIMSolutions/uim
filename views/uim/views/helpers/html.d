@@ -277,6 +277,55 @@ class DHtmlHelper : DHelper {
         return _link(title, ["_path": routePath] + params, htmlAttributes);
     }
 
+
+    string css(string[] mypath, Json[string] htmlAttributes = null) {
+        htmlAttributes
+            .merge("once", true)
+            .merge("block", Json(null))
+            .merge("rel", "stylesheet")
+            .merge("nonce", _view.getRequest().getAttribute("cspStyleNonce"));
+
+        auto url = _Url.css(mypath, htmlAttributes);
+        auto htmlAttributes = array_diffinternalKey(htmlAttributes, createMap!(string, Json)
+                .set(["fullBase", "pathPrefix"], Json(null)));
+
+        if (htmlAttributes["once"] && _includedAssets.hasKey([
+                __METHOD__, mypath
+            ])) {
+            return null;
+        }
+        htmlAttributes.removeKey("once");
+        _includedAssets[__METHOD__][mypath] = true;
+
+        auto mytemplater = templater();
+        if (htmlAttributes.getString("rel") == "import") {
+            result = mytemplater.format("style", [
+                    "attrs": mytemplater.formatAttributes(htmlAttributes, [
+                            "rel", "block"
+                        ]),
+                    "content": "@import url(" ~ url ~ ");",
+                ]);
+        } else {
+            result = mytemplater.format("css", [
+                    "rel": htmlAttributes["rel"],
+                    "url": url,
+                    "attrs": mytemplater.formatAttributes(htmlAttributes, [
+                            "rel", "block"
+                        ]),
+                ]);
+        }
+        if (htmlAttributes.isEmpty("block")) {
+            return result;
+        }
+        if (htmlAttributes.hasKey("block")) {
+            htmlAttributes.set("block", __FUNCTION__);
+        }
+        _view.append(htmlAttributes.get("block"), result);
+
+        return null;
+    }
+
+
     /**
      * Creates a link element for CSS stylesheets.
      *
@@ -330,54 +379,7 @@ class DHtmlHelper : DHelper {
         return htmlAttributes.isEmpty("block")
             ? result ~ "\n" : null;
     }
-
-    string css(string[] mypath, Json[string] htmlAttributes = null) {
-        htmlAttributes
-            .merge("once", true)
-            .merge("block", Json(null))
-            .merge("rel", "stylesheet")
-            .merge("nonce", _view.getRequest().getAttribute("cspStyleNonce"));
-
-        auto url = _Url.css(mypath, htmlAttributes);
-        auto htmlAttributes = array_diffinternalKey(htmlAttributes, createMap!(string, Json)
-                .set(["fullBase", "pathPrefix"], Json(null)));
-
-        if (htmlAttributes["once"] && _includedAssets.hasKey([
-                __METHOD__, mypath
-            ])) {
-            return null;
-        }
-        htmlAttributes.removeKey("once");
-        _includedAssets[__METHOD__][mypath] = true;
-
-        auto mytemplater = templater();
-        if (htmlAttributes.getString("rel") == "import") {
-            result = mytemplater.format("style", [
-                    "attrs": mytemplater.formatAttributes(htmlAttributes, [
-                            "rel", "block"
-                        ]),
-                    "content": "@import url(" ~ url ~ ");",
-                ]);
-        } else {
-            result = mytemplater.format("css", [
-                    "rel": htmlAttributes["rel"],
-                    "url": url,
-                    "attrs": mytemplater.formatAttributes(htmlAttributes, [
-                            "rel", "block"
-                        ]),
-                ]);
-        }
-        if (htmlAttributes.isEmpty("block")) {
-            return result;
-        }
-        if (htmlAttributes.hasKey("block")) {
-            htmlAttributes.set("block", __FUNCTION__);
-        }
-        _view.append(htmlAttributes.get("block"), result);
-
-        return null;
-    }
-
+    
     /**
      * Returns one or many `<script>` tags depending on the number of scripts given.
      *

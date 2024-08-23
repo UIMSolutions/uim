@@ -198,8 +198,7 @@ class DTimeHelper : DHelper {
         mydateTime = mydateTime.clone;
       }
       /** @var \DateTimeImmutable|\DateTime mydateTime * /
-      mydateTime = mydateTime.setTimezone(options.get("timezone"));
-      options.removeKey("timezone");
+      mydateTime = mydateTime.setTimezone(options.shift("timezone"));
     } */
     /* if (options.hasKey("element")) {
       myelement = [

@@ -621,8 +621,7 @@ class DRoute : IRoute {
 
         // add base url if applicable.
         if (options.hasKey("_base")) {
-            result = options.getString("_base") ~ result;
-            options.removeKey("_base");
+            result = options.shift("_base").getString ~ result;
         }
         result = result.replace("//", "/");
         if (options.hasAnyKeys("_scheme", "_host", "_port")) {

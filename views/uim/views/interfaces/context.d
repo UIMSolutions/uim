@@ -18,7 +18,8 @@ interface IContext {
     string[] primaryKeys();
 
     // Returns true if the passed field name is part of the primary key for this context
-    bool isPrimaryKey(string fieldPath);
+    bool isPrimaryKey(string[] fieldPath);
+    bool isPrimaryKey(string fieldName);
 
     // Returns whether this form is for a create operation.
     bool isCreate();

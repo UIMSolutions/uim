@@ -630,8 +630,6 @@ class DRouteBuilder {
      * - `path` The path prefix to use. Defaults to `Inflector.dasherize(routings)`.
      * - `_namePrefix` Set a prefix used for named routes. The prefix is prepended to the
      * name of any route created in a scope callback.
-     * Params:
-     * string routings The plugin name to build routes for
      */
     auto plugin(string routings, /* Closure| */ Json[string] options = null/* , Closure callbackClosure = null */) {
         if (!options.isArray) {

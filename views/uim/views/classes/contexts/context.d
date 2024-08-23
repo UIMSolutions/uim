@@ -60,4 +60,14 @@ class DContext : UIMObject, IContext {
     bool isRequired(string fieldName) {
         return false;
     }
+
+    string getRequiredMessage(string fieldPath) {
+        return null;
+    }
+    string type(string fieldPath) {
+        return null;
+    }
+    bool hasError(string fieldPath) {
+        return false;
+    }
 }

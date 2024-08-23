@@ -655,7 +655,7 @@ static string contentType() {
                 myparent = _getElementFileName(views);
                 if (!myparent) {
                     [_plugin, views] = _pluginSplit(views);
-                    paths = _paths(_plugin);
+                    paths =  paths(_plugin);
                     mydefaultPath = paths[0] ~ TYPE_ELEMENT ~ DIRECTORY_SEPARATOR;
                     throw new DLogicException(
                         "You cannot extend an element which does not exist (%s).".format(mydefaultPath ~ views ~ _ext
@@ -833,7 +833,7 @@ static string contentType() {
             }
         }
         views ~= _ext;
-        paths = _paths(_plugin);
+        paths =  paths(_plugin);
         foreach (path; paths) {
             if (isFile(path ~ views)) {
                 return _checkFilePath(path ~ views, path);
@@ -916,7 +916,7 @@ static string contentType() {
         }
 
         auto mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ DIRECTORY_SEPARATOR ~ mysubDir);
-        foreach (path; _paths(pluginName)) {
+        foreach (path;  paths(pluginName)) {
             foreach (mylayoutPath; mylayoutPaths) {
                 /* yield path ~ mylayoutPath; * /
             }
@@ -925,7 +925,7 @@ static string contentType() {
     
     // Finds an element filename, returns false on failure.
     protected string _getElementFileName(string elementname, bool shouldCheckPlugin = true)
-    {
+   {
         /* [_plugin, elementname] = _pluginSplit(elementname, shouldCheckPlugin);
 
         auto elementname ~= _ext;
@@ -940,7 +940,7 @@ static string contentType() {
     // Get an iterator for element paths.
     /* protected DGenerator getElementPaths(string pluginName) {
         auto myelementPaths = _getSubPaths(TYPE_ELEMENT);
-        foreach (path; _paths(pluginName)) {
+        foreach (path;  paths(pluginName)) {
             foreach (mysubdir; myelementPaths) {
                 // yield path ~ mysubdir ~ DIRECTORY_SEPARATOR;
             }
@@ -969,8 +969,8 @@ static string contentType() {
     }
     
     // Return all possible paths to find view files in order
-    override protected string[] _paths(string pluginName = null, bool isCached = true) {
-        if (isCached == true) {
+    protected string[] paths(string pluginName = null, bool isCached = true) {
+        if (isCached) {
             if (pluginName.isNull && !_paths.isEmpty) {
                 return _paths;
             }
@@ -1034,8 +1034,7 @@ static string contentType() {
 
         auto myelementKey = str_replace(["\\", "/"], "_", elementName);
 
-        auto mycache = options.get("cache");
-        options.removeKey("cache");
+        auto mycache = options.shift("cache");
         auto someKeys = array_merge(
             [_pluginKey, myelementKey],
             options.keys,

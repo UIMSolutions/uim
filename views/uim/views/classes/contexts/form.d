@@ -39,7 +39,7 @@ class DFormContext : DContext {
         return true;
     }
 
-    auto val(string fieldName, Json[string] options = null) {
+    override Json val(string fieldName, Json[string] options = null) {
         options
             .merge("default", Json(null))
             .merge("schemaDefault", true);

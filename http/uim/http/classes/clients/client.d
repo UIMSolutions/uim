@@ -334,8 +334,7 @@ class DClient { // }: IClient {
   Response send(IRequest request, Json[string] options = null) {
     int myredirects = 0;
     if (options.hasKey("redirect")) {
-      myredirects = options.getLong("redirect");
-      options.removeKey("redirect");
+      myredirects = options.shift("redirect").getLong;
     }
     do {
       auto myresponse = _sendRequest(request, options);

@@ -61,77 +61,73 @@ class DFormHelper : DHelper {
             "smallinteger": "number",
             "decimal": "number",
             "binary": "file"
-            ].toJson;
+        ].toJson;
 
         auto templates = [
-                // Used for button elements in button().
-                "button": `<button{{attrs}}>{{text}}</button>`, // Used for checkboxes in checkbox() and multiCheckbox().
-                "checkbox": `<input type="checkbox" name="{{name}}" value="{{value}} "{{attrs}}>`, // Input group wrapper for checkboxes created via control().
-                "checkboxFormGroup": `{{label}}`, // Wrapper container for checkboxes.
-                "checkboxWrapper": `<div class="checkbox">{{label}}</div>`, // Error message wrapper elements.
-                "error": `<div class=" error - message" id="{{id}}">{{content}}</div>`, // Container for error items.
-                "errorList": `<ul>{{content}}</ul>`, // Error item wrapper.
-                "errorItem": `<li>{{text}}</li>`, // File input used by file().
-                "file": `<input type=" file" name="{{name}}" {{attrs}}>`, // Fieldset element used by allControls().
-                "fieldset": `<fieldset{{attrs}}>{{content}}</fieldset>`, // Open tag used by create().
-                "formStart": `<form{{attrs}}>`, // Close tag used by end().
-                "formEnd": `</form>`, // General grouping container for control(). Defines input/label ordering.
-                "formGroup": `{{label}}{{input}}`, // Wrapper content used to hide other content.
-                "hiddenBlock": `<div style="d isplay: none; ">{{content}}</div>`, // Generic input element.
-                "input": `<input type="{{type}}" name="{{name}}"{{attrs}}>`, // Submit input element.
-                "inputSubmit": `<input type="{{type}}"{{attrs}}>`, // Container element used by control().
-                "inputContainer": `<div class="input{{type}} {{required}}">{{content}}</div>`, // Container element used by control() when a field has an error.
-                "inputContainerError": `<div class="input{{type}} {{required}} error">{{content}}{{error}}</div>`, // Label element when inputs are not nested inside the label.
-                "label": `<label{{attrs}}>{{text}}</label>`, // Label element used for radio and multi-checkbox inputs.
-                "nestingLabel": `{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>`, // Legends created by allControls()
-                "legend": `<legend>{{text}}</legend>`, // Multi-Checkbox input set title element.
-                "multicheckboxTitle": `<legend>{{text}}</legend>`, // Multi-Checkbox wrapping container.
-                "multicheckboxWrapper": `<fieldset{{attrs}}>{{content}}</fieldset>`, // Option element used in select pickers.
-                "option": `<option value="{{value}} {{attrs}}>{{text}}</option>`, // Option group element used in select pickers.
-                "optgroup": `<optgroup label="{{label}}"{{attrs}}>{{content}}</optgroup>`, // Select element,
-                "select": `<select name="{{name}}"{{attrs}}>{{content}}</select>`, // Multi-select element,
-                "selectMultiple": `<select name="{{name}}[]" multiple=" multiple"{{attrs}}>{{content}}</select>`, // Radio input element,
-                "radio": `<input type=" radio" name="{{name}}" value="{{value}}"{{attrs}}>`, // Wrapping container for radio input/label,
-                "radioWrapper": `{{label}}`, // Textarea input element,
-                "textarea": `<textarea name="{{name}}"{{attrs}}>{{value}}</textarea>`, // Container for submit buttons.
-                "submitContainer": `<div class=" submit">{{content}}</div>`, // Confirm javascript template for postLink()
-                "confirmJs": `{{confirm}}`, // selected class
-                "selectedClass": `selected`, // required class
-                "requiredClass": `required`,
-            ].toJson;
+            // Used for button elements in button().
+            "button": `<button{{attrs}}>{{text}}</button>`, // Used for checkboxes in checkbox() and multiCheckbox().
+            "checkbox": `<input type="checkbox" name="{{name}}" value="{{value}} "{{attrs}}>`, // Input group wrapper for checkboxes created via control().
+            "checkboxFormGroup": `{{label}}`, // Wrapper container for checkboxes.
+            "checkboxWrapper": `<div class="checkbox">{{label}}</div>`, // Error message wrapper elements.
+            "error": `<div class=" error - message" id="{{id}}">{{content}}</div>`, // Container for error items.
+            "errorList": `<ul>{{content}}</ul>`, // Error item wrapper.
+            "errorItem": `<li>{{text}}</li>`, // File input used by file().
+            "file": `<input type=" file" name="{{name}}" {{attrs}}>`, // Fieldset element used by allControls().
+            "fieldset": `<fieldset{{attrs}}>{{content}}</fieldset>`, // Open tag used by create().
+            "formStart": `<form{{attrs}}>`, // Close tag used by end().
+            "formEnd": `</form>`, // General grouping container for control(). Defines input/label ordering.
+            "formGroup": `{{label}}{{input}}`, // Wrapper content used to hide other content.
+            "hiddenBlock": `<div style="d isplay: none; ">{{content}}</div>`, // Generic input element.
+            "input": `<input type="{{type}}" name="{{name}}"{{attrs}}>`, // Submit input element.
+            "inputSubmit": `<input type="{{type}}"{{attrs}}>`, // Container element used by control().
+            "inputContainer": `<div class="input{{type}} {{required}}">{{content}}</div>`, // Container element used by control() when a field has an error.
+            "inputContainerError": `<div class="input{{type}} {{required}} error">{{content}}{{error}}</div>`, // Label element when inputs are not nested inside the label.
+            "label": `<label{{attrs}}>{{text}}</label>`, // Label element used for radio and multi-checkbox inputs.
+            "nestingLabel": `{{hidden}}<label{{attrs}}>{{input}}{{text}}</label>`, // Legends created by allControls()
+            "legend": `<legend>{{text}}</legend>`, // Multi-Checkbox input set title element.
+            "multicheckboxTitle": `<legend>{{text}}</legend>`, // Multi-Checkbox wrapping container.
+            "multicheckboxWrapper": `<fieldset{{attrs}}>{{content}}</fieldset>`, // Option element used in select pickers.
+            "option": `<option value="{{value}} {{attrs}}>{{text}}</option>`, // Option group element used in select pickers.
+            "optgroup": `<optgroup label="{{label}}"{{attrs}}>{{content}}</optgroup>`, // Select element,
+            "select": `<select name="{{name}}"{{attrs}}>{{content}}</select>`, // Multi-select element,
+            "selectMultiple": `<select name="{{name}}[]" multiple=" multiple"{{attrs}}>{{content}}</select>`, // Radio input element,
+            "radio": `<input type=" radio" name="{{name}}" value="{{value}}"{{attrs}}>`, // Wrapping container for radio input/label,
+            "radioWrapper": `{{label}}`, // Textarea input element,
+            "textarea": `<textarea name="{{name}}"{{attrs}}>{{value}}</textarea>`, // Container for submit buttons.
+            "submitContainer": `<div class=" submit">{{content}}</div>`, // Confirm javascript template for postLink()
+            "confirmJs": `{{confirm}}`, // selected class
+            "selectedClass": `selected`, // required class
+            "requiredClass": `required`,
+        ].toJson;
 
         configuration
             .setDefault("idPrefix", Json(null))
             .setDefault("errorClass", "form-error")
             .setDefault("typeMap", typeMap)
-            .setDefault("templates",  MapData()) // set HTML5 validation message to custom required/empty messages
+            .setDefault("templates", MapData()) // set HTML5 validation message to custom required/empty messages
             .setDefault("autoSetCustomValidity", true);
 
-            return true;
-        }
-        /**
+        return true;
+    }
+    /**
      * Constant used internally to skip the securing process,
      * and neither add the field to the hash or to the unlocked fields.
      */
-        const string SECURE_SKIP = "skip"; // Defines the type of form being created. Set by FormHelper.create().
-        string _requestType = null; // DContext for the current form.
-        protected IContext _context = null; /**
+    const string SECURE_SKIP = "skip"; // Defines the type of form being created. Set by FormHelper.create().
+    string _requestType = null; // DContext for the current form.
+    protected IContext _context = null; /**
      * The action attribute value of the last created form.
      * Used to make form/request specific hashes for form tampering protection.
      */
-        protected string _lastAction = ""; /* 
+    protected string _lastAction = ""; /* 
     // Other helpers used by FormHelper
     protected Json[string] myhelpers = ["Url", "Html"];
 
     // Default config for the helper.
     
 
-    /**
-     * Default widgets
-     *
-     * @var array<string, string[]>
-     */
-    protected Json[string] _defaultWidgets = [
+    // Default widgets
+    protected Json[string] _defaultWidgets; /*  = [
         "button": ["Button"],
         "checkbox": ["Checkbox"],
         "file": ["File"],
@@ -144,12 +140,10 @@ class DFormHelper : DHelper {
         "datetime": ["DateTime", "select"],
         "year": ["Year", "select"],
         "_default": ["Basic"],
-    ];
-
+    ]; */
 
     // Locator for input widgets.
     protected DWidgetLocator _locator;
-
 
     // DContext factory.
     protected DContextFactory _contextFactory = null;
@@ -161,18 +155,20 @@ class DFormHelper : DHelper {
         auto mylocator = null;
         auto mywidgets = _defaultWidgets;
         if (configuration.hasKey("locator")) {
-           /*  mylocator = configuration.get("locator"];
+            /*  mylocator = configuration.get("locator"];
             configuration.removeKey("locator"); */
         }
         if (configuration.hasKey("widgets")) {
             if (configuration.isString("widgets")) {
-                configuration.set("widgets", [configuration.getString("widgets")]);
+                configuration.set("widgets", [
+                        configuration.getString("widgets")
+                    ]);
             }
             mywidgets = configuration.get("widgets") + mywidgets;
             configuration.removeKey("widgets");
         }
         if (configuration.hasKey("groupedInputTypes")) {
-           _groupedInputTypes = configuration.get("groupedInputTypes");
+            _groupedInputTypes = configuration.get("groupedInputTypes");
             configuration.removeKey("groupedInputTypes");
         }
         super(myview, configData);
@@ -181,32 +177,32 @@ class DFormHelper : DHelper {
             mylocator = new WidgetLocator(this.templater(), _view, mywidgets);
         }
         setWidgetLocator(mylocator);
-       _idPrefix = configuration.getString("idPrefix");
+        _idPrefix = configuration.getString("idPrefix");
     }
-    
+
     // Get the widget locator currently used by the helper.
     DWidgetLocator getWidgetLocator() {
         return _locator;
     }
-    
+
     /**
      * Set the widget locator the helper will use.
      * Params:
      * \UIM\View\Widget\WidgetLocator myinstance The locator instance to set.
      */
     void setWidgetLocator(DWidgetLocator myinstance) {
-       _locator = myinstance;
+        _locator = myinstance;
     }
-    
+
     // Set the context factory the helper will use.
-    DContextFactory contextFactory(DContextFactory factory = null, Json[string] contexts= null) {
+    DContextFactory contextFactory(DContextFactory factory = null, Json[string] contexts = null) {
         if (factory.isNull) {
             return _contextFactory ? _contextFactory : DContextFactory.createWithDefaults(contexts);
         }
-       _contextFactory = factory;
+        _contextFactory = factory;
         return _contextFactory;
     }
-    
+
     /**
      * Returns an HTML form element.
      *
@@ -231,15 +227,14 @@ class DFormHelper : DHelper {
     string create(Json formContext = null, Json[string] options = null) {
         string myappend = "";
 
-        if (cast(IContext)formContext) {
+        if (cast(IContext) formContext) {
             context(formContext);
         } else {
             if (options.isEmpty("context")) {
                 options.set("context", Json(null));
             }
             options.set("context.entity", formContext);
-            formContext = _getContext(options.get("context"));
-            options.removeKey("context");
+            formContext = _getContext(options.shift("context"));
         }
         myisCreate = formContext.isCreate();
 
@@ -252,11 +247,10 @@ class DFormHelper : DHelper {
             .merge("valueSources", Json(null));
 
         if (options.hasKey("valueSources")) {
-            setValueSources(options.get("valueSources"));
-            options.removeKey("valueSources");
+            setValueSources(options.shift("valueSources"));
         }
         if (options.hasKey("idPrefix")) {
-           _idPrefix = options.get("idPrefix");
+            _idPrefix = options.get("idPrefix");
         }
         mytemplater = this.templater();
 
@@ -274,32 +268,32 @@ class DFormHelper : DHelper {
             myurl = _formUrl(formContext, options);
             myaction = _url.build(myurl);
         }
-       _lastAction(myurl);
-        options.removeKey("ur","idPrefix");
+        lastAction(myurl);
+        options.removeKey("ur", "idPrefix");
 
         myhtmlAttributes = null;
         switch (options.get("type").lower) {
-            case "get": 
-                myhtmlAttributes.get("method", "get");
-                break;
+        case "get":
+            myhtmlAttributes.get("method", "get");
+            break;
             // Set enctype for form
-            case "file": 
-                myhtmlAttributes.get("enctype", "multipart/form-data");
-                options.set("type", myisCreate ? "post" : "put");
+        case "file":
+            myhtmlAttributes.get("enctype", "multipart/form-data");
+            options.set("type", myisCreate ? "post" : "put");
             // Move on
-            case "put": 
+        case "put":
             // Move on
-            case "delete": 
+        case "delete":
             // Set patch method
-            case "patch": 
-                myappend ~= hidden("_method", [
+        case "patch":
+            myappend ~= hidden("_method", [
                     "name": "_method",
                     "value": options.getString("type").upper,
                     "secure": SECURE_SKIP,
                 ]);
             // Default to post method
-            default:
-                myhtmlAttributes.get("method", "post");
+        default:
+            myhtmlAttributes.get("method", "post");
         }
         if (options.hasKey("method")) {
             myhtmlAttributes.set("method", options.getString("method").lower);
@@ -316,7 +310,7 @@ class DFormHelper : DHelper {
 
         myhtmlAttributes += options;
 
-        if (_,requestType != "get") {
+        if (_, requestType != "get") {
             myformTokenData = _view.getRequest().getAttribute("formTokenData");
             if (!myformTokenData.isNull) {
                 _formProtector = this.createFormProtector(myformTokenData);
@@ -327,14 +321,14 @@ class DFormHelper : DHelper {
             myappend = mytemplater.format("hiddenBlock", ["content": myappend]);
         }
         myactionAttr = mytemplater.formatAttributes(createMap!(string, Json)
-            .set("action", myaction)
-            .set("escape", false));
+                .set("action", myaction)
+                .set("escape", false));
 
         return _formatTemplate("formStart", createMap!(string, Json)
-            .set("attrs", mytemplater.formatAttributes(myhtmlAttributes) ~ myactionAttr)
-            .set("templateVars", options.getArray("templateVars"))) ~ myappend;
+                .set("attrs", mytemplater.formatAttributes(myhtmlAttributes) ~ myactionAttr)
+                .set("templateVars", options.getArray("templateVars"))) ~ myappend;
     }
-    
+
     // Create the URL for a form based on the options.
     protected string[] _formUrl(IContext formContext, Json[string] options = null) {
         auto request = _view.getRequest();
@@ -345,7 +339,7 @@ class DFormHelper : DHelper {
         if (
             options.isString("url") ||
             (options.isArray("url") && options.hasKey("url._name"))
-       ) {
+            ) {
             return options.get("url");
         }
 
@@ -354,9 +348,9 @@ class DFormHelper : DHelper {
             .merge("controller", request.getParam("controller"))
             .merge("action", request.getParam("action"));
     }
-    
+
     // Correctly store the last created form action URL.
-    protected void _lastAction(string[] myurl = null) {   
+    protected void lastAction(string[] myurl = null) {
         auto myaction = Router.url(myurl, true);
         auto myquery = parse_url(myaction, D_URL_QUERY);
         myquery = myquery ? "?" ~ myquery : "";
@@ -364,7 +358,7 @@ class DFormHelper : DHelper {
         /* auto mypath = parse_url(myaction, D_URL_PATH) ?: "";
        _lastAction = mypath ~ myquery; */
     }
-    
+
     /**
      * Return a CSRF input if the request data is present.
      * Used to secure forms in conjunction with CsrfMiddleware.
@@ -376,10 +370,10 @@ class DFormHelper : DHelper {
             return null;
         }
         return _hidden("_csrfToken", createMap!(string, Json)
-            .set("value", csrfToken)
-            .set("secure", SECURE_SKIP));
+                .set("value", csrfToken)
+                .set("secure", SECURE_SKIP));
     }
-    
+
     /**
      * Closes an HTML form, cleans up values set by FormHelper.create(), and writes hidden
      * input fields where appropriate.
@@ -389,7 +383,7 @@ class DFormHelper : DHelper {
      * Json[string] secureAttributes Secure attributes which will be passed as HTML attributes
      * into the hidden input elements generated for the Security Component.
      */
-    string end(Json[string] secureAttributes= null) {
+    string end(Json[string] secureAttributes = null) {
         string result = "";
 
         if (_requestType != "get" && !_view.getRequest().getAttribute("formTokenData").isNull) {
@@ -406,7 +400,7 @@ class DFormHelper : DHelper {
 
         return result;
     }
-    
+
     /**
      * Generates a hidden field with a security hash based on the fields used in
      * the form.
@@ -415,7 +409,7 @@ class DFormHelper : DHelper {
      * the hidden input tags generated for the Security Component. This is
      * especially useful to set HTML5 attributes like "form".
      */
-    string secure(Json[string] fieldNames = null, Json[string] secureAttributes= null) {
+    string secure(Json[string] fieldNames = null, Json[string] secureAttributes = null) {
         if (!_formProtector) {
             return null;
         }
@@ -454,7 +448,7 @@ class DFormHelper : DHelper {
         /* return _formatTemplate("hiddenBlock", ["content": result]); */
         return string;
     }
-    
+
     /**
      * Get Session id for FormProtector
      * Must be the same as in FormProtectionComponent
@@ -462,7 +456,7 @@ class DFormHelper : DHelper {
     protected string _getFormProtectorSessionId() {
         return _view.getRequest().getSession().id();
     }
-    
+
     /**
      * Add to the list of fields that are currently unlocked.
      *
@@ -471,7 +465,7 @@ class DFormHelper : DHelper {
     void unlockField(string fieldName) {
         getFormProtector().unlockField(fieldName);
     }
-    
+
     /**
      * Create FormProtector instance.
      * Params:
@@ -483,23 +477,23 @@ class DFormHelper : DHelper {
 
         return new DFormProtector(tokenData);
     }
-    
+
     // Get form protector instance.
     DFormProtector getFormProtector() {
         if (_formProtector.isNull) {
             throw new DException(
                 "`FormProtector` instance has not been created. Ensure you have loaded the `FormProtectionComponent`" ~
-                " in your controller and called `FormHelper.create()` before calling `FormHelper.unlockField()`."
-           );
+                    " in your controller and called `FormHelper.create()` before calling `FormHelper.unlockField()`."
+            );
         }
         return _formProtector;
     }
-    
+
     // Returns true if there is an error for the given field, otherwise false
     bool isFieldError(string fieldName) {
         return _getContext().hasError(fieldName);
     }
-    
+
     /**
      * Returns a formatted error message for given form field, "" if no errors.
      *
@@ -550,17 +544,17 @@ class DFormHelper : DHelper {
                     myerrorText ~= formatTemplate("errorItem", ["text": error]);
                 }
                 myerror = formatTemplate("errorList", [
-                    "content": myerrorText.join,
-                ]);
+                        "content": myerrorText.join,
+                    ]);
             } else {
                 myerror = myerror.pop();
             }
         }
         return _formatTemplate("error", createMap!(string, Json)
-            .set("content", myerror)
-            .set("id", _domId(fieldName) ~ "-error"));
+                .set("content", myerror)
+                .set("id", _domId(fieldName) ~ "-error"));
     }
-    
+
     /**
      * Returns a formatted LABEL element for HTML forms.
      *
@@ -643,7 +637,7 @@ class DFormHelper : DHelper {
         }
         return _widget("label", attributes);
     }
-    
+
     /**
      * Generate a set of controls for `fieldNames`. If fieldNames is empty the fields
      * of current model will be used.
@@ -673,7 +667,7 @@ class DFormHelper : DHelper {
 
         return _controls(fieldNames, options);
     }
-    
+
     /**
      * Generate a set of controls for `fieldNames` wrapped in a fieldset element.
      *
@@ -694,11 +688,11 @@ class DFormHelper : DHelper {
             if (myopts == false) {
                 continue;
             }
-            result ~= this.control(views, /* (array) */myopts);
+            result ~= this.control(views, /* (array) */ myopts);
         }
         return _fieldset(result, options);
     }
-    
+
     /**
      * Wrap a set of inputs in a fieldset
      * Params:
@@ -716,11 +710,11 @@ class DFormHelper : DHelper {
 
         if (myleisLegendend) {
             auto myisCreate = mycontext.isCreate();
-            auto mymodelName = Inflector.singularize(_view.getRequest().getParam("controller")).humanize;
+            auto mymodelName = Inflector.singularize(_view.getRequest()
+                    .getParam("controller")).humanize;
 
             isLegend = !myisCreate
-                ? __d("uim", "Edit {0}", mymodelName)
-                : __d("uim", "New {0}", mymodelName);
+                ? __d("uim", "Edit {0}", mymodelName) : __d("uim", "New {0}", mymodelName);
         }
         if (fieldNameset == true) {
             if (isLegend) {
@@ -734,7 +728,7 @@ class DFormHelper : DHelper {
         }
         return result;
     }
-    
+
     /**
      * Generates a form control element complete with label and wrapper div.
      *
@@ -787,7 +781,8 @@ class DFormHelper : DHelper {
 
         // Hidden inputs don"t need aria.
         // Multiple checkboxes can"t have aria generated for them at this layer.
-        if (options.getString("type") != "hidden" && (options.getString("type") != "select" && !options.hasKey("multiple"))) {
+        if (options.getString("type") != "hidden" && (options.getString("type") != "select" && !options.hasKey(
+                "multiple"))) {
             bool isFieldError = isFieldError(fieldName);
             options
                 .update("aria-required", options.getBoolean("required") ? "true" : null)
@@ -798,29 +793,27 @@ class DFormHelper : DHelper {
             if (
                 mytemplater.getString("error").contains("{{id}}") &&
                 mytemplater.getString("inputContainerError").contains("{{error}}")
-           ) {
-                options.update("aria-describedby", isFieldError ? _domId.getString(fieldName) ~ "-error" : null);
+                ) {
+                options.update("aria-describedby", isFieldError ? _domId.getString(
+                        fieldName) ~ "-error" : null);
             }
             if (options.hasKey("placeholder") && options.get("label") == false) {
                 options.update("aria-label", options.get("placeholder"));
             }
         }
-        
+
         auto myerror = null;
         auto myerrorSuffix = "";
         if (options.getString("type") != "hidden" && options.get("error") == true) {
             myError = options.isArray("error")
-                ? error(fieldName, options.get("error"), options.get("error"))
-                : error(fieldName, options.get("error"));
+                ? error(fieldName, options.get("error"), options.get("error")) : error(fieldName, options.get(
+                        "error"));
 
             myerrorSuffix = myerror.isEmpty ? "" : "Error";
             options.removeKey("error");
         }
-        auto mylabel = options.get("label");
-        options.removeKey("label");
-
-        auto myoptions = options.get("options");
-        options.removeKey("options");
+        auto mylabel = options.shift("label");
+        auto myoptions = options.shift("options");
 
         bool isNestedInput = options.getString("type") == "checkbox";
         isNestedInput = options.getBoolean("nestedInput", isNestedInput);
@@ -831,7 +824,7 @@ class DFormHelper : DHelper {
             && options.getString("type") == "checkbox"
             && !hasKey("hiddenField", options)
             && mylabel == true
-       ) {
+            ) {
             options.get("hiddenField", "_split");
         }
 
@@ -842,12 +835,13 @@ class DFormHelper : DHelper {
             }
             return myinput;
         }
-        
-        auto mylabel = _getLabel(fieldName, compact("input", "label", "error", "nestedInput").merge(options));
-        
+
+        auto mylabel = _getLabel(fieldName, compact("input", "label", "error", "nestedInput").merge(
+                options));
+
         auto result = isNestedInput
-            ? _groupTemplate(compact("label", "error", "options"))
-            : _groupTemplate(compact("input", "label", "error", "options"));
+            ? _groupTemplate(compact("label", "error", "options")) : _groupTemplate(
+                compact("input", "label", "error", "options"));
 
         result = _inputContainerTemplate([
             "content": result,
@@ -862,7 +856,7 @@ class DFormHelper : DHelper {
         }
         return result;
     }
-    
+
     // Generates an group template element
     protected string _groupTemplate(Json[string] options = null) {
         string groupTemplate = options.getString("options.type") ~ "FormGroup";
@@ -870,65 +864,65 @@ class DFormHelper : DHelper {
             groupTemplate = "formGroup";
         }
         return _formatTemplate(groupTemplate, [
-            "input": options.get("input"),
-            "label": options.get("label"),
-            "error": options.get("error"),
-            "templateVars": options.get("options.templateVars"),
-        ]);
+                "input": options.get("input"),
+                "label": options.get("label"),
+                "error": options.get("error"),
+                "templateVars": options.get("options.templateVars"),
+            ]);
     }
-    
+
     /**
      * Generates an input container template
      * Params:
      * Json[string] options The options for input container template
      */
     protected string _inputContainerTemplate(Json[string] options = null) {
-        myinputContainerTemplate = options.getString("options.type") ~ "Container" ~ options.getString("errorSuffix");
+        myinputContainerTemplate = options.getString(
+            "options.type") ~ "Container" ~ options.getString("errorSuffix");
         if (!this.templater().get(myinputContainerTemplate)) {
             myinputContainerTemplate = "inputContainer" ~ options.getString("errorSuffix");
         }
         return _formatTemplate(myinputContainerTemplate, [
-            "content": options.get("content"),
-            "error": options.get("error"),
-            "label": options.getString("label", ""),
-            "required": options.get("options.required") ? " " ~ this.templater().get("requiredClass") : "",
-            "type": options.get("options.type"),
-            "templateVars": options.get("options.templateVars", null),
-        ]);
+                "content": options.get("content"),
+                "error": options.get("error"),
+                "label": options.getString("label", ""),
+                "required": options.get("options.required") ? " " ~ this.templater()
+                .get("requiredClass"): "",
+                "type": options.get("options.type"),
+                "templateVars": options.get("options.templateVars", null),
+            ]);
     }
-    
+
     /**
      * Generates an input element
      * Params:
      * string fieldName the field name
      */
     protected string[] _getInput(string fieldName, Json[string] options = null) {
-        auto mylabel = options.get("options");
-        options.removeKey("options");
+        auto mylabel = options.shift("options");
 
         switch (options.getString("type").lower) {
-            case "select": 
-            case "radio": 
-            case "multicheckbox": 
-                auto myopts = options.get("options");
-                if (myopts.isNull) {
-                    myopts = null;
-                }
-                options.removeKey("options");
+        case "select":
+        case "radio":
+        case "multicheckbox":
+            auto myopts = options.shift("options");
+            if (myopts.isNull) {
+                myopts = null;
+            }
 
-                /* return _{options.get("type")}(fieldName, myopts, options.set("label", mylabel)); */
-                return null; 
-            case "input": 
-                throw new DInvalidArgumentException(
-                    "Invalid type `input` used for field `%s`.".format(fieldName
-               ));
+            /* return _{options.get("type")}(fieldName, myopts, options.set("label", mylabel)); */
+            return null;
+        case "input":
+            throw new DInvalidArgumentException(
+                "Invalid type `input` used for field `%s`.".format(fieldName
+            ));
 
-            default:
-                return null; 
-                /* return _{options.get("type")}(fieldName, options); */
+        default:
+            return null;
+            /* return _{options.get("type")}(fieldName, options); */
         }
     }
-    
+
     // Generates input options array
     protected Json[string] _parseOptions(string fieldName, Json[string] options = null) {
         auto myneedsMagicType = false;
@@ -938,7 +932,7 @@ class DFormHelper : DHelper {
         }
         return _magicOptions(fieldName, options, myneedsMagicType);
     }
-    
+
     /**
      * Returns the input type that was guessed for the provided fieldName,
      * based on the internal type it is associated too, its name and the
@@ -963,7 +957,7 @@ class DFormHelper : DHelper {
         }
         // auto fieldName = fieldName.split(".").slice(, -1)[0];
 
-       /*  return match (true) {
+        /*  return match (true) {
             options.hasKey("checked"): "checkbox",
             options.hasKey("options"): "select",
             isIn(fieldName, ["passwd", "password"], true): "password",
@@ -973,9 +967,9 @@ class DFormHelper : DHelper {
             fieldName == "year": "year",
             default: mytype,
         }; */
-        return null; 
+        return null;
     }
-    
+
     /**
      * Selects the variable containing the options for a select field if present,
      * and sets the value to the "options" key in the options array.
@@ -986,11 +980,11 @@ class DFormHelper : DHelper {
         if (options.hasKey("options")) {
             return options;
         }
-        
+
         auto internalType = _getContext().type(fieldName);
         if (internalType && internalType.startsWith("enum-")) {
             mydbType = TypeFactory.build(internalType);
-            if (cast(EnumType)mydbType) {
+            if (cast(EnumType) mydbType) {
                 if (options.getString("type") != "radio") {
                     options.set("type", "select");
                 }
@@ -1008,8 +1002,8 @@ class DFormHelper : DHelper {
         fieldName = fieldName.split(".").slice(-1)[0];
 
         myvarName = Inflector.variable(
-            mypluralize ? Inflector.pluralize(fieldName): fieldName
-       );
+            mypluralize ? Inflector.pluralize(fieldName) : fieldName
+        );
         myvarOptions = _view.get(myvarName);
         if (!is_iterable(myvarOptions)) {
             return options;
@@ -1021,14 +1015,14 @@ class DFormHelper : DHelper {
 
         return options;
     }
-    
+
     /**
      * Get map of enum value: label for select/radio options.
      * Params:
      * class-string<\BackedEnum> myenumClass Enum class name.
      */
     // TODO protected array<int|string, string> enumOptions(string enumclassname) {
-        /* assert(isSubclass_of(enumclassname, BackedEnum.classname));
+    /* assert(isSubclass_of(enumclassname, BackedEnum.classname));
 
         myvalues = null;
         /** @var \BackedEnum mycase * /
@@ -1038,7 +1032,7 @@ class DFormHelper : DHelper {
         }
         return myvalues;
     } */
-    
+
     // Magically set option type and corresponding options
     protected Json[string] _magicOptions(string fieldName, Json[string] options, bool allowOverride) {
         options.merge("templateVars", Json.emptyArray);
@@ -1057,7 +1051,7 @@ class DFormHelper : DHelper {
         }
         return options;
     }
-    
+
     /**
      * Set required attribute and custom validity JS.
      * Params:
@@ -1077,45 +1071,44 @@ class DFormHelper : DHelper {
 
             if (configuration.hasKey("autoSetCustomValidity")) {
                 options.set("data-validity-message", mymessage);
-                options.set("oninvalid", 
+                options.set("oninvalid",
                     "setCustomValidity(\"\"); " ~
-                    "if (!this.value) setCustomValidity(this.dataset.validityMessage)");
+                        "if (!this.value) setCustomValidity(this.dataset.validityMessage)");
                 options.set("oninput", "setCustomValidity(\"\")");
             }
         }
         return options;
     }
-    
+
     // Generate label for input
     protected string _getLabel(string fieldName, Json[string] options = null) {
         if (options.getString("type") == "hidden") {
             return null;
         }
-        
+
         auto mylabel = options.get("label", null);
         if (!mylabel && options.getString("type") == "checkbox") {
             return options.get("input");
         }
-        
+
         return mylabel
-            ? _inputLabel(fieldName, mylabel, options)
-            : null;
+            ? _inputLabel(fieldName, mylabel, options) : null;
     }
-    
+
     // Extracts a single option from an options array.
-    protected Json _extractOption(string optionName, Json[string] optionsToExtract, Json defaultValue = Json(null)) {
+    protected Json _extractOption(string optionName, Json[string] optionsToExtract, Json defaultValue = Json(
+            null)) {
         return hasKey(optionName, optionsToExtract)
-            ? optionsToExtract[optionName]
-            : defaultValue;
+            ? optionsToExtract[optionName] : defaultValue;
     }
-    
+
     /**
      * Generate a label for an input() call.
      *
      * options can contain a hash of id overrides. These overrides will be
      * used instead of the generated values if present.
      */
-    protected string _inputLabel(string fieldName, string labelText = null, 
+    protected string _inputLabel(string fieldName, string labelText = null,
         STRINGAA labelAttributes = null, Json[string] options = null) {
         options
             .merge("id", Json(null))
@@ -1127,8 +1120,7 @@ class DFormHelper : DHelper {
         if (isArray(options)) {
             string labelText = null;
             if (options.hasKey("text")) {
-                labelText = options.getString ("text");
-                options.removeKey("text");
+                labelText = options.shift("text").getString;
             }
             labelAttributes = updateKey(labelAttributes, labelAttributes);
         } else {
@@ -1146,7 +1138,7 @@ class DFormHelper : DHelper {
         }
         return _label(fieldName, labelText, labelAttributes);
     }
-    
+
     /**
      * Creates a checkbox input widget.
      *
@@ -1169,8 +1161,7 @@ class DFormHelper : DHelper {
             .merge("value", 1);
 
         // Work around value=>val translations.
-        myvalue = options.get("value");
-        options.removeKey("value");
+        auto myvalue = options.shift("value");
         options = _initInputField(fieldName, options);
         options.set("value", myvalue);
 
@@ -1179,7 +1170,7 @@ class DFormHelper : DHelper {
             myhiddenOptions = createMap!(string, Json)
                 .set("name", options.getString)
                 .set("value", options.getString("hiddenField") != "_split"
-                    ? options.getString("hiddenField") : "0")
+                        ? options.getString("hiddenField") : "0")
                 .set("form", options.get("form", null))
                 .set("secure", false);
 
@@ -1197,7 +1188,7 @@ class DFormHelper : DHelper {
 
         return outputText ~ widget("checkbox", options);
     }
-    
+
     /**
      * Creates a set of radio widgets.
      *
@@ -1215,7 +1206,7 @@ class DFormHelper : DHelper {
      * - `empty` - Set to `true` to create an input with the value "" as the first option. When `true`
      * the radio label will be "empty". Set this option to a string to control the label value.
      */
-    string radio(string fieldName, Json[string] radioOptions = null, Json[string] attributes= null) {
+    string radio(string fieldName, Json[string] radioOptions = null, Json[string] attributes = null) {
         attributes.set("options", radioOptions);
         attributes.set("idPrefix", _idPrefix);
 
@@ -1232,11 +1223,11 @@ class DFormHelper : DHelper {
         auto myhidden = "";
         if (hiddenField == true && isScalar(hiddenField)) {
             myhidden = hidden(fieldName, [
-                "value": hiddenField == true ? "" : to!string(hiddenField),
-                "form": attributes["form"].ifNull(null),
-                "name": attributes.getString,
-                "id": attributes["id"],
-            ]);
+                    "value": hiddenField == true ? "": to!string(hiddenField),
+                    "form": attributes["form"].ifNull(null),
+                    "name": attributes.getString,
+                    "id": attributes["id"],
+                ]);
         }
         if (generatedHiddenId) {
             removeKey(attributes["id"]);
@@ -1244,7 +1235,7 @@ class DFormHelper : DHelper {
         string myradio = widget("radio", attributes);
         return myhidden ~ myradio;
     }
-    
+
     /**
      * Missing method handler - : various simple input types. Is used to create inputs
      * of various types. e.g. `this.Form.text();` will create `<input type="text">` while
@@ -1274,7 +1265,7 @@ class DFormHelper : DHelper {
 
         return _widget(options.get("type"), options);
     }
-    
+
     /**
      * Creates a textarea widget.
      *
@@ -1290,7 +1281,7 @@ class DFormHelper : DHelper {
 
         return _widget("textarea", options);
     }
-    
+
     // Creates a hidden input field.
     string hidden(string fieldName, Json[string] htmlAttributes = null) {
         htmlAttributes
@@ -1301,22 +1292,22 @@ class DFormHelper : DHelper {
         htmlAttributes.removeKey("secure");
 
         htmlAttributes = _initInputField(fieldName, array_merge(
-            htmlAttributes,
-            ["secure": SECURE_SKIP]
-       ));
+                htmlAttributes,
+                ["secure": SECURE_SKIP]
+        ));
 
         if (mysecure == true && _formProtector) {
             _formProtector.addField(
                 options.get("name"),
                 true,
                 options.hasKey("val") ? "0" : options.getString("val")
-           );
+            );
         }
         options.set("type", "hidden");
 
         return _widget("hidden", options);
     }
-    
+
     /**
      * Creates file input widget.
      * Name of a field in the form "modelname.fieldname"
@@ -1327,7 +1318,7 @@ class DFormHelper : DHelper {
         options.removeKey("type");
         return _widget("file", options);
     }
-    
+
     /**
      * Creates a `<button>` tag.
      *
@@ -1355,13 +1346,13 @@ class DFormHelper : DHelper {
             myconfirm = _confirm("return true;", "return false;");
             options.set("data-confirm-message", confirmMessage);
             options.set("onclick", this.templater().format("confirmJs", [
-                "confirmMessage": htmlAttributeEscape(confirmMessage),
-                "confirm": myconfirm,
-            ]));
+                        "confirmMessage": htmlAttributeEscape(confirmMessage),
+                        "confirm": myconfirm,
+                    ]));
         }
         return _widget("button", options);
     }
-    
+
     /**
      * Create a `<button>` tag with a surrounding `<form>` that submits via POST as default.
      *
@@ -1380,12 +1371,10 @@ class DFormHelper : DHelper {
     string postButton(string caption, string[] myurl, Json[string] options = null) {
         auto myformOptions = ["url": myurl];
         if (options.hasKey("method")) {
-            myformOptions.set("type", options.get("method"));
-            options.removeKey("method");
+            myformOptions.set("type", options.shift("method"));
         }
         if (options.hasKey("form") && options.isArray("form")) {
-            myformOptions = options.get("form") + myformOptions;
-            options.removeKey("form");
+            myformOptions = options.shift("form") + myformOptions;
         }
         result = create(null, myformOptions);
         if (options.hasKey("data") && options.isArray("data")) {
@@ -1395,11 +1384,11 @@ class DFormHelper : DHelper {
             options.removeKey("data");
         }
         result ~= button(caption, options)
-         ~ end();
+            ~ end();
 
         return result;
     }
-    
+
     /**
      * Creates an HTML link, but access the URL using the method you specify
      * (defaults to POST). Requires javascript to be enabled in browser.
@@ -1445,30 +1434,33 @@ class DFormHelper : DHelper {
         }
         auto mytemplater = this.templater();
         auto myrestoreAction = _lastAction;
-       _lastAction(myurl);
+        lastAction(myurl);
         auto myrestoreFormProtector = _formProtector;
 
         auto myaction = mytemplater.formatAttributes(
             createMap!(string, Json)
-            .set("action", _url.build(myurl))
-            .set("escape", false));
+                .set("action", _url.build(myurl))
+                .set("escape", false));
 
         auto result = formatTemplate("formStart", createMap!(string, Json)
-            .set("attrs", mytemplater.formatAttributes(myformOptions) ~ myaction));
+                .set("attrs", mytemplater.formatAttributes(myformOptions) ~ myaction));
         result ~= hidden("_method", createMap!(string, Json)
-            .set("value", myrequestMethod)
-            .set("secure", SECURE_SKIP));
+                .set("value", myrequestMethod)
+                .set("secure", SECURE_SKIP));
 
         auto myformTokenData = _view.getRequest().getAttribute("formTokenData");
         if (myformTokenData !is null) {
             _formProtector = this.createFormProtector(myformTokenData);
         }
-        
+
         auto fieldNames = null;
         if (options.hasKey("data") && options.isArray("data")) {
             Hash.flatten(options.get("data")).each!((kv) {
                 fieldNames[kv.key] = kv.value;
-                result ~= hidden(kv.key, ["value": kv.value, "secure": SECURE_SKIP]);
+                result ~= hidden(kv.key, [
+                        "value": kv.value,
+                        "secure": SECURE_SKIP
+                    ]);
             });
             options.removeKey("data");
         }
@@ -1493,10 +1485,10 @@ class DFormHelper : DHelper {
             myonClick = _confirm(myonClick, "");
             myonClick = myonClick ~ "event.returnValue = false; return false;";
             myonClick = this.templater().format("confirmJs", [
-                "confirmMessage": htmlAttributeEscape(confirmMessage),
-                "formName": myformName,
-                "confirm": myonClick,
-            ]);
+                    "confirmMessage": htmlAttributeEscape(confirmMessage),
+                    "formName": myformName,
+                    "confirm": myonClick,
+                ]);
             options.set("data-confirm-message", confirmMessage);
         } else {
             myonClick ~= " event.returnValue = false; return false;";
@@ -1506,7 +1498,7 @@ class DFormHelper : DHelper {
         result ~= _html.link(title, myurl, options);
         return result;
     }
-    
+
     /**
      * Creates a submit button element. This method will generate `<input>` elements that
      * can be used to submit, and reset forms by using options. image submits can be created by supplying an
@@ -1545,39 +1537,39 @@ class DFormHelper : DHelper {
             mytype = "image";
 
             if (_formProtector) {
-                myunlockFields = ["x", "y"];
+                auto myunlockFields = ["x", "y"];
                 if (options.hasKey("name")) {
                     myunlockFields = [
                         options.getString("name") ~ "_x",
                         options.getString("name") ~ "_y",
                     ];
                 }
-                myunlockFields.each!(myignore => this.unlockField(myignore));
+                myunlockFields.each!(myignore => unlockField(myignore));
             }
         }
         if (isUrl) {
             options.set("src", caption);
         } else if (isImage) {
-            myUrl = caption[0] != "/" 
-                ? _url.webroot(configuration.getString("App.imageBaseUrl") ~ caption)
-                : _url.webroot(trim(caption, "/"));
+            myUrl = caption[0] != "/"
+                ? _url.webroot(configuration.getString(
+                        "App.imageBaseUrl") ~ caption) : _url.webroot(trim(caption, "/"));
 
             myurl = _url.assetTimestamp(myurl);
             options.set("src", myurl);
         } else {
             options.set("value", caption);
         }
-        
+
         auto myinput = formatTemplate("inputSubmit", createMap!(string, Json)
-            .set("type", mytype)
-            .set("attrs", this.templater().formatAttributes(options))
-            .set("templateVars", options.get("templateVars")));
+                .set("type", mytype)
+                .set("attrs", this.templater().formatAttributes(options))
+                .set("templateVars", options.get("templateVars")));
 
         return _formatTemplate("submitContainer", createMap!(string, Json)
-            .set("content", myinput)
-            .set("templateVars", options.get("templateVars")));
+                .set("content", myinput)
+                .set("templateVars", options.get("templateVars")));
     }
-    
+
     /**
      * Returns a formatted SELECT element.
      *
@@ -1622,10 +1614,8 @@ class DFormHelper : DHelper {
      *   ["text": "USA", "value": "USA"],
      * ];
      * ```
-     * Params:
-     * string fieldName Name attribute of the SELECT
      */
-    string select(string fieldName, Json[string] options = null, Json[string] attributes= null) {
+    string select(string fieldName, Json[string] options = null, Json[string] attributes = null) {
         attributes
             .merge("disabled", Json(null))
             .merge("escape", true)
@@ -1651,7 +1641,7 @@ class DFormHelper : DHelper {
             attributes.hasKey("secure") &&
             options.isEmpty &&
             attributes.isAllEmpty("empty", "multiple")
-       ) {
+            ) {
             attributes.set("secure", false);
         }
         attributes = _initInputField(fieldName, attributes);
@@ -1670,7 +1660,7 @@ class DFormHelper : DHelper {
 
         return myhidden ~ widget("select", attributes);
     }
-    
+
     /**
      * Creates a set of checkboxes out of options.
      *
@@ -1723,7 +1713,7 @@ class DFormHelper : DHelper {
         }
         return myhidden ~ widget("multicheckbox", htmlAttributes);
     }
-    
+
     /**
      * Returns a SELECT element for years
      *
@@ -1744,7 +1734,7 @@ class DFormHelper : DHelper {
 
         return _widget("year", options);
     }
-    
+
     // Generate an input tag with type "month".
     string month(string fieldName, Json[string] options = null) {
         options.merge("value", Json(null));
@@ -1754,7 +1744,7 @@ class DFormHelper : DHelper {
 
         return _widget("datetime", options);
     }
-    
+
     /**
      * Generate an input tag with type "datetime-local".
      *
@@ -1772,7 +1762,7 @@ class DFormHelper : DHelper {
 
         return _widget("datetime", options);
     }
-    
+
     /**
      * Generate an input tag with type "time".
      */
@@ -1783,7 +1773,7 @@ class DFormHelper : DHelper {
 
         return _widget("datetime", fieldOptions);
     }
-    
+
     // Generate an input tag with type "date".
     string date(string fieldName, Json[string] options = null) {
         options.merge("value", Json(null));
@@ -1792,7 +1782,7 @@ class DFormHelper : DHelper {
 
         return _widget("datetime", fieldOptions);
     }
-    
+
     /**
      * Sets field defaults and adds field to form security input hash.
      * Will also add the error class if the field contains validation errors.
@@ -1829,11 +1819,10 @@ class DFormHelper : DHelper {
             }
             string[] pathParts = fieldName.split(".");
             myfirst = pathParts.shift();
-            options.set("name", myfirst ~ (!pathParts.isEmpty ? "[" ~ pathParts.join(".")  ~ "]" : "") ~ myendsWithBrackets);
+            options.set("name", myfirst ~ (!pathParts.isEmpty ? "[" ~ pathParts.join(".") ~ "]" : "") ~ myendsWithBrackets);
         }
         if (options.hasKey("value") && !options.hasKey("val")) {
-            options.set("val", options.getJson("value"));
-            options.removeKey("value");
+            options.set("val", options.shift("value"));
         }
         if (!options.hasKey("val")) {
             myvalOptions = createMap!(string, Json)
@@ -1845,20 +1834,20 @@ class DFormHelper : DHelper {
         options.merge("val", options.get("default"));
         options.removeKey("value", "default");
 
-        if (cast(BackedEnum)options.get("val")) {
+        if (cast(BackedEnum) options.get("val")) {
             options.set("val", options.get("val").value);
         }
         if (mycontext.hasError(fieldName)) {
             options = addClass(options, configuration.get("errorClass"));
         }
-        
+
         bool isDisabled = _isDisabled(options);
         if (isDisabled) {
             options.set("secure", SECURE_SKIP);
         }
         return options;
     }
-    
+
     // Determine if a field is disabled.
     protected bool _isDisabled(Json[string] options = null) {
         if (!options.hasKey("disabled")) {
@@ -1872,7 +1861,9 @@ class DFormHelper : DHelper {
         }
         if (options.isArray("options")) {
             // Simple list options
-            auto myfirst = options.get(["options", options.get("options").keys[0]]);
+            auto myfirst = options.get([
+                "options", options.get("options").keys[0]
+            ]);
             if (myfirst.isScalar) {
                 return options.get("options").diff(options.get("disabled")) == null;
             }
@@ -1888,7 +1879,7 @@ class DFormHelper : DHelper {
         }
         return false;
     }
-    
+
     /**
      * Add a new context type.
      *
@@ -1898,10 +1889,10 @@ class DFormHelper : DHelper {
      * create and connect a new context class to allow FormHelper to
      * read metadata from doctrine.
      */
-    void addContextProvider(string contextType/* , callable mycheck */) {
-        this.contextFactory().addProvider(contextType, null /* mycheck */);
+    void addContextProvider(string contextType /* , callable mycheck */ ) {
+        this.contextFactory().addProvider(contextType, null  /* mycheck */ );
     }
-    
+
     /**
      * Get the context instance for the current form set.
      *
@@ -1910,12 +1901,12 @@ class DFormHelper : DHelper {
      * \UIM\View\Form\IContext|null formContext Either the new context when setting, or null to get.
      */
     IContext context(IContext formContext = null) {
-        if (cast(IContext)formContext) {
-           _context = formContext;
+        if (cast(IContext) formContext) {
+            _context = formContext;
         }
         return _getContext();
     }
-    
+
     /**
      * Find the matching context provider for the data.
      *
@@ -1930,15 +1921,15 @@ class DFormHelper : DHelper {
         return _context = this.contextFactory()
             .get(_view.getRequest(), mydata);
     }
-    
+
     /**
      * Add a new widget to FormHelper.
      * Allows you to add or replace widget instances with custom code.
      */
-    void addWidget(string widgetName, /* IWidget| */string[] myspec) {
-       _locator.add([widgetName: myspec]);
+    void addWidget(string widgetName, /* IWidget| */ string[] myspec) {
+        _locator.add([widgetName: myspec]);
     }
-    
+
     /**
      * Render a named widget.
      *
@@ -1960,12 +1951,13 @@ class DFormHelper : DHelper {
             dataToRender.hasKey("name") &&
             mysecure !is null &&
             mysecure != SECURE_SKIP
-       ) {
-            mywidget.secureFields(dataToRender).each!(fieldName => _formProtector.addField(fieldName, mysecure));
+            ) {
+            mywidget.secureFields(dataToRender)
+                .each!(fieldName => _formProtector.addField(fieldName, mysecure));
         }
         return result;
     }
-    
+
     /**
      * Restores the default values built into FormHelper.
      *
@@ -1974,12 +1966,12 @@ class DFormHelper : DHelper {
     void resetTemplates() {
         setTemplates(_defaultconfiguration.get("templates"));
     }
-    
+
     // Event listeners.
     override IEvent[] implementedEvents() {
         return null;
     }
-    
+
     /**
      * Gets the value sources.
      * Returns a list, but at least one item, of valid sources, such as: `"context"`, `"data"` and `"query"`.
@@ -1987,7 +1979,7 @@ class DFormHelper : DHelper {
     string[] getValueSources() {
         return _valueSources;
     }
-    
+
     // Validate value sources.
     protected void validateValueSources(Json[string] sourceIds) {
         mydiff = array_diff(mysources, _supportedValueSources);
@@ -1997,11 +1989,11 @@ class DFormHelper : DHelper {
             _supportedValueSources.each!(&myx => myx = "`myx`");
             throw new DInvalidArgumentException(
                 "Invalid value source(s): %s. Valid values are: %s."
-                .format(mydiff.join(", "), _supportedValueSources.join(", "))
-           );
+                    .format(mydiff.join(", "), _supportedValueSources.join(", "))
+            );
         }
     }
-    
+
     /**
      * Sets the value sources.
      *
@@ -2013,9 +2005,9 @@ class DFormHelper : DHelper {
         /* mysources = (array)mysources; */
 
         this.validateValueSources(mysources);
-       _valueSources = mysources;
+        _valueSources = mysources;
     }
-    
+
     // Gets a single field value from the sources available.
     Json getSourceValue(string fieldName, Json[string] options = null) {
         auto myvalueMap = createMap!(string, Json)
@@ -2042,5 +2034,5 @@ class DFormHelper : DHelper {
 }
 
 IForm getForm(string classname) {
-    
+
 }

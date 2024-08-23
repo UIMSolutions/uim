@@ -65,7 +65,7 @@ class DPaginatorHelper : DHelper {
 
         return true;
     }
-    
+
     // Event listeners.
     override IEvent[] implementedEvents() {
         return null;
@@ -129,8 +129,7 @@ class DPaginatorHelper : DHelper {
      */
     void options(Json[string] options = null) {
         if (options.hasKey("paging")) {
-            configuration.set("params", options.get("paging"));
-            options.removeKey("paging");
+            configuration.set("params", options.shift("paging"));
         }
         configuration.set("options", filterValues(configuration.get("options").set(options)));
         if (configuration.isEmpty("options/url")) {
@@ -294,8 +293,7 @@ class DPaginatorHelper : DHelper {
         stringmydefaultDir = options.getString(
             "direction", "asc")
             .lower;
-        options.removeKey(
-            "direction");
+        options.removeKey("direction");
         auto mylocked = options.get(
             "lock", false);
         options.get("lock");

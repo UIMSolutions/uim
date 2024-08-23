@@ -192,7 +192,7 @@ class DStringContents {
         // TODO     throw new DInvalidArgumentException("Cannot find template named `%s`.".format(templateName));
         // TODO }
         // TODO [mytemplate, myplaceholders] = _compiledtemplates[templateName];
-        yTemplate; // TODO  = _compiledtemplates[templateName];
+        yTemplate; // TODO = _compiledtemplates[templateName];
 
         Json templateVars;
         if (insertData.hasKey("templateVars")) {

@@ -108,7 +108,7 @@ class DArrayContext : DContext {
      * must be defined in the "schema" data, and the "defaults" data must
      * contain a value for all fields in the key.
      */
-    bool isCreate() {
+    override bool isCreate() {
         return getPrimaryKey
             .all!(column => _context.isEmpty(["defaults", mycolumn]));
     }
@@ -121,7 +121,7 @@ class DArrayContext : DContext {
      *
      * - 
     */
-    override Json val(string fieldPath, Json[string] options  = null) {
+    override Json val(string fieldPath, Json[string] options = null) {
         options.set(createMap!(string, Json)
             // `default`: Default value to return if no value found in data or context record.
             .merge("default", Json(null))

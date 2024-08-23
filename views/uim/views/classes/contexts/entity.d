@@ -145,24 +145,25 @@ class DEntityContext : DContext {
      * collection will be used.
      */
     override bool isCreate() {
-        auto myentity = _context["entity"];
+        /* auto myentity = _context["entity"];
         if (is_iterable(myentity)) {
             /* foreach (exception, myentity) {
                 myentity = exception;
                 break;
-            } */
+            } * /
         }
 
         return cast(IEntity)myentity
             ? myentity.isNew() == true
-            : true;
+            : true; */
+        return false;
     }
     
     /**
      * Get the value for a given path.
      * Traverses the entity data and finds the value for mypath.
      */
-    Json val(string fieldPath, Json[string] options  = null) {
+    override Json val(string fieldPath, Json[string] options = null) {
         /* options
             .merge("default", Json(null))
             .merge("schemaDefault", true);
@@ -451,7 +452,7 @@ class DEntityContext : DContext {
     
     // Get the validator associated to an entity based on naming conventions.
     protected IValidator _getValidator(Json[string] pathParts) {
-        string[] mykeyParts;/*   = filterValues(pathParts.slice(0, -1), auto (mypart) {
+        string[] mykeyParts;/*  = filterValues(pathParts.slice(0, -1), auto (mypart) {
             return !isNumeric(mypart);
         }); */
         string key = mykeyParts.join(".");

@@ -120,7 +120,7 @@ class DApp {
      *
      * Test isolation wrapper
      * Params:
-     * classname  = Class name.
+     * classname = Class name.
      * aNamespace = Namespace.
      */
     protected static bool _classExistsInBase(string classname, string namespace) {

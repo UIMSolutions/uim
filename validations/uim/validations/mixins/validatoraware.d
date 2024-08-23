@@ -28,7 +28,7 @@ mixin template TValidatorAware() {
     protected DValidator[] _validators;
 
     // Validator class.
-    protected string _validatorClass; //  = Validator.classname;
+    protected string _validatorClass; // = Validator.classname;
 
 
     /**

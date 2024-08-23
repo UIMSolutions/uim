@@ -58,7 +58,7 @@ class DFileConfigEngine {
             .each!(nameValue => _values = Hash.insert(_values, nameValue.key, nameValue.value));
 
         if (configData.hasKey("debug")) {
-            // TODO _hasIniSet ?  ?  = function_hasKey("ini_set");
+            // TODO _hasIniSet ?  ? = function_hasKey("ini_set");
 
             if (_hasIniSet) {
                 ini_set("display_errors", configuration.get("debug") ? "1" : "0");

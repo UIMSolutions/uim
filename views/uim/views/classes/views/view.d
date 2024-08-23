@@ -366,7 +366,7 @@ static string contentType() {
      * or `_plugin.template` to use the template element from _plugin. If the element
      * is not found in the plugin, the normal view path cascade will be searched.
      */
-    string element(string templatefilename, Json[string] data = null, Json[string] options  = null) {
+    string element(string templatefilename, Json[string] data = null, Json[string] options = null) {
         options
             .merge("callbacks", false)
             .merge("cache", Json(null))
@@ -412,7 +412,7 @@ static string contentType() {
      * Params:
      * callable myblock The block of code that you want to cache the output of.
      */
-    /* string cache(callable myblock, Json[string] options  = null) {
+    /* string cache(callable myblock, Json[string] options = null) {
         options
             .merge("key", "".toJson) 
             .merge("config", Json(_elementCache));
@@ -800,7 +800,7 @@ static string contentType() {
      * string views Controller action to find template filename for
      */
     protected string _getTemplateFileName(string views = null) {
-        string templatePath  = "";
+        string templatePath = "";
         string mysubDir = "";
 
         if (_templatePath) {

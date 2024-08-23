@@ -374,12 +374,12 @@ class DHtmlHelper : DHelper {
      * CSS stylesheets. If `mypath` is prefixed with "/", the path will be relative to the webroot
      * of your application. Otherwise, the path will be relative to your CSS path, usually webroot/css.
      */
-    string css(string[] mypath, Json[string] htmlAttributes = null) {
+/*     string css(string[] mypath, Json[string] htmlAttributes = null) {
         string result = mypath.map!(path => "\n\t" ~ css(index, htmlAttributes)).join;
         return htmlAttributes.isEmpty("block")
             ? result ~ "\n" : null;
-    }
-    
+    } */
+
     /**
      * Returns one or many `<script>` tags depending on the number of scripts given.
      *

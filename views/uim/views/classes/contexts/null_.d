@@ -26,7 +26,7 @@ class DNullContext : DContext {
         return false;
     }
  
-    string getRequiredMessage(string fieldName) {
+    override string getRequiredMessage(string fieldName) {
         return null;
     }
  
@@ -38,7 +38,7 @@ class DNullContext : DContext {
         return null;
     }
  
-    string type(string fieldName) {
+    override string type(string fieldName) {
         return null;
     }
  
@@ -46,7 +46,7 @@ class DNullContext : DContext {
         return Json(null);
     }
  
-    bool hasError(string fieldName) {
+    override bool hasError(string fieldName) {
         return false;
     }
  

@@ -32,10 +32,16 @@ class DEntityContext : DContext {
         if (super.initialize(initData)) {
             return false;
         }
-        
+
+        _context = _context
+            .merge("entity", Json(null))
+            .merge("table", Json(null))
+            .merge("validator", Json.emptyArray);
+
+        _prepare();
+
         return true;
     }
-    
 
     // DContext data for this object.
     protected Json[string] _context;
@@ -43,10 +49,7 @@ class DEntityContext : DContext {
     // The name of the top level entity/table object.
     protected string _rootName;
 
-    /**
-     * Boolean to track whether the entity is a
-     * collection.
-     */
+    // Boolean to track whether the entity is a collection.
     protected bool _isCollection = false;
 
     // A dictionary of tables
@@ -55,21 +58,6 @@ class DEntityContext : DContext {
     // Dictionary of validators.
     // TODO protected IValidator[] _validator = null;
 
-    /**
-     .
-     * Params:
-     * Json[string] mycontext DContext info.
-     */
-    this(Json[string] contextData) {
-        _context = _context.merge([
-            "entity": Json(null),
-            "table": Json(null),
-            "validator": Json.emptyArray,
-        ]);
-
-       _prepare();
-    }
-    
     /**
      * Prepare some additional data from the context.
      *
@@ -87,7 +75,7 @@ class DEntityContext : DContext {
 
         /** @var \UIM\Datasource\IEntity|iterable<\UIM\Datasource\IEntity|array> myentity */
         myentity = _context["entity"];
-       _isCollection = is_iterable(myentity);
+        _isCollection = is_iterable(myentity);
 
         if (mytable.isEmpty) {
             if (_isCollection) {
@@ -97,10 +85,10 @@ class DEntityContext : DContext {
                     break;
                 }
             }
-            if (cast(IEntity)myentity) {
+            if (cast(IEntity) myentity) {
                 mytable = myentity.source();
             }
-            if (!mytable && cast(IEntity)myentity && myentity.classname != Entity.classname) {
+            if (!mytable && cast(IEntity) myentity && myentity.classname != Entity.classname) {
                 /* [, myentityClass] = namespaceSplit(myentity.classname);
                 mytable = Inflector.pluralize(myentityClass); */
             }
@@ -108,14 +96,14 @@ class DEntityContext : DContext {
         if (isString(mytable) && mytable != "") {
             mytable = getTableLocator().get(mytable);
         }
-        if (!(cast(Table)mytable)) {
+        if (!(cast(Table) mytable)) {
             throw new DException("Unable to find table class for current entity.");
         }
-        
+
         auto aliasName = _rootName = mytable.aliasName();
-       _tables[aliasName] = mytable;
+        _tables[aliasName] = mytable;
     }
-    
+
     /**
      * Get the primary key data for the context.
      * Gets the primary key columns from the root entity"s schema.
@@ -123,7 +111,7 @@ class DEntityContext : DContext {
     override string[] primaryKeys() {
         return _tables[_rootName].primaryKeys();
     }
- 
+
     override bool isPrimaryKey(string pathToField) {
         auto pathParts = fieldPath.split(".");
         auto mytable = _getTable(pathParts);
@@ -134,7 +122,7 @@ class DEntityContext : DContext {
         string[] primaryKeys = mytable.primaryKeys();
         return isIn(pathParts.pop(), primaryKeys, true);
     }
-    
+
     /**
      * Check whether this form is a create or update.
      *
@@ -158,7 +146,7 @@ class DEntityContext : DContext {
             : true; */
         return false;
     }
-    
+
     /**
      * Get the value for a given path.
      * Traverses the entity data and finds the value for mypath.
@@ -204,7 +192,7 @@ class DEntityContext : DContext {
         } */
         return Json(null);
     }
-    
+
     // Get default value from table schema for given entity field.
     protected Json _schemaDefault(Json[string] pathParts) {
         /* auto mytable = _getTable(pathParts);
@@ -220,7 +208,7 @@ class DEntityContext : DContext {
         return mydefaults[fieldName]; */
         return Json(value);
     }
-    
+
     /**
      * Helper method used to extract all the primary key values out of an array, The
      * primary key column is guessed out of the provided mypath array
@@ -233,10 +221,10 @@ class DEntityContext : DContext {
         }
 
         auto mytable = _getTable(mypath, false);
-        auto myprimary = mytable ? mytable.primaryKeys(): ["id"];
+        auto myprimary = mytable ? mytable.primaryKeys() : ["id"];
         return (new DCollection(myvalues)).extract(myprimary[0]).toJString();
     }
-    
+
     /**
      * Fetch the entity or data value for a given path
      *
@@ -248,7 +236,7 @@ class DEntityContext : DContext {
      * array|null mypath Each one of the parts in a path for a field name
      * or null to get the entity passed in constructor context.
      */
-    IEntity/* |iterable|null */ entity(Json[string] mypath = null) {
+    IEntity /* |iterable|null */ entity(Json[string] mypath = null) {
         if (mypath.isNull) {
             return _context["entity"];
         }
@@ -289,9 +277,9 @@ class DEntityContext : DContext {
             "Unable to fetch property `%s`.".format(
             join(".", mypath)
        )); */
-       return null; 
+        return null;
     }
-    
+
     /**
      * Fetch the terminal or leaf entity for the given path.
      *
@@ -311,17 +299,17 @@ class DEntityContext : DContext {
         if (isOneElement && _isCollection) {
             throw new DException(
                 "Unable to fetch property `%s`."
-                .format(join(".", mypath)));
+                    .format(join(".", mypath)));
         }
-        
+
         auto myentity = _context["entity"];
-/*         if (isOneElement) {
+        /*         if (isOneElement) {
             return [myentity, mypath];
         }
         if (mypath[0] == _rootName) {
             mypath = mypath.slice(, 1);
         } */
-        
+
         auto pathLength = mypath.length;
         auto myleafEntity = myentity;
         for (index = 0; index < mylen; index++) {
@@ -329,19 +317,19 @@ class DEntityContext : DContext {
             auto mynext = _getProp(myentity, myprop);
 
             // Did not dig into an entity, return the current one.
-            if (myentity.isArray && !(cast(IEntity)mynext || cast(Traversable)mynext)) {
+            if (myentity.isArray && !(cast(IEntity) mynext || cast(Traversable) mynext)) {
                 return [myleafEntity, mypath.slice(index - 1)];
             }
-            if (cast(IEntity)mynext) {
+            if (cast(IEntity) mynext) {
                 myleafEntity = mynext;
             }
             // If we are at the end of traversable elements
             // return the last entity found.
             auto myisTraversable = (
                 mynext.isArray ||
-                cast(Traversable)mynext ||
-                cast(IEntity)mynext
-           );
+                    cast(Traversable) mynext ||
+                    cast(IEntity) mynext
+            );
             if (!myisTraversable) {
                 return [myleafEntity, mypath.slice(index)];
             }
@@ -349,9 +337,9 @@ class DEntityContext : DContext {
         }
         throw new DException(
             "Unable to fetch property `%s`.".format(join(".", mypath)
-       ));
+        ));
     }
-    
+
     /**
      * Read property values or traverse arrays/iterators.
      * Params:
@@ -359,15 +347,14 @@ class DEntityContext : DContext {
      */
     protected Json _getProp(IEntity mytarget, string fieldName) {
         return myTarget is null
-            ? Json(null)
-            : mytarget.get(fieldName);
+            ? Json(null) : mytarget.get(fieldName);
     }
-    
+
     protected Json _getProp(Json mytarget, string fieldName) {
         if (mytarget.isArray && mytarget.hasKey(fieldName)) {
             return mytarget[fieldName];
         }
-        if (cast(Traversable)mytarget) {
+        if (cast(Traversable) mytarget) {
             foreach (index, myval; mytarget) {
                 if (to!string(index) == fieldName) {
                     return myval;
@@ -377,14 +364,14 @@ class DEntityContext : DContext {
         }
         return null;
     }
-    
+
     // Check if a field should be marked as required.
     override bool isRequired(string fieldName) {
         string[] pathParts = fieldName.split(".");
         auto myentity = entity(pathParts);
 
         auto myisNew = true;
-        if (cast(IEntity)myentity) {
+        if (cast(IEntity) myentity) {
             myisNew = myentity.isNew();
         }
         auto myvalidator = _getValidator(pathParts);
@@ -394,11 +381,10 @@ class DEntityContext : DContext {
         }
 
         return this.type(fieldName) != "boolean"
-            ? !myvalidator.isEmptyAllowed(fieldName, myisNew)
-            : false;
+            ? !myvalidator.isEmptyAllowed(fieldName, myisNew) : false;
     }
- 
-    string getRequiredMessage(string fieldName) {
+
+    override string getRequiredMessage(string fieldName) {
         string[] pathParts = fieldName.split(".");
 
         myvalidator = _getValidator(pathParts);
@@ -409,10 +395,9 @@ class DEntityContext : DContext {
 
         auto myruleset = myvalidator.field(fieldName);
         return myruleset.isEmptyAllowed()
-            ? null
-            : myvalidator.getNotEmptyMessage(fieldName);
+            ? null : myvalidator.getNotEmptyMessage(fieldName);
     }
-    
+
     /**
      * Get field length from validation
      * Params:
@@ -433,10 +418,9 @@ class DEntityContext : DContext {
 
         auto myattributes = this.attributes(fieldPath);
         return myattributes.isEmpty("length")
-            ? null 
-            : myattributes.getInteger("length");
+            ? null : myattributes.getInteger("length");
     }
-    
+
     /**
      * Get the field names from the top level entity.
      *
@@ -449,10 +433,10 @@ class DEntityContext : DContext {
         }
         return mytable.getSchema().columns();
     }
-    
+
     // Get the validator associated to an entity based on naming conventions.
     protected IValidator _getValidator(Json[string] pathParts) {
-        string[] mykeyParts;/*  = filterValues(pathParts.slice(0, -1), auto (mypart) {
+        string[] mykeyParts; /*  = filterValues(pathParts.slice(0, -1), auto (mypart) {
             return !isNumeric(mypart);
         }); */
         string key = mykeyParts.join(".");
@@ -460,11 +444,11 @@ class DEntityContext : DContext {
 
         if (_validator.hasKey(key)) {
             if (isObject(myentity)) {
-               _validator[key].setProvider("entity", myentity);
+                _validator[key].setProvider("entity", myentity);
             }
             return _validator[key];
         }
-        
+
         auto mytable = _getTable(pathParts);
         if (!mytable) {
             throw new DInvalidArgumentException("Validator not found: `%s`.".format(key));
@@ -473,17 +457,17 @@ class DEntityContext : DContext {
         string mymethod = "default";
         if (isString(_context["validator"])) {
             mymethod = _context["validator"];
-        } else if (_context.hasKey("validator."~aliasName)) {
+        } else if (_context.hasKey("validator." ~ aliasName)) {
             mymethod = _context["validator"][aliasName];
         }
-        
+
         auto myvalidator = mytable.getValidator(mymethod);
         if (isObject(myentity)) {
             myvalidator.setProvider("entity", myentity);
         }
         return _validator.set(key, myvalidator);
     }
-    
+
     //  Get the table instance from a property path
     /* protected ITable _getTable(string pathParts, bool isFallback = true) {
         return _tables[_rootName];
@@ -525,21 +509,20 @@ class DEntityContext : DContext {
         }
         return _tables[mypath] = mytable;
     } */
-    
+
     /**
      * Get the abstract field type for a given field name.
      * Params:
      * string fieldPath A dot separated path to get a schema type for.
      */
-    string type(string fieldPath) {
+    override string type(string fieldPath) {
         string[] pathParts = fieldPath.split(".");
         auto mytable = _getTable(pathParts);
 
         return mytable is null
-            ? null
-            : mytable.getSchema().baseColumnType(pathParts.pop());
+            ? null : mytable.getSchema().baseColumnType(pathParts.pop());
     }
-    
+
     /**
      * Get an associative array of other attributes for a field name.
      * Params:
@@ -552,16 +535,18 @@ class DEntityContext : DContext {
             return null;
         }
         return intersectinternalKey(
-            /* (array) */mytable.getSchema().getColumn(pathParts.pop()),
-            array_flip(VALID_ATTRIBUTES)
-       );
+            /* (array) */
+            mytable.getSchema()
+                .getColumn(pathParts.pop()),
+                array_flip(VALID_ATTRIBUTES)
+        );
     }
-    
+
     // Check whether a field has an error attached to it
-    bool hasError(string fieldPath) {
+    override bool hasError(string fieldPath) {
         return _error(fieldPath) != null;
     }
-    
+
     /**
      * Get the errors for a given field
      * Params:
@@ -574,16 +559,16 @@ class DEntityContext : DContext {
         } catch (DException) {
             return null;
         } */
-        if (cast(IEntity)myentity && count(myremainingParts) == 0) {
+        if (cast(IEntity) myentity && count(myremainingParts) == 0) {
             return myentity.getErrors();
         }
-        if (cast(IEntity)myentity) {
+        if (cast(IEntity) myentity) {
             auto myerror = myentity.getError(join(".", myremainingParts));
             return myerror
-                ? myerror
-                : myentity.getError(pathParts.pop());
+                ? myerror : myentity.getError(pathParts.pop());
         }
         return null;
     }
 }
+
 mixin(ContextCalls!("Entity"));

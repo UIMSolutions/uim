@@ -263,9 +263,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
     return count(_loaded);
   }
 
-  /**
-     * Debug friendly object properties.
-     */
+  // Debug friendly object properties.
   Json[string] debugInfo() {
     properties = get_object_vars(this);
     if (isSet(properties["_loaded"])) {

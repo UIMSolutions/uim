@@ -745,14 +745,7 @@ string ifEmpty(string[] values...) {
   return null;
 }
 
-bool isIn(string value, string[] values) {
-  return canFind(values, value);
-}
 
-unittest {
-  assert("a".isIn(["a", "b", "c"]));
-  assert(!"x".isIn(["a", "b", "c"]));
-}
 
 // #region mustache
 string mustache(string text, Json[string] items) {

@@ -334,11 +334,7 @@ class DResponse : IResponse {
     // File object for file to be read out as response
     protected ISplFileInfo _file = null;
 
-    /**
-     * File range. Used for requesting ranges of files.
-     *
-     * @var array<int>
-     */
+    // File range. Used for requesting ranges of files.
     protected Json[string] _fileRange = null;
 
     // The charset the response body is encoded with
@@ -356,9 +352,7 @@ class DResponse : IResponse {
     // Reason Phrase
     protected string _reasonPhrase = "OK";
 
-    /**
-     * Stream mode options.
-     */
+    // Stream mode options.
     protected string _streamMode = "wb+";
 
     /**
@@ -366,7 +360,7 @@ class DResponse : IResponse {
      *
      * @var resource|string
      */
-    protected _streamTarget = "d://memory";
+    protected string _streamTarget = "d://memory";
 
     /**
      

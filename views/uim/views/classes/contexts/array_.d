@@ -98,7 +98,7 @@ class DArrayContext : DContext {
     }
  
     override bool isPrimaryKey(string fieldName) {
-        return fieldName.isIn(primaryKeys());
+        return primaryKeys.has(fieldName);
     }
     
     /**
@@ -166,7 +166,7 @@ class DArrayContext : DContext {
             : !myrequired.isNull;
     }
  
-    string getRequiredMessage(string fieldName) {
+    override string getRequiredMessage(string fieldName) {
         if (!_context["required"].isArray) {
             return null;
         }
@@ -205,7 +205,7 @@ class DArrayContext : DContext {
     }
     
     // Get the abstract field type for a given field name.
-    string type(string fieldName) {
+    override string type(string fieldName) {
         if (!_context.isArray("schema")) {
             return null;
         }
@@ -233,7 +233,7 @@ class DArrayContext : DContext {
     }
 
     // Check whether a field has an error attached to it
-    bool hasError(string fieldName) {
+    override bool hasError(string fieldName) {
         return _context.isEmpty("errors") 
             ? false
             : false; // Hash.check(_context["errors"], fieldName);

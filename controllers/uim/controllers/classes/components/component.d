@@ -60,7 +60,7 @@ class DComponent : UIMObject, IEventListener {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        _methodNames = [ __traits(allMembers, DComponent) ];
+        _methodNames = [__traits(allMembers, DComponent)];
 
         _eventMap = [
             "Controller.initialize": "beforeFilter",
@@ -117,11 +117,11 @@ class DComponent : UIMObject, IEventListener {
             return _componentInstances[componentName];
         }
         if (_components.hasKey(componentName)) {
-            configData =_components.getString(componentName) ~ [
+            configData = _components.getString(componentName) ~ [
                 "enabled": false.toJson
             ];
 
-            return _componentInstances.set(componentName, 
+            return _componentInstances.set(componentName,
                 _registry.load(componentName, configData));
         }
         return null;
@@ -149,12 +149,11 @@ class DComponent : UIMObject, IEventListener {
 
     // Returns an array that can be used to describe the internal state of this object.
     // TODO 
-    /*
+
     Json[string] debugInfo() {
-        return [
-            "components":_components, 
-            "implementedEvents": this.implementedEvents(),
-            "_config": _configuration.data,
-        ];
-    } */
+        return super.debugInfo()
+            .set("components", _components)
+            .set("implementedEvents", implementedEvents())
+            .set("_config", _configuration.data);
+    }
 }

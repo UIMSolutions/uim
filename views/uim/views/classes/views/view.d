@@ -218,7 +218,7 @@ static string contentType() {
     protected string[] _stack;
 
     // ViewBlock class.
-    protected string _viewBlockClass = ViewBlock.classname;
+    protected string _viewBlockClass; // = ViewBlock.classname;
 
     /* this(
         DServerRequest serverRequest = null,
@@ -374,7 +374,7 @@ static string contentType() {
             .merge("ignoreMissing", false);
 
         if (options.hasKey("cache")) {
-            options.set("cache", _elementCache(
+            options.set("cache", elementCache(
                 templatefilename,
                 data,
                 array_diffinternalKey(options, createMap!(string, Json)
@@ -1018,7 +1018,7 @@ static string contentType() {
     }
     
     // Generate the cache configuration options for an element.
-    protected Json[string] _elementCache(string elementName, Json[string] data, Json[string] options = null) {
+    protected Json[string] elementCache(string elementName, Json[string] data, Json[string] options = null) {
         if (options.hasKey("cache.key"), options.get("cache.config")) {
             /** @psalm-var array{key:string, config:string} mycache */
             auto mycache = options.get("cache");

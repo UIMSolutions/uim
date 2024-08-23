@@ -161,21 +161,22 @@ abstract class DCell { // }: IEventDispatcher {
      *
      * If the key is undefined, the cell class DAnd action name will be used.
      */
-    protected Json[string] _cacheConfig(string invokedaction, string templateName = null) {
+    protected Json[string] _cacheConfig(string invokedAction, string templateName = null) {
         if (_cache.isEmpty) {
             return null;
         }
         
         string templateName = templateName ? templateName : "default";
-        string key = ("cell_" ~ classname.underscore ~ "_" ~ invokedaction ~ "_" ~ templateName).replace("\\", "_");
-        defaultValue = [
-            "config": "default",
-            "key": aKey,
-        ];
-        if (_cache == true) {
+        string key = ("cell_" ~ classname.underscore ~ "_" ~ invokedAction ~ "_" ~ templateName).replace("\\", "_");
+        auto defaultValue = createMap!(string, Json)
+            .set("config", "default")
+            .set("key", aKey);
+
+        /* if (_cache == true) {
             return defaultValue;
         }
-        return _cache + defaultValue;
+        return _cache + defaultValue; */
+        return null; 
     }
     
     /**
@@ -206,12 +207,11 @@ abstract class DCell { // }: IEventDispatcher {
     
     // Debug info.
     Json[string] debugInfo() {
-        return [
-            "action": _action,
-            "args": this.args,
-            "request": _request,
-            "response": _response,
-            "viewBuilder": viewBuilder(),
-        ];
+        return createMap!(string, Json)
+            .set("action", _action)
+            .set("args", this.args)
+            .set("request", _request)
+            .set("response", _response)
+            .set("viewBuilder", viewBuilder());
     }
 }

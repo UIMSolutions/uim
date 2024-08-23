@@ -25,7 +25,13 @@ class DSchema {
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
-        
+
+        _fieldDefaults = createMap!(string, Json)
+            .set("type", Json(null))
+            .set("length", Json(null))
+            .set("precision", Json(null))
+            .set("default", Json(null));
+
         return true;
     }
 
@@ -35,74 +41,69 @@ class DSchema {
     protected STRINGAA[string] _fields;
 
     // The default values for fields.
-    protected STRINGAA _fieldDefaults = [
-        "type": Json(null),
-        "length": Json(null),
-        "precision": Json(null),
-        "default": Json(null),
-    ];
+    protected Json[string] _fieldDefaults;
 
     // #region fields
-        // Removes a field to the schema.
-        // Get the list of fields in the schema.
-        string[] fieldNames() {
-            return _fields.keys;
+    // Removes a field to the schema.
+    // Get the list of fields in the schema.
+    string[] fieldNames() {
+        return _fields.keys;
+    }
+
+    // Add multiple fields to the schema.
+    DSchema addFields(STRINGAA[string] fields) {
+        fields.byKeyValue
+            .each!(kv => this.addField(kv.key, kv.value));
+        return this;
+    }
+
+    // Adds a field to the schema.
+    DSchema addField(string fieldName, STRINGAA fieldAttributes) {
+        _fields[fieldName] = fieldAttributes.merge(_fieldDefaults);
+        return this;
+    }
+
+    bool hasAnyFields(string[] fieldNames) {
+        return fieldNames.any!(field => hasField(field));
+    }
+
+    bool hasAllFields(string[] fieldNames) {
+        return fieldNames.all!(field => hasField(field));
+    }
+
+    bool hasField(string fieldName) {
+        return fieldName in _fields ? true : false;
+    }
+
+    // Get the type of the named field.
+    string fieldType(string fieldName) {
+        auto foundField = this.field(fieldName);
+        if (!foundField) {
+            return null;
         }
 
-        // Add multiple fields to the schema.
-        DSchema addFields(STRINGAA[string] fields) {
-            fields.byKeyValue
-                .each!(kv => this.addField(kv.key, kv.value));
-            return this;
+        return foundField.get("type", null);
+    }
+
+    // Get the type of the named field.
+    string fieldDefault(string fieldName) {
+        auto foundField = this.field(fieldName);
+        if (!foundField) {
+            return null;
         }
 
-        // Adds a field to the schema.
-        DSchema addField(string fieldName, STRINGAA fieldAttributes) {
-            _fields[fieldName] = fieldAttributes.merge(_fieldDefaults);
-            return this;
-        }
+        return foundField.get("default", null);
+    }
 
-        bool hasAnyFields(string[] fieldNames) {
-            return fieldNames.any!(field => hasField(field));
-        }
+    // Get the attributes for a given field.
+    STRINGAA field(string fieldName) {
+        return _fields.get(fieldName, null);
+    }
 
-        bool hasAllFields(string[] fieldNames) {
-            return fieldNames.all!(field => hasField(field));
-        }
-
-        bool hasField(string fieldName) {
-            return fieldName in _fields ? true : false;
-        }
-
-        // Get the type of the named field.
-        string fieldType(string fieldName) {
-            auto foundField = this.field(fieldName);
-            if (!foundField) {
-                return null;
-            }
-
-            return foundField.get("type", null);
-        }
-
-        // Get the type of the named field.
-        string fieldDefault(string fieldName) {
-            auto foundField = this.field(fieldName);
-            if (!foundField) {
-                return null;
-            }
-
-            return foundField.get("default", null);
-        }
-
-        // Get the attributes for a given field.
-        STRINGAA field(string fieldName) {
-            return _fields.get(fieldName, null);
-        }
-
-        DSchema removeField(string fieldName) {
-            _fields.removeKey(fieldName);
-            return this;
-        }
+    DSchema removeField(string fieldName) {
+        _fields.removeKey(fieldName);
+        return this;
+    }
     // #endregion fields
 
     // Get the printable version of this object
@@ -110,8 +111,9 @@ class DSchema {
         return [
             "_fields": _fields.toString,
         ];
-    } 
+    }
 }
+
 auto Schema() {
     return new DSchema;
 }
@@ -119,23 +121,23 @@ auto Schema() {
 unittest {
     STRINGAA[string] fields;
     fields.set("a", [
-        "type": Json(null),
-        "length": Json(null),
-        "precision": Json(null),
-        "default": Json(null),
-    ]);
+            "type": Json(null),
+            "length": Json(null),
+            "precision": Json(null),
+            "default": Json(null),
+        ]);
 
     fields.set("b", [
-        "type": Json(null),
-        "length": Json(null),
-        "default": Json(null),
-    ]);
+            "type": Json(null),
+            "length": Json(null),
+            "default": Json(null),
+        ]);
 
     fields.set("c", [
-        "type": Json(null),
-        "length": Json(null),
-        "default": Json(null),
-    ]);
+            "type": Json(null),
+            "length": Json(null),
+            "default": Json(null),
+        ]);
 
     auto schema = Schema.addFields(fields);
     assert(schema.hasField("a"), "Field a is missing");

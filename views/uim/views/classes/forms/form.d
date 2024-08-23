@@ -45,6 +45,9 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
     // DSchema class.
     protected string _schemaclassname = Schema.classname;
 
+    void data(Json[string] items) {
+        
+    }
     // #region Schema
     // The schema used by this form.
     protected DSchema _schema = null;

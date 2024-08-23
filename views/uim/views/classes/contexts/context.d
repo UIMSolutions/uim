@@ -33,5 +33,31 @@ class DContext : UIMObject, IContext {
         // TODO 
         return 0;
     }
+    string[] primaryKeys() {
+        return null; 
+    }
 
+    bool isCreate() {
+        return false;
+    }
+
+    bool isPrimaryKey(string[] fieldPath) {
+        return isPrimaryKey(fieldPath.strip.join("."));
+    }
+
+    bool isPrimaryKey(string fieldName) {
+        return false;
+    }
+
+    Json val(string fieldPath, Json[string] options = cast(Json[string])null) {
+        return Json(null);
+    }
+
+    bool isRequired(string[] fieldPath) {
+        return isRequired(fieldPath.strip.join("."));
+    }
+
+    bool isRequired(string fieldName) {
+        return false;
+    }
 }

@@ -31,15 +31,11 @@ class DFormContext : DContext {
         return true;
     }
 
-    string[] primaryKeys() {
-        return null;
-    }
-
-    bool isPrimaryKey(string pathToField) {
+    override bool isPrimaryKey(string pathToField) {
         return false;
     }
 
-    bool isCreate() {
+    override bool isCreate() {
         return true;
     }
 
@@ -68,7 +64,7 @@ class DFormContext : DContext {
             : fieldSchema.get("default");
     }
  
-    bool isRequired(string fieldName) {
+    override bool isRequired(string fieldName) {
         /* auto formValidator = _form.getValidator(_validatorName);
         if (!formValidator.hasField(fieldName)) {
             return false;

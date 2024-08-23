@@ -79,7 +79,7 @@ class DArrayContext : DContext {
     
    
     // Get the fields used in the context as a primary key.
-    string[] primaryKeys() {
+    override string[] primaryKeys() {
         if (
             !configuration.hasKey("schema") || 
             !configuration("schema").hasKey("_constraints") ||
@@ -97,7 +97,7 @@ class DArrayContext : DContext {
         return null;
     }
  
-    bool isPrimaryKey(string fieldName) {
+    override bool isPrimaryKey(string fieldName) {
         return fieldName.isIn(primaryKeys());
     }
     
@@ -121,7 +121,7 @@ class DArrayContext : DContext {
      *
      * - 
     */
-    Json val(string fieldPath, Json[string] options  = null) {
+    override Json val(string fieldPath, Json[string] options  = null) {
         options.set(createMap!(string, Json)
             // `default`: Default value to return if no value found in data or context record.
             .merge("default", Json(null))
@@ -152,7 +152,7 @@ class DArrayContext : DContext {
      *
      * In this context class, this is simply defined by the "required" array.
      */
-    bool isRequired(string fieldName) {
+    override bool isRequired(string fieldName) {
         if (!_context["required"].isArray) {
             return null;
         }

@@ -10,23 +10,19 @@ import uim.views;
 class DNullContext : DContext {
     mixin(ContextThis!("Null"));
  
-    string[] primaryKeys() {
-        return null;
-    }
- 
-    bool isPrimaryKey(string pathToField) {
+    override bool isPrimaryKey(string pathToField) {
         return false;
     }
  
-    bool isCreate() {
+    override bool isCreate() {
         return false;
     }
  
-    Json val(string fieldName, Json[string] options  = null) {
+    override Json val(string fieldName, Json[string] options = null) {
         return Json(null);
     }
  
-    bool isRequired(string fieldName) {
+    override bool isRequired(string fieldName) {
         return false;
     }
  

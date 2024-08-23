@@ -485,7 +485,7 @@ class DFormHelper : DHelper {
     }
     
     // Get form protector instance.
-    FormProtector getFormProtector() {
+    DFormProtector getFormProtector() {
         if (_formProtector.isNull) {
             throw new DException(
                 "`FormProtector` instance has not been created. Ensure you have loaded the `FormProtectionComponent`" ~
@@ -1625,7 +1625,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName Name attribute of the SELECT
      */
-    string select(string fieldName, range options = null, Json[string] attributes= null) {
+    string select(string fieldName, Json[string] options = null, Json[string] attributes= null) {
         attributes
             .merge("disabled", Json(null))
             .merge("escape", true)

@@ -771,8 +771,6 @@ static string contentType() {
 
     /**
      * Set sub-directory for this template files.
-     * Params:
-     * string mysubDir Sub-directory name.
      */
     void setSubDir(string mysubDir) {
         thirs.subDir = mysubDir;
@@ -782,12 +780,7 @@ static string contentType() {
     string getSubDir() {
         return _subDir;
     }
-    
-    // Returns the View"s controller name.
-    @property string name() {
-        return _name;
-    }
-        
+           
     /**
      * Set The cache configuration View will use to store cached elements
      * Params:
@@ -976,7 +969,7 @@ static string contentType() {
     }
     
     // Return all possible paths to find view files in order
-    protected string[] _paths(string pluginName = null, bool isCached = true) {
+    override protected string[] _paths(string pluginName = null, bool isCached = true) {
         if (isCached == true) {
             if (pluginName.isNull && !_paths.isEmpty) {
                 return _paths;

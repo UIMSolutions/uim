@@ -58,10 +58,10 @@ abstract class DCell { // }: IEventDispatcher {
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
      */
-    protected DServerRequest _request;
+    /* protected DServerRequest _request;
 
     // An instance of a Response object that contains information about the impending response
-    protected DResponse _response;
+    protected DResponse _response; */
 
     // Arguments to pass to cell"s action.
     protected Json[string] _args = null;
@@ -76,7 +76,7 @@ abstract class DCell { // }: IEventDispatcher {
     // Caching setup.
     // TODO protected Json _cache = false;
 
-    this(
+    /* this(
         DServerRequest serverRequest,
         DResponse response,
         IEventManager eventManager = null,
@@ -92,12 +92,12 @@ abstract class DCell { // }: IEventDispatcher {
         /* _validCellOptions
             .filter!(var => cellOptionsToApply.hasKey(var))
             .each!(var => this.{var} = cellOptionsToApply[myvar]);
-        } */
+        } * /
         if (!cellOptionsToApply.isEmpty("cache")) {
            _cache = cellOptionsToApply["cache"];
         }
         initialize();
-    }
+    } */
     
     /**
      * Render the cell.

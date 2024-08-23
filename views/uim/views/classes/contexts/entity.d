@@ -120,11 +120,11 @@ class DEntityContext : DContext {
      * Get the primary key data for the context.
      * Gets the primary key columns from the root entity"s schema.
      */
-    string[] primaryKeys() {
+    override string[] primaryKeys() {
         return _tables[_rootName].primaryKeys();
     }
  
-    bool isPrimaryKey(string pathToField) {
+    override bool isPrimaryKey(string pathToField) {
         auto pathParts = fieldPath.split(".");
         auto mytable = _getTable(pathParts);
         if (!mytable) {
@@ -144,7 +144,7 @@ class DEntityContext : DContext {
      * If the context is for a collection or array the first object in the
      * collection will be used.
      */
-    bool isCreate() {
+    override bool isCreate() {
         auto myentity = _context["entity"];
         if (is_iterable(myentity)) {
             /* foreach (exception, myentity) {
@@ -377,12 +377,8 @@ class DEntityContext : DContext {
         return null;
     }
     
-    /**
-     * Check if a field should be marked as required.
-     * Params:
-     * string fieldName The dot separated path to the field you want to check.
-     */
-    bool isRequired(string fieldName) {
+    // Check if a field should be marked as required.
+    override bool isRequired(string fieldName) {
         string[] pathParts = fieldName.split(".");
         auto myentity = entity(pathParts);
 

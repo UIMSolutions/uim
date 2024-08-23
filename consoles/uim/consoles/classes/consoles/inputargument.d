@@ -46,7 +46,7 @@ class DConsoleInputArgument : UIMObject {
                 /* this. {
                     "_" ~ aKey
                 }
-                 = aValue; * /
+                = aValue; * /
             }
         } */
     }

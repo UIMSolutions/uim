@@ -12,28 +12,28 @@ import uim.filesystems;
   void testLink_CreateLinks(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testLink_CreateLinks'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 
   void testLink_ReadLinks(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testLink_ReadLinks'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 
   void testLink_UpdateLinks(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testLink_UpdateLinks'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 
   void testLink_RemoveLinks(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testLink_RemoveLinks'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 // #endregion Links Tests

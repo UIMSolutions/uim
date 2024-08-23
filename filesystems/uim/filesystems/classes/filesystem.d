@@ -249,7 +249,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   void[] readFromFile(string[] aPath, string aFileName, size_t numberOfBytes = size_t.max) {
     version (testUimFilesystems) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
-      debug writeln("aPath     = \t", aPath);
+      debug writeln("aPath    = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
 
@@ -259,7 +259,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   void writeToFile(string[] aPath, string aFileName, const void[] buffer) {
     version (testUimFilesystems) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
-      debug writeln("aPath     = \t", aPath);
+      debug writeln("aPath    = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
   }
@@ -267,7 +267,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   void appendToFile(string[] aPath, string aFileName, const void[] buffer) {
     version (testUimFilesystems) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
-      debug writeln("aPath     = \t", aPath);
+      debug writeln("aPath    = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
   }
@@ -275,7 +275,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   string readTextFromFile(string[] aPath, string aFileName) {
     version (testUimFilesystems) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
-      debug writeln("aPath     = \t", aPath);
+      debug writeln("aPath    = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
 
@@ -285,7 +285,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   void writeTextToFile(string[] aPath, string aFileName, string aText) {
     version (testUimFilesystems) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
-      debug writeln("aPath     = \t", aPath);
+      debug writeln("aPath    = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
   }
@@ -293,7 +293,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   void appendTextToFile(string[] aPath, string aFileName, string aText) {
     version (testUimFilesystems) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
-      debug writeln("aPath     = \t", aPath);
+      debug writeln("aPath    = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
   }
@@ -301,7 +301,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   string[] readLines(string[] aPath, string aFileName) {
     version (testUimFilesystems) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
-      debug writeln("aPath     = \t", aPath);
+      debug writeln("aPath    = \t", aPath);
       debug writeln("aFileName = \t", aFileName);
     }
 

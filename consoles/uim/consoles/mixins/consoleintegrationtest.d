@@ -36,8 +36,8 @@ mixin template TConsoleIntegrationTest() {
     void exec(string commandToRun, Json[string] inputValues = null) {
         /* runner = this.makeRunner();
 
-        _out ?  ?  = new DStubConsoleOutput();
-        _err ?  ?  = new DStubConsoleOutput();
+        _out ?  ? = new DStubConsoleOutput();
+        _err ?  ? = new DStubConsoleOutput();
         if (_in.isNull) {
             _in = new DStubConsoleInput(anInput);
         } else if (anInput) {

@@ -12,28 +12,28 @@ import uim.filesystems;
   void testFile_CreateFiles(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testFile_CreateFiles'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 
   void testFile_ReadFiles(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testFile_ReadFiles'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 
   void testFile_UpdateFiles(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testFile_UpdateFiles'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 
   void testFile_RemoveFiles(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testFile_RemoveFiles'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 // #endregion Files Tests
@@ -42,28 +42,28 @@ import uim.filesystems;
   void testFile_CreateFile(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testFile_CreateFile'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 
   void testFile_ReadFile(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testFile_ReadFile'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 
   void testFile_UpdateFile(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testFile_UpdateFile'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 
   void testFile_RemoveFile(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 
       debug writeln("Running test 'testFile_RemoveFile'..."); 
-      debug writeln("ModuleName = ", moduleName, "\t strPath    = ", strPath, "\t arrPath  = ", arrPath);
+      debug writeln("ModuleName = ", moduleName, "\t strPath   = ", strPath, "\t arrPath = ", arrPath);
     }
   }
 // #endregion File Tests

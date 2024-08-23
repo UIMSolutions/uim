@@ -321,7 +321,7 @@ return true;
   } */
 
     // auto groupValues = mygroups.values;
-    string[] result; //  = configuration.getArray("groups").map!((index, group) => group ~ groupValues[index].getString).array;
+    string[] result; // = configuration.getArray("groups").map!((index, group) => group ~ groupValues[index].getString).array;
     return result;
   }
 

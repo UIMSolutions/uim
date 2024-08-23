@@ -332,7 +332,7 @@ class DLinuxFilesystem : DFilesystem {
   override void[] readFromFile(string[] aPath, string aFileName, size_t numberOfBytes = size_t.max) { 
 		version(testUimFilesystems) { 
 			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-			debug writeln("aPath     = \t", aPath); 
+			debug writeln("aPath    = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
 		return null;
@@ -341,7 +341,7 @@ class DLinuxFilesystem : DFilesystem {
 	override void writeToFile(string[] aPath, string aFileName, const void[] data) {
 		version(testUimFilesystems) { 
 			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-			debug writeln("aPath     = \t", aPath); 
+			debug writeln("aPath    = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
 		std.file.write(absolutePath(aPath~aFileName), data);
@@ -350,7 +350,7 @@ class DLinuxFilesystem : DFilesystem {
 	override void appendToFile(string[] aPath, string aFileName, const void[] data) {
 		version(testUimFilesystems) { 
 			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-			debug writeln("aPath     = \t", aPath); 
+			debug writeln("aPath    = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
 		std.file.append(absolutePath(aPath~aFileName), data);
@@ -359,7 +359,7 @@ class DLinuxFilesystem : DFilesystem {
 	override string readTextFromFile(string[] aPath, string aFileName) { 
 		version(testUimFilesystems) { 
 			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-			debug writeln("aPath     = \t", aPath); 
+			debug writeln("aPath    = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
 		return std.file.readText(absolutePath(aPath~aFileName));
@@ -368,7 +368,7 @@ class DLinuxFilesystem : DFilesystem {
 	override void writeTextToFile(string[] aPath, string aFileName, string aText) {
 		version(testUimFilesystems) { 
 			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-			debug writeln("aPath     = \t", aPath); 
+			debug writeln("aPath    = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
 		std.file.write(absolutePath(aPath~aFileName), aText);
@@ -377,7 +377,7 @@ class DLinuxFilesystem : DFilesystem {
 	override void appendTextToFile(string[] aPath, string aFileName, string aText) {
 		version(testUimFilesystems) { 
 			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-			debug writeln("aPath     = \t", aPath); 
+			debug writeln("aPath    = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
 		std.file.append(absolutePath(aPath~aFileName), aText);
@@ -386,7 +386,7 @@ class DLinuxFilesystem : DFilesystem {
 	override string[] readLines(string[] aPath, string aFileName) { 
 		version(testUimFilesystems) { 
 			debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-			debug writeln("aPath     = \t", aPath); 
+			debug writeln("aPath    = \t", aPath); 
 			debug writeln("aFileName = \t", aFileName); }
 
 		return null;

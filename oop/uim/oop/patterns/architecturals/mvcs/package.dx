@@ -71,7 +71,7 @@ DRobot retriveRobotFromDatabase() {
 version(test_uim_oop) { unittest {
     writeln("MVCPatternDemo");
   //fetch Robot record based on his roll no from the database
-  auto model  = retriveRobotFromDatabase();
+  auto model = retriveRobotFromDatabase();
 
   //Create a view : to write Robot details on console
   DRobotView view = new DRobotView();

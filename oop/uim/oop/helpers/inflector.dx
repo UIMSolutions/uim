@@ -185,7 +185,7 @@ class DInflector {
       my {
         myvar
       }
-      = rules + my {
+     = rules + my {
         myvar
       };
     }

@@ -15,7 +15,7 @@ enum FileModes {
 	/// The file is opened read-only.
 	Read, // = FileOpenMode.read,
 	/// The file is opened for read-write random access.
-	ReadWrite, //  = FileOpenMode.readWrite,
+	ReadWrite, // = FileOpenMode.readWrite,
 	/** Create the file and open read/write, fails if already existing
 
 		Note that eventcore 0.9.24 or up is required, older versions will fall

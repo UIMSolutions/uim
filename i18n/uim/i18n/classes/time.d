@@ -57,7 +57,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      *
      * @var string|int
      */
-    static string/* int */ niceFormat; //  = IntlDateFormatters.MEDIUM;
+    static string/* int */ niceFormat; // = IntlDateFormatters.MEDIUM;
     
     /**
      * Sets the default format used when converting this object to Json

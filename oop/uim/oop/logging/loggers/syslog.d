@@ -52,7 +52,7 @@ class DSysLogger : DLogger {
         return true; 
     }
     // Used to map the string names back to their LOG_* constants
-    protected int[string] _levelMap;/*   = [
+    protected int[string] _levelMap;/*  = [
         "emergency": LOG_EMERG,
         "alert": LOG_ALERT,
         "critical": LOG_CRIT,

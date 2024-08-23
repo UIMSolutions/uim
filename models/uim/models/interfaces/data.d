@@ -631,8 +631,8 @@ _.find([-2, -1, 0, 1, 2], isFalsy);
 compose_.compose(*functions) source
 Returns the composition of a list of functions, where each function consumes the return value of the function that follows. In math terms, composing the functions f(), g(), and h() produces f(g(h())).
 
-var greet    = function(name){ return "hi: " + name; };
-var exclaim  = function(statement){ return statement.toUpperCase() + "!"; };
+var greet   = function(name){ return "hi: " + name; };
+var exclaim = function(statement){ return statement.toUpperCase() + "!"; };
 var welcome = _.compose(greet, exclaim);
 welcome('moe');
 => 'hi: MOE!'
@@ -798,7 +798,7 @@ isEqual_.isEqual(object, other) source
 Performs an optimized deep comparison between the two objects, to determine if they should be considered equal.
 
 var stooge = {name: 'moe', luckyNumbers: [13, 27, 34]};
-var clone  = {name: 'moe', luckyNumbers: [13, 27, 34]};
+var clone = {name: 'moe', luckyNumbers: [13, 27, 34]};
 stooge == clone;
 => false
 _.isEqual(stooge, clone);

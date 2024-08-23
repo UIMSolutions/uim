@@ -30,11 +30,11 @@ mixin template TConfigurable() {
     }
 
     // Set configuration data
-    void updateConfiguration(Json[string] newData) {
+    /* void updateConfiguration(Json[string] newData) {
         if (configuration) {
             configuration.set(newData);
         }
-    }
+    } */
 
     // TODO
     /* Json getConfigurationData(string key) {

@@ -38,7 +38,7 @@ class DTextareaWidget : DWidget {
      *
      * All other keys will be converted into HTML attributes.
      */
-    string render(Json[string] renderData, IContext formContext) {
+    override string render(Json[string] renderData, IContext formContext) {
         renderData.merge(formContext.data);
 
         Json[string] data = null;

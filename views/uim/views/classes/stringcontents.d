@@ -84,7 +84,6 @@ class DStringContents {
     // List of attributes that can be made compact.
     protected bool[string] _compactAttributes;
     protected STRINGAA _templates;
-    protected STRINGAA _compiledTemplates;
 
     // #region manage Templates
     /**

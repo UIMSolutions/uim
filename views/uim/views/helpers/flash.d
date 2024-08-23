@@ -62,7 +62,7 @@ class DFlashHelper : DHelper {
     }
 
     // Event listeners.
-    IEvent[] implementedEvents() {
+    override IEvent[] implementedEvents() {
         return null;
     }
 }

@@ -60,7 +60,11 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
     // Name of the controller that created the View if any.
     protected string _viewControllerName = "";
 
-    // Retrieve the current template type
+    /**
+     * Currently rendering an element. Used for finding parent fragments
+     * for elements.
+     */
+     // Retrieve the current template type
     protected string _currentType;
     @property string currentType() {
         return _currentType;
@@ -208,11 +212,7 @@ static string contentType() {
     // The currently rendering view file. Used for resolving parent files.
     protected string _current = "";
 
-    /**
-     * Currently rendering an element. Used for finding parent fragments
-     * for elements.
-     */
-    protected string _currentType = "";
+
 
     // Content stack, used for nested templates that all use View.extend();
     protected string[] _stack;
@@ -220,9 +220,7 @@ static string contentType() {
     // ViewBlock class.
     protected string _viewBlockClass = ViewBlock.classname;
 
-    
-
-    this(
+    /* this(
         DServerRequest serverRequest = null,
         DResponse _response = null,
         IEventManager myeventManager = null,
@@ -235,7 +233,7 @@ static string contentType() {
         }
         foreach (myvar; _passedVars) {
             if (viewOptions.hasKey(myvar)) {
-                /* _{myvar} = viewoptions.get(myvar); */
+                /* _{myvar} = viewoptions.get(myvar); * /
             }
         }
         if (_helpers) {
@@ -250,13 +248,13 @@ static string contentType() {
         /* _response = _response ?: new DResponse();
         _blocks = new _viewBlockClass();
         _initialize();
-        _loadHelpers(); */
-    }
+        _loadHelpers(); * /
+    } */
     
     // Gets the request instance.
-    ServerRequest getRequest() {
+    /* ServerRequest getRequest() {
         return _request;
-    }
+    } */
 
     /**
      * Sets the request objects and configures a number of controller properties
@@ -414,7 +412,7 @@ static string contentType() {
      * Params:
      * callable myblock The block of code that you want to cache the output of.
      */
-    string cache(callable myblock, Json[string] options  = null) {
+    /* string cache(callable myblock, Json[string] options  = null) {
         options
             .merge("key", "".toJson) 
             .merge("config", Json(_elementCache));
@@ -443,7 +441,7 @@ static string contentType() {
         Cache.write(options.get("key"), result, options.get("config"));
 
         return result;
-    }
+    } */
 
     /**
      * Checks if an element exists
@@ -947,14 +945,14 @@ static string contentType() {
     }
     
     // Get an iterator for element paths.
-    protected DGenerator getElementPaths(string pluginName) {
+    /* protected DGenerator getElementPaths(string pluginName) {
         auto myelementPaths = _getSubPaths(TYPE_ELEMENT);
         foreach (path; _paths(pluginName)) {
             foreach (mysubdir; myelementPaths) {
                 // yield path ~ mysubdir ~ DIRECTORY_SEPARATOR;
             }
         }
-    }
+    } */
     
     /**
      * Find all sub templates path, based on basePath

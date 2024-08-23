@@ -9,11 +9,11 @@ import uim.views;
  *
  * Automatic generation of HTML FORMs from given data.
  *
- * @method string text(string fieldName, Json[string] options  = null) Creates input of type text.
- * @method string number(string fieldName, Json[string] options  = null) Creates input of type number.
- * @method string email(string fieldName, Json[string] options  = null) Creates input of type email.
- * @method string password(string fieldName, Json[string] options  = null) Creates input of type password.
- * @method string search(string fieldName, Json[string] options  = null) Creates input of type search.
+ * @method string text(string fieldName, Json[string] options = null) Creates input of type text.
+ * @method string number(string fieldName, Json[string] options = null) Creates input of type number.
+ * @method string email(string fieldName, Json[string] options = null) Creates input of type email.
+ * @method string password(string fieldName, Json[string] options = null) Creates input of type password.
+ * @method string search(string fieldName, Json[string] options = null) Creates input of type search.
  * @property \UIM\View\Helper\HtmlHelper myHtml
  * @property \UIM\View\Helper\UrlHelper myUrl
  */
@@ -185,7 +185,7 @@ class DFormHelper : DHelper {
     }
     
     // Get the widget locator currently used by the helper.
-    WidgetLocator getWidgetLocator() {
+    DWidgetLocator getWidgetLocator() {
         return _locator;
     }
     
@@ -194,7 +194,7 @@ class DFormHelper : DHelper {
      * Params:
      * \UIM\View\Widget\WidgetLocator myinstance The locator instance to set.
      */
-    void setWidgetLocator(WidgetLocator myinstance) {
+    void setWidgetLocator(DWidgetLocator myinstance) {
        _locator = myinstance;
     }
     
@@ -228,7 +228,7 @@ class DFormHelper : DHelper {
      * - `valueSources` The sources that values should be read from. See FormHelper.setValueSources()
      * - `templateVars` Provide template variables for the formStart template.
      */
-    string create(Json formContext = null, Json[string] options  = null) {
+    string create(Json formContext = null, Json[string] options = null) {
         string myappend = "";
 
         if (cast(IContext)formContext) {
@@ -415,7 +415,7 @@ class DFormHelper : DHelper {
      * the hidden input tags generated for the Security Component. This is
      * especially useful to set HTML5 attributes like "form".
      */
-    string secure(Json[string] fieldNames = [], Json[string] secureAttributes= null) {
+    string secure(Json[string] fieldNames = null, Json[string] secureAttributes= null) {
         if (!_formProtector) {
             return null;
         }
@@ -512,7 +512,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName A field name, like "modelname.fieldname"
      */
-    string error(string fieldName, string[] text = null, Json[string] options  = null) {
+    string error(string fieldName, string[] text = null, Json[string] options = null) {
         if (fieldName.endsWith("._ids")) {
             fieldName = subString(fieldName, 0, -5);
         }
@@ -610,7 +610,7 @@ class DFormHelper : DHelper {
      * ```
      * If you want to nest inputs in the labels, you will need to modify the default templates.
      */
-    string label(string fieldName, string text = null, Json[string] htmlAttributes  = null) {
+    string label(string fieldName, string text = null, Json[string] htmlAttributes = null) {
         if (text.isNull) {
             text = fieldName;
             if (text.endsWith("._ids")) {
@@ -666,7 +666,7 @@ class DFormHelper : DHelper {
      * array fieldNames An array of customizations for the fields that will be
      * generated. This array allows you to set custom types, labels, or other options.
      */
-    string allControls(Json[string] fieldNames = [], Json[string] options  = null) {
+    string allControls(Json[string] fieldNames = null, Json[string] options = null) {
         auto mycontext = _getContext();
         auto mymodelFields = mycontext.fieldNames();
         auto fieldNames = array_merge(mymodelFields, fieldNames);
@@ -688,7 +688,7 @@ class DFormHelper : DHelper {
      * array fieldNames An array of the fields to generate. This array allows
      * you to set custom types, labels, or other options.
      */
-    string controls(Json[string] fieldNames, Json[string] options  = null) {
+    string controls(Json[string] fieldNames, Json[string] options = null) {
         string result = "";
         foreach (views, myopts; fieldNames) {
             if (myopts == false) {
@@ -707,7 +707,7 @@ class DFormHelper : DHelper {
      * - `legend` Set to false to disable the legend for the generated input set. Or supply a string
      *  to customize the legend text.
      */
-    string fieldset(string fieldNames = "", Json[string] options  = null) {
+    string fieldset(string fieldNames = "", Json[string] options = null) {
         bool isLegend = options.getBoolean("legend", true);
         // `fieldset` Set to false to disable the fieldset. 
         auto fieldNameset = options.getBoolean("fieldset", true);
@@ -761,7 +761,7 @@ class DFormHelper : DHelper {
      * of attributes for the label tag. `selected` will be added to any classes e.g. `class: "myclass"` where
      * widget is checked
      */
-    string control(string fieldName, Json[string] options  = null) {
+    string control(string fieldName, Json[string] options = null) {
         options
             .merge("type", Json(null))
             .merge("label", Json(null))
@@ -1163,7 +1163,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName Name of a field, like this "modelname.fieldname"
      */
-    string[] checkbox(string fieldName, Json[string] options  = null) {
+    string[] checkbox(string fieldName, Json[string] options = null) {
         options
             .merge("hiddenField", true)
             .merge("value", 1);
@@ -1215,7 +1215,7 @@ class DFormHelper : DHelper {
      * - `empty` - Set to `true` to create an input with the value "" as the first option. When `true`
      * the radio label will be "empty". Set this option to a string to control the label value.
      */
-    string radio(string fieldName, Json[string] radioOptions = [], Json[string] attributes= null) {
+    string radio(string fieldName, Json[string] radioOptions = null, Json[string] attributes= null) {
         attributes.set("options", radioOptions);
         attributes.set("idPrefix", _idPrefix);
 
@@ -1284,7 +1284,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName Name of a field, in the form "modelname.fieldname"
      */
-    string textarea(string fieldName, Json[string] options  = null) {
+    string textarea(string fieldName, Json[string] options = null) {
         options = _initInputField(fieldName, options);
         options.removeKey("type");
 
@@ -1292,7 +1292,7 @@ class DFormHelper : DHelper {
     }
     
     // Creates a hidden input field.
-    string hidden(string fieldName, Json[string] htmlAttributes  = null) {
+    string hidden(string fieldName, Json[string] htmlAttributes = null) {
         htmlAttributes
             .merge("required", false)
             .merge("secure", true);
@@ -1321,7 +1321,7 @@ class DFormHelper : DHelper {
      * Creates file input widget.
      * Name of a field in the form "modelname.fieldname"
      */
-    string file(string fieldName, Json[string] options  = null) {
+    string file(string fieldName, Json[string] options = null) {
         options.merge("secure", true);
         options = _initInputField(fieldName, options);
         options.removeKey("type");
@@ -1340,7 +1340,7 @@ class DFormHelper : DHelper {
      * Params:
      * string title The button"s caption. Not automatically HTML encoded
      */
-    string button(string title, Json[string] options  = null) {
+    string button(string title, Json[string] options = null) {
         options
             .set("type", "submit")
             .set("escapeTitle", true)
@@ -1377,7 +1377,7 @@ class DFormHelper : DHelper {
      * - Other options is the same of button method.
      * - `confirm` - Confirm message to show. Form execution will only continue if confirmed then.
      */
-    string postButton(string caption, string[] myurl, Json[string] options  = null) {
+    string postButton(string caption, string[] myurl, Json[string] options = null) {
         auto myformOptions = ["url": myurl];
         if (options.hasKey("method")) {
             myformOptions.set("type", options.get("method"));
@@ -1422,7 +1422,7 @@ class DFormHelper : DHelper {
      * - Other options are the same of HtmlHelper.link() method.
      * - The option `onclick` will be replaced.
      */
-    string postLink(string title, string[] myurl = null, Json[string] options  = null) {
+    string postLink(string title, string[] myurl = null, Json[string] options = null) {
         auto options = options.dup.addKeys(["block", "confirm"]);
 
         auto myrequestMethod = "POST";
@@ -1523,7 +1523,7 @@ class DFormHelper : DHelper {
      * exists, AND the first character is /, image is relative to webroot,
      * OR if the first character is not /, image is relative to webroot/img.
      */
-    string submit(string caption = null, Json[string] options  = null) {
+    string submit(string caption = null, Json[string] options = null) {
         caption ? caption : __d("uim", "Submit");
         options
             .merge("type", "submit")
@@ -1625,7 +1625,7 @@ class DFormHelper : DHelper {
      * Params:
      * string fieldName Name attribute of the SELECT
      */
-    string select(string fieldName, range options = [], Json[string] attributes= null) {
+    string select(string fieldName, range options = null, Json[string] attributes= null) {
         attributes
             .merge("disabled", Json(null))
             .merge("escape", true)
@@ -1737,7 +1737,7 @@ class DFormHelper : DHelper {
      * - `max` The max year to appear in the select element.
      * - `min` The min year to appear in the select element.
      */
-    string year(string fieldName, Json[string] options  = null) {
+    string year(string fieldName, Json[string] options = null) {
         options.merge("empty", true);
         options = _initInputField(fieldName, options);
         options.removeKey("type");
@@ -1746,7 +1746,7 @@ class DFormHelper : DHelper {
     }
     
     // Generate an input tag with type "month".
-    string month(string fieldName, Json[string] options  = null) {
+    string month(string fieldName, Json[string] options = null) {
         options.merge("value", Json(null));
 
         options = _initInputField(fieldName, options);
@@ -1763,7 +1763,7 @@ class DFormHelper : DHelper {
      * - `value` | `default` The default value to be used by the input.
      * If set to `true` current datetime will be used.
      */
-    string dateTime(string fieldName, Json[string] options  = null) {
+    string dateTime(string fieldName, Json[string] options = null) {
         options.merge("value", Json(null));
         options = _initInputField(fieldName, options);
         options
@@ -1775,14 +1775,8 @@ class DFormHelper : DHelper {
     
     /**
      * Generate an input tag with type "time".
-     *
-     * ### Options:
-     *
-     * See dateTime() options.
-     * Params:
-     * string fieldName The field name.
      */
-    string time(string fieldName, Json[string] options  = null) {
+    string time(string fieldName, Json[string] options = null) {
         options.merge(["value": Json(null)]);
         auto fieldOptions = _initInputField(fieldName, options);
         fieldOptions.set("type", "time");
@@ -1791,7 +1785,7 @@ class DFormHelper : DHelper {
     }
     
     // Generate an input tag with type "date".
-    string date(string fieldName, Json[string] options  = null) {
+    string date(string fieldName, Json[string] options = null) {
         options.merge("value", Json(null));
         auto fieldOptions = _initInputField(fieldName, options);
         fieldOptions.set("type", "date");
@@ -1819,7 +1813,7 @@ class DFormHelper : DHelper {
      * The output of this bool is a more complete set of input attributes that
      * can be passed to a form widget to generate the actual input.
      */
-    protected Json[string] _initInputField(string fieldName, Json[string] options  = null) {
+    protected Json[string] _initInputField(string fieldName, Json[string] options = null) {
         options
             .merge("fieldName", fieldName)
             .merge("secure", _view.getRequest().getAttribute("formTokenData").isNull ? false : true);
@@ -1982,7 +1976,7 @@ class DFormHelper : DHelper {
     }
     
     // Event listeners.
-    IEvent[] implementedEvents() {
+    override IEvent[] implementedEvents() {
         return null;
     }
     
@@ -2023,7 +2017,7 @@ class DFormHelper : DHelper {
     }
     
     // Gets a single field value from the sources available.
-    Json getSourceValue(string fieldName, Json[string] options  = null) {
+    Json getSourceValue(string fieldName, Json[string] options = null) {
         auto myvalueMap = createMap!(string, Json)
             .set("data", "getData")
             .set("query", "getQuery");

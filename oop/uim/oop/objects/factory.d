@@ -3,29 +3,30 @@ module uim.oop.objects.factory;
 import uim.oop;
 @safe:
 
-class DFactory(T : UIMObject) : IKeyAndPath, INamed {
-    mixin TConfigurable;    
+class DFactory(T : UIMObject) : UIMObject, IKeyAndPath {
+    // mixin TConfigurable;    
     this() {
-        this.initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        this.initialize(initData);
+        super(initData);
     }
 
     this(string newName) {
-        this().name(newName);
+        super(newName);
     }
 
     this(string newName, Json[string] initData) {
-        this(initData).name(newName);
+        super(newName, initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        name("Attribute");
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return true;
+        }
 
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+        name("Attribute");
 
         return true;
     }
@@ -40,8 +41,6 @@ class DFactory(T : UIMObject) : IKeyAndPath, INamed {
     }
 
     protected string _pathSeparator = ".";
-
-    mixin(TProperty!("string", "name"));
 
     // #region paths
 		string[][] paths() {

@@ -26,18 +26,16 @@ import uim.views;
  * If a listener returns a non-null value, the output of the rendered file will be set to that.
  */
 class DHelper : UIMObject { // TODO }: IEventListener {
-    mixin TConfigurable;
-
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
     this(string name) {
-        this().name(name);
+        super(name);
     }
 
     this(IView newView, Json[string] helperSettings = null) {
@@ -66,8 +64,6 @@ class DHelper : UIMObject { // TODO }: IEventListener {
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     // List of helpers used by this helper
     protected DHelper[] _helpers = null;

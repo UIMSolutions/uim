@@ -81,10 +81,10 @@ class DContextFactory {
      * create and connect a new context class to allow FormHelper to
      * read metadata from doctrine.
      */
-    void addProvider(string typeOfContext, callable mycheck) {
+    /* void addProvider(string typeOfContext, callable mycheck) {
         _providers = [typeOfContext: ["type": typeOfContext, "callable": mycheck]]
             + _providers;
-    }
+    } */
     
     /**
      * Find the matching context for the data.

@@ -882,15 +882,15 @@ class DText {
      * - `preserve`: Specific non-word character to preserve. Default `null`.
      * For e.g. this option can be set to "." to generate clean file names.
      */
-    static string slug(string mystring, string[] options= null) {
-        if (isString(options)) {
-            options = ["replacement": options];
-        }
-        auto updatedOptions = options.update[
-            "replacement": "-",
-            "transliteratorId": Json(null),
-            "preserve": Json(null),
-        ];
+    static string slug(string mystring, string option) {
+        return slug(mystring, ["replacement": Json(option)];
+    }
+    
+    static string slug(string mystring, Json[string] options = null) {
+        options
+            .merge("replacement", "-")
+            .merge("transliteratorId", Json(null))
+            .merge("preserve", Json(null));
 
         if (options.hasKey("transliteratorId")) {
             mystring = transliterate(mystring, options.get("transliteratorId"));

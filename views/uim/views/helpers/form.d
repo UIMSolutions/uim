@@ -1291,13 +1291,12 @@ class DFormHelper : DHelper {
         return _widget("textarea", options);
     }
     
-    /**
-     * Creates a hidden input field.
-     * Params:
-     * string fieldName Name of a field, in the form of "modelname.fieldname"
-     */
+    // Creates a hidden input field.
     string hidden(string fieldName, Json[string] htmlAttributes  = null) {
-        auto htmlAttributes = htmlAttributes.update["required": false.toJson, "secure": true.toJson];
+        htmlAttributes
+            .merge("required", false)
+            .merge("secure", true);
+
         auto mysecure = options.get("secure");
         htmlAttributes.removeKey("secure");
 

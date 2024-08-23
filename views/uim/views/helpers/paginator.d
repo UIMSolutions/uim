@@ -912,10 +912,10 @@ class DPaginatorHelper : DHelper {
      */
     string first(
         string /* | int */ myfirst = "<< first", Json[string] options = null) {
-        options        
+        options
             .merge("url", Json.emptyArray)
             .merge("escape", true);
-            
+
         if (paginated()
             .pageCount() <= 1) {
             return null;
@@ -1009,24 +1009,22 @@ class DPaginatorHelper : DHelper {
         }
     }
 
-    string last(
-        string /* | int */ mylast = "last >>", Json[string] options = null) {
-        auto options = options
-            .updatetions.update[
-                "escape": true,
-                "url": Json.emptyArray,
-            ];
+    string last(string /* | int */ mylast = "last >>", Json[string] options = null) {
+        options
+            .merge("escape", true)
+            .merge("url", Json.emptyArray);
+
         auto mypageCount =  /* (int) */ paginated()
             .pageCount();
         if (
             mypageCount <= 1) {
             return null;
         }
-        mycurrentPage = paginated()
+        auto mycurrentPage = paginated()
             .currentPage();
 
         string result = "";
-        mylower = mypageCount -  /* (int) */ mylast + 1;
+        auto mylower = mypageCount -  /* (int) */ mylast + 1;
 
         if (mycurrentPage < mypageCount && isString(
                 mylast)) {

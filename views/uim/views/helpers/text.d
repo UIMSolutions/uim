@@ -31,7 +31,7 @@ class DTextHelper : DHelper {
         /* return Text.{methodName}(...params); */
         return Json(null);
     }
-    
+
     /**
      * Adds links (<a href=....) to a given text, by finding text that begins with
      * strings like http:// and ftp://.
@@ -40,11 +40,11 @@ class DTextHelper : DHelper {
      *
      * - `escape` Control HTML escaping of input. Defaults to true.
      */
-    string autoLinkUrls(string text, Json[string] options  = null) {
+    string autoLinkUrls(string text, Json[string] options = null) {
         _placeholders = null;
         options.merge("escape", true);
 
-       /*  Generic.Files.LineLength
+        /*  Generic.Files.LineLength
         mypattern = "/(?:(?<!href="|src="|">)
             (?>
                 (
@@ -79,46 +79,44 @@ class DTextHelper : DHelper {
         return _linkUrls(text, options); */
         return null;
     }
-    
+
     /**
      * Saves the placeholder for a string, for later use. This gets around double
      * escaping content in URL"s.
-     * Params:
-     * Json[string] mymatches An array of regexp matches.
      */
     protected string _insertPlaceHolder(Json[string] mymatches) {
         auto mymatch = mymatches[0];
         string[] myenvelope = ["", ""];
         if (mymatches.hasKey("url")) {
             mymatch = mymatches["url"];
-            myenvelope = [mymatches["left"], mymatches["right"]];
+            auto myenvelope = [mymatches["left"], mymatches["right"]];
         }
         if (mymatches.hasKey("url_bare")) {
             mymatch = mymatches["url_bare"];
         }
         aKey = hash_hmac("sha1", mymatch, Security.getSalt());
-       _placeholders[aKey] = [
+        _placeholders[aKey] = [
             "content": mymatch,
             "envelope": myenvelope,
         ];
 
         return aKey;
     }
-    
+
     // Replace placeholders with links.
     protected string _linkUrls(string text, Json[string] myhtmlOptions) {
         auto myreplace = null;
         foreach (myhash, mycontent; _placeholders) {
             auto mylink = myurl = mycontent["content"];
             auto myenvelope = mycontent["envelope"];
-            if (!preg_match("#^[a-z]+\://#i", myurl)) {
+            /* if (!preg_match("#^[a-z]+\://#i", myurl)) {
                 myurl = "http://" ~ myurl;
-            }
-            myreplace[myhash] = myenvelope[0] ~ this.Html.link(mylink, myurl, myhtmlOptions) ~ myenvelope[1];
+            } */
+            /* myreplace[myhash] = myenvelope[0] ~ this.Html.link(mylink, myurl, myhtmlOptions) ~ myenvelope[1]; */
         }
         return strtr(text, myreplace);
     }
-    
+
     // Links email addresses
     protected string _linkEmails(string text, Json[string] options = null) {
         auto myreplace = null;
@@ -129,29 +127,30 @@ class DTextHelper : DHelper {
         }
         return strtr(text, myreplace);
     }
-    
+
     /**
      * Adds email links (<a href="mailto:....") to a given text.
      *
      * ### Options
      * - `escape` Control HTML escaping of input. Defaults to true.
      */
-    string autoLinkEmails(string text, Json[string] options  = null) {
+    string autoLinkEmails(string text, Json[string] options = null) {
         options.merge("escape", true);
         _placeholders = null;
 
-        auto myatom = "[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]";
-        text = preg_replace_callback(
+        /* auto myatom = "[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]"; */
+        /* text = preg_replace_callback(
             "/(?<=\s|^|\(|\>|\;)(" ~ myatom ~ "*(?:\." ~ myatom ~ "+)*@[\p{L}0-9-]+(?:\.[\p{L}0-9-]+)+)/ui",
             [&this, "_insertPlaceholder"],
             text
-       );
-        if (options.hasKey("escape")) {
+       ); */
+        /* if (options.hasKey("escape")) {
             text = htmlAttributeEscape(text);
         }
-        return _linkEmails(text, options);
+        return _linkEmails(text, options); */
+        return string;
     }
-    
+
     /**
      * Convert all links and email addresses to HTML links.
      *
@@ -159,11 +158,13 @@ class DTextHelper : DHelper {
      *
      * - `escape` Control HTML escaping of input. Defaults to true.
      */
-    string autoLink(string text, Json[string] options  = null) {
+    string autoLink(string text, Json[string] options = null) {
         auto linkUrls = autoLinkUrls(text, options);
-        return _autoLinkEmails(linkUrls, options.setPath(["escape": false.toJson]));
+        return _autoLinkEmails(linkUrls, options.setPath([
+                "escape": false.toJson
+            ]));
     }
-    
+
     /**
      * Formats paragraphs around given text for all line breaks
      * <br> added for single line return
@@ -172,18 +173,18 @@ class DTextHelper : DHelper {
     string autoParagraph(string text) {
         text = text.ifEmpty("");
         if (!text.strip.isEmpty) {
-            text = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", text ~ "\n"));
-            text = /* (string) */preg_replace("/\n\n+/", "\n\n", text.replace(["\r\n", "\r"], "\n"));
-            mytexts = preg_split("/\n\s*\n/", text, -1, PREG_SPLIT_NO_EMPTY) ?: [];
+            /* text = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", text ~ "\n"));
+            text = /* (string) * /preg_replace("/\n\n+/", "\n\n", text.replace(["\r\n", "\r"], "\n")); */
+            /* mytexts = preg_split("/\n\s*\n/", text, -1, PREG_SPLIT_NO_EMPTY) ?: []; */
             text = "";
             foreach (mytxt; mytexts) {
-                text ~= "<p>" ~ nl2br(trim(mytxt, "\n")) ~ "</p>\n";
+                /* text ~= "<p>" ~ nl2br(trim(mytxt, "\n")) ~ "</p>\n"; */
             }
-            text = /* (string) */preg_replace("|<p>\s*</p>|", "", text);
+            // text = /* (string) * /preg_replace("|<p>\s*</p>|", "", text); */
         }
         return text;
     }
-    
+
     // Event listeners.
     IEvent[] implementedEvents() {
         return null;

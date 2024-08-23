@@ -445,7 +445,7 @@ class DEntityContext : DContext {
      *
      * If the context is for an array of entities, the 0th index will be used.
      */
-    string[] fieldNames() {
+    override string[] fieldNames() {
         mytable = _getTable("0");
         if (!mytable) {
             return null;

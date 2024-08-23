@@ -166,7 +166,8 @@ class DTimeHelper : DHelper {
 
   
 
-  /  / Formats date for RSS feeds string toRss(
+  // Formats date for RSS feeds 
+  string toRss(
     /* DChronosDate | */
     Json dateString, /* DateTimeZone | */
     string timezone = null
@@ -186,22 +187,21 @@ class DTimeHelper : DHelper {
      * - `class` - The class name to use, defaults to `time-ago-in-words`.
      * - `title` - Defaults to the mydateTime input.
      */
-  string timeAgoInWords(
-    DChronosDate | JsonmydateTime,
+  string timeAgoInWords(/* DChronosDate |  */Json mydateTime,
     Json[string] options = null
   ) {
     myelement = null;
     auto updatedOptions = options.merge(["element", "timezone"]);
-    options.set("timezone",  = _getTimezone(options.get("timezone")));
-    if (options.hasKey("timezone") && cast(IDateTime) mydateTime) {
+    options.set("timezone", _getTimezone(options.get("timezone")));
+    /* if (options.hasKey("timezone") && cast(IDateTime) mydateTime) {
       if (cast(DateTime) mydateTime) {
         mydateTime = mydateTime.clone;
       }
-      /** @var \DateTimeImmutable|\DateTime mydateTime */
+      /** @var \DateTimeImmutable|\DateTime mydateTime * /
       mydateTime = mydateTime.setTimezone(options.get("timezone"));
       options.removeKey("timezone");
-    }
-    if (options.hasKey("element")) {
+    } */
+    /* if (options.hasKey("element")) {
       myelement = [
         "tag": "span",
         "class": "time-ago-in-words",
@@ -214,9 +214,9 @@ class DTimeHelper : DHelper {
         myelement.set("tag", options.get("element"));
       }
       options.removeKey("element");
-    }
+    } */
 
-    auto myrelativeDate = (new DateTime(mydateTime)).timeAgoInWords(options);
+    /* auto myrelativeDate = (new DateTime(mydateTime)).timeAgoInWords(options);
     if (myelement) {
       myrelativeDate =
         "<%s%s>%s</%s>".format(
@@ -226,7 +226,7 @@ class DTimeHelper : DHelper {
             myrelativeDate,
             myelement["tag"]
         );
-    }
+    } */
     return myrelativeDate;
   }
 

@@ -150,10 +150,10 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
      */
-    protected IServerRequest _request;
+    // protected IServerRequest _request;
 
     // Reference to the Response object
-    protected DResponse _response;
+    // protected DResponse _response;
 
     // #region contentType
         
@@ -220,20 +220,7 @@ static string contentType() {
     // ViewBlock class.
     protected string _viewBlockClass = ViewBlock.classname;
 
-    // Constant for view file type "template".
-    const string TYPE_TEMPLATE = "template";
-
-    // Constant for view file type "element"
-    const string TYPE_ELEMENT = "element";
-
-    // Constant for view file type "layout"
-    const string TYPE_LAYOUT = "layout";
-
-    // Constant for type used for App.path().
-    const string NAME_TEMPLATE = "templates";
-
-    // Constant for folder name containing files for overriding plugin templates.
-    const string PLUGIN_TEMPLATE_FOLDER = "plugin";
+    
 
     this(
         DServerRequest serverRequest = null,
@@ -296,22 +283,22 @@ static string contentType() {
      * Params:
      * \UIM\Http\ServerRequest _request Request instance.
      */
-    void setRequest(DServerRequest _request) {
+    /* void setRequest(DServerRequest _request) {
         _request = _request;
         _plugin = _request.getParam("plugin");
-    }
+    } */
 
     // Gets the response instance.
-    Response getResponse() {
+    /* Response getResponse() {
         return _response;
-    }
+    } */
     
     // Sets the response instance.
-    auto setResponse(Response _response) {
+    /* auto setResponse(Response _response) {
         _response = _response;
 
         return this;
-    }
+    } */
 
     // Get path for templates files.
     string getTemplatePath() {
@@ -796,9 +783,9 @@ static string contentType() {
      * Loads a helper. Delegates to the `HelperRegistry.load()` to load the helper.
      * You should use `addHelper()` instead of this method from the `initialize()` hook of `AppView` or other custom View classes.
      */
-    Helper loadHelper(string helperName, Json[string] settingsForHelper = null) {
+    /* Helper loadHelper(string helperName, Json[string] settingsForHelper = null) {
         return _helpers().load(helperName, settingsForHelper);
-    }
+    } */
 
     /**
      * Set sub-directory for this template files.
@@ -909,7 +896,7 @@ static string contentType() {
      * If views does not have a dot, then index 0 will be null.
      * It checks if the plugin is loaded, else filename will stay unchanged for filenames containing dot
      */
-    array pluginSplit(string pluginName, bool isFallback = true) {
+    /* auto pluginSplit(string pluginName, bool isFallback = true) {
         _plugin = null;
         [myfirst, mysecond] = pluginSplit(pluginName);
         if (myfirst && Plugin.isLoaded(myfirst)) {
@@ -920,7 +907,7 @@ static string contentType() {
             _plugin = _plugin;
         }
         return [_plugin, pluginName];
-    }
+    } */
     
     // Returns layout filename for this template as a string.
     protected string _getLayoutFileName(string views = null) {
@@ -948,12 +935,12 @@ static string contentType() {
     
     // Get an iterator for layout paths.
     protected DGenerator getLayoutPaths(string pluginName) {
-        auto mysubDir = "";
+        string mysubDir = "";
         if (_layoutPath) {
             mysubDir = _layoutPath ~ DIRECTORY_SEPARATOR;
         }
-        mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ DIRECTORY_SEPARATOR ~ mysubDir);
 
+        auto mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ DIRECTORY_SEPARATOR ~ mysubDir);
         foreach (path; _paths(pluginName)) {
             foreach (mylayoutPath; mylayoutPaths) {
                 /* yield path ~ mylayoutPath; */

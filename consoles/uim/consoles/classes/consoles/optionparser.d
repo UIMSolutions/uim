@@ -95,7 +95,7 @@ class DConsoleOptionParser {
     // #endregion description
 
     void addArgument(string argName, Json[string] params = null) {
-        Json[string] defaultOptions = createMap!(string, Json)()
+        Json[string] defaultOptions = createMap!(string, Json)
             .set("name", Json(argName))
             .set("help", "")
             .set("index", LongData(count(_args)))
@@ -170,18 +170,18 @@ class DConsoleOptionParser {
     this(string commandName = "", bool isVerboseAndQuiet = true) {
         /* setCommand(command);
 
-        addOption("help", createMap!(string, Json)()
+        addOption("help", createMap!(string, Json)
                 .set("short", "h")
                 .set("help", "Display this help.")
                 .set("boolean", true));
 
         if (isVerboseAndQuiet) {
-            addOption("verbose", createMap!(string, Json)()
+            addOption("verbose", createMap!(string, Json)
                     .set("short", "v")
                     .set("help", "Enable verbose output.")
                     .set("boolean", true));
 
-            addOption("quiet", createMap!(string, Json)()
+            addOption("quiet", createMap!(string, Json)
                     .set("short", "q")
                     .set("help", "Enable quiet output.")
                     .set("boolean", true));

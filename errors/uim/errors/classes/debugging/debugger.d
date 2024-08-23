@@ -37,15 +37,15 @@ class DDebugger {
             .setDefaults("exportFormatter", Json(null))
             .setDefaults("editor", "Dstorm");
 
-        _stringContents = createMap!(string, Json)()
+        _stringContents = createMap!(string, Json)
             .set("log",
-                createMap!(string, Json)() // These templates are not actually used, as Debugger.log() is called instead.
+                createMap!(string, Json) // These templates are not actually used, as Debugger.log() is called instead.
                 .set("trace", "{:reference} - {:path}, line {:line}")
                     .set("error", "{:error} ({:code}): {:description} in [{:file}, line {:line}]")
             )
 
             .set("js",
-                createMap!(string, Json)()
+                createMap!(string, Json)
                     .set("error", "")
                     .set("info", "")
                     .set("trace", htmlDoubleTag("pre", ["stack-trace"], "{:trace}"))
@@ -56,7 +56,7 @@ class DDebugger {
             )
 
             .set("html",
-                createMap!(string, Json)()
+                createMap!(string, Json)
                     .set("trace", htmlDoubleTag("pre", ["uim-error trace"], "<b>Trace</b> <p>{:trace}</p>"))
                     .set("dumpContext", htmlDoubleTag("pre", [
                             "uim-error dumpContext"
@@ -65,14 +65,14 @@ class DDebugger {
             )
 
             .set("txt",
-                createMap!(string, Json)()
+                createMap!(string, Json)
                     .set("error", "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}")
                     .set("code", "")
                     .set("info", "")
             )
 
             .set("base",
-                createMap!(string, Json)()
+                createMap!(string, Json)
                     .set("traceLine", "{:reference} - {:path}, line {:line}")
                     .set("trace", "Trace:\n{:trace}\n")
                     .set("dumpContext", "Context:\n{:dumpContext}\n")
@@ -330,7 +330,7 @@ class DDebugger {
 
         auto count = count(backtrace);
         auto back = null;
-        _trace = createMap!(string, Json)()
+        _trace = createMap!(string, Json)
             .set("line", "??")
             .set("file", "[internal]")
             .set("class", Json(null))

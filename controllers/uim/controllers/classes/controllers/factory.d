@@ -150,7 +150,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                     typedArgument = this.coerceStringToType(argument, type);
 
                     if (typedArgument.isNull) {
-                        throw new DInvalidParameterException(createMap!(string, Json)()
+                        throw new DInvalidParameterException(createMap!(string, Json)
                             .set("template", "failed_coercion")
                             .set("passed", argument)
                             .set("type", type.name)
@@ -174,7 +174,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             if (parameter.isVariadic()) {
                 continue;
             }
-            throw new DInvalidParameterException(createMap!(string, Json)()
+            throw new DInvalidParameterException(createMap!(string, Json)
                 .set("template", "missing_parameter")
                 .set("parameter", parameter.name)
                 .set("controller", _controller.name)

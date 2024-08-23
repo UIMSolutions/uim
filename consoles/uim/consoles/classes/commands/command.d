@@ -85,7 +85,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
 /*         auto aParser = getOptionParser();
         try {
             auto parsedResults = aParser.parse(arguments, aConsoleIo);
-            auto arguments = createMap!(string, Json)();
+            auto arguments = createMap!(string, Json);
                 /* parsedResults[1],
                 parsedResults[0],
                 aParser.argumentNames()
@@ -108,7 +108,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
         dispatchEvent("Command.beforeExecute", ["args": arguments]);
 
         auto result = execute(arguments, aConsoleIo);
-        dispatchEvent("Command.afterExecute", createMap!(string, Json)()
+        dispatchEvent("Command.afterExecute", createMap!(string, Json)
             .set("args", arguments)
             .set("result", result)); */
 

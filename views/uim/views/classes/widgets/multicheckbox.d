@@ -87,7 +87,7 @@ class DMultiCheckboxWidget : DWidget {
      * This form **requires** that both the `value` and `text` keys be defined.
      * If either is not set options will not be generated correctly.
      */
-  string render(Json[string] data, IContext formContext) {
+  override string render(Json[string] data, IContext formContext) {
     auto mergedData = data.mergeDefaults(formContext);
 
     _idPrefix = mergedData.get("idPrefix");

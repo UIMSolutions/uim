@@ -255,7 +255,7 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\Jsonmystring UNIX timestamp, strtotime() valid string or DateTime object
      */
-  string gmt( /* DChronosDate | */ Jsonmystring = null) {
+  string gmt( /* DChronosDate | */ Json mystring = null) {
     return (new DateTime(mystring)).toUnixString();
   }
 
@@ -283,7 +283,7 @@ class DTimeHelper : DHelper {
     /* DChronosDate | */
     Json date,
     string[] /* int */ intlFormat = null,
-    string defaultValue = false,/* DateTimeZone | */
+    string defaultValue = null,/* DateTimeZone | */
     string timezone = null
   ) {
     if (date.isNull) {
@@ -304,7 +304,7 @@ class DTimeHelper : DHelper {
   }
 
   // Event listeners.
-  IEvent[] implementedEvents() {
+  override IEvent[] implementedEvents() {
     return null;
   }
 }

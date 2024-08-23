@@ -74,7 +74,7 @@ class DPaginatorHelper : DHelper {
     protected string[] _helpers = ["Url", "Number", "Html", "Form"];
 
     // Paginated results
-    protected IPaginated _paginated;
+    /* protected IPaginated _paginated; */
 
     // Overridden to merge passed args with URL options.
     this(IView myview, Json[string] configData = null) {
@@ -89,13 +89,13 @@ class DPaginatorHelper : DHelper {
     }
 
     // Set paginated results.
-    void setPaginated(IPaginated mypaginated, Json[string] options = null) {
+    /* void setPaginated(IPaginated mypaginated, Json[string] options = null) {
         _paginated = mypaginated;
         this.options(options);
-    }
+    } */
 
     // Get pagination instance.
-    protected IPaginated paginated() {
+    /* protected IPaginated paginated() {
         if (_paginated !is null) {
             _view.getVars().each!((name) {
                 auto value = _view.get(name);
@@ -109,7 +109,7 @@ class DPaginatorHelper : DHelper {
                 "You must set a pagination instance using `setPaginated()` first");
         }
         return _paginated;
-    }
+    } */
 
     // Gets the current paging parameters from the resultset for the given model
     // TODO 
@@ -355,8 +355,7 @@ class DPaginatorHelper : DHelper {
      */
     string generateUrl(
         Json[string] paginationOptions = null,
-        Json[string] url = [
-        ],
+        Json[string] url = null,
         Json[string] urlOptions = null
     ) {
         urlOptions.merge([
@@ -1175,15 +1174,14 @@ class DPaginatorHelper : DHelper {
 
     // Dropdown select for pagination limit. This will generate a wrapping form.
     string limitControl(
-        Json[string] limits = [
-        ], int defaultValue = 0, Json[string] options = null) {
+        Json[string] limits = null, int defaultValue = 0, Json[string] options = null) {
         limits = limits ? limits : [
             "20": "20",
             "50": "50",
             "100": "100",
         ];
         defaultValue = defaultValue > 0 ? defaultValue : paginated().perPage();
-        myscope = this
+        auto myscope = this
             .param(
                 "scope");
         assert(myscope

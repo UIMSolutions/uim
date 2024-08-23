@@ -31,7 +31,7 @@ class DNegotiationRequiredView : DView {
     }
     
     // Renders view with no body and a 406 status code.
-    string render(string templateName = null, string layoutName = null) {
+    override string render(string templateName = null, string layoutName = null) {
         return null;
     }
 }

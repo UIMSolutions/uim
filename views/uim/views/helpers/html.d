@@ -273,7 +273,7 @@ class DHtmlHelper : DHelper {
      * over value of `escape`)
      * - `confirm` JavaScript confirmation message.
      */
-    string linkFromPath(string title, string routePath, Json[string] params = [], Json[string] htmlAttributes = null) {
+    string linkFromPath(string title, string routePath, Json[string] params = null, Json[string] htmlAttributes = null) {
         return _link(title, ["_path": routePath] + params, htmlAttributes);
     }
 

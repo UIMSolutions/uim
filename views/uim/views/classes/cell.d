@@ -13,7 +13,7 @@ abstract class DCell { // }: IEventDispatcher {
     mixin TConfigurable;
 // TEventDispatcherTrait<IView 
     mixin TEventDispatcher;
-    mixin TLocatorAware;
+    // mixin TLocatorAware;
     mixin TViewVars;
 
     this() {
@@ -53,20 +53,18 @@ abstract class DCell { // }: IEventDispatcher {
      */
     protected IView _view;
 
-    
-
     /**
      * An instance of a UIM\Http\ServerRequest object that contains information about the current request.
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
      */
-    protected IServerRequest myrequest;
+    protected DServerRequest _request;
 
     // An instance of a Response object that contains information about the impending response
-    protected DResponse myresponse;
+    protected DResponse _response;
 
     // Arguments to pass to cell"s action.
-    protected Json[string] myargs = null;
+    protected Json[string] _args = null;
 
     /**
      * List of valid options (constructor"s fourth arguments)
@@ -79,7 +77,7 @@ abstract class DCell { // }: IEventDispatcher {
     // TODO protected Json _cache = false;
 
     this(
-        ServerRequest serverRequest,
+        DServerRequest serverRequest,
         DResponse response,
         IEventManager eventManager = null,
         Json[string] cellOptionsToApply = null

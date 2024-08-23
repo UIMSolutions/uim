@@ -69,8 +69,7 @@ class UrlHelper : DHelper {
      *  escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
      */
-    string buildFromPath(string routePath, Json[string] params = [
-        ], Json[string] options = null) {
+    string buildFromPath(string routePath, Json[string] params = null, Json[string] options = null) {
         return _build(["_path": routePath] + params, options);
     }
 
@@ -152,10 +151,8 @@ class UrlHelper : DHelper {
             _assetUrlclassname.webroot(filename, options));
     }
 
-    /**
-     * Event listeners.
-     */
-    IEvent[] implementedEvents() {
+    // Event listeners.
+    override IEvent[] implementedEvents() {
         return null;
     }
 }

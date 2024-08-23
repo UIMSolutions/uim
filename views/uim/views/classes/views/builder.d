@@ -152,7 +152,7 @@ class DViewBuilder { // }: DJsonSerializable {
    
     
     // Get/Set the plugin name to use. Use null to remove the current plugin name.
-    mixin(TPropery!("string", "pluginName"));
+    mixin(TProperty!("string", "pluginName"));
     
     // Adds a helper to use, overwriting any existing one with that name.
     void addHelper(string helperToUse, Json[string] options  = null) {

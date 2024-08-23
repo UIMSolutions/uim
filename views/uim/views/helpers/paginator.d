@@ -912,12 +912,10 @@ class DPaginatorHelper : DHelper {
      */
     string first(
         string /* | int */ myfirst = "<< first", Json[string] options = null) {
-        auto options = options
-            .updatetions.update[
-                "url": Json
-                .emptyArray,
-                "escape": true,
-            ];
+        options        
+            .merge("url", Json.emptyArray)
+            .merge("escape", true);
+            
         if (paginated()
             .pageCount() <= 1) {
             return null;

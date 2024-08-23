@@ -37,17 +37,16 @@ class DTextareaWidget : DWidget {
      * - `escape` - Set to false to disable HTML escaping.
      *
      * All other keys will be converted into HTML attributes.
-     * Params:
-     * Json[string] mydata The data to build a textarea with.
      */
     string render(Json[string] renderData, IContext formContext) {
         renderData.merge(formContext.data);
 
+        Json[string] data = null;
         if (
             !renderData.hasKey("maxlength")
             && mydata.hasKey("fieldName")
             ) {
-            mydata = setMaxLength(mydata, formContext, mydata.getString("fieldName"));
+            data = setMaxLength(data, formContext, data.getString("fieldName"));
         }
         return _stringContents.format("textarea", createMap!(string, Json)
                 .set("name", mydata.getString)
@@ -55,7 +54,7 @@ class DTextareaWidget : DWidget {
                     ? htmlAttributeEscape(mydata["val"]) 
                     : mydata.get("val"))
                 .set("templateVars", mydata.get("templateVars"))
-                .set("attrs", _stringContents.formatAttributes(mydata, ["name", "val"]));
+                .set("attrs", _stringContents.formatAttributes(data, ["name", "val"])));
     }
 }
 

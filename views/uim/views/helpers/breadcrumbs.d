@@ -14,13 +14,12 @@ class DBreadcrumbsHelper : DHelper {
     protected string[] _helpers = ["Url"];
 
     // Default config for the helper.
-    configuration
-        .setDefault("templates", [
-            "wrapper": "<ul{{attrs}}>{{content}}</ul>",
-            "item": "<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>{{separator}}",
-            "itemWithoutLink": "<li{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>{{separator}}",
-            "separator": "<li{{attrs}}><span{{innerAttrs}}>{{separator}}</span></li>",
-        ]);
+    /* configuration
+        .setDefault("templates", createMap!(string, Json)
+            .set("wrapper", "<ul{{attrs}}>{{content}}</ul>")
+            .set("item", "<li{{attrs}}><a href=\"{{url}}\"{{innerAttrs}}>{{title}}</a></li>{{separator}}")
+            .set("itemWithoutLink", "<li{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>{{separator}}")
+            .set("separator", "<li{{attrs}}><span{{innerAttrs}}>{{separator}}</span></li>")); */
 
     // The crumb list.
     protected Json[string] _crumbs = null;
@@ -170,8 +169,8 @@ class DBreadcrumbsHelper : DHelper {
             auto options = mycrumb["options"];
 
             optionsLink = null;
-            if (options.hasKey("innerAttrs"])) {
-                optionsLink = options.get("innerAttrs"];
+            if (options.hasKey("innerAttrs")) {
+                optionsLink = options.get("innerAttrs");
                 options.removeKey("innerAttrs");
             }
             mytemplate = "item";

@@ -17,50 +17,48 @@ class DHtmlHelper : DHelper {
     // List of helpers used by this helper
     protected string[] myhelpers = ["Url"];
 
-  // Initialization hook method.
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
+    // Initialization hook method.
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        configuration
+            .setDefault("templates", createMap!(string, Json)
+                    .set("meta", "<meta{{attrs}}>")
+                    .set("metalink", "<link href=\"{{url}}\"{{attrs}}>")
+                    .set("link", "<a href=\"{{url}}\"{{attrs}}>{{content}}</a>")
+                    .set("mailto", "<a href=\"mailto:{{url}}\"{{attrs}}>{{content}}</a>")
+                    .set("image", "<img src=\"{{url}}\"{{attrs}}>")
+                    .set("tableheader", "<th{{attrs}}>{{content}}</th>")
+                    .set("tableheaderrow", "<tr{{attrs}}>{{content}}</tr>")
+                    .set("tablecell", "<td{{attrs}}>{{content}}</td>")
+                    .set("tablerow", "<tr{{attrs}}>{{content}}</tr>")
+                    .set("block", "<div{{attrs}}>{{content}}</div>")
+                    .set("blockstart", "<div{{attrs}}>")
+                    .set("blockend", "</div>")
+                    .set("tag", "<{{tag}}{{attrs}}>{{content}}</{{tag}}>")
+                    .set("tagstart", "<{{tag}}{{attrs}}>")
+                    .set("tagend", "</{{tag}}>")
+                    .set("tagselfclosing", "<{{tag}}{{attrs}}/>")
+                    .set("para", "<p{{attrs}}>{{content}}</p>")
+                    .set("parastart", "<p{{attrs}}>")
+                    .set("css", "<link rel=\"{{rel}}\" href=\"{{url}}\"{{attrs}}>")
+                    .set("style", "<style{{attrs}}>{{content}}</style>")
+                    .set("charset", "<meta charset=\"{{charset}}\">")
+                    .set("ul", "<ul{{attrs}}>{{content}}</ul>")
+                    .set("ol", "<ol{{attrs}}>{{content}}</ol>")
+                    .set("li", "<li{{attrs}}>{{content}}</li>")
+                    .set("javascriptblock", "<script{{attrs}}>{{content}}</script>")
+                    .set("javascriptstart", "<script>")
+                    .set("javascriptlink", "<script src=\"{{url}}\"{{attrs}}></script>")
+                    .set("javascriptend", "</script>")
+                    .set("confirmJs", "{{confirm}}")
+            );
+
+        return true;
     }
 
-    configuration
-        .setDefault("templates", [
-            "meta": "<meta{{attrs}}>",
-            "metalink": "<link href=\"{{url}}\"{{attrs}}>",
-            "link": "<a href=\"{{url}}\"{{attrs}}>{{content}}</a>",
-            "mailto": "<a href=\"mailto:{{url}}\"{{attrs}}>{{content}}</a>",
-            "image": "<img src=\"{{url}}\"{{attrs}}>",
-            "tableheader": "<th{{attrs}}>{{content}}</th>",
-            "tableheaderrow": "<tr{{attrs}}>{{content}}</tr>",
-            "tablecell": "<td{{attrs}}>{{content}}</td>",
-            "tablerow": "<tr{{attrs}}>{{content}}</tr>",
-            "block": "<div{{attrs}}>{{content}}</div>",
-            "blockstart": "<div{{attrs}}>",
-            "blockend": "</div>",
-            "tag": "<{{tag}}{{attrs}}>{{content}}</{{tag}}>",
-            "tagstart": "<{{tag}}{{attrs}}>",
-            "tagend": "</{{tag}}>",
-            "tagselfclosing": "<{{tag}}{{attrs}}/>",
-            "para": "<p{{attrs}}>{{content}}</p>",
-            "parastart": "<p{{attrs}}>",
-            "css": "<link rel=\"{{rel}}\" href=\"{{url}}\"{{attrs}}>",
-            "style": "<style{{attrs}}>{{content}}</style>",
-            "charset": "<meta charset=\"{{charset}}\">",
-            "ul": "<ul{{attrs}}>{{content}}</ul>",
-            "ol": "<ol{{attrs}}>{{content}}</ol>",
-            "li": "<li{{attrs}}>{{content}}</li>",
-            "javascriptblock": "<script{{attrs}}>{{content}}</script>",
-            "javascriptstart": "<script>",
-            "javascriptlink": "<script src=\"{{url}}\"{{attrs}}></script>",
-            "javascriptend": "</script>",
-            "confirmJs": "{{confirm}}",
-        ]
-    ]);
-
-    return true;
-  }
-
-    
     // Names of script & css files that have been included once
     // TODO protected array<string, array> _includedAssets = null;
 
@@ -105,8 +103,17 @@ class DHtmlHelper : DHelper {
     string meta(string[] mytype, string[] content = null, Json[string] htmlAttributes = null) {
         if (!mytype.isArray) {
             mytypes = [
-                "rss": ["type": "application/rss+xml", "rel": "alternate", "title": mytype, "link": content],
-                "atom": ["type": "application/atom+xml", "title": mytype, "link": content],
+                "rss": [
+                    "type": "application/rss+xml",
+                    "rel": "alternate",
+                    "title": mytype,
+                    "link": content
+                ],
+                "atom": [
+                    "type": "application/atom+xml",
+                    "title": mytype,
+                    "link": content
+                ],
                 "icon": ["type": "image/x-icon", "rel": "icon", "link": content],
                 "keywords": ["name": "keywords", "content": content],
                 "description": ["name": "description", "content": content],
@@ -126,10 +133,13 @@ class DHtmlHelper : DHelper {
                 mytype = mytypes[mytype];
             } else if (!htmlAttributes.hasKey("type") && content !is null) {
                 mytype = content.isArray && content.hasKey("_ext")
-                    ? mytypes[content.getString("_ext")]
-                    : ["name": mytype, "content": content];
+                    ? mytypes[content.getString("_ext")] : [
+                        "name": mytype,
+                        "content": content
+                    ];
 
-            } else if (htmlAttributes.hasKey("type") && mytypes.hasKey(htmlAttributes.getString("type"))) {
+            } else if (htmlAttributes.hasKey("type") && mytypes.hasKey(
+                    htmlAttributes.getString("type"))) {
                 mytype = mytypes[htmlAttributes["type"]];
                 htmlAttributes.removeKey("type");
             } else {
@@ -141,24 +151,30 @@ class DHtmlHelper : DHelper {
 
         if (htmlAttributes.hasKey("link")) {
             htmlAttributes.set("link", htmlAttributes.isArray("link")
-                ? _Url.build(htmlAttributes.get("link"))
-                : _Url.assetUrl(htmlAttributes.get("link")));
+                    ? _Url.build(htmlAttributes.get("link")) : _Url.assetUrl(
+                        htmlAttributes.get("link")));
 
             if (htmlAttributes.getString("rel") == "icon") {
                 result = formatTemplate("metalink", [
-                    "url": htmlAttributes["link"],
-                    "attrs": templater().formatAttributes(htmlAttributes, ["block", "link"]),
-                ]);
+                        "url": htmlAttributes["link"],
+                        "attrs": templater().formatAttributes(htmlAttributes, [
+                                "block", "link"
+                            ]),
+                    ]);
                 htmlAttributes.set("rel", "shortcut icon");
             }
             result ~= formatTemplate("metalink", [
-                "url": htmlAttributes["link"],
-                "attrs": templater().formatAttributes(htmlAttributes, ["block", "link"]),
-            ]);
+                    "url": htmlAttributes["link"],
+                    "attrs": templater().formatAttributes(htmlAttributes, [
+                            "block", "link"
+                        ]),
+                ]);
         } else {
             result = formatTemplate("meta", [
-                "attrs": templater().formatAttributes(htmlAttributes, ["block", "type"]),
-            ]);
+                    "attrs": templater().formatAttributes(htmlAttributes, [
+                            "block", "type"
+                        ]),
+                ]);
         }
         if (htmlAttributes.isEmpty("block")) {
             return result;
@@ -166,11 +182,11 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes["block"] == true) {
             htmlAttributes.set("block", __FUNCTION__);
         }
-       _view.append(htmlAttributes["block"], result);
+        _view.append(htmlAttributes["block"], result);
 
         return null;
     }
-    
+
     /**
      * Returns a charset META-tag.
      * Params:
@@ -178,15 +194,15 @@ class DHtmlHelper : DHelper {
      * The App.encoding value will be used. Example: "utf-8".
      */
     string charset(string metatagCharset = null) {
-        string result; 
+        string result;
         if (metatagCharset.isEmpty) {
             result = to!string(configuration.get("App.encoding")).lower;
         }
         return _formatTemplate("charset", [
-            "charset": !result.isEmpty ? result : "utf-8",
-        ]);
+                "charset": !result.isEmpty ? result: "utf-8",
+            ]);
     }
-    
+
     /**
      * Creates an HTML link.
      *
@@ -236,17 +252,17 @@ class DHtmlHelper : DHelper {
             myconfirm = _confirm("return true;", "return false;");
             htmlAttributes.set("data-confirm-message", myconfirmMessage);
             htmlAttributes.set("onclick", mytemplater.format("confirmJs", [
-                "confirmMessage": htmlAttributeEscape(myconfirmMessage),
-                "confirm": myconfirm,
-            ]));
+                        "confirmMessage": htmlAttributeEscape(myconfirmMessage),
+                        "confirm": myconfirm,
+                    ]));
         }
         return mytemplater.format("link", [
-            "url": url,
-            "attrs": mytemplater.formatAttributes(htmlAttributes),
-            "content": title,
-        ]);
+                "url": url,
+                "attrs": mytemplater.formatAttributes(htmlAttributes),
+                "content": title,
+            ]);
     }
-    
+
     /**
      * Creates an HTML link from route path string.
      *
@@ -260,7 +276,7 @@ class DHtmlHelper : DHelper {
     string linkFromPath(string title, string routePath, Json[string] params = [], Json[string] htmlAttributes = null) {
         return _link(title, ["_path": routePath] + params, htmlAttributes);
     }
-    
+
     /**
      * Creates a link element for CSS stylesheets.
      *
@@ -312,8 +328,7 @@ class DHtmlHelper : DHelper {
     string css(string[] mypath, Json[string] htmlAttributes = null) {
         string result = mypath.map!(path => "\n\t" ~ css(index, htmlAttributes)).join;
         return htmlAttributes.isEmpty("block")
-            ? result ~ "\n"
-            : null;
+            ? result ~ "\n" : null;
     }
 
     string css(string[] mypath, Json[string] htmlAttributes = null) {
@@ -325,26 +340,32 @@ class DHtmlHelper : DHelper {
 
         auto url = _Url.css(mypath, htmlAttributes);
         auto htmlAttributes = array_diffinternalKey(htmlAttributes, createMap!(string, Json)
-            .set(["fullBase", "pathPrefix"], Json(null)));
+                .set(["fullBase", "pathPrefix"], Json(null)));
 
-        if (htmlAttributes["once"] && _includedAssets.hasKey([__METHOD__, mypath])) {
+        if (htmlAttributes["once"] && _includedAssets.hasKey([
+                __METHOD__, mypath
+            ])) {
             return null;
         }
         htmlAttributes.removeKey("once");
-       _includedAssets[__METHOD__][mypath] = true;
+        _includedAssets[__METHOD__][mypath] = true;
 
         auto mytemplater = templater();
         if (htmlAttributes.getString("rel") == "import") {
             result = mytemplater.format("style", [
-                "attrs": mytemplater.formatAttributes(htmlAttributes, ["rel", "block"]),
-                "content": "@import url(" ~ url ~ ");",
-            ]);
+                    "attrs": mytemplater.formatAttributes(htmlAttributes, [
+                            "rel", "block"
+                        ]),
+                    "content": "@import url(" ~ url ~ ");",
+                ]);
         } else {
             result = mytemplater.format("css", [
-                "rel": htmlAttributes["rel"],
-                "url": url,
-                "attrs": mytemplater.formatAttributes(htmlAttributes, ["rel", "block"]),
-            ]);
+                    "rel": htmlAttributes["rel"],
+                    "url": url,
+                    "attrs": mytemplater.formatAttributes(htmlAttributes, [
+                            "rel", "block"
+                        ]),
+                ]);
         }
         if (htmlAttributes.isEmpty("block")) {
             return result;
@@ -352,11 +373,11 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes.hasKey("block")) {
             htmlAttributes.set("block", __FUNCTION__);
         }
-       _view.append(htmlAttributes.get("block"), result);
+        _view.append(htmlAttributes.get("block"), result);
 
         return null;
     }
-    
+
     /**
      * Returns one or many `<script>` tags depending on the number of scripts given.
      *
@@ -405,24 +426,30 @@ class DHtmlHelper : DHelper {
         htmlAttributes += mydefaults;
 
         if (url.isArray) {
-            string result = url.map!(i => "\n\t" ~ /* (string) */this.script(index, htmlAttributes)).join;
+            string result = url.map!(i => "\n\t" ~  /* (string) */ this.script(index, htmlAttributes))
+                .join;
             if (htmlAttributes.isEmpty("block")) {
                 return result ~ "\n";
             }
             return null;
         }
         url = _Url.script(url, htmlAttributes);
-        htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
+        htmlAttributes = array_diffinternalKey(htmlAttributes, [
+                "fullBase": Json(null),
+                "pathPrefix": Json(null)
+            ]);
 
         if (htmlAttributes["once"] && _includedAssets.hasKey([__METHOD__, url])) {
             return null;
         }
-       _includedAssets[__METHOD__][url] = true;
+        _includedAssets[__METHOD__][url] = true;
 
         result = this.formatTemplate("javascriptlink", [
-            "url": url,
-            "attrs": templater().formatAttributes(htmlAttributes, ["block", "once"]),
-        ]);
+                "url": url,
+                "attrs": templater().formatAttributes(htmlAttributes, [
+                        "block", "once"
+                    ]),
+            ]);
 
         if (htmlAttributes.isEmpty("block")) {
             return result;
@@ -431,11 +458,11 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes["block"] == true) {
             htmlAttributes.set("block", __FUNCTION__);
         }
-       _view.append(htmlAttributes["block"], result);
+        _view.append(htmlAttributes["block"], result);
 
         return null;
     }
-    
+
     /**
      * Wrap myscript in a script tag.
      *
@@ -445,12 +472,15 @@ class DHtmlHelper : DHelper {
      * custom block name.
      */
     string scriptBlock(string script, Json[string] htmlAttributes = null) {
-        htmlAttributes += ["block": Json(null), "nonce": _view.getRequest().getAttribute("cspScriptNonce")];
+        htmlAttributes += [
+            "block": Json(null),
+            "nonce": _view.getRequest().getAttribute("cspScriptNonce")
+        ];
 
         auto result = this.formatTemplate("javascriptblock", [
-            "attrs": templater().formatAttributes(htmlAttributes, ["block"]),
-            "content": myscript,
-        ]);
+                "attrs": templater().formatAttributes(htmlAttributes, ["block"]),
+                "content": myscript,
+            ]);
 
         if (isEmpty(htmlAttributes["block"])) {
             return result;
@@ -458,11 +488,11 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes["block"] == true) {
             htmlAttributes.set("block", "script");
         }
-       _view.append(htmlAttributes["block"], result);
+        _view.append(htmlAttributes["block"], result);
 
         return null;
     }
-    
+
     /**
      * Begin a script block that captures output until HtmlHelper.scriptEnd()
      * is called. This capturing block will capture all output between the methods
@@ -473,24 +503,24 @@ class DHtmlHelper : DHelper {
      * - `block` Set to true to append output to view block "script" or provide
      * custom block name.
      */
-    void scriptStart(Json[string] optionsForCodeblock  = null) {
-       _scriptBlockOptions = optionsForCodeblock;
+    void scriptStart(Json[string] optionsForCodeblock = null) {
+        _scriptBlockOptions = optionsForCodeblock;
         ob_start();
     }
-    
+
     /**
      * End a Buffered section of JavaScript capturing.
      * Generates a script tag inline or appends to specified view block depending on
      * the settings used when the scriptBlock was started
      */
     string scriptEnd() {
-        mybuffer = /* (string) */ob_get_clean();
+        mybuffer =  /* (string) */ ob_get_clean();
         options = _scriptBlockOptions;
-       _scriptBlockOptions = null;
+        _scriptBlockOptions = null;
 
         return _scriptBlock(mybuffer, options);
     }
-    
+
     /**
      * Builds CSS style data from an array of CSS properties
      *
@@ -506,10 +536,9 @@ class DHtmlHelper : DHelper {
     string style(Json[string] data, bool shouldOneLine = true) {
         string[] result = data.byKeyValue.map!(kv => kv.key ~ ": " ~ kv.value ~ ";").array;
         return shouldOneLine
-            ? result.join(" ")
-            : result.join("\n");
+            ? result.join(" ") : result.join("\n");
     }
-    
+
     /**
      * Creates a formatted IMG element.
      *
@@ -540,48 +569,44 @@ class DHtmlHelper : DHelper {
      */
     string image(string[] pathToImageFile, Json[string] htmlAttributes = null) {
         pathToImageFile = pathToImageFile.isString
-            ? _Url.image(pathToImageFile, htmlAttributes)
-            : _Url.build(pathToImageFile, htmlAttributes);
+            ? _Url.image(pathToImageFile, htmlAttributes) : _Url.build(pathToImageFile, htmlAttributes);
 
-        htmlAttributes = array_diffinternalKey(htmlAttributes, ["fullBase": Json(null), "pathPrefix": Json(null)]);
+        htmlAttributes = array_diffinternalKey(htmlAttributes, [
+                "fullBase": Json(null),
+                "pathPrefix": Json(null)
+            ]);
 
         if (!htmlAttributes.hasKey("alt")) {
             htmlAttributes.set("alt", "");
         }
-        
+
         auto url = false;
-        if (!htmlAttributes.isEmpty("url"))) {
+        if (!htmlAttributes.isEmpty("url")) {
             url = htmlAttributes["url"];
             htmlAttributes.removeKey("url");
         }
 
         auto mytemplater = templater();
-        auto myimage = mytemplater.format("image", [
-            "url": pathToImageFile,
-            "attrs": mytemplater.formatAttributes(htmlAttributes),
-        ]);
+        auto myimage = mytemplater.format("image", createMap!(string, Json)
+                .set("url", pathToImageFile)
+                .set("attrs", mytemplater.formatAttributes(htmlAttributes)));
 
         if (url) {
             return mytemplater.format("link", [
-                "url": _Url.build(url),
-                "attrs": Json(null),
-                "content": myimage,
-            ]);
+                    "url": _Url.build(url),
+                    "attrs": Json(null),
+                    "content": myimage,
+                ]);
         }
         return myimage;
     }
-    
-    /**
-     * Returns a row of formatted and named TABLE headers.
-     * Params:
-     * array views Array of tablenames. Each tablename can be string, or array with name and an array with a set
-     *   of attributes to its specific tag
-     */
+
+    // Returns a row of formatted and named TABLE headers.
     string tableHeaders(Json[string] tableNames, Json[string] trOptions = null, Json[string] thOptions = null) {
         string attributes = null;
         string result = null;
         foreach (tableName; tableNames) {
-            string content; 
+            string content;
             if (!tableName.isArray) {
                 content = tableName;
                 attributes = thOptions;
@@ -593,13 +618,13 @@ class DHtmlHelper : DHelper {
                 attributes = currentValue(tableName);
             }
             result ~= this.formatTemplate("tableheader", [
-                "attrs": templater().formatAttributes(attributes),
-                "content": content,
-            ]);
+                    "attrs": templater().formatAttributes(attributes),
+                    "content": content,
+                ]);
         }
         return _tableRow(result.join(" "), trOptions);
     }
-    
+
     // Returns a formatted string of table rows (TR"s with TD"s in them).
     string tableCells(
         string[] tableData,
@@ -607,7 +632,7 @@ class DHtmlHelper : DHelper {
         Json evenTrOptions = null,
         bool useCount = false,
         bool continueOddEven = true
-   ) {
+    ) {
         if (!tableData.isArray) {
             tableData = [[tableData]];
         } else if (tableData[0].isEmpty || !tableData[0].isArray) {
@@ -632,13 +657,13 @@ class DHtmlHelper : DHelper {
             mycellsOut = _renderCells(line, shouldUseCount);
             myopts = mycount % 2 ? oddTrOptions : evenTrOptions;
 
-            Json[string] htmlAttributes = (array)myopts;
+            Json[string] htmlAttributes =  /*  (array) */ myopts;
             result ~= this.tableRow(mycellsOut.join(" "), htmlAttributes);
         });
 
         return result.join("\n");
     }
-    
+
     /**
      * Renders cells for a row of a table.
      *
@@ -659,31 +684,30 @@ class DHtmlHelper : DHelper {
                 index += 1;
 
                 cellOptions.set("class", cellOptions.hasKey("class")
-                    ? cellOptions.getString("class") ~ " column-" ~ index
-                    : "column-" ~ index
+                    ? cellOptions.getString("class") ~ " column-" ~ index : "column-" ~ index
                 );
             }
-            mycellsOut ~= tableCell(/* (string) */cell, cellOptions);
+            mycellsOut ~= tableCell( /* (string) */ cell, cellOptions);
         });
         return mycellsOut;
     }
-    
+
     // Renders a single table row (A TR with attributes).
     string tableRow(string content, Json[string] htmlAttributes = null) {
         return _formatTemplate("tablerow", [
-            "attrs": templater().formatAttributes(htmlAttributes),
-            "content": content,
-        ]);
+                "attrs": templater().formatAttributes(htmlAttributes),
+                "content": content,
+            ]);
     }
-    
+
     // Renders a single table cell (A TD with attributes).
     string tableCell(string content, Json[string] htmlAttributes = null) {
         return _formatTemplate("tablecell", [
-            "attrs": templater().formatAttributes(htmlAttributes),
-            "content": content,
-        ]);
+                "attrs": templater().formatAttributes(htmlAttributes),
+                "content": content,
+            ]);
     }
-    
+
     /**
      * Returns a formatted block tag, i.e DIV, SPAN, P.
      *
@@ -698,12 +722,12 @@ class DHtmlHelper : DHelper {
 
         auto tag = content.isNull ? "tagstart" : "tag";
         return _formatTemplate(tag, [
-            "attrs": templater().formatAttributes(htmlAttributes),
-            "tag": tagName,
-            "content": content,
-        ]);
+                "attrs": templater().formatAttributes(htmlAttributes),
+                "tag": tagName,
+                "content": content,
+            ]);
     }
-    
+
     /**
      * Returns a formatted DIV tag for HTML FORMs.
      *
@@ -717,7 +741,7 @@ class DHtmlHelper : DHelper {
         }
         return _tag("div", content, htmlAttributes);
     }
-    
+
     /**
      * Returns a formatted P tag.
      *
@@ -732,17 +756,17 @@ class DHtmlHelper : DHelper {
         if (cssClass) {
             htmlAttributes.set("class", cssClass);
         }
-        
+
         auto tag = "para";
         if (content.isNull) {
             tag = "parastart";
         }
         return _formatTemplate(tag, [
-            "attrs": templater().formatAttributes(htmlAttributes),
-            "content": content,
-        ]);
+                "attrs": templater().formatAttributes(htmlAttributes),
+                "content": content,
+            ]);
     }
-    
+
     /**
      * Returns an audio/video element
      *
@@ -808,13 +832,12 @@ class DHtmlHelper : DHelper {
             "text": "",
         ]);
 
-        auto mytag = !htmlAttributes.isEmpty("tag") 
-            ? htmlAttributes["tag"]
-            : null;
+        auto mytag = !htmlAttributes.isEmpty("tag")
+            ? htmlAttributes["tag"] : null;
 
         if (pathToImageFile.isArray) {
             auto mysourceTags = "";
-            foreach (&mysource; pathToImageFile) {
+            foreach (mysource; pathToImageFile) {
                 if (isString(mysource)) {
                     mysource = [
                         "src": mysource,
@@ -826,15 +849,15 @@ class DHtmlHelper : DHelper {
                 }
                 mysource["src"] = _Url.assetUrl(mysource["src"], htmlAttributes);
                 mysourceTags ~= this.formatTemplate("tagselfclosing", [
-                    "tag": "source",
-                    "attrs": templater().formatAttributes(mysource),
-                ]);
+                        "tag": "source",
+                        "attrs": templater().formatAttributes(mysource),
+                    ]);
             }
             removeKey(mysource);
             htmlAttributes["text"] = mysourceTags ~ htmlAttributes["text"];
             removeKey(htmlAttributes["fullBase"]);
         } else {
-            if (isEmpty(pathToImageFile) && !htmlAttributes.isEmpty("src"))) {
+            if (isEmpty(pathToImageFile) && !htmlAttributes.isEmpty("src")) {
                 pathToImageFile = htmlAttributes["src"];
             }
             /** @psalm-suppress PossiblyNullArgument */
@@ -844,32 +867,34 @@ class DHtmlHelper : DHelper {
             if (pathToImageFile.isArray) {
                 mymimeType = pathToImageFile[0]["type"];
             } else {
-                mymimeType = _view.getResponse().getMimeType(pathinfo(pathToImageFile, PATHINFO_EXTENSION));
+                mymimeType = _view.getResponse()
+                    .getMimeType(pathinfo(pathToImageFile, PATHINFO_EXTENSION));
                 assert(isString(mymimeType));
             }
 
             mytag = mymimeType.startsWith("video/")
-                ? "video"
-                : "audio";
-            }
+                ? "video" : "audio";
         }
-        if (htmlAttributes.hasKey("poster")) {
-            htmlAttributes["poster"] = _Url.assetUrl(
-                htmlAttributes["poster"],
-                ["pathPrefix": configuration.get("App.imageBaseUrl")] + htmlAttributes
-           );
-        }
-        content = htmlAttributes["text"];
-        htmlAttributes = array_diffinternalKey(htmlAttributes, [
+
+        /* if (htmlAttributes.hasKey("poster")) {
+        htmlAttributes["poster"] = _Url.assetUrl(
+            htmlAttributes["poster"],
+            ["pathPrefix": configuration.get("App.imageBaseUrl")] + htmlAttributes
+        );
+    } */
+
+        /* auto content = htmlAttributes["text"];
+    auto htmlAttributes = array_diffinternalKey(htmlAttributes, [
             "tag": Json(null),
             "fullBase": Json(null),
             "pathPrefix": Json(null),
             "text": Json(null),
         ]);
 
-        return _tag(mytag, content, htmlAttributes);
+    return _tag(mytag, content, htmlAttributes); */
+        return null;
     }
-    
+
     /**
      * Build a nested list (UL/OL) out of an associative array.
      *
@@ -884,16 +909,18 @@ class DHtmlHelper : DHelper {
      * Params:
      * array mylist Set of elements to list
      */
-    string|int|false nestedList(Json[string] mylist, Json[string] listAttributes = null, Json[string] liAttributes= null) {
-        listAttributes += ["tag": "ul"];
-        myitems = _nestedListItem(mylist, listAttributes, liAttributes);
+    string nestedList(Json[string] mylist, Json[string] listAttributes = null, Json[string] liAttributes = null) {
+        /* listAttributes += ["tag": "ul"];
+    myitems = _nestedListItem(mylist, listAttributes, liAttributes);
 
-        return _formatTemplate(listAttributes["tag"], [
-            "attrs": templater().formatAttributes(listAttributes, ["tag"]),
+    return _formatTemplate(listAttributes["tag"], [
+            "attrs": templater()
+            .formatAttributes(listAttributes, ["tag"]),
             "content": myitems,
-        ]);
+        ]); */
+        return null;
     }
-    
+
     /**
      * Internal auto to build a nested list (UL/OL) out of an associative array.
      * Params:
@@ -913,18 +940,20 @@ class DHtmlHelper : DHelper {
                 liAttributes.set("class", liAttributes["odd"]);
             }
             result ~= this.formatTemplate("li", [
-                "attrs": templater().formatAttributes(liAttributes, ["even", "odd"]),
-                "content": myitem,
-            ]);
+                    "attrs": templater().formatAttributes(liAttributes, [
+                            "even", "odd"
+                        ]),
+                    "content": myitem,
+                ]);
             myindex++;
         }
         return result;
     }
-    
+
     /**
      * Event listeners.
      */
     IEvent[] implementedEvents() {
         return null;
-    } 
+    }
 }

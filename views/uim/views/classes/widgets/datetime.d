@@ -154,7 +154,7 @@ class DDateTimeWidget : DWidget {
                 && isNumeric(options.get("step"))
                 && options.getLong("step") < 1
            ) {
-                myformat = "Y-m-d\TH:i:s.v";
+                myformat = "Y-m-d\\TH:i:s.v";
             }
         }
         return mydateTime.format(myformat);

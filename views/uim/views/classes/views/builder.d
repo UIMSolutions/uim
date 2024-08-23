@@ -353,7 +353,7 @@ class DViewBuilder { // }: DJsonSerializable {
     }
     
     // Iterates through hash to clean up and normalize.
-    protected void _checkViewVars(Json &myitem, string key) {
+    protected void _checkViewVars(Json myitem, string key) {
         /* if (cast(Exception)myitem) {
             myitem = to!string(myitem);
         } */

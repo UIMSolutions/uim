@@ -399,28 +399,30 @@ static string contentType() {
      */
     string element(string templatefilename, Json[string] data = null, Json[string] options  = null) {
         options
-            .merge("callbacks", false.toJson)
+            .merge("callbacks", false)
             .merge("cache", Json(null))
             .merge("plugin", Json(null))
-            .merge("ignoreMissing", false.toJson);
+            .merge("ignoreMissing", false);
 
         if (options.hasKey("cache")) {
             options.set("cache", _elementCache(
                 templatefilename,
                 data,
-                array_diffinternalKey(options, ["callbacks": false.toJson, "plugin": Json(null), "ignoreMissing": Json(null)])
-           ));
+                array_diffinternalKey(options, createMap!(string, Json)
+                    .set("callbacks", false)
+                    .set("plugin", Json(null))
+                    .set("ignoreMissing", Json(null)))));
         }
 
         bool _pluginCheck = options.get("plugin") == true;
         auto filepath = _getElementFileName(templatefilename, _pluginCheck);
         if (!filepath.isEmpty && options.hasKey("cache")) {
-            /* return _cache(void () use (filepath, mydata, options) {
-                writeln(_renderElement(filepath, mydata, options));
+            /* return _cache(void () use (filepath, data, options) {
+                writeln(_renderElement(filepath, data, options));
             }, options.get("cache")); */
         }
         if (filepath) {
-            return _renderElement(filepath, mydata, options);
+            return _renderElement(filepath, data, options);
         }
         if (options.hasKey("ignoreMissing")) {
             return null;
@@ -480,7 +482,7 @@ static string contentType() {
      * is not found in the plugin, the normal view path cascade will be searched.
      */
     bool elementhasKey(string templatefilename) {
-        return (bool)_getElementFileName(templatefilename);
+        return /* (bool) */_getElementFileName(templatefilename);
     }
     
     /**
@@ -519,7 +521,7 @@ static string contentType() {
         if (_autoLayout) {
             if (_layout.isEmpty) {
                 throw new DException(
-                    "View.layoutName must be a non-empty string." .
+                    "View.layoutName must be a non-empty string." ~
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."
                );
             }
@@ -708,17 +710,17 @@ static string contentType() {
 
 
     // Magic accessor for helpers.
-    Helper __get(string attributeName) {
+    /* Helper __get(string attributeName) {
         return _helpers().{attributeName};
-    }
+    } */
 
     // Interact with the HelperRegistry to load all the helpers.
-    auto loadHelpers() {
+    /* auto loadHelpers() {
         foreach (views, configData; _helpers) {
             _loadHelper(views, configData);
         }
         return this;
-    }
+    } */
 
     /**
      * Renders and returns output for given template filename with its
@@ -925,7 +927,7 @@ static string contentType() {
         if (views.isNull) {
             if (_layout.isEmpty) {
                 throw new DException(
-                    "View.mylayout must be a non-empty string." .
+                    "View.mylayout must be a non-empty string." ~
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."
                );
             }
@@ -954,7 +956,7 @@ static string contentType() {
 
         foreach (path; _paths(pluginName)) {
             foreach (mylayoutPath; mylayoutPaths) {
-                yield path ~ mylayoutPath;
+                /* yield path ~ mylayoutPath; */
             }
         }
     }

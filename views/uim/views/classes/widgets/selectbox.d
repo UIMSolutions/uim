@@ -130,7 +130,7 @@ class DSelectBoxWidget : DWidget {
       options = iterator_to_array(options);
     }
     if (!renderData.isEmpty("empty")) {
-      options = _emptyValue(renderData["empty"]) + (array) options;
+      options = _emptyValue(renderData["empty"]) + /* (array) */ options;
     }
     if (options.isEmpty) {
       return null;
@@ -139,11 +139,11 @@ class DSelectBoxWidget : DWidget {
     Json selectedValues = renderData.get("val", null);
     Json disabledOptions = null;
     if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
-      disabledOptions = renderData.get("disabled", null)];
+      disabledOptions = renderData.get("disabled", null);
     }
-    auto templateVariables = renderData["templateVars"];
+    auto templateVariables = renderData.get("templateVars");
 
-    return _renderOptions(options, disabledOptions, selectedValues, templateVariables, renderData["escape"]);
+    return _renderOptions(options, disabledOptions, selectedValues, templateVariables, renderData.get("escape"));
   }
 
   // Generate the empty value based on the input.

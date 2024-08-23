@@ -54,13 +54,13 @@ class DSchemacacheClearCommand : DCommand {
         "Clear all metadata caches for the connection. If a table name is provided, only that table will be removed."
       );
 
-      addOption("connection", createMap!(string, Json)()
+      addOption("connection", createMap!(string, Json)
           .set("help", "The connection to build/clear metadata cache data for.")
           .set("short", "c")
           .set("default", "default")
       );
 
-      addArgument("name", createMap!(string, Json)()
+      addArgument("name", createMap!(string, Json)
           .set("help", "A specific table you want to clear cached data for.")
           .set("required", false)
       );

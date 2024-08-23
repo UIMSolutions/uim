@@ -34,7 +34,7 @@ class DSerializedView : DView {
     abstract protected string _serialize(string[] serializeView);
 
     // Render view template or return serialized data.
-    string render(string templateText = null, string renderLayout = null) {
+    /* string render(string templateText = null, string renderLayout = null) {
         bool shouldSerialize = configuration.data.hasKey("serialize", false);
 
         if (shouldSerialize) {
@@ -43,7 +43,7 @@ class DSerializedView : DView {
                     return "_" ~ myv;
                 },
                 _defaultConfigData.keys
-           ); */
+           ); * /
 
             shouldSerialize = _viewVars.keys.diff(options);
         }
@@ -51,7 +51,7 @@ class DSerializedView : DView {
         if (shouldSerialize) {
             try {
                 return _serialize(shouldSerialize);
-            } catch (Exception /* TypeError */ exception) {
+            } catch (Exception /* TypeError * / exception) {
                 throw new DSerializationFailureException(
                     "Serialization of View data failed.",
                     null,
@@ -61,5 +61,5 @@ class DSerializedView : DView {
         }
 
         return super.render(templateText, false);
-    }
+    } */
 }

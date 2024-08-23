@@ -92,7 +92,7 @@ class DDateTimeWidget : DWidget {
     }
     
     // Set value for "step" attribute if applicable.
-    protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {
+    override protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {
         if (hasKey("step", data)) {
             return data;
         }

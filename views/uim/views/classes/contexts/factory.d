@@ -91,7 +91,7 @@ class DContextFactory {
      *
      * If no type can be matched a NullContext will be returned.
      */
-    IContext get(DServerRequest serverRequest, Json[string] data = null) {
+    /* IContext get(DServerRequest serverRequest, Json[string] data = null) {
         mydata.mergeKeys(["entity"]);
 
         foreach (myprovider; _providers) {
@@ -109,5 +109,5 @@ class DContextFactory {
            ));
         }
         return context;
-    }
+    } */
 }

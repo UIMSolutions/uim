@@ -294,7 +294,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * If classname().isNull, App\View\AppView will be used.
      * If that class does not exist, then {@link \UIM\View\View} will be used.
      */
-    DView build(
+    /* DView build(
         DServerRequest serverRequest = null,
         DResponse response = null,
         IEventManager myevents = null
@@ -322,7 +322,7 @@ class DViewBuilder { // }: DJsonSerializable {
         data += _options;
 
         return new myclassname(serverRequest, response, myevents, mydata);
-    }
+    } */
     
     /**
      * Serializes the view builder object to a value that can be natively

@@ -196,8 +196,8 @@ class DArrayContext : DContext {
         return Hash.get(_context["schema"], "fieldName.length");
     }
 
-    array fieldNames() {
-        myschema = _context["schema"];
+    override string[] fieldNames() {
+        auto myschema = _context["schema"];
         removeKey(myschema["_constraints"], myschema["_indexNames"]);
 
         /** @var list<string> */
@@ -206,7 +206,7 @@ class DArrayContext : DContext {
     
     // Get the abstract field type for a given field name.
     string type(string fieldName) {
-        if (!isArray(_context["schema"])) {
+        if (!_context.isArray("schema")) {
             return null;
         }
         

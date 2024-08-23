@@ -488,11 +488,11 @@ class DEntityContext : DContext {
     }
     
     //  Get the table instance from a property path
-    protected ITable _getTable(string pathParts, bool isFallback = true) {
+    /* protected ITable _getTable(string pathParts, bool isFallback = true) {
         return _tables[_rootName];
     }
 
-    protected ITable _getTable(/* IEntity| */string[] pathParts, bool isFallback = true) {
+    protected ITable _getTable(/* IEntity| * /string[] pathParts, bool isFallback = true) {
         if (count(pathParts) == 1) {
             return _tables[_rootName];
         }
@@ -527,7 +527,7 @@ class DEntityContext : DContext {
             mytable = myassoc.getTarget();
         }
         return _tables[mypath] = mytable;
-    }
+    } */
     
     /**
      * Get the abstract field type for a given field name.

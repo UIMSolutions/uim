@@ -232,12 +232,11 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
 
     // Get the printable version of a Form instance.
     Json[string] debugInfo() {
-        auto special = [
-            "_schema": getSchema().__debugInfo(),
-            "_errors": getErrors(),
-            "_validator": getValidator().__debugInfo(),
-        ];
+        return createMap!(string, Json)
+            .set("_schema", getSchema().__debugInfo())
+            .set("_errors", getErrors())
+            .set("_validator", getValidator().__debugInfo());
 
-        return special + get_object_vars(this);
+        // return special + get_object_vars(this);
     }
 }

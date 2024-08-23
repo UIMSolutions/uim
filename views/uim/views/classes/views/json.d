@@ -101,7 +101,7 @@ class DJsonView : DSerializedView {
         return result;
     }
 
-    protected string _serialize(string[] myserialize) {
+    override protected string _serialize(string[] myserialize) {
         auto mydata = _dataToSerialize(myserialize);
         auto dataOptions = configuration.get("JsonOptions",
             Json_HEX_TAG | Json_HEX_APOS | Json_HEX_AMP | Json_HEX_QUOT | Json_PARTIAL_OUTPUT_ON_ERROR);

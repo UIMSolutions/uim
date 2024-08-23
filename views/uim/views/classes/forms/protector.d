@@ -428,17 +428,16 @@ unlockedFields = chain(_unlockedFields, unlocked).unique;
         return missingMessage.format(join(", ", expectedFieldNames));
     }
 
-    protected string debugExpectedField(aKey, expectedField) {
+/*     protected string debugExpectedField(aKey, expectedField) {
         return isInteger(aKey)
             ? expectedField : aKey;
-    }
+    } */
 
     // Return debug info
     Json[string] debugInfo() {
-        return [
-            "fields": this.fields,
-            "unlockedFields": _unlockedFields,
-            "debugMessage": this.debugMessage,
-        ];
+        return createMap!(string, Json)
+            .set("fields", this.fields)
+            .set("unlockedFields", _unlockedFields)
+            .set("debugMessage", this.debugMessage);
     }
 }

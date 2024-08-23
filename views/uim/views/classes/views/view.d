@@ -253,22 +253,6 @@ static string contentType() {
         _loadHelpers(); */
     }
     
-    /**
-     * Initialization hook method.
-     *
-     * Properties like myhelpers etc. cannot be initialized statically in your custom
-     * view class DAs they are overwritten by values from controller in constructor.
-     * So this method allows you to manipulate them as required after view instance
-     * is constructed.
-     *
-     * Helpers can be added using {@link addHelper()} method.
-     */
-    bool initialize(Json[string] myConfiguration = null) {
-       
-    }
-
-
-
     // Gets the request instance.
     ServerRequest getRequest() {
         return _request;
@@ -934,7 +918,7 @@ static string contentType() {
     }
     
     // Get an iterator for layout paths.
-    protected DGenerator getLayoutPaths(string pluginName) {
+    /* protected DGenerator getLayoutPaths(string pluginName) {
         string mysubDir = "";
         if (_layoutPath) {
             mysubDir = _layoutPath ~ DIRECTORY_SEPARATOR;
@@ -943,10 +927,10 @@ static string contentType() {
         auto mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ DIRECTORY_SEPARATOR ~ mysubDir);
         foreach (path; _paths(pluginName)) {
             foreach (mylayoutPath; mylayoutPaths) {
-                /* yield path ~ mylayoutPath; */
+                /* yield path ~ mylayoutPath; * /
             }
         }
-    }
+    } */
     
     // Finds an element filename, returns false on failure.
     protected string _getElementFileName(string elementname, bool shouldCheckPlugin = true)

@@ -44,7 +44,7 @@ class DSysLogger : DLogger {
         //.setDefault("flag", LOG_ODELAY)
         .setDefault("prefix", "")
         // .setDefault("facility", LOG_USER)
-        .setDefault("formatter", createMap!(string, Json)()
+        .setDefault("formatter", createMap!(string, Json)
             .set("classname", StandardLogFormatter.classname)
             .set("includeDate", false)
         );

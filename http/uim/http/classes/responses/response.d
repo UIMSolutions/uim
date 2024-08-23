@@ -1217,7 +1217,7 @@ class DResponse : IResponse {
     
     // Returns an array that can be used to describe the internal state of this object.
     Json[string] debugInfo() {
-        return createMap!(string, Json)()
+        return createMap!(string, Json)
             .set("status", _status)
             .set("contentType", getType())
             .set("headers", _headers)

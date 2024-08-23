@@ -49,7 +49,7 @@ class DTextareaWidget : DWidget {
             ) {
             mydata = setMaxLength(mydata, formContext, mydata.getString("fieldName"));
         }
-        return _stringContents.format("textarea", createMap!(string, Json)()
+        return _stringContents.format("textarea", createMap!(string, Json)
                 .set("name", mydata.getString)
                 .set("value", mydata.hasKey("escape")
                     ? htmlAttributeEscape(mydata["val"]) 

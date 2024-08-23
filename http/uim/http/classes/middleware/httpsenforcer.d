@@ -23,7 +23,7 @@ class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
      *      - 'includeSubDomains' - Whether to include `includeSubDomains` directive. Defaults to `false`.
      *      - 'preload' - Whether to include 'preload' directive. Defauls to `false`.
      */
-    protected Json[string] configData = createMap!(string, Json)()
+    protected Json[string] configData = createMap!(string, Json)
         .set("redirect", true)
         .set("statusCode", Json(301))
         .set("headers", Json.emptyArray)

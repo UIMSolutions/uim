@@ -326,11 +326,11 @@ class DFormHelper : DHelper {
         if (!myappend.isEmpty) {
             myappend = mytemplater.format("hiddenBlock", ["content": myappend]);
         }
-        myactionAttr = mytemplater.formatAttributes(createMap!(string, Json)()
+        myactionAttr = mytemplater.formatAttributes(createMap!(string, Json)
             .set("action", myaction)
             .set("escape", false));
 
-        return _formatTemplate("formStart", createMap!(string, Json)()
+        return _formatTemplate("formStart", createMap!(string, Json)
             .set("attrs", mytemplater.formatAttributes(myhtmlAttributes) ~ myactionAttr)
             .set("templateVars", options.getArray("templateVars"))) ~ myappend;
     }
@@ -555,7 +555,7 @@ class DFormHelper : DHelper {
                 myerror = myerror.pop();
             }
         }
-        return _formatTemplate("error", createMap!(string, Json)()
+        return _formatTemplate("error", createMap!(string, Json)
             .set("content", myerror)
             .set("id", _domId(fieldName) ~ "-error"));
     }
@@ -1112,7 +1112,7 @@ class DFormHelper : DHelper {
      * used instead of the generated values if present.
      */
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
-        Json[string] auto options = createMap!(string, Json)()
+        Json[string] auto options = createMap!(string, Json)
             .set("id", Json(null))
             .set("input", Json(null))
             .set("nestedInput", false)
@@ -1171,7 +1171,7 @@ class DFormHelper : DHelper {
 
         string outputText = "";
         if (options.hasKey("hiddenField") && isScalar(options.get("hiddenField"))) {
-            myhiddenOptions = createMap!(string, Json)()
+            myhiddenOptions = createMap!(string, Json)
                 .set("name", options.getString)
                 .set("value", options.getString("hiddenField") != "_split"
                     ? options.getString("hiddenField") : "0")
@@ -1445,11 +1445,11 @@ class DFormHelper : DHelper {
         auto myrestoreFormProtector = _formProtector;
 
         auto myaction = mytemplater.formatAttributes(
-            createMap!(string, Json)()
+            createMap!(string, Json)
             .set("action", _url.build(myurl))
             .set("escape", false));
 
-        auto result = formatTemplate("formStart", createMap!(string, Json)()
+        auto result = formatTemplate("formStart", createMap!(string, Json)
             .set("attrs", mytemplater.formatAttributes(myformOptions) ~ myaction));
         result ~= hidden("_method", [
             "value": myrequestMethod,
@@ -1566,12 +1566,12 @@ class DFormHelper : DHelper {
             options.set("value", caption);
         }
         
-        auto myinput = formatTemplate("inputSubmit", createMap!(string, Json)()
+        auto myinput = formatTemplate("inputSubmit", createMap!(string, Json)
             .set("type", mytype)
             .set("attrs", this.templater().formatAttributes(options))
             .set("templateVars", options.get("templateVars")));
 
-        return _formatTemplate("submitContainer", createMap!(string, Json)()
+        return _formatTemplate("submitContainer", createMap!(string, Json)
             .set("content", myinput)
             .set("templateVars", options.get("templateVars")));
     }
@@ -1840,7 +1840,7 @@ class DFormHelper : DHelper {
             options.removeKey("value");
         }
         if (!options.hasKey("val")) {
-            myvalOptions = createMap!(string, Json)()
+            myvalOptions = createMap!(string, Json)
                 .set("default", options.get("default"))
                 .set("schemaDefault", options.get("schemaDefault", true));
 

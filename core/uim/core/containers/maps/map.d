@@ -409,13 +409,18 @@ V[K] removeKey(K, V)(V[K] items, K key) {
 
 unittest {
   assert(["a": "A", "b": "B", "c": "C"].length == 3);
-  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
-  assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b").length == 1);
-  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
 
-  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
+  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
+  assert(["a": "A", "b": "B", "c": "C"].removeKey("a").length == 2);
+  assert(["a": "A", "b": "B", "c": "C"].removeKey("x").length == 3);
+  assert(["a": "A", "b": "B", "c": "C"].removeKey("a")["b"] == "B");
+  assert(["a": "A", "b": "B", "c": "C"].removeKey("a").removeKey("a").length == 2);
+  assert(["a": "A", "b": "B", "c": "C"].removeKey("a").removeKey("b").length == 1);
+
+  assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a").length == 2);
+  assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b").length == 1);
+  assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "c", "b").length == 0);
   assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b")["c"] == "C");
-  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
 }
 // #endregion remove
 

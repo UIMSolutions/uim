@@ -18,12 +18,12 @@ class DSelectBoxWidget : DWidget {
       return false;
     }
 
-    configuration
+    /* configuration
       .setDefault("name", "")
       .setDefault("empty", false)
       .setDefault("escape", true)
       .setDefaults(["disabled", "val"], Json(null))
-      .setDefaults(["options", "templateVars"], Json.emptyArray);
+      .setDefaults(["options", "templateVars"], Json.emptyArray); */
 
     return true;
   }
@@ -197,7 +197,7 @@ class DSelectBoxWidget : DWidget {
     Json[string] templateVariables,
     bool isEscapeHTML
   ) {
-    auto result = null;
+    /* auto result = null;
     options.byKeyValue
       .each!((kv) {
         // Option groups
@@ -208,8 +208,8 @@ class DSelectBoxWidget : DWidget {
         (myval.hasKey("options") || !myval.hasKey("value"))
         )
           ) {
-          /** @var \ArrayAccess<string, mixed>|Json[string] myval */
-          result ~= _renderOptgroup( /* (string) */ kv.key, kv.value, disabledOptions, selectedValues, templateVariables, isEscapeHTML);
+          /** @var \ArrayAccess<string, mixed>|Json[string] myval * /
+          result ~= _renderOptgroup( /* (string) * / kv.key, kv.value, disabledOptions, selectedValues, templateVariables, isEscapeHTML);
           continue;
         }
         // Basic options
@@ -219,7 +219,7 @@ class DSelectBoxWidget : DWidget {
           "templateVars": Json.emptyArray,
         ];
         if (isArray(kv.value) && kv.value.hasAllKeys("text", "value")) {
-          /** @var Json[string] myoptAttrs */
+          /** @var Json[string] myoptAttrs * /
           myoptAttrs = kv.value;
           kv.key = myoptAttrs["value"];
         }
@@ -242,7 +242,8 @@ class DSelectBoxWidget : DWidget {
               "text", "value"
             ])));
       });
-    return result;
+    return result; */
+    return null;
   }
 
   // Helper method for deciding what options are selected.

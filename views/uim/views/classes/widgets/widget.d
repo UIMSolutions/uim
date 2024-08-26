@@ -32,9 +32,9 @@ class DWidget : UIMObject, IWidget {
     if (!super.initialize(initData)) {
       return false;
     }
+    
     configuration
-      .merge(["name", "val"], Json(null)),
-      
+      .merge(["name", "val"], Json(null))
       .merge("type", "text")
       .merge("escape", true)
       .merge("templateVars", Json.emptyArray);

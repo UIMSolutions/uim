@@ -39,11 +39,11 @@ class DBreadcrumbsHelper : DHelper {
      * Url.build() or null / empty if the crumb does not have a link.
      */
     void add(string[] title, string[] myurl = null, Json[string] options = null) {
-        if (title.isArray) {
+        /* if (title.isArray) {
             title.each!(crumb => _crumbs ~= crumb ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
             return;
         }
-        _crumbs = _crumbs.set(compact("title", "url", "options"));
+        _crumbs = _crumbs.set(compact("title", "url", "options")); */
     }
     
     /**

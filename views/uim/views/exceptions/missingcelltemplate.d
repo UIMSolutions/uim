@@ -40,6 +40,7 @@ class DMissingTCellException : DMissingTemplateException {
             .setPath([
                 "name": Json(name)
             ]); */
+        return null;
     }
 }
     mixin(ExceptionCalls!("MissingTCell"));

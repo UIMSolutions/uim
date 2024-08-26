@@ -48,10 +48,10 @@ class DMissingTemplateException : DViewException {
   override void attributes(Json[string] newAttributes) {
     _attributes = newAttributes;
   }
+  
   override Json[string] attributes() {
-    return super.attributes().setPath([
-      "file": Json(fileName),
-      "paths": Json(paths.map!(path => Json(path)).array),
-    ]);
+    return super.attributes()
+      .set("file", Json(fileName))
+      .set("paths", Json(paths.map!(path => Json(path)).array));
   }
 }

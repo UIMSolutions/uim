@@ -196,11 +196,12 @@ class DFormHelper : DHelper {
 
     // Set the context factory the helper will use.
     DContextFactory contextFactory(DContextFactory factory = null, Json[string] contexts = null) {
-        if (factory.isNull) {
+        /* if (factory.isNull) {
             return _contextFactory ? _contextFactory : DContextFactory.createWithDefaults(contexts);
         }
         _contextFactory = factory;
-        return _contextFactory;
+        return _contextFactory; */
+        return null;
     }
 
     /**
@@ -225,7 +226,7 @@ class DFormHelper : DHelper {
      * - `templateVars` Provide template variables for the formStart template.
      */
     string create(Json formContext = null, Json[string] options = null) {
-        string myappend = "";
+        /* string myappend = "";
 
         if (cast(IContext) formContext) {
             context(formContext);
@@ -327,11 +328,13 @@ class DFormHelper : DHelper {
         return _formatTemplate("formStart", createMap!(string, Json)
                 .set("attrs", mytemplater.formatAttributes(myhtmlAttributes) ~ myactionAttr)
                 .set("templateVars", options.getArray("templateVars"))) ~ myappend;
+     */
+     return null;
     }
 
     // Create the URL for a form based on the options.
     protected string[] _formUrl(IContext formContext, Json[string] options = null) {
-        auto request = _view.getRequest();
+        /* auto request = _view.getRequest();
 
         if (options.isNull("url")) {
             return request.getRequestTarget();
@@ -346,14 +349,15 @@ class DFormHelper : DHelper {
         return options.get("url")
             .merge("plugin", _view.pluginName)
             .merge("controller", request.getParam("controller"))
-            .merge("action", request.getParam("action"));
+            .merge("action", request.getParam("action")); */
+        return null;
     }
 
     // Correctly store the last created form action URL.
     protected void lastAction(string[] myurl = null) {
-        auto myaction = Router.url(myurl, true);
+        /* auto myaction = Router.url(myurl, true);
         auto myquery = parse_url(myaction, D_URL_QUERY);
-        myquery = myquery ? "?" ~ myquery : "";
+        myquery = myquery ? "?" ~ myquery : ""; */
 
         /* auto mypath = parse_url(myaction, D_URL_PATH) ?: "";
        _lastAction = mypath ~ myquery; */
@@ -364,14 +368,15 @@ class DFormHelper : DHelper {
      * Used to secure forms in conjunction with CsrfMiddleware.
      */
     protected string _csrfField() {
-        auto request = _view.getRequest();
+        /* auto request = _view.getRequest();
         auto csrfToken = request.getAttribute("csrfToken");
         if (!csrfToken) {
             return null;
         }
         return _hidden("_csrfToken", createMap!(string, Json)
                 .set("value", csrfToken)
-                .set("secure", SECURE_SKIP));
+                .set("secure", SECURE_SKIP)); */
+        return null;
     }
 
     /**
@@ -384,7 +389,7 @@ class DFormHelper : DHelper {
      * into the hidden input elements generated for the Security Component.
      */
     string end(Json[string] secureAttributes = null) {
-        string result = "";
+        /* string result = "";
 
         if (_requestType != "get" && !_view.getRequest().getAttribute("formTokenData").isNull) {
             result ~= this.secure([], secureAttributes);
@@ -398,7 +403,8 @@ class DFormHelper : DHelper {
         _idPrefix = configurationData.hasKey("idPrefix");
         _formProtector = null;
 
-        return result;
+        return result; */
+        return null;
     }
 
     /**
@@ -446,7 +452,8 @@ class DFormHelper : DHelper {
             result ~= hidden("_Token.debug", mytokenDebug); */
         }
         /* return _formatTemplate("hiddenBlock", ["content": result]); */
-        return string;
+        // return string;
+        return null;
     }
 
     /**
@@ -454,7 +461,8 @@ class DFormHelper : DHelper {
      * Must be the same as in FormProtectionComponent
      */
     protected string _getFormProtectorSessionId() {
-        return _view.getRequest().getSession().id();
+        // return _view.getRequest().getSession().id();
+        return null;
     }
 
     /**
@@ -466,27 +474,25 @@ class DFormHelper : DHelper {
         getFormProtector().unlockField(fieldName);
     }
 
-    /**
-     * Create FormProtector instance.
-     * Params:
-     * Json[string] myformTokenData Token data.
-     */
+    // Create FormProtector instance.
     protected DFormProtector createFormProtector(Json[string] tokenData) {
-        auto mysession = _view.getRequest().getSession();
+        /* auto mysession = _view.getRequest().getSession();
         mysession.start();
 
-        return new DFormProtector(tokenData);
+        return new DFormProtector(tokenData); */
+        return null;
     }
 
     // Get form protector instance.
     DFormProtector getFormProtector() {
-        if (_formProtector.isNull) {
+        /* if (_formProtector.isNull) {
             throw new DException(
                 "`FormProtector` instance has not been created. Ensure you have loaded the `FormProtectionComponent`" ~
                     " in your controller and called `FormHelper.create()` before calling `FormHelper.unlockField()`."
             );
         }
-        return _formProtector;
+        return _formProtector; */
+        return null;
     }
 
     // Returns true if there is an error for the given field, otherwise false
@@ -507,7 +513,7 @@ class DFormHelper : DHelper {
      * string fieldName A field name, like "modelname.fieldname"
      */
     string error(string fieldName, string[] text = null, Json[string] options = null) {
-        if (fieldName.endsWith("._ids")) {
+        /* if (fieldName.endsWith("._ids")) {
             fieldName = subString(fieldName, 0, -5);
         }
         options.merge("escape", true);
@@ -552,7 +558,8 @@ class DFormHelper : DHelper {
         }
         return _formatTemplate("error", createMap!(string, Json)
                 .set("content", myerror)
-                .set("id", _domId(fieldName) ~ "-error"));
+                .set("id", _domId(fieldName) ~ "-error")); */
+        return null;
     }
 
     /**
@@ -605,7 +612,7 @@ class DFormHelper : DHelper {
      * If you want to nest inputs in the labels, you will need to modify the default templates.
      */
     string label(string fieldName, string text = null, Json[string] htmlAttributes = null) {
-        if (text.isNull) {
+        /* if (text.isNull) {
             text = fieldName;
             if (text.endsWith("._ids")) {
                 text = subString(text, 0, -5);
@@ -635,7 +642,8 @@ class DFormHelper : DHelper {
             }
             return _widget("nestingLabel", attributes);
         }
-        return _widget("label", attributes);
+        return _widget("label", attributes); */
+        return null;
     }
 
     /**
@@ -661,11 +669,12 @@ class DFormHelper : DHelper {
      * generated. This array allows you to set custom types, labels, or other options.
      */
     string allControls(Json[string] fieldNames = null, Json[string] options = null) {
-        auto mycontext = _getContext();
+        /* auto mycontext = _getContext();
         auto mymodelFields = mycontext.fieldNames();
         auto fieldNames = array_merge(mymodelFields, fieldNames);
 
-        return _controls(fieldNames, options);
+        return _controls(fieldNames, options); */
+        return null;
     }
 
     /**
@@ -683,14 +692,15 @@ class DFormHelper : DHelper {
      * you to set custom types, labels, or other options.
      */
     string controls(Json[string] fieldNames, Json[string] options = null) {
-        string result = "";
+        /* string result = "";
         foreach (views, myopts; fieldNames) {
             if (myopts == false) {
                 continue;
             }
-            result ~= this.control(views, /* (array) */ myopts);
+            result ~= this.control(views, /* (array) * / myopts);
         }
-        return _fieldset(result, options);
+        return _fieldset(result, options); */
+        return null;
     }
 
     /**
@@ -702,7 +712,7 @@ class DFormHelper : DHelper {
      *  to customize the legend text.
      */
     string fieldset(string fieldNames = "", Json[string] options = null) {
-        bool isLegend = options.getBoolean("legend", true);
+        /* bool isLegend = options.getBoolean("legend", true);
         // `fieldset` Set to false to disable the fieldset. 
         auto fieldNameset = options.getBoolean("fieldset", true);
         auto mycontext = _getContext();
@@ -726,7 +736,8 @@ class DFormHelper : DHelper {
             }
             result = formatTemplate("fieldset", fieldNamesetParams);
         }
-        return result;
+        return result; */
+        return null;
     }
 
     /**
@@ -756,7 +767,7 @@ class DFormHelper : DHelper {
      * widget is checked
      */
     string control(string fieldName, Json[string] options = null) {
-        options
+        /* options
             .merge("type", Json(null))
             .merge("label", Json(null))
             .merge("error", Json(null))
@@ -854,7 +865,8 @@ class DFormHelper : DHelper {
         if (mynewTemplates) {
             mytemplater.pop();
         }
-        return result;
+        return result; */
+        return null;
     }
 
     // Generates an group template element
@@ -877,7 +889,7 @@ class DFormHelper : DHelper {
      * Json[string] options The options for input container template
      */
     protected string _inputContainerTemplate(Json[string] options = null) {
-        myinputContainerTemplate = options.getString(
+        /* myinputContainerTemplate = options.getString(
             "options.type") ~ "Container" ~ options.getString("errorSuffix");
         if (!this.templater().get(myinputContainerTemplate)) {
             myinputContainerTemplate = "inputContainer" ~ options.getString("errorSuffix");
@@ -890,7 +902,8 @@ class DFormHelper : DHelper {
                 .get("requiredClass"): "",
                 "type": options.get("options.type"),
                 "templateVars": options.get("options.templateVars", null),
-            ]);
+            ]); */
+        return null;
     }
 
     /**
@@ -973,11 +986,9 @@ class DFormHelper : DHelper {
     /**
      * Selects the variable containing the options for a select field if present,
      * and sets the value to the "options" key in the options array.
-     * Params:
-     * string fieldName The name of the field to find options for.
      */
     protected Json[string] _optionsOptions(string fieldName, Json[string] options = null) {
-        if (options.hasKey("options")) {
+        /* if (options.hasKey("options")) {
             return options;
         }
 
@@ -1013,7 +1024,8 @@ class DFormHelper : DHelper {
         }
         options.set("options", myvarOptions);
 
-        return options;
+        return options; */
+        return null;
     }
 
     /**
@@ -1058,7 +1070,7 @@ class DFormHelper : DHelper {
      * string fieldName The name of the field to generate options for.
      */
     protected Json[string] setRequiredAndCustomValidity(string fieldName, Json[string] options = null) {
-        mycontext = _getContext();
+        /* mycontext = _getContext();
 
         if (!options.hasKey("required") && options.getString("type") != "hidden") {
             options.set("required", mycontext.isRequired(fieldName));
@@ -1077,7 +1089,8 @@ class DFormHelper : DHelper {
                 options.set("oninput", "setCustomValidity(\"\")");
             }
         }
-        return options;
+        return options; */
+        return null;
     }
 
     // Generate label for input
@@ -1110,7 +1123,7 @@ class DFormHelper : DHelper {
      */
     protected string _inputLabel(string fieldName, string labelText = null,
         STRINGAA labelAttributes = null, Json[string] options = null) {
-        options
+        /* options
             .merge("id", Json(null))
             .merge("input", Json(null))
             .merge("nestedInput", false)
@@ -1136,7 +1149,8 @@ class DFormHelper : DHelper {
         if (options.hasKey("escape")) {
             labelAttributes.set("escape", options.get("escape"));
         }
-        return _label(fieldName, labelText, labelAttributes);
+        return _label(fieldName, labelText, labelAttributes); */
+        return null;
     }
 
     /**

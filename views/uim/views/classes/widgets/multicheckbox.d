@@ -88,12 +88,13 @@ class DMultiCheckboxWidget : DWidget {
      * If either is not set options will not be generated correctly.
      */
   override string render(Json[string] data, IContext formContext) {
-    auto mergedData = data.mergeDefaults(formContext);
+    /* auto mergedData = data.mergeDefaults(formContext);
 
     _idPrefix = mergedData.get("idPrefix");
     _clearIds();
 
-    return _renderInputs(data, formContext).join("");
+    return _renderInputs(data, formContext).join(""); */
+    return null;
   }
 
   // Render the checkbox inputs.

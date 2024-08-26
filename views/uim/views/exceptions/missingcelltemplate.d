@@ -36,10 +36,10 @@ class DMissingTCellException : DMissingTemplateException {
         _attributes = newAttributes;
     }
     override Json[string] attributes() {
-        return super.attributes()
+        /* return super.attributes()
             .setPath([
                 "name": Json(name)
-            ]);
+            ]); */
     }
 }
     mixin(ExceptionCalls!("MissingTCell"));

@@ -56,7 +56,7 @@ class DWidget : UIMObject, IWidget {
      * Any other keys provided in mydata will be converted into HTML attributes.
      */
   string render(Json[string] renderData, IContext formContext) {
-    renderData.merge(formContext.data);
+    /* renderData.merge(formContext.data);
     if (renderData.hasKey("val")) {
       renderData.set("value", renderData.get("val"));
       renderData.removeKey("val");
@@ -79,11 +79,13 @@ class DWidget : UIMObject, IWidget {
         .setPath([
           "attrs": _stringContents.formatAttributes(renderData, ["name", "type"])
         ])
-    );
+    ); */
+    return null;
+  }
 
-    bool isTypeWithMaxLength(string typeName) {
-      return typeName.lower.isIn(["text", "email", "tel", "url", "search"]);
-    }
+  bool isTypeWithMaxLength(string typeName) {
+    // return typeName.lower.isIn(["text", "email", "tel", "url", "search"]);
+    return false;
   }
 
   // Merge default values with supplied data.
@@ -118,7 +120,7 @@ class DWidget : UIMObject, IWidget {
 
   // Set value for "step" attribute if applicable.
   protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {
-    auto mydbType = formContext.type(fieldName);
+   /*  auto mydbType = formContext.type(fieldName);
     auto fieldNameDef = formContext.attributes(fieldName);
 
     if (mydbType == "decimal" && fieldNameDef.hasKey("precision")) {
@@ -128,7 +130,8 @@ class DWidget : UIMObject, IWidget {
       data.set("step", "any");
     }
 
-    return data;
+    return data; */
+    return null;
   }
 
   string[] secureFields(Json[string] dataToRender) {

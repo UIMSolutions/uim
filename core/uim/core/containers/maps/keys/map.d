@@ -21,16 +21,26 @@ V[K] notFilterByKeys(K, V)(V[K] entries, K[] keys) {
   return results;
 }
 
+V[K] notFilterByKey(K, V)(V[K] entries, K key) {
+  V[K] results;
+
+  if (!entries.hasKey(key)) {
+    results.set(key, entries,get(key));
+  }
+
+  return results;
+}
+
 unittest {
   assert(["a": "1", "b": "2"].length == 2);
   assert(["a": "1", "b": "2"].hasKey("a"));
   assert(["a": "1", "b": "2"].hasKey("b"));
 
-  assert(["a": "1", "b": "2"].filterByKey("a").length == 1);
+  assert(["a": "1", "b": "2"].notFilterByKey("b").length == 1);
   assert(["a": "1", "b": "2"].hasKey("a"));
   assert(!["a": "1", "b": "2"].hasKey("b"));
 
-  assert(["a": "1", "b": "2"].filterByKeys("a") == 1);
+  assert(["a": "1", "b": "2"].notFilterByKeys("b") == 1);
   assert(["a": "1", "b": "2"].hasKey("a"));
   assert(!["a": "1", "b": "2"].hasKey("b"));
 }

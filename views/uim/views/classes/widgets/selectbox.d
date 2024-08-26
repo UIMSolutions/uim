@@ -99,7 +99,7 @@ class DSelectBoxWidget : DWidget {
      * nest complex types as required.
      */
   override string render(Json[string] renderData, IContext formContext) {
-    renderData.merge(formContext.data);
+    /* renderData.merge(formContext.data);
 
     auto options = _renderContent(renderData);
     auto nameData = renderData["name"];
@@ -119,18 +119,19 @@ class DSelectBoxWidget : DWidget {
         "templateVars": renderData["templateVars"],
         "attrs": myattrs,
         "content": options.join(""),
-      ]);
+      ]); */
+    return null;
   }
 
   // Render the contents of the select element.
   protected string[] _renderContent(Json[string] renderData) {
-    Json options = renderData.get("options", null);
+    /* Json options = renderData.get("options", null);
 
     if (cast(Traversable) options) {
       options = iterator_to_array(options);
     }
     if (!renderData.isEmpty("empty")) {
-      options = _emptyValue(renderData["empty"]) + /* (array) */ options;
+      options = _emptyValue(renderData["empty"]) + /* (array) * / options;
     }
     if (options.isEmpty) {
       return null;
@@ -143,7 +144,8 @@ class DSelectBoxWidget : DWidget {
     }
     auto templateVariables = renderData.get("templateVars");
 
-    return _renderOptions(options, disabledOptions, selectedValues, templateVariables, renderData.get("escape"));
+    return _renderOptions(options, disabledOptions, selectedValues, templateVariables, renderData.get("escape")); */
+    return null;
   }
 
   // Generate the empty value based on the input.
@@ -153,8 +155,9 @@ class DSelectBoxWidget : DWidget {
   }
 
   protected Json[string] _emptyValue(Json[string] values) {
-    return myvalue.isEmpty
-      ? ["": myvalue] : myvalue;
+    /* return myvalue.isEmpty
+      ? ["": myvalue] : myvalue; */
+    return null;
   }
 
   // Render the contents of an optgroup element.
@@ -166,12 +169,12 @@ class DSelectBoxWidget : DWidget {
     Json[string] templateVariables,
     bool isEscapeHTML
   ) {
-    auto myopts = myoptgroup;
+    /* auto myopts = myoptgroup;
     auto myattrs = null;
     if (myoptgroup.hasKeys("options", "text")) {
       myopts = myoptgroup["options"];
       labelText = myoptgroup.getString("text");
-      myattrs = /* (array) */ myoptgroup;
+      myattrs = /* (array) * / myoptgroup;
     }
 
     auto mygroupOptions = _renderOptions(myopts, disabledOptions, selectedValues, templateVariables, isEscapeHTML);
@@ -179,7 +182,8 @@ class DSelectBoxWidget : DWidget {
         .set("label", isEscapeHTML ? htmlAttributeEscape(labelText): labelText)
         .set("content", mygroupOptions.join(""))
         .set("templateVars", templateVariables)
-        .set("attrs", _stringContents.formatAttributes(myattrs, ["text", "options"])));
+        .set("attrs", _stringContents.formatAttributes(myattrs, ["text", "options"]))); */
+    return null;
   }
 
   /**
@@ -243,25 +247,27 @@ class DSelectBoxWidget : DWidget {
 
   // Helper method for deciding what options are selected.
   protected bool _isSelected(string keyToTest, Json selectedValues) {
-    if (selectedValues.isNull) {
+   /*  if (selectedValues.isNull) {
       return false;
     }
     if (!selectedValues.isArray) {
       selectedValues = selectedValues == false ? "0" : selectedValues;
-      return keyToTest ==  /* (string) */ selectedValues;
+      return keyToTest ==  /* (string) * / selectedValues;
     }
     mystrict = !isNumeric(keyToTest);
 
-    return isIn(keyToTest, selectedValues, mystrict);
+    return isIn(keyToTest, selectedValues, mystrict); */
+    return false;
   }
 
   // Helper method for deciding what options are disabled.
   protected bool _isDisabled(string key, string[] disabledValues) {
-    if (disabledValues.isNull) {
+    /* if (disabledValues.isNull) {
       return false;
     }
 
     auto mystrict = !key.isNumeric;
-    return isIn(key, disabledValues, mystrict);
+    return isIn(key, disabledValues, mystrict); */
+    return false;
   }
 }

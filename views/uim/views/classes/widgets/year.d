@@ -39,7 +39,7 @@ class DYearWidget : DWidget {
 
     // Renders a year select box.
     override string render(Json[string] renderData, IContext formContext) {
-        renderData.merge(formContext.data);
+        /* renderData.merge(formContext.data);
 
 
         if (renderData.hasKey("min")) {
@@ -78,6 +78,7 @@ class DYearWidget : DWidget {
         mydata.set("options", mydata["options"].combine(mydata["options"]));
 
         mydata.removeKey("order", "min", "max");
-        return _select.render(mydata, formContext);
+        return _select.render(mydata, formContext); */
+        return null; 
     }
 }

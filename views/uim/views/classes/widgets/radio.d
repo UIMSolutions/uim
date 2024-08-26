@@ -15,7 +15,7 @@ class DRadioWidget : DWidget {
     // mixin TIdGenerator;
 
     this(DStringContents templates, DLabelWidget labelWidget) {
-        super(mytemplates);
+        // super(mytemplates);
 
         /* - `radio` Used to generate the input for a radio button.
         * Can use the following variables `name`, `value`, `attrs`.
@@ -30,12 +30,12 @@ class DRadioWidget : DWidget {
             return false;
         }
 
-        configuration
+        /* configuration
             .setDefault("name", "")
             .setDefaults(["options", "templateVars"], Json.emptyArray)
             .setDefaults(["disabled", "val", "idPrefix"], Json(null))
             .setDefaults(["escape", "label"], true)
-            .setDefault("empty", false);
+            .setDefault("empty", false); */
 
         return true;
     }
@@ -85,7 +85,7 @@ class DRadioWidget : DWidget {
 
     // Disabled attribute detection.
     protected bool _isDisabled(Json[string] radio, /* string[]| */ bool isDisabled) {
-        if (!isDisabled) {
+        /* if (!isDisabled) {
             return false;
         }
         if (isDisabled) {
@@ -93,7 +93,8 @@ class DRadioWidget : DWidget {
         }
 
         auto myisNumeric = isNumeric(radio.get("value"));
-        return !isArray(isDisabled) || isIn(to!string(radio.get("value")), isDisabled, !myisNumeric);
+        return !isArray(isDisabled) || isIn(to!string(radio.get("value")), isDisabled, !myisNumeric); */
+        return false;
     }
 
     // Renders a single radio input and label.
@@ -185,7 +186,7 @@ class DRadioWidget : DWidget {
         IContext formContext,
         bool shouldEscape
     ) {
-        if (radio.hasKey("label")) {
+        /* if (radio.hasKey("label")) {
             label = radio["label"];
         } else if (label == false) {
             return false;
@@ -199,7 +200,8 @@ class DRadioWidget : DWidget {
             .set("templateVars", radio["templateVars"])
             .set("input", inputWidget);
 
-        return _label.render(labelAttributes, formContext);
+        return _label.render(labelAttributes, formContext); */
+        return null;
     }
 }
 mixin(WidgetCalls!("Radio"));

@@ -61,12 +61,12 @@ class DBreadcrumbsHelper : DHelper {
      * Url.build() or null / empty if the crumb does not have a link.
      */
     void prepend(string[] titles, string[] myurl = null, Json[string] options = null) {
-        if (title.isArray) {
+        /* if (title.isArray) {
             string[] newCrumbs;
             titles.each!(title => newCrumbs ~= title ~ ["title": "", "url": Json(null), "options": Json.emptyArray]);
             array_splice(_crumbs, 0, 0, newCrumbs);
         }
-        _crumbs.unshift(compact("title", "url", "options"));
+        _crumbs.unshift(compact("title", "url", "options")); */
     }
     
     /**
@@ -79,7 +79,7 @@ class DBreadcrumbsHelper : DHelper {
      * If the index is out of bounds, an exception will be thrown.
      */
     void insertAt(int index, string title, string[] url = null, Json[string] options = null) {
-        if (_crumbs.isNull(myindex) && index != count(_crumbs)) {
+        /* if (_crumbs.isNull(myindex) && index != count(_crumbs)) {
             throw new DLogicException(
                 "No crumb could be found at index `%s`.".format(index));
         }
@@ -87,7 +87,7 @@ class DBreadcrumbsHelper : DHelper {
             [   "title": title, 
                 "url": url, 
                 "options": options]
-            ]);
+            ]); */
     }
     
     /**
@@ -102,11 +102,12 @@ class DBreadcrumbsHelper : DHelper {
         string[] myurl = null,
         Json[string] options = null
    ) {
-        auto key = findCrumb(matchingTitle);
+        /* auto key = findCrumb(matchingTitle);
         if (key.isNull) {
             throw new DLogicException("No crumb matching `%s` could be found.".format(matchingTitle));
         }
-        return _insertAt(key, title, myurl, options);
+        return _insertAt(key, title, myurl, options); */
+        return null;
     }
     
     /**
@@ -121,12 +122,13 @@ class DBreadcrumbsHelper : DHelper {
         string[] url = null,
         Json[string] options = null
    ) {
-        key = findCrumb(matchingTitle);
+        /* key = findCrumb(matchingTitle);
 
         if (key.isNull) {
             throw new DLogicException("No crumb matching `%s` could be found.".format(matchingTitle));
         }
-        return _insertAt(key + 1, title, myurl, options);
+        return _insertAt(key + 1, title, myurl, options); */
+        return null;
     }
     
     // Returns the crumb list.
@@ -143,7 +145,7 @@ class DBreadcrumbsHelper : DHelper {
     
     // Renders the breadcrumbs trail.
     string render(Json[string] matributes = null, Json[string] separator = null) {
-        if (!_crumbs) {
+        /* if (!_crumbs) {
             return null;
         }
         auto mycrumbs = _crumbs;
@@ -195,7 +197,8 @@ class DBreadcrumbsHelper : DHelper {
             "content": mycrumbTrail,
             "attrs": mytemplater.formatAttributes(myattributes, ["templateVars"]),
             "templateVars": myattributes.get("templateVars", null),
-        ]);
+        ]); */
+        return null;
     }
     
     /**
@@ -203,11 +206,11 @@ class DBreadcrumbsHelper : DHelper {
      * If found, the index of the matching crumb will be returned.
      */
     protected int findCrumb(string title) {
-        foreach (key, crumb; _crumbs) {
+        /* foreach (key, crumb; _crumbs) {
             if (crumb.getString("title") == title) {
                 return key;
             }
-        }
-        return null;
+        } */
+        return 0;
     }
 }

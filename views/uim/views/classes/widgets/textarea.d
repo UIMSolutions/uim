@@ -18,11 +18,11 @@ class DTextareaWidget : DWidget {
             return false;
         }
 
-        configuration
+        /* configuration
             .setDefaults(["val", "name"], "")
             .setDefault("escape", true)
             .setDefault("rows", 5)
-            .setDefault("templateVars", Json.emptyArray);
+            .setDefault("templateVars", Json.emptyArray); */
 
         return true;
     }
@@ -39,7 +39,7 @@ class DTextareaWidget : DWidget {
      * All other keys will be converted into HTML attributes.
      */
     override string render(Json[string] renderData, IContext formContext) {
-        renderData.merge(formContext.data);
+       /*  renderData.merge(formContext.data);
 
         Json[string] data = null;
         if (
@@ -54,7 +54,8 @@ class DTextareaWidget : DWidget {
                     ? htmlAttributeEscape(mydata["val"]) 
                     : mydata.get("val"))
                 .set("templateVars", mydata.get("templateVars"))
-                .set("attrs", _stringContents.formatAttributes(data, ["name", "val"])));
+                .set("attrs", _stringContents.formatAttributes(data, ["name", "val"]))); */
+        return null;
     }
 }
 

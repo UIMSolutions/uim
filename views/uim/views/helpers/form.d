@@ -100,12 +100,12 @@ class DFormHelper : DHelper {
             "requiredClass": `required`,
         ].toJson;
 
-        configuration
+       /*  configuration
             .setDefault("idPrefix", Json(null))
             .setDefault("errorClass", "form-error")
             .setDefault("typeMap", typeMap)
             .setDefault("templates", MapData()) // set HTML5 validation message to custom required/empty messages
-            .setDefault("autoSetCustomValidity", true);
+            .setDefault("autoSetCustomValidity", true); */
 
         return true;
     }
@@ -152,11 +152,11 @@ class DFormHelper : DHelper {
     protected DFormProtector _formProtector = null;
 
     this(IView myview, Json[string] configData = null) {
-        auto mylocator = null;
+        /* auto mylocator = null;
         auto mywidgets = _defaultWidgets;
         if (configuration.hasKey("locator")) {
             /*  mylocator = configuration.get("locator"];
-            configuration.removeKey("locator"); */
+            configuration.removeKey("locator"); * /
         }
         if (configuration.hasKey("widgets")) {
             if (configuration.isString("widgets")) {
@@ -177,7 +177,7 @@ class DFormHelper : DHelper {
             mylocator = new WidgetLocator(this.templater(), _view, mywidgets);
         }
         setWidgetLocator(mylocator);
-        _idPrefix = configuration.getString("idPrefix");
+        _idPrefix = configuration.getString("idPrefix"); */
     }
 
     // Get the widget locator currently used by the helper.

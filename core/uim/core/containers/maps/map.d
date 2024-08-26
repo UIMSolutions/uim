@@ -393,6 +393,13 @@ V[K] removeKeys(K, V)(V[K] items, K[] keys) {
   return items;
 }
 
+V[K] removeKey(K, V)(V[K] items, K[] path) {
+  if (!hasKey(items, path)) {
+    return items;
+  }
+  return items; // TODO
+}
+
 V[K] removeKey(K, V)(V[K] items, K key) {
   if (hasKey(items, key)) {
     items.remove(key);

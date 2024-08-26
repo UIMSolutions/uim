@@ -521,7 +521,7 @@ static string contentType() {
         if (!mycontent.isEmpty) {
             _blocks.set("content", mycontent);
         }
-        _dispatchEvent("View.beforeLayout", [layoutFilename]);
+        // _dispatchEvent("View.beforeLayout", [layoutFilename]);
 
         /* string mytitle = _blocks.get("title");
         if (mytitle.isEmpty) {
@@ -616,7 +616,7 @@ static string contentType() {
      * existing content.
      */
     void assign(string blockName, Json value) {
-        _blocks.set(blockName, value);
+       //  _blocks.set(blockName, value);
     }
 
     /**
@@ -624,7 +624,7 @@ static string contentType() {
      * existing content.
      */
     void reset(string blockName) {
-        _assign(blockName, "");
+       // _assign(blockName, "");
     }
     
     /**
@@ -673,10 +673,10 @@ static string contentType() {
                 parentName = _getTemplateFileName(views);
         }
         if (parentName == _current) {
-            throw new DLogicException("You cannot have templates extend themselves.");
+            // throw new DLogicException("You cannot have templates extend themselves.");
         }
         if (_parents.hasKey(parentName) && _parents[parentName] == _current) {
-            throw new DLogicException("You cannot have templates extend in a loop.");
+            // throw new DLogicException("You cannot have templates extend in a loop.");
         }
        _parents[_current] = parentName;
     }

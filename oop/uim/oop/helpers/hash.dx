@@ -24,30 +24,7 @@ class Hash {
             string[] pathParts = to!string(searchPath.split("."));
         } 
     }
-    static Json get(Json[string] items, string[] path, Json defaultValue = Json(null)) {
-        if (items.isEmpty || path.isNull) {
-            return defaultValue;
-        }
-            
-        auto pathParts = searchPath.dup;
-        switch (pathParts.length) {
-            case 1:
-                return items[pathParts[0]] ?? defaultValue;
-            case 2:
-                return items[pathParts[0]][pathParts[1]] ?? defaultValue;
-            case 3:
-                return items[pathParts[0]][pathParts[1]][pathParts[2]] ?? defaultValue;
-            default:
-                pathParts.each!((key) {
-                    if ((isArray(items) || cast(DArrayAccess)items) && items.hasKey(aKey)) {
-                        items = items[aKey];
-                    } else {
-                        return defaultValue;
-                    }
-                });
-        }
-        return items;
-    }
+
     
     /**
      * Gets the values from an array matching the pathtoextract expression.

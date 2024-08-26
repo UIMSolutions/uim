@@ -49,11 +49,9 @@ pure size_t[V] indexAAReverse(V)(V[] values, size_t startPos = 0) {
   return results;
 }
 
-
-  unittest {
-    // Add Test
-  }
-
+unittest {
+  // Add Test
+}
 
 // #region hasKeys
 bool hasAllKeys(K, V)(V[K] base, K[] keys...) {
@@ -385,33 +383,33 @@ unittest {
 // #endregion updateKeys
 
 // #region remove
-  V[K] removeKeys(K, V)(V[K] items, K[] keys...) {
-    removeKeys(items, keys.dup);
-    return items;
-  }
+V[K] removeKeys(K, V)(V[K] items, K[] keys...) {
+  removeKeys(items, keys.dup);
+  return items;
+}
 
-  V[K] removeKeys(K, V)(V[K] items, K[] keys) {
-    keys.each!(key => removeKey(items, key));
-    return items;
-  }
+V[K] removeKeys(K, V)(V[K] items, K[] keys) {
+  keys.each!(key => removeKey(items, key));
+  return items;
+}
 
-  V[K] removeKey(K, V)(V[K] items, K key) {
-    if (hasKey(items, key)) {
-      items.remove(key);
-    }
-    return items;
+V[K] removeKey(K, V)(V[K] items, K key) {
+  if (hasKey(items, key)) {
+    items.remove(key);
   }
+  return items;
+}
 
-  unittest {
-    assert(["a": "A", "b": "B", "c": "C"].length == 3);
-    assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
-    assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b").length == 1);
-    assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
+unittest {
+  assert(["a": "A", "b": "B", "c": "C"].length == 3);
+  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
+  assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b").length == 1);
+  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
 
-    assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
-    assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b")["c"] == "C");
-    assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
-  }
+  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
+  assert(removeKeys(["a": "A", "b": "B", "c": "C"], "a", "b")["c"] == "C");
+  assert(removeKey(["a": "A", "b": "B", "c": "C"], "a")["c"] == "C");
+}
 // #endregion remove
 
 // #region removeByValues
@@ -743,6 +741,15 @@ unittest {
   assert(["a": "1", "b": "2"].notFilterByKeys("a") == ["b": "2"]);
 }
 
+// #region replaceKey
+V[K] replaceKey(K, V)(V[K] entries, K[] originalPath, K newPath) {
+  keys
+    .filter!(key => key in entries)
+    .each!(key => results.remove(key));
+
+  return results;
+}
+
 V[K] replaceKey(K, V)(V[K] entries, K originalKey, K newKey) {
   keys
     .filter!(key => key in entries)
@@ -750,3 +757,17 @@ V[K] replaceKey(K, V)(V[K] entries, K originalKey, K newKey) {
 
   return results;
 }
+
+///
+unittest {
+  auto testMap = createMap!(string, Json)
+    .set("a", "A")
+    .set("obj", createMap!(string, Json).set("b", "B"));
+
+  assert(!testMap.hasKey("A"));
+  assert(testMap.getString("a") == "A");
+  assert(testMap.replaceKey("a", "A"));
+  assert(testMap.hasKey("A"));
+  assert(testMap.getString("A") == "A");
+}
+// #endregion replaceKey

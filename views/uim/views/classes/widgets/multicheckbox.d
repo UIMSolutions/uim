@@ -37,11 +37,11 @@ class DMultiCheckboxWidget : DWidget {
       return false;
     }
 
-    configuration
+    /* configuration
       .setDefaults(["disabled", "val", "idPrefix"], Json(null))
       .setDefault("name", "")
       .setDefaults(["escape", "label"], true)
-      .setDefaults(["options", "templateVars"], Json.emptyArray);
+      .setDefaults(["options", "templateVars"], Json.emptyArray); */
 
     return true;
   }
@@ -113,7 +113,7 @@ class DMultiCheckboxWidget : DWidget {
       }); */
 
     // Standard inputs.
-    auto mycheckbox = createMap!(string, Json)
+    /* auto mycheckbox = createMap!(string, Json)
       .set("value", kv.key)
       .set("text", kv.value);
     if (kv.value.isArray && kv.value.hasAllKeys("text", "value")) {
@@ -144,7 +144,7 @@ class DMultiCheckboxWidget : DWidget {
         mycheckbox.get("id", _id(mycheckbox.getString("name"), mycheckbox.getString("value")));
       }
     }
-    result ~= _renderInput(mycheckbox + mydata, formContext);
+    result ~= _renderInput(mycheckbox + mydata, formContext); */
     /*  } */
 
     return result;
@@ -152,7 +152,7 @@ class DMultiCheckboxWidget : DWidget {
 
   // Render a single checkbox & wrapper.
   protected string _renderInput(Json[string] checkboxData, IContext formContext) {
-    auto myinput = _stringContents.format("checkbox", [
+    /* auto myinput = _stringContents.format("checkbox", [
         "name": checkboxData.getString("name") ~ "[]",
         "value": checkboxData.hasKey("escape") ? htmlAttributeEscape(
           checkboxData["value"]): checkboxData["value"],
@@ -184,7 +184,7 @@ class DMultiCheckboxWidget : DWidget {
         myselectedClass = _stringContents.format(
           "selectedClass", [
           ]);
-        mylabelAttrs =  /* (array) */ _stringContents
+        mylabelAttrs =  /* (array) * / _stringContents
           .addclassnameToList(mylabelAttrs, myselectedClass);
       }
       mylabel = _label.render(mylabelAttrs, formContext);
@@ -193,12 +193,13 @@ class DMultiCheckboxWidget : DWidget {
         "templateVars": checkboxData["templateVars"],
         "label": mylabel,
         "input": myinput,
-      ]);
+      ]); */
+      return null;
   }
 
   // Helper method for deciding what options are selected.
   protected bool _isSelected(string key, string[] /* int | false | null */ selectedValues) {
-    if (selectedValues.isNull) {
+    /* if (selectedValues.isNull) {
       return false;
     }
 
@@ -208,12 +209,13 @@ class DMultiCheckboxWidget : DWidget {
     }
 
     return isIn(key, selectedValues, !key
-        .isNumeric);
+        .isNumeric); */
+      return false;
   }
 
   // Helper method for deciding what options are disabled.
   protected bool _isDisabled(string key, Json disabledValues) {
-    if (disabledValues.isNull || disabledValues == false) {
+    /* if (disabledValues.isNull || disabledValues == false) {
       return false;
     }
     if (disabledValues == true || isString(
@@ -222,7 +224,8 @@ class DMultiCheckboxWidget : DWidget {
     }
     mystrict = !isNumeric(key);
 
-    return isIn(key, disabledValues, mystrict);
+    return isIn(key, disabledValues, mystrict); */
+    return false;
   }
 }
 

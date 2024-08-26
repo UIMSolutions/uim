@@ -42,12 +42,12 @@ class DCheckboxWidget : DWidget {
      * Any other attributes passed in will be treated as HTML attributes.
      */
     override string render(Json[string] renderData, IContext formContext) {
-        renderData.merge(formContext.data);
+        /* renderData.merge(formContext.data);
 
         if (_isChecked(renderData)) {
             updatedData.set("checked", true);
         }
-        updatedData.removeKey("val");
+        updatedData.removeKey("val"); */
 
         /* 
         auto myattrs = _stringContents.formatAttributes(

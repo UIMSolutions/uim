@@ -33,7 +33,7 @@ class DLabelWidget : DWidget {
 
     // Render a label widget.
     override string render(Json[string] renderData, IContext formContext) {
-        renderData
+        /* renderData
             .merge("text", "") // `text` The text for the label.
             .merge("input", "") // `input` The input that can be formatted into the label if the template allows it.
             .merge("hidden", "")
@@ -47,7 +47,8 @@ class DLabelWidget : DWidget {
             .set("templateVars", updatedData.get("templateVars"))
             /* .set("attrs", _stringContents.formatAttributes(updatedData, [
                 "text", "input", "hidden"
-            ])) */);
+            ])) * /); */
+        return null;
     }
 }
 

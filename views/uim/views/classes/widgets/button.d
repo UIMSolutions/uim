@@ -36,11 +36,11 @@ class DButtonWidget : DWidget {
             .merge("templateVars", Json.emptyArray());
 
         return null; 
-        _stringContents.format("button", [
+        /* _stringContents.format("button", [
             "text": !renderData.isEmpty("escapeTitle") ? htmlAttributeEscape(renderData.getString("text")) : renderData.getString("text"),
             "templateVars": renderData.getString("templateVars"),
             "attrs": _stringContents.formatAttributes(renderData, ["text", "escapeTitle"]),
-        ]);
+        ]); */
     }
 }
 mixin(WidgetCalls!("Button"));

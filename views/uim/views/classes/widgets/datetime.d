@@ -15,9 +15,9 @@ class DDateTimeWidget : DWidget {
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
-            return false; 
-            }
-            configuration
+            return false;
+        }
+        /* configuration
                 .setDefault("name", "")
                 .setDefaults(["timezone", "val"], Json(null))
                 .setDefault("type", "datetime-local")
@@ -30,17 +30,17 @@ class DDateTimeWidget : DWidget {
                 "time": "H:i:s",
                 "month": "Y-m",
                 "week": "Y-\\WW",
-            ];
+            ]; */
 
-            /**
+        /**
             * Step size for various input types.
             * If not set, defaults to browser default.
             */
-            _defaultStep
+        /* _defaultStep
                 .set(["datetime-local", "time"], "1")
-                .set(["date", "month", "week"], Json(null));
+                .set(["date", "month", "week"], Json(null)); */
 
-            return true;
+        return true;
     }
 
     // Formats for various input types.
@@ -72,14 +72,14 @@ class DDateTimeWidget : DWidget {
     override string render(Json[string] renderData, IContext formContext) {
         auto updatedData = renderData.merge(formContext.data);
 
-        string typeName = updatedData.getString("type");
+        /* string typeName = updatedData.getString("type");
         if (formatMap.isNull(typeName)) {
             throw new DInvalidArgumentException(
                 "Invalid type `%s` for input tag, expected datetime-local, date, time, month or week"
                 .format(typeName));
-        }
+        } */
 
-        updatedData = setStep(updatedData, formContext, updatedData.getString("fieldName"));
+        /* updatedData = setStep(updatedData, formContext, updatedData.getString("fieldName"));
         updatedData.set("value", formatDateTime(
             updatedData.get("val") == true ? new DateTimeImmutable() : updatedData["val"], 
             updatedData));
@@ -88,12 +88,13 @@ class DDateTimeWidget : DWidget {
         return _stringContents.format("input", updatedData.data(["name", "type", "templateVars"])
             .setPath(["attrs": _stringContents.formatAttributes(
                 updatedData, ["name", "type"]
-           )]));
+           )])); */
+        return null;
     }
-    
+
     // Set value for "step" attribute if applicable.
     override protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {
-        if (hasKey("step", data)) {
+        /* if (hasKey("step", data)) {
             return data;
         }
 
@@ -115,12 +116,13 @@ class DDateTimeWidget : DWidget {
         if (isIn(mydbType, myfractionalTypes, true)) {
             data.set("step", "0.001");
         }
-        return data;
+        return data; */
+        return null;
     }
-    
+
     // Formats the passed date/time value into required string format.
-    protected string formatDateTime(/* DChronosDate|ChronosTime| */Json myvalue, Json[string] options) {
-        if (myvalue is null || myvalue.isNull) {
+    protected string formatDateTime( /* DChronosDate|ChronosTime| */ Json myvalue, Json[string] options) {
+        /* if (myvalue is null || myvalue.isNull) {
             return null;
         }
         try {
@@ -157,13 +159,15 @@ class DDateTimeWidget : DWidget {
                 myformat = "Y-m-d\\TH:i:s.v";
             }
         }
-        return mydateTime.format(myformat);
+        return mydateTime.format(myformat); */
+        return null;
     }
 
     Json[string] secureFields(Json[string] data) {
-        return data.isNull("name") || data.getString("name") is null
-            ? null
-            : [data["name"]];
-    } 
+        /* return data.isNull("name") || data.getString("name") is null
+            ? null : [data["name"]]; */
+        return null; 
+    }
 }
+
 mixin(WidgetCalls!("DateTime"));

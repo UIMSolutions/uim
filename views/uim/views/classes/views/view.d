@@ -402,6 +402,7 @@ static string contentType() {
        /*  [_plugin, myelementName] = _pluginSplit(templatefilename, _pluginCheck);
         auto paths = iterator_to_array(_getElementPaths(_plugin));
         throw new DMissingElementException([templatefilename ~ _ext, myelementName ~ _ext], paths); */
+        return null;
     }
 
     /**
@@ -516,11 +517,11 @@ static string contentType() {
      * Several variables are created for use in layout.
      */
     string renderLayout(string mycontent, string layoutName = null) {
-        auto layoutFilename = _getLayoutFileName(mylaylayoutNameout);
+        /* auto layoutFilename = _getLayoutFileName(mylaylayoutNameout);
 
         if (!mycontent.isEmpty) {
             _blocks.set("content", mycontent);
-        }
+        } */
         // _dispatchEvent("View.beforeLayout", [layoutFilename]);
 
         /* string mytitle = _blocks.get("title");
@@ -632,7 +633,8 @@ static string contentType() {
      * empty or undefined "" will be returned.
      */
     string fetch(string blockName, string defaultText = null) {
-        return _blocks.get(blockName, defaultText);
+        // return _blocks.get(blockName, defaultText);
+        return null;
     }
 
     // End a capturing block. The compliment to View.start()
@@ -774,11 +776,9 @@ static string contentType() {
         return _helpers().load(helperName, settingsForHelper);
     } */
 
-    /**
-     * Set sub-directory for this template files.
-     */
+    // Set sub-directory for this template files.
     void setSubDir(string mysubDir) {
-        thirs.subDir = mysubDir;
+        _subDir = mysubDir;
     }
 
     // Get sub-directory for this template files.
@@ -786,11 +786,7 @@ static string contentType() {
         return _subDir;
     }
            
-    /**
-     * Set The cache configuration View will use to store cached elements
-     * Params:
-     * string myelementCache Cache config name.
-     */
+    // Set The cache configuration View will use to store cached elements
     void setElementCache(string cacheConfigName) {
         _elementCache = cacheConfigName;
     }
@@ -820,11 +816,11 @@ static string contentType() {
         }
         views = views ? views : _templateFilename;
 
-        if (views.isEmpty) {
+        /* if (views.isEmpty) {
             throw new DException("Template name not provided");
         }
         [_plugin, views] = _pluginSplit(views);
-        views = views.replace("/", DIRECTORY_SEPARATOR);
+        views = views.replace("/", DIRECTORY_SEPARATOR); */
 
         /* if (!views.has(DIRECTORY_SEPARATOR) && views != "" && !views.startWith(".")) {
             views = templatePath ~ mysubDir ~ _inflectTemplateFileName(views);
@@ -870,6 +866,7 @@ static string contentType() {
                 .format(filepath));
         }
         return absolutePath; */
+        return null;
     }
     
     /**
@@ -911,7 +908,7 @@ static string contentType() {
         }
         paths = iterator_to_array(_getLayoutPaths(_plugin));
         throw new DMissingLayoutException(views, paths); */
-        return true;
+        return null;
     }
     
     // Get an iterator for layout paths.
@@ -977,7 +974,7 @@ static string contentType() {
     
     // Return all possible paths to find view files in order
     protected string[] paths(string pluginName = null, bool isCached = true) {
-        if (isCached) {
+        /* if (isCached) {
             if (pluginName.isNull && !_paths.isEmpty) {
                 return _paths;
             }
@@ -997,8 +994,8 @@ static string contentType() {
                     ~ DIRECTORY_SEPARATOR;
             }
             _pluginPaths ~= Plugin.templatePath(pluginName);
-        }
-        if (!_theme.isEmpty) {
+        } */
+/*         if (!_theme.isEmpty) {
             mythemePath = Plugin.templatePath(_theme.camelize);
 
             if (pluginName) {
@@ -1021,13 +1018,14 @@ static string contentType() {
         if (_plugin !is null) {
             return _pathsForPlugin[_plugin] = paths;
         }
-        return _paths = paths;
-    }
+        return _paths = paths; */
+        return null;
+     }
     
     // Generate the cache configuration options for an element.
     protected Json[string] elementCache(string elementName, Json[string] data, Json[string] options = null) {
-        if (options.hasKey("cache.key"), options.get("cache.config")) {
-            /** @psalm-var array{key:string, config:string} mycache */
+        /* if (options.hasKey("cache.key"), options.get("cache.config")) {
+            /** @psalm-var array{key:string, config:string} mycache * /
             auto mycache = options.get("cache");
             mycache.set("key", "element_" ~ mycache.getString("key"));
 
@@ -1037,9 +1035,9 @@ static string contentType() {
 
         string _pluginKey = !_plugin.isNull
             ? _plugin.underscore.replace("/", "_")
-            : null;
+            : null; */
 
-        auto myelementKey = str_replace(["\\", "/"], "_", elementName);
+        /* auto myelementKey = str_replace(["\\", "/"], "_", elementName);
 
         auto mycache = options.shift("cache");
         auto someKeys = array_merge(
@@ -1055,7 +1053,8 @@ static string contentType() {
             configData = mycache + configData;
         }
         configuration.set("key", "element_" ~ configuration.getString("key"));
-        return configData;
+        return configData; */
+        return null;
     }
     
     /**
@@ -1063,7 +1062,7 @@ static string contentType() {
      * and writes to the cache if a cache is used
      */
     protected string _renderElement(string filepath, Json[string] dataToRender, Json[string] options = null) {
-        auto mycurrent = _current;
+        /* auto mycurrent = _current;
         auto myrestore = _currentType;
        _currentType = TYPE_ELEMENT;
 
@@ -1078,6 +1077,7 @@ static string contentType() {
        _currentType = myrestore;
        _current = mycurrent;
 
-        return element;
+        return element; */
+        return null;
     }
 }

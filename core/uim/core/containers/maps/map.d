@@ -707,37 +707,4 @@ unittest {
 }
 // #endregion isEmpty
 
-V[K] filterByKeys(K, V)(V[K] entries, K[] keys...) {
-  return filterByKeys(entries, keys.dup);
-}
-
-V[K] filterByKeys(K, V)(V[K] entries, K[] keys) {
-  V[K] results;
-  keys
-    .filter!(key => key in entries)
-    .each!(key => results[key] = entries[key]);
-
-  return results;
-}
-
-unittest {
-  assert(["a": "1", "b": "2"].filterByKeys("a") == ["a": "1"]);
-}
-
-V[K] notFilterByKeys(K, V)(V[K] entries, K[] keys...) {
-  return notFilterByKeys(entries, keys.dup);
-}
-
-V[K] notFilterByKeys(K, V)(V[K] entries, K[] keys) {
-  V[K] results = entries.dup;
-  keys
-    .filter!(key => key in entries)
-    .each!(key => results.remove(key));
-
-  return results;
-}
-
-unittest {
-  assert(["a": "1", "b": "2"].notFilterByKeys("a") == ["b": "2"]);
-}
 

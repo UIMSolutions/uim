@@ -69,7 +69,7 @@ class DWidgetLocator {
     void add(Json[string] newWidgets) {
         Json[] myfiles = null;
 
-        foreach (aKey, mywidget; newWidgets) {
+        /* foreach (aKey, mywidget; newWidgets) {
             if (isInteger(aKey)) {
                 myfiles ~= mywidget;
                 continue;
@@ -85,7 +85,7 @@ class DWidgetLocator {
             }
            _widgets[aKey] = mywidget;
         }
-        myfiles.each!(file => load(file));
+        myfiles.each!(file => load(file)); */
     }
     
     /**
@@ -97,7 +97,7 @@ class DWidgetLocator {
      * the `_default` widget is undefined.
      */
     IWidget get(string widgetName) {
-        if (!_widgets.hasKey(widgetName)) {
+        /* if (!_widgets.hasKey(widgetName)) {
             if (_widgets.isEmpty("_default")) {
                 throw new DInvalidArgumentException("Unknown widget `%s`".format(widgetName));
             }
@@ -106,7 +106,8 @@ class DWidgetLocator {
         if (cast(IWidget)_widgets[widgetName]) {
             return _widgets[widgetName];
         }
-        return _widgets[widgetName] = _resolveWidget(_widgets[widgetName]);
+        return _widgets[widgetName] = _resolveWidget(_widgets[widgetName]); */
+        return null;
     }
     
     // Clear the registry and reset the widgets.
@@ -116,15 +117,15 @@ class DWidgetLocator {
     
     // Resolves a widget spec into an instance.
     protected IWidget _resolveWidget(Json[string] configData) {
-        if (isString(configData)) {
+        /* if (isString(configData)) {
             configData = [configData];
         }
         auto myclass = configData.shift();
         auto myclassname = App.classname(myclass, "View/Widget", "Widget");
         if (myclassname.isNull) {
             throw new DInvalidArgumentException("Unable to locate widget class `%s`.".format(myclass));
-        }
-        if (count(configData)) {
+        } */
+        /* if (count(configData)) {
             auto myreflection = new DReflectionClass(myclassname);
             auto myarguments = [_stringContents];
             foreach (myrequirement; configData) {
@@ -135,8 +136,9 @@ class DWidgetLocator {
             myinstance = myreflection.newInstanceArgs(myarguments);
         } else {
             myinstance = new myclassname(_stringContents);
-        }
+        } */
         
-        return myinstance;
+        // return myinstance;
+        return null;
     }
 }

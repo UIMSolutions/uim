@@ -51,10 +51,11 @@ mixin template TIdGenerator() {
     
     // Generate an ID suitable for use in an ID attribute.
     protected string _domId(string valueToConvert) {
-        string mydomId = Text.slug(valueToConvert, "-").lower;
+        /* string mydomId = Text.slug(valueToConvert, "-").lower;
         if (_idPrefix) {
             mydomId = _idPrefix ~ "-" ~ mydomId;
         }
-        return mydomId;
+        return mydomId; */
+        return null;
     }
 } 

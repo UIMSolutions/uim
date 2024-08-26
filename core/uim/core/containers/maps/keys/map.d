@@ -7,6 +7,74 @@ unittest {
   writeln("-----  ", __MODULE__ , "\t  -----");
 }
 
+// #region notfilter
+V[K] notFilterByKeys(K, V)(V[K] entries, K[] keys...) {
+  return notFilterByKeys(entries, keys.dup);
+}
+
+V[K] notFilterByKeys(K, V)(V[K] entries, K[] keys) {
+  V[K] results = entries.dup;
+  keys
+    .filter!(key => key in entries)
+    .each!(key => results.remove(key));
+
+  return results;
+}
+
+unittest {
+  assert(["a": "1", "b": "2"].length == 2);
+  assert(["a": "1", "b": "2"].hasKey("a"));
+  assert(["a": "1", "b": "2"].hasKey("b"));
+
+  assert(["a": "1", "b": "2"].filterByKey("a").length == 1);
+  assert(["a": "1", "b": "2"].hasKey("a"));
+  assert(!["a": "1", "b": "2"].hasKey("b"));
+
+  assert(["a": "1", "b": "2"].filterByKeys("a") == 1);
+  assert(["a": "1", "b": "2"].hasKey("a"));
+  assert(!["a": "1", "b": "2"].hasKey("b"));
+}
+// #endregion notfilter
+
+// #region filter
+V[K] filterByKeys(K, V)(V[K] entries, K[] keys...) {
+  return filterByKeys(entries, keys.dup);
+}
+
+V[K] filterByKeys(K, V)(V[K] entries, K[] keys) {
+  V[K] results;
+  keys
+    .filter!(key => key in entries)
+    .each!(key => results[key] = entries[key]);
+
+  return results;
+}
+
+V[K] filterByKey(K, V)(V[K] entries, K key) {
+  V[K] results;
+
+  if (entries.hasKey(key)) {
+    results.set(key, entries,get(key));
+  }
+
+  return results;
+}
+
+unittest {
+  assert(["a": "1", "b": "2"].length == 2);
+  assert(["a": "1", "b": "2"].hasKey("a"));
+  assert(["a": "1", "b": "2"].hasKey("b"));
+
+  assert(["a": "1", "b": "2"].filterByKey("a").length == 1);
+  assert(["a": "1", "b": "2"].hasKey("a"));
+  assert(!["a": "1", "b": "2"].hasKey("b"));
+
+  assert(["a": "1", "b": "2"].filterByKeys("a") == 1);
+  assert(["a": "1", "b": "2"].hasKey("a"));
+  assert(!["a": "1", "b": "2"].hasKey("b"));
+}
+// #endregion filter
+
 // #region replaceKey
 V[K] replaceKey(K, V)(V[K] entries, K[] originalPath, K[] newPath) {
   if (originalPath.length != newPath.length) {

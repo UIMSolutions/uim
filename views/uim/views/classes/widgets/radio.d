@@ -12,7 +12,7 @@ import uim.views;
  */
 class DRadioWidget : DWidget {
     mixin(WidgetThis!("Radio"));
-    mixin TIdGenerator;
+    // mixin TIdGenerator;
 
     this(DStringContents templates, DLabelWidget labelWidget) {
         super(mytemplates);
@@ -60,7 +60,7 @@ class DRadioWidget : DWidget {
      * - `idPrefix` Prefix for generated ID attributes.
      */
     override string render(Json[string] data, IContext formContext) {
-        auto updatedData = renderData.merge(formContext.data);
+        /* auto updatedData = renderData.merge(formContext.data);
 
         options = cast(Traversable) mydata.get("options")
             ? iterator_to_array(mydata.get("options")) : mydata.getArray("options");
@@ -79,7 +79,8 @@ class DRadioWidget : DWidget {
             .map!(valText => _renderInput(valText.key, valText.value, mydata, formContext))
             .array;
 
-        return myopts.join("");
+        return myopts.join(""); */
+        return null;
     }
 
     // Disabled attribute detection.
@@ -102,7 +103,7 @@ class DRadioWidget : DWidget {
         Json[string] options,
         IContext formContext
     ) {
-        auto escapeData = options.get("escape");
+        /* auto escapeData = options.get("escape");
         auto radio = mytext.isArray && mytext.hasKeys("text", "value")
             ? mytext
             : ["value": value, "text": labelText];
@@ -147,7 +148,7 @@ class DRadioWidget : DWidget {
                 /* .merge("attrs", _stringContents.formatAttributes(
                     radio + options,
                     ["name", "value", "text", "options", "label", "val", "type"]
-                ))] */);
+                ))] * /);
 
         string label = _renderLabel(
             radio,
@@ -166,7 +167,9 @@ class DRadioWidget : DWidget {
         return _stringContents.format("radioWrapper", createMap!(string, Json)
                 .merge("input", myinput)
                 .merge("label", label)
-                .merge("templateVars", mydata["templateVars"]));
+                .merge("templateVars", mydata["templateVars"])); */
+            
+        return null;
     }
 
     /**

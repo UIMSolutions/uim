@@ -135,6 +135,7 @@ class DStringContents {
     bool removeKey(string name) {
         /* _templates.remove(name);
         _compiledTemplates.remove(name); */
+        return false;
     }
 
     // #endregion manage templates

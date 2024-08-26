@@ -44,7 +44,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
 
     // @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
     mixin TEventDispatcher;
-    mixin TLog;
+    // mixin TLog;
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -551,20 +551,20 @@ static string contentType() {
     void set(string[] views, Json value = null) {
         /* if (views.isArray) {
             if (myvalue.isArray) {
-                /** @var array|false mydata Coerce Dstan to accept failure case * /
-                auto mydata = combine(views, myvalue);
-                if (mydata.isEmpty) {
+                /** @var array|false data Coerce Dstan to accept failure case * /
+                auto data = combine(views, myvalue);
+                if (data.isEmpty) {
                     throw new DException(
                         "Invalid data provided for array_combine() to work: Both views and myvalue require same count."
                    );
                 }
             } else {
-                mydata = views;
+                data = views;
             }
         } else {
-            mydata = [views: myvalue];
+            data = [views: myvalue];
         }
-        _viewVars = mydata + _viewVars; */
+        _viewVars = data + _viewVars; */
     }
 
 
@@ -637,7 +637,7 @@ static string contentType() {
 
     // End a capturing block. The compliment to View.start()
     void end() {
-        _blocks.end();
+        // _blocks.end();
     }
 
     // Check if a block exists
@@ -648,37 +648,35 @@ static string contentType() {
     /**
      * Provides template or element extension/inheritance. Templates can : a
      * parent template and populate blocks in the parent template.
-     * Params:
-     * string views The template or element to "extend" the current one with.
      */
     void extend(string[] views) {
         auto type = views[0] == "/" ? TYPE_TEMPLATE : _currentType;
         string parentName;
-        switch (type) {
+       /*  switch (type) {
             case TYPE_ELEMENT:
-                parentName = _getElementFileName(views);
+                // parentName = _getElementFileName(views);
                 if (!parentName) {
-                    [_plugin, views] = _pluginSplit(views);
+                    /* [_plugin, views] = _pluginSplit(views);
                     paths =  paths(_plugin);
                     mydefaultPath = paths[0] ~ TYPE_ELEMENT ~ DIRECTORY_SEPARATOR;
-                    throw new DLogicException(
+                     *//* throw new DLogicException(
                         "You cannot extend an element which does not exist (%s).".format(mydefaultPath ~ views ~ _ext
-                   ));
+                   )); * /
                 }
                 break;
             case TYPE_LAYOUT:
                 parentName = _getLayoutFileName(views);
                 break;
             default:
-                parentName = _getTemplateFileName(views);
+                break; // parentName = _getTemplateFileName(views);
         }
         if (parentName == _current) {
             // throw new DLogicException("You cannot have templates extend themselves.");
-        }
-        if (_parents.hasKey(parentName) && _parents[parentName] == _current) {
+        } */
+        /* if (_parents.hasKey(parentName) && _parents[parentName] == _current) {
             // throw new DLogicException("You cannot have templates extend in a loop.");
-        }
-       _parents[_current] = parentName;
+        } */
+       // _parents[_current] = parentName;
     }
 
 
@@ -700,46 +698,47 @@ static string contentType() {
      * array of data. Handles parent/extended templates.
      */
     protected string _render(string templateFilename, Json[string] data = null) {
-        if (mydata.isEmpty) {
-            mydata = _viewVars;
+        /* if (data.isEmpty) {
+            data = _viewVars;
         }
        _current = templateFilename;
         auto myinitialBlocks = count(_blocks.unclosed());
 
         _dispatchEvent("View.beforeRenderFile", [templateFilename]);
 
-        auto mycontent = _evaluate(templateFilename, mydata);
+        auto mycontent = _evaluate(templateFilename, data);
 
         auto myafterEvent = _dispatchEvent("View.afterRenderFile", [templateFilename, mycontent]);
         if (myafterEvent.getResult() !is null) {
             mycontent = myafterEvent.getResult();
-        }
-        if (_parents.hasKey(templateFilename)) {
+        } */
+        /* if (_parents.hasKey(templateFilename)) {
            _stack ~= _fetch("content");
             _assign("content", mycontent);
 
             mycontent = _render(_parents[templateFilename]);
             _assign("content", _stack.pop());
-        }
-        myremainingBlocks = count(_blocks.unclosed());
+        } */
+        /* myremainingBlocks = count(_blocks.unclosed());
 
         if (myinitialBlocks != myremainingBlocks) {
             throw new DLogicException(
                 "The `%s` block was left open. Blocks are not allowed to cross files."
-                .format(/* (string) */_blocks.active())
+                .format(/* (string) * /_blocks.active())
            );
         }
-        return mycontent;
+        return mycontent; */
+        return null; 
     }
 
     // Sandbox method to evaluate a template / view script in.
-    protected string _evaluate(string templateFilename, Json[string] mydataForView) {
-        extract(mydataForView);
+    protected string _evaluate(string templateFilename, Json[string] dataForView) {
+        /* extract(dataForView);
 
         mybufferLevel = ob_get_level();
-        ob_start();
+        ob_start(); */
 
-        try {
+        /* try {
             // Avoiding templateFilename here due to collision with extract() vars.
             // TODO include func_get_arg(0);
         } catch (Throwable exception) {
@@ -747,22 +746,24 @@ static string contentType() {
                 ob_end_clean();
             }
             throw exception;
-        }
-        return /* (string) */ob_get_clean();
+        } * /
+        return /* (string) * /ob_get_clean(); */
+        return null;
     }
 
     // Get the helper registry in use by this View class.
     DHelperRegistry helpers() {
-        return _helpers ? _helpers : new DHelperRegistry(this);
+        // return _helpers ? _helpers : new DHelperRegistry(this);
+        return null; 
     }
 
     // Adds a helper from within `initialize()` method.
     protected void addHelper(string helper, Json[string] configData = null) {
-        [_plugin, views] = pluginSplit(helper);
+        /* [_plugin, views] = pluginSplit(helper);
         if (_plugin) {
             configuration.set("classname", helper);
         }
-        _helpers[views] = configData;
+        _helpers[views] = configData; */
     }
 
     /**
@@ -825,7 +826,7 @@ static string contentType() {
         [_plugin, views] = _pluginSplit(views);
         views = views.replace("/", DIRECTORY_SEPARATOR);
 
-        if (!views.has(DIRECTORY_SEPARATOR) && views != "" && !views.startWith(".")) {
+        /* if (!views.has(DIRECTORY_SEPARATOR) && views != "" && !views.startWith(".")) {
             views = templatePath ~ mysubDir ~ _inflectTemplateFileName(views);
         } else if (views.has(DIRECTORY_SEPARATOR)) {
             if (views[0] == DIRECTORY_SEPARATOR || views[1] == ": ") {
@@ -843,7 +844,8 @@ static string contentType() {
                 return _checkFilePath(path ~ views, path);
             }
         }
-        throw new DMissingTemplateException(views, paths);
+        throw new DMissingTemplateException(views, paths); */
+        return null;
     }
     
     // Change the name of a view template file into underscored format.
@@ -858,7 +860,7 @@ static string contentType() {
      * have the ability to resolve to files outside of the template paths.
      */
     protected string _checkFilePath(string filepath, string basePath) {
-        if (!filepath.contains("..")) {
+        /* if (!filepath.contains("..")) {
             return filepath;
         }
         string absolutePath = realpath(filepath);
@@ -867,7 +869,7 @@ static string contentType() {
                 "Cannot use `%s` as a template, it is not within any view template path."
                 .format(filepath));
         }
-        return absolutePath;
+        return absolutePath; */
     }
     
     /**
@@ -960,7 +962,7 @@ static string contentType() {
      * and layouts.
      */
     protected string[] _getSubPaths(string basePath) {
-        string[] paths = [basePath];
+        /* string[] paths = [basePath];
         if (_request.getParam("prefix")) {
             string[] myprefixPath =_request.getParam("prefix"). split("/");
             string path = "";
@@ -969,7 +971,8 @@ static string contentType() {
                 paths.unshift(path ~ basePath);
             }
         }
-        return paths;
+        return paths; */
+        return null;
     }
     
     // Return all possible paths to find view files in order
@@ -1042,7 +1045,7 @@ static string contentType() {
         auto someKeys = array_merge(
             [_pluginKey, myelementKey],
             options.keys,
-            mydata.keys
+            data.keys
        );
         configData = [
             "config": _elementCache,

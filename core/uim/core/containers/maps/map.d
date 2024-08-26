@@ -741,33 +741,3 @@ unittest {
   assert(["a": "1", "b": "2"].notFilterByKeys("a") == ["b": "2"]);
 }
 
-// #region replaceKey
-V[K] replaceKey(K, V)(V[K] entries, K[] originalPath, K newPath) {
-  keys
-    .filter!(key => key in entries)
-    .each!(key => results.remove(key));
-
-  return results;
-}
-
-V[K] replaceKey(K, V)(V[K] entries, K originalKey, K newKey) {
-  keys
-    .filter!(key => key in entries)
-    .each!(key => results.remove(key));
-
-  return results;
-}
-
-///
-unittest {
-  auto testMap = createMap!(string, Json)
-    .set("a", "A")
-    .set("obj", createMap!(string, Json).set("b", "B"));
-
-  assert(!testMap.hasKey("A"));
-  assert(testMap.getString("a") == "A");
-  assert(testMap.replaceKey("a", "A"));
-  assert(testMap.hasKey("A"));
-  assert(testMap.getString("A") == "A");
-}
-// #endregion replaceKey

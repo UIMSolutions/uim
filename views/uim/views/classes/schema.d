@@ -59,7 +59,7 @@ class DSchema {
 
     // Adds a field to the schema.
     DSchema addField(string fieldName, STRINGAA fieldAttributes) {
-        _fields[fieldName] = fieldAttributes.merge(_fieldDefaults);
+        /* _fields[fieldName] = fieldAttributes.merge(_fieldDefaults); */
         return this;
     }
 
@@ -108,9 +108,10 @@ class DSchema {
 
     // Get the printable version of this object
     Json[string] debugInfo() {
-        return [
+        /* return [
             "_fields": _fields.toString,
-        ];
+        ]; */
+        return null; 
     }
 }
 

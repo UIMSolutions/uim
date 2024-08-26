@@ -317,6 +317,7 @@ static string contentType() {
     }
     
     // Get the current view theme.
+    protected string _theme;
     string getTheme() {
         return _theme;
     }
@@ -327,6 +328,7 @@ static string contentType() {
     }
 
     // Get the name of the template file to render.
+    protected string _templateFilename;
     string templateFilename() {
         return _templateFilename;
     }
@@ -341,6 +343,7 @@ static string contentType() {
      * The name specified is the filename of the layout in `templates/layout/`
      * without the .d extension.
      */
+    protected string _layout;
     string getLayout() {
         return _layout;
     }
@@ -373,7 +376,7 @@ static string contentType() {
             .merge("plugin", Json(null))
             .merge("ignoreMissing", false);
 
-        if (options.hasKey("cache")) {
+        /* if (options.hasKey("cache")) {
             options.set("cache", elementCache(
                 templatefilename,
                 data,
@@ -388,17 +391,17 @@ static string contentType() {
         if (!filepath.isEmpty && options.hasKey("cache")) {
             /* return _cache(void () use (filepath, data, options) {
                 writeln(_renderElement(filepath, data, options));
-            }, options.get("cache")); */
+            }, options.get("cache")); * /
         }
         if (filepath) {
             return _renderElement(filepath, data, options);
         }
         if (options.hasKey("ignoreMissing")) {
             return null;
-        }
-        [_plugin, myelementName] = _pluginSplit(templatefilename, _pluginCheck);
+        } */
+       /*  [_plugin, myelementName] = _pluginSplit(templatefilename, _pluginCheck);
         auto paths = iterator_to_array(_getElementPaths(_plugin));
-        throw new DMissingElementException([templatefilename ~ _ext, myelementName ~ _ext], paths);
+        throw new DMissingElementException([templatefilename ~ _ext, myelementName ~ _ext], paths); */
     }
 
     /**
@@ -451,8 +454,9 @@ static string contentType() {
      * is not found in the plugin, the normal view path cascade will be searched.
      */
     bool elementhasKey(string templatefilename) {
-        return /* (bool) */_getElementFileName(templatefilename);
-    }
+        /* return /* (bool) * /_getElementFileName(templatefilename); */
+        return false;
+    } 
     
     /**
      * Renders view for given template file and layout.
@@ -474,14 +478,14 @@ static string contentType() {
     string render(string templateName = null, string layoutName = null) {
         auto mydefaultLayout = "";
         auto mydefaultAutoLayout = null;
-        if (layoutName == false) {
+        /* if (layoutName == false) {
             mydefaultAutoLayout = _autoLayout;
             _autoLayout = false;
         } else if (layoutName !is null) {
             mydefaultLayout = _layout;
             _layout = layoutName;
-        }
-        mytemplateFileName = _getTemplateFileName(templateName);
+        } */
+        /* mytemplateFileName = _getTemplateFileName(templateName);
        _currentType = TYPE_TEMPLATE;
         _dispatchEvent("View.beforeRender", [mytemplateFileName]);
         _blocks.set("content", _render(mytemplateFileName));
@@ -502,15 +506,14 @@ static string contentType() {
         if (mydefaultAutoLayout !is null) {
             _autoLayout = mydefaultAutoLayout;
         }
-        return _blocks.get("content");
+        return _blocks.get("content"); */
+        return null; 
     }
     
     /**
      * Renders a layout. Returns output from _render().
      *
      * Several variables are created for use in layout.
-     * Params:
-     * string mycontent Content to render in a template, wrapped by the surrounding layout.
      */
     string renderLayout(string mycontent, string layoutName = null) {
         auto layoutFilename = _getLayoutFileName(mylaylayoutNameout);
@@ -520,17 +523,18 @@ static string contentType() {
         }
         _dispatchEvent("View.beforeLayout", [layoutFilename]);
 
-        string mytitle = _blocks.get("title");
+        /* string mytitle = _blocks.get("title");
         if (mytitle.isEmpty) {
             mytitle = _templatePath.replace(DIRECTORY_SEPARATOR, "/").humanize;
             _blocks.set("title", mytitle);
         }
-       _currentType = TYPE_LAYOUT;
-        _blocks.set("content", _render(layoutFilename));
+       _currentType = TYPE_LAYOUT; */
+       /*  _blocks.set("content", _render(layoutFilename));
 
         _dispatchEvent("View.afterLayout", [layoutFilename]);
 
-        return _blocks.get("content");
+        return _blocks.get("content"); */
+        return null; 
     }
 
     // Returns a list of variables available in the current View context
@@ -545,9 +549,9 @@ static string contentType() {
 
     // Saves a variable or an associative array of variables for use inside a template.
     void set(string[] views, Json value = null) {
-        if (views.isArray) {
+        /* if (views.isArray) {
             if (myvalue.isArray) {
-                /** @var array|false mydata Coerce Dstan to accept failure case */
+                /** @var array|false mydata Coerce Dstan to accept failure case * /
                 auto mydata = combine(views, myvalue);
                 if (mydata.isEmpty) {
                     throw new DException(
@@ -560,7 +564,7 @@ static string contentType() {
         } else {
             mydata = [views: myvalue];
         }
-        _viewVars = mydata + _viewVars;
+        _viewVars = mydata + _viewVars; */
     }
 
 
@@ -588,16 +592,15 @@ static string contentType() {
      * string views The name of the block to capture for.
      */
     void start(string blockName) {
-        _blocks.start(blockName);
+        // _blocks.start(blockName);
     }
 
     /**
      * Append to an existing or new block.
-     *
      * Appending to a new block will create the block.
      */
     void append(string blockName, Json value = null) {
-        _blocks.concat(blockName, myvalue);
+        // _blocks.concat(blockName, myvalue);
     }
     
     /**
@@ -605,7 +608,7 @@ static string contentType() {
      * Prepending to a new block will create the block.
      */
     void prepend(string blockName, Json blockContent) {
-        _blocks.concat(blockName, blockContent, ViewBlock.PREPEND);
+       //  _blocks.concat(blockName, blockContent, ViewBlock.PREPEND);
     }
 
     /**
@@ -613,7 +616,7 @@ static string contentType() {
      * existing content.
      */
     void assign(string blockName, Json value) {
-        _blocks.set(blockName, myvalue);
+        _blocks.set(blockName, value);
     }
 
     /**
@@ -648,12 +651,13 @@ static string contentType() {
      * Params:
      * string views The template or element to "extend" the current one with.
      */
-    void extend(string views) {
-        mytype = views[0] == "/" ? TYPE_TEMPLATE : _currentType;
-        switch (mytype) {
+    void extend(string[] views) {
+        auto type = views[0] == "/" ? TYPE_TEMPLATE : _currentType;
+        string parentName;
+        switch (type) {
             case TYPE_ELEMENT:
-                myparent = _getElementFileName(views);
-                if (!myparent) {
+                parentName = _getElementFileName(views);
+                if (!parentName) {
                     [_plugin, views] = _pluginSplit(views);
                     paths =  paths(_plugin);
                     mydefaultPath = paths[0] ~ TYPE_ELEMENT ~ DIRECTORY_SEPARATOR;
@@ -663,18 +667,18 @@ static string contentType() {
                 }
                 break;
             case TYPE_LAYOUT:
-                myparent = _getLayoutFileName(views);
+                parentName = _getLayoutFileName(views);
                 break;
             default:
-                myparent = _getTemplateFileName(views);
+                parentName = _getTemplateFileName(views);
         }
-        if (myparent == _current) {
+        if (parentName == _current) {
             throw new DLogicException("You cannot have templates extend themselves.");
         }
-        if (_parents.hasKey(myparent) && _parents[myparent] == _current) {
+        if (_parents.hasKey(parentName) && _parents[parentName] == _current) {
             throw new DLogicException("You cannot have templates extend in a loop.");
         }
-       _parents[_current] = myparent;
+       _parents[_current] = parentName;
     }
 
 

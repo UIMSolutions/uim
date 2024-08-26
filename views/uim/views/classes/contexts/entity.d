@@ -122,7 +122,7 @@ class DEntityContext : DContext {
 
         string[] primaryKeys = mytable.primaryKeys();
         return isIn(pathParts.pop(), primaryKeys, true); */
-        return null;
+        return false;
 
     }
 
@@ -368,7 +368,7 @@ class DEntityContext : DContext {
             }
             return false;
         } */
-        return null;
+        return Json(null);
     }
 
     // Check if a field should be marked as required.

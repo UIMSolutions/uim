@@ -181,7 +181,7 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
      * Json[string] errors Errors list.
      */
     void setErrors(Json[string] errors) {
-        _errors = errors;
+        /* _errors = errors; */
     }
 
     /**
@@ -241,10 +241,10 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
 
     // Get the printable version of a Form instance.
     override Json[string] debugInfo() {
-        return createMap!(string, Json)
-            .set("_schema", getSchema().__debugInfo())
+        return super.debugInfo;
+            /* .set("_schema", getSchema().__debugInfo())
             .set("_errors", getErrors())
-            .set("_validator", getValidator().__debugInfo());
+            .set("_validator", getValidator().__debugInfo()) */;
 
         // return special + get_object_vars(this);
     }

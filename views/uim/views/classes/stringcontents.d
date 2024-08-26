@@ -108,8 +108,9 @@ class DStringContents {
     }
 
     string get(string key) {
-        return _templates.hasKey(key)
-            ? _temolates[key] : null;
+        /* return _templates.hasKey(key)
+            ? _temolates[key] : null; */
+        return null; 
     }
 
     /**
@@ -132,8 +133,8 @@ class DStringContents {
 
     // Remove the named template.
     bool removeKey(string name) {
-        _templates.removeKey(name);
-        _compiledTemplates.removeKey(name);
+        /* _templates.remove(name);
+        _compiledTemplates.remove(name); */
     }
 
     // #endregion manage templates
@@ -154,8 +155,8 @@ class DStringContents {
     protected void compileTemplate(string templateName) {
         string selectedTemplate = get(templateName);
         if (selectedTemplate.isNull) {
-            throw new DInvalidArgumentException(
-                "String template `%s` is not valid.".format(templateName));
+            /* throw new DInvalidArgumentException(
+                "String template `%s` is not valid.".format(templateName)); */
         }
 
         selectedTemplate = selectedTemplate.replace("%", "%%");
@@ -192,7 +193,7 @@ class DStringContents {
         // TODO     throw new DInvalidArgumentException("Cannot find template named `%s`.".format(templateName));
         // TODO }
         // TODO [mytemplate, myplaceholders] = _compiledtemplates[templateName];
-        yTemplate; // TODO = _compiledtemplates[templateName];
+        // yTemplate; // TODO = _compiledtemplates[templateName];
 
         Json templateVars;
         if (insertData.hasKey("templateVars")) {
@@ -201,11 +202,11 @@ class DStringContents {
         }
 
         string[] replaces;
-        myplaceholders.each!((placeholder) {
+        /* myplaceholders.each!((placeholder) {
             Json replacement = templateVars.get(placeholder);
             replaces ~= replacement.isArray
                 ? replacement.getStringArray.join("") : "";
-        });
+        }); */
 
         // TODO return mytemplate.format(replaces); 
         return null;
@@ -239,22 +240,25 @@ class DStringContents {
 
     string formatAttributes(Json[string] options, bool[string] excludedOptions = null) {
         string insertBefore = " ";
-        Json[string] mergedOptions = options.merge(["escape": true]);
+        options
+            .merge("escape", true);
 
-        bool[string] mergedExcludedOptions = excludedOptions.merge([
-            "escape": true,
-            "idPrefix": true,
-            "templateVars": true,
-            "fieldName": true
-        ]);
-        bool useEscape = mergedoptions.getBoolean("escape");
-        string[] attributes = mergedOptions
+        excludedOptions
+            .merge("escape", true)
+            .merge("idPrefix", true)
+            .merge("templateVars", true)
+            .merge("fieldName", true);
+
+        bool useEscape = options.getBoolean("escape");
+        /* string[] attributes = options
             .byKeyValue
             .filter!(kv => !mergedExcludedOptions.hasKey(kv.key))
             .map!(kv => _formatAttribute(kv.key, kv.value, useEscape))
             .array;
+
         string result = attributes.join(" ").strip;
-        return result ? insertBefore ~ result : "";
+        return result ? insertBefore ~ result : ""; */
+        return null; 
     }
 
     /**
@@ -271,7 +275,7 @@ class DStringContents {
 
         string key = attributeKey;
         bool isMinimized = _compactAttributes.hasKey(key);
-        if (!matchFirst(key, r"/\A(\w|[.-])+\z/")) {
+        /* if (!matchFirst(key, r"/\A(\w|[.-])+\z/")) {
             key = htmlAttributeEscape(key);
         }
 
@@ -280,7 +284,8 @@ class DStringContents {
             return truthy ? `%s="%s"`.format(key, key) : "";
         }
 
-        return `%s="%s"`.format((shouldEscape ? htmlAttributeEscape(value) : value));
+        return `%s="%s"`.format((shouldEscape ? htmlAttributeEscape(value) : value)); */
+        return null; 
     }
 
     //  Adds a class and returns a unique list either in array or space separated

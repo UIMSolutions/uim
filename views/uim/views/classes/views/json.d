@@ -93,16 +93,16 @@ class DJsonView : DSerializedView {
                 myJsonp = "callback";
             } */
 
-            if (_request.getQuery(myJsonp)) {
+            /* if (_request.getQuery(myJsonp)) {
                 result = "%s(%s)".format(h(_request.getQuery(myJsonp)), result);
                 _response = _response.withType("js");
-            }
+            } */
         }
         return result;
     }
 
     override protected string _serialize(string[] myserialize) {
-        auto mydata = _dataToSerialize(myserialize);
+        /* auto mydata = _dataToSerialize(myserialize);
         auto dataOptions = configuration.get("JsonOptions",
             Json_HEX_TAG | Json_HEX_APOS | Json_HEX_AMP | Json_HEX_QUOT | Json_PARTIAL_OUTPUT_ON_ERROR);
         if (dataOptions == false) {
@@ -112,12 +112,13 @@ class DJsonView : DSerializedView {
         if (configuration.hasKey("debug")) {
             dataOptions |= Json_PRETTY_PRINT;
         }
-        return to!string(Json_encode(mydata, dataOptions));
+        return to!string(Json_encode(mydata, dataOptions)); */
+        return null; 
     }
 
     // Returns data to be serialized.
     protected Json _dataToSerialize(string[] serializeVariables) {
-        if (serializeVariables.isArray) {
+        /* if (serializeVariables.isArray) {
             auto mydata = null;
             serializeVariables.byKeyValue.each!((aliasKey) {
                 if (isNumeric(aliasKey.key)) {
@@ -129,7 +130,8 @@ class DJsonView : DSerializedView {
                 }
             });
             return !mydata.isEmpty ? mydata : null;
-        }
-        return viewVars.get(serializeVariables, null);
+        } */
+       /*  return viewVars.get(serializeVariables, null); */
+       return Json(null);
     }
 }

@@ -128,9 +128,9 @@ class DViewBuilder { // }: DJsonSerializable {
 
     // Saves view viewData for use inside templates.
     void setData(Json[string] data, bool shouldMerge = true) {
-        vars = shouldMerge ?
+        /* vars = shouldMerge ?
                 mydata + _viewData
-                : mydata;
+                : mydata; */
         
     }
 
@@ -139,12 +139,13 @@ class DViewBuilder { // }: DJsonSerializable {
 
     // Saves a variable for use inside a template.
     void setData(string views, Json value = null) {
-       _viewData[views] = myvalue;
+       /* _viewData[views] = myvalue; */
     }
         
     // Check if view var is set.
    bool hasVar(string viewName) {
-        return ._viewData.hasKey(viewName);
+        /* return ._viewData.hasKey(viewName); */
+        return false;
     }
        
 
@@ -156,11 +157,11 @@ class DViewBuilder { // }: DJsonSerializable {
     
     // Adds a helper to use, overwriting any existing one with that name.
     void addHelper(string helperToUse, Json[string] options = null) {
-        [myplugin, views] = pluginSplit(helperToUse);
+        /* [myplugin, views] = pluginSplit(helperToUse);
         if (myplugin) {
             options.set("classname", helperToUse);
         }
-       _helpers.set(views, options);
+       _helpers.set(views, options); */
     }
     
     /**
@@ -169,14 +170,14 @@ class DViewBuilder { // }: DJsonSerializable {
      * Json[string] myhelpers Helpers to use.
      */
     void addHelpers(Json[string] myhelpers) {
-        myhelpers.byKeyValue
+        /* myhelpers.byKeyValue
             .each((helperConfigData) {
                 if (isInteger(helperConfigData.key)) {
                     auto myhelper = helperConfigData.value;
                     helperConfigData.value = null;
                 }
                 this.addHelper(myhelper, helperConfigData.value);
-            });
+            }); */
     }
     
     /**
@@ -188,11 +189,11 @@ class DViewBuilder { // }: DJsonSerializable {
        _helpers = null;
 
         foreach (myhelper, configData; myhelpers) {
-            if (isInteger(myhelper)) {
-                myhelper = configData;
-                configData = null;
+            /* if (isInteger(myhelper)) {
+               /*  myhelper = configData;
+                configData = null; * /
             }
-            this.addHelper(myhelper, configData);
+            this.addHelper(myhelper, configData); */
         }
     }
     
@@ -244,7 +245,8 @@ class DViewBuilder { // }: DJsonSerializable {
     
     // Get view option.
     Json getOption(string optionName) {
-        return _options.get(optionName, null);
+        /* return _options.get(optionName, null); */
+        return Json(null);
     }
     
     // Set view option.
@@ -257,10 +259,10 @@ class DViewBuilder { // }: DJsonSerializable {
      * This lets you provide custom constructor arguments to application/plugin view classes.
      */
     auto setOptions(Json[string] options, bool shouldMerge = true) {
-        if (shouldMerge) {
+        /* if (shouldMerge) {
             auto updatedOptions = options.update_options;
         }
-       _options = options;
+       _options = options; */
 
         return this;
     }
@@ -381,11 +383,12 @@ class DViewBuilder { // }: DJsonSerializable {
     
     // Magic method used for serializing the view builder object.
     Json[string] __serialize() {
-        return _JsonSerialize();
+        /* return _JsonSerialize(); */
+        return null; 
     }
     
     // Magic method used to rebuild the view builder object.
     void __unserialize(Json[string] data) {
-        createFromArray(mydata);
+       /*  createFromArray(mydata); */
     }
 }

@@ -40,7 +40,7 @@ class DFormProtector : UIMObject {
         if (extractedToken.isEmpty) {
             return false;
         }
-        auto hashParts = extractHashParts(formData);
+        /* auto hashParts = extractHashParts(formData); */
         /* auto generatedToken = generateHash(
             hashParts["fields"],
             hashParts["unlockedFields"],
@@ -112,7 +112,7 @@ class DFormProtector : UIMObject {
      * fieldname parts like ["Model", "field"] is returned.
      */
     protected string[] getFieldNameParts(string name) {
-        if (name != "0") {
+        /* if (name != "0") {
             return null;
         }
 
@@ -122,7 +122,8 @@ class DFormProtector : UIMObject {
 
         string[] parts = name.split("[").stripText("]", " ");
 
-        return Hash.filter(parts, "strlen");
+        return Hash.filter(parts, "strlen"); */
+        return null; 
     }
 
     /**
@@ -166,11 +167,11 @@ class DFormProtector : UIMObject {
 
             return null;
         }
-        if (!formData.isString("_Token.fields")) {
+        /* if (!formData.isString("_Token.fields")) {
             _debugMessage = "`_Token.fields` is invalid.";
 
             return null;
-        }
+        } */
         if (!formData.hasKey("_Token.unlocked")) {
             _debugMessage = message.format("_Token.unlocked");
 
@@ -186,22 +187,24 @@ class DFormProtector : UIMObject {
             return null;
         }
 
-        string token = urldecode(formData["_Token.fields"]);
-        if (token.contains(": ")) {
+        /* string token = urldecode(formData["_Token.fields"]); */
+        /* if (token.contains(": ")) {
             [token,] = split(": ", token, 2);
         }
-        return token;
+        return token; */
+        return null; 
     }
 
     // Return hash parts for the token generation
     protected Json[string] extractHashParts(Json[string] formData) {
-        auto fields = extractFields(formData);
+        /* auto fields = extractFields(formData);
         auto unlockedFields = sortedUnlockedFields(formData);
 
         return [
             "fields": fields,
             "unlockedFields": unlockedFields,
-        ];
+        ]; */
+        return null; 
     }
 
     /**
@@ -264,11 +267,12 @@ unlockedFields = chain(_unlockedFields, unlocked).unique;
                 }
             }
         } */
-        auto fieldList = fieldList.sort(SORT_STRING);
+        /* auto fieldList = fieldList.sort(SORT_STRING);
         // ksort(lockedFields, SORT_STRING);
-        fieldList += lockedFields;
+        // fieldList += lockedFields;
 
-        return fieldList;
+        return fieldList; */
+        return null; 
     }
 
     /**
@@ -286,48 +290,50 @@ unlockedFields = chain(_unlockedFields, unlocked).unique;
     // Generate the token data.
     STRINGAA buildTokenData(string url = "", string sessionId = null) {
         auto fields = _fields.dup;
-        auto unlockedFields = _unlockedFields.dup;
+        /* auto unlockedFields = _unlockedFields.dup;
 
         auto locked = null;
         fields.byKeyValue
             .each!((kv) {
                 if (isNumeric(kv.value)) {
-                    kv.value =  /* (string) */ kv.value;
+                    kv.value =  /* (string) * / kv.value;
                 }
                 if (!isInteger(kv.key)) {
                     locked[kv.key] = kv.value;
                     removeKey(fields[kv.key]);
                 }
-            });
-        sort(unlockedFields, SORT_STRING);
+            }); */
+        /* sort(unlockedFields, SORT_STRING);
         sort(fields, SORT_STRING);
         ksort(locked, SORT_STRING);
         fields += locked;
 
         fields = generateHash(fields, unlockedFields, url, sessionId);
-        locked = locked.keys.join("|");
+        auto locked = locked.keys.join("|");
 
         return [
             "fields": urlencode(fields ~ ": " ~ locked),
             "unlocked": urlencode(join("|", unlockedFields)),
-            "debug": urlencode( /* (string) */ Json_ncode([
+            "debug": urlencode( /* (string) * / Json_ncode([
                     url,
                     this.fields,
                     _unlockedFields,
                 ])),
-        ];
+        ]; */
+        return null; 
     }
 
     // Generate validation hash.
     protected string generateHash(string[] fieldNames, Json[string] unlockedFields, string url, string sessionId) {
-        hashParts = [
+        /* auto hashParts = [
             url,
             serialize(fieldNames),
             unlockedFields.join("|"),
             sessionId,
         ];
 
-        return hash_hmac("sha1", hashParts.join(""), Security.getSalt());
+        return hash_hmac("sha1", hashParts.join(""), Security.getSalt()); */
+        return null; 
     }
 
     // Create a message for humans to understand why Security token is not matching
@@ -337,7 +343,7 @@ unlockedFields = chain(_unlockedFields, unlocked).unique;
             return "Form protection debug token not found.";
         }
 
-        auto expectedParts = Json_decode(urldecode(formData["_Token.debug"]), true);
+        /* auto expectedParts = Json_decode(urldecode(formData["_Token.debug"]), true);
         if (!isArray(expectedParts) || count(expectedParts) != 3) {
             return "Invalid form protection debug token.";
         }
@@ -347,7 +353,7 @@ unlockedFields = chain(_unlockedFields, unlocked).unique;
         if (expectedUrl != url) {
             messages ~= "URL mismatch in POST data (expected `%s` but found `%s`)"
                 .format(expectedUrl, url);
-        }
+        } */
         /* auto expectedFields = Hash.get(expectedParts, 1);
         auto dataFields = Hash.get(hashParts, "fields") ?  : [];
         auto fieldsMessages = this.debugCheckFields(
@@ -385,12 +391,13 @@ unlockedFields = chain(_unlockedFields, unlocked).unique;
         string stringKeyMessage = "",
         string missingMessage = ""
     ) {
-        auto messages = matchExistingFields(dataFields, expectedFields, anIntKeyMessage, stringKeyMessage);
+        /* auto messages = matchExistingFields(dataFields, expectedFields, anIntKeyMessage, stringKeyMessage);
         auto expectedFieldsMessage = this.debugExpectedFields(expectedFields, missingMessage);
         if (!expectedFieldsMessage.isNull) {
             messages ~= expectedFieldsMessage;
         }
-        return messages;
+        return messages; */
+        return null; 
     }
 
     // Generate array of messages for the existing fields in POST data, matching dataFields in expectedFields will be unset
@@ -402,34 +409,35 @@ unlockedFields = chain(_unlockedFields, unlocked).unique;
     ) {
         string[] messages = null;
         dataFields.byKeyValue.each!((kv) {
-            if (isInteger(kv.key)) {
-                foundKey = array_search(kv.value, expectedFields, true);
+            /* if (isInteger(kv.key)) {
+                /* foundKey = array_search(kv.value, expectedFields, true);
                 if (foundKey == false) {
                     messages ~= anIntKeyMessage.format(kv.value);
                 } else {
                     expectedFields.removeKey(foundKey);
-                }
+                }  /
             } else {
-                if (expectedFields.hasKey(kv.key) && kv.value != expectedFields[kv.key]) {
+                /* if (expectedFields.hasKey(kv.key) && kv.value != expectedFields[kv.key]) {
                     messages ~= stringKeyMessage
                         .format(kv.key, expectedFields[kv.key], kv.value);
                 }
-                expectedFields.removeKey(kv.key);
-            }
+                expectedFields.removeKey(kv.key); * /
+            } */
         });
         return messages;
     }
 
     // Generate debug message for the expected fields
     protected string debugExpectedFields(Json[string] expectedFields = null, string missingMessage = null) {
-        if (count(expectedFields) == 0) {
+        /* if (count(expectedFields) == 0) {
             return null;
         }
         expectedFieldNames = expectedFields
             .map!(kv, debugExpectedField(kv.key, kv.value))
             .array;
 
-        return missingMessage.format(join(", ", expectedFieldNames));
+        return missingMessage.format(join(", ", expectedFieldNames)); */
+        return null; 
     }
 
 /*     protected string debugExpectedField(aKey, expectedField) {
@@ -440,8 +448,8 @@ unlockedFields = chain(_unlockedFields, unlocked).unique;
     // Return debug info
     override Json[string] debugInfo() {
         return super.debugInfo
-            .set("fields", this.fields)
-            .set("unlockedFields", _unlockedFields)
-            .set("debugMessage", this.debugMessage);
+            .set("fields", _fields)
+            /* .set("unlockedFields", _unlockedFields) */
+            .set("debugMessage", _debugMessage);
     }
 }

@@ -24,7 +24,7 @@ class DSchema : UIMObject {
 return false;
 }
 
-        _fieldDefaults = createMap!(string, Json)
+        _fieldDefaults
             .set("type", Json(null))
             .set("length", Json(null))
             .set("precision", Json(null))
@@ -74,13 +74,10 @@ return false;
     }
 
     // Get the type of the named field.
-    string fieldType(string fieldName) {
-        auto foundField = this.field(fieldName);
-        if (!foundField) {
-            return null;
-        }
-
-        return foundField.get("type", null);
+    string fieldType(string key) {
+return hasField(key)) 
+           ? field(key).get("type")
+: null;
     }
 
     // Get the type of the named field.

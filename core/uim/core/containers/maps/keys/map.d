@@ -32,17 +32,17 @@ V[K] notFilterByKey(K, V)(V[K] entries, K key) {
 }
 
 unittest {
-  assert(["a": "1", "b": "2"].length == 2);
-  assert(["a": "1", "b": "2"].hasKey("a"));
-  assert(["a": "1", "b": "2"].hasKey("b"));
+  assert(["a": 1, "b": 2].length == 2);
+  assert(["a": 1, "b": 2].hasKey("a"));
+  assert(["a": 1, "b": 2].hasKey("b"));
 
-  assert(["a": "1", "b": "2"].notFilterByKey("b").length == 1);
+  assert(["a": 1, "b": 2].notFilterByKey("b").length == 1);
   assert(["a": "1", "b": "2"].hasKey("a"));
   assert(!["a": "1", "b": "2"].hasKey("b"));
 
-  assert(["a": "1", "b": "2"].notFilterByKeys("b") == 1);
-  assert(["a": "1", "b": "2"].hasKey("a"));
-  assert(!["a": "1", "b": "2"].hasKey("b"));
+  assert(["a": 1, "b": 2].notFilterByKeys("b") == 1);
+  assert(["a": 1, "b": 2].hasKey("a"));
+  assert(!["a": 1, "b": 2].hasKey("b"));
 }
 // #endregion notfilter
 

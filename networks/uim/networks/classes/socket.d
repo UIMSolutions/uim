@@ -76,13 +76,13 @@ class DSocket {
     // Connect the socket to the given host and port.
     bool connect() {
         if (_connection) {
-            this.disconnect();
+            disconnect();
         }
         if (configuration.getString("host").contains(": //")) {
             [configuration.get("protocol"), configuration.get("host")] = configuration.getString("host")
                 .split(": //");
         }
-        scheme = null;
+        auto scheme = null;
         if (!configuration.isEmpty("protocol")) {
             scheme = configuration.get("protocol"]~": //";}
             _setSslContext(configuration.get("host")); context = !configuration .. isEmpty(
@@ -122,14 +122,14 @@ class DSocket {
                     );}
                     this.connected = isResource(_connection); if (this.connected) {
                         assert(_connection !is null); stream_set_timeout(
-                            _connection, (int) configuration.get("timeout"]);}
+                            _connection, (int) configuration.get("timeout");}
                         return _connected;}
 
                         /**
      * Check the connection status after calling `connect()`.
      */
-                        bool isConnected() {
-                            return _connected;}
+   bool isConnected() {
+      return _connected;}
 
                             // Create a stream socket client. Mock utility.
                             protected resource | null _getStreamSocketClient(

@@ -72,14 +72,17 @@ class DNumberHelper : DHelper {
      * string|float mynumber Value to format.
      */
     string currency(float value, string currencyName = null, Json[string] options = null) {
-        return currency(Number.currency(value, currencyName, options), currencyName, options);
+        // return currency(Number.currency(value, currencyName, options), currencyName, options);
+        return null;
     }
 
     string currency(string mynumber, string currencyName = null, Json[string] options = null) {
-        auto formattedCurrency = Number.currency(mynumber, currencyName, options);
+/*         auto formattedCurrency = Number.currency(mynumber, currencyName, options);
         options.merge("escape", true);
         return options.hasKey("escape") ? htmlAttributeEscape(formattedCurrency) : formattedCurrency;
-    }
+        */
+        return null;    
+ }
     
     /**
      * Formats a number into the correct locale format to show deltas (signed differences in value).
@@ -94,12 +97,14 @@ class DNumberHelper : DHelper {
      * - `escape` - Set to false to prevent escaping
      */
     string formatDelta(float value, Json[string] options = null) {
-        return formatDelta(Number.formatDelta(value, options));
+        // return formatDelta(Number.formatDelta(value, options));
+        return null;
     }
 
     string formatDelta(string value, Json[string] options = null) {
-        auto formattedNumber = Number.formatDelta(value, options);
+/*         auto formattedNumber = Number.formatDelta(value, options);
         options.merge("escape", true);
-        return options.hasKey("escape") ? htmlAttributeEscape(formattedNumber) : formattedNumber;
+        return options.hasKey("escape") ? htmlAttributeEscape(formattedNumber) : formattedNumber; */
+        return null;    
     }
 }

@@ -18,8 +18,8 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
 
     this(IView myview) {
         _view = myview;
-        setEventManager(myview.getEventManager());
-    }
+/*         setEventManager(myview.getEventManager());
+ */    }
 
     /**
      * Tries to lazy load a helper based on its name, if it cannot be found
@@ -27,7 +27,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * if any
      */
     bool __isSet(string helperName) {
-        if (_loaded.hasKey(helperName)) {
+/*         if (_loaded.hasKey(helperName)) {
             return true;
         }
         try {
@@ -43,7 +43,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
         if (!myexception.isEmpty) {
             throw myexception;
         }
-        return true;
+ */        return true;
     }
 
     /**
@@ -65,7 +65,8 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * string myclass DPartial classname to resolve.
      */
     protected string _resolveclassname(string myclass) {
-        return App.classname(myclass, "View/Helper", "Helper");
+        // return App.classname(myclass, "View/Helper", "Helper");
+        return null;
     }
 
     /**
@@ -94,10 +95,12 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
     }
 
     protected DHelper _create( /* object */ string myclass, string aliasName, Json[string] configData) {
-        auto myinstance = new myclass(_View, configData);
+/*         auto myinstance = new myclass(_View, configData);
         if (configuration.getBoolean("enabled", true)) {
             getEventManager().on(myinstance);
         }
-        return myinstance;
+        return myinstance; */
+                return null;
+
     }
 }

@@ -42,17 +42,17 @@ class DHelper : UIMObject { // TODO }: IEventListener {
         this(helperSettings);
         _view = newView;
 
-        if (helpers.isEmpty && !_view.isNull) {
+        /* if (helpers.isEmpty && !_view.isNull) {
             helpers = newView.helpers().normalizeArray(helpers);
-        }
+        } */
     }
 
     override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initdata)) {
+        if (!super.initialize(initData)) {
             return false;
         }
 
-        _allMethods = [ __traits(allMembers, DORMTable) ];
+/*         _allMethods = [ __traits(allMembers, DORMTable) ];
         _eventMap = [
             "View.beforeRenderFile": "beforeRenderFile",
             "View.afterRenderFile": "afterRenderFile",
@@ -61,7 +61,7 @@ class DHelper : UIMObject { // TODO }: IEventListener {
             "View.beforeLayout": "beforeLayout",
             "View.afterLayout": "afterLayout",
         ];
-
+ */
         return true;
     }
 
@@ -81,14 +81,14 @@ class DHelper : UIMObject { // TODO }: IEventListener {
 
     // Lazy loads helpers.
     DHelper __get(string propertyName) {
-        if (helperInstances.hasKey(propertyName)) {
+        /* if (helperInstances.hasKey(propertyName)) {
             return _helperInstances[propertyName];
         }
         if (helpers.hasKey(propertyName)) {
             helperSettings = ["enabled": false.toJson] + helpers[propertyName];
 
             return _helperInstances[propertyName] = _View.loadHelper(propertyName, helperSettings);
-        }
+        } */
         return null;
     }
 
@@ -100,7 +100,7 @@ class DHelper : UIMObject { // TODO }: IEventListener {
     // Adds the given class to the element options
     Json[string] addClass(Json[string] options, string classname, string key = "class") {
         if (options.hasKey(key) && options.isArray(key)) {
-            options.set(key, options.getSTring(key) ~ classname);
+            options.set(key, options.getString(key) ~ classname);
         }
         else if(options.hasKey(key) && options.getString(key).strip) {
             options.set(key, options.getString(key) ~ " " ~ classname);
@@ -122,20 +122,19 @@ class DHelper : UIMObject { // TODO }: IEventListener {
      */
     IEvent[] implementedEvents() {
         auto myevents = null;
-        myeventMap.byKeyValue
+        /* myeventMap.byKeyValue
             .filter!(eventMethod => hasMethod(this, eventMethod.value))
-            .each!(eventMethod => myevents[eventMethod.key] = eventMethod.value);
+            .each!(eventMethod => myevents[eventMethod.key] = eventMethod.value); */
 
         return myevents;
     }
 
     // Returns an array that can be used to describe the internal state of this object.
     Json[string] __debugInfo() {
-        return [
-            "helpers": helpers,
-            "implementedEvents": implementedEvents(),
-            "configuration": configuration.data,
-        ];
+        return super.debugInfo
+            /* .get("helpers", helpers)
+            .get("implementedEvents", implementedEvents())
+            .get("configuration", configuration.data) */;
     }
 
      

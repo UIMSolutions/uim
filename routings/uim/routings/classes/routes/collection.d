@@ -90,8 +90,8 @@ class DRouteCollection {
                     continue;
                 }
                 if (myuri.getQuery()) {
-                    parse_str(myuri.getQuery(), myqueryParameters);
-                    request["?"] = myqueryParameters;
+                    parse_str(myuri.getQuery(), myQueryParameters);
+                    request["?"] = myQueryParameters;
                 }
                 return request;
             }
@@ -109,8 +109,8 @@ class DRouteCollection {
                     continue;
                 }
                 if (myuri.getQuery()) {
-                    parse_str(myuri.getQuery(), myqueryParameters);
-                    myr["?"] = myqueryParameters;
+                    parse_str(myuri.getQuery(), myQueryParameters);
+                    myr["?"] = myQueryParameters;
                 }
                 return myr;
             }

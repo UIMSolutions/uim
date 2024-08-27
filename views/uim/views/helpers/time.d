@@ -58,8 +58,10 @@ class DTimeHelper : DHelper {
     string timezone = null,
     string localeName = null
   ) {
-    auto timezone = _getTimezone(timezone);
+/*     auto timezone = _getTimezone(timezone);
     return (new DateTime(dateString)).nice(timezone, localeName);
+ */
+         return null;
   }
 
   // Returns true, if the given datetime string is today.

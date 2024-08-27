@@ -85,7 +85,7 @@ class DTextHelper : DHelper {
      * escaping content in URL"s.
      */
     protected string _insertPlaceHolder(Json[string] mymatches) {
-        auto mymatch = mymatches[0];
+/*         auto mymatch = mymatches[0];
         string[] myenvelope = ["", ""];
         if (mymatches.hasKey("url")) {
             mymatch = mymatches["url"];
@@ -101,31 +101,35 @@ class DTextHelper : DHelper {
         ];
 
         return aKey;
-    }
+ */ 
+         return null;
+   }
 
     // Replace placeholders with links.
     protected string _linkUrls(string text, Json[string] myhtmlOptions) {
-        auto myreplace = null;
+/*         auto myreplace = null;
         foreach (myhash, mycontent; _placeholders) {
             auto mylink = myurl = mycontent["content"];
             auto myenvelope = mycontent["envelope"];
             /* if (!preg_match("#^[a-z]+\://#i", myurl)) {
                 myurl = "http://" ~ myurl;
             } */
-            /* myreplace[myhash] = myenvelope[0] ~ this.Html.link(mylink, myurl, myhtmlOptions) ~ myenvelope[1]; */
+            /* myreplace[myhash] = myenvelope[0] ~ this.Html.link(mylink, myurl, myhtmlOptions) ~ myenvelope[1]; * /
         }
-        return strtr(text, myreplace);
+        return strtr(text, myreplace); */
+        return null;
     }
 
     // Links email addresses
     protected string _linkEmails(string text, Json[string] options = null) {
-        auto myreplace = null;
+/*         auto myreplace = null;
         foreach (myhash, mycontent; _placeholders) {
             auto myurl = mycontent["content"];
             auto myenvelope = mycontent["envelope"];
             myreplace[myhash] = myenvelope[0] ~ this.Html.link(myurl, "mailto:" ~ myurl, options) ~ myenvelope[1];
         }
-        return strtr(text, myreplace);
+        return strtr(text, myreplace); */
+        return null;
     }
 
     /**
@@ -160,9 +164,7 @@ class DTextHelper : DHelper {
      */
     string autoLink(string text, Json[string] options = null) {
         auto linkUrls = autoLinkUrls(text, options);
-        return _autoLinkEmails(linkUrls, options.setPath([
-                "escape": false.toJson
-            ]));
+        return _autoLinkEmails(linkUrls, options.merge("escape", false));
     }
 
     /**
@@ -171,18 +173,20 @@ class DTextHelper : DHelper {
      * <p> added for double line return
      */
     string autoParagraph(string text) {
-        text = text.ifEmpty("");
+/*         text = text.ifEmpty("");
         if (!text.strip.isEmpty) {
             /* text = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", text ~ "\n"));
             text = /* (string) * /preg_replace("/\n\n+/", "\n\n", text.replace(["\r\n", "\r"], "\n")); */
-            /* mytexts = preg_split("/\n\s*\n/", text, -1, PREG_SPLIT_NO_EMPTY) ?: []; */
+            /* mytexts = preg_split("/\n\s*\n/", text, -1, PREG_SPLIT_NO_EMPTY) ?: []; * /
             text = "";
             foreach (mytxt; mytexts) {
-                /* text ~= "<p>" ~ nl2br(trim(mytxt, "\n")) ~ "</p>\n"; */
+                /* text ~= "<p>" ~ nl2br(trim(mytxt, "\n")) ~ "</p>\n"; * /
             }
-            // text = /* (string) * /preg_replace("|<p>\s*</p>|", "", text); */
+            // text = /* (string) * /preg_replace("|<p>\s*</p>|", "", text); * /
         }
         return text;
+ */
+         return null;
     }
 
     // Event listeners.

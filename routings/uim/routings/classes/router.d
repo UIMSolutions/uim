@@ -445,10 +445,10 @@ class DRouter {
             myroute = params.getAttribute("route");
             assert(myroute.isNull || cast(Route)myroute);
 
-            myqueryString = params.queryArguments();
+            myQueryString = params.queryArguments();
             params = params.getAttribute("params");
             assert(isArray(params));
-            params["?"] = myqueryString;
+            params["?"] = myQueryString;
         }
         auto mypass = params.getArray("pass");
 

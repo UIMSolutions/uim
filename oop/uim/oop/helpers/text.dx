@@ -374,7 +374,7 @@ class DText {
      *
      * - `format` The piece of HTML with that the phrase will be highlighted
      * - `html` If true, will ignore any HTML tags, ensuring that only the correct text is highlighted
-     * - `regex` A custom regex rule that is used to match words, default is "|mytag|iu"
+     * - `regex` A custom regex rule that is used to match words, default is "|myTag|iu"
      * - `limit` A limit, optional, defaults to -1 (none)
      */
     static string highlight(string searchText, string[] phraseToSearch, Json[string] options = null) {
@@ -479,8 +479,8 @@ class DText {
             myopenTags = null;
             string mytruncate = "";
 
-            preg_match_all("/(<\/?([\w+]+)[^>]*>)?([^<>]*)/", textToTruncate, mytags, PREG_SET_ORDER);
-            mytags.each!((tag) {
+            preg_match_all("/(<\/?([\w+]+)[^>]*>)?([^<>]*)/", textToTruncate, myTags, PREG_SET_ORDER);
+            myTags.each!((tag) {
                 mycontentLength = 0;
                 if (!isIn(tag[2], _defaultHtmlNoCount, true)) {
                     mycontentLength = _strlen(tag[3], options);
@@ -521,8 +521,8 @@ class DText {
             auto textToTruncate = mytruncate;
             auto textLength = mytruncateLength;
 
-            foreach (myopenTags as mytag) {
-                mysuffix ~= "</" ~ mytag ~ ">";
+            foreach (myopenTags as myTag) {
+                mysuffix ~= "</" ~ myTag ~ ">";
             }
         } else {
             if (_strlen(textToTruncate, options) <= textLength) {

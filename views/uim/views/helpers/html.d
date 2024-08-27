@@ -101,7 +101,7 @@ class DHtmlHelper : DHelper {
      * custom meta tag.
      */
     string meta(string[] mytype, string[] content = null, Json[string] htmlAttributes = null) {
-        if (!mytype.isArray) {
+        /* if (!mytype.isArray) {
             mytypes = [
                 "rss": [
                     "type": "application/rss+xml",
@@ -183,24 +183,20 @@ class DHtmlHelper : DHelper {
             htmlAttributes.set("block", __FUNCTION__);
         }
         _view.append(htmlAttributes["block"], result);
-
+ */
         return null;
     }
 
-    /**
-     * Returns a charset META-tag.
-     * Params:
-     * string mycharset The character set to be used in the meta tag. If empty,
-     * The App.encoding value will be used. Example: "utf-8".
-     */
+    // Returns a charset META-tag.
     string charset(string metatagCharset = null) {
-        string result;
+        /* string result;
         if (metatagCharset.isEmpty) {
             result = to!string(configuration.get("App.encoding")).lower;
         }
         return _formatTemplate("charset", [
                 "charset": !result.isEmpty ? result: "utf-8",
-            ]);
+            ]); */
+        return null; 
     }
 
     /**
@@ -220,7 +216,7 @@ class DHtmlHelper : DHelper {
      * - `confirm` JavaScript confirmation message.
       */
     string link(string[] title, string[] url = null, Json[string] htmlAttributes = null) {
-        auto myescapeTitle = true;
+        /* auto myescapeTitle = true;
         if (!url.isNull) {
             url = _Url.build(url, htmlAttributes);
             htmlAttributes.removeKey("fullBase");
@@ -239,7 +235,7 @@ class DHtmlHelper : DHelper {
         if (myescapeTitle == true) {
             title = htmlAttributeEscape(title);
         } else if (isString(myescapeTitle)) {
-            /** @psalm-suppress PossiblyInvalidArgument */
+            /** @psalm-suppress PossiblyInvalidArgument * /
             title = htmlentities(title, ENT_QUOTES, myescapeTitle);
         }
         mytemplater = templater();
@@ -260,7 +256,8 @@ class DHtmlHelper : DHelper {
                 "url": url,
                 "attrs": mytemplater.formatAttributes(htmlAttributes),
                 "content": title,
-            ]);
+            ]); */
+        return null; 
     }
 
     /**
@@ -274,18 +271,19 @@ class DHtmlHelper : DHelper {
      * - `confirm` JavaScript confirmation message.
      */
     string linkFromPath(string title, string routePath, Json[string] params = null, Json[string] htmlAttributes = null) {
-        return _link(title, ["_path": routePath] + params, htmlAttributes);
+        // return _link(title, ["_path": routePath] + params, htmlAttributes);
+        return null; 
     }
 
 
     string css(string[] mypath, Json[string] htmlAttributes = null) {
-        htmlAttributes
+/*         htmlAttributes
             .merge("once", true)
             .merge("block", Json(null))
             .merge("rel", "stylesheet")
-            .merge("nonce", _view.getRequest().getAttribute("cspStyleNonce"));
+            .merge("nonce", _view.getRequest().getAttribute("cspStyleNonce")); */
 
-        auto url = _Url.css(mypath, htmlAttributes);
+/*         auto url = _Url.css(mypath, htmlAttributes);
         auto htmlAttributes = array_diffinternalKey(htmlAttributes, createMap!(string, Json)
                 .set(["fullBase", "pathPrefix"], Json(null)));
 
@@ -321,7 +319,7 @@ class DHtmlHelper : DHelper {
             htmlAttributes.set("block", __FUNCTION__);
         }
         _view.append(htmlAttributes.get("block"), result);
-
+ */        
         return null;
     }
 
@@ -420,22 +418,20 @@ class DHtmlHelper : DHelper {
      * be inserted as a `nonce` attribute on the script tag.
      */
     string script(string[] url, Json[string] htmlAttributes = null) {
-        mydefaults = [
-            "block": Json(null),
-            "once": true,
-            "nonce": _view.getRequest().getAttribute("cspScriptNonce"),
-        ];
-        htmlAttributes += mydefaults;
+        htmlAttributes
+            .merge("block", Json(null))
+            .merge("once", true);
+            // .merge("nonce", _view.getRequest().getAttribute("cspScriptNonce"));
 
-        if (url.isArray) {
-            string result = url.map!(i => "\n\t" ~  /* (string) */ this.script(index, htmlAttributes))
+        /* if (url.isArray) {
+            string result = url.map!(i => "\n\t" ~  /* (string) * / this.script(index, htmlAttributes))
                 .join;
             if (htmlAttributes.isEmpty("block")) {
                 return result ~ "\n";
             }
             return null;
-        }
-        url = _Url.script(url, htmlAttributes);
+        } */
+        /* url = _Url.script(url, htmlAttributes);
         htmlAttributes = array_diffinternalKey(htmlAttributes, [
                 "fullBase": Json(null),
                 "pathPrefix": Json(null)
@@ -461,7 +457,7 @@ class DHtmlHelper : DHelper {
             htmlAttributes.set("block", __FUNCTION__);
         }
         _view.append(htmlAttributes["block"], result);
-
+ */
         return null;
     }
 
@@ -474,12 +470,11 @@ class DHtmlHelper : DHelper {
      * custom block name.
      */
     string scriptBlock(string script, Json[string] htmlAttributes = null) {
-        htmlAttributes += [
-            "block": Json(null),
-            "nonce": _view.getRequest().getAttribute("cspScriptNonce")
-        ];
+        htmlAttributes
+            .merge("block", Json(null));
+            // .merge("nonce", _view.getRequest().getAttribute("cspScriptNonce"));
 
-        auto result = this.formatTemplate("javascriptblock", [
+/*         auto result = this.formatTemplate("javascriptblock", [
                 "attrs": templater().formatAttributes(htmlAttributes, ["block"]),
                 "content": myscript,
             ]);
@@ -491,7 +486,7 @@ class DHtmlHelper : DHelper {
             htmlAttributes.set("block", "script");
         }
         _view.append(htmlAttributes["block"], result);
-
+ */
         return null;
     }
 
@@ -506,9 +501,9 @@ class DHtmlHelper : DHelper {
      * custom block name.
      */
     void scriptStart(Json[string] optionsForCodeblock = null) {
-        _scriptBlockOptions = optionsForCodeblock;
+/*         _scriptBlockOptions = optionsForCodeblock;
         ob_start();
-    }
+ */    }
 
     /**
      * End a Buffered section of JavaScript capturing.
@@ -516,11 +511,12 @@ class DHtmlHelper : DHelper {
      * the settings used when the scriptBlock was started
      */
     string scriptEnd() {
-        mybuffer =  /* (string) */ ob_get_clean();
+        /* mybuffer =  /* (string) * / ob_get_clean();
         options = _scriptBlockOptions;
         _scriptBlockOptions = null;
 
-        return _scriptBlock(mybuffer, options);
+        return _scriptBlock(mybuffer, options); */
+        return null;
     }
 
     /**
@@ -536,9 +532,10 @@ class DHtmlHelper : DHelper {
      * ```
      */
     string style(Json[string] data, bool shouldOneLine = true) {
-        string[] result = data.byKeyValue.map!(kv => kv.key ~ ": " ~ kv.value ~ ";").array;
+/*         string[] result = data.byKeyValue.map!(kv => kv.key ~ ": " ~ kv.value ~ ";").array;
         return shouldOneLine
-            ? result.join(" ") : result.join("\n");
+            ? result.join(" ") : result.join("\n"); */
+        return null; 
     }
 
     /**
@@ -570,7 +567,7 @@ class DHtmlHelper : DHelper {
      * string[] mypath Path to the image file, relative to the webroot/img/ directory.
      */
     string image(string[] pathToImageFile, Json[string] htmlAttributes = null) {
-        pathToImageFile = pathToImageFile.isString
+        /* pathToImageFile = pathToImageFile.isString
             ? _Url.image(pathToImageFile, htmlAttributes) : _Url.build(pathToImageFile, htmlAttributes);
 
         htmlAttributes = array_diffinternalKey(htmlAttributes, [
@@ -600,12 +597,13 @@ class DHtmlHelper : DHelper {
                     "content": myimage,
                 ]);
         }
-        return myimage;
+        return myimage; */
+        return null; 
     }
 
     // Returns a row of formatted and named TABLE headers.
     string tableHeaders(Json[string] tableNames, Json[string] trOptions = null, Json[string] thOptions = null) {
-        string attributes = null;
+        /* string attributes = null;
         string result = null;
         foreach (tableName; tableNames) {
             string content;
@@ -624,18 +622,19 @@ class DHtmlHelper : DHelper {
                     "content": content,
                 ]);
         }
-        return _tableRow(result.join(" "), trOptions);
+        return _tableRow(result.join(" "), trOptions); */
+        return null;
     }
 
     // Returns a formatted string of table rows (TR"s with TD"s in them).
     string tableCells(
-        string[] tableData,
+         string[] tableData,
         Json oddTrOptions = null,
         Json evenTrOptions = null,
         bool useCount = false,
         bool continueOddEven = true
     ) {
-        if (!tableData.isArray) {
+/*        if (!tableData.isArray) {
             tableData = [[tableData]];
         } else if (tableData[0].isEmpty || !tableData[0].isArray) {
             tableData = [tableData];
@@ -659,11 +658,12 @@ class DHtmlHelper : DHelper {
             mycellsOut = _renderCells(line, shouldUseCount);
             myopts = mycount % 2 ? oddTrOptions : evenTrOptions;
 
-            Json[string] htmlAttributes =  /*  (array) */ myopts;
+            Json[string] htmlAttributes =  /*  (array) * / myopts;
             result ~= this.tableRow(mycellsOut.join(" "), htmlAttributes);
         });
 
-        return result.join("\n");
+        return result.join("\n"); */
+        return null;
     }
 
     /**
@@ -673,7 +673,7 @@ class DHtmlHelper : DHelper {
      * need to change the behavior of the cell rendering.
      */
     protected string[] _renderCells(Json[string] linesToRender, bool shouldUseCount = false) {
-        auto index = 0;
+        /* auto index = 0;
         auto mycellsOut = null;
         linesToRender.each!((cell) {
             auto cellOptions = null;
@@ -689,25 +689,29 @@ class DHtmlHelper : DHelper {
                     ? cellOptions.getString("class") ~ " column-" ~ index : "column-" ~ index
                 );
             }
-            mycellsOut ~= tableCell( /* (string) */ cell, cellOptions);
+            mycellsOut ~= tableCell( /* (string)  * / cell, cellOptions);
         });
-        return mycellsOut;
+        return mycellsOut; */
+                return null;
+
     }
 
     // Renders a single table row (A TR with attributes).
     string tableRow(string content, Json[string] htmlAttributes = null) {
-        return _formatTemplate("tablerow", [
+        /* return _formatTemplate("tablerow", [
                 "attrs": templater().formatAttributes(htmlAttributes),
                 "content": content,
-            ]);
+            ]); */
+        return null;
     }
 
     // Renders a single table cell (A TD with attributes).
     string tableCell(string content, Json[string] htmlAttributes = null) {
-        return _formatTemplate("tablecell", [
+/*         return _formatTemplate("tablecell", [
                 "attrs": templater().formatAttributes(htmlAttributes),
                 "content": content,
-            ]);
+            ]); */
+        return null;
     }
 
     /**
@@ -717,7 +721,7 @@ class DHtmlHelper : DHelper {
      * - `escape` Whether the contents should be html_entity escaped.
      */
     string tag(string tagName, string content = null, Json[string] htmlAttributes = null) {
-        if (htmlAttributes.hasKey("escape") && htmlAttributes["escape"]) {
+        /* if (htmlAttributes.hasKey("escape") && htmlAttributes["escape"]) {
             Json content = htmlAttributeEscape(content);
             removeKey(htmlAttributes["escape"]);
         }
@@ -728,6 +732,7 @@ class DHtmlHelper : DHelper {
                 "tag": tagName,
                 "content": content,
             ]);
+ */     return null;   
     }
 
     /**
@@ -738,10 +743,11 @@ class DHtmlHelper : DHelper {
      * - `escape` Whether the contents should be html_entity escaped.
      */
     string div(string cssClass = null, string content = null, Json[string] htmlAttributes = null) {
-        if (!cssClass.isEmpty) {
+/*         if (!cssClass.isEmpty) {
             htmlAttributes.set("class", cssClass);
         }
-        return _tag("div", content, htmlAttributes);
+        return _tag("div", content, htmlAttributes); */
+        return null; 
     }
 
     /**
@@ -752,7 +758,7 @@ class DHtmlHelper : DHelper {
      * - `escape` Whether the contents should be html_entity escaped.
      */
     string para(string cssClass, string content, Json[string] htmlAttributes = null) {
-        if (!htmlAttributes.isEmpty("escape")) {
+        /* if (!htmlAttributes.isEmpty("escape")) {
             content = htmlAttributeEscape(content);
         }
         if (cssClass) {
@@ -766,7 +772,8 @@ class DHtmlHelper : DHelper {
         return _formatTemplate(tag, [
                 "attrs": templater().formatAttributes(htmlAttributes),
                 "content": content,
-            ]);
+            ]); */
+        return null;
     }
 
     /**
@@ -828,18 +835,19 @@ class DHtmlHelper : DHelper {
      * Or an array where each item itself can be a path string or an associate array containing keys `src` and `type`
      */
     string media(string[] pathToImageFile, Json[string] htmlAttributes = null) {
-        htmlAttributes.merge([
+        string myTag;
+        /* htmlAttributes.merge([
             "tag": Json(null),
             "pathPrefix": "files/",
             "text": "",
         ]);
 
-        auto mytag = !htmlAttributes.isEmpty("tag")
+        auto myTag = !htmlAttributes.isEmpty("tag")
             ? htmlAttributes["tag"] : null;
-
-        if (pathToImageFile.isArray) {
+ */
+        if (pathToImageFile/* .isArray */) {
             auto mysourceTags = "";
-            foreach (mysource; pathToImageFile) {
+/*             foreach (mysource; pathToImageFile) {
                 if (isString(mysource)) {
                     mysource = [
                         "src": mysource,
@@ -858,15 +866,15 @@ class DHtmlHelper : DHelper {
             removeKey(mysource);
             htmlAttributes["text"] = mysourceTags ~ htmlAttributes["text"];
             removeKey(htmlAttributes["fullBase"]);
-        } else {
-            if (isEmpty(pathToImageFile) && !htmlAttributes.isEmpty("src")) {
+ */        } else {
+/*             if (isEmpty(pathToImageFile) && !htmlAttributes.isEmpty("src")) {
                 pathToImageFile = htmlAttributes["src"];
             }
-            /** @psalm-suppress PossiblyNullArgument */
-            htmlAttributes.set("src", _Url.assetUrl(pathToImageFile, htmlAttributes));
+ */            /** @psalm-suppress PossiblyNullArgument */
+//            htmlAttributes.set("src", _Url.assetUrl(pathToImageFile, htmlAttributes));
         }
-        if (mytag.isNull) {
-            if (pathToImageFile.isArray) {
+        if (myTag.isNull) {
+/*             if (pathToImageFile.isArray) {
                 mymimeType = pathToImageFile[0]["type"];
             } else {
                 mymimeType = _view.getResponse()
@@ -874,9 +882,9 @@ class DHtmlHelper : DHelper {
                 assert(isString(mymimeType));
             }
 
-            mytag = mymimeType.startsWith("video/")
+            myTag = mymimeType.startsWith("video/")
                 ? "video" : "audio";
-        }
+ */        }
 
         /* if (htmlAttributes.hasKey("poster")) {
         htmlAttributes["poster"] = _Url.assetUrl(
@@ -893,7 +901,7 @@ class DHtmlHelper : DHelper {
             "text": Json(null),
         ]);
 
-    return _tag(mytag, content, htmlAttributes); */
+    return _tag(myTag, content, htmlAttributes); */
         return null;
     }
 
@@ -934,21 +942,21 @@ class DHtmlHelper : DHelper {
         auto myindex = 1;
         foreach (aKey, myitem; myitems) {
             if (isArray(myitem)) {
-                myitem = aKey ~ this.nestedList(myitem, listAttributes, liAttributes);
+                // myitem = aKey ~ this.nestedList(myitem, listAttributes, liAttributes);
             }
             if (liAttributes.hasKey("even") && myindex % 2 == 0) {
                 liAttributes.set("class", liAttributes["even"]);
             } else if (liAttributes.hasKey("odd") && myindex % 2 != 0) {
                 liAttributes.set("class", liAttributes["odd"]);
             }
-            result ~= this.formatTemplate("li", [
+/*             result ~= this.formatTemplate("li", [
                     "attrs": templater().formatAttributes(liAttributes, [
                             "even", "odd"
                         ]),
                     "content": myitem,
                 ]);
             myindex++;
-        }
+ */        }
         return result;
     }
 

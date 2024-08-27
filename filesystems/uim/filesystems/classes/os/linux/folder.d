@@ -7,12 +7,15 @@ module uim.filesystems.classes.os.linux.folder;
 
 import uim.filesystems;
 
+
 @safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 class DLinuxFolder : DFolder {
   mixin(FolderThis!("Linux"));
-
-	override bool exists() {
-    version(testUimFilesystems) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 
 		if (filesystem is null) { return false; }
 

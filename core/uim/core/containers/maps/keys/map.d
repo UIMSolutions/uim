@@ -15,7 +15,7 @@ V[K] notFilterByKeys(K, V)(V[K] entries, K[] keys...) {
 V[K] notFilterByKeys(K, V)(V[K] entries, K[] keys) {
   V[K] results = entries.dup;
   keys
-    .filter!(key => key in entries)
+    .filter!(key => results.hasKey(key))
     .each!(key => results.remove(key));
 
   return results;
@@ -54,8 +54,8 @@ V[K] filterByKeys(K, V)(V[K] entries, K[] keys...) {
 V[K] filterByKeys(K, V)(V[K] entries, K[] keys) {
   V[K] results;
   keys
-    .filter!(key => key in entries)
-    .each!(key => results[key] = entries[key]);
+    .filter!(key => entries.hasKey(key))
+    .each!(key => results.set(key, entries[key]);
 
   return results;
 }
@@ -64,7 +64,7 @@ V[K] filterByKey(K, V)(V[K] entries, K key) {
   V[K] results;
 
   if (entries.hasKey(key)) {
-    results.set(key, entries,get(key));
+    results.set(key, entries.get(key));
   }
 
   return results;

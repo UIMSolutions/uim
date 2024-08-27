@@ -3,25 +3,23 @@ module uim.css.classes.containers.container;
 import uim.css;
 @safe:
 
-class DCSSContainer {
-    mixin TConfigurable;
+class DCSSContainer : UIMObject {
 
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+return false;
+}
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
   DCSSObj[] _cssItems;
 
@@ -37,6 +35,6 @@ class DCSSContainer {
 }
 auto CSSContainer() { return new DCSSContainer(); }
 
-version(test_uim_css) { unittest {
+unittest {
   // TODO
-}}
+}

@@ -7,10 +7,8 @@ module uim.filesystems.classes.database.link;
 
 import uim.filesystems;
 
-unittest { 
-  version(testUimFilesystems) { 
-    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-  }
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
 }
 
 @safe:

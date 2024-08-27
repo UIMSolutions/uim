@@ -5,26 +5,24 @@ import uim.views;
 @safe:
 
 // Contains the schema information for Form instances.
-class DSchema {
-    mixin TConfigurable;
+class DSchema : UIMObject {
 
     this() {
-        initialize;
-        this.name(this.classname);
+        super(this.classname);
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
     this(string newName) {
-        this();
-        this.name(newName);
+        super(newName);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+return false;
+}
 
         _fieldDefaults = createMap!(string, Json)
             .set("type", Json(null))
@@ -35,10 +33,8 @@ class DSchema {
         return true;
     }
 
-    mixin(TProperty!("string", "name"));
-
     // The fields in this schema.
-    protected STRINGAA[string] _fields;
+    protected Json[string] _fields;
 
     // The default values for fields.
     protected Json[string] _fieldDefaults;
@@ -51,15 +47,17 @@ class DSchema {
     }
 
     // Add multiple fields to the schema.
-    DSchema addFields(STRINGAA[string] fields) {
+    DSchema addFields(Json[string] fields) {
         fields.byKeyValue
-            .each!(kv => this.addField(kv.key, kv.value));
+            .each!(field => addField(field.key, field.value));
+
         return this;
     }
 
     // Adds a field to the schema.
-    DSchema addField(string fieldName, STRINGAA fieldAttributes) {
-        /* _fields[fieldName] = fieldAttributes.merge(_fieldDefaults); */
+    DSchema addField(string key, Json attributes) {
+        _fields.set(key,  attributes.merge(_fieldDefaults));
+
         return this;
     }
 

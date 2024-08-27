@@ -55,7 +55,7 @@ V[K] filterByKeys(K, V)(V[K] entries, K[] keys) {
   V[K] results;
   keys
     .filter!(key => entries.hasKey(key))
-    .each!(key => results.set(key, entries[key]);
+    .each!(key => results.set(key, entries[key]));
 
   return results;
 }
@@ -100,8 +100,7 @@ V[K] replaceKey(K, V)(V[K] entries, K originalKey, K newKey) {
     return entries;
   }
 
-  V value = entries.get(originalKey);
-  entries.remove(originalKey);
+  V value = entries.shift(originalKey);
   entries.set(newKey, value);
 
   return entries;

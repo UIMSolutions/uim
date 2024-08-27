@@ -19,13 +19,13 @@ string baseName(ClassInfo classinfo) {
 string classFullname(Object instance) {
     return instance is null
         ? "null"
-        : "instance.classinfo.name";
+        : instance.classinfo.name;
 }
 
 string classname(Object instance) {
     return instance is null
         ? "null"
-        : "instance.classinfo.baseName";
+        : instance.classinfo.baseName;
 }
 
 unittest {
@@ -40,6 +40,7 @@ unittest {
     }
 
     auto test = new Test;
+    writeln("test.classname", test.classname);
     assert(test.classname == "Test");
     assert(test.stringof == "test");
 

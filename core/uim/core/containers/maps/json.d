@@ -378,8 +378,9 @@ bool isScalar(Json[string] items, string key) {
 }
 
 bool isString(Json[string] items, string key) {
-  /* return items.hasKey(key)
-    ? uim.core.datatypes.json.isString(items[key]) : false; */
+    return items.hasKey(key)
+    ? uim.core.datatypes.json.isString(items[key]) 
+    : false; 
   return false;
 }
 
@@ -393,6 +394,7 @@ unittest {
   items = items
     .set("a", "A");
 
+  writeln("isString => ", items.value("a"));
   assert(items.isString("a"));
 }
 // #endregion is

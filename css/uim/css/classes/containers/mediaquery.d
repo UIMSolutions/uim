@@ -16,47 +16,49 @@ class DCSSMediaQuery {
 
   auto rule(this O)(string selector) {
     return _rules.get(selector, null); }
-  version(test_uim_css) { unittest {
+  unittest {
       /// TODO
-    }}
+    }
 
   O rule(this O)(string selector, string properties) {
     _rules[selector] = properties;
     return cast(O)this; }
-  version(test_uim_css) { unittest {
+  unittest {
       /// TODO
-    }}
+    }
 
   O removeRule(this O)(string selector) {
-    _rules.removeKey(selector); 
+    _rules.remove(selector); 
     return cast(O)this; }
   version(test_uim_css) { unittest {
-      /// TODO
+      // TODO
     }}
 
   auto opIndex(string selector) {
     return rule(selector); }
-  version(test_uim_css) { unittest {
-      /// TODO
-    }}
+  unittest {
+      // TODO
+    }
 
   O opIndexAssign(this O)(string selector, string properties) {
     rule(selector, properties);
     return cast(O)this; }
-  version(test_uim_css) { unittest {
-      /// TODO
-    }}
+  unittest {
+      // TODO
+    }
 
   override string toString() {
     string result;
 
     foreach(sel, props; _rules) result ~= sel~"{"~props~"}";
 
-    if (condition) return "@media "~condition~"{"~result~"}";
-    else return result; }
-  version(test_uim_css) { unittest {
+    return condition
+? "@media "~condition~"{"~result~"}"
+ : result; 
+}
+  unittest {
       /// TODO
-    }}
+    }
 }
 auto CSSMediaQuery() { return new DCSSMediaQuery; }
 auto CSSMediaQuery(string condition) { return new DCSSMediaQuery(condition); }

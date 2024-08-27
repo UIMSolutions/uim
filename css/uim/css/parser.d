@@ -8,6 +8,6 @@ string[] parse(string css) {
 
   return results;
 }
-version(test_uim_css) { unittest {
+unittest {
   /// TODO
-}}
+}

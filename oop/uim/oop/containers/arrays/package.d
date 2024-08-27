@@ -5,9 +5,6 @@
 **********************************************************************************************************/
 module uim.oop.containers.arrays;
 
-import uim.oop;
-@safe:
-
 public {
 	// import uim.oop.containers.arrays.obj;
 	// import uim.oop.containers.arrays.templ;

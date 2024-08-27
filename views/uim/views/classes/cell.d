@@ -6,40 +6,36 @@ import uim.views;
 
 /**
  * Cell base.
- *
- * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
-abstract class DCell { // }: IEventDispatcher {
-    mixin TConfigurable;
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
+abstract class DCell : UIMObject { // : IEventDispatcher {
 // TEventDispatcherTrait<IView 
     mixin TEventDispatcher;
     // mixin TLocatorAware;
     mixin TViewVars;
 
     this() {
-        initialize;
+        super ();
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super (initData);
     }
 
     this(DStringContents newTemplate) {
         // TODO this().stringContents(newTemplate);
     }
 
-    this(string newName) {
-        this().name(newName);
-    }
-
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+return false;
+}
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     // Constant for folder name containing cell templates.
     const string TEMPLATE_FOLDER = "cell";
@@ -74,7 +70,7 @@ abstract class DCell { // }: IEventDispatcher {
     protected string[] _validCellOptions = null;
 
     // Caching setup.
-    // TODO protected Json _cache = false;
+   protected Json _cache = false;
 
     /* this(
         DServerRequest serverRequest,
@@ -107,7 +103,7 @@ abstract class DCell { // }: IEventDispatcher {
      */
     string render(string templateName = null) {
         auto mycache = null;
-        /* if (_cache) {
+        if (!_cache.isNull) {
             mycache = _cacheConfig(_action, templateName);
         } */
         /* myrender = auto () use (templateName) {
@@ -119,13 +115,13 @@ abstract class DCell { // }: IEventDispatcher {
                     "Class `%s` does not have a `%s` method."
                     .format(class, _action));
             }
-            mybuilder = viewBuilder();
+            auto mybuilder = viewBuilder();
 
             if (templateName !is null) {
                 mybuilder.setTemplate(templateName);
             }
-            myclassname = class;
-            viewsPrefix = "\View\Cell\\";
+            auto myclassname = class;
+            string viewsPrefix = "\View\Cell\\";
             /** @psalm-suppress PossiblyFalseOperand * /
             views = subString(myclassname, indexOf(myclassname, viewsPrefix) + viewsPrefix.length);
             views = subString(views, 0, -4);
@@ -136,7 +132,7 @@ abstract class DCell { // }: IEventDispatcher {
             }
             templateName = mybuilder.getTemplate();
 
-            myview = this.createView();
+            auto myview = this.createView();
             try {
                 return myview.render(templateName, false);
             } catch (MissingTemplateException exception) {
@@ -163,17 +159,17 @@ abstract class DCell { // }: IEventDispatcher {
      * If the key is undefined, the cell class DAnd action name will be used.
      */
     protected Json[string] _cacheConfig(string invokedAction, string templateName = null) {
-        if (_cache.isEmpty) {
+        if (_cache.isNull) {
             return null;
         }
         
-        templateName = templateName ? templateName : "default";
+        templateName = templateName.ifEmpty("default");
         /* string key = ("cell_" ~ classname.underscore ~ "_" ~ invokedAction ~ "_" ~ templateName).replace("\\", "_");
         auto defaultValue = createMap!(string, Json)
             .set("config", "default")
             .set("key", key); */
 
-        /* if (_cache == true) {
+        /* if (!_cache.isEmpty) {
             return defaultValue;
         }
         return _cache + defaultValue; */
@@ -209,7 +205,7 @@ abstract class DCell { // }: IEventDispatcher {
     
     // Debug info.
     Json[string] debugInfo() {
-        return createMap!(string, Json)
+return super.debugInfo
             .set("action", _action)
             .set("args", _arguments);
             // .set("request", _request)

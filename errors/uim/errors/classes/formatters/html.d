@@ -3,6 +3,11 @@ module uim.errors.classes.formatters.html;
 import uim.errors;
 
 @safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 /**
  * A Debugger formatter for generating interactive styled HTML output.
  *

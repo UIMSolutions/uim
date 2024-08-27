@@ -4,6 +4,10 @@ import uim.errors;
 
 @safe:
 
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 /*
  * Plain text error rendering with a stack trace.
  * Writes to STDERR via a UIM\Console\ConsoleOutput instance for console environments

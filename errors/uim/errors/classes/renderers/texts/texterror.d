@@ -5,12 +5,15 @@
 **********************************************************************************************************/
 module uim.errors.classes.renderers.texts.texterror;
 
-@safe:
 import uim.errors;
+@safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * Plain text error rendering with a stack trace.
- *
  * Useful in CLI environments.
  */
 class DTextErrorRenderer { // }: IErrorRenderer {

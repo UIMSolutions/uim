@@ -6,8 +6,12 @@
 module uim.errors.classes.debugging.debugger;
 
 import uim.errors;
-
 @safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 /**
  * Provide custom logging and error handling.
  * Debugger : D"s default error handling and gives simpler to use more powerful interfaces.

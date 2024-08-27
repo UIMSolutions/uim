@@ -4,11 +4,11 @@ import uim.errors;
 
 @safe:
 
-/**
- * A Debugger formatter for generating output with ANSI escape codes
- *
- * @internal
- */
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
+// Debugger formatter for generating output with ANSI escape codes
 class DConsoleFormatter : IErrorFormatter {
     // text colors used in colored output.
     protected STRINGAA styles = [

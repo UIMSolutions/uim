@@ -5,8 +5,12 @@
 **********************************************************************************************************/
 module uim.errors.classes.errors.handlers.consoleerror;
 
-@safe:
 import uim.errors;
+@safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * Error Handler for uim console. Does simple printing of the

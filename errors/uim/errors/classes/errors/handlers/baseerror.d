@@ -5,8 +5,12 @@
 **********************************************************************************************************/
 module uim.errors.classes.errors.handlers.baseerror;
 
-@safe:
 import uim.errors;
+@safe:
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * Base error handler that provides logic common to the CLI + web

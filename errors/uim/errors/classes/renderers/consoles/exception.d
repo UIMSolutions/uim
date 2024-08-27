@@ -4,6 +4,10 @@ import uim.errors;
 
 @safe:
 
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 /**
  * Plain text exception rendering with a stack trace.
  *

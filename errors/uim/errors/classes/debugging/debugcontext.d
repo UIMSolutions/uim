@@ -8,6 +8,10 @@ module uim.errors.classes.debugging.DDebugContext;
 @safe:
 import uim.errors;
 
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 /**
  * DContext tracking for Debugger.exportVar()
  *

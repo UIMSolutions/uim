@@ -1,18 +1,16 @@
-module uim.caches.mixins.cache;
+module uim.renderers.mixins.renderer;
 
-string cacheThis(string name) {
-    string fullName = name ~ "Cache";
+string rendererThis(string name) {
+    string fullName = name ~ "Renderer";
     return `
     this() {
-        super(); this.name("`
-        ~ fullName ~ `");
+        super("`~ fullName ~ `");
     }
     this(string name) {
         super(name);
     }
     this(Json[string] initData) {
-        super(initData); this.name("`
-        ~ fullName ~ `");
+        super("`~ fullName ~ `", initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);
@@ -20,20 +18,20 @@ string cacheThis(string name) {
     `;
 }
 
-template CacheThis(string name) {
-    const char[] CacheThis = cacheThis(name);
+template RendererThis(string name) {
+    const char[] RendererThis = rendererThis(name);
 }
 
-string cacheCalls(string name) {
-  string fullName = name ~ "Cache";
-  return `
+string rendererCalls(string name) {
+    string fullName = name ~ "Renderer";
+    return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
     auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
     auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
-  `;  
+    `;
 }
 
-template CacheCalls(string name) {
-    const char[] CacheCalls = cacheCalls(name);
+template RendererCalls(string name) {
+    const char[] RendererCalls = rendererCalls(name);
 }

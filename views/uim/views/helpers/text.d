@@ -152,7 +152,7 @@ class DTextHelper : DHelper {
             text = htmlAttributeEscape(text);
         }
         return _linkEmails(text, options); */
-        return string;
+        return null;
     }
 
     /**
@@ -163,8 +163,9 @@ class DTextHelper : DHelper {
      * - `escape` Control HTML escaping of input. Defaults to true.
      */
     string autoLink(string text, Json[string] options = null) {
-        auto linkUrls = autoLinkUrls(text, options);
-        return _autoLinkEmails(linkUrls, options.merge("escape", false));
+/*         auto linkUrls = autoLinkUrls(text, options);
+        return _autoLinkEmails(linkUrls, options.merge("escape", false)); */
+        return null;
     }
 
     /**

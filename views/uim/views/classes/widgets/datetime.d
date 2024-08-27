@@ -42,7 +42,7 @@ class DDateTimeWidget : DWidget {
 
         return true;
     }
-
+    // alias _serialize = DSerializedView._serialize;
     // Formats for various input types.
     protected STRINGAA _formatMap;
 

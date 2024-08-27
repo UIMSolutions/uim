@@ -38,18 +38,18 @@ class DTimeHelper : DHelper {
   }
 
   // Returns a DateTime object, given either a UNIX timestamp or a valid strtotime() date string.
-  DateTime fromString(
-    /* DChronosDate| */
-    Json dateString, /* DateTimeZone| */
+  /* DateTime fromString(
+    /* DChronosDate| * /
+    Json dateString, /* DateTimeZone| * /
     string timezone = null
-  ) {
+  ) { */
     
-    auto mytime = new DateTime(dateString);
-    if (timezone !is null) {
+//    auto mytime = new DateTime(dateString);
+/*     if (timezone !is null) {
       mytime = mytime.setTimezone(timezone);
     }
-    return mytime;
-  }
+ */    // return mytime;
+ //  }
 
   // Returns a nicely formatted date string for given Datetime string.
   string nice(
@@ -70,7 +70,8 @@ class DTimeHelper : DHelper {
     Json dateString, /* DateTimeZone| */
     string timezone = null
   ) {
-    return (new DateTime(dateString, timezone)).isToday();
+/*     return (new DateTime(dateString, timezone)).isToday(); */
+return false;
   }
 
   // Returns true, if the given datetime string is in the future.
@@ -79,7 +80,8 @@ class DTimeHelper : DHelper {
     Json dateString, /* DateTimeZone |  */
     string timezone = null
   ) {
-    return (new DateTime(dateString, timezone)).isFuture();
+/*     return (new DateTime(dateString, timezone)).isFuture(); */
+return false;
   }
 
   /**
@@ -90,7 +92,8 @@ class DTimeHelper : DHelper {
     Json dateString, /* DateTimeZone |  */
     string timezone = null
   ) {
-    return (new DateTime(dateString, timezone)).isPast();
+/*     return (new DateTime(dateString, timezone)).isPast(); */
+return false;
   }
 
   // Returns true if given datetime string is within this week.
@@ -99,8 +102,9 @@ class DTimeHelper : DHelper {
     Json dateString, /* DateTimeZone |  */
     string timezone = null
   ) {
-    return (new DateTime(dateString, timezone)).isThisWeek();
-  }
+/*     return (new DateTime(dateString, timezone)).isThisWeek();
+ */
+ return false;  }
 
   // Returns true if given datetime string is within this month
   bool isThisMonth(
@@ -108,7 +112,8 @@ class DTimeHelper : DHelper {
     Json dateString, /* DateTimeZone |  */
     string timezone = null
   ) {
-    return (new DateTime(dateString, timezone)).isThisMonth();
+/*     return (new DateTime(dateString, timezone)).isThisMonth(); */
+return false;
   }
 
   // Returns true if given datetime string is within the current year.
@@ -117,7 +122,8 @@ class DTimeHelper : DHelper {
     Json dateString, /* DateTimeZone |  */
     string timezone = null
   ) {
-    return (new DateTime(dateString, timezone)).isThisYear();
+/*     return (new DateTime(dateString, timezone)).isThisYear(); */
+return false;
   }
 
   // Returns true if given datetime string was yesterday.
@@ -126,7 +132,8 @@ class DTimeHelper : DHelper {
     Json dateString, /* DateTimeZone | */
     string timezone = null
   ) {
-    return (new DateTime(dateString, timezone)).isYesterday();
+//    return (new DateTime(dateString, timezone)).isYesterday();
+  return false;
   }
 
   // Returns true if given datetime string is tomorrow.
@@ -135,7 +142,8 @@ class DTimeHelper : DHelper {
     Json dateString, /* DateTimeZone | */
     string timezone = null
   ) {
-    return (new DateTime(dateString, timezone)).isTomorrow();
+/*     return (new DateTime(dateString, timezone)).isTomorrow(); */
+return false;
   }
 
   // Returns the quarter
@@ -144,7 +152,8 @@ class DTimeHelper : DHelper {
     Json dateString,
     bool rangeInYmdFormat = false
   ) {
-    return (new DateTime(dateString)).toQuarter(rangeInYmdFormat);
+/*     return (new DateTime(dateString)).toQuarter(rangeInYmdFormat);
+ */        return null;
   }
 
   // Returns a UNIX timestamp from a textual datetime description.
@@ -153,7 +162,8 @@ class DTimeHelper : DHelper {
     Json dateString, /* DateTimeZone | */
     string timezone = null
   ) {
-    return (new DateTime(dateString, timezone)).toUnixString();
+/*     return (new DateTime(dateString, timezone)).toUnixString(); */
+        return null;
   }
 
   // Returns a date formatted for Atom RSS feeds.
@@ -162,8 +172,9 @@ class DTimeHelper : DHelper {
     Json dateString, /* DateTimeZone | */
     string timezone = null
   ) {
-    auto timezone = _getTimezone(timezone) ? _getTimezone(timezone) : date_default_timezone_get();
+/*     auto timezone = _getTimezone(timezone) ? _getTimezone(timezone) : date_default_timezone_get();
     return (new DateTime(dateString)).setTimezone(timezone).toAtomString();
+ */        return null;
   }
 
   
@@ -174,8 +185,9 @@ class DTimeHelper : DHelper {
     Json dateString, /* DateTimeZone | */
     string timezone = null
   ) {
-    auto timezone = _getTimezone(timezone) ? _getTimezone(timezone) : date_default_timezone_get();
+/*     auto timezone = _getTimezone(timezone) ? _getTimezone(timezone) : date_default_timezone_get();
     return (new DateTime(dateString)).setTimezone(timezone).toRssString();
+ */        return null;
   }
 
   /**
@@ -192,10 +204,10 @@ class DTimeHelper : DHelper {
   string timeAgoInWords(/* DChronosDate |  */Json mydateTime,
     Json[string] options = null
   ) {
-    myelement = null;
-    auto updatedOptions = options.merge(["element", "timezone"]);
+    // myelement = null;
+/*     auto updatedOptions = options.merge(["element", "timezone"]);
     options.set("timezone", _getTimezone(options.get("timezone")));
-    /* if (options.hasKey("timezone") && cast(IDateTime) mydateTime) {
+ */    /* if (options.hasKey("timezone") && cast(IDateTime) mydateTime) {
       if (cast(DateTime) mydateTime) {
         mydateTime = mydateTime.clone;
       }
@@ -228,7 +240,8 @@ class DTimeHelper : DHelper {
             myelement["tag"]
         );
     } */
-    return myrelativeDate;
+/*     return myrelativeDate; */
+        return null;
   }
 
   // Returns true if specified datetime was within the interval specified, else false.
@@ -237,8 +250,9 @@ class DTimeHelper : DHelper {
     Json dateString,/* DateTimeZone | */
     string timezone = null
   ) {
-    return (new DateTime(dateString, timezone)).wasWithinLast(
-      timeIntervalValue);
+/*     return (new DateTime(dateString, timezone)).wasWithinLast(
+      timeIntervalValue); */
+  return false;
   }
 
   // Returns true if specified datetime is within the interval specified, else false.
@@ -247,8 +261,9 @@ class DTimeHelper : DHelper {
     Json dateString,/* DateTimeZone | */
     string timezone = null
   ) {
-    return (new DateTime(dateString, timezone)).isWithinNext(
-      timeIntervalValue);
+/*     return (new DateTime(dateString, timezone)).isWithinNext(
+      timeIntervalValue); */
+return false;
   }
 
   /**
@@ -257,7 +272,8 @@ class DTimeHelper : DHelper {
      * \UIM\Chronos\DChronosDate|\Jsonmystring UNIX timestamp, strtotime() valid string or DateTime object
      */
   string gmt( /* DChronosDate | */ Json mystring = null) {
-    return (new DateTime(mystring)).toUnixString();
+/*     return (new DateTime(mystring)).toUnixString(); */
+        return null;
   }
 
   /**
@@ -273,7 +289,8 @@ class DTimeHelper : DHelper {
     string defaultValue = null,/* DateTimeZone | */
     string timezone = null
   ) {
-    return _i18nFormat(date, myformat, defaultValue, timezone);
+    // return _i18nFormat(date, myformat, defaultValue, timezone);
+        return null;
   }
 
   /**
@@ -287,7 +304,7 @@ class DTimeHelper : DHelper {
     string defaultValue = null,/* DateTimeZone | */
     string timezone = null
   ) {
-    if (date.isNull) {
+/*     if (date.isNull) {
       return defaultValue;
     }
     timezone = _getTimezone(timezone);
@@ -302,6 +319,7 @@ class DTimeHelper : DHelper {
       }
       return defaultValue;
     }
+ */        return null;
   }
 
   // Event listeners.

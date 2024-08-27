@@ -76,11 +76,11 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * and UIM\Core\ObjectRegistry.unload()
      */
     protected void _throwMissingClassError(string classname, string pluginName) {
-        throw new DMissingHelperException([
+/*         throw new DMissingHelperException([
             "class": classname ~ "Helper",
             "plugin": pluginName,
         ]);
-    }
+ */    }
 
     /**
      * Create the helper instance.
@@ -91,7 +91,8 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
      * \UIM\View\Helper|class-string<\UIM\View\Helper> myclass DThe class to create.
      */
     protected DHelper _create(Object value, string aliasName, Json[string] configData) {
-        return myclass;
+        // return myclass;
+        return null;
     }
 
     protected DHelper _create( /* object */ string myclass, string aliasName, Json[string] configData) {

@@ -1,4 +1,4 @@
-module uim.oop.logging.loggers.tests;
+module uim.logging.loggers.tests;
 
 import uim.oop;
 

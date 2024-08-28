@@ -1,4 +1,4 @@
-module uim.oop.logging.loggers.factory;
+module uim.logging.loggers.factory;
 
 import uim.oop;
 @safe:

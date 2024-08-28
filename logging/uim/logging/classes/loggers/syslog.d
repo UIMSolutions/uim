@@ -1,4 +1,4 @@
-module uim.oop.logging.loggers.syslog;
+module uim.logging.loggers.syslog;
 
 import uim.oop;
 

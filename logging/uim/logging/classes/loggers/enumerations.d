@@ -1,4 +1,4 @@
-module uim.logging.loggers.enumerations;
+module uim.logging.classes.loggers.enumerations;
 
 enum LogLevels : string {
   EMERGENCY = "emergency",

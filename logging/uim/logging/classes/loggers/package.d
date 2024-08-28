@@ -1,20 +1,20 @@
-module uim.logging.loggers;
+module uim.logging.classes.loggers;
 
 public { // Main class
-    import uim.logging.loggers.logger;
+    import uim.logging.classes.loggers.logger;
 }
 
 public { // Sub classes
-    import uim.logging.loggers.console;
-    import uim.logging.loggers.file;
-    import uim.logging.loggers.memory;
-    import uim.logging.loggers.syslog;
+    import uim.logging.classes.loggers.console;
+    import uim.logging.classes.loggers.file;
+    import uim.logging.classes.loggers.memory;
+    import uim.logging.classes.loggers.syslog;
 }
 
 public { // Helper modules
-    import uim.logging.loggers.collection;
-    import uim.logging.loggers.enumerations;
-    import uim.logging.loggers.factory;
-    import uim.logging.loggers.registry;
-    import uim.logging.loggers.tests;
+    import uim.logging.classes.loggers.collection;
+    import uim.logging.classes.loggers.enumerations;
+    import uim.logging.classes.loggers.factory;
+    import uim.logging.classes.loggers.registry;
+    import uim.logging.classes.loggers.tests;
 }

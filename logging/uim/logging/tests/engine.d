@@ -1,7 +1,6 @@
-module uim.logging.engines.tests;
+module uim.logging.tests.engine;
 
 import uim.logging;
-
 @safe:
 
 bool testLogEngine(ILogEngine logEngineToTest) {

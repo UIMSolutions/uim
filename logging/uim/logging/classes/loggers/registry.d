@@ -1,4 +1,4 @@
-module uim.logging.loggers.registry;
+module uim.logging.classes.loggers.registry;
 
 import uim.logging;
 

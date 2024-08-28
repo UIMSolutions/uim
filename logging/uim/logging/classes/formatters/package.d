@@ -16,7 +16,6 @@ public { // Sub classes
 public { // Helper modules
     import uim.logging.formatters.collection;
     import uim.logging.formatters.factory;
-    import uim.logging.formatters.interfaces;
     import uim.logging.formatters.registry;
     import uim.logging.formatters.tests;
 }

@@ -15,7 +15,6 @@ public { // Helper modules
     import uim.logging.loggers.collection;
     import uim.logging.loggers.enumerations;
     import uim.logging.loggers.factory;
-    import uim.logging.loggers.interfaces;
     import uim.logging.loggers.registry;
     import uim.logging.loggers.tests;
 }

@@ -17,6 +17,8 @@ unittest {
 class DLinuxFolder : DFolder {
   mixin(FolderThis!("Linux"));
 
+	override bool exists(/* string path, string name = null */) {
+
 		if (filesystem is null) { return false; }
 
 		if (path.isEmpty && name.isEmpty) { return false; }

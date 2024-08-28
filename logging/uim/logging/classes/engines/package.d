@@ -13,7 +13,6 @@ public {
 
 public {
     import uim.logging.engines.factory;
-    import uim.logging.engines.interfaces;
     import uim.logging.engines.registry;
     import uim.logging.engines.tests;
 }

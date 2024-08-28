@@ -16,7 +16,7 @@ public {
 
 public { // uim libraries
   import uim.core;
-  import uim.logging;
+  import uim.oop;
   import uim.models;
 }
 

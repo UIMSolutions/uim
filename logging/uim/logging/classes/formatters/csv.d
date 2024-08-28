@@ -1,4 +1,4 @@
-module uim.oop.logging.formatters.csv;
+module uim.logging.formatters.csv;
 
 import uim.oop;
 

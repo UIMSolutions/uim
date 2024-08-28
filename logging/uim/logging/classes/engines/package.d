@@ -1,21 +1,21 @@
-module uim.oop.logging.engines;
+module uim.logging.engines;
 
 public {
-    import uim.oop.logging.engines.engine;
+    import uim.logging.engines.engine;
 }
 
 public {
-    import uim.oop.logging.engines.console;
-    import uim.oop.logging.engines.engine;
-    import uim.oop.logging.engines.file;
-    import uim.oop.logging.engines.memory;
+    import uim.logging.engines.console;
+    import uim.logging.engines.engine;
+    import uim.logging.engines.file;
+    import uim.logging.engines.memory;
 }
 
 public {
-    import uim.oop.logging.engines.factory;
-    import uim.oop.logging.engines.interfaces;
-    import uim.oop.logging.engines.mixins;
-    import uim.oop.logging.engines.registry;
-    import uim.oop.logging.engines.tests;
+    import uim.logging.engines.factory;
+    import uim.logging.engines.interfaces;
+    import uim.logging.engines.mixins;
+    import uim.logging.engines.registry;
+    import uim.logging.engines.tests;
 }
 

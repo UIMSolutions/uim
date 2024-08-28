@@ -183,7 +183,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
     }
     
     // Coerces string argument to primitive type.
-    protected string[] coerceStringToType(string argumentToCoerce, ReflectionNamedType parameterType) {
+    protected string[] coerceStringToType(string argumentToCoerce, /* IReflectionNamedType */ string parameterType) {
 /*         return match (parameterType.name) {
             "string": argumentToCoerce,
             "float": isNumeric(argumentToCoerce) ? (float)argumentToCoerce : null,
@@ -234,7 +234,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Params:
      * \UIM\Http\ServerRequest serverRequest The request.
      */
-    protected DMissingControllerException missingController(ServerRequest serverRequest) {
+    //protected IMissingControllerException missingController(ServerRequest serverRequest) {
 /*         return new DMissingControllerException([
             "controller": request.getParam("controller"),
             "plugin": request.getParam("plugin"),
@@ -242,5 +242,5 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             "_ext": request.getParam("_ext"),
         ]);
  */
- return null;    }
+ //return null;    }
 }

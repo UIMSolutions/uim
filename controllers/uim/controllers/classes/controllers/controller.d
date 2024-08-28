@@ -215,7 +215,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
     }
     
     //  Magic accessor for the default table.
-    DTable __get(string propertyName) {
+    ITable __get(string propertyName) {
         if (!_defaultTable.isEmpty) {
 /*             if (_defaultTable.contains("\\")) {
                  classname = App.shortName(_defaultTable, "Model/Table", "Table");
@@ -306,15 +306,15 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
         // * - `except`: (string[]) Run the middleware for all actions except the specified ones.
         // TODO
     }
-    void middleware(Closure amiddleware, Json[string] options = null) {
+    void middleware(IClosure amiddleware, Json[string] options = null) {
         // TODO
     }
     void middleware(string amiddleware, Json[string] options = null) {
-        _middlewares ~= [
+/*         _middlewares ~= [
             "middleware": middleware,
             "options": options,
         ];
-    }
+ */    }
 
     // Get middleware to be applied for this controller.
     Json[string] getMiddlewares() {
@@ -542,13 +542,13 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * Careful with trusting external sources.
      * returns Referring URL
      */
-    string referer(string[] defaultUrl = "/", bool isLocal = true) {
-         referer = _request.referer(isLocal);
+    string referer(string[] defaultUrl /* = "/" */, bool isLocal = true) {
+        auto referer = _request.referer(isLocal);
         if (!referer.isNull) {
             return referer;
         }
-        url = Router.url(defaultUrl, !isLocal);
-         base = _request.getAttribute("base");
+        auto url = Router.url(defaultUrl, !isLocal);
+        auto  base = _request.getAttribute("base");
         if (isLocal &&  base && url.startsWith(base)) {
             url = subString(url,  base.length);
 

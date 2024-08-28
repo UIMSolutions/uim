@@ -1,4 +1,4 @@
-module uim.logging.loggers.interfaces;
+module uim.logging.interfaces.logger;
 
 import uim.logging;
 @safe:

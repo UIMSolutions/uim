@@ -1,4 +1,4 @@
-module uim.logging.formatters.interfaces;
+module uim.logging.interfaces.formatter;
 
 import uim.logging;
 

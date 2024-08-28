@@ -1,10 +1,10 @@
-module uim.logging.engines.mixins;
+module uim.logging.mixins.logger;
 
 import uim.logging;
 @safe:
 
-string logEngineThis(string name) {
-    string fullName = name ~ "LogEngine";
+string loggerThis(string name) {
+    string fullName = name ~ "Logger";
     return `
     this() {
         super(); this.name("`
@@ -19,12 +19,12 @@ string logEngineThis(string name) {
     `;
 }
 
-template LogEngineThis(string name) {
-    const char[] LogEngineThis = logEngineThis(name);
+template LoggerThis(string name) {
+    const char[] LoggerThis = loggerThis(name);
 }
 
-string logEngineCalls(string name) {
-    string fullName = name ~ "LogEngine";
+string loggerCalls(string name) {
+    string fullName = name ~ "Logger";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
@@ -32,6 +32,6 @@ string logEngineCalls(string name) {
     `;
 }
 
-template LogEngineCalls(string name) {
-    const char[] LogEngineCalls = logEngineCalls(name);
+template LoggerCalls(string name) {
+    const char[] LoggerCalls = loggerCalls(name);
 }

@@ -1,14 +1,16 @@
-module uim.logging.formatters.mixins;
+module uim.logging.mixins.formatter;
 
 string logFormatterThis(string name) {
     string fullName = name ~ "LogFormatter";
     return `
     this() {
-        super(); this.name("`
-        ~ fullName ~ `");
+        super("`~ fullName ~ `");
+    }
+    this(string name) {
+        super(name);
     }
     this(Json[string] initData) {
-        super(initData); this.name("`~ fullName ~ `");
+        super("`~ fullName ~ `", initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

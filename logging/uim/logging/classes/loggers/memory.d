@@ -1,6 +1,6 @@
 module uim.logging.loggers.memory;
 
-import uim.oop;
+import uim.logging;
 
 @safe:
 /**

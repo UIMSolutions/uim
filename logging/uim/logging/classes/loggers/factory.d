@@ -1,6 +1,6 @@
 module uim.logging.loggers.factory;
 
-import uim.oop;
+import uim.logging;
 @safe:
 
 class DLoggerFactory : DFactory!DLogger {}

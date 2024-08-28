@@ -1,6 +1,6 @@
 module uim.logging.formatters.xml;
 
-import uim.oop;
+import uim.logging;
 
 @safe:
 

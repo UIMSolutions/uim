@@ -1,6 +1,6 @@
 module uim.logging.loggers.collection;
 
-import uim.oop;
+import uim.logging;
 @safe:
 
 class DLoggerCollection : DCollection!DLogger {   

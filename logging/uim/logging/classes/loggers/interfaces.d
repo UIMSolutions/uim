@@ -1,6 +1,6 @@
 module uim.logging.loggers.interfaces;
 
-import uim.oop;
+import uim.logging;
 @safe:
 
 interface ILogger : INamed {

@@ -1,6 +1,6 @@
 module uim.logging.loggers.mixins;
 
-import uim.oop;
+import uim.logging;
 @safe:
 
 string loggerThis(string name) {

@@ -101,7 +101,7 @@ class DJsonView : DSerializedView {
         return result;
     }
 
-    override protected string _serialize(string[] myserialize) {
+    /* override protected string _serialize(string[] myserialize) {
         /* auto mydata = _dataToSerialize(myserialize);
         auto dataOptions = configuration.get("JsonOptions",
             Json_HEX_TAG | Json_HEX_APOS | Json_HEX_AMP | Json_HEX_QUOT | Json_PARTIAL_OUTPUT_ON_ERROR);
@@ -112,9 +112,9 @@ class DJsonView : DSerializedView {
         if (configuration.hasKey("debug")) {
             dataOptions |= Json_PRETTY_PRINT;
         }
-        return to!string(Json_encode(mydata, dataOptions)); */
+        return to!string(Json_encode(mydata, dataOptions)); * /
         return null; 
-    }
+    } */
 
     // Returns data to be serialized.
     protected Json _dataToSerialize(string[] serializeVariables) {

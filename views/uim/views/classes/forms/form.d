@@ -43,7 +43,7 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
     // #endregion Constants
 
     // DSchema class.
-    protected string _schemaclassname = Schema.classname;
+    protected string _schemaclassname; // = Schema.classname;
 
     void data(Json[string] items) {
 

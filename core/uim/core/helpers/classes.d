@@ -24,7 +24,7 @@ string classFullname(Object instance) {
 
 string classname(Object instance) {
     return instance is null
-        ? "null"
+        ? null
         : instance.classinfo.baseName;
 }
 

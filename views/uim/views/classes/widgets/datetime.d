@@ -163,11 +163,11 @@ class DDateTimeWidget : DWidget {
         return null;
     }
 
-    Json[string] secureFields(Json[string] data) {
+    /* Json[string] secureFields(Json[string] data) {
         /* return data.isNull("name") || data.getString("name") is null
-            ? null : [data["name"]]; */
+            ? null : [data["name"]];  * /
         return null; 
-    }
+    } */
 }
 
 mixin(WidgetCalls!("DateTime"));

@@ -8,7 +8,7 @@ import uim.views;
 class DSchema : UIMObject {
 
     this() {
-        super(this.classname);
+        super( /* this.classname */ );
     }
 
     this(Json[string] initData) {
@@ -21,8 +21,8 @@ class DSchema : UIMObject {
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
-return false;
-}
+            return false;
+        }
 
         _fieldDefaults
             .set("type", Json(null))
@@ -56,7 +56,7 @@ return false;
 
     // Adds a field to the schema.
     DSchema addField(string key, Json attributes) {
-        _fields.set(key,  attributes.merge(_fieldDefaults));
+        // _fields.set(key, attributes.merge(_fieldDefaults));
 
         return this;
     }
@@ -75,24 +75,21 @@ return false;
 
     // Get the type of the named field.
     string fieldType(string key) {
-return hasField(key)
-           ? field(key).get("type")
-: null;
+        return hasField(key)
+            ? field(key).getString("type") : null;
     }
 
     // Get the type of the named field.
     string fieldDefault(string fieldName) {
-        auto foundField = this.field(fieldName);
-        if (!foundField) {
-            return null;
-        }
-
-        return foundField.get("default", null);
+        auto foundField = field(fieldName);
+        return foundField.isNull
+            ? null
+            : foundField.getString("default");
     }
 
     // Get the attributes for a given field.
-    STRINGAA field(string fieldName) {
-        return _fields.get(fieldName, null);
+    Json field(string fieldName) {
+        return _fields.value(fieldName);
     }
 
     DSchema removeField(string fieldName) {
@@ -106,7 +103,7 @@ return hasField(key)
         /* return [
             "_fields": _fields.toString,
         ]; */
-        return null; 
+        return null;
     }
 }
 

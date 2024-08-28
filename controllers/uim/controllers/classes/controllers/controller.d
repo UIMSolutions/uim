@@ -142,7 +142,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
     
     /**
      * Middlewares list.
-     * @psalm-var array<int, array{middleware:\Psr\Http\Server\IMiddleware|\/*Closure|*/ string, options:array{only?: string[], except?: string[]}}>
+     * @psalm-var array<int, array{middleware:\Psr\Http\Server\IMiddleware|\/*Closure|* / string, options:array{only?: string[], except?: string[]}}>
      */
     protected Json[string] middlewares = null;
 
@@ -191,7 +191,8 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
     
     // Get the component registry for this controller.
     DComponentRegistry components() {
-        return _components ??= new DComponentRegistry(this);
+        /* return _components ??= new DComponentRegistry(this); */
+        return null; 
     }
     
     /**
@@ -208,14 +209,15 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * Params:
      * configData - The config for the component.
      */
-    DComponent loadComponent(string componentName, Json[string] configData = null) {
-        return _components().load(componentName, configData);
+    DComponent loadComponent(string name, Json[string] configData = null) {
+        // return _components().load(componentName, configData);
+        return null;
     }
     
     //  Magic accessor for the default table.
     DTable __get(string propertyName) {
         if (!_defaultTable.isEmpty) {
-            if (_defaultTable.contains("\\")) {
+/*             if (_defaultTable.contains("\\")) {
                  classname = App.shortName(_defaultTable, "Model/Table", "Table");
             } else {
                 [,  classname] = pluginSplit(_defaultTable, true);
@@ -224,7 +226,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
             if (classname == propertyName) {
                 return _fetchTable();
             }
-        }
+ */        }
         if (this.components().has(propertyName)) {
             /** @var \UIM\Controller\Component   */
             return _components().get(propertyName);
@@ -268,13 +270,13 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
         action = request.getParam("action");
 
         if (!this.isAction(action)) {
-            throw new DMissingActionException([
+/*             throw new DMissingActionException([
                 "controller": _name ~ "Controller",
                 "action": request.getParam("action"),
-                "prefix": request.getParam("prefix") ?: "",
+                "prefix": request.getParam("prefix") ? : "",
                 "plugin": request.getParam("plugin"),
             ]);
-        }
+ */        }
         return _action(...);
     }
     
@@ -315,7 +317,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
 
     // Get middleware to be applied for this controller.
     Json[string] getMiddlewares() {
-        auto matching = null;
+/*         auto matching = null;
         auto requestAction = _request.getParam("action");
 
         foreach (middleware, _middlewares) {
@@ -334,7 +336,8 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
             }
              matching ~= middleware.get("middleware");
         }
-        return matching;
+        return matching; */
+        return null; 
     }
     
     /**
@@ -503,14 +506,14 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
         // Prefer the _ext route parameter if it is defined.
         ext = request.getParam("_ext");
         if (ext) {
-            auto extTypes = /* (array) */(_response.getMimeType(ext) ?: []);
+/*             auto extTypes = /* (array) * /(_response.getMimeType(ext) ?: []);
             extTypes.each!((extType) {
                 if (typeMap.hasKey(extTypes)) {
                     return typeMap[extType];
                 }
             });
             throw new DNotFoundException("View class for `%s` extension not found".format(ext));
-        }
+ */        }
         // Use accept header based negotiation.
         auto contentType = new DContentTypeNegotiation();
         if(auto preferredType = contentType.preferredType(request, typeMap.keys)) {
@@ -566,10 +569,10 @@ return url[0] != "/"
      * (e.g: Table instance, "TableName' or a Query object)
      */
     IPaginated paginate(
-        IRepository|IQuery|string  object = null,
+        /* IRepository|IQuery| */string  object = null,
         Json[string] settingsForPagination = null
    ) {
-        if (!isObject(object)) {
+/*         if (!isObject(object)) {
              object = this.fetchTable(object);
         }
         settingsForPagination += this.paginate;
@@ -593,7 +596,8 @@ return url[0] != "/"
             throw new DNotFoundException(null, null, exception);
         }
         return results;
-    }
+ */    
+ return null; }
     
     /**
      * Method to check that an action is accessible from a URL.
@@ -621,7 +625,7 @@ return url[0] != "/"
      * Params:
      * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
      */
-    Response|null|void beforeFilter(IEvent event) {
+    /* Response|null| */void beforeFilter(IEvent event) {
     }
     
     /**

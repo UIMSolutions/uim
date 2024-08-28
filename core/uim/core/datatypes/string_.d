@@ -736,13 +736,11 @@ unittest {
   assert(!"xyz".isNull);
 }
 
-string ifEmpty(string[] values...) {
-  foreach (value; values) {
+string ifEmpty(string check, string value) {
     if (value.length > 0) {
-      return value;
+      return check;
     }
-  }
-  return null;
+  return value;
 }
 
 

@@ -73,7 +73,7 @@ class DFlashComponent : DComponent {
 
     // Proxy method to FlashMessage instance.
     Json getConfig(string aKey = null, Json defaultValue = Json(null)) {
-        return _flash().configuration.get(aKey, default);
+        return _flash().configuration.get(aKey, defaultValue);
     }
 
     // Proxy method to FlashMessage instance.
@@ -110,7 +110,7 @@ class DFlashComponent : DComponent {
      */
     void __call(string elementName, Json[string] someArguments) {
         string anElement = elementName.underscore;
-        if (count(someArguments) == 0) {
+        /* if (count(someArguments) == 0) {
             throw new DInternalErrorException("Flash message missing.");
         }
 
@@ -121,8 +121,8 @@ class DFlashComponent : DComponent {
                     .set("element", someArguments[1].getString("plugin") ~ "." ~ anElement);
                 someArguments[1].removeKey("plugin");
             }
-            auto updatedOptions = options.update/* (array) */ someArguments[1];
+            // options.update/* (array) * / someArguments[1];
         }
-        set(someArguments[0], options);
-    } */
+        set(someArguments[0], options);*/
+    } 
 }

@@ -398,12 +398,17 @@ unittest {
   // #endregion shiftFirst
 // #endregion shift
 
-T[] ifNull(T)(T[] values, T[] defaultValues = null) {
+T[] ifNull(T)(T[] values, T[] defaultValues) {
   return values.isNull ? defaultValues : values;
 }
 
 unittest {
   // TODO create tests
+}
+
+T ifEmpty(T)(T value, T defaultValue) {
+  return value.isEmpty
+    ? defaultValue : value;
 }
 
 T[] ifEmpty(T)(T[] values, T[] defaultValues = null) {

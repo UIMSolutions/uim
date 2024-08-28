@@ -1,8 +1,8 @@
  module uim.logging.mixins.log;
 
 import uim.logging;
-
 @safe:
+
 // Template providing an object short-cut method to logging.
 mixin template TLog() {
     /**

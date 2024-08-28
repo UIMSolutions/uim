@@ -102,7 +102,7 @@ return false;
      * value will be used. This value is automatically set by `CellTrait.cell()`.
      */
     string render(string templateName = null) {
-        auto mycache = null;
+        /* auto mycache = null;
         if (!_cache.isNull) {
             mycache = _cacheConfig(_action, templateName);
         } */
@@ -204,7 +204,7 @@ return false;
     }
     
     // Debug info.
-    Json[string] debugInfo() {
+    override Json[string] debugInfo() {
 return super.debugInfo
             .set("action", _action)
             .set("args", _arguments);

@@ -14,6 +14,5 @@ public {
 public {
     import uim.logging.classes.engines.factory;
     import uim.logging.classes.engines.registry;
-    import uim.logging.classes.engines.tests;
 }
 

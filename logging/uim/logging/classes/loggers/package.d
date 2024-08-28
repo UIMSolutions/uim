@@ -16,5 +16,4 @@ public { // Helper modules
     import uim.logging.classes.loggers.enumerations;
     import uim.logging.classes.loggers.factory;
     import uim.logging.classes.loggers.registry;
-    import uim.logging.classes.loggers.tests;
 }

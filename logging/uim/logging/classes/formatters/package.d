@@ -17,7 +17,6 @@ public { // Helper modules
     import uim.logging.classes.formatters.collection;
     import uim.logging.classes.formatters.factory;
     import uim.logging.classes.formatters.registry;
-    import uim.logging.classes.formatters.tests;
 }
 
 static this() {

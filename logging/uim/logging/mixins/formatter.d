@@ -1,5 +1,8 @@
 module uim.logging.mixins.formatter;
 
+import uim.logging;
+@safe:
+
 string logFormatterThis(string name) {
     string fullName = name ~ "LogFormatter";
     return `

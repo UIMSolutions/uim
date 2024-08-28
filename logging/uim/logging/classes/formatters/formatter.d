@@ -1,5 +1,7 @@
 module uim.logging.classes.formatters.formatter;
 
+import uim.core;
+import uim.oop;
 import uim.logging;
 @safe:
 

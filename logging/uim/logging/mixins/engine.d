@@ -1,5 +1,8 @@
 module uim.logging.mixins.engine;
 
+import uim.logging;
+@safe:
+
 string logEngineThis(string name) {
     string fullName = name ~ "LogEngine";
     return `

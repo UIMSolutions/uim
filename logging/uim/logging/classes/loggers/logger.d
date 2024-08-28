@@ -1,7 +1,8 @@
 module uim.logging.classes.loggers.logger;
 
+import uim.core;
+import uim.oop;
 import uim.logging;
-
 @safe:
 
 class DLogger : UIMObject, ILogger {

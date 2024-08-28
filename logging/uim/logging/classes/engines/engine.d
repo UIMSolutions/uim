@@ -1,9 +1,10 @@
 module uim.logging.classes.engines.engine;
 
-import uim.oop.objects.obj;
+import uim.core;
+import uim.oop;
 import uim.logging;
-
 @safe:
+
 // Base log engine class.
 class DLogEngine : UIMObject, ILogEngine {
   mixin(LogEngineThis!(""));

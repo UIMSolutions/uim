@@ -75,7 +75,7 @@ return false;
 
     // Get the type of the named field.
     string fieldType(string key) {
-return hasField(key)) 
+return hasField(key)
            ? field(key).get("type")
 : null;
     }
@@ -102,7 +102,7 @@ return hasField(key))
     // #endregion fields
 
     // Get the printable version of this object
-    Json[string] debugInfo() {
+    override Json[string] debugInfo() {
         /* return [
             "_fields": _fields.toString,
         ]; */

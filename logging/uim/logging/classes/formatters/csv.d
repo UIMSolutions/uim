@@ -1,6 +1,6 @@
 module uim.logging.formatters.csv;
 
-import uim.oop;
+import uim.logging;
 
 @safe:
 class DCsvLogFormatter : DLogFormatter {

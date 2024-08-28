@@ -1,6 +1,6 @@
 module uim.logging.formatters.json;
 
-import uim.oop;
+import uim.logging;
 
 @safe:
 class DJsonLogFormatter : DLogFormatter {

@@ -1,6 +1,6 @@
 module uim.logging.formatters.text;
 
-import uim.oop;
+import uim.logging;
 
 @safe:
 class DTextLogFormatter : DLogFormatter {

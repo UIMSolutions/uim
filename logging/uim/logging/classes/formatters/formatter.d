@@ -1,6 +1,6 @@
 module uim.logging.formatters.formatter;
 
-import uim.oop;
+import uim.logging;
 @safe:
 
 // Base class for LogFormatters

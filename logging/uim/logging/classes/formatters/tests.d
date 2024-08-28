@@ -1,6 +1,6 @@
 module uim.logging.formatters.tests;
 
-import uim.oop;
+import uim.logging;
 
 @safe:
 

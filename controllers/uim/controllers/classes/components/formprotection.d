@@ -64,7 +64,7 @@ class DFormProtectionComponent : DComponent {
      * Params:
      * \UIM\Event\IEvent<\UIM\Controller\Controller> anEvent An Event instance
      */
-    DResponse startup(IEvent anEvent) {
+    IResponse startup(IEvent anEvent) {
         /* auto myrequest = getController().getRequest();
         auto mydata = request.getParsedBody();
         auto myhasData = (someData ||  request. is(["put", "post", "delete", "patch"]));
@@ -116,8 +116,8 @@ class DFormProtectionComponent : DComponent {
      * Params:
      * \UIM\Form\FormProtector formProtector Form Protector instance.
      */
-    protected DResponse validationFailure(FormProtectorformProtector) {
-        auto myException = configuration.get("debug")
+    protected IResponse validationFailure(DFormProtector formProtector) {
+/*         auto myException = configuration.get("debug")
             ? new BadRequestException(
                 formProtector.getError()) : new BadRequestException(DEFAULT_EXCEPTION_MESSAGE);
 
@@ -125,11 +125,13 @@ class DFormProtectionComponent : DComponent {
             return _executeCallback(_config["validationFailureCallback"], myException);
         }
 
-        throw myException;
+        throw myException; */
+        return null;
     }
 
     // Execute callback.
-    protected DResponse executeCallback(Closure aCallback, BadRequestException anException) {
-        return aCallback(exception);
+    protected IResponse executeCallback(IClosure aCallback, Exception anException) {
+        // return aCallback(exception);
+        return null;
     } 
 }

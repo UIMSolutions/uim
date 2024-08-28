@@ -39,7 +39,7 @@ import uim.controllers;
  * applies to all actions.
  * - `beforeRender(IEvent event)`
  * Called before the view is rendered.
- * - `beforeRedirect(IEvent event, url, Response response)`
+ * - `beforeRedirect(IEvent event, url, IResponse response)`
  *  Called before a redirect is done.
  * - `afterFilter(IEvent event)`
  * Called after each action is complete and after the view is rendered.
@@ -53,7 +53,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
     
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
     mixin TEventDispatcher;
-    mixin TLocatorAware;
+    // mixin TLocatorAware;
     mixin TLog;
     mixin TViewVars;
 
@@ -65,9 +65,10 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
         super(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         return true;
     }
@@ -76,9 +77,8 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * The name of this controller. Controller names are plural, named after the model they manipulate.
      * Set automatically using conventions in Controller.__construct().
      */
-    mixin(TProperty!("string", "name"));
     mixin(TProperty!("string", "pluginName"));
-    mixin(TProperty!("DResponse", "response"));
+    mixin(TProperty!("IResponse", "response"));
 
     // View classes for content negotiation.
     protected string[] _viewClasses;
@@ -91,9 +91,9 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
     protected IServerRequest _serverRequest;
 
     /**
-     * An instance of a Response object that contains information about the impending response
+     * An instance of a IResponse object that contains information about the impending response
      */
-    protected DResponse _response;
+    protected IResponse _response;
 
     /**
      * Pagination settings.
@@ -123,7 +123,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
 
 
 // Gets the request instance.
-    @property DServerRequest request() {
+    @property IServerRequest request() {
         return _request;
     }
 
@@ -135,7 +135,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * - this.request - To the  request parameter
 
      */
-    void setRequest(DServerRequest serverRequest) {
+    void setRequest(IServerRequest serverRequest) {
         _request = serverRequest;
         _pluginName = serverRequest.getParam("plugin");
     }
@@ -156,7 +156,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * but expect that features that use the request parameters will not work.
      */
     this(
-        DServerRequest serverRequest,
+        IServerRequest serverRequest,
         string nameToOverride = null,
         IEventManager eventManager = null,
    ) {
@@ -173,7 +173,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
             _name = subString(nameToOverride, 0, -10);
         }
         setRequest(request);
-        _response = new DResponse();
+        _response = new IResponse();
 
         if (!eventManager.isNull) {
             setEventManager(eventManager);
@@ -277,16 +277,17 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
                 "plugin": request.getParam("plugin"),
             ]);
  */        }
-        return _action(...);
+        // return _action(...);
+        return null; 
     }
     
     // Dispatches the controller action.
-    void invokeAction(Closure action, Json[string] argumentsForAction) {
-        auto result = action(...argumentsForAction);
+    void invokeAction(IClosure action, Json[string] argumentsForAction) {
+/*         auto result = action(...argumentsForAction);
         if (!result.isNull) {
             assert(
-                cast(Response)result,
-                    "Controller actions can only return Response instance or null. Got %s instead."
+                cast(IResponse)result,
+                    "Controller actions can only return IResponse instance or null. Got %s instead."
                     .format(get_debug_type(result)
                )
            );
@@ -296,7 +297,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
         if (result) {
             _response = result;
         }
-    }
+ */    }
     
     // Register middleware for the controller.
     void middleware(IMiddleware middlewareToRegister, Json[string] options = null) {
@@ -391,7 +392,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * Params:
      * \Psr\Http\Message\IUri|string[] aurl A string, array-based URL or IUri instance.
      */
-    Response redirect(/* IUri */string[] url, int httpStatusCode = 302) {
+    IResponse redirect(/* IUri */string[] url, int httpStatusCode = 302) {
         _autoRender = false;
 
         if (httpStatusCode < 300 || httpStatusCode > 399) {
@@ -404,7 +405,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
         
         auto event = dispatchEvent("Controller.beforeRedirect", [url, _response]);
         auto result = event.getResult();
-        if (cast(Response)result) {
+        if (cast(IResponse)result) {
             return _response = result;
         }
 
@@ -425,7 +426,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * string template Template to use for rendering
      * returns A response object containing the rendered view.
      */
-    Response render(string templateName = null, string layoutName = null) {
+    IResponse render(string templateName = null, string layoutName = null) {
         auto builder = viewBuilder();
         if (! builder.getTemplatePath()) {
              builder.setTemplatePath(_templatePath());
@@ -439,7 +440,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
              builder.layout(layoutName);
         }
         event = dispatchEvent("Controller.beforeRender");
-        if (cast(Response)event.getResult()) {
+        if (cast(IResponse)event.getResult()) {
             return event.getResult();
         }
         if (event.isStopped()) {
@@ -515,12 +516,13 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
             throw new DNotFoundException("View class for `%s` extension not found".format(ext));
  */        }
         // Use accept header based negotiation.
-        auto contentType = new DContentTypeNegotiation();
+        /* auto contentType = new DContentTypeNegotiation();
         if(auto preferredType = contentType.preferredType(request, typeMap.keys)) {
             return typeMap[preferredType];
         }
         // Use the match-all view if available or null for no decision.
-        return typeMap[DView.TYPE_MATCH_ALL] ?? null;
+        return typeMap[DView.TYPE_MATCH_ALL] ?? null; */
+        return null;
     }
 
     // Get the templatePath based on controller name and request prefix.
@@ -625,7 +627,7 @@ return url[0] != "/"
      * Params:
      * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
      */
-    /* Response|null| */void beforeFilter(IEvent event) {
+    /* IResponse|null| */void beforeFilter(IEvent event) {
     }
     
     /**
@@ -634,7 +636,7 @@ return url[0] != "/"
      * Params:
      * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
      */
-    Response beforeRender(IEvent event) {
+    IResponse beforeRender(IEvent event) {
     }
     
     /**
@@ -646,12 +648,12 @@ return url[0] != "/"
      * You can set the event result to response instance or modify the redirect location
      * using controller`s response instance.
      */
-    Response beforeRedirect(IEvent event, /* IUri */ string[] url, Response response) {
+    IResponse beforeRedirect(IEvent event, /* IUri */ string[] url, IResponse response) {
         return null; 
     }
     
     // Called after the controller action is run and rendered.
-    Response afterFilter(IEvent event) {
+    IResponse afterFilter(IEvent event) {
         return null; 
     }
 }

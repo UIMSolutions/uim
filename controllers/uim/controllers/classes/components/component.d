@@ -40,7 +40,7 @@ import uim.controllers;
  * is the subject of each event and can be fetched using IEvent.getSubject().
  */
 class DComponent : UIMObject, IEventListener {
-    mixin TConfigurable;
+    // mixin TConfigurable;
     mixin TLog;
 
     this() {
@@ -150,7 +150,7 @@ class DComponent : UIMObject, IEventListener {
     // Returns an array that can be used to describe the internal state of this object.
     // TODO 
 
-    Json[string] debugInfo() {
+    override Json[string] debugInfo() {
         return super.debugInfo()
             .set("components", _components)
             .set("implementedEvents", implementedEvents())

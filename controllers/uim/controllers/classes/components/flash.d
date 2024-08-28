@@ -59,8 +59,8 @@ class DFlashComponent : DComponent {
     }
 
     // Get flash message utility instance.
-    protected DFlashMessage flash() {
-        return _getController().getRequest().getFlash();
+    protected /* DFlashMessage */ string flash() {
+        return null; // _getController().getRequest().getFlash();
     }
 
     // Proxy method to FlashMessage instance.

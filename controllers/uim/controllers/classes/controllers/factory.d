@@ -43,7 +43,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * \Psr\Http\Message\IServerRequest serverRequest The request to build a controller for.
      */
     IController create(IServerRequest serverRequest) {
-        assert(cast(DServerRequest) request);
+        assert(cast(IServerRequest) request);
         auto classname = getControllerClass(request);
         if (classname.isNull) {
             throw missingController(request);
@@ -80,7 +80,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * \Psr\Http\Message\IServerRequest serverRequest Request instance.
      */
     IResponse handle(IServerRequest serverRequest) {
-        assert(cast(DServerRequest) request);
+        assert(cast(IServerRequest) request);
         auto controller = _controller;
         controller.setRequest(request);
 
@@ -102,14 +102,10 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         return controller.getResponse();
     }
     
-    /**
-     * Get the arguments for the controller action invocation.
-     * Params:
-     * \Closure action Controller action.
-     */
-    protected Json[string] getActionArgs(Closure action, Json[string] passedParams) {
+    // Get the arguments for the controller action invocation.
+    protected Json[string] getActionArgs(IClosure action, Json[string] passedParams) {
          auto resolved = null;
-        auto function = new DReflectionFunction(action);
+/*         auto function = new DReflectionFunction(action);
         foreach (parameter; function.getParameters()) {
             type = parameter.getType();
 
@@ -132,7 +128,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                      resolved ~= parameter.getDefaultValue();
                     continue;
                 }
-                auto request = _controller.getRequest():
+/*                 auto request = _controller.getRequest();
                 throw new DInvalidParameterException([
                     "template": "missing_dependency",
                     "parameter": parameter.name,
@@ -142,7 +138,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                     "prefix": request.getParam("prefix"),
                     "plugin": request.getParam("plugin"),
                 ]);
-            }
+ * /            }
             // Use any passed params as positional arguments
             if (passedParams) {
                 argument = passedParams.shift;
@@ -182,12 +178,13 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                 .set("prefix", _controller.getRequest().getParam("prefix"))
                 .set("plugin", _controller.getRequest().getParam("plugin")));
         }
-        return array_merge(resolved, passedParams);
+        return array_merge(resolved, passedParams); */
+        return null; 
     }
     
     // Coerces string argument to primitive type.
     protected string[] coerceStringToType(string argumentToCoerce, ReflectionNamedType parameterType) {
-        return match (parameterType.name) {
+/*         return match (parameterType.name) {
             "string": argumentToCoerce,
             "float": isNumeric(argumentToCoerce) ? (float)argumentToCoerce : null,
             "int": filter_var(argumentToCoerce, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
@@ -195,14 +192,16 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             "array": argumentToCoerce is null ? [] : split(",", argumentToCoerce),
             default: Json(null),
         };
-    }
+    */
+    return null;    
+ }
     
     /**
      * Determine the controller class name based on current request and controller param
      * Params:
      * \UIM\Http\ServerRequest serverRequest The request to build a controller for.
      */
-    string getControllerClass(DServerRequest serverRequest) {
+    string getControllerClass(IServerRequest serverRequest) {
         pluginPath = "";
         namespace = "Controller";
         controller = request.getParam("controller", "");
@@ -236,11 +235,12 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * \UIM\Http\ServerRequest serverRequest The request.
      */
     protected DMissingControllerException missingController(ServerRequest serverRequest) {
-        return new DMissingControllerException([
+/*         return new DMissingControllerException([
             "controller": request.getParam("controller"),
             "plugin": request.getParam("plugin"),
             "prefix": request.getParam("prefix"),
             "_ext": request.getParam("_ext"),
         ]);
-    } */
+ */
+ return null;    }
 }

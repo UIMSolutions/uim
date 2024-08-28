@@ -29,7 +29,7 @@ class DErrorController : DController {
     
 
     // beforeRender callback.
-    DResponse beforeRender(IEvent anEvent) {
+    IResponse beforeRender(IEvent anEvent) {
         auto viewBuilder = viewBuilder();
         string templatePath = "Error";
 

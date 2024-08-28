@@ -1,4 +1,4 @@
-module uim.controllers.helpers.controllerx;
+module uim.controllers.helpers.controller;
 
 import uim.controllers;
 

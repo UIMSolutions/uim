@@ -1,4 +1,4 @@
-module uim.logging.formatters.registry;
+module uim.logging.classes.formatters.registry;
 
 import uim.logging;
 

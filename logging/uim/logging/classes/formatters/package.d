@@ -1,23 +1,23 @@
-module uim.logging.formatters;
+module uim.logging.classes.formatters;
 
 public { // Main class
-    import uim.logging.formatters.formatter;
+    import uim.logging.classes.formatters.formatter;
 }
 
 public { // Sub classes
-    import uim.logging.formatters.csv;
-    import uim.logging.formatters.html;
-    import uim.logging.formatters.json;
-    import uim.logging.formatters.standard;
-    import uim.logging.formatters.text;
-    import uim.logging.formatters.xml;
+    import uim.logging.classes.formatters.csv;
+    import uim.logging.classes.formatters.html;
+    import uim.logging.classes.formatters.json;
+    import uim.logging.classes.formatters.standard;
+    import uim.logging.classes.formatters.text;
+    import uim.logging.classes.formatters.xml;
 }
 
 public { // Helper modules
-    import uim.logging.formatters.collection;
-    import uim.logging.formatters.factory;
-    import uim.logging.formatters.registry;
-    import uim.logging.formatters.tests;
+    import uim.logging.classes.formatters.collection;
+    import uim.logging.classes.formatters.factory;
+    import uim.logging.classes.formatters.registry;
+    import uim.logging.classes.formatters.tests;
 }
 
 static this() {

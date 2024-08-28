@@ -1,4 +1,4 @@
-module uim.logging.formatters.collection;
+module uim.logging.classes.formatters.collection;
 
 import uim.logging;
 @safe:

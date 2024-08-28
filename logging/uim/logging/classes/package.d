@@ -1,9 +1,9 @@
 module uim.logging;
 
 public {
-    import uim.logging.engines;
-    import uim.logging.formatters;
-    import uim.logging.loggers;
+    import uim.logging.classes.engines;
+    import uim.logging.classes.formatters;
+    import uim.logging.classes.loggers;
 }
 
 public {

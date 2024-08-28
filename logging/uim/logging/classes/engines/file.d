@@ -1,4 +1,4 @@
-module uim.logging.engines.file;
+module uim.logging.classes.engines.file;
 
 import uim.logging;
 

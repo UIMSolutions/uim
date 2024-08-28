@@ -104,7 +104,7 @@ class DLog : UIMObject {
 
         _dsnClassMap = [
             "console": ConsoleLogger.classname,
-            "file": uim.logging.loggers.file.FileLogger.classname,
+            "file": uim.logging.classes.loggers.file.FileLogger.classname,
             "syslog": SysLogger.classname,
         ];
 

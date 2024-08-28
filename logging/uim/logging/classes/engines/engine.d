@@ -1,5 +1,6 @@
-module uim.logging.engines.engine;
+module uim.logging.classes.engines.engine;
 
+import uim.oop.objects.obj;
 import uim.logging;
 
 @safe:

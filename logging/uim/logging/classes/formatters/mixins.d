@@ -1,4 +1,4 @@
-module uim.oop.logging.formatters.mixins;
+module uim.logging.formatters.mixins;
 
 string logFormatterThis(string name) {
     string fullName = name ~ "LogFormatter";

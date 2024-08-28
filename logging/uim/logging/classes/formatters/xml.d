@@ -1,4 +1,4 @@
-module uim.oop.logging.formatters.xml;
+module uim.logging.formatters.xml;
 
 import uim.oop;
 

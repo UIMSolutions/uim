@@ -1,4 +1,4 @@
-module uim.oop.logging.formatters.json;
+module uim.logging.formatters.json;
 
 import uim.oop;
 

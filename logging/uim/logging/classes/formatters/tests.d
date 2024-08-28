@@ -1,4 +1,4 @@
-module uim.oop.logging.formatters.tests;
+module uim.logging.formatters.tests;
 
 import uim.oop;
 

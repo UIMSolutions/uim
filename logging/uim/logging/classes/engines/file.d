@@ -1,6 +1,6 @@
 module uim.logging.engines.file;
 
-import uim.oop;
+import uim.logging;
 
 @safe:
 // File Storage stream for Logging. Writes logs to different files based on the level of log it is.

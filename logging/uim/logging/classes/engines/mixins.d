@@ -1,6 +1,6 @@
 module uim.logging.engines.mixins;
 
-import uim.oop;
+import uim.logging;
 @safe:
 
 string logEngineThis(string name) {

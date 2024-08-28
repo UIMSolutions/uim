@@ -1,6 +1,6 @@
 module uim.logging.formatters.collection;
 
-import uim.oop;
+import uim.logging;
 @safe:
 
 class DLogFormatterCollection : DCollection!DLogFormatter {   

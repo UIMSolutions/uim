@@ -1,6 +1,6 @@
 module uim.logging.engines.engine;
 
-import uim.oop;
+import uim.logging;
 
 @safe:
 // Base log engine class.

@@ -1,6 +1,6 @@
 module uim.logging.engines.registry;
 
-import uim.oop;
+import uim.logging;
 
 @safe:
 

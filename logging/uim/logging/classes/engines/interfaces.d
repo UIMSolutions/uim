@@ -1,4 +1,4 @@
-module uim.oop.logging.engines.interfaces;
+module uim.logging.engines.interfaces;
 
 interface ILogEngine {
 

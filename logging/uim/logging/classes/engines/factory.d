@@ -1,4 +1,4 @@
-module uim.oop.logging.engines.factory;
+module uim.logging.engines.factory;
 
 import uim.oop;
 

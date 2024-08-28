@@ -1,4 +1,4 @@
-module uim.oop.logging.engines.mixins;
+module uim.logging.engines.mixins;
 
 import uim.oop;
 @safe:

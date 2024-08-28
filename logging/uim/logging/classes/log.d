@@ -1,4 +1,4 @@
-module uim.oop.logging.log;
+module uim.logging.log;
 
 import uim.oop;
 
@@ -104,7 +104,7 @@ class DLog : UIMObject {
 
         _dsnClassMap = [
             "console": ConsoleLogger.classname,
-            "file": uim.oop.logging.loggers.file.FileLogger.classname,
+            "file": uim.logging.loggers.file.FileLogger.classname,
             "syslog": SysLogger.classname,
         ];
 

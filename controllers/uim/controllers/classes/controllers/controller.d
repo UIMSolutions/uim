@@ -78,6 +78,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * Set automatically using conventions in Controller.__construct().
      */
     mixin(TProperty!("string", "pluginName"));
+    // An instance of a IResponse object that contains information about the impending response
     mixin(TProperty!("IResponse", "response"));
 
     // View classes for content negotiation.
@@ -89,11 +90,6 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * additional information about the request.
      */
     protected IServerRequest _serverRequest;
-
-    /**
-     * An instance of a IResponse object that contains information about the impending response
-     */
-    protected IResponse _response;
 
     /**
      * Pagination settings.
@@ -227,13 +223,13 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
                 return _fetchTable();
             }
  */        }
-        if (this.components().has(propertyName)) {
-            /** @var \UIM\Controller\Component   */
+/*         if (this.components().has(propertyName)) {
+            /** @var \UIM\Controller\Component   * /
             return _components().get(propertyName);
         }
-
+ */
         /** @var array<int, Json[string]> trace */
-        auto trace = debug_backtrace();
+        /* auto trace = debug_backtrace();
         auto someParts = classname.split("\\");
         trigger_error(
             "Undefined property `%s.$%s` in `%s` on line %s"
@@ -243,7 +239,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
                     trace[0]["line"]
                ),
                 ERRORS.USER_NOTICE
-           );
+           ); */
 
         return null;
     }
@@ -269,14 +265,14 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
          request = this.request;
         action = request.getParam("action");
 
-        if (!this.isAction(action)) {
+        /* if (!this.isAction(action)) {
 /*             throw new DMissingActionException([
                 "controller": _name ~ "Controller",
                 "action": request.getParam("action"),
                 "prefix": request.getParam("prefix") ? : "",
                 "plugin": request.getParam("plugin"),
             ]);
- */        }
+         } */
         // return _action(...);
         return null; 
     }

@@ -33,7 +33,7 @@ class DYearWidget : DWidget {
     protected DSelectBoxWidget _select;
 
     this(DStringContents newTemplates, DSelectBoxWidget selectBox) {
-        super(newTemplates);
+        // super(newTemplates);
         _select = selectBox;
     }
 

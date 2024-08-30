@@ -13,6 +13,7 @@ mixin template TLog() {
         LogLevels errorLevel = LogLevels.ERROR,
         Json[string] logData = null
    ) {
-        return Log.write(errorLevel, logMessage, logData);
+        // return Log.write(errorLevel, logMessage, logData);
+        return false;
     }
 }

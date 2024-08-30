@@ -28,7 +28,7 @@ class DMultiCheckboxWidget : DWidget {
      * - `multicheckboxTitle` Renders the title element for grouped inputs.
      */
   this(DStringContents newTemplate, DLabelWidget labelWidget) {
-    super(newTemplate);
+    // super(newTemplate);
     _label = labelWidget;
   }
 

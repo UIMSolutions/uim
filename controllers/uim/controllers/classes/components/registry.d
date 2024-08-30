@@ -17,23 +17,17 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
     /*
     // @use \UIM\Event\EventDispatcherTrait<TSubject>
     mixin TEventDispatcher;
-
+*/
     // The controller that this collection is associated with.
     protected IController _controller;
-
-    /**
-     .
-     * Params:
-     * \UIM\Controller\Controller controller Controller instance.
-     */
     this(IController controller) {
-       _Controller = controller;
-        setEventManager(controller.getEventManager());
+       _controller = controller;
+        // setEventManager(controller.getEventManager());
     }
     
     // Get the controller associated with the collection.
     IController getController() {
-        return _Controller;
+        return _controller;
     }
     
     /**
@@ -43,7 +37,8 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      */
     protected string _resolveclassname(string classname) {
         /** @var class-string<\UIM\Controller\Component>|null */
-        return App.classname(classname, "Controller/Component", "Component");
+        // return App.classname(classname, "Controller/Component", "Component");
+        return null;
     }
     
     /**

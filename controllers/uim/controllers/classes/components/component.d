@@ -40,20 +40,9 @@ import uim.controllers;
  * is the subject of each event and can be fetched using IEvent.getSubject().
  */
 class DComponent : UIMObject, IEventListener {
+    mixin(ComponentThis!(""));
     // mixin TConfigurable;
     mixin TLog;
-
-    this() {
-        supe;
-    }
-
-    this(Json[string] initData) {
-        supe(initData);
-    }
-
-    this(string name) {
-        supe(name);
-    }
 
     // Hook method
     override bool initialize(Json[string] initData = null) {
@@ -90,14 +79,14 @@ class DComponent : UIMObject, IEventListener {
      * configData = Array of configuration settings.
      */
     this(DComponentRegistry registry, Json[string] initData = null) {
-        _registry = registry;
+        /* _registry = registry;
 
         configuration.set(initData);
 
         if (this.components) {
             _components = registry.normalizeArray(_components);
         }
-        this.initialize(initData);
+        this.initialize(initData); */
     }
 
     // Get the controller this component is bound to.
@@ -113,17 +102,17 @@ class DComponent : UIMObject, IEventListener {
      * componentName = Name of component to get.
      */
     IComponent __get(string componentName) {
-        if (_componentInstances.hasKey(componentName)) {
+        /* if (_componentInstances.hasKey(componentName)) {
             return _componentInstances[componentName];
         }
         if (_components.hasKey(componentName)) {
-            configData = _components.getString(componentName) ~ [
+            auto data = _components.getString(componentName) ~ [
                 "enabled": false.toJson
             ];
 
             return _componentInstances.set(componentName,
-                _registry.load(componentName, configData));
-        }
+                _registry.load(componentName, data));
+        } */
         return null;
     }
 
@@ -140,10 +129,10 @@ class DComponent : UIMObject, IEventListener {
     protected STRINGAA _eventMap;
     IEvent[] implementedEvents() {
         Json[string] myEvents;
-        eventMap.byKeyValue
+        /* eventMap.byKeyValue
             .filter!(kv => hasMethod(this, kv.value))
             .each!(eventMethod => myEvents[eventMethod.key] = eventMethod.value);
-
+ */
         return myEvents;
     }
 
@@ -152,7 +141,7 @@ class DComponent : UIMObject, IEventListener {
 
     override Json[string] debugInfo() {
         return super.debugInfo()
-            .set("components", _components)
+            // .set("components", _components)
             .set("implementedEvents", implementedEvents())
             .set("_config", _configuration.data);
     }

@@ -140,9 +140,9 @@ class DComponent : UIMObject, IEventListener {
     // TODO 
 
     override Json[string] debugInfo() {
-        return super.debugInfo()
+        return super.debugInfo(); 
             // .set("components", _components)
-            .set("implementedEvents", implementedEvents())
-            .set("_config", _configuration.data);
+/*             .set("implementedEvents", implementedEvents())
+            .set("_config", _configuration.data); */
     }
 }

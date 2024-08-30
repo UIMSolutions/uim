@@ -50,20 +50,13 @@ import uim.controllers;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Controller\Controller>
  */
 class DController : UIMObject, IController { // IEventListener, IEventDispatcher {    
-    
+    mixin(ControllerThis!(""));
+
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
     mixin TEventDispatcher;
     // mixin TLocatorAware;
     mixin TLog;
     mixin TViewVars;
-
-    this() {
-        super();
-    }
-
-    this(Json[string] initData) {
-        super(initData);
-    }
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -73,6 +66,21 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
         return true;
     }
 
+    IView[] views() {
+        return null; 
+    }
+
+    IController addView(IView newView) {
+        return null; 
+    }
+
+    IController orderViews()  {
+        return null; 
+    }
+
+    IResponse response(Json[string] options = null) {
+        return null; 
+    }
     /**
      * The name of this controller. Controller names are plural, named after the model they manipulate.
      * Set automatically using conventions in Controller.__construct().
@@ -140,7 +148,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * Middlewares list.
      * @psalm-var array<int, array{middleware:\Psr\Http\Server\IMiddleware|\/*Closure|* / string, options:array{only?: string[], except?: string[]}}>
      */
-    protected Json[string] middlewares = null;
+    protected Json[string] _middlewares = null;
 
     /**
      .
@@ -262,8 +270,8 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
     
     // Get the closure for action to be invoked by ControllerFactory.
     IClosure getAction() {
-         request = this.request;
-        action = request.getParam("action");
+/*         auto request = this.request;
+        auto action = request.getParam("action"); */
 
         /* if (!this.isAction(action)) {
 /*             throw new DMissingActionException([
@@ -376,11 +384,11 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * - calls the Controller`s `afterFilter` method.
      */
     IResponse shutdownProcess() {
-        result = dispatchEvent("Controller.shutdown").getResult();
+/*         auto result = dispatchEvent("Controller.shutdown").getResult();
         if (cast(IResponse)result) {
             return result;
         }
-        return null;
+ */        return null;
     }
     
     /**
@@ -389,7 +397,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * \Psr\Http\Message\IUri|string[] aurl A string, array-based URL or IUri instance.
      */
     IResponse redirect(/* IUri */string[] url, int httpStatusCode = 302) {
-        _autoRender = false;
+/*         _autoRender = false;
 
         if (httpStatusCode < 300 || httpStatusCode > 399) {
             throw new DInvalidArgumentException(
@@ -413,7 +421,8 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
         if (!response.headerLine("Location")) {
             response = response.withLocation(Router.url(url, true));
         }
-        return _response = response;
+        return _response = response; */
+        return null; 
     }
     
     /**
@@ -423,7 +432,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * returns A response object containing the rendered view.
      */
     IResponse render(string templateName = null, string layoutName = null) {
-        auto builder = viewBuilder();
+/*         auto builder = viewBuilder();
         if (! builder.getTemplatePath()) {
              builder.setTemplatePath(_templatePath());
         }
@@ -451,7 +460,8 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
         contents = view.render();
         response = view.getResponse().withStringBody(contents);
 
-        return _setResponse(response).response;
+        return _setResponse(response).response; */
+        return null;
     }
     
     /**
@@ -469,11 +479,9 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      *
      * Each view class must implement the `getContentType()` hook method
      * to participate in negotiation.
-     * Params:
-     * Json[string] viewClasses View classes list.
      */
-    void addViewClasses(Json[string] viewClasses) {
-        this.viewClasses = array_merge(this.viewClasses,  viewClasses);
+    void setViewClasses(Json[string] viewClasses) {
+        _viewClasses = _viewClasses.set(viewClasses);
     }
     
     /**
@@ -481,7 +489,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * selection based on content-type negotiation.
      */
     protected string chooseViewClass() {
-        auto possibleViewClasses = this.viewClasses();
+        /* auto possibleViewClasses = this.viewClasses();
         if (possibleViewClasses.isEmpty) {
             return null;
         }
@@ -498,11 +506,11 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
                 typeMap[viewContentType] = classname;
             }
         }
-         request = getRequest();
+         request = getRequest(); */
 
         // Prefer the _ext route parameter if it is defined.
-        ext = request.getParam("_ext");
-        if (ext) {
+        // ext = request.getParam("_ext");
+        // if (ext) {
 /*             auto extTypes = /* (array) * /(_response.getMimeType(ext) ?: []);
             extTypes.each!((extType) {
                 if (typeMap.hasKey(extTypes)) {
@@ -510,7 +518,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
                 }
             });
             throw new DNotFoundException("View class for `%s` extension not found".format(ext));
- */        }
+ */       // }
         // Use accept header based negotiation.
         /* auto contentType = new DContentTypeNegotiation();
         if(auto preferredType = contentType.preferredType(request, typeMap.keys)) {
@@ -524,12 +532,12 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
     // Get the templatePath based on controller name and request prefix.
     protected string _templatePath() {
         string templatePath = _name;
-        if (_request.getParam("prefix")) {
+/*         if (_request.getParam("prefix")) {
             prefixes = _request.getParam("prefix").split("/").camelize;
             templatePath = prefixes.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR ~ templatePath;
         }
         return templatePath;
-    }
+ */    }
     
     /**
      * Returns the referring URL for this request.
@@ -539,7 +547,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * returns Referring URL
      */
     string referer(string[] defaultUrl /* = "/" */, bool isLocal = true) {
-        auto referer = _request.referer(isLocal);
+/*         auto referer = _request.referer(isLocal);
         if (!referer.isNull) {
             return referer;
         }
@@ -552,7 +560,8 @@ return url[0] != "/"
      ?"/" ~ url
 : url;
         }
-        return url;
+        return url; */
+        return null; 
     }
     
     /**
@@ -605,7 +614,7 @@ return url[0] != "/"
      * and allows all methods on all subclasses of this class.
      */
     bool isAction(string actionName) {
-         baseClass = new DReflectionClass(classname);
+/*          baseClass = new DReflectionClass(classname);
         if (baseClass.hasMethod(actionName)) {
             return false;
         }
@@ -615,7 +624,9 @@ return url[0] != "/"
             return false;
         }
         return method.isPublic() &&  method.name == actionName;
-    }
+ */ 
+    return false;
+     }
     
     /**
      * Called before the controller action. You can use this method to configure and customize components

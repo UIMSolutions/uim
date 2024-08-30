@@ -85,11 +85,11 @@ class DFlashComponent : DComponent {
     
     //  Proxy method to FlashMessage instance.
     void configShallow(string aKey, Json valueToSet = null) {
-        flash().configShallow(aKey, valueToSet);
+        // flash().configShallow(aKey, valueToSet);
     }
 
     void configShallow(string[] keys, Json valueToSet = null) {
-        flash().configShallow(keys, valueToSet);
+        // flash().configShallow(keys, valueToSet);
     }
 
     /**

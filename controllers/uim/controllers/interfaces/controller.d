@@ -1,11 +1,10 @@
 module uim.controllers.interfaces.controller;
 
 import uim.controllers;
-
 @safe:
 
 interface IController {
-    IViews views();
+    IView[] views();
     IController addView(IView newView);
     IController orderViews();
 

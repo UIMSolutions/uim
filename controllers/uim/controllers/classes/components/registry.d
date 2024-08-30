@@ -48,10 +48,10 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * and {@link \UIM\Core\ObjectRegistry.unload()}
      */
     protected void _throwMissingClassError(string classname, string pluginName) {
-        throw new DMissingComponentException([
+        /* throw new DMissingComponentException([
             "class": classname ~ "Component",
             "plugin": pluginName,
-        ]);
+        ]); */
     }
     
     /**

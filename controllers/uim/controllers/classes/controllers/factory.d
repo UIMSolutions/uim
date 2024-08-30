@@ -43,7 +43,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * \Psr\Http\Message\IServerRequest serverRequest The request to build a controller for.
      */
     IController create(IServerRequest serverRequest) {
-        assert(cast(IServerRequest) request);
+        /* assert(cast(IServerRequest) request);
         auto classname = getControllerClass(request);
         if (classname.isNull) {
             throw missingController(request);
@@ -56,12 +56,13 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         // The request is in the container by default.
         return this.container.has(classname)
             ? this.container.get(classname) 
-            : reflection.newInstance(request);
+            : reflection.newInstance(request); */
+        return null;
     }
     
     // Invoke a controller`s action and wrapping methods
     IResponse invoke(IController controller) {
-        _controller = controller;
+        /* _controller = controller;
 
          auto middlewares = controller.getMiddleware();
 
@@ -71,7 +72,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
 
             return runner.run(middlewareQueue, controller.getRequest(), this);
         }
-        return _handle(controller.getRequest());
+        return _handle(controller.getRequest()); */
     }
     
     /**
@@ -80,7 +81,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * \Psr\Http\Message\IServerRequest serverRequest Request instance.
      */
     IResponse handle(IServerRequest serverRequest) {
-        assert(cast(IServerRequest) request);
+/*         assert(cast(IServerRequest) request);
         auto controller = _controller;
         controller.setRequest(request);
 
@@ -91,7 +92,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         auto action = controller.getAction();
         auto someArguments = getActionArgs(
             action,
-            /* (array) */controller.getRequest().getParam("pass").values
+            /* (array) * /controller.getRequest().getParam("pass").values
        );
         controller.invokeAction(action, someArguments);
 
@@ -99,7 +100,8 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         if (!result.isNull) {
             return result;
         }
-        return controller.getResponse();
+        return controller.getResponse(); */
+        return null; 
     }
     
     // Get the arguments for the controller action invocation.
@@ -202,7 +204,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * \UIM\Http\ServerRequest serverRequest The request to build a controller for.
      */
     string getControllerClass(IServerRequest serverRequest) {
-        pluginPath = "";
+        /* pluginPath = "";
         namespace = "Controller";
         controller = request.getParam("controller", "");
         if (request.getParam("plugin")) {
@@ -225,8 +227,9 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
        ) {
             throw this.missingController(request);
         }
-        /** @var class-string<\UIM\Controller\Controller>|null */
-        return App.classname(pluginPath ~ controller, namespace, "Controller");
+        /** @var class-string<\UIM\Controller\Controller>|null * /
+        return App.classname(pluginPath ~ controller, namespace, "Controller"); */
+        return null;
     }
     
     /**

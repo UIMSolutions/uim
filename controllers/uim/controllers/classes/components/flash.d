@@ -64,7 +64,7 @@ class DFlashComponent : DComponent {
     }
 
     // Proxy method to FlashMessage instance.
-    void setConfig(string[] keys, Json valueToSet = null, bool mergeExisting = true) {
+    void setConfig(string key, Json valueToSet = null, bool mergeExisting = true) {
     }
 
     void setConfig(string[] aKey, Json valueToSet = null, bool merge = true) {

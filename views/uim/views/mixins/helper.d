@@ -4,14 +4,16 @@ string helperThis(string name) {
     string fullName = name ~ "Helper";
     return `
     this() {
-        super(); this.name("`
-        ~ fullName ~ `");
-    }
-    this(Json[string] initData) {
-        super(initData); this.name("`~ fullName ~ `");
+        super("`~ fullName ~ `");
     }
     this(string name) {
-        super(); this.name(name);
+        super(name);
+    }
+    this(Json[string] initData) {
+        super("`~ fullName ~ `", initData);
+    }
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
     `;
 }

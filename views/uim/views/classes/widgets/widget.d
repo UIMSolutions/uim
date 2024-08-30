@@ -11,22 +11,7 @@ import uim.views;
  * input elements like hidden, text, email, tel and other types.
  */
 class DWidget : UIMObject, IWidget {
-
-  this() {
-    super();
-  }
-
-  this(Json[string] initData) {
-    super(initData);
-  }
-
-  this(DStringContents newTemplate) {
-    this().stringContents(newTemplate);
-  }
-
-  this(string newName) {
-    super(newName);
-  }
+  mixin(WidgetThis!(""));
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {

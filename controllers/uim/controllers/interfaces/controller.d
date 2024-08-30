@@ -6,6 +6,8 @@ import uim.controllers;
 
 interface IController {
     IViews views();
-    I controller addView(
+    IController addView(IView newView);
+    IController orderViews();
 
+    IResponse response(Json[string] options = null);
 }

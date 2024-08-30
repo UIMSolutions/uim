@@ -73,7 +73,8 @@ class DFlashComponent : DComponent {
 
     // Proxy method to FlashMessage instance.
     Json getConfig(string aKey = null, Json defaultValue = Json(null)) {
-        return _flash().configuration.get(aKey, defaultValue);
+        // return _flash().configuration.get(aKey, defaultValue);
+        return Json(null);
     }
 
     // Proxy method to FlashMessage instance.

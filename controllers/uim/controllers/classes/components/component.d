@@ -133,7 +133,7 @@ class DComponent : UIMObject, IEventListener {
             .filter!(kv => hasMethod(this, kv.value))
             .each!(eventMethod => myEvents[eventMethod.key] = eventMethod.value);
  */
-        return myEvents;
+        return null; // myEvents;
     }
 
     // Returns an array that can be used to describe the internal state of this object.

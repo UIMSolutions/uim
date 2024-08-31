@@ -1,0 +1,227 @@
+[
+    {
+     "name" : "uim_all",
+     "kind" : "module",
+     "file" : "source\\uim\\uim_all.d",
+     "members" : [
+      {
+       "name" : "std.functional",
+       "kind" : "import",
+       "line" : 4,
+       "char" : 12
+      },
+      {
+       "name" : "std.conv",
+       "kind" : "import",
+       "line" : 5,
+       "char" : 12
+      },
+      {
+       "name" : "std.datetime",
+       "kind" : "import",
+       "line" : 6,
+       "char" : 12
+      },
+      {
+       "name" : "std.exception",
+       "kind" : "import",
+       "line" : 7,
+       "char" : 12
+      },
+      {
+       "name" : "uim.core",
+       "kind" : "import",
+       "line" : 11,
+       "char" : 12
+      },
+      {
+       "name" : "uim.oop",
+       "kind" : "import",
+       "line" : 12,
+       "char" : 12
+      },
+      {
+       "name" : "uim.models",
+       "kind" : "import",
+       "line" : 14,
+       "char" : 12
+      },
+      {
+       "name" : "uim.apps",
+       "kind" : "import",
+       "line" : 16,
+       "char" : 12
+      },
+      {
+       "name" : "uim.css",
+       "kind" : "import",
+       "line" : 18,
+       "char" : 12
+      },
+      {
+       "name" : "uim.services",
+       "kind" : "import",
+       "line" : 19,
+       "char" : 12
+      },
+      {
+       "name" : "uim.sites",
+       "kind" : "import",
+       "line" : 20,
+       "char" : 12
+      },
+      {
+       "name" : "uim.controllers",
+       "kind" : "import",
+       "line" : 21,
+       "char" : 12
+      },
+      {
+       "name" : "uim.filesystems",
+       "kind" : "import",
+       "line" : 23,
+       "char" : 12
+      },
+      {
+       "name" : "uim.views",
+       "kind" : "import",
+       "line" : 24,
+       "char" : 12
+      },
+      {
+       "name" : "uim.html",
+       "kind" : "import",
+       "line" : 26,
+       "char" : 12
+      },
+      {
+       "name" : "uim.i18n",
+       "kind" : "import",
+       "line" : 27,
+       "char" : 12
+      },
+      {
+       "name" : "uim.jsonbases",
+       "kind" : "import",
+       "line" : 28,
+       "char" : 12
+      },
+      {
+       "name" : "uim.models",
+       "kind" : "import",
+       "line" : 29,
+       "char" : 12
+      },
+      {
+       "name" : "uim.views",
+       "kind" : "import",
+       "line" : 30,
+       "char" : 12
+      },
+      {
+       "name" : "uim.controllers",
+       "kind" : "import",
+       "line" : 36,
+       "char" : 12
+      },
+      {
+       "name" : "uim.entitybases",
+       "kind" : "import",
+       "line" : 39,
+       "char" : 12
+      },
+      {
+       "name" : "uim.filesystems",
+       "kind" : "import",
+       "line" : 42,
+       "char" : 12
+      },
+      {
+       "name" : "uim.views",
+       "kind" : "import",
+       "line" : 43,
+       "char" : 12
+      },
+      {
+       "name" : "uim.html",
+       "kind" : "import",
+       "line" : 46,
+       "char" : 12
+      },
+      {
+       "name" : "uim.i18n",
+       "kind" : "import",
+       "line" : 47,
+       "char" : 12
+      },
+      {
+       "name" : "uim.jsonbases",
+       "kind" : "import",
+       "line" : 48,
+       "char" : 12
+      },
+      {
+       "name" : "uim.logging",
+       "kind" : "import",
+       "line" : 50,
+       "char" : 12
+      },
+      {
+       "name" : "uim.mvc",
+       "kind" : "import",
+       "line" : 52,
+       "char" : 12
+      }
+     ]
+    },
+    {
+     "name" : "uim.uim_base",
+     "kind" : "module",
+     "file" : "source\\uim\\uim_base.d",
+     "members" : [
+      {
+       "name" : "std.functional",
+       "kind" : "import",
+       "line" : 4,
+       "char" : 12
+      },
+      {
+       "name" : "std.conv",
+       "kind" : "import",
+       "line" : 5,
+       "char" : 12
+      },
+      {
+       "name" : "std.datetime",
+       "kind" : "import",
+       "line" : 6,
+       "char" : 12
+      },
+      {
+       "name" : "std.exception",
+       "kind" : "import",
+       "line" : 7,
+       "char" : 12
+      },
+      {
+       "name" : "uim.core",
+       "kind" : "import",
+       "line" : 11,
+       "char" : 12
+      },
+      {
+       "name" : "uim.oop",
+       "kind" : "import",
+       "line" : 12,
+       "char" : 12
+      },
+      {
+       "name" : "uim.models",
+       "kind" : "import",
+       "line" : 13,
+       "char" : 12
+      }
+     ]
+    }
+   ]
+   

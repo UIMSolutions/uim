@@ -1,4 +1,4 @@
-module uim.html.snippets.multiItemCarousel;
+module uim.html.snippets.multiitem;
 
 import uim.html;
 @safe:

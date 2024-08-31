@@ -108,13 +108,9 @@ class DDebugger : UIMObject {
         configuration.set(aConfig);
     }
     
-    /**
-     * Returns a reference to the Debugger singleton object instance.
-     * Params:
-     * class-string<\UIM\Error\Debugger>|null  classname Class name.
-     */
-    static static getInstance(string classname = null) {
-        /** @var array<int, static>  anInstance */
+    // Returns a reference to the Debugger singleton object instance.
+    /* static static getInstance(string classname = null) {
+        /** @var array<int, static>  anInstance * /
         static anInstance = null;
         if (classname) {
             if (!anInstance || strtolower(classname) != get_class(anInstance[0]).lower) {
@@ -125,7 +121,7 @@ class DDebugger : UIMObject {
             anInstance[0] = new Debugger();
         }
         return anInstance[0];
-    }
+    } */
 
     /**
      * Read or write configuration options for the Debugger instance.

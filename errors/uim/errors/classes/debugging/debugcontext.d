@@ -57,12 +57,12 @@ class DDebugContext {
     }
 
     // Return a clone with increased depth.
-    ststic auto withAddedDepth() {
+    /* static auto withAddedDepth() {
         new = this.clone;
         new.depth += 1;
 
         return new;
-    }
+    } */
 
 
     /**

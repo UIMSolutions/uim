@@ -646,7 +646,7 @@ protected static IErrorNode export_(varToDump, DDebugContext dumpContext) {
      * - schema
      */
 protected static DArrayNode exportArray(
-    Json[string] valueToExport, DDebugContext dumpContext) {
+    /* Json[string] valueToExport, DDebugContext dumpContext) {
     auto items = null;
 
     autp remaining = dumpContext
@@ -679,7 +679,8 @@ protected static DArrayNode exportArray(
     }
 
     return new ArrayNode(
-        items);
+        items); */
+        return null; 
 }
 
 // Handles object to node conversion.

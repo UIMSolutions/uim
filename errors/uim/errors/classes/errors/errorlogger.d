@@ -32,14 +32,14 @@ class DErrorLogger : IErrorLogger {
         if (anIncludeTrace) {
             errorMessage ~= "\nTrace:\n" ~ error.getTraceAsString() ~ "\n";
         }
-        label = error.getLabel();
+        /* label = error.getLabel();
         level = match (label) {
             "strict": LOGS.NOTICE,
             "deprecated": LOG_DEBUG,
             default: label,
         };
 
-        Log.write(level, errorMessage);
+        Log.write(level, errorMessage); */
     }
  
     void logException(

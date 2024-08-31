@@ -1,4 +1,4 @@
-module uim.html.snippets.clientOrPartnersLogoSlider;
+module uim.html.snippets.client;
 
 import uim.html;
 @safe:

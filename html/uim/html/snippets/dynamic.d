@@ -1,4 +1,4 @@
-module uim.html.snippets.dynamicSortableTable;
+module uim.html.snippets.dynamic;
 
 import uim.html;
 @safe:

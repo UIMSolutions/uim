@@ -128,7 +128,8 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
 
 // Gets the request instance.
     @property IServerRequest request() {
-        return _request;
+        // return _request;
+        return null; 
     }
 
     /**
@@ -140,8 +141,8 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
 
      */
     void setRequest(IServerRequest serverRequest) {
-        _request = serverRequest;
-        _pluginName = serverRequest.getParam("plugin");
+        /* _request = serverRequest;
+        _pluginName = serverRequest.getParam("plugin"); */
     }
     
     /**
@@ -220,7 +221,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
     
     //  Magic accessor for the default table.
     ITable __get(string propertyName) {
-        if (!_defaultTable.isEmpty) {
+        // if (!_defaultTable.isEmpty) {
 /*             if (_defaultTable.contains("\\")) {
                  classname = App.shortName(_defaultTable, "Model/Table", "Table");
             } else {
@@ -230,7 +231,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
             if (classname == propertyName) {
                 return _fetchTable();
             }
- */        }
+ */        // }
 /*         if (this.components().has(propertyName)) {
             /** @var \UIM\Controller\Component   * /
             return _components().get(propertyName);
@@ -350,12 +351,13 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * You can override this auto to add your own listener callbacks
      */
     IEvent[] implementedEvents() {
-        return [
+       /*  return [
             "Controller.initialize": "beforeFilter",
             "Controller.beforeRender": "beforeRender",
             "Controller.beforeRedirect": "beforeRedirect",
             "Controller.shutdown": "afterFilter",
-        ];
+        ]; */
+        return null; 
     }
     
     /**
@@ -367,11 +369,11 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * - triggers Component `startup` methods.
      */
     IResponse startupProcess() {
-        auto result = dispatchEvent("Controller.initialize").getResult();
+       /*  auto result = dispatchEvent("Controller.initialize").getResult();
         if (cast(IResponse)result) { return result; }
 
         result = dispatchEvent("Controller.startup").getResult();
-        if (cast(IResponse)result) { return result; }
+        if (cast(IResponse)result) { return result; } */
 
         return null;
     }
@@ -481,7 +483,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
      * to participate in negotiation.
      */
     void setViewClasses(Json[string] viewClasses) {
-        _viewClasses = _viewClasses.set(viewClasses);
+        // _viewClasses = _viewClasses.set(viewClasses);
     }
     
     /**
@@ -537,7 +539,8 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
             templatePath = prefixes.join(DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR ~ templatePath;
         }
         return templatePath;
- */    }
+ */    return null; 
+ }
     
     /**
      * Returns the referring URL for this request.
@@ -640,10 +643,9 @@ return url[0] != "/"
     /**
      * Called after the controller action is run, but before the view is rendered. You can use this method
      * to perform logic or set view variables that are required on every request.
-     * Params:
-     * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
      */
     IResponse beforeRender(IEvent event) {
+        return null; 
     }
     
     /**

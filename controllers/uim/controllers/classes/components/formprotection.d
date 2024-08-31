@@ -51,10 +51,11 @@ class DFormProtectionComponent : DComponent {
      * Must be the same as in FormHelper
      */
     protected string _getSessionId() {
-        auto mySession = getController().getRequest().getSession();
+        /* auto mySession = getController().getRequest().getSession();
         mySession.start();
 
-        return mySession.id();
+        return mySession.id(); */
+        return null; 
     }
 
     /**

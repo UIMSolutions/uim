@@ -21,7 +21,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
     }
 
     this(IContainer container) {
-        this.container = container;
+        _container = container;
     }
 
     bool initialize(Json[string] initData = null) {
@@ -73,6 +73,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             return runner.run(middlewareQueue, controller.getRequest(), this);
         }
         return _handle(controller.getRequest()); */
+        return null; 
     }
     
     /**

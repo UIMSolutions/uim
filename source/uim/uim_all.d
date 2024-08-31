@@ -37,8 +37,8 @@ public {
     // import uim.databases;
     // import uim.datasources;
     import uim.entitybases;
-    import uim.errors;
-    import uim.events;
+    // import uim.errors;
+    // import uim.events;
     import uim.filesystems;
     import uim.views;
     // import uim.genetics;
@@ -46,18 +46,17 @@ public {
     import uim.html;
     import uim.i18n;
     import uim.jsonbases;
-    import uim.languages;
+    // import uim.languages;
     import uim.logging;
-    import uim.mails;
+    // import uim.mails;
     import uim.mvc;
-    import uim.networks;
+    // import uim.networks;
     // import uim.neurals;
     // import uim.orm;
-    import uim.routings;
-    import uim.scriptings;
-    import uim.securities;
-    import uim.services;
-    import uim.validations;
-    import uim.views;
-    import uim.web; 
+    // import uim.routings;
+    // import uim.scriptings;
+    // import uim.securities;
+    // import uim.services;
+    // import uim.validations;
+    // import uim.web; 
 }

@@ -1,4 +1,4 @@
-module uim.errors.classes.errorlogger;
+module uim.errors.classes.errors.logger;
 
 import uim.errors;
 
@@ -57,7 +57,7 @@ class DErrorLogger : IErrorLogger {
     
     // Generate the message for the exception
     protected string message(Throwable exceptionToLog, bool isPrevious = false, bool includeTrace = false) {
-        string message = "%s[%s] %s in %s on line %s"
+/*         string message = "%s[%s] %s in %s on line %s"
             .format(
                 isPrevious ? "\nCaused by: " : "",
                 exceptionToLog.classname,
@@ -67,14 +67,15 @@ class DErrorLogger : IErrorLogger {
            );
 
         debug = configuration.get("debug");
-
-        if (debug && cast(DException)exceptionToLog) {
+ */
+/*         if (debug && cast(DException)exceptionToLog) {
             attributes = exceptionToLog.getAttributes();
             if (attributes) {
                 message ~= "\nException Attributes: " ~ var_export_(exceptionToLog.getAttributes(), true);
             }
         }
-        if (includeTrace) {
+ */        
+ /* if (includeTrace) {
             trace = Debugger.formatTrace(exceptionToLog, ["format": "points"]);
             assert(isArray(trace));
             message ~= "\nStack Trace:\n";
@@ -84,21 +85,18 @@ class DErrorLogger : IErrorLogger {
                     : "- {line["file"]}:{line["line"]}\n";
             });
         }
-
-        auto previousException = exceptionToLog.getPrevious();
+ */
+       /*  auto previousException = exceptionToLog.getPrevious();
         if (previousException) {
             message ~= message(previousException, true,  includeTrace);
         }
-        return message;
+        return message; */
+        return null; 
     }
     
-    /**
-     * Get the request context for an error/exception trace.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request to read from.
-     */
+    // Get the request context for an error/exception trace.
     string getRequestContext(IServerRequest serverRequest) {
-        string message = "\nRequest URL: " ~ request.getRequestTarget();
+        /* string message = "\nRequest URL: " ~ request.getRequestTarget();
 
         referer = request.getHeaderLine("Referer");
         if (referer) {
@@ -110,6 +108,7 @@ class DErrorLogger : IErrorLogger {
                 message ~= "\nClient IP: " ~ clientIp;
             }
         }
-        return message;
-    } */
+        return message; */
+        return null; 
+    } 
 }

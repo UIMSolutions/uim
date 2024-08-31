@@ -128,15 +128,17 @@ class DDebugger : UIMObject {
      * Params:
      * Json[string]|string key The key to get/set, or a complete array of configs.
      */
-    static Json[string] configSettings = nullInstance(string[] key = null, Json aValue = null, bool shouldMerge = true) {
+    static Json[string] nullInstance(string[] key = null, Json aValue = null, bool shouldMerge = true) {
         if (key.isNull) {
-            return getInstance().configuration.get(key);
+            // return getInstance().configuration.get(key);
         }
 
-        if (isArray(key) || func_num_args() >= 2) {
+/*         if (isArray(key) || func_num_args() >= 2) {
             return getInstance().setConfig(key, aValue, shouldMerge);
         }
-        return getInstance().configuration.get(key);
+ */        
+        // return getInstance().configuration.get(key);
+        return null; 
     }
 
     // Reads the current output masking.

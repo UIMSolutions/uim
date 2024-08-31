@@ -43,30 +43,22 @@ class DExceptionRenderer { // }: IExceptionRenderer
     // The exception being handled.
     protected Throwable myError;
 
-    /**
-     * Controller instance.
-     *
-     * @var uim.controllers.Controller
-     */
-    protected controller;
+    // Controller instance.
+    // protected IController controller;
 
     /**
      * Template to render for {@link uim.uim.Core\exceptions.DException}
      */
     protected string _template = "";
 
-    /**
-     * The method corresponding to the Exception this object is for.
-     */
+    // The method corresponding to the Exception this object is for.
     protected string method = "";
 
     /**
      * If set, this will be request used to create the controller that will render
      * the error.
-     *
-     * @var uim.uim.http.ServerRequest|null
      */
-    protected myRequest;
+    protected IServerRequest myRequest;
 
     /**
      * Map of exceptions to http status codes.
@@ -77,7 +69,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * @var array<string, int>
      * @psalm-var array<class-string<\Throwable>, int>
      */
-    protected myExceptionHttpCodes = [
+    protected int[string] myExceptionHttpCodes = [
         // Controller exceptions
         InvalidParameterException.classname: 404,
         MissingActionException.classname: 404,
@@ -91,10 +83,10 @@ class DExceptionRenderer { // }: IExceptionRenderer
     ];
 
     // Creates the controller to perform rendering on the error response.
-    this(DThrowable exception, ServerRequest serverRequest = null) {
-        this.error = exception;
-        this.request = serverRequest;
-        this.controller = _getController();
+    this(DThrowable exception, IServerRequest serverRequest = null) {
+        _error = exception;
+        _request = serverRequest;
+        _controller = _getController();
     }
 
     /**
@@ -104,8 +96,8 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * a bare controller will be used.
      */
     protected IController _getController() {
-        myRequest = this.request;
-        routerRequest = Router.getRequest();
+        auto myRequest = this.request;
+        auto routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
         // _SERVER
         if (myRequest.isNull) {
@@ -118,13 +110,13 @@ class DExceptionRenderer { // }: IExceptionRenderer
             myRequest = myRequest.withAttribute("params", routerRequest.getAttribute("params"));
         }
 
-        myErrorOccured = false;
+        auto myErrorOccured = false;
         try {
-            params = myRequest.getAttribute("params");
+            auo params = myRequest.getAttribute("params");
             params["controller"] = "Error";
 
-            factory = new DControllerFactory(new DContainer());
-            myClass = factory.getControllerClass(myRequest.withAttribute("params", params));
+            auto factory = new DControllerFactory(new DContainer());
+            auto myClass = factory.getControllerClass(myRequest.withAttribute("params", params));
 
             if (!myClass) {
                 /** @var string myClass */
@@ -138,7 +130,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
             myErrorOccured = true;
         }
 
-        if (controller is null) {
+        if (controller.isNull) {
             return new DController(myRequest);
         }
 
@@ -209,17 +201,17 @@ class DExceptionRenderer { // }: IExceptionRenderer
                 "format": "array",
                 "args": false,
             ]);
-            origin = [
+/*             origin = [
                 "file": exception.getFile() ?: "null",
                 "line": exception.getLine() ?: "null",
             ];
-            // Traces don"t include the origin file/line.
-            trace.unshift(origin);
+ */            // Traces don"t include the origin file/line.
+/*             trace.unshift(origin);
             viewVars.set("trace", trace);
             viewVars += origin;
             serialize ~= "file";
             serialize ~= "line";
-        }
+ */        }
         _controller.set(viewVars);
         _controller.viewBuilder().setOption("serialize", serialize);
 
@@ -233,16 +225,18 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
     // Render a custom error method/template.
     protected DResponse _customMethod(string methodName, Throwable exceptionToRender) {
-        auto myResult = this.{methodName}(exceptionToRender);
+/*         auto myResult = this.{methodName}(exceptionToRender);
         _shutdown();
         if (!myResult.isString) { return result; }
 
         return _controller.getResponse().withStringBody(myResult);
-    }
+ */  
+        return null; 
+     }
 
     // Get method name
     protected string methodName(Throwable exception) {
-        [, baseClass] = moduleSplit(get_class(exception));
+/*         [, baseClass] = moduleSplit(get_class(exception));
 
         if (subString(baseClass, -9) == "Exception") {
             baseClass = subString(baseClass, 0, -9);
@@ -251,12 +245,13 @@ class DExceptionRenderer { // }: IExceptionRenderer
         // baseClass would be an empty string if the exception class is \Exception.
         method = baseClass is null ? "error500" : Inflector.variable(baseClass);
 
-        return _method = method;
+        return _method = method; */
+        return null; 
     }
 
     // Get error message.
     protected string errorMessage(Throwable exception, int errorCode) {
-        myMessage = exception.message();
+/*         myMessage = exception.message();
 
         if (
             !Configure.read("debug") &&
@@ -267,12 +262,13 @@ class DExceptionRenderer { // }: IExceptionRenderer
                 __d("uim", "An Internal Error Has Occurred.");
         }
 
-        return myMessage;
+        return myMessage; */
+        return null; 
     }
 
     // Get template for rendering exception info.
     protected string templateName(Throwable exception, string methodName, int errorCode) {
-        if (cast(HttpException)exception || !Configure.read("debug")) {
+/*         if (cast(HttpException)exception || !Configure.read("debug")) {
             return _template = errorCode < 500 ? "error400" : "error500";
         }
 
@@ -280,7 +276,8 @@ class DExceptionRenderer { // }: IExceptionRenderer
             return _template = "pdo_error";
         }
 
-        return _template = methodName;
+        return _template = methodName; */
+        return null; 
     }
 
     // Gets the appropriate http status code for exception.
@@ -292,7 +289,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
     // Generate the response using the controller object.
     protected DResponse _outputMessage(string templateToRender) {
-        try {
+/*         try {
             _controller.render(templateToRender);
 
             return _shutdown();
@@ -315,7 +312,8 @@ class DExceptionRenderer { // }: IExceptionRenderer
             return _outputMessageSafe("error500");
         } catch (Throwable e) {
             return _outputMessageSafe("error500");
-        }
+        } */
+        return null; 
     }
 
     /**

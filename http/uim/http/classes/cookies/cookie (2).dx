@@ -104,18 +104,18 @@ class DCookie : ICookie {
     
     // Factory method to create Cookie instances.
     static static create(string cookieName, /* string[]|float */ bool cookieValue, Json[string] cookieOptions = null) {
-        auto updatedOptions = cookieOptions.merge(defaultAttributes);
-        updatedOptions.set("expires", dateTimeInstance(updatedOptions.get("expires")));
+        auto options = cookieOptions.merge(defaultAttributes);
+        options.set("expires", dateTimeInstance(options.get("expires")));
 
         return new static(
             cookieName,
             cookieValue,
-            updatedOptions.get("expires"),
-            updatedOptions.get("path"),
-            updatedOptions.get("domain"),
-            updatedOptions.get("isSecure"),
-            updatedOptions.get("httponly"),
-            updatedOptions.get("samesite"),
+            options.get("expires"),
+            options.get("path"),
+            options.get("domain"),
+            options.get("isSecure"),
+            options.get("httponly"),
+            options.get("samesite"),
         );
     }
     

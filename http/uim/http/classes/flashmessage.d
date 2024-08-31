@@ -60,7 +60,7 @@ class DFlashMessage : UIMObject {
      * - `escape` Set to false to allow templates to print out HTML content.
      */
     void set(string messageToBeFlashed, Json[string] options = null) {
-        auto auto updatedOptions = options.set(this.configuration.data);
+        auto options = options.set(this.configuration.data);
 
         if (options.hasKey("escape") && !options.hasKey("params.escape")) {
             options.set("params.escape", options.get("escape"));

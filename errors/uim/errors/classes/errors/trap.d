@@ -52,15 +52,14 @@ class DErrorTrap {
 
     mixin(TProperty!("string", "name"));
 
-    /*
     // Choose an error renderer based on config or the SAPI
     protected string chooseErrorRenderer() {
-        configData = _configData.hasKey("errorRenderer");
-        if (configData !is null) {
-            return configData;
+        auto errorRendererData = configuration.get("errorRenderer");
+        if (!errorRendererData.isNull) {
+            return errorRendererData;
         }
         /** @var class-string<\UIM\Error\IErrorRenderer> */
-    return UIM_SAPI == "cli" ? ConsoleErrorRenderer.classname : HtmlErrorRenderer.classname;
+    // return UIM_SAPI == "cli" ? ConsoleErrorRenderer.classname : HtmlErrorRenderer.classname;
 }
 
 /**
@@ -74,8 +73,8 @@ class DErrorTrap {
      */
     void register() {
         auto level = configuration.getLong("errorLevel", -1);
-        error_reporting(level);
-        set_error_handler(this.handleError(...), level);
+        /* error_reporting(level);
+        set_error_handler(this.handleError(...), level); */
     }
     
     /**
@@ -113,7 +112,7 @@ class DErrorTrap {
             }
         }
 
-        auto debug = configuration.get("debug");
+        auto debugData = configuration.get("debugData");
         auto renderer = this.renderer();
         try {
             // Log first incase rendering or event listeners fail
@@ -122,7 +121,7 @@ class DErrorTrap {
             if (event.isStopped()) {
                 return true;
             }
-            renderer.write(event.getResult() ? event.getResult() : renderer.render(error, debug));
+            renderer.write(event.getResult() ? event.getResult() : renderer.render(error, debugData));
         } catch (Exception exception) {
             // Fatal errors always log.
             logger().logException(exception);
@@ -131,11 +130,7 @@ class DErrorTrap {
         return true;
     }
     
-    /**
-     * Logging helper method.
-     * Params:
-     * \UIM\Error\UIMError error The error object to log.
-     */
+    // Logging helper method.
     protected void logError(UIMError error) {
         if (!configuration.hasKey("log")) {
             return;
@@ -145,14 +140,14 @@ class DErrorTrap {
     
     // Get an instance of the renderer.
     IErrorRenderer renderer() {
-        string classname = _configData.getString("errorRenderer", chooseErrorRenderer());
+        string classname = configuration.getString("errorRenderer", chooseErrorRenderer());
 
         return new classname(_config);
     }
     
     // Get an instance of the logger.
     IErrorLogger logger() {
-        string classname = configData.getString("logger", defaultconfiguration.getString("logger"));
+        string classname = configuration.getString("logger", defaultconfiguration.getString("logger"));
         return new classname(_config);
     } 
 }

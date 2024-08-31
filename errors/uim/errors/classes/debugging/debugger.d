@@ -6,10 +6,11 @@
 module uim.errors.classes.debugging.debugger;
 
 import uim.errors;
+
 @safe:
 
 unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+    writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 /**
@@ -107,8 +108,8 @@ class DDebugger {
         "txt": TextErrorRenderer.classname,
         // The html alias currently uses no JS and will be deprecated.
         "js": HtmlErrorRenderer.classname,
-    ]; 
-    
+    ];
+
     // A map of editors to their link templates.
     protected STRINGAA editors = [
         "atom": "atom://core/open/file?filename={file}&line={line}",
@@ -314,7 +315,7 @@ class DDebugger {
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
     static  /* array| */ string formatTrace(Throwable /* array */ backtrace, Json[string] options = null) {
-        if (cast(Throwable) backtrace) {
+        /* if (cast(Throwable) backtrace) {
             backtrace = backtrace.getTrace();
         }
 
@@ -330,7 +331,7 @@ class DDebugger {
                 "trigger_error"
             ],
         ];
-        auto mergedOptions = options.defaults;
+        auto options = options.defaults;
 
         auto count = count(backtrace);
         auto back = null;
@@ -339,8 +340,8 @@ class DDebugger {
             .set("file", "[internal]")
             .set("class", Json(null))
             .set("function", "[main]");
-            
-        for (i = mergedOptions.getLong("start"); i < count && i < mergedOptions.getLong(
+
+        for (i = options.getLong("start"); i < count && i < options.getLong(
                 "depth"); i++) {
             auto trace = backtrace[i] + [
                 "file": "[internal]",
@@ -355,9 +356,9 @@ class DDebugger {
                 string signature = reference;
 
                 if (!next.isEmpty("class")) {
-                    string signature = next.getString("class") ~ "." ~ next.getString("class") /*  "function") */ ;
+                    string signature = next.getString("class") ~ "." ~ next.getString("class") /*  "function") * / ;
                     auto reference = signature ~ "(";
-                    if (mergedOptions.isNull("args") && next.hasKey(
+                    if (options.isNull("args") && next.hasKey(
                             "args")) {
                         auto args = next["args"].map!(
                             arg => Debugger.exportVar(
@@ -368,11 +369,11 @@ class DDebugger {
                     reference ~= ")";
                 }
             }
-            if (hasAllValues(signature, mergedOptions.getBoolean("exclude", true))) {
+            if (hasAllValues(signature, options.getBoolean("exclude", true))) {
                 continue;
             }
 
-            auto formatValue = mergedOptions.getString(
+            auto formatValue = options.getString(
                 "format");
             if (formatValue == "points") {
                 back ~= [
@@ -381,12 +382,12 @@ class DDebugger {
                     "reference": reference
                 ];
             } else if (formatValue == "array") {
-                if (!mergedOptions.hasKey("args")) {
+                if (!options.hasKey("args")) {
                     trace.removeKey("args");
                 }
                 back ~= trace;
             } else {
-                formatValue = mergedOptions.getString(
+                formatValue = options.getString(
                     "format");
                 tpl = _stringContents.getPath([
                         formatValue,
@@ -396,8 +397,7 @@ class DDebugger {
                             "traceLine"
                         ]));
             }
-            trace.set("path", trimPath(
-                    trace["file"]));
+            trace.set("path", trimPath(trace["file"]));
             trace.set("reference", reference);
             trace.removeKey("object", "args");
             back ~= Text.insert(tpl, trace, [
@@ -405,33 +405,34 @@ class DDebugger {
                     "after": "}"
                 ]);
         }
+    } */
+
+        /* return ["array", "points"].has(options.getString(
+            "format"))
+        ? back : back.join("\n"); */
+        return null;
     }
 
-    return ["array", "points"].has(mergedOptions.getString(
-            "format"))
-        ? back : back.join("\n");
-}
-
-/**
+    /**
      * Shortens file paths by replacing the application base path with "APP", and the UIM core
      * path with "CORE".
      */
-static string trimPath(
-    string pathToShorten) {
-    if (defined("APP") && indexOf(path, APP) == 0) {
-        return replace(APP, "APP/", path);
-    }
-    if (defined("UIM_CORE_INCLUDE_PATH") && indexOf(path, UIM_CORE_INCLUDE_PATH) == 0) {
-        return replace(uim_CORE_INCLUDE_PATH, "CORE", path);
-    }
-    if (defined("ROOT") && indexOf(path, ROOT) == 0) {
-        return replace(ROOT, "ROOT", path);
+    static string trimPath(
+        string pathToShorten) {
+        if (defined("APP") && indexOf(path, APP) == 0) {
+            return replace(APP, "APP/", path);
+        }
+        if (defined("UIM_CORE_INCLUDE_PATH") && indexOf(path, UIM_CORE_INCLUDE_PATH) == 0) {
+            return replace(uim_CORE_INCLUDE_PATH, "CORE", path);
+        }
+        if (defined("ROOT") && indexOf(path, ROOT) == 0) {
+            return replace(ROOT, "ROOT", path);
+        }
+
+        return path;
     }
 
-    return path;
-}
-
-/**
+    /**
      * Grabs an excerpt from a file and highlights a given line of code.
      *
      * Usage:
@@ -445,121 +446,121 @@ static string trimPath(
      * are processed with highlight_string() as well, so they have basic UIM syntax highlighting
      * applied.
      */
-static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesContext = 2) {
-    auto lines = null;
-    if (
-        !filehasKey(
-            absPathToFile)) {
-        return [
-        ];
-    }
-    auto data = file_get_contents(
-        absPathToFile);
-    if (data.isEmpty) {
-        return lines;
-    }
-
-    if (indexOf(data, "\n") == true) {
-        data = explode("\n", data);
-    }
-
-    lineNumber--;
-    if (
-        data.isNull(
-            lineNumber)) {
-        return lines;
-    }
-    for (
-        i = lineNumber - numberLinesContext; i < lineNumber + numberLinesContext + 1;
-        i++) {
-        if (data.isNull(i)) {
-            continue;
+    static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesContext = 2) {
+        auto lines = null;
+        if (
+            !filehasKey(
+                absPathToFile)) {
+            return [
+            ];
         }
-        string text = replace([
-                "\r\n",
-                "\n"
-            ], "", _highlight(
-                data[i]));
-        lines ~= i == lineNumber
-            ? htmlDoubletag("span", [
-                    "code-highlight"
-                ], text) : text;
+        auto data = file_get_contents(
+            absPathToFile);
+        if (data.isEmpty) {
+            return lines;
+        }
+
+        if (indexOf(data, "\n") == true) {
+            data = explode("\n", data);
+        }
+
+        lineNumber--;
+        if (
+            data.isNull(
+                lineNumber)) {
+            return lines;
+        }
+        for (
+            i = lineNumber - numberLinesContext; i < lineNumber + numberLinesContext + 1;
+            i++) {
+            if (data.isNull(i)) {
+                continue;
+            }
+            string text = replace([
+                    "\r\n",
+                    "\n"
+                ], "", _highlight(
+                    data[i]));
+            lines ~= i == lineNumber
+                ? htmlDoubletag("span", [
+                        "code-highlight"
+                    ], text) : text;
+        }
+
+        return lines;
     }
 
-    return lines;
-}
-
-/**
+    /**
      * Wraps the highlight_string function in case the server API does not
      * implement the function as it is the case of the HipHop interpreter
      */
-protected static string _highlight(
-    string stringToConvert) {
-    if (function_hasKey("hD_log") || function_hasKey(
-            "hD_gettid")) {
-        return htmlentities(
-            stringToConvert);
+    protected static string _highlight(
+        string stringToConvert) {
+        if (function_hasKey("hD_log") || function_hasKey(
+                "hD_gettid")) {
+            return htmlentities(
+                stringToConvert);
+        }
+
+        auto added = false;
+        if (indexOf(stringToConvert, "<?D") == false) {
+            added = true;
+            stringToConvert = "<?D \n" ~ stringToConvert;
+        }
+        auto highlight = highlight_string(
+            stringToConvert, true);
+        if (added) {
+            highlight = replace(
+                [
+                    "&lt;?D&nbsp;<br/>",
+                    "&lt;?D&nbsp;<br />"
+                ],
+                "",
+                highlight
+            );
+        }
+
+        return highlight;
     }
 
-    auto added = false;
-    if (indexOf(stringToConvert, "<?D") == false) {
-        added = true;
-        stringToConvert = "<?D \n" ~ stringToConvert;
-    }
-    auto highlight = highlight_string(
-        stringToConvert, true);
-    if (added) {
-        highlight = replace(
-            [
-                "&lt;?D&nbsp;<br/>",
-                "&lt;?D&nbsp;<br />"
-            ],
-            "",
-            highlight
-        );
-    }
-
-    return highlight;
-}
-
-/**
+    /**
      * Get the configured export formatter or infer one based on the environment.
      *
      * @return uim.errors.debugs.IErrorFormatter
      * @unstable This method is not stable and may change in the future.
      */
-IErrorFormatter getExportFormatter() {
-    auto instance = getInstance();
-    string formaterClassname = instance
-        .getConfig(
-            "exportFormatter");
-    if (!formaterClassname) {
-        if (DConsoleFormatter.environmentMatches()) {
-            formaterClassname = ConsoleFormatter
-                .classname;
-        } else if (
-            HtmlFormatter.environmentMatches()) {
-            formaterClassname = HtmlFormatter
-                .classname;
-        } else {
-            formaterClassname = TextFormatter
-                .classname;
+    IErrorFormatter getExportFormatter() {
+        auto instance = getInstance();
+        string formaterClassname = instance
+            .getConfig(
+                "exportFormatter");
+        if (!formaterClassname) {
+            if (DConsoleFormatter.environmentMatches()) {
+                formaterClassname = ConsoleFormatter
+                    .classname;
+            } else if (
+                HtmlFormatter.environmentMatches()) {
+                formaterClassname = HtmlFormatter
+                    .classname;
+            } else {
+                formaterClassname = TextFormatter
+                    .classname;
+            }
         }
+
+        auto instance = new aclassname();
+        if (
+            !cast(
+                IErrorFormatter) instance) {
+            throw new DRuntimeException(
+                "The `{aclassname}` formatter does not implement " ~ IErrorFormatter
+                    .classname
+            );
+        }
+        return instance;
     }
 
-    auto instance = new aclassname();
-    if (
-        !cast(
-            IErrorFormatter) instance) {
-        throw new DRuntimeException(
-            "The `{aclassname}` formatter does not implement " ~ IErrorFormatter
-                .classname
-        );
-    }
-    return instance;
-}
-
-/**
+    /**
      * Converts a variable to a string for debug output.
      *
      * *Note:* The following keys will have their contents
@@ -576,63 +577,63 @@ IErrorFormatter getExportFormatter() {
      * This is done to protect database credentials, which could be accidentally
      * shown in an error message if UIM is deployed in development mode.
      */
-static string exportVar(Json value, int maxOutputDepth = 3) {
-    auto dumpContext = new DDebugContext(
-        maxOutputDepth);
-    return getInstance().getExportFormatter()
-        .dump(
-            export_(value, dumpContext));
-}
+    static string exportVar(Json value, int maxOutputDepth = 3) {
+        auto dumpContext = new DDebugContext(
+            maxOutputDepth);
+        return getInstance().getExportFormatter()
+            .dump(
+                export_(value, dumpContext));
+    }
 
-// Converts a variable to a plain text string.
-static string exportVarAsPlainText(Json value, int maxOutputDepth = 3) {
-    return (new DTextFormatter()).dump(
-        export_(
-            value, new DDebugContext(
-            maxOutputDepth))
-    );
-}
+    // Converts a variable to a plain text string.
+    static string exportVarAsPlainText(Json value, int maxOutputDepth = 3) {
+        return (new DTextFormatter()).dump(
+            export_(
+                value, new DDebugContext(
+                maxOutputDepth))
+        );
+    }
 
-/**
+    /**
      * Convert the variable to the internal node tree.
      *
      * The node tree can be manipulated and serialized more easily
      * than many object graphs can.
      */
-static IErrorNode exportVarAsNodes(
-    Json varToConvert, int maxOutputDepth = 3) {
-    return export_(varToConvert, new DDebugContext(
-            maxOutputDepth));
-}
-
-// Protected export function used to keep track of indentation and recursion.
-protected static IErrorNode export_(varToDump, DDebugContext dumpContext) {
-    type = getType(
-        varToDump);
-    switch (type) {
-    case "float":
-    case "string":
-    case "resource":
-    case "resource (closed)":
-    case "null":
-        return new DScalarNode(type, varToDump);
-    case "boolean":
-        return new DScalarNode("bool", varToDump);
-    case "integer":
-        return new DScalarNode("int", varToDump);
-    case "array":
-        return exportArray(varToDump, dumpContext
-                .withAddedDepth());
-    case "unknown":
-        return new DSpecialNode(
-            "(unknown)");
-    default:
-        return exportObject(varToDump, dumpContext
-                .withAddedDepth());
+    static IErrorNode exportVarAsNodes(
+        Json varToConvert, int maxOutputDepth = 3) {
+        return export_(varToConvert, new DDebugContext(
+                maxOutputDepth));
     }
-}
 
-/**
+    // Protected export function used to keep track of indentation and recursion.
+    protected static IErrorNode export_(varToDump, DDebugContext dumpContext) {
+        type = getType(
+            varToDump);
+        switch (type) {
+        case "float":
+        case "string":
+        case "resource":
+        case "resource (closed)":
+        case "null":
+            return new DScalarNode(type, varToDump);
+        case "boolean":
+            return new DScalarNode("bool", varToDump);
+        case "integer":
+            return new DScalarNode("int", varToDump);
+        case "array":
+            return exportArray(varToDump, dumpContext
+                    .withAddedDepth());
+        case "unknown":
+            return new DSpecialNode(
+                "(unknown)");
+        default:
+            return exportObject(varToDump, dumpContext
+                    .withAddedDepth());
+        }
+    }
+
+    /**
      * Export an array type object. Filters out keys used in datasource configuration.
      *
      * The following keys are replaced with ***"s
@@ -645,8 +646,8 @@ protected static IErrorNode export_(varToDump, DDebugContext dumpContext) {
      * - prefix
      * - schema
      */
-protected static DArrayNode exportArray(
-    /* Json[string] valueToExport, DDebugContext dumpContext) {
+    protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContext dumpContext) {
+        /*
     auto items = null;
 
     autp remaining = dumpContext
@@ -680,31 +681,30 @@ protected static DArrayNode exportArray(
 
     return new ArrayNode(
         items); */
-        return null; 
-}
+        return null;
+    }
 
-// Handles object to node conversion.
-protected static IErrorNode exportObject(
-    object objToConvert, DDebugContext dumpContext) {
-    auto isRef = dumpContext.hasReference(
+    // Handles object to node conversion.
+    protected static IErrorNode exportObject(Object objToConvert, DDebugContext dumpContext) {
+        /* auto isRef = dumpContext.hasReference(
         objToConvert);
     auto refNum = dumpContext
         .getReferenceId(
             objToConvert);
 
     auto classnameName = get_class(
-        objToConvert);
-    if (isRef) {
+        objToConvert); */
+        /*     if (isRef) {
         return new DReferenceNode(, refNum);
     }
-
-    auto node = new DClassNode(, refNum);
+ */
+        /* auto node = new DClassNode(, refNum);
     auto remaining = dumpContext
         .remainingDepth();
     if (remaining > 0) {
         if (hasMethod(objToConvert, "__debugInfo")) {
             try {
-                foreach (key, val;  /* (array) */ objToConvert
+                foreach (key, val;  /* (array) * / objToConvert
                     .__debugInfo()) {
                     node.addProperty(
                         new DPropertyNode(
@@ -728,7 +728,7 @@ protected static IErrorNode exportObject(
             if (hasKey(key, outputMask)) {
                 value = outputMask[key];
             }
-            /** @psalm-suppress RedundantCast */
+            /** @psalm-suppress RedundantCast * /
             node.addProperty(
                 new DPropertyNode(key, "public", export_(
                     value, dumpContext
@@ -776,66 +776,67 @@ protected static IErrorNode exportObject(
         }
     }
 
-    return node;
-}
-
-// Get the type of the given variable. Will return the class name for objects.
-static string getType(
-    Json value) {
-    auto type = getTypeName(
-        value);
-
-    if (type == "NULL") {
-        return "null";
+    return node; */
+        return null;
     }
 
-    if (type == "double") {
-        return "float";
+    // Get the type of the given variable. Will return the class name for objects.
+    static string getType(
+        Json value) {
+        auto type = getTypeName(
+            value);
+
+        if (type == "NULL") {
+            return "null";
+        }
+
+        if (type == "double") {
+            return "float";
+        }
+
+        if (
+            type == "unknown type") {
+            return "unknown";
+        }
+
+        return type;
     }
 
-    if (
-        type == "unknown type") {
-        return "unknown";
+    // Prints out debug information about given variable.
+    static void printVar(Json varToShow, Json[string] location = null, bool showHtml = false) {
+        location.mergeKeys([
+                "file",
+                "line"
+            ]);
+        if (
+            location.hasKey(
+                "file")) {
+            location.set("file", trimPath(
+                    location.getString(
+                    "file")));
+        }
+
+        auto debugger = getInstance();
+        auto restore = null;
+        if (showHtml != null) {
+            restore = debugger.getConfig(
+                "exportFormatter");
+            debugger.configuration.set(
+                "exportFormatter", showHtml ? HtmlFormatter.classname : TextFormatter
+                    .classname);
+        }
+        auto contents = exportVar(varToShow, 25);
+        auto formatter = debugger
+            .getExportFormatter();
+
+        if (restore) {
+            debugger.setConfig(
+                "exportFormatter", restore);
+        }
+        writeln(formatter.formatWrapper(contents, location));
     }
 
-    return type;
-}
-
-// Prints out debug information about given variable.
-static void printVar(Json varToShow, Json[string] location = null, bool showHtml = false) {
-    location.mergeKeys([
-            "file",
-            "line"
-        ]);
-    if (
-        location.hasKey(
-            "file")) {
-        location.set("file", trimPath(
-                location.getString(
-                "file")));
-    }
-
-    auto debugger = getInstance();
-    auto restore = null;
-    if (showHtml != null) {
-        restore = debugger.getConfig(
-            "exportFormatter");
-        debugger.configuration.set(
-            "exportFormatter", showHtml ? HtmlFormatter.classname : TextFormatter
-                .classname);
-    }
-    auto contents = exportVar(varToShow, 25);
-    auto formatter = debugger
-        .getExportFormatter();
-
-    if (restore) {
-        debugger.setConfig(
-            "exportFormatter", restore);
-    }
-    writeln(formatter.formatWrapper(contents, location));
-}
-
-/**
+    /**
      * Format an exception message to be HTML formatted.
      *
      * Does the following formatting operations:
@@ -844,28 +845,27 @@ static void printVar(Json varToShow, Json[string] location = null, bool showHtml
      * - Convert `bool` into `<code>bool</code>`
      * - Convert newlines into `<br />`
      */
-static string formatHtmlMessage(
-    string messageToFormat) {
-    messageToFormat = htmlAttributeEscape(
-        messageToFormat);
-    messageToFormat = preg_replace(
-        "/`([^`]+)`/", "<code>1</code>", messageToFormat);
+    static string formatHtmlMessage(
+        string messageToFormat) {
+        messageToFormat = htmlAttributeEscape(
+            messageToFormat);
+        messageToFormat = preg_replace(
+            "/`([^`]+)`/", "<code>1</code>", messageToFormat);
 
-    return nl2br(
-        messageToFormat);
-}
+        return nl2br(
+            messageToFormat);
+    }
 
-// Verifies that the application"s salt and cipher seed value has been changed from the default value.
-static void checkSecurityKeys() {
-    salt = Security.getSalt();
-    if (salt == "__SALT__" || strlen(
+    // Verifies that the application"s salt and cipher seed value has been changed from the default value.
+    static void checkSecurityKeys() {
+        // salt = Security.getSalt();
+        /* if (salt == "__SALT__" || strlen(
             salt) < 32) {
         trigger_error(
             "Please change the value of `Security.salt` in `ROOT/config/app_local.D` "
-                ."to a random value of at least 32 characters.",
-                ERRORS
-                .USER_NOTICE
+                ~"to a random value of at least 32 characters.",
+                ERRORS.USER_NOTICE
         );
+    } */
     }
-}
 }

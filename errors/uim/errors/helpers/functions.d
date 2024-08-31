@@ -42,7 +42,7 @@ void stackTrace(Json[string] formatOptions = null) {
     if (!configuration.hasKey("debug")) {
         return;
     }
-    auto updatedOptions = formatOptions.update["start": 0];
+    auto options = formatOptions.update["start": 0];
     formatoptions.set("start", formatoptions.getLong("start") + 1);
 
     /** @var string atrace */

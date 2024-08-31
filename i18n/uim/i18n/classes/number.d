@@ -108,7 +108,7 @@ class DNumber {
     static string format(Json floatNumber, Json[string] options = null) {
         auto formatter = formatter(options);
         // options.merge(["before", "after"], "");
-        /* return updatedOptions.getString("before") ~ formatter.format(floatNumber.getDouble) ~ updatedOptions.getString("after"); */
+        /* return options.getString("before") ~ formatter.format(floatNumber.getDouble) ~ options.getString("after"); */
         return null;
     }
 
@@ -142,11 +142,11 @@ class DNumber {
     static string formatDelta(Json value, Json[string] options = null) {
         options.set("places", 0);
         /* auto doubleValue = number_format(
-            value.getDouble, updatedoptions.get("places"], ".", "");
+            value.getDouble, options.get("places"], ".", "");
         string sign = doubleValue > 0 ? "+" : "";
-        options.set("before", updatedOptions.getString("before") ~ sign);
+        options.set("before", options.getString("before") ~ sign);
         return format
-        (value, updatedOptions); */
+        (value, options); */
         return null; 
     }
 

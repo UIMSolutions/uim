@@ -260,7 +260,7 @@ class DViewBuilder { // }: DJsonSerializable {
      */
     auto setOptions(Json[string] options, bool shouldMerge = true) {
         /* if (shouldMerge) {
-            auto updatedOptions = options.update_options;
+            auto options = options.update_options;
         }
        _options = options; */
 

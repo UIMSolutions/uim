@@ -190,7 +190,7 @@ class DAsset {
      * - `theme` Optional theme name
      */
     static string webroot(string fileName, Json[string] options = null) {
-        auto updatedOptions = options.merge(["theme": Json(null)]);
+        auto options = options.merge(["theme": Json(null)]);
         auto requestWebroot = requestWebroot();
 
         string[] asset = fileName.split("?");

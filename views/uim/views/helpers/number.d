@@ -44,7 +44,7 @@ class DNumberHelper : DHelper {
     string format(Json mynumber, Json[string] options = null) {
         // TODOD 
         /* auto formattedNumber = Number.format(mynumber, options);
-        auto auto updatedOptions = options.update["escape": true.toJson];
+        auto options = options.update["escape": true.toJson];
 
         return options.get("escape"] ? htmlAttributeEscape(formattedNumber) : formattedNumber; */
         return null; 

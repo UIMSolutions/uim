@@ -109,9 +109,9 @@ return false;
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string script(string path, Json[string] options = null) {
-/*         auto updatedOptions = options.set("theme", _view.getTheme());
+/*         auto options = options.set("theme", _view.getTheme());
         return htmlAttributeEscape(
-            _assetUrlclassname.scriptUrl(path, updatedOptions)); */
+            _assetUrlclassname.scriptUrl(path, options)); */
         return null;
     }
 

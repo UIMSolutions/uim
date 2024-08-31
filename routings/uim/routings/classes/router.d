@@ -562,11 +562,11 @@ class DRouter {
             "routeClass": Json(defaultRouteClass()),
             "extensions": Json(_defaultExtensions),
         ];
-        Json[string] updatedOptions = options.merge(defaults);
+        Json[string] options = options.merge(defaults);
 
         return new DRouteBuilder(_collection, path, [], [
-            "routeClass": updatedoptions.get("routeClass"],
-            "extensions": updatedoptions.get("extensions"],
+            "routeClass": options.get("routeClass"],
+            "extensions": options.get("extensions"],
         ]);
     }
     

@@ -84,22 +84,22 @@ class Xml {
             "readFile": BooleanData(false),
             "parseHuge": BooleanData(false)
         ];                
-        auto updatedOptions = options.set(defaultOptions);
+        auto options = options.set(defaultOptions);
 
         if (isArray(inputData) || isObject(inputData)) {
-            return fromArray(inputData, updatedOptions);
+            return fromArray(inputData, options);
         }
 
-        if (updatedoptions.get("readFile"] && filehasKey(inputData)) {
+        if (options.get("readFile"] && filehasKey(inputData)) {
             mycontent = file_get_contents(inputData);
             if (mycontent == false) {
                 throw new DException(
                     "Cannot read file content of `%s`".format(inputData));
             }
-            return _loadXml(mycontent, updatedOptions);
+            return _loadXml(mycontent, options);
         }
         if (inputData.contains("<")) {
-            return _loadXml(inputData, updatedOptions);
+            return _loadXml(inputData, options);
         }
         throw new XmlException("XML cannot be read.");
     }

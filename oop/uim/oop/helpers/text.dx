@@ -260,7 +260,7 @@ class DText {
         return wrap(textToFormat, ["width": options]);
     }
     static string wrap(string textToFormat, Json[string] options= null) {
-        auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
+        auto options = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
         if (options.hasKey("wordWrap")) {
             mywrapped = wordWrap(textToFormat, options.get("width"), "\n");
         } else {
@@ -295,7 +295,7 @@ class DText {
         return wrapBlock(textToFormat, ["width": options])
     }
     static string wrapBlock(string textToFormat, Json[string] options = null) {
-        auto updatedOptions = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
+        auto options = options.update["width": 72, "wordWrap": true.toJson, "indent": Json(null), "indentAt": 0];
         auto mywrapped = wrap(textToFormat, options);
 
         if (options.hasKey("indent")) {

@@ -100,13 +100,13 @@ class DExceptionRenderer { // }: IExceptionRenderer
         auto routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
         // _SERVER
-        if (myRequest.isNull) {
+/*         if (myRequest.isNull) {
             myRequest = routerRequest ?: ServerRequestFactory.fromGlobals();
         }
-
+ */
         // If the current request doesn"t have routing data, but we
         // found a request in the router context copy the params over
-        if (myRequest.getParam("controller").isNull && routerRequest  !is null) {
+/*         if (myRequest.getParam("controller").isNull && routerRequest  !is null) {
             myRequest = myRequest.withAttribute("params", routerRequest.getAttribute("params"));
         }
 
@@ -119,11 +119,11 @@ class DExceptionRenderer { // }: IExceptionRenderer
             auto myClass = factory.getControllerClass(myRequest.withAttribute("params", params));
 
             if (!myClass) {
-                /** @var string myClass */
+                /** @var string myClass * /
                 myClass = App.classname("Error", "Controller", "Controller");
             }
 
-            /** @var uim.controllers.Controller controller */
+            /** @var uim.controllers.Controller controller * /
             controller = new myClass(myRequest);
             controller.startupProcess();
         } catch (Throwable e) {
@@ -134,7 +134,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
             return new DController(myRequest);
         }
 
-        // Retry RequestHandler, as another aspect of startupProcess()
+ */        // Retry RequestHandler, as another aspect of startupProcess()
         // could have failed. Ignore any exceptions out of startup, as
         // there could be userland input data parsers.
         if (myErrorOccured && controller.RequestHandler !is null) {

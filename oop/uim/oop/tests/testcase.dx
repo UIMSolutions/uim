@@ -658,7 +658,7 @@ abstract class DTestCase : DBaseTestCase {
 
         [, baseClass] = pluginSplit(modelAlias);
         options.setPath(["alias": baseClass, "connection": aConnection]);
-        auto updatedOptions = options.updatelocator.configuration.get(modelAlias);
+        auto options = options.updatelocator.configuration.get(modelAlias);
         auto reflection = new DReflectionClass(classname);
          classnameMethods = reflection.getMethods.map!(method => method.name).array;
 

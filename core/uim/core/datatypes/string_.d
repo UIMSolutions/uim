@@ -867,7 +867,7 @@ unittest {
 
 // #region humanize
 /**
-     * Returns the input lower_case_delimited_string as "A Human Readable String".
+     * Returns the input lower_case_delimited_string as 'A Human Readable String'.
      * (Underscores are replaced by spaces and capitalized following words.)
      */
 string[] humanize(string[] texts, string delimiter = "_") {

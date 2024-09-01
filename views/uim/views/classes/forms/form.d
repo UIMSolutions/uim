@@ -242,9 +242,9 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
     // Get the printable version of a Form instance.
     override Json[string] debugInfo() {
         return super.debugInfo;
-            /* .set("_schema", getSchema().__debugInfo())
+            /* .set("_schema", getSchema().debugInfo())
             .set("_errors", getErrors())
-            .set("_validator", getValidator().__debugInfo()) */;
+            .set("_validator", getValidator().debugInfo()) */;
 
         // return special + get_object_vars(this);
     }

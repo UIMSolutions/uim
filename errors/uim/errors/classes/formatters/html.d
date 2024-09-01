@@ -70,7 +70,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
     
     // Convert a tree of IErrorNode objects into HTML
     protected string export_(IErrorNode nodeToDump, int indentLevel) {
-        if (cast(DScalarNode)nodeToDump) {
+        /* if (cast(DScalarNode)nodeToDump) {
             return match (nodeToDump.getType()) {
                 "bool":style("const", nodeToDump.getValue() ? "true" : "false"),
                 "null":style("const", "null"),
@@ -89,7 +89,8 @@ class DHtmlErrorFormatter : IErrorFormatter {
         if (cast(DSpecialNode)nodeToDump) {
             return _style("special", nodeToDump.getValue());
         }
-        throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname);
+        throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname); */
+        return null; 
     }
     
     /**

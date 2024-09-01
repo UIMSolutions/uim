@@ -86,8 +86,8 @@ class DLogger : UIMObject, ILogger {
                     replacements.set(key, to!string(value));
                     continue;
                 }
-                if (value.hasKey("__debugInfo")) {
-                    replacements.set(key, Json_encode(value.__debugInfo(), JsonFlags));
+                if (value.hasKey("debugInfo")) {
+                    replacements.set(key, Json_encode(value.debugInfo(), JsonFlags));
                     continue;
                 }
             }

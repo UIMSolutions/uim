@@ -79,7 +79,7 @@ class DConsoleFormatter : IErrorFormatter {
     
     // Convert a tree of IErrorNode objects into a plain text string.
     protected string export_(IErrorNode nodeTreeToDump, int indentLevel) {
-        if (cast(DScalarNode)nodeTreeToDump) {
+        /* if (cast(DScalarNode)nodeTreeToDump) {
             return match (nodeTreeToDump.getType()) {
                 "bool": style("const", nodeTreeToDump.getValue() ? "true" : "false"),
                 "null": style("const", "null"),
@@ -98,7 +98,8 @@ class DConsoleFormatter : IErrorFormatter {
         if (cast(DSpecialNode)nodeTreeToDump) {
             return _style("special", nodeTreeToDump.getValue());
         }
-        throw new DInvalidArgumentException("Unknown node received " ~ nodeTreeToDump.classname);
+        throw new DInvalidArgumentException("Unknown node received " ~ nodeTreeToDump.classname); */
+        return null; 
     }
     
     /**

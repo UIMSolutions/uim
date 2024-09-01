@@ -326,7 +326,7 @@ class DExceptionRenderer : IExceptionRenderer {
     }
 
     // Returns an array that can be used to describe the internal state of this object.
-    Json[string] __debugInfo() {
+    Json[string] debugInfo() {
         return [
             "error": _error,
             "request": _request,

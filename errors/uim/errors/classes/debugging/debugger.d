@@ -704,10 +704,10 @@ class DDebugger {
     auto remaining = dumpContext
         .remainingDepth();
     if (remaining > 0) {
-        if (hasMethod(objToConvert, "__debugInfo")) {
+        if (hasMethod(objToConvert, "debugInfo")) {
             try {
                 foreach (key, val;  /* (array) * / objToConvert
-                    .__debugInfo()) {
+                    .debugInfo()) {
                     node.addProperty(
                         new DPropertyNode(
                             "" {

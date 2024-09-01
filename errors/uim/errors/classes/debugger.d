@@ -527,9 +527,9 @@ class DDebugger : UIMObject {
         auto node = new DClassNode(classname, refNum);
         auto remaining = dumpContext.remainingDepth();
         if (remaining > 0) {
-            if (hasMethod(objToConvert, "__debugInfo")) {
+            if (hasMethod(objToConvert, "debugInfo")) {
                  try {
-                    foreach (key, val; /* (array) * / objToConvert.__debugInfo()) {
+                    foreach (key, val; /* (array) * / objToConvert.debugInfo()) {
                         node.addProperty(new DPropertyNode("'{key}'", null, export_(val, dumpContext)));
                     }
                     return node;

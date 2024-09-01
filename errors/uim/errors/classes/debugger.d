@@ -292,11 +292,11 @@ class DDebugger : UIMObject {
                 somePath = trimPath(frame["file"]);
                 back ~= "%s - %s, line %d".format(reference, somePath, frame["line"]);
             } else {
-                debug (options);
+                /* debug (options);
                 throw new DInvalidArgumentException(
                     "Invalid trace format of `{options.get(\"format\"]}` chosen. Must be one of `array`, `points` or `text`."
-               );
-            }
+               ); */
+            } 
         }
         if (options.getString("format") == "array" || options.getString("format") == "points") {
             return back;

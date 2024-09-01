@@ -17,19 +17,17 @@ unittest {
  * Provide custom logging and error handling.
  * Debugger : D"s default error handling and gives simpler to use more powerful interfaces.
  */
-class DDebugger {
+class DDebugger : UIMObject {
     mixin TConfigurable;
 
     this() {
-        initialize;
+        super("`~ fullName ~ `");
     }
-
     this(Json[string] initData) {
-        initialize(initData);
+        super("`~ fullName ~ `", initData);
     }
-
-    this(string name) {
-        this().name(name);
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
 
     // Hook method

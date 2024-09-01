@@ -339,7 +339,6 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
     /**
      * Run the shutdown events.
-     *
      * Triggers the afterFilter and afterDispatch events.
      */
     protected DResponse _shutdown() {
@@ -350,12 +349,11 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
     // Returns an array that can be used to describe the internal state of this object.
     Json[string] debugInfo() {
-        return [
-            "error": this.error,
-            "request": this.request,
-            "controller": this.controller,
-            "template": this.template,
-            "method": this.method,
-        ];
+        return super.debugInfo
+            .set("error", _error)
+            .set("request", _request)
+            .set("controller", _controller)
+            .set("template", _template)
+            .set("method", _method);
     } 
 }

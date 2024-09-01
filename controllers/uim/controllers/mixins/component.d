@@ -6,9 +6,6 @@ string componentThis(string name) {
     this() {
         super("`~ fullName ~ `");
     }
-    this(string name) {
-        super(name);
-    }
     this(Json[string] initData) {
         super("`~ fullName ~ `", initData);
     }

@@ -4,15 +4,10 @@ string cacheThis(string name) {
     string fullName = name ~ "Cache";
     return `
     this() {
-        super(); this.name("`
-        ~ fullName ~ `");
-    }
-    this(string name) {
-        super(name);
+        super("`~ fullName ~ `");
     }
     this(Json[string] initData) {
-        super(initData); this.name("`
-        ~ fullName ~ `");
+        super("`~ fullName ~ `", initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

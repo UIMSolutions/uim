@@ -5,9 +5,16 @@ import uim.jsonbases;
 @safe:
 string jsonTenantThis(string aName) {
   return `
-this() { super(); this.classname("`~aName~`"); }
+    this() {
+        super("`~ fullName ~ `");
+    }
+    this(Json[string] initData) {
+        super("`~ fullName ~ `", initData);
+    }
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
+    }
 this(IJsonBase aBase) { this(); this.base(aBase); }
-this(string aName) { this(); this.name(aName); }
 
 this(IJsonBase aBase, string aName) { this(aBase); this.name(aName); }
   `;

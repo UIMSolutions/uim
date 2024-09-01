@@ -5,10 +5,15 @@ import uim.jsonbases;
 @safe:
 string jsonCollectionThis(string aclassname) {
   return `
-this() { super(); this.classname("`~aclassname~`"); }
-this(IJsonTenant aTenant) { this(); this.tenant(aTenant); }
-this(string aName) { this(); this.name(aName); }
-
+    this() {
+        super("`~ fullName ~ `");
+    }
+    this(Json[string] initData) {
+        super("`~ fullName ~ `", initData);
+    }
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
+    }this(IJsonTenant aTenant) { this(); this.tenant(aTenant); }
 this(IJsonTenant aTenant, string aName) { this(aTenant); this.name(aName); }
   `;
 }

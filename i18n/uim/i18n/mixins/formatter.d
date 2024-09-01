@@ -4,11 +4,13 @@ string formatterThis(string name) {
     string fullName = name ~ "Formatter";
     return `
     this() {
-        super(); this.name("`
-        ~ fullName ~ `");
+        super("`~ fullName ~ `");
     }
-    this(string name) {
-        super(); this.name(name);
+    this(Json[string] initData) {
+        super("`~ fullName ~ `", initData);
+    }
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
     `;
 }

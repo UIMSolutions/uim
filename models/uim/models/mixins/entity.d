@@ -5,14 +5,15 @@ string entityThis(string name) {
   string fullName = name ~ "Entity";
   return `
     this() {
-      super(); this.name("`~ fullName ~ `");
+        super("`~ fullName ~ `");
     }
     this(Json[string] initData) {
-      super(initData); this.name("`~ fullName ~ `");
+        super("`~ fullName ~ `", initData);
     }
     this(string name, Json[string] initData = null) {
-      super(name, initData);
-    }`;
+        super(name, initData);
+    }
+    `;
 }
 
 template EntityThis(string name) {

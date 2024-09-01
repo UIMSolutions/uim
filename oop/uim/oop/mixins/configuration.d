@@ -4,14 +4,13 @@ string configurationThis(string name) {
     string fullName = name ~ "Configuration";
     return `
     this() {
-        super(); this.name("`
-        ~ fullName ~ `");
+        super("`~ fullName ~ `");
     }
-    this(string name) {
-        super(); this.name(name);
+    this(Json[string] initData) {
+        super("`~ fullName ~ `", initData);
     }
-    this(Json[string] values) {
-        super(); this.data(values);
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }    `;
 }
 

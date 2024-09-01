@@ -17,9 +17,9 @@ unittest {
  * @internal
  */
 class DTextErrorFormatter : IErrorFormatter {
-/*
-    string formatWrapper(string acontents, Json[string] location) {
-        templateText = <<<TEXT
+
+    string formatWrapper(string content, Json[string] location) {
+        /* templateText = <<<TEXT
 %s
 ########## DEBUG ##########
 %s
@@ -30,7 +30,8 @@ TEXT;
         if (location.hasAllKeys("file", "line")) {
             lineInfo = "%s (line %s)".format(location.getString("file"), location.getString("line"));
         }
-        return template.format(lineInfo, contents);
+        return template.format(lineInfo, content); */
+        return null; 
     }
     
     /**
@@ -46,7 +47,7 @@ TEXT;
     
     // Convert a tree of IErrorNode objects into a plain text string.
     protected string export_(IErrorNode nodeToDump, int indentSize) {
-        if (cast(DScalarNode)nodeToDump) {
+        /* if (cast(DScalarNode)nodeToDump) {
             return match (nodeToDump.getType()) {
                 "bool": nodeToDump.getValue() ? "true" : "false",
                 "null": "null",
@@ -63,7 +64,8 @@ TEXT;
         if (cast(DSpecialNode)nodeToDump) {
             return nodeToDump.getValue();
         }
-        throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname);
+        throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname); */
+        return null; 
     }
     
     // Export an array type object
@@ -105,11 +107,12 @@ TEXT;
         return result ~ "}";
     }
     protected string exportProperty(auto property, int indentSize) {
-        auto propVisibility = property.getVisibility();
+        /* auto propVisibility = property.getVisibility();
         auto propName = property.name;
 
         return propVisibility && propVisibility != "public" 
             ? "[{propVisibility}] {propName}: " ~ this.export_(property.getValue(), indentSize);
-            : "{propName}: " ~ this.export_(property.getValue(), indentSize);
-    } */
+            : "{propName}: " ~ this.export_(property.getValue(), indentSize); */
+        return null; 
+    } 
 }

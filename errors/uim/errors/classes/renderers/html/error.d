@@ -14,9 +14,9 @@ class DHtmlErrorRenderer : IErrorRenderer {
     void write(string outputText) {
         writeln(outputText);
     }
- 
+
     string render(UIMError error, bool shouldDebug) {
-        if (!debug) {
+        /* if (!debug) {
             return null;
         }
         string anId = "uimErr" ~ uniqid();
@@ -49,20 +49,22 @@ class DHtmlErrorRenderer : IErrorRenderer {
         <pre class="uim-trace">{trace}</pre>
     </div>
 </div>
-HTML;
+HTML; */
+        return null;
     }
-    
+
     // Render a toggle link in the error content.
     private string renderToggle(string textToInsert, string errorId, string elementSelector) {
-        string selector = errorId ~ "-" ~ elementSelector;
-        
+        /* string selector = errorId ~ "-" ~ elementSelector;
+
         return `<<<HTML
 <a href="javascript:void(0);"
   onclick="document.getElementById("{selector}").style.display = (document.getElementById("{selector}").style.display == "none' ? "" : 'none")"
 >
     {textToInsert}
 </a>
-HTML`;
-        
-    } 
+HTML`; */
+        return null; 
+
+    }
 }

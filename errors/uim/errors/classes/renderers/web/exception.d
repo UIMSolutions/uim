@@ -22,6 +22,18 @@ import uim.errors;
  * can configure your class in your config/app.d.
  */
 class DWebExceptionRenderer { // }: IExceptionRenderer {
+    /**
+     * Creates the controller to perform rendering on the error response.
+     * Params:
+     * \Throwable exception Exception.
+     * instead of creating a new one.
+     */
+    this(DThrowable exception, ServerRequest serverRequest = null) {
+        _error = exception;
+        _request = serverRequest;
+        _controller = _getController();
+    }
+    
     // Controller instance.
     protected IErrorController controller;
 
@@ -68,17 +80,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         MissingRouteException.classname: 404,
     ];
 
-    /**
-     * Creates the controller to perform rendering on the error response.
-     * Params:
-     * \Throwable exception Exception.
-     * instead of creating a new one.
-     */
-    this(DThrowable exception, ServerRequest serverRequest = null) {
-        _error = exception;
-        _request = serverRequest;
-        _controller = _getController();
-    }
+
 
     /**
      * Get the controller instance to handle the exception.
@@ -353,12 +355,11 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * object.
      */
     Json[string] debugInfo() {
-        return [
-            "error": _error,
-            "request": _request,
-            "controller": _controller,
-            "template": this.template,
-            "method": this.method,
-        ];
+        return super.debugInfo()
+            .set("error", _error)
+            .set("request", _request)
+            .set("controller", _controller)
+            .set("template", _template)
+            .set("method", _method);
     }
 }

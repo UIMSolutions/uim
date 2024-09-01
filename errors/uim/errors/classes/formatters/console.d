@@ -132,7 +132,7 @@ class DConsoleFormatter : IErrorFormatter {
      * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode var Object to convert.
      */
     protected string exportObject(/* ClassNode| */ DReferenceNode nodeToConvert, int indentLevel) {
-        string[] props;
+        /* string[] props;
 
         if (cast(ReferenceNode)nodeToConvert) {
             return _style("punct", "object(") ~
@@ -165,7 +165,8 @@ class DConsoleFormatter : IErrorFormatter {
         if (count(props)) {
             return result ~ breakText ~ props.join(breakText) ~ endText;
         }
-        return result ~ style("punct", "}");
+        return result ~ style("punct", "}"); */
+        return null; 
     }
     
     // Style text with ANSI escape codes.

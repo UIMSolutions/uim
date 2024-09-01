@@ -47,7 +47,7 @@ class DTextErrorRenderer { // }: IErrorRenderer {
   }
 
   string render(DError anError, bool isDebug) {
-    if (!isDebug) { return null; }
+    /* if (!isDebug) { return null; }
 
     // isDebug
     return 
@@ -57,6 +57,7 @@ class DTextErrorRenderer { // }: IErrorRenderer {
         error.message(),
         error.getLine() ? error.getLine() : "",
         error.getFile() ? "",
-        error.getTraceAsString());
-  } */
+        error.getTraceAsString()); */
+    return null; 
+  } 
 }

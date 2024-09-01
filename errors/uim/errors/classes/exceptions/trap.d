@@ -101,15 +101,11 @@ class DExceptionTrap : UIMObject {
     // Track if this trap was removed from the global handler.
     protected bool disabled = false;
 
-    this(Json[string] options = null) {
-        configuration.set(options);
-    }
-
     // Get an instance of the renderer.
     IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
-        serverRequest = serverRequest ? serverRequest : Router.getRequest();
+        /* serverRequest = serverRequest ? serverRequest : Router.getRequest();
 
-        /** @var class-string|callable aclassname */
+        /** @var class-string|callable aclassname * /
         aclassname = configuration.get("exceptionRenderer");
         deprecateDFileConfigEngine = (aclassname == ExceptionRenderer.classname && D_SAPI == "cli");
         if (deprecateDFileConfigEngine) {
@@ -128,7 +124,7 @@ class DExceptionTrap : UIMObject {
         }
 
         if (aclassname.isString) {
-            /** @psalm-suppress ArgumentTypeCoercion */
+            /** @psalm-suppress ArgumentTypeCoercion * /
             if (!(hasMethod(aclassname, "render") && hasMethod(aclassname, "write"))) {
                 throw new DInvalidArgumentException(
                     "Cannot use {aclassname} as an `exceptionRenderer`~ " ~
@@ -136,11 +132,12 @@ class DExceptionTrap : UIMObject {
                );
             }
 
-            /** @var class-string<uim.errors.IExceptionRenderer> aclassname */
+            /** @var class-string<uim.errors.IExceptionRenderer> aclassname * /
             return new aclassname(exception, serverRequest, _config);
         }
 
-        return aclassname(exception, serverRequest);
+        return aclassname(exception, serverRequest); */
+        return null; 
     }
 
     // Choose an exception renderer based on config or the SAPI
@@ -200,7 +197,7 @@ class DExceptionTrap : UIMObject {
      * environment appropriate way.
      */
     void handleException(Throwable exception) {
-        if (_disabled) {
+        /* if (_disabled) {
             return;
         }
         
@@ -216,7 +213,7 @@ class DExceptionTrap : UIMObject {
         // Use this constant as a proxy for uimD tests.
         if (D_SAPI == "cli" && !env("FIXTURE_SCHEMA_METADATA")) {
             exit(1);
-        }
+        } */
     }
 
     /**

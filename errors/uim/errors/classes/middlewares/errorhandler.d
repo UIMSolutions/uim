@@ -14,19 +14,15 @@ import uim.errors;
  * Traps exceptions and converts them into HTML or content-type appropriate
  * error pages using the UIM ExceptionRenderer.
  */
-class DErrorHandlerMiddleware : IErrorMiddleware {
-    mixin TConfigurable;
-
+class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
     this() {
-        initialize;
+        super("`~ fullName ~ `");
     }
-
     this(Json[string] initData) {
-        initialize(initData);
+        super("`~ fullName ~ `", initData);
     }
-
-    this(string name) {
-        this().name(name);
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
 
     // Hook method
@@ -112,7 +108,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
 
     // Handle an exception and generate an error response
     IResponse handleException(Throwable exception, IServerRequest request) {
-        myErrorHandler = getErrorHandler();
+        /* myErrorHandler = getErrorHandler();
         renderer = myErrorHandler.getRenderer(exception, request);
 
         try {
@@ -123,7 +119,8 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
             response = handleInternalError();
         }
 
-        return response;
+        return response; */
+        return null; 
     }
 
     // Convert a redirect exception into a response.

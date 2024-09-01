@@ -4,13 +4,15 @@ import uim.events;
 
 @safe:
 
-class DEvent : IEvent {
+class DEvent : UIMObject, IEvent {
     this() {
-        this.name(this.classname);
+        super("`~ fullName ~ `");
     }
-
-    this(string name) {
-        this.name(name);
+    this(Json[string] initData) {
+        super("`~ fullName ~ `", initData);
+    }
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
 
     // Name of the event

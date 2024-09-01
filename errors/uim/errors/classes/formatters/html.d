@@ -51,10 +51,11 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Only output once per process as we don`t need it more than once.
      */
     protected string dumpHeader() {
-        ob_start();
+        /* ob_start();
         include __DIR__~ DIRECTORY_SEPARATOR ~ "dumpHeader.html";
 
-        return to!string(ob_get_clean());
+        return to!string(ob_get_clean()); */
+        return null; 
     }
     
     // Convert a tree of IErrorNode objects into HTML
@@ -95,11 +96,9 @@ class DHtmlErrorFormatter : IErrorFormatter {
     
     /**
      * Export an array type object
-     * Params:
-     * \UIM\Error\Debug\ArrayNode nodeToExport The array to export.
      */
     protected string exportArray(ArrayNode tvar, int indentLevel) {
-        auto open = "<span class="uim-debug-array">" ~
+        /* auto open = "<span class="uim-debug-array">" ~
            style("punct", "[") ~
             "<samp class="uim-debug-array-items">";
         auto vars = null;
@@ -119,16 +118,15 @@ class DHtmlErrorFormatter : IErrorFormatter {
            style("punct", "]") ~
             "</span>";
 
-        return open ~ vars.join("") ~ close;
+        return open ~ vars.join("") ~ close; */
+        return null; 
     }
     
     /**
      * Handles object to string conversion.
-     * Params:
-     * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode nodeToConvert Object to convert.
      */
-    protected string exportObject(ClassNode|ReferenceNode nodeToConvert, int indentLevel) {
-        auto objectId = "uim-db-object-{this.id}-{nodeToConvert.getId()}";
+    protected string exportObject(/* ClassNode| */ReferenceNode nodeToConvert, int indentLevel) {
+        /* auto objectId = "uim-db-object-{this.id}-{nodeToConvert.getId()}";
         auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
         auto breakText = "\n" ~ str_repeat("  ",  indentLevel);
         auto endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
@@ -171,7 +169,8 @@ class DHtmlErrorFormatter : IErrorFormatter {
 
         return count(props)
             ? result ~ props.join("") ~ end
-            : result ~ end;
+            : result ~ end; */
+        return null; 
     }
     
     // Style text with HTML class names

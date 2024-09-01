@@ -9,9 +9,15 @@ string filesystemThis(string shortName) {
 string fullName = shortName~"Filesystem";
 
   return `
-this() { super(); this.name("`~fullName~`"); }
-
-this(string aName) { this(); this.name(aName); };
+    this() {
+        super("`~ fullName ~ `");
+    }
+    this(Json[string] initData) {
+        super("`~ fullName ~ `", initData);
+    }
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
+    }
   `;
 }
 

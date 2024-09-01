@@ -12,11 +12,18 @@ string fileThis(string shortName) {
   string fullName = shortName~"File";
 
   return `
-this() { super(); this.name("`~fullName~`"); }
+    this() {
+        super("`~ fullName ~ `");
+    }
+    this(Json[string] initData) {
+        super("`~ fullName ~ `", initData);
+    }
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
+    }
 
 this(IFilesystem aFilesystem) { this(); this.filesystem(aFilesystem); };
 this(string[] aPath) { this(); this.path(aPath); };
-this(string aName) { this(); this.name(aName); };
 
 this(IFilesystem aFilesystem, string[] aPath) { this(aFilesystem); path(aPath); };
 this(IFilesystem aFilesystem, string aName) { this(aFilesystem); this.name(aName); };

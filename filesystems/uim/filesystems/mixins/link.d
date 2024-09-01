@@ -12,11 +12,17 @@ string linkThis(string shortName) {
   string fullName = shortName ~ "Link";
 
   return `
-this() { super(); this.name("`
-    ~ fullName ~ `"); }
+    this() {
+        super("`~ fullName ~ `");
+    }
+    this(Json[string] initData) {
+        super("`~ fullName ~ `", initData);
+    }
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
+    }
 
 this(IFilesystem aFilesystem) { this(); this.filesystem(aFilesystem); };
-this(string aName) { this(); this.name(aName); };
 
 this(IFilesystem aFilesystem, string aName) { this(aFilesystem); this.name(aName); };
   `;

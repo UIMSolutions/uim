@@ -10,22 +10,18 @@ import uim.http;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Core\IHttpApplication>
  */
-class DServer { // }: IEventDispatcher {
-        mixin TConfigurable;
+class DServer : UIMObject { // }: IEventDispatcher {
     mixin TEventDispatcher;
 
     this() {
-        initialize;
+        super("`~ fullName ~ `");
     }
-
     this(Json[string] initData) {
-        initialize(initData);
+        super("`~ fullName ~ `", initData);
     }
-
-    this(string name) {
-        this().name(name);
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
-
     // Hook method
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);

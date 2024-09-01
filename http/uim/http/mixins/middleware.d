@@ -4,14 +4,13 @@ string middlewareThis(string name) {
     string fullName = name ~ "Middleware";
     return `
     this() {
-        super(); this.name("`
-        ~ fullName ~ `");
+        super("`~ fullName ~ `");
     }
     this(Json[string] initData) {
-        super(initData); this.name("`~ fullName ~ `");
+        super("`~ fullName ~ `", initData);
     }
-    this(string name) {
-        super(); this.name(name);
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
     `;
 }

@@ -34,7 +34,7 @@ class DConsoleFormatter : IErrorFormatter {
      * Check if the current environment supports ANSI output.
      */
     static bool environmentMatches() {
-        if (UIM_SAPI != "cli") {
+        /* if (UIM_SAPI != "cli") {
             return false;
         }
         // NO_COLOR in environment means no color.
@@ -51,7 +51,8 @@ class DConsoleFormatter : IErrorFormatter {
        ) {
             return false;
         }
-        return true;
+        return true; */
+        return false;
     }
  
     string formatWrapper(stringcontents, Json[string] location) {
@@ -106,7 +107,7 @@ class DConsoleFormatter : IErrorFormatter {
      * \UIM\Error\Debug\ArrayNode var The array to export.
      */
     protected string exportArray(ArrayNode arrayToExport, int indentLevel) {
-         result = style("punct", "[");
+        /*  result = style("punct", "[");
         break = "\n" ~ str_repeat("  ",  indentLevel);
         end = "\n" ~ str_repeat("  ",  indentLevel - 1);
         vars = null;
@@ -120,7 +121,8 @@ class DConsoleFormatter : IErrorFormatter {
         auto close = style("punct", "]");
         return count(vars) > 0
             ? result ~ vars.join(style("punct", ",")) ~ end ~ close
-            : result ~ close;
+            : result ~ close; */
+        return null; 
     }
     
     /**

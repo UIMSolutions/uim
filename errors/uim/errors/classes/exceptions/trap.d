@@ -23,28 +23,28 @@ import uim.errors;
  *
  * If undefined, an ExceptionRenderer will be selected based on the current SAPI (CLI or Web).
  */
-class DExceptionTrap {
+class DExceptionTrap : UIMObject {
     mixin TEventDispatcher;
-    mixin TConfigurable;
 
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
-    this(string newName) {
-        this().name(newName);
+    this(string newName, Json[string] initData = null) {
+        super(newName, initData);
     }
 
     // Hook method
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
 
- /**
+    /**
      * Configuration options. Generally these will be defined in your config/app.D
      *
      * - `exceptionRenderer` - string - The class responsible for rendering uncaught exceptions.
@@ -78,8 +78,6 @@ class DExceptionTrap {
         return true;
     }
 
-    mixin(TProperty!("string", "name"));
-
     /**
      * A list of handling callbacks.
      *
@@ -88,7 +86,7 @@ class DExceptionTrap {
      *
      * @var array<\Closure>
      */
-    protected callbacks = null;
+    protected IClosure callbacks = null;
 
     /**
      * The currently registered global exception handler
@@ -179,7 +177,7 @@ class DExceptionTrap {
      */
     void unregister() {
         if (registeredTrap == this) {
-            this.disabled = true;
+            _disabled = true;
             registeredTrap = null;
         }
     }
@@ -202,7 +200,7 @@ class DExceptionTrap {
      * environment appropriate way.
      */
     void handleException(Throwable exception) {
-        if (this.disabled) {
+        if (_disabled) {
             return;
         }
         
@@ -227,7 +225,7 @@ class DExceptionTrap {
      * Convert fatal errors into exceptions that we can render.
      */
     void handleShutdown() {
-        if (this.disabled) {
+        /* if (_disabled) {
             return;
         }
         megabytes = _config["extraFatalErrorMemory"] ?? 4;
@@ -235,7 +233,7 @@ class DExceptionTrap {
             this.increaseMemoryLimit(megabytes * 1024);
         }
         error = error_get_last();
-        if (!(error.isArray) {
+        if (!error.isArray) {
             return;
         }
         fatals = [
@@ -251,12 +249,12 @@ class DExceptionTrap {
             error["message"],
             error["file"],
             error["line"]
-       );
+       ); */
     }
 
     // Increases the UIM "memory_limit" ini setting by the specified amount in kilobytes
     void increaseMemoryLimit(int additionalKb) {
-        auto limit = ini_get("memory_limit");
+        /* auto limit = ini_get("memory_limit");
         if (limit.isEmpty || limit == "-1") {
             return;
         }
@@ -274,7 +272,7 @@ class DExceptionTrap {
 
         if (units == "K") {
             ini_set("memory_limit", ceil(current + additionalKb) ~ "K");
-        }
+        } */
     }
 
     // Display/Log a fatal error.
@@ -292,7 +290,7 @@ class DExceptionTrap {
      * After logging is attempted the `Exception.beforeRender` event is triggered.
      */
     void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
-        auto shouldLog = _config["log"];
+        /* auto shouldLog = _config["log"];
         if (shouldLog) {
             foreach (aclassname, configuration.get("skipLog")) {
                 if (cast(aclassname)exceptionToLog ) {
@@ -313,7 +311,7 @@ class DExceptionTrap {
                 logger().log(exceptionToLog, serverRequest);
             }
         }
-        dispatchEvent("Exception.beforeRender", ["exception": exceptionToLog]);
+        dispatchEvent("Exception.beforeRender", ["exception": exceptionToLog]); */
     }
 
     /**

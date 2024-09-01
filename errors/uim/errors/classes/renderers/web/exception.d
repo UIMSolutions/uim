@@ -23,7 +23,7 @@ import uim.errors;
  */
 class DWebExceptionRenderer { // }: IExceptionRenderer {
     // Controller instance.
-    protected IController controller;
+    protected IErrorController controller;
 
     // Template to render for {@link \UIM\Core\Exception\DException}
     protected string atemplate = "";
@@ -86,7 +86,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * This method returns the built in `ErrorController` normally, or if an error is repeated
      * a bare controller will be used.
      */
-    protected IController _getController() {
+    protected IErrorController _getController() {
         request = _request;
         routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
@@ -120,10 +120,9 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             controller.startupProcess();
         } catch (Throwable anException) {
         }
-        
+
         return controller is null
-            ? new DController(request)
-            : controller;
+            ? new DController(request) : controller;
     }
 
     // Clear output buffers so error pages display properly.
@@ -138,7 +137,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
 
     // Renders the response for the exception.
     IResponse render() {
-        auto exception = _error;
+        /* auto exception = _error;
         auto code = getHttpCode(exception);
         auto method = methodName(exception);
         auto templateText = templateName(exception, method, code);
@@ -175,7 +174,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         auto serialize = ["message", "url", "code"];
         auto isDebug = configuration.get("debug");
         if (isDebug) {
-            trace =/*  (array) */ Debugger.formatTrace(exception.getTrace(), [
+            trace =/*  (array) * / Debugger.formatTrace(exception.getTrace(), [
                     "format": "array",
                     "args": true.toJson,
                 ]);
@@ -198,7 +197,8 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         }
         _controller.setResponse(response);
 
-        return _outputMessage(template);
+        return _outputMessage(template); */
+        return null;
     }
 
     /**
@@ -209,6 +209,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     void write(string outputText) {
         writeln(output);
     }
+
     void write(IResponse outputResponse) {
         auto emitter = new DResponseEmitter();
         emitter.emit(outputResponse);
@@ -229,7 +230,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
 
     // Get method name
     protected string methodName(Throwable exception) {
-        [, baseClass] = namespaceSplit(exception.classname);
+        /* [, baseClass] = namespaceSplit(exception.classname);
 
         if (baseClass.endsWith("Exception")) {
             baseClass = subString(baseClass, 0, -9);
@@ -237,12 +238,13 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         // baseClass would be an empty string if the exception class is \Exception.
         method = baseClass is null ? "error500" : Inflector.variable(baseClass);
 
-        return _method = method;
+        return _method = method; */
+        return null;
     }
 
     // Get error message.
     protected string errorMessage(Throwable exception, int errorCode) {
-        string result = exception.message();
+        /* string result = exception.message();
 
         if (
             !configuration.hasKey("debug") &&
@@ -253,36 +255,39 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         }
     }
 
-    return result;
-}
+    return result; */
+        return null;
+    }
 
-/**
+    /**
      * Get template for rendering exception info.
      * Params:
      * \Throwable exception Exception instance.
      */
-protected string templateName(Throwable exception, string methodName, int errorCode) {
-    if (cast(HttpException) exception || !configuration.hasKey("debug")) {
+    protected string templateName(Throwable exception, string methodName, int errorCode) {
+        /* if (cast(HttpException) exception || !configuration.hasKey("debug")) {
         return _template = errorCode < 500 ? "error400' : 'error500";
     }
 
     _template = cast(PDOException) exception
         ? "pdo_error" : methodName;
 
-    return _template;
-}
-
-// Gets the appropriate http status code for exception.
-protected int getHttpCode(Throwable exception) {
-    if (cast(HttpException) exception) {
-        return exception.code();
+    return _template; */
+        return null;
     }
-    return _exceptionHttpCodes[exception.classname] ?  ? 500;
-}
 
-// Generate the response using the controller object.
-protected DResponse _outputMessage(string templateToRender) {
-    try {
+    // Gets the appropriate http status code for exception.
+    protected int getHttpCode(Throwable exception) {
+        /* if (cast(HttpException) exception) {
+            return exception.code();
+        }
+        return _exceptionHttpCodes[exception.classname] ?  ? 500; */
+        return 0; 
+    }
+
+    // Generate the response using the controller object.
+    protected DResponse _outputMessage(string templateToRender) {
+        /* try {
         _controller.render(templateToRender);
 
         return _shutdown();
@@ -307,52 +312,53 @@ protected DResponse _outputMessage(string templateToRender) {
         } catch (Throwable anInner) {
             throw outer;
         }
+    } */
+        return null;
     }
-}
 
-/**
+    /**
      * A safer way to render error messages, replaces all helpers, with basics
      * and doesn`t call component methods.
      * Params:
      * string atemplate The template to render.
      */
-protected DResponse _outputMessageSafe(string templateText) {
-    auto builder = _controller.viewBuilder();
-    builder
-        .setHelpers([])
-        .setLayoutPath("")
-        .setTemplatePath("Error");
+    protected DResponse _outputMessageSafe(string templateText) {
+        auto builder = _controller.viewBuilder();
+        builder
+            .setHelpers([])
+            .setLayoutPath("")
+            .setTemplatePath("Error");
 
-    auto view = _controller.createView("View");
-    auto response = _controller.getResponse()
-        .withType("html")
-        .withStringBody(view.render(templateText, "error"));
-    _controller.setResponse(response);
+        auto view = _controller.createView("View");
+        auto response = _controller.getResponse()
+            .withType("html")
+            .withStringBody(view.render(templateText, "error"));
+        _controller.setResponse(response);
 
-    return response;
-}
+        return response;
+    }
 
-/**
+    /**
      * Run the shutdown events.
      * Triggers the afterFilter and afterDispatch events.
      */
-protected DResponse _shutdown() {
-    _controller.dispatchEvent("Controller.shutdown");
+    protected DResponse _shutdown() {
+        _controller.dispatchEvent("Controller.shutdown");
 
-    return _controller.getResponse();
-}
+        return _controller.getResponse();
+    }
 
-/**
+    /**
      * Returns an array that can be used to describe the internal state of this
      * object.
      */
-Json[string] debugInfo() {
-    return [
-        "error": _error,
-        "request": _request,
-        "controller": _controller,
-        "template": this.template,
-        "method": this.method,
-    ];
-}
+    Json[string] debugInfo() {
+        return [
+            "error": _error,
+            "request": _request,
+            "controller": _controller,
+            "template": this.template,
+            "method": this.method,
+        ];
+    }
 }

@@ -1,4 +1,4 @@
-wmodule uim.errors.helpers.functions;
+module uim.errors.helpers.functions;
 
 import uim.errors;
 @safe:
@@ -9,9 +9,8 @@ import uim.errors;
  *
  * Only runs if debug mode is enabled.
  */
-Json debug(Json debugVariable, bool showHtml = null, bool showFrom = true):  
-{
-    if (!configuration.hasKey("debug")) {
+Json debugInfo(Json debugVariable, bool showHtml = null, bool showFrom = true) {
+    /* if (!configuration.hasKey("debug")) {
         return var;
     }
     location = null;
@@ -26,7 +25,8 @@ Json debug(Json debugVariable, bool showHtml = null, bool showFrom = true):
     }
     Debugger.printVar(debugVariable, location, showHtml);
 
-    return debugVariable;
+    return debugVariable; */
+    return Json(null);
 }
 /**
  * Outputs a stack trace based on the supplied options.

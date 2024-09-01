@@ -44,7 +44,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     protected Throwable myError;
 
     // Controller instance.
-    // protected IController controller;
+    // protected IErrorController controller;
 
     /**
      * Template to render for {@link uim.uim.Core\exceptions.DException}
@@ -95,7 +95,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * This method returns the built in `ErrorController` normally, or if an error is repeated
      * a bare controller will be used.
      */
-    protected IController _getController() {
+    protected IErrorController _getController() {
         auto myRequest = this.request;
         auto routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
@@ -282,9 +282,10 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
     // Gets the appropriate http status code for exception.
     protected int getHttpCode(Throwable exception) {
-        return cast(HttpException)exception
+        /* return cast(HttpException)exception
             ? exception.code()
-            : _exceptionHttpCodes[get_class(exception)] ?? 500;
+            : _exceptionHttpCodes[get_class(exception)] ?? 500; */
+        return 0;
     }
 
     // Generate the response using the controller object.

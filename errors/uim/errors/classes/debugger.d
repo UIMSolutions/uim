@@ -493,18 +493,18 @@ class DDebugger : UIMObject {
         auto remaining = dumpContext.remainingDepth();
         if (remaining >= 0) {
             outputMask = outputMask();
-            foreach (key : val; exportValues) {
-                if (hasKey(key, outputMask)) {
-                    node = new DScalarNode("string", outputMask[key]);
-                } else if (val != exportValues) {
+            exportValues.byKeyValue((item) {
+                if (hasKey(item.key, outputMask)) {
+                    node = new DScalarNode("string", outputMask[item.key]);
+                } else if (item.value != exportValues) {
                     // Dump all the items without increasing depth.
-                    node = export_(val, dumpContext);
+                    node = export_(item.value, dumpContext);
                 } else {
                     // Likely recursion, so we increase depth.
-                    node = export_(val, dumpContext.withAddedDepth());
+                    node = export_(item.value, dumpContext.withAddedDepth());
                 }
-                someItems ~= new ArrayItemNode(export_(key, dumpContext), node);
-            }
+                someItems ~= new ArrayItemNode(export_(item.key, dumpContext), node);
+            });
         } else {
             someItems ~= new ArrayItemNode(
                 new DScalarNode("string", ""),
@@ -516,7 +516,7 @@ class DDebugger : UIMObject {
 
     // Handles object to node conversion.
     protected static IErrorNode exportObject(object objToConvert, DDebugContext dumpContext) {
-        auto isRef = dumpContext.hasReference(objToConvert);
+        /* auto isRef = dumpContext.hasReference(objToConvert);
         auto refNum = dumpContext.getReferenceId(objToConvert);
 
         auto objClassname = var.classname;
@@ -528,8 +528,8 @@ class DDebugger : UIMObject {
         auto remaining = dumpContext.remainingDepth();
         if (remaining > 0) {
             if (hasMethod(objToConvert, "__debugInfo")) {
-                try {
-                    foreach (key, val; /* (array) */ objToConvert.__debugInfo()) {
+                 try {
+                    foreach (key, val; /* (array) * / objToConvert.__debugInfo()) {
                         node.addProperty(new DPropertyNode("'{key}'", null, export_(val, dumpContext)));
                     }
                     return node;
@@ -537,9 +537,9 @@ class DDebugger : UIMObject {
                     return new DSpecialNode(
                         "(unable to export object: { anException.message()})");
                 }
-            }
-            outputMask = outputMask();
-            objectVars = get_object_vars(objToConvert);
+             }
+            auto outputMask = outputMask();
+            auto objectVars = get_object_vars(objToConvert);
             objectVars.byKeyValue
                 .each!((kv) {
                     if (outputMask.hasKey(kv.key)) {
@@ -578,7 +578,8 @@ class DDebugger : UIMObject {
                 }
             }
         }
-        return node;
+        return node; */
+        return null; 
     }
 
     // Get the type of the given variable. Will return the class name for objects.
@@ -597,7 +598,7 @@ class DDebugger : UIMObject {
 
     // Prints out debug information about given variable.
     static void printVar(Json debugValue, Json[string] locationData = null, string showHtml = null) {
-        auto locationData ~= ["file": Json(null), "line": Json(null)];
+        /* auto locationData ~= ["file": Json(null), "line": Json(null)];
         if (locationData["file"]) {
             locationData["file"] = trimPath((string) locationData["file"]);
         }
@@ -615,7 +616,7 @@ class DDebugger : UIMObject {
         if (restore) {
             debugger.setConfig("exportFormatter", restore);
         }
-        writeln(formatter.formatWrapper(contents, locationData));
+        writeln(formatter.formatWrapper(contents, locationData)); */
     }
 
     /**
@@ -628,10 +629,11 @@ class DDebugger : UIMObject {
      * - Convert newlines into `<br>`
      */
     static string formatHtmlMessage(string messageToFormat) {
-        string message = htmlAttributeEscape(messageToFormat);
+        /* string message = htmlAttributeEscape(messageToFormat);
         message = (string) preg_replace("/`([^`]+)`/", "<code>0</code>", message);
 
-        return nl2br(message);
+        return nl2br(message); */
+        return null; 
     }
 
     // Verifies that the application`s salt and cipher seed value has been changed from the default value.

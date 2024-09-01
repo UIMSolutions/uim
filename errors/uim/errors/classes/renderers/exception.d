@@ -37,12 +37,10 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @var \Throwable
      */
-    protected myError;
+    protected Ierror myError;
 
     // Controller instance.
     protected DCONController controller;
-
-
 
     /**
      * If set, this will be request used to create the controller that will render
@@ -50,7 +48,7 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * var DHTP.ServerRequest|null
      */
-    protected myRequest;
+    protected IServerRequest myRequest;
 
     /**
      * Map of exceptions to http status codes.
@@ -61,7 +59,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * @var array<string, int>
      * @psalm-var array<class-string<\Throwable>, int>
      */
-    protected myExceptionHttpCodes = [
+    protected int[string] myExceptionHttpCodes = [
         // Controller exceptions
         InvalidParameterException.classname: 404,
         MissingActionException.classname: 404,
@@ -75,7 +73,7 @@ class DExceptionRenderer : IExceptionRenderer {
     ];
 
     // Creates the controller to perform rendering on the error response.
-    this(DThrowable exception, ServerRequest serverRequest = null) {
+    this(DThrowable exception, IServerRequest serverRequest = null) {
         _error = exception;
         _request = serverRequest;
         _controller = _getController();
@@ -87,7 +85,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * This method returns the built in `ErrorController` normally, or if an error is repeated
      * a bare controller will be used.
      */
-    protected IController _getController() {
+    protected IErrorController _getController() {
         auto myRequest = _request;
         auto routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
@@ -151,7 +149,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
     // Renders the response for the exception.
     IResponse render() {
-        auto myException = _error;
+        /* auto myException = _error;
         code = getHttpCode(myException);
         method = methodName(myException);
         myTemplate = templateName(myException, method, code);
@@ -167,7 +165,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
         if (cast(DException)myException) {
             /** @psalm-suppress DeprecatedMethod */
-            foreach (/* (array) */myException.responseHeader() as myKey: myValue) {
+            foreach (/* (array) * /myException.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);
             }
         }
@@ -184,7 +182,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
         auto serialize = ["message", "url", "code"];
         if (Configure.hasKey("debug")) {
-            trace = /* (array) */Debugger.formatTrace(myException.getTrace(), [
+            trace = /* (array) * /Debugger.formatTrace(myException.getTrace(), [
                 "format": "array",
                 "args": false,
             ]);
@@ -208,22 +206,24 @@ class DExceptionRenderer : IExceptionRenderer {
         }
         _controller.setResponse(response);
 
-        return _outputMessage(myTemplate);
+        return _outputMessage(myTemplate); */
+        return null; 
     }
 
     // Render a custom error method/template.
     protected DResponse _customMethod(string methodToInvoke, Throwable myExceptionToRender) {
-        myResult = this.{method}(myException);
+        /* myResult = this.{method}(myException);
         _shutdown();
 
         return !myResult.isString
             ? myResult
-            : _controller.getResponse().withStringBody(myResult);
+            : _controller.getResponse().withStringBody(myResult); */
+        return null; 
     }
 
     // Get method name
     protected string methodName(Throwable myException) {
-        [, baseClass] = moduleSplit(get_class(myException));
+        /* [, baseClass] = moduleSplit(get_class(myException));
 
         if (subString(baseClass, -9) == "Exception") {
             baseClass = subString(baseClass, 0, -9);
@@ -232,7 +232,8 @@ class DExceptionRenderer : IExceptionRenderer {
         // baseClass would be an empty string if the exception class is \Exception.
         _method = baseClass is null ? "error500" : Inflector.variable(baseClass);
 
-        return _method;
+        return _method; */
+        return null; 
     }
 
     // Get error message.

@@ -530,7 +530,7 @@ class DDebugger {
      * @unstable This method is not stable and may change in the future.
      */
     IErrorFormatter getExportFormatter() {
-        auto instance = getInstance();
+/*         auto instance = getInstance();
         string formaterClassname = instance
             .getConfig(
                 "exportFormatter");
@@ -558,6 +558,8 @@ class DDebugger {
             );
         }
         return instance;
+ */ 
+        return null;    
     }
 
     /**

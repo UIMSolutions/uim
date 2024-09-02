@@ -14,11 +14,16 @@ private alias KeyValue = Tuple!(string, "key", Json, "value");
 // Configuration for handling config data = key: string / value: Json
 abstract class DConfiguration : IConfiguration {
     this() {
+        this.initialize();
     }
 
-    this(string name) {
-        this();
+    this(Json[string] initValue) {
+        this.initialize(initValue);
+    }
+
+    this(string name, Json[string] initValue = null) {
         this.name(name);
+        this.initialize(initValue); 
     }
 
     bool initialize(Json[string] initValue = null) {

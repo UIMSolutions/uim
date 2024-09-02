@@ -15,7 +15,7 @@ class DFormContext : DContext {
     protected string _validatorName = null;
 
     override bool initialize(Json[string] initData = null) {
-        if (super.initialize(initData)) {
+        if (!super.initialize(initData)) {
             return false;
         }
 

@@ -14,21 +14,13 @@ unittest {
 }
 
 @safe:
-class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
-    mixin TConfigurable; 
+class DFilesystem : UIMObject, IFilesystem, IFolderManager, IFileManager, ILinkManager {
+  mixin(FilesystemThis!(""));
 
-  this() {
-    initialize;
-  }
-
-  this(string aRootPath) {
-    this();
-    this.rootPath(aRootPath);
-  }
-
-  bool initialize(Json[string] initData = null) { // Hook
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
+  override bool initialize(Json[string] initData = null) { 
+    if (!super.initialize(initData)) {
+      return false; 
+    }
     
     pathSeparator("/");
     return true;
@@ -52,13 +44,13 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   }
 
   // Sets or returns the name of the filesystem
-  protected string _name;
-  string name() {
-    return _name;
+  protected string[] _path;
+  string[] path() {
+    return _path;
   }
 
-  void name(string newName) {
-    _name = newName.strip;
+  void path(string[] path) {
+    _path = path.strip;
   }
 
   // Returns information about the type of the filesystem

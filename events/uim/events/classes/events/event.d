@@ -5,41 +5,7 @@ import uim.events;
 @safe:
 
 class DEvent : UIMObject, IEvent {
-    this() {
-        super("`~ fullName ~ `");
-    }
-    this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-
-    // Name of the event
-    mixin(TProperty!("string", "name"));
-
-    // The object this event applies to (usually the same object that generates the event)
-    protected IEventObject _subject = null;
-
-    // Custom data for the method that receives the event
-    protected Json _data;
-
-    // Property used to retain the result value of the event listeners
-    // Get/Set the result value of the event listeners
-    mixin(TProperty!("Json", "result"));
-
-    // Flags an event as stopped or not, default is false
-    protected bool _stopped = false;
-
-    // Stops the event from being used anymore
-    void stopPropagation() {
-        _stopped = true;
-    }
-
-    // Check if the event is stopped
-    bool isStopped() {
-        return _stopped;
-    }
+    mixin(EventThis!(""));
 
     /**
      * ### Examples of usage:
@@ -49,10 +15,32 @@ class DEvent : UIMObject, IEvent {
      * event = new DEvent("User.afterRegister", userModel);
      * ```
      */
-    this(string eventName, IEventObject subject = null, Json[string] dataToTransport = null) {
+    this(string eventName, IEventObject subject = null, Json[string] data = null) {
         _name = eventName;
         _subject = subject;
         _data = dataToTransport;
+    }
+
+    // The object this event applies to (usually the same object that generates the event)
+    protected IEventObject _subject = null;
+
+    // Custom data for the method that receives the event
+    protected Json[string] _data;
+
+    // Property used to retain the result value of the event listeners
+    mixin(TProperty!("Json", "result"));
+
+    // Flags an event as stopped or not, default is false
+    protected bool _isStopped = false;
+
+    // Stops the event from being used anymore
+    void stopPropagation() {
+        _isStopped = true;
+    }
+
+    // Check if the event is stopped
+    bool isStopped() {
+        return _isStopped;
     }
 
     // Returns the subject of this event
@@ -63,30 +51,29 @@ class DEvent : UIMObject, IEvent {
         return _subject;
     }
 
-    // #region data handling
+    // #region data 
     Json opIndex(string key) {
-        return data(key);
+        return data.get(key);
+    }
+
+    Json[string] data() {
+        return _data;
     }
 
     Json data(string key) {
-/*        return !key.isNull
-            ? _data.get(key) : _data;
-
- */    return Json(null);
- }
+        return _data.get(key);
+    }
 
     void opIndexAssign(Json value, string key) {
         data(key, value);
     }
 
-    void data(string[] keys, Json aValue) {
-        // TODO _data = keys;
+    void data(string[] keys, Json value) {
+        _data = _data.set(keys, value);
     }
 
     void data(string key, Json value) {
-        // TODO _data[key] = value;
+        _data = _data.set(key, value);
     }
-
-    // #endregion data handling
-
+    // #endregion data 
 }

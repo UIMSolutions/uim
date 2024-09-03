@@ -8,13 +8,9 @@ module uim.filesystems.interfaces.entry;
 import uim.filesystems;
 
 @safe:
-interface IFilesystemEntry {
+interface IFilesystemEntry : INamed {
   bool hasFilesystem();
   IFilesystem filesystem();
-
-  // Sets or returns the name of a specified entry.
-  string name();
-  void name(string newName);
 
   // Sets or returns the path of a specified entry.
   string[] path();

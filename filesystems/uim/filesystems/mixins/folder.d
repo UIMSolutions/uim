@@ -9,31 +9,31 @@ import uim.filesystems;
 
 @safe:
 string folderThis(string name = null) {
-  string fullName = name~"Folder";
+  string fullName = `"` ~ name ~ "Folder" ~ `"`;
 
   return `
     this() {
-        super("`~ fullName ~ `");
+      super(` ~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+      super(` ~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
-        super(name, initData);
+      super(name, initData);
     }`~
-    name !is null
-      ? `this(string[] path, Json[string] initData = null) {
-        super(path, initData);
+    (name !is null
+    ? `this(string[] path, Json[string] initData = null) {
+        this(initData); this.path(path);
       }
       this(IFilesystem filesystem, Json[string] initData = null) {
-          super(filesystem, "`~ fullName ~ `", initData);
+          this(initData); this.filesystem(filesystem);
       }
       this(IFilesystem filesystem, string name, Json[string] initData = null) {
-          super(filesystem, name, initData);
+          this(name, initData); this.filesystem(filesystem);
       }
       this(IFilesystem filesystem, string[] path, Json[string] initData = null) {
-          super(filesystem, name, initData);
-      }` : ``;
+          this(name, initData); this.filesystem(filesystem);
+      }` : ``);
 }
 
 template FolderThis(string name = null) {

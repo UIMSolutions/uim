@@ -1,6 +1,6 @@
 module uim.views.mixins.view;
 
-string viewThis(string name) {
+string viewThis(string name = null) {
     string fullName = name ~ "View";
     return `
     this() {
@@ -15,7 +15,7 @@ string viewThis(string name) {
     `;
 }
 
-template ViewThis(string name) {
+template ViewThis(string name = null) {
     const char[] ViewThis = viewThis(name);
 }
 

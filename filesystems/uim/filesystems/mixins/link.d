@@ -9,23 +9,31 @@ import uim.filesystems;
 
 @safe:
 string linkThis(string name = null) {
-  string fullName = shortName ~ "Link";
+  string fullName = `"`~ name ~ "Link" ~ `"`;
 
   return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);
-    }
-
-this(IFilesystem aFilesystem) { this(); this.filesystem(aFilesystem); };
-
-this(IFilesystem aFilesystem, string aName) { this(aFilesystem); this.name(aName); };
-  `;
+    }`~
+    (name !is null
+    ? `this(string[] path, Json[string] initData = null) {
+        this(initData); this.path(path);
+      }
+      this(IFilesystem filesystem, Json[string] initData = null) {
+          this(initData); this.filesystem(filesystem);
+      }
+      this(IFilesystem filesystem, string name, Json[string] initData = null) {
+          this(name, initData); this.filesystem(filesystem);
+      }
+      this(IFilesystem filesystem, string[] path, Json[string] initData = null) {
+          this(name, initData); this.filesystem(filesystem);
+      }` : ``);
 }
 
 template LinkThis(string name = null) {
@@ -49,6 +57,6 @@ auto `
   `;
 }
 
-template LinkCalls(string shortName) {
-  const char[] LinkCalls = linkCalls(shortName);
+template LinkCalls(string name) {
+  const char[] LinkCalls = linkCalls(name);
 }

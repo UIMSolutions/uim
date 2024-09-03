@@ -74,7 +74,7 @@ class DLinuxFilesystem : DFilesystem {
 						.array
 					) {
 						auto pathItems = toPathItems(entry.name[rootPath.length..$]);
-						results ~= LinuxFolder(this, aPath~aFolderName, pathItems[$-1]);
+						results ~= LinuxFolder(this, aPath~aFolderName);
 					}	
 				} ();
 
@@ -142,7 +142,7 @@ class DLinuxFilesystem : DFilesystem {
 						debug writeln("aFolderName = \t", aFolderName); }
 					if (!existsFolder(aPath, aFolderName)) { return null; } 
 
-					return LinuxFolder(this, aPath, aFolderName);
+					return LinuxFolder(this, aPath~aFolderName);
 				}			
 			// #endregion folder()
 		// #endregion Read
@@ -224,7 +224,7 @@ class DLinuxFilesystem : DFilesystem {
 				string myabsolutePath = absolutePath(aPath~aFileName);
 				if (!std.file.exists(myabsolutePath) || !std.file.isFile(myabsolutePath)) { return null; }
 
-				return LinuxFile(this, aPath, aFileName);
+				return LinuxFile(this, aPath~aFileName);
 			} 
 		// #endregion Read
 

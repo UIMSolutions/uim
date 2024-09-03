@@ -26,7 +26,7 @@ import uim.views;
  * If a listener returns a non-null value, the output of the rendered file will be set to that.
  */
 class DHelper : UIMObject { // TODO }: IEventListener {
-    mixin(HelperThis!(""));
+    mixin(HelperThis!());
 
     this(IView newView, Json[string] helperSettings = null) {
         this(helperSettings);

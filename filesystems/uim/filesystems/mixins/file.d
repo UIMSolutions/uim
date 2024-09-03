@@ -9,31 +9,32 @@ import uim.filesystems;
 
 @safe:
 string fileThis(string name = null) {
-  string fullName = name~"File";
+  string fullName = `"` ~ name ~ "File" ~ `"`;
 
   return `
     this() {
-        super("`~ fullName ~ `");
+      super(`~ fullName ~`);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+      super(`~ fullName ~`, initData);
     }
     this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }`~
-    name !is null
-      ? `this(string[] path, Json[string] initData = null) {
-        super(path, initData);
+      super(name, initData);
+    }`
+    ~
+    (name !is null
+    ? `this(string[] path, Json[string] initData = null) {
+        this(initData); this.path(path);
       }
       this(IFilesystem filesystem, Json[string] initData = null) {
-          super(filesystem, "`~ fullName ~ `", initData);
+          this(initData); this.filesystem(filesystem);
       }
       this(IFilesystem filesystem, string name, Json[string] initData = null) {
-          super(filesystem, name, initData);
+          this(name, initData); this.filesystem(filesystem);
       }
       this(IFilesystem filesystem, string[] path, Json[string] initData = null) {
-          super(filesystem, name, initData);
-      }` : ``;
+          this(name, initData); this.filesystem(filesystem);
+      }` : ``);
 }
 
 template FileThis(string name = null) {
@@ -41,17 +42,24 @@ template FileThis(string name = null) {
 }
 
 string fileCalls(string name) {
-  string fullName = name~"File";
+  string fullName = name ~ "File";
 
   return `
-auto `~fullName~`() { return new D`~fullName~`; }
-auto `~fullName~`(Json[string] initData) { return new D`~fullName~`(initData); };
-auto `~fullName~`(string name, Json[string] initData = null) { return new D`~fullName~`(name, initData); };
-auto `~fullName~`(string[] path, Json[string] initData = null) { return new D`~fullName~`(path, initData); };
+auto `
+    ~ fullName ~ `() { return new D` ~ fullName ~ `; }
+auto `
+    ~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData); };
+auto `
+    ~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); };
+auto `
+    ~ fullName ~ `(string[] path, Json[string] initData = null) { return new D` ~ fullName ~ `(path, initData); };
 
-auto `~fullName~`(IFilesystem filesystem, Json[string] initData = null) { return new D`~fullName~`(filesystem, initData); };
-auto `~fullName~`(IFilesystem filesystem, string name, Json[string] initData = null) { return new D`~fullName~`(filesystem, name, initData); };
-auto `~fullName~`(IFilesystem filesystem, string[] path, Json[string] initData = null) { return new D`~fullName~`(filesystem, path, initData); };
+auto `
+    ~ fullName ~ `(IFilesystem filesystem, Json[string] initData = null) { return new D` ~ fullName ~ `(filesystem, initData); };
+auto `
+    ~ fullName ~ `(IFilesystem filesystem, string name, Json[string] initData = null) { return new D` ~ fullName ~ `(filesystem, name, initData); };
+auto `
+    ~ fullName ~ `(IFilesystem filesystem, string[] path, Json[string] initData = null) { return new D` ~ fullName ~ `(filesystem, path, initData); };
   `;
 }
 

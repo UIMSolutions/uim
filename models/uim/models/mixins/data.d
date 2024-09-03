@@ -4,7 +4,7 @@ import uim.models;
 
 @safe:
 
-string dataThis(string name, string datatype = null) { // Name for future releases
+string dataThis(string name = null) { // Name for future releases
     string fullName = name ~ "Data";
     return `
     this() {
@@ -19,11 +19,11 @@ string dataThis(string name, string datatype = null) { // Name for future releas
     `;
 }
 
-template DataThis(string name, string datatype = null) { // Name for future releases
-  const char[] DataThis = dataThis(name, datatype);
+template DataThis(string name = null) { // Name for future releases
+  const char[] DataThis = dataThis(name);
 }
 
-string dataCalls(string name, string datatype = null) {
+string dataCalls(string name = null) {
     string fullName = name ~ "Data";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
@@ -32,8 +32,8 @@ string dataCalls(string name, string datatype = null) {
     `;
 }
 
-template DataCalls(string name, string datatype = null) {
-  const char[] DataCalls = dataCalls(name, datatype);
+template DataCalls(string name) {
+  const char[] DataCalls = dataCalls(name);
   // ~ datatype !is null ? `auto ` ~ name ~ `(` ~ datatype ~ ` newzValue) { return new D` ~ name ~ `(newzValue); }`: null;
 
   /* auto `

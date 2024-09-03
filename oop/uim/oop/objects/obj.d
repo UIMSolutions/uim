@@ -36,8 +36,9 @@ class UIMObject : INamed {
 
     Json[string] debugInfo() {
         Json[string] info; 
-        info.set("name", name);
-        return info;
+        return info
+                .set("name", name)
+			    .set("classname", this.classname);
     } 
 }
 

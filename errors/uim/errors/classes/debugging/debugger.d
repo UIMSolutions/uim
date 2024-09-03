@@ -17,7 +17,8 @@ unittest {
  * Provide custom logging and error handling.
  * Debugger : D"s default error handling and gives simpler to use more powerful interfaces.
  */
-class DDebugger : UIMObject, IDebugger {
+class DDebugger : UIMObject, IErrorDebugger
+ {
     this() {
         super("Debugger");
     }

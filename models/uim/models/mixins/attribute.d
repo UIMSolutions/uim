@@ -1,6 +1,6 @@
 module uim.models.mixins.attribute;
 
-string attributeThis(string name) {
+string attributeThis(string name = null) {
     string fullName = name ~ "Attribute";
     return `
     this() {
@@ -15,7 +15,7 @@ string attributeThis(string name) {
     `;
 }
 
-template AttributeThis(string name) {
+template AttributeThis(string name = null) {
     const char[] AttributeThis = attributeThis(name);
 }
 
@@ -34,7 +34,7 @@ template AttributeCalls(string name) {
 
 /* Old
 
-template AttributeThis(string name) {
+template AttributeThis(string name = null) {
   const char[] AttributeThis = q{
     this() { initialize(); this.name(name);  }
     this(Json newData) { this().fromJson(newData); }

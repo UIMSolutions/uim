@@ -1,6 +1,6 @@
 module uim.oop.commands.mixins;
 
-string commandThis(string name) {
+string commandThis(string name = null) {
     string fullName = name ~ "Command";
     return `
     this() {
@@ -15,7 +15,7 @@ string commandThis(string name) {
     `;
 }
 
-template CommandThis(string name) {
+template CommandThis(string name = null) {
     const char[] CommandThis = commandThis(name);
 }
 

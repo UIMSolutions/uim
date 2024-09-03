@@ -3,13 +3,13 @@ module uim.logging.mixins.logger;
 import uim.logging;
 @safe:
 
-string loggerThis(string name) {
+string loggerThis(string name = null) {
     string fullName = name ~ "Logger";
     return `
     this() {
         super("`~ fullName ~ `");
     }
-    this(string name) {
+    This(string name = null) {
         super(name);
     }
     this(Json[string] initData) {
@@ -21,7 +21,7 @@ string loggerThis(string name) {
     `;
 }
 
-template LoggerThis(string name) {
+template LoggerThis(string name = null) {
     const char[] LoggerThis = loggerThis(name);
 }
 

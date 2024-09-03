@@ -8,7 +8,7 @@ module uim.models.mixins.model;
 import uim.models;
 @safe:
 
-string modelThis(string name) {
+string modelThis(string name = null) {
     string fullName = name ~ "Model";
     return `
     this() {
@@ -38,7 +38,7 @@ string modelThis(string name) {
   `; */
 }
 
-template ModelThis(string name) {
+template ModelThis(string name = null) {
   const char[] ModelThis = modelThis(name);
 }
 

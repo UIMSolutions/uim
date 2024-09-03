@@ -3,7 +3,7 @@ module uim.oop.consoles.mixins;
 import uim.oop;
 @safe:
 
-string consoleThis(string name) {
+string consoleThis(string name = null) {
     string fullName = name ~ "Console";
     return `
     this() {
@@ -18,7 +18,7 @@ string consoleThis(string name) {
     `;
 }
 
-template ConsoleThis(string name) {
+template ConsoleThis(string name = null) {
     const char[] ConsoleThis = consoleThis(name);
 }
 

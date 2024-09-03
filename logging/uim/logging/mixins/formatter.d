@@ -3,13 +3,13 @@ module uim.logging.mixins.formatter;
 import uim.logging;
 @safe:
 
-string logFormatterThis(string name) {
+string logFormatterThis(string name = null) {
     string fullName = name ~ "LogFormatter";
     return `
     this() {
         super("`~ fullName ~ `");
     }
-    this(string name) {
+    This(string name = null) {
         super(name);
     }
     this(Json[string] initData) {
@@ -21,7 +21,7 @@ string logFormatterThis(string name) {
     `;
 }
 
-template LogFormatterThis(string name) {
+template LogFormatterThis(string name = null) {
     const char[] LogFormatterThis = logFormatterThis(name);
 }
 

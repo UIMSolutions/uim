@@ -1,7 +1,7 @@
 module uim.models.mixins.entity;
 
 // #region EntityThis
-string entityThis(string name) {
+string entityThis(string name = null) {
   string fullName = name ~ "Entity";
   return `
     this() {
@@ -16,7 +16,7 @@ string entityThis(string name) {
     `;
 }
 
-template EntityThis(string name) {
+template EntityThis(string name = null) {
   const char[] EntityThis = entityThis(name);
 }
 // #endregion EntityThis

@@ -5,9 +5,7 @@ import uim.errors;
 @safe:
 
 // Log errors and unhandled exceptions to `UIM\Log\Log`
-class DErrorLogger : IErrorLogger {
-    mixin TConfigurable;
-
+class DErrorLogger : UIMObject, IErrorLogger {
     this() {
         initialize;
     }
@@ -16,11 +14,12 @@ class DErrorLogger : IErrorLogger {
         initialize(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-        configuration.setDefault("trace", false); // `trace` = Should error logs include stack traces?
-        
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        configuration.setDefault("trace", false); // `trace` = Should error logs include stack traces?        
         return true;
     }
 

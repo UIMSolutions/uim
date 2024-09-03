@@ -41,7 +41,6 @@ import uim.controllers;
  */
 class DComponent : UIMObject, IEventListener {
     mixin(ComponentThis!());
-    // mixin TConfigurable;
     mixin TLog;
 
     // Hook method

@@ -20,9 +20,7 @@ unittest {
  *
  * @internal
  */
-class DDebugContext {
-    mixin TConfigurable;
-    
+class DDebugContext : UIMObject {
     this() {
         initialize;
     }
@@ -31,14 +29,13 @@ class DDebugContext {
         initialize(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     private int _maxDepth = 0;
 

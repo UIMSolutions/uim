@@ -31,9 +31,7 @@ import uim.consoles;
  * See ConsoleOutput.styles() to learn more about defining your own styles. Nested styles are not supported
  * at this time.
  */
-class DConsoleOutput {
-    mixin TConfigurable;
-
+class DConsoleOutput : UIMObject {
     this() {
         initialize;
     }
@@ -42,9 +40,10 @@ class DConsoleOutput {
         initialize(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         _foregroundColors = [
             "black": 30,

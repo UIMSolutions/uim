@@ -26,19 +26,16 @@ import uim.http;
  * ```
  */
 
-class DCookie : ICookie {
-    mixin TConfigurable;
-
+class DCookie : UIMObject, ICookie {
     this() { initialize; }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     // Expires attribute format.
     const string EXPIRES_FORMAT = "D, d-M-Y H:i:s T";

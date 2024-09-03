@@ -9,8 +9,7 @@ import uim.consoles;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Core\IConsoleApplication>
  */
-class DCommandRunner { // }: IEventDispatcher {
-    mixin TConfigurable;
+class DCommandRunner : UIMObject { // }: IEventDispatcher {
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
     mixin TEventDispatcher;
 
@@ -22,14 +21,13 @@ class DCommandRunner { // }: IEventDispatcher {
         initialize(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     // The application console commands are being run for.
     protected IConsoleApplication _app;

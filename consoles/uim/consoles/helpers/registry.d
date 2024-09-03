@@ -10,9 +10,7 @@ import uim.consoles;
  *
  * @extends \UIM\Core\ObjectRegistry<\UIM\Console\Helper>
  */
-class DHelperRegistry { // }: ObjectRegistry {
-    mixin TConfigurable;
-
+class DHelperRegistry : UIMObject { // }: ObjectRegistry {
     this() {
         initialize;
     }
@@ -21,14 +19,14 @@ class DHelperRegistry { // }: ObjectRegistry {
         initialize(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         return true;
     }
 
-    mixin(TProperty!("string", "name"));
     /* 
     // IO instance.
     protected IConsoleIo _io;

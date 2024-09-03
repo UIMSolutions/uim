@@ -5,31 +5,33 @@ import uim.consoles;
 @safe:
 
 // Collection for Commands.
-class DCommandCollection { // : IteratorAggregate, Countable {
-    mixin TConfigurable;
-
+class DCommandCollection : UIMObject { // : IteratorAggregate, Countable {
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        return true;
+    this(string name, Json[string] initData = null) {
+        super(name, initData);
     }
-
-    mixin(TProperty!("string", "name"));
-    // Command list
-    protected DCommand[string] _commands;
 
     this(DCommand[string] newCommands) {
         this().addCommands(newCommands);
     }
+
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // Command list
+    protected DCommand[string] _commands;
 
     // #region add
     // Add multiple commands at once.

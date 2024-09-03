@@ -40,7 +40,7 @@ import uim.views;
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
 class DView : UIMObject, IView { //  }: IEventDispatcher {
-    mixin(ViewThis!(""));
+    mixin(ViewThis!());
 
     // @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
     mixin TEventDispatcher;

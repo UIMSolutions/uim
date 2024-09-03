@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DElement : UIMObject, IElement {
-  mixin(DataThis!(""));
+  mixin(DataThis!());
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {

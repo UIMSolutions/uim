@@ -5,7 +5,7 @@ import uim.views;
 @safe:
 
 class DContext : UIMObject, IContext {
-    mixin(ContextThis!(""));
+    mixin(ContextThis!());
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {

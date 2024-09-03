@@ -21,7 +21,7 @@ import uim.views;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Form\Form>
  */
 class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
-    mixin(FormThis!(""));
+    mixin(FormThis!());
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {

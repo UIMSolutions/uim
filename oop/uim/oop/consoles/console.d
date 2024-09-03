@@ -4,7 +4,7 @@ import uim.oop;
 @safe:
 
 class DConsole : UIMObject, IConsole {
-    mixin(ConsoleThis!(""));
+    mixin(ConsoleThis!());
 /*    mixin TLocatorAware;
     mixin TLog; */
 

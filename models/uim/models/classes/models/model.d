@@ -4,7 +4,7 @@ import uim.models;
 
 @safe:
 class DModel : UIMObject, IModel {
-  mixin(ModelThis!(""));
+  mixin(ModelThis!());
 
   this(IModelManager aManager, Json[string] configData = null) {
     this(configData);

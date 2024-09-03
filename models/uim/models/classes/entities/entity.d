@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DEntity : DElement, IEntity /* : IRegistrable */ {
-  mixin(DataThis!(""));
+  mixin(DataThis!());
 
   // this(DOOPModel myModel) { this().model(myModel); }
   this(UUID myId) {

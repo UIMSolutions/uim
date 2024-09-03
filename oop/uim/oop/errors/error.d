@@ -11,7 +11,7 @@ import uim.oop;
 
 // Error base class for UIM applications
 class DError : UIMObject, IError {
-  mixin(ErrorThis!(""));
+  mixin(ErrorThis!());
 
   this(
     ERRORS errorCode,

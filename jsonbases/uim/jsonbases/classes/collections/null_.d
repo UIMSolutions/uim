@@ -10,7 +10,7 @@ unittest {
 
 @safe:
 class DNullJsonCollection : DJsonCollection {
-  mixin(JsonCollectionThis!("NullJsonCollection"));
+  mixin(JsonCollectionThis!("Null"));
   
   // #region FindMany
   alias findMany = DJsonCollection.findMany;
@@ -200,7 +200,7 @@ class DNullJsonCollection : DJsonCollection {
       // TODO
       }}
 }
-mixin(JsonCollectionCalls!("NullJsonCollection"));
+mixin(JsonCollectionCalls!("Null"));
 
 unittest {
   version(testUimJsonbase) { 

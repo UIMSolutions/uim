@@ -10,7 +10,7 @@ unittest {
 
 @safe:
 class DMemoryJsonCollection : DJsonCollection {
-  mixin(JsonCollectionThis!("MemoryJsonCollection"));
+  mixin(JsonCollectionThis!("Memory"));
 
   protected Json[size_t][UUID] _items;
 
@@ -445,10 +445,6 @@ class DMemoryJsonCollection : DJsonCollection {
   }
 }
 
-mixin(JsonCollectionCalls!("MemoryJsonCollection"));
+mixin(JsonCollectionCalls!("Memory"));
 
-unittest {
-  version (testUimJsonbase) {
-    debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
-  }
-}
+

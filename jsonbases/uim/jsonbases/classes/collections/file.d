@@ -11,7 +11,7 @@ unittest {
 @safe:
 
 class DFileJsonCollection : DJsonCollection {
-  mixin(JsonCollectionThis!("FileJsonCollection"));
+  mixin(JsonCollectionThis!("File"));
   this(IFolder aFolder) {
     this();
     folder(aFolder);
@@ -516,7 +516,7 @@ class DFileJsonCollection : DJsonCollection {
   // #endregion removeOne()
 }
 
-mixin(JsonCollectionCalls!("FileJsonCollection"));
+mixin(JsonCollectionCalls!("File"));
 
 unittest {
   version (testUimJsonbase) {

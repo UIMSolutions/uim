@@ -21,7 +21,6 @@ class DJsonTenant : UIMObject, IJsonTenant, IJsonCollectionManager {
 
   mixin TJsonCollectionManager!();
 }
-mixin(JsonTenantCalls!("JsonTenant"));
 
 unittest {
   version(testUimJsonbase) { 

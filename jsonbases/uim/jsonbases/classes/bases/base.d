@@ -10,7 +10,7 @@ unittest {
 
 @safe:
 class DJsonBase : UIMObject, IJsonBase, IJsonTenantManager {
-  mixin(JsonbaseThis!());
+  mixin(JsonBaseThis!());
   
   mixin(TProperty!("string", "classname"));
 

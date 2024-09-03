@@ -10,7 +10,7 @@ unittest {
 
 @safe:
 class DFileJsonBase : DJsonBase {
-  mixin(JsonBaseThis!("FileJsonBase"));
+  mixin(JsonBaseThis!("File"));
 
 /* this(string newRootPath) {
     this(); this.rootPath(newRootPath); 
@@ -46,7 +46,7 @@ class DFileJsonBase : DJsonBase {
     return (addTenant(aName, FileJsonTenant(aName)) ? tenant(aName) : null);
   }
 }
-mixin(JsonBaseCalls!("FileJsonBase"));
+mixin(JsonBaseCalls!("File"));
 // auto FileJsonBase(string newRootPath) { return new DFileJsonBase(newRootPath); }
 
 unittest {

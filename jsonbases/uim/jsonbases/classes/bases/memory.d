@@ -10,7 +10,7 @@ unittest {
 
 @safe:
 class DMemoryJsonBase : DJsonBase {
-  mixin(JsonBaseThis!("MemoryJsonBase"));
+  mixin(JsonBaseThis!("Memory"));
 
   // Create
   override IJsonTenant createTenant(string aName) {
@@ -18,7 +18,7 @@ class DMemoryJsonBase : DJsonBase {
     return tenant(aName);
   }
 }
-mixin(JsonBaseCalls!("MemoryJsonBase"));
+mixin(JsonBaseCalls!("Memory"));
 
 unittest {
   version(testUimJsonbase) { 

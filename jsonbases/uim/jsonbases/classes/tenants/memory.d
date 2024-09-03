@@ -11,6 +11,6 @@ version(testUimJsonbase) {
 @safe:
 /// MemoryTenant manages MemoryCollections
 class DMemoryJsonTenant : DJsonTenant {
-  mixin(JsonTenantThis!("MemoryJsonTenant"));
+  mixin(JsonTenantThis!("Memory"));
 }
-mixin(JsonTenantCalls!("MemoryJsonTenant"));
+mixin(JsonTenantCalls!("Memory"));

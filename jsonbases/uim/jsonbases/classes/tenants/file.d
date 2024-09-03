@@ -11,7 +11,7 @@ version(testUimJsonbase) {
 @safe:
 /// FileJsonTenant manages FileCollections
 class DFileJsonTenant : DJsonTenant {
-  mixin(JsonTenantThis!("FileJsonTenant"));
+  mixin(JsonTenantThis!("File"));
 
   // #region hasCollection() 
   override bool hasCollection(string aName) {
@@ -21,7 +21,7 @@ class DFileJsonTenant : DJsonTenant {
   }
   // #endregion hasCollection() 
 }
-mixin(JsonTenantCalls!("FileJsonTenant"));
+mixin(JsonTenantCalls!("File"));
 
 unittest {
   version(testUimJsonbase) { 

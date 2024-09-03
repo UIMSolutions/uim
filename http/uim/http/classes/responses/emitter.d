@@ -157,7 +157,7 @@ class DResponseEmitter {
         return setCookie(Cookie.createFromHeaderString(cookie, ["path": ""]));
     }
     protected bool setCookie(ICookie acookie) {
-        return setcookie(cookie.name, cookie.getScalarValue(), cookie.getOptions());
+        return setcookie(cookie.name, cookie.getScalarValue(), cookie.options());
     }
     
     /**

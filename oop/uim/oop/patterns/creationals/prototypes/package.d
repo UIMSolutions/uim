@@ -22,7 +22,7 @@ interface ICloneable {}
     return type;
   }
   
-  string getId() {
+  string id() {
     return id;
   }
   
@@ -91,15 +91,15 @@ class DShapeCache {
   static void loadCache() {
     DCircle circle = new DCircle();
     circle.setId("1");
-    _shapeMap[circle.getId()] = circle;
+    _shapeMap[circle.id()] = circle;
 
     DSquare square = new DSquare();
     square.setId("2");
-    _shapeMap[square.getId()] = square;
+    _shapeMap[square.id()] = square;
 
     DRectangle rectangle = new DRectangle();
     rectangle.setId("3");
-    _shapeMap[rectangle.getId()] = rectangle;
+    _shapeMap[rectangle.id()] = rectangle;
   }
 }
 

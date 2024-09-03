@@ -77,8 +77,7 @@ class DCookie : UIMObject, ICookie {
     }
 
     // Get the domain attribute.
-    
-    string getDomain() {
+    string domain() {
         return null; 
     }
 
@@ -112,7 +111,7 @@ class DCookie : UIMObject, ICookie {
     // TODO static withSameSite(SameSiteEnum|string sameSite);
 
     // Get cookie options
-    Json[string] getOptions() {
+    Json[string] options() {
         return null;
     }
 

@@ -69,7 +69,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         return match(commandArguments.getArgument("mode")) {
             "commands" : getCommands(commandArguments, aConsoleIo),
             "subcommands" : getSubcommands(commandArguments, aConsoleIo),
-            "options" : getOptions(commandArguments, aConsoleIo),
+            "options" : options(commandArguments, aConsoleIo),
             default : CODE_ERROR,
         };
     }
@@ -114,7 +114,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     }
 
     // Get the options for a command or subcommand
-    protected int getOptions(Json[string] arguments, IConsoleIo aConsoleIo) {
+    protected int options(Json[string] arguments, IConsoleIo aConsoleIo) {
         auto commandName = commandArguments.getArgument("command");
         auto subcommand = commandArguments.getArgument("subcommand");
 

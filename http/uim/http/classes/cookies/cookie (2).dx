@@ -304,7 +304,7 @@ class DCookie : ICookie {
         return newCookie;
     }
  
-    string getDomain() {
+    string domain() {
         return _domain;
     }
  
@@ -477,7 +477,7 @@ class DCookie : ICookie {
         return _isExpanded;
     }
  
-    Json[string] getOptions() {
+    Json[string] options() {
         options = [
             "expires": to!int(getExpiresTimestamp()),
             "path": _path,
@@ -495,7 +495,7 @@ class DCookie : ICookie {
         return [
             "name": _name,
             "value": getScalarValue(),
-        ] + getOptions();
+        ] + options();
     }
     
     // Implode method to keep keys are multidimensional arrays

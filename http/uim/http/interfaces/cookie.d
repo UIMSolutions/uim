@@ -5,23 +5,19 @@ import uim.http;
 
 @safe:
 
-// use IDateTime;
 // Cookie Interface
-interface ICookie {
+interface ICookie : INamed {
     // Get the id for a cookie
-    string getId();
+    string id();
 
     // Get the path attribute.
     string getPath();
 
     // Get the domain attribute.
-    string getDomain();
+    string domain();
 
 /*  // Sets the cookie name
     static void withName(string aName);
-
-    // Gets the cookie name
-    string name();
 
     // Gets the cookie value
     string[] getValue();
@@ -108,7 +104,7 @@ interface ICookie {
     static auto withSameSite(SameSiteEnum|string sameSite);
 
     // Get cookie options
-    Json[string] getOptions();
+    Json[string] options();
 
     // Get cookie data as array.
     Json[string] toArray();

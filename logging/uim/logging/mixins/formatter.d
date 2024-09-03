@@ -9,9 +9,6 @@ string logFormatterThis(string name = null) {
     this() {
         super(`~ fullName ~ `);
     }
-    this(string name) {
-        super(name);
-    }
     this(Json[string] initData) {
         super(`~ fullName ~ `, initData);
     }

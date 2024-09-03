@@ -188,7 +188,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
                 continue;
             }
             
-            auto domain = cookie.getDomain();
+            auto domain = cookie.domain();
             if (domain.startWith(".")) {
                 domain = stripLeft(domain, ".");
             }
@@ -239,7 +239,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             }
 
             auto somePathMatches = somePath.startWith(cookie.getPath());
-            auto hostMatches = preg_match(hostPattern, cookie.getDomain());
+            auto hostMatches = preg_match(hostPattern, cookie.domain());
             if (somePathMatches && hostMatches) {
                 removeKey(_cookies[index]);
             }

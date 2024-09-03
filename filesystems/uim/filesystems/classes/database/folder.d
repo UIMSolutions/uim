@@ -14,5 +14,9 @@ unittest {
 @safe:
 class DDatabaseFolder : DFolder {
   mixin(FolderThis!("Database"));
+
+  override Json[string] debugInfo() {
+    return super.debugInfo();
+  }
 }
 mixin(FolderCalls!("Database"));

@@ -15,10 +15,10 @@ class DEvent : UIMObject, IEvent {
      * event = new DEvent("User.afterRegister", userModel);
      * ```
      */
-    this(string eventName, IEventObject subject = null, Json[string] data = null) {
-        _name = eventName;
+    this(string name, IEventObject subject, Json[string] initData = null) {
+        this(name, initData);
         _subject = subject;
-        _data = dataToTransport;
+        _data = initData; 
     }
 
     // The object this event applies to (usually the same object that generates the event)
@@ -34,8 +34,9 @@ class DEvent : UIMObject, IEvent {
     protected bool _isStopped = false;
 
     // Stops the event from being used anymore
-    void stopPropagation() {
+    IEvent stopPropagation() {
         _isStopped = true;
+        return this;
     }
 
     // Check if the event is stopped
@@ -53,7 +54,7 @@ class DEvent : UIMObject, IEvent {
 
     // #region data 
     Json opIndex(string key) {
-        return data.get(key);
+        return data(key);
     }
 
     Json[string] data() {
@@ -61,7 +62,7 @@ class DEvent : UIMObject, IEvent {
     }
 
     Json data(string key) {
-        return _data.get(key);
+        return _data.value(key);
     }
 
     void opIndexAssign(Json value, string key) {

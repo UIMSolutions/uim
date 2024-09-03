@@ -10,18 +10,15 @@ import uim.events;
  * represents the object that the event applies to.
  */
 interface IEvent : INamed {
-  // Returns the name of this event. This is usually used as the event identifier.
-  string name();
-
-  /* 
-  // Returns the subject of this event.
-  IEventObject subject();
-
   // Stops the event from being used anymore.
   IEvent stopPropagation();
 
   // Checks if the event is stopped.
   bool isStopped();
+
+  /* 
+  // Returns the subject of this event.
+  IEventObject subject();
 
   // The result value of the event listeners.
   Json result();

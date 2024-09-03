@@ -15,7 +15,7 @@ unittest {
 
 @safe:
 class DFile : DFilesystemEntry, IFile {
-	mixin(FileThis!("File"));
+	mixin(FileThis!());
 
 	override bool initialize(Json[string] initData = null) { // Hook
 		if (!super.initialize(initData)) {

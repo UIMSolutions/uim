@@ -54,7 +54,7 @@ class DFilesystem : UIMObject, IFilesystem, IFolderManager, IFileManager, ILinkM
   }
 
   void path(string[] path) {
-    _path = path.strip;
+    // TODO _path = path.strip;
   }
 
   // Returns information about the type of the filesystem

@@ -7,14 +7,20 @@ module uim.filesystems.classes.memory.file;
 
 import uim.filesystems;
 
-unittest { 
-  version(testUimFilesystems) { 
-    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
+unittest {
+  version (testUimFilesystems) {
+    debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
   }
 }
 
 @safe:
 class DMemoryFile : DFile {
   mixin(FileThis!("Memory"));
+
+  override Json[string] debugInfo() {
+    return super.debugInfo();
+  }
+
 }
+
 mixin(FileCalls!("Memory"));

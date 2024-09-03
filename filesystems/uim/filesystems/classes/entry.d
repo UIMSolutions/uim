@@ -28,22 +28,26 @@ class DFilesystemEntry : UIMObject, IFilesystemEntry {
 	}
 
 	this(string[] path, Json[string] initData = null) {
-		this(initData).path(path);
+		this(initData);
+		this.path(path);
 	}
 
 	this(IFilesystem filesystem, Json[string] initData = null) {
-		this(initData).filesystem(filesystem);
+		this(initData);
+		this.filesystem(filesystem);
 	}
 
 	this(IFilesystem filesystem, string name, Json[string] initData = null) {
-		this(name, initData).filesystem(filesystem);
+		this(name, initData);
+		this.filesystem(filesystem);
 	}
 
 	this(IFilesystem filesystem, string[] path, Json[string] initData = null) {
-		this(path, initData).filesystem(filesystem);
+		this(name, initData);
+		this.filesystem(filesystem);
 	}
 
-	override bool initialize(Json[string] initData = null) { 
+	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) {
 			return false;
 		}
@@ -148,13 +152,10 @@ class DFilesystemEntry : UIMObject, IFilesystemEntry {
 		return this.classname ~ ": " ~ name;
 	}
 
-	string debugInfo() {
-		return `-----
-classname:    %s
-Name: 		    %s
-relPath: %s
-absolutePath: %s
------`.format(this.classname, name, "relPath", "absolutePath");
+	override Json[string] debugInfo() {
+		return super.debugInfo()
+			.set("relPath", relPath)
+			.set("absolutePath", absolutePath);
 	}
 }
 

@@ -14,5 +14,9 @@ unittest {
 @safe:
 class DDatabaseFile : DFile {
   mixin(FileThis!("Database"));
+
+  override Json[string] debugInfo() {
+    return super.debugInfo();
+  }
 }
 mixin(FileCalls!("Database"));

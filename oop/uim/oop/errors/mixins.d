@@ -1,13 +1,13 @@
 module uim.oop.errors.mixins;
 
 string errorThis(string name = null) {
-    string fullName = name ~ "Error";
+    string fullName = `"` ~ name ~ "Error" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

@@ -1,7 +1,7 @@
 module uim.oop.formatters.mixins;
 
-string FormatterThis(string name = null) {
-    string fullName = name ~ "Formatter";
+string formatterThis(string name = null) {
+    string fullName = `"` ~ name ~ "Formatter" ~ `"`;
     return `
     this() {
         super("`~ fullName ~ `");
@@ -16,10 +16,10 @@ string FormatterThis(string name = null) {
 }
 
 template FormatterThis(string name = null) {
-    const char[] FormatterThis = FormatterThis(name);
+    const char[] FormatterThis = formatterThis(name);
 }
 
-string FormatterCalls(string name) {
+string formatterCalls(string name) {
     string fullName = name ~ "Formatter";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
@@ -29,5 +29,5 @@ string FormatterCalls(string name) {
 }
 
 template FormatterCalls(string name) {
-    const char[] FormatterCalls = FormatterCalls(name);
+    const char[] FormatterCalls = formatterCalls(name);
 }

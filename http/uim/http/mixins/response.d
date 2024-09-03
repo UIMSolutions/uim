@@ -1,13 +1,13 @@
 module uim.http.mixins.response;
 
 string responseThis(string name = null) {
-    string fullName = name ~ "Response";
+    string fullName = `"` ~ name ~ "Response" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

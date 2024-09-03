@@ -1,13 +1,13 @@
 module uim.i18n.mixins.loader;
 
 string loaderThis(string name = null) {
-    string fullName = name ~ "Loader";
+    string fullName = `"` ~ name ~ "Loader" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

@@ -4,13 +4,13 @@ import uim.logging;
 @safe:
 
 string logEngineThis(string name = null) {
-    string fullName = name ~ "LogEngine";
+    string fullName = `"` ~ name ~ "LogEngine" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

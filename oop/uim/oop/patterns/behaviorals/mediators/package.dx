@@ -17,7 +17,7 @@ class DChatRoom {
 
 /// Create user class
 class DUser {
-  This(string name = null) {
+  this(string name) {
     this.name = name;
   }
 

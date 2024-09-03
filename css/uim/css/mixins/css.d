@@ -1,13 +1,13 @@
 module uim.css.mixins.css;
 
 string cssThis(string name = null) {
-    string fullName = name ~ "Css";
+    string fullName = `"` ~ name ~ "Css" ~`"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

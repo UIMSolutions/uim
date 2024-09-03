@@ -4,6 +4,7 @@ import uim.jsonbases;
 
 @safe:
 string jsonBaseThis(string aName) {
+  string fullName = name ~ "JsonBase";
   return `
     this() {
         super("`~ fullName ~ `");

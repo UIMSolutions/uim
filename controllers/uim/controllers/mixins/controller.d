@@ -1,13 +1,13 @@
 module uim.controllers.mixins.controller;
 
 string controllerThis(string name = null) {
-    string fullName = name ~ "Controller";
+    string fullName = `"` ~ name ~ "Controller" ~`"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

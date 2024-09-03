@@ -1,13 +1,13 @@
 module uim.renderers.mixins.renderer;
 
 string rendererThis(string name = null) {
-    string fullName = name ~ "Renderer";
+    string fullName = `"` ~ name ~ "Renderer" ~`"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

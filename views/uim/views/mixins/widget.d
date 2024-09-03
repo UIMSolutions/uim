@@ -4,7 +4,7 @@ import uim.views;
 
 @safe:
 
-string widgetThis(string name) {
+string widgetThis(string name = null) {
     string fullName = name ~ "Widget";
     return `
     this() {
@@ -19,7 +19,7 @@ string widgetThis(string name) {
     `;
 }
 
-template WidgetThis(string name) {
+template WidgetThis(string name = null) {
     const char[] WidgetThis = widgetThis(name);
 }
 

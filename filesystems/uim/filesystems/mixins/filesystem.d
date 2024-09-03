@@ -5,36 +5,46 @@
 ***********************************************************************************/
 module uim.filesystems.mixins.filesystem;
 
-string filesystemThis(string shortName) {
-string fullName = shortName~"Filesystem";
+string filesystemThis(string name = null) {
+  string fullName = name ~ "Filesystem";
 
-  return `
-    this() {
-        super("`~ fullName ~ `");
+  string mainPart = `this() {
+        super("`
+    ~ fullName ~ `");
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super("`
+    ~ fullName ~ `", initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);
-    }
-  `;
+    }`;
+
+  if (name !is null) {
+    mainPart ~= `this(string[] path, Json[string] initData = null) { super(path, initData); }`;
+  }
+  return mainPart;
 }
 
-template FilesystemThis(string shortName) {
-  const char[] FilesystemThis = filesystemThis(shortName);
+template FilesystemThis(string name = null) {
+  const char[] FilesystemThis = filesystemThis(name);
 }
 
-string filesystemCalls(string shortName) {
-  string fullName = shortName~"Filesystem";
+string filesystemCalls(string name) {
+  string fullName = name ~ "Filesystem";
 
   return `
-auto `~fullName~`() { return new D`~fullName~`; }
-
-auto `~fullName~`(string aName) { return new D`~fullName~`(aName); };
+auto `
+    ~ fullName ~ `() { return new D` ~ fullName ~ `; }
+auto `
+    ~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData); };
+auto `
+    ~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); };
+auto `
+    ~ fullName ~ `(string[] path, Json[string] initData = null) { return new D` ~ fullName ~ `(path, initData); };
   `;
 }
 
-template FilesystemCalls(string shortName) {
-  const char[] FilesystemCalls = filesystemCalls(shortName);
+template FilesystemCalls(string name) {
+  const char[] FilesystemCalls = filesystemCalls(name);
 }

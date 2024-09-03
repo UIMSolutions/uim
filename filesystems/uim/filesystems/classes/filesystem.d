@@ -17,11 +17,15 @@ unittest {
 class DFilesystem : UIMObject, IFilesystem, IFolderManager, IFileManager, ILinkManager {
   mixin(FilesystemThis!(""));
 
-  override bool initialize(Json[string] initData = null) { 
+  this(string[] path, Json[string] initData = null) {
+    this(initData).path(path);
+  }
+
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
-      return false; 
+      return false;
     }
-    
+
     pathSeparator("/");
     return true;
   }

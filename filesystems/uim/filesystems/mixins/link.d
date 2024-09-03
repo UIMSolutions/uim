@@ -8,7 +8,7 @@ module uim.filesystems.mixins.link;
 import uim.filesystems;
 
 @safe:
-string linkThis(string shortName) {
+string linkThis(string name = null) {
   string fullName = shortName ~ "Link";
 
   return `
@@ -28,12 +28,12 @@ this(IFilesystem aFilesystem, string aName) { this(aFilesystem); this.name(aName
   `;
 }
 
-template LinkThis(string shortName) {
-  const char[] LinkThis = linkThis(shortName);
+template LinkThis(string name = null) {
+  const char[] LinkThis = linkThis(name);
 }
 
-string linkCalls(string shortName) {
-  string fullName = shortName ~ "Link";
+string linkCalls(string name) {
+  string fullName = name ~ "Link";
 
   return `
 auto `

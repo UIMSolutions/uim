@@ -1,6 +1,6 @@
 module uim.http.mixins.cookie;
 
-string cookieThis(string name) {
+string cookieThis(string name = null) {
     string fullName = name ~ "Cookie";
     return `
     this() {
@@ -15,7 +15,7 @@ string cookieThis(string name) {
     `;
 }
 
-template CookieThis(string name) {
+template CookieThis(string name = null) {
     const char[] CookieThis = cookieThis(name);
 }
 

@@ -13,9 +13,9 @@ interface IFilesystem : IFolderManager, IFileManager, ILinkManager {
     // Returns rootPath of filesystem
     string rootPath();
 
-    // Sets or returns the name of the filesystem
-    string name();
-    void name(string newName);
+    // Sets or returns the path of the filesystem
+    string[] path();
+    void path(string[] path);
 
     // Returns information about type of filsystem
     string type();

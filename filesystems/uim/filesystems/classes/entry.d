@@ -14,43 +14,40 @@ unittest {
 }
 
 @safe:
-class DFilesystemEntry : IFilesystemEntry {
-    mixin TConfigurable; 
-
+class DFilesystemEntry : UIMObject, IFilesystemEntry {
 	this() {
-		initialize;
+		super("FilesystemEntry");
 	}
 
-	this(IFilesystem aFilesystem) {
-		this();
-		this.filesystem(aFilesystem);
-	};
-	this(string[] aPath) {
-		this();
-		this.path(aPath);
-	};
-	this(string aName) {
-		this();
-		this.name(aName);
-	};
+	this(Json[string] initData) {
+		super("FilesystemEntry", initData);
+	}
 
-	this(IFilesystem aFilesystem, string[] aPath) {
-		this(aFilesystem);
-		this.path(aPath);
-	};
-	this(IFilesystem aFilesystem, string aName) {
-		this(aFilesystem);
-		this.name(aName);
-	};
+	this(string name, Json[string] initData = null) {
+		super(name, initData);
+	}
 
-	this(IFilesystem aFilesystem, string[] aPath, string aName) {
-		this(aFilesystem, aPath);
-		this.name(aName);
-	};
+	this(string[] path, Json[string] initData = null) {
+		this(initData).path(path);
+	}
 
-	bool initialize(Json[string] initData = null) { // Hook
-		configuration(MemoryConfiguration);
-		configuration.data(initData);
+	this(IFilesystem filesystem, Json[string] initData = null) {
+		this(initData).filesystem(filesystem);
+	}
+
+	this(IFilesystem filesystem, string name, Json[string] initData = null) {
+		this(name, initData).filesystem(filesystem);
+	}
+
+	this(IFilesystem filesystem, string[] path, Json[string] initData = null) {
+		this(path, initData).filesystem(filesystem);
+	}
+
+	override bool initialize(Json[string] initData = null) { 
+		if (!super.initialize(initData)) {
+			return false;
+		}
+
 		return true;
 	}
 
@@ -62,7 +59,6 @@ class DFilesystemEntry : IFilesystemEntry {
 	mixin(TProperty!("IFilesystem", "filesystem"));
 
 	// Get name of entry
-	mixin(TProperty!("string", "name"));
 	mixin(TProperty!("string[]", "path"));
 
 	size_t size() {

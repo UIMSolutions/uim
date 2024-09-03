@@ -1,6 +1,6 @@
 module uim.http.mixins.adapter;
 
-string adapterThis(string name) {
+string adapterThis(string name = null) {
     string fullName = name ~ "Adapter";
     return `
     this() {
@@ -15,7 +15,7 @@ string adapterThis(string name) {
     `;
 }
 
-template AdapterThis(string name) {
+template AdapterThis(string name = null) {
     const char[] AdapterThis = adapterThis(name);
 }
 

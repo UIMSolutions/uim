@@ -1,13 +1,13 @@
 module uim.http.mixins.adapter;
 
 string adapterThis(string name = null) {
-    string fullName = name ~ "Adapter";
+    string fullName = `"` ~ name ~ "Adapter"~`"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

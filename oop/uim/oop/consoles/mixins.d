@@ -4,13 +4,13 @@ import uim.oop;
 @safe:
 
 string consoleThis(string name = null) {
-    string fullName = name ~ "Console";
+    string fullName = `"` ~ name ~ "Console" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

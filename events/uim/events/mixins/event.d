@@ -1,13 +1,13 @@
 module uim.events.mixins.event;
 
 string eventThis(string name = null) {
-    string fullName = name ~ "Event";
+    string fullName = `"` ~ name ~ "Event" ~`"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

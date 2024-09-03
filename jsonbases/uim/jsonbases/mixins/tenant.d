@@ -3,7 +3,8 @@ module uim.jsonbases.mixins.tenant;
 import uim.jsonbases;
 
 @safe:
-string jsonTenantThis(string aName) {
+string jsonTenantThis(string name = null) {
+  string fullName = name ~ "JsonTenant";
   return `
     this() {
         super("`~ fullName ~ `");
@@ -13,15 +14,16 @@ string jsonTenantThis(string aName) {
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);
-    }
-this(IJsonBase aBase) { this(); this.base(aBase); }
-
-this(IJsonBase aBase, string aName) { this(aBase); this.name(aName); }
-  `;
+    }`
+    ~(name !is null
+      ? `
+        this(IJsonBase base, Json[string] initData = null) { super(base, initData); }
+        this(IJsonBase base, string name, Json[string] initData = null) { super(base, name, initData); }`
+      : ``);
 }
 
-template JsonTenantThis(string aName) {
-  const char[] JsonTenantThis = jsonTenantThis(aName);
+template JsonTenantThis(string name) {
+  const char[] JsonTenantThis = jsonTenantThis(name);
 }
 
 string jsonTenantCalls(string shortName, string classname = null) {
@@ -29,9 +31,10 @@ string jsonTenantCalls(string shortName, string classname = null) {
 
   return `
 auto `~shortName~`() { return new `~clName~`; }
-auto `~shortName~`(IJsonBase aBase) { return new `~clName~`(aBase); }
-auto `~shortName~`(string aName) { return new `~clName~`(aName); }
-auto `~shortName~`(IJsonBase aBase, string aName) { return new `~clName~`(aBase, aName); }
+auto `~shortName~`(Json[string] initData) { return new `~clName~`(initData); }
+auto `~shortName~`(string name, Json[string] initData = null) { return new `~clName~`(name, initData); }
+auto `~shortName~`(IJsonBase base, Json[string] initData = null) { return new `~clName~`(base, initData); }
+auto `~shortName~`(IJsonBase base, string name, Json[string] initData = null) { return new `~clName~`(base, name,initData); }
   `;
 }
 

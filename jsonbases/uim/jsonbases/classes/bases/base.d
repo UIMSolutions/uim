@@ -9,23 +9,10 @@ unittest {
 }
 
 @safe:
-class DJsonBase : IJsonBase, IJsonTenantManager {
-  this() {
-    initialize;
-    this.classname("JsonBase");
-  }
-
-  this(string aName) {
-    this();
-    this.name(aName);
-  }
-
-  bool initialize(Json[string] initData = null) { // Hook
-    return true;
-  }
-
+class DJsonBase : UIMObject, IJsonBase, IJsonTenantManager {
+  mixin(JsonbaseThis!());
+  
   mixin(TProperty!("string", "classname"));
-  mixin(TProperty!("string", "name"));
 
   // #region TenantManager
   // Tenants

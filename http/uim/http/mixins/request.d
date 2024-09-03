@@ -1,7 +1,7 @@
 module uim.http.mixins.request;
 
 string requestThis(string name = null) {
-    string fullName = name ~ "Request";
+    string fullName = `"` ~ name ~ "Request" ~ `"`;
     return `
     this() {
         super("`~ fullName ~ `");

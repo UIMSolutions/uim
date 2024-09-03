@@ -41,7 +41,7 @@ template FolderThis(string name = null) {
 }
 
 string folderCalls(string name) {
-  string fullName = shornametName~"Folder";
+  string fullName = name~"Folder";
 
   return `
 auto `~fullName~`() { return new D`~fullName~`; }

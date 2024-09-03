@@ -5,7 +5,7 @@ import uim.events;
 @safe:
 
 class DEvent : UIMObject, IEvent {
-    mixin(EventThis!(""));
+    mixin(EventThis!());
 
     /**
      * ### Examples of usage:

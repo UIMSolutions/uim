@@ -50,7 +50,7 @@ import uim.controllers;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Controller\Controller>
  */
 class DController : UIMObject, IController { // IEventListener, IEventDispatcher {    
-    mixin(ControllerThis!(""));
+    mixin(ControllerThis!());
 
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
     mixin TEventDispatcher;

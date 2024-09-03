@@ -7,7 +7,7 @@ import uim.logging;
 
 // Base class for LogFormatters
 class DLogFormatter : UIMObject, ILogFormatter {
-    mixin(LogFormatterThis!(""));
+    mixin(LogFormatterThis!());
 /*    mixin TLocatorAware;
     mixin TLog; */
 

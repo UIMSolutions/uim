@@ -6,7 +6,7 @@ import uim.logging;
 @safe:
 
 class DLogger : UIMObject, ILogger {
-    mixin(LoggerThis!(""));
+    mixin(LoggerThis!());
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {

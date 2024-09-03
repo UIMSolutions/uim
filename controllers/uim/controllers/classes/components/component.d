@@ -40,7 +40,7 @@ import uim.controllers;
  * is the subject of each event and can be fetched using IEvent.getSubject().
  */
 class DComponent : UIMObject, IEventListener {
-    mixin(ComponentThis!(""));
+    mixin(ComponentThis!());
     // mixin TConfigurable;
     mixin TLog;
 

@@ -15,7 +15,7 @@ unittest {
 
 @safe:
 class DFilesystem : UIMObject, IFilesystem, IFolderManager, IFileManager, ILinkManager {
-  mixin(FilesystemThis!(""));
+  mixin(FilesystemThis!());
 
   this(string[] path, Json[string] initData = null) {
     this(initData).path(path);

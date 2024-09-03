@@ -1,13 +1,13 @@
 module uim.consoles.mixins.argument;
 
 string argumentThis(string name = null) {
-    string fullName = name ~ "Argument";
+    string fullName = `"` ~ name ~ "Argument" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

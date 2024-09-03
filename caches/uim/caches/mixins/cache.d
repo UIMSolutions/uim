@@ -1,13 +1,13 @@
 module uim.caches.mixins.cache;
 
 string cacheThis(string name = null) {
-    string fullName = name ~ "Cache";
+    string fullName = `"` ~ name ~ "Cache"+ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

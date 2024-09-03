@@ -142,7 +142,7 @@ unittest {
         this() {
             this.name("Test");
         }
-        This(string name = null) {
+        this(string name) {
             this().name(name);
         }
     }

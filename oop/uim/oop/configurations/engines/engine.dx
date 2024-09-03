@@ -13,7 +13,7 @@ class DConfigEngine : IConfigEngine {
     this(Json[string] initData) {
         this().initialize(initData);
     }
-    This(string name = null) {
+    this(string name) {
         this().name(name);
     }
 

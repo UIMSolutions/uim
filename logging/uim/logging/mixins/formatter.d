@@ -4,16 +4,16 @@ import uim.logging;
 @safe:
 
 string logFormatterThis(string name = null) {
-    string fullName = name ~ "LogFormatter";
+    string fullName = `"` ~ name ~ "LogFormatter" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
-    This(string name = null) {
+    this(string name) {
         super(name);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

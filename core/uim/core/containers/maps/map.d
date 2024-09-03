@@ -275,7 +275,7 @@ unittest {
 // #endregion isSet
 
 // #region set
-V[K] set(K, V)(auto ref V[K] items, K[] keys, V value) {
+V[K] set(K, V)(auto ref V[K] items, K[] keys, V value) if (!is(V == Json)) {
   keys.each!(key => items.set(key, value));
   return items;
 }
@@ -294,6 +294,9 @@ unittest {
   writeln("testMap => ", testmap);
   assert(testmap["a"] == "x");
   assert(testmap["b"] == "x");
+
+  /* Json[string] testJson;
+  assert(set(testJson, "a", Json("A"))["a"].getString == "A"); */
 }
 // #endregion set
 

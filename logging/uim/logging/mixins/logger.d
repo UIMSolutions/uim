@@ -9,7 +9,7 @@ string loggerThis(string name = null) {
     this() {
         super("`~ fullName ~ `");
     }
-    This(string name = null) {
+    this(string name) {
         super(name);
     }
     this(Json[string] initData) {

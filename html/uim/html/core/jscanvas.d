@@ -7,7 +7,7 @@ import uim.html;
 //	string idName;
 //	string contextName = "context";
 //
-//	This(string name = null) { super(); idName = name; }
+//	this(string name) { super(); idName = name; }
 //	this(DJS aListener, string name, bool inABlock = false) { super(aListener, inABlock); idName = name; }
 //
 //	override string toString() {

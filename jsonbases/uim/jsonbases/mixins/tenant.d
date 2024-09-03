@@ -4,13 +4,13 @@ import uim.jsonbases;
 
 @safe:
 string jsonTenantThis(string name = null) {
-  string fullName = name ~ "JsonTenant";
+  string fullName = `"` ~ name ~ "JsonTenant" ~`"`;
   return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);
@@ -22,22 +22,22 @@ string jsonTenantThis(string name = null) {
       : ``);
 }
 
-template JsonTenantThis(string name) {
+template JsonTenantThis(string name = null) {
   const char[] JsonTenantThis = jsonTenantThis(name);
 }
 
-string jsonTenantCalls(string shortName, string classname = null) {
-  string clName = classname.length > 0 ? classname : "D" ~ shortName;
+string jsonTenantCalls(string name) {
+  string fullName = name ~ "JsonTenant";
 
   return `
-auto `~shortName~`() { return new `~clName~`; }
-auto `~shortName~`(Json[string] initData) { return new `~clName~`(initData); }
-auto `~shortName~`(string name, Json[string] initData = null) { return new `~clName~`(name, initData); }
-auto `~shortName~`(IJsonBase base, Json[string] initData = null) { return new `~clName~`(base, initData); }
-auto `~shortName~`(IJsonBase base, string name, Json[string] initData = null) { return new `~clName~`(base, name,initData); }
+auto `~fullName~`() { return new D`~fullName~`; }
+auto `~fullName~`(Json[string] initData) { return new D`~fullName~`(initData); }
+auto `~fullName~`(string name, Json[string] initData = null) { return new D`~fullName~`(name, initData); }
+auto `~fullName~`(IJsonBase base, Json[string] initData = null) { return new D`~fullName~`(base, initData); }
+auto `~fullName~`(IJsonBase base, string name, Json[string] initData = null) { return new D`~fullName~`(base, name,initData); }
   `;
 }
 
-template JsonTenantCalls(string shortName, string classname = null) {
-  const char[] JsonTenantCalls = jsonTenantCalls(shortName, classname);
+template JsonTenantCalls(string name) {
+  const char[] JsonTenantCalls = jsonTenantCalls(name);
 }

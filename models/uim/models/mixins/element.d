@@ -1,13 +1,13 @@
 module uim.models.mixins.element;
 
 string elementThis(string name = null) {
-    string fullName = name ~ "Element";
+    string fullName = `"` ~ name ~ "Element" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

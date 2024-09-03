@@ -9,13 +9,13 @@ import uim.models;
 @safe:
 
 string modelThis(string name = null) {
-    string fullName = name ~ "Model";
+    string fullName = `"` ~ name ~ "Model" ~`"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

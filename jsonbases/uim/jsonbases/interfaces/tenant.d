@@ -3,7 +3,6 @@ module uim.jsonbases.interfaces.tenant;
 import uim.jsonbases;
 
 @safe:
-interface IJsonTenant {  
-  string name();
+interface IJsonTenant : INamed {  
   IJsonBase base();
 }

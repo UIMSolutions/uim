@@ -3,9 +3,7 @@ module uim.jsonbases.interfaces.collection;
 import uim.jsonbases;
 
 @safe:
-interface IJsonCollection {  
-  string name();
-
+interface IJsonCollection : INamed {  
   // #region READ
     // #region findMany()
       Json[] findMany(bool allVersions = false);

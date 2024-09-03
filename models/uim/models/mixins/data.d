@@ -5,7 +5,7 @@ import uim.models;
 @safe:
 
 string dataThis(string name = null) { // Name for future releases
-    string fullName = name ~ "Data";
+    string fullName = `"` ~ name ~ "Data" ~ `"`;
     return `
     this() {
         super("`~ fullName ~ `");
@@ -23,7 +23,7 @@ template DataThis(string name = null) { // Name for future releases
   const char[] DataThis = dataThis(name);
 }
 
-string dataCalls(string name = null) {
+string dataCalls(string name) {
     string fullName = name ~ "Data";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}

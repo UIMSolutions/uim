@@ -1,7 +1,7 @@
 module uim.models.mixins.attribute;
 
 string attributeThis(string name = null) {
-    string fullName = name ~ "Attribute";
+    string fullName = `"` ~ name ~ "Attribute" ~ `"`;
     return `
     this() {
         super("`~ fullName ~ `");

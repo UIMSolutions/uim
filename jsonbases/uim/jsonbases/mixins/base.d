@@ -3,14 +3,14 @@ module uim.jsonbases.mixins.base;
 import uim.jsonbases;
 
 @safe:
-string jsonBaseThis(string aName) {
-  string fullName = name ~ "JsonBase";
+string jsonBaseThis(string name = null) {
+  string fullName = `"`~name ~ "JsonBase"~`"`;
   return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);
@@ -18,19 +18,20 @@ string jsonBaseThis(string aName) {
   `;
 }
 
-template JsonBaseThis(string aName) {
-  const char[] JsonBaseThis = jsonBaseThis(aName);
+template JsonBaseThis(string name = null) {
+  const char[] JsonBaseThis = jsonBaseThis(name);
 }
 
-string jsonBaseCalls(string shortName, string classname = null) {
-  string clName = classname.length > 0 ? classname : "D"~shortName;
+string jsonBaseCalls(string name) {
+  string fullName = name ~ "JsonTenant";
 
   return `
-auto `~shortName~`() { return new `~clName~`; }
-auto `~shortName~`(string aName) { return new `~clName~`(aName); }
+auto `~fullName~`() { return new D`~fullName~`; }
+auto `~fullName~`(Json[string] initData) { return new D`~fullName~`(initData); }
+auto `~fullName~`(string name, Json[string] initData = null) { return new D`~fullName~`(name, initData); }
   `;
 }
 
-template JsonBaseCalls(string shortName, string classname = null) {
-  const char[] JsonBaseCalls = jsonBaseCalls(shortName, classname);
+template JsonBaseCalls(string name) {
+  const char[] JsonBaseCalls = jsonBaseCalls(name);
 }

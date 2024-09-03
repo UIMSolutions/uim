@@ -126,14 +126,14 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Handles object to string conversion.
      */
     protected string exportObject(/* ClassNode| */ReferenceNode nodeToConvert, int indentLevel) {
-        /* auto objectId = "uim-db-object-{this.id}-{nodeToConvert.getId()}";
+        /* auto objectId = "uim-db-object-{this.id}-{nodeToConvert.id()}";
         auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
         auto breakText = "\n" ~ str_repeat("  ",  indentLevel);
         auto endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
 
         if (cast(ReferenceNode)nodeToConvert) {
             auto link = "<a class="uim-debug-ref" href="#%s">id: %s</a>"
-                .format(objectId, nodeToConvert.getId());
+                .format(objectId, nodeToConvert.id());
 
             return htmlDoubleTag("span", ["uim-debug-ref"], 
                style("punct", "object(") ~
@@ -145,7 +145,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
          result ~= style("punct", "object(") ~
            style("class", nodeToConvert.getValue()) ~
            style("punct", ") id:") ~
-           style("number", (string)nodeToConvert.getId()) ~
+           style("number", (string)nodeToConvert.id()) ~
            style("punct", " {") ~
             "<samp class=\"uim-debug-object-props\">";
 

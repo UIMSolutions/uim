@@ -39,23 +39,16 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         return new static(cookies);
     }
     
-    /**
-     * Create a new DCollection from the cookies in a ServerRequest
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request to extract cookie data from
-     */
-    static static createFromServerRequest(IServerRequest serverRequest) {
-        auto someData = request.getCookieParams();
-        auto cookies = null;
-        foreach (someData as name: aValue) {
-            cookies ~= new DCookie((string)name, aValue);
-        }
-        return new static(cookies);
+    // Create a new DCollection from the cookies in a ServerRequest
+    static DCookieCollection createFromServerRequest(IServerRequest request) {
+        auto items = request.getCookieParams();
+        auto cookies = items.byKeyValue.each!(item => new DCookie(item.key, item.value)).array;
+        return new DCookieCollection(cookies);
     }
     
     // Get the number of cookies in the collection.
     size_t count() {
-        return count(_cookies);
+        return _cookies.length;
     }
     
     /**
@@ -64,20 +57,16 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Cookies are stored by id. This means that there can be duplicate
      * cookies if a cookie collection is used for cookies across multiple
      * domains. This can impact how get(), has() and removeKey() behave.
-     * Params:
-     * \UIM\Http\Cookie\ICookie cookie Cookie instance to add.
      */
-    static DCookieCollection add(ICookie cookieToAdd) {
-        DCookieCollection newCollection = this.clone;
-        newCollection.cookies[cookieToAdd.getId()] = cookieToAdd;
+    static DCookieCollection add(ICookie cookie) {
+        DCookieCollection cookieCollection = this.clone;
+        cookieCollection.cookies[cookie.id()] = cookie;
 
-        return newCollection;
+        return cookieCollection;
     }
     
     /**
      * Get the first cookie by name.
-     * Params:
-     * string aName The name of the cookie.
      */
     ICookie get(string cookieName) {
         auto cookie = __get(cookieName);
@@ -228,7 +217,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
        );
         new = this.clone;
         foreach (cookie; cookies) {
-            new.cookies[cookie.getId()] = cookie;
+            new.cookies[cookie.id()] = cookie;
         }
         new.removeExpiredCookies(host, somePath);
 

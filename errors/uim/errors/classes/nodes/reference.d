@@ -36,7 +36,7 @@ class DReferenceNode : IErrorNode {
 
     private int _id;
     // Get the reference id for this node.
-    int getId() {
+    int id() {
         return _id;
     }
   // #endregion fields

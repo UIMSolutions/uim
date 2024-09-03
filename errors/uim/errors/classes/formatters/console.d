@@ -138,13 +138,13 @@ class DConsoleFormatter : IErrorFormatter {
             return _style("punct", "object(") ~
                 style("class", nodeToConvert.getValue()) ~
                 style("punct", ") id:") ~
-                style("number", to!string(nodeToConvert.getId())) ~
+                style("number", to!string(nodeToConvert.id())) ~
                 style("punct", " {}");
         }
          result = style("punct", "object(") ~
             style("class", nodeToConvert.getValue()) ~
             style("punct", ") id:") ~
-            style("number", (string)nodeToConvert.getId()) ~
+            style("number", (string)nodeToConvert.id()) ~
             style("punct", " {");
 
         string breakText = "\n" ~ str_repeat("  ",  indentLevel);

@@ -34,7 +34,7 @@ class DClassNode : IErrorNode {
 
     private int _id;
     // Get the reference id
-    int getId() {
+    int id() {
         return _id;
     }
 }

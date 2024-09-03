@@ -87,13 +87,13 @@ TEXT;
     
     // Handles object to string conversion.
     protected string exportObject(/* ClassNode| */ ReferenceNode nodeToConvert, int indentSize) {
-        return "object({nodeToConvert.getValue()}) id:{nodeToConvert.getId()} {}";
+        return "object({nodeToConvert.getValue()}) id:{nodeToConvert.id()} {}";
     }
 
     protected string exportObject(ClassNode aNode, int indentSize) {
         string result = "";
 
-        result ~= "object({aNode.getValue()}) id:{aNode.getId()} {";
+        result ~= "object({aNode.getValue()}) id:{aNode.id()} {";
         auto breakText = "\n" ~ str_repeat("  ", indentSize);
         auto myEnd = "\n" ~ str_repeat("  ", indentSize - 1) ~ "}";
 

@@ -8,9 +8,7 @@ import uim.http;
  * A class that helps wrap Request information and particulars about a single request.
  * Provides methods commonly used to introspect on the request headers and request body.
  */
-class DServerRequest { // }: IServerRequest {
-    mixin TConfigurable;
-
+class DServerRequest : UIMObject { // }: IServerRequest {
     this() {
         initialize;
     }
@@ -19,9 +17,13 @@ class DServerRequest { // }: IServerRequest {
         this.initialize(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
 
     _urlParams = [
         "plugin": Json(null),

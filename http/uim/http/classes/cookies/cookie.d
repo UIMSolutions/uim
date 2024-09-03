@@ -27,7 +27,7 @@ import uim.http;
  */
 
 class DCookie : UIMObject, ICookie {
-    this() { initialize; }
+    mixin(CookieThis!());
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -57,7 +57,7 @@ class DCookie : UIMObject, ICookie {
     ];
 
     // Get the id for a cookie
-    string getId() {
+    string id() {
         return null; 
     }
 

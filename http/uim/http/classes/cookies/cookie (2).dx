@@ -231,7 +231,7 @@ class DCookie : ICookie {
         return newCookie;
     }
  
-    string getId() {
+    string id() {
         return "{_name};{_domain};{_path}";
     }
  

@@ -1,6 +1,6 @@
 module uim.views.mixins.helper;
 
-string helperThis(string name) {
+string helperThis(string name = null) {
     string fullName = name ~ "Helper";
     return `
     this() {
@@ -15,7 +15,7 @@ string helperThis(string name) {
     `;
 }
 
-template HelperThis(string name) {
+template HelperThis(string name = null) {
     const char[] HelperThis = helperThis(name);
 }
 

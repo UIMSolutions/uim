@@ -1,6 +1,6 @@
 module uim.oop.mixins.configuration;
 
-string configurationThis(string name) {
+string configurationThis(string name = null) {
     string fullName = name ~ "Configuration";
     return `
     this() {
@@ -14,7 +14,7 @@ string configurationThis(string name) {
     }    `;
 }
 
-template ConfigurationThis(string name) {
+template ConfigurationThis(string name = null) {
     const char[] ConfigurationThis = configurationThis(name);
 }
 

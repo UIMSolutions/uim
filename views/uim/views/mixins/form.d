@@ -1,6 +1,6 @@
 module uim.views.mixins.form;
 
-string formThis(string name) {
+string formThis(string name = null) {
     string fullName = name ~ "Form";
     return `
     this() {
@@ -15,7 +15,7 @@ string formThis(string name) {
     `;
 }
 
-template FormThis(string name) {
+template FormThis(string name = null) {
     const char[] FormThis = formThis(name);
 }
 

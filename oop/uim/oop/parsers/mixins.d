@@ -1,6 +1,6 @@
 module uim.oop.parsers.mixins;
 
-string parserThis(string name) {
+string parserThis(string name = null) {
     string fullName = name ~ "Parser";
     return `
     this() {
@@ -15,7 +15,7 @@ string parserThis(string name) {
     `;
 }
 
-template ParserThis(string name) {
+template ParserThis(string name = null) {
     const char[] ParserThis = parserThis(name);
 }
 

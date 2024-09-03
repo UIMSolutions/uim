@@ -1,6 +1,6 @@
 module uim.views.mixins.context;
 
-string contextThis(string name) {
+string contextThis(string name = null) {
     string fullName = name ~ "Context";
     return `
     this() {
@@ -15,7 +15,7 @@ string contextThis(string name) {
     `;
 }
 
-template ContextThis(string name) {
+template ContextThis(string name = null) {
     const char[] ContextThis = contextThis(name);
 }
 

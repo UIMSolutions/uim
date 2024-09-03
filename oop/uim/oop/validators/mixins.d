@@ -1,6 +1,6 @@
 module uim.oop.validators.mixins;
 
-string validatorThis(string name) {
+string validatorThis(string name = null) {
     string fullName = name ~ "Validator";
     return `
     this() {
@@ -15,7 +15,7 @@ string validatorThis(string name) {
     `;
 }
 
-template ValidatorThis(string name) {
+template ValidatorThis(string name = null) {
     const char[] ValidatorThis = validatorThis(name);
 }
 

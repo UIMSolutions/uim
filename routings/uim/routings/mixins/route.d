@@ -1,6 +1,6 @@
 module uim.routings.mixins.route;
 
-string routeThis(string name) {
+string routeThis(string name = null) {
     string fullName = name ~ "Route";
     return `
     this() {
@@ -16,7 +16,7 @@ string routeThis(string name) {
     `;
 }
 
-template RouteThis(string name) {
+template RouteThis(string name = null) {
     const char[] RouteThis = routeThis(name);
 }
 

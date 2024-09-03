@@ -1,6 +1,6 @@
 module uim.css.mixins.css;
 
-string cssThis(string name) {
+string cssThis(string name = null) {
     string fullName = name ~ "Css";
     return `
     this() {
@@ -15,7 +15,7 @@ string cssThis(string name) {
     `;
 }
 
-template CssThis(string name) {
+template CssThis(string name = null) {
     const char[] CssThis = cssThis(name);
 }
 

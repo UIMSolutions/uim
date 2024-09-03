@@ -1,6 +1,6 @@
 module uim.renderers.mixins.renderer;
 
-string rendererThis(string name) {
+string rendererThis(string name = null) {
     string fullName = name ~ "Renderer";
     return `
     this() {
@@ -15,7 +15,7 @@ string rendererThis(string name) {
     `;
 }
 
-template RendererThis(string name) {
+template RendererThis(string name = null) {
     const char[] RendererThis = rendererThis(name);
 }
 

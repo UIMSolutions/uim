@@ -1,6 +1,6 @@
 module uim.consoles.mixins.argument;
 
-string argumentThis(string name) {
+string argumentThis(string name = null) {
     string fullName = name ~ "Argument";
     return `
     this() {
@@ -15,7 +15,7 @@ string argumentThis(string name) {
     `;
 }
 
-template ArgumentThis(string name) {
+template ArgumentThis(string name = null) {
     const char[] ArgumentThis = argumentThis(name);
 }
 

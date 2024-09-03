@@ -1,6 +1,6 @@
 module uim.caches.mixins.cache;
 
-string cacheThis(string name) {
+string cacheThis(string name = null) {
     string fullName = name ~ "Cache";
     return `
     this() {
@@ -15,7 +15,7 @@ string cacheThis(string name) {
     `;
 }
 
-template CacheThis(string name) {
+template CacheThis(string name = null) {
     const char[] CacheThis = cacheThis(name);
 }
 

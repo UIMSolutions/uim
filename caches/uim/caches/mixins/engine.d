@@ -1,6 +1,6 @@
 module uim.caches.mixins.engine;
 
-string cacheEngineThis(string name) {
+string cacheEngineThis(string name = null) {
     string fullName = name ~ "CacheEngine";
     return `
     this() {
@@ -15,7 +15,7 @@ string cacheEngineThis(string name) {
     `;
 }
 
-template CacheEngineThis(string name) {
+template CacheEngineThis(string name = null) {
     const char[] CacheEngineThis = cacheEngineThis(name);
 }
 

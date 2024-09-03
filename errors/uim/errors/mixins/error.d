@@ -1,6 +1,6 @@
 module errors.uim.errors.mixins.error;
 
-string errorThis(string name) {
+string errorThis(string name = null) {
     string fullName = name ~ "Error";
     return `
     this() {
@@ -15,7 +15,7 @@ string errorThis(string name) {
     `;
 }
 
-template ErrorThis(string name) {
+template ErrorThis(string name = null) {
     const char[] ErrorThis = errorThis(name);
 }
 

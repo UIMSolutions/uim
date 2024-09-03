@@ -1,6 +1,6 @@
 module uim.controllers.mixins.controller;
 
-string controllerThis(string name) {
+string controllerThis(string name = null) {
     string fullName = name ~ "Controller";
     return `
     this() {
@@ -15,7 +15,7 @@ string controllerThis(string name) {
     `;
 }
 
-template ControllerThis(string name) {
+template ControllerThis(string name = null) {
     const char[] ControllerThis = controllerThis(name);
 }
 

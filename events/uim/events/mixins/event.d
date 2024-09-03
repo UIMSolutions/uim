@@ -1,6 +1,6 @@
 module uim.events.mixins.event;
 
-string eventThis(string name) {
+string eventThis(string name = null) {
     string fullName = name ~ "Event";
     return `
     this() {
@@ -15,7 +15,7 @@ string eventThis(string name) {
     `;
 }
 
-template EventThis(string name) {
+template EventThis(string name = null) {
     const char[] EventThis = eventThis(name);
 }
 

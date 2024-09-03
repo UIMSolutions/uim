@@ -8,8 +8,8 @@ module uim.filesystems.mixins.folder;
 import uim.filesystems;
 
 @safe:
-string folderThis(string shortName) {
-  string fullName = shortName~"Folder";
+string folderThis(string name = null) {
+  string fullName = name~"Folder";
 
   return `
     this() {
@@ -20,36 +20,38 @@ string folderThis(string shortName) {
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);
-    }
-
-this(IFilesystem aFilesystem) { this(); this.filesystem(aFilesystem); };
-this(string[] aPath) { this(); this.path(aPath); };
-
-this(IFilesystem aFilesystem, string[] aPath) { this(aFilesystem); this.path(aPath); };
-this(IFilesystem aFilesystem, string aName) { this(aFilesystem); this.name(aName); };
-
-this(IFilesystem aFilesystem, string[] aPath, string aName) { this(aFilesystem, aPath); this.name(aName); };
-  `;
+    }`~
+    name !is null
+      ? `this(string[] path, Json[string] initData = null) {
+        super(path, initData);
+      }
+      this(IFilesystem filesystem, Json[string] initData = null) {
+          super(filesystem, "`~ fullName ~ `", initData);
+      }
+      this(IFilesystem filesystem, string name, Json[string] initData = null) {
+          super(filesystem, name, initData);
+      }
+      this(IFilesystem filesystem, string[] path, Json[string] initData = null) {
+          super(filesystem, name, initData);
+      }` : ``;
 }
 
-template FolderThis(string shortName) {
-  const char[] FolderThis = folderThis(shortName);
+template FolderThis(string name = null) {
+  const char[] FolderThis = folderThis(name);
 }
 
-string folderCalls(string shortName) {
-  string fullName = shortName~"Folder";
+string folderCalls(string name) {
+  string fullName = shornametName~"Folder";
 
   return `
 auto `~fullName~`() { return new D`~fullName~`; }
+auto `~fullName~`(Json[string] initData) { return new D`~fullName~`(initData); };
+auto `~fullName~`(string name, Json[string] initData = null) { return new D`~fullName~`(name, initData); };
+auto `~fullName~`(string[] path, Json[string] initData = null) { return new D`~fullName~`(path, initData); };
 
-auto `~fullName~`(IFilesystem aFilesystem) { return new D`~fullName~`(aFilesystem); };
-auto `~fullName~`(string[] aPath) { return new D`~fullName~`(aPath); };
-auto `~fullName~`(string aName) { return new D`~fullName~`(aName); };
-
-auto `~fullName~`(IFilesystem aFilesystem, string[] aPath) { return new D`~fullName~`(aFilesystem, aPath); };
-auto `~fullName~`(IFilesystem aFilesystem, string aName) { return new D`~fullName~`(aFilesystem, aName); };
-
-auto `~fullName~`(IFilesystem aFilesystem, string[] aPath, string aName) { return new D`~fullName~`(aFilesystem, aPath, aName); };
+auto `~fullName~`(IFilesystem filesystem, Json[string] initData = null) { return new D`~fullName~`(filesystem, initData); };
+auto `~fullName~`(IFilesystem filesystem, string name, Json[string] initData = null) { return new D`~fullName~`(filesystem, name, initData); };
+auto `~fullName~`(IFilesystem filesystem, string[] path, Json[string] initData = null) { return new D`~fullName~`(filesystem, path, initData); };
   `;
 }
 

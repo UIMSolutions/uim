@@ -1,6 +1,6 @@
 module uim.i18n.mixins.translator;
 
-string translatorThis(string name) {
+string translatorThis(string name = null) {
     string fullName = name ~ "Translator";
     return `
     this() {
@@ -14,7 +14,7 @@ string translatorThis(string name) {
     `;
 }
 
-template TranslatorThis(string name) {
+template TranslatorThis(string name = null) {
     const char[] TranslatorThis = translatorThis(name);
 }
 

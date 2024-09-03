@@ -1,6 +1,6 @@
 module uim.i18n.mixins.catalog;
 
-string catalogThis(string name) {
+string catalogThis(string name = null) {
     string fullName = name ~ "Catalog";
     return `
     this() {
@@ -15,7 +15,7 @@ string catalogThis(string name) {
     `;
 }
 
-template CatalogThis(string name) {
+template CatalogThis(string name = null) {
     const char[] CatalogThis = catalogThis(name);
 }
 

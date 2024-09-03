@@ -1,6 +1,6 @@
 module uim.http.mixins.response;
 
-string responseThis(string name) {
+string responseThis(string name = null) {
     string fullName = name ~ "Response";
     return `
     this() {
@@ -15,7 +15,7 @@ string responseThis(string name) {
     `;
 }
 
-template ResponseThis(string name) {
+template ResponseThis(string name = null) {
     const char[] ResponseThis = responseThis(name);
 }
 

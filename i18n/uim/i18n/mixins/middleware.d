@@ -1,6 +1,6 @@
 module uim.i18n.mixins.middleware;
 
-string middlewareThis(string name) {
+string middlewareThis(string name = null) {
     string fullName = name ~ "Middleware";
     return `
     this() {
@@ -15,7 +15,7 @@ string middlewareThis(string name) {
     `;
 }
 
-template MiddlewareThis(string name) {
+template MiddlewareThis(string name = null) {
     const char[] MiddlewareThis = middlewareThis(name);
 }
 

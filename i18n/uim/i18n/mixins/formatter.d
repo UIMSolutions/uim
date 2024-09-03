@@ -1,6 +1,6 @@
 module uim.i18n.mixins.formatter;
 
-string formatterThis(string name) {
+string formatterThis(string name = null) {
     string fullName = name ~ "Formatter";
     return `
     this() {
@@ -15,7 +15,7 @@ string formatterThis(string name) {
     `;
 }
 
-template FormatterThis(string name) {
+template FormatterThis(string name = null) {
     const char[] FormatterThis = formatterThis(name);
 }
 

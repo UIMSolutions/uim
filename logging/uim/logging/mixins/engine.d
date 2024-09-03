@@ -3,7 +3,7 @@ module uim.logging.mixins.engine;
 import uim.logging;
 @safe:
 
-string logEngineThis(string name) {
+string logEngineThis(string name = null) {
     string fullName = name ~ "LogEngine";
     return `
     this() {
@@ -18,7 +18,7 @@ string logEngineThis(string name) {
     `;
 }
 
-template LogEngineThis(string name) {
+template LogEngineThis(string name = null) {
     const char[] LogEngineThis = logEngineThis(name);
 }
 

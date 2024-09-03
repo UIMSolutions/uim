@@ -1,6 +1,6 @@
 module uim.i18n.mixins.loader;
 
-string loaderThis(string name) {
+string loaderThis(string name = null) {
     string fullName = name ~ "Loader";
     return `
     this() {
@@ -15,7 +15,7 @@ string loaderThis(string name) {
     `;
 }
 
-template LoaderThis(string name) {
+template LoaderThis(string name = null) {
     const char[] LoaderThis = loaderThis(name);
 }
 

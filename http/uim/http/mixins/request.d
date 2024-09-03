@@ -1,6 +1,6 @@
 module uim.http.mixins.request;
 
-string requestThis(string name) {
+string requestThis(string name = null) {
     string fullName = name ~ "Request";
     return `
     this() {
@@ -15,7 +15,7 @@ string requestThis(string name) {
     `;
 }
 
-template RequestThis(string name) {
+template RequestThis(string name = null) {
     const char[] RequestThis = requestThis(name);
 }
 

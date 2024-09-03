@@ -1,13 +1,13 @@
 module uim.oop.parsers.mixins;
 
 string parserThis(string name = null) {
-    string fullName = name ~ "Parser";
+    string fullName = `"` ~ name ~ "Parser" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

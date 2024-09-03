@@ -1,13 +1,13 @@
 module uim.views.mixins.context;
 
 string contextThis(string name = null) {
-    string fullName = name ~ "Context";
+    string fullName = `"` ~ name ~ "Context"~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

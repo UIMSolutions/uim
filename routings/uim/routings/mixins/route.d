@@ -1,9 +1,8 @@
 module uim.routings.mixins.route;
 
 string routeThis(string name = null) {
-    string fullName = name ~ "Route";
+    string fullName = `"` ~ name ~ "Route" ~ `"`;
     return `
-    this() {
     this() {
         super("`~ fullName ~ `");
     }

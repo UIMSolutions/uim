@@ -1,13 +1,13 @@
 module uim.views.mixins.form;
 
 string formThis(string name = null) {
-    string fullName = name ~ "Form";
+    string fullName = `"` ~ name ~ "Form" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

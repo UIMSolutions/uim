@@ -1,13 +1,13 @@
 module uim.oop.validators.mixins;
 
 string validatorThis(string name = null) {
-    string fullName = name ~ "Validator";
+    string fullName = `"` ~ name ~ "Validator" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

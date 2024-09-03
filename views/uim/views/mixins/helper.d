@@ -1,13 +1,13 @@
 module uim.views.mixins.helper;
 
 string helperThis(string name = null) {
-    string fullName = name ~ "Helper";
+    string fullName = `"` ~ name ~ "Helper" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

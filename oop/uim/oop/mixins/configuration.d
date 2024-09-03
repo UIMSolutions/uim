@@ -1,13 +1,13 @@
 module uim.oop.mixins.configuration;
 
 string configurationThis(string name = null) {
-    string fullName = name ~ "Configuration";
+    string fullName = `"` ~ name ~ "Configuration" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

@@ -16,7 +16,6 @@ class DAttribute : UIMObject, IAttribute { // TODO:  /* DEntity,  */ IAttribute 
       return false;
     }
 
-    name("Attribute");
     return true;
   }
 

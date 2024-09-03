@@ -17,23 +17,22 @@ unittest {
  * Provide custom logging and error handling.
  * Debugger : D"s default error handling and gives simpler to use more powerful interfaces.
  */
-class DDebugger : UIMObject {
-    mixin TConfigurable;
-
+class DDebugger : UIMObject, IDebugger {
     this() {
-        super("`~ fullName ~ `");
+        super("Debugger");
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super("Debugger", initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);
     }
 
     // Hook method
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
 
         configuration
             .setDefaults("outputMask", Json.emptyArray)
@@ -83,8 +82,6 @@ class DDebugger : UIMObject {
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
 
     // The current output format.
     protected string _outputFormat = "js";

@@ -1,13 +1,13 @@
 module uim.views.mixins.view;
 
 string viewThis(string name = null) {
-    string fullName = name ~ "View";
+    string fullName = `"` ~ name ~ "View" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

@@ -9,33 +9,14 @@ unittest {
 }
 
 @safe:
-abstract class DJsonCollection : IJsonCollection {
-  this() {
-    initialize;
-    this.classname("JsonCollection");
-  }
+abstract class DJsonCollection : UIMObject, IJsonCollection {
+  mixin(JsonCollectionThis!());
 
-  this(string aName) {
-    this();
-    this.name(aName);
-  }
-
-  this(IJsonTenant aTenant) {
-    this();
-    this.tenant(aTenant);
-  }
+  this(IJsonTenant aTenant, Json[string] initData = null) { this(initData); this.tenant(aTenant); }
+  this(IJsonTenant aTenant, string name, Json[string] initData = null) { this(name, initData); this.tenant(aTenant); }
 
   mixin(TProperty!("string", "classname"));
-  mixin(TProperty!("string", "name"));
   mixin(TProperty!("IJsonTenant", "tenant"));
-
-  // Hook method
-  bool initialize(Json[string] initData = null) {
-    //TODO configuration(MemoryConfiguration);
-    //TODO configuration.data(initData);
-
-    return true;
-  }
 
   // #region CREATE
   // #region insertOne()

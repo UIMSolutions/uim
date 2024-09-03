@@ -5,13 +5,13 @@ import uim.views;
 @safe:
 
 string widgetThis(string name = null) {
-    string fullName = name ~ "Widget";
+    string fullName = `"` ~ name ~ "Widget" ~ `"`;
     return `
     this() {
-        super("`~ fullName ~ `");
+        super(`~ fullName ~ `);
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super(`~ fullName ~ `, initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);

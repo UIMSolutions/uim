@@ -17,8 +17,8 @@ string jsonCollectionThis(string name = null) {
     }`
     ~(name !is null
       ? `
-        this(IJsonTenant aTenant, Json[string] initData = null) { this(initData); this.tenant(aTenant); }
-        this(IJsonTenant aTenant, string name, Json[string] initData = null) { this(name, initData); ; this.tenant(aTenant); }`
+        this(IJsonTenant tenant, Json[string] initData = null) { super(tenant, initData); }
+        this(IJsonTenant tenant, string name, Json[string] initData = null) { super(tenant, name, initData); }`
       : ""); 
 }
 

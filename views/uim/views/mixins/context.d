@@ -2,17 +2,7 @@ module uim.views.mixins.context;
 
 string contextThis(string name = null) {
     string fullName = `"` ~ name ~ "Context"~ `"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
 }
 
 template ContextThis(string name = null) {

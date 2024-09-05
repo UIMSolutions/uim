@@ -5,17 +5,7 @@ import uim.i18n;
 @safe:
 // Translator to translate the message.
 class DTranslator : UIMObject, ITranslator {
-    this() {
-        super();
-    }
-
-    this(Json[string] initData) {
-        super(initData);
-    }
-
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
+    mixin(TranslatorThis!());
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {

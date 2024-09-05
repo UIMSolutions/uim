@@ -21,6 +21,7 @@ import uim.http;
  * If you use this middleware *do not* also use CsrfProtectionMiddleware.
  */
 class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
+    mixin(MiddlewareThis!("SessionCsrfProtection"));
     /**
      * Config for the CSRF handling.
      *
@@ -133,10 +134,10 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
         if (decodedToken == false || decodedToken.length != TOKEN_VALUE_LENGTH * 2) {
             return token;
         }
-        salted = subString(decodedToken, 0, TOKEN_VALUE_LENGTH);
-        salt = subString(decodedToken, TOKEN_VALUE_LENGTH);
+        string salted = subString(decodedToken, 0, TOKEN_VALUE_LENGTH);
+        string salt = subString(decodedToken, TOKEN_VALUE_LENGTH);
 
-        unsalted = "";
+        string unsalted = "";
         for (index = 0;  index < TOKEN_VALUE_LENGTH;  index++) {
             // Reverse the XOR to desalt.
             unsalted ~= chr(ord(salted[index]) ^ ord(salt[index]));

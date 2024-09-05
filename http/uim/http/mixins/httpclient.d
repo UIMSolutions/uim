@@ -1,7 +1,6 @@
-module uim.http.mixins.httpclienttrait;
+module uim.http.mixins.httpclient;
 
 import uim.http;
-
 @safe:
 
 // Define mock responses and have mocks automatically cleared.

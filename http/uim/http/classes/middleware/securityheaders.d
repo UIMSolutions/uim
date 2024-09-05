@@ -5,7 +5,9 @@ import uim.http;
 @safe:
 
 // Handles common security headers in a convenient way
-class DSecurityHeadersMiddleware { // }: IHttpMiddleware { 
+class DSecurityHeadersMiddleware : DMiddleware { // }: IHttpMiddleware { 
+    mixin(MiddlewareThis!("SecurityHeaders"));
+
     // X-Content-Type-Option nosniff */
     const string NOSNIFF = "nosniff";
 

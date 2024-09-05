@@ -27,16 +27,12 @@ interface ICookie : INamed {
 
     /**
      * Create a cookie with an updated value.
-     * Params:
-     * string[]|float|bool aValue Value of the cookie to set
      */
-    static withValue(string[]|float|bool aValue);
+    static withValue(string[]/* |float|bool */ aValue);
 
 
     /**
      * Create a new cookie with an updated path
-     * Params:
-     * string aPath Sets the path
      */
     static auto withPath(string aPath);
 
@@ -55,8 +51,6 @@ interface ICookie : INamed {
 
     /**
      * Create a cookie with an updated expiration date
-     * Params:
-     * \IDateTime dateTime Date time object
      */
     static auto withExpiry(IDateTime dateTime);
 
@@ -94,14 +88,12 @@ interface ICookie : INamed {
     /**
      * Get the SameSite attribute.
      */
-    // TOD SameSiteEnum getSameSite();
+    // TODO SameSiteEnum getSameSite();
 
     /**
      * Create a cookie with an updated SameSite option.
-     * Params:
-     * \UIM\Http\Cookie\SameSiteEnum|string sameSite Value for to set for Samesite option.
      */
-    static auto withSameSite(SameSiteEnum|string sameSite);
+    static auto withSameSite(/* SameSiteEnum| */string sameSite);
 
     // Get cookie options
     Json[string] options();

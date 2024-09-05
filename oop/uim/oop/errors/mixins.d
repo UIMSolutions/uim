@@ -1,5 +1,8 @@
 module uim.oop.errors.mixins;
 
+import uim.oop;
+@safe: 
+
 string errorThis(string name = null) {
     string fullName = `"` ~ name ~ "Error" ~ `"`;
     return objThis(fullName);

@@ -1,8 +1,7 @@
 module uim.oop.configurations.memory;
 
 import uim.oop;
-
-@safe:
+@safe: 
 
 class DMemoryConfiguration : DConfiguration {
     mixin(ConfigurationThis!("Memory"));

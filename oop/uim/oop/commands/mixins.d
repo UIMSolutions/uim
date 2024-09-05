@@ -1,5 +1,8 @@
 module uim.oop.commands.mixins;
 
+import uim.oop;
+@safe: 
+
 string commandThis(string name = null) {
     string fullName = `"` ~ name ~ "Command"~`"`;
     return objThis(fullName);

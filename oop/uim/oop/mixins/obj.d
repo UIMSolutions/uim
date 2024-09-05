@@ -1,5 +1,7 @@
 module uim.oop.mixins.obj;
 
+@safe: 
+
 string objThis(string name = null) {
     return `
         this() {

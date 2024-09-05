@@ -1,5 +1,8 @@
 module uim.models.mixins.entity;
 
+import uim.models;
+@safe: 
+
 // #region EntityThis
 string entityThis(string name = null) {
   string fullName = `"` ~ name ~ "Entity" ~`"`;

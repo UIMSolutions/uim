@@ -1,5 +1,8 @@
 module uim.oop.mixins.configuration;
 
+import uim.oop;
+@safe: 
+
 string configurationThis(string name = null) {
     string fullName = `"` ~ name ~ "Configuration" ~ `"`;
     return objThis(fullName);

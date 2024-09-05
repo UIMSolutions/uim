@@ -6,8 +6,7 @@
 module uim.oop.errors.error;
 
 import uim.oop;
-
-@safe:
+@safe: 
 
 // Error base class for UIM applications
 class DError : UIMObject, IError {

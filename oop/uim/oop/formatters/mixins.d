@@ -1,18 +1,11 @@
 module uim.oop.formatters.mixins;
 
+import uim.oop;
+@safe: 
+
 string formatterThis(string name = null) {
     string fullName = `"` ~ name ~ "Formatter" ~ `"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
 }
 
 template FormatterThis(string name = null) {

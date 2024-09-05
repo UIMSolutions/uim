@@ -13,21 +13,21 @@ interface ICloneable {}
 /// Create an abstract class implementing Clonable interface.  
  abstract class DShape : ICloneable {
    
-  private string id;
-  protected string type;
+  private string _id;
+  protected string _type;
   
   abstract void draw();
   
   string getType() {
-    return type;
+    return _type;
   }
   
   string id() {
-    return id;
+    return _id;
   }
   
   void setId(string id) {
-    this.id = id;
+    _id = id;
   }
   
   Object clone() {
@@ -46,7 +46,7 @@ interface ICloneable {}
 class DRectangle : DShape {
 
   this() {
-    type = "Rectangle";
+    _type = "Rectangle";
   }
 
   override  void draw() {
@@ -56,7 +56,7 @@ class DRectangle : DShape {
 
 class DSquare : DShape {
   this() {
-    type = "Square";
+    _type = "Square";
   }
 
   override  void draw() {
@@ -67,7 +67,7 @@ class DSquare : DShape {
 class DCircle : DShape {
 
   this() {
-    type = "Circle";
+    _type = "Circle";
   }
 
   override  void draw() {

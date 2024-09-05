@@ -18,7 +18,7 @@ class DEvent : UIMObject, IEvent {
     this(string name, IEventObject subject, Json[string] initData = null) {
         this(name, initData);
         _subject = subject;
-        _data = initData; 
+        _data = initData;
     }
 
     // The object this event applies to (usually the same object that generates the event)
@@ -65,16 +65,57 @@ class DEvent : UIMObject, IEvent {
         return _data.value(key);
     }
 
-    void opIndexAssign(Json value, string key) {
-        data(key, value);
+
+
+    // Assigns a value to the data of this event.
+    IEvent data(string[] keys, bool value) {
+        keys.each!(key => data(key, value));
+        return this; 
     }
 
-    void data(string[] keys, Json value) {
-        _data = _data.set(keys, value);
+    IEvent data(string key, bool value) {
+        data(key, Json(value));
+        return this; 
     }
 
-    void data(string key, Json value) {
-        _data = _data.set(key, value);
+    IEvent data(string[] keys, long value) {
+        keys.each!(key => data(key, value));
+        return this; 
+    }
+
+    IEvent data(string key, long value) {
+        data(key, Json(value));
+        return this; 
+    }
+
+    IEvent data(string[] keys, double value) {
+        keys.each!(key => data(key, value));
+        return this; 
+    }
+
+    IEvent data(string key, double value) {
+        data(key, Json(value));
+        return this; 
+    }
+
+    IEvent data(string[] keys, string value) {
+        keys.each!(key => data(key, value));
+        return this; 
+    }
+
+    IEvent data(string key, string value) {
+        data(key, Json(value));
+        return this; 
+    }
+
+    IEvent data(string[] keys, Json value) {
+        keys.each!(key => data(key, value));
+        return this; 
+    }
+    
+    IEvent data(string key, Json value) {
+        _data[key] = value;
+        return this; 
     }
     // #endregion data 
 }

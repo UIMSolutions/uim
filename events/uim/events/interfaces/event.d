@@ -18,11 +18,19 @@ interface IEvent : INamed {
 
   // Assigns a value to the data of this event.
   IEvent data(string[] keys, bool aValue);
-  IEvent data(string[] keys, long aValue);
-  IEvent data(string[] keys, double aValue);
-  IEvent data(string[] keys, string aValue);
-  IEvent data(string[] keys, Json aValue);
+  IEvent data(string key, bool aValue);
 
+  IEvent data(string[] keys, long aValue);
+  IEvent data(string key, long aValue);
+  
+  IEvent data(string[] keys, double aValue);
+  IEvent data(string key, double aValue);
+  
+  IEvent data(string[] keys, string aValue);
+  IEvent data(string key, string aValue);
+  
+  IEvent data(string[] keys, Json aValue);
+  IEvent data(string key, Json aValue);
   /* 
   // Returns the subject of this event.
   IEventObject subject();

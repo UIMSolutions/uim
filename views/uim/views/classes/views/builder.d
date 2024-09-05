@@ -268,7 +268,7 @@ class DViewBuilder { // }: DJsonSerializable {
     }
     
     // Gets additional options for the view.
-    Json[string] getOptions() {
+    Json[string] options() {
         return _options;
     }
     

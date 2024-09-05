@@ -29,11 +29,8 @@ template JsonTenantThis(string name = null) {
 string jsonTenantCalls(string name) {
   string fullName = name ~ "JsonTenant";
 
-  return `
-auto `~fullName~`() { return new D`~fullName~`; }
-auto `~fullName~`(Json[string] initData) { return new D`~fullName~`(initData); }
-auto `~fullName~`(string name, Json[string] initData = null) { return new D`~fullName~`(name, initData); }
-auto `~fullName~`(IJsonBase base, Json[string] initData = null) { return new D`~fullName~`(base, initData); }
+  return objCalls(fullName) ~ 
+`auto `~fullName~`(IJsonBase base, Json[string] initData = null) { return new D`~fullName~`(base, initData); }
 auto `~fullName~`(IJsonBase base, string name, Json[string] initData = null) { return new D`~fullName~`(base, name,initData); }
   `;
 }

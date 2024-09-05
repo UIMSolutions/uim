@@ -21,11 +21,7 @@ template AdapterThis(string name = null) {
 
 string adapterCalls(string name) {
     string fullName = name ~ "Adapter";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
-    `;
+    return objCalls(fullName);
 }
 
 template AdapterCalls(string name) {

@@ -2,17 +2,7 @@ module uim.http.mixins.session;
 
 string sessionThis(string name = null) {
     string fullName = `"` ~ name ~ "Session" ~ `"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
 }
 
 template SessionThis(string name = null) {
@@ -21,11 +11,7 @@ template SessionThis(string name = null) {
 
 string sessionCalls(string name) {
     string fullName = name ~ "Session";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
-    `;
+    return objCalls(fullName);
 }
 
 template SessionCalls(string name) {

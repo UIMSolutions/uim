@@ -2,17 +2,7 @@ module uim.oop.commands.mixins;
 
 string commandThis(string name = null) {
     string fullName = `"` ~ name ~ "Command"~`"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
 }
 
 template CommandThis(string name = null) {
@@ -21,11 +11,7 @@ template CommandThis(string name = null) {
 
 string commandCalls(string name) {
     string fullName = name ~ "Command";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
-    `;
+    return objCalls(fullName);
 }
 
 template CommandCalls(string name) {

@@ -2,16 +2,7 @@ module uim.oop.mixins.configuration;
 
 string configurationThis(string name = null) {
     string fullName = `"` ~ name ~ "Configuration" ~ `"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }    `;
+    return objThis(fullName);
 }
 
 template ConfigurationThis(string name = null) {

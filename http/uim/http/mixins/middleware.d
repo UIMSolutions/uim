@@ -2,17 +2,7 @@ module uim.http.mixins.middleware;
 
 string middlewareThis(string name = null) {
     string fullName = `"` ~ name ~ "Middleware" ~ `"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
 }
 
 template MiddlewareThis(string name = null) {

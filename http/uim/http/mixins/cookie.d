@@ -2,17 +2,7 @@ module uim.http.mixins.cookie;
 
 string cookieThis(string name = null) {
     string fullName = `"` ~ name ~ "Cookie" ~`"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
 }
 
 template CookieThis(string name = null) {

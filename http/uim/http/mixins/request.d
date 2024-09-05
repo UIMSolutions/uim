@@ -2,17 +2,7 @@ module uim.http.mixins.request;
 
 string requestThis(string name = null) {
     string fullName = `"` ~ name ~ "Request" ~ `"`;
-    return `
-    this() {
-        super("`~ fullName ~ `");
-    }
-    this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
 }
 
 template RequestThis(string name = null) {

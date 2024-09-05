@@ -10,17 +10,7 @@ import uim.filesystems;
 @safe:
 string linkThis(string name = null) {
   string fullName = `"`~ name ~ "Link" ~ `"`;
-
-  return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }`~
+  return objThis(fullName) ~
     (name !is null
     ? `this(string[] path, Json[string] initData = null) {
         this(initData); this.path(path);

@@ -1,5 +1,8 @@
 module uim.models.mixins.element;
 
+import uim.models;
+@safe: 
+
 string elementThis(string name = null) {
     string fullName = `"` ~ name ~ "Element" ~ `"`;
     return objThis(fullName);

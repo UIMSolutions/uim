@@ -5,17 +5,7 @@ import uim.logging;
 
 string logFormatterThis(string name = null) {
     string fullName = `"` ~ name ~ "LogFormatter" ~ `"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
 }
 
 template LogFormatterThis(string name = null) {

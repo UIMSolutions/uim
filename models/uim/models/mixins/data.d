@@ -6,17 +6,7 @@ import uim.models;
 
 string dataThis(string name = null) { // Name for future releases
     string fullName = `"` ~ name ~ "Data" ~ `"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
 }
 
 template DataThis(string name = null) { // Name for future releases

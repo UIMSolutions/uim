@@ -2,17 +2,7 @@ module uim.i18n.mixins.catalog;
 
 string catalogThis(string name = null) {
     string fullName = `"` ~ name ~ "Catalog"~`"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
 }
 
 template CatalogThis(string name = null) {

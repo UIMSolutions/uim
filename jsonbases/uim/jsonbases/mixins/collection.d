@@ -5,21 +5,12 @@ import uim.jsonbases;
 @safe:
 string jsonCollectionThis(string name = null) {
   string fullName = `"`~name ~ "JsonCollection"~`"`;
-  return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }`
-    ~(name !is null
-      ? `
-        this(IJsonTenant tenant, Json[string] initData = null) { super(tenant, initData); }
-        this(IJsonTenant tenant, string name, Json[string] initData = null) { super(tenant, name, initData); }`
-      : ""); 
+  return objThis(fullName);
+  ~(name !is null
+    ? `
+      this(IJsonTenant tenant, Json[string] initData = null) { super(tenant, initData); }
+      this(IJsonTenant tenant, string name, Json[string] initData = null) { super(tenant, name, initData); }`
+    : ""); 
 }
 
 template JsonCollectionThis(string name = null) {

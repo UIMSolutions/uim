@@ -5,17 +5,7 @@ import uim.jsonbases;
 @safe:
 string jsonBaseThis(string name = null) {
   string fullName = `"`~name ~ "JsonBase"~`"`;
-  return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-  `;
+  return objThis(fullName);
 }
 
 template JsonBaseThis(string name = null) {

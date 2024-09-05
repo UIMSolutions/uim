@@ -11,18 +11,8 @@ import uim.http;
  * - `scriptNonce` Enable to have a nonce policy added to the script-src directive.
  * - `styleNonce` Enable to have a nonce policy added to the style-src directive.
  */
-class DCspMiddleware : UIMObject { // }: IHttpMiddleware {
-    this() {
-        initialize;
-    }
-
-    this(Json[string] initData) {
-        initialize(initData);
-    }
-
-    this(string name) {
-        this().name(name);
-    }
+class DCspMiddleware : DMiddleware { // }: IHttpMiddleware {
+    mixin(MiddlewareThis!("Csp"));
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {

@@ -16,6 +16,13 @@ interface IEvent : INamed {
   // Checks if the event is stopped.
   bool isStopped();
 
+  // Assigns a value to the data of this event.
+  IEvent data(string[] keys, bool aValue);
+  IEvent data(string[] keys, long aValue);
+  IEvent data(string[] keys, double aValue);
+  IEvent data(string[] keys, string aValue);
+  IEvent data(string[] keys, Json aValue);
+
   /* 
   // Returns the subject of this event.
   IEventObject subject();
@@ -30,7 +37,6 @@ interface IEvent : INamed {
   Json allData(string dataKey);
   Json data(string dataKey);
 
-  // Assigns a value to the data/payload of this event.
-  IEvent data(string[] dataKeys, Json aValue);
+
   */
 }

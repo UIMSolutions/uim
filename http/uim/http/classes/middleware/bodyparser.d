@@ -10,29 +10,10 @@ import uim.http;
  * Enables Json and XML request payloads to be parsed into the request`s body.
  * You can also add your own request body parsers using the `addParser()` method.
  */
-class DBodyParserMiddleware { // }: IHttpMiddleware {
-    // The HTTP methods to parse data on.
-    protected string[] someMethods = ["PUT", "POST", "PATCH", "DELETE"];
-    /**
-     * Set the HTTP methods to parse request bodies on.
-     * Params:
-     * string[] someMethods The methods to parse data on.
-     */
-    void setMethods(string[] methodsToParseData) {
-        this.methods = methodsToParseData;
-    }
-    
-    // Get the HTTP methods to parse request bodies on.
-    string[] getMethods() {
-        return _methods;
-    }
-    /*
-    // Registered Parsers
-    protected IClosure[] aParsers = null;
+class DBodyParserMiddleware : DMiddleware { // }: IHttpMiddleware {
+    mixin(MiddlewareThis!("BodyParser"));
 
-
-
-    /**
+/**
      
      *
      * ### Options
@@ -66,9 +47,24 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
             setMethods(options.get("methods"));
         }
     }
-    
 
+    // The HTTP methods to parse data on.
+    protected string[] _methods = ["PUT", "POST", "PATCH", "DELETE"];
+    /**
+     * Set the HTTP methods to parse request bodies on.
+     */
+    void methods(string[] httpMethods) {
+        _methods = httpMethods;
+    }
     
+    // Get the HTTP methods to parse request bodies on.
+    string[] methods() {
+        return _methods;
+    }
+    
+    // Registered Parsers
+    protected IClosure[] _parsers = null;
+
     /**
      * Add a parser.
      *

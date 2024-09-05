@@ -14,15 +14,14 @@ import uim.http;
  * You can overload the `handle` method to provide your own logic
  * to run when no middleware generates a response.
  */
-class DMiddlewareApplication { // }: IHttpApplication {
+class DMiddlewareApplication : UIMObject { // }: IHttpApplication {
     /* 
     abstract void bootstrap();
 
- 
     abstract MiddlewareQueue middleware(MiddlewareQueue aMiddlewareQueue);
 
     // Generate a 404 response as no middleware handled the request.
     IResponse handle(IServerRequest serverRequest) {
         return new DResponse(["body": 'Not found", "status": 404]);
-    }
+    } */
 }

@@ -8,6 +8,7 @@ module uim.oop.mixins;
 import uim.oop;
 
 public {
+	import uim.oop.mixins.obj;
 	import uim.oop.mixins.properties;
 }
 

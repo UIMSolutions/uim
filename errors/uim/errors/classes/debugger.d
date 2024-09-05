@@ -1,7 +1,6 @@
 module uim.errors.classes.debugger;
 
 import uim.errors;
-
 @safe:
 
 /**

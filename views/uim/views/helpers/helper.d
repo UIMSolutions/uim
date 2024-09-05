@@ -42,7 +42,6 @@ class DHelper : UIMObject { // TODO }: IEventListener {
             return false;
         }
 
-/*         _allMethods = [ __traits(allMembers, DORMTable) ];
         _eventMap = [
             "View.beforeRenderFile": "beforeRenderFile",
             "View.afterRenderFile": "afterRenderFile",
@@ -51,9 +50,13 @@ class DHelper : UIMObject { // TODO }: IEventListener {
             "View.beforeLayout": "beforeLayout",
             "View.afterLayout": "afterLayout",
         ];
+
+/*         _allMethods = [ __traits(allMembers, DORMTable) ];
  */
         return true;
     }
+
+    protected STRINGAA _eventMap;
 
     // List of helpers used by this helper
     protected DHelper[] _helpers = null;
@@ -112,7 +115,7 @@ class DHelper : UIMObject { // TODO }: IEventListener {
      */
     IEvent[] implementedEvents() {
         auto myevents = null;
-        /* myeventMap.byKeyValue
+        _eventMap.byKeyValue
             .filter!(eventMethod => hasMethod(this, eventMethod.value))
             .each!(eventMethod => myevents[eventMethod.key] = eventMethod.value); */
 

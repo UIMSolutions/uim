@@ -1,18 +1,8 @@
 module uim.css.mixins.css;
 
 string cssThis(string name = null) {
-    string fullName = `"` ~ name ~ "Css" ~`"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    string fullName = `"` ~ name ~ "Css" ~ `"`;
+    return objThis(fullName);
 }
 
 template CssThis(string name = null) {
@@ -21,11 +11,7 @@ template CssThis(string name = null) {
 
 string cssCalls(string name) {
     string fullName = name ~ "Css";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
-    `;
+    return objCalls(fullName);
 }
 
 template CssCalls(string name) {

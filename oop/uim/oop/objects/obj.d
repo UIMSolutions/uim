@@ -1,6 +1,7 @@
 module uim.oop.objects.obj;
 
 import uim.oop;
+
 @safe:
 
 class UIMObject : INamed {
@@ -24,24 +25,38 @@ class UIMObject : INamed {
         configuration(MemoryConfiguration);
         configuration.set(initData);
 
-        _methodNames = [ __traits(allMembers, UIMObject) ];
+        // _methodNames = [__traits(allMembers, typeof(this))];
         return true;
     }
 
     mixin(TProperty!("string", "name"));
-    mixin(TProperty!("string[]", "methodNames"));
+    // mixin(TProperty!("string[]", "methodNames"));
+    string[] methods() {
+        return [__traits(allMembers, typeof(this))];
+    }
     bool hasMethod(string name) {
-        return _methodNames.has(name);
+        return methods.has(name);
     }
 
     Json[string] debugInfo() {
-        Json[string] info; 
+        Json[string] info;
         return info
-                .set("name", name)
-			    .set("classname", this.classname);
-    } 
+            .set("name", name)
+            .set("classname", this.classname);
+    }
 }
 
+class test : UIMObject {
+    string newMethod() {
+        return null; 
+    }
+    override string[] methods() {
+        return [__traits(allMembers, typeof(this))];
+    }
+}
 unittest {
     assert(new UIMObject);
+    auto obj = new UIMObject;
+    writeln("UIMObject -> ", obj.methods);
+    writeln("new Object -> ", (new test).methods);
 }

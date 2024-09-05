@@ -2,17 +2,7 @@ module uim.renderers.mixins.renderer;
 
 string rendererThis(string name = null) {
     string fullName = `"` ~ name ~ "Renderer" ~`"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
 }
 
 template RendererThis(string name = null) {
@@ -21,11 +11,7 @@ template RendererThis(string name = null) {
 
 string rendererCalls(string name) {
     string fullName = name ~ "Renderer";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
-    `;
+    return objCalls(fullName);
 }
 
 template RendererCalls(string name) {

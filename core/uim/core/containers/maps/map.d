@@ -275,12 +275,12 @@ unittest {
 // #endregion isSet
 
 // #region set
-V[K] set(K, V)(auto ref V[K] items, K[] keys, V value) if (!is(V == Json)) {
+V[K] set(K, V)(auto ref V[K] items, K[] keys, V value) if (!is(V == Json) && !is(V == string)) {
   keys.each!(key => items.set(key, value));
   return items;
 }
 
-V[K] set(K, V)(auto ref V[K] items, K key, V value) if (!is(V == Json)) {
+V[K] set(K, V)(auto ref V[K] items, K key, V value) if (!is(V == Json) && !is(V == string)) {
   items[key] = value;
   return items;
 }

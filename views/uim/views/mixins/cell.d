@@ -60,7 +60,7 @@ mixin template TCell() {
         }
         if (cast(IView) this) {
             if (!_theme.isEmpty) {
-                mybuilder.setTheme(_theme);
+                mybuilder.theme(_theme);
             }
            /*  myclass = class;
             mybuilder.setClassname(myclass);
@@ -69,7 +69,7 @@ mixin template TCell() {
             return myinstance;
         }
         if (hasMethod(this, "viewBuilder")) {
-            mybuilder.setTheme(viewBuilder().getTheme());
+            mybuilder.theme(viewBuilder().theme());
 
             if (viewBuilder().getClassname() !is null) {
                 mybuilder.setClassname(viewBuilder().getclassname());

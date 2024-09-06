@@ -141,3 +141,44 @@ string htmlSingleTag(string tag, string[] classes,  STRINGAA attributes) {
 string htmlSingleTag(string tag, string id, string[] classes,  STRINGAA attributes) {
 	return htmlStartTag(tag, id, classes, attributes);
 }
+
+
+/**
+     * Convenience method for htmlspecialchars.
+     * Params:
+     * Json text Text to wrap through htmlspecialchars. Also works with arrays, and objects.
+     *  Arrays will be mapped and have all their elements escaped. Objects will be string cast if they
+     *  implement a `__toString` method. Otherwise, the class name will be used.
+     *  Other scalar types will be returned unchanged.
+     */
+string htmlAttributeEscape(Json text, bool isDouble = true, string charsetToUse = null) {
+    /* Json result = text;
+    if (text.isString) {
+        // optimize for strings
+    } else if (text.isArray) {
+        Json result = Json.emptyObject;
+        text.byKeyValue
+            .each!(kv => result[kv.key] = htmlAttributeEscape(kv.value, isDouble, charset));
+        return result;
+    } else if (text.isObject) {
+        result = text ? text.get!string : "(object)" ~ text.classname;
+    } else if (text.isNull || isScalar(text)) {
+        return result;
+    } */
+
+    return htmlAttributeEscape(text.getString, isDouble, charsetToUse);
+}
+
+string htmlAttributeEscape(string text, bool isDouble = true, string charset = null) {
+    /* string defaultCharset;
+    if (charset.isEmpty) {
+        string encoding = mb_internal_encoding();
+        defaultCharset = encoding ? encoding : "UTF-8";
+    }
+    return htmlspecialchars(result, ENT_QUOTES | ENT_SUBSTITUTE, charsetToUse ? charsetToUse : defaultCharset, isDouble); */
+    return htmlAttribEscape(text);
+}
+unittest {
+	writeln("htmlAttributeEscape -> ", htmlAttributeEscape("Hallo! <world>"));
+}
+

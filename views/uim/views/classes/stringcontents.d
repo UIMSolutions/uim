@@ -11,27 +11,25 @@ import uim.views;
  * Used by several helpers to provide simple flexible templates
  * for generating HTML and other content.
  */
-class DStringContents {
-    mixin TConfigurable;
-
+class DStringContents : UIMObject {
     this() {
-        this.initialize;
-    }
-
-    this(string newName) {
-        this();
-        this.name(newName);
+        super();
     }
 
     this(Json[string] initData) {
-        this.initialize(initData);
+        super(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    this(string newName,Json[string] initData = null) {
+        super(newName, initData);
+    }
 
-        _compactAttributes = [
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
+
+        _boolAttributes = [
             "allowfullscreen": true,
             "async": true,
             "autofocus": true,
@@ -79,10 +77,8 @@ class DStringContents {
         return true;
     }
 
-    mixin(TProperty!("string", "name"));
-
     // List of attributes that can be made compact.
-    protected bool[string] _compactAttributes;
+    protected bool[string] _boolAttributes;
     protected STRINGAA _templates;
 
     // #region manage Templates
@@ -216,7 +212,7 @@ class DStringContents {
     /**
      * Returns a space-delimited string with items of the options array. If a key
      * of options array happens to be one of those listed
-     * in `StringContents._compactAttributes` and its value is one of:
+     * in `StringContents._boolAttributes` and its value is one of:
      *
      * - "1" /* (string) * /
      * - "true" /* (string) * /
@@ -265,22 +261,27 @@ class DStringContents {
     /**
      * Formats an individual attribute, and returns the string value of the composed attribute.
      * Works with minimized attributes that have the same value as their name such as "disabled" and "checked"
-     */
-    protected string _formatAttribute(string attributeKey, Json attributeData, bool shouldEscape = true) {
+     */    
+    protected string _formatAttribute(string key, Json attributeData, bool shouldEscape = true) {
         string value = attributeData.isArray
             ? attributeData.toStringArray.join(" ") : attributeData.toString;
-        if (
+        return _formatAttribute(key, value, shouldEscape);
+    }
+
+    protected string _formatAttribute(string key, string value, bool shouldEscape = true) {
+        // TODO 
+        /* if (
             attributeKey.isNumeric) {
             return `%s="%s"`.format(value, value);
-        }
+        } */
 
-        string key = attributeKey;
-        bool isMinimized = _compactAttributes.hasKey(key);
+        key = key.strip;
+        bool isBoolAttributes = _boolAttributes.hasKey(key);
         /* if (!matchFirst(key, r"/\A(\w|[.-])+\z/")) {
             key = htmlAttributeEscape(key);
         }
 
-        if (isMinimized) {
+        if (isBoolAttributes) {
             bool truthy = ["1", "true", key].any!(v => v == value);
             return truthy ? `%s="%s"`.format(key, key) : "";
         }

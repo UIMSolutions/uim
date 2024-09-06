@@ -317,6 +317,7 @@ static string contentType() {
     // Set the view theme to use.
     IView theme(string name) {
         _theme = name;
+        return this; 
     }
 
     // Get the name of the template file to render.
@@ -326,8 +327,9 @@ static string contentType() {
     }
 
     // Set the name of the template file to render.
-    void templateFilename(string views) {
+    IView templateFilename(string views) {
         _templateFilename = views;
+        return this; 
     }
 
     /**

@@ -10,17 +10,7 @@ import uim.models;
 
 string modelThis(string name = null) {
     string fullName = `"` ~ name ~ "Model" ~`"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
     
       /* return `
     this() { super("`~name~`"); this.classname("`~name~`"); }

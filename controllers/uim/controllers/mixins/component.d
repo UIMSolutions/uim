@@ -2,17 +2,8 @@ module uim.controllers.mixins.component;
 
 string componentThis(string name = null) {
     string fullName = `"` ~ name ~ "Component" ~`"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+        return objThis(fullName);
+
 }
 
 template ComponentThis(string name = null) {

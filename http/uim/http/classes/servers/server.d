@@ -23,15 +23,13 @@ class DServer : UIMObject { // }: IEventDispatcher {
         super(name, initData);
     }
     // Hook method
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
 
         return true;
     }
-
-    mixin(TProperty!("string", "name"));
-
 
     protected IHttpApplication _app;
 

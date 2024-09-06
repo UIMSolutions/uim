@@ -10,17 +10,8 @@ import uim.filesystems;
 @safe:
 string fileThis(string name = null) {
   string fullName = `"` ~ name ~ "File" ~ `"`;
+    return objThis(fullName);
 
-  return `
-    this() {
-      super(`~ fullName ~`);
-    }
-    this(Json[string] initData) {
-      super(`~ fullName ~`, initData);
-    }
-    this(string name, Json[string] initData = null) {
-      super(name, initData);
-    }`
     ~
     (name !is null
     ? `this(string[] path, Json[string] initData = null) {

@@ -2,17 +2,8 @@ module uim.controllers.mixins.controller;
 
 string controllerThis(string name = null) {
     string fullName = `"` ~ name ~ "Controller" ~`"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+        return objThis(fullName);
+
 }
 
 template ControllerThis(string name = null) {

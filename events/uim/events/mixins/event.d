@@ -1,5 +1,8 @@
 module uim.events.mixins.event;
 
+import uim.events;
+@safe: 
+
 string eventThis(string name = null) {
     string fullName = `"` ~ name ~ "Event" ~`"`;
     return objThis(fullName);

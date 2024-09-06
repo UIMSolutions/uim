@@ -1,7 +1,6 @@
 module uim.events.classes.events.event;
 
 import uim.events;
-
 @safe:
 
 class DEvent : UIMObject, IEvent {

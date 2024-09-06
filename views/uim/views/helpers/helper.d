@@ -114,12 +114,12 @@ class DHelper : UIMObject { // TODO }: IEventListener {
      * Or if you want helpers to listen to non-standard events.
      */
     IEvent[] implementedEvents() {
-        auto myevents = null;
-        _eventMap.byKeyValue
-            .filter!(eventMethod => hasMethod(this, eventMethod.value))
-            .each!(eventMethod => myevents[eventMethod.key] = eventMethod.value); */
+        auto events = null;
+        // _eventMap.byKeyValue
+            // .filter!(eventMethod => hasMethod(this, eventMethod.value))
+            // .each!(eventMethod => myevents[eventMethod.key] = eventMethod.value);
 
-        return myevents;
+        return events;
     }
 
     // Returns an array that can be used to describe the internal state of this object.

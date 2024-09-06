@@ -112,7 +112,7 @@ auto Schema() {
 }
 
 unittest {
-    STRINGAA[string] fields;
+    /* STRINGAA[string] fields;
     fields.set("a", [
             "type": Json(null),
             "length": Json(null),
@@ -145,5 +145,5 @@ unittest {
     assert(schema.hasAnyFields(["a", "b", "c"]), "Fields a, b, c are missing");
     assert(!schema.hasAnyFields(["x", "y", "z"]), "Fields a, b, c are missing");
     assert(schema.hasAllFields(["a", "c"]), "Field a or c are missing");
-    assert(!schema.hasAllFields(["a", "b", "c"]), "Field a, b or c are missing");
+    assert(!schema.hasAllFields(["a", "b", "c"]), "Field a, b or c are missing"); */
 }

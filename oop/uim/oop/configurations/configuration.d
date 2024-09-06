@@ -19,10 +19,10 @@ class DConfiguration : UIMObject, IConfiguration {
     abstract Json[string] defaultData();
 
     abstract IConfiguration defaultData(Json[string] newData);
-	@property auto byKeyValue()
-	@trusted {
-		return data.byKeyValue.map!(kv => KeyValue(kv.key, kv.value)).array;
-	}
+    @property auto byKeyValue()
+    @trusted {
+        return data.byKeyValue.map!(kv => KeyValue(kv.key, kv.value)).array;
+    }
 
     bool hasAnyDefaults(string[] keys) {
         return keys
@@ -40,139 +40,132 @@ class DConfiguration : UIMObject, IConfiguration {
     abstract Json getDefault(string key);
 
     // #region updateDefault
-        IConfiguration updateDefault(string[] keys, bool newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        } 
+    IConfiguration updateDefault(string[] keys, bool newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration updateDefault(string[] keys, long newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        } 
+    IConfiguration updateDefault(string[] keys, long newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration updateDefault(string[] keys, double newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        } 
+    IConfiguration updateDefault(string[] keys, double newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration updateDefault(string[] keys, string newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        } 
+    IConfiguration updateDefault(string[] keys, string newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration updateDefault(string[] keys, Json newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        } 
+    IConfiguration updateDefault(string[] keys, Json newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration updateDefault(string[] keys, Json[] newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        } 
+    IConfiguration updateDefault(string[] keys, Json[] newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration updateDefault(string[] keys, Json[string] newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        } 
+    IConfiguration updateDefault(string[] keys, Json[string] newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration updateDefault(string key, bool newValue) {
-            return hasKey(key) 
-                ? set(key, newValue)
-                : this;
-        }
+    IConfiguration updateDefault(string key, bool newValue) {
+        return hasKey(key)
+            ? set(key, newValue) : this;
+    }
 
-        IConfiguration updateDefault(string key, long newValue) {
-            return hasKey(key) 
-                ? set(key, newValue)
-                : this;
-        }
+    IConfiguration updateDefault(string key, long newValue) {
+        return hasKey(key)
+            ? set(key, newValue) : this;
+    }
 
-        IConfiguration updateDefault(string key, double newValue) {
-            return hasKey(key) 
-                ? set(key, newValue)
-                : this;
-        }
+    IConfiguration updateDefault(string key, double newValue) {
+        return hasKey(key)
+            ? set(key, newValue) : this;
+    }
 
-        IConfiguration updateDefault(string key, string newValue) {
-            return hasKey(key) 
-                ? set(key, newValue)
-                : this;
-        }
+    IConfiguration updateDefault(string key, string newValue) {
+        return hasKey(key)
+            ? set(key, newValue) : this;
+    }
 
-        IConfiguration updateDefault(string key, Json newValue) {
-            return hasKey(key) 
-                ? set(key, newValue)
-                : this;
-        }
+    IConfiguration updateDefault(string key, Json newValue) {
+        return hasKey(key)
+            ? set(key, newValue) : this;
+    }
 
-        IConfiguration updateDefault(string key, Json[] newValue) {
-            return hasKey(key) 
-                ? set(key, newValue)
-                : this;
-        }
+    IConfiguration updateDefault(string key, Json[] newValue) {
+        return hasKey(key)
+            ? set(key, newValue) : this;
+    }
 
-        IConfiguration updateDefault(string key, Json[string] newValue) {
-            return hasKey(key) 
-                ? set(key, newValue)
-                : this;
-        }
+    IConfiguration updateDefault(string key, Json[string] newValue) {
+        return hasKey(key)
+            ? set(key, newValue) : this;
+    }
     // #endregion updateDefault
 
     // #region setDefault
-        IConfiguration setDefault(string[] keys, bool newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        }
+    IConfiguration setDefault(string[] keys, bool newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration setDefault(string[] keys, long newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        }
+    IConfiguration setDefault(string[] keys, long newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration setDefault(string[] keys, double newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        }
+    IConfiguration setDefault(string[] keys, double newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration setDefault(string[] keys, string newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        }
+    IConfiguration setDefault(string[] keys, string newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration setDefault(string[] keys, Json newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        }
+    IConfiguration setDefault(string[] keys, Json newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration setDefault(string[] keys, Json[] newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        }
+    IConfiguration setDefault(string[] keys, Json[] newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration setDefault(string[] keys, Json[string] newValue) {
-            keys.each!(key => setDefault(key, newValue));
-            return this;
-        }
+    IConfiguration setDefault(string[] keys, Json[string] newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
 
-        IConfiguration setDefault(string key, bool newValue) {
-            return setDefault(key, Json(newValue));
-        }
+    IConfiguration setDefault(string key, bool newValue) {
+        return setDefault(key, Json(newValue));
+    }
 
-        IConfiguration setDefault(string key, long newValue) {
-            return setDefault(key, Json(newValue));
-        }
+    IConfiguration setDefault(string key, long newValue) {
+        return setDefault(key, Json(newValue));
+    }
 
-        IConfiguration setDefault(string key, double newValue) {
-            return setDefault(key, Json(newValue));
-        }
+    IConfiguration setDefault(string key, double newValue) {
+        return setDefault(key, Json(newValue));
+    }
 
-        IConfiguration setDefault(string key, string newValue) {
-            return setDefault(key, Json(newValue));
-        }
+    IConfiguration setDefault(string key, string newValue) {
+        return setDefault(key, Json(newValue));
+    }
 
-        abstract IConfiguration setDefault(string key, Json newValue);
-        abstract IConfiguration setDefault(string key, Json[] newValue);
-        abstract IConfiguration setDefault(string key, Json[string] newValue);
+    abstract IConfiguration setDefault(string key, Json newValue);
+    abstract IConfiguration setDefault(string key, Json[] newValue);
+    abstract IConfiguration setDefault(string key, Json[string] newValue);
     // #endregion setDefaults
 
     // #region mergeDefault
@@ -328,80 +321,13 @@ class DConfiguration : UIMObject, IConfiguration {
         return this;
     }
 
-    IConfiguration set(string[] keys, bool newValue) {
-        keys.each!(key => set(key, newValue));
-        return this;
-    }
-
-    IConfiguration set(string[] keys, long newValue) {
-        keys.each!(key => set(key, newValue));
-        return this;
-    }
-
-    IConfiguration set(string[] keys, double newValue) {
-        keys.each!(key => set(key, newValue));
-        return this;
-    }
-
-    IConfiguration set(string[] keys, string newValue) {
-        keys.each!(key => set(key, newValue));
-        return this;
-    }
-
-    IConfiguration set(string[] keys, Json newValue) {
-        keys.each!(key => set(key, newValue));
-        return this;
-    }
-
-    IConfiguration set(string[] keys, Json[] newValue) {
-        keys.each!(key => set(key, newValue));
-        return this;
-    }
-
-    IConfiguration set(string[] keys, Json[string] newValue) {
-        keys.each!(key => set(key, newValue));
-        return this;
-    }
-
-    IConfiguration set(string key, bool newValue) {
-        return set(key, Json(newValue));
-    }
-
-    IConfiguration set(string key, long newValue) {
-        return set(key, Json(newValue));
-    }
-
-    IConfiguration set(string key, double newValue) {
-        return set(key, Json(newValue));
-    }
-
-    IConfiguration set(string key, string newValue) {
-        return set(key, Json(newValue));
-    }
+    mixin(DataIndexAssign!());
+    mixin(SetDataMulti!("IConfiguration"));
+    mixin(SetDataSingle!("IConfiguration"));
 
     abstract IConfiguration set(string key, Json newValue);
     abstract IConfiguration set(string key, Json[] newValue);
     abstract IConfiguration set(string key, Json[string] newValue);
-
-    void opIndexAssign(bool newValue, string key) {
-        set(key, newValue);
-    }
-
-    void opIndexAssign(long newValue, string key) {
-        set(key, newValue);
-    }
-
-    void opIndexAssign(double newValue, string key) {
-        set(key, newValue);
-    }
-
-    void opIndexAssign(string newValue, string key) {
-        set(key, newValue);
-    }
-
-    void opIndexAssign(Json newValue, string key) {
-        set(key, newValue);
-    }
     //#endregion set
 
     // #region update

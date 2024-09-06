@@ -18,7 +18,7 @@ import uim.views;
  * ```
  * auto beforeRender(\UIM\Event\IEvent myevent)
  * {
- *    _viewBuilder().setTheme("SuperHot");
+ *    _viewBuilder().theme("SuperHot");
  * }
  * ```
  *
@@ -110,8 +110,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
 
     /**
      * The name of the layout file to render the template inside of. The name specified
-     * is the filename of the layout in `templates/layout/` without the .d
-     * extension.
+     * is the filename of the layout in `templates/layout/` without the .d extension.
      */
     protected string _layoutName = "default";
 
@@ -128,7 +127,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
      * Turns on or off UIM"s conventional mode of applying layout files. On by default.
      * Setting to off means that layouts will not be automatically applied to rendered templates.
      */
-    protected bool _autoLayout = true;
+    protected bool _autoLayoutEnabled = true;
 
     // An array of variables
     protected Json[string] _viewVars;
@@ -212,8 +211,6 @@ static string contentType() {
     // The currently rendering view file. Used for resolving parent files.
     protected string _current = "";
 
-
-
     // Content stack, used for nested templates that all use View.extend();
     protected string[] _stack;
 
@@ -295,14 +292,10 @@ static string contentType() {
     
     /**
      * Turns on or off UIM"s conventional mode of applying layout files.
-     * On by default. Setting to off means that layouts will not be
-     * automatically applied to rendered views.
-     * Params:
-     * bool myenable Boolean to turn on/off.
+     * On by default. Setting to off means that layouts will not be automatically applied to rendered views.
      */
-    auto enableAutoLayout(bool myenable = true) {
-        _autoLayout = myenable;
-
+    IView enableAutoLayout(bool enable = true) {
+        _autoLayoutEnabled = enable;
         return this;
     }
 
@@ -310,21 +303,20 @@ static string contentType() {
      * Turns off UIM"s conventional mode of applying layout files.
      * Layouts will not be automatically applied to rendered views.
      */
-    auto disableAutoLayout() {
-        _autoLayout = false;
-
+    IView disableAutoLayout() {
+        _autoLayoutEnabled = false;
         return this;
     }
     
     // Get the current view theme.
     protected string _theme;
-    string getTheme() {
+    string theme() {
         return _theme;
     }
 
     // Set the view theme to use.
-    void setTheme(string themeName) {
-        _theme = themeName;
+    IView theme(string name) {
+        _theme = name;
     }
 
     // Get the name of the template file to render.
@@ -477,13 +469,13 @@ static string contentType() {
      * the template will be located along the regular view path cascade.
      */
     string render(string templateName = null, string layoutName = null) {
-        auto mydefaultLayout = "";
-        auto mydefaultAutoLayout = null;
+        auto defaultLayout = "";
+        auto defaultAutoLayout = null;
         /* if (layoutName == false) {
-            mydefaultAutoLayout = _autoLayout;
-            _autoLayout = false;
+            defaultAutoLayout = _autoLayoutEnabled;
+            _autoLayoutEnabled = false;
         } else if (layoutName !is null) {
-            mydefaultLayout = _layout;
+            defaultLayout = _layout;
             _layout = layoutName;
         } */
         /* mytemplateFileName = _getTemplateFileName(templateName);
@@ -492,7 +484,7 @@ static string contentType() {
         _blocks.set("content", _render(mytemplateFileName));
         _dispatchEvent("View.afterRender", [mytemplateFileName]);
 
-        if (_autoLayout) {
+        if (_autoLayoutEnabled) {
             if (_layout.isEmpty) {
                 throw new DException(
                     "View.layoutName must be a non-empty string." ~
@@ -502,10 +494,10 @@ static string contentType() {
             _blocks.set("content", _renderLayout("", _layout));
         }
         if (layoutName !is null) {
-            _layout = mydefaultLayout;
+            _layout = defaultLayout;
         }
-        if (mydefaultAutoLayout !is null) {
-            _autoLayout = mydefaultAutoLayout;
+        if (defaultAutoLayout !is null) {
+            _autoLayoutEnabled = defaultAutoLayout;
         }
         return _blocks.get("content"); */
         return null; 

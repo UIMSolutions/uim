@@ -83,7 +83,7 @@ return false;
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string image(string path, Json[string] options = null) {
-/*         options.merge("theme", _view.getTheme());
+/*         options.merge("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.imageUrl(path, options)); */
         return null;
@@ -96,7 +96,7 @@ return false;
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string css(string path, Json[string] options = null) {
-/*         options.merge("theme", _view.getTheme());
+/*         options.merge("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.cssUrl(path, options)); */
         return null;
@@ -109,7 +109,7 @@ return false;
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string script(string path, Json[string] options = null) {
-/*         auto options = options.set("theme", _view.getTheme());
+/*         auto options = options.set("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.scriptUrl(path, options)); */
         return null;
@@ -134,7 +134,7 @@ return false;
      *  enable timestamping regardless of debug value.
      */
     string assetUrl(string path, Json[string] options = null) {
-/*         options.merge("theme", _view.getTheme());
+/*         options.merge("theme", _view.theme());
 
         return htmlAttributeEscape(
             _assetUrlclassname.url(path, options)); */
@@ -154,7 +154,7 @@ return false;
 
     // Checks if a file exists when theme is used, if no file is found default location is returned
     string webroot(string filename) {
-/*         options.merge("theme", _view.getTheme());
+/*         options.merge("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.webroot(filename, options)); */
         return null;

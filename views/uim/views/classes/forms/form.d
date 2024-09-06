@@ -229,19 +229,21 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
 
     // #region set
     // Saves a variable or an associative array of variables for use inside form data.
-    mixin TSetData!IForm;
-    IForm set(string key, Json value) {
-        _data.set(key, value);
-        return this;
-    }
-    IForm set(string key, Json[] values) {
-        _data.set(key, values);
-        return this;
-    }
-    IForm set(string key, Json[string] values) {
-        _data.set(key, values);
-        return this;
-    }
+        mixin(DataIndexAssign!());
+        mixin(SetDataMulti!("IForm"));
+        mixin(SetDataSingle!("IForm"));
+        IForm set(string key, Json value) {
+            _data.set(key, value);
+            return this;
+        }
+        IForm set(string key, Json[] values) {
+            _data.set(key, values);
+            return this;
+        }
+        IForm set(string key, Json[string] values) {
+            _data.set(key, values);
+            return this;
+        }
     // #endregion set
 
     // Get the printable version of a Form instance.

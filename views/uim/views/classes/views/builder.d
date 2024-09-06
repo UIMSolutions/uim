@@ -210,12 +210,12 @@ class DViewBuilder { // }: DJsonSerializable {
      * string mytheme Theme name.
      * Use null to remove the current theme.
      */
-    void setTheme(string mytheme) {
+    void theme(string mytheme) {
        _theme = mytheme;
     }
     
     // Gets the view theme to use.
-    string getTheme() {
+    string theme() {
         return _theme;
     }
     

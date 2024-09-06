@@ -3,7 +3,7 @@ module uim.oop.mixins.data;
 import uim.oop;
 @safe:
 
-template `~returnType~`SetData(`~returnType~`) {
+/* template `~returnType~`SetData(`~returnType~`) {
     //#region set
 /*     `~returnType~` set(S`~returnType~`RINGAA data, string[] keys) {
         Json[string] map;
@@ -21,79 +21,101 @@ template `~returnType~`SetData(`~returnType~`) {
             .each!(key => set(key, newData[key]));
 
         return this;
-    } */ 
+    }  
 
-        // #region set (multi)
-            `~returnType~` set(string[] keys, bool value) {
-                keys.each!(key => set(key, value));
-                return this;
-            }
+           //#endregion set
+}*/
 
-            `~returnType~` set(string[] keys, long value) {
-                keys.each!(key => set(key, value));
-                return this;
-            }
-
-            `~returnType~` set(string[] keys, double value) {
-                keys.each!(key => set(key, value));
-                return this;
-            }
-
-            `~returnType~` set(string[] keys, string value) {
-                keys.each!(key => set(key, value));
-                return this;
-            }
-
-            `~returnType~` set(string[] keys, Json value) {
-                keys.each!(key => set(key, value));
-                return this;
-            }
-
-            `~returnType~` set(string[] keys, Json[] value) {
-                keys.each!(key => set(key, value));
-                return this;
-            }
-
-            `~returnType~` set(string[] keys, Json[string] value) {
-                keys.each!(key => set(key, value));
-                return this;
-            }
-        // #endregion set(multi)
-
-
-        // #region opIndexAssign
-            void opIndexAssign(bool value, string key) {
-                set(key, value);
-            }
-
-            void opIndexAssign(long value, string key) {
-                set(key, value);
-            }
-
-            void opIndexAssign(double value, string key) {
-                set(key, value);
-            }
-
-            void opIndexAssign(string value, string key) {
-                set(key, value);
-            }
-
-            void opIndexAssign(Json value, string key) {
-                set(key, value);
-            }
-
-            void opIndexAssign(Json[] value, string key) {
-                set(key, value);
-            }
-
-            void opIndexAssign(Json[string] value, string key) {
-                set(key, value);
-            }
-        // #endregion opIndexAssign
-    //#endregion set
+template ISetDataMulti(string returnType) {
+    const char[] ISetDataMulti = `
+        `~returnType~` set(string[] keys, bool value);
+        `~returnType~` set(string[] keys, long value);
+        `~returnType~` set(string[] keys, double value);
+        `~returnType~` set(string[] keys, string value);
+        `~returnType~` set(string[] keys, Json value);
+        `~returnType~` set(string[] keys, Json[] value);
+        `~returnType~` set(string[] keys, Json[string] value);`;
+}
+template ISetDataSingle(string returnType) {
+    const char[] ISetDataSingle = `
+        `~returnType~` set(string key, bool value);
+        `~returnType~` set(string key, long value);
+        `~returnType~` set(string key, double value);
+        `~returnType~` set(string key, string value);
+        `~returnType~` set(string key, Json value);
+        `~returnType~` set(string key, Json[] value);
+        `~returnType~` set(string key, Json[string] value);`;
 }
 
-template SetDataSingle(string return`~returnType~`ype) {
+template DataIndexAssign() {
+    const char[] DataIndexAssign = `
+        void opIndexAssign(bool value, string key) {
+            set(key, value);
+        }
+
+        void opIndexAssign(long value, string key) {
+            set(key, value);
+        }
+
+        void opIndexAssign(double value, string key) {
+            set(key, value);
+        }
+
+        void opIndexAssign(string value, string key) {
+            set(key, value);
+        }
+
+        void opIndexAssign(Json value, string key) {
+            set(key, value);
+        }
+
+        void opIndexAssign(Json[] value, string key) {
+            set(key, value);
+        }
+
+        void opIndexAssign(Json[string] value, string key) {
+            set(key, value);
+        }
+    `; 
+}
+template SetDataMulti(string returnType) {
+    const char[] SetDataMulti = `
+            `~returnType~` set(string[] keys, bool value) {
+            keys.each!(key => set(key, value));
+            return this;
+        }
+
+        `~returnType~` set(string[] keys, long value) {
+            keys.each!(key => set(key, value));
+            return this;
+        }
+
+        `~returnType~` set(string[] keys, double value) {
+            keys.each!(key => set(key, value));
+            return this;
+        }
+
+        `~returnType~` set(string[] keys, string value) {
+            keys.each!(key => set(key, value));
+            return this;
+        }
+
+        `~returnType~` set(string[] keys, Json value) {
+            keys.each!(key => set(key, value));
+            return this;
+        }
+
+        `~returnType~` set(string[] keys, Json[] value) {
+            keys.each!(key => set(key, value));
+            return this;
+        }
+
+        `~returnType~` set(string[] keys, Json[string] value) {
+            keys.each!(key => set(key, value));
+            return this;
+        }`;
+}
+template SetDataSingle(string returnType) {
     const char[] SetDataSingle = `
         `~returnType~` set(string key, bool value) {
             return set(key, Json(value));

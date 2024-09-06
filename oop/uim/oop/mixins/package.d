@@ -22,6 +22,7 @@ public {
 	import uim.oop.mixins.exception;
 	import uim.oop.mixins.fileconfig;
 	import uim.oop.mixins.mergevariables;
+	import uim.oop.mixins.data;
 	import uim.oop.mixins.staticconfig;
 	import uim.oop.mixins.valuemap;
 }

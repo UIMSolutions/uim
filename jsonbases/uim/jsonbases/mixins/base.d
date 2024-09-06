@@ -3,8 +3,9 @@ module uim.jsonbases.mixins.base;
 import uim.jsonbases;
 
 @safe:
+
 string jsonBaseThis(string name = null) {
-  string fullName = `"`~name ~ "JsonBase"~`"`;
+  string fullName = `"` ~ name ~ "JsonBase" ~ `"`;
   return objThis(fullName);
 }
 
@@ -14,7 +15,7 @@ template JsonBaseThis(string name = null) {
 
 string jsonBaseCalls(string name) {
   string fullName = name ~ "JsonTenant";
-    return objCalls(fullName);
+  return objCalls(fullName);
 }
 
 template JsonBaseCalls(string name) {

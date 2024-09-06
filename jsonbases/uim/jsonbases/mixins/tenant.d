@@ -5,7 +5,7 @@ import uim.jsonbases;
 @safe:
 string jsonTenantThis(string name = null) {
   string fullName = `"` ~ name ~ "JsonTenant" ~ `"`;
-  return objThis(fullName);
+  return objThis(fullName)
   ~(name !is null
       ? `
         this(IJsonBase base, Json[string] initData = null) { super(base, initData); }
@@ -19,7 +19,6 @@ template JsonTenantThis(string name = null) {
 
 string jsonTenantCalls(string name) {
   string fullName = name ~ "JsonTenant";
-
   return objCalls(fullName) ~
     `auto ` ~ fullName ~ `(IJsonBase base, Json[string] initData = null) { return new D` ~ fullName ~ `(base, initData); }
 auto `

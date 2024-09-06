@@ -1,5 +1,8 @@
 module uim.views.mixins.view;
 
+import uim.views;
+@safe: 
+
 string viewThis(string name = null) {
     string fullName = `"` ~ name ~ "View" ~ `"`;
     return objThis(fullName);
@@ -11,11 +14,7 @@ template ViewThis(string name = null) {
 
 string viewCalls(string name) {
     string fullName = name ~ "View";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
-    `;
+    return objCalls(fullName);
 }
 
 template ViewCalls(string name) {

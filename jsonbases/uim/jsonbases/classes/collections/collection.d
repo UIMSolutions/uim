@@ -12,8 +12,15 @@ unittest {
 abstract class DJsonCollection : UIMObject, IJsonCollection {
   mixin(JsonCollectionThis!());
 
-  this(IJsonTenant aTenant, Json[string] initData = null) { this(initData); this.tenant(aTenant); }
-  this(IJsonTenant aTenant, string name, Json[string] initData = null) { this(name, initData); this.tenant(aTenant); }
+  this(IJsonTenant aTenant, Json[string] initData = null) {
+    this(initData);
+    this.tenant(aTenant);
+  }
+
+  this(IJsonTenant aTenant, string name, Json[string] initData = null) {
+    this(name, initData);
+    this.tenant(aTenant);
+  }
 
   mixin(TProperty!("string", "classname"));
   mixin(TProperty!("IJsonTenant", "tenant"));

@@ -6,17 +6,8 @@ import uim.views;
 
 string widgetThis(string name = null) {
     string fullName = `"` ~ name ~ "Widget" ~ `"`;
-    return `
-    this() {
-        super(`~ fullName ~ `);
-    }
-    this(Json[string] initData) {
-        super(`~ fullName ~ `, initData);
-    }
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
-    }
-    `;
+    return objThis(fullName);
+
 }
 
 template WidgetThis(string name = null) {
@@ -25,11 +16,7 @@ template WidgetThis(string name = null) {
 
 string widgetCalls(string name) {
     string fullName = name ~ "Widget";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
-    `;
+    return objCalls(fullName);
 }
 
 template WidgetCalls(string name) {

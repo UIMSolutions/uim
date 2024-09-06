@@ -1,5 +1,8 @@
 module uim.views.mixins.helper;
 
+import uim.views;
+@safe: 
+
 string helperThis(string name = null) {
     string fullName = `"` ~ name ~ "Helper" ~ `"`;
     return objThis(fullName);

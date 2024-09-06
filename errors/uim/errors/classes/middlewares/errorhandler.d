@@ -5,8 +5,8 @@
 **********************************************************************************************************/
 module uim.errors.classes.middlewares.errorhandler;
 
-@safe:
 import uim.errors;
+@safe:
 
 /**
  * Error handling middleware.

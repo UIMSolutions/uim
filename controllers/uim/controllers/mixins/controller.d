@@ -1,5 +1,8 @@
 module uim.controllers.mixins.controller;
 
+import uim.controllers;
+@safe:
+
 string controllerThis(string name = null) {
     string fullName = `"` ~ name ~ "Controller" ~`"`;
         return objThis(fullName);

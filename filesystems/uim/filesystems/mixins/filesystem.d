@@ -5,11 +5,12 @@
 ***********************************************************************************/
 module uim.filesystems.mixins.filesystem;
 
+import uim.filesystems;
+@safe:
+
 string filesystemThis(string name = null) {
   string fullName = `"` ~ name ~ "Filesystem"~ `"`;
-
-  string mainPart = return objThis(fullName);
-
+  string mainPart = objThis(fullName);
 
   if (name !is null) {
     mainPart ~= `this(string[] path, Json[string] initData = null) { super(path, initData); }`;

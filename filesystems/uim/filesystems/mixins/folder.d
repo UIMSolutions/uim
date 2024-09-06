@@ -10,9 +10,9 @@ import uim.filesystems;
 @safe:
 string folderThis(string name = null) {
   string fullName = `"` ~ name ~ "Folder" ~ `"`;
-    return objThis(fullName) ~
+  return objThis(fullName) ~
     (name !is null
-    ? `this(string[] path, Json[string] initData = null) {
+        ? `this(string[] path, Json[string] initData = null) {
         this(initData); this.path(path);
       }
       this(IFilesystem filesystem, Json[string] initData = null) {
@@ -31,17 +31,16 @@ template FolderThis(string name = null) {
 }
 
 string folderCalls(string name) {
-  string fullName = name~"Folder";
+  string fullName = name ~ "Folder";
+  return objCalls(fullName) ~
+    `auto ` ~ fullName ~ `(string[] path, Json[string] initData = null) { return new D` ~ fullName ~ `(path, initData); };
 
-  return `
-auto `~fullName~`() { return new D`~fullName~`; }
-auto `~fullName~`(Json[string] initData) { return new D`~fullName~`(initData); };
-auto `~fullName~`(string name, Json[string] initData = null) { return new D`~fullName~`(name, initData); };
-auto `~fullName~`(string[] path, Json[string] initData = null) { return new D`~fullName~`(path, initData); };
-
-auto `~fullName~`(IFilesystem filesystem, Json[string] initData = null) { return new D`~fullName~`(filesystem, initData); };
-auto `~fullName~`(IFilesystem filesystem, string name, Json[string] initData = null) { return new D`~fullName~`(filesystem, name, initData); };
-auto `~fullName~`(IFilesystem filesystem, string[] path, Json[string] initData = null) { return new D`~fullName~`(filesystem, path, initData); };
+auto `
+    ~ fullName ~ `(IFilesystem filesystem, Json[string] initData = null) { return new D` ~ fullName ~ `(filesystem, initData); };
+auto `
+    ~ fullName ~ `(IFilesystem filesystem, string name, Json[string] initData = null) { return new D` ~ fullName ~ `(filesystem, name, initData); };
+auto `
+    ~ fullName ~ `(IFilesystem filesystem, string[] path, Json[string] initData = null) { return new D` ~ fullName ~ `(filesystem, path, initData); };
   `;
 }
 

@@ -35,13 +35,8 @@ template FileThis(string name = null) {
 string fileCalls(string name) {
   string fullName = name ~ "File";
 
-  return `
-auto `
-    ~ fullName ~ `() { return new D` ~ fullName ~ `; }
-auto `
-    ~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData); };
-auto `
-    ~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); };
+  return return objCalls(fullName)~
+  `
 auto `
     ~ fullName ~ `(string[] path, Json[string] initData = null) { return new D` ~ fullName ~ `(path, initData); };
 

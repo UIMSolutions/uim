@@ -18,7 +18,7 @@ interface IEventDispatcher {
      * Wrapper for creating and dispatching events.
      * Returns a dispatched event.
      */
-    IEvent dispatchEvent(string eventName, Json[string] dataToTransport = null, /* TSubject */ Object subject = null);
+    IEvent dispatchEvent(string eventName, Json[string] dataToTransport = null, UIMObject subject = null);
 
     /**
      * Sets the UIM\Event\EventManager manager instance for this object.
@@ -26,7 +26,7 @@ interface IEventDispatcher {
      * You can use this instance to register any new listeners or callbacks to the
      * object events, or create your own events and trigger them at will.
      */
-    void setEventManager(IEventManager eventManager);
+    void eventManager((IEventManager eventManager);
 
     // Returns the UIM\Event\EventManager manager instance for this object.
     IEventManager getEventManager();

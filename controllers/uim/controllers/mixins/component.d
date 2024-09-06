@@ -17,7 +17,8 @@ template ComponentThis(string name = null) {
 string componentCalls(string name) {
     string fullName = name ~ "Component";
     return objCalls(fullName);
+}
 
-    template ComponentCalls(string name) {
-        const char[] ComponentCalls = componentCalls(name);
-    }
+template ComponentCalls(string name) {
+    const char[] ComponentCalls = componentCalls(name);
+}

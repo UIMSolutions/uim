@@ -122,7 +122,7 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
      */
     this(DEventManager eventManager = null) {
         /* if (eventManager !is null) {
-            setEventManager(eventManager);
+            eventManager((eventManager);
         }
         getEventManager().on(this);  */
     }

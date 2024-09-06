@@ -79,7 +79,7 @@ return false;
         Json[string] cellOptionsToApply = null
    ) {
         if (eventManager !is null) {
-            setEventManager(eventManager);
+            eventManager((eventManager);
         }
         _request = serverRequest;
         _response = response;

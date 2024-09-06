@@ -6,12 +6,10 @@
 module uim.filesystems.mixins.file;
 
 import uim.filesystems;
-
 @safe:
 string fileThis(string name = null) {
   string fullName = `"` ~ name ~ "File" ~ `"`;
-    return objThis(fullName);
-
+    return objThis(fullName)
     ~
     (name !is null
     ? `this(string[] path, Json[string] initData = null) {
@@ -34,8 +32,7 @@ template FileThis(string name = null) {
 
 string fileCalls(string name) {
   string fullName = name ~ "File";
-
-  return return objCalls(fullName)~
+  return objCalls(fullName)~
   `
 auto `
     ~ fullName ~ `(string[] path, Json[string] initData = null) { return new D` ~ fullName ~ `(path, initData); };

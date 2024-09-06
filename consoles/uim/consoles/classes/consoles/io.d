@@ -64,18 +64,18 @@ class DConsoleIo {
     protected DConsoleInput _in;
 
     // The helper registry.
-    protected DHelperRegistry _helpers;
+    protected DConsoleHelperRegistry _helpers;
 
     this(
         DConsoleOutput output = null,
         DConsoleOutput errOutput = null,
         DConsoleInput input = null,
-        DHelperRegistry helpers = null
+        DConsoleHelperRegistry helpers = null
     ) {
         /* _out = output ? result : new DConsoleOutput("uim://stdout"); */
         _err = errOutput.ifNull(new DConsoleOutput("uim://stderr"));
         _in = input.ifNull(new DConsoleInput("uim://stdin"));
-        _helpers = helpers.ifNull(new DHelperRegistry());
+        _helpers = helpers.ifNull(new DConsoleHelperRegistry());
         /* _helpers.setIo(this); */
     }
 

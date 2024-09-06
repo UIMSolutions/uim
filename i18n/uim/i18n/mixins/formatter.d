@@ -1,5 +1,8 @@
 module uim.i18n.mixins.formatter;
 
+import uim.i18n;
+@safe:
+
 string formatterThis(string name = null) {
     string fullName = `"` ~ name ~ "Formatter" ~ `"`;
     return objThis(fullName);

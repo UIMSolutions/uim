@@ -1,5 +1,8 @@
 module uim.i18n.mixins.loader;
 
+import uim.i18n;
+@safe:
+
 string loaderThis(string name = null) {
     string fullName = `"` ~ name ~ "Loader" ~ `"`;
     return objThis(fullName);

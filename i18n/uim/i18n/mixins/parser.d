@@ -1,5 +1,8 @@
 module uim.i18n.mixins.parser;
 
+import uim.i18n;
+@safe:
+
 string parserThis(string name = null) {
     string fullName = `"` ~ name ~ "Parser"~`"`;
     return objThis(fullName);

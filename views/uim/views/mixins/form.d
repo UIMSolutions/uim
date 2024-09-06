@@ -1,5 +1,8 @@
 module uim.views.mixins.form;
 
+import uim.views;
+@safe: 
+
 string formThis(string name = null) {
     string fullName = `"` ~ name ~ "Form" ~ `"`;
     return objThis(fullName);
@@ -11,11 +14,7 @@ template FormThis(string name = null) {
 
 string formCalls(string name) {
     string fullName = name ~ "Form";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
-    `;
+    return objCalls(fullName);
 }
 
 template FormCalls(string name) {

@@ -11,7 +11,7 @@ import uim.views;
  * @extends \UIM\Core\ObjectRegistry<\UIM\View\Helper>
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
-class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
+class DViewHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
     mixin TEventDispatcher;
     // View object to use when making helpers.
     protected IView _view;

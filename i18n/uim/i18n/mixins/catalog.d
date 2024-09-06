@@ -1,5 +1,8 @@
 module uim.i18n.mixins.catalog;
 
+import uim.i18n;
+@safe:
+
 string catalogThis(string name = null) {
     string fullName = `"` ~ name ~ "Catalog"~`"`;
     return objThis(fullName);

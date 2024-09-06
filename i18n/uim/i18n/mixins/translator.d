@@ -1,5 +1,8 @@
 module uim.i18n.mixins.translator;
 
+import uim.i18n;
+@safe:
+
 string translatorThis(string name = null) {
     string fullName = `"`~ name ~ "Translator" ~ `"`;
     return objThis(fullName);

@@ -1,5 +1,8 @@
 module uim.i18n.mixins.middleware;
 
+import uim.i18n;
+@safe:
+
 string middlewareThis(string name = null) {
     string fullName = `"` ~ name ~ "Middleware" ~ `"`;
     return objThis(fullName);

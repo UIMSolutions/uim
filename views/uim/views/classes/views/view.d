@@ -549,7 +549,7 @@ static string contentType() {
     }
 
     // Saves a variable or an associative array of variables for use inside a template.
-    void set(string[] views, Json value = null) {
+    void set(string[] views, Json value = Json(null)) {
         /* if (views.isArray) {
             if (myvalue.isArray) {
                 /** @var array|false data Coerce Dstan to accept failure case * /
@@ -600,7 +600,7 @@ static string contentType() {
      * Append to an existing or new block.
      * Appending to a new block will create the block.
      */
-    void append(string blockName, Json value = null) {
+    void append(string blockName, Json value = Json(null)) {
         // _blocks.concat(blockName, myvalue);
     }
     

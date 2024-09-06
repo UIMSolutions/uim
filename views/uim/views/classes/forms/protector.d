@@ -71,7 +71,7 @@ class DFormProtector : UIMObject {
      * string[]|string fieldName Reference to field to be secured. Can be dot
      * separated string to indicate nesting or array of fieldname parts.
      */
-    auto addField(string[] field, bool shouldLock = true, Json value = null) {
+    auto addField(string[] field, bool shouldLock = true, Json value = Json(null)) {
         /* if (field.isString) {
             field = getFieldNameParts(field);
         }

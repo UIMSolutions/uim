@@ -45,9 +45,6 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
     // DSchema class.
     protected string _schemaclassname; // = Schema.classname;
 
-    void data(Json[string] items) {
-
-    }
     // #region Schema
     // The schema used by this form.
     protected DSchema _schema = null;
@@ -84,6 +81,9 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
 
     // #region data handling
     protected Json[string] _data;
+    void data(Json[string] items) {
+    }
+
     IForm set(Json[string] newData) {
         newData.byKeyValue.each!(kv => _data.set(kv.key, kv.value));
         return this;
@@ -157,8 +157,8 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
      * Will return the errors from the last call to `validate()` or `execute()`.
      */
     Json[string] getErrors() {
-       /*  return _errors; */
-       return null; 
+        /*  return _errors; */
+        return null;
     }
 
     // Returns validation errors for the given field
@@ -177,8 +177,6 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
      *
      * form.setErrors(errors);
      * ```
-     * Params:
-     * Json[string] errors Errors list.
      */
     void setErrors(Json[string] errors) {
         /* _errors = errors; */
@@ -229,22 +227,30 @@ class DForm : UIMObject, IForm { // }: IEventListener, IEventDispatcher, IValida
         return Json(null);
     }
 
-    /**
-     * Saves a variable or an associative array of variables for use inside form data.
-     * Params:
-     * string[] aName The key to write, can be a dot notation value.
-     * Alternatively can be an array containing key(s) and value(s).
-     */
-    void set( /* string[] */ string name, Json value = null) {
-        set([name: value]);
+    // #region set
+    // Saves a variable or an associative array of variables for use inside form data.
+    mixin TSetData!IForm;
+    IForm set(string key, Json value) {
+        _data.set(key, value);
+        return this;
     }
+    IForm set(string key, Json[] values) {
+        _data.set(key, values);
+        return this;
+    }
+    IForm set(string key, Json[string] values) {
+        _data.set(key, values);
+        return this;
+    }
+    // #endregion set
 
     // Get the printable version of a Form instance.
     override Json[string] debugInfo() {
         return super.debugInfo;
-            /* .set("_schema", getSchema().debugInfo())
+        /* .set("_schema", getSchema().debugInfo())
             .set("_errors", getErrors())
-            .set("_validator", getValidator().debugInfo()) */;
+            .set("_validator", getValidator().debugInfo()) */
+        ;
 
         // return special + get_object_vars(this);
     }

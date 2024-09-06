@@ -31,7 +31,10 @@ class DFormContext : DContext {
         return true;
     }
 
-    override bool isPrimaryKey(string pathToField) {
+    override bool isPrimaryKey(string[] path) {
+        return isPrimaryKey(path.join("."));
+    }
+    override bool isPrimaryKey(string fieldName) {
         return false;
     }
 

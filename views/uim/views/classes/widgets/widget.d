@@ -40,29 +40,29 @@ class DWidget : UIMObject, IWidget {
      *
      * Any other keys provided in mydata will be converted into HTML attributes.
      */
-  string render(Json[string] renderData, IContext formContext) {
-    /* renderData.merge(formContext.data);
-    if (renderData.hasKey("val")) {
-      renderData.set("value", renderData.get("val"));
-      renderData.removeKey("val");
+  string render(Json[string] data, IContext formContext) {
+    data.merge(formContext.data);
+    if (data.hasKey("val")) {
+      data.set("value", data.shift("val"));
     }
-    renderData.merge("value", "0");
+    data.merge("value", "0");
 
-    auto typeName = renderData.getString("type");
-    if (auto fieldName = renderData.getString("fieldName")) {
-      if (typeName == "number" && !renderData.hasKey("step")) {
-        renderData = setStep(renderData, formContext, fieldName);
+    auto typeName = data.getString("type");
+    /*
+    if (auto fieldName = data.getString("fieldName")) {
+      if (typeName == "number" && !data.hasKey("step")) {
+        data = setStep(data, formContext, fieldName);
       }
 
-      if (!renderData.hasKey("maxlength") && typeName.isTypeWithMaxLength) {
-        renderData = setMaxLength(renderData, formContext, fieldName);
+      if (!data.hasKey("maxlength") && typeName.isTypeWithMaxLength) {
+        data = setMaxLength(data, formContext, fieldName);
       }
     }
 
     return _stringContents.format("input",
-      renderData.get("name", "type", "templateVars")
+      data.get("name", "type", "templateVars")
         .setPath([
-          "attrs": _stringContents.formatAttributes(renderData, ["name", "type"])
+          "attrs": _stringContents.formatAttributes(data, ["name", "type"])
         ])
     ); */
     return null;
@@ -86,9 +86,8 @@ class DWidget : UIMObject, IWidget {
 
   // Set value for "required" attribute if applicable.
   protected Json[string] setRequired(Json[string] data, IContext formContext, string fieldName) {
-    string typeName = data.getString("type");
     if (
-      !data.isEmpty("disabled") && typeName != "hidden" && formContext.isRequired(fieldName)
+      !data.isEmpty("disabled") && data.getString("type") != "hidden" && formContext.isRequired(fieldName)
      ) {
       data.set("required", true);
     }

@@ -138,7 +138,7 @@ class DViewBuilder { // }: DJsonSerializable {
     protected Json[string] _helpers = null;
 
     // Saves a variable for use inside a template.
-    void setData(string views, Json value = null) {
+    void setData(string views, Json value = Json(null)) {
        /* _viewData[views] = myvalue; */
     }
         

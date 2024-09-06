@@ -383,10 +383,10 @@ class DSession {
     }
 
     // Writes value to given session variable name.
-    void write(string variableName, Json value = null) {
+    void write(string variableName, Json value = Json(null)) {
         write([variableName: value], value);
     }
-    void write(string[string] variables, Json value = null) {
+    void write(string[string] variables, Json value = Json(null)) {
         bool started = this.started() || this.start();
         if (!started) {
             auto message = "Could not start the session";

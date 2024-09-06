@@ -14,11 +14,7 @@ template ConsoleThis(string name = null) {
 
 string consoleCalls(string name) {
     string fullName = name ~ "Console";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
-    `;
+    return objCalls(fullName);
 }
 
 template ConsoleCalls(string name) {

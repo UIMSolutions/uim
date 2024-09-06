@@ -229,7 +229,7 @@ static string contentType() {
         if (!myeventManager.isNull) {
             // Set the event manager before accessing the helper registry below
             // to ensure that helpers are registered as listeners with the manager when loaded.
-            _setEventManager(myeventManager);
+            _eventManager(myeventManager);
         }
         foreach (myvar; _passedVars) {
             if (viewOptions.hasKey(myvar)) {

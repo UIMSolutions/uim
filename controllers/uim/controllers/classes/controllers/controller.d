@@ -181,7 +181,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
         _response = new IResponse();
 
         if (!eventManager.isNull) {
-            eventManager((eventManager);
+            eventManager(eventManager);
         }
         if (_defaultTable.isNull) {
             _pluginName = _request.getParam("plugin");

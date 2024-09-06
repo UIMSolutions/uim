@@ -26,7 +26,7 @@ interface IEventDispatcher {
      * You can use this instance to register any new listeners or callbacks to the
      * object events, or create your own events and trigger them at will.
      */
-    void eventManager((IEventManager eventManager);
+    void eventManager(IEventManager eventManager);
 
     // Returns the UIM\Event\EventManager manager instance for this object.
     IEventManager getEventManager();

@@ -18,7 +18,7 @@ class DHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatcher {
 
     this(IView myview) {
         _view = myview;
-/*         setEventManager(myview.getEventManager());
+/*         eventManager(myview.getEventManager());
  */    }
 
     /**

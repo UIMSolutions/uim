@@ -152,13 +152,13 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
     }
 
     // Set the application`s event manager.
-    void eventManager((IEventManager newEventManager) {
+    void eventManager(IEventManager newEventManager) {
         assert(
             cast(IEventDispatcher) _app,
             "Cannot set the event manager, the application does not support events."
        );
 
-        // _app.eventManager((newEventManager);
+        // _app.eventManager(newEventManager);
     }
 
     // Get the shell instance for a given command name
@@ -229,7 +229,7 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
     protected ulong runCommand(ICommand command, Json[string] argumentsToInvoke, DConsoleIo aConsoleIo) {
         /* try {
             if (cast(IEventDispatcher) command) {
-                command.eventManager((getEventManager());
+                command.eventManager(getEventManager());
             }
             return command.run(argumentsToInvoke, aConsoleIo);
         } catch (StopException anException) {

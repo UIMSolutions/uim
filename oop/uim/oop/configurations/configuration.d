@@ -12,25 +12,8 @@ import uim.oop;
 private alias KeyValue = Tuple!(string, "key", Json, "value");
 
 // Configuration for handling config data = key: string / value: Json
-abstract class DConfiguration : IConfiguration {
-    this() {
-        this.initialize();
-    }
-
-    this(Json[string] initValue) {
-        this.initialize(initValue);
-    }
-
-    this(string name, Json[string] initValue = null) {
-        this.name(name);
-        this.initialize(initValue); 
-    }
-
-    bool initialize(Json[string] initValue = null) {
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
+class DConfiguration : UIMObject, IConfiguration {
+    mixin(ConfigurationThis!());
 
     // #region defaultData
     abstract Json[string] defaultData();

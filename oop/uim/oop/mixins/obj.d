@@ -13,13 +13,17 @@ string objThis(string name = null) {
         this(string name, Json[string] initData = null) {
             super(name, initData);
         }
+
+        override string[] memberNames() {
+            return [__traits(allMembers, typeof(this))];
+        }
     `;
 }
 
 string objCalls(string name) {
     return `
-        auto `~ name ~ `() { return new D` ~ name ~ `();}
-        auto `~ name ~ `(Json[string] initData) { return new D` ~ name ~ `(initData);}
+        auto `~ name ~ `() { return new D` ~ name ~ `(); }
+        auto `~ name ~ `(Json[string] initData) { return new D` ~ name ~ `(initData); }
         auto `~ name ~ `(string name, Json[string] initData = null) { return new D` ~ name ~ `(name, initData); }
     `;
 }

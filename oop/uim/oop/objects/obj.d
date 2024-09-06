@@ -25,17 +25,18 @@ class UIMObject : INamed {
         configuration(MemoryConfiguration);
         configuration.set(initData);
 
-        // _methodNames = [__traits(allMembers, typeof(this))];
         return true;
     }
 
     mixin(TProperty!("string", "name"));
     // mixin(TProperty!("string[]", "methodNames"));
-    string[] methods() {
+
+    string[] memberNames() {
         return [__traits(allMembers, typeof(this))];
     }
-    bool hasMethod(string name) {
-        return methods.has(name);
+
+    bool hasMember(string name) {
+        return memberNames.has(name);
     }
 
     Json[string] debugInfo() {
@@ -47,16 +48,19 @@ class UIMObject : INamed {
 }
 
 class test : UIMObject {
+    this() {
+        super();
+    }
     string newMethod() {
         return null; 
     }
-    override string[] methods() {
+    override string[] memberNames() {
         return [__traits(allMembers, typeof(this))];
     }
 }
 unittest {
     assert(new UIMObject);
     auto obj = new UIMObject;
-    writeln("UIMObject -> ", obj.methods);
-    writeln("new Object -> ", (new test).methods);
+    writeln("UIMObject -> ", obj.memberNames);
+    writeln("new Object -> ", (new test).memberNames);
 }

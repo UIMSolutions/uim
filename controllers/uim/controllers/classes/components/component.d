@@ -48,7 +48,7 @@ class DComponent : UIMObject, IEventListener {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        _methodNames = [__traits(allMembers, DComponent)];
+        // _methodNames = [__traits(allMembers, DComponent)];
 
         _eventMap = [
             "Controller.initialize": "beforeFilter",

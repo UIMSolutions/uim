@@ -39,7 +39,7 @@ mixin template TEventDispatcher() {
 
     // Wrapper for creating and dispatching events.
     IEvent dispatchEvent(string eventName, Json[string] dataToListener = null, UIMObject eventSubject = null) {
-        eventSubject = eventSubject !is null ? eventSubject : this;
+        // eventSubject = eventSubject !is null ? eventSubject : cast(UIMObject)this;
 
         /* auto event = new _eventClass(eventName, eventSubject, dataToListener);
         getEventManager().dispatch(event);

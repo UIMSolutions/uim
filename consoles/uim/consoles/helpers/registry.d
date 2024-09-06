@@ -10,7 +10,7 @@ import uim.consoles;
  *
  * @extends \UIM\Core\ObjectRegistry<\UIM\Console\Helper>
  */
-class DHelperRegistry : UIMObject { // }: ObjectRegistry {
+class DConsoleHelperRegistry : UIMObject { // }: ObjectRegistry {
     this() {
         initialize;
     }

@@ -1,5 +1,8 @@
 module uim.css.mixins.css;
 
+import uim.css;
+@safe:
+
 string cssThis(string name = null) {
     string fullName = `"` ~ name ~ "Css" ~ `"`;
     return objThis(fullName);

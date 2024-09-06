@@ -192,7 +192,7 @@ static string contentType() {
     }
     
     // Helpers collection
-    protected DHelperRegistry _helpers = null;
+    protected DViewHelperRegistry _helpers = null;
 
 */ 
 
@@ -754,8 +754,8 @@ static string contentType() {
     }
 
     // Get the helper registry in use by this View class.
-    DHelperRegistry helpers() {
-        // return _helpers ? _helpers : new DHelperRegistry(this);
+    DViewHelperRegistry helpers() {
+        // return _helpers ? _helpers : new DViewHelperRegistry(this);
         return null; 
     }
 

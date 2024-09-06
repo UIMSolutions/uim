@@ -10,10 +10,12 @@ import uim.errors;
  * Only runs if debug mode is enabled.
  */
 Json debugInfo(Json debugVariable, bool showHtml = null, bool showFrom = true) {
-    /* if (!configuration.hasKey("debug")) {
-        return var;
+    if (!configuration.hasKey("debug")) {
+        return debugVariable;
     }
-    location = null;
+    
+    /* 
+    auto location = null;
     if (showFrom) {
         trace = Debugger.trace(["start": 0, "depth": 1, "format": "array"]);
         if (isSet(trace[0]["line"]) && isSet(trace[0]["file"])) {
@@ -24,9 +26,8 @@ Json debugInfo(Json debugVariable, bool showHtml = null, bool showFrom = true) {
         }
     }
     Debugger.printVar(debugVariable, location, showHtml);
-
-    return debugVariable; */
-    return Json(null);
+    */ 
+    return debugVariable; 
 }
 /**
  * Outputs a stack trace based on the supplied options.
@@ -38,16 +39,17 @@ Json debugInfo(Json debugVariable, bool showHtml = null, bool showFrom = true) {
  * will be displayed.
  * - `start` - The stack frame to start generating a trace from. Defaults to 1
  */
-void stackTrace(Json[string] formatOptions = null) {
+void stackTrace(Json[string] options = null) {
     if (!configuration.hasKey("debug")) {
         return;
     }
-    auto options = formatOptions.update["start": 0];
-    formatoptions.set("start", formatoptions.getLong("start") + 1);
 
-    /** @var string atrace */
-    auto trace = Debugger.trace(formatOptions);
-    writeln(trace);
+    options
+        .merge("start", 0)
+        .set("start", options.getLong("start") + 1);
+
+    /* string trace = Debugger.trace(formatOptions);
+    writeln(trace); */
 }
 /**
  * Prints out debug information about given variable and dies.

@@ -129,8 +129,8 @@ class DStringContents : UIMObject {
 
     // Remove the named template.
     bool removeKey(string name) {
-        /* _templates.remove(name);
-        _compiledTemplates.remove(name); */
+        _templates.removeKey(name);
+        _compiledTemplates.remove(name); 
         return false;
     }
 
@@ -139,6 +139,7 @@ class DStringContents : UIMObject {
     // #region compiledTemplates
     // Contains the list of compiled templates
     protected string[] _compiledTemplates;
+
     // Compile templates into a more efficient printf() compatible format.
     protected void _compileAllTemplates() {
         _compileTemplates(configuration.keys);

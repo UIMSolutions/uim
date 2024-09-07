@@ -4,6 +4,10 @@ import uim.views;
 
 @safe:
 
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 /**
  * Input widget class for generating a selectbox.
  *

@@ -4,6 +4,10 @@ import uim.views;
 
 @safe:
 
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 /**
  * A registry/factory for input widgets.
  *

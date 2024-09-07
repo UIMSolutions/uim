@@ -4,6 +4,10 @@ import uim.views;
 
 @safe:
 
+unittest {
+  writeln("-----  ", __MODULE__, "\t  -----");
+}
+
 /**
  * Basic input class.
  *
@@ -17,7 +21,7 @@ class DWidget : UIMObject, IWidget {
     if (!super.initialize(initData)) {
       return false;
     }
-    
+
     configuration
       .merge(["name", "val"], Json(null))
       .merge("type", "text")
@@ -87,8 +91,9 @@ class DWidget : UIMObject, IWidget {
   // Set value for "required" attribute if applicable.
   protected Json[string] setRequired(Json[string] data, IContext formContext, string fieldName) {
     if (
-      !data.isEmpty("disabled") && data.getString("type") != "hidden" && formContext.isRequired(fieldName)
-     ) {
+      !data.isEmpty("disabled") && data.getString("type") != "hidden" && formContext.isRequired(
+        fieldName)
+      ) {
       data.set("required", true);
     }
     return data;
@@ -104,7 +109,7 @@ class DWidget : UIMObject, IWidget {
 
   // Set value for "step" attribute if applicable.
   protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {
-   /*  auto mydbType = formContext.type(fieldName);
+    /*  auto mydbType = formContext.type(fieldName);
     auto fieldNameDef = formContext.attributes(fieldName);
 
     if (mydbType == "decimal" && fieldNameDef.hasKey("precision")) {

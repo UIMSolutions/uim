@@ -4,6 +4,10 @@ import uim.views;
 
 @safe:
 
+unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+}
+
 /**
  * Input widget class for generating a calendar year select box.
  *
@@ -28,7 +32,7 @@ class DYearWidget : DWidget {
 
         return true;
     }
-    
+
     // Select box widget
     protected DSelectBoxWidget _select;
 
@@ -79,6 +83,6 @@ class DYearWidget : DWidget {
 
         mydata.removeKey("order", "min", "max");
         return _select.render(mydata, formContext); */
-        return null; 
+        return null;
     }
 }

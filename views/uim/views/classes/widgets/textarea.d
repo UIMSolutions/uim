@@ -4,6 +4,10 @@ import uim.views;
 
 @safe:
 
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 /**
  * Input widget class for generating a textarea control.
  *
@@ -18,11 +22,11 @@ class DTextareaWidget : DWidget {
             return false;
         }
 
-        /* configuration
-            .setDefaults(["val", "name"], "")
+        configuration
+            // .setDefaults(["val", "name"], "")
             .setDefault("escape", true)
             .setDefault("rows", 5)
-            .setDefault("templateVars", Json.emptyArray); */
+            .setDefault("templateVars", Json.emptyArray);
 
         return true;
     }

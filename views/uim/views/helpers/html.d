@@ -3,6 +3,9 @@ module uim.views.helpers.html;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * Html Helper class for easy use of HTML widgets.
@@ -21,6 +24,7 @@ class DHtmlHelper : DHelper {
 
     // Initialization hook method.
     override bool initialize(Json[string] initData = null) {
+        writeln("initialize in DHtmlHelper");
         if (!super.initialize(initData)) {
             return false;
         }
@@ -56,6 +60,7 @@ class DHtmlHelper : DHelper {
             .set("javascriptend", "</script>")
             .set("confirmJs", "{{confirm}}");
 
+        writeln(_templates); 
         return true;
     }
 
@@ -102,7 +107,7 @@ class DHtmlHelper : DHelper {
         if (type == "icon" && content.isNull) {
             types.set("icon.link", "favicon.ico");
         } else {
-            types
+/*             types
                 .set("rss", createMap!(string, Json)
                         .set("type", "application/rss+xml")
                         .set("rel", "alternate")
@@ -143,9 +148,10 @@ class DHtmlHelper : DHelper {
                 .set("last", createMap!(string, Json)
                         .set("rel", "last")
                         .set("link", content));
-
+ */
+            Json foundType = Json(null);
             if (types.hasKey(type)) {
-                type = types[type];
+                foundType = types[type];
             } else if (!htmlAttributes.hasKey("type") && content !is null) {
                 /* type = content.isArray && content.hasKey("_ext")
                     ? types[content.getString("_ext")] : [
@@ -154,10 +160,10 @@ class DHtmlHelper : DHelper {
                     ];
  */
             } else if (types.hasKey(htmlAttributes.getString("type"))) {
-                type = types[htmlAttributes.getString("type")];
+                foundType = types[htmlAttributes.getString("type")];
                 htmlAttributes.removeKey("type");
             } else {
-                type = null;
+                foundType = Json(null);
             }
         }
         return null; // TODO
@@ -168,18 +174,18 @@ class DHtmlHelper : DHelper {
         string result = "";
 
         if (htmlAttributes.hasKey("link")) {
-            htmlAttributes.set("link", htmlAttributes.isArray("link")
+            /* htmlAttributes.set("link", htmlAttributes.isArray("link")
                     ? _url.build(htmlAttributes.get("link")) : _url.assetUrl(
-                        htmlAttributes.get("link")));
+                        htmlAttributes.get("link"))); */
 
             if (htmlAttributes.getString("rel") == "icon") {
                 result = _templates["metalink"].doubleMustache(
                     createMap!(string, Json)
                         .set("url", htmlAttributes.getString("link"))
-                        .set("attrs", templater()
+                        /* .set("attrs", templater()
                             .formatAttributes(htmlAttributes, [
                                 "block", "link"
-                            ])));
+                            ])) */);
                 htmlAttributes.set("rel", "shortcut icon");
             }
             result ~= _templates["metalink"].doubleMustache(createMap!(string, Json)
@@ -203,7 +209,7 @@ class DHtmlHelper : DHelper {
         if (htmlAttributes.hasKey("block")) {
             htmlAttributes.set("block", __FUNCTION__);
         }
-        _view.append(htmlAttributes.get("block"), result);
+       //  _view.append(htmlAttributes.get("block"), result);
         return null;
     }
 
@@ -217,6 +223,10 @@ class DHtmlHelper : DHelper {
             "charset": result.isEmpty ? "utf-8": result,
         ]);
     }
+    unittest {
+        auto helper = new DHtmlHelper;
+        writeln("charset => ", helper.charset);
+     }
 
     /**
      * Creates an HTML link.

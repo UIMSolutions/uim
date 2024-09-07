@@ -3,6 +3,9 @@ module uim.views.helpers.helper;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * DAbstract base class for all other Helpers in UIM.
@@ -38,10 +41,10 @@ class DHelper : UIMObject { // TODO }: IEventListener {
     }
 
     override bool initialize(Json[string] initData = null) {
+        writeln("initialize in DHelper");
         if (!super.initialize(initData)) {
             return false;
-        }
-
+        }    
         _eventMap = [
             "View.beforeRenderFile": "beforeRenderFile",
             "View.afterRenderFile": "afterRenderFile",

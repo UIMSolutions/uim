@@ -3,6 +3,9 @@ module uim.views.helpers.form;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * Form helper library.

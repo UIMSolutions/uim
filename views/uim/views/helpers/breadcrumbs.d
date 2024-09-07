@@ -4,6 +4,9 @@ import uim.views;
 
 @safe:
 
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 // BreadcrumbsHelper to register and display a breadcrumb trail for your views
 class DBreadcrumbsHelper : DHelper {

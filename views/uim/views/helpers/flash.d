@@ -3,6 +3,9 @@ module uim.views.helpers.flash;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * FlashHelper class to render flash messages.

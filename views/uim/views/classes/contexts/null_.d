@@ -3,6 +3,9 @@ module uim.views.classes.contexts.null_;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /** Provides a context provider that does nothing.
  * This context provider simply fulfils the interface requirements that FormHelper has.

@@ -4,6 +4,10 @@ import uim.views;
 
 @safe:
 
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 /**
  * Provides an interface for registering and inserting
  * content into simple logic-less string templates.
@@ -130,7 +134,7 @@ class DStringContents : UIMObject {
     // Remove the named template.
     bool removeKey(string name) {
         _templates.removeKey(name);
-        _compiledTemplates.remove(name); 
+        // _compiledTemplates.remove(_compiledTemplates.indexOf(name)); 
         return false;
     }
 
@@ -232,7 +236,7 @@ class DStringContents : UIMObject {
      */
     string formatAttributes(Json[string] options, string[] excludedKeys) {
         bool[string] excludedOptions;
-        excludedKeys.each!(key => excludedOptions.has(key));
+        excludedKeys.each!(key => excludedOptions[key] = excludedKeys.has(key));
         return formatAttributes(options, excludedOptions);
     }
 

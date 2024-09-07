@@ -4,6 +4,10 @@ import uim.views;
 
 @safe:
 
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 // Contains the schema information for Form instances.
 class DSchema : UIMObject {
 

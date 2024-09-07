@@ -3,6 +3,9 @@ module uim.views.classes.contexts.factory;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 // Factory for getting form context instance based on provided data.
 class DContextFactory {

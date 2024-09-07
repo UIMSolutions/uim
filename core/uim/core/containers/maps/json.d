@@ -378,9 +378,8 @@ bool isScalar(Json[string] items, string key) {
 }
 
 bool isString(Json[string] items, string key) {
-    return items.hasKey(key)
-    ? uim.core.datatypes.json.isString(items[key]) 
-    : false; 
+  return items.hasKey(key)
+    ? uim.core.datatypes.json.isString(items[key]) : false;
   return false;
 }
 
@@ -436,10 +435,11 @@ unittest {
 
 string toString(Json[string] items, string[] keys = null) {
   return keys is null
-    ? "[" ~ items.byKeyValue.map!(item => `"%s":%s`.format(item.key, item.value)).join(",") ~ "]"
-    : "[" ~ items.byKeyValue
-      .filter!(item => keys.has(item.key))
-      .map!(item => `"%s":%s`.format(item.key, item.value)).join(",") ~ "]";
+    ? "[" ~ items.byKeyValue.map!(item => `"%s":%s`.format(item.key, item.value)).join(
+      ",") ~ "]" : "[" ~ items.byKeyValue
+    .filter!(item => keys.has(item.key))
+    .map!(item => `"%s":%s`.format(item.key, item.value))
+    .join(",") ~ "]";
 }
 
 unittest {
@@ -454,4 +454,11 @@ unittest {
   writeln("toString -> ", testItems);
   writeln("toString -> ", testItems.toString);
   writeln("toString -> ", testItems.toString(["long", "string"]));
+}
+
+STRINGAA toStringMap(Json[string] map) {
+  STRINGAA stringMap;
+  map.byKeyValue
+    .each!(kv => stringMap[kv.key] = kv.value.to!string);
+  return stringMap;
 }

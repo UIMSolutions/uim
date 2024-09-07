@@ -3,6 +3,9 @@ module uim.views.classes.contexts.entity;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * Provides a form context around a single entity and its relations.

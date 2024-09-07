@@ -111,6 +111,14 @@ string htmlEndTag(string tag) {
 		return htmlStartTag(tag, id, classes, null) ~ content ~ htmlEndTag(tag);
 	}
 
+	string htmlDoubleTag(string tag, Json[string] attributes, string content = null) {
+		return htmlStartTag(tag, null, null, attributes.toStringMap) ~ content ~ htmlEndTag(tag);
+	}
+
+	string htmlDoubleTag(string tag, string[string] attributes, string content = null) {
+		return htmlStartTag(tag, null, null, attributes) ~ content ~ htmlEndTag(tag);
+	}
+
 	string htmlDoubleTag(string tag, string[] classes, Json[string] attributes, string content = null) {
 		return htmlStartTag(tag, null, classes, attributes.toStringMap) ~ content ~ htmlEndTag(tag);
 	}

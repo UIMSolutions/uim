@@ -3,6 +3,9 @@ module uim.views.classes.contexts.form;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 // Provides a context provider for form instances.
 class DFormContext : DContext {

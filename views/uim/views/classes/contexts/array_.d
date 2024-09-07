@@ -3,6 +3,9 @@ module uim.views.classes.contexts.array_;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * Provides a basic array based context provider for FormHelper.

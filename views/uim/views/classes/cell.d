@@ -4,9 +4,6 @@ import uim.views;
 
 @safe:
 
-/**
- * Cell base.
- */
  unittest {
   writeln("-----  ", __MODULE__ , "\t  -----");
 }

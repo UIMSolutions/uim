@@ -82,66 +82,105 @@ string htmlEndTag(string tag) {
 }
 // #endregion htmlEndTag 
 
-string htmlDoubleTag(string tag) {
-	return htmlStartTag(tag, null) ~ htmlEndTag(tag);
-}
+// #region htmlDoubleTag
+	string htmlDoubleTag(string tag) {
+		return htmlStartTag(tag, null) ~ htmlEndTag(tag);
+	}
 
-string htmlDoubleTag(string tag, string id) {
-	return htmlStartTag(tag, id) ~ htmlEndTag(tag);
-}
+	string htmlDoubleTag(string tag, string id) {
+		return htmlStartTag(tag, id) ~ htmlEndTag(tag);
+	}
 
-string htmlDoubleTag(string tag, string id, string content = null) {
-	return htmlStartTag(tag, id) ~ content ~ htmlEndTag(tag);
-}
-unittest {
-	assert(htmlDoubleTag("p") == "<p></p>");
-	assert(htmlDoubleTag("p", "", "some content") == "<p>some content</p>");
-}
+	string htmlDoubleTag(string tag, string id, string content = null) {
+		return htmlStartTag(tag, id) ~ content ~ htmlEndTag(tag);
+	}
+	unittest {
+		assert(htmlDoubleTag("p") == "<p></p>");
+		assert(htmlDoubleTag("p", "", "some content") == "<p>some content</p>");
+	}
 
-string htmlDoubleTag(string tag, string[] classes, string content = null) {
-	return htmlStartTag(tag, null, classes, null) ~ content ~ htmlEndTag(tag);
-}
-unittest {
-	assert(htmlDoubleTag("p", ["x", "b"], "some content") == "<p class=\"b x\">some content</p>");
-	assert(htmlDoubleTag("p", "", "some content") == "<p>some content</p>");
-}
+	string htmlDoubleTag(string tag, string[] classes, string content = null) {
+		return htmlStartTag(tag, null, classes, null) ~ content ~ htmlEndTag(tag);
+	}
+	unittest {
+		assert(htmlDoubleTag("p", ["x", "b"], "some content") == "<p class=\"b x\">some content</p>");
+		assert(htmlDoubleTag("p", "", "some content") == "<p>some content</p>");
+	}
 
-string htmlDoubleTag(string tag, string id, string[] classes, string content = null) {
-	return htmlStartTag(tag, id, classes, null) ~ content ~ htmlEndTag(tag);
-}
+	string htmlDoubleTag(string tag, string id, string[] classes, string content = null) {
+		return htmlStartTag(tag, id, classes, null) ~ content ~ htmlEndTag(tag);
+	}
 
-string htmlDoubleTag(string tag, string[] classes, string[string] attributes, string content = null) {
-	return htmlStartTag(tag, null, classes, attributes) ~ content ~ htmlEndTag(tag);
-}
+	string htmlDoubleTag(string tag, string[] classes, Json[string] attributes, string content = null) {
+		return htmlStartTag(tag, null, classes, attributes.toStringMap) ~ content ~ htmlEndTag(tag);
+	}
 
-string htmlDoubleTag(string tag, string id, string[] classes, string[string] attributes, string content = null) {
-	return htmlStartTag(tag, id, classes, attributes) ~ content ~ htmlEndTag(tag);
-}
+	string htmlDoubleTag(string tag, string[] classes, string[string] attributes, string content = null) {
+		return htmlStartTag(tag, null, classes, attributes) ~ content ~ htmlEndTag(tag);
+	}
 
-string htmlSingleTag(string tag) {
-	return htmlStartTag(tag);
-}
+	string htmlDoubleTag(string tag, string id, Json[string] attributes, string content = null) {
+		return htmlStartTag(tag, id, null, attributes.toStringMap) ~ content ~ htmlEndTag(tag);
+	}
 
-string htmlSingleTag(string tag, string id) {
-	return htmlStartTag(tag, id);
-}
+	string htmlDoubleTag(string tag, string id, string[string] attributes, string content = null) {
+		return htmlStartTag(tag, id, null, attributes) ~ content ~ htmlEndTag(tag);
+	}
 
-string htmlSingleTag(string tag, STRINGAA attributes) {
-	return htmlStartTag(tag, null, null, attributes);
-}
+	string htmlDoubleTag(string tag, string id, string[] classes, Json[string] attributes, string content = null) {
+		return htmlStartTag(tag, id, classes, attributes.toStringMap) ~ content ~ htmlEndTag(tag);
+	}
 
-string htmlSingleTag(string tag, string id, STRINGAA attributes) {
-	return htmlStartTag(tag, id, null, attributes);
-}
+	string htmlDoubleTag(string tag, string id, string[] classes, string[string] attributes, string content = null) {
+		return htmlStartTag(tag, id, classes, attributes) ~ content ~ htmlEndTag(tag);
+	}
+// #endregion htmlDoubleTag
 
-string htmlSingleTag(string tag, string[] classes,  STRINGAA attributes) {
-	return htmlStartTag(tag, null, classes, attributes);
-}
+// #region htmlSingleTag
+	string htmlSingleTag(string tag) {
+		return htmlStartTag(tag);
+	}
 
-string htmlSingleTag(string tag, string id, string[] classes,  STRINGAA attributes) {
-	return htmlStartTag(tag, id, classes, attributes);
-}
+	string htmlSingleTag(string tag, string id) {
+		return htmlStartTag(tag, id);
+	}
 
+	// #region htmlSingleTag (..Json[string]...)
+		string htmlSingleTag(string tag, Json[string] attributes) {
+			return htmlStartTag(tag, null, null, attributes.toStringMap);
+		}
+
+		string htmlSingleTag(string tag, string id, Json[string] attributes) {
+			return htmlStartTag(tag, id, null, attributes.toStringMap);
+		}
+
+		string htmlSingleTag(string tag, string[] classes, Json[string] attributes) {
+			return htmlStartTag(tag, null, classes, attributes.toStringMap);
+		}
+
+		string htmlSingleTag(string tag, string id, string[] classes, Json[string] attributes) {
+			return htmlStartTag(tag, id, classes, attributes.toStringMap);
+		}
+	// #endregion htmlSingleTag (..Json[string]...)
+
+	// #region htmlSingleTag (..string[string]...)
+		string htmlSingleTag(string tag, STRINGAA attributes) {
+			return htmlStartTag(tag, null, null, attributes);
+		}
+
+		string htmlSingleTag(string tag, string id, STRINGAA attributes) {
+			return htmlStartTag(tag, id, null, attributes);
+		}
+
+		string htmlSingleTag(string tag, string[] classes, STRINGAA attributes) {
+			return htmlStartTag(tag, null, classes, attributes);
+		}
+
+		string htmlSingleTag(string tag, string id, string[] classes, STRINGAA attributes) {
+			return htmlStartTag(tag, id, classes, attributes);
+		}
+	// #endregion htmlSingleTag (..string[string]...)
+// #endregion htmlSingleTag
 
 /**
      * Convenience method for htmlspecialchars.

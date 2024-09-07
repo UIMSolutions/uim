@@ -54,7 +54,7 @@ class DHtmlHelper : DHelper {
             .set("javascriptstart", "<script>")
             .set("javascriptlink", "<script src=\"{{url}}\"{{attrs}}></script>")
             .set("javascriptend", "</script>")
-            .set("confirmJs", "{{confirm}}");            
+            .set("confirmJs", "{{confirm}}");
 
         return true;
     }
@@ -96,61 +96,75 @@ class DHtmlHelper : DHelper {
      *
      * - `block` - Set to true to append output to view block "meta" or provide
      * custom block name.
-     * Params:
-     * Json[string]|string mytype The title of the external resource, Or an array of attributes for a
-     * custom meta tag.
      */
     string meta(string type, string[] content = null, Json[string] htmlAttributes = null) {
         Json[string] types;
         if (type == "icon" && content.isNull) {
             types.set("icon.link", "favicon.ico");
+        } else {
+            types
+                .set("rss", createMap!(string, Json)
+                        .set("type", "application/rss+xml")
+                        .set("rel", "alternate")
+                        .set("title", type)
+                        .set("link", content))
+                .set("atom", createMap!(string, Json)
+                        .set("type", "application/atom+xml")
+                        .set("title", type)
+                        .set("link", content))
+                .set("icon", createMap!(string, Json)
+                        .set("type", "image/x-icon")
+                        .set("rel", "icon")
+                        .set("link", content))
+                .set("keywords", createMap!(string, Json)
+                        .set("name", "keywords")
+                        .set("content", content))
+                .set("description", createMap!(string, Json)
+                        .set("name", "description")
+                        .set("content", content))
+                .set("robots", createMap!(string, Json)
+                        .set("name", "robots")
+                        .set("content", content))
+                .set("viewport", createMap!(string, Json)
+                        .set("name", "viewport")
+                        .set("content", content))
+                .set("canonical", createMap!(string, Json)
+                        .set("rel", "canonical")
+                        .set("link", content))
+                .set("next", createMap!(string, Json)
+                        .set("rel", "next")
+                        .set("link", content))
+                .set("prev", createMap!(string, Json)
+                        .set("rel", "prev")
+                        .set("link", content))
+                .set("first", createMap!(string, Json)
+                        .set("rel", "first")
+                        .set("link", content))
+                .set("last", createMap!(string, Json)
+                        .set("rel", "last")
+                        .set("link", content));
+
+            if (types.hasKey(type)) {
+                type = types[type];
+            } else if (!htmlAttributes.hasKey("type") && content !is null) {
+                /* type = content.isArray && content.hasKey("_ext")
+                    ? types[content.getString("_ext")] : [
+                        "name": type,
+                        "content": content
+                    ];
+ */
+            } else if (types.hasKey(htmlAttributes.getString("type"))) {
+                type = types[htmlAttributes.getString("type")];
+                htmlAttributes.removeKey("type");
+            } else {
+                type = null;
+            }
         }
         return null; // TODO
     }
 
-    string meta(string[] mytype, string[] content = null, Json[string] htmlAttributes = null) {
-        if (!mytype.isArray) {
-            types = [
-                "rss": [
-                    "type": "application/rss+xml",
-                    "rel": "alternate",
-                    "title": mytype,
-                    "link": content
-                ],
-                "atom": [
-                    "type": "application/atom+xml",
-                    "title": mytype,
-                    "link": content
-                ],
-                "icon": ["type": "image/x-icon", "rel": "icon", "link": content],
-                "keywords": ["name": "keywords", "content": content],
-                "description": ["name": "description", "content": content],
-                "robots": ["name": "robots", "content": content],
-                "viewport": ["name": "viewport", "content": content],
-                "canonical": ["rel": "canonical", "link": content],
-                "next": ["rel": "next", "link": content],
-                "prev": ["rel": "prev", "link": content],
-                "first": ["rel": "first", "link": content],
-                "last": ["rel": "last", "link": content],
-            ];
-
-            /* if (types.hasKey(mytype)) {
-                mytype = types[mytype];
-            } else if (!htmlAttributes.hasKey("type") && content !is null) {
-                mytype = content.isArray && content.hasKey("_ext")
-                    ? types[content.getString("_ext")] : [
-                        "name": mytype,
-                        "content": content
-                    ];
-
-            } else if (types.hasKey(htmlAttributes.getString("type"))) {
-                mytype = types[htmlAttributes["type"]];
-                htmlAttributes.removeKey("type");
-            } else {
-                mytype = null;
-            } */
-        }
-        htmlAttributes += mytype ~ ["block": Json(null)];
+    string meta(string[] type, string[] content = null, Json[string] htmlAttributes = null) {
+        // htmlAttributes += type ~ ["block": Json(null)];
         string result = "";
 
         if (htmlAttributes.hasKey("link")) {
@@ -159,28 +173,29 @@ class DHtmlHelper : DHelper {
                         htmlAttributes.get("link")));
 
             if (htmlAttributes.getString("rel") == "icon") {
-                result = _templates["metalink"].doubleMustache([
-                        "url": htmlAttributes["link"],
-                        "attrs": templater().formatAttributes(htmlAttributes, [
+                result = _templates["metalink"].doubleMustache(
+                    createMap!(string, Json)
+                        .set("url", htmlAttributes.getString("link"))
+                        .set("attrs", templater()
+                            .formatAttributes(htmlAttributes, [
                                 "block", "link"
-                            ]),
-                    ]);
+                            ])));
                 htmlAttributes.set("rel", "shortcut icon");
             }
-            result ~= _templates["metalink"].doubleMoustache([
-                    "url": htmlAttributes["link"],
-                    "attrs": templater().formatAttributes(htmlAttributes, [
-                            "block", "link"
-                        ]),
-                ]);
+            result ~= _templates["metalink"].doubleMustache(createMap!(string, Json)
+                .set("url", htmlAttributes.getString("link")
+/*                 "attrs": templater().formatAttributes(htmlAttributes, [
+                        "block", "link"
+                    ]), */
+                ));
         } else {
-            result = _templates["meta"].doubleMoustache([
+            /* result = _templates["meta"].doubleMustache([
                 "attrs": templater().formatAttributes(htmlAttributes, [
                         "block", "type"
-                    ]),
-                ]);
+                    ])
+            ]); */
         }
-        
+
         if (htmlAttributes.isEmpty("block")) {
             return result;
         }
@@ -199,7 +214,7 @@ class DHtmlHelper : DHelper {
             result = configuration.getString("App.encoding").lower;
         }
         return _templates["charset"].doubleMustache([
-            "charset": result.isEmpty ? "utf-8" : result,
+            "charset": result.isEmpty ? "utf-8": result,
         ]);
     }
 
@@ -284,8 +299,8 @@ class DHtmlHelper : DHelper {
         htmlAttributes
             .merge("once", true)
             .merge("block", Json(null))
-            .merge("rel", "stylesheet")
-            .merge("nonce", _view.getRequest().getAttribute("cspStyleNonce")); 
+            .merge("rel", "stylesheet");
+            // .merge("nonce", _view.getRequest().getAttribute("cspStyleNonce"));
 
         /*         auto url = _url.css(mypath, htmlAttributes);
         auto htmlAttributes = array_diffinternalKey(htmlAttributes, createMap!(string, Json)
@@ -321,7 +336,7 @@ class DHtmlHelper : DHelper {
         } */
         if (htmlAttributes.hasKey("block")) {
             htmlAttributes.set("block", __FUNCTION__);
-        } 
+        }
         /*
         _view.append(htmlAttributes.get("block"), result);
  */
@@ -734,7 +749,7 @@ class DHtmlHelper : DHelper {
         string tag = content.isNull ? "tagstart" : "tag";
         return _templates[tag].doubleMustache([
             "tag": tagName,
-            "attrs": templater().formatAttributes(htmlAttributes),
+            // "attrs": templater().formatAttributes(htmlAttributes),
             "content": content
         ]);
     }
@@ -768,15 +783,12 @@ class DHtmlHelper : DHelper {
             htmlAttributes.set("class", cssClass);
         }
 
-        string tag = content.isNull
-            ? "parastart" 
-            : "para";
+        string tag = content.isEmpty
+            ? "parastart" : "para";
 
-        return _templates[tag].doubleMoustache([
-            "attrs": templater().formatAttributes(htmlAttributes),
-            "content": content,
-        ]); 
-        return null;
+        return _templates[tag].doubleMustache(createMap!(string, Json)
+            // .set("attrs", templater().formatAttributes(htmlAttributes))
+            .set("content", content));
     }
 
     /**
@@ -843,9 +855,7 @@ class DHtmlHelper : DHelper {
             .merge("pathPrefix", "files/")
             .merge("text", "");
 
-        string tag = htmlAttributes.hasKey("tag")
-            ? htmlAttributes["tag"] : null;
-
+        string tag = htmlAttributes.getString("tag");
         if (pathToImageFile /* .isArray */ ) {
             auto sourceTags = "";
             /*             
@@ -905,7 +915,10 @@ class DHtmlHelper : DHelper {
             "text": Json(null),
         ]);
 
-        return htmlDoubleTag(tag, htmlAttributes, content);
+        return htmlDoubleTag(tag, htmlAttributes, content);m*/
+
+        return null;
+
     }
 
     /**

@@ -232,7 +232,7 @@ class DStringContents : UIMObject {
      */
     string formatAttributes(Json[string] options, string[] excludedKeys) {
         bool[string] excludedOptions;
-        excludedKeys.each!(key => excludedOptions[key] = true);
+        excludedKeys.each!(key => excludedOptions.has(key));
         return formatAttributes(options, excludedOptions);
     }
 
@@ -248,15 +248,13 @@ class DStringContents : UIMObject {
             .merge("fieldName", true);
 
         bool useEscape = options.getBoolean("escape");
-        /* string[] attributes = options
-            .byKeyValue
-            .filter!(kv => !mergedExcludedOptions.hasKey(kv.key))
+        string[] attributes = options.byKeyValue
+            .filter!(kv => !excludedOptions.hasKey(kv.key))
             .map!(kv => _formatAttribute(kv.key, kv.value, useEscape))
             .array;
 
         string result = attributes.join(" ").strip;
-        return result ? insertBefore ~ result : ""; */
-        return null; 
+        return result ? insertBefore ~ result : ""; 
     }
 
     /**
@@ -285,10 +283,9 @@ class DStringContents : UIMObject {
         if (isBoolAttributes) {
             bool truthy = ["1", "true", key].any!(v => v == value);
             return truthy ? `%s="%s"`.format(key, key) : "";
-        }
+        } */
 
-        return `%s="%s"`.format((shouldEscape ? htmlAttributeEscape(value) : value)); */
-        return null; 
+        return `%s="%s"`.format(key, shouldEscape ? htmlAttributeEscape(value) : value);
     }
 
     //  Adds a class and returns a unique list either in array or space separated

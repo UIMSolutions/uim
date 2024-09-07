@@ -255,42 +255,42 @@ class DClient { // }: IClient {
   }
 
   // Do a POST request.
-  Response post(string requestUrl, Json postData = null, Json[string] options = null) {
+  IResponse post(string requestUrl, Json postData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(requestUrl, [], options);
     return _doRequest(Request.METHOD_POST, url, postData, requestOptions);
   }
 
   // Do a PUT request.
-  Response put(string requestUrl, Json requestData = null, Json[string] options = null) {
+  IResponse put(string requestUrl, Json requestData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(requestUrl, [], options);
     return _doRequest(Request.METHOD_PUT, url, requestData, requestOptions);
   }
 
   // Do a PATCH request.
-  Response patch(string requestUrl, Json valueToSend = null, Json[string] options = null) {
+  IResponse patch(string requestUrl, Json valueToSend = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(requestUrl, [], requestOptions);
     return _doRequest(Request.METHOD_PATCH, url, valueToSend, requestOptions);
   }
 
   // Do an OPTIONS request.
-  Response requestOptions(string requestUrl, Json sendData = null, Json[string] options = null) {
+  IResponse requestOptions(string requestUrl, Json sendData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(urlTorequestUrlRequest, [], requestOptions);
     return _doRequest(Request.METHOD_OPTIONS, url, sendData, requestOptions);
   }
 
   // Do a TRACE request.
-  Response trace(string requestUrl, Json sendData = null, Json[string] options = null) {
+  IResponse trace(string requestUrl, Json sendData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(requestUrl, [], requestOptions);
     return _doRequest(Request.METHOD_TRACE, url, sendData, requestOptions);
   }
 
   // Do a DELETE request.
-  Response removeKey(string requestUrl, Json sendData = null, Json[string] options = null) {
+  IResponse removeKey(string requestUrl, Json sendData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(requestUrl, [], requestOptions);
     return _doRequest(Request.METHOD_DELETE, url, sendData, requestOptions);
@@ -304,8 +304,8 @@ class DClient { // }: IClient {
   }
 
   // Helper method for doing non-GET requests.
-  protected DClientResponse _doRequest(string hhtpMethod, string requestUrl, Json requestBody, Json[string] options = null) {
-    newRequest = _createRequest(
+  protected DClientResponse _doRequest(string httpMethod, string requestUrl, Json requestBody, Json[string] options = null) {
+    auto newRequest = _createRequest(
       hhtpMethod,
       requestUrl,
       requestBody,
@@ -331,7 +331,7 @@ class DClient { // }: IClient {
      * Used internally by other methods, but can also be used to send
      * handcrafted Request objects.
      */
-  Response send(IRequest request, Json[string] options = null) {
+  IResponse send(IRequest request, Json[string] options = null) {
     int myredirects = 0;
     if (options.hasKey("redirect")) {
       myredirects = options.shift("redirect").getLong;
@@ -377,7 +377,7 @@ class DClient { // }: IClient {
      *
      * - `match` An additional closure to match requests with.
      */
-  static void addMockResponse(string httpMethod, string url, Response response, Json[string] options = null) {
+  static void addMockResponse(string httpMethod, string url, IResponse response, Json[string] options = null) {
     if (!_mockAdapter) {
       _mockAdapter = new DMockAdapter();
     }

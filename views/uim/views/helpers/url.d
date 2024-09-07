@@ -11,17 +11,12 @@ class UrlHelper : DHelper {
     // Asset URL engine class name
     protected string _assetUrlclassname;
 
-    /**
-     * Check proper configuration
-     * Params:
-     * Json[string] configData The configuration settings provided to this helper.
-     */
     override bool initialize(Json[string] initData = null) {
-/*         if (!super.initialize(initData)) {
+        if (!super.initialize(initData)) {
             return false;
         }
 
-        auto myengineClassConfig = configurationData.hasKey("assetUrlclassname");
+        // auto myengineClassConfig = configurationData.hasKey("assetUrlclassname");
 
         /** @var class-string<\UIM\Routing\Asset>|null myengineClass * /
         auto myengineClass = App.classname(myengineClassConfig, "Routing");
@@ -31,9 +26,8 @@ class UrlHelper : DHelper {
 
         _assetUrlclassname = myengineClass;
         configuration.setDefault("assetUrlclassname", Asset.classname);
-
-        return true; */
-return false;
+        */
+        return true;
     }
 
     /**
@@ -50,11 +44,11 @@ return false;
      *  the reverse routing features of UIM.
      */
     string build(string[] myurl = null, Json[string] options = null) {
-/*         options
+         options
             .merge("fullBase", false)
             .merge("escape", true);
 
-        auto myurl = Router.url(myurl, options.get("fullBase"));
+/*        auto myurl = Router.url(myurl, options.get("fullBase"));
         if (options.hasKey("escape")) {
             myurl = to!string(h(myurl));
         }
@@ -134,11 +128,11 @@ return false;
      *  enable timestamping regardless of debug value.
      */
     string assetUrl(string path, Json[string] options = null) {
-/*         options.merge("theme", _view.theme());
+        /* options
+            .merge("theme", _view.theme()); */
 
-        return htmlAttributeEscape(
-            _assetUrlclassname.url(path, options)); */
-        return null;
+        // return htmlAttributeEscape(_assetUrlclassname.url(path, options));
+        return null; 
     }
 
     /**

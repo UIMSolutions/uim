@@ -123,8 +123,8 @@ class DWidget : UIMObject, IWidget {
     return null;
   }
 
-  string[] secureFields(Json[string] dataToRender) {
-    return !dataToRender.hasKey("name")
-      ? [dataToRender.getString("name")] : null;
+  string[] secureFields(Json[string] options) {
+    return options.hasKey("name")
+      ? [options.getString("name")] : null;
   }
 }

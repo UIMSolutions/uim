@@ -21,14 +21,17 @@ interface IConfiguration : INamed {
   IConfiguration set(STRINGAA values, string[] keys = null);
   IConfiguration set(Json[string] items, string[] keys = null);
 
-  IConfiguration setDefault(string[] keys, bool newValue);
-  IConfiguration setDefault(string[] keys, long newValue);
-  IConfiguration setDefault(string[] keys, double newValue);
-  IConfiguration setDefault(string[] keys, string newValue);
-  IConfiguration setDefault(string[] keys, Json newValue);
-  IConfiguration setDefault(string[] keys, Json[] newValue);
-  IConfiguration setDefault(string[] keys, Json[string] newValue);
+  // #region setDefaults
+  IConfiguration setDefaults(string[] keys, bool newValue);
+  IConfiguration setDefaults(string[] keys, long newValue);
+  IConfiguration setDefaults(string[] keys, double newValue);
+  IConfiguration setDefaults(string[] keys, string newValue);
+  IConfiguration setDefaults(string[] keys, Json newValue);
+  IConfiguration setDefaults(string[] keys, Json[] newValue);
+  IConfiguration setDefaults(string[] keys, Json[string] newValue);
+  // #endregion setDefaults
 
+  // #region setDefault
   IConfiguration setDefault(string key, bool newValue);
   IConfiguration setDefault(string key, long newValue);
   IConfiguration setDefault(string key, double newValue);
@@ -36,6 +39,7 @@ interface IConfiguration : INamed {
   IConfiguration setDefault(string key, Json newValue);
   IConfiguration setDefault(string key, Json[] newValue);
   IConfiguration setDefault(string key, Json[string] newValue);
+  // #endregion setDefault
 
   IConfiguration updateDefault(string[] keys, bool newValue);
   IConfiguration updateDefault(string[] keys, long newValue);
@@ -107,6 +111,8 @@ interface IConfiguration : INamed {
   string[string] getStringMap(string key, string[string] nullValue = null);
   // #endregion get
 
+  Json shift(string key); 
+  
   // #region set
   void opAssign(Json[string] data);
 

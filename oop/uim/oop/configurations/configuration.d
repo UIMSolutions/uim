@@ -116,42 +116,44 @@ class DConfiguration : UIMObject, IConfiguration {
     }
     // #endregion updateDefault
 
+    // #region setDefaults
+    IConfiguration setDefaults(string[] keys, bool newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
+
+    IConfiguration setDefaults(string[] keys, long newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
+
+    IConfiguration setDefaults(string[] keys, double newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
+
+    IConfiguration setDefaults(string[] keys, string newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
+
+    IConfiguration setDefaults(string[] keys, Json newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
+
+    IConfiguration setDefaults(string[] keys, Json[] newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
+
+    IConfiguration setDefaults(string[] keys, Json[string] newValue) {
+        keys.each!(key => setDefault(key, newValue));
+        return this;
+    }
+    // #endregion setDefaults
+
     // #region setDefault
-    IConfiguration setDefault(string[] keys, bool newValue) {
-        keys.each!(key => setDefault(key, newValue));
-        return this;
-    }
-
-    IConfiguration setDefault(string[] keys, long newValue) {
-        keys.each!(key => setDefault(key, newValue));
-        return this;
-    }
-
-    IConfiguration setDefault(string[] keys, double newValue) {
-        keys.each!(key => setDefault(key, newValue));
-        return this;
-    }
-
-    IConfiguration setDefault(string[] keys, string newValue) {
-        keys.each!(key => setDefault(key, newValue));
-        return this;
-    }
-
-    IConfiguration setDefault(string[] keys, Json newValue) {
-        keys.each!(key => setDefault(key, newValue));
-        return this;
-    }
-
-    IConfiguration setDefault(string[] keys, Json[] newValue) {
-        keys.each!(key => setDefault(key, newValue));
-        return this;
-    }
-
-    IConfiguration setDefault(string[] keys, Json[string] newValue) {
-        keys.each!(key => setDefault(key, newValue));
-        return this;
-    }
-
     IConfiguration setDefault(string key, bool newValue) {
         return setDefault(key, Json(newValue));
     }
@@ -251,38 +253,37 @@ class DConfiguration : UIMObject, IConfiguration {
     abstract Json[] values(string[] includedKeys = null);
     // #endregion Values
 
-  // #region is
+    // #region is
     bool isBoolean(string key) {
-      return hasKey(key)
-        ? get(key).isBoolean
-        : false;
+        return hasKey(key)
+            ? get(key).isBoolean : false;
     }
+
     bool isLong(string key) {
-      return hasKey(key) 
-        ? get(key).isLong
-        : false; 
+        return hasKey(key)
+            ? get(key).isLong : false;
     }
+
     bool isDouble(string key) {
-      return hasKey(key) 
-        ? get(key).isDouble
-        : false; 
+        return hasKey(key)
+            ? get(key).isDouble : false;
     }
+
     bool isString(string key) {
-      return hasKey(key) 
-        ? get(key).isString
-        : false; 
+        return hasKey(key)
+            ? get(key).isString : false;
     }
+
     bool isArray(string key) {
-      return hasKey(key) 
-        ? get(key).isArray
-        : false; 
+        return hasKey(key)
+            ? get(key).isArray : false;
     }
+
     bool isMap(string key) {
-      return hasKey(key) 
-        ? get(key).isMap
-        : false; 
+        return hasKey(key)
+            ? get(key).isMap : false;
     }
-  // #endregion is
+    // #endregion is
 
     // #region get
     Json opIndex(string key) {
@@ -325,14 +326,12 @@ class DConfiguration : UIMObject, IConfiguration {
     Json[] getArray(string key) {
         writeln("DConfiguraton::Json[] getArray(string key) - ", this.classinfo);
         return hasKey(key) && isArray(key)
-            ? get(key).getArray
-            : null; 
+            ? get(key).getArray : null;
     }
 
     Json[string] getMap(string key) {
         return hasKey(key) && isMap(key)
-            ? get(key).getMap
-            : null;
+            ? get(key).getMap : null;
     }
 
     string[string] getStringMap(string key) {
@@ -560,6 +559,17 @@ class DConfiguration : UIMObject, IConfiguration {
     // #region remove - clear
 
     IConfiguration clone() {
-        return null; 
+        return null;
     }
+
+    Json shift(string key) {
+        if (!hasKey(key)) {
+            return Json(null);
+        }
+
+        auto value = get(key);
+        removeKey(key);
+        return value;
+    }
+
 }

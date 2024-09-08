@@ -64,3 +64,7 @@ class DTextareaWidget : DWidget {
 }
 
 mixin(WidgetCalls!("Textarea")); 
+
+unittest {
+    assert(TextareaWidget);
+}

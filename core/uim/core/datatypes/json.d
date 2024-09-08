@@ -755,6 +755,14 @@ unittest {
   assert(maxVersionNumber([json3, json3, json2]) == 3);
 }
 
+string[] toStringArray(Json value) {
+  if (value.isNull) {
+    return null; 
+  }
+
+  return value.toArray.map!(json => json.to!string).array;
+}
+
 Json[] toArray(Json value) {
   if (value.isNull) {
     return null; 
@@ -828,18 +836,6 @@ Json toJsonObject(string[string] map, string[] excludeKeys = null) {
     .filter!(kv => !excludeKeys.any!(key => key == kv.key))
     .each!(kv => json[kv.key] = Json(kv.value));
   return json;
-}
-
-string[] toStringArray(Json value) {
-  if (value.isArray) {
-    string[] results;
-
-    // TODO foreach(v; value) results ~= v.to!string;
-
-    return results;
-  }
-
-  return null;
 }
 
 // #region getter

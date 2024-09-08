@@ -86,3 +86,8 @@ class DYearWidget : DWidget {
         return null;
     }
 }
+mixin(WidgetCalls!("Year")); 
+
+unittest {
+    assert(YearWidget);
+}

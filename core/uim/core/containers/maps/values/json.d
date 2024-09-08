@@ -64,8 +64,18 @@ unittest {
     return items;
   }
 
+  V[K] set(K, V:Json)(auto ref V[K] items, K key, string[] value) {
+    return set(items, key, value.map!(v => Json(v)).array);
+  }
+
   V[K] set(K, V:Json)(auto ref V[K] items, K key, Json[] value) {
     return set(items, key, Json(value));
+  }
+
+  V[K] set(K, V:Json)(auto ref V[K] items, K key, string[string] value) {
+    Json[string] map;
+    value.byKeyValue.each!(kv => map.set(kv.key, kv.value));
+    return map;
   }
 
   V[K] set(K, V:Json)(auto ref V[K] items, K key, Json[string] value) {
@@ -91,6 +101,8 @@ unittest {
     assert(set(testmap, "json", Json("X"))["json"].getString == "X");
     assert(set(testmap, ["json.a", "json.b"], Json(100))["json.a"].getLong == 100);
     writeln("testMap => ", testmap);
+
+    
   }
 // #endregion set
 

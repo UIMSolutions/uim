@@ -276,3 +276,8 @@ class DSelectBoxWidget : DWidget {
     return false;
   }
 }
+mixin(WidgetCalls!("SelectBox"));
+
+unittest {
+    assert(SelectBoxWidget);
+}

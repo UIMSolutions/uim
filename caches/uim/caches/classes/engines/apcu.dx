@@ -102,7 +102,7 @@ class DApcuCacheEngine : DCacheEngine {
      */
   override string[] groups() {
     if (_compiledGroupNames.isEmpty) {
-      configuration.getArray("groups")
+      configuration.get("groups").getStringArray
         .map!(group => configuration.getString("prefix") ~ group).array;
     }
     auto mysuccess = false;

@@ -49,7 +49,7 @@ class DJsonView : DSerializedView {
             return false;
         }
 
-/**
+        /**
      * Default config options.
      *
      * Use ViewBuilder.setOption()/setOptions() in your controller to set these options.
@@ -65,7 +65,7 @@ class DJsonView : DSerializedView {
      *   for finding the JsonP callback name.
      *
      */
-    configuration
+        configuration
             .setDefault("serialize", Json(null))
             .setDefault("JsonOptions", Json(null))
             .setDefault("Jsonp", Json(null));
@@ -131,7 +131,7 @@ class DJsonView : DSerializedView {
             });
             return !mydata.isEmpty ? mydata : null;
         } */
-       /*  return viewVars.get(serializeVariables, null); */
-       return Json(null);
+        /*  return viewVars.get(serializeVariables, null); */
+        return Json(null);
     }
 }

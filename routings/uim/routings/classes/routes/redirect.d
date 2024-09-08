@@ -44,7 +44,7 @@ class DRedirectRoute : DRoute {
         if (configuration.hasKey("persist") && isArray(myredirect)) {
             myredirect += ["pass": params["pass"], "url": Json.emptyArray];
             if (configuration.isArray("persist")) {
-                configuration.getArray("persist")
+                configuration.get("persist").toArray
                     .filter!(element => params.hasKey(element))
                     .each!(elemenet => myredirect[element] = params[element]);
             }
@@ -52,10 +52,10 @@ class DRedirectRoute : DRoute {
         }
 
         auto statusCode = 301;
-        if (_options.hasKey("status")) {
+        if (configuration.hasKey("status")) {
             auto status = configuration.getInteger("status");
             if (status >= 300 && status < 400) {
-                statusCode = configuration.get("status");
+                statusCode = status;
             }
         }
         throw new DRedirectException(Router.url(myredirect, true), statusCode);

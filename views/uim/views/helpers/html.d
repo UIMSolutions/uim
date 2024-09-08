@@ -20,7 +20,7 @@ class DHtmlHelper : DHelper {
     // List of helpers used by this helper
     protected string[] _helpers = ["Url"];
 
-    protected STRINGAA _templates;
+    protected Json[string] _templates;
 
     // Initialization hook method.
     override bool initialize(Json[string] initData = null) {
@@ -102,12 +102,12 @@ class DHtmlHelper : DHelper {
      * - `block` - Set to true to append output to view block "meta" or provide
      * custom block name.
      */
-    string meta(string type, string[] content = null, Json[string] htmlAttributes = null) {
+    string meta(string type, string content = null, Json[string] htmlAttributes = null) {
         Json[string] types;
         if (type == "icon" && content.isNull) {
             types.set("icon.link", "favicon.ico");
         } else {
-/*             types
+             types
                 .set("rss", createMap!(string, Json)
                         .set("type", "application/rss+xml")
                         .set("rel", "alternate")
@@ -148,7 +148,7 @@ class DHtmlHelper : DHelper {
                 .set("last", createMap!(string, Json)
                         .set("rel", "last")
                         .set("link", content));
- */
+ 
             Json foundType = Json(null);
             if (types.hasKey(type)) {
                 foundType = types[type];
@@ -179,7 +179,7 @@ class DHtmlHelper : DHelper {
                         htmlAttributes.get("link"))); */
 
             if (htmlAttributes.getString("rel") == "icon") {
-                result = _templates["metalink"].doubleMustache(
+                result = _templates.getString("metalink").doubleMustache(
                     createMap!(string, Json)
                         .set("url", htmlAttributes.getString("link"))
                         /* .set("attrs", templater()
@@ -188,14 +188,14 @@ class DHtmlHelper : DHelper {
                             ])) */);
                 htmlAttributes.set("rel", "shortcut icon");
             }
-            result ~= _templates["metalink"].doubleMustache(createMap!(string, Json)
+            result ~= _templates.getString("metalink").doubleMustache(createMap!(string, Json)
                 .set("url", htmlAttributes.getString("link")
 /*                 "attrs": templater().formatAttributes(htmlAttributes, [
                         "block", "link"
                     ]), */
                 ));
         } else {
-            /* result = _templates["meta"].doubleMustache([
+            /* result = _templates.getString("meta").doubleMustache([
                 "attrs": templater().formatAttributes(htmlAttributes, [
                         "block", "type"
                     ])
@@ -219,7 +219,7 @@ class DHtmlHelper : DHelper {
         if (value.isEmpty) {
             result = configuration.getString("App.encoding").lower;
         }
-        return _templates["charset"].doubleMustache([
+        return _templates.getString("charset").doubleMustache([
             "charset": result.isEmpty ? "utf-8": result,
         ]);
     }
@@ -757,7 +757,7 @@ class DHtmlHelper : DHelper {
         }
 
         string tag = content.isNull ? "tagstart" : "tag";
-        return _templates[tag].doubleMustache([
+        return _templates.getString(tag).doubleMustache([
             "tag": tagName,
             // "attrs": templater().formatAttributes(htmlAttributes),
             "content": content
@@ -796,7 +796,7 @@ class DHtmlHelper : DHelper {
         string tag = content.isEmpty
             ? "parastart" : "para";
 
-        return _templates[tag].doubleMustache(createMap!(string, Json)
+        return _templates.getString(tag).doubleMustache(createMap!(string, Json)
             // .set("attrs", templater().formatAttributes(htmlAttributes))
             .set("content", content));
     }

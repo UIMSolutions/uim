@@ -77,3 +77,7 @@ class DCheckboxWidget : DWidget {
     } 
 }
 mixin(WidgetCalls!("Checkbox"));
+
+unittest {
+    assert(CheckboxWidget);
+}

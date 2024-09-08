@@ -175,3 +175,7 @@ class DDateTimeWidget : DWidget {
 }
 
 mixin(WidgetCalls!("DateTime"));
+
+unittest {
+    assert(DateTimeWidget);
+}

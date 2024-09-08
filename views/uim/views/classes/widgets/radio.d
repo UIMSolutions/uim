@@ -209,3 +209,7 @@ class DRadioWidget : DWidget {
     }
 }
 mixin(WidgetCalls!("Radio"));
+
+unittest {
+    assert(RadioWidget);
+}

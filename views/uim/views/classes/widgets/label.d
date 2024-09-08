@@ -57,3 +57,7 @@ class DLabelWidget : DWidget {
 }
 
 mixin(WidgetCalls!("Label"));
+
+unittest {
+    assert(LabelWidget);
+}

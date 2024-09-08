@@ -48,3 +48,6 @@ class DButtonWidget : DWidget {
 }
 mixin(WidgetCalls!("Button"));
 
+unittest {
+    assert(ButtonWidget);
+}

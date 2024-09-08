@@ -235,3 +235,7 @@ class DMultiCheckboxWidget : DWidget {
 }
 
 mixin(WidgetCalls!("MultiCheckbox"));
+
+unittest {
+    assert(MultiCheckboxWidget);
+}

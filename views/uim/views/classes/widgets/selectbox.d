@@ -22,12 +22,12 @@ class DSelectBoxWidget : DWidget {
       return false;
     }
 
-    /* configuration
+    configuration
       .setDefault("name", "")
       .setDefault("empty", false)
       .setDefault("escape", true)
       .setDefaults(["disabled", "val"], Json(null))
-      .setDefaults(["options", "templateVars"], Json.emptyArray); */
+      .setDefaults(["options", "templateVars"], Json.emptyArray); 
 
     return true;
   }

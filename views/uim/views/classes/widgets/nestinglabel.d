@@ -28,3 +28,7 @@ class DNestingLabelWidget : DLabelWidget {
     protected string _labelTemplate = "nestingLabel";
 }
 mixin(WidgetCalls!("NestingLabel"));
+
+unittest {
+    assert(NestingLabelWidget);
+}

@@ -50,3 +50,7 @@ class DFileWidget : DWidget {
     }
 }
 mixin(WidgetCalls!("File"));
+
+unittest {
+    assert(FileWidget);
+}

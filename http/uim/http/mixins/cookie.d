@@ -1,7 +1,7 @@
 module uim.http.mixins.cookie;
 
 string cookieThis(string name = null) {
-    string fullName = `"` ~ name ~ "Cookie" ~ `"`;
+    string fullName = name ~ "Cookie";
     return objThis(fullName);
 }
 

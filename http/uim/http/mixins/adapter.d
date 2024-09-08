@@ -1,7 +1,7 @@
 module uim.http.mixins.adapter;
 
 string adapterThis(string name = null) {
-    string fullName = `"` ~ name ~ "Adapter"~`"`;
+    string fullName = name ~ "Adapter";
     return objThis(fullName);
 }
 

@@ -1,7 +1,7 @@
 module uim.http.mixins.response;
 
 string responseThis(string name = null) {
-    string fullName = `"` ~ name ~ "Response" ~ `"`;
+    string fullName = name ~ "Response";
     return objThis(fullName);
 }
 

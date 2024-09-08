@@ -1,7 +1,7 @@
 module uim.http.mixins.middleware;
 
 string middlewareThis(string name = null) {
-    string fullName = `"` ~ name ~ "Middleware" ~ `"`;
+    string fullName = name ~ "Middleware";
     return objThis(fullName);
 }
 

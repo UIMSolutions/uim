@@ -5,7 +5,7 @@ import uim.models;
 @safe:
 
 string dataThis(string name = null) { // Name for future releases
-    string fullName = `"` ~ name ~ "Data" ~ `"`;
+    string fullName = name ~ "Data";
     return objThis(fullName);
 }
 

@@ -4,7 +4,7 @@ import uim.models;
 @safe: 
 
 string elementThis(string name = null) {
-    string fullName = `"` ~ name ~ "Element" ~ `"`;
+    string fullName = name ~ "Element";
     return objThis(fullName);
 }
 

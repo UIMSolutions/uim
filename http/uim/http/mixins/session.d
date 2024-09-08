@@ -1,7 +1,7 @@
 module uim.http.mixins.session;
 
 string sessionThis(string name = null) {
-    string fullName = `"` ~ name ~ "Session" ~ `"`;
+    string fullName = name ~ "Session";
     return objThis(fullName);
 }
 

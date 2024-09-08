@@ -5,7 +5,7 @@ import uim.models;
 
 // #region EntityThis
 string entityThis(string name = null) {
-  string fullName = `"` ~ name ~ "Entity" ~`"`;
+  string fullName = name ~ "Entity";
   return objThis(fullName);
 }
 

@@ -8,29 +8,28 @@ class UIMObject : INamed {
     mixin TConfigurable;
 
     this() {
-        writeln("this()", this.classname);
+        writeln("UIMObject::this()", this.classname);
         this.initialize; 
     }
 
     this(Json[string] initData) {
-        writeln("this(Json[string] initData)", this.classname);
+        writeln("UIMObject::this(Json[string] initData)", this.classname);
         this.initialize(initData);
     }
 
     this(string newName, Json[string] initData = null) {
-        writeln("this(string newName, Json[string] initData)", this.classname);
+        writeln("UIMObject::this(string newName, Json[string] initData)", this.classname);
         this.name(newName);
         this.initialize(initData);
     }
 
     bool initialize(Json[string] initData = null) {
-        writeln("initialize in UIMObject");
-        name("Attribute");
+        name("Object");
 
-        configuration(MemoryConfiguration);
+        auto config = MemoryConfiguration;
+        configuration(config);
         configuration.set(initData);
 
-        writeln("2 -initialize in UIMObject");
         return true;
     }
 

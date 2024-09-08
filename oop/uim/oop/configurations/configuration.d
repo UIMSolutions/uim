@@ -13,7 +13,12 @@ private alias KeyValue = Tuple!(string, "key", Json, "value");
 
 // Configuration for handling config data = key: string / value: Json
 class DConfiguration : UIMObject, IConfiguration {
-    mixin(ConfigurationThis!());
+    mixin(ConfigurationThis!("Configuration"));
+
+    override bool initialize(Json[string] initData = null) {
+        writeln("DConfiguration::initialize(Json[string] initData = null) - ", this.classinfo);
+        return true;
+    }
 
     // #region defaultData
     abstract Json[string] defaultData();
@@ -246,6 +251,39 @@ class DConfiguration : UIMObject, IConfiguration {
     abstract Json[] values(string[] includedKeys = null);
     // #endregion Values
 
+  // #region is
+    bool isBoolean(string key) {
+      return hasKey(key)
+        ? get(key).isBoolean
+        : false;
+    }
+    bool isLong(string key) {
+      return hasKey(key) 
+        ? get(key).isLong
+        : false; 
+    }
+    bool isDouble(string key) {
+      return hasKey(key) 
+        ? get(key).isDouble
+        : false; 
+    }
+    bool isString(string key) {
+      return hasKey(key) 
+        ? get(key).isString
+        : false; 
+    }
+    bool isArray(string key) {
+      return hasKey(key) 
+        ? get(key).isArray
+        : false; 
+    }
+    bool isMap(string key) {
+      return hasKey(key) 
+        ? get(key).isMap
+        : false; 
+    }
+  // #endregion is
+
     // #region get
     Json opIndex(string key) {
         return get(key);
@@ -285,11 +323,16 @@ class DConfiguration : UIMObject, IConfiguration {
     }
 
     Json[] getArray(string key) {
-        return get(key).getArray;
+        writeln("DConfiguraton::Json[] getArray(string key) - ", this.classinfo);
+        return hasKey(key) && isArray(key)
+            ? get(key).getArray
+            : null; 
     }
 
     Json[string] getMap(string key) {
-        return get(key).getMap;
+        return hasKey(key) && isMap(key)
+            ? get(key).getMap
+            : null;
     }
 
     string[string] getStringMap(string key) {
@@ -515,4 +558,8 @@ class DConfiguration : UIMObject, IConfiguration {
 
     abstract IConfiguration removeKey(string[] keys);
     // #region remove - clear
+
+    IConfiguration clone() {
+        return null; 
+    }
 }

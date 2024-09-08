@@ -14,17 +14,18 @@ class DMemoryLogger : DLogger {
     mixin(LoggerThis!("Memory"));
 
     override bool initialize(Json[string] initData = null) {
+        writeln("DMemoryLogger::initialize(Json[string] initData = null) - ", this.classinfo);
         if (!super.initialize(initData)) {
             return false;
-        }
-
-        configuration
+        } 
+        
+        /* configuration
             .setDefault("levels", Json.emptyArray)
             .setDefault("scopes", Json.emptyArray)
             .setDefault("formatter",
                 createMap!(string, Json)
                     .set("classname", StandardLogFormatter.classname)
-                    .set("includeDate", false));
+                    .set("includeDate", false)); */
 
         return true;
     }
@@ -50,3 +51,8 @@ class DMemoryLogger : DLogger {
     }
 }
 mixin(LoggerCalls!("Memory"));
+
+unittest {
+    writeln("DMemoryLogger/unittest");
+    assert(MemoryLogger);
+}

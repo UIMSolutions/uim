@@ -29,6 +29,9 @@ string[] keys(Json anObject) {
 // #endregion Properties
 
 // #region Check json value
+bool isMap(Json aJson) {
+  return aJson.type == Json.Type.object;
+}
 bool isObject(Json aJson) {
   return aJson.type == Json.Type.object;
 }
@@ -752,10 +755,17 @@ unittest {
   assert(maxVersionNumber([json3, json3, json2]) == 3);
 }
 
-Json toArray(Json data) {
-  Json result = Json.emptyArray;
-  result ~= data;
-  return result;
+Json[] toArray(Json value) {
+  if (value.isNull) {
+    return null; 
+  }
+
+  if (value.isArray) {
+    return value.getArray;
+  }
+
+  writeln("return [value]");
+  return [value];
 }
 
 unittest {
@@ -1010,6 +1020,7 @@ string getString(Json value) {
 }
 
 Json[] getArray(Json value, string key) {
+  writeln("Json::getArray(Json value, string key)");
   if (value.isNull) {
     return null;
   }
@@ -1019,6 +1030,7 @@ Json[] getArray(Json value, string key) {
 }
 
 Json[] getArray(Json value) {
+  writeln("Json::getArray(Json value)");
   if (value.isNull) {
     return null;
   }

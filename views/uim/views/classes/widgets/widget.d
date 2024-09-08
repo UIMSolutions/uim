@@ -28,10 +28,13 @@ class DWidget : UIMObject, IWidget {
       .merge("escape", true)
       .merge("templateVars", Json.emptyArray);
 
+    this.templater(HtmlTemplater);
+
     return true;
   }
 
   mixin(TProperty!("DStringContents", "stringContents"));
+  mixin(TProperty!("DTemplater", "templater"));
 
   /**
      * Render a text widget or other simple widget like email/tel/number.

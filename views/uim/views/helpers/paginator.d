@@ -168,7 +168,7 @@ class DPaginatorHelper : DHelper {
         if (!isEnabled && linkText == false) {
             return null;
         }
-        Json linkText = options.get("escape") ? htmlAttributeEscape(linkText) : linkText;
+        string linkText = options.getBoolean("escape") ? htmlAttributeEscape(linkText) : linkText;
         auto contentTemplater = this.templater();
         bool isNewTemplates = options.hasKey("templates");
         if (
@@ -346,7 +346,7 @@ class DPaginatorHelper : DHelper {
             .set("page", 1);
         auto myvars = createMap!(
             string, Json)()
-            .set("text", options.hasKey("escape") ? htmlAttributeEscape(mytitle) : mytitle)
+            .set("text", options.getBoolean("escape") ? htmlAttributeEscape(mytitle) : mytitle)
             .set("url", generateUrl(
                     mypaging, url));
 
@@ -1113,8 +1113,7 @@ return false;
                 "prev",
                 generateUrl(
                     [
-                        "page": paginated()
-                        .currentPage() - 1
+                        "page": paginated().currentPage() - 1
                     ],
                     [
                     ],

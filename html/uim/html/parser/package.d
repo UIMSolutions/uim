@@ -146,12 +146,10 @@ class DH5Node {
   @property void attributes(STRINGAA newAttributes) {
     _attributes = newAttributes;
     if ("id" in _attributes) {
-      id = _attributes["id"];
-      _attributes.removeKey("id");
+      id = _attributes.shift("id");
     }
     if ("class" in _attributes) {
-      classes = _attributes["class"];
-      _attributes.removeKey("class");
+      classes = _attributes.shift("class");
     }
   }
 

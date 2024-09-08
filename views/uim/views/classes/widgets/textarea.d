@@ -42,12 +42,12 @@ class DTextareaWidget : DWidget {
      *
      * All other keys will be converted into HTML attributes.
      */
-    override string render(Json[string] renderData, IContext formContext) {
-       /*  renderData.merge(formContext.data);
+    override string render(Json[string] options, IContext formContext) {
+       /*  options.merge(formContext.data);
 
         Json[string] data = null;
         if (
-            !renderData.hasKey("maxlength")
+            !options.hasKey("maxlength")
             && mydata.hasKey("fieldName")
             ) {
             data = setMaxLength(data, formContext, data.getString("fieldName"));
@@ -59,7 +59,8 @@ class DTextareaWidget : DWidget {
                     : mydata.get("val"))
                 .set("templateVars", mydata.get("templateVars"))
                 .set("attrs", _stringContents.formatAttributes(data, ["name", "val"]))); */
-        return null;
+
+        return _templater.render("textarea", createMap!(string, Json));
     }
 }
 

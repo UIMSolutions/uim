@@ -46,11 +46,11 @@ class DNumberHelper : DHelper {
      */
     string format(Json mynumber, Json[string] options = null) {
         // TODOD 
+        string formattedNumber; 
         /* auto formattedNumber = Number.format(mynumber, options);
-        auto options = options.update["escape": true.toJson];
+        auto options = options.update["escape": true.toJson]; */
 
-        return options.get("escape"] ? htmlAttributeEscape(formattedNumber) : formattedNumber; */
-        return null; 
+        return options.getBoolean("escape") ? htmlAttributeEscape(formattedNumber) : formattedNumber;
     }
     
     /**

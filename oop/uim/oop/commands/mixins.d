@@ -4,7 +4,7 @@ import uim.oop;
 @safe: 
 
 string commandThis(string name = null) {
-    string fullName = `"` ~ name ~ "Command"~`"`;
+    string fullName = name ~ "Command";
     return objThis(fullName);
 }
 

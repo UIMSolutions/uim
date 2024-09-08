@@ -2,10 +2,10 @@ module uim.oop.mixins.obj;
 
 @safe: 
 
-string objThis(string name = null) {
+string objThis(string name) {
     return `
         this() {
-            super(`~ name ~ `);
+            super("`~ name ~ `");
         }
         this(Json[string] initData) {
             super(initData);
@@ -19,10 +19,18 @@ string objThis(string name = null) {
     `;
 }
 
+template ObjThis(string name) {
+    const char[] ObjThis = objThis(name);
+}
+
 string objCalls(string name) {
     return `
         auto `~ name ~ `() { return new D` ~ name ~ `(); }
         auto `~ name ~ `(Json[string] initData) { return new D` ~ name ~ `(initData); }
         auto `~ name ~ `(string name, Json[string] initData = null) { return new D` ~ name ~ `(name, initData); }
     `;
+}
+
+template ObjCalls(string name) {
+    const char[] ObjCalls = objCalls(name);
 }

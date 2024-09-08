@@ -4,7 +4,7 @@ import uim.logging;
 @safe:
 
 string logFormatterThis(string name = null) {
-    string fullName = `"` ~ name ~ "LogFormatter" ~ `"`;
+    string fullName = name ~ "LogFormatter";
     return objThis(fullName);
 }
 

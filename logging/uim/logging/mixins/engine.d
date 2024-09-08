@@ -4,7 +4,7 @@ import uim.logging;
 @safe:
 
 string logEngineThis(string name = null) {
-    string fullName = `"` ~ name ~ "LogEngine" ~ `"`;
+    string fullName = name ~ "LogEngine";
     return objThis(fullName);
 }
 

@@ -4,7 +4,7 @@ import uim.oop;
 @safe: 
 
 string parserThis(string name = null) {
-    string fullName = `"` ~ name ~ "Parser" ~ `"`;
+    string fullName = name ~ "Parser";
     return objThis(fullName);
 }
 

@@ -9,7 +9,7 @@ import uim.models;
 @safe:
 
 string modelThis(string name = null) {
-    string fullName = `"` ~ name ~ "Model" ~`"`;
+    string fullName = name ~ "Model";
     return objThis(fullName);
     
       /* return `

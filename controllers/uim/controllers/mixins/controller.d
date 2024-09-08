@@ -4,8 +4,8 @@ import uim.controllers;
 @safe:
 
 string controllerThis(string name = null) {
-    string fullName = `"` ~ name ~ "Controller" ~`"`;
-        return objThis(fullName);
+    string fullName = name ~ "Controller";
+    return objThis(fullName);
 
 }
 
@@ -15,11 +15,7 @@ template ControllerThis(string name = null) {
 
 string controllerCalls(string name) {
     string fullName = name ~ "Controller";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
-    auto `~ fullName ~ `(string name, Json[string] initData = null) { return new D` ~ fullName ~ `(name, initData); }
-    `;
+    return objCalls(fullName);
 }
 
 template ControllerCalls(string name) {

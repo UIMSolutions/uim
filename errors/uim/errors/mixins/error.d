@@ -1,7 +1,7 @@
 module errors.uim.errors.mixins.error;
 
 string errorThis(string name = null) {
-    string fullName = `"` ~ name ~ "Error" ~`"`;
+    string fullName = name ~ "Error";
     return objThis(fullName);
 }
 

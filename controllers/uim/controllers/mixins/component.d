@@ -5,7 +5,7 @@ import uim.controllers;
 @safe:
 
 string componentThis(string name = null) {
-    string fullName = `"` ~ name ~ "Component" ~ `"`;
+    string fullName = name ~ "Component";
     return objThis(fullName);
 
 }

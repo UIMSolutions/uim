@@ -8,7 +8,7 @@ module uim.filesystems.mixins.file;
 import uim.filesystems;
 @safe:
 string fileThis(string name = null) {
-  string fullName = `"` ~ name ~ "File" ~ `"`;
+  string fullName = name ~ "File";
     return objThis(fullName)
     ~
     (name !is null

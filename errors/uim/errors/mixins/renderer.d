@@ -1,7 +1,7 @@
 module uim.renderers.mixins.renderer;
 
 string rendererThis(string name = null) {
-    string fullName = `"` ~ name ~ "Renderer" ~`"`;
+    string fullName = name ~ "Renderer";
     return objThis(fullName);
 }
 

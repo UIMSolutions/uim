@@ -1,7 +1,7 @@
 module uim.consoles.mixins.argument;
 
 string argumentThis(string name = null) {
-    string fullName = `"` ~ name ~ "Argument" ~ `"`;
+    string fullName = name ~ "Argument";
     return objThis(fullName);
 }
 

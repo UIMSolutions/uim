@@ -4,7 +4,7 @@ import uim.css;
 @safe:
 
 string cssThis(string name = null) {
-    string fullName = `"` ~ name ~ "Css" ~ `"`;
+    string fullName = name ~ "Css";
     return objThis(fullName);
 }
 

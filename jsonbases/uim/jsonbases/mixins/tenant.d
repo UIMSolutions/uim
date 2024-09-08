@@ -4,7 +4,7 @@ import uim.jsonbases;
 
 @safe:
 string jsonTenantThis(string name = null) {
-  string fullName = `"` ~ name ~ "JsonTenant" ~ `"`;
+  string fullName = name ~ "JsonTenant";
   return objThis(fullName)
   ~(name !is null
       ? `

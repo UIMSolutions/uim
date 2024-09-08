@@ -5,7 +5,7 @@ import uim.jsonbases;
 @safe:
 
 string jsonCollectionThis(string name = null) {
-  string fullName = `"` ~ name ~ "JsonCollection" ~ `"`;
+  string fullName = name ~ "JsonCollection";
   return objThis(fullName)
     ~ (name !is null
         ? `

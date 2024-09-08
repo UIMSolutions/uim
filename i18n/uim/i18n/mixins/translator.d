@@ -4,7 +4,7 @@ import uim.i18n;
 @safe:
 
 string translatorThis(string name = null) {
-    string fullName = `"`~ name ~ "Translator" ~ `"`;
+    string fullName = name ~ "Translator";
     return objThis(fullName);
 }
 

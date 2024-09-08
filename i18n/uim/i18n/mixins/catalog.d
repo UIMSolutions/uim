@@ -4,7 +4,7 @@ import uim.i18n;
 @safe:
 
 string catalogThis(string name = null) {
-    string fullName = `"` ~ name ~ "Catalog"~`"`;
+    string fullName = name ~ "Catalog";
     return objThis(fullName);
 }
 

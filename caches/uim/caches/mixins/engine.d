@@ -1,7 +1,7 @@
 module uim.caches.mixins.engine;
 
 string cacheEngineThis(string name = null) {
-    string fullName = `"` ~ name ~ "CacheEngine" ~`"`;
+    string fullName = name ~ "CacheEngine";
     return objThis(fullName);
 }
 

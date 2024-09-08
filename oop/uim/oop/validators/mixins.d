@@ -4,7 +4,7 @@ import uim.oop;
 @safe: 
 
 string validatorThis(string name = null) {
-    string fullName = `"` ~ name ~ "Validator" ~ `"`;
+    string fullName = name ~ "Validator";
     return objThis(fullName);
 }
 

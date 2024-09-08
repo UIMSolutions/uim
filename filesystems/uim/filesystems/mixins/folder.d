@@ -9,7 +9,7 @@ import uim.filesystems;
 
 @safe:
 string folderThis(string name = null) {
-  string fullName = `"` ~ name ~ "Folder" ~ `"`;
+  string fullName = name ~ "Folder";
   return objThis(fullName) ~
     (name !is null
         ? `this(string[] path, Json[string] initData = null) {

@@ -36,23 +36,24 @@ class DLabelWidget : DWidget {
     }
 
     // Render a label widget.
-    override string render(Json[string] renderData, IContext formContext) {
-        /* renderData
+    override string render(Json[string] options, IContext formContext) {
+        // set defaults
+        options
             .merge("text", "") // `text` The text for the label.
             .merge("input", "") // `input` The input that can be formatted into the label if the template allows it.
             .merge("hidden", "")
             .merge("escape", true) // `escape` Set to false to disable HTML escaping.
             .merge("templateVars", Json.emptyArray());
 
-        return _stringContents.format(_labelTemplate, createMap!(string, Json)
-            .set("text", updatedData.hasKey("escape") ? htmlAttributeEscape(updatedData.get("text")): updatedData.get("text"))
-            .set("input", updatedData.get("input"))
-            .set("hidden", updatedData.get("hidden"))
-            .set("templateVars", updatedData.get("templateVars"))
-            /* .set("attrs", _stringContents.formatAttributes(updatedData, [
+        Json[string] settings = createMap!(string, Json)
+            .set("text", options.hasKey("escape") ? htmlAttributeEscape(options.get("text")): options.get("text"))
+            .set("input", options.get("input"))
+            .set("hidden", options.get("hidden"))
+            .set("templateVars", options.get("templateVars"));
+            /* .set("attrs", _stringContents.formatAttributes(options, [
                 "text", "input", "hidden"
             ])) * /); */
-        return null;
+        return _stringContents.format(_labelTemplate, settings);
     }
 }
 

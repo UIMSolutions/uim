@@ -9,7 +9,7 @@ import uim.filesystems;
 
 @safe:
 string linkThis(string name = null) {
-  string fullName = `"`~ name ~ "Link" ~ `"`;
+  string fullName = name ~ "Link";
   return objThis(fullName) ~
     (name !is null
     ? `this(string[] path, Json[string] initData = null) {

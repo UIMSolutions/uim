@@ -9,7 +9,7 @@ import uim.filesystems;
 @safe:
 
 string filesystemThis(string name = null) {
-  string fullName = `"` ~ name ~ "Filesystem"~ `"`;
+  string fullName = name ~ "Filesystem";
   string mainPart = objThis(fullName);
 
   if (name !is null) {

@@ -4,7 +4,7 @@ import uim.oop;
 @safe: 
 
 string formatterThis(string name = null) {
-    string fullName = `"` ~ name ~ "Formatter" ~ `"`;
+    string fullName = name ~ "Formatter";
     return objThis(fullName);
 }
 

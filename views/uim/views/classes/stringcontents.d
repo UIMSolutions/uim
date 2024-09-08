@@ -197,10 +197,9 @@ class DStringContents : UIMObject {
         // TODO [mytemplate, myplaceholders] = _compiledtemplates[templateName];
         // yTemplate; // TODO = _compiledtemplates[templateName];
 
-        Json templateVars;
+        Json[string] templateVars;
         if (insertData.hasKey("templateVars")) {
-            templateVars = insertData.getMap("templateVars");
-            insertData.removeKey("templateVars");
+            templateVars = insertData.shift("templateVars").getMap;
         }
 
         string[] replaces;

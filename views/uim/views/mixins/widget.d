@@ -5,9 +5,8 @@ import uim.views;
 @safe:
 
 string widgetThis(string name = null) {
-    string fullName = `"` ~ name ~ "Widget" ~ `"`;
+    string fullName = name ~ "Widget";
     return objThis(fullName);
-
 }
 
 template WidgetThis(string name = null) {

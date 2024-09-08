@@ -4,7 +4,7 @@ import uim.views;
 @safe: 
 
 string viewThis(string name = null) {
-    string fullName = `"` ~ name ~ "View" ~ `"`;
+    string fullName = name ~ "View";
     return objThis(fullName);
 }
 

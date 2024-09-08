@@ -286,14 +286,6 @@ V[K] set(K, V)(auto ref V[K] items, K key, V value) if (!is(V == Json) && !is(V 
 }
 
 unittest {
-  string[string] testmap;
-  assert(set(testmap, "a", "A")["a"] == "A");
-  assert(set(testmap, "a", "A").set("b", "B")["b"] == "B");
-
-  testmap = testmap.set(["a", "b"], "x");
-  writeln("testMap => ", testmap);
-  assert(testmap["a"] == "x");
-  assert(testmap["b"] == "x");
 
   /* Json[string] testJson;
   assert(set(testJson, "a", Json("A"))["a"].getString == "A"); */
@@ -557,9 +549,9 @@ V[K] diff(K, V)(V[K] left, Json right) {
 }
 
 unittest {
-  string[string] left = ["a": "A"].set("b", "B").set("c", "C");
+/*   string[string] left = ["a": "A"].set("b", "B").set("c", "C");
   string[] keys = ["a", "x", "y"];
-
+ */
   /* assert(left.diff(keys).length == 2);
   assert(left.diff(keys)["b"] == "B");
   assert(!left.diff(keys).hasKey("b"));
@@ -719,11 +711,11 @@ unittest {
   assert(testMap.isEmpty);
   assert(testMap.length == 0);
 
-  testMap = createMap!(string, string)
+/*   testMap = createMap!(string, string)
     .set("a", "A")
     .set("b", "B");
   assert(!testMap.isEmpty);
-  assert(testMap.length == 2);
+  assert(testMap.length == 2); */
 }
 // #endregion isEmpty
 

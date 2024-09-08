@@ -1,3 +1,8 @@
+/*********************************************************************************************************
+	Copyright: © 2015-2024 Ozan Nurettin Süel (UIManufaktur)                                        
+	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
+	Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
+**********************************************************************************************************/
 module uim.oop.configurations.memory;
 
 import uim.oop;
@@ -6,8 +11,8 @@ import uim.oop;
 class DMemoryConfiguration : DConfiguration {
     mixin(ConfigurationThis!("Memory"));
 
-    override bool initialize(Json[string] initvalue = null) {
-        if (!super.initialize(initvalue)) {
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
             return false;
         }
 

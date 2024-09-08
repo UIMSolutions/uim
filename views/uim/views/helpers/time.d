@@ -3,6 +3,9 @@ module uim.views.helpers.time;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * Time Helper class for easy use of time data.

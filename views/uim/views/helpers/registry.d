@@ -3,6 +3,9 @@ module uim.views.helpers.registry;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * HelperRegistry is used as a registry for loaded helpers and handles loading

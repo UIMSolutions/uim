@@ -5,12 +5,15 @@ module uim.oop.mixins.obj;
 string objThis(string name = null) {
     return `
         this() {
-            super(`~ name ~ `);
+            writeln("this()", this.classname);
+            super(`~ name ~ `, null);
         }
         this(Json[string] initData) {
+            writeln("this(Json[string] initData)", this.classname);
             super(`~ name ~ `, initData);
         }
         this(string name, Json[string] initData = null) {
+            writeln("this(string newName, Json[string] initData)", this.classname);
             super(name, initData);
         }
 

@@ -13,11 +13,7 @@ class DFactory(T : UIMObject) : UIMObject, IKeyAndPath {
         super(initData);
     }
 
-    this(string newName) {
-        super(newName);
-    }
-
-    this(string newName, Json[string] initData) {
+    this(string newName, Json[string] initData = null) {
         super(newName, initData);
     }
 

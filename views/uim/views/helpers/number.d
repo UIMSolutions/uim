@@ -3,6 +3,9 @@ module uim.views.helpers.number;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /**
  * Number helper library.

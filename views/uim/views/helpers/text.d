@@ -3,6 +3,9 @@ module uim.views.helpers.text;
 import uim.views;
 
 @safe:
+ unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
 
 /*
  * Text helper library.

@@ -37,5 +37,6 @@ unittest {
     writeln("testmap => ", testmap.set("one", x));
     assert(set(testmap, "a", "A")["a"] == "A");
     assert(set(testmap, "a", "A").set("b", "B")["b"] == "B");
+
   }
 // #endregion set

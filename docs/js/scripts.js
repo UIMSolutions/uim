@@ -1,6 +1,6 @@
 /*!
-* Start Bootstrap - Modern Business v5.0.7 (https://startbootstrap.com/template-overviews/modern-business)
-* Copyright 2013-2023 Start Bootstrap
+* uim - Modern Business v5.0.7 (https://startbootstrap.com/template-overviews/modern-business)
+* Copyright 2013-2023 uim
 * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-modern-business/blob/master/LICENSE)
 */
 // This file is intentionally blank

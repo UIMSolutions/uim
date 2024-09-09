@@ -131,7 +131,8 @@ class DH5Node {
     }
 
     _classes = items.filter!(item => item.length > 0)
-      .map!(item => item).array;
+      .map!(item => item)
+      .array;
   }
 
   string classesToH5() {
@@ -155,25 +156,28 @@ class DH5Node {
 
   string attributesToH5() {
     string[] results;
-    foreach (k, v; _attributes)
-      if (k.length > 0)
-        results ~= `"%s":%s`.format(k, (v.indexOf(`"`) > -1 ? v : `"` ~ v ~ `"`));
-    return "[" ~ results.join(",") ~ "]";
+    return "[" ~
+      _attributes.byKeyValue
+      .filter!(attribute => attribute.key.length > 0)
+      .map!(attribute => `"%s":%s`.format(attribute.key, (attribute.value.indexOf(`"`) > -1 ? attribute.value
+          : `"` ~ attribute.value ~ `"`)))
+      .join(",")
+      ~ "]";
   }
 
   void setNodes(DH5Node[] newNodes) {
-    auto min = minLevel(newNodes);
-    // writeln("MinLevel = ", min, " --------------");
+    auto min = minLevel(newNodes); // writeln("MinLevel = ", min, " --------------");
 
     // TODO newNodes.each!(node => writeln("%s - %s ".format(node.level, node).indent(node.level * 2)));
 
     DH5Node[] nodes = null;
     DH5Node levelNode;
     DH5Node[] subNodes;
-    newNodes.each!(node => setNode(node, levelNode, nodes, subNodes)); 
+    newNodes.each!(
+      node => setNode(node, levelNode, nodes, subNodes));
   }
 
-  void setNode(DH5Node newNode, DH5Node levelNode, DH5Node[] nodes, DH5Node[] subNodes) {    
+  void setNode(DH5Node newNode, DH5Node levelNode, DH5Node[] nodes, DH5Node[] subNodes) {
     if (newNode.level == minLevel(nodes)) {
       if (newNode.isContent || (newNode.isStartTag && newNode.isEndTag)) { // single node
         nodes ~= newNode;
@@ -192,36 +196,35 @@ class DH5Node {
   DH5Obj[] toH5() {
     if (isRoot)
       return nodes.map!(node => node.toH5).join;
-
     if (isContent)
       return [H5String(txt)];
-
     return isStartTag && isEndTag
-      ? [H5Obj(_attributes).tag(tag)
-        .single(true)] : [H5Obj(_attributes).tag(tag).content(nodes.toH5)];
+      ? [H5Obj(_attributes)
+        .tag(tag)
+        .single(true)] : [
+        H5Obj(_attributes).tag(tag).content(nodes.toH5)
+      ];
   }
 
   string toH5String() {
     if (isRoot)
       return nodes.toH5String;
-
     if (isContent)
       return `"` ~ txt ~ `"`;
-
     string[] tagContent;
     if (id.length > 0)
       tagContent ~= idToH5;
     if (classes.length > 0)
       tagContent ~= classesToH5;
     if (attributes.length > 0)
-      tagContent ~= attributesToH5;
-    // writeln(tagContent);
+      tagContent ~= attributesToH5; // writeln(tagContent);
     if (isStartTag && isEndTag)
       return "H5%s(%s)".format(tag.capitalize, tagContent.join(","));
 
     if (nodes.length > 0)
       tagContent ~= nodes.toH5String;
-    return "H5%s(%s)".format(tag.capitalize, tagContent.join(","));
+    return "H5%s(%s)".format(tag.capitalize, tagContent
+        .join(","));
   }
 }
 
@@ -258,7 +261,8 @@ size_t minLevel(DH5Node[] newNodes) {
   }
 
   size_t result = newNodes[0].level;
-  newNodes[1 .. $].each!(node => result = min(node.level, result));
+  newNodes[1 .. $].each!(
+    node => result = min(node.level, result));
   return result;
 }
 
@@ -378,16 +382,17 @@ auto parse2(string html) {
     if (line.length > 0)
       newLines ~= line;
   }
-  auto htmlBase = newLines.join("");
-
-  // Step 1: Cut out comments
+  auto htmlBase = newLines.join(""); // Step 1: Cut out comments
   debug writeln("Step 1: Cut out comments");
   size_t commentPos;
   while (htmlBase.indexOf(startComment, commentPos) > -1) { // has comment <!--
     auto startCPos = htmlBase.indexOf(startComment, commentPos);
-    if (htmlBase.indexOf(endComment, startCPos + startComment.length) > -1) {
-      auto endCPos = htmlBase.indexOf(endComment, startCPos + startComment.length);
-      htmlBase = htmlBase[0 .. startCPos] ~ htmlBase[endCPos + endComment.length .. $];
+    if (htmlBase.indexOf(endComment, startCPos + startComment
+        .length) > -1) {
+      auto endCPos = htmlBase.indexOf(endComment, startCPos + startComment
+          .length);
+      htmlBase = htmlBase[0 .. startCPos] ~ htmlBase[endCPos + endComment
+        .length .. $];
     } else {
       htmlBase = htmlBase[0 .. startCPos];
       break;
@@ -397,11 +402,13 @@ auto parse2(string html) {
 
   // Step 2: Read quotes
   string htmlMask = htmlBase;
-  debug writeln("Step 2: Read quotes");
+  debug writeln(
+    "Step 2: Read quotes");
   writeln("1");
   htmlMask = htmlMask.replace(`\"`, "ss"); // Replace "false" quotes with chars;
   writeln("2");
-  auto stringIndicators = htmlMask.posOfAll(`"`); // Now we have all quotes
+  auto stringIndicators = htmlMask.posOfAll(
+    `"`); // Now we have all quotes
   writeln("3");
   for (size_t i = 0; i < stringIndicators.length - 1; i += 2) {
     htmlMask = htmlMask.fillWith("s", stringIndicators[i] + 1, stringIndicators[i + 1]);
@@ -421,8 +428,8 @@ auto parse2(string html) {
   foreach (index, value; ltIndicators) {
     DH5Node node = H5Node(rootNode);
     node.isRoot = false;
-
-    if (index >= gtIndicators.length) { // Not well-formed :-(
+    if (
+      index >= gtIndicators.length) { // Not well-formed :-(
       break;
     }
 
@@ -436,13 +443,15 @@ auto parse2(string html) {
     node.level = level;
     if (tag.indexOf("</") == 0) { // is EndTag
       node.isEndTag = true;
-      tagName = spacesSeparated[0].replace("</", "").replace(">", "").strip;
+      tagName = spacesSeparated[0].replace(
+        "</", "").replace(">", "").strip;
       rootNode = rootNode.rootNode;
       if (level > 0)
         level--;
     } else {
       node.isStartTag = true;
-      tagName = spacesSeparated[0].replace("<", "").replace(">", "").strip;
+      tagName = spacesSeparated[0].replace(
+        "<", "").replace(">", "").strip;
       switch (tagName) {
       case "link", "meta", "img", "input", "br":
         rootNode.nodes ~= node;
@@ -459,35 +468,41 @@ auto parse2(string html) {
       if (tagSpaces) {
         writeln("T:", htmlBase[ltIndicators[index] + 1 .. tagSpaces[0]]);
         for (size_t spaceI = 0; spaceI < tagSpaces.length - 1; spaceI += 2) {
-          parameters ~= htmlBase[tagSpaces[spaceI] .. tagSpaces[spaceI + 1]].strip;
+          parameters ~= htmlBase[tagSpaces[spaceI] .. tagSpaces[spaceI + 1]]
+            .strip;
         }
-        parameters ~= htmlBase[tagSpaces[-1] .. gtIndicators[index]].strip;
+        parameters ~= htmlBase[tagSpaces[-1] .. gtIndicators[index]]
+          .strip;
         writeln(parameters);
 
         foreach (para; parameters) {
           if (para.indexOf("=") == -1) {
             attributes[para] = para;
           } else {
-            auto pos = para.indexOf("=");
+            auto pos = para.indexOf(
+              "=");
             attributes[para[0 .. pos]] = para[pos + 2 .. -1];
           }
         }
         writeln(attributes);
         if ("id" in attributes) {
           node.id(attributes["id"]);
-          attributes.removeKey("id");
+          attributes.removeKey(
+            "id");
         }
         if ("class" in attributes) {
-          node.classes(attributes["class"]);
-          attributes.removeKey("class");
+          node.classes(
+            attributes["class"]);
+          attributes.removeKey(
+            "class");
         }
         node.attributes = attributes;
       }
       node.level = level;
     }
     node.tag(tagName);
-
-    if ((index < gtIndicators.length) && (index < ltIndicators.length - 1)) {
+    if ((index < gtIndicators.length) && (
+        index < ltIndicators.length - 1)) {
       auto content = htmlBase[gtIndicators[index] + 1 .. ltIndicators[index + 1]];
       if (content) {
         DH5Node sNode = H5Node(rootNode);
@@ -529,7 +544,6 @@ void writelnNodes(DH5Node[] nodes) {
 
 string intender(string txt, size_t multiple, size_t step = 2) {
   string result = txt;
-
   for (auto i = 0; i < multiple * step; i++)
     result = " " ~ result;
 
@@ -539,8 +553,10 @@ string intender(string txt, size_t multiple, size_t step = 2) {
 string nodeToH5(DH5Node[] nodes, size_t level) {
   string[] results;
 
-  if ((nodes.length == 1) && nodes[0].isContent) {
-    results ~= ((nodes[0].txt.length > 0) ? "\"%s\"".format(nodes[0].txt) : "");
+  if ((nodes.length == 1) && nodes[0]
+    .isContent) {
+    results ~= ((nodes[0].txt.length > 0) ? "\"%s\""
+        .format(nodes[0].txt) : "");
     nodes = null;
   } else {
     foreach (node; nodes) {
@@ -551,7 +567,8 @@ string nodeToH5(DH5Node[] nodes, size_t level) {
         results ~= intender("\n" ~ result, level);
     }
   }
-  return results.join(",").replace(",)", ")").replace(",]", "]").replace("\"\",", ",");
+  return results.join(",").replace(",)", ")")
+    .replace(",]", "]").replace("\"\",", ",");
   /*  auto xxxLines = xxx.split("\n"); 
   string[] newLines;
   foreach(line; xxxLines) if (line.strip.length > 0) newLines ~= line; // use only not empty lines
@@ -561,28 +578,34 @@ string nodeToH5(DH5Node[] nodes, size_t level) {
 
 string nodeToH5(DH5Node node, size_t level) {
   string result;
-
   if (node.isStartTag) {
     string[] vals;
-
-    if (node.id.strip.length > 0)
+    if (
+      node.id.strip.length > 0)
       vals ~= node.idToH5;
     if (node.classes.length > 0)
-      vals ~= node.classesToH5;
-    if (node.attributes) {
+      vals ~= node
+        .classesToH5;
+    if (
+      node.attributes) {
       string[] ats = node.attributes.byKeyValue
-        .map!(kv => "\"%s\":\"%s\"".format(kv.key.strip, kv.value.strip)).array;
+        .map!(kv => "\"%s\":\"%s\"".format(
+            kv.key.strip, kv.value
+            .strip)).array;
       if (ats)
-        vals ~= "[" ~ ats.join(",") ~ "]";
+        vals ~= "[" ~ ats.join(
+          ",") ~ "]";
     }
     if (node.nodes)
       vals ~= nodeToH5(node.nodes, level + 1);
     else if (node.txt.length > 0)
       vals ~= "\"" ~ node.txt ~ "\"";
 
-    result ~= intender("H5" ~ capitalize(node.tag) ~ "(%s\n".format(vals.join(",")) ~ ")", to!size_t(
+    result ~= intender("H5" ~ capitalize(
+        node.tag) ~ "(%s\n".format(vals.join(",")) ~ ")", to!size_t(
         level));
-  } else if ((node.isContent) && (node.txt.length > 0)) {
+  } else if ((node.isContent) && (
+      node.txt.length > 0)) {
     result ~= intender(node.txt.length > 0 ? "H5String(\"%s\")".format(node.txt) : "", to!size_t(
         level));
   }

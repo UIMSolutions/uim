@@ -270,8 +270,7 @@ class DHtmlHelper : DHelper {
         mytemplater = templater();
         myconfirmMessage = null;
         if (htmlAttributes.hasKey("confirm")) {
-            myconfirmMessage = htmlAttributes["confirm"];
-            htmlAttributes.removeKey("confirm");
+            myconfirmMessage = htmlAttributes.shift("confirm");
         }
         if (myconfirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
@@ -282,10 +281,10 @@ class DHtmlHelper : DHelper {
                         "confirm": myconfirm,
                     ]));
         }
-        return _templates["link"].doubleMoustache([
-                "url": url,
-                "attrs": mytemplater.formatAttributes(htmlAttributes),
-                "content": title,
+        return _templates["link"].doubleMoustache(createMap!(string, Json)
+                .set("url": url)
+                .set("attrs": mytemplater.formatAttributes(htmlAttributes),
+                .set("content": title)
             ]); */
         return null;
     }
@@ -610,9 +609,8 @@ class DHtmlHelper : DHelper {
         }
 
         auto url = false;
-        if (htmlAttributes.getBoolean("url")) {
-            url = htmlAttributes["url"];
-            htmlAttributes.removeKey("url");
+        if (htmlAttributes.gasKey("url")) {
+            url = htmlAttributes.shift("url");
         }
 
         auto mytemplater = templater();

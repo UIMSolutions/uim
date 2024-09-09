@@ -49,7 +49,7 @@ class UrlHelper : DHelper {
             .merge("escape", true);
 
 /*        auto myurl = Router.url(myurl, options.get("fullBase"));
-        if (options.hasKey("escape")) {
+        if (options.getBoolean("escape")) {
             myurl = to!string(h(myurl));
         }
         return myurl; */

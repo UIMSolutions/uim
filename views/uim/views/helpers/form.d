@@ -83,7 +83,7 @@ class DFormHelper : DHelper {
         configuration
             .setDefault("idPrefix", Json(null))
             .setDefault("errorClass", "form-error")
-            .setDefault("typeMap", typeMap)
+            // .setDefault("typeMap", typeMap)
             .setDefault("templates", createMap!(string, Json)) // set HTML5 validation message to custom required/empty messages
             .setDefault("autoSetCustomValidity", true);
 

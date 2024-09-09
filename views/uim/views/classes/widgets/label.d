@@ -46,10 +46,10 @@ class DLabelWidget : DWidget {
             .merge("templateVars", Json.emptyArray());
 
         Json[string] settings = createMap!(string, Json)
-            .set("text", options.getBoolean("escape") ? htmlAttributeEscape(options.get("text")): options.get("text"))
-            .set("input", options.get("input"))
+            .set("text", options.getBoolean("escape") ? htmlAttributeEscape(options.getString("text")) : options.getString("text"))
+            /* .set("input", options.get("input"))
             .set("hidden", options.get("hidden"))
-            .set("templateVars", options.get("templateVars"));
+            .set("templateVars", options.get("templateVars")) */;
             /* .set("attrs", _stringContents.formatAttributes(options, [
                 "text", "input", "hidden"
             ])) * /); */

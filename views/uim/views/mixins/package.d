@@ -7,6 +7,7 @@ public { // Modules
     import uim.views.mixins.helper;
     import uim.views.mixins.idgenerator;
     import uim.views.mixins.stringcontents;
+    import uim.views.mixins.templater;
     import uim.views.mixins.view;
     import uim.views.mixins.viewvars;
     import uim.views.mixins.widget;

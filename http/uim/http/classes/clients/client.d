@@ -1,4 +1,4 @@
-module httuim.http.classes.clients.client;
+module uim.http.classes.clients.client;
 
 import uim.http;
 

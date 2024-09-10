@@ -1,7 +1,6 @@
-module source.uim.http.exceptions.methodnotallowed;
+module uim.http.exceptions.methodnotallowed;
 
 import uim.http;
-
 @safe:
 
 /**

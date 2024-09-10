@@ -6,8 +6,8 @@
 module uim.filesystems.tests.file;
 
 import uim.filesystems;
-
 @safe:
+
 // #region Files Tests
   void testFile_CreateFiles(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 

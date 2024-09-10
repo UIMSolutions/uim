@@ -1,2 +1,2 @@
-module http.uim.http.enumerations;
+module uim.http.enumerations;
 

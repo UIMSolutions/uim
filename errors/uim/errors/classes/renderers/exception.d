@@ -26,7 +26,7 @@ import uim.errors;
  * can configure your class in your config/app.D.
  */
 class DExceptionRenderer : IExceptionRenderer {
-    // Template to render for {@link uim.uim.Core\exceptions.DException}
+    // Template to render for {@link uim.Core\exceptions.DException}
     protected string _template = "";
 
     // The method corresponding to the Exception this object is for.

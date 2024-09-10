@@ -1,4 +1,4 @@
-module uim.uim.http\Cookie;
+module uim.http\Cookie;
 
 import uim.http;
 

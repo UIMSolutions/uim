@@ -1,4 +1,4 @@
-module uim.uim.http;
+module uim.http;
 
 import uim.http;
 

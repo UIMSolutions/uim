@@ -47,7 +47,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     // protected IErrorController controller;
 
     /**
-     * Template to render for {@link uim.uim.Core\exceptions.DException}
+     * Template to render for {@link uim.Core\exceptions.DException}
      */
     protected string _template = "";
 

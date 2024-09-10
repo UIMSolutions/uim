@@ -1,4 +1,4 @@
-module http.uim.http.enumerations.httpmethods;
+module uim.http.enumerations.httpmethods;
 
 enum HTTPMETHODS : string {
     // HTTP GET method

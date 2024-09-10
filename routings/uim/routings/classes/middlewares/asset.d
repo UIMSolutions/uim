@@ -1,4 +1,4 @@
-module uim.uim.routings.middlewares.asset;
+module uim.routings.middlewares.asset;
 
 import uim.routings;
 

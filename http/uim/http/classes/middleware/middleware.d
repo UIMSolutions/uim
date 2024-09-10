@@ -1,4 +1,4 @@
-module http.uim.http.classes.middleware.middleware;
+module uim.http.classes.middleware.middleware;
 
 import uim.http;
 @safe:

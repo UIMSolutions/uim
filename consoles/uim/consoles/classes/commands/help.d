@@ -30,7 +30,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     }
 
     // Output text.
-    protected void asText(DConsoleIo aConsoleIo, STRINGAA commandCollection) {
+    protected void asText(DConsoleIo aConsoleIo, string[string] commandCollection) {
         string[][string] myInvert = null;
        /*  foreach (name, classname; commands) {
             /* if (isObject(classname)) {
@@ -135,7 +135,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
 /*         asXml(aConsoleIo, names); */
     }
 
-    /* protected void asXml(DConsoleIo aConsoleIo, STRINGAA commandNames) {
+    /* protected void asXml(DConsoleIo aConsoleIo, string[string] commandNames) {
         auto shells = new DSimpleXMLElement("<shells></shells>");
         commandNames.byKeyValue
             .each(nameclassname => shells.addCommandToShells(nameclassname.key, nameclassname.value));

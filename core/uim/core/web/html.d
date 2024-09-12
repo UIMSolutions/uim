@@ -172,19 +172,19 @@ string htmlEndTag(string tag) {
 	// #endregion htmlSingleTag (..Json[string]...)
 
 	// #region htmlSingleTag (..string[string]...)
-		string htmlSingleTag(string tag, STRINGAA attributes) {
+		string htmlSingleTag(string tag, string[string] attributes) {
 			return htmlStartTag(tag, null, null, attributes);
 		}
 
-		string htmlSingleTag(string tag, string id, STRINGAA attributes) {
+		string htmlSingleTag(string tag, string id, string[string] attributes) {
 			return htmlStartTag(tag, id, null, attributes);
 		}
 
-		string htmlSingleTag(string tag, string[] classes, STRINGAA attributes) {
+		string htmlSingleTag(string tag, string[] classes, string[string] attributes) {
 			return htmlStartTag(tag, null, classes, attributes);
 		}
 
-		string htmlSingleTag(string tag, string id, string[] classes, STRINGAA attributes) {
+		string htmlSingleTag(string tag, string id, string[] classes, string[string] attributes) {
 			return htmlStartTag(tag, id, classes, attributes);
 		}
 	// #endregion htmlSingleTag (..string[string]...)

@@ -203,7 +203,7 @@ class DConsoleOutput : UIMObject {
      *
      * matchesToReplace - Array of matches to replace.
      */
-    protected string _replaceTags(STRINGAA matchesToReplace) {
+    protected string _replaceTags(string[string] matchesToReplace) {
        /* auto style = getStyle(matchesToReplace.get("tag"));
         if (style.isEmpty) {
             return "<" ~ matchesToReplace.getString("tag") ~ ">" ~ matchesToReplace.getString("text") ~ "</" ~ matchesToReplace.getString("tag") ~ ">";

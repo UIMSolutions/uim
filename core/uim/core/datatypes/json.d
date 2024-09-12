@@ -797,7 +797,7 @@ Json updateKey(Json origin, Json additional) {
   return updated;
 }
 
-Json updateKey(Json origin, STRINGAA additional) {
+Json updateKey(Json origin, string[string] additional) {
   if (!origin.isObject) { // Overwrite if not object
     Json result = Json.emptyObject;
     additional.byKeyValue
@@ -1135,7 +1135,7 @@ Json set(Json json, string key, Json[] value) {
   return json;
 }
 
-Json set(Json json, string key, STRINGAA value) {
+Json set(Json json, string key, string[string] value) {
   if (json.isObject) {
     Json[string] convertedValues;
     value.byKeyValue.each!(kv => convertedValues[kv.key] = kv.value.toJson);
@@ -1243,7 +1243,7 @@ unittest {
   assert(["a", "b", "c"].toJson[0] == "a");
 }
 
-Json toJson(STRINGAA map, string[] excludeKeys = null) {
+Json toJson(string[string] map, string[] excludeKeys = null) {
   Json json = Json.emptyObject;
   map.byKeyValue
     .filter!(kv => !excludeKeys.any!(key => key == kv.key))

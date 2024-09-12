@@ -11,7 +11,7 @@ import uim.core;
 
 
 
-STRINGAA allEndsNotWith(STRINGAA entries, string postfix) { // right will overright left
+STRINGAA allEndsNotWith(string[string] entries, string postfix) { // right will overright left
   STRINGAA results;
   entries.byKeyValue
     .filter!(item => !item.key.endsWith(postfix))
@@ -24,11 +24,11 @@ unittest {
 }
 
 // #region filter
-STRINGAA filterByValues(STRINGAA entries, string[] values...) {
+STRINGAA filterByValues(string[string] entries, string[] values...) {
   return filterByValues(entries, values.dup);
 }
 
-STRINGAA filterByValues(STRINGAA entries, string[] someValues) {
+STRINGAA filterByValues(string[string] entries, string[] someValues) {
   STRINGAA results;
   foreach (myValue; someValues) {
     entries.byKeyValue
@@ -46,7 +46,7 @@ unittest {
 }
 // #endregion filter
 
-string toString(STRINGAA aa) {
+string toString(string[string] aa) {
   return "%s".format(aa);
 }
 
@@ -56,7 +56,7 @@ string toString(STRINGAA aa) {
   }
 
 
-string aa2String(STRINGAA atts, string sep = "=") {
+string aa2String(string[string] atts, string sep = "=") {
   string[] strings;
   foreach (k, v; atts)
     strings ~= k ~ sep ~ "\"" ~ v ~ "\"";
@@ -67,7 +67,7 @@ unittest {
   /// Add Tests
 }
 
-string getValue(STRINGAA keyValues, string[] keys...) {
+string getValue(string[string] keyValues, string[] keys...) {
   foreach (k; keys)
     if (k in keyValues)
       return keyValues[k];
@@ -81,23 +81,23 @@ unittest {
 
 
 // #region update
-STRINGAA update(STRINGAA items, string key, bool value) {
+STRINGAA update(string[string] items, string key, bool value) {
   return items.update(key, to!string(value));
 }
 
-STRINGAA update(STRINGAA items, string key, long value) {
+STRINGAA update(string[string] items, string key, long value) {
   return items.update(key, to!string(value));
 }
 
-STRINGAA update(STRINGAA items, string key, double value) {
+STRINGAA update(string[string] items, string key, double value) {
   return items.update(key, to!string(value));
 }
 
-STRINGAA update(STRINGAA items, string key, Json value) {
+STRINGAA update(string[string] items, string key, Json value) {
   return items.update(key, value.toString);
 }
 
-STRINGAA update(STRINGAA items, string key, string value = null) {
+STRINGAA update(string[string] items, string key, string value = null) {
   items[key] = value;
   return items;
 }
@@ -109,23 +109,23 @@ unittest {
 // #endregion update
 
 // #region merge
-STRINGAA merge(STRINGAA items, string key, bool value) {
+STRINGAA merge(string[string] items, string key, bool value) {
   return items.merge(key, to!string(value));
 }
 
-STRINGAA merge(STRINGAA items, string key, long value) {
+STRINGAA merge(string[string] items, string key, long value) {
   return items.merge(key, to!string(value));
 }
 
-STRINGAA merge(STRINGAA items, string key, double value) {
+STRINGAA merge(string[string] items, string key, double value) {
   return items.merge(key, to!string(value));
 }
 
-STRINGAA merge(STRINGAA items, string key, Json value) {
+STRINGAA merge(string[string] items, string key, Json value) {
   return items.merge(key, value.toString);
 }
 
-STRINGAA merge(STRINGAA items, string key, string value = null) {
+STRINGAA merge(string[string] items, string key, string value = null) {
   items[key] = value;
   return items;
 }

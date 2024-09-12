@@ -40,7 +40,7 @@ unittest {
 // #endregion fill
 
 // #region bind
-string bind(string source, STRINGAA replaceMap, string placeHolder = "{{%s}}") {
+string bind(string source, string[string] replaceMap, string placeHolder = "{{%s}}") {
   import std.string;
 
   string updatedText = source;
@@ -751,7 +751,7 @@ string mustache(string text, Json[string] items) {
   return text;
 }
 
-string mustache(string text, STRINGAA items) {
+string mustache(string text, string[string] items) {
   items.byKeyValue.each!(item => text = text.mustache(item.key, item.value));
   return text;
 }
@@ -776,7 +776,7 @@ string doubleMustache(string text, Json[string] items) {
   return text;
 }
 
-string doubleMustache(string text, STRINGAA items) {
+string doubleMustache(string text, string[string] items) {
   items.byKeyValue.each!(item => text = text.doubleMustache(item.key, item.value));
   return text;
 }

@@ -40,7 +40,7 @@ class DConsoleInputArgument : UIMObject {
         _choices = validChoices;
     }
 
-    this(STRINGAA aName, string ahelp = "", bool isArgumentRequired = false, string[] optionChoices = null) {
+    this(string[string] aName, string ahelp = "", bool isArgumentRequired = false, string[] optionChoices = null) {
         /* if (names.contains("name")) {
             foreach (aKey, aValue; names) {
                 /* this. {

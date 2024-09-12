@@ -105,7 +105,7 @@ class DCommandCollection : UIMObject { // : IteratorAggregate, Countable {
      */
     // TODO
     /* 
-    protected DCommand[string] resolveNames(STRINGAA[] anInput) {
+    protected DCommand[string] resolveNames(string[string][] anInput) {
         DCommand[string] results;
         foreach (anInfo; anInput) {
             auto infoName = anInfo["name"];

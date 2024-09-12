@@ -189,7 +189,7 @@ T[2] arrayLimits(T)(T from, T to, T left, T right) if (isNumeric!T) {
   return result;
 }
 
-string[] stringAA2Array(STRINGAA values, string sep = ": ") {
+string[] stringAA2Array(string[string] values, string sep = ": ") {
   string[] results;
   foreach (k, v; values)
     results ~= k ~ sep ~ v;
@@ -214,7 +214,7 @@ template CascadeNotNull(alias A, alias B, alias C, alias D) {
 
 
   unittest {
-    assert(stringAA2Array(["A": "B", "C": "D"], "/") == ["A/B", "C/D"]);
+    assert(string[string]2Array(["A": "B", "C": "D"], "/") == ["A/B", "C/D"]);
   }
 
 

@@ -392,7 +392,7 @@ class DData : UIMObject, IData {
   // #endregion export
 
   // #region import
-  void fromString(STRINGAA newValue, bool shouldOverwrite = true) {
+  void fromString(string[string] newValue, bool shouldOverwrite = true) {
     // TODO 
     /* 
       if (shouldOverwrite) {

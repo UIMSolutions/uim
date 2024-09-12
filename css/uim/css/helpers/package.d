@@ -2,7 +2,7 @@ module uim.css.helpers;
 
 import uim.css;
 
-string toCSS(STRINGAA values, bool sorted = false) {
+string toCSS(string[string] values, bool sorted = false) {
   string[] keys = sorted ? values.keys.sort.array : values.keys;
 
   return keys.map!(key => "%s:%s;".format(key, values[key])).join;
@@ -16,13 +16,13 @@ unittest {
   assert(toCSS(["a": "b", "c": "d"], true) == `a:b;c:d;`);
 }
 
-string toCSS(STRINGAA[string] values, bool shouldSort = false) {
+string toCSS(string[string][string] values, bool shouldSort = false) {
   string[] keys = shouldSort ? values.keys.sort.array : values.keys;
 
   return keys.map!(key => toCSS(key, values[key])).join;
 }
 
-string toCSS(string selector, STRINGAA values, bool shouldSort = false) {
+string toCSS(string selector, string[string] values, bool shouldSort = false) {
   string[] keys = shouldSort ? values.keys.sort.array : values.keys;
 
   string[] results = keys.map!(key => "%s:%s;".format(key, values[key])).array;

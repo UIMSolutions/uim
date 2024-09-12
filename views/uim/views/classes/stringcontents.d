@@ -98,7 +98,7 @@ class DStringContents : UIMObject {
      * ]);
      * ```
      */
-    void set(STRINGAA newTemplates) {
+    void set(string[string] newTemplates) {
         newTemplates.byKeyValue.each!(item => set(item.key, item.value));
     }
 

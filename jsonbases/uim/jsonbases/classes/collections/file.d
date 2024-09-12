@@ -67,7 +67,7 @@ class DFileJsonCollection : DJsonCollection {
     return allVersions ? versionJsons : [lastVersion(versionJsons)];
   }
 
-  override Json[] findMany(STRINGAA select, bool allVersions = false) {
+  override Json[] findMany(string[string] select, bool allVersions = false) {
     version (testUimJsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
@@ -133,7 +133,7 @@ class DFileJsonCollection : DJsonCollection {
     return loadJson(versionFile.absolutePath);
   }
 
-  override Json findOne(STRINGAA select, bool allVersions = false) {
+  override Json findOne(string[string] select, bool allVersions = false) {
     version (testUimJsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
@@ -239,7 +239,7 @@ class DFileJsonCollection : DJsonCollection {
   }
 
   // #region updateMany()
-  override size_t updateMany(STRINGAA select, STRINGAA updateData) {
+  override size_t updateMany(string[string] select, string[string] updateData) {
     version (testUimJsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
@@ -334,7 +334,7 @@ class DFileJsonCollection : DJsonCollection {
     return counter;
   }
 
-  override size_t removeMany(STRINGAA select, bool allVersions = false) {
+  override size_t removeMany(string[string] select, bool allVersions = false) {
     // Preconditions
     if (!folder || !folder.exists) {
       return 0;
@@ -421,7 +421,7 @@ class DFileJsonCollection : DJsonCollection {
     return (!myVersionFile.exists);
   }
 
-  override bool removeOne(STRINGAA select, bool allVersions = false) {
+  override bool removeOne(string[string] select, bool allVersions = false) {
     // Preconditions
     if (!folder || !folder.exists) {
       return false;

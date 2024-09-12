@@ -69,7 +69,7 @@ template XStringAA(string name) {
 	@safe auto "~name~"(string key) { return _"~name~".get(key, ``); }
 
 	O "~name~"(this O)(string key, string value) { _"~name~"[key] = value; return cast(O)this; }
-	O "~name~"(this O)(STRINGAA addValues) { foreach(kv; addValues.byKeyValue) _"~name~"[kv.key] = kv.value; return cast(O)this; }
+	O "~name~"(this O)(string[string] addValues) { foreach(kv; addValues.byKeyValue) _"~name~"[kv.key] = kv.value; return cast(O)this; }
 	
 	O remove"~Name~"(this O)(string[] values...) { removeKey(values); return cast(O)this; }	
 	O remove"~Name~"(this O)(string[] values) { foreach(value; values) _name = _"~name~".removeKey(value); return cast(O)this; }	

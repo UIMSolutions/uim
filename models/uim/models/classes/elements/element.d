@@ -79,7 +79,7 @@ class DElement : UIMObject, IElement {
   //	Description about the entity and more
   mixin(TProperty!("string", "description")); */
 
-  STRINGAA selector(STRINGAA parameters) {
+  STRINGAA selector(string[string] parameters) {
     STRINGAA results;
 
     foreach (key, val; parameters) {
@@ -102,13 +102,13 @@ class DElement : UIMObject, IElement {
   }
 
   // Read data from STRINGAA
-  void readFromStringAA(STRINGAA reqParameters, bool usePrefix = false) {
+  void readFromStringAA(string[string] reqParameters, bool usePrefix = false) {
     foreach (k, v; reqParameters)
       this[k] = v;
   }
 
   // Read data from request
-  void readFromRequest(STRINGAA requestValues, bool usePrefix = true) {
+  void readFromRequest(string[string] requestValues, bool usePrefix = true) {
     auto myData = selector(requestValues);
     foreach (key, value; myData) {
       this[key] = value;

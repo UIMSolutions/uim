@@ -161,13 +161,10 @@ class DSession {
      * Params:
      * Json[string] configData The Configuration to apply to this session object
      */
-    this(Json[string] configData = null) {
-        configData += [
-            "timeout": Json(null),
-            "cookie": Json(null),
-            "ini": Json.emptyArray,
-            "handler": Json.emptyArray,
-        ];
+    this(Json[string] initData = null) {
+        configuration
+            .setDefaults(["timeout", "cookie"], Json(null))
+            .setDefaults(["ini", "handler"], Json.emptyArray);
 
         if (configuration.hasKey("timeout")) {
             configuration.set("ini.session.gc_maxlifetime", 60 * configuration.get("timeout"));
@@ -182,9 +179,8 @@ class DSession {
         options(configuration.get("ini"));
 
         if (!configData.isEmpty("handler")) {
-            auto classname = configuration.get("handler.engine");
-            configuration.removeKey("handler.engine");
-            engine(classname, configuration.get("handler"));
+            auto handlerEngineClassname = configuration.shift("handler.engine").getString;
+            engine(handlerEngineClassname, configuration.get("handler"));
         }
         _lifetime = (int) ini_get("session.gc_maxlifetime");
         _isCLI = (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg");

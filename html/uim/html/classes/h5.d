@@ -102,20 +102,20 @@ version(test_uim_html) { unittest {
     auto body_(this O)(string[] classes,string[] classes,  DH5Obj[] content...) { _objs ~=  H5Body(classes, content); return cast(O)this; }
     auto body_(this O)(string[] classes, DH5 content) { _objs ~=  H5Body(classes, content); return cast(O)this; }
 
-    auto body_(this O)(STRINGAA attributes) { _objs ~=  H5Body(attributes); return cast(O)this; }
-    auto body_(this O)(STRINGAA attributes, string content) { _objs ~=  H5Body(attributes, content); return cast(O)this; }
-    auto body_(this O)(STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5Body(attributes, content); return cast(O)this; }
-    auto body_(this O)(STRINGAA attributes, DH5 content) { _objs ~=  H5Body(attributes, content); return cast(O)this; }
+    auto body_(this O)(string[string] attributes) { _objs ~=  H5Body(attributes); return cast(O)this; }
+    auto body_(this O)(string[string] attributes, string content) { _objs ~=  H5Body(attributes, content); return cast(O)this; }
+    auto body_(this O)(string[string] attributes, DH5Obj[] content...) { _objs ~=  H5Body(attributes, content); return cast(O)this; }
+    auto body_(this O)(string[string] attributes, DH5 content) { _objs ~=  H5Body(attributes, content); return cast(O)this; }
 
-    auto body_(this O)(string id, STRINGAA attributes) { _objs ~=  H5Body(id, attributes); return cast(O)this; }
-    auto body_(this O)(string id, STRINGAA attributes, string content) { _objs ~=  H5Body(id, attributes, content); return cast(O)this; }
-    auto body_(this O)(string id, STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5Body(id, attributes, content); return cast(O)this; }
-    auto body_(this O)(string id, STRINGAA attributes, DH5 content) { _objs ~=  H5Body(id, attributes, content); return cast(O)this; }
+    auto body_(this O)(string id, string[string] attributes) { _objs ~=  H5Body(id, attributes); return cast(O)this; }
+    auto body_(this O)(string id, string[string] attributes, string content) { _objs ~=  H5Body(id, attributes, content); return cast(O)this; }
+    auto body_(this O)(string id, string[string] attributes, DH5Obj[] content...) { _objs ~=  H5Body(id, attributes, content); return cast(O)this; }
+    auto body_(this O)(string id, string[string] attributes, DH5 content) { _objs ~=  H5Body(id, attributes, content); return cast(O)this; }
 
-    auto body_(this O)(string id, string[] classes, STRINGAA attributes) { _objs ~=  H5Body(id, classes, attributes); return cast(O)this; }
-    auto body_(this O)(string id, string[] classes, STRINGAA attributes, string content) { _objs ~=  H5Body(id, classes, attributes, content); return cast(O)this; }
-    auto body_(this O)(string id, string[] classes, STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5Body(id, classes, attributes, content); return cast(O)this; }
-    auto body_(this O)(string id, string[] classes, STRINGAA attributes, DH5 content) { _objs ~=  H5Body(id, classes, attributes, content); return cast(O)this; }
+    auto body_(this O)(string id, string[] classes, string[string] attributes) { _objs ~=  H5Body(id, classes, attributes); return cast(O)this; }
+    auto body_(this O)(string id, string[] classes, string[string] attributes, string content) { _objs ~=  H5Body(id, classes, attributes, content); return cast(O)this; }
+    auto body_(this O)(string id, string[] classes, string[string] attributes, DH5Obj[] content...) { _objs ~=  H5Body(id, classes, attributes, content); return cast(O)this; }
+    auto body_(this O)(string id, string[] classes, string[string] attributes, DH5 content) { _objs ~=  H5Body(id, classes, attributes, content); return cast(O)this; }
     version(test_uim_html) { unittest { 
         assert(H5.body_ == "<body></body>");
     }}
@@ -374,20 +374,20 @@ auto main_(this O)(string content) { _objs ~=  H5Main(classes, content); return 
 auto main_(this O)(string[] classes,string[] classes,  DH5Obj[] content...) { _objs ~=  H5Main(classes, content); return cast(O)this; }
 auto main_(this O)(string[] classes, DH5 content) { _objs ~=  H5Main(classes, content); return cast(O)this; }
 
-auto main_(this O)(STRINGAA attributes) { _objs ~=  H5Main(attributes); return cast(O)this; }
-auto main_(this O)(STRINGAA attributes, string content) { _objs ~=  H5Main(attributes, content); return cast(O)this; }
-auto main_(this O)(STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5Main(attributes, content); return cast(O)this; }
-auto main_(this O)(STRINGAA attributes, DH5 content) { _objs ~=  H5Main(attributes, content); return cast(O)this; }
+auto main_(this O)(string[string] attributes) { _objs ~=  H5Main(attributes); return cast(O)this; }
+auto main_(this O)(string[string] attributes, string content) { _objs ~=  H5Main(attributes, content); return cast(O)this; }
+auto main_(this O)(string[string] attributes, DH5Obj[] content...) { _objs ~=  H5Main(attributes, content); return cast(O)this; }
+auto main_(this O)(string[string] attributes, DH5 content) { _objs ~=  H5Main(attributes, content); return cast(O)this; }
 
-auto main_(this O)(string id, STRINGAA attributes) { _objs ~=  H5Main(id, attributes); return cast(O)this; }
-auto main_(this O)(string id, STRINGAA attributes, string content) { _objs ~=  H5Main(id, attributes, content); return cast(O)this; }
-auto main_(this O)(string id, STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5Main(id, attributes, content); return cast(O)this; }
-auto main_(this O)(string id, STRINGAA attributes, DH5 content) { _objs ~=  H5Main(id, attributes, content); return cast(O)this; }
+auto main_(this O)(string id, string[string] attributes) { _objs ~=  H5Main(id, attributes); return cast(O)this; }
+auto main_(this O)(string id, string[string] attributes, string content) { _objs ~=  H5Main(id, attributes, content); return cast(O)this; }
+auto main_(this O)(string id, string[string] attributes, DH5Obj[] content...) { _objs ~=  H5Main(id, attributes, content); return cast(O)this; }
+auto main_(this O)(string id, string[string] attributes, DH5 content) { _objs ~=  H5Main(id, attributes, content); return cast(O)this; }
 
-auto main_(this O)(string id, string[] classes, STRINGAA attributes) { _objs ~=  H5Main(id, classes, attributes); return cast(O)this; }
-auto main_(this O)(string id, string[] classes, STRINGAA attributes, string content) { _objs ~=  H5Main(id, classes, attributes, content); return cast(O)this; }
-auto main_(this O)(string id, string[] classes, STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5Main(id, classes, attributes, content); return cast(O)this; }
-auto main_(this O)(string id, string[] classes, STRINGAA attributes, DH5 content) { _objs ~=  H5Main(id, classes, attributes, content); return cast(O)this; }
+auto main_(this O)(string id, string[] classes, string[string] attributes) { _objs ~=  H5Main(id, classes, attributes); return cast(O)this; }
+auto main_(this O)(string id, string[] classes, string[string] attributes, string content) { _objs ~=  H5Main(id, classes, attributes, content); return cast(O)this; }
+auto main_(this O)(string id, string[] classes, string[string] attributes, DH5Obj[] content...) { _objs ~=  H5Main(id, classes, attributes, content); return cast(O)this; }
+auto main_(this O)(string id, string[] classes, string[string] attributes, DH5 content) { _objs ~=  H5Main(id, classes, attributes, content); return cast(O)this; }
 
     version(test_uim_html) { unittest { 
         assert(H5.main_ == "<main></main>");
@@ -622,20 +622,20 @@ auto template_(this O)(string[] classes, string content) { _objs ~=  H5Template(
 auto template_(this O)(string[] classes, DH5Obj[] content...) { _objs ~=  H5Template(classes, content); return cast(O)this; }
 auto template_(this O)(string[] classes, DH5 content) { _objs ~=  H5Template(classes, content); return cast(O)this; }
 
-auto template_(this O)(STRINGAA attributes) { _objs ~=  H5Template(attributes); return cast(O)this; }
-auto template_(this O)(STRINGAA attributes, string content) { _objs ~=  H5Template(attributes, content); return cast(O)this; }
-auto template_(this O)(STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5Template(attributes, content); return cast(O)this; }
-auto template_(this O)(STRINGAA attributes, DH5 content) { _objs ~=  H5Template(attributes, content); return cast(O)this; }
+auto template_(this O)(string[string] attributes) { _objs ~=  H5Template(attributes); return cast(O)this; }
+auto template_(this O)(string[string] attributes, string content) { _objs ~=  H5Template(attributes, content); return cast(O)this; }
+auto template_(this O)(string[string] attributes, DH5Obj[] content...) { _objs ~=  H5Template(attributes, content); return cast(O)this; }
+auto template_(this O)(string[string] attributes, DH5 content) { _objs ~=  H5Template(attributes, content); return cast(O)this; }
 
-auto template_(this O)(string id, STRINGAA attributes) { _objs ~=  H5Template(id, attributes); return cast(O)this; }
-auto template_(this O)(string id, STRINGAA attributes, string content) { _objs ~=  H5Template(id, attributes, content); return cast(O)this; }
-auto template_(this O)(string id, STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5Template(id, attributes, content); return cast(O)this; }
-auto template_(this O)(string id, STRINGAA attributes, DH5 content) { _objs ~=  H5Template(id, attributes, content); return cast(O)this; }
+auto template_(this O)(string id, string[string] attributes) { _objs ~=  H5Template(id, attributes); return cast(O)this; }
+auto template_(this O)(string id, string[string] attributes, string content) { _objs ~=  H5Template(id, attributes, content); return cast(O)this; }
+auto template_(this O)(string id, string[string] attributes, DH5Obj[] content...) { _objs ~=  H5Template(id, attributes, content); return cast(O)this; }
+auto template_(this O)(string id, string[string] attributes, DH5 content) { _objs ~=  H5Template(id, attributes, content); return cast(O)this; }
 
-auto template_(this O)(string id, string[] classes, STRINGAA attributes) { _objs ~=  H5Template(id, classes, attributes); return cast(O)this; }
-auto template_(this O)(string id, string[] classes, STRINGAA attributes, string content) { _objs ~=  H5Template(id, classes, attributes, content); return cast(O)this; }
-auto template_(this O)(string id, string[] classes, STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5Template(id, classes, attributes, content); return cast(O)this; }
-auto template_(this O)(string id, string[] classes, STRINGAA attributes, DH5 content) { _objs ~=  H5Template(id, classes, attributes, content); return cast(O)this; }
+auto template_(this O)(string id, string[] classes, string[string] attributes) { _objs ~=  H5Template(id, classes, attributes); return cast(O)this; }
+auto template_(this O)(string id, string[] classes, string[string] attributes, string content) { _objs ~=  H5Template(id, classes, attributes, content); return cast(O)this; }
+auto template_(this O)(string id, string[] classes, string[string] attributes, DH5Obj[] content...) { _objs ~=  H5Template(id, classes, attributes, content); return cast(O)this; }
+auto template_(this O)(string id, string[] classes, string[string] attributes, DH5 content) { _objs ~=  H5Template(id, classes, attributes, content); return cast(O)this; }
 
     version(test_uim_html) { unittest { 
         assert(H5.template_ == "<template></template>");
@@ -728,24 +728,24 @@ O "~name.toLower~"(this O)(string[] classes, string content) { _objs ~=  H5"~nam
 O "~name.toLower~"(this O)(string[] classes, DH5Obj[] content...) { _objs ~=  H5"~name.toLower.capitalize~"(classes, content); return cast(O)this; }
 O "~name.toLower~"(this O)(string[] classes, DH5 content) { _objs ~=  H5"~name.toLower.capitalize~"(classes, content); return cast(O)this; }
 
-O "~name.toLower~"(this O)(STRINGAA attributes) { _objs ~=  H5"~name.toLower.capitalize~"(attributes); return cast(O)this; }
-O "~name.toLower~"(this O)(STRINGAA attributes, string content) { _objs ~=  H5"~name.toLower.capitalize~"(attributes, content); return cast(O)this; }
-O "~name.toLower~"(this O)(STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5"~name.toLower.capitalize~"(attributes, content); return cast(O)this; }
-O "~name.toLower~"(this O)(STRINGAA attributes, DH5 content) { _objs ~=  H5"~name.toLower.capitalize~"(attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string[string] attributes) { _objs ~=  H5"~name.toLower.capitalize~"(attributes); return cast(O)this; }
+O "~name.toLower~"(this O)(string[string] attributes, string content) { _objs ~=  H5"~name.toLower.capitalize~"(attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string[string] attributes, DH5Obj[] content...) { _objs ~=  H5"~name.toLower.capitalize~"(attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string[string] attributes, DH5 content) { _objs ~=  H5"~name.toLower.capitalize~"(attributes, content); return cast(O)this; }
 
-O "~name.toLower~"(this O)(string id, STRINGAA attributes) { _objs ~=  H5"~name.toLower.capitalize~"(id, attributes); return cast(O)this; }
-O "~name.toLower~"(this O)(string id, STRINGAA attributes, string content) { _objs ~=  H5"~name.toLower.capitalize~"(id, attributes, content); return cast(O)this; }
-O "~name.toLower~"(this O)(string id, STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5"~name.toLower.capitalize~"(id, attributes, content); return cast(O)this; }
-O "~name.toLower~"(this O)(string id, STRINGAA attributes, DH5 content) { _objs ~=  H5"~name.toLower.capitalize~"(id, attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string id, string[string] attributes) { _objs ~=  H5"~name.toLower.capitalize~"(id, attributes); return cast(O)this; }
+O "~name.toLower~"(this O)(string id, string[string] attributes, string content) { _objs ~=  H5"~name.toLower.capitalize~"(id, attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string id, string[string] attributes, DH5Obj[] content...) { _objs ~=  H5"~name.toLower.capitalize~"(id, attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string id, string[string] attributes, DH5 content) { _objs ~=  H5"~name.toLower.capitalize~"(id, attributes, content); return cast(O)this; }
 
-O "~name.toLower~"(this O)(string id, string[] classes, STRINGAA attributes) { _objs ~=  H5"~name.toLower.capitalize~"(id, classes, attributes); return cast(O)this; }
-O "~name.toLower~"(this O)(string id, string[] classes, STRINGAA attributes, string content) { _objs ~=  H5"~name.toLower.capitalize~"(id, classes, attributes, content); return cast(O)this; }
-O "~name.toLower~"(this O)(string id, string[] classes, STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5"~name.toLower.capitalize~"(id, classes, attributes, content); return cast(O)this; }
-O "~name.toLower~"(this O)(string id, string[] classes, STRINGAA attributes, DH5 content) { _objs ~=  H5"~name.toLower.capitalize~"(id, classes, attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string id, string[] classes, string[string] attributes) { _objs ~=  H5"~name.toLower.capitalize~"(id, classes, attributes); return cast(O)this; }
+O "~name.toLower~"(this O)(string id, string[] classes, string[string] attributes, string content) { _objs ~=  H5"~name.toLower.capitalize~"(id, classes, attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string id, string[] classes, string[string] attributes, DH5Obj[] content...) { _objs ~=  H5"~name.toLower.capitalize~"(id, classes, attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string id, string[] classes, string[string] attributes, DH5 content) { _objs ~=  H5"~name.toLower.capitalize~"(id, classes, attributes, content); return cast(O)this; }
 
-O "~name.toLower~"(this O)(string[] classes, STRINGAA attributes) { _objs ~=  H5"~name.toLower.capitalize~"(classes, attributes); return cast(O)this; }
-O "~name.toLower~"(this O)(string[] classes, STRINGAA attributes, string content) { _objs ~=  H5"~name.toLower.capitalize~"(classes, attributes, content); return cast(O)this; }
-O "~name.toLower~"(this O)(string[] classes, STRINGAA attributes, DH5Obj[] content...) { _objs ~=  H5"~name.toLower.capitalize~"(classes, attributes, content); return cast(O)this; }
-O "~name.toLower~"(this O)(string[] classes, STRINGAA attributes, DH5 content) { _objs ~=  H5"~name.toLower.capitalize~"(classes, attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string[] classes, string[string] attributes) { _objs ~=  H5"~name.toLower.capitalize~"(classes, attributes); return cast(O)this; }
+O "~name.toLower~"(this O)(string[] classes, string[string] attributes, string content) { _objs ~=  H5"~name.toLower.capitalize~"(classes, attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string[] classes, string[string] attributes, DH5Obj[] content...) { _objs ~=  H5"~name.toLower.capitalize~"(classes, attributes, content); return cast(O)this; }
+O "~name.toLower~"(this O)(string[] classes, string[string] attributes, DH5 content) { _objs ~=  H5"~name.toLower.capitalize~"(classes, attributes, content); return cast(O)this; }
  ";
 }

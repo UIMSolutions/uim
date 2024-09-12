@@ -11,7 +11,7 @@ class DCSS {
   mixin(XString!("content"));
   version(test_uim_css) { unittest {}}
 
-  O rule(this O)(string selector, STRINGAA values) {
+  O rule(this O)(string selector, string[string] values) {
     return content("%s%s".format(selector, values.toCss));
   }
   unittest {

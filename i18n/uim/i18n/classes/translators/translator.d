@@ -60,7 +60,7 @@ class DTranslator : UIMObject, ITranslator {
     }
 
     // Translates the message formatting any placeholders
-    string translate(string key, STRINGAA tokensValues) {
+    string translate(string key, string[string] tokensValues) {
         string[] message;
     /* 
         if (tokensValues.hasKey("_count")) { // use plural
@@ -111,7 +111,7 @@ class DTranslator : UIMObject, ITranslator {
     } 
 
     // Resolve a message`s context structure.
-    protected string[] resolveContext(string messageKey, string[][string][string] messageContent, STRINGAA variables) {
+    protected string[] resolveContext(string messageKey, string[][string][string] messageContent, string[string] variables) {
         auto context = variables.get("_context", null);
 
         string[][string] messageContext = messageContent.get("_context", null);

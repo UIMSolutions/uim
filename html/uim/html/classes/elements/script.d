@@ -6,7 +6,7 @@ import uim.html;
 class DH5Script : DH5Obj {
 	mixin(H5This!"script");
 
-	override string renderJS(STRINGAA bindings = null) {
+	override string renderJS(string[string] bindings = null) {
 		return null;
 	}
 }
@@ -23,11 +23,11 @@ version(test_uim_html) { unittest {
     // assert([H5Script, H5Script].toString == "<script></script><script></script>");
 }}
 
-DH5Script[] H5Scripts(STRINGAA[] scripts...) { 
+DH5Script[] H5Scripts(string[string][] scripts...) { 
 	return H5Scripts(scripts.dup); 
 }
 
-DH5Script[] H5Scripts(STRINGAA[] scripts) { 
+DH5Script[] H5Scripts(string[string][] scripts) { 
 	return scripts.map!(s => H5Script(s)).array;
 }
 version(test_uim_html) { unittest {

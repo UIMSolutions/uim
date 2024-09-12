@@ -10,8 +10,8 @@ import uim.models;
 
 interface IElement {
 	// Read data from STRINGAA
-  void readFromStringAA(STRINGAA reqParameters, bool usePrefix = false);
+  void readFromStringAA(string[string] reqParameters, bool usePrefix = false);
 
   // Read data from request
-  void readFromRequest(STRINGAA requestValues, bool usePrefix = true);
+  void readFromRequest(string[string] requestValues, bool usePrefix = true);
 }

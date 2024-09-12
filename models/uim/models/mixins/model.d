@@ -18,13 +18,13 @@ string modelThis(string name = null) {
     this(IModelManager aManager, Json[string] configData = null) { this(configData).application(aManager); }
 
     this(string aName, Json[string] configData = null) { this(configData).name(aName); }
-    this(STRINGAA someParameters, Json[string] configData = null) { this(configData).parameters(someParameters); }
+    this(string[string] someParameters, Json[string] configData = null) { this(configData).parameters(someParameters); }
 
     this(IModelManager aManager, string aName, Json[string] configData = null) { this(aManager, configData).name(aName); }
-    this(IModelManager aManager, STRINGAA someParameters, Json[string] configData = null) { this(aManager, configData).parameters(someParameters); }
+    this(IModelManager aManager, string[string] someParameters, Json[string] configData = null) { this(aManager, configData).parameters(someParameters); }
 
-    this(string aName, STRINGAA someParameters, Json[string] configData = null) { this(name, configData).parameters(someParameters); }
-    this(IModelManager aManager, string aName, STRINGAA someParameters, Json[string] configData = null) { this(aManager, name, configData).parameters(someParameters); }
+    this(string aName, string[string] someParameters, Json[string] configData = null) { this(name, configData).parameters(someParameters); }
+    this(IModelManager aManager, string aName, string[string] someParameters, Json[string] configData = null) { this(aManager, name, configData).parameters(someParameters); }
   `; */
 }
 
@@ -39,12 +39,12 @@ string modelCalls(string name) {
     auto `~shortName~`() { return new `~classname~`; }
     auto `~shortName~`(IModelManager aManager) { return new `~classname~`(aManager); }
     auto `~shortName~`(string aName) { return new `~classname~`(aName); }
-    auto `~shortName~`(STRINGAA someParameters) { return new `~classname~`(someParameters); }
+    auto `~shortName~`(string[string] someParameters) { return new `~classname~`(someParameters); }
 
-    auto `~shortName~`(string aName, STRINGAA someParameters) { return new `~classname~`(aName, someParameters); }
+    auto `~shortName~`(string aName, string[string] someParameters) { return new `~classname~`(aName, someParameters); }
 
     auto `~shortName~`(IModelManager aManager, string aName) { return new `~classname~`(aManager, aName); }
-    auto `~shortName~`(IModelManager aManager, STRINGAA someParameters) { return new `~classname~`(aManager, someParameters); }
+    auto `~shortName~`(IModelManager aManager, string[string] someParameters) { return new `~classname~`(aManager, someParameters); }
   `; */
 }
 

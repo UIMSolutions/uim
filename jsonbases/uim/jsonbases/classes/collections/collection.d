@@ -145,12 +145,12 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   // Searching for existing selects
-  size_t count(STRINGAA[] selects, bool allVersions = false) {
+  size_t count(string[string][] selects, bool allVersions = false) {
     return selects.map!(a => count(a, allVersions)).sum;
   }
 
   // Searching based on parameter "select": STRINGAA
-  size_t count(STRINGAA select, bool allVersions = false) {
+  size_t count(string[string] select, bool allVersions = false) {
     return findMany(select, allVersions).length;
   }
 
@@ -183,12 +183,12 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   // Searching for existing selects
-  Json[] findMany(STRINGAA[] selects, bool allVersions = false) {
+  Json[] findMany(string[string][] selects, bool allVersions = false) {
     return selects.map!(a => findMany(a, allVersions)).join;
   }
 
   /// Find all (many) items in a collection with select. allVersions:false = find last version, allVersion:true = find all versions
-  Json[] findMany(STRINGAA select, bool allVersions = false) {
+  Json[] findMany(string[string] select, bool allVersions = false) {
     Json[] results;
     foreach (json; findMany(allVersions))
       if (checkVersion(json, select))
@@ -248,13 +248,13 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   // Searching for existing selects
-  Json findOne(STRINGAA[] selects, bool allVersions = false) {
+  Json findOne(string[string][] selects, bool allVersions = false) {
     auto jsons = selects.map!(a => findOne(a, allVersions)).array;
     return jsons.length > 0 ? jsons[0] : Json(null);
   }
 
   // Searching based on parameter "select": STRINGAA
-  Json findOne(STRINGAA select, bool allVersions = false) {
+  Json findOne(string[string] select, bool allVersions = false) {
     return Json(null);
   }
 
@@ -276,7 +276,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
 
   // #region UPDATE
   // #region updateMany()
-  size_t updateMany(STRINGAA select, STRINGAA updateData) {
+  size_t updateMany(string[string] select, string[string] updateData) {
     version (testUimJsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
@@ -284,7 +284,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
     return updateMany(select.toJson, updateData.toJson);
   }
 
-  size_t updateMany(STRINGAA select, Json updateData) {
+  size_t updateMany(string[string] select, Json updateData) {
     version (testUimJsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
@@ -292,7 +292,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
     return updateMany(select.toJson, updateData);
   }
 
-  size_t updateMany(Json select, STRINGAA updateData) {
+  size_t updateMany(Json select, string[string] updateData) {
     version (testUimJsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
@@ -304,7 +304,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   // #endregion updateMany()
 
   // #region updateOne()
-  bool updateOne(STRINGAA select, STRINGAA updateData) {
+  bool updateOne(string[string] select, string[string] updateData) {
     version (testUimJsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
@@ -312,7 +312,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
     return updateOne(select.toJson, updateData.toJson);
   }
 
-  bool updateOne(STRINGAA select, Json updateData) {
+  bool updateOne(string[string] select, Json updateData) {
     version (testUimJsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
@@ -320,7 +320,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
     return updateOne(select.serializeToJson, updateData);
   }
 
-  bool updateOne(Json select, STRINGAA updateData) {
+  bool updateOne(Json select, string[string] updateData) {
     version (testUimJsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
@@ -366,7 +366,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
     return 0;
   }
 
-  size_t removeMany(STRINGAA[] selects, bool allVersions = false) {
+  size_t removeMany(string[string][] selects, bool allVersions = false) {
     version (testUimJsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
@@ -374,7 +374,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
     return selects.map!(a => removeMany(a, allVersions)).sum;
   }
 
-  size_t removeMany(STRINGAA select, bool allVersions = false) {
+  size_t removeMany(string[string] select, bool allVersions = false) {
     version (testUimJsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
@@ -419,13 +419,13 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
     return removeOne(json);
   }
 
-  /// RemoveMany by select (STRINGAA)
-  bool removeOne(STRINGAA[] selects, bool allVersions = false) {
+  /// RemoveMany by select (string[string])
+  bool removeOne(string[string][] selects, bool allVersions = false) {
     return selects.map!(a => removeOne(a, allVersions)).sum > 0;
   }
 
   /// remove one selected item
-  abstract bool removeOne(STRINGAA select, bool allVersions = false);
+  abstract bool removeOne(string[string] select, bool allVersions = false);
 
   /// remove one selected item
   bool removeOne(Json[] selects, bool allVersions = false) {

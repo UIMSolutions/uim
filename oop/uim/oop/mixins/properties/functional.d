@@ -39,7 +39,7 @@ template OStringAA(string propertyName, string defaultValue = null, bool get = t
 	`~(get ? `@safe @property auto `~propertyName~`() { return _`~propertyName~`; }`: ``)~` 
 	`~(set ? `
   @safe @property O `~name~`(this O)(string key, string newValue) { _`~name~`[key] = newValue; return cast(O)this; };     
-  @safe @property O `~propertyName~`(this O)(STRINGAA newValue) { _`~propertyName~`=newValue; return cast(O)this; }`: ``)~` 
+  @safe @property O `~propertyName~`(this O)(string[string] newValue) { _`~propertyName~`=newValue; return cast(O)this; }`: ``)~` 
   `;
 }
 
@@ -82,7 +82,7 @@ template OLanguageString(string name, string defaultValue = null, bool get = tru
     `~(set ? `
     @safe @property O `~name~`(this O)(string defValue) { _`~name~`["default"] = defValue; return cast(O)this; }   
     @safe @property O `~name~`(this O)(string language, string langValue) { _`~name~`[language] = langValue; return cast(O)this; }    
-    @safe @property O `~name~`(this O)(STRINGAA newValue) { _`~name~` = newValue; return cast(O)this; }`: ``)~` 
+    @safe @property O `~name~`(this O)(string[string] newValue) { _`~name~` = newValue; return cast(O)this; }`: ``)~` 
     `;
 } 
 

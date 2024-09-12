@@ -11,7 +11,7 @@ class DModel : UIMObject, IModel {
     manager(aManager);
   }
 
-  this(STRINGAA someParameters, Json[string] configData = null) {
+  this(string[string] someParameters, Json[string] configData = null) {
     this(configData);
     parameters(someParameters);
   }
@@ -21,17 +21,17 @@ class DModel : UIMObject, IModel {
     name(aName);
   }
 
-  this(IModelManager aManager, STRINGAA someParameters, Json[string] configData = null) {
+  this(IModelManager aManager, string[string] someParameters, Json[string] configData = null) {
     this(aManager, configData);
     parameters(someParameters);
   }
 
-  this(string aName, STRINGAA someParameters, Json[string] configData = null) {
+  this(string aName, string[string] someParameters, Json[string] configData = null) {
     this(name, configData);
     parameters(someParameters);
   }
 
-  this(IModelManager aManager, string aName, STRINGAA someParameters, Json[string] configData = null) {
+  this(IModelManager aManager, string aName, string[string] someParameters, Json[string] configData = null) {
     this(aManager, name, configData);
     parameters(someParameters);
   }

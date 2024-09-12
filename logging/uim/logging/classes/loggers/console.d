@@ -32,7 +32,6 @@ class DConsoleLogger : DLogger {
   this(Json[string] configData = null) {
     super(configData);
 
-    configData = configuration;
     if (cast(DConsoleOutput) configuration.get("stream")) {
       _output = configuration.get("stream");
     } else if (configuration.isString("stream")) {

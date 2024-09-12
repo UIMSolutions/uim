@@ -63,7 +63,7 @@ class DMemoryJsonCollection : DJsonCollection {
     }
   }
 
-  override Json[] findMany(STRINGAA select, bool allVersions = false) {
+  override Json[] findMany(string[string] select, bool allVersions = false) {
     Json[] results;
 
     if (auto items = findMany(allVersions)) {
@@ -146,7 +146,7 @@ class DMemoryJsonCollection : DJsonCollection {
     assert(test_findOne_id_versionNumber(col));
   }
 
-  override Json findOne(STRINGAA select, bool allVersions = false) {
+  override Json findOne(string[string] select, bool allVersions = false) {
     if (auto allItems = findMany(allVersions)) {
       foreach (oneItem; allItems)
         if (oneItem.checkVersion)
@@ -273,7 +273,7 @@ class DMemoryJsonCollection : DJsonCollection {
     }
   }
 
-  override size_t removeMany(STRINGAA select, bool allVersions = false) {
+  override size_t removeMany(string[string] select, bool allVersions = false) {
     size_t counter;
 
     foreach (id, itemId; _items) {
@@ -388,7 +388,7 @@ class DMemoryJsonCollection : DJsonCollection {
     }
   }
 
-  override bool removeOne(STRINGAA select, bool allVersions = false) {
+  override bool removeOne(string[string] select, bool allVersions = false) {
     if (auto allItems = findMany(allVersions)) {
       foreach (oneItem; allItems) {
         if ("id" !in oneItem)

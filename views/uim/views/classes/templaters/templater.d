@@ -16,7 +16,7 @@ class DTemplater : UIMObject {
     return _templates.get(key, null);
   }
 
-  string render(string key, STRINGAA options) {
+  string render(string key, string[string] options) {
     return get(key).doubleMustache(options);
   }
 

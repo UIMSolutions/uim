@@ -33,7 +33,7 @@ class DNullJsonCollection : DJsonCollection {
       // TODO 
       }}
 
-  override Json[] findMany(STRINGAA select, bool allVersions = false) { return null; }
+  override Json[] findMany(string[string] select, bool allVersions = false) { return null; }
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
@@ -71,7 +71,7 @@ class DNullJsonCollection : DJsonCollection {
       // TODO 
       }}
 
-  override Json findOne(STRINGAA select, bool allVersions = false) { return Json(null); }
+  override Json findOne(string[string] select, bool allVersions = false) { return Json(null); }
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
@@ -135,7 +135,7 @@ class DNullJsonCollection : DJsonCollection {
       // TODO
       }}
 
-  override size_t removeMany(STRINGAA select, bool allVersions = false) { return 0; }
+  override size_t removeMany(string[string] select, bool allVersions = false) { return 0; }
   version(test_uim_jsonbase) { unittest {
     
       auto col = NullJsonCollection;
@@ -178,7 +178,7 @@ class DNullJsonCollection : DJsonCollection {
       // TODO
       }}
 
-  override bool removeOne(STRINGAA select, bool allVersions = false) { 
+  override bool removeOne(string[string] select, bool allVersions = false) { 
       return false; 
     }
   version(test_uim_jsonbase) { unittest {

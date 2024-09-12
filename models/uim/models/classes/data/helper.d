@@ -69,7 +69,7 @@ bool isEmpty(IData[string] data, string key) {
         // TODO
     }
 
-    IData[string] toData(STRINGAA values) {
+    IData[string] toData(string[string] values) {
         IData[string] data;
         values.byKeyValue.each!(kv => data[kv.key] = StringData(kv.value));
         return data;

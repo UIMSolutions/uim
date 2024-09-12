@@ -346,7 +346,7 @@ class DConfiguration : UIMObject, IConfiguration {
     // #endregion get
 
     //#region set
-    IConfiguration set(STRINGAA data, string[] keys = null) {
+    IConfiguration set(string[string] data, string[] keys = null) {
         Json[string] map;
         keys
             .filter!(key => key in data)

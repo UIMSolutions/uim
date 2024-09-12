@@ -30,7 +30,7 @@ version(testUimJsonbase) {
     return (value["id"].get!string == id.toString) && (value["versionNumber"].get!size_t == vNumber);
   }
 
-  bool checkVersion(Json aVersion, STRINGAA selector) {
+  bool checkVersion(Json aVersion, string[string] selector) {
     // IN Check
     if (!checkVersion(aVersion)) { 
       return false; 

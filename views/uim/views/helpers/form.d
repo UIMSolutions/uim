@@ -1821,8 +1821,8 @@ class DFormHelper : DHelper {
 
             options.set("val", getSourceValue(fieldName, myvalOptions));
         }
-        options.merge("val", options.get("default"));
-        options.removeKey("value", "default");
+        options.merge("val", options.shift("default"));
+        options.removeKey("value");
 
         if (cast(BackedEnum) options.get("val")) {
             options.set("val", options.get("val").value);

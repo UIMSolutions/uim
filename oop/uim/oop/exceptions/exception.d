@@ -62,7 +62,7 @@ class DException : Exception {
     return _stringContents;
   }
 
-  void messageTemplates(STRINGAA templates) {
+  void messageTemplates(string[string] templates) {
     _stringContents = templates;
   }
   // #endregion messageTemplates

@@ -13,7 +13,7 @@ class DFormatterLocator {
     protected bool[string] _converted;
 
     // locator An array of key-value pairs where the key is the formatter name the value is a FQCN for the formatter.
-    this(STRINGAA entries = null) {
+    this(string[string] entries = null) {
         this.set(entries);
     }
     

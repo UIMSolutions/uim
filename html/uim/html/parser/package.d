@@ -144,7 +144,7 @@ class DH5Node {
     return _attributes;
   }
 
-  @property void attributes(STRINGAA newAttributes) {
+  @property void attributes(string[string] newAttributes) {
     _attributes = newAttributes;
     if ("id" in _attributes) {
       id = _attributes.shift("id");

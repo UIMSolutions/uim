@@ -94,7 +94,7 @@ bool testConfiguration(IConfiguration aConfig) {
     // #region set
         void opIndexAssign(Json data, string key);
         void opAssign(Json[string] data);
-        void set(STRINGAA values, string[] keys = null);
+        void set(string[string] values, string[] keys = null);
         void set(Json[string] newData, string[] keys = null);
         void set(string key, Json newData);
     // #endregion set

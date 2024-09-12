@@ -45,43 +45,43 @@ class DH5Obj {
 		this(newClasses).addContent(newContent);
 	}
 
-	this(STRINGAA newAttributes) {
+	this(string[string] newAttributes) {
 		this().addAttributes(newAttributes);
 	}
 
-	this(STRINGAA newAttributes, string newContent) {
+	this(string[string] newAttributes, string newContent) {
 		this(newAttributes).addContent(newContent);
 	}
 
-	this(STRINGAA newAttributes, DH5Obj[] newContent...) {
+	this(string[string] newAttributes, DH5Obj[] newContent...) {
 		this(newAttributes).addContent(newContent);
 	}
 
-	this(STRINGAA newAttributes, DH5Obj[] newContent) {
+	this(string[string] newAttributes, DH5Obj[] newContent) {
 		this(newAttributes).addContent(newContent);
 	}
 
-	this(STRINGAA newAttributes, DH5 newContent) {
+	this(string[string] newAttributes, DH5 newContent) {
 		this(newAttributes).addContent(newContent);
 	}
 
-	this(string[] newClasses, STRINGAA newAttributes) {
+	this(string[] newClasses, string[string] newAttributes) {
 		this(newClasses).addAttributes(newAttributes);
 	}
 
-	this(string[] newClasses, STRINGAA newAttributes, string newContent) {
+	this(string[] newClasses, string[string] newAttributes, string newContent) {
 		this(newClasses, newAttributes).addContent(newContent);
 	}
 
-	this(string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent...) {
+	this(string[] newClasses, string[string] newAttributes, DH5Obj[] newContent...) {
 		this(newClasses, newAttributes).addContent(newContent);
 	}
 
-	this(string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent) {
+	this(string[] newClasses, string[string] newAttributes, DH5Obj[] newContent) {
 		this(newClasses, newAttributes).addContent(newContent);
 	}
 
-	this(string[] newClasses, STRINGAA newAttributes, DH5 newContent) {
+	this(string[] newClasses, string[string] newAttributes, DH5 newContent) {
 		this(newClasses, newAttributes).addContent(newContent);
 	}
 
@@ -117,43 +117,43 @@ class DH5Obj {
 		this(newId, newClasses).addContent(newContent);
 	}
 
-	this(string newId, STRINGAA newAttributes) {
+	this(string newId, string[string] newAttributes) {
 		this(newAttributes).id(newId);
 	}
 
-	this(string newId, STRINGAA newAttributes, string newContent) {
+	this(string newId, string[string] newAttributes, string newContent) {
 		this(newId, newAttributes).addContent(newContent);
 	}
 
-	this(string newId, STRINGAA newAttributes, DH5Obj[] newContent...) {
+	this(string newId, string[string] newAttributes, DH5Obj[] newContent...) {
 		this(newId, newAttributes).addContent(newContent);
 	}
 
-	this(string newId, STRINGAA newAttributes, DH5Obj[] newContent) {
+	this(string newId, string[string] newAttributes, DH5Obj[] newContent) {
 		this(newId, newAttributes).addContent(newContent);
 	}
 
-	this(string newId, STRINGAA newAttributes, DH5 newContent) {
+	this(string newId, string[string] newAttributes, DH5 newContent) {
 		this(newId, newAttributes).addContent(newContent);
 	}
 
-	this(string newId, string[] newClasses, STRINGAA newAttributes) {
+	this(string newId, string[] newClasses, string[string] newAttributes) {
 		this(newId, newClasses).addAttributes(newAttributes);
 	}
 
-	this(string newId, string[] newClasses, STRINGAA newAttributes, string newContent) {
+	this(string newId, string[] newClasses, string[string] newAttributes, string newContent) {
 		this(newId, newClasses, newAttributes).addContent(newContent);
 	}
 
-	this(string newId, string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent...) {
+	this(string newId, string[] newClasses, string[string] newAttributes, DH5Obj[] newContent...) {
 		this(newId, newClasses, newAttributes).addContent(newContent);
 	}
 
-	this(string newId, string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent) {
+	this(string newId, string[] newClasses, string[string] newAttributes, DH5Obj[] newContent) {
 		this(newId, newClasses, newAttributes).addContent(newContent);
 	}
 
-	this(string newId, string[] newClasses, STRINGAA newAttributes, DH5 newContent) {
+	this(string newId, string[] newClasses, string[string] newAttributes, DH5 newContent) {
 		this(newId, newClasses, newAttributes).addContent(newContent);
 	}
 
@@ -245,7 +245,7 @@ class DH5Obj {
 
 	/// Attributes of HTML element
 	mixin(XStringAA!"attributes");
-	O addAttributes(this O)(STRINGAA newAttributes) {
+	O addAttributes(this O)(string[string] newAttributes) {
 		foreach (k, v; newAttributes) {
 			_attributes[k] = v;
 		}
@@ -469,7 +469,7 @@ class DH5Obj {
 		return this.css(CSSRule(aSelector, name, value));
 	}
 
-	O css(this O)(string aSelector, STRINGAA someDeclarations) {
+	O css(this O)(string aSelector, string[string] someDeclarations) {
 		return this.css(CSSRule(aSelector, someDeclarations));
 	}
 
@@ -527,42 +527,42 @@ class DH5Obj {
 		return cast(O) this;
 	}
 
-	O opCall(this O)(STRINGAA newAttributes) {
+	O opCall(this O)(string[string] newAttributes) {
 		add(someAttributes);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(STRINGAA newAttributes, string newContent) {
+	O opCall(this O)(string[string] newAttributes, string newContent) {
 		this(newAttributes).addContent(newContent);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(STRINGAA newAttributes, DH5Obj[] newContent...) {
+	O opCall(this O)(string[string] newAttributes, DH5Obj[] newContent...) {
 		this(newAttributes).addContent(newContent.dup);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(STRINGAA newAttributes, DH5Obj[] newContent) {
+	O opCall(this O)(string[string] newAttributes, DH5Obj[] newContent) {
 		this(newAttributes).addContent(newContent);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string[] newClasses, STRINGAA newAttributes) {
+	O opCall(this O)(string[] newClasses, string[string] newAttributes) {
 		this(newClasses).addAttributes(someAttributes);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string[] newClasses, STRINGAA newAttributes, string newContent) {
+	O opCall(this O)(string[] newClasses, string[string] newAttributes, string newContent) {
 		this(newClasses, newAttributes).addContent(newContent);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent...) {
+	O opCall(this O)(string[] newClasses, string[string] newAttributes, DH5Obj[] newContent...) {
 		this(newClasses, newAttributes).addContent(newContent.dup);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent) {
+	O opCall(this O)(string[] newClasses, string[string] newAttributes, DH5Obj[] newContent) {
 		this(newClasses, newAttributes).addContent(newContent);
 		return cast(O) this;
 	}
@@ -597,42 +597,42 @@ class DH5Obj {
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string newId, STRINGAA newAttributes) {
+	O opCall(this O)(string newId, string[string] newAttributes) {
 		this(someAttributes).id(newId);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string newId, STRINGAA newAttributes, string newContent) {
+	O opCall(this O)(string newId, string[string] newAttributes, string newContent) {
 		this(newId, newAttributes).addContent(newContent);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string newId, STRINGAA newAttributes, DH5Obj[] newContent...) {
+	O opCall(this O)(string newId, string[string] newAttributes, DH5Obj[] newContent...) {
 		this(newId, newAttributes).addContent(newContent.dup);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string newId, STRINGAA newAttributes, DH5Obj[] newContent) {
+	O opCall(this O)(string newId, string[string] newAttributes, DH5Obj[] newContent) {
 		this(newId, newAttributes).addContent(newContent);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string newId, string[] newClasses, STRINGAA newAttributes) {
+	O opCall(this O)(string newId, string[] newClasses, string[string] newAttributes) {
 		this(newId, newClasses).addAttributes(newAttributes);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string newId, string[] newClasses, STRINGAA newAttributes, string newContent) {
+	O opCall(this O)(string newId, string[] newClasses, string[string] newAttributes, string newContent) {
 		this(newId, newClasses, newAttributes).addContent(newContent);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string newId, string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent...) {
+	O opCall(this O)(string newId, string[] newClasses, string[string] newAttributes, DH5Obj[] newContent...) {
 		this(newId, newClasses, newAttributes).addContent(newContent.dup);
 		return cast(O) this;
 	}
 
-	O opCall(this O)(string newId, string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent) {
+	O opCall(this O)(string newId, string[] newClasses, string[string] newAttributes, DH5Obj[] newContent) {
 		this(newId, newClasses, newAttributes).addContent(newContent);
 		return cast(O) this;
 	}
@@ -653,7 +653,7 @@ class DH5Obj {
 		return cast(O) this;
 	}
 
-	O add(this O)(STRINGAA newAttributes) {
+	O add(this O)(string[string] newAttributes) {
 		this.addAttributes(someAttributes);
 		return cast(O) this;
 	}
@@ -813,13 +813,13 @@ class DH5Obj {
 		return H5Obj;
 	}
 
-	string renderCSS(STRINGAA bindings = null) {
+	string renderCSS(string[string] bindings = null) {
 		if (auto result = _css.toString)
 			return htmlDoubleTag("style", result);
 		return null;
 	}
 
-	string renderHTML(STRINGAA bindings = null) {
+	string renderHTML(string[string] bindings = null) {
 		string first;
 		string attsHTML = attsToHTML;
 		// firstTag
@@ -843,13 +843,13 @@ class DH5Obj {
 			? first : "first ~ _html.toString ~ htmlEndTag(_tag)";
 	}
 
-	string renderJS(STRINGAA bindings = null) {
+	string renderJS(string[string] bindings = null) {
 		if (_js.length > 0)
 			return htmlDoubleTag("script", this.js);
 		return null;
 	}
 
-	string render(STRINGAA bindings = null) {
+	string render(string[string] bindings = null) {
 		string result;
 		result ~= renderCSS;
 		result ~= renderHTML;
@@ -863,7 +863,7 @@ class DH5Obj {
 		return toString(null);
 	}
 
-	string toString(STRINGAA parameters) {
+	string toString(string[string] parameters) {
 		return render(parameters);
 	}
 
@@ -948,43 +948,43 @@ auto H5Obj(string newId, string[] newClasses, DH5 newContent) {
 	return new DH5Obj(newId, newClasses, newContent);
 }
 
-auto H5Obj(string newId, STRINGAA newAttributes) {
+auto H5Obj(string newId, string[string] newAttributes) {
 	return new DH5Obj(newId, newAttributes);
 }
 
-auto H5Obj(string newId, STRINGAA newAttributes, string newContent) {
+auto H5Obj(string newId, string[string] newAttributes, string newContent) {
 	return new DH5Obj(newId, newAttributes, newContent);
 }
 
-auto H5Obj(string newId, STRINGAA newAttributes, DH5Obj[] newContent...) {
+auto H5Obj(string newId, string[string] newAttributes, DH5Obj[] newContent...) {
 	return new DH5Obj(newId, newAttributes, newContent.dup);
 }
 
-auto H5Obj(string newId, STRINGAA newAttributes, DH5Obj[] newContent) {
+auto H5Obj(string newId, string[string] newAttributes, DH5Obj[] newContent) {
 	return new DH5Obj(newId, newAttributes, newContent);
 }
 
-auto H5Obj(string newId, STRINGAA newAttributes, DH5 newContent) {
+auto H5Obj(string newId, string[string] newAttributes, DH5 newContent) {
 	return new DH5Obj(newId, newAttributes, newContent);
 }
 
-auto H5Obj(string newId, string[] newClasses, STRINGAA newAttributes) {
+auto H5Obj(string newId, string[] newClasses, string[string] newAttributes) {
 	return new DH5Obj(newId, newClasses, newAttributes);
 }
 
-auto H5Obj(string newId, string[] newClasses, STRINGAA newAttributes, string newContent) {
+auto H5Obj(string newId, string[] newClasses, string[string] newAttributes, string newContent) {
 	return new DH5Obj(newId, newClasses, newAttributes, newContent);
 }
 
-auto H5Obj(string newId, string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent...) {
+auto H5Obj(string newId, string[] newClasses, string[string] newAttributes, DH5Obj[] newContent...) {
 	return new DH5Obj(newId, newClasses, newAttributes, newContent.dup);
 }
 
-auto H5Obj(string newId, string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent) {
+auto H5Obj(string newId, string[] newClasses, string[string] newAttributes, DH5Obj[] newContent) {
 	return new DH5Obj(newId, newClasses, newAttributes, newContent);
 }
 
-auto H5Obj(string newId, string[] newClasses, STRINGAA newAttributes, DH5 newContent) {
+auto H5Obj(string newId, string[] newClasses, string[string] newAttributes, DH5 newContent) {
 	return new DH5Obj(newId, newClasses, newAttributes, newContent);
 }
 
@@ -1008,43 +1008,43 @@ auto H5Obj(string[] newClasses, DH5 newContent) {
 	return new DH5Obj(newClasses, newContent);
 }
 
-auto H5Obj(string[] newClasses, STRINGAA newAttributes) {
+auto H5Obj(string[] newClasses, string[string] newAttributes) {
 	return new DH5Obj(newClasses, newAttributes);
 }
 
-auto H5Obj(string[] newClasses, STRINGAA newAttributes, string newContent) {
+auto H5Obj(string[] newClasses, string[string] newAttributes, string newContent) {
 	return new DH5Obj(newClasses, newAttributes, newContent);
 }
 
-auto H5Obj(string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent...) {
+auto H5Obj(string[] newClasses, string[string] newAttributes, DH5Obj[] newContent...) {
 	return new DH5Obj(newClasses, newAttributes, newContent.dup);
 }
 
-auto H5Obj(string[] newClasses, STRINGAA newAttributes, DH5Obj[] newContent) {
+auto H5Obj(string[] newClasses, string[string] newAttributes, DH5Obj[] newContent) {
 	return new DH5Obj(newClasses, newAttributes, newContent);
 }
 
-auto H5Obj(string[] newClasses, STRINGAA newAttributes, DH5 newContent) {
+auto H5Obj(string[] newClasses, string[string] newAttributes, DH5 newContent) {
 	return new DH5Obj(newClasses, newAttributes, newContent);
 }
 
-auto H5Obj(STRINGAA newAttributes) {
+auto H5Obj(string[string] newAttributes) {
 	return new DH5Obj(newAttributes);
 }
 
-auto H5Obj(STRINGAA newAttributes, string newContent) {
+auto H5Obj(string[string] newAttributes, string newContent) {
 	return new DH5Obj(newAttributes, newContent);
 }
 
-auto H5Obj(STRINGAA newAttributes, DH5Obj[] newContent...) {
+auto H5Obj(string[string] newAttributes, DH5Obj[] newContent...) {
 	return new DH5Obj(newAttributes, newContent.dup);
 }
 
-auto H5Obj(STRINGAA newAttributes, DH5Obj[] newContent) {
+auto H5Obj(string[string] newAttributes, DH5Obj[] newContent) {
 	return new DH5Obj(newAttributes, newContent);
 }
 
-auto H5Obj(STRINGAA newAttributes, DH5 newContent) {
+auto H5Obj(string[string] newAttributes, DH5 newContent) {
 	return new DH5Obj(newAttributes, newContent);
 }
 

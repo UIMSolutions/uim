@@ -563,7 +563,7 @@ class DRouteBuilder {
     DRoute redirect(string routeTemplate, string url, Json[string] options = null) {
         return redirect(routeTemplate, ["redirect": url], options);
     }
-    DRoute redirect(string routeTemplate, STRINGAA myurl, Json[string] options = null) {
+    DRoute redirect(string routeTemplate, string[string] myurl, Json[string] options = null) {
         options.merge("routeClass", RedirectRoute.classname);
         return _connect(routeTemplate, myurl, options);
     }
@@ -717,15 +717,15 @@ class DRouteBuilder {
      * Params:
      * string ...routingss The names of the middleware to apply to the current scope.
      */
-    void applyMiddleware(string...routingss) {
-        foreach (routings; routingss) {
-            if (!_collection.middlewarehasKey(routings)) {
-                auto mymessage = "Cannot apply " routings" middleware or middleware group. "
-                    ."Use registerMiddleware() to register middleware.";
-                throw new DInvalidArgumentException(mymessage);
+    void applyMiddleware(string[] routings...) {
+        routings
+            .filter!(routing => !_collection.middlewarehasKey(routing)) {
+                auto message = "Cannot apply 'routing' middleware or middleware group. "
+                    ~"Use registerMiddleware() to register middleware.";
+                throw new DInvalidArgumentException(message);
             }
         }
-        _middleware = chain(_middleware, routingss).unique;
+        _middleware = chain(_middleware, routings).unique;
     }
 
     // Get the middleware that this builder will apply to routes.

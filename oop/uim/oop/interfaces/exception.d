@@ -18,5 +18,5 @@ interface IException {
   void messageTemplate(string templateName, string templateText);
 
   STRINGAA messageTemplates();
-  void messageTemplates(STRINGAA templates);
+  void messageTemplates(string[string] templates);
 }

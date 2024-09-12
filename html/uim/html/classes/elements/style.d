@@ -18,11 +18,11 @@ version(test_uim_html) { unittest {
     // assert([H5Style, H5Style].toString == "<style></style><style></style>");
 }}
 
-DH5Style[] H5Styles(STRINGAA[] someStyles...) { 
+DH5Style[] H5Styles(string[string][] someStyles...) { 
 	return H5Styles(someStyles.dup); 
 }
 
-DH5Style[] H5Styles(STRINGAA[] someStyles) { 
+DH5Style[] H5Styles(string[string][] someStyles) { 
 	return someStyles.map!(s => H5Style(s)).array;
 }
 version(test_uim_html) { unittest {

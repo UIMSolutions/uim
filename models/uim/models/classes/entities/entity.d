@@ -482,7 +482,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     deletedBy(UUID(anUuid));
   }
 
-  override STRINGAA selector(STRINGAA parameters) {
+  override STRINGAA selector(string[string] parameters) {
     STRINGAA results;
 
     auto foundId = parameters.get("entity_id", parameters.get("id", ""));
@@ -496,14 +496,14 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   }
 
   // Read entity from STRINGAA
-  override void readFromStringAA(STRINGAA reqParameters, bool usePrefix = false) {
+  override void readFromStringAA(string[string] reqParameters, bool usePrefix = false) {
     super.readFromStringAA(reqParameters);
 
     reqParameters.byKeyValue
       .each!(kv => this[kv.key] = kv.value);
   }
 
-  override void readFromRequest(STRINGAA requestValues, bool usePrefix = true) {
+  override void readFromRequest(string[string] requestValues, bool usePrefix = true) {
     super.readFromRequest(requestValues, usePrefix);
 
     foreach (fName; fieldNames) {

@@ -13,7 +13,7 @@ class DMapString : DMapTempl!(string, string) {
 		super();
 	}
 
-	this(STRINGAA values) {
+	this(string[string] values) {
 		this();
 		_items = values;
 	}
@@ -35,7 +35,7 @@ class DMapString : DMapTempl!(string, string) {
 		// TODO 
 	}
 
-	@property O items(this O)(STRINGAA newItems) {
+	@property O items(this O)(string[string] newItems) {
 		_items = newItems.dup;
 		return cast(O) this;
 	}
@@ -45,7 +45,7 @@ class DMapString : DMapTempl!(string, string) {
 		// TODO 
 	}
 
-	O add(this O)(STRINGAA values) {
+	O add(this O)(string[string] values) {
 		values.byKeyValue.each!(kv => _items[kv.key] = kv.value);
 		return cast(O) this;
 	}
@@ -55,7 +55,7 @@ class DMapString : DMapTempl!(string, string) {
 		// TODO 
 	}
 
-	O add(this O)(STRINGAA[] values) {
+	O add(this O)(string[string][] values) {
 		values.each!(value => add(value));
 		return cast(O) this;
 	}
@@ -65,7 +65,7 @@ class DMapString : DMapTempl!(string, string) {
 		// TODO 
 	}
 
-	O opCall(this O)(STRINGAA values) {
+	O opCall(this O)(string[string] values) {
 		add(values);
 		return cast(O) this;
 	}
@@ -145,7 +145,7 @@ auto MapString() {
 	return new DMapString();
 }
 
-auto MapString(STRINGAA values) {
+auto MapString(string[string] values) {
 	return new DMapString(values);
 }
 

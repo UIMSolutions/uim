@@ -242,7 +242,7 @@ REGEXP`;
     }
 
     // Updates the DSN class map for this class.
-    static void setDsnClassMap(STRINGAA map) {
+    static void setDsnClassMap(string[string] map) {
         _dsnClassMap = map + _dsnClassMap;
     }
 

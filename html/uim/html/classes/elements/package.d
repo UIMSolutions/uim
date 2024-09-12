@@ -503,7 +503,7 @@ class DH5 {
 	//		default: return null;
 	//	}
 	//	}			
-	//	static DH5Root opCall(string val, STRINGAA atts) { 
+	//	static DH5Root opCall(string val, string[string] atts) { 
 	//		auto h5 = H5(val);
 	//		h5.attributes = atts;
 	//		return h5;
@@ -518,11 +518,11 @@ class DH5 {
 
 //auto H5()() { return new DH5Root(); }
 //auto H5(string name)() { return DH5(name); }
-//auto H5(string name)(STRINGAA attributes) { return DH5(name).add(attributes); }
+//auto H5(string name)(string[string] attributes) { return DH5(name).add(attributes); }
 //auto H5(string name)(DObject[]  elements...) { return DH5(name).add(elements); }
 //auto H5(string name)(string[] texts...) { return DH5(name).add(texts); }
-//auto H5(string name)(STRINGAA attributes, DObject[]  elements...) { return DH5(name).add(attributes).add(elements); }
-//auto H5(string name)(STRINGAA attributes, string[] texts...) { return DH5(name).add(attributes).add(texts); }
+//auto H5(string name)(string[string] attributes, DObject[]  elements...) { return DH5(name).add(attributes).add(elements); }
+//auto H5(string name)(string[string] attributes, string[] texts...) { return DH5(name).add(attributes).add(texts); }
 
 // Extras
 
@@ -541,11 +541,11 @@ class DH5 {
 
 //auto H5()() { return new DH5Root(); }
 //auto H5(string name)() { return DH5(name); }
-//auto H5(string name)(STRINGAA attributes) { return DH5(name).add(attributes); }
+//auto H5(string name)(string[string] attributes) { return DH5(name).add(attributes); }
 //auto H5(string name)(DObject[]  elements...) { return DH5(name).add(elements); }
 //auto H5(string name)(string[] texts...) { return DH5(name).add(texts); }
-//auto H5(string name)(STRINGAA attributes, DObject[]  elements...) { return DH5(name).add(attributes).add(elements); }
-//auto H5(string name)(STRINGAA attributes, string[] texts...) { return DH5(name).add(attributes).add(texts); }
+//auto H5(string name)(string[string] attributes, DObject[]  elements...) { return DH5(name).add(attributes).add(elements); }
+//auto H5(string name)(string[string] attributes, string[] texts...) { return DH5(name).add(attributes).add(texts); }
 */
 
 /**
@@ -576,7 +576,7 @@ class DH5 {
 // Public Methods
 
 // Generates a hyperlink tag.	
-//string a(string text, string url = null, STRINGAA options = null) {
+//string a(string text, string url = null, string[string] options = null) {
 //	if (!url) {
 //		// options.get('href'] = Url::to(url);
 //	}
@@ -645,13 +645,13 @@ class DH5 {
  submitInput()	Generates a submit input button.	*/
 //Generates a complete HTML tag.	
 
-//string toString(STRINGAA kvOptions) {
+//string toString(string[string] kvOptions) {
 //	string[] options;
 //	foreach(k, v; kvOptions) options ~= "%s=\"%s\"".format(k, v);
 //	return options.join(" "); }
 //string toString(string[] options) { return options.join(" "); }
 //
-//string dtag(string name, string content = null, STRINGAA kvOptions = null, string[] options = null) {
+//string dtag(string name, string content = null, string[string] kvOptions = null, string[] options = null) {
 //	if (!name) { return content; }
 //	
 //	string kv; if (kvOptions) kv = " "~kvOptions.toString; 

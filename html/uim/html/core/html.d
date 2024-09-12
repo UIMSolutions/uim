@@ -5,22 +5,22 @@ import uim.html;
 
 template sTag(string fName) {
 	const char[] sTag = "	
-	  DHTML "~fName~"(STRINGAA values) { return addSTag("~fName~", values); }
+	  DHTML "~fName~"(string[string] values) { return addSTag("~fName~", values); }
 ";
 }
 
 template dTag(string fName) {
 	const char[] dTag = "	
 	 DHTML "~fName~"(T)(T[] content...) { return addDTag("~fName~", contents); }
-	 DHTML "~fName~"(STRINGAA values) { return addDTag("~fName~", values); }
-	 DHTML "~fName~"(T)(STRINGAA values, T[] contents...) { return addDTag("~fName~", values, contents); }
+	 DHTML "~fName~"(string[string] values) { return addDTag("~fName~", values); }
+	 DHTML "~fName~"(T)(string[string] values, T[] contents...) { return addDTag("~fName~", values, contents); }
 ";
 }
 
 template STag(string fName, string tName) {
 	const char[] STag = "	
  auto "~fName~"() { addS(\""~tName~"\"); return this; }
- auto "~fName~"(STRINGAA values) { addS(\""~tName~"\", values); return this; }
+ auto "~fName~"(string[string] values) { addS(\""~tName~"\", values); return this; }
 ";
 }
 
@@ -28,11 +28,11 @@ template DTag(string fName, string tName) {
 	const char[] DTag = "	
  auto "~fName~"(string content) { addD(\""~tName~"\", content); return this; }
  auto "~fName~"(DOPObject content) { addD(\""~tName~"\", content); return this; }
- auto "~fName~"(STRINGAA values) { addD(\""~tName~"\", values); return this; }
- auto "~fName~"(STRINGAA values, string content) { addD(\""~tName~"\", values, content); return this; }
- auto "~fName~"(STRINGAA values, DOPObject content) { addD(\""~tName~"\", values, content); return this; }
- auto "~fName~"(STRINGAA values, string[] content) { addD(\""~tName~"\", values, content); return this; }
- auto "~fName~"(STRINGAA values, DOPObject[] content) { addD(\""~tName~"\", values, content); return this; }
+ auto "~fName~"(string[string] values) { addD(\""~tName~"\", values); return this; }
+ auto "~fName~"(string[string] values, string content) { addD(\""~tName~"\", values, content); return this; }
+ auto "~fName~"(string[string] values, DOPObject content) { addD(\""~tName~"\", values, content); return this; }
+ auto "~fName~"(string[string] values, string[] content) { addD(\""~tName~"\", values, content); return this; }
+ auto "~fName~"(string[string] values, DOPObject[] content) { addD(\""~tName~"\", values, content); return this; }
 ";
 }
 
@@ -61,7 +61,7 @@ template DTag(string fName, string tName) {
 ////	override void add(DOPObject value) { if (value) _objects ~= value; }
 //
 ////	void addS(string tag) { add("<%s/>".format(tag)); }
-////	void addS(string tag, STRINGAA attributes) { add("<%s%s/>".format(tag, attributes.toString)); }
+////	void addS(string tag, string[string] attributes) { add("<%s%s/>".format(tag, attributes.toString)); }
 //
 ////	void addD(string tag) { add(doubleTag(tag)); }
 //////	void addD(string tag, DOPObject[] objs...) { 
@@ -73,28 +73,28 @@ template DTag(string fName, string tName) {
 ////	void addD(string tag, string content) { add(doubleTag(tag, content)); }
 ////	void addD(string tag, DOPObject content) { add(doubleTag(tag, content.toString));  }
 //
-////	void addD(string tag, STRINGAA attributes) { add(doubleTag(tag, attributes)); }
-//////	void addD(string tag, STRINGAA attributes, DOPObject[] contents...) { 
+////	void addD(string tag, string[string] attributes) { add(doubleTag(tag, attributes)); }
+//////	void addD(string tag, string[string] attributes, DOPObject[] contents...) { 
 ////		string result;
 ////		foreach(c; contents) result ~= c.toString;
 ////		addD(tag, attributes, result);
 ////	}
-////	void addD(string tag, STRINGAA attributes, string[] contents...) { addD(tag, attributes, contents.join("")); }
-////	void addD(string tag, STRINGAA attributes, string content) { addD(tag, attributes, content); }
-////	void addD(string tag, STRINGAA attributes, DOPObject content) { addD(tag, attributes, content.toString);  }
+////	void addD(string tag, string[string] attributes, string[] contents...) { addD(tag, attributes, contents.join("")); }
+////	void addD(string tag, string[string] attributes, string content) { addD(tag, attributes, content); }
+////	void addD(string tag, string[string] attributes, DOPObject content) { addD(tag, attributes, content.toString);  }
 //
-////	string attsToString(STRINGAA atts) {
+////	string attsToString(string[string] atts) {
 ////		string[] strings;
 ////		foreach(k, v; atts) strings ~= `%s="%s"`.format(k, v);
 ////		return strings.join(" ");
 ////	}
-////	auto startTag(string tag, STRINGAA attributes = null) {
+////	auto startTag(string tag, string[string] attributes = null) {
 ////		if (attributes) 
 ////			return add("<"~tag~" "~aa2String(attributes)~">");
 ////		else 
 ////			return add("<"~tag~">");
 ////	}
-////	auto simpleTag(string tag, STRINGAA attributes = null) {
+////	auto simpleTag(string tag, string[string] attributes = null) {
 ////		if (attributes) 
 ////			return add("<"~tag~" "~aa2String(attributes)~"/>");
 ////		else 
@@ -103,16 +103,16 @@ template DTag(string fName, string tName) {
 ////	auto endTag(string tag) { return add("</"~tag~">"); }
 //
 ////	auto head(T)(T content) { return addD("HEAD", content); }
-////	auto head(STRINGAA values) { return addD("HEAD", values); }
-////	auto head(T)(STRINGAA values, T content) { return addDTag("HEAD", values, content); }
+////	auto head(string[string] values) { return addD("HEAD", values); }
+////	auto head(T)(string[string] values, T content) { return addDTag("HEAD", values, content); }
 ////
 ////	auto doctype() {return add("<!DOCTYPE html>"); }
-////	auto meta(STRINGAA values) { return addS("META", values); }
-////	auto base(STRINGAA values) { return addS("BASE", values); }
-////	auto link(STRINGAA values) { return addS("LINK", values); }
+////	auto meta(string[string] values) { return addS("META", values); }
+////	auto base(string[string] values) { return addS("BASE", values); }
+////	auto link(string[string] values) { return addS("LINK", values); }
 ////	auto style(T)(T content) { return addD("STYLE", content.toString); }
 ////	auto style(T:STRINGAA)(T values) { return addD("STYLE", values); }
-////	auto style(T)(STRINGAA values, T content) { return addD("STYLE", values, content.toString); }
+////	auto style(T)(string[string] values, T content) { return addD("STYLE", values, content.toString); }
 ////	auto style(T:DCSS)(T content) { return addD("STYLE", content.toString); }
 //
 ////	mixin(DTag!("script", "Script"));
@@ -130,7 +130,7 @@ template DTag(string fName, string tName) {
 //	//	mixin(dTag!("table"));
 //	//	mixin(dTag!("canvas", "CANVAS"));
 ////	auto canvas(string id, string width, string height) { return addD("CANVAS", ["id": id, "width": width, "height": height]); }
-////	auto canvas(STRINGAA attributes, string id, string width, string height) { 
+////	auto canvas(string[string] attributes, string id, string width, string height) { 
 ////		auto atts = attributes;
 ////		atts["id"] = id;
 ////		atts["width"] = width;

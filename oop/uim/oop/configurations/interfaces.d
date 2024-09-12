@@ -18,7 +18,7 @@ interface IConfiguration : INamed {
   bool hasDefault(string key);
   Json getDefault(string key);
 
-  IConfiguration set(STRINGAA values, string[] keys = null);
+  IConfiguration set(string[string] values, string[] keys = null);
   IConfiguration set(Json[string] items, string[] keys = null);
 
   // #region setDefaults
@@ -116,7 +116,7 @@ interface IConfiguration : INamed {
   // #region set
   void opAssign(Json[string] data);
 
-  IConfiguration set(STRINGAA values, string[] keys = null);
+  IConfiguration set(string[string] values, string[] keys = null);
   IConfiguration set(Json[string] items, string[] keys = null);
 
   IConfiguration set(string[] keys, bool newValue);

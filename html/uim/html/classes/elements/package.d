@@ -549,8 +549,6 @@ class DH5 {
 */
 
 /**
- * module uim.html;
-
  import std.stdio;
  import std.string;
 

@@ -56,10 +56,10 @@
                 <div class="container px-5">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-xxl-6">
-                            <div class="text-center my-5">
+                            <div class="text-left my-5">
                                 <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/index.html">API</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/index.html">uim</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/events/index.html">events</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/events/classes/index.html">classes</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/events/classes/events/index.html">events</a></li><li class="breadcrumb-item active" aria-current="page">list</li></ol></nav>
-                                <h1 class="fw-bolder mb-3">{{title}}</h1>
-                                {{content}}
+                                <h1 class="fw-bolder mb-3">Class DEventList</h1>
+                                <table><tr><td>filepath:C:\Users\ONS\PROJECTS2023\uim\events\uim\events\classes\events\list.d</td></tr><tr><td>parents:[]</td></tr><tr><td>namespace:uim.events.classes.events.list</td></tr><tr><td>name:DEventList</td></tr><tr><td>content:["    // Events list","    protected IEvent[] _events = null;","    // Empties the list of dispatched events.","    void flush() {","        _events = null;","    }","    // Adds an event to the list when event listing is enabled.","    void add(IEvent event) {","        _events ~= event;","    }","    // Whether a offset exists","    bool offsethasKey(Json anOffset) {","        // TODO return _events.hasValue(anOffset);","        return false;","    }","    // Offset to retrieve","    IEvent offsetGet(Json offsetToRetrieve) {","        /* return offsethasKey(offsetToRetrieve)","            ? _events[offsetToRetrieve] : null; */","            return null;","    }","    // Offset to set","    void offsetSet(string offset, Json value) {","        // _events[offset] = value;","    }","    // Offset to unset","    void offsetUnset(string offset) {","        // TODO _events.removeKey(offset);","    }","    // Count elements of an object","    size_t count() {","        return _events.length;","    }","    // Checks if an event is in the list.","    bool hasEvent(string eventName) {","        return _events.any!(event => event.name == eventName);","    }"]</td></tr><tr><td>methods:[{"isProperty":false,"parameters":[],"datatype":"void","name":"flush","isAbstract":false,"isInherited":false,"header":"void flush()","isStatic":false},{"isProperty":false,"parameters":["IEvent event"],"datatype":"void","name":"add","isAbstract":false,"isInherited":false,"header":"void add(IEvent event)","isStatic":false},{"isProperty":false,"parameters":["Json anOffset"],"datatype":"bool","name":"offsethasKey","isAbstract":false,"isInherited":false,"header":"bool offsethasKey(Json anOffset)","isStatic":false},{"isProperty":false,"parameters":["Json offsetToRetrieve"],"datatype":"IEvent","name":"offsetGet","isAbstract":false,"isInherited":false,"header":"IEvent offsetGet(Json offsetToRetrieve)","isStatic":false},{"isProperty":false,"parameters":["string offset","Json value"],"datatype":"void","name":"offsetSet","isAbstract":false,"isInherited":false,"header":"void offsetSet(string offset, Json value)","isStatic":false},{"isProperty":false,"parameters":["string offset"],"datatype":"void","name":"offsetUnset","isAbstract":false,"isInherited":false,"header":"void offsetUnset(string offset)","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"size_t","name":"count","isAbstract":false,"isInherited":false,"header":"size_t count()","isStatic":false},{"isProperty":false,"parameters":["string eventName"],"datatype":"bool","name":"hasEvent","isAbstract":false,"isInherited":false,"header":"bool hasEvent(string eventName)","isStatic":false}]</td></tr><tr><td>type:class</td></tr></table>
                             </div>
                         </div>
                     </div>
@@ -68,13 +68,6 @@
             <!-- About section one-->
             <section class="py-5 bg-light" id="scroll-target">
                 <div class="container px-5 my-5">
-                    <div class="row gx-5 align-items-center">
-                        <div class="col-lg-6">{{breadcrumb}}</div>
-                        <div class="col-lg-6">
-                            <h2 class="fw-bolder">Our founding</h2>
-                            <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>

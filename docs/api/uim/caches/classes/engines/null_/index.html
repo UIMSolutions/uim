@@ -56,10 +56,10 @@
                 <div class="container px-5">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-xxl-6">
-                            <div class="text-center my-5">
+                            <div class="text-left my-5">
                                 <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/index.html">API</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/index.html">uim</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/caches/index.html">caches</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/caches/classes/index.html">classes</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/caches/classes/engines/index.html">engines</a></li><li class="breadcrumb-item active" aria-current="page">null_</li></ol></nav>
-                                <h1 class="fw-bolder mb-3">{{title}}</h1>
-                                {{content}}
+                                <h1 class="fw-bolder mb-3">Class DNullCacheEngine</h1>
+                                <table><tr><td>super:DCacheEngine</td></tr><tr><td>filepath:C:\Users\ONS\PROJECTS2023\uim\caches\uim\caches\classes\engines\null_.d</td></tr><tr><td>parents:["DCacheEngine"]</td></tr><tr><td>name:DNullCacheEngine</td></tr><tr><td>namespace:uim.caches.classes.engines.null_</td></tr><tr><td>content:["  mixin(CacheEngineThis!(\"Null\"));","  override string[] keys() {","    return null;","  }","  override bool updateKey(string key, Json valueToSet, long timeToLive = 0) {","    return true;","  }","  override Json read(string itemKey, Json defaultValue = null) {","    return defaultValue;","  }","  override long increment(string itemKey, int incValue = 1) {","    return 1;","  }","  override long decrement(string itemKey, int decValue = 1) {","    return 1;","  }","  override bool removeKey(string key) {","    return true;","  }","    override bool clearGroup(string groupName) {","    return true;","  }"]</td></tr><tr><td>methods:[{"isProperty":false,"parameters":[],"datatype":"string[]","name":"keys","isAbstract":false,"isInherited":true,"header":"string[] keys()","isStatic":false},{"isProperty":false,"parameters":["string key","Json valueToSet","long timeToLive = 0"],"datatype":"bool","name":"updateKey","isAbstract":false,"isInherited":true,"header":"bool updateKey(string key, Json valueToSet, long timeToLive = 0)","isStatic":false},{"isProperty":false,"parameters":["string itemKey","Json defaultValue = null"],"datatype":"Json","name":"read","isAbstract":false,"isInherited":true,"header":"Json read(string itemKey, Json defaultValue = null)","isStatic":false},{"isProperty":false,"parameters":["string itemKey","int incValue = 1"],"datatype":"long","name":"increment","isAbstract":false,"isInherited":true,"header":"long increment(string itemKey, int incValue = 1)","isStatic":false},{"isProperty":false,"parameters":["string itemKey","int decValue = 1"],"datatype":"long","name":"decrement","isAbstract":false,"isInherited":true,"header":"long decrement(string itemKey, int decValue = 1)","isStatic":false},{"isProperty":false,"parameters":["string key"],"datatype":"bool","name":"removeKey","isAbstract":false,"isInherited":true,"header":"bool removeKey(string key)","isStatic":false},{"isProperty":false,"parameters":["string groupName"],"datatype":"bool","name":"clearGroup","isAbstract":false,"isInherited":true,"header":"bool clearGroup(string groupName)","isStatic":false}]</td></tr><tr><td>type:class</td></tr><tr><td>comment:Null cache engine, all operations appear to work, but do nothing.</td></tr></table>
                             </div>
                         </div>
                     </div>
@@ -68,13 +68,6 @@
             <!-- About section one-->
             <section class="py-5 bg-light" id="scroll-target">
                 <div class="container px-5 my-5">
-                    <div class="row gx-5 align-items-center">
-                        <div class="col-lg-6">{{breadcrumb}}</div>
-                        <div class="col-lg-6">
-                            <h2 class="fw-bolder">Our founding</h2>
-                            <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>

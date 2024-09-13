@@ -56,10 +56,10 @@
                 <div class="container px-5">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-xxl-6">
-                            <div class="text-center my-5">
+                            <div class="text-left my-5">
                                 <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/index.html">API</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/index.html">uim</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/controllers/index.html">controllers</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/controllers/exceptions/index.html">exceptions</a></li><li class="breadcrumb-item active" aria-current="page">security</li></ol></nav>
-                                <h1 class="fw-bolder mb-3">{{title}}</h1>
-                                {{content}}
+                                <h1 class="fw-bolder mb-3">Class DSecurityException</h1>
+                                <table><tr><td>super:DControllersException</td></tr><tr><td>filepath:C:\Users\ONS\PROJECTS2023\uim\controllers\uim\controllers\exceptions\security.d</td></tr><tr><td>parents:["DControllersException"]</td></tr><tr><td>name:DSecurityException</td></tr><tr><td>namespace:uim.controllers.exceptions.security</td></tr><tr><td>content:["  mixin(ExceptionThis!(\"Security\"));","  override bool initialize(Json[string] initData = null) {","    if (!super.initialize(initData)) {","      return false;","    }","    _exceptionType = \"secure\";","    return true;","  }","  // Reason for request blackhole","  mixin(TProperty!(\"string\", \"reason\"));","  // Security Exception type","  protected string _exceptionType;","  @property string exceptionType() {","    return _exceptionType;","  }"]</td></tr><tr><td>methods:[{"isProperty":false,"parameters":["Json[string] initData = null"],"datatype":"bool","name":"initialize","isAbstract":false,"isInherited":true,"header":"bool initialize(Json[string] initData = null)","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"if","name":"","isAbstract":false,"isInherited":false,"header":"if (!super.initialize(initData))","isStatic":false},{"isProperty":true,"parameters":[],"datatype":"string","name":"exceptionType","isAbstract":false,"isInherited":false,"header":"string exceptionType()","isStatic":false}]</td></tr><tr><td>type:class</td></tr><tr><td>comment:Security exception - used when SecurityComponent detects any issue with the current request</td></tr></table>
                             </div>
                         </div>
                     </div>
@@ -68,13 +68,6 @@
             <!-- About section one-->
             <section class="py-5 bg-light" id="scroll-target">
                 <div class="container px-5 my-5">
-                    <div class="row gx-5 align-items-center">
-                        <div class="col-lg-6">{{breadcrumb}}</div>
-                        <div class="col-lg-6">
-                            <h2 class="fw-bolder">Our founding</h2>
-                            <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>

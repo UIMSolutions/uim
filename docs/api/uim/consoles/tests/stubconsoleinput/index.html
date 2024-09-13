@@ -56,10 +56,10 @@
                 <div class="container px-5">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-xxl-6">
-                            <div class="text-center my-5">
+                            <div class="text-left my-5">
                                 <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/index.html">API</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/index.html">uim</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/consoles/index.html">consoles</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/consoles/tests/index.html">tests</a></li><li class="breadcrumb-item active" aria-current="page">stubconsoleinput</li></ol></nav>
-                                <h1 class="fw-bolder mb-3">{{title}}</h1>
-                                {{content}}
+                                <h1 class="fw-bolder mb-3">Class b class used by the console integration harness.</h1>
+                                <table><tr><td>filepath:C:\Users\ONS\PROJECTS2023\uim\consoles\uim\consoles\tests\stubconsoleinput.d</td></tr><tr><td>parents:[]</td></tr><tr><td>namespace:uim.consoles.tests.stubconsoleinput</td></tr><tr><td>name:b class used by the console integration harness.</td></tr><tr><td>content:["    // Reply values for ask() and askChoice()","    protected string[] _replies;","    // Current message index","    protected size_t _currentIndex = -1;","    this(string[] repliesForRead) {","        super();","        _replies = repliesForRead;","    }","    // Read a reply","    override string read() {","        _currentIndex += 1;","        /* if (!_replies.hasKey(_currentIndex)) {","            auto total = count(_replies);","            auto formatter = new NumberFormatters(\"en\", NumberFormatters.ORDINAL);","            auto nth = formatter.format(_currentIndex + 1);","            auto repliesText = replies.join(\", \");","            string message = (","                \"There are no more input replies available. This is the {nth} %s read operation, \" ~","                \"only {total} %s replies were set.\\nThe provided replies are: {repliesText} %s\")","                .format(nth, total, repliesText);","            throw new DMissingConsoleInputException(message);","        } */","        return _replies[_currentIndex];","    }","    //  Check if data is available on stdin","    bool dataAvailable(int timeToWait = 0) {","        return true;","    }"]</td></tr><tr><td>methods:[{"isProperty":false,"datatype":null,"name":"this","isAbstract":false,"isInherited":false,"header":"this(string[] repliesForRead)","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"string","name":"read","isAbstract":false,"isInherited":true,"header":"string read()","isStatic":false},{"isProperty":false,"parameters":["int timeToWait = 0"],"datatype":"bool","name":"dataAvailable","isAbstract":false,"isInherited":false,"header":"bool dataAvailable(int timeToWait = 0)","isStatic":false}]</td></tr><tr><td>type:class</td></tr></table>
                             </div>
                         </div>
                     </div>
@@ -68,13 +68,6 @@
             <!-- About section one-->
             <section class="py-5 bg-light" id="scroll-target">
                 <div class="container px-5 my-5">
-                    <div class="row gx-5 align-items-center">
-                        <div class="col-lg-6">{{breadcrumb}}</div>
-                        <div class="col-lg-6">
-                            <h2 class="fw-bolder">Our founding</h2>
-                            <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>

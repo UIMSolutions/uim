@@ -56,10 +56,10 @@
                 <div class="container px-5">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-xxl-6">
-                            <div class="text-center my-5">
+                            <div class="text-left my-5">
                                 <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/index.html">API</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/index.html">uim</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/validations/index.html">validations</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/validations/classes/index.html">classes</a></li><li class="breadcrumb-item active" aria-current="page">rulesprovider</li></ol></nav>
-                                <h1 class="fw-bolder mb-3">{{title}}</h1>
-                                {{content}}
+                                <h1 class="fw-bolder mb-3">Class xy class used to remove any extra arguments when the user intended to call</h1>
+                                <table><tr><td>filepath:C:\Users\ONS\PROJECTS2023\uim\validations\uim\validations\classes\rulesprovider.d</td></tr><tr><td>parents:[]</td></tr><tr><td>namespace:uim.validations.classes.rulesprovider</td></tr><tr><td>name:xy class used to remove any extra arguments when the user intended to call</td></tr><tr><td>content:["    // The class/object to proxy","    protected /* object */ string _proxyclassname;","    protected Object _proxyObject;","    // The proxied class\" reflection","    protected /* DReflectionClass */ Object _reflection;","    // sets the default class to use for calling methods","    this(/* object */ string classToProxy = (new DValidation).classname) {","       _proxyclassname = classToProxy;","       /* _reflection = new DReflectionClass(classToProxy); */","    }","    /**","     * Proxies validation method calls to the Validation class.","     *","     * The last argument (context) will be sliced off, if the validation","     * method\"s last parameter is not named \"context\". This lets","     * the various wrapped validation methods to not receive the validation","     * context unless they need it.","     */","    bool __call(string validationMethod, Json[string] methodArguments) {","        /* auto method = _reflection.getMethod(mymethod);","        myargumentList = method.getParameters();","        ReflectionParameter myargument = methodArguments.pop();","        if (myargument.name() != \"context\") {","            methodArguments = methodArguments.slice(0, -1);","        }","        myobject = _proxyclassname.isString ? null : _proxyclassname;","        return method.invokeArgs(myobject, methodArguments); */","        return false;","    }"]</td></tr><tr><td>methods:[{"isProperty":false,"datatype":null,"name":"this","isAbstract":false,"isInherited":false,"header":"this(/* object */ string classToProxy = (new DValidation).classname)","isStatic":false},{"isProperty":false,"parameters":["string validationMethod","Json[string] methodArguments"],"datatype":"bool","name":"__call","isAbstract":false,"isInherited":false,"header":"bool __call(string validationMethod, Json[string] methodArguments)","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"if","name":"","isAbstract":false,"isInherited":false,"header":"if (myargument.name() != \"context\")","isStatic":false}]</td></tr><tr><td>type:class</td></tr></table>
                             </div>
                         </div>
                     </div>
@@ -68,13 +68,6 @@
             <!-- About section one-->
             <section class="py-5 bg-light" id="scroll-target">
                 <div class="container px-5 my-5">
-                    <div class="row gx-5 align-items-center">
-                        <div class="col-lg-6">{{breadcrumb}}</div>
-                        <div class="col-lg-6">
-                            <h2 class="fw-bolder">Our founding</h2>
-                            <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>

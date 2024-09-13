@@ -56,10 +56,10 @@
                 <div class="container px-5">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-xxl-6">
-                            <div class="text-center my-5">
+                            <div class="text-left my-5">
                                 <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/index.html">API</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/index.html">uim</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/collections/index.html">collections</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/collections/classes/index.html">classes</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/collections/classes/iterators/index.html">iterators</a></li><li class="breadcrumb-item active" aria-current="page">sort</li></ol></nav>
-                                <h1 class="fw-bolder mb-3">{{title}}</h1>
-                                {{content}}
+                                <h1 class="fw-bolder mb-3">Class DSortIterator</h1>
+                                <table><tr><td>super:D_Collection</td></tr><tr><td>filepath:C:\Users\ONS\PROJECTS2023\uim\collections\uim\collections\classes\iterators\sort.d</td></tr><tr><td>parents:["D_Collection"]</td></tr><tr><td>namespace:uim.collections.classes.iterators.sort</td></tr><tr><td>name:DSortIterator</td></tr><tr><td>content:["  /**","     * Wraps this iterator around the passed items so when iterated they are returned","     * in order.","     *","     * The callback will receive as first argument each of the elements in  someItems,","     * the value returned in the callback will be used as the value for sorting such","     * element. Please note that the callback auto could be called more than once","     * per element.","     * /","  this(","    Json[string] someItems,","    string mycallback,","    int sortDirection = 0, //= SORT_DESC,","    int sortType = 0 // SORT_NUMERIC","  ) {","    auto aCallback = _propertyExtractor(aCallback);","    auto myResults = null;","    someItems.byKeyValue.each!((kv) {","      auto callbackValue = aCallback(kv.value);","      auto isDateTime =","        cast(DChronosDate) callbackValue ||","        cast(DChronosTime) callbackValue ||","        cast(IDateTime) callbackValue;","      if (isDateTime && sortType == SORT_NUMERIC) {","        callbackValue = callbackValue.format(\"U\");","      }","      myResults.set(kv.key, callbackValue);","    });","    sortDirection == SORT_DESC","      ? arsort(myResults, sortType) : asort(myResults, sortType);","    myResults.keys","      .each!(key => myResults.set(key, someItems.get(key));","  super(myResults);","  return _getInnerIterator();"]</td></tr><tr><td>methods:[{"isProperty":false,"parameters":[],"datatype":"someItems.byKeyValue.each!((kv)","name":"","isAbstract":false,"isInherited":false,"header":"someItems.byKeyValue.each!((kv)","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"if","name":"","isAbstract":false,"isInherited":false,"header":"if (isDateTime && sortType == SORT_NUMERIC)","isStatic":false}]</td></tr><tr><td>type:class</td></tr></table>
                             </div>
                         </div>
                     </div>
@@ -68,13 +68,6 @@
             <!-- About section one-->
             <section class="py-5 bg-light" id="scroll-target">
                 <div class="container px-5 my-5">
-                    <div class="row gx-5 align-items-center">
-                        <div class="col-lg-6">{{breadcrumb}}</div>
-                        <div class="col-lg-6">
-                            <h2 class="fw-bolder">Our founding</h2>
-                            <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>

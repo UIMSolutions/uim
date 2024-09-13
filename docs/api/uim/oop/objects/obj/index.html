@@ -56,10 +56,10 @@
                 <div class="container px-5">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-xxl-6">
-                            <div class="text-center my-5">
+                            <div class="text-left my-5">
                                 <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/index.html">API</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/index.html">uim</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/oop/index.html">oop</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/oop/objects/index.html">objects</a></li><li class="breadcrumb-item active" aria-current="page">obj</li></ol></nav>
-                                <h1 class="fw-bolder mb-3">{{title}}</h1>
-                                {{content}}
+                                <h1 class="fw-bolder mb-3">Class UIMObject</h1>
+                                <table><tr><td>filepath:C:\Users\ONS\PROJECTS2023\uim\oop\uim\oop\objects\obj.d</td></tr><tr><td>parents:["INamed"]</td></tr><tr><td>namespace:uim.oop.objects.obj</td></tr><tr><td>name:UIMObject</td></tr><tr><td>content:["    mixin TConfigurable;","    this() {","        writeln(\"UIMObject::this()\", this.classname);","        this.initialize;","    }","    this(Json[string] initData) {","        writeln(\"UIMObject::this(Json[string] initData)\", this.classname);","        this.initialize(initData);","    }","    this(string newName, Json[string] initData = null) {","        writeln(\"UIMObject::this(string newName, Json[string] initData)\", this.classname);","        this.name(newName);","        this.initialize(initData);","    }","    bool initialize(Json[string] initData = null) {","        name(\"Object\");","        auto config = MemoryConfiguration;","        configuration(config);","        configuration.set(initData);","        return true;","    }","    mixin(TProperty!(\"string\", \"name\"));","    // mixin(TProperty!(\"string[]\", \"methodNames\"));","    string[] memberNames() {","        return [__traits(allMembers, typeof(this))];","    }","    bool hasMember(string name) {","        return memberNames.has(name);","    }","    Json[string] debugInfo() {","        Json[string] info;","        return info","            .set(\"name\", name)","            .set(\"classname\", this.classname);","    }","    this() {","        super();","    }","    string newMethod() {","        return null;","    }","    override string[] memberNames() {","        return [__traits(allMembers, typeof(this))];","    }","    assert(new UIMObject);","    auto obj = new UIMObject;","    writeln(\"UIMObject -> \", obj.memberNames);","    writeln(\"new Object -> \", (new test).memberNames);"]</td></tr><tr><td>methods:[{"isProperty":false,"datatype":null,"name":"this","isAbstract":false,"isInherited":false,"header":"this()","isStatic":false},{"isProperty":false,"datatype":null,"name":"this","isAbstract":false,"isInherited":false,"header":"this(Json[string] initData)","isStatic":false},{"isProperty":false,"datatype":null,"name":"this","isAbstract":false,"isInherited":false,"header":"this(string newName, Json[string] initData = null)","isStatic":false},{"isProperty":false,"parameters":["Json[string] initData = null"],"datatype":"bool","name":"initialize","isAbstract":false,"isInherited":false,"header":"bool initialize(Json[string] initData = null)","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"string[]","name":"memberNames","isAbstract":false,"isInherited":false,"header":"string[] memberNames()","isStatic":false},{"isProperty":false,"parameters":["string name"],"datatype":"bool","name":"hasMember","isAbstract":false,"isInherited":false,"header":"bool hasMember(string name)","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"Json[string]","name":"debugInfo","isAbstract":false,"isInherited":false,"header":"Json[string] debugInfo()","isStatic":false},{"isProperty":false,"datatype":null,"name":"this","isAbstract":false,"isInherited":false,"header":"this()","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"string","name":"newMethod","isAbstract":false,"isInherited":false,"header":"string newMethod()","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"string[]","name":"memberNames","isAbstract":false,"isInherited":true,"header":"string[] memberNames()","isStatic":false}]</td></tr><tr><td>type:class</td></tr></table>
                             </div>
                         </div>
                     </div>
@@ -68,13 +68,6 @@
             <!-- About section one-->
             <section class="py-5 bg-light" id="scroll-target">
                 <div class="container px-5 my-5">
-                    <div class="row gx-5 align-items-center">
-                        <div class="col-lg-6">{{breadcrumb}}</div>
-                        <div class="col-lg-6">
-                            <h2 class="fw-bolder">Our founding</h2>
-                            <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>

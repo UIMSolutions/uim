@@ -56,10 +56,10 @@
                 <div class="container px-5">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-xxl-6">
-                            <div class="text-center my-5">
+                            <div class="text-left my-5">
                                 <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/index.html">API</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/index.html">uim</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/http/index.html">http</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/http/classes/index.html">classes</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/http/classes/clients/index.html">clients</a></li><li class="breadcrumb-item active" aria-current="page">request</li></ol></nav>
-                                <h1 class="fw-bolder mb-3">{{title}}</h1>
-                                {{content}}
+                                <h1 class="fw-bolder mb-3">Class DRequest</h1>
+                                <table><tr><td>filepath:C:\Users\ONS\PROJECTS2023\uim\http\uim\http\classes\clients\request.d</td></tr><tr><td>parents:[]</td></tr><tr><td>namespace:uim.http.classes.clients.request</td></tr><tr><td>name:DRequest</td></tr><tr><td>content:["    mixin TRequest;","    this(","        /* IUri| */string requestUrl = \"\",","        string httpMethod = METHOD_GET,","        Json[string] httpHeaders = null,","        string[] requestBodyData = null","   ) {","        setMethod(httpMethod);","        _uri = createUri(requestUrl);","        addHeaders(httpHeaders.merge([","            \"Connection\": \"close\",","            \"User-Agent\": ini_get(\"user_agent\") ?: \"UIM\",","        ]));","        if (requestBodyData.isNull) {","            _stream = new DStream(\"d://memory\", \"rw\");","        } else {","            setContent(requestBodyData);","        }","    }","    // Add an array of headers to the request.","    protected void addHeaders(string[string] headersToAdd) {","        headersToAdd.byKeyValue","            .each!(kv => addHeader(kv.key, kv.value));","    }","    protected void addHeader(string key, string value) {","        string normalized = key.lower;","        this.headers[key] = value;","        this.headerNames[normalized] = key;","    }","    /**","     * Set the body/payload for the message.","     *","     * Array data will be serialized with {@link \\UIM\\Http\\FormData},","     * and the content-type will be set.","     */","    protected void setContent(string[] requestBody) {","        if (content.isArray) {","            formData = new DFormData();","            formData.addMany(requestBody);","            /** @Dstan-var array<non-empty-string, non-empty-string>  aHeaders *","            /","             aHeaders = [\"Content-Type\": formData.contentType()];","            this.addHeaders(aHeaders);","            auto myFormData = (string)formData; */","        }","        stream = new DStream(\"d://memory\", \"rw\");","        stream.write(myFormData);","        _stream = stream;","    }"]</td></tr><tr><td>methods:[{"isProperty":false,"parameters":[],"datatype":"if","name":"","isAbstract":false,"isInherited":false,"header":"if (requestBodyData.isNull)","isStatic":false},{"isProperty":false,"parameters":["string[string] headersToAdd"],"datatype":"protected","name":"void addHeaders","isAbstract":false,"isInherited":false,"header":"protected void addHeaders(string[string] headersToAdd)","isStatic":false},{"isProperty":false,"parameters":["string key","string value"],"datatype":"protected","name":"void addHeader","isAbstract":false,"isInherited":false,"header":"protected void addHeader(string key, string value)","isStatic":false},{"isProperty":false,"parameters":["string[] requestBody"],"datatype":"protected","name":"void setContent","isAbstract":false,"isInherited":false,"header":"protected void setContent(string[] requestBody)","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"if","name":"","isAbstract":false,"isInherited":false,"header":"if (content.isArray)","isStatic":false}]</td></tr><tr><td>type:class</td></tr></table>
                             </div>
                         </div>
                     </div>
@@ -68,13 +68,6 @@
             <!-- About section one-->
             <section class="py-5 bg-light" id="scroll-target">
                 <div class="container px-5 my-5">
-                    <div class="row gx-5 align-items-center">
-                        <div class="col-lg-6">{{breadcrumb}}</div>
-                        <div class="col-lg-6">
-                            <h2 class="fw-bolder">Our founding</h2>
-                            <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>

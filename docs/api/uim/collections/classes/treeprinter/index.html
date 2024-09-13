@@ -56,10 +56,10 @@
                 <div class="container px-5">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-xxl-6">
-                            <div class="text-center my-5">
+                            <div class="text-left my-5">
                                 <nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/index.html">API</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/index.html">uim</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/collections/index.html">collections</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/api/uim/collections/classes/index.html">classes</a></li><li class="breadcrumb-item active" aria-current="page">treeprinter</li></ol></nav>
-                                <h1 class="fw-bolder mb-3">{{title}}</h1>
-                                {{content}}
+                                <h1 class="fw-bolder mb-3">Class DTreePrinter</h1>
+                                <table><tr><td>filepath:C:\Users\ONS\PROJECTS2023\uim\collections\uim\collections\classes\treeprinter.d</td></tr><tr><td>parents:[]</td></tr><tr><td>namespace:uim.collections.classes.treeprinter</td></tr><tr><td>name:DTreePrinter</td></tr><tr><td>content:["  mixin TCollection;","  // Cached value for the current iteration element","  protected Json _current = null;","  // The string to use for prefixing the values according to their depth in the tree.","  protected string _spacer;","  // A callable to generate the iteration key","  protected callable _key;","  // A callable to extract the display value","  protected callable _value;","  /**","     * Params:","     * \\RecursiveIterator<mixed, mixed>  someItems The iterator to flatten.","     * /","  this(","    IRecursiveIterator someItems,","    string pathToValue,","    string pathToKey,","    string prefixSpacer,","    int iteratorMode = RecursiveIteratorIterator.SELF_FIRST"," ) {","    super.__construct(someItems, iteratorMode);","    _value = _propertyExtractor(pathToValue);","    _key = _propertyExtractor(pathToKey);","    _spacer = spacer;","  } */","  // Returns the current iteration key","  string key() {","    return null;","    /* Json[string] myextractor = _key;","    return myExtractor(_fetchCurrent(), super.key(), this); */","  }","  // Returns the current iteration value","  Json currentValue() {","    return Json(null);","    /* Json[string] myextractor = _value;","    auto myCurrent = _fetchCurrent();","    auto prefixSpacer = str_repeat(_spacer, getDepth());","    return prefixSpacer ~ myExtractor(myCurrent, super.key(), this); */","  }","  // Advances the cursor one position","  void next() {","    // super.next();","    _current = null;","  }","  // Returns the current iteration element and caches its value","  protected Json _fetchCurrent() {","      return _current;","    }","    return _current = super.currentValue(); */","    return Json(null);","  }"]</td></tr><tr><td>methods:[{"isProperty":false,"parameters":[],"datatype":"string","name":"key","isAbstract":false,"isInherited":false,"header":"string key()","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"Json","name":"currentValue","isAbstract":false,"isInherited":false,"header":"Json currentValue()","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"void","name":"next","isAbstract":false,"isInherited":false,"header":"void next()","isStatic":false},{"isProperty":false,"parameters":[],"datatype":"protected","name":"Json _fetchCurrent","isAbstract":false,"isInherited":false,"header":"protected Json _fetchCurrent()","isStatic":false}]</td></tr><tr><td>type:class</td></tr></table>
                             </div>
                         </div>
                     </div>
@@ -68,13 +68,6 @@
             <!-- About section one-->
             <section class="py-5 bg-light" id="scroll-target">
                 <div class="container px-5 my-5">
-                    <div class="row gx-5 align-items-center">
-                        <div class="col-lg-6">{{breadcrumb}}</div>
-                        <div class="col-lg-6">
-                            <h2 class="fw-bolder">Our founding</h2>
-                            <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>

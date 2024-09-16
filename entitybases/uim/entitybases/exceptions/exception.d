@@ -3,25 +3,4 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.entitybases.exceptions.exception;    if (!super.initialize(initData)) {
-      return false;
-    }
-
-import uim.entitybases;
-
-@safe:
-
-// Datasource exception.
-class DEntitybasesException : DException {
-  mixin(ExceptionThis!("Entitybases"));
-
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) { return false; }
-
-    this
-      .messageTemplate("Error in libary uim-entitybases");
-
-    return true;
-  }
-}
-mixin(ExceptionCalls!("Entitybases"));
+module uim.entitybases.exceptions.exception;    if (!super.initialize(initData)) {      return false;    }import uim.entitybases;@safe:// Datasource exception.class DEntitybasesException : DException {  mixin(ExceptionThis!("Entitybases"));  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) { return false; }    this      .messageTemplate("Error in libary uim-entitybases");    return true;  }}mixin(ExceptionCalls!("Entitybases"));

@@ -3,46 +3,4 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.models.classes.attributes.lookups.integers.integer;    if (!super.initialize(initData)) {
-      return false;
-    }
-
-import uim.models;
-
-@safe:
-class DIntegerIntegerAttribute : DLookupAttribute {
-  mixin(AttributeThis!("IntegerInteger"));
-
-  mixin(TProperty!("int[int]", "lookups"));  
-  void addLookup(int key, string newValue) {
-    _lookups[key] = to!int(newValue);
-  }
-
-  // Initialization hook method.
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) { return false; }
-    // means.measurement.lookup
-
-    name("lookup");
-    dataFormats(["lookup", "integer", "string"]);
-    registerPath("lookup");
-
-    return true;
-  }
-
-  bool hasLookupKey(int key) {
-    return (key in _lookups ? true : false); 
-  }
-  bool hasLookupData(int LookupData) {
-    return _lookups.byKeyValue.any!(kv => kv.value == LookupData); 
-  }  
-
-  /* override Json createData() {
-    return LookupData!(int, int)(this).isNullable(isNullable); }  */
-}
-mixin(AttributeCalls!("IntegerInteger"));
-
-version(test_uim_models) { unittest {  
-    // TODO tests
-  }
-}
+module uim.models.classes.attributes.lookups.integers.integer;    if (!super.initialize(initData)) {      return false;    }import uim.models;@safe:class DIntegerIntegerAttribute : DLookupAttribute {  mixin(AttributeThis!("IntegerInteger"));  mixin(TProperty!("int[int]", "lookups"));    void addLookup(int key, string newValue) {    _lookups[key] = to!int(newValue);  }  // Initialization hook method.  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) { return false; }    // means.measurement.lookup    name("lookup");    dataFormats(["lookup", "integer", "string"]);    registerPath("lookup");    return true;  }  bool hasLookupKey(int key) {    return (key in _lookups ? true : false);   }  bool hasLookupData(int LookupData) {    return _lookups.byKeyValue.any!(kv => kv.value == LookupData);   }    /* override Json createData() {    return LookupData!(int, int)(this).isNullable(isNullable); }  */}mixin(AttributeCalls!("IntegerInteger"));version(test_uim_models) { unittest {      // TODO tests  }}

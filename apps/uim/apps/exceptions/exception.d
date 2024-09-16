@@ -3,25 +3,4 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.apps.exceptions.exception;
-
-import uim.apps;
-
-@safe:
-
-// App exception.
-class DAppException : DException {
-  mixin(ExceptionThis!("App"));
-
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    this
-      .messageTemplate("Error in libary uim-apps");
-
-    return true;
-  }
-}
-mixin(ExceptionCalls!("App"));
+module uim.apps.exceptions.exception;import uim.apps;@safe:// App exception.class DAppException : DException {  mixin(ExceptionThis!("App"));  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    this      .messageTemplate("Error in libary uim-apps");    return true;  }}mixin(ExceptionCalls!("App"));unittest {  assert(AppException);}

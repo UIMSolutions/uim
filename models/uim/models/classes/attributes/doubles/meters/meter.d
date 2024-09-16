@@ -36,5 +36,5 @@ class DMeterAttribute : DDoubleAttribute {
 mixin(AttributeCalls!("Meter"));
 
 unittest {
-  // TODO
+  assert(MeterAttribute);
 }

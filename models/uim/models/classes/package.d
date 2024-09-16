@@ -1,17 +1,6 @@
-module uim.models.classes;
-
-public { // Packages
-  import uim.models.classes.attributes;
-  import uim.models.classes.data;
-  import uim.models.classes.elements;
-  import uim.models.classes.entities;
-  import uim.models.classes.errors;
-  import uim.models.classes.exceptions;
-  import uim.models.classes.usecases;
-  import uim.models.classes.data;
-}
-
-public { // Modules
-  import uim.models.classes.models;
-/*  import uim.models.classes.container; */
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.models.classes;public { // Packages  import uim.models.classes.attributes;  import uim.models.classes.data;  import uim.models.classes.elements;  import uim.models.classes.entities;  import uim.models.classes.errors;  import uim.models.classes.exceptions;  import uim.models.classes.usecases;  import uim.models.classes.data;}public { // Modules  import uim.models.classes.models;/*  import uim.models.classes.container; */}

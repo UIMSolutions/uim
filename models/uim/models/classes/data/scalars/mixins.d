@@ -1,47 +1,6 @@
-module uim.models.classes.data.scalars.mixins;
-
-import uim.models; 
- 
- string scalarOpCall(string[] datatypes) {
-    return `
-override void opCall(IData checkValue) {
-  set(checkValue);
-}
-
-override void opCall(Json checkValue) {
-  set(checkValue);
-}
-
-override void opCall(string checkValue) {
-  set(checkValue);
-}`
-        ~ datatypes.map!(datatype => `
-void opCall(%s checkValue) { set(checkValue); }`.format(datatype))
-        .join();
-}
-
-template ScalarOpCall(string[] datatypes) {
-    const char[] ScalarOpCall = scalarOpCall(datatypes);
-}
-
-string scalarOpEquals(string[] datatypes) {
-    return `
-override bool opEquals(IData checkValue) {
-  return isEqual(checkValue);
-}
-
-override bool opEquals(Json checkValue) {
-  return isEqual(checkValue);
-}
-
-override bool opEquals(string checkValue) {
-  return isEqual(checkValue);
-}`
-        ~ datatypes.map!(datatype => `
-bool opEquals(%s checkValue) { return isEqual(checkValue); }`.format(datatype))
-        .join();
-}
-
-template ScalarOpEquals(string[] datatypes) {
-    const char[] ScalarOpEquals = scalarOpEquals(datatypes);
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.models.classes.data.scalars.mixins;import uim.models;   string scalarOpCall(string[] datatypes) {    return `override void opCall(IData checkValue) {  set(checkValue);}override void opCall(Json checkValue) {  set(checkValue);}override void opCall(string checkValue) {  set(checkValue);}`        ~ datatypes.map!(datatype => `void opCall(%s checkValue) { set(checkValue); }`.format(datatype))        .join();}template ScalarOpCall(string[] datatypes) {    const char[] ScalarOpCall = scalarOpCall(datatypes);}string scalarOpEquals(string[] datatypes) {    return `override bool opEquals(IData checkValue) {  return isEqual(checkValue);}override bool opEquals(Json checkValue) {  return isEqual(checkValue);}override bool opEquals(string checkValue) {  return isEqual(checkValue);}`        ~ datatypes.map!(datatype => `bool opEquals(%s checkValue) { return isEqual(checkValue); }`.format(datatype))        .join();}template ScalarOpEquals(string[] datatypes) {    const char[] ScalarOpEquals = scalarOpEquals(datatypes);}

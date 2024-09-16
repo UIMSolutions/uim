@@ -1,7 +1,6 @@
-module uim.jsonbases.classes.bases;
-
-public {
-  import uim.jsonbases.classes.bases.base;
-  import uim.jsonbases.classes.bases.file;
-  import uim.jsonbases.classes.bases.memory;
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.jsonbases.classes.bases;public {  import uim.jsonbases.classes.bases.base;  import uim.jsonbases.classes.bases.file;  import uim.jsonbases.classes.bases.memory;}

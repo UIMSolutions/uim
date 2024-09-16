@@ -1,6 +1,6 @@
-module uim.caches.classes.caches;
-
-public { // caches packages
-  import uim.caches.classes.caches.cache;
-  import uim.caches.classes.caches.registry;
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.caches.classes.caches;public { // caches packages  import uim.caches.classes.caches.cache;  import uim.caches.classes.caches.registry;}

@@ -1,22 +1,6 @@
-module uim.models.tests.data;
-
-import uim.models;
-@safe:
-
-bool testDataSetGet(Json testData) {
-    /* assert(testData !is null, "testDataSetGet: testdata is null");
-    
-    testData.set("0");
-    assert(testData.toString == "1", "testDataSetGet: testdata 'set string - get string' not work");
-
-    testData.set(Json(0));
-    assert(testData.toString == "1", "testDataSetGet: testdata 'set json - get string' not work");
-
-    testData.set(Json(0));
-    assert(testData.toJson == Json(0), "testDataSetGet: testdata 'set json - get json' not work");
-
-    testData.set("0");
-    assert(testData.toJson == Json(0), "testDataSetGet: testdata 'set string - get json' not work"); */
-
-    return true;
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.models.tests.data;import uim.models;@safe:bool testDataSetGet(Json testData) {    /* assert(testData !is null, "testDataSetGet: testdata is null");        testData.set("0");    assert(testData.toString == "1", "testDataSetGet: testdata 'set string - get string' not work");    testData.set(Json(0));    assert(testData.toString == "1", "testDataSetGet: testdata 'set json - get string' not work");    testData.set(Json(0));    assert(testData.toJson == Json(0), "testDataSetGet: testdata 'set json - get json' not work");    testData.set("0");    assert(testData.toJson == Json(0), "testDataSetGet: testdata 'set string - get json' not work"); */    return true;}

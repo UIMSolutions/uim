@@ -1,41 +1,6 @@
-/*********************************************************************************************************
-	Copyright: © 2015-2024 Ozan Nurettin Süel (UIManufaktur)                                        
-	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-	Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
-**********************************************************************************************************/
-module uim.models.classes.attributes.arrays.bytes.image;
-
-/* any <- byte <- image <- image
-Traits
-is.dataFormat.byte
-is.dataFormat.array
-means.content.image.image */
-
-import uim.models;
-
-@safe:
-class DImageAttribute : DBinaryAttribute {
-  mixin(AttributeThis!("Image"));
-
-  // Initialization hook method.
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    /* 
-means.content.binary.image */
-    addDataFormats(["array"]);
-    name("image");
-    registerPath("image");
-
-    return true;
-  }
-}
-
-mixin(AttributeCalls!("Image"));
-
-unittest {
-  assert(testAttribute(new DImageAttribute));
-  assert(testAttribute(ImageAttribute));
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.models.classes.attributes.arrays.bytes.image;/* any <- byte <- image <- imageTraitsis.dataFormat.byteis.dataFormat.arraymeans.content.image.image */import uim.models;@safe:class DImageAttribute : DBinaryAttribute {  mixin(AttributeThis!("Image"));  // Initialization hook method.  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    /* means.content.binary.image */    addDataFormats(["array"]);    name("image");    registerPath("image");    return true;  }}mixin(AttributeCalls!("Image"));unittest {  assert(testAttribute(new DImageAttribute));  assert(testAttribute(ImageAttribute));}

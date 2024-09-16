@@ -1,41 +1,6 @@
-/*********************************************************************************************************
-  Copyright: © 2015-2024 Ozan Nurettin Süel (UIManufaktur)                                        
-  License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-  Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
-**********************************************************************************************************/
-module uim.models.classes.attributes.integers.hour;
-
-/* Unit of measure for time in 3600 second interval
-
-means.measurement.dimension.time
-means.measurement.duration.hours
-has.measurement.fundamentalComponent.second */
-
-import uim.models;
-
-@safe:
-class DHourAttribute : DIntegerAttribute {
-  mixin(AttributeThis!("Hour"));
-
-  // Initialization hook method.
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    name("hour");
-    registerPath("hour");
-
-    return true;
-
-  }
-}
-
-mixin(AttributeCalls!("Hour"));
-
-version (test_uim_models) {
-  unittest {
-    testAttribute(new DHourAttribute);
-    testAttribute(HourAttribute);
-  }
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.models.classes.attributes.integers.hour;/* Unit of measure for time in 3600 second intervalmeans.measurement.dimension.timemeans.measurement.duration.hourshas.measurement.fundamentalComponent.second */import uim.models;@safe:class DHourAttribute : DIntegerAttribute {  mixin(AttributeThis!("Hour"));  // Initialization hook method.  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    name("hour");    registerPath("hour");    return true;  }}mixin(AttributeCalls!("Hour"));version (test_uim_models) {  unittest {    testAttribute(new DHourAttribute);    testAttribute(HourAttribute);  }}

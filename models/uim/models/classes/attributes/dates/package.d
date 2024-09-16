@@ -1,11 +1,6 @@
-/***********************************************************************************************
-*	Copyright: © 2017-2022 UI Manufaktur UG / 2022 Ozan Nuretin Süel (Sicherheitsschmiede)
-*	License: Subject to the terms of the MIT license, as written in the included LICENSE.txt file.
-*	Authors: UI Manufaktur Team
-************************************************************************************************/
-module uim.models.classes.attributes.dates;
-
-// main
-public { 
-	import uim.models.classes.attributes.dates.date_;
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.models.classes.attributes.dates;// mainpublic {   import uim.models.classes.attributes.dates.date_;}

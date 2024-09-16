@@ -1,10 +1,6 @@
-﻿/***********************************************************************************
-*	Copyright: © 2015-2024 Ozan Nurettin Süel (sicherheitsschmiede)                   *
-*	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
-*	Author   : Ozan Nurettin Süel (UIManufaktur)										           * 
-***********************************************************************************/
-module uim.oop.containers.maps;
-
-public {
-  import uim.oop.containers.maps.map;
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.oop.containers.maps;public {  import uim.oop.containers.maps.map;}

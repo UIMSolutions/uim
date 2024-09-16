@@ -1,19 +1,6 @@
-module uim.collections.classes.iterators;
-
-public {
-    import uim.collections.classes.iterators.array;
-    import uim.collections.classes.iterators.buffered;
-    import uim.collections.classes.iterators.extract;
-    import uim.collections.classes.iterators.filter;
-    import uim.collections.classes.iterators.insert;
-    import uim.collections.classes.iterators.mapreduce;
-    import uim.collections.classes.iterators.nest;
-    import uim.collections.classes.iterators.nochildren;
-    import uim.collections.classes.iterators.replace;
-    import uim.collections.classes.iterators.sort;
-    import uim.collections.classes.iterators.stoppable;
-    import uim.collections.classes.iterators.tree;
-    import uim.collections.classes.iterators.unfold;
-    import uim.collections.classes.iterators.unique;
-    import uim.collections.classes.iterators.zip;
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.collections.classes.iterators;public {    import uim.collections.classes.iterators.array;    import uim.collections.classes.iterators.buffered;    import uim.collections.classes.iterators.extract;    import uim.collections.classes.iterators.filter;    import uim.collections.classes.iterators.insert;    import uim.collections.classes.iterators.mapreduce;    import uim.collections.classes.iterators.nest;    import uim.collections.classes.iterators.nochildren;    import uim.collections.classes.iterators.replace;    import uim.collections.classes.iterators.sort;    import uim.collections.classes.iterators.stoppable;    import uim.collections.classes.iterators.tree;    import uim.collections.classes.iterators.unfold;    import uim.collections.classes.iterators.unique;    import uim.collections.classes.iterators.zip;}

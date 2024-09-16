@@ -1,4 +1,11 @@
-module uim.views.exceptions.missingcell;
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.views.exceptions.missingcell;    if (!super.initialize(initData)) {
+      return false;
+    }
 
 import uim.views;
 
@@ -6,15 +13,15 @@ import uim.views;
 
 // Used when a cell class file cannot be found.
 class DMissingCellException : DViewException {
-	mixin(ExceptionThis!("MissingCell"));
+  mixin(ExceptionThis!("MissingCell"));
 
     override bool initialize(Json[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		this
-			.messageTemplate("Cell class %s is missing.");
+    if (!super.initialize(initData)) { return false; }
+    
+    this
+      .messageTemplate("Cell class %s is missing.");
 
-		return true;
-	}
+    return true;
+  }
 }
 mixin(ExceptionCalls!("MissingCell"));

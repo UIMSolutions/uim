@@ -1,14 +1,6 @@
-module uim.i18n.classes.formatters.print;
-
-import uim.i18n;
-
-@safe:
-
-// A formatter that will interpolate variables and select the correct plural form when required
-class DPrintFormatter : DI18NFormatter {
-    // Returns a string with all passed variables interpolated into the original message. 
-    string formatString(string messageLocale, string messageToTranslate, string[] tokenValues) {
-        // TODO return messageToTranslate.formatString(tokenValues);
-        return null; 
-    } 
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.i18n.classes.formatters.print;import uim.i18n;@safe:// A formatter that will interpolate variables and select the correct plural form when requiredclass DPrintFormatter : DI18NFormatter {    // Returns a string with all passed variables interpolated into the original message.     string formatString(string messageLocale, string messageToTranslate, string[] tokenValues) {        // TODO return messageToTranslate.formatString(tokenValues);        return null;     } }

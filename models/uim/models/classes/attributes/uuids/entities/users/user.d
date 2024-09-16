@@ -1,53 +1,6 @@
-/*********************************************************************************************************
-  Copyright: © 2015-2024 Ozan Nurettin Süel (UIManufaktur)                                        
-  License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-  Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
-**********************************************************************************************************/
-module uim.models.classes.attributes.uuids.entities.users.user;
-
-/* The identifier of a system user
-
-Inheritance
-any <- char <- string <- guid <- entityId <- userId
-Traits
-is.dataFormat.character
-is.dataFormat.big
-is.dataFormat.array
-is.dataFormat.guid
-means.identity.entityId
-means.userId */
-
-import uim.models;
-
-@safe:
-class DUserIdAttribute : DEntityIdAttribute {
-  mixin(AttributeThis!("UserId"));
-
-  // Initialization hook method.
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    registerPath("attributes.userid");
-
-    return true;
-  }
-}
-
-mixin(AttributeCalls!("UserId"));
-
-///
-unittest {
-  auto attribute = new DUserIdAttribute;
-  assert(attribute.name == "UserIdAttribute");
-  assert(attribute.registerPath == "attributes.userid");
-
-  DAttribute generalAttribute = attribute;
-  assert(cast(DEntityIdAttribute) generalAttribute);
-  assert(cast(DUUIDAttribute) generalAttribute);
-  assert(!cast(DIntegerAttribute) generalAttribute);
-
-  // Json value = attribute.createValue();
-  // assert(cast(DUUIDData)value);
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.models.classes.attributes.uuids.entities.users.user;/* The identifier of a system userInheritanceany <- char <- string <- guid <- entityId <- userIdTraitsis.dataFormat.characteris.dataFormat.bigis.dataFormat.arrayis.dataFormat.guidmeans.identity.entityIdmeans.userId */import uim.models;@safe:class DUserIdAttribute : DEntityIdAttribute {  mixin(AttributeThis!("UserId"));  // Initialization hook method.  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    registerPath("attributes.userid");    return true;  }}mixin(AttributeCalls!("UserId"));///unittest {  auto attribute = new DUserIdAttribute;  assert(attribute.name == "UserIdAttribute");  assert(attribute.registerPath == "attributes.userid");  DAttribute generalAttribute = attribute;  assert(cast(DEntityIdAttribute) generalAttribute);  assert(cast(DUUIDAttribute) generalAttribute);  assert(!cast(DIntegerAttribute) generalAttribute);  // Json value = attribute.createValue();  // assert(cast(DUUIDData)value);}

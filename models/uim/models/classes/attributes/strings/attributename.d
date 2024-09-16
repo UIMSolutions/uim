@@ -1,58 +1,6 @@
-/*********************************************************************************************************
-  Copyright: © 2015-2024 Ozan Nurettin Süel (UIManufaktur)                                        
-  License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-  Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
-**********************************************************************************************************/
-module uim.models.classes.attributes.strings.attributename;
-
-// Type for mixin template parameters that take attribute names as values
-
-import uim.models;
-
-@safe:
-class DAttributeNameAttribute : DStringAttribute {
-  mixin(AttributeThis!("AttributeName"));
-
-  /*
-attributeName
-Description
-
-Type for mixin template parameters that take attribute names as values
-
-Inheritance
-any <- char <- string <- attributeName
-Traits
-is.dataFormat.character
-is.dataFormat.big
-is.dataFormat.array
-means.attributeName
-
-  */
-
-  // Initialization hook method.
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    registerPath("attributes.attributename");
-
-    return true;
-  }
-}
-
-mixin(AttributeCalls!("AttributeName"));
-
-///
-unittest {
-  auto attribute = new DAttributeNameAttribute;
-  assert(attribute.name == "AttributeNameAttribute");
-  assert(attribute.registerPath == "attributes.attributename");
-
-  IAttribute generalAttribute = attribute;
-  assert(cast(DStringAttribute) generalAttribute);
-  assert(!cast(DIntegerAttribute) generalAttribute);
-
-  // Json value = attribute.createValue();
-  // assert(cast(DStringData) value);
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.models.classes.attributes.strings.attributename;// Type for mixin template parameters that take attribute names as valuesimport uim.models;@safe:class DAttributeNameAttribute : DStringAttribute {  mixin(AttributeThis!("AttributeName"));  /*attributeNameDescriptionType for mixin template parameters that take attribute names as valuesInheritanceany <- char <- string <- attributeNameTraitsis.dataFormat.characteris.dataFormat.bigis.dataFormat.arraymeans.attributeName  */  // Initialization hook method.  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    registerPath("attributes.attributename");    return true;  }}mixin(AttributeCalls!("AttributeName"));///unittest {  auto attribute = new DAttributeNameAttribute;  assert(attribute.name == "AttributeNameAttribute");  assert(attribute.registerPath == "attributes.attributename");  IAttribute generalAttribute = attribute;  assert(cast(DStringAttribute) generalAttribute);  assert(!cast(DIntegerAttribute) generalAttribute);  // Json value = attribute.createValue();  // assert(cast(DStringData) value);}

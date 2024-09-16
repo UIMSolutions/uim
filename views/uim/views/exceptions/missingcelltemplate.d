@@ -1,4 +1,11 @@
-module uim.views.exceptions.missingcelltemplate;
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.views.exceptions.missingcelltemplate;    if (!super.initialize(initData)) {
+      return false;
+    }
 
 import uim.views;
 
@@ -10,12 +17,12 @@ class DMissingTCellException : DMissingTemplateException {
     
     alias initialize = DException.initialize;
     override bool initialize(Json[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
+    if (!super.initialize(initData)) { return false; }
+    
         templateType("Cell template");
 
-		return true;
-	}
+    return true;
+  }
 
     mixin(TProperty!("string", "viewName"));
 

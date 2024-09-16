@@ -1,80 +1,6 @@
-module uim.collections.classes.iterators.insert;
-
-import uim.collections;
-
-@safe:
-
-/* * This iterator will insert values into a property of each of the records returned.
- * The values to be inserted come out of another traversal object. This is useful
- * when you have two separate collections and want to merge them together by placing
- * each of the values from one collection into a property inside the other collection.
- */
-class DInsertIterator : D_Collection {
-  // Holds whether the values collection is still valid. (has more records)
-  protected bool _validValues = true;
-
-  // An array containing each of the properties to be traversed to reach the point where the values should be inserted.
-  protected string[] _path;
-
-  // The property name to which values will be assigned
-  protected string _target;
-
-  // The collection from which to extract the values to be inserted
-  protected I_Collection _values;
-
-  /**
-     * Constructs a new D_Collection that will dynamically add properties to it out of
-     * the values found in  sourceValues.
-     */
-  this(Json[string] targetValues, string propertyPath, Json[string] sourceValues) {
-    super(targetValues);
-
-    /* if (!(cast(D_Collection) sourceValues)) {
-       sourceValues = new D_Collection(sourceValues);
-    }
-    string[] pathParts = propertyPath.split(".");
-    auto mytarget = pathParts.pop();
-   _path = propertyPath;
-   _target = target;
-   _values = sourceValues; */
-  }
-
-  // Advances the cursor to the next record
-  void next() {
-    /*    super.next();
-    if (_validValues) {
-     _values.next();
-    }
-   _validValues = _values.valid(); */
-  }
-
-  /**
-     * Returns the current element in the target collection after inserting
-     * the value from the source collection into the specified path.
-    */
-  Json currentValue() {
-    // auto myRow = super.currentValue();
-
-    /*    if (!_validValues) {
-      return myRow;
-    }
-    auto aPointer = & myRow;
-    _path.each!((step) {
-      if (!aPointer.hasKey(aStep))) {
-        return myRow;
-      }
-      aPointer = &aPointer[aStep];
-    })
-    aPointer.set(_target, _values.currentValue()); */
-
-    // TODO return myRow;
-    return Json(null);
-  }
-
-  // Resets the collection pointer.
-  void rewind() {
-    /*    super.rewind();
-   _values.rewind();
-   _validValues = _values.valid(); */
-  }
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.collections.classes.iterators.insert;import uim.collections;@safe:/* * This iterator will insert values into a property of each of the records returned. * The values to be inserted come out of another traversal object. This is useful * when you have two separate collections and want to merge them together by placing * each of the values from one collection into a property inside the other collection. */class DInsertIterator : D_Collection {  // Holds whether the values collection is still valid. (has more records)  protected bool _validValues = true;  // An array containing each of the properties to be traversed to reach the point where the values should be inserted.  protected string[] _path;  // The property name to which values will be assigned  protected string _target;  // The collection from which to extract the values to be inserted  protected I_Collection _values;  /**     * Constructs a new D_Collection that will dynamically add properties to it out of     * the values found in  sourceValues.     */  this(Json[string] targetValues, string propertyPath, Json[string] sourceValues) {    super(targetValues);    /* if (!(cast(D_Collection) sourceValues)) {       sourceValues = new D_Collection(sourceValues);    }    string[] pathParts = propertyPath.split(".");    auto mytarget = pathParts.pop();   _path = propertyPath;   _target = target;   _values = sourceValues; */  }  // Advances the cursor to the next record  void next() {    /*    super.next();    if (_validValues) {     _values.next();    }   _validValues = _values.valid(); */  }  /**     * Returns the current element in the target collection after inserting     * the value from the source collection into the specified path.    */  Json currentValue() {    // auto myRow = super.currentValue();    /*    if (!_validValues) {      return myRow;    }    auto aPointer = & myRow;    _path.each!((step) {      if (!aPointer.hasKey(aStep))) {        return myRow;      }      aPointer = &aPointer[aStep];    })    aPointer.set(_target, _values.currentValue()); */    // TODO return myRow;    return Json(null);  }  // Resets the collection pointer.  void rewind() {    /*    super.rewind();   _values.rewind();   _validValues = _values.valid(); */  }}

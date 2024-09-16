@@ -1,37 +1,6 @@
-/*********************************************************************************************************
-  Copyright: © 2015-2024 Ozan Nurettin Süel (UIManufaktur)                                        
-  License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-  Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
-**********************************************************************************************************/
-module uim.models.classes.attributes.integers.age;
-
-import uim.models;
-
-@safe:
-class DAgeAttribute : DIntegerAttribute {
-  mixin(AttributeThis!("Age"));
-
-  // Initialization hook method.
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    //means.demographic.age
-    //means.measurement.age
-    registerPath("attributes.age");
-
-    return true;
-  }
-}
-
-mixin(AttributeCalls!"Age");
-
-  unittest {
-auto attribute = new DAgeAttribute;
-  assert(attribute.name == "AgeAttribute");
-  assert(attribute.registerPath == "attributes.age");
-
-    testAttribute(new DAgeAttribute);
-    testAttribute(AgeAttribute);
-  }
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.models.classes.attributes.integers.age;import uim.models;@safe:class DAgeAttribute : DIntegerAttribute {  mixin(AttributeThis!("Age"));  // Initialization hook method.  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    //means.demographic.age    //means.measurement.age    registerPath("attributes.age");    return true;  }}mixin(AttributeCalls!"Age");  unittest {auto attribute = new DAgeAttribute;  assert(attribute.name == "AgeAttribute");  assert(attribute.registerPath == "attributes.age");    testAttribute(new DAgeAttribute);    testAttribute(AgeAttribute);  }

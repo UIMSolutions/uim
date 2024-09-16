@@ -1,53 +1,6 @@
-/*********************************************************************************************************
-  Copyright: © 2015-2024 Ozan Nurettin Süel (UIManufaktur)                                        
-  License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-  Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
-**********************************************************************************************************/
-module uim.models.classes.attributes.lookups.integers.string_;
-
-import uim.models;
-
-@safe:
-class DIntegerStringAttribute : DLookupAttribute {
-  mixin(AttributeThis!("IntegerString"));
-
-  mixin(TProperty!("string[int]", "lookups"));
-  void addLookup(int key, string value) {
-    _lookups[key] = value;
-
-  }
-
-  // Initialization hook method.
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-    // means.measurement.lookup
-
-    name("lookup");
-    dataFormats(["lookup", "integer", "string"]);
-    registerPath("lookup");
-
-    return true;
-  }
-
-  bool hasLookupKey(int key) {
-    return (key in _lookups ? true : false);
-  }
-
-  bool hasLookupData(string LookupData) {
-    return _lookups.values
-      .any!(value => value == LookupData);
-  }
-
-  /* override Json createData() {
-    return LookupData!(int, string)(this).isNullable(isNullable); }  */
-}
-
-mixin(AttributeCalls!("IntegerString"));
-
-version (test_uim_models) {
-  unittest {
-    // TODO tests
-  }
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.models.classes.attributes.lookups.integers.string_;import uim.models;@safe:class DIntegerStringAttribute : DLookupAttribute {  mixin(AttributeThis!("IntegerString"));  mixin(TProperty!("string[int]", "lookups"));  void addLookup(int key, string value) {    _lookups[key] = value;  }  // Initialization hook method.  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    // means.measurement.lookup    name("lookup");    dataFormats(["lookup", "integer", "string"]);    registerPath("lookup");    return true;  }  bool hasLookupKey(int key) {    return (key in _lookups ? true : false);  }  bool hasLookupData(string LookupData) {    return _lookups.values      .any!(value => value == LookupData);  }  /* override Json createData() {    return LookupData!(int, string)(this).isNullable(isNullable); }  */}mixin(AttributeCalls!("IntegerString"));version (test_uim_models) {  unittest {    // TODO tests  }}

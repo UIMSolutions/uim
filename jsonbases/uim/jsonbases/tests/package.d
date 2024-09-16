@@ -1,7 +1,6 @@
-module uim.jsonbases.tests;
-
-public {
-  import uim.jsonbases.tests.base;
-  import uim.jsonbases.tests.collection;
-  import uim.jsonbases.tests.tenant;
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.jsonbases.tests;public {  import uim.jsonbases.tests.base;  import uim.jsonbases.tests.collection;  import uim.jsonbases.tests.tenant;}

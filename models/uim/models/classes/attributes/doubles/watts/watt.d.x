@@ -26,7 +26,9 @@ class DWattAttribute : DDoubleAttribute {
 
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) { return false; }
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
     name("watt");
       registerPath("watt");

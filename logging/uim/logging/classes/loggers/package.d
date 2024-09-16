@@ -1,19 +1,6 @@
-module uim.logging.classes.loggers;
-
-public { // Main class
-    import uim.logging.classes.loggers.logger;
-}
-
-public { // Sub classes
-    import uim.logging.classes.loggers.console;
-    import uim.logging.classes.loggers.file;
-    import uim.logging.classes.loggers.memory;
-    import uim.logging.classes.loggers.syslog;
-}
-
-public { // Helper modules
-    import uim.logging.classes.loggers.collection;
-    import uim.logging.classes.loggers.enumerations;
-    import uim.logging.classes.loggers.factory;
-    import uim.logging.classes.loggers.registry;
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.logging.classes.loggers;public { // Main class    import uim.logging.classes.loggers.logger;}public { // Sub classes    import uim.logging.classes.loggers.console;    import uim.logging.classes.loggers.file;    import uim.logging.classes.loggers.memory;    import uim.logging.classes.loggers.syslog;}public { // Helper modules    import uim.logging.classes.loggers.collection;    import uim.logging.classes.loggers.enumerations;    import uim.logging.classes.loggers.factory;    import uim.logging.classes.loggers.registry;}

@@ -1,4 +1,11 @@
-module uim.commands.classes.commands.schemacaches.build;
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.commands.classes.commands.schemacaches.build;    if (!super.initialize(initData)) {
+      return false;
+    }
 
 import uim.commands;
 
@@ -8,11 +15,11 @@ import uim.commands;
 class DSchemacacheBuildCommand : DCommand {
    mixin(CommandThis!("SchemacacheBuild"));
 
-  	override bool initialize(Json[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) { return false; }
+    
+    return true;
+  }
 
     // Get the command name.
     static string defaultName() {

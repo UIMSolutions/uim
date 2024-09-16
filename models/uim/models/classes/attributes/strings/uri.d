@@ -1,43 +1,6 @@
-module uim.models.classes.attributes.strings.uri;
-
-/* any <- char <- string <- uri
-Traits
-is.dataFormat.character
-is.dataFormat.big
-is.dataFormat.array
-means.reference.URI */
-
-import uim.models;
-
-@safe:
-class DUriAttribute : DStringAttribute {
-  mixin(AttributeThis!("Uri"));
-
-  // Initialization hook method.
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    registerPath("attributes.uri");
-
-    return true;
-  }
-}
-
-mixin(AttributeCalls!("Uri"));
-
-///
-unittest {
-  auto attribute = new DUriAttribute;
-  assert(attribute.name == "UriAttribute");
-  assert(attribute.registerPath == "attributes.uri");
-
-  DAttribute generalAttribute = attribute;
-  assert(cast(DUriAttribute) generalAttribute);
-  assert(cast(DStringAttribute) generalAttribute);
-  assert(!cast(DIntegerAttribute) generalAttribute);
-
-  // Json value = attribute.createValue();
-  // assert(cast(DStringData) value);
-}
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.models.classes.attributes.strings.uri;/* any <- char <- string <- uriTraitsis.dataFormat.characteris.dataFormat.bigis.dataFormat.arraymeans.reference.URI */import uim.models;@safe:class DUriAttribute : DStringAttribute {  mixin(AttributeThis!("Uri"));  // Initialization hook method.  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    registerPath("attributes.uri");    return true;  }}mixin(AttributeCalls!("Uri"));///unittest {  auto attribute = new DUriAttribute;  assert(attribute.name == "UriAttribute");  assert(attribute.registerPath == "attributes.uri");  DAttribute generalAttribute = attribute;  assert(cast(DUriAttribute) generalAttribute);  assert(cast(DStringAttribute) generalAttribute);  assert(!cast(DIntegerAttribute) generalAttribute);  // Json value = attribute.createValue();  // assert(cast(DStringData) value);}

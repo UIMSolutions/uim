@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content />
+        <meta name="author" content />
+        <title>Package IModel { - uim framework</title>
+        <link rel="icon" type="image/x-icon"
+            href="https://uimsolutions.github.io/uim/assets/favicon.ico" />
+        <link href="https://uimsolutions.github.io/uim/css/tabler.min.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="page">
+            <header class="navbar navbar-expand-md d-print-none">
+    <div class="container-xl">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbar-menu" aria-controls="navbar-menu"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+            class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+            <a href=".">UIM FRAMEWORK
+            </a>
+        </div>
+        <div class="navbar-nav flex-row order-md-last">
+            <div class="nav-item d-none d-md-flex me-3">
+                <div class="btn-list">
+                    <a href="https://github.com/UIMSolutions/uim" class="btn"
+                        target="_blank" rel="noreferrer">
+                        Source code
+                    </a>
+                    <a href="https://www.patreon.com/sicherheitsschmiede/posts"
+                        class="btn"
+                        target="_blank" rel="noreferrer">
+                        Sponsor
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<header class="navbar-expand-md">
+    <div class="collapse navbar-collapse" id="navbar-menu">
+        <div class="navbar">
+            <div class="container-xl">
+                <div class="row flex-fill align-items-center">
+                    <div class="col">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="./">
+                                    Home
+                                </a>
+                            </li>
+                            <li class="nav-item active dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                    href="#navbar-base"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside" role="button"
+                                    aria-expanded="false">
+                                    Interface
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-menu-columns">
+                                        <div class="dropdown-menu-column">
+                                            <a class="dropdown-item"
+                                                href="./alerts.html">
+                                                Alerts
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./accordion.html">
+                                                Accordion
+                                            </a>
+                                            <div class="dropend">
+                                                <a
+                                                    class="dropdown-item dropdown-toggle"
+                                                    href="#sidebar-authentication"
+                                                    data-bs-toggle="dropdown"
+                                                    data-bs-auto-close="outside"
+                                                    role="button"
+                                                    aria-expanded="false">
+                                                    Authentication
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a href="./sign-in.html"
+                                                        class="dropdown-item">
+                                                        Sign in
+                                                    </a>
+                                                    <a
+                                                        href="./sign-in-link.html"
+                                                        class="dropdown-item">
+                                                        Sign in link
+                                                    </a>
+                                                    <a
+                                                        href="./sign-in-illustration.html"
+                                                        class="dropdown-item">
+                                                        Sign in with
+                                                        illustration
+                                                    </a>
+                                                    <a
+                                                        href="./sign-in-cover.html"
+                                                        class="dropdown-item">
+                                                        Sign in with cover
+                                                    </a>
+                                                    <a href="./sign-up.html"
+                                                        class="dropdown-item">
+                                                        Sign up
+                                                    </a>
+                                                    <a
+                                                        href="./forgot-password.html"
+                                                        class="dropdown-item">
+                                                        Forgot password
+                                                    </a>
+                                                    <a
+                                                        href="./terms-of-service.html"
+                                                        class="dropdown-item">
+                                                        Terms of service
+                                                    </a>
+                                                    <a
+                                                        href="./auth-lock.html"
+                                                        class="dropdown-item">
+                                                        Lock screen
+                                                    </a>
+                                                    <a
+                                                        href="./2-step-verification.html"
+                                                        class="dropdown-item">
+                                                        2 step verification
+                                                    </a>
+                                                    <a
+                                                        href="./2-step-verification-code.html"
+                                                        class="dropdown-item">
+                                                        2 step verification
+                                                        code
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <a class="dropdown-item"
+                                                href="./blank.html">
+                                                Blank page
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./badges.html">
+                                                Badges
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./buttons.html">
+                                                Buttons
+                                            </a>
+                                            <div class="dropend">
+                                                <a
+                                                    class="dropdown-item dropdown-toggle"
+                                                    href="#sidebar-cards"
+                                                    data-bs-toggle="dropdown"
+                                                    data-bs-auto-close="outside"
+                                                    role="button"
+                                                    aria-expanded="false">
+                                                    Cards
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a href="./cards.html"
+                                                        class="dropdown-item">
+                                                        Sample cards
+                                                    </a>
+                                                    <a
+                                                        href="./card-actions.html"
+                                                        class="dropdown-item">
+                                                        Card actions
+                                                    </a>
+                                                    <a
+                                                        href="./cards-masonry.html"
+                                                        class="dropdown-item">
+                                                        Cards Masonry
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <a class="dropdown-item"
+                                                href="./carousel.html">
+                                                Carousel
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./charts.html">
+                                                Charts
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./colors.html">
+                                                Colors
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./colorpicker.html">
+                                                Color picker
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./datagrid.html">
+                                                Data grid
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./datatables.html">
+                                                Datatables
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./dropdowns.html">
+                                                Dropdowns
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./dropzone.html">
+                                                Dropzone
+                                            </a>
+                                            <div class="dropend">
+                                                <a
+                                                    class="dropdown-item dropdown-toggle"
+                                                    href="#sidebar-error"
+                                                    data-bs-toggle="dropdown"
+                                                    data-bs-auto-close="outside"
+                                                    role="button"
+                                                    aria-expanded="false">
+                                                    Error pages
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a
+                                                        href="./error-404.html"
+                                                        class="dropdown-item">
+                                                        404 page
+                                                    </a>
+                                                    <a
+                                                        href="./error-500.html"
+                                                        class="dropdown-item">
+                                                        500 page
+                                                    </a>
+                                                    <a
+                                                        href="./error-maintenance.html"
+                                                        class="dropdown-item">
+                                                        Maintenance page
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <a class="dropdown-item"
+                                                href="./flags.html">
+                                                Flags
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./inline-player.html">
+                                                Inline player
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./lightbox.html">
+                                                Lightbox
+                                            </a>
+                                        </div>
+                                        <div class="dropdown-menu-column">
+                                            <a class="dropdown-item"
+                                                href="./lists.html">
+                                                Lists
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./modals.html">
+                                                Modal
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./maps.html">
+                                                Map
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./map-fullsize.html">
+                                                Map fullsize
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./maps-vector.html">
+                                                Map vector
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./markdown.html">
+                                                Markdown
+                                            </a>
+                                            <a class="dropdown-item active"
+                                                href="./navigation.html">
+                                                Navigation
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./offcanvas.html">
+                                                Offcanvas
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./pagination.html">
+                                                Pagination
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./placeholder.html">
+                                                Placeholder
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./steps.html">
+                                                Steps
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./stars-rating.html">
+                                                Stars rating
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./tabs.html">
+                                                Tabs
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./tags.html">
+                                                Tags
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./tables.html">
+                                                Tables
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./toasts.html">
+                                                Toasts
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./typography.html">
+                                                Typography
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./tinymce.html">
+                                                TinyMCE
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="./form-elements.html">Form
+                                    elements</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                    href="#navbar-extra"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside"
+                                    role="button"
+                                    aria-expanded="false">
+                                    Extra
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-menu-columns">
+                                        <div class="dropdown-menu-column">
+                                            <a class="dropdown-item"
+                                                href="./empty.html">
+                                                Empty page
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./cookie-banner.html">
+                                                Cookie banner
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./chat.html">
+                                                Chat
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./activity.html">
+                                                Activity
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./gallery.html">
+                                                Gallery
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./invoice.html">
+                                                Invoice
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./search-results.html">
+                                                Search results
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./pricing.html">
+                                                Pricing cards
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./pricing-table.html">
+                                                Pricing table
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./faq.html">
+                                                FAQ
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./users.html">
+                                                Users
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./license.html">
+                                                License
+                                            </a>
+                                        </div>
+                                        <div class="dropdown-menu-column">
+                                            <a class="dropdown-item"
+                                                href="./logs.html">
+                                                Logs
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./music.html">
+                                                Music
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./photogrid.html">
+                                                Photogrid
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./tasks.html">
+                                                Tasks
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./uptime.html">
+                                                Uptime monitor
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./widgets.html">
+                                                Widgets
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./wizard.html">
+                                                Wizard
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./settings.html">
+                                                Settings
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./trial-ended.html">
+                                                Trial ended
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./job-listing.html">
+                                                Job listing
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./page-loader.html">
+                                                Page loader
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                    href="#navbar-layout"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside"
+                                    role="button"
+                                    aria-expanded="false">
+                                    Layout
+                                </a>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-menu-columns">
+                                        <div class="dropdown-menu-column">
+                                            <a class="dropdown-item"
+                                                href="./layout-horizontal.html">
+                                                Horizontal
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./layout-boxed.html">
+                                                Boxed
+                                                <span
+                                                    class="badge badge-sm bg-green-lt text-uppercase ms-auto">New</span>
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./layout-vertical.html">
+                                                Vertical
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./layout-vertical-transparent.html">
+                                                Vertical transparent
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./layout-vertical-right.html">
+                                                Right vertical
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./layout-condensed.html">
+                                                Condensed
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./layout-combo.html">
+                                                Combined
+                                            </a>
+                                        </div>
+                                        <div class="dropdown-menu-column">
+                                            <a class="dropdown-item"
+                                                href="./layout-navbar-dark.html">
+                                                Navbar dark
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./layout-navbar-sticky.html">
+                                                Navbar sticky
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./layout-navbar-overlap.html">
+                                                Navbar overlap
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./layout-rtl.html">
+                                                RTL mode
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./layout-fluid.html">
+                                                Fluid
+                                            </a>
+                                            <a class="dropdown-item"
+                                                href="./layout-fluid-vertical.html">
+                                                Fluid vertical
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./icons.html">
+                                    5628 icons
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./emails.html">
+                                    Emails
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="./illustrations.html">
+                                    Illustrations
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle"
+                                    href="#navbar-help"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="outside"
+                                    role="button"
+                                    aria-expanded="false">
+                                    Help
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item"
+                                        href="https://tabler.io/docs"
+                                        target="_blank" rel="noopener">
+                                        Documentation
+                                    </a>
+                                    <a class="dropdown-item"
+                                        href="./changelog.html">
+                                        Changelog
+                                    </a>
+                                    <a class="dropdown-item"
+                                        href="https://github.com/tabler/tabler"
+                                        target="_blank" rel="noopener">
+                                        Source code
+                                    </a>
+                                    <a class="dropdown-item text-pink"
+                                        href="https://github.com/sponsors/codecalm"
+                                        target="_blank" rel="noopener">
+                                        Sponsor project!
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+            <div class="page-wrapper">
+                <div class="page-header">
+                    <div class="row align-items-center mw-100">
+                        <div class="col">
+                            <div class="container-xl">
+                                <div class="page-pretitle">
+                                    Package <a
+                                        href="https://uimsolutions.github.io/uim/api/packages//index.html"></a>
+                                </div>
+                                <h2 class="page-title">
+                                    Package IModel {
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mw-100">
+                        <div class="col">
+                            <div class="container-xl">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            Description
+
+                                        </h3>
+                                        <p
+                                            class="text-secondary">{{description}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mw-100">
+                        <div class="col">
+                            <div class="container-xl">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            Specification
+                                        </h3>
+                                        <p
+                                            class="text-secondary">{{specification}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mw-100">
+                        <div class="col">
+                            <div class="container-xl">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            Methods
+                                        </h3>
+                                        <p
+                                            class="text-secondary">{{methods}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-body">
+                    <div class="container-xl">
+                        <!-- Content here -->
+                    </div>
+                </div>
+                <footer class="footer footer-transparent d-print-none">
+    <div class="container-xl">
+        <div
+            class="row text-center align-items-center flex-row-reverse">
+            <div class="col-lg-auto ms-lg-auto">
+                <ul class="list-inline list-inline-dots mb-0">
+                    <li class="list-inline-item"><a
+                            href="https://tabler.io/docs"
+                            target="_blank"
+                            class="link-secondary"
+                            rel="noopener">Documentation</a></li>
+                    <li class="list-inline-item"><a
+                            href="./license.html"
+                            class="link-secondary">License</a></li>
+                    <li class="list-inline-item"><a
+                            href="https://github.com/tabler/tabler"
+                            target="_blank"
+                            class="link-secondary"
+                            rel="noopener">Source code</a></li>
+                    <li class="list-inline-item">
+                        <a
+                            href="https://github.com/sponsors/codecalm"
+                            target="_blank"
+                            class="link-secondary"
+                            rel="noopener">
+                            <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24"
+                                viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon text-pink icon-filled icon-inline"><path
+                                    stroke="none"
+                                    d="M0 0h24v24H0z"
+                                    fill="none"></path><path
+                                    d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path></svg>
+                            Sponsor
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12 col-lg-auto mt-3 mt-lg-0">
+                <ul class="list-inline list-inline-dots mb-0">
+                    <li class="list-inline-item">
+                        Copyright © 2017 - 2024 <a href="." class="link-secondary">UIM framework</a>. All rights reserved.
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="./changelog.html" class="link-secondary" rel="noopener">v24.09.01</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+            </div>
+        </div>
+        <script src="https://uimsolutions.github.io/uim/js/tabler.min.js"></script>
+    </body>
+</html>

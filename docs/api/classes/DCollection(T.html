@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this() {</td></tr><tr><td>    this(Json[string] initData) {</td></tr><tr><td>    this(string newName, Json[string] initData = null) {</td></tr><tr><td>        this(initData).name(newName);</td></tr><tr><td>    override bool initialize(Json[string] initData = null) {</td></tr><tr><td>    size_t length() {</td></tr><tr><td>    string[][] paths() {</td></tr><tr><td>    bool hasAllPaths(string[][] paths) {</td></tr><tr><td>    bool hasAnyPaths(string[][] paths) {</td></tr><tr><td>    bool hasPath(string[] path) {</td></tr><tr><td>        return hasKey(path.join(_pathSeparator));</td></tr><tr><td>    string[] keys() {</td></tr><tr><td>    bool hasAllKeys(string[] keys...) {</td></tr><tr><td>        return hasAllKeys(keys.dup);</td></tr><tr><td>    bool hasAllKeys(string[] keys) {</td></tr><tr><td>    bool hasAnyKeys(string[] keys...) {</td></tr><tr><td>        return hasAnyKeys(keys.dup);</td></tr><tr><td>    bool hasAnyKeys(string[] keys) {</td></tr><tr><td>    bool hasKey(string key) {</td></tr><tr><td>    string correctKey(string[] path) {</td></tr><tr><td>        return correctKey(path.join(_pathSeparator));</td></tr><tr><td>    string correctKey(string key) {</td></tr><tr><td>        T[] items() {</td></tr><tr><td>        bool hasAnyItems(T[] items) {</td></tr><tr><td>        bool hasAllItems(T[] items) {</td></tr><tr><td>        bool hasItem(T item) {</td></tr><tr><td>            foreach (obj; _items.values) {</td></tr><tr><td>        T get(string[] path) {</td></tr><tr><td>            return get(path.join(_pathSeparator));</td></tr><tr><td>        T opIndex(string key) {</td></tr><tr><td>            return get(key);</td></tr><tr><td>        T get(string key) {</td></tr><tr><td>        O set(this o)(T[string] newItems) {</td></tr><tr><td>            return cast(O) this;</td></tr><tr><td>        O set(this o)(string[] path, T newItem) {</td></tr><tr><td>            set(path.join(_pathSeparator), newItem);</td></tr><tr><td>            return cast(O) this;</td></tr><tr><td>        void opIndexAssign(string key, T newItem) {</td></tr><tr><td>            set(key, newItem);</td></tr><tr><td>        O set(this O)(string key, T newItem) {</td></tr><tr><td>            return cast(O) this;</td></tr><tr><td>        bool removePaths(string[][] paths) {</td></tr><tr><td>        bool removePath(string[] path) {</td></tr><tr><td>            return removeKey(correctKey(path));</td></tr><tr><td>        bool removeKeys(string[] keys...) {</td></tr><tr><td>            return removeKeys(keys.dup);</td></tr><tr><td>        bool removeKeys(string[] keys) {</td></tr><tr><td>        bool removeKey(string key) {</td></tr><tr><td>            return removeKey(correctKey(key));</td></tr><tr><td>        void clear() {</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

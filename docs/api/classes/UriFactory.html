@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    IUri createUri(string uriToParse = null) {</td></tr><tr><td>    static Json[string] marshalUriAndBaseFromSapi(Json[string] serverData = null) {</td></tr><tr><td>        auto azto aHeaders = marshalHeadersFromSapi(serverData);</td></tr><tr><td>        auto anUri = DiactorosUriFactory.createFromSapi(serverData, aHeaders);</td></tr><tr><td>            ? anUri.withPath(somePathInfo) : updatePath(base, anUri);</td></tr><tr><td>protected static IUri updatePath(string basePath, IUri uriToUpdate) {</td></tr><tr><td>    auto uriPath = uriToUpdate.getPath();</td></tr><tr><td>        uriPath = anUri.getQuery();</td></tr><tr><td>    return anUri.withPath(uriPath);</td></tr><tr><td>protected static Json[string] getBase(IUri uri, Json[string] serverData) {</td></tr><tr><td>        return createMap!(string, Json)</td></tr><tr><td>            base = dirname(base);</td></tr><tr><td>    string baseDir = dirname(baseUrl);</td></tr><tr><td>        (!baseDir.isEmpty || !docRoot.has(webroot))</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

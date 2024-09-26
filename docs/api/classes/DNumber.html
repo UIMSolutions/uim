@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this() {</td></tr><tr><td>    bool initialize(Json[string] initData = null) {</td></tr><tr><td>        configuration(MemoryConfiguration);</td></tr><tr><td>        configuration.data(initData);</td></tr><tr><td>    // Format type to format as currency, accounting style (negative numbers in parentheses)</td></tr><tr><td>    // Default currency used by Number.currency()</td></tr><tr><td>    // Default currency format used by Number.currency()</td></tr><tr><td>    static string precision(Json value, int numberPrecision = 3, Json[string] formattingOptions = null) {</td></tr><tr><td>    static string toReadableSize(string size) {</td></tr><tr><td>        return toReadableSize(to!int(size));</td></tr><tr><td>    static string toReadableSize(float size) {</td></tr><tr><td>        return toReadableSize(to!int(size));</td></tr><tr><td>    static string toReadableSize(int size) {</td></tr><tr><td>    static string toPercentage(Json value, int precision = 2, Json[string] options = null) {</td></tr><tr><td>        // return precision(doubleValue, precision, options);</td></tr><tr><td>    static string format(Json floatNumber, Json[string] options = null) {</td></tr><tr><td>        auto formatter = formatter(options);</td></tr><tr><td>    static float parseFloat(string value, Json[string] options = null) {</td></tr><tr><td>        auto parseFormatter = formatter(options);</td></tr><tr><td>     * Formats a number into the correct locale format to show deltas (signed differences in value).</td></tr><tr><td>    static string formatDelta(Json value, Json[string] options = null) {</td></tr><tr><td>    static string currency(Json value, string currencyName = null, Json[string] options = null) {</td></tr><tr><td>        currencyName = currencyName ? currencyName : getDefaultCurrency();</td></tr><tr><td>        auto abs = abs(doubleValue);</td></tr><tr><td>    static string getDefaultCurrency() {</td></tr><tr><td>     * string currencyFormat Default currency format to be used by currency()</td></tr><tr><td>        auto type = cast(string)NumberFormatters.DECIMAL;</td></tr><tr><td>                type = cast(string) NumberFormatters.CURRENCY;</td></tr><tr><td>                type = cast(string) NumberFormatters.CURRENCY_ACCOUNTING;</td></tr><tr><td>                str(formatter.getPattern()</td></tr><tr><td>     * Returns a formatted integer as an ordinal number string (e.g. 1st, 2nd, 3rd, 4th, [...])</td></tr><tr><td>     * For all other options see formatter().</td></tr><tr><td>    static string ordinal(float value, Json[string] options = null) {</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

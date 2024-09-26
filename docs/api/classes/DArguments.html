@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>  this(string[size_t] newArguments, Json[string] newOptions,  string[size_t] newNames) {</td></tr><tr><td>    size_t indexOfName(string name) {</td></tr><tr><td>      foreach(k,v; _names) {</td></tr><tr><td>    string argumentAt(size_t index) {</td></tr><tr><td>    string[size_t] arguments() {</td></tr><tr><td>    bool hasArgumentAt(size_t index) {</td></tr><tr><td>      return _arguments.hasKey(index);</td></tr><tr><td>    bool hasArgument(string name) {</td></tr><tr><td>      size_t index = indexOfName(name);</td></tr><tr><td>        : arguments.hasKey(index);</td></tr><tr><td>    string argument(string name) {</td></tr><tr><td>      size_t index = indexOfName(name);</td></tr><tr><td>      return index < 0 || !_arguments.hasKey(index)</td></tr><tr><td>    Json[string] options() {</td></tr><tr><td>    Json option(string name) {</td></tr><tr><td>      return _options.getJson(name);</td></tr><tr><td>    bool hasOption(string name) {</td></tr><tr><td>      return _options.hasKey(name);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

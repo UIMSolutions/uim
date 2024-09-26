@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this() {</td></tr><tr><td>    this(Json[string] initData) {</td></tr><tr><td>        initialize(initData);</td></tr><tr><td>    this(IContainer container) {</td></tr><tr><td>    bool initialize(Json[string] initData = null) {</td></tr><tr><td>        configuration(MemoryConfiguration);</td></tr><tr><td>        configuration.data(initData);</td></tr><tr><td>    IController create(IServerRequest serverRequest) {</td></tr><tr><td>        auto classname = getControllerClass(request);</td></tr><tr><td>            throw missingController(request);</td></tr><tr><td>            throw this.missingController(request);</td></tr><tr><td>        return this.container.has(classname)</td></tr><tr><td>            ? this.container.get(classname)</td></tr><tr><td>    IResponse invoke(IController controller) {</td></tr><tr><td>         auto middlewares = controller.getMiddleware();</td></tr><tr><td>            return runner.run(middlewareQueue, controller.getRequest(), this);</td></tr><tr><td>    IResponse handle(IServerRequest serverRequest) {</td></tr><tr><td>        controller.setRequest(request);</td></tr><tr><td>        auto result = controller.startupProcess();</td></tr><tr><td>        auto action = controller.getAction();</td></tr><tr><td>        controller.invokeAction(action, someArguments);</td></tr><tr><td>        result = controller.shutdownProcess();</td></tr><tr><td>    protected Json[string] getActionArgs(IClosure action, Json[string] passedParams) {</td></tr><tr><td>        foreach (parameter; function.getParameters()) {</td></tr><tr><td>            type = parameter.getType();</td></tr><tr><td>                    typedArgument = this.coerceStringToType(argument, type);</td></tr><tr><td>            default: Json(null),</td></tr><tr><td>    string getControllerClass(IServerRequest serverRequest) {</td></tr><tr><td>        firstChar = subString(controller, 0, 1);</td></tr><tr><td>            throw this.missingController(request);</td></tr><tr><td>    //protected IMissingControllerException missingController(ServerRequest serverRequest) {</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

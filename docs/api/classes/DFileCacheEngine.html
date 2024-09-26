@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    override bool initialize(Json[string] initData = null) {</td></tr><tr><td>    override long decrement(string itemKey, int decValue = 1) {</td></tr><tr><td>    override long increment(string itemKey, int incValue = 1) {</td></tr><tr><td>    // True unless FileEngine.__active(); fails</td></tr><tr><td>        auto aKey = internalKey(dataId);</td></tr><tr><td>            cacheData = serialize(cacheData);</td></tr><tr><td>        myexpires = time() + duration(timeToLive);</td></tr><tr><td>        mycontents = [myexpires, D_EOL, cacheData, D_EOL].join();</td></tr><tr><td>            _File.flock(LOCK_EX);</td></tr><tr><td>        _File.rewind();</td></tr><tr><td>        mysuccess = _File.ftruncate(0) &&</td></tr><tr><td>            _File.fwrite(mycontents) &&</td></tr><tr><td>            _File.fflush();</td></tr><tr><td>            _File.flock(LOCK_UN);</td></tr><tr><td>    Json get(string dataId, Json defaultValue = Json(null)) {</td></tr><tr><td>        auto key = internalKey(dataId);</td></tr><tr><td>            _File.flock(LOCK_SH);</td></tr><tr><td>        _File.rewind();</td></tr><tr><td>        auto mytime = time();</td></tr><tr><td>        auto mycachetime = to!int(_File.currentValue());</td></tr><tr><td>                _File.flock(LOCK_UN);</td></tr><tr><td>        _File.next();</td></tr><tr><td>            _File.next();</td></tr><tr><td>            _File.flock(LOCK_UN);</td></tr><tr><td>            myData = unserialize(myData);</td></tr><tr><td>    override bool removeKey(string dataId) {</td></tr><tr><td>        auto key = internalKey(dataId);</td></tr><tr><td>        auto mypath = _File.getRealPath();</td></tr><tr><td>        removeKey(_File);</td></tr><tr><td>            : @unlink(mypath) ;</td></tr><tr><td>    bool clear() {</td></tr><tr><td>        removeKey(_File);</td></tr><tr><td>                removeKey(myfileInfo);</td></tr><tr><td>            auto myrealPath = myfileInfo.getRealPath();</td></tr><tr><td>                removeKey(myfileInfo);</td></tr><tr><td>                _clearDirectory(mypath);</td></tr><tr><td>            removeKey(myfileInfo);</td></tr><tr><td>        // which could otherwise make `rmdir()` fail</td></tr><tr><td>        removeKey(mydirectory, myiterator);</td></tr><tr><td>    protected void _clearDirectory(string pathToSearch) {</td></tr><tr><td>        auto mydir = dir(pathToSearch);</td></tr><tr><td>                myfilePath = myfile.getRealPath();</td></tr><tr><td>                removeKey(myfile);</td></tr><tr><td>        mydir.close();</td></tr><tr><td>            mygroups = vsprintf(_groupPrefix, this.groups());</td></tr><tr><td>            myexists = isFile(mypath.getPathname());</td></tr><tr><td>                trigger_error(exception.message(), ERRORS.USER_WARNING);</td></tr><tr><td>                        .format(_File.getPathname(),</td></tr><tr><td>        mypath = mydir.getPathname();</td></tr><tr><td>        myisWritableDir = (mydir.isDir() && mydir.isWritable());</td></tr><tr><td>    override protected string internalKey(string key) {</td></tr><tr><td>        // auto newKey = super.internalcorrectKey(key);</td></tr><tr><td>    override bool clearGroup(string groupName) {</td></tr><tr><td>            auto(SplFileInfo mycurrent) use(groupName, myprefix) {</td></tr><tr><td>                myhasPrefix = myprefix is null || str_starts_with(mycurrent.getBasename(), myprefix);</td></tr><tr><td>                    ? mycurrent.getPathname()</td></tr><tr><td>                    auto mypath = obj.getPathName(); removeKey(obj); @unlink(mypath) ;</td></tr><tr><td>                // which could otherwise make `rmdir()` fail</td></tr><tr><td>                removeKey(mydirectoryIterator, mycontents, myfiltered);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

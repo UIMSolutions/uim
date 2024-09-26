@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>        this() {</td></tr><tr><td>    bool initialize(Json[string] initData = null) {</td></tr><tr><td>     * The format to use when formatting a time using `UIM\I18n\Date.i18nFormat()`</td></tr><tr><td>     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern</td></tr><tr><td>     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)</td></tr><tr><td>     * The format should be either the formatting constants from IntlDateFormatter as described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern</td></tr><tr><td>     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)</td></tr><tr><td>     * The format to use when formatting a time using `UIM\I18n\Date.timeAgoInWords()`</td></tr><tr><td>     * The format to use when formatting a time using `UIM\I18n\Date.nice()`</td></tr><tr><td>     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern</td></tr><tr><td>     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)</td></tr><tr><td>     * The format to use when formatting a time using `Date.timeAgoInWords()`</td></tr><tr><td>     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern</td></tr><tr><td>     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)</td></tr><tr><td>        setToStringFormat(to!string(format));</td></tr><tr><td>     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern</td></tr><tr><td>     * as specified in (http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details)</td></tr><tr><td>        return parseDate(dateToParse, to!string(format));</td></tr><tr><td>    static auto parseDate(string dateToParse, string format = null) {</td></tr><tr><td>        return _parseDateTime(dateToParse, checkedFormat);</td></tr><tr><td>     * date.i18nFormat(); // outputs '4/20/14' for the en-US locale</td></tr><tr><td>     * date.i18nFormat(\IntlDateFormatters.FULL); // Use the full date format</td></tr><tr><td>     * You can control the default format used through `Date.setToStringFormat()`.</td></tr><tr><td>     * You can control the default locale used through `Date.setDefaultLocale()`.</td></tr><tr><td>        return i18nFormat(to!string(format), localeName);</td></tr><tr><td>        localname = localeName.isEmpty ? DateTime.getDefaultLocale() : localeName;</td></tr><tr><td>        return _formatObject(this.native, format, localeName);</td></tr><tr><td>     * string localname The localname name in which the date should be displayed (e.g. pt-BR)</td></tr><tr><td>        return to!string(i18nFormat(niceFormat, localeName));</td></tr><tr><td>        return diffFormatter().dateAgoInWords(this, options);</td></tr><tr><td>    string JsonSerialize() {</td></tr><tr><td>            return call_user_func(_jsonEncodeFormat, this);</td></tr><tr><td>        return _i18nFormat(_jsonEncodeFormat);</td></tr><tr><td>        return to!string(i18nFormat());</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

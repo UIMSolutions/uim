@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>  this(double newValue) {</td></tr><tr><td>    this().set(newValue);</td></tr><tr><td>  this(double newValue, Json[string] initData = null) {</td></tr><tr><td>    this(initData).set(newValue);</td></tr><tr><td>  override bool initialize(Json[string] initData = null) {</td></tr><tr><td>    isNumber(true);</td></tr><tr><td>    set(0.0);</td></tr><tr><td>    @property void value(double newValue) {</td></tr><tr><td>    @property double value() {</td></tr><tr><td>    override bool getBoolean() {</td></tr><tr><td>    override long getLong() {</td></tr><tr><td>      return to!long(value);</td></tr><tr><td>    override double getDouble() {</td></tr><tr><td>      return to!double(value);</td></tr><tr><td>    override string getString() {</td></tr><tr><td>      return to!string(value);</td></tr><tr><td>  void add(IData opValue) {</td></tr><tr><td>    add(opValue.getDouble);</td></tr><tr><td>  void add(double opValue) {</td></tr><tr><td>    set(getDouble + opValue);</td></tr><tr><td>  void sub(IData opValue) {</td></tr><tr><td>    sub(opValue.getDouble);</td></tr><tr><td>  void sub(double opValue) {</td></tr><tr><td>    set(getDouble - opValue);</td></tr><tr><td>  void mul(IData opValue) {</td></tr><tr><td>    mul(opValue.getDouble);</td></tr><tr><td>  void mul(double opValue) {</td></tr><tr><td>    set(getDouble * opValue);</td></tr><tr><td>  void div(IData opValue) {</td></tr><tr><td>    div(opValue.getDouble);</td></tr><tr><td>  void div(double opValue) {</td></tr><tr><td>    set(getDouble / opValue);</td></tr><tr><td>  DIntegerData opBinary(string op)(double opValue) {</td></tr><tr><td>    auto result = IntegerData(_value);</td></tr><tr><td>      add(opValue);</td></tr><tr><td>      sub(opValue);</td></tr><tr><td>      mul(opValue);</td></tr><tr><td>      div(opValue);</td></tr><tr><td>  DIntegerData opBinary(string op)(DIntegerData opValue) {</td></tr><tr><td>    result.set(get);</td></tr><tr><td>      add(opValue);</td></tr><tr><td>      sub(opValue);</td></tr><tr><td>      mul(opValue);</td></tr><tr><td>      div(opValue);</td></tr><tr><td>  override IData clone() {</td></tr><tr><td>    return NumberData(getDouble);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

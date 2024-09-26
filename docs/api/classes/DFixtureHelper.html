@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    IFixture[] loadFixtures(string[] fixtureNames) {</td></tr><tr><td>                string name = somePath.pop();</td></tr><tr><td>                switch(type) {</td></tr><tr><td>     * auto callback(IConnection aConnection, Json[string] fixtures)</td></tr><tr><td>    void runPerConnection(DClosure aCallback, IFixture[] fixtures) {</td></tr><tr><td>        runPerConnection(void (IConnection aConnection, Json[string] anGroupFixtures) {</td></tr><tr><td>                sortedFixtures = this.sortByConstraint(aConnection,  anGroupFixtures);</td></tr><tr><td>                    this.insertConnection(aConnection, sortedFixtures);</td></tr><tr><td>                        fn (Connection aConnection): this.insertConnection(aConnection,  anGroupFixtures)</td></tr><tr><td>                this.insertConnection(aConnection,  anGroupFixtures);</td></tr><tr><td>                fixture.insert(fixtureConnection);</td></tr><tr><td>                        .format(fixture.sourceName(), exception.message());</td></tr><tr><td>    void truncate(IFixture[] testFixtures) {</td></tr><tr><td>        this.runPerConnection(void (IConnection aConnection, Json[string] anGroupFixtures) {</td></tr><tr><td>                    sortedFixtures = this.sortByConstraint(aConnection,  anGroupFixtures);</td></tr><tr><td>                    this.truncateConnection(aConnection, array_reverse(sortedFixtures));</td></tr><tr><td>                        fn (Connection aConnection): this.truncateConnection(aConnection,  anGroupFixtures)</td></tr><tr><td>                this.truncateConnection(aConnection,  anGroupFixtures);</td></tr><tr><td>                fixture.truncate(fixtureConnection);</td></tr><tr><td>                    .format(fixture.sourceName(),exception.message());</td></tr><tr><td>        fixtures.each((fixture) {</td></tr><tr><td>            references = getForeignReferences(aConnection, fixture);</td></tr><tr><td>    protected string[] getForeignReferences(Connection dbConnection, IFixture fixture) {</td></tr><tr><td>        auto aTableName = fixture.sourceName();</td></tr><tr><td>            schemas[aTableName] = dbConnection.getSchemaCollection().describe(aTableName);</td></tr><tr><td>        foreach (tableSchema.constraints() as constraintName) {</td></tr><tr><td>            constraint = tableSchema.getConstraint(constraintName);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

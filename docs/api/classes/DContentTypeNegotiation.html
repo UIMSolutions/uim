@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    Json[string] <string, string[]> parseAccept(IRequest request) {</td></tr><tr><td>        return _parseQualifiers(aHeader);</td></tr><tr><td>    Json[string] <string, string[]> parseAcceptLanguage(IRequest request) {</td></tr><tr><td>        return _parseQualifiers(aHeader);</td></tr><tr><td>    protected string[][string] parseQualifiers(string headerValue) {</td></tr><tr><td>        return HeaderUtility.parseAccept(headerValue);</td></tr><tr><td>    string preferredType(IRequest request, string[] supportedContenttypeChoices = null) {</td></tr><tr><td>        auto parsed = this.parseAccept(request);</td></tr><tr><td>        foreach (acceptTypes; parsed) {</td></tr><tr><td>    string[] acceptedLanguages(IRequest request) {</td></tr><tr><td>        auto raw = this.parseAcceptLanguage(request);</td></tr><tr><td>        foreach (languages; raw) {</td></tr><tr><td>            foreach (languages as &lang) {</td></tr><tr><td>            accept = chain(accept, languages);</td></tr><tr><td>    bool acceptLanguage(IRequest request, string langCode) {</td></tr><tr><td>        auto accept = acceptedLanguages(request);</td></tr><tr><td>        return isIn(langCode.lower, accept, true);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

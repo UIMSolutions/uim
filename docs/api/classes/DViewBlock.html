@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    // Should the currently captured content be discarded on ViewBlock.end()</td></tr><tr><td>     * You can end capturing blocks using View.end(). Blocks can be output</td></tr><tr><td>     * using View.get();</td></tr><tr><td>    void start(string blockName, string blockMode = DViewBlock.OVERRIDE) {</td></tr><tr><td>        // TODO ob_start();</td></tr><tr><td>    // End a capturing block. The compliment to ViewBlock.start()</td></tr><tr><td>    void end() {</td></tr><tr><td>            // TODO ob_end_clean();</td></tr><tr><td>        string blockMode; // TODO = end(_activeBlocks);</td></tr><tr><td>        string activeKey; // TOD = key(_activeBlocks);</td></tr><tr><td>        string blockContent; // TODO ob_get_clean().to!string;</td></tr><tr><td>            this.concat(activeKey, blockContent, blockMode);</td></tr><tr><td>        //TODO _activeBlocks.pop();</td></tr><tr><td>     * block that needs to be finished with View.end(). The content</td></tr><tr><td>    void concat(string blockName, string blockContent = null, string blockMode = DViewBlock.APPEND) {</td></tr><tr><td>            start(blockName, blockMode);</td></tr><tr><td>    void set(string blockName, Json blockData) {</td></tr><tr><td>       set(blockName, blockData.toString);</td></tr><tr><td>    void set(string blockName, string blockContent) {</td></tr><tr><td>        return _blocks.get(blockName, defaultContent);</td></tr><tr><td>   bool hasKey(string blockName) {</td></tr><tr><td>        return false; // TODO _blocks.hasKey(blockName);</td></tr><tr><td>    string[] keys() {</td></tr><tr><td>    string active() {</td></tr><tr><td>       //TODO  end(_activeBlocks);</td></tr><tr><td>        return null; //TODO  key(_activeBlocks);</td></tr><tr><td>    STRINGAA unclosedBlocks() {</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

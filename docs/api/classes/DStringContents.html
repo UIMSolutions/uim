@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this() {</td></tr><tr><td>        super();</td></tr><tr><td>    this(Json[string] initData) {</td></tr><tr><td>        super(initData);</td></tr><tr><td>    this(string newName,Json[string] initData = null) {</td></tr><tr><td>        super(newName, initData);</td></tr><tr><td>    override bool initialize(Json[string] initData = null) {</td></tr><tr><td>    void set(string[string] newTemplates) {</td></tr><tr><td>    void set(string key, string newTemplate) {</td></tr><tr><td>    string get(string key) {</td></tr><tr><td>    void load(string fileName) {</td></tr><tr><td>        auto mytemplates = myloader.read(fileName);</td></tr><tr><td>    bool removeKey(string name) {</td></tr><tr><td>        _templates.removeKey(name);</td></tr><tr><td>        // _compiledTemplates.remove(_compiledTemplates.indexOf(name));</td></tr><tr><td>    // Compile templates into a more efficient printf() compatible format.</td></tr><tr><td>    protected void _compileAllTemplates() {</td></tr><tr><td>        _compileTemplates(configuration.keys);</td></tr><tr><td>    protected void _compileTemplates(string[] templateNames) {</td></tr><tr><td>    protected void compileTemplate(string templateName) {</td></tr><tr><td>        string selectedTemplate = get(templateName);</td></tr><tr><td>    void push() {</td></tr><tr><td>    void pop() {</td></tr><tr><td>        // TODO [configuration, _compiledtemplates] = configurationStack.pop();</td></tr><tr><td>    string format(string key, Json[string] insertData) {</td></tr><tr><td>            Json replacement = templateVars.get(placeholder);</td></tr><tr><td>        // TODO return mytemplate.format(replaces);</td></tr><tr><td>    string formatAttributes(Json[string] options, string[] excludedKeys) {</td></tr><tr><td>        return formatAttributes(options, excludedOptions);</td></tr><tr><td>    string formatAttributes(Json[string] options, bool[string] excludedOptions = null) {</td></tr><tr><td>    protected string _formatAttribute(string key, Json attributeData, bool shouldEscape = true) {</td></tr><tr><td>        return _formatAttribute(key, value, shouldEscape);</td></tr><tr><td>    protected string _formatAttribute(string key, string value, bool shouldEscape = true) {</td></tr><tr><td>        bool isBoolAttributes = _boolAttributes.hasKey(key);</td></tr><tr><td>            key = htmlAttributeEscape(key);</td></tr><tr><td>    string[] addclassnameToList(string[] classnames, string newclassname) {</td></tr><tr><td>        return addclassnameToList(classnames, newclassnames);</td></tr><tr><td>    string[] addclassnameToList(string[] classnames, string[] newclassnames) {</td></tr><tr><td>            ? classnames : uniq(chain(classnames, newclassnames)).array;</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

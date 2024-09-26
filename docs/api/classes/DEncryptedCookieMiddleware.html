@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    IResponse process(IServerRequest serverRequest, IRequestHandler handler) {</td></tr><tr><td>            serverRequest = this.decodeCookies(serverRequest);</td></tr><tr><td>        response = handler.handle(serverRequest);</td></tr><tr><td>            response = this.encodeSetCookieHeader(response);</td></tr><tr><td>            response = this.encodeCookies(response);</td></tr><tr><td>    protected string _getCookieEncryptionKey() {</td></tr><tr><td>    protected IServerRequest decodeCookies(IServerRequest serverRequest) {</td></tr><tr><td>        auto cookies = serverRequest.getCookieParams();</td></tr><tr><td>        return serverRequest.withCookieParams(cookies);</td></tr><tr><td>    protected DResponse encodeCookies(DResponse response) {</td></tr><tr><td>        response.getCookieCollection()</td></tr><tr><td>                aValue = _encrypt(cookie.getValue(), _cipherType);</td></tr><tr><td>                response = response.withCookie(cookie.withValue(aValue));</td></tr><tr><td>    protected IResponse encodeSetCookieHeader(IResponse response) {</td></tr><tr><td>                auto value = _encrypt(cookie.getValue(), _cipherType);</td></tr><tr><td>                auto cookieWithValue = cookie.withValue(value);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this() {</td></tr><tr><td>    bool initialize(Json[string] initData = null) {</td></tr><tr><td>        configuration(MemoryConfiguration);</td></tr><tr><td>        configuration.data(initData);</td></tr><tr><td>     * Parses machine object (MO) format, independent of the machine`s endian it</td></tr><tr><td>    Json[string] parse(string filetoParsed) {</td></tr><tr><td>        auto stat = fstat(stream);</td></tr><tr><td>        magic = hexdec(subString(dechex(currentValue(magic)),  - 8));</td></tr><tr><td>        fread(stream, 4);</td></tr><tr><td>        size_t count = _readLong(stream, isBigEndian);</td></tr><tr><td>        auto offsetId = _readLong(stream, isBigEndian);</td></tr><tr><td>        auto offsetTranslated = _readLong(stream, isBigEndian);</td></tr><tr><td>        fread(stream, 8);</td></tr><tr><td>        // for (auto index = 0; index < count; index++) {</td></tr><tr><td>            fseek(stream, offsetId + index * 8);</td></tr><tr><td>            size_t length = _readLong(stream, isBigEndian);</td></tr><tr><td>            auto anOffset = _readLong(stream, isBigEndian);</td></tr><tr><td>            fseek(stream, anOffset);</td></tr><tr><td>            auto singularId = (string) fread(stream, length);</td></tr><tr><td>            fseek(stream, offsetTranslated + index * 8);</td></tr><tr><td>            length = _readLong(stream, isBigEndian);</td></tr><tr><td>            anOffset = _readLong(stream, isBigEndian);</td></tr><tr><td>            fseek(stream, anOffset);</td></tr><tr><td>            translated = (string) fread(stream, length);</td></tr><tr><td>        // fclose(stream);</td></tr><tr><td>    // TODO protected int _readLong(stream, bool isBigEndian) {</td></tr><tr><td>        result = currentValue(result);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

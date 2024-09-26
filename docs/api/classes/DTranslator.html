@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    mixin(TranslatorThis!());</td></tr><tr><td>    override bool initialize(Json[string] initData = null) {</td></tr><tr><td>        _catalog(messageCatalog);</td></tr><tr><td>    protected string[] message(string key) {</td></tr><tr><td>        string[] message = _catalog.get(key);</td></tr><tr><td>                catalog.addMessage(messageKey, message);</td></tr><tr><td>    string translate(string key, string[string] tokensValues) {</td></tr><tr><td>            message = message(PLURAL_PREFIX ~ messageKey);</td></tr><tr><td>                message = message(messageKey);</td></tr><tr><td>            message = message(messageKey);</td></tr><tr><td>                message = message(PLURAL_PREFIX ~ messageKey);</td></tr><tr><td>            message = resolveContext(messageKey, message, tokensValues);</td></tr><tr><td>        auto form = PluralRules.calculate(this.locale, to!int(count));</td></tr><tr><td>        message = message.ifNull(form, (string) end(message));</td></tr><tr><td>    protected string[] resolveContext(string messageKey, string[][string][string] messageContent, string[string] variables) {</td></tr><tr><td>        result = messageContext.get(context, null);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

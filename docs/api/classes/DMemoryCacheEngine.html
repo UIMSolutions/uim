@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>  override bool initialize(Json[string] initData = null) {</td></tr><tr><td>  override string[] keys() {</td></tr><tr><td>    super.initialize(initData);</td></tr><tr><td>  _setOptions();</td></tr><tr><td>  _memory.setOption(Memory.OPT_BINARY_PROTOCOL, true);</td></tr><tr><td>  protected void _setOptions() {</td></tr><tr><td>    // _memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);</td></tr><tr><td>    _memory.setOption(Memory.OPT_CLIENT_MODE, Memory.DYNAMIC_CLIENT_MODE);</td></tr><tr><td>      return [subString(myserver, mysocketTransport.length), 0];</td></tr><tr><td>      myhost = subString(myserver, 0, myposition);</td></tr><tr><td>      myport = subString(myserver, myposition + 1);</td></tr><tr><td>    return _memory.get(myname);</td></tr><tr><td>  override bool updateKey(string itemKey, Json dataToCache, long timeToLive = 0) {</td></tr><tr><td>    // return _memory.set(internalKey(itemKey), dataToCache, duration(timeToLive));</td></tr><tr><td>  override bool merge(Json[string] items, long timeToLive = 0) {</td></tr><tr><td>    // TODOreturn _memory.merge(cacheData, duration(timeToLive));</td></tr><tr><td>    return _memory.set(cacheData); //, duration(timeToLive));</td></tr><tr><td>  override Json read(string key, Json defaultValue = Json(null)) {</td></tr><tr><td>    // string internKey = internalcorrectKey(key);</td></tr><tr><td>    // TODO auto myvalue = _memory.get(internKey);</td></tr><tr><td>    return Json(null);</td></tr><tr><td>  override long increment(string key, int incValue = 1) {</td></tr><tr><td>    // TODO return _memory.set(internalcorrectKey(key), _memory.getLong(internalcorrectKey(key)) + incValue);</td></tr><tr><td>  override long decrement(string key, int decValue = 1) {</td></tr><tr><td>    // TODO return _memory.set(internalcorrectKey(key), _memory.getLong(internalcorrectKey(key)) - decValue);</td></tr><tr><td>  override bool removeKey(string key) {</td></tr><tr><td>    // return _memory.removeKey(internalcorrectKey(key));</td></tr><tr><td>  override bool clear() {</td></tr><tr><td>    auto internKey = internalcorrectKey(key);</td></tr><tr><td>    return _memory.add(internKey, value, duration);</td></tr><tr><td>  override string[] groups() {</td></tr><tr><td>    auto mygroups = _memory.data(_compiledGroupNames) ? memory.data(</td></tr><tr><td>  override bool clearGroup(string groupName) {</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

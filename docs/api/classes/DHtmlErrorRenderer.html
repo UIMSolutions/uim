@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    void write(string outputText) {</td></tr><tr><td>        writeln(outputText);</td></tr><tr><td>    string render(UIMError error, bool shouldDebug) {</td></tr><tr><td>        file = error.getFile();</td></tr><tr><td>        Json description = htmlAttributeEscape(error.message());</td></tr><tr><td>        Json somePath = htmlAttributeEscape(file);</td></tr><tr><td>        Json trace = htmlAttributeEscape(error.getTraceAsString());</td></tr><tr><td>        auto line = error.getLine();</td></tr><tr><td>            .format(h(capitalize(error.getLabel())), htmlAttributeEscape(error.code())</td></tr><tr><td>            excerpt = Debugger.excerpt(file, line, 1);</td></tr><tr><td>    private string renderToggle(string textToInsert, string errorId, string elementSelector) {</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

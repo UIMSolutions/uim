@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>      ? (!name.isEmpty ? absolutePath(path~name) : absolutePath(path))</td></tr><tr><td>      : absolutePath(name);</td></tr><tr><td>    version(testUimFilesystems) {</td></tr><tr><td>    return (myPath.exists ? myPath.isDir : false);</td></tr><tr><td>  override long createdOn() {</td></tr><tr><td>    return (exists ? 0 : 0); // TODO</td></tr><tr><td>  override long accessedOn() {</td></tr><tr><td>  override long modifiedOn() {</td></tr><tr><td>    return (exists ? toTimestamp(timeLastModified(absolutePath)) : 0);</td></tr><tr><td>  override ILink[] links(string[] aPath) {</td></tr><tr><td>    return (exists ? filesystem.links(aPath) : null);</td></tr><tr><td>    // #region existsFolders()</td></tr><tr><td>      override bool existsFolders(string[] aPath, string aFolderName) {</td></tr><tr><td>        version(testUimFilesystems) {</td></tr><tr><td>        return filesystem.existsFolders(chain(path, [name], aPath).array, aFolderName);</td></tr><tr><td>    // #endregion existsFolders()</td></tr><tr><td>    // #region folders()</td></tr><tr><td>      override IFolder[] folders() {</td></tr><tr><td>        version(testUimFilesystems) {</td></tr><tr><td>         return filesystem.folders(chain(path, [name]).array);</td></tr><tr><td>      override IFolder[] folders(string[] aPath, string aFolderName) {</td></tr><tr><td>        version(testUimFilesystems) {</td></tr><tr><td>       return filesystem.folders(chain(path, [name], aPath).array, aFolderName);</td></tr><tr><td>    // #endregion folders()</td></tr><tr><td>    // #region countFolders()</td></tr><tr><td>      override size_t countFolders(string[] aPath, string aFolderName) {</td></tr><tr><td>        version(testUimFilesystems) {</td></tr><tr><td>        return filesystem.countFolders(chain(path, [name], aPath).array, aFolderName);</td></tr><tr><td>    // #endregion countFolders()</td></tr><tr><td>      override IFolder createFolder(string[] aPath, string aFolderName) {</td></tr><tr><td>        version(testUimFilesystems) {</td></tr><tr><td>        auto result = filesystem.createFolder(chain(path, [name], aPath).array, aFolderName);</td></tr><tr><td>      // #region existsFolder()</td></tr><tr><td>        override bool existsFolder(string[] aPath, string aFolderName) {</td></tr><tr><td>          version(testUimFilesystems) {</td></tr><tr><td>          return filesystem.existsFolder(chain(path, [name], aPath).array, aFolderName);</td></tr><tr><td>      // #endregion existsFolder()</td></tr><tr><td>      // #region folder()</td></tr><tr><td>        override IFolder folder(string[] aPath, string aFolderName) {</td></tr><tr><td>          version(testUimFilesystems) {</td></tr><tr><td>          return filesystem.folder(chain(path, [name], aPath).array, aFolderName);</td></tr><tr><td>      // #endregion folder()</td></tr><tr><td>      override bool renameFolder(string[] aPath, string oldName, string newName) {</td></tr><tr><td>        return filesystem.renameFolder(chain(path, [name], aPath).array, oldName, newName);</td></tr><tr><td>      override bool removeFolder(string[] aPath, string aFolderName) {</td></tr><tr><td>        version(testUimFilesystems) {</td></tr><tr><td>        return filesystem.removeFolder(chain(path, [name], aPath).array, aFolderName);</td></tr><tr><td>      override IFile createFile(string[] aPath, string aFileName) {</td></tr><tr><td>        version(testUimFilesystems) {</td></tr><tr><td>        return filesystem.createFile(chain(path, [name], aPath).array, aFileName);</td></tr><tr><td>      override bool existsFile(string[] aPath, string aFileName) {</td></tr><tr><td>        version(testUimFilesystems) {</td></tr><tr><td>        return filesystem.existsFile(chain(path, [name], aPath).array, aFileName);</td></tr><tr><td>      override IFile file(string[] aPath, string aFileName) {</td></tr><tr><td>        version(testUimFilesystems) {</td></tr><tr><td>        return filesystem.file(chain(path, [name], aPath).array, aFileName);</td></tr><tr><td>      override bool renameFile(string[] aPath, string oldName, string newName) {</td></tr><tr><td>        version(testUimFilesystems) {</td></tr><tr><td>        return filesystem.renameFile(chain(path, [name], aPath).array, oldName, newName);</td></tr><tr><td>      override bool removeFile(string[] aPath, string aFileName) {</td></tr><tr><td>        return filesystem.removeFile(chain(path, [name], aPath).array, aFileName);</td></tr><tr><td>version(testUimFilesystems) {</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

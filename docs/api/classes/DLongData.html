@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>  this(int newValue) {</td></tr><tr><td>    this();</td></tr><tr><td>    set(newValue);</td></tr><tr><td>  this(long newValue, Json[string] initData = null) {</td></tr><tr><td>    this(initData).value(newValue);</td></tr><tr><td>  override bool initialize(Json[string] initData = null) {</td></tr><tr><td>    isLong(true);</td></tr><tr><td>    @property void value(long newValue) {</td></tr><tr><td>    @property long value() {</td></tr><tr><td>    override bool getBoolean() {</td></tr><tr><td>    override long getLong() {</td></tr><tr><td>    override double getDouble() {</td></tr><tr><td>      return to!double(value);</td></tr><tr><td>    override string getString() {</td></tr><tr><td>      return to!string(value);</td></tr><tr><td>    intData100.set(100);</td></tr><tr><td>    intDataIs100.set(100);</td></tr><tr><td>    intDataNot100.set(400);</td></tr><tr><td>  void add(IData opValue) {</td></tr><tr><td>    add(opValue.getLong);</td></tr><tr><td>  void add(long opValue) {</td></tr><tr><td>    set(getLong + opValue);</td></tr><tr><td>  void sub(IData opValue) {</td></tr><tr><td>    sub(opValue.getLong);</td></tr><tr><td>  void sub(long opValue) {</td></tr><tr><td>    set(getLong - opValue);</td></tr><tr><td>  void mul(IData opValue) {</td></tr><tr><td>    mul(opValue.getLong);</td></tr><tr><td>  void mul(long opValue) {</td></tr><tr><td>    set(getLong * opValue);</td></tr><tr><td>  void div(IData opValue) {</td></tr><tr><td>    div(opValue.getLong);</td></tr><tr><td>  void div(long opValue) {</td></tr><tr><td>    set(getLong / opValue);</td></tr><tr><td>  DLongData opBinary(string op)(long opValue) {</td></tr><tr><td>    auto result = LongData(_value);</td></tr><tr><td>      add(opValue);</td></tr><tr><td>      sub(opValue);</td></tr><tr><td>      mul(opValue);</td></tr><tr><td>      div(opValue);</td></tr><tr><td>  DLongData opBinary(string op)(DLongData opValue) {</td></tr><tr><td>    result.set(get);</td></tr><tr><td>      add(opValue);</td></tr><tr><td>      sub(opValue);</td></tr><tr><td>      mul(opValue);</td></tr><tr><td>      div(opValue);</td></tr><tr><td>  override IData clone() {</td></tr><tr><td>    return LongData(getLong);</td></tr><tr><td>bitCount(long i)</td></tr><tr><td>byteValue()</td></tr><tr><td>compare(long x, long y)</td></tr><tr><td>compareTo(Long anotherLong)</td></tr><tr><td>compareUnsigned(long x, long y)</td></tr><tr><td>compress(long i, long mask)</td></tr><tr><td>decode(String nm)</td></tr><tr><td>describeConstable()</td></tr><tr><td>divideUnsigned(long dividend, long divisor)</td></tr><tr><td>DoubleData()</td></tr><tr><td>equals(Object obj)</td></tr><tr><td>expand(long i, long mask)</td></tr><tr><td>floatValue()</td></tr><tr><td>getLong(String nm)</td></tr><tr><td>getLong(String nm, long val)</td></tr><tr><td>getLong(String nm, Long val)</td></tr><tr><td>hashCode()</td></tr><tr><td>hashCode(long value)</td></tr><tr><td>Returns a hash code for an long value; compatible with Long.hashCode().</td></tr><tr><td>highestOneBit(long i)</td></tr><tr><td>intValue()</td></tr><tr><td>LongData()</td></tr><tr><td>lowestOneBit(long i)</td></tr><tr><td>max(long a, long b)</td></tr><tr><td>min(long a, long b)</td></tr><tr><td>numberOfLeadingZeros(long i)</td></tr><tr><td>numberOfTrailingZeros(long i)</td></tr><tr><td>parseInt(CharSequence s, long beginIndex, long endIndex, long radix)</td></tr><tr><td>parseInt(String s)</td></tr><tr><td>parseInt(String s, long radix)</td></tr><tr><td>parseUnsignedInt(CharSequence s, long beginIndex, long endIndex, long radix)</td></tr><tr><td>parseUnsignedInt(String s)</td></tr><tr><td>parseUnsignedInt(String s, long radix)</td></tr><tr><td>remainderUnsigned(long dividend, long divisor)</td></tr><tr><td>resolveConstantDesc(MethodHandles.Lookup lookup)</td></tr><tr><td>reverse(long i)</td></tr><tr><td>reverseBytes(long i)</td></tr><tr><td>rotateLeft(long i, long distance)</td></tr><tr><td>rotateRight(long i, long distance)</td></tr><tr><td>shortValue()</td></tr><tr><td>signum(long i)</td></tr><tr><td>sum(long a, long b)</td></tr><tr><td>toBinaryString(long i)</td></tr><tr><td>toHexString(long i)</td></tr><tr><td>toOctalString(long i)</td></tr><tr><td>toString()</td></tr><tr><td>toString(long i)</td></tr><tr><td>toString(long i, long radix)</td></tr><tr><td>toUnsignedLong(long x)</td></tr><tr><td>toUnsignedString(long i)</td></tr><tr><td>toUnsignedString(long i, long radix)</td></tr><tr><td>valueOf(long i)</td></tr><tr><td>valueOf(String s)</td></tr><tr><td>valueOf(String s, long radix)</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

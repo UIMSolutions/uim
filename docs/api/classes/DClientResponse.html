@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this(string[] unparsedHeaders = null, string responseBody = null) {</td></tr><tr><td>       _parseHeaders(unparsedHeaders);</td></tr><tr><td>            responseBody = _decodeGzipBody(responseBody);</td></tr><tr><td>        stream.write(responseBody);</td></tr><tr><td>        stream.rewind();</td></tr><tr><td>    protected string _decodeGzipBody(string encodedBody) {</td></tr><tr><td>    protected void _parseHeaders(string[] headersToParse) {</td></tr><tr><td>        foreach (headersToParse as aValue) {</td></tr><tr><td>                _statusCode = to!int(matches[2]);</td></tr><tr><td>                _headers[name).concat( aValue;</td></tr><tr><td>    bool isOk() {</td></tr><tr><td>    bool isSuccess() {</td></tr><tr><td>    bool isRedirect() {</td></tr><tr><td>        return isIn(_statusCode, codes, true) &&</td></tr><tr><td>    @property int statusCode() {</td></tr><tr><td>    static auto withStatus(int statusCode, string reasonPhrase = null) {</td></tr><tr><td>    string getReasonPhrase() {</td></tr><tr><td>    string getEncoding() {</td></tr><tr><td>    Json[string] getCookies() {</td></tr><tr><td>        return _getCookies();</td></tr><tr><td>    CookieCollection getCookieCollection() {</td></tr><tr><td>        return _buildCookieCollection();</td></tr><tr><td>    string[] getCookie(string aName) {</td></tr><tr><td>        cookies = buildCookieCollection();</td></tr><tr><td>        return cookies.get(name).getValue();</td></tr><tr><td>    Json[string] getCookieData(string valueName) {</td></tr><tr><td>        cookies = buildCookieCollection();</td></tr><tr><td>        return cookies.get(valueName).toJString();</td></tr><tr><td>    protected ICookieCollection buildCookieCollection() {</td></tr><tr><td>    protected Json[string] _getCookies() {</td></tr><tr><td>    string getStringBody() {</td></tr><tr><td>        return _getBody();</td></tr><tr><td>    Json getJson() {</td></tr><tr><td>        return _getJson();</td></tr><tr><td>    protected Json _getJson() {</td></tr><tr><td>        return _Json = Json_decode(_getBody(), true);</td></tr><tr><td>    SimpleXMLElement getXml() {</td></tr><tr><td>        return _getXml();</td></tr><tr><td>    protected ISimpleXMLElement _getXml() {</td></tr><tr><td>        libxml_use_internal_errors();</td></tr><tr><td>        someData = simplexml_load_string(_getBody());</td></tr><tr><td>    // Provides magic __get() support.</td></tr><tr><td>    protected STRINGAA _getHeaders() {</td></tr><tr><td>    // Provides magic __get() support.</td></tr><tr><td>    protected string _getBody() {</td></tr><tr><td>        _stream.rewind();</td></tr><tr><td>        return _stream.getContents();</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

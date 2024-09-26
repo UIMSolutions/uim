@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>  override bool initialize(Json[string] initData = null) {</td></tr><tr><td>    override bool isFolder(string aPath, string aFileName) {</td></tr><tr><td>      return isFolder(aPath~pathSeparator~aFileName);</td></tr><tr><td>    override bool isFolder(string aPath) {</td></tr><tr><td>      string myPath = correctPath(aPath);</td></tr><tr><td>      return myPath in _entries ? cast(IFolder)_entries[myPath] !is null : false;</td></tr><tr><td>    override bool isFolder(string[] aPath, string aFileName) {</td></tr><tr><td>      string myPath = correctPath((aPath~aFileName).join(pathSeparator));</td></tr><tr><td>      return myPath in _entries ? cast(IFolder)_entries[myPath] !is null : false;</td></tr><tr><td>    override bool isFolder(string[] aPath) {</td></tr><tr><td>      string myPath = correctPath(aPath.join(pathSeparator));</td></tr><tr><td>      return myPath in _entries ? cast(IFolder)_entries[myPath] !is null : false;</td></tr><tr><td>    override bool isFile(string aPath, string aFileName) {</td></tr><tr><td>      return isFile(aPath~pathSeparator~aFileName);</td></tr><tr><td>    override bool isFile(string aPath) {</td></tr><tr><td>      string myPath = correctPath(aPath);</td></tr><tr><td>      return myPath in _entries ? cast(IFile)_entries[myPath] !is null : false;</td></tr><tr><td>    override bool isFile(string[] aPath, string aFileName) {</td></tr><tr><td>      string myPath = correctPath((aPath~aFileName).join(pathSeparator));</td></tr><tr><td>      return myPath in _entries ? cast(IFile)_entries[myPath] !is null : false;</td></tr><tr><td>    override bool isFile(string[] aPath) {</td></tr><tr><td>      string myPath = correctPath(aPath.join(pathSeparator));</td></tr><tr><td>      return myPath in _entries ? cast(IFile)_entries[myPath] !is null : false;</td></tr><tr><td>    override bool isLink(string aPath, string aFileName) {</td></tr><tr><td>      return isLink(aPath~pathSeparator~aFileName);</td></tr><tr><td>    override bool isLink(string aPath) {</td></tr><tr><td>      string myPath = correctPath(aPath);</td></tr><tr><td>      return myPath in _entries ? cast(ILink)_entries[myPath] !is null : false;</td></tr><tr><td>    override bool isLink(string[] aPath, string aFileName) {</td></tr><tr><td>      string myPath = correctPath((aPath~aFileName).join(pathSeparator));</td></tr><tr><td>      return myPath in _entries ? cast(ILink)_entries[myPath] !is null : false;</td></tr><tr><td>    override bool isLink(string[] aPath) {</td></tr><tr><td>      string myPath = correctPath(aPath.join(pathSeparator));</td></tr><tr><td>      return myPath in _entries ? cast(ILink)_entries[myPath] !is null : false;</td></tr><tr><td>  void opIndexAssign(IFilesystemEntry anEntry, string aPath) {</td></tr><tr><td>    string myPath = correctPath(aPath);</td></tr><tr><td>  string correctPath(string aPath) {</td></tr><tr><td>    return aPath.split(pathSeparator)</td></tr><tr><td>      .join(pathSeparator);</td></tr><tr><td>    override IFolder[] folders() {</td></tr><tr><td>    override IFile[] files() {</td></tr><tr><td>    ILink[] links() {</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

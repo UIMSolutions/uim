@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this(Json[string] options = null) {</td></tr><tr><td>    IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {</td></tr><tr><td>        auto url = serverRequest.getUri().getPath();</td></tr><tr><td>            return requestHandler.handle(serverRequest);</td></tr><tr><td>            return requestHandler.handle(serverRequest);</td></tr><tr><td>        auto assetFile = _getAssetFile(url);</td></tr><tr><td>            return requestHandler.handle(serverRequest);</td></tr><tr><td>        auto modifiedTime = file.getMTime();</td></tr><tr><td>                .withStatus(304)</td></tr><tr><td>                    date(DATE_RFC850, modifiedTime)</td></tr><tr><td>        return _deliverAsset(serverRequest, file);</td></tr><tr><td>    protected bool isNotModified(IServerRequest serverRequest, SplFileInfo file) {</td></tr><tr><td>    protected string _getAssetFile(string assetUrl) {</td></tr><tr><td>        for (index = 0;  index < 2;  index++) {</td></tr><tr><td>                someParts =someParts.slice(index + 1);</td></tr><tr><td>                fileFragment = someParts.join(DIRECTORY_SEPARATOR);</td></tr><tr><td>    protected DResponse deliverAsset(IServerRequest serverRequest, DSplFileInfo file) {</td></tr><tr><td>        auto modified = file.getMTime();</td></tr><tr><td>        auto expire = strtotime(this.cacheTime);</td></tr><tr><td>        auto maxAge = expire - time();</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

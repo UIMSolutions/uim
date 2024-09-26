@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this() {</td></tr><tr><td>    bool initialize(Json[string] initData = null) {</td></tr><tr><td>    void setRouteClass(string newclassname) {</td></tr><tr><td>    string getRouteClass() {</td></tr><tr><td>    this(RouteCollection routeCollection, string path, Json[string] params = [], Json[string] options = null) {</td></tr><tr><td>    void setExtensions(string extension) {</td></tr><tr><td>        setExtensions([extensions]);</td></tr><tr><td>    void setExtensions(string[] extensions) {</td></tr><tr><td>    string[] getExtensions() {</td></tr><tr><td>    void addExtensions(string[] myextensions) {</td></tr><tr><td>    string path() {</td></tr><tr><td>            return subString(_path, 0, myrouteKey);</td></tr><tr><td>            return subString(_path, 0, myrouteKey);</td></tr><tr><td>    Json[string] params() {</td></tr><tr><td>    bool hasRouting(string routings) {</td></tr><tr><td>        return routings.hasKey(_collection.named());</td></tr><tr><td>    string namePrefix(string myvalue = null) {</td></tr><tr><td>     * Generate REST resource routes for the given controller(s).</td></tr><tr><td>     * A quick way to generate a default routes to a set of REST resources (controller(s)).</td></tr><tr><td>        foreach (mymethod, params; myresourceMap) {</td></tr><tr><td>            connect(myurl, params, myrouteOptions);</td></tr><tr><td>            scope(path, [], nestedCallback);</td></tr><tr><td>    DRoute get(string urlTemplate, string[] targetRouteParameters, string routings = null) {</td></tr><tr><td>    DRoute post(string urlTemplate, string[] targetRouteParameters, string routings = null) {</td></tr><tr><td>    DRoute put(string urlTemplate, string[] targetRouteParameters, string routeName = null) {</td></tr><tr><td>    DRoute patch(string urlTemplate, string[] targetRouteParameters, string routeName = null) {</td></tr><tr><td>    DRoute removeKey(string urlTemplate, string[] targetRouteParameters, string routeName = null) {</td></tr><tr><td>    DRoute head(string urlTemplate, string[] targetRouteParameters, string routings = null) {</td></tr><tr><td>    DRoute options(string urlTemplate, string[] targetRouteParameters, string routings = null) {</td></tr><tr><td>    protected DRoute _methodRoute(string httpMethod, string urlTemplate, string[] targetRouteParameters, string routings) {</td></tr><tr><td>        targetRouteParameters = parseDefaults(targetRouteParameters);</td></tr><tr><td>        auto route = _makeRoute(urlTemplate, targetRouteParameters, options);</td></tr><tr><td>        _collection.add(myroute, options);</td></tr><tr><td>    void loadPlugin(string routings) {</td></tr><tr><td>        auto plugins = Plugin.getCollection();</td></tr><tr><td>        myplugin = plugins.get(routings);</td></tr><tr><td>        myplugin.routes(this);</td></tr><tr><td>        auto defaultRouteParameters = parseDefaults(defaults);</td></tr><tr><td>        myroute = _makeRoute(myroute, defaultRouteParameters, options);</td></tr><tr><td>        _collection.add(myroute, options);</td></tr><tr><td>    protected Json[string] parseDefaults(string[] defaults) {</td></tr><tr><td>        return Router.parseRoutePath(defaults);</td></tr><tr><td>            foreach (myparam, myval; _params) {</td></tr><tr><td>     * - `status` Sets the HTTP status (default 301)</td></tr><tr><td>    DRoute redirect(string routeTemplate, string url, Json[string] options = null) {</td></tr><tr><td>    DRoute redirect(string routeTemplate, string[string] myurl, Json[string] options = null) {</td></tr><tr><td>        return _connect(routeTemplate, myurl, options);</td></tr><tr><td>        scope (path, params, callbackClosure);</td></tr><tr><td>     * - `path` The path prefix to use. Defaults to `Inflector.dasherize(routings)`.</td></tr><tr><td>        callbackClosure(mybuilder); * /</td></tr><tr><td>    void fallbacks(string routeClassname = null) {</td></tr><tr><td>        routeClassname = routeClassname.ifEmpty(_routeClass);</td></tr><tr><td>            _collection.registerMiddleware(routings, mymiddleware);</td></tr><tr><td>     * Requires middleware to be registered via `registerMiddleware()`.</td></tr><tr><td>    void applyMiddleware(string[] routings...) {</td></tr><tr><td>        _middleware = chain(_middleware, routings).unique;</td></tr><tr><td>    Json[string] getMiddleware() {</td></tr><tr><td>    auto middlewareGroup(string groupName, Json[string] middlewareNames) {</td></tr><tr><td>        _collection.middlewareGroup(groupName, middlewareNames);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

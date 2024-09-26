@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    Json[string] send(IRequest request, Json[string] options = null) {</td></tr><tr><td>       _buildContext(request, options);</td></tr><tr><td>        return _send(request);</td></tr><tr><td>     * Json[string] requestHeaders The list of headers from the request(s)</td></tr><tr><td>    DResponse[] createResponses(Json[string] requestHeaders, string responseContent) {</td></tr><tr><td>        foreach (index, aHeader; requestHeaders) {</td></tr><tr><td>        size_t last = count(anIndexes) - 1;</td></tr><tr><td>        foreach (index, start; anIndexes) {</td></tr><tr><td>            auto end = isSet(anIndexes[index + 1]) ?  anIndexes[index + 1] - start : null;</td></tr><tr><td>            auto headerSlice = requestHeaders.slice(start, end);</td></tr><tr><td>    protected void _buildContext(IRequest request, Json[string] requestOptions = null) {</td></tr><tr><td>       _buildContent(request, requestOptions);</td></tr><tr><td>       _buildHeaders(request, requestOptions);</td></tr><tr><td>       _buildOptions(request, requestOptions);</td></tr><tr><td>        auto url = request.getUri();</td></tr><tr><td>        auto scheme = parse_url(to!string(url, UIM_URL_SCHEME));</td></tr><tr><td>           _buildSslContext(request, requestOptions);</td></tr><tr><td>    protected void _buildHeaders(IRequest request, Json[string] options = null) {</td></tr><tr><td>        auto headers = request.getHeaders().byKeyValue</td></tr><tr><td>     * If the request.body() is a string, it will be used as is.</td></tr><tr><td>    protected void _buildContent(IRequest request, Json[string] options = null) {</td></tr><tr><td>        auto requestBody = request.getBody();</td></tr><tr><td>        requestBody.rewind();</td></tr><tr><td>    protected void _buildOptions(IRequest request, Json[string] options = null) {</td></tr><tr><td>    protected void _buildSslContext(IRequest request, Json[string] options = null) {</td></tr><tr><td>            auto url = request.getUri();</td></tr><tr><td>            auto host = parse_url(url.toString, UIM_URL_HOST);</td></tr><tr><td>                auto name = subString(aKey, 4);</td></tr><tr><td>               _sslContextOptions.set(name, options.get(aKey));</td></tr><tr><td>    protected Json[string] _send(IRequest request) {</td></tr><tr><td>        auto url = request.getUri();</td></tr><tr><td>       _open(to!string(url, request));</td></tr><tr><td>                stream_set_timeout(_stream, max(deadline - time(), 1));</td></tr><tr><td>            meta = stream_get_meta_data(_stream);</td></tr><tr><td>        meta = stream_get_meta_data(_stream);</td></tr><tr><td>        fclose(_stream);</td></tr><tr><td>        return _createResponses(aHeaders, content);</td></tr><tr><td>    protected DResponse _buildResponse(Json[string] aHeaders, string requestBody) {</td></tr><tr><td>    protected void _open(string urlToConnect, IRequest request) {</td></tr><tr><td>        bool set_error_handler(function (code, message) {</td></tr><tr><td>            restore_error_handler();</td></tr><tr><td>    Json[string] contextOptions() {</td></tr><tr><td>        return array_merge(_contextOptions, _sslContextOptions);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

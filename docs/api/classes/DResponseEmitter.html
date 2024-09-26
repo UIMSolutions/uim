@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this(int maxBufferLength = 8192) {</td></tr><tr><td>   bool emit(IResponse response) {</td></tr><tr><td>            trigger_error(message, ERRORS.USER_WARNING);</td></tr><tr><td>        emitStatusLine(response);</td></tr><tr><td>        emitHeaders(response);</td></tr><tr><td>        flush();</td></tr><tr><td>            this.emitBodyRange(Json[string], response);</td></tr><tr><td>            this.emitBody(response);</td></tr><tr><td>            fastcgi_finish_request();</td></tr><tr><td>    protected void emitBody(IResponse response) {</td></tr><tr><td>        body = response.getBody();</td></tr><tr><td>        body.rewind();</td></tr><tr><td>            writeln(body.read(this.maxBufferLength);</td></tr><tr><td>    protected void emitBodyRange(Json[string] dataToEmit, IResponse responseToEmit) {</td></tr><tr><td>        auto responseBody = responseToEmit.getBody();</td></tr><tr><td>            contents = responseBody.getContents();</td></tr><tr><td>            writeln(subString(contents, first, last - first + 1));</td></tr><tr><td>        streamBody.rewind();</td></tr><tr><td>                writeln(streamBody.read(length - pos));</td></tr><tr><td>            writeln(streamBody.read(this.maxBufferLength));</td></tr><tr><td>            pos = streamBody.tell();</td></tr><tr><td>    protected void emitStatusLine(IResponse response) {</td></tr><tr><td>        reasonPhrase = response.getReasonPhrase();</td></tr><tr><td>            .format(response.getProtocolVersion(),</td></tr><tr><td>            response.statusCode(),</td></tr><tr><td>    protected void emitHeaders(IResponse response) {</td></tr><tr><td>            cookies = iterator_to_array(response.getCookieCollection());</td></tr><tr><td>        foreach (name, someValues; response.getHeaders()) {</td></tr><tr><td>                cookies = array_merge(cookies,  someValues);</td></tr><tr><td>            foreach (aValue; someValues) {</td></tr><tr><td>        this.emitCookies(cookies);</td></tr><tr><td>    // Emit cookies using setcookie()</td></tr><tr><td>    protected void emitCookies(Json[string] cookies) {</td></tr><tr><td>    protected bool setCookie(string acookie) {</td></tr><tr><td>    protected bool setCookie(ICookie acookie) {</td></tr><tr><td>        return setcookie(cookie.name, cookie.getScalarValue(), cookie.options());</td></tr><tr><td>    protected void flush(int maxBufferLevel = null) {</td></tr><tr><td>        maxBufferLevel ? maxBufferLevel : ob_get_level();</td></tr><tr><td>            ob_end_flush();</td></tr><tr><td>    protected array|false parseContentRange(string header) {</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

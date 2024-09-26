@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this(DThrowable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {</td></tr><tr><td>    string render() {</td></tr><tr><td>        auto previous = _error.getPrevious();</td></tr><tr><td>            previous = previous.getPrevious();</td></tr><tr><td>        foreach (index, error; exceptions) {</td></tr><tr><td>            results = chain(result, this.renderException(error, parent));</td></tr><tr><td>    protected Json[string] renderException(Throwable exceptionToRender, Throwable parentException) {</td></tr><tr><td>                    exceptionToRender.message(),</td></tr><tr><td>                    exceptionToRender.getFile(),</td></tr><tr><td>                    exceptionToRender.getLine()</td></tr><tr><td>            auto attributes = exceptionToRender.getAttributes();</td></tr><tr><td>            auto stacktrace = Debugger.getUniqueFrames(exceptionToRender, parentException);</td></tr><tr><td>    // TODO void write(IResponse aoutput) {</td></tr><tr><td>    void write(string outputText) {</td></tr><tr><td>        _output.write(outputText);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

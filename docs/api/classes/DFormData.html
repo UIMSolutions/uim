@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    string boundary() {</td></tr><tr><td>       _boundary = uniqid(to!string(time()))md5;</td></tr><tr><td>    FormDataPart newPart(string aName, string valueToAdd) {</td></tr><tr><td>     * float, filehandle, or object implementing __toString()</td></tr><tr><td>                this.addRecursive(partName, partValue);</td></tr><tr><td>                this.addFile(partName, partValue);</td></tr><tr><td>    void addMany(Json[string] data) {</td></tr><tr><td>    // Add either a file reference (string starting with @) or a file handle.</td></tr><tr><td>    DFormDataPart addFile(string nameToUse, Json aValue) {</td></tr><tr><td>            contentType = aValue.getClientMediaType();</td></tr><tr><td>            filename = aValue.getClientFilename();</td></tr><tr><td>                metadata = stream_get_meta_data(aValue);</td></tr><tr><td>            aValue = subString(aValue, 1);</td></tr><tr><td>            filename = basename(aValue);</td></tr><tr><td>        part = this.newPart(nameToUse, content);</td></tr><tr><td>        part.type(contentType);</td></tr><tr><td>            part.filename(filename);</td></tr><tr><td>        add(part);</td></tr><tr><td>    void addRecursive(string nameToUse, Json valueToAdd) {</td></tr><tr><td>            add(key, kv.value);</td></tr><tr><td>    size_t count() {</td></tr><tr><td>        return count(_parts);</td></tr><tr><td>    bool hasFile() {</td></tr><tr><td>     * or use add() with a Part instance.</td></tr><tr><td>    bool isMultipart() {</td></tr><tr><td>        return _hasFile() || _hasComplexPart;</td></tr><tr><td>    string contentType() {</td></tr><tr><td>    override string toString() {</td></tr><tr><td>            auto boundary = this.boundary();</td></tr><tr><td>        return http_build_query(someData);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

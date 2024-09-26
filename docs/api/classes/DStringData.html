@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>  override bool initialize(Json[string] initData = null) {</td></tr><tr><td>    isString(true);</td></tr><tr><td>  @property void value(string newValue) {</td></tr><tr><td>  @property string value() {</td></tr><tr><td>    data.maxLength(4);</td></tr><tr><td>    override bool getBoolean() {</td></tr><tr><td>    override long getLong() {</td></tr><tr><td>      return to!long(value);</td></tr><tr><td>    override double getDouble() {</td></tr><tr><td>      return to!double(value);</td></tr><tr><td>    override string getString() {</td></tr><tr><td>  override void set(bool newValue) {</td></tr><tr><td>  override void set(long newValue) {</td></tr><tr><td>    value(to!string(newValue));</td></tr><tr><td>  override void set(double newValue) {</td></tr><tr><td>    value(to!string(newValue));</td></tr><tr><td>  override void set(string newValue) {</td></tr><tr><td>      ? isNull(isNullable ? true : false)</td></tr><tr><td>      : isNull(false);</td></tr><tr><td>    value(newValue);</td></tr><tr><td>  override void set(Json newValue) {</td></tr><tr><td>      ? set(nullValue)</td></tr><tr><td>      : set(newValue.getString);</td></tr><tr><td>      isNullable(newValue.isNullable);</td></tr><tr><td>      isNull(newValue.isNull);</td></tr><tr><td>      set(newValue.value());</td></tr><tr><td>  override IData clone() {</td></tr><tr><td>    return StringData; // TODO (attribute, toJson);</td></tr><tr><td>    // TODO return value();</td></tr><tr><td>  override void set(IData newValue) {</td></tr><tr><td>    auto strValue = cast(DStringData) newValue;</td></tr><tr><td>    // TODO set(strValue.value);</td></tr><tr><td>    a(b);</td></tr><tr><td>  override bool isEqual(IData checkData) {</td></tr><tr><td>  override bool isEqual(Json checkValue) {</td></tr><tr><td>    return isEqual(checkValue.get!string);</td></tr><tr><td>  override bool isEqual(string checkValue) {</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

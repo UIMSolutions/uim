@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    Json[string] send(IRequest request, Json[string] curlOptions = null) {</td></tr><tr><td>        ch = curl_initialize();</td></tr><tr><td>        curlOptions = this.buildOptions(request, curlOptions);</td></tr><tr><td>        curl_setopt_array(ch, curlOptions);</td></tr><tr><td>        body = this.exec(ch);</td></tr><tr><td>            errorCode = curl_errno(ch);</td></tr><tr><td>            error = curl_error(ch);</td></tr><tr><td>            curl_close(ch);</td></tr><tr><td>        responses = this.createResponse(ch, body);</td></tr><tr><td>        curl_close(ch);</td></tr><tr><td>    Json[string] buildOptions(IRequest request, Json[string] clientOptions = null) {</td></tr><tr><td>        string[] aHeaders = request.getHeaders().byKeyValue</td></tr><tr><td>            CURLOPT_URL: (string)request.getUri(),</td></tr><tr><td>            CURLOPT_HTTP_VERSION: getProtocolVersion(request),</td></tr><tr><td>        switch (request.getMethod()) {</td></tr><tr><td>                 t(CURLOPT_HTTPGET, true);</td></tr><tr><td>                 t(CURLOPT_POST, true);</td></tr><tr><td>                 t(CURLOPT_NOBODY, true);</td></tr><tr><td>                 t(CURLOPT_POST, true);</td></tr><tr><td>                 t(CURLOPT_CUSTOMREQUEST, request.getMethod());</td></tr><tr><td>        body = request.getBody();</td></tr><tr><td>        body.rewind();</td></tr><tr><td>         t(CURLOPT_POSTFIELDS, body.getContents());</td></tr><tr><td>            result.removeKey(CURLOPT_POSTFIELDS);</td></tr><tr><td>            // Can`t use array_merge() because keys will be re-ordered.</td></tr><tr><td>    protected int getProtocolVersion(IRequest request) {</td></tr><tr><td>    protected DResponse[] createResponse(CurlHandle handle, string responseData) {</td></tr><tr><td>        auto aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);</td></tr><tr><td>        auto aHeaders = subString(responseData, 0,  aHeaderSize).strip;</td></tr><tr><td>        body = subString(responseData,  aHeaderSize);</td></tr><tr><td>    protected string exec(CurlHandle ch) {</td></tr><tr><td>        return curl_exec(ch);</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

@@ -114,11 +114,26 @@
             </div>
         </div>
     </div>
-    <div class="card">
+                        
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Methods
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this(in int nxx=0, in int nyy=0, in bool inizialize=true)</td></tr><tr><td>        allocate(nxx, nyy, inizialize);</td></tr><tr><td>    void allocate(in int nxx = 0, in int nyy = 0, in bool inizialize=true)</td></tr><tr><td>        assert(nxx >= 0 && nyy >= 0);</td></tr><tr><td>                image = minimallyInitializedArray!(typeof(image))</td></tr><tr><td>                                                  (nxx * nyy);</td></tr><tr><td>    @property DImage dup() const pure nothrow @safe {</td></tr><tr><td>    static DImage fromData(T[] data, in size_t nxx=0, in size_t nyy=0)</td></tr><tr><td>    ref T opIndex(in size_t x, in size_t y) pure nothrow @safe @nogc</td></tr><tr><td>        assert(x < nx_ && y < ny_);</td></tr><tr><td>    T opIndex(in size_t x, in size_t y) const pure nothrow @safe @nogc</td></tr><tr><td>        assert(x < nx_ && y < ny_);</td></tr><tr><td>    T opIndexAssign(in T color, in size_t x, in size_t y)</td></tr><tr><td>        assert(x < nx_ && y < ny_);</td></tr><tr><td>    void opIndexUnary(string op)(in size_t x, in size_t y)</td></tr><tr><td>        assert(x < nx_ && y < ny_);</td></tr><tr><td>    void clear(in T color=this.black) pure nothrow @safe @nogc {</td></tr><tr><td>        assert(M.join.length > 0); // Not empty.</td></tr><tr><td>        foreach (row; M)</td></tr><tr><td>        return DImage.fromData(M.join, M[0].length, M.length);</td></tr><tr><td>    void textualShow(in char bl='#', in char wh='.') const nothrow {</td></tr><tr><td>        foreach (immutable y; 0 .. ny_) {</td></tr><tr><td>            foreach (immutable x; 0 .. nx_)</td></tr><tr><td>            putchar('\n');</td></tr><tr><td>    static immutable black = typeof(this)();</td></tr><tr><td>    static immutable white = typeof(this)(255, 255, 255);</td></tr><tr><td>Image!RGB loadPPM6(ref DImage!RGB img, in string fileName) {</td></tr><tr><td>        line = f.readln();</td></tr><tr><td>    img.allocate(size[0].to!uint, size[1].to!uint);</td></tr><tr><td>    foreach (immutable y; 0 .. img.ny) {</td></tr><tr><td>        f.rawRead!ubyte(l);</td></tr><tr><td>        foreach (immutable x; 0 .. img.nx)</td></tr><tr><td>            img.image[i++] = RGB(l[x * 3], l[x * 3 + 1], l[x * 3 + 2]);</td></tr><tr><td>    assert(img !is null);</td></tr><tr><td>    assert(img.nx > 0 && img.nx > 0);</td></tr><tr><td>    foreach (immutable y; 0 .. img.ny)</td></tr><tr><td>        foreach (immutable x; 0 .. img.nx) {</td></tr><tr><td>            f.write(cast(char)p.r, cast(char)p.g, cast(char)p.b);</td></tr><tr><td>version (bitmap_main) {</td></tr><tr><td>    void main() {</td></tr></tbody></table>
         </div>
     </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
                         </div>
                     </div>
                 </div>

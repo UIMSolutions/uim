@@ -95,11 +95,26 @@
                 <div class="page-body">
                     <div class="col">
                         <div class="container-xl">
-                            <div class="card">
+                                                
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Properties
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>origin</td><td>C:\Users\ONS\PROJECTS2023\uim\errors\uim\errors\classes\middlewares\errorhandler.d</td></tr><tr><td>isFinal</td><td>false</td></tr><tr><td>package</td><td>uim.errors.classes.middlewares</td></tr><tr><td>visibility</td><td>public</td></tr><tr><td>name</td><td>DErrorHandlerMiddleware</td></tr><tr><td>isAbstract</td><td>false</td></tr><tr><td>namespace</td><td>uim.errors.classes.middlewares.errorhandler</td></tr><tr><td>header</td><td>class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware</td></tr><tr><td>methods</td><td>["    this() {","    this(Json[string] initData) {","    this(string name, Json[string] initData = null) {","        super(name, initData);","    bool initialize(Json[string] initData = null) {","        configuration(MemoryConfiguration);","        configuration.data(initData);","    this(ErrorHandler myErrorHandler = null) {","            myErrorHandler = func_get_arg(1);","            configuration.set(myErrorHandler);","                .format(getTypeName(myErrorHandler)","    IResponse process(IServerRequest request, IRequestHandler requestHandler) {","            return requestHandler.handle(request);","            return _handleRedirect(exception);","            return _handleException(exception, request);","    IResponse handleException(Throwable exception, IServerRequest request) {","        renderer = myErrorHandler.getRenderer(exception, request);","            myErrorHandler.logException(exception, request);","            response = renderer.render();","            myErrorHandler.logException@(DInternalException, request);","            response = handleInternalError();","    IResponse handleRedirect(DRedirectException exceptionToHandle) {","            exceptionToHandle.message(),","            exceptionToHandle.code(),","            exceptionToHandle.getHeaders()","    protected IResponse handleInternalError() {","        return response.withStatus(500);","    protected ErrorHandler getErrorHandler() {"]</td></tr><tr><td>implements</td><td>["UIMObject","IErrorMiddleware"]</td></tr><tr><td>type</td><td>class</td></tr><tr><td>library</td><td>uim-errors</td></tr></tbody></table>
         </div>
-    </div><div class="card">
+    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this() {</td></tr><tr><td>    this(Json[string] initData) {</td></tr><tr><td>    this(string name, Json[string] initData = null) {</td></tr><tr><td>        super(name, initData);</td></tr><tr><td>    bool initialize(Json[string] initData = null) {</td></tr><tr><td>        configuration(MemoryConfiguration);</td></tr><tr><td>        configuration.data(initData);</td></tr><tr><td>    this(ErrorHandler myErrorHandler = null) {</td></tr><tr><td>            myErrorHandler = func_get_arg(1);</td></tr><tr><td>            configuration.set(myErrorHandler);</td></tr><tr><td>                .format(getTypeName(myErrorHandler)</td></tr><tr><td>    IResponse process(IServerRequest request, IRequestHandler requestHandler) {</td></tr><tr><td>            return requestHandler.handle(request);</td></tr><tr><td>            return _handleRedirect(exception);</td></tr><tr><td>            return _handleException(exception, request);</td></tr><tr><td>    IResponse handleException(Throwable exception, IServerRequest request) {</td></tr><tr><td>        renderer = myErrorHandler.getRenderer(exception, request);</td></tr><tr><td>            myErrorHandler.logException(exception, request);</td></tr><tr><td>            response = renderer.render();</td></tr><tr><td>            myErrorHandler.logException@(DInternalException, request);</td></tr><tr><td>            response = handleInternalError();</td></tr><tr><td>    IResponse handleRedirect(DRedirectException exceptionToHandle) {</td></tr><tr><td>            exceptionToHandle.message(),</td></tr><tr><td>            exceptionToHandle.code(),</td></tr><tr><td>            exceptionToHandle.getHeaders()</td></tr><tr><td>    protected IResponse handleInternalError() {</td></tr><tr><td>        return response.withStatus(500);</td></tr><tr><td>    protected ErrorHandler getErrorHandler() {</td></tr></tbody></table>
         </div>

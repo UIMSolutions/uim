@@ -95,11 +95,26 @@
                 <div class="page-body">
                     <div class="col">
                         <div class="container-xl">
-                            <div class="card">
+                                                
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Properties
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>origin</td><td>C:\Users\ONS\PROJECTS2023\uim\views\uim\views\classes\widgets\datetime.d</td></tr><tr><td>isFinal</td><td>false</td></tr><tr><td>package</td><td>uim.views.classes.widgets</td></tr><tr><td>visibility</td><td>public</td></tr><tr><td>name</td><td>DDateTimeWidget</td></tr><tr><td>isAbstract</td><td>false</td></tr><tr><td>namespace</td><td>uim.views.classes.widgets.datetime</td></tr><tr><td>header</td><td>class DDateTimeWidget : DWidget</td></tr><tr><td>methods</td><td>["    override bool initialize(Json[string] initData = null) {","     * - `format` A `date()` auto compatible datetime format string.","    override string render(Json[string] renderData, IContext formContext) {","        auto updatedData = renderData.merge(formContext.data);","                .format(typeName));","    override protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {","        auto mydbType = formContext.type(fieldName);","            mydateTime = mydateTime.setTimezone(mytimezone);","    assert(DateTimeWidget);"]</td></tr><tr><td>implements</td><td>["DWidget"]</td></tr><tr><td>type</td><td>class</td></tr><tr><td>library</td><td>uim-views</td></tr></tbody></table>
         </div>
-    </div><div class="card">
+    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    override bool initialize(Json[string] initData = null) {</td></tr><tr><td>     * - `format` A `date()` auto compatible datetime format string.</td></tr><tr><td>    override string render(Json[string] renderData, IContext formContext) {</td></tr><tr><td>        auto updatedData = renderData.merge(formContext.data);</td></tr><tr><td>                .format(typeName));</td></tr><tr><td>    override protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {</td></tr><tr><td>        auto mydbType = formContext.type(fieldName);</td></tr><tr><td>            mydateTime = mydateTime.setTimezone(mytimezone);</td></tr><tr><td>    assert(DateTimeWidget);</td></tr></tbody></table>
         </div>

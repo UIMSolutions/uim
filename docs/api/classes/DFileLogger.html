@@ -95,11 +95,26 @@
                 <div class="page-body">
                     <div class="col">
                         <div class="container-xl">
-                            <div class="card">
+                                                
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Properties
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>origin</td><td>C:\Users\ONS\PROJECTS2023\uim\logging\uim\logging\classes\loggers\file.d</td></tr><tr><td>isFinal</td><td>false</td></tr><tr><td>package</td><td>uim.logging.classes.loggers</td></tr><tr><td>visibility</td><td>public</td></tr><tr><td>name</td><td>DFileLogger</td></tr><tr><td>isAbstract</td><td>false</td></tr><tr><td>namespace</td><td>uim.logging.classes.loggers.file</td></tr><tr><td>header</td><td>class DFileLogger : DLogger</td></tr><tr><td>methods</td><td>["    override bool initialize(Json[string] initData = null) {","    protected string _getFilename(string logLevel) {","    void log(int logLevel, string messageToLog, Json[string] messageContext = null) {","        string filename; // = _getFilename(logLevel);","            _rotateFile(filename);","        bool fileExists = isFile(filePath);","                    .format(mask, filePath),","    protected bool _rotateFile(string logFilename) {","                unlink(to!string(files.shift()));","  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {"]</td></tr><tr><td>implements</td><td>["DLogger"]</td></tr><tr><td>type</td><td>class</td></tr><tr><td>library</td><td>uim-logging</td></tr></tbody></table>
         </div>
-    </div><div class="card">
+    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    override bool initialize(Json[string] initData = null) {</td></tr><tr><td>    protected string _getFilename(string logLevel) {</td></tr><tr><td>    void log(int logLevel, string messageToLog, Json[string] messageContext = null) {</td></tr><tr><td>        string filename; // = _getFilename(logLevel);</td></tr><tr><td>            _rotateFile(filename);</td></tr><tr><td>        bool fileExists = isFile(filePath);</td></tr><tr><td>                    .format(mask, filePath),</td></tr><tr><td>    protected bool _rotateFile(string logFilename) {</td></tr><tr><td>                unlink(to!string(files.shift()));</td></tr><tr><td>  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {</td></tr></tbody></table>
         </div>

@@ -95,11 +95,26 @@
                 <div class="page-body">
                     <div class="col">
                         <div class="container-xl">
-                            <div class="card">
+                                                
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Properties
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>origin</td><td>C:\Users\ONS\PROJECTS2023\uim\views\uim\views\classes\contexts\form.d</td></tr><tr><td>isFinal</td><td>false</td></tr><tr><td>package</td><td>uim.views.classes.contexts</td></tr><tr><td>visibility</td><td>public</td></tr><tr><td>name</td><td>DFormContext</td></tr><tr><td>isAbstract</td><td>false</td></tr><tr><td>namespace</td><td>uim.views.classes.contexts.form</td></tr><tr><td>header</td><td>class DFormContext : DContext</td></tr><tr><td>methods</td><td>["    override bool initialize(Json[string] initData = null) {","    override bool isPrimaryKey(string[] path) {","    override bool isPrimaryKey(string fieldName) {","    override bool isCreate() {","    override Json val(string fieldName, Json[string] options = null) {","        auto value = _form.get(fieldName);","        return Json(null);","    protected Json _schemaDefault(string fieldName) {","        return Json(null);","    override bool isRequired(string fieldName) {","            return !formValidator.isEmptyAllowed(fieldName, this.isCreate());","    string getRequiredMessage(string fieldName) {","        auto myvalidator = _form.getValidator(_validatorName);","        auto fieldName = myparts.pop();","        auto myruleset = myvalidator.field(fieldName);","            return myvalidator.getNotEmptyMessage(fieldName);","    int getMaxLength(string fieldName) {","        auto myvalidator = _form.getValidator(_validatorName);","        foreach (myrule; myvalidator.field(fieldName).rules()) {","        myattributes = this.attributes(fieldName);","    string[] fieldNames() {","        return _form.getSchema().fields();","    string type(string fieldName) {","        return _form.getSchema().fieldType(fieldName);","    Json[string]attributes(string fieldName) {","            (array)_form.getSchema().field(fieldName),","            array_flip(VALID_ATTRIBUTES)","    bool hasError(string fieldName) {","        myerrors = this.error(fieldName);","        return count(myerrors) > 0;","    DError[] error(string fieldName) {","        // TODO return (array)Hash.get(_form.getErrors(), fieldName, []);"]</td></tr><tr><td>implements</td><td>["DContext"]</td></tr><tr><td>type</td><td>class</td></tr><tr><td>library</td><td>uim-views</td></tr></tbody></table>
         </div>
-    </div><div class="card">
+    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    override bool initialize(Json[string] initData = null) {</td></tr><tr><td>    override bool isPrimaryKey(string[] path) {</td></tr><tr><td>    override bool isPrimaryKey(string fieldName) {</td></tr><tr><td>    override bool isCreate() {</td></tr><tr><td>    override Json val(string fieldName, Json[string] options = null) {</td></tr><tr><td>        auto value = _form.get(fieldName);</td></tr><tr><td>        return Json(null);</td></tr><tr><td>    protected Json _schemaDefault(string fieldName) {</td></tr><tr><td>        return Json(null);</td></tr><tr><td>    override bool isRequired(string fieldName) {</td></tr><tr><td>            return !formValidator.isEmptyAllowed(fieldName, this.isCreate());</td></tr><tr><td>    string getRequiredMessage(string fieldName) {</td></tr><tr><td>        auto myvalidator = _form.getValidator(_validatorName);</td></tr><tr><td>        auto fieldName = myparts.pop();</td></tr><tr><td>        auto myruleset = myvalidator.field(fieldName);</td></tr><tr><td>            return myvalidator.getNotEmptyMessage(fieldName);</td></tr><tr><td>    int getMaxLength(string fieldName) {</td></tr><tr><td>        auto myvalidator = _form.getValidator(_validatorName);</td></tr><tr><td>        foreach (myrule; myvalidator.field(fieldName).rules()) {</td></tr><tr><td>        myattributes = this.attributes(fieldName);</td></tr><tr><td>    string[] fieldNames() {</td></tr><tr><td>        return _form.getSchema().fields();</td></tr><tr><td>    string type(string fieldName) {</td></tr><tr><td>        return _form.getSchema().fieldType(fieldName);</td></tr><tr><td>    Json[string]attributes(string fieldName) {</td></tr><tr><td>            (array)_form.getSchema().field(fieldName),</td></tr><tr><td>            array_flip(VALID_ATTRIBUTES)</td></tr><tr><td>    bool hasError(string fieldName) {</td></tr><tr><td>        myerrors = this.error(fieldName);</td></tr><tr><td>        return count(myerrors) > 0;</td></tr><tr><td>    DError[] error(string fieldName) {</td></tr><tr><td>        // TODO return (array)Hash.get(_form.getErrors(), fieldName, []);</td></tr></tbody></table>
         </div>

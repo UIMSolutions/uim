@@ -95,11 +95,26 @@
                 <div class="page-body">
                     <div class="col">
                         <div class="container-xl">
-                            <div class="card">
+                                                
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Properties
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>origin</td><td>C:\Users\ONS\PROJECTS2023\uim\i18n\uim\i18n\classes\i18n.d</td></tr><tr><td>isFinal</td><td>false</td></tr><tr><td>package</td><td>uim.i18n.classes</td></tr><tr><td>visibility</td><td>public</td></tr><tr><td>name</td><td>DI18n</td></tr><tr><td>isAbstract</td><td>false</td></tr><tr><td>namespace</td><td>uim.i18n.classes.i18n</td></tr><tr><td>header</td><td>class DI18n</td></tr><tr><td>methods</td><td>["    this() {","    bool initialize(Json[string] initData = null) {","        configuration(MemoryConfiguration);","        configuration.data(initData);","    static DTranslatorRegistry translators() {","            locale()","        translatorlocale = translatorlocale.ifEmpty(locale());","        auto translators = translators();","        auto loader = translators.setLoaderFallback(domainname, loader);","        auto catalogs = translators.getPackages();","        catalogs.set(domainname, translatorlocale, loader);","     * If no locale is passed then it takes the value returned by the `locale()` method.","        auto translators = translators();","        auto translator = translators.get(domainName);","     *    return fileLoader();","     *    messages = (...); // Fetch messages for locale from external service.","     *    catalog.setMessages(message);","        translators().registerLoader(translatorName, loader);","    static void localeName(string localName) {","        getDefaultLocale();","            translators().localeNamelocalName);","    static string locale() {","        getDefaultLocale();","    static string getDefaultLocale() {","    static string getStandardLogFormatter() {","        return translators().defaultFormatter();","    static void setStandardLogFormatter(string formatterName) {","        translators().defaultFormatter(formatterName);","    static void useFallback(bool enable = true) {","        translators().useFallback(enable);","    static void clear() {"]</td></tr><tr><td>implements</td><td>[]</td></tr><tr><td>type</td><td>class</td></tr><tr><td>library</td><td>uim-i18n</td></tr></tbody></table>
         </div>
-    </div><div class="card">
+    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this() {</td></tr><tr><td>    bool initialize(Json[string] initData = null) {</td></tr><tr><td>        configuration(MemoryConfiguration);</td></tr><tr><td>        configuration.data(initData);</td></tr><tr><td>    static DTranslatorRegistry translators() {</td></tr><tr><td>            locale()</td></tr><tr><td>        translatorlocale = translatorlocale.ifEmpty(locale());</td></tr><tr><td>        auto translators = translators();</td></tr><tr><td>        auto loader = translators.setLoaderFallback(domainname, loader);</td></tr><tr><td>        auto catalogs = translators.getPackages();</td></tr><tr><td>        catalogs.set(domainname, translatorlocale, loader);</td></tr><tr><td>     * If no locale is passed then it takes the value returned by the `locale()` method.</td></tr><tr><td>        auto translators = translators();</td></tr><tr><td>        auto translator = translators.get(domainName);</td></tr><tr><td>     *    return fileLoader();</td></tr><tr><td>     *    messages = (...); // Fetch messages for locale from external service.</td></tr><tr><td>     *    catalog.setMessages(message);</td></tr><tr><td>        translators().registerLoader(translatorName, loader);</td></tr><tr><td>    static void localeName(string localName) {</td></tr><tr><td>        getDefaultLocale();</td></tr><tr><td>            translators().localeNamelocalName);</td></tr><tr><td>    static string locale() {</td></tr><tr><td>        getDefaultLocale();</td></tr><tr><td>    static string getDefaultLocale() {</td></tr><tr><td>    static string getStandardLogFormatter() {</td></tr><tr><td>        return translators().defaultFormatter();</td></tr><tr><td>    static void setStandardLogFormatter(string formatterName) {</td></tr><tr><td>        translators().defaultFormatter(formatterName);</td></tr><tr><td>    static void useFallback(bool enable = true) {</td></tr><tr><td>        translators().useFallback(enable);</td></tr><tr><td>    static void clear() {</td></tr></tbody></table>
         </div>

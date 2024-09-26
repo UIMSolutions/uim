@@ -95,11 +95,26 @@
                 <div class="page-body">
                     <div class="col">
                         <div class="container-xl">
-                            <div class="card">
+                                                
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Properties
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>origin</td><td>C:\Users\ONS\PROJECTS2023\uim\i18n\uim\i18n\classes\time.d</td></tr><tr><td>isFinal</td><td>false</td></tr><tr><td>package</td><td>uim.i18n.classes</td></tr><tr><td>visibility</td><td>public</td></tr><tr><td>name</td><td>DTime</td></tr><tr><td>isAbstract</td><td>false</td></tr><tr><td>namespace</td><td>uim.i18n.classes.time</td></tr><tr><td>header</td><td>class DTime</td></tr><tr><td>methods</td><td>["    this() {","    bool initialize(Json[string] initData = null) {","        configuration(MemoryConfiguration);","        configuration.data(initData);","    static void resetToStringFormat() {","        // setToStringFormat(IntlDateFormatterss.SHORT);","     * The format to use when formatting a time using `UIM\\I18n\\Time.i18nFormat()` and `__toString`.","     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern","     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)","     * The format to use when formatting a time using `UIM\\I18n\\Time.nice()`","     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern","     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)","     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern","     * as specified in (http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details)","     * time.i18nFormat();","     * time.i18nFormat(\\IntlDateFormatters.FULL);","     * You can control the default format used through `Time.setToStringFormat()`.","     * You can control the default locale used through `DateTime.setDefaultLocale()`.","        format = isInteger(format) ? [IntlDateFormatters.NONE, format] : format;","        localName = localName ?: DateTime.getDefaultLocale();","    string nice(string localeName = null) {","        return to!string(this.i18nFormat(niceFormat, localeName));","    string JsonSerialize() {","            return call_user_func(_JsonEncodeFormat, this);","    override string toString() {","        // TODO return to!string(this.i18nFormat());"]</td></tr><tr><td>implements</td><td>[]</td></tr><tr><td>type</td><td>class</td></tr><tr><td>library</td><td>uim-i18n</td></tr></tbody></table>
         </div>
-    </div><div class="card">
+    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>    this() {</td></tr><tr><td>    bool initialize(Json[string] initData = null) {</td></tr><tr><td>        configuration(MemoryConfiguration);</td></tr><tr><td>        configuration.data(initData);</td></tr><tr><td>    static void resetToStringFormat() {</td></tr><tr><td>        // setToStringFormat(IntlDateFormatterss.SHORT);</td></tr><tr><td>     * The format to use when formatting a time using `UIM\I18n\Time.i18nFormat()` and `__toString`.</td></tr><tr><td>     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern</td></tr><tr><td>     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)</td></tr><tr><td>     * The format to use when formatting a time using `UIM\I18n\Time.nice()`</td></tr><tr><td>     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern</td></tr><tr><td>     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)</td></tr><tr><td>     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern</td></tr><tr><td>     * as specified in (http://www.icu-project.org/apiref/icu4c/classSimpleDateFormat.html#details)</td></tr><tr><td>     * time.i18nFormat();</td></tr><tr><td>     * time.i18nFormat(\IntlDateFormatters.FULL);</td></tr><tr><td>     * You can control the default format used through `Time.setToStringFormat()`.</td></tr><tr><td>     * You can control the default locale used through `DateTime.setDefaultLocale()`.</td></tr><tr><td>        format = isInteger(format) ? [IntlDateFormatters.NONE, format] : format;</td></tr><tr><td>        localName = localName ?: DateTime.getDefaultLocale();</td></tr><tr><td>    string nice(string localeName = null) {</td></tr><tr><td>        return to!string(this.i18nFormat(niceFormat, localeName));</td></tr><tr><td>    string JsonSerialize() {</td></tr><tr><td>            return call_user_func(_JsonEncodeFormat, this);</td></tr><tr><td>    override string toString() {</td></tr><tr><td>        // TODO return to!string(this.i18nFormat());</td></tr></tbody></table>
         </div>

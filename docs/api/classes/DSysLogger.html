@@ -95,11 +95,26 @@
                 <div class="page-body">
                     <div class="col">
                         <div class="container-xl">
-                            <div class="card">
+                                                
+    <div class="row align-items-center mw-100">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        Class Properties
+                    </h3>
+                    <p class="text-secondary">
+                        <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>origin</td><td>C:\Users\ONS\PROJECTS2023\uim\logging\uim\logging\classes\loggers\syslog.d</td></tr><tr><td>isFinal</td><td>false</td></tr><tr><td>package</td><td>uim.logging.classes.loggers</td></tr><tr><td>visibility</td><td>public</td></tr><tr><td>name</td><td>DSysLogger</td></tr><tr><td>isAbstract</td><td>false</td></tr><tr><td>namespace</td><td>uim.logging.classes.loggers.syslog</td></tr><tr><td>header</td><td>class DSysLogger : DLogger</td></tr><tr><td>methods</td><td>["     * To override the log format (e.g. to add your own info) define the format key when configuring","    override bool initialize(Json[string] initData = null) {","    void log(Json severityLevel, string messageToLog, Json[string] context = null) {","     * Extracts the call to openlog() in order to run unit tests on it. This function","        openlog(idPrefix, optionFlags, facility);","     * Extracts the call to syslog() in order to run unit tests on it. This function","    protected bool _write(int priority, string logMessage) {","    auto __destruct() {","  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {"]</td></tr><tr><td>implements</td><td>["DLogger"]</td></tr><tr><td>type</td><td>class</td></tr><tr><td>library</td><td>uim-logging</td></tr></tbody></table>
         </div>
-    </div><div class="card">
+    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
         <div class="table-responsive">
             <table class="table card-table"><thead><tr><th>Name</th></tr></thead><tbody><tr><td>     * To override the log format (e.g. to add your own info) define the format key when configuring</td></tr><tr><td>    override bool initialize(Json[string] initData = null) {</td></tr><tr><td>    void log(Json severityLevel, string messageToLog, Json[string] context = null) {</td></tr><tr><td>     * Extracts the call to openlog() in order to run unit tests on it. This function</td></tr><tr><td>        openlog(idPrefix, optionFlags, facility);</td></tr><tr><td>     * Extracts the call to syslog() in order to run unit tests on it. This function</td></tr><tr><td>    protected bool _write(int priority, string logMessage) {</td></tr><tr><td>    auto __destruct() {</td></tr><tr><td>  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {</td></tr></tbody></table>
         </div>

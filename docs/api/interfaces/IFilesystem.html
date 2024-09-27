@@ -104,10 +104,15 @@
                         Interface Properties
                     </h3>
                     <p class="text-secondary">
-                        <div class="card">
-        <div class="table-responsive">
-            <table class="table card-table"><thead><tr><th>Name</th><th>Value</th></tr></thead><tbody><tr><td>origin</td><td>C:\Users\ONS\PROJECTS2023\uim\filesystems\uim\filesystems\interfaces\filesystem.d</td></tr><tr><td>package</td><td>uim.filesystems.interfaces</td></tr><tr><td>visibility</td><td>null</td></tr><tr><td>name</td><td>IFilesystem</td></tr><tr><td>namespace</td><td>uim.filesystems.interfaces.filesystem</td></tr><tr><td>header</td><td>interface IFilesystem : IFolderManager, IFileManager, ILinkManager {</td></tr><tr><td>methods</td><td>["  bool isFolder(string aPath)","  bool isFolder(string aPath, string aFolderName)","  bool isFolder(string[] aPath)","  bool isFolder(string[] aPath, string aFolderName)","  bool isFile(string aPath)","  bool isFile(string aPath, string aFolderName)","  bool isFile(string[] aPath)","  bool isFile(string[] aPath, string aFolderName)","  void[] readFromFile(string[] aPath, string aFileName, size_t numberOfBytes = size_t.max)","  void writeToFile(string[] aPath, string aFileName, const void[] buffer)","  void appendToFile(string[] aPath, string aFileName, const void[] buffer)","  string readTextFromFile(string[] aPath, string aFileName)","  void writeTextToFile(string[] aPath, string aFileName, string aText)","  void appendTextToFile(string[] aPath, string aFileName, string aText)","  string[] readLines(string[] aPath, string aFileName)","  bool isLink(string aPath)","  bool isLink(string aPath, string aFolderName)","  bool isLink(string[] aPath)","  bool isLink(string[] aPath, string aFolderName)"]</td></tr><tr><td>implements</td><td>["IFolderManager","IFileManager","ILinkManager"]</td></tr><tr><td>type</td><td>interface</td></tr><tr><td>library</td><td>uim-filesystems</td></tr></tbody></table>
-        </div>
+                        <div class="mb-3">
+        <label class="form-label">Type</label>
+        <input type="text" class="form-control" name="example-text-input" readonly="" value="interface">
+    </div><div class="mb-3">
+        <label class="form-label">Visibility</label>
+        <input type="text" class="form-control" name="example-text-input" readonly="" value="">
+    </div><div class="mb-3">
+        <label class="form-label">Implements</label>
+        <input type="text" class="form-control" name="example-text-input" readonly="" value="">
     </div>
                     </p>
                 </div>

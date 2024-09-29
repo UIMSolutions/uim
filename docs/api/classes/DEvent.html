@@ -106,11 +106,19 @@
                     <p class="text-secondary">
                         <div class="mb-3">
         <label class="form-label">Type</label>
-        <input type="text" class="form-control" name="example-text-input" readonly="" value="class">
+        <input type="text" class="form-control" name="example-text-input" readonly="" value="">
     </div><div class="mb-3">
         <label class="form-label">Visibility</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="public">
-    </div> checked checked<div class="mb-3">
+    </div>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label">Is Abstract</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label">Is Final</span>
+    </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">
     </div>
@@ -130,7 +138,211 @@
                     <p class="text-secondary">
                         <div class="card">
         <div class="table-responsive">
-            <table class="table card-table"><thead><tr><th>Inherited</th><th>Abstract</th><th>Final</th><th>Header</th></tr></thead><tbody></tbody></table>
+            <table class="table card-table"><thead><tr><th class="w-1">Inherited</th><th>Abstract</th><th>Final</th><th>Header</th></tr></thead><tbody><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>this(string name, IEventObject subject, Json[string] initData = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEvent data(string[] keys, long value)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEvent data(string[] keys, string value)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json opIndex(string key)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEvent data(string key, bool value)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEvent data(string[] keys, Json value)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json data(string key)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEvent stopPropagation()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEvent data(string key, long value)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEvent data(string key, string value)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEvent data(string key, Json value)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEvent data(string key, double value)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEventObject getSubject()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isStopped()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEvent data(string[] keys, bool value)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json[string] data()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IEvent data(string[] keys, double value)</td></tr></tbody></table>
         </div>
     </div>
                     </p>

@@ -106,11 +106,19 @@
                     <p class="text-secondary">
                         <div class="mb-3">
         <label class="form-label">Type</label>
-        <input type="text" class="form-control" name="example-text-input" readonly="" value="class">
+        <input type="text" class="form-control" name="example-text-input" readonly="" value="">
     </div><div class="mb-3">
         <label class="form-label">Visibility</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="public">
-    </div> checked checked<div class="mb-3">
+    </div>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label">Is Abstract</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label">Is Final</span>
+    </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">
     </div>
@@ -130,7 +138,451 @@
                     <p class="text-secondary">
                         <div class="card">
         <div class="table-responsive">
-            <table class="table card-table"><thead><tr><th>Inherited</th><th>Abstract</th><th>Final</th><th>Header</th></tr></thead><tbody></tbody></table>
+            <table class="table card-table"><thead><tr><th class="w-1">Inherited</th><th>Abstract</th><th>Final</th><th>Header</th></tr></thead><tbody><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isFile(string aPath, string aFileName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hasFilesystem()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isFolder(string aPath, string aFileName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isFile(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void appendTextToFile(string[] aPath, string aFileName, string aText)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isFile(string[] aPath, string aFileName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void appendToFile(string[] aPath, string aFileName, const void[] buffer)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isHidden(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isLink(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void writeTextToFile(string[] aPath, string aFileName, string aText)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string readTextFromFile(string[] aPath, string aFileName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isFolder(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isHidden(string aPath, string aLinkName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void[] readFromFile(string[] aPath, string aFileName, size_t numberOfBytes = size_t.max)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string absolutePath(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string[] readLines(string[] aPath, string aFileName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string[] path()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>size_t capacity()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void writeToFile(string[] aPath, string aFileName, const void[] buffer)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isFolder(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isFile(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isLink(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isLink(string aPath, string aLinkName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string relPath(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isLink(string[] aPath, string aLinkName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isHidden(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>size_t availableDiskSpace()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>this(string[] path, Json[string] initData = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="true">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool initialize(Json[string] initData = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isHidden(string[] aPath, string aLinkName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string relPath(string[] pathItems = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>size_t size()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string type()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isFolder(string[] aPath, string aFileName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void path(string[] path)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder rootFolder()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string absolutePath(string[] pathItems = null)</td></tr></tbody></table>
         </div>
     </div>
                     </p>

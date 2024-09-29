@@ -106,11 +106,19 @@
                     <p class="text-secondary">
                         <div class="mb-3">
         <label class="form-label">Type</label>
-        <input type="text" class="form-control" name="example-text-input" readonly="" value="class">
+        <input type="text" class="form-control" name="example-text-input" readonly="" value="">
     </div><div class="mb-3">
         <label class="form-label">Visibility</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="public">
-    </div> checked checked<div class="mb-3">
+    </div>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label">Is Abstract</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label">Is Final</span>
+    </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">
     </div>
@@ -130,7 +138,379 @@
                     <p class="text-secondary">
                         <div class="card">
         <div class="table-responsive">
-            <table class="table card-table"><thead><tr><th>Inherited</th><th>Abstract</th><th>Final</th><th>Header</th></tr></thead><tbody></tbody></table>
+            <table class="table card-table"><thead><tr><th class="w-1">Inherited</th><th>Abstract</th><th>Final</th><th>Header</th></tr></thead><tbody><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string _writeUrl(Json[string] options, Json[string] mypass = null, Json[string] query = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void setPersist(Json[string] routings)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>this(string mytemplate, Json[string] _defaultValues = null, Json[string] options = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void setMethods(string[] httpMethods)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string[] _parseArgs(string argument, Json[string] routeContext)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json[string] parseRequest(IServerRequest myrequest)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void setHost(string hostName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json[string] _persistParams(Json[string] url, Json[string] options)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void _writeRoute()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>const string PLACEHOLDER_REGEX = "#\</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void setPatterns(Json[string] mypatterns)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void setMiddleware(Json[string] mymiddleware)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string compile()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>this(string newName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string staticPath()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json[string] getMiddleware()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>__set_state(Json[string] fieldNames)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>@property string name()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void setExtensions(string[] myextensions)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string match(Json[string] url, Json[string] requestContext= null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json[string] _parseExtension(string urlToParse)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool compiled()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hostMatches(string hostName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string[] normalizeAndValidateMethods(string[] methods)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string[] getExtensions()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>this(Json[string] initData)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool initialize(Json[string] initData = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void setPass(string[] parameterNames)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json[string] parse(string urlToParse, string httpMethod)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>this()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool _matchMethod(Json[string] url)</td></tr></tbody></table>
         </div>
     </div>
                     </p>

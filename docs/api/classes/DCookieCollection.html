@@ -106,11 +106,19 @@
                     <p class="text-secondary">
                         <div class="mb-3">
         <label class="form-label">Type</label>
-        <input type="text" class="form-control" name="example-text-input" readonly="" value="class">
+        <input type="text" class="form-control" name="example-text-input" readonly="" value="">
     </div><div class="mb-3">
         <label class="form-label">Visibility</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="public">
-    </div> checked checked<div class="mb-3">
+    </div>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label">Is Abstract</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label">Is Final</span>
+    </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">
     </div>
@@ -130,7 +138,199 @@
                     <p class="text-secondary">
                         <div class="card">
         <div class="table-responsive">
-            <table class="table card-table"><thead><tr><th>Inherited</th><th>Abstract</th><th>Final</th><th>Header</th></tr></thead><tbody></tbody></table>
+            <table class="table card-table"><thead><tr><th class="w-1">Inherited</th><th>Abstract</th><th>Final</th><th>Header</th></tr></thead><tbody><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void checkCookies(ICookie[] cookies)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void removeExpiredCookies(string hostToCheck, string pathToCheck)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>DCookieCollection createFromServerRequest(IServerRequest request)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>DCookieCollection add(ICookie cookie)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>DTraversable getIterator()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>size_t count()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>auto has(string cookieName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json[string] findMatchingCookies(string hhtpScheme, string hostToMatch, string pathToMatch)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool __isSet(string cookieName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>auto createFromHeader(string[] headerValues, Json[string] defaultAttributes = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>this(Json[string] cookies = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>ICookie get(string cookieName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IRequest addToRequest(IRequest request, Json[string] extraCookies = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>ICookie __get(string cookieName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>addFromResponse(IResponse response, IRequest request)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>removeKey(string cookieName)</td></tr></tbody></table>
         </div>
     </div>
                     </p>

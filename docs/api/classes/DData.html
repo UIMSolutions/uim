@@ -106,11 +106,19 @@
                     <p class="text-secondary">
                         <div class="mb-3">
         <label class="form-label">Type</label>
-        <input type="text" class="form-control" name="example-text-input" readonly="" value="class">
+        <input type="text" class="form-control" name="example-text-input" readonly="" value="">
     </div><div class="mb-3">
         <label class="form-label">Visibility</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="public">
-    </div> checked checked<div class="mb-3">
+    </div>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label">Is Abstract</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label">Is Final</span>
+    </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">
     </div>
@@ -130,7 +138,547 @@
                     <p class="text-secondary">
                         <div class="card">
         <div class="table-responsive">
-            <table class="table card-table"><thead><tr><th>Inherited</th><th>Abstract</th><th>Final</th><th>Header</th></tr></thead><tbody></tbody></table>
+            <table class="table card-table"><thead><tr><th class="w-1">Inherited</th><th>Abstract</th><th>Final</th><th>Header</th></tr></thead><tbody><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hasAllKeys()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json[string] getMap()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IData data(string key)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void opAssign(string newValue)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="true">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string toString()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hasData(IData[] data, bool deepSearch = false)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>long getLong()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isEmpty()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>size_t length()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="true">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string name()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IData clone()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IData create()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void opAssign(long newValue)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void fromString(string[string] newValue, bool shouldOverwrite = true)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void opAssign(Json newValue)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hasPath(string path, string separator = "/")</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hasPaths(string[] paths, string separator = "/")</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool isNull()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json getJson(string key)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json toJson(string[] selectedKeys = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void fromJson(Json newValue, bool shouldOverwrite = true)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void opAssign(bool newValue)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>double getDouble()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json getJson()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string getString()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="true">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void name(string name)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void opAssign(Json[] newValue)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>string[] keys()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void opAssign(double newValue)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool getBoolean()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void isNull(bool status)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="true">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IData[string] data(string[] keys)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>UUID getUUID()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="true">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool initialize(Json[string] initData = null)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool has(string key, bool deepSearch = false)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hasData(IData data, bool deepSearch = false)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>Json[] getArray()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hasKey(string key, bool deepSearch = false)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hasAllKeys(string[] keys)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void opAssign(Json[string] newValue)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hasAllKeys(string[] keys, bool deepSearch = false)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>void opAssignIndex(IData data, string key)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hasData(IData[string] checkData, bool deepSearch = false)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>bool hasKey()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox" checked="false">
+        <span class="form-check-label"></span>
+    </label></td><td>IData at(size_t pos)</td></tr></tbody></table>
         </div>
     </div>
                     </p>

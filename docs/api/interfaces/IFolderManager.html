@@ -116,7 +116,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Interface Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -140,12 +140,204 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Interface Methods
+                        Methods
                     </h3>
                     <p class="text-secondary">
                         <div class="card">
         <div class="table-responsive">
-            <table class="table card-table"><thead><tr><th>Header</th></tr></thead><tbody>methods</tbody></table>
+            <table class="table card-table"><thead><tr><th class="w-1">Final</th><th class="w-1">Datatype</th><th>Header</th></tr></thead><tbody><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>final</td><td>final bool addFolders(IFolder[] someFolders...) {</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool removeFolder(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool removeFolder(string[] aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder[]</td><td>IFolder[] folders(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool removeFolder(string aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool renameFolder(string[] oldPathAndName, string newName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>size_t</td><td>size_t countFolders(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>size_t</td><td>size_t countFolders(string[] aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool copyFolder(string fromPath, string toPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder folder(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool copyFolder(string[] fromPath, string[] toPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool existsFolder(string aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder folder(string aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder[]</td><td>IFolder[] folders()</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>size_t</td><td>size_t countFolders(string aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool existsFolders(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder folder(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool existsFolder(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool existsFolders(string[] aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder[]</td><td>IFolder[] folders(string aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool existsFolder(string[] aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool copyFolder(IFolder aFolder, string[] toPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder createFolder(string aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>final</td><td>final bool addFolders(IFolder[] someFolders) {</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool renameFolder(string[] aPath, string oldName, string newName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool addFolder(IFolder aFolder)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool moveFolder(IFolder aFolder, IFolder toFolder)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder[]</td><td>IFolder[] folders(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool existsFolders(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>size_t</td><td>size_t countFolders(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool moveFolder(string[] fromPath, string[] toPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool renameFolder(string aPath, string oldName, string newName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool renameFolder(string oldPathAndName, string newName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool removeFolder(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder createIfNotExistsFolder(string aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder createFolder(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder createFolder(string[] aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool existsFolders(string aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool existsFolder(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder createIfNotExistsFolder(string[] aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder createIfNotExistsFolder(string[] aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool moveFolder(string fromPath, string toPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder[]</td><td>IFolder[] folders(string[] aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool moveFolder(IFolder aFolder, string[] toPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder folder(string[] aPath, string aFolderName)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder createIfNotExistsFolder(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>IFolder</td><td>IFolder createFolder(string aPath)</td></tr><tr><td>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label"></span>
+    </label></td><td>bool</td><td>bool copyFolder(IFolder aFolder, IFolder toFolder)</td></tr></tbody></table>
         </div>
     </div>
                     </p>

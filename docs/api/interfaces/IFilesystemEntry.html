@@ -120,9 +120,6 @@
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
-        <label class="form-label">Type</label>
-        <input type="text" class="form-control" name="example-text-input" readonly="" value="">
-    </div><div class="mb-3">
         <label class="form-label">Visibility</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="public">
     </div><div class="mb-3">
@@ -145,75 +142,7 @@
                     <p class="text-secondary">
                         <div class="card">
         <div class="table-responsive">
-            <table class="table card-table"><thead><tr><th class="w-1">Final</th><th class="w-1">Datatype</th><th>Header</th></tr></thead><tbody><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>string</td><td>string absolutePath(string aPath)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool hasFilesystem()</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>string[]</td><td>string[] path()</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool isFile()</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool isLink()</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>IFolder</td><td>IFolder parentFolder()</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>IFilesystem</td><td>IFilesystem filesystem()</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>void</td><td>void path(string[] aPath)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>void</td><td>void parentFolder(IFolder aFolder)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>size_t</td><td>size_t size()</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>string</td><td>string toString()</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool rename(string newName)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>string</td><td>string relPath(string[] aPath = null)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool isHidden()</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>string</td><td>string relPath(string aPath)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>string</td><td>string absolutePath(string[] aPath = null)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool isFolder()</td></tr></tbody></table>
+            <table class="table card-table"><thead><tr><th class="w-1">Final</th><th class="w-1">Datatype</th><th>Header</th></tr></thead><tbody><tr><td><input class="form-check-input" type="checkbox"></td><td>string</td><td>string absolutePath(string aPath)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool hasFilesystem()</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>string[]</td><td>string[] path()</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool isFile()</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool isLink()</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>IFolder</td><td>IFolder parentFolder()</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>IFilesystem</td><td>IFilesystem filesystem()</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>void</td><td>void path(string[] aPath)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>void</td><td>void parentFolder(IFolder aFolder)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>size_t</td><td>size_t size()</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>string</td><td>string toString()</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool rename(string newName)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>string</td><td>string relPath(string[] aPath = null)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool isHidden()</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>string</td><td>string relPath(string aPath)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>string</td><td>string absolutePath(string[] aPath = null)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool isFolder()</td></tr></tbody></table>
         </div>
     </div>
                     </p>

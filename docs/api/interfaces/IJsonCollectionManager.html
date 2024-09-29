@@ -120,9 +120,6 @@
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
-        <label class="form-label">Type</label>
-        <input type="text" class="form-control" name="example-text-input" readonly="" value="">
-    </div><div class="mb-3">
         <label class="form-label">Visibility</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="public">
     </div><div class="mb-3">
@@ -145,91 +142,7 @@
                     <p class="text-secondary">
                         <div class="card">
         <div class="table-responsive">
-            <table class="table card-table"><thead><tr><th class="w-1">Final</th><th class="w-1">Datatype</th><th>Header</th></tr></thead><tbody><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>size_t</td><td>size_t countCollections(string[] someNames = null)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool hasCollections(string[] someNames...)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool addCollections(IJsonCollection[string] someCollections)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>string[]</td><td>string[] existingCollections(string[] someNames = null)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool deleteCollection(string aName)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>IJsonCollection[]</td><td>IJsonCollection[] createCollections(string[] someNames...)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>string[]</td><td>string[] existingCollections(string[] someNames...)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool addCollection(IJsonCollection aCollection)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool addCollection(string aName, IJsonCollection aCollection)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>string[]</td><td>string[] collectionNames()</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>IJsonCollection[]</td><td>IJsonCollection[] collections()</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>IJsonCollection</td><td>IJsonCollection createCollection(string aName)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>IJsonCollection</td><td>IJsonCollection collection(string aName)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>IJsonCollection[]</td><td>IJsonCollection[] createCollections(string[] someNames)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool deleteCollections(string[] someNames)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool addCollections(IJsonCollection[] someCollections...)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool hasCollection(string aName)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>size_t</td><td>size_t countCollections(string[] someNames...)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool hasCollections(string[] someNames = null)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool deleteCollections(string[] someNames...)</td></tr><tr><td>
-    <label class="form-check">
-        <input class="form-check-input" type="checkbox">
-        <span class="form-check-label"></span>
-    </label></td><td>bool</td><td>bool addCollections(IJsonCollection[] someCollections)</td></tr></tbody></table>
+            <table class="table card-table"><thead><tr><th class="w-1">Final</th><th class="w-1">Datatype</th><th>Header</th></tr></thead><tbody><tr><td><input class="form-check-input" type="checkbox"></td><td>size_t</td><td>size_t countCollections(string[] someNames = null)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool hasCollections(string[] someNames...)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool addCollections(IJsonCollection[string] someCollections)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>string[]</td><td>string[] existingCollections(string[] someNames = null)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool deleteCollection(string aName)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>IJsonCollection[]</td><td>IJsonCollection[] createCollections(string[] someNames...)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>string[]</td><td>string[] existingCollections(string[] someNames...)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool addCollection(IJsonCollection aCollection)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool addCollection(string aName, IJsonCollection aCollection)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>string[]</td><td>string[] collectionNames()</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>IJsonCollection[]</td><td>IJsonCollection[] collections()</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>IJsonCollection</td><td>IJsonCollection createCollection(string aName)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>IJsonCollection</td><td>IJsonCollection collection(string aName)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>IJsonCollection[]</td><td>IJsonCollection[] createCollections(string[] someNames)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool deleteCollections(string[] someNames)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool addCollections(IJsonCollection[] someCollections...)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool hasCollection(string aName)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>size_t</td><td>size_t countCollections(string[] someNames...)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool hasCollections(string[] someNames = null)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool deleteCollections(string[] someNames...)</td></tr><tr><td><input class="form-check-input" type="checkbox"></td><td>bool</td><td>bool addCollections(IJsonCollection[] someCollections)</td></tr></tbody></table>
         </div>
     </div>
                     </p>

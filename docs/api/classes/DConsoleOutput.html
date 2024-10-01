@@ -107,7 +107,7 @@
                     <h3 class="card-title">
                         Description
                     </h3>
-                    <p class="text-secondary">
+                    <p class="text-secondary markdown">
                          Object wrapper for outputting information from a shell application. Can be connected to any stream resource that can be used with fopen()  Can generate colorized output on consoles that support it. There are a few built in styles  - `error` Error messages. - `warning` Warning messages. - `info` Informational messages. - `comment` Additional text. - `question` Magenta text used for user prompts  By defining styles with addStyle() you can create custom console styles.  ### Using styles in output  You can format console output using tags with the name of the style to apply. From inside a shell object  ``` this.writeln("<warning>Overwrite:</warning> foo.d was overwritten."); ```  This would create orange 'Overwrite:' text, while the rest of the text would remain the normal color. See ConsoleOutput.styles() to learn more about defining your own styles. Nested styles are not supported at this time. 
                     </p>
                 </div>

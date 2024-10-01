@@ -107,7 +107,7 @@
                     <h3 class="card-title">
                         Description
                     </h3>
-                    <p class="text-secondary">
+                    <p class="text-secondary markdown">
                          Web Exception Renderer.  Captures and handles all unhandled exceptions. Displays helpful framework errors when debug is true. When debug is false, WebExceptionRenderer will render 404 or 500 errors. If an uncaught exception is thrown and it is a type that WebExceptionHandler does not know about it will be treated as a 500 error.  ### Implementing application specific exception rendering  You can implement application specific exception handling by creating a subclass of WebExceptionRenderer and configure it to be the `exceptionRenderer` in config/error.d  #### Using a subclass of WebExceptionRenderer  Using a subclass of WebExceptionRenderer gives you full control over how Exceptions are rendered, you can configure your class in your config/app.d. 
                     </p>
                 </div>

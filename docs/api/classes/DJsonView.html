@@ -107,7 +107,7 @@
                     <h3 class="card-title">
                         Description
                     </h3>
-                    <p class="text-secondary">
+                    <p class="text-secondary markdown">
                          A view class that is used for Json responses.  It allows you to omit templates if you just need to emit Json string as response.  In your controller, you could do the following:  ``` set(["posts": myposts]); viewBuilder().setOption("serialize", true); ```  When the view is rendered, the `myposts` view variable will be serialized into Json.  You can also set multiple view variables for serialization. This will create a top level object containing all the named view variables:  ``` set(compact("posts", "users", "stuff")); viewBuilder().setOption("serialize", true); ```  The above would generate a Json object that looks like:  `{"posts": [...], "users": [...]}`  You can also set `"serialize"` to a string or array to serialize only the specified view variables.  If you don"t set the `serialize` option, you will need a view template. You can use extended views to provide layout-like functionality.  You can also enable JsonP support by setting `Jsonp` option to true or a string to specify custom query string parameter name which will contain the callback auto name. 
                     </p>
                 </div>

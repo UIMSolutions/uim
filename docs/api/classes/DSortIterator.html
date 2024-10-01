@@ -107,7 +107,7 @@
                     <h3 class="card-title">
                         Description
                     </h3>
-                    <p class="text-secondary">
+                    <p class="text-secondary markdown">
                          An iterator that will return the passed items in order. The order is given by the value returned in a callback auto that maps each of the elements.  ### Example:  ``` someItems = [user1, user2, user3]; sorted = new DSortIterator(someItems, auto (user) { return user.age; });  output all user name order by their age in descending order sorted.each!(user => writeln(user.name)); ```  This iterator does not preserve the keys passed in the original elements. 
                     </p>
                 </div>

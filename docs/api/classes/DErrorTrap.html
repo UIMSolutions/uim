@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         Entry point to UIM`s error handling.  Using the `register()` method you can attach an ErrorTrap to D`s default error handler.  When errors are trapped, errors are logged (if logging is enabled). Then the `Error.beforeRender` event is triggered. Finally, errors are 'rendered' using the defined renderer. If no error renderer is defined in configuration one of the default implementations will be chosen based on the UIM SAPI. 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

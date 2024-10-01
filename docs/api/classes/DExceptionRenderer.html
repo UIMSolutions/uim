@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         Exception Renderer.  Captures and handles all unhandled exceptions. Displays helpful framework errors when debug is true. When debug is false a ExceptionRenderer will render 404 or 500 errors. If an uncaught exception is thrown and it is a type that ExceptionHandler does not know about it will be treated as a 500 error.  ### Implementing application specific exception rendering  You can implement application specific exception handling by creating a subclass of ExceptionRenderer and configure it to be the `exceptionRenderer` in config/error.D  #### Using a subclass of ExceptionRenderer  Using a subclass of ExceptionRenderer gives you full control over how Exceptions are rendered, you can configure your class in your config/app.D. 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

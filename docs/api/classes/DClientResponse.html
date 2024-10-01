@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         : methods for HTTP responses.  All the following examples assume that `response` is an instance of this class.  ### Get header values  Header names are case-insensitive, but normalized to Title-Case when the response is parsed.  ``` val = response.getHeaderLine("content-type"); ```  Will read the Content-Type header. You can get all set headers using:  ``` response.getHeaders(); ```  ### Get the response body  You can access the response body stream using:  ``` content = response.getBody(); ```  You can get the body string using:  ``` content = response.getStringBody(); ```  If your response body is in XML or Json you can use special content type specific accessors to read the decoded data. Json data will be returned as arrays, while XML data will be returned as SimpleXML nodes:  ``` Get as XML content = response.getXml() Get as Json content = response.getJson() ```  If the response cannot be decoded, null will be returned.  ### Check the status code  You can access the response status code using:  ``` content = response.statusCode(); ``` 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         Entry point to UIM"s exception handling.  Using the `register()` method you can attach an ExceptionTrap to D"s default exception handler and register a shutdown handler to handle fatal errors.  When exceptions are trapped the `Exception.beforeRender` event is triggered. Then exceptions are logged (if enabled) and finally "rendered" using the defined renderer.  Stopping the `Exception.beforeRender` event has no effect, as we always need to render a response to an exception and custom renderers should be used if you want to replace or skip rendering an exception.  If undefined, an ExceptionRenderer will be selected based on the current SAPI (CLI or Web). 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

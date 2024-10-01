@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                        * Use HTTP caching headers to see if rendering can be skipped.  Checks if the response can be considered different according to the request headers, and caching headers in the response. If the response was not modified, then the controller and view render process is skipped. And the client will get a response with an empty body and a "304 Not Modified" header.  To use this component your controller actions must set either the `Last-Modified` or `Etag` header. Without one of these headers being set this component will have no effect. 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

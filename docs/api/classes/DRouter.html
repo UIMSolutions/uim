@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         Parses the request URL into controller, action, and parameters. Uses the connected routes to match the incoming URL string to parameters that will allow the request to be dispatched. Also handles converting parameter lists into URL strings, using the connected routes. Routing allows you to decouple the way the world interacts with your application (URLs) and the implementation (controllers and actions).  ### Connecting routes  Connecting routes is done using Router.connect(). When parsing incoming requests or reverse matching parameters, routes are enumerated in the order they were connected. For more information on routes and how to connect them see Router.connect(). 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

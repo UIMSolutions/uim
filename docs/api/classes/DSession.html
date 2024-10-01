@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         This class is a wrapper for the native UIM session functions. It provides several defaults for the most common session configuration via external handlers and helps with using session in CLI without any warnings.  Sessions can be created from the defaults using `Session.create()` or you can get an instance of a new session by just instantiating this class DAnd passing the complete options you want to use.  When specific options are omitted, this class will take its defaults from the configuration values from the `session.*` directives in D.ini. This class will also alter such directives when configuration values are provided. 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

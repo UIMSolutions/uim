@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         Provides CSRF protection via session based tokens.  This middleware adds a CSRF token to the session. Each request must contain a token in request data, or the X-CSRF-Token header on each PATCH, POST, PUT, or DELETE request. This follows a `synchronizer token' pattern.  If the request data is missing or does not match the session data, an InvalidCsrfTokenException will be raised.  This middleware integrates with the FormHelper automatically and when used together your forms will have CSRF tokens automatically added when `this.Form.create(...)` is used in a view.  If you use this middleware *do not* also use CsrfProtectionMiddleware. 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

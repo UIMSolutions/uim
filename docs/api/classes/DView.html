@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         View, the V in the MVC triad. View interacts with Helpers and view variables passed in from the controller to render the results of the controller action. Often this is HTML, but can also take the form of Json, XML, PDF"s or streaming files.  UIM uses a two-step-view pattern. This means that the template content is rendered first, and then inserted into the selected layout. This also means you can pass data from the template to the layout using `_set()`  View class supports using plugins as themes. You can set  ``` auto beforeRender(\UIM\Event\IEvent myevent) { _viewBuilder().theme("SuperHot"); } ```  in your Controller to use plugin `SuperHot` as a theme. Eg. If current action is PostsController.index() then View class will look for template file `plugins/SuperHot/templates/Posts/index.d`. If a theme template is not found for the current action the default app template file is used.  @property \UIM\View\Helper\BreadcrumbsHelper myBreadcrumbs @property \UIM\View\Helper\FlashHelper myFlash @property \UIM\View\Helper\FormHelper myForm @property \UIM\View\Helper\HtmlHelper myHtml @property \UIM\View\Helper\NumberHelper myNumber @property \UIM\View\Helper\PaginatorHelper myPaginator @property \UIM\View\Helper\TextHelper myText @property \UIM\View\Helper\TimeHelper myTime @property \UIM\View\Helper\UrlHelper myUrl @property \UIM\View\ViewBlock myBlocks @implements \UIM\Event\IEventDispatcher<\UIM\View\View> 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

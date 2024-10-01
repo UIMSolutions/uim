@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         Base class for full-stack applications  This class serves as a base class for applications that are using UIM as a full stack framework. If you are only using the Http or Console libraries you should implement the relevant interfaces directly.  The application class is responsible for bootstrapping the application, and ensuring that middleware is attached. It is also invoked as the last piece of middleware, and delegates request/response handling to the correct controller.  @template TSubject of \UIM\Http\BaseApplication @implements \UIM\Event\IEventDispatcher<TSubject> @implements \UIM\Core\IPluginApplication<TSubject> 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

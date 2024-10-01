@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         DAbstract base class for all other Helpers in UIM. Provides common methods and features.  ### Callback methods  Helpers support a number of callback methods. These callbacks allow you to hook into the various view lifecycle events and either modify existing view content or perform other application specific logic. The events are not implemented by this base class, as implementing a callback method subscribes a helper to the related event. The callback methods are as follows:  - `beforeRender(IEvent myevent, myviewFile)` - beforeRender is called before the view file is rendered. - `afterRender(IEvent myevent, myviewFile)` - afterRender is called after the view file is rendered but before the layout has been rendered. - beforeLayout(IEvent myevent, mylayoutFile)` - beforeLayout is called before the layout is rendered. - `afterLayout(IEvent myevent, mylayoutFile)` - afterLayout is called after the layout has rendered. - `beforeRenderFile(IEvent myevent, myviewFile)` - Called before any view fragment is rendered. - `afterRenderFile(IEvent myevent, myviewFile, mycontent)` - Called after any view fragment is rendered. If a listener returns a non-null value, the output of the rendered file will be set to that. 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

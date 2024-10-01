@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         Provides a form context around a single entity and its relations. It also can be used as context around an array or iterator of entities.  This class lets FormHelper interface with entities or collections of entities.  Important Keys:  - `entity` The entity this context is operating on. - `table` Either the ORM\Table instance to fetch schema/validators from, an array of table instances in the case of a form spanning multiple entities, or the name(s) of the table. If this.isNull the table name(s) will be determined using naming conventions. - `validator` Either the Validation\Validator to use, or the name of the validation method to call on the table object. For example "default". Defaults to "default". Can be an array of table alias=>validators when dealing with associated forms. 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         Middleware for encrypting & decrypting cookies.  This middleware layer will encrypt/decrypt the named cookies with the given key and cipher type. To support multiple keys/cipher types use this middleware multiple times.  Cookies in request data will be decrypted, while cookies in response headers will be encrypted automatically. If the response is a {@link \UIM\Http\Response}, the cookie data set with `withCookie()` and `cookie()`` will also be encrypted.  The encryption types and padding are compatible with those used by CookieComponent for backwards compatibility. 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

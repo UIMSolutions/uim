@@ -108,7 +108,7 @@
                         Description
                     </h3>
                     <p class="text-secondary">
-                        
+                         The end user interface for doing HTTP requests.  ### Scoped clients  If you're doing multiple requests to the same hostname it`s often convenient to use the constructor arguments to create a scoped client. This allows you to keep your code DRY and not repeat hostnames, authentication, and other options.  ### Doing requests  Once you've created an instance of Client you can do requests using several methods. Each corresponds to a different HTTP method.  - get() - post() - put() - removeKey() - patch()  ### Cookie management  Client will maintain cookies from the responses done with a client instance. These cookies will be automatically added to future requests to matching hosts. Cookies will respect the `Expires`, `Path` and `Domain` attributes. You can get the client`s CookieCollection using cookies()  You can use the 'cookieJar' constructor option to provide a custom cookie jar instance you've restored from cache/disk. By default, an empty instance of {@link \UIM\Http\Client\CookieCollection} will be created.  ### Sending request bodies  By default, any POST/PUT/PATCH/DELETE request with mydata will send their data as `application/x-www-form-urlencoded` unless there are attached files. In that case `multipart/form-data` will be used.  When sending request bodies you can use the `type` option to set the Content-Type for the request:  ``` myhttp.get("/users", [], ["type": 'Json"]); ```  The `type` option sets both the `Content-Type` and `Accept` header, to the same mime type. When using `type` you can use either a full mime type or an alias. If you need different types in the Accept and Content-Type headers you should set them manually and not use `type`  ### Using authentication  By using the `auth` key you can use authentication. The type sub option can be used to specify which authentication strategy you want to use. UIM comes with a few built-in strategies:  - Basic - Digest - Oauth  ### Using proxies  By using the `proxy` key you can set authentication credentials for a proxy if you need to use one. The type sub option can be used to specify which authentication strategy you want to use. UIM comes with built-in support for basic authentication. 
                     </p>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
-                        Class Properties
+                        Properties
                     </h3>
                     <p class="text-secondary">
                         <div class="mb-3">
@@ -134,6 +134,10 @@
     <label class="form-check">
         <input class="form-check-input" type="checkbox">
         <span class="form-check-label">Is Final</span>
+    </label>
+    <label class="form-check">
+        <input class="form-check-input" type="checkbox">
+        <span class="form-check-label">Is Static</span>
     </label><div class="mb-3">
         <label class="form-label">Implements</label>
         <input type="text" class="form-control" name="example-text-input" readonly="" value="">

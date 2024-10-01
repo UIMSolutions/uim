@@ -103,25 +103,27 @@ unittest {
 }
 
 // all values in array are greater then value
-bool allGreaterThen(T)(T[] values, T aValue) if (isNumeric!T) {
-  return values
-    .filter!(value => !(value > aValue)).array.length == 0;
+bool greaterThenAll(T)(T[] baseValues, T aValue) if (isNumeric!T) {
+  return baseValues.all!(base => greaterThen(base, value));
 }
 /// 
 unittest {
-  assert([2, 3, 4].allGreaterThen(1));
-  assert(![1, 2, 1].allGreaterThen(1));
+  assert([2, 3, 4].greaterThenAll(1));
+  assert(![1, 2, 1].greaterThenAll(1));
 }
 
-bool anyGreaterThen(T)(T[] values, T aValue) if (isNumeric!T) {
-  return values
-    .filter!(value => value > aValue).array.length > 0;
+bool greaterThenAny(T)(T[] baseValues, T aValue) if (isNumeric!T) {
+  return baseValues.any!(base => greaterThen(base, value));
 }
 
 unittest {
-  assert([2, 3, 4].anyGreaterThen(1));
-  assert([1, 2, 1].anyGreaterThen(1));
-  assert(![1, 2, 1].anyGreaterThen(3));
+  assert([2, 3, 4].greaterThenAny(1));
+  assert([1, 2, 1].greaterThenAny(1));
+  assert(![1, 2, 1].greaterThenAny(3));
+}
+
+bool greaterThen(T)(T base, T value) if (isNumeric!T) {
+  return (base > value);
 }
 
 // all values in array are greater equal value

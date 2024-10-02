@@ -24,7 +24,7 @@ interface IErrorLogger {
 
     // Log an error to uim`s Log subsystem
     void logError(
-        UIMError errorToLog,
+        IError errorToLog,
         IServerRequest serverRequest = null,
         bool shouldLogIncludeTrace = false
    ); 

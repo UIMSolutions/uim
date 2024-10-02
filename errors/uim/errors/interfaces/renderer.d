@@ -17,7 +17,7 @@ import uim.errors;
  */
 interface IErrorRenderer {
     // Render output for the provided error.
-    string render(UIMError errorToRender, bool shouldDebug);
+    string render(IError errorToRender, bool shouldDebug);
 
     /**
      * Write output to the renderer`s output stream

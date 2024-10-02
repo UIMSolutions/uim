@@ -8,7 +8,6 @@ module uim.errors.errors.exceptionrendererx;
 @safe:
 import uim.errors;
 
-
 /**
  * Exception Renderer.
  *
@@ -31,13 +30,14 @@ class DExceptionRenderer { // }: IExceptionRenderer
         initialize();
     }
 
-    /* override  */bool initialize(Json[string] initData = null) {
+    /* override  */
+    bool initialize(Json[string] initData = null) {
         /* if (!super.initialize(initData)) {
             return false;
         } */
 
-        _allMethods = [ __traits(allMembers, DORMTable) ];
-        
+        _allMethods = [__traits(allMembers, DORMTable)];
+
         return true;
     }
 
@@ -96,13 +96,13 @@ class DExceptionRenderer { // }: IExceptionRenderer
         auto routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
         // _SERVER
-/*         if (myRequest.isNull) {
+        /*         if (myRequest.isNull) {
             myRequest = routerRequest ?: ServerRequestFactory.fromGlobals();
         }
  */
         // If the current request doesn"t have routing data, but we
         // found a request in the router context copy the params over
-/*         if (myRequest.getParam("controller").isNull && routerRequest  !is null) {
+        /*         if (myRequest.getParam("controller").isNull && routerRequest  !is null) {
             myRequest = myRequest.withAttribute("params", routerRequest.getAttribute("params"));
         }
 
@@ -130,7 +130,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
             return new DController(myRequest);
         }
 
- */        // Retry RequestHandler, as another aspect of startupProcess()
+ */ // Retry RequestHandler, as another aspect of startupProcess()
         // could have failed. Ignore any exceptions out of startup, as
         // there could be userland input data parsers.
         if (myErrorOccured && controller.RequestHandler !is null) {
@@ -170,7 +170,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         auto myUrl = _controller.getRequest().getRequestTarget();
         auto response = _controller.getResponse();
 
-        if (cast(DException)exception ) {
+        if (cast(DException) exception) {
             /** @psalm-suppress DeprecatedMethod */
             /* foreach (/* (array) * /exception.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);
@@ -193,25 +193,26 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
         isDebug = Configure.read("debug");
         if (isDebug) {
-            trace = /* (array) */Debugger.formatTrace(exception.getTrace(), [
-                "format": "array",
-                "args": false,
-            ]);
-/*             origin = [
+            trace =  /* (array) */ Debugger.formatTrace(exception.getTrace(), [
+                        "format": "array",
+                        "args": false,
+                    ]);
+            /*             origin = [
                 "file": exception.getFile() ?: "null",
                 "line": exception.getLine() ?: "null",
             ];
- */            // Traces don"t include the origin file/line.
-/*             trace.unshift(origin);
+ */ // Traces don"t include the origin file/line.
+            /*             trace.unshift(origin);
             viewVars.set("trace", trace);
             viewVars += origin;
             serialize ~= "file";
             serialize ~= "line";
- */        }
+ */
+        }
         _controller.set(viewVars);
         _controller.viewBuilder().setOption("serialize", serialize);
 
-        if (cast(DException)exception && isDebug) {
+        if (cast(DException) exception && isDebug) {
             _controller.set(exception.getAttributes());
         }
         _controller.setResponse(response);
@@ -221,18 +222,18 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
     // Render a custom error method/template.
     protected IResponse _customMethod(string methodName, Throwable exceptionToRender) {
-/*         auto myResult = this.{methodName}(exceptionToRender);
+        /*         auto myResult = this.{methodName}(exceptionToRender);
         _shutdown();
         if (!myResult.isString) { return result; }
 
         return _controller.getResponse().withStringBody(myResult);
- */  
-        return null; 
-     }
+ */
+        return null;
+    }
 
     // Get method name
     protected string methodName(Throwable exception) {
-/*         [, baseClass] = moduleSplit(get_class(exception));
+        /*         [, baseClass] = moduleSplit(get_class(exception));
 
         if (subString(baseClass, -9) == "Exception") {
             baseClass = subString(baseClass, 0, -9);
@@ -242,12 +243,12 @@ class DExceptionRenderer { // }: IExceptionRenderer
         method = baseClass is null ? "error500" : Inflector.variable(baseClass);
 
         return _method = method; */
-        return null; 
+        return null;
     }
 
     // Get error message.
     protected string errorMessage(Throwable exception, int errorCode) {
-/*         myMessage = exception.message();
+        /*         myMessage = exception.message();
 
         if (
             !Configure.read("debug") &&
@@ -259,12 +260,12 @@ class DExceptionRenderer { // }: IExceptionRenderer
         }
 
         return myMessage; */
-        return null; 
+        return null;
     }
 
     // Get template for rendering exception info.
     protected string templateName(Throwable exception, string methodName, int errorCode) {
-/*         if (cast(HttpException)exception || !Configure.read("debug")) {
+        /*         if (cast(HttpException)exception || !Configure.read("debug")) {
             return _template = errorCode < 500 ? "error400" : "error500";
         }
 
@@ -273,7 +274,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         }
 
         return _template = methodName; */
-        return null; 
+        return null;
     }
 
     // Gets the appropriate http status code for exception.
@@ -286,7 +287,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
     // Generate the response using the controller object.
     protected IResponse _outputMessage(string templateToRender) {
-/*         try {
+        /*         try {
             _controller.render(templateToRender);
 
             return _shutdown();
@@ -310,14 +311,14 @@ class DExceptionRenderer { // }: IExceptionRenderer
         } catch (Throwable e) {
             return _outputMessageSafe("error500");
         } */
-        return null; 
+        return null;
     }
 
     /**
      * A safer way to render error messages, replaces all helpers, with basics
      * and doesn"t call component methods.
      */
-    protected DResponse _outputMessageSafe(string templateToRender) {
+    protected IResponse _outputMessageSafe(string templateToRender) {
         auto myBuilder = _controller.viewBuilder();
         myBuilder
             .setHelpers([], false)
@@ -337,7 +338,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * Run the shutdown events.
      * Triggers the afterFilter and afterDispatch events.
      */
-    protected DResponse _shutdown() {
+    protected IResponse _shutdown() {
         _controller.dispatchEvent("Controller.shutdown");
 
         return _controller.getResponse();
@@ -351,5 +352,5 @@ class DExceptionRenderer { // }: IExceptionRenderer
             .set("controller", _controller)
             .set("template", _template)
             .set("method", _method);
-    } 
+    }
 }

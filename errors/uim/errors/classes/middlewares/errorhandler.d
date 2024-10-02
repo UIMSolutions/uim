@@ -61,16 +61,16 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
     mixin(TProperty!("string", "name"));
 
     // Error handler instance.
-    protected DERRErrorHandler myErrorHandler;
+    protected IErrorHandler myErrorHandler;
 
-    this(ErrorHandler myErrorHandler = null) {
+    this(IErrorHandler errorHandler = null) {
         if (func_num_args() > 1) {
             deprecationWarning(
                 "The signature of ErrorHandlerMiddleware.this() has changed~ "
                 ~ "Pass the config array as 1st argument instead."
            );
 
-            myErrorHandler = func_get_arg(1);
+            errorHandler = func_get_arg(1);
         }
 
         if (D_VERSION_ID >= 70400 && Configure.read("debug")) {

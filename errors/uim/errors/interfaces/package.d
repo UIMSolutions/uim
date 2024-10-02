@@ -8,6 +8,7 @@ module uim.errors.interfaces;
 public {
     import uim.errors.interfaces.controller;
     import uim.errors.interfaces.debugger;
+    import uim.errors.interfaces.handler;
     import uim.errors.interfaces.logger;
     import uim.errors.interfaces.renderer;
     import uim.errors.interfaces.exceptionrenderer;

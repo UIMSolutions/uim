@@ -68,7 +68,7 @@ class DDebugContext : UIMObject {
      * If this object does not exist in the reference storage,
      * it will be added and the id will be returned.
      */
-    int getReferenceId(object referenceForObject) {
+/*     int getReferenceId(object referenceForObject) {
       if (_refs.contains(referenceForObject)) {
           return _refs[referenceForObject];
       }
@@ -78,9 +78,9 @@ class DDebugContext : UIMObject {
 
       return refId;
     }
-
+ */
     // Check whether an object has been seen before.
-    bool hasReference(object referenceObject) {
+    /* bool hasReference(object referenceObject) {
         return _refs.contains(referenceObject);
-    } 
+    }  */
 }

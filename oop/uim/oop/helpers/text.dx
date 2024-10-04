@@ -322,16 +322,16 @@ class DText {
     }
     
     // Unicode and newline aware version of wordwrap.
-    static string wordWrap(string textToFormat, int widthToWrap = 72, string breakText = "\n", bool shouldWrap = false) {
+    static string wordWrap(string textToFormat, int widthToWrap = 72, string breakTxt = "\n", bool shouldWrap = false) {
         return 
             textToFormat
-                .split(breakText)
-                .map(paragraph => _wordWrap(paragraph, widthToWrap, breakText, shouldWrap))
-                .join(breakText);
+                .split(breakTxt)
+                .map(paragraph => _wordWrap(paragraph, widthToWrap, breakTxt, shouldWrap))
+                .join(breakTxt);
     }
     
     // Unicode aware version of wordwrap as helper method.
-    protected static string _wordWrap(string textToFormat, int widthToWarp = 72, string breakText = "\n", bool shouldWrap = false) {
+    protected static string _wordWrap(string textToFormat, int widthToWarp = 72, string breakTxt = "\n", bool shouldWrap = false) {
         auto myparts = null;
         if (shouldWrap) {
             while (mb_strlen(textToFormat) > 0) {
@@ -339,7 +339,7 @@ class DText {
                 myparts ~= mypart.strip;
                 textToFormat = mb_subString(textToFormat, mb_strlen(mypart)).strip;
             }
-            return join(breakText, myparts);
+            return join(breakTxt, myparts);
         }
         while (mb_strlen(textToFormat) > 0) {
             if (widthToWarp >= mb_strlen(textToFormat)) {
@@ -363,7 +363,7 @@ class DText {
             myparts ~= mypart;
             textToFormat = mb_subString(textToFormat, mb_strlen(mypart)).strip;
         }
-        return join(breakText, myparts);
+        return join(breakTxt, myparts);
     }
     
     /**

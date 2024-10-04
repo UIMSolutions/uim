@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes.helpformatter;repeat(repeat(
+module uim.consoles.classes.helpformatter;
 
 import uim.consoles;
 
@@ -135,9 +135,9 @@ class DHelpFormatter : UIMObject {
     /**
      * Iterate over a collection and find the longest named thing.
      * Params:
-     * array<\UIM\Console\ConsoleInputOption|\UIM\Console\> collection The collection to find a max length of.
+     * array<\UIM\Console\InputConsoleOption|\UIM\Console\> collection The collection to find a max length of.
      */
-    protected int _getMaxLength(DConsoleInputArgument[] collection) {
+    protected int _getMaxLength(DInputConsoleArgument[] collection) {
         int result = 0;
 /*         collection
             .each!(item => result = max(anItem.name.length, result));

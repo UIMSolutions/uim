@@ -6,6 +6,7 @@
 module uim.errors.classes.middlewares.errorhandler;
 
 import uim.errors;
+
 @safe:
 
 /**
@@ -18,20 +19,22 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
     this() {
         super("`~ fullName ~ `");
     }
+
     this(Json[string] initData) {
         super("`~ fullName ~ `", initData);
     }
+
     this(string name, Json[string] initData = null) {
         super(name, initData);
     }
 
     // Hook method
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
-
-    /**
+        /**
      * Default configuration values.
      *
      * Ignored if contructor is passed an ErrorHandler instance.
@@ -49,11 +52,11 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
      *  which returns a uim.errorss.IExceptionRenderer instance.
      *  Defaults to uim.errorss.ExceptionRenderer
      */
-    configuration
-        .setDefault("skipLog", Json.emptyArray)
-        .setDefault("log", true)
-        .setDefault("trace", false)
-        .setDefault("exceptionRenderer", ExceptionRenderer.classname);
+        configuration
+            .setDefault("skipLog", Json.emptyArray)
+            .setDefault("log", true)
+            .setDefault("trace", false)
+            .setDefault("exceptionRenderer", ExceptionRenderer.classname);
 
         return true;
     }
@@ -67,8 +70,8 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
         if (func_num_args() > 1) {
             deprecationWarning(
                 "The signature of ErrorHandlerMiddleware.this() has changed~ "
-                ~ "Pass the config array as 1st argument instead."
-           );
+                    ~ "Pass the config array as 1st argument instead."
+            );
 
             errorHandler = func_get_arg(1);
         }
@@ -82,11 +85,11 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
             return;
         }
 
-        if (!cast(ErrorHandler)myErrorHandler) {
+        if (!cast(ErrorHandler) myErrorHandler) {
             throw new DInvalidArgumentException(
                 "myErrorHandler argument must be a config array or ErrorHandler instance. Got `%s` instead."
-                .format(getTypeName(myErrorHandler)
-           ));
+                    .format(getTypeName(myErrorHandler)
+                    ));
         }
 
         this.errorHandler = myErrorHandler;
@@ -117,18 +120,18 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
         }
 
         return response; */
-        return null; 
+        return null;
     }
 
     // Convert a redirect exception into a response.
-    IResponse handleRedirect(DRedirectException exceptionToHandle) {
+/*     IResponse handleRedirect(DRedirectException exceptionToHandle) {
         return new DRedirectResponse(
             exceptionToHandle.message(),
             exceptionToHandle.code(),
             exceptionToHandle.getHeaders()
-       );
+        );
     }
-
+ */
     // Handle internal errors.
     protected IResponse handleInternalError() {
         response = new DResponse(["body": "An Internal Server Error Occurred"]);
@@ -137,13 +140,13 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
     }
 
     // Get a error handler instance
-    protected ErrorHandler getErrorHandler() {
-        if (this.errorHandler.isNull) {
+    protected IErrorHandler getErrorHandler() {
+        if (_errorHandler.isNull) {
             /** @var class-string<uim.errorss.ErrorHandler> myclassname */
             myclassname = App.classname("ErrorHandler", "Error");
-            this.errorHandler = new myclassname(this.configuration.data);
+            // _errorHandler = new myclassname(this.configuration.data);
         }
 
         return _errorHandler;
-    } 
+    }
 }

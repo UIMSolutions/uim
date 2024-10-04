@@ -644,7 +644,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * - prefix
      * - schema
      */
-    protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContext dumpContext) {
+    // protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContext dumpContext) {
         /*
     auto items = null;
 
@@ -675,12 +675,12 @@ class DDebugger : UIMObject, IErrorDebugger {
             new DSpecialNode(
                 "[maximum depth reached]")
         );
-    }
+    } 
 
     return new ArrayNode(
-        items); */
+        items); * /
         return null;
-    }
+    } */
 
     // Handles object to node conversion.
     protected static IErrorNode exportObject(Object objToConvert, DDebugContext dumpContext) {

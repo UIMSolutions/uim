@@ -74,7 +74,7 @@ TEXT;
     }
     
     // Export an array type object
-    protected string exportArray(ArrayNode nodeToExport, int indentSize) {
+    protected string exportArray(IArrayNode nodeToExport, int indentSize) {
         auto result = "[";
         auto breakText = "\n" ~ str_repeat("  ", indentSize);
         auto myend = "\n" ~ str_repeat("  ", indentSize - 1);
@@ -91,11 +91,11 @@ TEXT;
     }
     
     // Handles object to string conversion.
-    protected string exportObject(/* ClassNode| */ ReferenceNode nodeToConvert, int indentSize) {
+    protected string exportObject(IReferenceNode nodeToConvert, int indentSize) {
         return "object({nodeToConvert.getValue()}) id:{nodeToConvert.id()} {}";
     }
 
-    protected string exportObject(ClassNode aNode, int indentSize) {
+    protected string exportObject(IClassNode aNode, int indentSize) {
         string result = "";
 
         result ~= "object({aNode.getValue()}) id:{aNode.id()} {";

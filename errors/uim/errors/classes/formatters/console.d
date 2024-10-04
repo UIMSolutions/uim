@@ -112,7 +112,7 @@ class DConsoleFormatter : IErrorFormatter {
      * Params:
      * \UIM\Error\Debug\ArrayNode var The array to export.
      */
-    protected string exportArray(ArrayNode arrayToExport, int indentLevel) {
+    protected string exportArray(IArrayNode arrayToExport, int indentLevel) {
         /*  result = style("punct", "[");
         break = "\n" ~ str_repeat("  ",  indentLevel);
         end = "\n" ~ str_repeat("  ",  indentLevel - 1);

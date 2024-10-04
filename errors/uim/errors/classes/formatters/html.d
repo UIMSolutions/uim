@@ -101,7 +101,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
     /**
      * Export an array type object
      */
-    protected string exportArray(ArrayNode tvar, int indentLevel) {
+    protected string exportArray(IArrayNode tvar, int indentLevel) {
         /* auto open = "<span class="uim-debug-array">" ~
            style("punct", "[") ~
             "<samp class="uim-debug-array-items">";

@@ -13,7 +13,7 @@ import uim.consoles;
  * An object to represent a single option used in the command line.
  * DConsoleOptionParser buildOptionParser creates these when you use addOption()
  */
-class DInputConsoleOption {
+class DInputOptionConsole {
     mixin TConfigurable;
 
     this() {

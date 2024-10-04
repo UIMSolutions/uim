@@ -11,8 +11,13 @@ unittest {
 class DErrorFormatter : IErrorFormatter {
     mixin(ErrorFormatterThis!());
 
+    // Convert a tree of IErrorNode objects into a plain text string.
+    string dump(IErrorNode node) {
+        return null; 
+    }
+
     // Convert a tree of IErrorNode objects into HTML
-    protected string export_(IErrorNode nodeToDump, int indentLevel) {
+    protected string export_(IErrorNode nodeToDump, uint indentLevel) {
         if (cast(DArrayErrorNode)nodeToDump) {
             return exportArray(cast(DArrayErrorNode)nodeToDump, indentLevel + 1);
         }
@@ -34,27 +39,27 @@ class DErrorFormatter : IErrorFormatter {
         throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname);
     }
 
-    protected string exportArray(DArrayErrorNode tvar, int indentLevel) {
+    protected string exportArray(DArrayErrorNode tvar, uint indentLevel) {
         return null; 
     }
 
-    protected string exportReference(DReferenceErrorNode nodeToConvert, int indentLevel) {
+    protected string exportReference(DReferenceErrorNode nodeToConvert, uint indentLevel) {
         return null;
     }
 
-    protected string exportClass(DClassErrorNode aNode, int indentLevel) {
+    protected string exportClass(DClassErrorNode aNode, uint indentLevel) {
         return null;
     }
 
-    protected string exportProperty(DPropertyErrorNode node, int indentLevel) {
+    protected string exportProperty(DPropertyErrorNode node, uint indentLevel) {
         return null;
     }
 
-    protected string exportScalar(DScalarErrorNode node, int indentLevel) {
+    protected string exportScalar(DScalarErrorNode node, uint indentLevel) {
         return null;
     }
 
-    protected string exportSpecial(DSpecialErrorNode node, int indentLevel) {
+    protected string exportSpecial(DSpecialErrorNode node, uint indentLevel) {
         return null;
     }
     // #endregion export

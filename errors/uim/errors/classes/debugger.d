@@ -472,15 +472,15 @@ class DDebugger : UIMObject {
         string type = getType(valueToDump);
 
         if (type.startWith("resource ")) {
-            return new DScalarNode(type, valueToDump);
+            return new DScalarErrorNode(type, valueToDump);
         }
         return null; // TODO 
         /* return match(type) {
-            "float", "string", "null" : new DScalarNode(type, valueToDump),
-            "bool" : new DScalarNode("bool", valueToDump),
-            "int" : new DScalarNode("int", valueToDump),
+            "float", "string", "null" : new DScalarErrorNode(type, valueToDump),
+            "bool" : new DScalarErrorNode("bool", valueToDump),
+            "int" : new DScalarErrorNode("int", valueToDump),
             "array" : exportArray(valueToDump, context.withAddedDepth()),
-            "unknown" : new DSpecialNode("(unknown)"),
+            "unknown" : new DSpecialErrorNode("(unknown)"),
             default : exportObject(valueToDump, context.withAddedDepth()),
         }; */
     }
@@ -506,7 +506,7 @@ class DDebugger : UIMObject {
             outputMask = outputMask();
             exportValues.byKeyValue((item) {
                 if (hasKey(item.key, outputMask)) {
-                    node = new DScalarNode("string", outputMask[item.key]);
+                    node = new DScalarErrorNode("string", outputMask[item.key]);
                 } else if (item.value != exportValues) {
                     // Dump all the items without increasing depth.
                     node = export_(item.value, dumpContext);
@@ -518,8 +518,8 @@ class DDebugger : UIMObject {
             });
         } else {
             someItems ~= new ArrayItemNode(
-                new DScalarNode("string", ""),
-                new DSpecialNode("[maximum depth reached]")
+                new DScalarErrorNode("string", ""),
+                new DSpecialErrorNode("[maximum depth reached]")
             );
         }
         return new DArrayErrorNode(someItems);
@@ -535,7 +535,7 @@ class DDebugger : UIMObject {
             return new DReferenceErrorNode(classname, refNum);
         }
 
-        auto node = new DClassNode(classname, refNum);
+        auto node = new DClassErrorNode(classname, refNum);
         auto remaining = dumpContext.remainingDepth();
         if (remaining > 0) {
             if (hasMethod(objToConvert, "debugInfo")) {
@@ -545,7 +545,7 @@ class DDebugger : UIMObject {
                     }
                     return node;
                 } catch (Exception anException) {
-                    return new DSpecialNode(
+                    return new DSpecialErrorNode(
                         "(unable to export object: { anException.message()})");
                 }
              }
@@ -566,7 +566,7 @@ class DDebugger : UIMObject {
                 ReflectionProperty.IS_PROTECTED: "protected",
                 ReflectionProperty.IS_PRIVATE: "private",
             ];
-            foreach (filter : visibility; filters) {
+            foreach (filter, visibility; filters) {
                 reflectionProperties = ref.getProperties(filter);
                 foreach (reflectionProperty; reflectionProperties) {
                     reflectionProperty.setAccessible(true);
@@ -575,7 +575,7 @@ class DDebugger : UIMObject {
                         hasMethod(reflectionProperty, "isInitialized") &&
                         !reflectionProperty.isInitialized(objToConvert)
                        ) {
-                        aValue = new DSpecialNode("[uninitialized]");
+                        aValue = new DSpecialErrorNode("[uninitialized]");
                     } else {
                         aValue = export_(reflectionProperty.getValue(objToConvert), dumpContext.withAddedDepth());
                     }

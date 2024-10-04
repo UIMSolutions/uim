@@ -19,6 +19,8 @@ unittest {
  * @internal
  */
 class DHtmlErrorFormatter : IErrorFormatter {
+    mixin(ErrorFormatterThis!("Html"));
+
     protected static bool outputHeader = false;
 
     // Random id so that HTML ids are not shared between dump outputs.
@@ -75,8 +77,8 @@ class DHtmlErrorFormatter : IErrorFormatter {
 
     // Convert a tree of IErrorNode objects into HTML
     protected string export_(IErrorNode nodeToDump, int indentLevel) {
-        /* if (cast(DScalarNode)nodeToDump) {
-            return match (nodeToDump.getType()) {
+        if (cast(DScalarErrorNode)nodeToDump) {
+/*             return match (nodeToDump.getType()) {
                 "bool":style("const", nodeToDump.getValue() ? "true" : "false"),
                 "null":style("const", "null"),
                 "string":style("string", "'" ~ (string)nodeToDump.getValue() ~ "'"),
@@ -84,23 +86,22 @@ class DHtmlErrorFormatter : IErrorFormatter {
                         " " ~style("number", "{nodeToDump.getValue()}"),
                 default: "({nodeToDump.getType()}) {nodeToDump.getValue()}",
             };
+ */        
         }
         if (cast(DArrayErrorNode)nodeToDump) {
-            return _exportArray(nodeToDump,  indentLevel + 1);
+            // return _exportArray(nodeToDump,  indentLevel + 1);
         }
-        if (cast(DClassNode)nodeToDump || cast(DReferenceErrorNode)nodeToDump) {
-            return _exportObject(nodeToDump,  indentLevel + 1);
+        if (cast(DClassErrorNode)nodeToDump || cast(DReferenceErrorNode)nodeToDump) {
+            // return _exportObject(nodeToDump,  indentLevel + 1);
         }
-        if (cast(DSpecialNode)nodeToDump) {
-            return _style("special", nodeToDump.getValue());
+        if (cast(DSpecialErrorNode)nodeToDump) {
+            // return _style("special", nodeToDump.getValue());
         }
         throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname); */
         return null;
     }
 
-    /**
-     * Export an array type object
-     */
+    // Export an array type object
     protected string exportArray(DArrayErrorNode tvar, int indentLevel) {
         /* auto open = "<span class="uim-debug-array">" ~
            style("punct", "[") ~
@@ -127,7 +128,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
     }
 
     // Handles object to string conversion.
-    protected string exportObject( /* ClassNode| */ IReferenceErrorNode nodeToConvert, int indentLevel) {
+    protected string exportObject( /* ClassErrorNode| */ DReferenceErrorNode nodeToConvert, int indentLevel) {
         /* auto objectId = "uim-db-object-{this.id}-{nodeToConvert.id()}";
         auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
         auto breakText = "\n" ~ str_repeat("  ",  indentLevel);

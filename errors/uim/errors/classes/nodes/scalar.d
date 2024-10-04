@@ -10,7 +10,7 @@ import uim.errors;
 @safe:
 
 // Dump node for scalar values.
-class DScalarNode : DErrorNode {
+class DScalarErrorNode : DErrorNode {
     mixin(ErrorNodeThis!("Scalar"));
     
     this(string newType, Json newValue) {

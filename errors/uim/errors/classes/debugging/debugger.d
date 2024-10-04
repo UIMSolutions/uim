@@ -614,16 +614,16 @@ class DDebugger : UIMObject, IErrorDebugger {
         case "resource":
         case "resource (closed)":
         case "null":
-            return new DScalarNode(type, varToDump);
+            return new DScalarErrorNode(type, varToDump);
         case "boolean":
-            return new DScalarNode("bool", varToDump);
+            return new DScalarErrorNode("bool", varToDump);
         case "integer":
-            return new DScalarNode("int", varToDump);
+            return new DScalarErrorNode("int", varToDump);
         case "array":
             return exportArray(varToDump, dumpContext
                     .withAddedDepth());
         case "unknown":
-            return new DSpecialNode(
+            return new DSpecialErrorNode(
                 "(unknown)");
         default:
             return exportObject(varToDump, dumpContext
@@ -654,7 +654,7 @@ class DDebugger : UIMObject, IErrorDebugger {
         outputMask = outputMask();
         foreach (valueToExport as key : val) {
             if (hasKey(key, outputMask)) {
-                node = new DScalarNode(
+                node = new DScalarErrorNode(
                     "string", outputMask[key]);
             } else if (
                 val != valueToExport) {
@@ -670,9 +670,9 @@ class DDebugger : UIMObject, IErrorDebugger {
         }
     } else {
         items ~= new DArrayItemErrorNode(
-            new DScalarNode(
+            new DScalarErrorNode(
                 "string", ""),
-            new DSpecialNode(
+            new DSpecialErrorNode(
                 "[maximum depth reached]")
         );
     } 
@@ -693,10 +693,10 @@ class DDebugger : UIMObject, IErrorDebugger {
     auto classnameName = get_class(
         objToConvert); */
         /*     if (isRef) {
-        return new DReferenceErrorNode(, refNum);
+        return new DReferenceErrorNode(null, refNum);
     }
  */
-        /* auto node = new DClassNode(, refNum);
+        /* auto node = new DClassErrorNode(null, refNum);
     auto remaining = dumpContext
         .remainingDepth();
     if (remaining > 0) {
@@ -715,7 +715,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                 return node;
             } catch (
                 Exception e) {
-                return new DSpecialNode("(unable to export object: {e.message()})");
+                return new DSpecialErrorNode("(unable to export object: {e.message()})");
             }
         }
 
@@ -757,7 +757,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                     reflectionProperty, "isInitialized") && !reflectionProperty
                     .isInitialized(
                         objToConvert)
-                    ? new DSpecialNode("[uninitialized]") : export_(
+                    ? new DSpecialErrorNode("[uninitialized]") : export_(
                         reflectionProperty
                             .getValue(objToConvert), dumpContext
                             .withAddedDepth());

@@ -15,6 +15,8 @@ unittest {
 
 // Debugger formatter for generating output with ANSI escape codes
 class DConsoleFormatter : IErrorFormatter {
+    mixin(ErrorFormatterThis!("Console"));
+
     // text colors used in colored output.
     protected STRINGAA styles = [
         // bold yellow
@@ -84,7 +86,7 @@ class DConsoleFormatter : IErrorFormatter {
 
     // Convert a tree of IErrorNode objects into a plain text string.
     protected string export_(IErrorNode nodeTreeToDump, int indentLevel) {
-        if (cast(DScalarNode)nodeTreeToDump) {
+        if (cast(DScalarErrorNode)nodeTreeToDump) {
             /* return match (nodeTreeToDump.getType()) {
                 "bool": style("const", nodeTreeToDump.getValue() ? "true" : "false"),
                 "null": style("const", "null"),
@@ -97,10 +99,10 @@ class DConsoleFormatter : IErrorFormatter {
         if (cast(DArrayErrorNode)nodeTreeToDump) {
             // return _exportArray(nodeTreeToDump,  indentLevel + 1);
         }
-        if (cast(DClassNode)nodeTreeToDump || cast(DReferenceErrorNode)nodeTreeToDump) {
+        if (cast(DClassErrorNode)nodeTreeToDump || cast(DReferenceErrorNode)nodeTreeToDump) {
             // return _exportObject(nodeTreeToDump,  indentLevel + 1);
         }
-        if (cast(DSpecialNode)nodeTreeToDump) {
+        if (cast(DSpecialErrorNode)nodeTreeToDump) {
             // return _style("special", nodeTreeToDump.getValue());
         }
         throw new DInvalidArgumentException("Unknown node received " ~ nodeTreeToDump.classname); */
@@ -132,9 +134,9 @@ class DConsoleFormatter : IErrorFormatter {
     /**
      * Handles object to string conversion.
      * Params:
-     * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\DReferenceErrorNode var Object to convert.
+     * \UIM\Error\Debug\ClassErrorNode|\UIM\Error\Debug\DReferenceErrorNode var Object to convert.
      */
-    protected string exportObject( /* ClassNode| */ DReferenceErrorNode nodeToConvert, int indentLevel) {
+    protected string exportObject( /* ClassErrorNode| */ DReferenceErrorNode nodeToConvert, int indentLevel) {
         /* string[] props;
 
         if (cast(DReferenceErrorNode)nodeToConvert) {

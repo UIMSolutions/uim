@@ -22,6 +22,7 @@ unittest {
  * @internal
  */
 class DTextErrorFormatter : IErrorFormatter {
+    mixin(ErrorFormatterThis!("Text"));
 
     string formatWrapper(string content, Json[string] location) {
         /* templateText = <<<TEXT
@@ -52,29 +53,30 @@ TEXT;
     
     // Convert a tree of IErrorNode objects into a plain text string.
     protected string export_(IErrorNode nodeToDump, int indentSize) {
-        /* if (cast(DScalarNode)nodeToDump) {
-            return match (nodeToDump.getType()) {
+        if (cast(DScalarErrorNode)nodeToDump) {
+/*             return match (nodeToDump.getType()) {
                 "bool": nodeToDump.getValue() ? "true" : "false",
                 "null": "null",
                 "string": "'" ~ (string)nodeToDump.getValue() ~ "'",
                 default: "({nodeToDump.getType()}) {nodeToDump.getValue()}",
             };
+ */        
         }
         if (cast(DArrayErrorNode)nodeToDump) {
-            return _exportArray(nodeToDump, indentSize + 1);
+            // return _exportArray(nodeToDump, indentSize + 1);
         }
-        if (cast(DClassNode)nodeToDump || cast(DReferenceErrorNode)nodeToDump) {
-            return _exportObject(nodeToDump, indentSize + 1);
+        if (cast(DClassErrorNode)nodeToDump || cast(DReferenceErrorNode)nodeToDump) {
+            // return _exportObject(nodeToDump, indentSize + 1);
         }
-        if (cast(DSpecialNode)nodeToDump) {
-            return nodeToDump.getValue();
+        if (cast(DSpecialErrorNode)nodeToDump) {
+            // return nodeToDump.getValue();
         }
         throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname); */
         return null; 
     }
     
     // Export an array type object
-    protected string exportArray(DArrayErrorNode nodeToExport, int indentSize) {
+    override protected string exportArray(DArrayErrorNode nodeToExport, int indentSize) {
         auto result = "[";
         auto breakText = "\n" ~ str_repeat("  ", indentSize);
         auto myend = "\n" ~ str_repeat("  ", indentSize - 1);
@@ -91,11 +93,11 @@ TEXT;
     }
     
     // Handles object to string conversion.
-    protected string exportObject(IReferenceErrorNode nodeToConvert, int indentSize) {
+    protected string exportObject(DReferenceErrorNode nodeToConvert, int indentSize) {
         return "object({nodeToConvert.getValue()}) id:{nodeToConvert.id()} {}";
     }
 
-    protected string exportObject(IClassNode aNode, int indentSize) {
+    protected string exportObject(DClassErrorNode aNode, int indentSize) {
         string result = "";
 
         result ~= "object({aNode.getValue()}) id:{aNode.id()} {";
@@ -111,6 +113,7 @@ TEXT;
         }
         return result ~ "}";
     }
+
     protected string exportProperty(auto property, int indentSize) {
         /* auto propVisibility = property.getVisibility();
         auto propName = property.name;

@@ -10,8 +10,8 @@ import uim.consoles;
 @safe:
 
 // Exception class used to indicate missing console input.
-class DMissingConsoleInputException : DConsoleException {
-    mixin(ExceptionThis!("MissingConsoleInput"));
+class DMissingInputConsoleException : DConsoleException {
+    mixin(ExceptionThis!("MissingInputConsole"));
 
     // Update the exception message with the question text
     void setQuestion(string questionText) {
@@ -19,4 +19,4 @@ class DMissingConsoleInputException : DConsoleException {
     }
 }
 
-mixin(ExceptionCalls!("MissingConsoleInput"));
+mixin(ExceptionCalls!("MissingInputConsole"));

@@ -124,7 +124,7 @@ class DConsoleOptionParser : UIMObject {
     }
 
     // Option definitions.
-    protected DInputConsoleOption[string] _options;
+    protected DInputOptionConsole[string] _options;
 
 
     //  Positional argument definitions.
@@ -286,8 +286,8 @@ class DConsoleOptionParser : UIMObject {
      * - `choices` A list of valid choices for this option. If left empty all values are valid..
      * An exception will be raised when parse() encounters an invalid value.
      * Params:
-     * \UIM\Console\InputConsoleOption|string aName The long name you want to the value to be parsed out
-     * as when options are parsed. Will also accept an instance of InputConsoleOption.
+     * \UIM\Console\InputOptionConsole|string aName The long name you want to the value to be parsed out
+     * as when options are parsed. Will also accept an instance of InputOptionConsole.
      * options An array of parameters that define the behavior of the option
      */
     void addOption(string optionName, Json[string] behaviorOptions = null) {
@@ -301,7 +301,7 @@ class DConsoleOptionParser : UIMObject {
             .merge("required", false)
             .merge("prompt", Json(null));
 
-        /* auto inputOption = new DInputConsoleOption(
+        /* auto inputOption = new DInputOptionConsole(
             name,
             behaviorOptions.getMap("short", "help", "boolean", "default", "choices", "multiple", "required", "prompt")
         ); */
@@ -311,7 +311,7 @@ class DConsoleOptionParser : UIMObject {
     /* addOption(inputOption, behaviorOptions) {
     } */
 
-    void addOption(DInputConsoleOption inputOption, Json[string] behaviorOptions = null) {
+    void addOption(DInputOptionConsole inputOption, Json[string] behaviorOptions = null) {
         string optionName = inputOption.name();
 
         /* _options.set(optionName, inputOption);
@@ -373,7 +373,7 @@ class DConsoleOptionParser : UIMObject {
      */
     void addOptions(Json[string] optionsToAdd = null) {
         /* foreach (name : params; optionsToAdd) {
-            if (cast(DInputConsoleOption) params) {
+            if (cast(DInputOptionConsole) params) {
                 name = params;
                 params = null;
             }
@@ -395,7 +395,7 @@ class DConsoleOptionParser : UIMObject {
     }
 
     // Get the defined options in the parser.
-    DInputConsoleOption[string] options() {
+    DInputOptionConsole[string] options() {
         /* return _options; */
         return null;
     }

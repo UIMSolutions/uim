@@ -4,7 +4,8 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.consoles.tests.stubconsoleinput;
-InputConsoleInputConsoleInputConsoleimport uim.consoles;
+
+import uim.consoles;
 
 @safe:
 
@@ -14,7 +15,7 @@ InputConsoleInputConsoleInputConsoleimport uim.consoles;
  * This class enables input to be stubbed and have exceptions
  * raised when no answer is available.
  */
-class DStubConsoleInput : DConsoleInput {
+class DStubInputConsole : DInputConsole {
     // Reply values for ask() and askChoice()
     protected string[] _replies;
 
@@ -40,7 +41,7 @@ class DStubConsoleInput : DConsoleInput {
                 "There are no more input replies available. This is the {nth} %s read operation, " ~
                 "only {total} %s replies were set.\nThe provided replies are: {repliesText} %s")
                 .format(nth, total, repliesText);
-            throw new DMissingConsoleInputException(message);
+            throw new DMissingInputConsoleException(message);
         } */
         return _replies[_currentIndex];
     }

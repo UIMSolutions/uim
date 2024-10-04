@@ -4,7 +4,8 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.consoles.classes.consoles.inputargument;
-InputConsoleInputConsoleInputConsoleimport uim.consoles;
+
+import uim.consoles;
 
 @safe:
 
@@ -12,8 +13,8 @@ InputConsoleInputConsoleInputConsoleimport uim.consoles;
  * An object to represent a single argument used in the command line.
  * DConsoleOptionParser buildOptionParser creates these when you use addArgument()
  */
-class DConsoleInputArgument : UIMObject {
-    mixin(ArgumentThis!("ConsoleInput"));
+class DInputConsoleArgument : UIMObject {
+    mixin(ArgumentThis!("InputConsole"));
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -56,7 +57,7 @@ class DConsoleInputArgument : UIMObject {
     }
 
     // Checks if this argument is equal to another argument.
-    bool isEqualTo(DConsoleInputArgument argument) {
+    bool isEqualTo(DInputConsoleArgument argument) {
         /* return _name() == argument.name() &&
             this.usage() == argument.usage(); */
         return false;

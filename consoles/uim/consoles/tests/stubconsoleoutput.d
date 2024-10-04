@@ -16,11 +16,11 @@ import uim.consoles;
  * that your command/task/helper uses:
  *
  * ```
- * output = new DStubConsoleOutput();
+ * output = new DStubOutputConsole();
  * aConsoleIo = new DConsoleIo(output);
  * ```
  */
-class DStubConsoleOutput : DConsoleOutput {
+class DStubOutputConsole : DOutputConsole {
     // Buffered messages.
     protected string[] _out = null;
 

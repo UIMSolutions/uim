@@ -135,7 +135,7 @@ class DHelpFormatter : UIMObject {
     /**
      * Iterate over a collection and find the longest named thing.
      * Params:
-     * array<\UIM\Console\InputConsoleOption|\UIM\Console\> collection The collection to find a max length of.
+     * array<\UIM\Console\InputOptionConsole|\UIM\Console\> collection The collection to find a max length of.
      */
     protected int _getMaxLength(DInputConsoleArgument[] collection) {
         int result = 0;

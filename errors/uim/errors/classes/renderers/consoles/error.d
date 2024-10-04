@@ -15,17 +15,17 @@ unittest {
 
 /*
  * Plain text error rendering with a stack trace.
- * Writes to STDERR via a UIM\Console\ConsoleOutput instance for console environments
+ * Writes to STDERR via a UIM\Console\OutputConsole instance for console environments
  */
 class DConsoleErrorRenderer { // }: IErrorRenderer {
   protected bool _trace = false;
 
-  protected DConsoleOutput _output;
+  protected DOutputConsole _output;
 
   this(Json[string] initData = null) {
     initialize(initData);
-    // `stderr` - The ConsoleOutput instance to use. Defaults to `D://stderr`
-    // `trace` - Whether or not stacktraces should be output.       _output = configuration.get("stderr", new DConsoleOutput("d://stderr"));
+    // `stderr` - The OutputConsole instance to use. Defaults to `D://stderr`
+    // `trace` - Whether or not stacktraces should be output.       _output = configuration.get("stderr", new DOutputConsole("d://stderr"));
     _trace = configuration.getBoolean("trace", false);
   }
 

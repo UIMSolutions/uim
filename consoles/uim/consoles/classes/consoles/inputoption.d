@@ -4,7 +4,8 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.consoles.classes.consoles.inputoption;
-InputConsoleimport uim.consoles;
+
+import uim.consoles;
 
 @safe:
 
@@ -12,7 +13,7 @@ InputConsoleimport uim.consoles;
  * An object to represent a single option used in the command line.
  * DConsoleOptionParser buildOptionParser creates these when you use addOption()
  */
-class DConsoleInputOption {
+class DInputConsoleOption {
     mixin TConfigurable;
 
     this() {
@@ -50,7 +51,7 @@ class DConsoleInputOption {
     protected string[] _choices;
 
     // The prompt string
-    protected string aprompt = null;
+    protected string _prompt = null;
 
     // Is the option required.
     protected bool _isRequired;
@@ -92,7 +93,7 @@ class DConsoleInputOption {
         _choices = validChoices;
         /* acceptsMultiple(acceptsMultiple); */
         _isRequired = isRequiredOption;
-        /* _prompt = promptText; */
+        _prompt = promptText;
 
         /* if (isBooleanOption) {
            _default =/* (bool)  * /defaultValue != "true";

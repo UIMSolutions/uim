@@ -16,16 +16,13 @@ import uim.errors;
  * error pages using the UIM ExceptionRenderer.
  */
 class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
-    this() {
-        super("`~ fullName ~ `");
+    this(Json[string] initData = null) {
+        super(initData);
     }
 
-    this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
-    }
-
-    this(string name, Json[string] initData = null) {
-        super(name, initData);
+    this(IErrorHandler newErrorHandler = null, Json[string] initData = null) {
+        super(initData);
+        _errorHandler = newErrorHandler;
     }
 
     // Hook method
@@ -35,23 +32,23 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
         }
 
         /**
-     * Default configuration values.
-     *
-     * Ignored if contructor is passed an ErrorHandler instance.
-     *
-     * - `log` Enable logging of exceptions.
-     * - `skipLog` List of exceptions to skip logging. Exceptions that
-     *  extend one of the listed exceptions will also not be logged. Example:
-     *
-     *  ```
-     *  "skipLog": ["uim\errors.NotFoundException", "uim\errors.UnauthorizedException"]
-     *  ```
-     *
-     * - `trace` Should error logs include stack traces?
-     * - `exceptionRenderer` The renderer instance or class name to use or a callable factory
-     *  which returns a uim.errorss.IExceptionRenderer instance.
-     *  Defaults to uim.errorss.ExceptionRenderer
-     */
+        * Default configuration values.
+        *
+        * Ignored if contructor is passed an ErrorHandler instance.
+        *
+        * - `log` Enable logging of exceptions.
+        * - `skipLog` List of exceptions to skip logging. Exceptions that
+        *  extend one of the listed exceptions will also not be logged. Example:
+        *
+        *  ```
+        *  "skipLog": ["uim\errors.NotFoundException", "uim\errors.UnauthorizedException"]
+        *  ```
+        *
+        * - `trace` Should error logs include stack traces?
+        * - `exceptionRenderer` The renderer instance or class name to use or a callable factory
+        *  which returns a uim.errorss.IExceptionRenderer instance.
+        *  Defaults to uim.errorss.ExceptionRenderer
+        */
         configuration
             .setDefault("skipLog", Json.emptyArray)
             .setDefault("log", true)
@@ -61,61 +58,30 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
         return true;
     }
 
-    mixin(TProperty!("string", "name"));
-
     // Error handler instance.
-    protected IErrorHandler myErrorHandler;
-
-    this(IErrorHandler errorHandler = null) {
-        if (func_num_args() > 1) {
-            deprecationWarning(
-                "The signature of ErrorHandlerMiddleware.this() has changed~ "
-                    ~ "Pass the config array as 1st argument instead."
-            );
-
-            errorHandler = func_get_arg(1);
-        }
-
-        if (D_VERSION_ID >= 70400 && Configure.read("debug")) {
-            ini_set("zend.exception_ignore_args", "0");
-        }
-
-        if (myErrorHandler.isArray) {
-            configuration.set(myErrorHandler);
-            return;
-        }
-
-        if (!cast(ErrorHandler) myErrorHandler) {
-            throw new DInvalidArgumentException(
-                "myErrorHandler argument must be a config array or ErrorHandler instance. Got `%s` instead."
-                    .format(getTypeName(myErrorHandler)
-                    ));
-        }
-
-        this.errorHandler = myErrorHandler;
-    }
+    protected IErrorHandler _errorHandler;
 
     // Wrap the remaining middleware with error handling.
     IResponse process(IServerRequest request, IRequestHandler requestHandler) {
         try {
             return requestHandler.handle(request);
-        } catch (DRedirectException exception) {
+        } /* catch (DRedirectException exception) {
             return _handleRedirect(exception);
-        } catch (Throwable exception) {
+        } */ catch (Throwable exception) {
             return _handleException(exception, request);
         }
     }
 
     // Handle an exception and generate an error response
     IResponse handleException(Throwable exception, IServerRequest request) {
-        /* myErrorHandler = getErrorHandler();
-        renderer = myErrorHandler.getRenderer(exception, request);
+        /* _errorHandler = getErrorHandler();
+        renderer = _errorHandler.getRenderer(exception, request);
 
         try {
-            myErrorHandler.logException(exception, request);
+            _errorHandler.logException(exception, request);
             response = renderer.render();
         } catch (Throwable internalException) {
-            myErrorHandler.logException@(DInternalException, request);
+            _errorHandler.logException@(DInternalException, request);
             response = handleInternalError();
         }
 

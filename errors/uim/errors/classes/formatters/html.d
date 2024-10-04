@@ -126,10 +126,8 @@ class DHtmlErrorFormatter : IErrorFormatter {
         return null;
     }
 
-    /**
-     * Handles object to string conversion.
-     */
-    protected string exportObject( /* ClassNode| */ ReferenceNode nodeToConvert, int indentLevel) {
+    // Handles object to string conversion.
+    protected string exportObject( /* ClassNode| */ IReferenceNode nodeToConvert, int indentLevel) {
         /* auto objectId = "uim-db-object-{this.id}-{nodeToConvert.id()}";
         auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
         auto breakText = "\n" ~ str_repeat("  ",  indentLevel);

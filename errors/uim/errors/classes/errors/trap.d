@@ -45,11 +45,9 @@ class DErrorTrap {
         * - `logger` - string - The class name of the error logger to use.
         * - `trace` - boolean - Whether or not backtraces should be included in logged errors.
         */
-        configuration
-            // TODOD "errorLevel": E_ALL,
-            .setDefault("errorRenderer", Json(null))
-            .setDefault("log", true)
-            // TODO "logger": ErrorLogger.classname,
+        configuration // TODOD "errorLevel": E_ALL,
+        .setDefault("errorRenderer", Json(null))
+            .setDefault("log", true) // TODO "logger": ErrorLogger.classname,
             .setDefault("trace", false);
 
         return true;
@@ -64,10 +62,10 @@ class DErrorTrap {
             return errorRendererData;
         }
         /** @var class-string<\UIM\Error\IErrorRenderer> */
-    // return UIM_SAPI == "cli" ? ConsoleErrorRenderer.classname : HtmlErrorRenderer.classname;
-}
+        // return UIM_SAPI == "cli" ? ConsoleErrorRenderer.classname : HtmlErrorRenderer.classname;
+    }
 
-/**
+    /**
      * Attach this ErrorTrap to D`s default error handler.
      *
      * This will replace the existing error handler, and the
@@ -81,7 +79,7 @@ class DErrorTrap {
         /* error_reporting(level);
         set_error_handler(this.handleError(...), level); */
     }
-    
+
     /**
      * Handle an error from UIM set_error_handler
      *
@@ -96,19 +94,24 @@ class DErrorTrap {
         string errorDescription,
         string fileName = null,
         int errorTriggerLine = 0
-   ) {
+    ) {
         if (!(error_reporting() & errorCode)) {
             return false;
         }
-        if (errorCode == ERRORS.USER_ERROR ||  errorCode == ERRORS.ERROR || errorCode == ERRORS.PARSE) {
+        if (errorCode == ERRORS.USER_ERROR || errorCode == ERRORS.ERROR || errorCode == ERRORS
+            .PARSE) {
             throw new DFatalErrorException(errorDescription, errorCode, fileName, errorTriggerLine);
         }
-        auto trace = /* (array) */Debugger.trace(["start": 1, "format": "points"]);
+        auto trace =  /* (array) */ Debugger.trace([
+                "start": 1,
+                "format": "points"
+            ]);
         auto error = new UIMError(errorCode, errorDescription, fileName, errorTriggerLine, trace);
 
         auto anIgnoredPaths = configuration.getArray("Error.ignoredDeprecationPaths");
-        if (errorCode == ERRORS.USER_DEPRECATED &&  anIgnoredPaths) {
-            string relativePath = subString(fileName, ROOT.length + 1).replace(DIRECTORY_SEPARATOR, "/");
+        if (errorCode == ERRORS.USER_DEPRECATED && anIgnoredPaths) {
+            string relativePath = subString(fileName, ROOT.length + 1).replace(
+                DIRECTORY_SEPARATOR, "/");
             foreach (pattern; anIgnoredPaths) {
                 string pattern = pattern.replace(DIRECTORY_SEPARATOR, "/");
                 if (fnmatch(pattern, relativePath)) {
@@ -134,7 +137,7 @@ class DErrorTrap {
         }
         return true;
     }
-    
+
     // Logging helper method.
     protected void logError(IError error) {
         if (!configuration.hasKey("log")) {
@@ -142,17 +145,18 @@ class DErrorTrap {
         }
         logger().logError(error, Router.getRequest(), configuration.get("trace"));
     }
-    
+
     // Get an instance of the renderer.
     IErrorRenderer renderer() {
         string classname = configuration.getString("errorRenderer", chooseErrorRenderer());
 
         return new classname(_config);
     }
-    
+
     // Get an instance of the logger.
     IErrorLogger logger() {
-        string classname = configuration.getString("logger", defaultconfiguration.getString("logger"));
+        string classname = configuration.getString("logger", defaultconfiguration.getString(
+                "logger"));
         return new classname(_config);
-    } 
+    }
 }

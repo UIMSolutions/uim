@@ -16,7 +16,7 @@ import uim.errors;
  */
 class DHtmlErrorRenderer : DErrorRenderer {
     mixin(ErrorRenderer!("Html"));
-    
+
     // Output to stdout which is the server response.
     void write(string outputText) {
         writeln(outputText);

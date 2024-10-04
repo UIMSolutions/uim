@@ -10,7 +10,7 @@ import uim.errors;
 @safe:
 
 unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
+  writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 /**
@@ -19,69 +19,69 @@ unittest {
  * @internal
  */
 class DHtmlErrorFormatter : DErrorFormatter {
-    mixin(ErrorFormatterThis!("Html"));
+  mixin(ErrorFormatterThis!("Html"));
 
-    protected static bool outputHeader = false;
+  protected static bool outputHeader = false;
 
-    // Random id so that HTML ids are not shared between dump outputs.
-    protected string _id;
+  // Random id so that HTML ids are not shared between dump outputs.
+  protected string _id;
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        _id = uniqid("", true);
-        return true;
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
     }
 
-    // Check if the current environment is not a CLI context
-    static bool environmentMatches() {
-        return UIM_SAPI == "cli" || UIM_SAPI == "Ddbg"
-            ? false : true;
+    _id = uniqid("", true);
+    return true;
+  }
+
+  // Check if the current environment is not a CLI context
+  static bool environmentMatches() {
+    return UIM_SAPI == "cli" || UIM_SAPI == "Ddbg"
+      ? false : true;
+  }
+
+  string formatWrapper(string acontents, Json[string] location) {
+    string lineInfo = "";
+    if (location.hasAllKeys("file", "line")) {
+      lineInfo = htmlDoubleTag("span", "<strong>{file}</strong> (line <strong>{line}</strong>)")
+        .moustache(location, ["file", "line"]);
     }
 
-    string formatWrapper(string acontents, Json[string] location) {
-        string lineInfo = "";
-        if (location.hasAllKeys("file", "line")) {
-            lineInfo = htmlDoubleTag("span", "<strong>{file}</strong> (line <strong>{line}</strong>)")
-                .moustache(location, ["file", "line"]);
-        }
+    return [
+      `<div class="uim-debug-output uim-debug" style="direction:ltr">`,
+      lineInfo,
+      contents,
+      "</div>",
+    ].join("\n");
+  }
 
-        return [
-            `<div class="uim-debug-output uim-debug" style="direction:ltr">`,
-            lineInfo,
-            contents,
-            "</div>",
-        ].join("\n");
-    }
-
-    /**
+  /**
      * Generate the CSS and Javascript for dumps
      * Only output once per process as we don`t need it more than once.
      */
-    protected string dumpHeader() {
-        /* ob_start();
+  protected string dumpHeader() {
+    /* ob_start();
         include __DIR__~ DIRECTORY_SEPARATOR ~ "dumpHeader.html";
 
         return to!string(ob_get_clean()); */
-        return null;
-    }
+    return null;
+  }
 
-    // Convert a tree of IErrorNode objects into HTML
-    override string dump(IErrorNode node) {
-        auto content = export_(node, 0);
-        string head = "";
-        if (!outputHeader) {
-            outputHeader = true;
-            head = this.dumpHeader();
-        }
-        return head ~ htmlDoubleTag("div", ["uim-debug"], content);
+  // Convert a tree of IErrorNode objects into HTML
+  override string dump(IErrorNode node) {
+    auto content = export_(node, 0);
+    string head = "";
+    if (!outputHeader) {
+      outputHeader = true;
+      head = this.dumpHeader();
     }
+    return head ~ htmlDoubleTag("div", ["uim-debug"], content);
+  }
 
-    // #region export
-    protected string exportArray(DArrayErrorNode tvar, size_t indentLevel) {
-        /* auto open = "<span class="uim-debug-array">" ~
+  // #region export
+  protected string exportArray(DArrayErrorNode tvar, size_t indentLevel) {
+    /* auto open = "<span class="uim-debug-array">" ~
            style("punct", "[") ~
             "<samp class="uim-debug-array-items">";
         auto vars = null;
@@ -102,30 +102,30 @@ class DHtmlErrorFormatter : DErrorFormatter {
             "</span>";
 
         return open ~ vars.join("") ~ close; */
-        return null;
-    }
+    return null;
+  }
 
-    protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
-        auto objectId = "uim-db-object-{this.id}-{node.id()}";
-        auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
-        auto breakTxt = "\n" ~ repeat("  ", indentLevel);
-        auto endBreak = "\n" ~ repeat("  ", indentLevel - 1);
+  protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
+    auto objectId = "uim-db-object-{this.id}-{node.id()}";
+    auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
+    auto breakTxt = "\n" ~ repeat("  ", indentLevel);
+    auto endBreak = "\n" ~ repeat("  ", indentLevel - 1);
 
-        auto link = `<a class="uim-debug-ref" href="#%s">id: %s</a>`
-            .format(objectId, node.id());
+    auto link = `<a class="uim-debug-ref" href="#%s">id: %s</a>`
+      .format(objectId, node.id());
 
-        return htmlDoubleTag("span", ["uim-debug-ref"],
-            style("punct", "object(") ~
-                style("class", node.getValue()) ~
-                style("punct", ") ") ~
-                link ~
-                style("punct", " {}"));
+    return htmlDoubleTag("span", ["uim-debug-ref"],
+      style("punct", "object(") ~
+        style("class", node.getValue()) ~
+        style("punct", ") ") ~
+        link ~
+        style("punct", " {}"));
 
-        return null;
-    }
+    return null;
+  }
 
-    protected string exportClass(DClassErrorNode aNode, size_t indentLevel) {
-        /* auto objectId = "uim-db-object-{this.id}-{node.id()}";
+  protected string exportClass(DClassErrorNode aNode, size_t indentLevel) {
+    /* auto objectId = "uim-db-object-{this.id}-{node.id()}";
         auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
         auto breakTxt = "\n" ~ repeat("  ",  indentLevel);
         auto endBreak = "\n" ~ repeat("  ",  indentLevel - 1);
@@ -159,39 +159,39 @@ class DHtmlErrorFormatter : DErrorFormatter {
         return count(props)
             ? result ~ props.join("") ~ end
             : result ~ end; */
-        return null;
-    }
+    return null;
+  }
 
-    protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {
-        return null;
-    }
+  protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {
+    return null;
+  }
 
-    protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
-        switch (node.getType()) {
-        case "bool":
-            return style("const", node.getBoolean() ? "true" : "false");
-        case "null":
-            return style("const", "null");
-        case "string":
-            return style("string", "'" ~ node.getString() ~ "'");
-        case "int", "float":
-            return style("visibility", "({node.getType()})") ~
-                " " ~ style("number", "{node.getValue()}");
-        default:
-            return "({node.getType()}) {node.getValue()}";
-        };
+  protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
+    switch (node.getType()) {
+    case "bool":
+      return style("const", node.getBoolean() ? "true" : "false");
+    case "null":
+      return style("const", "null");
+    case "string":
+      return style("string", "'" ~ node.getString() ~ "'");
+    case "int", "float":
+      return style("visibility", "({node.getType()})") ~
+        " " ~ style("number", "{node.getValue()}");
+    default:
+      return "({node.getType()}) {node.getValue()}";
+    };
 
-        return null;
-    }
+    return null;
+  }
 
-    protected string exportSpecial(DSpecialErrorNode node, size_t indentLevel) {
-        return null;
-    }
-    // #endregion export
+  protected string exportSpecial(DSpecialErrorNode node, size_t indentLevel) {
+    return null;
+  }
+  // #endregion export
 
-    // Style text with HTML class names
-    protected string style(string styleToUse, string testToStyle) {
-        return htmlDoubletag("span", ["uim-debug-%s"], "%s")
-            .format(styleToUse, htmlAttributeEscape(testToStyle));
-    }
+  // Style text with HTML class names
+  protected string style(string styleToUse, string testToStyle) {
+    return htmlDoubletag("span", ["uim-debug-%s"], "%s")
+      .format(styleToUse, htmlAttributeEscape(testToStyle));
+  }
 }

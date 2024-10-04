@@ -138,8 +138,8 @@ class DDebugger : UIMObject, IErrorDebugger {
         "sublime": "subl://open?url=file://{file}&line={line}",
         "textmate": "txmt://open?url=file://{file}&line={line}",
         "vscode": "vscode://file/{file}:{line}",
-    ]; 
-    
+    ];
+
     // Choose the editor link style you want to use.
     static void setEditor(string editorName) {
         auto anInstance = getInstance();
@@ -475,7 +475,7 @@ class DDebugger : UIMObject, IErrorDebugger {
         auto anInstance = getInstance();
         string formatterClassname = anInstance.configuration.get("exportFormatter");
         if (!formatterClassname) {
-   /*          if (DConsoleErrorFormatter.environmentMatches()) {
+            /*          if (DConsoleErrorFormatter.environmentMatches()) {
                 formatterClassname = ConsoleErrorFormatter.classname;
             } else if (HtmlFormatter.environmentMatches()) {
                 formatterClassname = HtmlErrorFormatter.classname;
@@ -483,7 +483,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                 formatterClassname = TextErrorFormatter.classname;
             } */
         }
-        
+
         /* anInstance = new formatterClassname();
         if (!cast(IErrorFormatter) anInstance) {
             throw new DException(
@@ -492,7 +492,7 @@ class DDebugger : UIMObject, IErrorDebugger {
             );
         }
         return anInstance; */
-        return null; 
+        return null;
     }
 
     /**

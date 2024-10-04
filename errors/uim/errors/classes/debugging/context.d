@@ -57,7 +57,7 @@ class DDebugContext : UIMObject {
         return newContext;
     } */
 
-    protected UUID[UIMObject] _refObjects; 
+    protected UUID[UIMObject] _refObjects;
 
     /**
      * Get the reference ID for an object.

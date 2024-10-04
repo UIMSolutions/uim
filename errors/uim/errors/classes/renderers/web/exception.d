@@ -38,7 +38,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         _request = serverRequest;
         _controller = _getController();
     }
-    
+
     // Controller instance.
     protected IErrorController controller;
 
@@ -84,8 +84,6 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         // Routing exceptions
         MissingRouteException.classname: 404,
     ];
-
-
 
     /**
      * Get the controller instance to handle the exception.
@@ -224,7 +222,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
 
     // Render a custom error method/template.
     protected DResponse _customMethod(string methodName, Throwable exceptionToRender) {
-/*         auto result = this.{
+        /*         auto result = this.{
             methodName
         }
         (exceptionToRender);
@@ -233,7 +231,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             result = _controller.getResponse().withStringBody(result);
         }
         return result; */
-        return null; 
+        return null;
     }
 
     // Get method name
@@ -290,7 +288,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             return exception.code();
         }
         return _exceptionHttpCodes[exception.classname] ?  ? 500; */
-        return 0; 
+        return 0;
     }
 
     // Generate the response using the controller object.

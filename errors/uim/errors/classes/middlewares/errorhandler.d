@@ -65,9 +65,10 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
     IResponse process(IServerRequest request, IRequestHandler requestHandler) {
         try {
             return requestHandler.handle(request);
-        } /* catch (DRedirectException exception) {
+        }  /* catch (DRedirectException exception) {
             return _handleRedirect(exception);
-        } */ catch (Throwable exception) {
+        } */
+        catch (Throwable exception) {
             return _handleException(exception, request);
         }
     }
@@ -82,15 +83,15 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
             _errorHandler.logException(exception, request);
             response = renderer.render();
         } catch (Throwable internalException) {
-           /*  _errorHandler.logException@(DInternalException, request);
+            /*  _errorHandler.logException@(DInternalException, request);
             response = handleInternalError(); */
         }
 
-        return response; 
+        return response;
     }
 
     // Convert a redirect exception into a response.
-/*     IResponse handleRedirect(DRedirectException exceptionToHandle) {
+    /*     IResponse handleRedirect(DRedirectException exceptionToHandle) {
         return new DRedirectResponse(
             exceptionToHandle.message(),
             exceptionToHandle.code(),

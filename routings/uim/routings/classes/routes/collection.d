@@ -236,7 +236,7 @@ class DRouteCollection {
             };
         }
         throw new DMissingRouteException([
-            "url": var_export_(url, true),
+            "url": varexport_(url, true),
             "context": context
         ]);
     }

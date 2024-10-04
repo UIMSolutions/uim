@@ -9,7 +9,7 @@ module uim.errors.classes.debugging.context;
 import uim.errors;
 
 unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+    writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 /**
@@ -38,16 +38,14 @@ class DDebugContext : UIMObject {
     }
 
     private int _maxDepth = 0;
-
     private int _depth = 0;
 
     // Get the remaining depth levels
     int remainingDepth() {
-      return _maxDepth - _depth;
+        return _maxDepth - _depth;
     }
-    
-    // private SplObjectStorage _refs;
 
+    // private SplObjectStorage _refs;
     this(int aMaxDepth) {
         _maxDepth = aMaxDepth;
         _refs = new DSplObjectStorage();
@@ -61,26 +59,27 @@ class DDebugContext : UIMObject {
         return new;
     } */
 
-
     /**
      * Get the reference ID for an object.
      *
      * If this object does not exist in the reference storage,
      * it will be added and the id will be returned.
      */
-/*     int getReferenceId(object referenceForObject) {
-      if (_refs.contains(referenceForObject)) {
-          return _refs[referenceForObject];
-      }
-      
-      auto refId = _refs.count();
-      _refs.attach(referenceForObject, refId);
+    int getReferenceId(object referenceForObject) {
+        if (hasReference(referenceForObject)) {
+            return _refs[referenceForObject];
+        }
 
-      return refId;
+        auto refId = _refs.count();
+        _refs.attach(referenceForObject, refId);
+
+        return refId;
     }
- */
-    // Check whether an object has been seen before.
-    /* bool hasReference(object referenceObject) {
-        return _refs.contains(referenceObject);
-    }  */
+
+    
+    *  /
+         // Check whether an object has been seen before.
+        bool hasReference(object referenceObject) {
+            return _refs.any!(refObj => refObj == referenceObject);
+        }
 }

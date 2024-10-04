@@ -116,7 +116,7 @@ class DConsoleFormatter : DErrorFormatter {
         result = style("punct", "object(") ~
             style("class", node.getValue()) ~
             style("punct", ") id:") ~
-            style("number", (string) node.id())~style("punct", " {");
+            style("number", to!string(node.id())~style("punct", " {");
 
         string breakTxt = "\n" ~ repeat("  ", indentLevel);
         string endTxt = "\n" ~ repeat("  ", indentLevel - 1) ~ style("punct", "}");

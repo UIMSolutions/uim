@@ -84,8 +84,8 @@ TEXT";
         auto propName = property.name;
 
         return propVisibility && propVisibility != "public" 
-            ? "[{propVisibility}] {propName}: " ~ _export_(property.getValue(), indentlevel);
-            : "{propName}: " ~ _export_(property.getValue(), indentlevel); */
+            ? "[{propVisibility}] {propName}: " ~ export_(property.getValue(), indentlevel);
+            : "{propName}: " ~ export_(property.getValue(), indentlevel); */
         return null;
     }
 

@@ -5,9 +5,12 @@
 *****************************************************************************************************************/
 module uim.errors.classes.formatters;
 
-public {
+public { // Main
+  import uim.errors.classes.formatters.formatter;
+}
+
+public { // Sub
   import uim.errors.classes.formatters.console;
-  
   import uim.errors.classes.formatters.html;
   import uim.errors.classes.formatters.text;
 }

@@ -20,7 +20,7 @@ unittest {
 class DConsoleErrorRenderer { // }: IErrorRenderer {
   protected bool _trace = false;
 
-  protected IConsoleOutput _output;
+  protected DConsoleOutput _output;
 
   this(Json[string] initData = null) {
     initialize(initData);

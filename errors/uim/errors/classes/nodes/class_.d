@@ -11,7 +11,7 @@ import uim.errors;
 
 // Dump node for objects/class instances.
 class DClassErrorNode : DErrorNode {
-    mixin(ErrorNode!("Class"));
+    mixin(ErrorNodeThis!("Class"));
 
     this(string classname, int anId) {
         super();

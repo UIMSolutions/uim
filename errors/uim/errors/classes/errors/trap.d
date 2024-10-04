@@ -95,7 +95,7 @@ class DErrorTrap {
         int errorCode,
         string errorDescription,
         string fileName = null,
-        int errorTriggerLine = null
+        int errorTriggerLine = 0
    ) {
         if (!(error_reporting() & errorCode)) {
             return false;

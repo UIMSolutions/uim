@@ -47,7 +47,7 @@ TEXT";
     }
 
     // #region export
-    protected string exportArray(DArrayErrorNode node, size_t indentLevel) {
+    override protected string exportArray(DArrayErrorNode node, size_t indentLevel) {
         auto result = "[";
         auto breakTxt = "\n" ~ repeat("  ", indentlevel);
         auto endtxt = "\n" ~ repeat("  ", indentlevel - 1);
@@ -60,11 +60,11 @@ TEXT";
             ? result ~ join(",", nodes) ~ end ~ "]" : result ~ "]";
     }
 
-    protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
+    override protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
         return "object({node.getValue()}) id:{node.id()} {}";
     }
 
-    protected string exportClass(DClassErrorNode node, size_t indentLevel) {
+    override protected string exportClass(DClassErrorNode node, size_t indentLevel) {
         string result = "object({" ~ node.getValue() ~ "}) id:{" ~ node.id() ~ "} {";
         auto breakTxt = "\n" ~ repeat("  ", indentlevel);
         auto endTxt = "\n" ~ repeat("  ", indentlevel - 1) ~ "}";
@@ -77,7 +77,7 @@ TEXT";
             ? result ~ breakTxt ~ props.join(breakTxt) ~ endTxt : result ~ "}";
     }
 
-    protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {
+    override protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {
         /* auto propVisibility = property.getVisibility();
         auto propName = property.name;
 
@@ -87,7 +87,7 @@ TEXT";
         return null;
     }
 
-    protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
+    override protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
         switch (node.getType()) {
         case "bool":
             return node.getBoolean() ? "true" : "false";
@@ -100,7 +100,7 @@ TEXT";
         }
     }
 
-    protected string exportSpecial(DSpecialErrorNode node, size_t indentLevel) {
+    override protected string exportSpecial(DSpecialErrorNode node, size_t indentLevel) {
         return null;
     }
     // #endregion export

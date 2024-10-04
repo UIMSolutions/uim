@@ -3,13 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes.consoles.output;repeat(
+module uim.consoles.classes.consoles.output;
+repeat(
 
-import uim.consoles;
+  import uim.consoles;
 
-@safe:
+  @safe:
 
-/**
+  /**
  * Object wrapper for outputting information from a shell application.
  * Can be connected to any stream resource that can be used with fopen()
  *
@@ -36,21 +37,18 @@ import uim.consoles;
  * See ConsoleOutput.styles() to learn more about defining your own styles. Nested styles are not supported
  * at this time.
  */
-class DConsoleOutput : UIMObject {
-    this() {
-        initialize;
-    }
+  class DConsoleOutput : UIMObject {
+  this() {
+    initialize;}
 
     this(Json[string] initData) {
-        initialize(initData);
-    }
+      initialize(initData);}
 
-    override bool initialize(Json[string] initData = null) {
+      override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
-            return false;
-        }
+          return false;}
 
-        _foregroundColors = [
+          _foregroundColors = [
             "black": 30,
             "red": 31,
             "green": 32,
@@ -59,9 +57,7 @@ class DConsoleOutput : UIMObject {
             "magenta": 35,
             "cyan": 36,
             "white": 37,
-        ];
-
-        _backgroundColors = [
+          ]; _backgroundColors = [
             "black": 40,
             "red": 41,
             "green": 42,
@@ -70,66 +66,41 @@ class DConsoleOutput : UIMObject {
             "magenta": 45,
             "cyan": 46,
             "white": 47,
-        ];
-
-        _options = [
+          ]; _options = [
             "bold": 1,
             "underline": 4,
             "blink": 5,
             "reverse": 7,
-        ];
-        
-        _styles["emergency"] = ["text": "red"];
-        _styles["alert"] = ["text": "red"];
-        _styles["critical"] = ["text": "red"];
-        _styles["error"] = ["text": "red"];
-        _styles["warning"] = ["text": "yellow"];
-        _styles["info"] = ["text": "cyan"];
-        _styles["debug"] = ["text": "yellow"];
-        _styles["success"] = ["text": "green"];
-        _styles["comment"] = ["text": "blue"];
-        _styles["question"] = ["text": "magenta"];
-        _styles["notice"] = ["text": "cyan"];
+          ]; _styles["emergency"] = ["text": "red"]; _styles["alert"] = [
+            "text": "red"
+          ]; _styles["critical"] = ["text": "red"]; _styles["error"] = [
+            "text": "red"
+          ]; _styles["warning"] = ["text": "yellow"]; _styles["info"] = [
+            "text": "cyan"
+          ]; _styles["debug"] = ["text": "yellow"]; _styles["success"] = [
+            "text": "green"
+          ]; _styles["comment"] = ["text": "blue"]; _styles["question"] = [
+            "text": "magenta"
+          ]; _styles["notice"] = ["text": "cyan"]; return true;}
 
-        return true;
-    }
+          mixin(TProperty!("string", "name"));  // Raw output constant - no modification of output text.
+          const int RAW = 0;  // Plain output - tags will be stripped.
+          const int PLAIN = 1;  // Color output - Convert known tags in to ANSI color escape codes.
+          const int COLOR = 2;  // Constant for a newline.
+          const string LF = "";  // TODO = D_EOL;
 
-    mixin(TProperty!("string", "name"));
+          // File handle for output.
+          // TODO protected resource _output;
 
-    // Raw output constant - no modification of output text.
-    const int RAW = 0;
-
-    // Plain output - tags will be stripped.
-    const int PLAIN = 1;
-
-    // Color output - Convert known tags in to ANSI color escape codes.
-    const int COLOR = 2;
-
-    // Constant for a newline.
-    const string LF = ""; // TODO = D_EOL;
-
-    // File handle for output.
-    // TODO protected resource _output;
-
-    // The current output type.
-    protected int _outputAs = COLOR;
-
-    // text colors used in colored output.
-    protected static int[string] _foregroundColors;
-
-    // background colors used in colored output.
-    protected static int[string] _backgroundColors;
-
-    // Formatting options for colored output.
-    protected static int[string] _options;
-
-    /**
+          // The current output type.
+          protected int _outputAs = COLOR;  // text colors used in colored output.
+          protected static int[string] _foregroundColors;  // background colors used in colored output.
+          protected static int[string] _backgroundColors;  // Formatting options for colored output.
+          protected static int[string] _options;  /**
      * Styles that are available as tags in console output.
      * You can modify these styles with ConsoleOutput.styles()
      */
-    protected static STRINGAA[string] _styles;
-
-    /**
+          protected static STRINGAA[string] _styles;  /**
      * Construct the output object.
      *
      * Checks for a pretty console environment. Ansicon and ConEmu allows
@@ -137,13 +108,13 @@ class DConsoleOutput : UIMObject {
      * Params:
      * resource|string astream The identifier of the stream to write output to.
      */
-    this(string streamIdentifier = "uim://stdout") {
-        /* auto fileStream = fopen(streamIdentifier, "wb");
+          this(string streamIdentifier = "uim://stdout") {
+            /* auto fileStream = fopen(streamIdentifier, "wb");
         if (!isResource(fileStream)) {
             throw new DConsoleException("Invalid stream in constructor. It is not a valid resource.");
         }
        _output = fileStream; */
-/* 
+            /* 
         if (
             (
                 DIRECTORY_SEPARATOR == "\\" &&
@@ -162,30 +133,27 @@ class DConsoleOutput : UIMObject {
        ) {
            _outputAs = PLAIN;
         } */
-    }
-    
-    /**
+          }
+
+          /**
      * Outputs a single or multiple messages to stdout or stderr. If no parameters
      * are passed, outputs just a newline.
      */
-    int write(string[] messages, int numberOfLines = 1) {
-        /* return write(messages.join(LF), numberOfLines); */
-        return 0;
-    }
+          int write(string[] messages, int numberOfLines = 1) {
+            /* return write(messages.join(LF), numberOfLines); */
+            return 0;}
 
-    int write(string message, int numberOfLines = 1) {
-       /*  return _write(this.styleText(message ~ str_repeat(LF, numberOfLines))); */
-       return 0; 
-    }
-    
-    // Apply styling to text.
-    string styleText(string stylingText) {
-        if (_outputAs == RAW) {
-            return stylingText;
-        }
-        if (_outputAs != PLAIN) {
-            /** @var \Closure replaceTags */
-            /* replaceTags = _replaceTags(...);
+            int write(string message, int numberOfLines = 1) {
+              /*  return _write(this.styleText(message ~ str_repeat(LF, numberOfLines))); */
+              return 0;}
+
+              // Apply styling to text.
+              string styleText(string stylingText) {
+                if (_outputAs == RAW) {
+                  return stylingText;}
+                  if (_outputAs != PLAIN) {
+                    /** @var \Closure replaceTags */
+                    /* replaceTags = _replaceTags(...);
 
             output = preg_replace_callback(
                 "/<(?P<tag>[a-z0-9-_]+)>(?P<text>.*?)<\/(\1)>/ims",
@@ -195,21 +163,20 @@ class DConsoleOutput : UIMObject {
             if (output !is null) {
                 return output;
             } */
-        }
-        /* auto tags = _styles.keys.join("|");
+                  }
+                  /* auto tags = _styles.keys.join("|");
         auto output = preg_replace("#</?(?:" ~ tags ~ ")>#", "", stylingText);
  */
-        /* return output ? output : stylingText; */
-        return null; 
-    }
-    
-    /**
+                  /* return output ? output : stylingText; */
+                  return null;}
+
+                  /**
      * Replace tags with color codes.
      *
      * matchesToReplace - Array of matches to replace.
      */
-    protected string _replaceTags(string[string] matchesToReplace) {
-       /* auto style = getStyle(matchesToReplace.get("tag"));
+                  protected string _replaceTags(string[string] matchesToReplace) {
+                    /* auto style = getStyle(matchesToReplace.get("tag"));
         if (style.isEmpty) {
             return "<" ~ matchesToReplace.getString("tag") ~ ">" ~ matchesToReplace.getString("text") ~ "</" ~ matchesToReplace.getString("tag") ~ ">";
         }
@@ -227,22 +194,19 @@ class DConsoleOutput : UIMObject {
             .each!(optionValue => styleInfo ~= _options.get(optionValue.option));
 
         return "\033[" ~ styleInfo.join(";") ~ "m" ~ matchesToReplace.getString("text") ~ "\033[0m"; */
-        return null; 
-    }
-    
-    // Writes a message to the output stream.
-    protected int _write(string messageToWrite) {
-       /*  return to!int(fwrite(_output, messageToWrite)); */
-       return 0; 
-    }
-    
-    // Gets the current styles offered
-    Json[string] getStyle(string styleName) {
-        // return _styles.get(styleName, null);
-        return null; 
-    }
-    
-    /**
+                    return null;}
+
+                    // Writes a message to the output stream.
+                    protected int _write(string messageToWrite) {
+                      /*  return to!int(fwrite(_output, messageToWrite)); */
+                      return 0;}
+
+                      // Gets the current styles offered
+                      Json[string] getStyle(string styleName) {
+                        // return _styles.get(styleName, null);
+                        return null;}
+
+                        /**
      * Sets style.
      *
      * ### Creates or modifies an existing style.
@@ -257,38 +221,35 @@ class DConsoleOutput : UIMObject {
      * this.output.setStyle("annoy", []);
      * ```
      */
-    void setStyle(string styleToSet, Json[string] styleDefinition) {
-        /* if (!styleDefinition) {
+                        void setStyle(string styleToSet, Json[string] styleDefinition) {
+                          /* if (!styleDefinition) {
             _styles.removeKey(styleToSet);
             return;
         }
         _styles[styleToSet] = styleDefinition; */
-    }
-    
-    // Gets all the style definitions.
-    Json[string] styles() {
-        /* return _styles; */
-        return null; 
-    }
-    
-    // Get the output type on how formatting tags are treated.
-    int getOutputAs() {
-        return _outputAs;
-    }
-    
-    // Set the output type on how formatting tags are treated.
-    void setOutputAs(int outputType) {
-        /* if (!isIn(outputType, [RAW, PLAIN, COLOR], true)) {
+                        }
+
+                        // Gets all the style definitions.
+                        Json[string] styles() {
+                          /* return _styles; */
+                          return null;}
+
+                          // Get the output type on how formatting tags are treated.
+                          int getOutputAs() {
+                            return _outputAs;}
+
+                            // Set the output type on how formatting tags are treated.
+                            void setOutputAs(int outputType) {
+                              /* if (!isIn(outputType, [RAW, PLAIN, COLOR], true)) {
             throw new DInvalidArgumentException("Invalid output type `%s`.".format(outputType));
         } */
-       _outputAs = outputType;
-    }
-    
-    // Clean up and close handles
-    void __destruct() {
-        /** @psalm-suppress RedundantCondition */
-        /* if (isResource(_output)) {
+                              _outputAs = outputType;}
+
+                              // Clean up and close handles
+                              void __destruct() {
+                                /** @psalm-suppress RedundantCondition */
+                                /* if (isResource(_output)) {
             fclose(_output);
         } */
-    } 
-}
+                              }
+                            }

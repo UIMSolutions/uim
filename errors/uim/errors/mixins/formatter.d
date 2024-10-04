@@ -5,6 +5,9 @@
 *****************************************************************************************************************/
 module uim.errors.mixins.formatter;
 
+import uim.errors;
+
+@safe:
 string errorFormatterThis(string name = null) {
     string fullName = name ~ "ErrorFormatter";
     return objThis(fullName);

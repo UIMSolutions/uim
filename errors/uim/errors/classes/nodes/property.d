@@ -3,13 +3,13 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.errors.classes.nodes.property;: DErrorNode
+module uim.errors.classes.nodes.property; 
 
 @safe:
 import uim.errors;
 
 // Dump node for object properties.
-class DPropertyNode : IErrorNode {
+class DPropertyNode : DErrorNode {
   private string _name;
 
   private string _visibility;

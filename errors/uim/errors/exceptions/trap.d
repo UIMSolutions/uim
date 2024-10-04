@@ -222,7 +222,7 @@ class DExceptionTrap {
     
     // Increases the UIM "memory_limit" ini setting by the specified amount in kilobytes
     void increaseMemoryLimit(int additionalKb) {
-        string aLimit = ini_get("memory_limit");
+        string aLimit = 0; // ini_get("memory_limit");
         if (aLimit == false || aLimit is null || aLimit == "-1") {
             return;
         }
@@ -240,7 +240,7 @@ class DExceptionTrap {
             units = "K";
         }
         if (units == "K") {
-            ini_set("memory_limit", ceil(current + additionalKb) ~ "K");
+            // ini_set("memory_limit", ceil(current + additionalKb) ~ "K");
         }
     }
     

@@ -87,7 +87,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
     ulong run(Json[string] arguments, DConsoleIo aConsoleIo) {
         initialize();
 
-/*         auto aParser = getOptionParser();
+        /*         auto aParser = getOptionParser();
         try {
             auto parsedResults = aParser.parse(arguments, aConsoleIo);
             auto arguments = createMap!(string, Json);
@@ -133,7 +133,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
     // Set the output level based on the Json[string].
     protected void setOutputLevel(Json[string] arguments, DConsoleIo aConsoleIo) {
         // aConsoleIo.setLoggers(DConsoleIo.NORMAL);
-       /*  if (arguments.hasKey("quiet")) {
+        /*  if (arguments.hasKey("quiet")) {
             aConsoleIo.level(DConsoleIo.QUIET);
             aConsoleIo.setLoggers(DConsoleIo.QUIET);
         }
@@ -166,10 +166,10 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
 
         // auto newCommand = new command();
         // return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? DConsoleIo aConsoleIo = null);
-        return 0; 
+        return 0;
     }
 
-    size_t executeCommand(DCommand command, Json[string] commandArguments = null,  DConsoleIo aConsoleIo = null) {
+    size_t executeCommand(DCommand command, Json[string] commandArguments = null, DConsoleIo aConsoleIo = null) {
         auto consoleIo = aConsoleIo ? aConsoleIo : new DConsoleIo();
 
         /* try {

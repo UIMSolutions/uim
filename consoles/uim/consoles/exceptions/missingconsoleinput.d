@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.exceptions.missingconsoleinput;InputConsoleInputConsoleInputConsole
+module uim.consoles.exceptions.missingconsoleinput;
 
 import uim.consoles;
 
@@ -18,4 +18,5 @@ class DMissingConsoleInputException : DConsoleException {
         // TODO this.message ~= "\nThe question asked was: " ~ questionText;
     }
 }
+
 mixin(ExceptionCalls!("MissingConsoleInput"));

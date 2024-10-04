@@ -249,7 +249,7 @@ class DConsoleOptionParser : UIMObject {
      * \UIM\Console\DConsoleOptionParser buildOptionParser|array spec DConsoleOptionParser buildOptionParser or spec to merge with.
      */
     void merge(DConsoleOptionParser buildOptionParser) {
-       /*  merge(spec.toJString()); */
+        /*  merge(spec.toJString()); */
     }
 
     void merge(Json[string] spec) {
@@ -397,7 +397,7 @@ class DConsoleOptionParser : UIMObject {
     // Get the defined options in the parser.
     DInputConsoleOption[string] options() {
         /* return _options; */
-        return null; 
+        return null;
     }
 
     // Parse the arguments array into a set of params and args.
@@ -470,7 +470,7 @@ class DConsoleOptionParser : UIMObject {
             }
         });
         return [params, someArguments]; */
-        return null; 
+        return null;
     }
 
     /**
@@ -532,7 +532,7 @@ class DConsoleOptionParser : UIMObject {
 
         auto name = _shortOptions.getString(aKey);
         return _parseOption(name, paramsToAppen); */
-        return null; 
+        return null;
     }
 
     /**
@@ -567,18 +567,18 @@ class DConsoleOptionParser : UIMObject {
             params.set(nameToParse, aValue);
         }
         return params; */
-        return null; 
+        return null;
     }
 
     // Check to see if name has an option (short/long) defined for it.
     protected bool _optionhasKey(string optionName) {
-/*         if (optionName.startsWith("--")) {
+        /*         if (optionName.startsWith("--")) {
             return _options.hasKey(subString(optionName, 2));
         }
         if (optionName[0] == "-" && optionName[1] != "-") {
             return _shortOptions.hasKey(optionName[1]);
         }
- */        
+ */
         return false;
     }
 
@@ -604,12 +604,12 @@ class DConsoleOptionParser : UIMObject {
         someArguments ~= argument;
 
         return someArguments; */
-        return null; 
+        return null;
     }
 
     // Find the next token in the arguments set.
     protected string _nextToken() {
         /* return _tokens[0] ? _tokens[0] : ""; */
-        return null; 
+        return null;
     }
 }

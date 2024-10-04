@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes.consoles.inputargument;InputConsoleInputConsoleInputConsole
-
-import uim.consoles;
+module uim.consoles.classes.consoles.inputargument;
+InputConsoleInputConsoleInputConsoleimport uim.consoles;
 
 @safe:
 
@@ -60,7 +59,7 @@ class DConsoleInputArgument : UIMObject {
     bool isEqualTo(DConsoleInputArgument argument) {
         /* return _name() == argument.name() &&
             this.usage() == argument.usage(); */
-            return false;
+        return false;
     }
 
     /**
@@ -112,7 +111,7 @@ class DConsoleInputArgument : UIMObject {
 
     // Append this arguments XML representation to the passed in SimpleXml object.
     // DSimpleXMLElement xml(SimpleXMLElement parentElement) {
-       /* auto option = parentElement.addChild("argument");
+    /* auto option = parentElement.addChild("argument");
         option.addAttribute("name", _name);
         option.addAttribute("help", _help);
         option.addAttribute("required", to!string(to!int(isRequired())));
@@ -120,6 +119,6 @@ class DConsoleInputArgument : UIMObject {
         auto choices = option.addChild("choices");
         choices.each!(valid => choices.addChild("choice", valid));
         return parentElement; */
-        /* return null; 
+    /* return null; 
     } */
 }

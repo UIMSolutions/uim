@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.tests.stubconsoleoutput;OutputConsoleOutputConsoleOutputConsole
+module uim.consoles.tests.stubconsoleoutput;
 
 import uim.consoles;
 
@@ -26,7 +26,8 @@ class DStubConsoleOutput : DConsoleOutput {
 
     // Write output to the buffer.
     override int write(string[] outputMessage, int newlinesToAppend = 1) {
-        /* (array) */ outputMessage.each!(line => _out ~= line);
+        /* (array) */
+        outputMessage.each!(line => _out ~= line);
 
         /* int newlinesToAppend--;
         while (newlinesToAppend > 0) {

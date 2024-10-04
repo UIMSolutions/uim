@@ -167,7 +167,7 @@ class DConsoleIo {
 
     // Convenience method for writeErrorMessages() that wraps message between <warning> tag
     int warning(string[] outputMessages, int newLinesToAppend = 1) {
-/*         auto message = wrapMessageWithType("warning", outputMessages);
+        /*         auto message = wrapMessageWithType("warning", outputMessages);
 
         return _writeErrorMessages(message, newLinesToAppend); */
         return 0;
@@ -196,7 +196,7 @@ class DConsoleIo {
     }
 
     // Halts the the current process with a StopException.
-    void abort(string errorMessage, int errorCode /* = DCommand.CODE_ERROR */) {
+    void abort(string errorMessage, int errorCode /* = DCommand.CODE_ERROR */ ) {
         // error(errorMessage);
 
         // throw new DStopException(errorMessage, errorCode);
@@ -310,7 +310,7 @@ class DConsoleIo {
         }
 
         return askChoice(string promptText, string[] aoptions, string adefault = null); */
-        return null; 
+        return null;
     }
 
     string askChoice(string aprompt, string[] choices, string defaultValue = null) {
@@ -421,7 +421,7 @@ class DConsoleIo {
         /* writeln();
         shouldOverwrite = shouldOverwrite || _forceOverwrite; */
 
-/*         if (filehasKey(fileCreationPath) && shouldOverwrite == false) {
+        /*         if (filehasKey(fileCreationPath) && shouldOverwrite == false) {
             warning("File `{fileCreationPath}` exists");
             aKey = askChoice("Do you want to overwrite?", [
                     "y", "n", "a", "q"
@@ -443,7 +443,7 @@ class DConsoleIo {
         } else {
             writeln("Creating file {fileCreationPath}");
         }
- */        /* try {
+ */ /* try {
             // Create the directory using the current user permissions.
             directory = dirname(fileCreationPath);
             if (!filehasKey(directory)) {

@@ -45,13 +45,13 @@ class DHelpFormatter : UIMObject {
     protected IConsoleOptionParser _parser;
     // Build the help formatter for an OptionParser
     this(IConsoleOptionParser newParser) {
-       _parser = newParser;
+        _parser = newParser;
     }
 
     // Alias to display in the output.
     protected string _alias = "uim";
     void aliasName(string newAlias) {
-       _alias = newAlias;
+        _alias = newAlias;
     }
 
     /*
@@ -129,9 +129,9 @@ class DHelpFormatter : UIMObject {
         }
         
         return chain(usage, someArguments).join(" "); */
-        return null; 
+        return null;
     }
-    
+
     /**
      * Iterate over a collection and find the longest named thing.
      * Params:
@@ -139,16 +139,17 @@ class DHelpFormatter : UIMObject {
      */
     protected int _getMaxLength(DInputConsoleArgument[] collection) {
         int result = 0;
-/*         collection
+        /*         collection
             .each!(item => result = max(anItem.name.length, result));
- */        return result;
+ */
+        return result;
     }
-    
+
     // Get the help as an XML string.
     /* DSimpleXMLElement| * /string xml(bool returnString = true) {
         /* auto myParser = _parser;
         auto xml = new DSimpleXMLElement("<shell></shell>");
-         *//* xml.addChild("command", myParser.getCommand());
+         */ /* xml.addChild("command", myParser.getCommand());
         xml.addChild("description", myParser.getDescription());
 
         auto xmlOptions = xml.addChild("options");
@@ -160,6 +161,7 @@ class DHelpFormatter : UIMObject {
         xml.addChild("epilog", myParser.getEpilog());
 
         return returnString ? to!string(xml.asXML()) : xml; */
-/*         return null; 
+    /*         return null; 
     } 
- */}
+ */
+}

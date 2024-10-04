@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.tests.stubconsoleinput;InputConsoleInputConsoleInputConsole
-
-import uim.consoles;
+module uim.consoles.tests.stubconsoleinput;
+InputConsoleInputConsoleInputConsoleimport uim.consoles;
 
 @safe:
 
@@ -26,7 +25,7 @@ class DStubConsoleInput : DConsoleInput {
         super();
         _replies = repliesForRead;
     }
-    
+
     // Read a reply
     override string read() {
         _currentIndex += 1;
@@ -45,10 +44,9 @@ class DStubConsoleInput : DConsoleInput {
         } */
         return _replies[_currentIndex];
     }
-    
+
     //  Check if data is available on stdin
     bool dataAvailable(int timeToWait = 0) {
         return true;
-    } 
+    }
 }
-

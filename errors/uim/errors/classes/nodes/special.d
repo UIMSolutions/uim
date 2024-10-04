@@ -9,14 +9,13 @@ import uim.errors;
 
 @safe:
 
-/*
- * Debug node for special messages like errors or recursion warnings.
- */
+// Debug node for special messages like errors or recursion warnings.
 class DSpecialNode : IErrorNode {
+  mixin(ErrorNode!("Special"));
+  
   private string _value;
 
   /**
-    
     * Params:
     * string avalue The message/value to include in dump results.
     */
@@ -28,9 +27,4 @@ class DSpecialNode : IErrorNode {
   string getValue() {
       return _value;
   }
-
-  /* 
-  Json[string] getChildren() {
-      return null;
-  } */
 }

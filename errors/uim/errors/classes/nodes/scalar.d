@@ -11,7 +11,10 @@ import uim.errors;
 
 // Dump node for scalar values.
 class DScalarNode : DErrorNode {
+    mixin(ErrorNodeThis!("Scalar"));
+    
     this(string newType, Json newValue) {
+        super();
         _type = newType;
         _value = newValue;
     }
@@ -22,17 +25,5 @@ class DScalarNode : DErrorNode {
     // Get the type of value
     string getType() {
         return _type;
-    }
-    
-    // Scalar value
-    private Json _value;
-
-    // Get the value
-    Json getValue() {
-        return _value;
-    }
- 
-    IErrorNode[] getChildren() {
-        return null;
     }
 }

@@ -20,7 +20,7 @@ class DClassErrorNode : DErrorNode {
     }
 
     // Add a property
-    void addProperty(DPropertyNode node) {
+    void addProperty(DPropertyErrorNode node) {
         _properties ~= node;
     }
 

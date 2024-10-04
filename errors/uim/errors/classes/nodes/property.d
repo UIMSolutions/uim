@@ -9,7 +9,9 @@ module uim.errors.classes.nodes.property;
 import uim.errors;
 
 // Dump node for object properties.
-class DPropertyNode : DErrorNode {
+class DPropertyErrorNode : DErrorNode {
+  mixin(ErrorNodeThis!("Property"));
+
   private string _name;
 
   private string _visibility;

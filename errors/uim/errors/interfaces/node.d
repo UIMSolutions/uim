@@ -9,15 +9,12 @@ import uim.errors;
 
 @safe:
 
-/*
- * Interface for Debug Nodes
- * Provides methods to look at contained value and iterate child nodes in the tree.
- */
+// Interface for Error Nodes
+// Provides methods to look at the contained value and iterate on child nodes in the error tree.
 interface IErrorNode {
-    // Get the child nodes of this node.
-    // TODO IErrorNode[] getChildren();
-
     // Get the contained value.
-    // TODO Json getValue();
+    Json value();
+
+    // Get the child nodes of this node.
+    IErrorNode[] children();
 }
-/*  */

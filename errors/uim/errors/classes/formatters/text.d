@@ -63,7 +63,7 @@ TEXT;
         if (cast(DArrayErrorNode)nodeToDump) {
             return _exportArray(nodeToDump, indentSize + 1);
         }
-        if (cast(DClassNode)nodeToDump || cast(DReferenceNode)nodeToDump) {
+        if (cast(DClassNode)nodeToDump || cast(DReferenceErrorNode)nodeToDump) {
             return _exportObject(nodeToDump, indentSize + 1);
         }
         if (cast(DSpecialNode)nodeToDump) {
@@ -74,7 +74,7 @@ TEXT;
     }
     
     // Export an array type object
-    protected string exportArray(IArrayNode nodeToExport, int indentSize) {
+    protected string exportArray(DArrayErrorNode nodeToExport, int indentSize) {
         auto result = "[";
         auto breakText = "\n" ~ str_repeat("  ", indentSize);
         auto myend = "\n" ~ str_repeat("  ", indentSize - 1);
@@ -91,7 +91,7 @@ TEXT;
     }
     
     // Handles object to string conversion.
-    protected string exportObject(IReferenceNode nodeToConvert, int indentSize) {
+    protected string exportObject(IReferenceErrorNode nodeToConvert, int indentSize) {
         return "object({nodeToConvert.getValue()}) id:{nodeToConvert.id()} {}";
     }
 

@@ -88,7 +88,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
         if (cast(DArrayErrorNode)nodeToDump) {
             return _exportArray(nodeToDump,  indentLevel + 1);
         }
-        if (cast(DClassNode)nodeToDump || cast(DReferenceNode)nodeToDump) {
+        if (cast(DClassNode)nodeToDump || cast(DReferenceErrorNode)nodeToDump) {
             return _exportObject(nodeToDump,  indentLevel + 1);
         }
         if (cast(DSpecialNode)nodeToDump) {
@@ -101,7 +101,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
     /**
      * Export an array type object
      */
-    protected string exportArray(IArrayNode tvar, int indentLevel) {
+    protected string exportArray(DArrayErrorNode tvar, int indentLevel) {
         /* auto open = "<span class="uim-debug-array">" ~
            style("punct", "[") ~
             "<samp class="uim-debug-array-items">";
@@ -127,13 +127,13 @@ class DHtmlErrorFormatter : IErrorFormatter {
     }
 
     // Handles object to string conversion.
-    protected string exportObject( /* ClassNode| */ IReferenceNode nodeToConvert, int indentLevel) {
+    protected string exportObject( /* ClassNode| */ IReferenceErrorNode nodeToConvert, int indentLevel) {
         /* auto objectId = "uim-db-object-{this.id}-{nodeToConvert.id()}";
         auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
         auto breakText = "\n" ~ str_repeat("  ",  indentLevel);
         auto endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
 
-        if (cast(DReferenceNode)nodeToConvert) {
+        if (cast(DReferenceErrorNode)nodeToConvert) {
             auto link = "<a class="uim-debug-ref" href="#%s">id: %s</a>"
                 .format(objectId, nodeToConvert.id());
 

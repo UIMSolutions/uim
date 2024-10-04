@@ -8,34 +8,27 @@ module uim.errors.classes.nodes.reference;
 @safe:
 import uim.errors;
 
-/**
- * Dump node for class references.
- *
- * To prevent cyclic references from being output multiple times
- * a reference node can be used after an object has been seen the
- * first time.
- */
-class DReferenceNode : DErrorNode {
+// <b>Dump nodes for class references</b> to prevent cyclic references from being emitted multiple times.
+// A reference node can be used after an object has been emitted in the first.
+class DReferenceErrorNode : DErrorNode {
+  mixin(ErrorNodeThis!("Reference"));
+
   this(string nameOfClass, int idOfClass) {
-      _classname = nameOfClass;
-      _id = idOfClass;
+    _classname = nameOfClass;
+    _id = idOfClass;
   }
 
   // #region Fields
-    private string _classname;
-    // Get the class name/value
-    string value() {
-        return _classname;
-    }
-
-    private int _id;
-    // Get the reference id for this node.
-    int id() {
-        return _id;
-    }
-  // #endregion fields
-
-  IErrorNode[] getChildren() {
-      return [];
+  private string _classname;
+  // Get the class name/value
+  string value() {
+    return _classname;
   }
+
+  private int _id;
+  // Get the reference id for this node.
+  int id() {
+    return _id;
+  }
+  // #endregion fields
 }

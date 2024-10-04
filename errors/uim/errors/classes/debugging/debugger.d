@@ -677,7 +677,7 @@ class DDebugger : UIMObject, IErrorDebugger {
         );
     } 
 
-    return new ArrayNode(
+    return new DArrayErrorNode(
         items); * /
         return null;
     } */
@@ -693,7 +693,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     auto classnameName = get_class(
         objToConvert); */
         /*     if (isRef) {
-        return new DReferenceNode(, refNum);
+        return new DReferenceErrorNode(, refNum);
     }
  */
         /* auto node = new DClassNode(, refNum);
@@ -705,7 +705,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                 foreach (key, val;  /* (array) * / objToConvert
                     .debugInfo()) {
                     node.addProperty(
-                        new DPropertyNode(
+                        new DPropertyErrorNode(
                             "" {
                             key
                         }
@@ -728,7 +728,7 @@ class DDebugger : UIMObject, IErrorDebugger {
             }
             /** @psalm-suppress RedundantCast * /
             node.addProperty(
-                new DPropertyNode(key, "public", export_(
+                new DPropertyErrorNode(key, "public", export_(
                     value, dumpContext
                     .withAddedDepth()))
             );
@@ -763,7 +763,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                             .withAddedDepth());
 
                 node.addProperty(
-                    new DPropertyNode(
+                    new DPropertyErrorNode(
                         reflectionProperty
                         .getName(),
                         visibility,

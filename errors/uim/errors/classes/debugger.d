@@ -498,7 +498,7 @@ class DDebugger : UIMObject {
      * - prefix
      * - schema
      */
-    protected static ArrayNode exportArray(Json[string] exportValues, DDebugContext dumpContext) {
+    protected static DArrayErrorNode exportArray(Json[string] exportValues, DDebugContext dumpContext) {
         auto someItems = null;
 
         auto remaining = dumpContext.remainingDepth();
@@ -522,7 +522,7 @@ class DDebugger : UIMObject {
                 new DSpecialNode("[maximum depth reached]")
             );
         }
-        return new ArrayNode(someItems);
+        return new DArrayErrorNode(someItems);
     }
 
     // Handles object to node conversion.
@@ -532,7 +532,7 @@ class DDebugger : UIMObject {
 
         auto objClassname = var.classname;
         if (isRef) {
-            return new DReferenceNode(classname, refNum);
+            return new DReferenceErrorNode(classname, refNum);
         }
 
         auto node = new DClassNode(classname, refNum);
@@ -541,7 +541,7 @@ class DDebugger : UIMObject {
             if (hasMethod(objToConvert, "debugInfo")) {
                  try {
                     foreach (key, val; /* (array) * / objToConvert.debugInfo()) {
-                        node.addProperty(new DPropertyNode("'{key}'", null, export_(val, dumpContext)));
+                        node.addProperty(new DPropertyErrorNode("'{key}'", null, export_(val, dumpContext)));
                     }
                     return node;
                 } catch (Exception anException) {
@@ -557,7 +557,7 @@ class DDebugger : UIMObject {
                         kv.value = outputMask[kv.key];
                     }
                     node.addProperty(
-                        new DPropertyNode((string) kv.key, "public", export_(kv.value, dumpContext.withAddedDepth()))
+                        new DPropertyErrorNode((string) kv.key, "public", export_(kv.value, dumpContext.withAddedDepth()))
                    );
                 });
             ref = new DReflectionObject(objToConvert);
@@ -580,7 +580,7 @@ class DDebugger : UIMObject {
                         aValue = export_(reflectionProperty.getValue(objToConvert), dumpContext.withAddedDepth());
                     }
                     node.addProperty(
-                        new DPropertyNode(
+                        new DPropertyErrorNode(
                             reflectionProperty.name,
                             visibility,
                             aValue

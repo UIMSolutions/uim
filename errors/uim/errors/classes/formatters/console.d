@@ -97,7 +97,7 @@ class DConsoleFormatter : IErrorFormatter {
         if (cast(DArrayErrorNode)nodeTreeToDump) {
             // return _exportArray(nodeTreeToDump,  indentLevel + 1);
         }
-        if (cast(DClassNode)nodeTreeToDump || cast(DReferenceNode)nodeTreeToDump) {
+        if (cast(DClassNode)nodeTreeToDump || cast(DReferenceErrorNode)nodeTreeToDump) {
             // return _exportObject(nodeTreeToDump,  indentLevel + 1);
         }
         if (cast(DSpecialNode)nodeTreeToDump) {
@@ -109,10 +109,8 @@ class DConsoleFormatter : IErrorFormatter {
 
     /**
      * Export an array type object
-     * Params:
-     * \UIM\Error\Debug\ArrayNode var The array to export.
      */
-    protected string exportArray(IArrayNode arrayToExport, int indentLevel) {
+    protected string exportArray(IArrayErrorNode arrayToExport, int indentLevel) {
         /*  result = style("punct", "[");
         break = "\n" ~ str_repeat("  ",  indentLevel);
         end = "\n" ~ str_repeat("  ",  indentLevel - 1);
@@ -134,12 +132,12 @@ class DConsoleFormatter : IErrorFormatter {
     /**
      * Handles object to string conversion.
      * Params:
-     * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\DReferenceNode var Object to convert.
+     * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\DReferenceErrorNode var Object to convert.
      */
-    protected string exportObject( /* ClassNode| */ DReferenceNode nodeToConvert, int indentLevel) {
+    protected string exportObject( /* ClassNode| */ DReferenceErrorNode nodeToConvert, int indentLevel) {
         /* string[] props;
 
-        if (cast(DReferenceNode)nodeToConvert) {
+        if (cast(DReferenceErrorNode)nodeToConvert) {
             return _style("punct", "object(") ~
                 style("class", nodeToConvert.getValue()) ~
                 style("punct", ") id:") ~

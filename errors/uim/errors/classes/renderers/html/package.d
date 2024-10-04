@@ -6,6 +6,6 @@
 module uim.errors.classes.renderers.html;
 
 public {
-    import uim.errors.errors.renderers.html.error;
-    import uim.errors.errors.renderers.html.exception;
+    import uim.errors.classes.renderers.html.error;
+    import uim.errors.classes.renderers.html.exception;
 }

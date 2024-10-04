@@ -17,16 +17,14 @@ unittest {
  *
  * This class is used by Debugger to track element depth, and
  * prevent cyclic references from being traversed multiple times.
- *
- * @internal
  */
 class DDebugContext : UIMObject {
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
     override bool initialize(Json[string] initData = null) {
@@ -53,11 +51,13 @@ class DDebugContext : UIMObject {
 
     // Return a clone with increased depth.
     /* static auto withAddedDepth() {
-        new = this.clone;
-        new.depth += 1;
+        auto newContext = this.clone;
+        newContext.depth += 1;
 
-        return new;
+        return newContext;
     } */
+
+    protected UUID[UIMObject] _refObjects; 
 
     /**
      * Get the reference ID for an object.
@@ -65,21 +65,19 @@ class DDebugContext : UIMObject {
      * If this object does not exist in the reference storage,
      * it will be added and the id will be returned.
      */
-    int getReferenceId(object referenceForObject) {
-        if (hasReference(referenceForObject)) {
-            return _refs[referenceForObject];
+    UUID referenceId(UIMObject referenceObject) {
+        if (hasReference(referenceObject)) {
+            return _refObjects[referenceObject];
         }
 
-        auto refId = _refs.count();
-        _refs.attach(referenceForObject, refId);
+        auto refId = randomUUID;
+        _refObjects[referenceObject] = refId;
 
         return refId;
     }
 
-    
-    *  /
-         // Check whether an object has been seen before.
-        bool hasReference(object referenceObject) {
-            return _refs.any!(refObj => refObj == referenceObject);
-        }
+    // Check whether an object has been seen before.
+    bool hasReference(UIMObject referenceObject) {
+        return _refObjects.any!(obj => obj == referenceObject);
+    }
 }

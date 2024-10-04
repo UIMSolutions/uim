@@ -10,7 +10,7 @@ import uim.errors;
 @safe:
 
 unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+  writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 /*
@@ -18,34 +18,34 @@ unittest {
  * Writes to STDERR via a UIM\Console\ConsoleOutput instance for console environments
  */
 class DConsoleErrorRenderer { // }: IErrorRenderer {
-    protected bool _trace = false;
+  protected bool _trace = false;
 
-    protected IConsoleOutput _output;
+  protected IConsoleOutput _output;
 
-    this(Json[string] initData = null) {
-        initialize(initData);
-        // `stderr` - The ConsoleOutput instance to use. Defaults to `D://stderr`
-        // `trace` - Whether or not stacktraces should be output.       _output = configuration.get("stderr", new DConsoleOutput("d://stderr"));
-       _trace = configuration.getBoolean("trace", false);
+  this(Json[string] initData = null) {
+    initialize(initData);
+    // `stderr` - The ConsoleOutput instance to use. Defaults to `D://stderr`
+    // `trace` - Whether or not stacktraces should be output.       _output = configuration.get("stderr", new DConsoleOutput("d://stderr"));
+    _trace = configuration.getBoolean("trace", false);
+  }
+
+  void write(string outputText) {
+    _output.write(outputText);
+  }
+
+  string render(UIMError error, bool shouldDebug) {
+    string trace = "";
+    if (this.trace) {
+      trace = "\n<info>Stack Trace:</info>\n\n" ~ error.getTraceAsString();
     }
- 
-    void write(string outputText) {
-       _output.write(outputText);
-    }
-    
-    string render(UIMError error, bool shouldDebug) {
-        string trace = "";
-        if (this.trace) {
-            trace = "\n<info>Stack Trace:</info>\n\n" ~ error.getTraceAsString();
-        }
-        return "<error>%s: %s . %s</error> on line %s of %s%s"
-            .format(
-                error.getLabel(),
-                error.code(),
-                error.message(),
-                error.getLine() ? error.getLine() : "",
-                error.getFile() ? error.getFile() : "",
-                trace
-           );
-    }
+    return "<error>%s: %s . %s</error> on line %s of %s%s"
+      .format(
+        error.getLabel(),
+        error.code(),
+        error.message(),
+        error.getLine() ? error.getLine() : "",
+        error.getFile() ? error.getFile() : "",
+        trace
+      );
+  }
 }

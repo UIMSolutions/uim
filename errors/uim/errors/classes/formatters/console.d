@@ -14,7 +14,7 @@ unittest {
 }
 
 // Debugger formatter for generating output with ANSI escape codes
-class DConsoleFormatter : IErrorFormatter {
+class DConsoleFormatter : DErrorFormatter {
     mixin(ErrorFormatterThis!("Console"));
 
     // text colors used in colored output.
@@ -78,48 +78,21 @@ class DConsoleFormatter : IErrorFormatter {
     }
 
     // Convert a tree of IErrorNode objects into a plain text string.
-    string dump(IErrorNode nodeToDump) {
-        size_t myIndent = 0;
-
-        return _export_(nodeToDump, myIndent);
+    string dump(IErrorNode node) {
+        size_t indentLevel = 0;
+        return _export_(node, indentLevel);
     }
 
-    // Convert a tree of IErrorNode objects into a plain text string.
-    protected string export_(IErrorNode nodeTreeToDump, int indentLevel) {
-        if (cast(DScalarErrorNode)nodeTreeToDump) {
-            /* return match (nodeTreeToDump.getType()) {
-                "bool": style("const", nodeTreeToDump.getValue() ? "true" : "false"),
-                "null": style("const", "null"),
-                "string": style("string", "'" ~ (string)nodeTreeToDump.getValue() ~ "'"),
-                "int", "float": style("visibility", "({nodeTreeToDump.getType()})") ~
-                        " " ~ style("number", "{nodeTreeToDump.getValue()}"),
-                default: "({nodeTreeToDump.getType()}) {nodeTreeToDump.getValue()}",
-            }; */
-        }
-        if (cast(DArrayErrorNode)nodeTreeToDump) {
-            // return _exportArray(nodeTreeToDump,  indentLevel + 1);
-        }
-        if (cast(DClassErrorNode)nodeTreeToDump || cast(DReferenceErrorNode)nodeTreeToDump) {
-            // return _exportObject(nodeTreeToDump,  indentLevel + 1);
-        }
-        if (cast(DSpecialErrorNode)nodeTreeToDump) {
-            // return _style("special", nodeTreeToDump.getValue());
-        }
-        throw new DInvalidArgumentException("Unknown node received " ~ nodeTreeToDump.classname); */
-        return null;
-    }
-
-    /**
-     * Export an array type object
-     */
-    protected string exportArray(IArrayErrorNode arrayToExport, int indentLevel) {
+    // #region export 
+    // Export an array type object
+    override protected string exportArray(DArrayErrorNode node, int indentLevel) {
         /*  result = style("punct", "[");
-        break = "\n" ~ str_repeat("  ",  indentLevel);
-        end = "\n" ~ str_repeat("  ",  indentLevel - 1);
+        break = "\n" ~ repeat("  ",  indentLevel);
+        end = "\n" ~ repeat("  ",  indentLevel - 1);
         vars = null;
 
         auto arrow = style("punct", ": ");
-        arrayToExport.getChildren().each!((item) {
+        node.getChildren().each!((item) {
             auto val = item.getValue();
             vars ~= break ~ export_(item.getKey(),  indentLevel) ~ arrow ~ export_(val,  indentLevel);
         });
@@ -131,29 +104,26 @@ class DConsoleFormatter : IErrorFormatter {
         return null;
     }
 
-    /**
-     * Handles object to string conversion.
-     * Params:
-     * \UIM\Error\Debug\ClassErrorNode|\UIM\Error\Debug\DReferenceErrorNode var Object to convert.
-     */
-    protected string exportObject( /* ClassErrorNode| */ DReferenceErrorNode nodeToConvert, int indentLevel) {
+    override protected string exportReference(DReferenceErrorNode node, int indentLevel) {
+        // object(xxx) id: xxx{}
+        return _style("punct", "object(") ~
+            style("class", node.value()) ~
+            style("punct", ") id:") ~
+            style("number", to!string(node.id())) ~
+            style("punct", " {}");
+    }
+
+    override protected string exportClass(DClassErrorNode aNode, int indentLevel) {
         /* string[] props;
 
-        if (cast(DReferenceErrorNode)nodeToConvert) {
-            return _style("punct", "object(") ~
-                style("class", nodeToConvert.getValue()) ~
-                style("punct", ") id:") ~
-                style("number", to!string(nodeToConvert.id())) ~
-                style("punct", " {}");
-        }
          result = style("punct", "object(") ~
             style("class", nodeToConvert.getValue()) ~
             style("punct", ") id:") ~
             style("number", (string)nodeToConvert.id()) ~
             style("punct", " {");
 
-        string breakText = "\n" ~ str_repeat("  ",  indentLevel);
-        string endText = "\n" ~ str_repeat("  ",  indentLevel - 1) ~ style("punct", "}");
+        string breakText = "\n" ~ repeat("  ",  indentLevel);
+        string endText = "\n" ~ repeat("  ",  indentLevel - 1) ~ style("punct", "}");
 
         arrow = style("punct", ": ");
         foreach (aProperty; nodeToConvert.getChildren()) {
@@ -173,6 +143,27 @@ class DConsoleFormatter : IErrorFormatter {
         return result ~ style("punct", "}"); */
         return null;
     }
+
+    override protected string exportProperty(DPropertyErrorNode node, int indentLevel) {
+        return null;
+    }
+
+    override protected string exportScalar(DScalarErrorNode node, int indentLevel) {
+        /* return match (node.getType()) {
+                "bool": style("const", node.getValue() ? "true" : "false"),
+                "null": style("const", "null"),
+                "string": style("string", "'" ~ (string)node.getValue() ~ "'"),
+                "int", "float": style("visibility", "({node.getType()})") ~
+                        " " ~ style("number", "{node.getValue()}"),
+                default: "({node.getType()}) {node.getValue()}",
+            }; */
+        return null;
+    }
+
+    override protected string exportSpecial(DSpecialErrorNode node, int indentLevel) {
+        return null;
+    }
+    // #endregion export 
 
     // Style text with ANSI escape codes.
     protected string style(string styleToUse, string textToStyle) {

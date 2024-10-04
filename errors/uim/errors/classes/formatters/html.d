@@ -18,7 +18,7 @@ unittest {
  *
  * @internal
  */
-class DHtmlErrorFormatter : IErrorFormatter {
+class DHtmlErrorFormatter : DErrorFormatter {
     mixin(ErrorFormatterThis!("Html"));
 
     protected static bool outputHeader = false;
@@ -26,8 +26,13 @@ class DHtmlErrorFormatter : IErrorFormatter {
     // Random id so that HTML ids are not shared between dump outputs.
     protected string _id;
 
-    this() {
-        // TODO _id = uniqid("", true);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        _id = uniqid("", true);       
+        return true;
     }
 
     // Check if the current environment is not a CLI context
@@ -53,7 +58,6 @@ class DHtmlErrorFormatter : IErrorFormatter {
 
     /**
      * Generate the CSS and Javascript for dumps
-     *
      * Only output once per process as we don`t need it more than once.
      */
     protected string dumpHeader() {
@@ -75,40 +79,14 @@ class DHtmlErrorFormatter : IErrorFormatter {
         return head ~ htmlDoubleTag("div", ["uim-debug"], content);
     }
 
-    // Convert a tree of IErrorNode objects into HTML
-    protected string export_(IErrorNode nodeToDump, int indentLevel) {
-        if (cast(DScalarErrorNode)nodeToDump) {
-/*             return match (nodeToDump.getType()) {
-                "bool":style("const", nodeToDump.getValue() ? "true" : "false"),
-                "null":style("const", "null"),
-                "string":style("string", "'" ~ (string)nodeToDump.getValue() ~ "'"),
-                "int", "float":style("visibility", "({nodeToDump.getType()})") ~
-                        " " ~style("number", "{nodeToDump.getValue()}"),
-                default: "({nodeToDump.getType()}) {nodeToDump.getValue()}",
-            };
- */        
-        }
-        if (cast(DArrayErrorNode)nodeToDump) {
-            // return _exportArray(nodeToDump,  indentLevel + 1);
-        }
-        if (cast(DClassErrorNode)nodeToDump || cast(DReferenceErrorNode)nodeToDump) {
-            // return _exportObject(nodeToDump,  indentLevel + 1);
-        }
-        if (cast(DSpecialErrorNode)nodeToDump) {
-            // return _style("special", nodeToDump.getValue());
-        }
-        throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname); */
-        return null;
-    }
-
-    // Export an array type object
+    // #region export
     protected string exportArray(DArrayErrorNode tvar, int indentLevel) {
         /* auto open = "<span class="uim-debug-array">" ~
            style("punct", "[") ~
             "<samp class="uim-debug-array-items">";
         auto vars = null;
-        auto breakText = "\n" ~ str_repeat("  ",  indentLevel);
-        auto endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
+        auto breakText = "\n" ~ repeat("  ",  indentLevel);
+        auto endBreak = "\n" ~ repeat("  ",  indentLevel - 1);
 
         auto arrow = style("punct", ": ");
         nodeToExport.getChildren().each!((item) {
@@ -127,33 +105,41 @@ class DHtmlErrorFormatter : IErrorFormatter {
         return null;
     }
 
-    // Handles object to string conversion.
-    protected string exportObject( /* ClassErrorNode| */ DReferenceErrorNode nodeToConvert, int indentLevel) {
-        /* auto objectId = "uim-db-object-{this.id}-{nodeToConvert.id()}";
+    protected string exportReference(DReferenceErrorNode node, int indentLevel) {
+        auto objectId = "uim-db-object-{this.id}-{node.id()}";
         auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
-        auto breakText = "\n" ~ str_repeat("  ",  indentLevel);
-        auto endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
+        auto breakText = "\n" ~ repeat("  ", indentLevel);
+        auto endBreak = "\n" ~ repeat("  ", indentLevel - 1);
 
-        if (cast(DReferenceErrorNode)nodeToConvert) {
-            auto link = "<a class="uim-debug-ref" href="#%s">id: %s</a>"
-                .format(objectId, nodeToConvert.id());
+        auto link = `<a class="uim-debug-ref" href="#%s">id: %s</a>`
+            .format(objectId, node.id());
 
-            return htmlDoubleTag("span", ["uim-debug-ref"], 
-               style("punct", "object(") ~
-               style("class", nodeToConvert.getValue()) ~
-               style("punct", ") ") ~
+        return htmlDoubleTag("span", ["uim-debug-ref"],
+            style("punct", "object(") ~
+                style("class", node.getValue()) ~
+                style("punct", ") ") ~
                 link ~
-               style("punct", " {}"));
-        }
+                style("punct", " {}"));
+
+        return null;
+    }
+
+    protected string exportClass(DClassErrorNode aNode, int indentLevel) {
+        /* auto objectId = "uim-db-object-{this.id}-{node.id()}";
+        auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
+        auto breakText = "\n" ~ repeat("  ",  indentLevel);
+        auto endBreak = "\n" ~ repeat("  ",  indentLevel - 1);
+
+        
          result ~= style("punct", "object(") ~
-           style("class", nodeToConvert.getValue()) ~
+           style("class", node.getValue()) ~
            style("punct", ") id:") ~
-           style("number", (string)nodeToConvert.id()) ~
+           style("number", (string)node.id()) ~
            style("punct", " {") ~
             "<samp class=\"uim-debug-object-props\">";
 
         string[] props = null;
-        foreach (aProperty; nodeToConvert.getChildren()) {
+        foreach (aProperty; node.getChildren()) {
             auto arrow = style("punct", ": ");
             auto visibility = aProperty.getVisibility();
             auto name = aProperty.name;
@@ -175,6 +161,28 @@ class DHtmlErrorFormatter : IErrorFormatter {
             : result ~ end; */
         return null;
     }
+
+    protected string exportProperty(DPropertyErrorNode node, int indentLevel) {
+        return null;
+    }
+
+    protected string exportScalar(DScalarErrorNode node, int indentLevel) {
+        /*             return match (nodeToDump.getType()) {
+                "bool":style("const", nodeToDump.getValue() ? "true" : "false"),
+                "null":style("const", "null"),
+                "string":style("string", "'" ~ (string)nodeToDump.getValue() ~ "'"),
+                "int", "float":style("visibility", "({nodeToDump.getType()})") ~
+                        " " ~style("number", "{nodeToDump.getValue()}"),
+                default: "({nodeToDump.getType()}) {nodeToDump.getValue()}",
+            };
+ */
+        return null;
+    }
+
+    protected string exportSpecial(DSpecialErrorNode node, int indentLevel) {
+        return null;
+    }
+    // #endregion export
 
     // Style text with HTML class names
     protected string style(string styleToUse, string testToStyle) {

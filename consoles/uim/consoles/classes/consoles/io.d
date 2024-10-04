@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes.consoles.io;repeat(repeat(repeat(repeat(
+module uim.consoles.classes.consoles.io;
 
 import uim.consoles;
 
@@ -60,26 +60,26 @@ class DConsoleIo {
     protected bool _isInteractive = true;
 
     // The output stream
-    protected DConsoleOutput _out;
+    protected DOutputConsole _out;
 
     // The error stream
-    protected DConsoleOutput _err;
+    protected DOutputConsole _err;
 
     // The input stream
-    protected DConsoleInput _in;
+    protected DInputConsole _in;
 
     // The helper registry.
     protected DConsoleHelperRegistry _helpers;
 
     this(
-        DConsoleOutput output = null,
-        DConsoleOutput errOutput = null,
-        DConsoleInput input = null,
+        DOutputConsole output = null,
+        DOutputConsole errOutput = null,
+        DInputConsole input = null,
         DConsoleHelperRegistry helpers = null
     ) {
-        /* _out = output ? result : new DConsoleOutput("uim://stdout"); */
-        _err = errOutput.ifNull(new DConsoleOutput("uim://stderr"));
-        _in = input.ifNull(new DConsoleInput("uim://stdin"));
+        /* _out = output ? result : new DOutputConsole("uim://stdout"); */
+        _err = errOutput.ifNull(new DOutputConsole("uim://stderr"));
+        _in = input.ifNull(new DInputConsole("uim://stdin"));
         _helpers = helpers.ifNull(new DConsoleHelperRegistry());
         /* _helpers.setIo(this); */
     }
@@ -262,7 +262,7 @@ class DConsoleIo {
 
     // Returns a single or multiple linefeeds sequences.
     string nl(int linefeedMultiplier = 1) {
-        // return str_repeat(DConsoleOutput.LF, linefeedMultiplier);
+        // return str_repeat(DOutputConsole.LF, linefeedMultiplier);
         return null;
     }
 

@@ -5,8 +5,11 @@
 *****************************************************************************************************************/
 module uim.consoles.classes.consoles;
 
-public {
+public { // Main
     import uim.consoles.classes.consoles.console;
+    import uim.consoles.classes.consoles.collection;
+    import uim.consoles.classes.consoles.factory;
+    import uim.consoles.classes.consoles.registry;
 }
 
 public {

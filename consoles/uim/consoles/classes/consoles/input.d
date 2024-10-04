@@ -10,25 +10,8 @@ import uim.consoles;
 @safe:
 
 // Object wrapper for interacting with stdin
-class DInputConsole {
-  mixin TConfigurable;
-
-  this() {
-    initialize;
-  }
-
-  this(Json[string] initData) {
-    initialize(initData);
-  }
-
-  bool initialize(Json[string] initData = null) {
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
-
-    return true;
-  }
-
-  mixin(TProperty!("string", "name"));
+class DInputConsole : DConsole {
+  mixin(ConsoleThis!("Input"));
 
   // Input value.
   protected UIMObject _input;

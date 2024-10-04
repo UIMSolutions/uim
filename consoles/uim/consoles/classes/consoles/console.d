@@ -6,4 +6,8 @@ import uim.consoles;
 
 // Object wrapper for interacting with stdin
 class DConsole : UIMObject, IConsole {
+    mixin(ConsoleThis!());
+
+    /*    mixin TLocatorAware;
+    mixin TLog; */
 }

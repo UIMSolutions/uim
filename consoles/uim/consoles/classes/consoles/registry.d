@@ -3,25 +3,11 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.oop.commands.command;
+module uim.consoles.classes.consoles.registry;
 
-import uim.oop;
+import uim.consoles;
 @safe:
 
-// Base class for commands
-class DCommand : UIMObject, ICommand {
-    mixin(CommandThis!());
-/*    mixin TLocatorAware;
-    mixin TLog; */
-
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    // Implement this method with your command`s logic.
-    // abstract ulong execute(Json[string] options, IConsole console = null);
+class DConsoleRegistry : DObjectRegistry!DConsole {
 }
+auto ConsoleRegistry() { return DConsoleRegistry.registry; }

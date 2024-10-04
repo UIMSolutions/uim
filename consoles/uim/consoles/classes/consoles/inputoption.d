@@ -14,25 +14,7 @@ import uim.consoles;
  * DConsoleOptionParser buildOptionParser creates these when you use addOption()
  */
 class DInputOptionConsole {
-    mixin TConfigurable;
-
-    this() {
-        initialize;
-    }
-
-    this(Json[string] initData) {
-        initialize(initData);
-    }
-
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        return true;
-    }
-
-    // Name of the option
-    mixin(TProperty!("string", "name"));
+    mixin(ConsoleThis!("InputOption"));
 
     // Short (1 character) alias for the option.
     protected string _shortAlias;

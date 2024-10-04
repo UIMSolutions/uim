@@ -36,14 +36,8 @@ import uim.consoles;
  * See OutputConsole.styles() to learn more about defining your own styles. Nested styles are not supported
  * at this time.
  */
-class DOutputConsole : UIMObject {
-  this() {
-    super();
-  }
-
-  this(Json[string] initData) {
-    super(initData);
-  }
+class DOutputConsole : DConsole {
+  mixin(ConsoleThis!("Output"));
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {

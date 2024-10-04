@@ -25,85 +25,84 @@ class DTextErrorFormatter : DErrorFormatter {
     mixin(ErrorFormatterThis!("Text"));
 
     string formatWrapper(string content, Json[string] location) {
-        /* templateText = <<<TEXT
+        string templateTxt = "<<<TEXT
 %s
 ########## DEBUG ##########
 %s
 ###########################
 
-TEXT;
-        lineInfo = "";
+TEXT";
+        string lineInfo = "";
         if (location.hasAllKeys("file", "line")) {
             lineInfo = "%s (line %s)".format(location.getString("file"), location.getString("line"));
         }
-        return template.format(lineInfo, content); */
-        return null;
+        return templateTxt.format(lineInfo, content); 
     }
 
     // Convert a tree of IErrorNode objects into a plain text string.
-    override string dump(IErrorNode nodeToDump) {
+    override string dump(IErrorNode node) {
         auto indentlevel = 0;
 
-        return _export_(node, indentlevel);
+        return export_(node, indentlevel);
     }
 
     // #region export
-    protected string exportArray(DArrayErrorNode tvar, uint indentLevel) {
+    protected string exportArray(DArrayErrorNode node, size_t indentLevel) {
         auto result = "[";
         auto breakTxt = "\n" ~ repeat("  ", indentlevel);
-        auto myend = "\n" ~ repeat("  ", indentlevel - 1);
-        auto myvars = null;
-
-        foreach (anItem; nodeToExport.getChildren()) {
-            auto val = anItem.getValue();
-            aNodes ~= breakTxt ~ this.export_(anItem.getKey(), indentlevel) ~ ": " ~ this.export_(val, indentlevel);
-        }
-        if (count(aNodes)) {
-            return result ~ join(",", aNodes) ~ end ~ "]";
-        }
-        return result ~ "]";
+        auto endtxt = "\n" ~ repeat("  ", indentlevel - 1);
+        
+        auto vars = node.getChildren()
+            .map!(item => breakTxt ~ export_(item.getKey(), indentlevel) ~ ": " ~ export_(item.getValue, indentlevel))
+            .array;
+        
+        return !nodes.isEmpty
+            ? result ~ join(",", nodes) ~ end ~ "]"
+            : result ~ "]";
     }
 
-    protected string exportReference(DReferenceErrorNode nodeToConvert, uint indentLevel) {
-        return "object({nodeToConvert.getValue()}) id:{nodeToConvert.id()} {}";
+    protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
+        return "object({node.getValue()}) id:{node.id()} {}";
     }
 
-    protected string exportClass(DClassErrorNode aNode, uint indentLevel) {
-        string result = "object({aNode.getValue()}) id:{aNode.id()} {";
+    protected string exportClass(DClassErrorNode node, size_t indentLevel) {
+        string result = "object({"~node.getValue()~"}) id:{"~node.id()~"} {";
         auto breakTxt = "\n" ~ repeat("  ", indentlevel);
-        auto myEnd = "\n" ~ repeat("  ", indentlevel - 1) ~ "}";
+        auto endTxt = "\n" ~ repeat("  ", indentlevel - 1) ~ "}";
 
-        auto props = aNode.getChildren()
+        auto props = node.getChildren()
             .map!(property => exportProperty(property, indentlevel))
             .array;
 
-        if (count(props)) {
-            return result ~ breakTxt ~ props.join(breakTxt) ~ myEnd;
-        }
-        return result ~ "}";
+        return !props.isEmpty
+            ? result ~ breakTxt ~ props.join(breakTxt) ~ endTxt
+            : result ~ "}";
     }
 
-    protected string exportProperty(DPropertyErrorNode node, uint indentLevel) {
+    protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {
         /* auto propVisibility = property.getVisibility();
         auto propName = property.name;
 
         return propVisibility && propVisibility != "public" 
-            ? "[{propVisibility}] {propName}: " ~ this.export_(property.getValue(), indentlevel);
-            : "{propName}: " ~ this.export_(property.getValue(), indentlevel); */
+            ? "[{propVisibility}] {propName}: " ~ _export_(property.getValue(), indentlevel);
+            : "{propName}: " ~ _export_(property.getValue(), indentlevel); */
         return null;
     }
 
-    protected string exportScalar(DScalarErrorNode node, uint indentLevel) {
-        /* return match (nodeToDump.getType()) {
-                "bool": nodeToDump.getValue() ? "true" : "false",
-                "null": "null",
-                "string": "'" ~ (string)nodeToDump.getValue() ~ "'",
-                default: "({nodeToDump.getType()}) {nodeToDump.getValue()}",
-            }; */
-        return null;
+    protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
+        switch (node.getType()) {
+            case "bool": 
+                return node.getValue() ? "true" : "false";
+            case "null": 
+                return "null";
+            case "string": 
+                return "'" ~ (string)node.getValue() ~ "'";
+            default: 
+                return "({node.getType()}) {node.getValue()}";
+        }
     }
 
-    protected string exportSpecial(DSpecialErrorNode node, uint indentLevel) {
+    protected string exportSpecial(DSpecialErrorNode node, size_t indentLevel) {
         return null;
     }
     // #endregion export

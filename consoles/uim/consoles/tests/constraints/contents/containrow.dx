@@ -29,6 +29,6 @@ class DContentsContainRow : DContentsRegExp {
     }
     
     string failureDescription(Json expectedContent) {
-        return "`" ~ this.exporter().shortenedExport(expectedContent) ~ "` " ~ toString();
+        return "`" ~ _exporter().shortenedExport(expectedContent) ~ "` " ~ toString();
     } 
 }

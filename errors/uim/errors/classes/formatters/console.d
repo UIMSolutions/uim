@@ -79,13 +79,13 @@ class DConsoleFormatter : DErrorFormatter {
 
     // Convert a tree of IErrorNode objects into a plain text string.
     override string dump(IErrorNode node) {
-        uint indentLevel = 0;
-        return _export_(node, indentLevel);
+        size_t indentLevel = 0;
+        return export_(node, indentLevel);
     }
 
     // #region export 
     // Export an array type object
-    override protected string exportArray(DArrayErrorNode node, uint indentLevel) {
+    override protected string exportArray(DArrayErrorNode node, size_t indentLevel) {
         auto result = style("punct", "[");
         auto breakTxt = "\n" ~ repeat("  ", indentLevel);
         auto endTxt = "\n" ~ repeat("  ", indentLevel - 1);
@@ -101,7 +101,7 @@ class DConsoleFormatter : DErrorFormatter {
         return null;
     }
 
-    override protected string exportReference(DReferenceErrorNode node, uint indentLevel) {
+    override protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
         // object(xxx) id: xxx{}
         return _style("punct", "object(") ~
             style("class", node.value()) ~
@@ -110,7 +110,7 @@ class DConsoleFormatter : DErrorFormatter {
             style("punct", " {}");
     }
 
-    override protected string exportClass(DClassErrorNode node, uint indentLevel) {
+    override protected string exportClass(DClassErrorNode node, size_t indentLevel) {
         string[] props;
 
         result = style("punct", "object(") ~
@@ -138,11 +138,11 @@ class DConsoleFormatter : DErrorFormatter {
         return result ~ style("punct", "}");
     }
 
-    override protected string exportProperty(DPropertyErrorNode node, uint indentLevel) {
+    override protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {
         return null;
     }
 
-    override protected string exportScalar(DScalarErrorNode node, uint indentLevel) {
+    override protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
         switch (node.getType()) {
         case "bool":
             return style("const", node.getBoolean() ? "true" : "false");
@@ -157,7 +157,7 @@ class DConsoleFormatter : DErrorFormatter {
         };
     }
 
-    override protected string exportSpecial(DSpecialErrorNode node, uint indentLevel) {
+    override protected string exportSpecial(DSpecialErrorNode node, size_t indentLevel) {
         return null;
     }
     // #endregion export 

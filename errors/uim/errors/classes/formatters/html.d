@@ -80,7 +80,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
     }
 
     // #region export
-    protected string exportArray(DArrayErrorNode tvar, uint indentLevel) {
+    protected string exportArray(DArrayErrorNode tvar, size_t indentLevel) {
         /* auto open = "<span class="uim-debug-array">" ~
            style("punct", "[") ~
             "<samp class="uim-debug-array-items">";
@@ -105,7 +105,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
         return null;
     }
 
-    protected string exportReference(DReferenceErrorNode node, uint indentLevel) {
+    protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
         auto objectId = "uim-db-object-{this.id}-{node.id()}";
         auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
         auto breakTxt = "\n" ~ repeat("  ", indentLevel);
@@ -124,7 +124,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
         return null;
     }
 
-    protected string exportClass(DClassErrorNode aNode, uint indentLevel) {
+    protected string exportClass(DClassErrorNode aNode, size_t indentLevel) {
         /* auto objectId = "uim-db-object-{this.id}-{node.id()}";
         auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
         auto breakTxt = "\n" ~ repeat("  ",  indentLevel);
@@ -162,11 +162,11 @@ class DHtmlErrorFormatter : DErrorFormatter {
         return null;
     }
 
-    protected string exportProperty(DPropertyErrorNode node, uint indentLevel) {
+    protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {
         return null;
     }
 
-    protected string exportScalar(DScalarErrorNode node, uint indentLevel) {
+    protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
         /*             return match (nodeToDump.getType()) {
                 "bool":style("const", nodeToDump.getValue() ? "true" : "false"),
                 "null":style("const", "null"),
@@ -179,7 +179,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
         return null;
     }
 
-    protected string exportSpecial(DSpecialErrorNode node, uint indentLevel) {
+    protected string exportSpecial(DSpecialErrorNode node, size_t indentLevel) {
         return null;
     }
     // #endregion export

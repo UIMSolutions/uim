@@ -75,7 +75,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
         /*         if (debug && cast(DException)exceptionToLog) {
             attributes = exceptionToLog.getAttributes();
             if (attributes) {
-                message ~= "\nException Attributes: " ~ var_export_(exceptionToLog.getAttributes(), true);
+                message ~= "\nException Attributes: " ~ varexport_(exceptionToLog.getAttributes(), true);
             }
         }
  */

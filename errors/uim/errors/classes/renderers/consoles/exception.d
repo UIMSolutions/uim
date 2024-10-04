@@ -3,14 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.errors.classes.renderers.consoles.exception;export_
+module uim.errors.classes.renderers.consoles.exception;
 
 import uim.errors;
 
 @safe:
 
 unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+    writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 /**
@@ -30,7 +30,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
         // TODO this.output = configuration.get("stderr") ?? new DConsoleOutput("d://stderr");
         _trace = configuration.getBoolean("trace", true);
     }
-    
+
     // Render an exception into a plain text message.
     string render() {
         auto exceptions = [_error];
@@ -47,22 +47,22 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
         }
         return results.join("\n");
     }
-    
+
     // Render an individual exception
     protected Json[string] renderException(Throwable exceptionToRender, Throwable parentException) {
         auto result = [
-                "<error>%s[%s] %s</error> in %s on line %s"
-                .format(
-                    parent ? "Caused by " : "",
-                    exceptionToRender.classname,
-                    exceptionToRender.message(),
-                    exceptionToRender.getFile(),
-                    exceptionToRender.getLine()
-               ),
+            "<error>%s[%s] %s</error> in %s on line %s"
+            .format(
+                parent ? "Caused by " : "",
+                exceptionToRender.classname,
+                exceptionToRender.message(),
+                exceptionToRender.getFile(),
+                exceptionToRender.getLine()
+            ),
         ];
 
         auto debugValue = configuration.get("debug");
-        if (debugValue && cast(DException)exceptionToRender) {
+        if (debugValue && cast(DException) exceptionToRender) {
             auto attributes = exceptionToRender.getAttributes();
             if (attributes) {
                 result ~= "";
@@ -81,7 +81,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
         }
         return result;
     }
-    
+
     /**
      * Write output to the output stream
      * Params:

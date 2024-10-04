@@ -14,7 +14,9 @@ import uim.errors;
  *
  * Default output renderer for non CLI SAPI.
  */
-class DHtmlErrorRenderer : IErrorRenderer {
+class DHtmlErrorRenderer : DErrorRenderer {
+    mixin(ErrorRenderer!("Html"));
+    
     // Output to stdout which is the server response.
     void write(string outputText) {
         writeln(outputText);
@@ -69,7 +71,7 @@ HTML; */
     {textToInsert}
 </a>
 HTML`; */
-        return null; 
+        return null;
 
     }
 }

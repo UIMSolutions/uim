@@ -85,10 +85,10 @@ class DHtmlErrorFormatter : IErrorFormatter {
                 default: "({nodeToDump.getType()}) {nodeToDump.getValue()}",
             };
         }
-        if (cast(DArrayNode)nodeToDump) {
+        if (cast(DArrayErrorNode)nodeToDump) {
             return _exportArray(nodeToDump,  indentLevel + 1);
         }
-        if (cast(DClassNode)nodeToDump || cast(ReferenceNode)nodeToDump) {
+        if (cast(DClassNode)nodeToDump || cast(DReferenceNode)nodeToDump) {
             return _exportObject(nodeToDump,  indentLevel + 1);
         }
         if (cast(DSpecialNode)nodeToDump) {
@@ -133,7 +133,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
         auto breakText = "\n" ~ str_repeat("  ",  indentLevel);
         auto endBreak = "\n" ~ str_repeat("  ",  indentLevel - 1);
 
-        if (cast(ReferenceNode)nodeToConvert) {
+        if (cast(DReferenceNode)nodeToConvert) {
             auto link = "<a class="uim-debug-ref" href="#%s">id: %s</a>"
                 .format(objectId, nodeToConvert.id());
 

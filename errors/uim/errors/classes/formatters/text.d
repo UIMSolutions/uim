@@ -60,10 +60,10 @@ TEXT;
                 default: "({nodeToDump.getType()}) {nodeToDump.getValue()}",
             };
         }
-        if (cast(DArrayNode)nodeToDump) {
+        if (cast(DArrayErrorNode)nodeToDump) {
             return _exportArray(nodeToDump, indentSize + 1);
         }
-        if (cast(DClassNode)nodeToDump || cast(ReferenceNode)nodeToDump) {
+        if (cast(DClassNode)nodeToDump || cast(DReferenceNode)nodeToDump) {
             return _exportObject(nodeToDump, indentSize + 1);
         }
         if (cast(DSpecialNode)nodeToDump) {

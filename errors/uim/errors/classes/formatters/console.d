@@ -84,24 +84,24 @@ class DConsoleFormatter : IErrorFormatter {
 
     // Convert a tree of IErrorNode objects into a plain text string.
     protected string export_(IErrorNode nodeTreeToDump, int indentLevel) {
-        /* if (cast(DScalarNode)nodeTreeToDump) {
-            return match (nodeTreeToDump.getType()) {
+        if (cast(DScalarNode)nodeTreeToDump) {
+            /* return match (nodeTreeToDump.getType()) {
                 "bool": style("const", nodeTreeToDump.getValue() ? "true" : "false"),
                 "null": style("const", "null"),
                 "string": style("string", "'" ~ (string)nodeTreeToDump.getValue() ~ "'"),
                 "int", "float": style("visibility", "({nodeTreeToDump.getType()})") ~
                         " " ~ style("number", "{nodeTreeToDump.getValue()}"),
                 default: "({nodeTreeToDump.getType()}) {nodeTreeToDump.getValue()}",
-            };
+            }; */
         }
-        if (cast(DArrayNode)nodeTreeToDump) {
-            return _exportArray(nodeTreeToDump,  indentLevel + 1);
+        if (cast(DArrayErrorNode)nodeTreeToDump) {
+            // return _exportArray(nodeTreeToDump,  indentLevel + 1);
         }
-        if (cast(DClassNode)nodeTreeToDump || cast(ReferenceNode)nodeTreeToDump) {
-            return _exportObject(nodeTreeToDump,  indentLevel + 1);
+        if (cast(DClassNode)nodeTreeToDump || cast(DReferenceNode)nodeTreeToDump) {
+            // return _exportObject(nodeTreeToDump,  indentLevel + 1);
         }
         if (cast(DSpecialNode)nodeTreeToDump) {
-            return _style("special", nodeTreeToDump.getValue());
+            // return _style("special", nodeTreeToDump.getValue());
         }
         throw new DInvalidArgumentException("Unknown node received " ~ nodeTreeToDump.classname); */
         return null;
@@ -134,12 +134,12 @@ class DConsoleFormatter : IErrorFormatter {
     /**
      * Handles object to string conversion.
      * Params:
-     * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\ReferenceNode var Object to convert.
+     * \UIM\Error\Debug\ClassNode|\UIM\Error\Debug\DReferenceNode var Object to convert.
      */
     protected string exportObject( /* ClassNode| */ DReferenceNode nodeToConvert, int indentLevel) {
         /* string[] props;
 
-        if (cast(ReferenceNode)nodeToConvert) {
+        if (cast(DReferenceNode)nodeToConvert) {
             return _style("punct", "object(") ~
                 style("class", nodeToConvert.getValue()) ~
                 style("punct", ") id:") ~

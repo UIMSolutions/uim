@@ -10,18 +10,19 @@ import uim.errors;
 
 // Dump node for Array Items.
 class DArrayItemErrorNode : DErrorNode {
+  mixin(ErrorNode!("ArrayItem"));
+
   private IErrorNode _key;
   private IErrorNode _value;
 
   /**
-    
-    *
     * aKey - The node for the item key
     * aValue - The node for the array value
     */
   this(IErrorNode aKey, IErrorNode aValue) {
-      _key = aKey;
-      _value = aValue;
+    super();
+    _key = aKey;
+    _value = aValue;
   }
 
   // Get value

@@ -10,25 +10,18 @@ import uim.errors;
 @safe:
 
 // Dump node for objects/class instances.
-class DClassNode : DErrorNode {
+class DClassErrorNode : DErrorNode {
+    mixin(ErrorNode!("Class"));
+
     this(string classname, int anId) {
+        super();
         _classname = classname;
         _id = anId;
     }
 
-    private DPropertyNode[] properties = null;
-    /**
-     * Add a property
-     * Params:
-     * \UIM\Error\Debug\PropertyNode node The property to add.
-     */
+    // Add a property
     void addProperty(DPropertyNode node) {
-        this.properties ~= node;
-    }
-
-    // Get property nodes
-    DPropertyNode[] getChildren() {
-        return this.properties;
+        _properties ~= node;
     }
 
     private string _classname;

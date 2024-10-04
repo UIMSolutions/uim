@@ -644,7 +644,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * - prefix
      * - schema
      */
-    // protected static DArrayNode exportArray(Json[string] valueToExport, DDebugContext dumpContext) {
+    // protected static DArrayErrorNode exportArray(Json[string] valueToExport, DDebugContext dumpContext) {
         /*
     auto items = null;
 

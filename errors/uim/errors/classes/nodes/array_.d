@@ -10,12 +10,8 @@ import uim.errors;
 
 // Dump node for Array values.
 class DArrayErrorNode : DErrorNode {
-  private IErrorNode[] _items;
+  mixin(ErrorNodeThis!("Array"));
 
-  /**
-    
-    * someItems - The items for the array
-    */
   this(DArrayItemErrorNode[] nodes = null) {
     _items = null;
     add(nodes);
@@ -34,10 +30,5 @@ class DArrayErrorNode : DErrorNode {
   string value() {
     return null;
     // TODO return _items.map!(item => item.value).join(", ");
-  }
-
-  // Get Item nodes
-  override IErrorNode[] children() {
-    return _items;
   }
 }

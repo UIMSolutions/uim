@@ -31,7 +31,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
             return false;
         }
 
-        _id = uniqid("", true);       
+        _id = uniqid("", true);
         return true;
     }
 
@@ -69,8 +69,8 @@ class DHtmlErrorFormatter : DErrorFormatter {
     }
 
     // Convert a tree of IErrorNode objects into HTML
-    override string dump(IErrorNode nodeToDump) {
-        auto content = export_(nodeToDump, 0);
+    override string dump(IErrorNode node) {
+        auto content = export_(node, 0);
         string head = "";
         if (!outputHeader) {
             outputHeader = true;
@@ -167,15 +167,20 @@ class DHtmlErrorFormatter : DErrorFormatter {
     }
 
     protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
-        /*             return match (nodeToDump.getType()) {
-                "bool":style("const", nodeToDump.getValue() ? "true" : "false"),
-                "null":style("const", "null"),
-                "string":style("string", "'" ~ (string)nodeToDump.getValue() ~ "'"),
-                "int", "float":style("visibility", "({nodeToDump.getType()})") ~
-                        " " ~style("number", "{nodeToDump.getValue()}"),
-                default: "({nodeToDump.getType()}) {nodeToDump.getValue()}",
-            };
- */
+        switch (node.getType()) {
+        case "bool":
+            return style("const", node.getBoolean() ? "true" : "false");
+        case "null":
+            return style("const", "null");
+        case "string":
+            return style("string", "'" ~ node.getString() ~ "'");
+        case "int", "float":
+            return style("visibility", "({node.getType()})") ~
+                " " ~ style("number", "{node.getValue()}");
+        default:
+            return "({node.getType()}) {node.getValue()}";
+        };
+
         return null;
     }
 

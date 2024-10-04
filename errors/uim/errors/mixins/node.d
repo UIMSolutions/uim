@@ -5,6 +5,9 @@
 *****************************************************************************************************************/
 module uim.errors.mixins.node;
 
+import uim.errors;
+
+@safe:
 string errorNodeThis(string name = null) {
     string fullName = name ~ "ErrorNode";
     return objThis(fullName);

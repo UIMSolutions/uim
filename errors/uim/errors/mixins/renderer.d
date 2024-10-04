@@ -5,20 +5,23 @@
 *****************************************************************************************************************/
 module uim.errors.mixins.renderer;
 
-string rendererThis(string name = null) {
-    string fullName = name ~ "Renderer";
+import uim.errors;
+
+@safe:
+string errorRendererThis(string name = null) {
+    string fullName = name ~ "ErrorRenderer";
     return objThis(fullName);
 }
 
-template RendererThis(string name = null) {
-    const char[] RendererThis = rendererThis(name);
+template ErrorRendererThis(string name = null) {
+    const char[] ErrorRendererThis = errorRendererThis(name);
 }
 
-string rendererCalls(string name) {
-    string fullName = name ~ "Renderer";
+string errorRendererCalls(string name) {
+    string fullName = name ~ "ErrorRenderer";
     return objCalls(fullName);
 }
 
-template RendererCalls(string name) {
-    const char[] RendererCalls = rendererCalls(name);
+template ErrorRendererCalls(string name) {
+    const char[] ErrorRendererCalls = errorRendererCalls(name);
 }

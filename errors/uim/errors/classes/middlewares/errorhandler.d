@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.errors.classes.middlewares.errorhandler;
+module uim.errors.classes.middlewares.handler;
 
 import uim.errors;
 
@@ -74,19 +74,19 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
 
     // Handle an exception and generate an error response
     IResponse handleException(Throwable exception, IServerRequest request) {
-        /* _errorHandler = getErrorHandler();
-        renderer = _errorHandler.getRenderer(exception, request);
+        auto _errorHandler = getErrorHandler();
+        auto renderer = _errorHandler.getRenderer(exception, request);
 
+        IResponse response;
         try {
             _errorHandler.logException(exception, request);
             response = renderer.render();
         } catch (Throwable internalException) {
-            _errorHandler.logException@(DInternalException, request);
-            response = handleInternalError();
+           /*  _errorHandler.logException@(DInternalException, request);
+            response = handleInternalError(); */
         }
 
-        return response; */
-        return null;
+        return response; 
     }
 
     // Convert a redirect exception into a response.

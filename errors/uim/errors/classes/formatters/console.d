@@ -14,7 +14,7 @@ unittest {
 }
 
 // Debugger formatter for generating output with ANSI escape codes
-class DConsoleFormatter : DErrorFormatter {
+class DConsoleErrorFormatter : DErrorFormatter {
     mixin(ErrorFormatterThis!("Console"));
 
     // text colors used in colored output.
@@ -116,8 +116,7 @@ class DConsoleFormatter : DErrorFormatter {
         result = style("punct", "object(") ~
             style("class", node.getValue()) ~
             style("punct", ") id:") ~
-            style("number", to!string(node.id())~style("punct", " {");
-
+            style("number", to!string(node.id())) ~ style("punct", " {");
         string breakTxt = "\n" ~ repeat("  ", indentLevel);
         string endTxt = "\n" ~ repeat("  ", indentLevel - 1) ~ style("punct", "}");
 
@@ -130,7 +129,8 @@ class DConsoleFormatter : DErrorFormatter {
                 ? style("visibility", visibility) ~ " " ~
                 style("property", name) ~ arrow ~
                 export_(prop.getValue(), indentLevel) : style("property", name) ~ arrow ~
-                export_(prop.getValue(), indentLevel);
+                export_(
+                    prop.getValue(), indentLevel);
         }
         if (count(props)) {
             return result ~ breakTxt ~ props.join(breakTxt) ~ endTxt;
@@ -153,11 +153,12 @@ class DConsoleFormatter : DErrorFormatter {
         case "int", "float":
             return style("visibility", "({node.getType()})") ~ " " ~ style("number", "{node.getValue()}");
         default:
-            return "({node.getType()}) {node.getValue()}",
+            return "({node.getType()}) {node.getValue()}";
         };
     }
 
-    override protected string exportSpecial(DSpecialErrorNode node, size_t indentLevel) {
+    override protected string exportSpecial(
+        DSpecialErrorNode node, size_t indentLevel) {
         return null;
     }
     // #endregion export 
@@ -165,7 +166,6 @@ class DConsoleFormatter : DErrorFormatter {
     // Style text with ANSI escape codes.
     protected string style(string styleToUse, string textToStyle) {
         auto code = _styles[styleToUse];
-
         return "\033[{code}m{textToStyle}\033[0m";
     }
 }

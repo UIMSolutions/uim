@@ -36,7 +36,7 @@ TEXT";
         if (location.hasAllKeys("file", "line")) {
             lineInfo = "%s (line %s)".format(location.getString("file"), location.getString("line"));
         }
-        return templateTxt.format(lineInfo, content); 
+        return templateTxt.format(lineInfo, content);
     }
 
     // Convert a tree of IErrorNode objects into a plain text string.
@@ -51,14 +51,13 @@ TEXT";
         auto result = "[";
         auto breakTxt = "\n" ~ repeat("  ", indentlevel);
         auto endtxt = "\n" ~ repeat("  ", indentlevel - 1);
-        
+
         auto vars = node.getChildren()
             .map!(item => breakTxt ~ export_(item.getKey(), indentlevel) ~ ": " ~ export_(item.getValue, indentlevel))
             .array;
-        
+
         return !nodes.isEmpty
-            ? result ~ join(",", nodes) ~ end ~ "]"
-            : result ~ "]";
+            ? result ~ join(",", nodes) ~ end ~ "]" : result ~ "]";
     }
 
     protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
@@ -66,7 +65,7 @@ TEXT";
     }
 
     protected string exportClass(DClassErrorNode node, size_t indentLevel) {
-        string result = "object({"~node.getValue()~"}) id:{"~node.id()~"} {";
+        string result = "object({" ~ node.getValue() ~ "}) id:{" ~ node.id() ~ "} {";
         auto breakTxt = "\n" ~ repeat("  ", indentlevel);
         auto endTxt = "\n" ~ repeat("  ", indentlevel - 1) ~ "}";
 
@@ -75,8 +74,7 @@ TEXT";
             .array;
 
         return !props.isEmpty
-            ? result ~ breakTxt ~ props.join(breakTxt) ~ endTxt
-            : result ~ "}";
+            ? result ~ breakTxt ~ props.join(breakTxt) ~ endTxt : result ~ "}";
     }
 
     protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {
@@ -91,14 +89,14 @@ TEXT";
 
     protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
         switch (node.getType()) {
-            case "bool": 
-                return node.getValue() ? "true" : "false";
-            case "null": 
-                return "null";
-            case "string": 
-                return "'" ~ (string)node.getValue() ~ "'";
-            default: 
-                return "({node.getType()}) {node.getValue()}";
+        case "bool":
+            return node.getBoolean() ? "true" : "false";
+        case "null":
+            return "null";
+        case "string":
+            return "'" ~ node.getString ~ "'";
+        default:
+            return "({" ~ node.getType() ~ "}) {" ~ node.getValue().toString ~ "}";
         }
     }
 

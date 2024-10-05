@@ -18,10 +18,14 @@ class DMissingViewException : DViewException {
       return false;
     }
 
-    messageTemplate("default", "default", "View class `%s` is missing.");
+    messageTemplate("default", "View class `%s` is missing.");
 
     return true;
   }
 }
 
 mixin(ExceptionCalls!("MissingView"));
+
+unittest {
+  testException(MissingViewException);
+}

@@ -10,7 +10,8 @@ import uim.http;
 @safe:
 
 // Represents an HTTP 405 error.
-class MethodNotAllowedException : DHttpException {
+class DMethodNotAllowedException : DHttpException {
+    mixin(ExceptionThis!("MethodNotAllowedException"));
 
     protected int _defaultCode = 405;
 
@@ -22,4 +23,10 @@ class MethodNotAllowedException : DHttpException {
         super(exceptionMessage, statusCode, previousException);
     }
     */
+}
+
+mixin(ExceptionCalls!("MethodNotAllowedException"));
+
+unittest {
+    testException(MethodNotAllowedException);
 }

@@ -18,11 +18,14 @@ class DEventsException : UIMException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Exception in libary uim-events");
+    messageTemplate("default", "Exception in libary uim-events");
 
     return true;
   }
 }
 
 mixin(ExceptionCalls!("Events"));
+
+unittest {
+  testException(EventsException);
+}

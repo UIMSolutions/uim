@@ -3,14 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.services.exceptions.exception;    UIMException
+module uim.services.exceptions.exception;    
 
 import uim.services;
 
 @safe:
 
 // Service exception.
-class DServiceException : DException {
+class DServiceException : UIMException {
   mixin(ExceptionThis!("Service"));
 
   override bool initialize(Json[string] initData = null) {

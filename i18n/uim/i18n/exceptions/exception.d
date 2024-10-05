@@ -18,10 +18,13 @@ class DI18nException : UIMException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-i18n");
+    messageTemplate("default", "Exception in libary uim-i18n");
 
     return true;
   }
 }
 mixin(ExceptionCalls!("I18n"));
+
+unittest {
+  testException(I18nException);
+}

@@ -3,14 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.mvc.exceptions.exception;UIMException
+module uim.mvc.exceptions.exception;
 
 import uim.mvc;
 
 @safe:
 
 // Base MVC exception.
-class DMVCException : DException {
+class DMVCException : UIMException {
   mixin(ExceptionThis!("MVC"));
 
   override bool initialize(Json[string] initData = null) {

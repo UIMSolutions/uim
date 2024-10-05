@@ -3,12 +3,12 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.jsonbases.exceptions.exception;UIMException
+module uim.jsonbases.exceptions.exception;
 
 import uim.jsonbases;
 
 @safe:
-class DJsonBaseException : DException {
+class DJsonBaseException : UIMException {
   mixin(ExceptionThis!("JsonBase"));
 
   override bool initialize(Json[string] initData = null) {
@@ -16,8 +16,7 @@ class DJsonBaseException : DException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-jsonbases");
+    messageTemplate("default", "Exception in libary uim-jsonbases");
 
     return true;
   }

@@ -3,14 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.web.exceptions.exception;UIMException
+module uim.web.exceptions.exception;
 
 import uim.web;
 
 @safe:
 
 // Web exception.
-class DWebException : DException {
+class DWebException : UIMException {
   mixin(ExceptionThis!("Web"));
 
   override bool initialize(Json[string] initData = null) {
@@ -18,8 +18,7 @@ class DWebException : DException {
         return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-web");
+    messageTemplate("default", "Exception in libary uim-web");
 
     return true;
   }

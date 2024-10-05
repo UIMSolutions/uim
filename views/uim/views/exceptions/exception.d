@@ -3,14 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.exceptions.exception;UIMException
+module uim.views.exceptions.exception;
 
 import uim.views;
 
 @safe:
 
 // I18n exception.
-class DViewException : DException {
+class DViewException : UIMException {
   mixin(ExceptionThis!("View"));
 
   override bool initialize(Json[string] initData = null) {
@@ -18,8 +18,7 @@ class DViewException : DException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-views");
+    messageTemplate("default", "Exception in libary uim-views");
 
     return true;
   }

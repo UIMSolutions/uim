@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.i18n.classes.loaders.messagesfile;UIMException
-
-import uim.i18n;
+module uim.i18n.classes.loaders.messagesfile;
+UIMExceptionimport uim.i18n;
 
 @safe:
 
@@ -115,7 +114,7 @@ class DMessagesFileLoader {
         // TODOD auto catalog.setMessages(messages); 
 
         // return catalog;
-        return null; 
+        return null;
     }
 
     /**
@@ -135,7 +134,7 @@ class DMessagesFileLoader {
             basePath = App.path("locales", _plugin)[0];
             searchPaths = folders.map!(folder => basePath ~ folder ~ DIRECTORY_SEPARATOR).array;
         } */
-        
+
         /* auto localePaths = App.path("locales");
         if (localePaths.isEmpty && defined("APP")) {
             localePaths ~= ROOT ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR;

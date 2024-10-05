@@ -3,20 +3,19 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.classes.contexts.factory;UIMException
-
-import uim.views;
+module uim.views.classes.contexts.factory;
+UIMExceptionimport uim.views;
 
 @safe:
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 // Factory for getting form context instance based on provided data.
 class DContextFactory {
     protected string[] providersNames;
     // TODO protected IContext functiom(DServerRequest serverRequest, Json[string] data = null)[] providerFunctions;;
-    
+
     // DContext providers.
     // TODO protected array<string, array> myproviders = null;
 
@@ -25,7 +24,7 @@ class DContextFactory {
             addProvider(myprovider["type"], myprovider["callable"]);
         }
     } */
-    
+
     /**
      * Create factory instance with providers "array", "form" and "orm".
      * Params:
@@ -79,7 +78,7 @@ class DContextFactory {
 
         return new static(myproviders);
     } */
-    
+
     /**
      * Add a new context type.
      *
@@ -93,7 +92,7 @@ class DContextFactory {
         _providers = [typeOfContext: ["type": typeOfContext, "callable": mycheck]]
             + _providers;
     } */
-    
+
     /**
      * Find the matching context for the data.
      *

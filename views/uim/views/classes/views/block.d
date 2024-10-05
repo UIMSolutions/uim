@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.classes.views.block;UIMException
-
-import uim.views;
+module uim.views.classes.views.block;
+UIMExceptionimport uim.views;
 
 @safe:
 
@@ -47,14 +46,14 @@ class DViewBlock {
             // TODO throw new UIMException("A view block with the name `%s` is already/still open.".format(blockName));
             return;
         }
-       _activeBlocks[blockName] = blockMode;
+        _activeBlocks[blockName] = blockMode;
         // TODO ob_start();
     }
-    
+
     // End a capturing block. The compliment to ViewBlock.start()
     void end() {
         if (_discardActiveBufferOnEnd) {
-           _discardActiveBufferOnEnd = false;
+            _discardActiveBufferOnEnd = false;
             // TODO ob_end_clean();
 
             return;
@@ -67,13 +66,13 @@ class DViewBlock {
         string activeKey; // TOD = key(_activeBlocks);
         string blockContent; // TODO ob_get_clean().to!string;
         if (blockMode == DViewBlock.OVERRIDE) {
-           _blocks[activeKey] = blockContent;
+            _blocks[activeKey] = blockContent;
         } else {
             this.concat(activeKey, blockContent, blockMode);
         }
         //TODO _activeBlocks.pop();
     }
-    
+
     /**
      * Concat content to an existing or new block.
      * Concating to a new block will create the block.
@@ -89,45 +88,44 @@ class DViewBlock {
             return;
         }
         if (!_blocks.hasKey(blockName)) {
-           _blocks[blockName] = "";
+            _blocks[blockName] = "";
         }
         _blocks[blockName] = blockMode == DViewBlock.PREPEND
-            ? blockContent ~ _blocks[blockName]
-            : _blocks[blockName] ~ blockContent;
+            ? blockContent ~ _blocks[blockName] : _blocks[blockName] ~ blockContent;
 
     }
-    
+
     // Set the content for a block. This will overwrite any existing content.
     void set(string blockName, Json blockData) {
-       set(blockName, blockData.toString);
+        set(blockName, blockData.toString);
     }
 
     void set(string blockName, string blockContent) {
-       _blocks[blockName] = blockContent;
+        _blocks[blockName] = blockContent;
     }
-    
+
     // Get the content for a block.
     string get(string blockName, string defaultContent = "") {
         return _blocks.get(blockName, defaultContent);
     }
-    
+
     //Check if a block exists
-   bool hasKey(string blockName) {
+    bool hasKey(string blockName) {
         return false; // TODO _blocks.hasKey(blockName);
     }
-    
+
     // Get the names of all the existing blocks.
     string[] keys() {
         return _blocks.keys;
     }
-    
+
     // Get the name of the currently open block.
     string active() {
-       //TODO  end(_activeBlocks);
+        //TODO  end(_activeBlocks);
 
         return null; //TODO  key(_activeBlocks);
     }
-    
+
     // Get the unclosed/active blocks. Key is name, value is mode.
     STRINGAA unclosedBlocks() {
         return _activeBlocks;

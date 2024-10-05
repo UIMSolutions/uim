@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.events.classes.events.manager;UIMException
+module uim.events.classes.events.manager;
 
 import uim.events;
 
@@ -57,6 +57,7 @@ class DEventManager : IEventManager {
     }
 
     IEventManager on(string eventKey, /* callable | */ Json[string] options = null, /* callable callable = null */
+    
     ) {
         // TODO
         /* if (!aCallable && !isCallable(options)) {
@@ -75,7 +76,7 @@ class DEventManager : IEventManager {
 
         long priority = options.getLong("priority", _defaultPriority);
         // TODO  _listeners[eventKey][priority].concat("callable": aCallable(...)];  
-        return this;  
+        return this;
     }
 
     /**
@@ -84,29 +85,30 @@ class DEventManager : IEventManager {
      */
     protected IEventManager _attachSubscriber(IEventListener subscriber) {
         foreach (eventKey, handlers; subscriber.implementedEvents()) {
-/*         foreach (this.normalizeHandlers(subscriber, handlers) as handler) {
+            /*         foreach (this.normalizeHandlers(subscriber, handlers) as handler) {
             this.on(eventKey, handler["settings"], handler["callable"]);
         } */
         }
-        return this; 
+        return this;
     }
 
     IEventManager off(IEventListener listener) {
         _detachSubscriber(listener);
         // TODO _detachSubscriber(aCallable, eventKey);
-        return this; 
+        return this;
     }
 
     IEventManager off(
         /* callable */
         string eventKey, /* IEventListener|callable */
         // TODO callable aCallable = null
+        
     ) {
         /*    if (!isString(eventKey)) {
         _listeners.keys.each!(name => off(name, eventKey)); 
         return this;
     }
- */ 
+ */
         /*    if (aCallable.isNull) {
         _listeners.removeKey(eventKey);
 
@@ -156,20 +158,21 @@ class DEventManager : IEventManager {
      */
     protected Json[string] normalizeHandlers(IEventListener subscriber, Json[string] eventHandlers) {
         if (!eventHandlers.hasKey("callable")) {
-/*            eventHandlers.byKeyValue
+            /*            eventHandlers.byKeyValue
                 .each!(kv => eventHandlers[kv.key] = normalizeHandler(subscriber, kv.value));
- */        }
+ */
+        }
         return eventHandlers;
     }
 
-/*     protected Json[string] normalizeHandlers(IEventListener subscriber, DClosure eventHandler) {
+    /*     protected Json[string] normalizeHandlers(IEventListener subscriber, DClosure eventHandler) {
         // TODO return [normalizeHandler(subscriber, eventHandler)];
         return null; 
     }
  */
     protected Json[string] normalizeHandlers(IEventListener subscriber, /* Closure |  */ string eventHandler) {
         // TODO return [normalizeHandler(subscriber, eventHandler)];
-        return null; 
+        return null;
     }
 
     /**

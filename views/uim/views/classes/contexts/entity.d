@@ -3,13 +3,12 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.classes.contexts.entity;UIMExceptionUIMExceptionUIMExceptionUIMExceptionUIMException
-
-import uim.views;
+module uim.views.classes.contexts.entity;
+UIMExceptionUIMExceptionUIMExceptionUIMExceptionUIMExceptionimport uim.views;
 
 @safe:
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 /**
@@ -573,7 +572,7 @@ class DEntityContext : DContext {
         } catch (UIMException) {
             return null;
         } */
-       /*  if (cast(IEntity) myentity && count(myremainingParts) == 0) {
+        /*  if (cast(IEntity) myentity && count(myremainingParts) == 0) {
             return myentity.getErrors();
         }
         if (cast(IEntity) myentity) {

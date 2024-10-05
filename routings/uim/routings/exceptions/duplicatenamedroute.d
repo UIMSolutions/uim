@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.routings.exceptions.duplicatenamedroute;UIMException
-
-import uim.routings;
+module uim.routings.exceptions.duplicatenamedroute;
+UIMExceptionimport uim.routings;
 
 @safe:
 
@@ -31,7 +30,7 @@ class DDuplicateNamedRouteException : UIMException {
      */
     this(string[] amessage, int errorCode = 404, Throwable previousException = null) {
         if (message.isArray && message.hasKey("message")) {
-           _messageTemplate = message["message"];
+            _messageTemplate = message["message"];
         }
         super(message, errorCode, previousException));
     }

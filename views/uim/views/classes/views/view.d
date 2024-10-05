@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.classes.views.view;UIMExceptionUIMExceptionUIMExceptionUIMException
-
-import uim.views;
+module uim.views.classes.views.view;
+UIMExceptionUIMExceptionUIMExceptionUIMExceptionimport uim.views;
 
 @safe:
 
@@ -69,7 +68,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
      * Currently rendering an element. Used for finding parent fragments
      * for elements.
      */
-     // Retrieve the current template type
+    // Retrieve the current template type
     protected string _currentType;
     @property string currentType() {
         return _currentType;
@@ -92,19 +91,19 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
     protected string _templatePath = "";
 
     // #region consts
-        const string TYPE_TEMPLATE = "template";
+    const string TYPE_TEMPLATE = "template";
 
-        // Constant for view file type "element"
-        const string TYPE_ELEMENT = "element";
+    // Constant for view file type "element"
+    const string TYPE_ELEMENT = "element";
 
-        // Constant for view file type "layout"
-        const string TYPE_LAYOUT = "layout";
+    // Constant for view file type "layout"
+    const string TYPE_LAYOUT = "layout";
 
-        // Constant for type used for App.path().
-        const string NAME_TEMPLATE = "templates";
+    // Constant for type used for App.path().
+    const string NAME_TEMPLATE = "templates";
 
-        // Constant for folder name containing files for overriding plugin templates.
-        const string PLUGIN_TEMPLATE_FOLDER = "plugin";
+    // Constant for folder name containing files for overriding plugin templates.
+    const string PLUGIN_TEMPLATE_FOLDER = "plugin";
     // #endregion consts
 
     /**
@@ -127,7 +126,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
      * behave as a fallback during content-type negotiation.
      */
     static const string TYPE_MATCH_ALL = "_match_all_";
-    
+
     /**
      * Turns on or off UIM"s conventional mode of applying layout files. On by default.
      * Setting to off means that layouts will not be automatically applied to rendered templates.
@@ -153,7 +152,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
      */
     protected string _elementCache = "default";
 
-   /**
+    /**
      * An instance of a \UIM\Http\ServerRequest object that contains information about the current request.
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
@@ -164,10 +163,10 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
     // protected DResponse _response;
 
     // #region contentType
-        
-        // Set the response content-type based on the view"s contentType()
-        protected void setContentType() {
-            /* 
+
+    // Set the response content-type based on the view"s contentType()
+    protected void setContentType() {
+        /* 
             auto viewContentType = contentType();
             if (!viewContentType || viewContentType == TYPE_MATCH_ALL) {
                 return;
@@ -179,18 +178,18 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
                 response = response.withType(viewContentType);
             }
             _setResponse(response); */
-    } 
+    }
 
-// Mime-type this view class renders as.
-static string contentType() {
-    return null;
-}
-// #endregion contentType
+    // Mime-type this view class renders as.
+    static string contentType() {
+        return null;
+    }
+    // #endregion contentType
 
     // Holds an array of paths.
     protected string[] _paths = null;
 
-/* 
+    /* 
     use TCell() {
         cell as public;
     }
@@ -198,14 +197,13 @@ static string contentType() {
     // Helpers collection
     protected DViewHelperRegistry _helpers = null;
 
-*/ 
+*/
 
     // List of variables to collect from the associated controller.
     protected string[] _passedVars = [
         "viewVars", "autoLayout", "helpers", "template", "layout", "name", "theme",
         "layoutPath", "templatePath", "plugin",
     ];
-
 
     // Holds an array of plugin paths.
     // TODO protected array<string[] _pathsForPlugin = null;
@@ -252,7 +250,7 @@ static string contentType() {
         _initialize();
         _loadHelpers(); * /
     } */
-    
+
     // Gets the request instance.
     /* ServerRequest getRequest() {
         return _request;
@@ -276,7 +274,7 @@ static string contentType() {
     /* Response getResponse() {
         return _response;
     } */
-    
+
     // Sets the response instance.
     /* auto setResponse(Response _response) {
         _response = _response;
@@ -294,7 +292,6 @@ static string contentType() {
         _templatePath = path;
     }
 
-    
     /**
      * Turns on or off UIM"s conventional mode of applying layout files.
      * On by default. Setting to off means that layouts will not be automatically applied to rendered views.
@@ -312,7 +309,7 @@ static string contentType() {
         _autoLayoutEnabled = false;
         return this;
     }
-    
+
     // Get the current view theme.
     protected string _theme;
     string theme() {
@@ -322,7 +319,7 @@ static string contentType() {
     // Set the view theme to use.
     IView theme(string name) {
         _theme = name;
-        return this; 
+        return this;
     }
 
     // Get the name of the template file to render.
@@ -334,7 +331,7 @@ static string contentType() {
     // Set the name of the template file to render.
     IView templateFilename(string views) {
         _templateFilename = views;
-        return this; 
+        return this;
     }
 
     /**
@@ -398,7 +395,7 @@ static string contentType() {
         if (options.hasKey("ignoreMissing")) {
             return null;
         } */
-       /*  [_plugin, myelementName] = _pluginSplit(templatefilename, _pluginCheck);
+        /*  [_plugin, myelementName] = _pluginSplit(templatefilename, _pluginCheck);
         auto paths = iterator_to_array(_getElementPaths(_plugin));
         throw new DMissingElementException([templatefilename ~ _ext, myelementName ~ _ext], paths); */
         return null;
@@ -456,8 +453,8 @@ static string contentType() {
     bool elementhasKey(string templatefilename) {
         /* return /* (bool) * /_getElementFileName(templatefilename); */
         return false;
-    } 
-    
+    }
+
     /**
      * Renders view for given template file and layout.
      *
@@ -507,9 +504,9 @@ static string contentType() {
             _autoLayoutEnabled = defaultAutoLayout;
         }
         return _blocks.get("content"); */
-        return null; 
+        return null;
     }
-    
+
     /**
      * Renders a layout. Returns output from _render().
      *
@@ -529,19 +526,19 @@ static string contentType() {
             _blocks.set("title", mytitle);
         }
        _currentType = TYPE_LAYOUT; */
-       /*  _blocks.set("content", _render(layoutFilename));
+        /*  _blocks.set("content", _render(layoutFilename));
 
         _dispatchEvent("View.afterLayout", [layoutFilename]);
 
         return _blocks.get("content"); */
-        return null; 
+        return null;
     }
 
     // Returns a list of variables available in the current View context
     string[] getVars() {
         return _viewVars.keys;
     }
-    
+
     // Returns the contents of the given View variable.
     Json get(string valueName, Json defaultValue = Json(null)) {
         return _viewVars.get(valueName, defaultValue);
@@ -566,8 +563,6 @@ static string contentType() {
         }
         _viewVars = data + _viewVars; */
     }
-
-
 
     /**
      * Start capturing output for a "block"
@@ -602,13 +597,13 @@ static string contentType() {
     void append(string blockName, Json value = Json(null)) {
         // _blocks.concat(blockName, myvalue);
     }
-    
+
     /**
      * Prepend to an existing or new block.
      * Prepending to a new block will create the block.
      */
     void prepend(string blockName, Json blockContent) {
-       //  _blocks.concat(blockName, blockContent, ViewBlock.PREPEND);
+        //  _blocks.concat(blockName, blockContent, ViewBlock.PREPEND);
     }
 
     /**
@@ -616,7 +611,7 @@ static string contentType() {
      * existing content.
      */
     void assign(string blockName, Json value) {
-       //  _blocks.set(blockName, value);
+        //  _blocks.set(blockName, value);
     }
 
     /**
@@ -624,9 +619,9 @@ static string contentType() {
      * existing content.
      */
     void reset(string blockName) {
-       // _assign(blockName, "");
+        // _assign(blockName, "");
     }
-    
+
     /**
      * Fetch the content for a block. If a block is
      * empty or undefined "" will be returned.
@@ -642,7 +637,7 @@ static string contentType() {
     }
 
     // Check if a block exists
-   bool hasKey(string blockName) {
+    bool hasKey(string blockName) {
         return _blocks.hasKey(blockName);
     }
 
@@ -653,14 +648,14 @@ static string contentType() {
     void extend(string[] views) {
         auto type = views[0] == "/" ? TYPE_TEMPLATE : _currentType;
         string parentName;
-       /*  switch (type) {
+        /*  switch (type) {
             case TYPE_ELEMENT:
                 // parentName = _getElementFileName(views);
                 if (!parentName) {
                     /* [_plugin, views] = _pluginSplit(views);
                     paths =  paths(_plugin);
                     mydefaultPath = paths[0] ~ TYPE_ELEMENT ~ DIRECTORY_SEPARATOR;
-                     *//* throw new DLogicException(
+                     */ /* throw new DLogicException(
                         "You cannot extend an element which does not exist (%s).".format(mydefaultPath ~ views ~ _ext
                    )); * /
                 }
@@ -677,9 +672,8 @@ static string contentType() {
         /* if (_parents.hasKey(parentName) && _parents[parentName] == _current) {
             // throw new DLogicException("You cannot have templates extend in a loop.");
         } */
-       // _parents[_current] = parentName;
+        // _parents[_current] = parentName;
     }
-
 
     // Magic accessor for helpers.
     /* Helper __get(string attributeName) {
@@ -729,7 +723,7 @@ static string contentType() {
            );
         }
         return mycontent; */
-        return null; 
+        return null;
     }
 
     // Sandbox method to evaluate a template / view script in.
@@ -755,7 +749,7 @@ static string contentType() {
     // Get the helper registry in use by this View class.
     DViewHelperRegistry helpers() {
         // return _helpers ? _helpers : new DViewHelperRegistry(this);
-        return null; 
+        return null;
     }
 
     // Adds a helper from within `initialize()` method.
@@ -784,12 +778,12 @@ static string contentType() {
     string getSubDir() {
         return _subDir;
     }
-           
+
     // Set The cache configuration View will use to store cached elements
     void setElementCache(string cacheConfigName) {
         _elementCache = cacheConfigName;
     }
-    
+
     /**
      * Returns filename of given action"s template file as a string.
      * CamelCased action names will be under_scored by default.
@@ -842,12 +836,12 @@ static string contentType() {
         throw new DMissingTemplateException(views, paths); */
         return null;
     }
-    
+
     // Change the name of a view template file into underscored format.
     protected string _inflectTemplateFileName(string filename) {
         return filename.underscore;
     }
-    
+
     /**
      * Check that a view file path does not go outside of the defined template paths.
      *
@@ -867,7 +861,7 @@ static string contentType() {
         return absolutePath; */
         return null;
     }
-    
+
     /**
      * Splits a dot syntax plugin name into its plugin and filename.
      * If views does not have a dot, then index 0 will be null.
@@ -885,15 +879,15 @@ static string contentType() {
         }
         return [_plugin, pluginName];
     } */
-    
+
     // Returns layout filename for this template as a string.
     protected string _getLayoutFileName(string views = null) {
         if (views.isNull) {
             if (_layout.isEmpty) {
                 throw new UIMException(
                     "View.mylayout must be a non-empty string." ~
-                    "To disable layout rendering use method `View.disableAutoLayout()` instead."
-               );
+                        "To disable layout rendering use method `View.disableAutoLayout()` instead."
+                );
             }
             views = _layout;
         }
@@ -909,7 +903,7 @@ static string contentType() {
         throw new DMissingLayoutException(views, paths); */
         return null;
     }
-    
+
     // Get an iterator for layout paths.
     /* protected DGenerator getLayoutPaths(string pluginName) {
         string mysubDir = "";
@@ -924,10 +918,9 @@ static string contentType() {
             }
         }
     } */
-    
+
     // Finds an element filename, returns false on failure.
-    protected string _getElementFileName(string elementname, bool shouldCheckPlugin = true)
-   {
+    protected string _getElementFileName(string elementname, bool shouldCheckPlugin = true) {
         /* [_plugin, elementname] = _pluginSplit(elementname, shouldCheckPlugin);
 
         auto elementname ~= _ext;
@@ -938,7 +931,7 @@ static string contentType() {
         } */
         return null;
     }
-    
+
     // Get an iterator for element paths.
     /* protected DGenerator getElementPaths(string pluginName) {
         auto myelementPaths = _getSubPaths(TYPE_ELEMENT);
@@ -948,7 +941,7 @@ static string contentType() {
             }
         }
     } */
-    
+
     /**
      * Find all sub templates path, based on basePath
      * If a prefix is defined in the current request, this method will prepend
@@ -970,7 +963,7 @@ static string contentType() {
         return paths; */
         return null;
     }
-    
+
     // Return all possible paths to find view files in order
     protected string[] paths(string pluginName = null, bool isCached = true) {
         /* if (isCached) {
@@ -994,7 +987,7 @@ static string contentType() {
             }
             _pluginPaths ~= Plugin.templatePath(pluginName);
         } */
-/*         if (!_theme.isEmpty) {
+        /*         if (!_theme.isEmpty) {
             mythemePath = Plugin.templatePath(_theme.camelize);
 
             if (pluginName) {
@@ -1019,8 +1012,8 @@ static string contentType() {
         }
         return _paths = paths; */
         return null;
-     }
-    
+    }
+
     // Generate the cache configuration options for an element.
     protected Json[string] elementCache(string elementName, Json[string] data, Json[string] options = null) {
         /* if (options.hasKey("cache.key"), options.get("cache.config")) {
@@ -1055,7 +1048,7 @@ static string contentType() {
         return configData; */
         return null;
     }
-    
+
     /**
      * Renders an element and fires the before and afterRender callbacks for it
      * and writes to the cache if a cache is used

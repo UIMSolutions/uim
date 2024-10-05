@@ -3,14 +3,13 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.classes.stringcontents;UIMException
-
-import uim.views;
+module uim.views.classes.stringcontents;
+UIMExceptionimport uim.views;
 
 @safe:
 
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 /**
@@ -29,13 +28,13 @@ class DStringContents : UIMObject {
         super(initData);
     }
 
-    this(string newName,Json[string] initData = null) {
+    this(string newName, Json[string] initData = null) {
         super(newName, initData);
     }
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
-            return false; 
+            return false;
         }
 
         _boolAttributes = [
@@ -115,7 +114,7 @@ class DStringContents : UIMObject {
     string get(string key) {
         /* return _templates.hasKey(key)
             ? _temolates[key] : null; */
-        return null; 
+        return null;
     }
 
     /**
@@ -262,13 +261,13 @@ class DStringContents : UIMObject {
             .array;
 
         string result = attributes.join(" ").strip;
-        return result ? insertBefore ~ result : ""; 
+        return result ? insertBefore ~ result : "";
     }
 
     /**
      * Formats an individual attribute, and returns the string value of the composed attribute.
      * Works with minimized attributes that have the same value as their name such as "disabled" and "checked"
-     */    
+     */
     protected string _formatAttribute(string key, Json attributeData, bool shouldEscape = true) {
         string value = attributeData.isArray
             ? attributeData.toStringArray.join(" ") : attributeData.toString;

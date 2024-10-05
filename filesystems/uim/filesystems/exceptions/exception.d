@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.filesystems.exceptions.exception;UIMException
+module uim.filesystems.exceptions.exception;
 
 import uim.filesystems;
 
@@ -18,8 +18,7 @@ class DFilesystemsException : DException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-filesystems");
+    messageTemplate("default", "Error in libary uim-filesystems");
 
     return true;
   }

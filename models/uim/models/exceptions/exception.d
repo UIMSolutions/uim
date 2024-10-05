@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.models.exceptions.exception;    UIMException
+module uim.models.exceptions.exception;
 
 import uim.models;
 
@@ -14,12 +14,14 @@ class DModelException : DException {
   mixin(ExceptionThis!("Model"));
 
   override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) { return false; }
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-    this
-      .messageTemplate("default", "Error in libary uim-models");
+    messageTemplate("default", "Error in libary uim-models");
 
     return true;
   }
 }
+
 mixin(ExceptionCalls!("Model"));

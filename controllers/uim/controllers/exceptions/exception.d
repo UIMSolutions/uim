@@ -4,12 +4,13 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.controllers.exceptions.exception;
-UIMExceptionimport uim.controllers;
+
+import uim.controllers;
 
 @safe:
 
 // Controller exception.
-class DControllersException : DException {
+class DControllersException : UIMException {
   mixin(ExceptionThis!("Controllers"));
 
   override bool initialize(Json[string] initData = null) {

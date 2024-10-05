@@ -3,14 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.html.exceptions.exception;UIMException
+module uim.html.exceptions.exception;
 
 import uim.html;
 
 @safe:
 
 // I18n exception.
-class DHtmlException : DException {
+class DHtmlException : UIMException {
   mixin(ExceptionThis!("Html"));
 
   override bool initialize(Json[string] initData = null) {
@@ -18,10 +18,14 @@ class DHtmlException : DException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-html");
+    messageTemplate("default", "Exeption in libary uim-html");
 
     return true;
   }
 }
+
 mixin(ExceptionCalls!("Html"));
+
+unittest {
+  testException(HtmlException);
+}

@@ -4,12 +4,13 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.css.exceptions.exception;
-UIMExceptionimport uim.css;
+
+import uim.css;
 
 @safe:
 
 // Base css exception.
-class DCssException : DException {
+class DCssException : UIMException {
   mixin(ExceptionThis!("Css"));
 
   override bool initialize(Json[string] initData = null) {

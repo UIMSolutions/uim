@@ -91,7 +91,7 @@ class DAssetMiddleware : IRoutingMiddleware {
     protected DResponse deliverAsset(IServerRequest serverRequest, DSplFileInfo file) {
         auto resource = fopen(file.getPathname(), "rb");
         if (resource == false) {
-            throw new DException("Cannot open resource `%s`".format(file.getPathname()));
+            throw new UIMException("Cannot open resource `%s`".format(file.getPathname()));
         }
         autstream = new DStream(resource);
 
@@ -101,7 +101,7 @@ class DAssetMiddleware : IRoutingMiddleware {
         auto modified = file.getMTime();
         auto expire = strtotime(this.cacheTime);
         if (expire == false) {
-            throw new DException("Invalid cache time value `%s`".format(this.cacheTime));
+            throw new UIMException("Invalid cache time value `%s`".format(this.cacheTime));
         }
         auto maxAge = expire - time();
 

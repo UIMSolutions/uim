@@ -10,7 +10,7 @@ import uim.models;
 @safe:
 
 // Model exception.
-class DModelException : DException {
+class DModelException : UIMException {
   mixin(ExceptionThis!("Model"));
 
   override bool initialize(Json[string] initData = null) {
@@ -18,7 +18,7 @@ class DModelException : DException {
       return false;
     }
 
-    messageTemplate("default", "Error in libary uim-models");
+    messageTemplate("default", "Exception in libary uim-models");
 
     return true;
   }

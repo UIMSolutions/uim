@@ -199,7 +199,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
     // TODO
     /* IPlugin create(string pluginName, Json Data = null) {
         if (pluginName.isEmpty) {
-            throw new DException("Cannot create a plugin with empty name");
+            throw new UIMException("Cannot create a plugin with empty name");
         }
         if (pluginName.contains("\\")) {
             if (!class_hasKey(pluginName)) {

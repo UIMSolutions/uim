@@ -44,7 +44,7 @@ class DChainMessagesLoader {
             auto loader = keyLoader.value;
 
             if (!loader.isNull) {
-                throw new DException(
+                throw new UIMException(
                     "Loader `%s` in the chain is not a valid loader."
                         .format(keyLoader.key)
                );

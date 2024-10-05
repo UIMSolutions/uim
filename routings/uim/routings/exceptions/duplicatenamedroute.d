@@ -10,7 +10,7 @@ import uim.routings;
 @safe:
 
 // Exception raised when a route names used twice.
-class DDuplicateNamedRouteException : DException {
+class DDuplicateNamedRouteException : UIMException {
     mixin(ExceptionThis!("DuplicateNamedRoute"));
 
     override bool initialize(Json[string] initData = null) {
@@ -18,8 +18,7 @@ class DDuplicateNamedRouteException : DException {
             return false;
         }
 
-        this
-            .messageTemplate("default", "A route named `%s` has already been connected to `%s`.");
+        messageTemplate("default", "A route named `%s` has already been connected to `%s`.");
 
         return true;
     }

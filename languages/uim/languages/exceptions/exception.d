@@ -3,14 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.languages.exceptions.exception;UIMException
+module uim.languages.exceptions.exception;
 
 import uim.languages;
 
 @safe:
 
 // I18n exception.
-class DLanguagesException : DException {
+class DLanguagesException : UIMException {
   mixin(ExceptionThis!("Languages"));
 
   override bool initialize(Json[string] initData = null) {

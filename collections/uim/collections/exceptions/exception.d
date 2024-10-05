@@ -25,3 +25,7 @@ class D_CollectionsException : UIMException {
 }
 
 mixin(ExceptionCalls!("Collections"));
+
+unittest {
+  testException(new D_CollectionsException);
+}

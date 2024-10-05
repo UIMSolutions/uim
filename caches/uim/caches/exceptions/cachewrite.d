@@ -13,7 +13,7 @@ import uim.caches;
 class DCacheWriteException : DCachesException {
   mixin(ExceptionThis!("CacheWrite"));
 
-    override bool initialize(Json[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }

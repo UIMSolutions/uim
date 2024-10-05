@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.helpers.url;UIMException
+module uim.views.helpers.url;
 
 import uim.views;
 
@@ -49,11 +49,11 @@ class UrlHelper : DHelper {
      *  the reverse routing features of UIM.
      */
     string build(string[] myurl = null, Json[string] options = null) {
-         options
+        options
             .merge("fullBase", false)
             .merge("escape", true);
 
-/*        auto myurl = Router.url(myurl, options.get("fullBase"));
+        /*        auto myurl = Router.url(myurl, options.get("fullBase"));
         if (options.getBoolean("escape")) {
             myurl = to!string(h(myurl));
         }
@@ -71,7 +71,7 @@ class UrlHelper : DHelper {
      * - `fullBase`: If true, the full base URL will be prepended to the result
      */
     string buildFromPath(string routePath, Json[string] params = null, Json[string] options = null) {
-/*         return _build(["_path": routePath] + params, options); */
+        /*         return _build(["_path": routePath] + params, options); */
         return null;
     }
 
@@ -82,7 +82,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string image(string path, Json[string] options = null) {
-/*         options.merge("theme", _view.theme());
+        /*         options.merge("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.imageUrl(path, options)); */
         return null;
@@ -95,7 +95,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string css(string path, Json[string] options = null) {
-/*         options.merge("theme", _view.theme());
+        /*         options.merge("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.cssUrl(path, options)); */
         return null;
@@ -108,7 +108,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
     string script(string path, Json[string] options = null) {
-/*         auto options = options.set("theme", _view.theme());
+        /*         auto options = options.set("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.scriptUrl(path, options)); */
         return null;
@@ -137,7 +137,7 @@ class UrlHelper : DHelper {
             .merge("theme", _view.theme()); */
 
         // return htmlAttributeEscape(_assetUrlclassname.url(path, options));
-        return null; 
+        return null;
     }
 
     /**
@@ -146,14 +146,14 @@ class UrlHelper : DHelper {
      * a timestamp will be added.
      */
     string assetTimestamp(string path, string timestamp = null) {
-/*         return htmlAttributeEscape(
+        /*         return htmlAttributeEscape(
             _assetUrlclassname.assetTimestamp(path, timestamp)); */
         return null;
     }
 
     // Checks if a file exists when theme is used, if no file is found default location is returned
     string webroot(string filename) {
-/*         options.merge("theme", _view.theme());
+        /*         options.merge("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.webroot(filename, options)); */
         return null;

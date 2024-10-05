@@ -4,7 +4,8 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.views.classes.stringcontents;
-UIMExceptionimport uim.views;
+
+import uim.views;
 
 @safe:
 

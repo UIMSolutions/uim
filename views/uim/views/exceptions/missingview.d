@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.exceptions.missingview;messageTemplate("default", "
+module uim.views.exceptions.missingview;
 
 import uim.views;
 
@@ -11,17 +11,17 @@ import uim.views;
 
 // Used when a view class file cannot be found.
 class DMissingViewException : DViewException {
-    mixin(ExceptionThis!("MissingView"));
+  mixin(ExceptionThis!("MissingView"));
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        this
-            .messageTemplate("default", "View class `%s` is missing.");
-
-        return true;
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
     }
+
+    messageTemplate("default", "default", "View class `%s` is missing.");
+
+    return true;
+  }
 }
+
 mixin(ExceptionCalls!("MissingView"));

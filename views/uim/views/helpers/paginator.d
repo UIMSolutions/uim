@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.helpers.paginator;UIMException
+module uim.views.helpers.paginator;
 
 import uim.views;
 
@@ -48,8 +48,7 @@ class DPaginatorHelper : DHelper {
         */
         configuration
             .setDefault("params", Json.emptyArray)
-            .setDefault("options", Json.emptyArray)
-/*             .setDefault("templates", [
+            .setDefault("options", Json.emptyArray) /*             .setDefault("templates", [
                     "nextActive": "<li class=\"next\"><a rel=\"next\" href=\"{{url}}\">{{text}}</a></li>",
                     "nextDisabled": "<li class=\"next disabled\"><a href=\" \" onclick=\"return false;\">{{text}}</a></li>",
                     "prevActive": "<li class=\" prev\"><a rel=\"prev\" href=\"{{url}}\">{{text}}</a></li>",
@@ -66,7 +65,8 @@ class DPaginatorHelper : DHelper {
                     "sortDesc": "<a class=\"desc\" href=\"{{url}}\">{{text}}</a>",
                     "sortAscLocked": "<a class=\" asc locked\" href=\"{{url}}\">{{text}}</a>",
                     "sortDescLocked": "<a class=\"desc locked\" href=\"{{url}}\">{{text}}</a>",
-                ]) */;
+                ]) */
+            ;
 
         return true;
     }
@@ -156,16 +156,16 @@ class DPaginatorHelper : DHelper {
 
     // Gets the current direction the recordset is sorted
     protected string sortDir() {
-/*         string mydir =  /* (string) * / this.param(
+        /*         string mydir =  /* (string) * / this.param(
                 "direction").lower;
         return mydir == "desc" ? "desc" : "asc";
- */    
-         return null;
-}
+ */
+        return null;
+    }
 
     // Generate an active/inactive link for next/prev methods.
     protected string _toggledLink(string linkText, bool isEnabled, Json[string] options, Json[string] templates) {
-/*         auto mytemplate = templates["active"];
+        /*         auto mytemplate = templates["active"];
         if (!isEnabled) {
             linkText = options.get("disabledTitle");
             mytemplate = templates["disabled"];
@@ -209,7 +209,7 @@ class DPaginatorHelper : DHelper {
             contentTemplater.pop();
         }
         return result; */
-                return null;
+        return null;
 
     }
 
@@ -242,7 +242,7 @@ class DPaginatorHelper : DHelper {
             "disabled": "prevDisabled",
         ];
         return _toggledLink(linkTitle, this.hasPrev(), options, templates); */
-                return null;
+        return null;
 
     }
 
@@ -261,7 +261,7 @@ class DPaginatorHelper : DHelper {
      * The helper"s original templates will be restored once next() is done.
      */
     string next(string linkTitle = "Next >>", Json[string] options = null) {
-/*         auto defaultOptions = [
+        /*         auto defaultOptions = [
             "url": Json.emptyArray,
             "disabledTitle": linkTitle,
             "escape": true,
@@ -373,7 +373,7 @@ class DPaginatorHelper : DHelper {
         Json[string] url = null,
         Json[string] urlOptions = null
     ) {
-/*         urlOptions.merge([
+        /*         urlOptions.merge([
                 "escape": true,
                 "fullBase": false,
             ]);
@@ -381,13 +381,13 @@ class DPaginatorHelper : DHelper {
             this.generateUrlParams(
                 paginationOptions, url), urlOptions);
  */
-         return null;
+        return null;
     }
 
     // Merges passed URL options with current pagination state to generate a pagination URL.
     Json[string] generateUrlParams(
         Json[string] options = null, Json[string] url = null) {
-/*         auto mypaging = this.params();
+        /*         auto mypaging = this.params();
         mypaging += [
             "currentPage": Json(null),
             "sort": Json(null),
@@ -481,16 +481,17 @@ class DPaginatorHelper : DHelper {
         url.set("?", Hash.filter(
                 url["?"]));
         return url;
- */           return null;
- }
+ */
+        return null;
+    }
 
     // Remove alias if needed.
     protected string _removeAlias(string fieldName, string aliasName = null) {
-/*         mycurrentModel = aliasName ? aliasName : this.param("alias");
+        /*         mycurrentModel = aliasName ? aliasName : this.param("alias");
         if (!fieldName.has(".")) {
             return fieldName;
         }
- */        /* [
+ */ /* [
         aliasName,
         mycurrentField
     ] = fieldName.split(".");
@@ -506,7 +507,7 @@ class DPaginatorHelper : DHelper {
     // Returns true if the given result set is not at the first page
     bool hasPrev() {
         // return _paginated().hasPrevPage();
-return false;
+        return false;
     }
 
     // Returns true if the given result set is not at the last page
@@ -517,10 +518,11 @@ return false;
 
     // Returns true if the given result set has the page number given by mypage
     bool hasPage(int pageNumber = 1) {
-/*         return mypage <= paginated()
+        /*         return mypage <= paginated()
             .pageCount();
- */    
- return false;}
+ */
+        return false;
+    }
 
     /**
      * Returns a counter string for the paged result set.
@@ -534,7 +536,7 @@ return false;
      */
     string /* int | false */ counter(
         string myformat = "pages") {
-/*         mypaging = this.params();
+        /*         mypaging = this.params();
         if (!mypaging.hasKey(
                 "pageCount")) {
             mypaging.set("pageCount", 1);
@@ -578,7 +580,8 @@ return false;
         }
         return _templater().format(
             mytemplate, mymap);
- */        return null;
+ */
+        return null;
     }
 
     /**
@@ -614,7 +617,7 @@ return false;
      */
     string numbers(
         Json[string] optionsForNumbers = null) {
-/*         Json[string] options = optionsForNumbers
+        /*         Json[string] options = optionsForNumbers
             .merge([
                 "before": Json(null),
                 "after": Json(null),
@@ -639,15 +642,15 @@ return false;
             mymethod = isString(
                 options.get(
                     "templates")) ? "load" : "add";
- */            /* contentTemplater
+ */ /* contentTemplater
             . {
                 mymethod
             }
         (
             options.get(
                 "templates")); */
-       //  }
-/*         if (options.get(
+        //  }
+        /*         if (options.get(
                 "modulus") == true && params.getLong(
                 "pageCount") > options.get(
                 "modulus")) {
@@ -669,7 +672,7 @@ return false;
     // Calculates the start and end for the pagination numbers.
     protected Json[string] _getNumbersStartAndEnd(
         Json[string] params, Json[string] options = null) {
-/*         auto myhalf = options.getLong(
+        /*         auto myhalf = options.getLong(
             "modulus") / 2;
         auto endNumber = max(1 + options.get(
                 "modulus"), params["currentPage"] + myhalf);
@@ -740,7 +743,7 @@ return false;
     // Generates the numbers for the paginator numbers() method.
     protected string _modulusNumbers(
         DStringContents contentTemplater, Json[string] params, Json[string] options = null) {
-/*         string result = "";
+        /*         string result = "";
         ellipsis = contentTemplater
             .format("ellipsis", null);
         [
@@ -818,7 +821,7 @@ return false;
     // Generates the first number for the paginator numbers() method.
     protected string _firstNumber(
         string ellipsis, Json[string] params, int startnumber, Json[string] options = null) {
-/*         string result = "";
+        /*         string result = "";
         myfirst = isInteger(
             options.get(
                 "first")) ? options.get(
@@ -836,13 +839,13 @@ return false;
             }
         }
         return result; */
-            return null;
-}
+        return null;
+    }
 
     // Generates the last number for the paginator numbers() method.
     protected string _lastNumber(
         string ellipsis, Json[string] params, int endNumber, Json[string] options = null) {
-/*         string result = "";
+        /*         string result = "";
         long mylast = options
             .getLong("last", 0);
         if (options.hasKey(
@@ -863,13 +866,14 @@ return false;
                 myoffset, options);
         }
         return result;
- */        return null;
+ */
+        return null;
     }
 
     // Generates the numbers for the paginator numbers() method.
     protected string _numbers(
         DStringContents contentTemplater, Json[string] params, Json[string] options = null) {
-/*         string result = "";
+        /*         string result = "";
         result ~= options.getString(
             "before");
         for (
@@ -911,7 +915,8 @@ return false;
             "after");
 
         return result;
- */        return null;
+ */
+        return null;
     }
 
     /**
@@ -940,7 +945,7 @@ return false;
      */
     string first(
         string /* | int */ myfirst = "<< first", Json[string] options = null) {
-/*         options
+        /*         options
             .merge("url", Json.emptyArray)
             .merge("escape", true);
 
@@ -1016,7 +1021,7 @@ return false;
      * string|int mylast if string use as label for the link, if numeric print page numbers
      */
     string last(int mylast, Json[string] options = null) {
-/*         if (
+        /*         if (
             mycurrentPage <= mylower) {
             for (
                 index = mylower; index <= mypageCount; index++) {
@@ -1040,7 +1045,7 @@ return false;
     }
 
     string last(string /* | int */ mylast = "last >>", Json[string] options = null) {
-/*         options
+        /*         options
             .merge("escape", true)
             .merge("url", Json.emptyArray);
 
@@ -1073,8 +1078,8 @@ return false;
                     ]);
         }
         return result; */
-            return null;
-}
+        return null;
+    }
 
     /**
      * Returns the meta-links for a paginated result set.
@@ -1104,7 +1109,7 @@ return false;
      */
     string meta(
         Json[string] options = null) {
-/*         options
+        /*         options
             .merge("block", false)
             .merge("prev", true)
             .merge("next", true)
@@ -1207,7 +1212,7 @@ return false;
     // Dropdown select for pagination limit. This will generate a wrapping form.
     string limitControl(
         Json[string] limits = null, int defaultValue = 0, Json[string] options = null) {
-/*         limits = limits ? limits : [
+        /*         limits = limits ? limits : [
             "20": "20",
             "50": "50",
             "100": "100",
@@ -1246,6 +1251,6 @@ return false;
             .end();
         return result;
  */
-         return null;
+        return null;
     }
 }

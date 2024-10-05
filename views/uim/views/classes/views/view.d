@@ -4,7 +4,8 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.views.classes.views.view;
-UIMExceptionUIMExceptionUIMExceptionUIMExceptionimport uim.views;
+
+import uim.views;
 
 @safe:
 

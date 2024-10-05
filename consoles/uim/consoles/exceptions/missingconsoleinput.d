@@ -20,3 +20,7 @@ class DMissingInputConsoleException : DConsoleException {
 }
 
 mixin(ExceptionCalls!("MissingInputConsole"));
+
+unittest {
+    testException(MissingInputConsoleException);
+}

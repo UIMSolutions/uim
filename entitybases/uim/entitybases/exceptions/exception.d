@@ -16,10 +16,13 @@ class DEntitybasesException : DException {
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    this
-      .messageTemplate("default", "Error in libary uim-entitybases");
+    messageTemplate("default", "Error in libary uim-entitybases");
 
     return true;
   }
 }
 mixin(ExceptionCalls!("Entitybases"));
+
+unittest {
+  testException(EntitybasesException);
+}

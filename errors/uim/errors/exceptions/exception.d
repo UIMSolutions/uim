@@ -18,10 +18,13 @@ class DErrorsException : DException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-errors");
+    messageTemplate("default", "Exception in libary uim-errors");
 
     return true;
   }
 }
 mixin(ExceptionCalls!("Errors"));
+
+unittest {
+  testException(ErrorsException);
+}

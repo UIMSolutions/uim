@@ -8,6 +8,7 @@ module uim.caches.exceptions.cachewrite;
 import uim.caches;
 
 @safe:
+
 // Exception raised when cache writing failed for some reason. Replaces triggering an error.
 class DCacheWriteException : DCachesException {
   mixin(ExceptionThis!("CacheWrite"));
@@ -17,8 +18,7 @@ class DCacheWriteException : DCachesException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Exception in CacheWrite");
+    messageTemplate("default", "Exception in CacheWrite");
 
     return true;
   }

@@ -17,7 +17,7 @@ class DCssException : DException {
       return false;
     }
 
-    messageTemplate("Exception in libary uim-css");
+    messageTemplate("default", "Exception in libary uim-css");
 
     return true;
   }

@@ -20,11 +20,14 @@ class DConsoleException : UIMException {
   this(
     string message, int exceptionCode = 0, Throwable previousException = null
   ) {
-    super();
+    super(message);
     _exceptionCode = exceptionCode;
     _previousException = previousException;
-    // TODO super(message);
   }
 }
 
 mixin(ExceptionCalls!("Console"));
+
+unittest {
+  testException(ConsoleException);
+}

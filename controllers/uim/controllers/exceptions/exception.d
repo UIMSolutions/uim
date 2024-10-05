@@ -26,5 +26,5 @@ class DControllersException : DException {
 mixin(ExceptionCalls!("Controllers"));
 
 unittest {
-  assert(ControllersException);
+  testException(ControllersException);
 }

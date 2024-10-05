@@ -25,3 +25,7 @@ class DCacheWriteException : DCachesException {
 }
 
 mixin(ExceptionCalls!("CacheWrite"));
+
+unittest {
+  testException(CacheWriteException);
+}

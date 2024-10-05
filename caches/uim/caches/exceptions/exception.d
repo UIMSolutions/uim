@@ -26,3 +26,7 @@ class DCachesException : UIMException {
 }
 
 mixin(ExceptionCalls!("Caches"));
+
+unittest {
+  testException(CachesException);
+}

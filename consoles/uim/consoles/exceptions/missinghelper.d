@@ -18,10 +18,14 @@ class DMissingHelperException : DConsoleException {
       return false;
     }
 
-    messageTemplate("Helper class '%s' could not be found.");
+    messageTemplate("default", "Helper class '%s' could not be found.");
 
     return true;
   }
 }
 
 mixin(ExceptionCalls!("MissingHelper"));
+
+unittest {
+  testException(MissingHelperException);
+}

@@ -18,11 +18,14 @@ class DCommandsException : UIMException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Exception in libary uim-commands");
+    messageTemplate("default", "Exception in libary uim-commands");
 
     return true;
   }
 }
 
 mixin(ExceptionCalls!("Commands"));
+
+unittest {
+  testException(CommandsException);
+}

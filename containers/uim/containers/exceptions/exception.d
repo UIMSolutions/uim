@@ -18,10 +18,13 @@ class DContainersException : DException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-containers");
+    messageTemplate("default", "Error in libary uim-containers");
 
     return true;
   }
 }
 mixin(ExceptionCalls!("Containers"));
+
+unittest {
+  testException(ContainersException);
+}

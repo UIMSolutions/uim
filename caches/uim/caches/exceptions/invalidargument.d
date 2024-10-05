@@ -29,3 +29,4 @@ mixin(ExceptionCalls!("InvalidArgument"));
 unittest {
   assert(InvalidArgumentException);
 }
+

@@ -3,29 +3,16 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.controllers.exceptions.missingcomponent;
+module uim.oop.tests.exception;
 
-import uim.controllers;
+import uim.oop;
 
 @safe:
 
-// Used when a component cannot be found.
-class DMissingComponentException : DControllersException {
-  mixin(ExceptionThis!("MissingComponent"));
-
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
+bool testException(IException exception) {
+    if (exception is null) {
+        return false;
     }
-
-    messageTemplate("default", "Component class `%s` could not be found.");
-
+    
     return true;
-  }
-}
-
-mixin(ExceptionCalls!("MissingComponent"));
-
-unittest {
-  assert(MissingComponentException);
 }

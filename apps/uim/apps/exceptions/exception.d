@@ -28,5 +28,5 @@ class DAppException : UIMException {
 mixin(ExceptionCalls!("App"));
 
 unittest {
-  assert(AppException);
+  testException(AppException);
 }

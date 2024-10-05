@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.oop.mixins.fileconfig;UIMExceptionUIMException
+module uim.oop.mixins.fileconfig;
 
 import uim.oop;
 
@@ -22,18 +22,17 @@ mixin template TFileConfig() {
         [pluginName, KeyToWrite] = pluginSplit(KeyToWrite);
 
         string filePath = !pluginName.isEmpty
-            ? Plugin.configPath(pluginName) ~ KeyToWrite
-            : _path ~ KeyToWrite;
+            ? Plugin.configPath(pluginName) ~ KeyToWrite : _path ~ KeyToWrite;
         filePath ~= _extension;
 
         if (!checkExists || isFile(filePath)) {
             return filePath;
         }
-        
+
         string realFilePath = realpath(filePath);
         if (realFilePath == true && isFile(realFilePath)) {
             return realFilePath;
         }
         throw new DException("Could not load configuration file: `%s`.".format(filePath));
-    } 
+    }
 }

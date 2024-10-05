@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.oop.interfaces.retrystrategy;UIMException
+module uim.oop.interfaces.retrystrategy;
 
 import uim.oop;
 
@@ -15,5 +15,5 @@ import uim.oop;
  */
 interface IRetryStrategy {
     // Returns true if the action can be retried, false otherwise.
-    bool shouldRetry(DException failException, int retryCount);
+    bool shouldRetry(UIMException failException, int retryCount);
 }

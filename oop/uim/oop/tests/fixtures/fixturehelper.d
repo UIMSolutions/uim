@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.oop.tests.fixtures.fixturehelper;UIMExceptionUIMException
+module uim.oop.tests.fixtures.fixturehelper;
 
 import uim.oop;
 
@@ -92,7 +92,7 @@ class DFixtureHelper {
         anGroups.byKeyValue
             .each!(nameFixtures => aCallback(ConnectionManager.get(nameFixtures.key), nameFixtures.value));
     } */
-    
+
     // Inserts fixture data.
     // TODO
     /* void insert(IFixture[] fixtures) {
@@ -113,7 +113,7 @@ class DFixtureHelper {
             }
         }, fixtures);
     } */
-    
+
     // Inserts all fixtures for a connection and provides friendly errors for bad data.
     // TODO 
     /* protected void insertConnection(DConnection fixtureConnection, DFixture[] connectionFixtures) {
@@ -130,7 +130,7 @@ class DFixtureHelper {
             }
         });
     } */
-    
+
     // Truncates fixture tables.
     // TODO
     /* 
@@ -156,7 +156,7 @@ class DFixtureHelper {
             }
         }, testFixtures);
     } */
-    
+
     // Truncates all fixtures for a connection and provides friendly errors for bad data.
     // TODO
     /* protected void truncateConnection(IConnection fixtureConnection, IFixture[] fixtures) {
@@ -171,7 +171,7 @@ class DFixtureHelper {
             }
         });
     } */
-    
+
     // Sort fixtures with foreign constraints last if possible, otherwise returns null.
     // TODO
     /* protected Json[string] sortByConstraint(Connection aConnection, Json[string] fixtures) {
@@ -195,7 +195,7 @@ class DFixtureHelper {
         * /
         return chain(unconstrained, array_column(constrained, "fixture"));
     } */
-    
+
     // Gets array of foreign references for fixtures table.
     // TODO 
     /*

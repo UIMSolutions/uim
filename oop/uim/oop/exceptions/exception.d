@@ -52,6 +52,10 @@ class UIMException : Exception {
     return (templateName in _stringContents) ? templateName : null;
   };
 
+  void messageTemplate(string templateText) {
+    _stringContents["default"] = templateText;
+  };
+
   void messageTemplate(string templateName, string templateText) {
     _stringContents[templateName] = templateText;
   };
@@ -78,7 +82,6 @@ class UIMException : Exception {
      * Array of attributes that are passed in from the constructor, and
      * made available in the view when a development error is displayed.
      */
-// TODO protected Json[string] _attributes = null;
 // --- protected string _messageTemplate = "";
 
 // Array of headers to be passed to {@link uim.Http\Response.withHeader()}

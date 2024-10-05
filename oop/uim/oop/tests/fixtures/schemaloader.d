@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.oop.tests.fixtures.schemaloader;UIMException
+module uim.oop.tests.fixtures.schemaloader;
 
 import uim.oop;
 
@@ -28,14 +28,14 @@ class DSchemaLoader {
     this() {
         _helper = new DConnectionHelper();
     }
-    
+
     // Load and apply schema sql file, or an array of files.
     void loadSqlFiles(
         string fileToLoad,
         string connectionName = "test",
         bool shouldDropTables = true,
         bool truncateTables = false
-   ) {
+    ) {
         loadSqlFiles([fileToLoad], connectionName, shouldDropTables, truncateTables);
     }
 
@@ -44,7 +44,7 @@ class DSchemaLoader {
         string connectionName = "test",
         bool shouldDropTables = true,
         bool truncateTables = false
-   ) {
+    ) {
         auto filePaths = filesToLoad.dup;
 
         // Don"t create schema if we are in a Dunit separate process test method.
@@ -57,8 +57,8 @@ class DSchemaLoader {
         }
         /** @var \UIM\Database\Connection aConnection */
         // TODO aConnection = ConnectionManager.get(aConnectionName);
-         // TODO 
-         /* 
+        // TODO 
+        /* 
         filePaths.each!((filePath) {
             if (!filehasKey(filePath)) {
                 throw new DInvalidArgumentException(
@@ -80,7 +80,7 @@ class DSchemaLoader {
             _helper.truncateTables(connectionName);
         } */
     }
-    
+
     /**
      * Load and apply UIM schema file.
      *
@@ -140,7 +140,7 @@ class DSchemaLoader {
 
         // TODO aTables = include file;
         // TODO auto connection = ConnectionManager.get(connectionName);
-        
+
         // TODO 
         /* 
         aConnection.disableConstraints(void (Connection aConnection) use (aTables) {

@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.oop.mixins.instanceconfig;UIMExceptionUIMException
+module uim.oop.mixins.instanceconfig;
 
 import uim.oop;
 
@@ -46,12 +46,12 @@ mixin template TInstanceConfig() {
      */
     void setConfig(string[] keysToSet, Json valueToSet = null, bool shouldMerge = true) {
         if (!_configInitialized) {
-           _config = _defaultConfigData;
-           _configInitialized = true;
+            _config = _defaultConfigData;
+            _configInitialized = true;
         }
-       _configWrite(keysToSet, valueToSet, shouldMerge);
+        _configWrite(keysToSet, valueToSet, shouldMerge);
     }
-    
+
     /**
      * Returns the config.
      *
@@ -89,7 +89,7 @@ mixin template TInstanceConfig() {
         }
         // TODO return _configRead(keyToGet) ?? default;
     } */
-    
+
     /**
      * Returns the config for this specific key.
      *
@@ -105,7 +105,7 @@ mixin template TInstanceConfig() {
         }
         return configData;
     }
-    
+
     /**
      * Merge provided config with existing config. Unlike `config()` which does
      * a recursive merge for nested keys, this method does a simple merge.
@@ -130,12 +130,12 @@ mixin template TInstanceConfig() {
      */
     void configShallow(string[] keyToSet, Json valueToSet = null) {
         if (!_configInitialized) {
-           _config = _defaultConfigData;
-           _configInitialized = true;
+            _config = _defaultConfigData;
+            _configInitialized = true;
         }
-       _configWrite(keyToSet, valueToSet, "shallow");
+        _configWrite(keyToSet, valueToSet, "shallow");
     }
-    
+
     // Reads a config key.
     protected Json _configRead(string keyToRead) {
         if (keyToRead.isNull) {
@@ -155,20 +155,22 @@ mixin template TInstanceConfig() {
         });
         return result;
     }
-    
+
     // Writes a config key.
     protected void _configWrite(string[] keysToWrite, Json valueToWrite, string shouldMerge = false) {
         if (isString(keysToWrite) && valueToWrite.isNull) {
-           _configDelete(keysToWrite);
+            _configDelete(keysToWrite);
 
             return;
         }
         if (shouldMerge) {
-            update = isArray(keysToWrite) ? keysToWrite : [keysToWrite: valueToWrite];
+            update = isArray(keysToWrite) ? keysToWrite : [
+                keysToWrite: valueToWrite
+            ];
 
             _config = shouldMerge == "shallow"
-                ? chain(_config, Hash.expand(update))
-                : Hash.shouldMerge(_config, Hash.expand(update));
+                ? chain(_config, Hash.expand(update)) : Hash.shouldMerge(_config, Hash.expand(
+                        update));
 
             return;
         }
@@ -178,7 +180,7 @@ mixin template TInstanceConfig() {
             return;
         }
         if (!keysToWrite.contains(".")) {
-           configuration.set(keysToWrite, valueToWrite);
+            configuration.set(keysToWrite, valueToWrite);
             return;
         }
 
@@ -194,7 +196,7 @@ mixin template TInstanceConfig() {
         });
         update = valueToWrite;
     }
-    
+
     // Deletes a single config key.
     protected void _configDelete(string keyToDelete) {
         if (!keyToDelete.contains(".")) {
@@ -202,7 +204,7 @@ mixin template TInstanceConfig() {
 
             return;
         }
-        
+
         auto myupdate = &_config;
         string[] mystack = keyToDelete.split(".");
         auto stackLength = count(mystack);

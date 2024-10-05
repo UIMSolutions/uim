@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.oop.tests.integration;UIMExceptionUIMExceptionUIMExceptionUIMException
+module uim.oop.tests.integration;
 
 import uim.oop;
 
@@ -138,7 +138,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string[] unlockedFields List of fields that are excluded from field validation.
      */
-    void setUnlockedFields(Json[string] unlockedFields= null) {
+    void setUnlockedFields(Json[string] unlockedFields = null) {
         _unlockedFields = unlockedFields;
     }
 
@@ -186,7 +186,9 @@ mixin template TIntegrationTest() {
             "headers": [
                 "Accept": "application/Json",
                 "Content-Type": "application/Json",
+
             
+
         ],]);
     }
 
@@ -438,7 +440,7 @@ mixin template TIntegrationTest() {
             });
             _request.removeKey("headers");
         }
-        
+
         auto props = [
             "url": url,
             "session": session,
@@ -471,7 +473,8 @@ mixin template TIntegrationTest() {
         if (_securityToken == true) {
             auto fields = array_diffinternalKey(requestBodyData, array_flip(_unlockedFields));
 
-            string[] someKeys = Hash.flatten(fields).keys.map!(field => preg_replace("/(\\.\\d+)+/", "", field)).array;
+            string[] someKeys = Hash.flatten(fields)
+                .keys.map!(field => preg_replace("/(\\.\\d+)+/", "", field)).array;
             auto formProtector = new DFormProtector([
                 "unlockedFields": _unlockedFields
             ]);
@@ -887,7 +890,7 @@ mixin template TIntegrationTest() {
     }
 
     // Extract verbose message for existing exception
-    protected string extractExceptionMessage(DException exceptionToExtract) {
+    protected string extractExceptionMessage(UIMException exceptionToExtract) {
         DException[] exceptions = [exceptionToExtract];
         auto previousException = exceptionToExtract.getPrevious();
         while (!previousException.isNull) {

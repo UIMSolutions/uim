@@ -19,7 +19,7 @@ class DContainersException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-containers");
+      .messageTemplate("default", "Error in libary uim-containers");
 
     return true;
   }

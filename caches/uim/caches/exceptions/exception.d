@@ -19,7 +19,7 @@ class DCachesException : UIMException {
     }
 
     this
-      .messageTemplate("Exception in libary uim-caches");
+      .messageTemplate("default", "default", "Exception in libary uim-caches");
 
     return true;
   }

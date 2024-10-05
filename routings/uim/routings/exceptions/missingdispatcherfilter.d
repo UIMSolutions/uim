@@ -19,7 +19,7 @@ class DMissingDispatcherFilterException : DException {
         }
 
         this
-            .messageTemplate("Dispatcher filter `%s` could not be found.");
+            .messageTemplate("default", "Dispatcher filter `%s` could not be found.");
 
         return true;
     }

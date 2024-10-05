@@ -19,7 +19,7 @@ class DDuplicateNamedRouteException : DException {
         }
 
         this
-            .messageTemplate("A route named `%s` has already been connected to `%s`.");
+            .messageTemplate("default", "A route named `%s` has already been connected to `%s`.");
 
         return true;
     }

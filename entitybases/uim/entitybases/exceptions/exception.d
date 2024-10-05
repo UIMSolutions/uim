@@ -17,7 +17,7 @@ class DEntitybasesException : DException {
     if (!super.initialize(initData)) { return false; }
 
     this
-      .messageTemplate("Error in libary uim-entitybases");
+      .messageTemplate("default", "Error in libary uim-entitybases");
 
     return true;
   }

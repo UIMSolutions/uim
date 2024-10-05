@@ -19,7 +19,7 @@ class DCommandsException : UIMException {
     }
 
     this
-      .messageTemplate("Exception in libary uim-commands");
+      .messageTemplate("default", "Exception in libary uim-commands");
 
     return true;
   }

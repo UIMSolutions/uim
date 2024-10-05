@@ -19,7 +19,7 @@ class DErrorsException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-errors");
+      .messageTemplate("default", "Error in libary uim-errors");
 
     return true;
   }

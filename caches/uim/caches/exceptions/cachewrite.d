@@ -18,7 +18,7 @@ class DCacheWriteException : DCachesException {
     }
 
     this
-      .messageTemplate("Exception in CacheWrite");
+      .messageTemplate("default", "Exception in CacheWrite");
 
     return true;
   }

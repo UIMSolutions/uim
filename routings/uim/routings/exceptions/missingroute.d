@@ -19,7 +19,7 @@ class DMissingRouteException : DException {
     }
 
     this
-      .messageTemplate("A route matching `%s` could not be found.");
+      .messageTemplate("default", "A route matching `%s` could not be found.");
 
     return true;
   }

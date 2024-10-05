@@ -19,7 +19,7 @@ class DControllersException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-controllers");
+      .messageTemplate("default", "Error in libary uim-controllers");
 
     return true;
   }

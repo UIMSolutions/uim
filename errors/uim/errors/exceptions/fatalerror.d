@@ -17,7 +17,7 @@ class DFatalErrorException : DException {
         }
 
         this
-            .messageTemplate("FatalError");
+            .messageTemplate("default", "FatalError");
 
         return true;
     }

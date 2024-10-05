@@ -19,7 +19,7 @@ class DAppException : UIMException {
     }
 
     this
-      .messageTemplate("Exception in libary uim-apps");
+      .messageTemplate("default", "Exception in libary uim-apps");
 
     return true;
   }

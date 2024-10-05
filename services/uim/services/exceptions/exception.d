@@ -17,7 +17,7 @@ class DServiceException : DException {
     if (!super.initialize(initData)) { return false; }
 
     this
-      .messageTemplate("Error in libary uim-services");
+      .messageTemplate("default", "Error in libary uim-services");
 
     return true;
   }

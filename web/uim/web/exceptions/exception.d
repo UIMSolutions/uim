@@ -19,7 +19,7 @@ class DWebException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-web");
+      .messageTemplate("default", "Error in libary uim-web");
 
     return true;
   }

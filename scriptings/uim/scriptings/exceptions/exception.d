@@ -19,7 +19,7 @@ class DScriptingsException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-scriptings");
+      .messageTemplate("default", "Error in libary uim-scriptings");
 
     return true;
   }

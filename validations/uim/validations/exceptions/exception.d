@@ -19,7 +19,7 @@ class DValidationsException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-validations");
+      .messageTemplate("default", "Error in libary uim-validations");
 
     return true;
   }

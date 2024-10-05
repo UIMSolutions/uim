@@ -19,7 +19,7 @@ class DSecuritiesException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-securities");
+      .messageTemplate("default", "Error in libary uim-securities");
 
     return true;
   }

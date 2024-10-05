@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.exceptions.missingcell;    messageTemplate("default", "
+module uim.views.exceptions.missingcell;
 
 import uim.views;
 
@@ -13,13 +13,15 @@ import uim.views;
 class DMissingCellException : DViewException {
   mixin(ExceptionThis!("MissingCell"));
 
-    override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) { return false; }
-    
-    this
-      .messageTemplate("Cell class %s is missing.");
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+    messageTemplate("default", "Cell class %s is missing.");
 
     return true;
   }
 }
+
 mixin(ExceptionCalls!("MissingCell"));

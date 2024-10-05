@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.exceptions.missinghelper;messageTemplate("default", "
+module uim.views.exceptions.missinghelper;
 
 import uim.views;
 
@@ -18,10 +18,10 @@ class DMissingHelperException : DViewException {
             return false;
         }
 
-        this
-            .messageTemplate("Helper class `%s` could not be found.");
+        messageTemplate("default", "Helper class `%s` could not be found.");
 
         return true;
     }
 }
+
 mixin(ExceptionCalls!("MissingHelper"));

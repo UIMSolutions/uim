@@ -13,6 +13,6 @@ bool testException(IException exception) {
     if (exception is null) {
         return false;
     }
-    
+
     return true;
 }

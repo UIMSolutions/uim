@@ -24,10 +24,10 @@ class DMissingOptionException : DConsoleException {
     string[] suggestions = null,
     int exceptionCode = 0,
     Throwable previousException = null
- ) {
+  ) {
 
     this();
-    
+
     _suggestions = suggestions;
     _requested = requestedValue;
     // TODO super(message, exceptionCode, previousException);
@@ -41,7 +41,7 @@ class DMissingOptionException : DConsoleException {
       result ~= "\nDid you mean: `%s`?".format(bestGuess);
     }
 
-    string[] good; 
+    string[] good;
     // TODO
     /* _suggestions
       .filter!(suggestion => levenshtein(suggestion, _requested) < 8);
@@ -70,10 +70,11 @@ class DMissingOptionException : DConsoleException {
         bestScore = score;
         bestGuess = anItem;
       }
-    }); */ 
+    }); */
     return bestGuess;
   }
 }
+
 mixin(ExceptionCalls!("MissingOption"));
 
 unittest {

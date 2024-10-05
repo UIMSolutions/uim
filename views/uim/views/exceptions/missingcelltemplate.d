@@ -4,7 +4,8 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.views.exceptions.missingcelltemplate;
-UIMExceptionimport uim.views;
+
+import uim.views;
 
 @safe:
 

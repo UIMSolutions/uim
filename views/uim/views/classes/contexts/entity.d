@@ -4,7 +4,8 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.views.classes.contexts.entity;
-UIMExceptionUIMExceptionUIMExceptionUIMExceptionUIMExceptionimport uim.views;
+
+import uim.views;
 
 @safe:
 unittest {

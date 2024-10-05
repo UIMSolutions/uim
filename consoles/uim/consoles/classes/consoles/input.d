@@ -29,7 +29,7 @@ class DInputConsole : DConsole {
     /* bool _canReadline = (extension_loaded("readline") && streamLocation == "uim://stdin");
         auto anInput = fopen(streamLocation, "rb");
         if (!anInput) {
-            throw new DException("Cannot open handle `%s`".format(streamLocation));
+            throw new UIMException("Cannot open handle `%s`".format(streamLocation));
         } */
     /* _input = anInput; */
   }

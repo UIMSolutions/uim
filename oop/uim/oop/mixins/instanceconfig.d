@@ -189,7 +189,7 @@ mixin template TInstanceConfig() {
         string[] stack = keysToWrite.split(".");
         stack.each!((key) {
             if (!isArray(update)) {
-                throw new DException("Cannot set `%s` value.".format(keysToWrite));
+                throw new UIMException("Cannot set `%s` value.".format(keysToWrite));
             }
             update[key] = update.get(key, null);
             update = &update[key];
@@ -211,7 +211,7 @@ mixin template TInstanceConfig() {
 
         foreach (index, myKey; mystack) {
             if (!isArray(update)) {
-                throw new DException("Cannot unset `%s` value.".format(keyToDelete));
+                throw new UIMException("Cannot unset `%s` value.".format(keyToDelete));
             }
             if (!update.hasKey(myKey)) {
                 break;

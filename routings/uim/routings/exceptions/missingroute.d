@@ -3,14 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.routings.exceptions.missingroute;UIMException
+module uim.routings.exceptions.missingroute;
 
 import uim.routings;
 
 @safe: 
 
 // Exception raised when a URL cannot be reverse routed or when a URL cannot be parsed.
-class DMissingRouteException : DException {
+class DMissingRouteException : UIMException {
     mixin(ExceptionThis!("MissingRoute"));
  
    override bool initialize(Json[string] initData = null) {
@@ -18,8 +18,7 @@ class DMissingRouteException : DException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "A route matching `%s` could not be found.");
+    messageTemplate("default", "A route matching `%s` could not be found.");
 
     return true;
   }

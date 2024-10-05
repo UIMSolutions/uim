@@ -68,7 +68,7 @@ class DSchemaLoader {
             
             auto sql = file_get_contents(filePath);
             if (sql.isEmpty) {
-                throw new DException("Cannot read file content of `%s`".format(filePath));
+                throw new UIMException("Cannot read file content of `%s`".format(filePath));
             }
             // Use the underlying PDO connection so we can avoid prepared statements
             // which don"t support multiple queries in postgres.

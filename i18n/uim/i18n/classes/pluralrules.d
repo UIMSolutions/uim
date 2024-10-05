@@ -174,7 +174,7 @@ class DPluralRules {
                     (ruleNumber == 2 ? 1 :
                     (ruleNumber != 8 && ruleNumber != 11 ? 2 : 3)),
             15: ruleNumber % 10 != 1 || ruleNumber % 100 == 11 ? 1 : 0,
-            default: throw new DException("Unable to find plural rule number."),
+            default: throw new UIMException("Unable to find plural rule number."),
         }; */
     }
 }

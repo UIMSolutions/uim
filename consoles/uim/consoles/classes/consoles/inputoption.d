@@ -18,6 +18,7 @@ class DInputOptionConsole : DConsole {
 
     // Short (1 character) alias for the option.
     protected string _shortAlias;
+    
     //  Get the value of the short attribute.
     string shortAlias() {
         return _shortAlias;
@@ -27,7 +28,7 @@ class DInputOptionConsole : DConsole {
     protected string _help;
 
     // Default value for the option
-    // TODO protected string _default = null;
+    protected string _default = null;
 
     // An array of choices for the option.
     protected string[] _choices;

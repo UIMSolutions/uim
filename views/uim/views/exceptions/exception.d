@@ -27,9 +27,10 @@ class DViewException : UIMException {
   override void attributes(Json[string] newAttributes) {
     _attributes = newAttributes;
   }
-  
+
   override Json[string] attributes() {
     return super.attributes();
   }
 }
+
 mixin(ExceptionCalls!("View"));

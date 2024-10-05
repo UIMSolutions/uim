@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http.classes.clients.auth.oauth;UIMExceptionUIMExceptionUIMException
-
-import uim.http;
+module uim.http.classes.clients.auth.oauth;
+UIMExceptionUIMExceptionUIMExceptionimport uim.http;
 
 @safe:
 
@@ -26,8 +25,7 @@ class DOauth {
             return request;
         }
         authCredentials.set("method", authCredentials.isEmpty("method")
-            ? "hmac-sha1"
-            : authCredentials.getString("method").upper);
+                ? "hmac-sha1" : authCredentials.getString("method").upper);
 
         switch (authCredentials.getString("method")) {
         case "HMAC-SHA1":
@@ -52,7 +50,7 @@ class DOauth {
                 authCredentials["consumerSecret"],
                 authCredentials["token"],
                 authCredentials["tokenSecret"]
-           );
+            );
             if (!hasKeys) {
                 return request;
             }
@@ -61,7 +59,8 @@ class DOauth {
 
         default:
             throw new UIMException(
-                "Unknown Oauth signature method `%s`.".format(authCredentials["method"]));
+                "Unknown Oauth signature method `%s`.".format(
+                    authCredentials["method"]));
         }
         return request.withHeader("Authorization", aValue);
     }
@@ -122,14 +121,15 @@ class DOauth {
             someValues.set("oauth_realm", authCredentials["realm"]);
         }
         string[] key = [
-            authCredentials.getString("consumerSecret"), authCredentials.getString("tokenSecret")
+            authCredentials.getString("consumerSecret"),
+            authCredentials.getString("tokenSecret")
         ];
         // key = array_map(_encode(...), key);
         key = key.join("&");
 
         someValues.set("oauth_signature", base64_encode(
-            hash_hmac("sha1", baseString, key, true)
-       ));
+                hash_hmac("sha1", baseString, key, true)
+        ));
 
         return _buildAuth(someValues);
     }
@@ -225,7 +225,7 @@ class DOauth {
      * - Sort keys & values by byte value.
      */
     protected string _normalizedParams(Request request, Json[string] oauthData) {
-        auto aQuery = parse_url(/* (string)  */request.getUri(), UIM_URL_QUERY);
+        auto aQuery = parse_url( /* (string)  */ request.getUri(), UIM_URL_QUERY);
         // parse_str((string) aQuery, aQueryArgs);
 
         auto post = null;
@@ -253,8 +253,7 @@ class DOauth {
                 // Numeric keys result in a=b&a=c. While this isn`t
                 // standard behavior in D, it is common in other platforms.
                 kv.key = !isNumeric(kv.key)
-                    ? "{convertedPath}[{kv.key}]"
-                    : convertedPath;
+                    ? "{convertedPath}[{kv.key}]" : convertedPath;
             }
             if (isArray(kv.value)) {
                 uksort(kv.value, "strcmp");
@@ -270,7 +269,7 @@ class DOauth {
     protected string _buildAuth(Json[string] oauthData) {
         string result = "OAuth ";
         string[] params = someData.byKeyValue
-            .map!(kv => kv.key ~ "=\"" ~ _encode(/* (string)  */kv.value) ~ "\"").array;
+            .map!(kv => kv.key ~ "=\"" ~ _encode( /* (string)  */ kv.value) ~ "\"").array;
 
         result ~= params.join(",");
 

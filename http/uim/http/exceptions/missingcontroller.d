@@ -11,7 +11,7 @@ import uim.http;
 
 // Exception used when a controller cannot be found.
 class MissingControllerException : UIMException {
- 
+
     protected int _defaultCode = 404;
 
     protected string _messageTemplate = "Controller class `%s` could not be found.";

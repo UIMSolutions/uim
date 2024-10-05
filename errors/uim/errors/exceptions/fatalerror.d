@@ -17,7 +17,7 @@ class DFatalErrorException : UIMException {
         string fileName = null,
         int lineNumber = 0,
         Throwable previousException = null
-   ) {
+    ) {
         super(message, code, previousException);
         if (fileName) {
             _fileName = fileName;
@@ -25,7 +25,7 @@ class DFatalErrorException : UIMException {
         if (lineNumber > 0) { // TODO Logical error 
             _lineNumber = lineNumber;
         }
-    } 
+    }
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -37,6 +37,7 @@ class DFatalErrorException : UIMException {
         return true;
     }
 }
+
 mixin(ExceptionCalls!("FatalError"));
 
 unittest {

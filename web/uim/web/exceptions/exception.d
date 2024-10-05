@@ -15,7 +15,7 @@ class DWebException : UIMException {
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
-        return false;
+      return false;
     }
 
     messageTemplate("default", "Exception in libary uim-web");
@@ -23,4 +23,5 @@ class DWebException : UIMException {
     return true;
   }
 }
+
 mixin(ExceptionCalls!("Web"));

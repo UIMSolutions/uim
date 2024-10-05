@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.caches.classes.engines.memory;UIMException
-
-import uim.caches;
+module uim.caches.classes.engines.memory;
+UIMExceptionimport uim.caches;
 
 @safe:
 

@@ -18,10 +18,10 @@ class DMVCException : UIMException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-mvc");
+    messageTemplate("default", "Exception in libary uim-mvc");
 
     return true;
   }
 }
+
 mixin(ExceptionCalls!("MVC"));

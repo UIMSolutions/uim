@@ -23,6 +23,7 @@ class DErrorsException : UIMException {
     return true;
   }
 }
+
 mixin(ExceptionCalls!("Errors"));
 
 unittest {

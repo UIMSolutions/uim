@@ -23,6 +23,7 @@ class DI18nException : UIMException {
     return true;
   }
 }
+
 mixin(ExceptionCalls!("I18n"));
 
 unittest {

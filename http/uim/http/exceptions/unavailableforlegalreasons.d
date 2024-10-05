@@ -25,4 +25,5 @@ class DUnavailableForLegalReasonsException : DHttpException {
 
     protected int _defaultCode = 451;
 }
+
 mixin(ExceptionCalls!("UnavailableForLegalReasons"));

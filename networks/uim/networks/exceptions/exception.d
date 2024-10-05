@@ -18,10 +18,10 @@ class DNetworksException : UIMException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-networks");
+    messageTemplate("default", "Exception in libary uim-networks");
 
     return true;
   }
 }
+
 mixin(ExceptionCalls!("Networks"));

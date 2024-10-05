@@ -23,6 +23,7 @@ class DRoutingsException : UIMException {
     return true;
   }
 }
+
 mixin(ExceptionCalls!("Routings"));
 
 unittest {

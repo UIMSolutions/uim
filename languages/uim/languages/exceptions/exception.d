@@ -19,7 +19,7 @@ class DLanguagesException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-languages");
+      .messageTemplate("default", "Error in libary uim-languages");
 
     return true;
   }

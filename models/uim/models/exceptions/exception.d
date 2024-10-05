@@ -17,7 +17,7 @@ class DModelException : DException {
     if (!super.initialize(initData)) { return false; }
 
     this
-      .messageTemplate("Error in libary uim-models");
+      .messageTemplate("default", "Error in libary uim-models");
 
     return true;
   }

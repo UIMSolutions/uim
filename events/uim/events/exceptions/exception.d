@@ -19,7 +19,7 @@ class DEventsException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-events");
+      .messageTemplate("default", "Error in libary uim-events");
 
     return true;
   }

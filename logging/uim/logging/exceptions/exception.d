@@ -19,7 +19,7 @@ class DLoggingException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-logging");
+      .messageTemplate("default", "Error in libary uim-logging");
 
     return true;
   }

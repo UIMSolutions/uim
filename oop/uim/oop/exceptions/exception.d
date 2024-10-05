@@ -52,10 +52,6 @@ class UIMException : Exception {
     return (templateName in _stringContents) ? templateName : null;
   };
 
-  void messageTemplate(string templateText) {
-    _stringContents["default"] = templateText;
-  };
-
   void messageTemplate(string templateName, string templateText) {
     _stringContents[templateName] = templateText;
   };

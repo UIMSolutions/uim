@@ -19,7 +19,7 @@ class DMVCException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-mvc");
+      .messageTemplate("default", "Error in libary uim-mvc");
 
     return true;
   }

@@ -19,7 +19,7 @@ class DI18nException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-i18n");
+      .messageTemplate("default", "Error in libary uim-i18n");
 
     return true;
   }

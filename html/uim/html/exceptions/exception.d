@@ -19,7 +19,7 @@ class DHtmlException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-html");
+      .messageTemplate("default", "Error in libary uim-html");
 
     return true;
   }

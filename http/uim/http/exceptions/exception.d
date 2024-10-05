@@ -26,7 +26,7 @@ class DHttpException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-http");
+      .messageTemplate("default", "Error in libary uim-http");
 
     return true;
   }

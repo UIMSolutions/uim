@@ -19,7 +19,7 @@ class DFilesystemsException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-filesystems");
+      .messageTemplate("default", "Error in libary uim-filesystems");
 
     return true;
   }

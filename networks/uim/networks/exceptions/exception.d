@@ -19,7 +19,7 @@ class DNetworksException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-networks");
+      .messageTemplate("default", "Error in libary uim-networks");
 
     return true;
   }

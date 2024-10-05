@@ -19,7 +19,7 @@ class DGuiException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-gui");
+      .messageTemplate("default", "Error in libary uim-gui");
 
     return true;
   }

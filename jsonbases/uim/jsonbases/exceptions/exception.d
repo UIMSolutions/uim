@@ -17,7 +17,7 @@ class DJsonBaseException : DException {
     }
 
     this
-      .messageTemplate("Error in libary uim-jsonbases");
+      .messageTemplate("default", "Error in libary uim-jsonbases");
 
     return true;
   }

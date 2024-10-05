@@ -18,10 +18,13 @@ class DRoutingsException : DException {
       return false;
     }
 
-    this
-      .messageTemplate("Error in libary uim-routings");
+    messageTemplate("default", "Exception in libary uim-routings");
 
     return true;
   }
 }
 mixin(ExceptionCalls!("Routings"));
+
+unittest {
+  assert(RoutingsException);
+}

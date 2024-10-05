@@ -18,8 +18,7 @@ class D_CollectionsException : UIMException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Exception in libary uim-collections");
+    messageTemplate("default", "Exception in libary uim-collections");
 
     return true;
   }

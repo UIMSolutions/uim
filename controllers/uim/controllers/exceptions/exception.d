@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.controllers.exceptions.exception;    UIMException
-
-import uim.controllers;
+module uim.controllers.exceptions.exception;
+UIMExceptionimport uim.controllers;
 
 @safe:
 
@@ -18,12 +17,12 @@ class DControllersException : DException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-controllers");
+    messageTemplate("default", "Exception in libary uim-controllers");
 
     return true;
   }
 }
+
 mixin(ExceptionCalls!("Controllers"));
 
 unittest {

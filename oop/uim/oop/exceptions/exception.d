@@ -25,7 +25,7 @@ class UIMException : Exception {
   }
 
   bool initialize(Json[string] initData = null) {
-    attributes.set(initData);
+    _attributes.set(initData);
     messageTemplate("default", "");
     return true;
   }

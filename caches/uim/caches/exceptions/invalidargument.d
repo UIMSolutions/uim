@@ -18,8 +18,7 @@ class DInvalidArgumentException : DCachesException /*, IInvalidArgument */ {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Invalid Argument Exception in Cache");
+    messageTemplate("default", "Invalid Argument Exception in Cache");
 
     return true;
   }

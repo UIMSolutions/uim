@@ -4,12 +4,12 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.i18n.mixins.dateformat;
-UIMExceptionUIMExceptionimport uim.i18n;
+
+import uim.i18n;
 
 @safe:
 /**
  * mixin template for date formatting methods shared by both Time & Date.
- *
  * This template expects that the implementing class define _toStringFormat.
  */
 mixin template TDateFormat() {

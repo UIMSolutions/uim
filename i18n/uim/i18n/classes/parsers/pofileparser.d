@@ -4,7 +4,8 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.i18n.classes.parsers.pofileparser;
-UIMExceptionUIMExceptionimport uim.i18n;
+
+import uim.i18n;
 
 @safe:
 

@@ -4,7 +4,8 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.i18n.classes.parsers.mofileparser;
-UIMExceptionUIMExceptionUIMExceptionUIMExceptionimport uim.i18n;
+
+import uim.i18n;
 
 @safe:
 // Parses file in MO format

@@ -110,7 +110,7 @@ class DContextFactory {
             }
         }
         if (context !is null) {
-            throw new DException(
+            throw new UIMException(
                 "No context provider found for value of type `%s`."
                 ~ " Use `null` as 1st argument of FormHelper.create() to create a context-less form."
                 .format(get_debug_type(mydata["entity"])

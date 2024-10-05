@@ -111,7 +111,7 @@ class DPaginatorHelper : DHelper {
             });
         }
         if (_paginated is null) {
-            throw new DException(
+            throw new UIMException(
                 "You must set a pagination instance using `setPaginated()` first");
         }
         return _paginated;

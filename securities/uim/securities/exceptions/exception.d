@@ -3,14 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.securities.exceptions.exception;UIMException
+module uim.securities.exceptions.exception;
 
 import uim.securities;
 
 @safe:
 
 // Base Securities exception.
-class DSecuritiesException : DException {
+class DSecuritiesException : UIMException {
   mixin(ExceptionThis!("Securities"));
 
   override bool initialize(Json[string] initData = null) {
@@ -18,8 +18,7 @@ class DSecuritiesException : DException {
       return false;
     }
 
-    this
-      .messageTemplate("default", "Error in libary uim-securities");
+    messageTemplate("default", "Exception in libary uim-securities");
 
     return true;
   }

@@ -105,7 +105,7 @@ class DEntityContext : DContext {
             mytable = getTableLocator().get(mytable);
         } */
         /* if (!(cast(Table) mytable)) {
-            throw new DException("Unable to find table class for current entity.");
+            throw new UIMException("Unable to find table class for current entity.");
         } */
 
         /* auto aliasName = _rootName = mytable.aliasName();
@@ -285,7 +285,7 @@ class DEntityContext : DContext {
             }
             myentity = mynext;
         } */
-        /* throw new DException(
+        /* throw new UIMException(
             "Unable to fetch property `%s`.".format(
             join(".", mypath)
        )); */
@@ -309,7 +309,7 @@ class DEntityContext : DContext {
 
         bool isOneElement = mypath.length == 1;
         if (isOneElement && _isCollection) {
-            /* throw new DException(
+            /* throw new UIMException(
                 "Unable to fetch property `%s`."
                     .format(join(".", mypath))); */
         }
@@ -347,7 +347,7 @@ class DEntityContext : DContext {
             }
             myentity = mynext;
         } */
-        /* throw new DException(
+        /* throw new UIMException(
             "Unable to fetch property `%s`.".format(join(".", mypath)
         )); */
         return null;
@@ -570,7 +570,7 @@ class DEntityContext : DContext {
         string[] pathParts = fieldPath.split(".");
         /* try {
             [myentity, myremainingParts] = this.leafEntity(pathParts);
-        } catch (DException) {
+        } catch (UIMException) {
             return null;
         } */
        /*  if (cast(IEntity) myentity && count(myremainingParts) == 0) {

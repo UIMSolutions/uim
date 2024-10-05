@@ -127,7 +127,7 @@ class DStringContents : UIMObject {
      */
     void load(string fileName) {
         if (fileName.isEmpty) {
-            // TODO throw new DException("String template filename cannot be an empty string");
+            // TODO throw new UIMException("String template filename cannot be an empty string");
         }
 
         /* 

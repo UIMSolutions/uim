@@ -106,7 +106,7 @@ class DClientResponse { // }: Message : IResponse {
      */
     protected string _decodeGzipBody(string encodedBody) {
         if (!function_hasKey("gzinflate")) {
-            throw new DException("Cannot decompress gzip response body without gzinflate()");
+            throw new UIMException("Cannot decompress gzip response body without gzinflate()");
         }
         
         auto anOffset = 0;
@@ -118,7 +118,7 @@ class DClientResponse { // }: Message : IResponse {
         if (subString(encodedBody,  anOffset, 1) == "\x08") {
             return /* (string) */gzinflate(subString(encodedBody,  anOffset + 8));
         }
-        throw new DException("Invalid gzip response");
+        throw new UIMException("Invalid gzip response");
     }
     
     /**

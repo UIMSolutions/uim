@@ -257,7 +257,7 @@ class DSession {
         }
         foreach (setting, value; options) {
             if (ini_set(setting, to!string(value)) == false) {
-                throw new DException(
+                throw new UIMException(
                     "Unable to configure the session, setting %s failed.".format(setting)
                );
             }
@@ -278,7 +278,7 @@ class DSession {
             return _started = true;
         }
         if (session_status() == UIM_SESSION_ACTIVE) {
-            throw new DException("Session was already started");
+            throw new UIMException("Session was already started");
         }
         filename = line = null;
         if (ini_get("session.use_cookies") && headers_sent(filename, line)) {
@@ -287,7 +287,7 @@ class DSession {
             return false;
         }
         if (!session_start()) {
-            throw new DException("Could not start the session");
+            throw new UIMException("Could not start the session");
         }
         _started = true;
 
@@ -312,7 +312,7 @@ class DSession {
             return true;
         }
         if (!session_write_close()) {
-            throw new DException("Could not close the session");
+            throw new UIMException("Could not close the session");
         }
         _started = false;
 
@@ -364,7 +364,7 @@ class DSession {
      */
     Json readOrFail(string sessionName) {
         if (!this.check(sessionName)) {
-            throw new DException("Expected session key `%s` not found.".format(sessionName));
+            throw new UIMException("Expected session key `%s` not found.".format(sessionName));
         }
         return _read(sessionName);
     }
@@ -398,7 +398,7 @@ class DSession {
                         _headerSentInfo["line"]
                    );
             }
-            throw new DException(message);
+            throw new UIMException(message);
         }
 
         auto someData = _SESSION ?  _SESSION : [];

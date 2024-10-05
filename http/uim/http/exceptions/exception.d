@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http.exceptions.exception;UIMExceptionUIMException
+module uim.http.exceptions.exception;
 
 import uim.http;
 
@@ -17,7 +17,7 @@ import uim.http;
  * You may also use this as a meaningful bridge to {@link \UIM\Core\Exception\DException}, e.g.:
  * throw new \UIM\Network\Exception\HttpException("HTTP Version Not Supported", 505);
  */
-class DHttpException : DException {
+class DHttpException : UIMException {
   mixin(ExceptionThis!("Http"));
 
   override bool initialize(Json[string] initData = null) {
@@ -45,4 +45,5 @@ class DHttpException : DException {
     this.headers[aHeader] = aValue;
   } */
 }
+
 mixin(ExceptionCalls!("Http"));

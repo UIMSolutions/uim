@@ -3,4 +3,23 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http.exceptions.methodnotallowed;import uim.http;@safe:/** * Represents an HTTP 405 error. */class MethodNotAllowedException : DHttpException {     protected int _defaultCode = 405;    /*     this(string exceptionMessage = null, int statusCode = null, Throwable previousException = null) {        if (exceptionMessage.isEmpty) {            exceptionMessage = "Method Not Allowed";        }        super(exceptionMessage, statusCode, previousException);    }    */}
+module uim.http.exceptions.methodnotallowed;
+
+import uim.http;
+
+@safe:
+
+// Represents an HTTP 405 error.
+class MethodNotAllowedException : DHttpException {
+
+    protected int _defaultCode = 405;
+
+    /* 
+    this(string exceptionMessage = null, int statusCode = null, Throwable previousException = null) {
+        if (exceptionMessage.isEmpty) {
+            exceptionMessage = "Method Not Allowed";
+        }
+        super(exceptionMessage, statusCode, previousException);
+    }
+    */
+}

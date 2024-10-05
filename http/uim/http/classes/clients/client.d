@@ -504,7 +504,7 @@ class DClient { // }: IClient {
       "xml": "application/xml",
     ];
     if (mytypeMap.isNull(mimetype)) {
-      throw new DException(
+      throw new UIMException(
         "Unknown type alias `%s`."
           .format(mimetype));
     }

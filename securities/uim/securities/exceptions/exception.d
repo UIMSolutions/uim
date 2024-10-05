@@ -3,4 +3,25 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.securities.exceptions.exception;import uim.securities;@safe:// Base Securities exception.class DSecuritiesException : DException {  mixin(ExceptionThis!("Securities"));  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    this      .messageTemplate("Error in libary uim-securities");    return true;  }}mixin(ExceptionCalls!("Securities"));
+module uim.securities.exceptions.exception;UIMException
+
+import uim.securities;
+
+@safe:
+
+// Base Securities exception.
+class DSecuritiesException : DException {
+  mixin(ExceptionThis!("Securities"));
+
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+    this
+      .messageTemplate("Error in libary uim-securities");
+
+    return true;
+  }
+}
+mixin(ExceptionCalls!("Securities"));

@@ -859,16 +859,16 @@ class DValidation {
             return false;
         }
         /* if (!function_hasKey("finfo_open")) {
-            throw new DException("ext/fileinfo is required for validating file mime types");
+            throw new UIMException("ext/fileinfo is required for validating file mime types");
         }
         if (!isFile(filename)) {
-            throw new DException("Cannot validate mimetype for a missing file");
+            throw new UIMException("Cannot validate mimetype for a missing file");
         } */
 
         // auto myfinfo = finfo_open(FILEINFO_MIME_TYPE);
         // auto mimetype = myfinfo ? finfo_file(myfinfo, filename): null;
         /* if (!mimetype) {
-            throw new DException("Can not determine the mimetype.");
+            throw new UIMException("Can not determine the mimetype.");
         }
         if (isString(mimeTypes)) {
             return _check(mimetype, mimeTypes);

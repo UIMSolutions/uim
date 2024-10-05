@@ -451,7 +451,7 @@ class DFormHelper : DHelper {
     // Get form protector instance.
     DFormProtector getFormProtector() {
         /* if (_formProtector.isNull) {
-            throw new DException(
+            throw new UIMException(
                 "`FormProtector` instance has not been created. Ensure you have loaded the `FormProtectionComponent`" ~
                     " in your controller and called `FormHelper.create()` before calling `FormHelper.unlockField()`."
             );
@@ -1241,7 +1241,7 @@ class DFormHelper : DHelper {
      */
     string __call(string methodName, Json[string] params) {
         /* if (isEmpty(params)) {
-            throw new DException(
+            throw new UIMException(
                 "Missing field name for `FormHelper.%s`.".format(methodName));
         }
         // options = params[1] ? params[1] : [];

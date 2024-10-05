@@ -3,14 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.containers.exceptions.exception;UIMException
+module uim.containers.exceptions.exception;
 
 import uim.containers;
 
 @safe:
 
 // Base containers exception.
-class DContainersException : DException {
+class DContainersException : UIMException {
   mixin(ExceptionThis!("Containers"));
 
   override bool initialize(Json[string] initData = null) {
@@ -18,7 +18,7 @@ class DContainersException : DException {
       return false;
     }
 
-    messageTemplate("default", "Error in libary uim-containers");
+    messageTemplate("default", "Exception in libary uim-containers");
 
     return true;
   }

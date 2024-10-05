@@ -343,7 +343,7 @@ class DEventManager : IEventManager {
                 subject = event.getSubject();
                 properties["_dispatchedEvents").concat( event.name ~ " with subject " ~ subject
                     .classname;
-            } catch (DException) {
+            } catch (UIMException) {
                 properties["_dispatchedEvents").concat( event.name ~ " with no subject";
             }
         } */

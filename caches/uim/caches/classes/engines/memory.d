@@ -76,7 +76,7 @@ class DMemoryCacheEngine : DCacheEngine {
      * /
 
     if (!extension_loaded("memcached")) {
-      throw new DException("The `memcached` extension must be enabled to use MemoryEngine.");
+      throw new UIMException("The `memcached` extension must be enabled to use MemoryEngine.");
     }
     /* _serializers = [
       "igbinary": Memory: : SERIALIZER_IGBINARY,

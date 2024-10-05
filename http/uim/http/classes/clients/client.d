@@ -557,7 +557,7 @@ class DClient { // }: IClient {
     myname = capitalize(myauth["type"]);
     myclass = App.classname(myname, "Http/Client/Auth");
     if (!myclass) {
-      throw new DException(
+      throw new UIMException(
         "Invalid authentication type `%s`.".format(
           myname)
       );

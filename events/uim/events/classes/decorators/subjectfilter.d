@@ -31,7 +31,7 @@ class DSubjectFilterDecorator : DDecorator {
     // Checks if the event is triggered for this listener.
    bool canTrigger(IEvent eventToCheck) {
         if (!_options.hasKey("allowedSubject")) {
-            throw new DException(class ~ " Missing subject filter options!");
+            throw new UIMException(class ~ " Missing subject filter options!");
         }
         if (_options.get("allowedSubject"].isString) {
            _options.set("allowedSubject", [_options.get("allowedSubject"]);
@@ -39,7 +39,7 @@ class DSubjectFilterDecorator : DDecorator {
         IEventObject subject;
         try {
             subject = eventToCheck.subject();
-        } catch (DException) {
+        } catch (UIMException) {
             return false;
         }
 

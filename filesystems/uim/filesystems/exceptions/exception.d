@@ -10,7 +10,7 @@ import uim.filesystems;
 @safe:
 
 // I18n exception.
-class DFilesystemsException : DException {
+class DFilesystemsException : UIMException {
   mixin(ExceptionThis!("Filesystems"));
 
   override bool initialize(Json[string] initData = null) {
@@ -18,7 +18,7 @@ class DFilesystemsException : DException {
       return false;
     }
 
-    messageTemplate("default", "Error in libary uim-filesystems");
+    messageTemplate("default", "Exception in libary uim-filesystems");
 
     return true;
   }

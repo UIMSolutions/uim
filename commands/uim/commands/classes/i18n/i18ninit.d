@@ -57,7 +57,7 @@ class DI18nInitCommand : DCommand {
 
                 auto content = file_get_contents(sourceFolder ~ filename);
                 if (content == false) {
-                    throw new DException("Cannot read file content of `%s`".format(sourceFolder ~ filename));
+                    throw new UIMException("Cannot read file content of `%s`".format(sourceFolder ~ filename));
                 }
                 aConsoleIo.createFile(targetFolder ~ newFilename, content);
                 countFiles++;

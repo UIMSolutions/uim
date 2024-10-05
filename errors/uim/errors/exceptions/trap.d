@@ -53,7 +53,6 @@ class DExceptionTrap {
 
     protected Json[string] _configData;
 
-
     /**
      * A list of handling callbacks.
      *
@@ -73,32 +72,34 @@ class DExceptionTrap {
     // Track if this trap was removed from the global handler.
     protected bool isDisabled;
 
-     this() {
-      initialize;
-     }
+    this() {
+        initialize;
+    }
+
     this(Json[string] options = null) {
         this();
         _configData = merge(options, _configData);
     }
 
-  bool initialize(Json[string] initData = null) {
-    configuration
-      .setDefault("exceptionRenderer", Json(null))
-      .setDefault("logger", ErrorLogger.classname)
-      .setDefault("stderr", Json(null))
-      .setDefault("log", true)
-      .setDefault("skipLog", Json.emptyArray)
-      .setDefault("trace", false)
-      .setDefault("extraFatalErrorMemory", 4);
-    _configData = merge(initData, defaultData);
-    return true;
-  }
-    
+    bool initialize(Json[string] initData = null) {
+        configuration
+            .setDefault("exceptionRenderer", Json(null))
+            .setDefault("logger", ErrorLogger.classname)
+            .setDefault("stderr", Json(null))
+            .setDefault("log", true)
+            .setDefault("skipLog", Json.emptyArray)
+            .setDefault("trace", false)
+            .setDefault("extraFatalErrorMemory", 4);
+        _configData = merge(initData, defaultData);
+        return true;
+    }
+
     // Get an instance of the renderer.
     IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
         auto myRequest = serverRequest.isNull ? Router.getRequest() : serverRequest;
 
-        string classname = _configData.hasKey("exceptionRenderer") ? _configuration.get("exceptionRenderer") : chooseRenderer();
+        string classname = _configData.hasKey("exceptionRenderer") ? _configuration.get(
+            "exceptionRenderer") : chooseRenderer();
         if (isString(classname)) {
             /* if (!isSubclass_of(classname, IExceptionRenderer.classname)) {
                 throw new DInvalidArgumentException(
@@ -109,21 +110,22 @@ class DExceptionTrap {
             // return new classname(exceptionToRender, myRequest, _configData);
         }
         // return classname(exceptionToRender, myRequest);
-        return null; 
+        return null;
     }
-    
+
     // Choose an exception renderer based on config or the SAPI
     protected string chooseRenderer() {
-        return UIM_SAPI == "cli" ? ConsoleExceptionRenderer.classname : WebExceptionRenderer.classname;
+        return UIM_SAPI == "cli" ? ConsoleExceptionRenderer.classname
+            : WebExceptionRenderer.classname;
     }
-    
+
     // Get an instance of the logger.
     IErrorLogger logger() {
-         classname = _configData.hasKey("logger", _defaultConfigData["logger"]);
+        classname = _configData.hasKey("logger", _defaultConfigData["logger"]);
 
         return new classname(_config);
     }
-    
+
     /**
      * Attach this ExceptionTrap to D`s default exception handler.
      *
@@ -137,7 +139,7 @@ class DExceptionTrap {
 
         ini_set("assert.exception", "1"); */
     }
-    
+
     /**
      * Remove this instance from the singleton
      * If this instance is not currently the registered singleton nothing happens.
@@ -148,7 +150,7 @@ class DExceptionTrap {
             RegisteredTrap = null;
         }
     }
-    
+
     /**
      * Get the registered global instance if set.
      *
@@ -159,7 +161,7 @@ class DExceptionTrap {
     static auto DExceptionTrap instance() {
         return RegisteredTrap;
     }
-    
+
     /**
      * Handle uncaught exceptions.
      *
@@ -175,10 +177,13 @@ class DExceptionTrap {
         logException(anException, myRequest);
 
         try {
-            auto event = dispatchEvent("Exception.beforeRender", ["exception": anException, "request": myRequest]);
+            auto event = dispatchEvent("Exception.beforeRender", [
+                    "exception": anException,
+                    "request": myRequest
+                ]);
             auto myException = event.getData("exception");
-            assert(cast(Throwable)myException);
-            
+            assert(cast(Throwable) myException);
+
             auto renderer = this.renderer(myException, myRequest);
             renderer.write(event.getResult() ? event.getResult() : renderer.render());
         } catch (Throwable myException) {
@@ -189,7 +194,7 @@ class DExceptionTrap {
             exit(1);
         }
     }
-    
+
     // Shutdown handler - Convert fatal errors into exceptions that we can render.
     void handleShutdown() {
         if (this.disabled) {
@@ -203,7 +208,7 @@ class DExceptionTrap {
         if (!error.isArray) {
             return;
         }
-        
+
         auto fatals = [
             ERRORS.USER_ERROR,
             ERRORS.ERROR,
@@ -217,20 +222,20 @@ class DExceptionTrap {
             error["message"],
             error["file"],
             error["line"]
-       );
+        );
     }
-    
+
     // Increases the UIM "memory_limit" ini setting by the specified amount in kilobytes
     void increaseMemoryLimit(int additionalKb) {
         string aLimit = 0; // ini_get("memory_limit");
         if (aLimit == false || aLimit is null || aLimit == "-1") {
             return;
         }
-        
+
         auto aLimit = aLimit.strip;
         string units = subString(aLimit, -1).upper;
         auto myCurrent = to!int(subString(aLimit, 0, -1));
-        
+
         if (units == "M") {
             myCurrent *= 1024;
             units = "K";
@@ -243,12 +248,12 @@ class DExceptionTrap {
             // ini_set("memory_limit", ceil(current + additionalKb) ~ "K");
         }
     }
-    
+
     //Display/Log a fatal error.
     void handleFatalError(int errorCode, string errorDescription, string fileName, int triggerdLine) {
         this.handleException(new DFatalErrorException("Fatal Error: " ~ errorDescription, 500, fileName, triggerdLine));
     }
-    
+
     /**
      * Log an exception.
      *
@@ -264,7 +269,7 @@ class DExceptionTrap {
         shouldLog = configuration.get("log");
         if (shouldLog) {
             foreach (classname; _configData.hasKey("skipLog")) {
-                if (cast(classname)exceptionToLog) {
+                if (cast(classname) exceptionToLog) {
                     shouldLog = false;
                     break;
                 }
@@ -274,7 +279,7 @@ class DExceptionTrap {
             logger().logException(exceptionToLog, serverRequest, configuration.get("trace"));
         }
     }
-    
+
     /**
      * Trigger an error that occurred during rendering an exception.
      *
@@ -285,14 +290,14 @@ class DExceptionTrap {
      * \Throwable logException Exception to log
      */
     void logInternalError(Throwable logException) {
-        string message = 
+        string message =
             "[%s] %s (%s:%s)" // Keeping same message format
             .format(
                 logException.classname,
                 logException.message(),
                 logException.getFile(),
                 logException.getLine(),
-           );
+            );
         trigger_error(message, ERRORS.USER_ERROR);
-    } 
+    }
 }

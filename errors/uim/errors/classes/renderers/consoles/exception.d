@@ -62,7 +62,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
         ];
 
         auto debugValue = configuration.get("debug");
-        if (debugValue && cast(DException) exceptionToRender) {
+        if (debugValue && cast(UIMException) exceptionToRender) {
             auto attributes = exceptionToRender.getAttributes();
             if (attributes) {
                 result ~= "";

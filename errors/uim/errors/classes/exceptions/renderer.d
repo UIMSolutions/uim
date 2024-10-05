@@ -47,7 +47,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     // Controller instance.
     // protected IErrorController controller;
 
-    // Template to render for {@link uim.Core\exceptions.DException}
+    // Template to render for {@link uim.Core\exceptions.UIMException}
     protected string _template = "";
 
     // The method corresponding to the Exception this object is for.
@@ -170,7 +170,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         auto myUrl = _controller.getRequest().getRequestTarget();
         auto response = _controller.getResponse();
 
-        if (cast(DException) exception) {
+        if (cast(UIMException) exception) {
             /** @psalm-suppress DeprecatedMethod */
             /* foreach (/* (array) * /exception.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);
@@ -212,7 +212,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         _controller.set(viewVars);
         _controller.viewBuilder().setOption("serialize", serialize);
 
-        if (cast(DException) exception && isDebug) {
+        if (cast(UIMException) exception && isDebug) {
             _controller.set(exception.getAttributes());
         }
         _controller.setResponse(response);

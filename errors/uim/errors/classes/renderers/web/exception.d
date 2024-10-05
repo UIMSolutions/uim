@@ -42,7 +42,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     // Controller instance.
     protected IErrorController controller;
 
-    // Template to render for {@link \UIM\Core\Exception\DException}
+    // Template to render for {@link \UIM\Core\Exception\UIMException}
     protected string atemplate = "";
 
     // The method corresponding to the Exception this object is for.
@@ -197,7 +197,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         _controller.set(viewVars);
         _controller.viewBuilder().setOption("serialize", serialize);
 
-        if (cast(DException) exception && isDebug) {
+        if (cast(UIMException) exception && isDebug) {
             _controller.set(exception.getAttributes());
         }
         _controller.setResponse(response);

@@ -3,4 +3,13 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.models.classes.attributes.doubles.amperes;public {   import uim.models.classes.attributes.doubles.amperes.ampere;}public {   import uim.models.classes.attributes.doubles.amperes.micro;  import uim.models.classes.attributes.doubles.amperes.milli;}
+module uim.models.classes.attributes.doubles.amperes;
+
+public {
+  import uim.models.classes.attributes.doubles.amperes.ampere;
+}
+
+public {
+  import uim.models.classes.attributes.doubles.amperes.micro;
+  import uim.models.classes.attributes.doubles.amperes.milli;
+}

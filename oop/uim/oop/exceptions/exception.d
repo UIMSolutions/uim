@@ -8,7 +8,7 @@ module uim.oop.exceptions.exception;
 import uim.oop;
 
 @safe:
-class UIMException : Exception {
+class UIMException : Exception, IException {
   this() {
     this.initialize;
     super(message, __FILE__, cast(size_t) __LINE__, null);

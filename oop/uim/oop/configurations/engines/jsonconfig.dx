@@ -57,17 +57,17 @@ class DJsonConfig : DConfigEngine {
 
         auto JsonContent = file_get_contents(file);
         if (JsonContent == false) {
-            throw new DException("Cannot read file content of `%s`".format(file));
+            throw new UIMException("Cannot read file content of `%s`".format(file));
         }
          someValues = Json_decode(JsonContent, true);
         if (Json_last_error() != Json_ERROR_NONE) {
-            throw new DException(
+            throw new UIMException(
                 "Error parsing Json string fetched from config file `%s.Json`: %s"
                 .format(aKey, Json_last_error_msg()
             ));
         }
         if (!isArray(someValues)) {
-            throw new DException(
+            throw new UIMException(
                 "Decoding Json[string] configSettings = null file `%s.Json` did not return an array"
                 .format(aKey
             ));

@@ -71,7 +71,7 @@ class DIniConfig : DConfigEngine {
 
         contents = parse_ini_file(file, true);
         if (contents == false) {
-            throw new DException("Cannot parse INI file `%s`".format(file));
+            throw new UIMException("Cannot parse INI file `%s`".format(file));
         }
         if (_section && contents.hasKey(_section)) {
              someValues = _parseNestedValues(contents[_section]);

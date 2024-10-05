@@ -757,7 +757,7 @@ abstract class DTestCase : DBaseTestCase {
     
     protected void expectErrorHandlerMessageMatches(string regex, Closure aCallable, int errorLevel) {
         set_error_handler(static auto (int errno, string aerrstr): never {
-            throw new DException(errstr, errno);
+            throw new UIMException(errstr, errno);
         }, errorLevel);
 
         expectException(Exception.classname);

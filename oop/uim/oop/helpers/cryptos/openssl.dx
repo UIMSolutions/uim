@@ -25,7 +25,7 @@ class OpenSsl {
         auto decryptMethod = METHOD_AES_256_CBC;
         auto ivLength = openssl_cipher_iv_length(decryptMethod);
         if (ivLength == false) {
-            throw new DException("Cannot get the cipher iv length for `%s`".format(decryptMethod));
+            throw new UIMException("Cannot get the cipher iv length for `%s`".format(decryptMethod));
         }
         string iv = openssl_random_pseudo_bytes(ivLength);
         return myiv ~ openssl_encrypt(valueToEncrypt, decryptMethod, cipherKey, OPENSSL_RAW_DATA, iv);
@@ -36,7 +36,7 @@ class OpenSsl {
         string decryptMethod = METHOD_AES_256_CBC;
         size_t ivLength = openssl_cipher_iv_length(decryptMethod);
         if (ivLength == false) {
-            throw new DException("Cannot get the cipher iv length for `%s`".format(decryptMethod));
+            throw new UIMException("Cannot get the cipher iv length for `%s`".format(decryptMethod));
         }
         string iv = ciphertextToDecrypt[0..ivLength]; // TODO "8bit");
         string cipher = ciphertextToDecrypt[ivLength..]; // TODO "8bit");

@@ -55,7 +55,7 @@ class DFileConfigEngine : DConfigEngine {
         if (isArray(result)) {
             return result;
         }
-        throw new DException("Config file `%s` did not return an array".format(aKey ~ ".d."));
+        throw new UIMException("Config file `%s` did not return an array".format(aKey ~ ".d."));
     }
     
     /**

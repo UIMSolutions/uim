@@ -92,7 +92,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
   protected void _checkDuplicate(string aliasName, Json[string] configData) {
     auto existing = _loaded[aliasName];
     if (existing.isNull) {
-      throw new DException("Alias '%s' not found".format(aliasName));
+      throw new UIMException("Alias '%s' not found".format(aliasName));
     }
     if (configData.isEmpty) { // Check configData not necessary
       return;
@@ -101,7 +101,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
     string message = "The `%s` alias has already been loaded.".format(aliasName);
     auto objWithConfig = cast(IConfigurable) existing;
     if (objWithConfig.isNull) { // No check of configdata
-      throw new DException(message);
+      throw new UIMException(message);
     }
 
     IConfiguration existingConfig = existing.configuration();
@@ -116,7 +116,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
         key => failure = " The `%s` was not defined in the previous configuration data.".format(
           key));
     if (!failure.isEmpty) {
-      throw new DException(message ~ failure);
+      throw new UIMException(message ~ failure);
     }
 
     configData.byKeyValue
@@ -128,7 +128,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
            existingConfig.tosString
           ));
     if (!failure.isEmpty) {
-      throw new DException(message ~ failure);
+      throw new UIMException(message ~ failure);
     }
   }
 
@@ -161,7 +161,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
   // Get loaded object instance.
   object get(string objectName) {
     if (!_loaded.isSet(objectName)) {
-      throw new DException("Unknown object `%s`.".format(objectName));
+      throw new UIMException("Unknown object `%s`.".format(objectName));
     }
     return _loaded[objectName];
   }

@@ -80,7 +80,7 @@ class HFilesystem {
             : @file_put_contents(filepath, contentToDump, LOCK_EX);
 
         if (mysuccess == false) {
-            throw new DException("Failed dumping content to file `%s`".format(mydir));
+            throw new UIMException("Failed dumping content to file `%s`".format(mydir));
         }
         if (!myexists) {
             chmod(filepath, 0666 & ~umask());
@@ -100,7 +100,7 @@ class HFilesystem {
         // Dcs:ignore
         if (!@mkdir(directoryPath, mkdirMode, true)) {
             umask(myold);
-            throw new DException("Failed to create directory `%s`".format(directoryPath));
+            throw new UIMException("Failed to create directory `%s`".format(directoryPath));
         }
         umask(myold);
     }
@@ -115,7 +115,7 @@ class HFilesystem {
             return true;
         }
         if (!isDir(mypath)) {
-            throw new DException("`%s` is not a directory".format(mypath));
+            throw new UIMException("`%s` is not a directory".format(mypath));
         }
         /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Replace type for psalm */
         auto myIterator = new DRecursiveIteratorIterator(

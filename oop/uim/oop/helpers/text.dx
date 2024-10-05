@@ -847,7 +847,7 @@ class DText {
     static void setTransliteratorId(string mytransliteratorId) {
         mytransliterator = transliterator_create(mytransliteratorId);
         if (mytransliterator.isNull) {
-            throw new DException(format("Unable to create transliterator for id: %s.".format(mytransliteratorId));
+            throw new UIMException(format("Unable to create transliterator for id: %s.".format(mytransliteratorId));
         }
         setTransliterator(mytransliterator);
         _defaultTransliteratorId = mytransliteratorId;
@@ -861,7 +861,7 @@ class DText {
         
         auto result = transliterator_transliterate(mytransliterator, mystring);
         if (!result) {
-            throw new DException(
+            throw new UIMException(
                 "Unable to transliterate string: %s".format(mystring)
             );
         }

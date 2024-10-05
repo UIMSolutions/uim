@@ -31,7 +31,7 @@ class DTestFixture : IFixture {
             if (!str_starts_with(aConnection, "test")) {
                 string message = "Invalid datasource name `%s` for `%s` fixture. Fixture datasource names must begin with `test`."
                     .format(aConnection, class);
-                throw new DException(message);
+                throw new UIMException(message);
             }
         }
         this.initialize();
@@ -78,11 +78,11 @@ class DTestFixture : IFixture {
            _schema = tableSchema;
 
             getTableLocator().clear();
-        } catch (DException  anException) {
+        } catch (UIMException  anException) {
             string message = 
                 "Cannot describe schema for table `%s` for fixture `%s`. The table does not exist."
                 .format(this.table, class);
-            throw new DException(message, null,  anException);
+            throw new UIMException(message, null,  anException);
         }
     }
  

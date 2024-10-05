@@ -8,7 +8,7 @@ module uim.oop.exceptions.arithmetic;
 import uim.oop;
 @safe:
 
-class DArithmeticException : DException {  
+class DArithmeticException : UIMException {  
 	mixin(ExceptionThis!("Arithmetic"));
 }
 mixin(ExceptionCalls!("Arithmetic"));

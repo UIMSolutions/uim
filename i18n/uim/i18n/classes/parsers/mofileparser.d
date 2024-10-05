@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.i18n.classes.parsers.mofileparser;UIMExceptionUIMExceptionUIMExceptionUIMException
-
-import uim.i18n;
+module uim.i18n.classes.parsers.mofileparser;
+UIMExceptionUIMExceptionUIMExceptionUIMExceptionimport uim.i18n;
 
 @safe:
 // Parses file in MO format
@@ -19,7 +18,7 @@ class MoFileParser {
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
-        
+
         return true;
     }
     /**
@@ -74,7 +73,7 @@ class MoFileParser {
         messages = null; */
         size_t count = 0;
         // for (auto index = 0; index < count; index++) {
-            /* pluralId = null;
+        /* pluralId = null;
             context = null;
             plurals = null;
 
@@ -126,15 +125,15 @@ class MoFileParser {
         // fclose(stream);
 
         // return messages;
-        return null; 
+        return null;
     }
 
     // Reads an unsigned long from stream respecting endianess.
     // TODO protected int _readLong(stream, bool isBigEndian) {
-        /* string result = unpack(isBigEndian ? "N1" : "V1", (string) fread(stream, 4));
+    /* string result = unpack(isBigEndian ? "N1" : "V1", (string) fread(stream, 4));
         result = currentValue(result);
 
         return to!int(subString(/* (string) * / result,  - 8)); */
-        // return 0;
+    // return 0;
     // }
 }

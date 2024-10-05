@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.i18n.mixins.dateformat;UIMExceptionUIMException
-
-import uim.i18n;
+module uim.i18n.mixins.dateformat;
+UIMExceptionUIMExceptionimport uim.i18n;
 
 @safe:
 /**
@@ -98,7 +97,7 @@ mixin template TDateFormat() {
 
     protected static auto _parseDateTime(
         string atime,
-        string[] aformat,/* DateTimeZone| */
+        string[] aformat, /* DateTimeZone| */
         string tz = null
     ) {
         string somePattern = "";

@@ -23,6 +23,7 @@ class DContainersException : UIMException {
     return true;
   }
 }
+
 mixin(ExceptionCalls!("Containers"));
 
 unittest {

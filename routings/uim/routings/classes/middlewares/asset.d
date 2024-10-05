@@ -3,9 +3,8 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.routings.middlewares.asset;UIMExceptionUIMException
-
-import uim.routings;
+module uim.routings.middlewares.asset;
+UIMExceptionUIMExceptionimport uim.routings;
 
 @safe:
 /**
@@ -86,7 +85,7 @@ class DAssetMiddleware : IRoutingMiddleware {
         }
         return null;
     } */
-    
+
     // Sends an asset file to the client
     protected DResponse deliverAsset(IServerRequest serverRequest, DSplFileInfo file) {
         auto resource = fopen(file.getPathname(), "rb");
@@ -97,7 +96,8 @@ class DAssetMiddleware : IRoutingMiddleware {
 
         auto response = new DResponse(["stream": stream]);
 
-        auto contentType = /* (array) */response.getMimeType(file.getExtension()) ? response.getMimeType(file.getExtension()) : "application/octet-stream";
+        auto contentType =  /* (array) */ response.getMimeType(file.getExtension()) ? response.getMimeType(
+                file.getExtension()) : "application/octet-stream";
         auto modified = file.getMTime();
         auto expire = strtotime(this.cacheTime);
         if (expire == false) {

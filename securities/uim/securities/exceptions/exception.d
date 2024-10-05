@@ -23,4 +23,5 @@ class DSecuritiesException : UIMException {
     return true;
   }
 }
+
 mixin(ExceptionCalls!("Securities"));

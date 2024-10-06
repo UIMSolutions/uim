@@ -3,28 +3,4 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http.exceptions.clients.missingresponse;
-
-import uim.http;
-
-@safe:
-// Used to indicate that a request did not have a matching mock response.
-class DMissingResponseException : UIMException {
-    mixin(ExceptionThis!("MissingResponse"));
-
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        messageTemplate("default", "Unable to find a mocked response for `%s` to `%s`.");
-
-        return true;
-    }
-}
-
-mixin(ExceptionCalls!("MissingResponse"));
-
-unittest {
-    testException(MissingResponseException);
-}
+module uim.http.exceptions.clients.missingresponse;import uim.http;@safe:// Used to indicate that a request did not have a matching mock response.class DMissingResponseException : UIMException {    mixin(ExceptionThis!("MissingResponse"));    override bool initialize(Json[string] initData = null) {        if (!super.initialize(initData)) {            return false;        }        messageTemplate("default", "Unable to find a mocked response for `%s` to `%s`.");        return true;    }}mixin(ExceptionCalls!("MissingResponse"));unittest {    testException(MissingResponseException);}

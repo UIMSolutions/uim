@@ -62,7 +62,7 @@ class DConsoleErrorFormatter : DErrorFormatter {
         return false;
     }
 
-    string formatWrapper(stringcontents, Json[string] location) {
+    string formatWrapper(string contents, Json[string] location) {
         string lineInfo = "";
         if (location.hasAllKeys(["file", "line"])) {
             lineInfo = "%s (line %s)".format(location["file"], location["line"]);

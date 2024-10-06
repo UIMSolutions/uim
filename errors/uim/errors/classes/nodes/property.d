@@ -39,7 +39,7 @@ class DPropertyErrorNode : DErrorNode {
     return _name;
   }
 
-  IErrorNode[] children() {
+  override IErrorNode[] children() {
     return [this._propertyValue];
   }
 }

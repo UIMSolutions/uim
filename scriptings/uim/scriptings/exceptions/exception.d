@@ -3,25 +3,4 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.scriptings.exceptions.exception;
-
-import uim.scriptings;
-
-@safe:
-
-// Base Scriptings exception.
-class DScriptingsException : UIMException {
-  mixin(ExceptionThis!("Scriptings"));
-
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    this
-      .messageTemplate("default", "Error in libary uim-scriptings");
-
-    return true;
-  }
-}
-mixin(ExceptionCalls!("Scriptings"));
+module uim.scriptings.exceptions.exception;import uim.scriptings;@safe:// Base Scriptings exception.class DScriptingsException : UIMException {  mixin(ExceptionThis!("Scriptings"));  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    this      .messageTemplate("default", "Error in libary uim-scriptings");    return true;  }}mixin(ExceptionCalls!("Scriptings"));

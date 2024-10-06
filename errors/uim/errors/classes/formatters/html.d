@@ -80,7 +80,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
   }
 
   // #region export
-  protected string exportArray(DArrayErrorNode tvar, size_t indentLevel) {
+  protected override string exportArray(DArrayErrorNode tvar, size_t indentLevel) {
     /* auto open = "<span class="uim-debug-array">" ~
            style("punct", "[") ~
             "<samp class="uim-debug-array-items">";
@@ -124,7 +124,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
     return null;
   }
 
-  protected string exportClass(DClassErrorNode aNode, size_t indentLevel) {
+  protected string override exportClass(DClassErrorNode aNode, size_t indentLevel) {
     /* auto objectId = "uim-db-object-{this.id}-{node.id()}";
         auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
         auto breakTxt = "\n" ~ repeat("  ",  indentLevel);
@@ -162,11 +162,11 @@ class DHtmlErrorFormatter : DErrorFormatter {
     return null;
   }
 
-  protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {
+  protected override string exportProperty(DPropertyErrorNode node, size_t indentLevel) {
     return null;
   }
 
-  protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
+  protected override string exportScalar(DScalarErrorNode node, size_t indentLevel) {
     switch (node.getType()) {
     case "bool":
       return style("const", node.getBoolean() ? "true" : "false");

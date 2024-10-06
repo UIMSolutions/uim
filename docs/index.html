@@ -6,7 +6,7 @@
             content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content />
         <meta name="author" content />
-        <title>{{title}} - uim framework</title>
+        <title>uim framework</title>
         <link rel="icon" type="image/x-icon"
             href="https://uimsolutions.github.io/uim/assets/favicon.ico" />
         <link href="https://uimsolutions.github.io/uim/css/tabler.min.css" rel="stylesheet" />
@@ -66,10 +66,42 @@
                                 <a class="nav-link"
                                     href="https://uimsolutions.github.io/uim/api/libraries">Libraries</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="https://uimsolutions.github.io/uim/api/packages">Packages</a>
-                            </li>
+                            <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle show" href="#navbar-layout" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="true">
+      <span class="nav-link-title">
+        API
+      </span>
+    </a>
+    <div class="dropdown-menu show" data-bs-popper="static">
+      <div class="dropdown-menu-columns">
+        <div class="dropdown-menu-column">
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/libraries">
+            Libraries
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/packages">
+            Packages
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/classes">
+            Classes
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/interfaces">
+            Interfaces
+          </a>
+        </div>
+        <div class="dropdown-menu-column">
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/exceptions">
+            Exceptions
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/eegistries">
+            Registries
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/factories">
+            Factories
+          </a>
+        </div>
+      </div>
+    </div>
+  </li>
                             <li class="nav-item">
                                 <a class="nav-link"
                                     href="https://uimsolutions.github.io/uim/api/packages">About</a>
@@ -86,14 +118,11 @@
                     <div class="row align-items-center mw-100">
                         <div class="col">
                             <div class="container-xl">
-                                <div class="page-pretitle">
-                                    {{pretitle}}
-                                </div>
                                 <h2 class="page-title">
-                                    {{title}}
+                                    Welcome to UIM Framework
                                 </h2>
                                 <div class="page-pretitle">
-                                    {{posttitle}}
+                                    We bring D to Business
                                 </div>
                             </div>
                         </div>
@@ -103,7 +132,6 @@
                     <div class="row align-items-center mw-100">
                         <div class="col">
                             <div class="container-xl">
-                                {{content}}
                             </div>
                         </div>
                     </div>

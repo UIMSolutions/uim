@@ -55,11 +55,62 @@
                                     Home
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="https://uimsolutions.github.io/uim/documentation">Documentation</a>
-                            </li>
-                            {{api}}
+                            <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#navbar-layout"
+    data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button"
+    aria-expanded="false">
+    <span class="nav-link-title">
+      Documentation
+    </span>
+  </a>
+  <div class="dropdown-menu" data-bs-popper="static"> 
+    <a class="dropdown-item" href="https://uimsolutions.github.io/uim/documentation/errorhandling.html">
+      Error / Exception
+    </a>
+  </div>
+</li>
+                            <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#navbar-layout" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false">
+      <span class="nav-link-title">
+        API
+      </span>
+    </a>
+    <div class="dropdown-menu" data-bs-popper="static">
+      <div class="dropdown-menu-columns">
+        <div class="dropdown-menu-column">
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/libraries">
+            Libraries
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/packages">
+            Packages
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/classes">
+            Classes
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/interfaces">
+            Interfaces
+          </a>
+        </div>
+        <div class="dropdown-menu-column">
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/attributes">
+            Attributes
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/errors">
+            Errors
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/exceptions">
+            Exceptions
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/factories">
+            Factories
+          </a>
+          <a class="dropdown-item" href="https://uimsolutions.github.io/uim/api/registries">
+            Registries
+          </a>
+        </div>
+      </div>
+    </div>
+  </li>
                             <li class="nav-item">
                                 <a class="nav-link disabled"
                                     href="https://uimsolutions.github.io/uim/community">Community</a>

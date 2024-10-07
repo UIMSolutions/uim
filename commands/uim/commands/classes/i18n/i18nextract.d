@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.commands.i18n.i18nextract;UIMException
+module uim.commands.classes.commands.i18n.i18nextract;
 
 import uim.commands;
 
@@ -77,7 +77,7 @@ class DI18nExtractCommand : DCommand {
                 "Current paths: %s\nWhat is the path you would like to extract?\n[Q]uit [D]one"
                 .format(currentPaths.join(", "));
 
-            string response = consoleIo.ask(message, defaultPaths.getString(defaultPathIndex, "D");
+            string response = consoleIo.ask(message, defaultPaths.getString(defaultPathIndex, "D"));
             if (response.upper == "Q") {
                  aConsoleIo.writeErrorMessages("Extract Aborted");
                 abort();
@@ -118,7 +118,7 @@ class DI18nExtractCommand : DCommand {
         }
         string _extractCore; 
         if (arguments.hasOption("extract-core")) {
-           _extractCore = !arguments.getString("extract-core").lower == "no");
+           // _extractCore = !arguments.getString("extract-core").lower == "no");
         } else {
             response = aConsoleIo.askChoice(
                 "Would you like to extract the messages from the UIM core?",
@@ -313,7 +313,7 @@ class DI18nExtractCommand : DCommand {
             "__x": ["context", "singular"],
             "__xn": ["context", "singular", "plural"],
             "__dx": ["domain", "context", "singular"],
-            "__dxn": ["domain", "context", "singular", "plural"],
+            "__dxn": ["domain", "context", "singular", "plural"]
         ];
         string somePattern = "/(" ~ functions.keys.join("|") ~ ")\s*\(/";
 
@@ -401,14 +401,14 @@ class DI18nExtractCommand : DCommand {
     
     // Build the translate template file contents out of obtained strings
     protected void _buildFiles(Json[string] consoleArguments) {
-        somePaths = _paths;
+        auto somePaths = _paths;
         somePaths ~= realpath(APP) ~ DIRECTORY_SEPARATOR;
 
-        usort(somePaths, auto (string aa, string ab) {
+        /* usort(somePaths, auto (string aa, string ab) {
             return a.length - b.length;
-        });
+        }); */
 
-        foreach (domain: translations; _translations) {
+        foreach (domain, translations; _translations) {
             foreach (msgid: contexts; translations) {
                 contexts.byKeyValue
                     .each!((contextDetails) {

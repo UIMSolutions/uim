@@ -1,6 +1,6 @@
 name "collections"
 license "Apache-2.0"
-copyright "Copyright © 2015-2024, Ozan Nurettin Süel (UI-Manufaktur)"
+copyright "Copyright © 2017-2024, Ozan Nurettin Süel (UI-Manufaktur)"
 authors "Ozan Nurettin Süel"
 description "D-Library for collections"
 

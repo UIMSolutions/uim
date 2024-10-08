@@ -1,8 +1,8 @@
 name "uim"
 description "UIM framework for building web applications"
-homepage "https://www.sicherheitsschmiede.de/"
+homepage "https://"
 license "Apache-2.0"
-copyright "Copyright © 2015-2024, Ozan Nurettin Süel"
+copyright "Copyright © 2017-2024, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
 dependency ":core" version="*"

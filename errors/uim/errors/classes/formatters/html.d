@@ -105,7 +105,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
     return null;
   }
 
-  protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
+  protected override string exportReference(DReferenceErrorNode node, size_t indentLevel) {
     auto objectId = "uim-db-object-{this.id}-{node.id()}";
     auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
     auto breakTxt = "\n" ~ repeat("  ", indentLevel);
@@ -184,7 +184,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
     return null;
   }
 
-  protected string exportSpecial(DSpecialErrorNode node, size_t indentLevel) {
+  protected override string exportSpecial(DSpecialErrorNode node, size_t indentLevel) {
     return null;
   }
   // #endregion export

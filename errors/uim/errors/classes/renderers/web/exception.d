@@ -33,7 +33,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * \Throwable exception Exception.
      * instead of creating a new one.
      */
-    this(Throwable exception, DServerRequest serverRequest = null) {
+    this(Throwable exception, IServerRequest serverRequest = null) {
         _error = exception;
         _request = serverRequest;
         _controller = _getController();

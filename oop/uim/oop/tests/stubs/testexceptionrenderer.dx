@@ -17,7 +17,7 @@ class DTestExceptionRenderer : IExceptionRenderer {
      * Params:
      * \Throwable myexception Exception.
      */
-    this(DThrowable myexception) {
+    this(Throwable myexception) {
         throw myexception;
     }
  

@@ -11,6 +11,7 @@ dependency "vibe-d" version="~>0.10.0"
 
 dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
+dependency "uim:consoles" path="../"
 dependency "uim:filesystems" path="../"
 dependency "uim:models" path="../"
 targetType "library"

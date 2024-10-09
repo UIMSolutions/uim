@@ -75,3 +75,8 @@ HTML`; */
 
     }
 }
+mixin(ErrorRendererCalls!("Html"));
+
+unittest {
+  assert(HtmlErrorRenderer);
+}

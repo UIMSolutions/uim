@@ -18,7 +18,7 @@ unittest {
  * Useful in CLI environments.
  */
 class DTextErrorRenderer : DErrorRenderer {
-  mixin(ErrorRenderer!("Text"));
+  mixin(ErrorRendererThis!("Text"));
 
   // Hook method
   /* override bool initialize(Json[string] initData = null) {
@@ -47,4 +47,9 @@ class DTextErrorRenderer : DErrorRenderer {
         error.getTraceAsString()); */
     return null;
   }
+}
+mixin(ErrorRendererCalls!("Text"));
+
+unittest {
+  assert(TextErrorRenderer);
 }

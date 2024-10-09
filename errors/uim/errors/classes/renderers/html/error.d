@@ -22,7 +22,7 @@ class DHtmlErrorRenderer : DErrorRenderer {
         writeln(outputText);
     }
 
-    string render(IError error, bool shouldDebug) {
+    override string render(IError error, bool shouldDebug) {
         if (!shouldDebug) {
             return null;
         }

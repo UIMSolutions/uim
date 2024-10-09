@@ -836,7 +836,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     }
 
     // Choose the editor link style you want to use.
-    static void setEditor(string editorName) {
+/*     static void setEditor(string editorName) {
         auto instance = getInstance();
         if (
             !instance.editors.hasKey(editorName)) {
@@ -845,7 +845,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                 "Unknown editor `{name}`. Known editors are {known}");
         }
         instance.configuration.set("editor", editorName);
-    }
+    } */
 
     // Get a formatted URL for the active editor.
     static string editorUrl(string filename, int lineNumber) {
@@ -867,9 +867,9 @@ class DDebugger : UIMObject, IErrorDebugger {
 
     // #region outputMask
     // Reads the current output masking.
-    static STRINGAA outputMask() {
+/*     static STRINGAA outputMask() {
         return configInstance("outputMask");
-    }
+    } */
 
     /**
      * Sets configurable masking of debugger output by property name and array key names.
@@ -912,9 +912,9 @@ class DDebugger : UIMObject, IErrorDebugger {
      *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
-/*     static auto trace(Json[string] formatOptions = null) {
+    static auto trace(Json[string] formatOptions = null) {
         return Debugger.formatTrace(debug_backtrace(), formatOptions);
-    } */
+    }
 
     /**
      * Formats a stack trace based on the supplied options.
@@ -1143,7 +1143,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * @return uim.errors.debugs.IErrorFormatter
      * @unstable This method is not stable and may change in the future.
      */
-    IErrorFormatter getExportFormatter() {
+    // IErrorFormatter getExportFormatter() {
         /*         auto instance = getInstance();
         string formaterClassname = instance
             .getConfig(
@@ -1173,33 +1173,9 @@ class DDebugger : UIMObject, IErrorDebugger {
         }
         return instance;
  */
-        return null;
-    }
+    /*     return null;
+    } */
 
-    /**
-     * Converts a variable to a string for debug output.
-     *
-     * *Note:* The following keys will have their contents
-     * replaced with `*****`:
-     *
-     * - password
-     * - login
-     * - host
-     * - database
-     * - port
-     * - prefix
-     * - schema
-     *
-     * This is done to protect database credentials, which could be accidentally
-     * shown in an error message if UIM is deployed in development mode.
-     */
-    static string exportVar(Json value, int maxOutputDepth = 3) {
-        auto dumpContext = new DDebugContext(
-            maxOutputDepth);
-        return getInstance().getExportFormatter()
-            .dump(
-                export_(value, dumpContext));
-    }
 
     // Converts a variable to a plain text string.
     static string exportVarAsPlainText(Json value, int maxOutputDepth = 3) {
@@ -1221,6 +1197,32 @@ class DDebugger : UIMObject, IErrorDebugger {
         return export_(varToConvert, new DDebugContext(
                 maxOutputDepth));
     }
+
+        /**
+     * Converts a variable to a string for debug output.
+     *
+     * *Note:* The following keys will have their contents
+     * replaced with `*****`:
+     *
+     * - password
+     * - login
+     * - host
+     * - database
+     * - port
+     * - prefix
+     * - schema
+     *
+     * This is done to protect database credentials, which could be accidentally
+     * shown in an error message if UIM is deployed in development mode.
+     */
+    /* static string exportVar(Json value, int maxOutputDepth = 3) {
+        auto dumpContext = new DDebugContext(
+            maxOutputDepth);
+        return getInstance().getExportFormatter()
+            .dump(
+                export_(value, dumpContext));
+    } */
+
 
     // Protected export function used to keep track of indentation and recursion.
     protected static IErrorNode export_(Json varToDump, DDebugContext dumpContext) {
@@ -1460,7 +1462,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * - Convert `bool` into `<code>bool</code>`
      * - Convert newlines into `<br />`
      */
-    static string formatHtmlMessage(
+    /* static string formatHtmlMessage(
         string messageToFormat) {
         messageToFormat = htmlAttributeEscape(
             messageToFormat);
@@ -1469,10 +1471,10 @@ class DDebugger : UIMObject, IErrorDebugger {
 
         return nl2br(
             messageToFormat);
-    }
+    } */
 
     // Verifies that the application"s salt and cipher seed value has been changed from the default value.
-    static void checkSecurityKeys() {
+    // static void checkSecurityKeys() {
         // salt = Security.getSalt();
         /* if (salt == "__SALT__" || strlen(
             salt) < 32) {
@@ -1482,5 +1484,5 @@ class DDebugger : UIMObject, IErrorDebugger {
                 ERRORS.USER_NOTICE
         );
     } */
-    }
+    // }
 }

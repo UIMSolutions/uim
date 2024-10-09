@@ -200,7 +200,7 @@ return false;
         } /* catch (DError error) {
             /* throw new DError(
                 "Could not render cell - %s [%s, line %d]"
-                .format(error.message(), error.getFile(), error.getLine()), 
+                .format(error.message(), error.getFile(), error.line()), 
                 0, error); * /
         } */
     }

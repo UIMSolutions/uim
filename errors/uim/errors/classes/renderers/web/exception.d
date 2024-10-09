@@ -235,7 +235,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     }
 
     // Get method name
-    protected string methodName(Throwable exception) {
+    override protected string methodName(Throwable exception) {
         /* [, baseClass] = namespaceSplit(exception.classname);
 
         if (baseClass.endsWith("Exception")) {

@@ -211,7 +211,7 @@ class DExceptionRenderer : IExceptionRenderer {
     }
 
     // Render a custom error method/template.
-    protected DResponse _customMethod(string methodToInvoke, Throwable myExceptionToRender) {
+    protected IResponse _customMethod(string methodToInvoke, Throwable myExceptionToRender) {
         /* myResult = this.{method}(myException);
         _shutdown();
 
@@ -271,7 +271,7 @@ class DExceptionRenderer : IExceptionRenderer {
     }
 
     // Generate the response using the controller object.
-    protected DResponse _outputMessage(string templateName) {
+    protected IResponse _outputMessage(string templateName) {
         try {
             _controller.render(templateName);
 
@@ -298,7 +298,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * A safer way to render error messages, replaces all helpers, with basics
      * and doesn"t call component methods.
      */
-    protected DResponse _outputMessageSafe(string templateToRender) {
+    protected IResponse _outputMessageSafe(string templateToRender) {
         auto myBuilder = _controller.viewBuilder();
         myBuilder
             .setHelpers([], false)
@@ -319,7 +319,7 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * Triggers the afterFilter and afterDispatch events.
      */
-    protected DResponse _shutdown() {
+    protected IResponse _shutdown() {
         _controller.dispatchEvent("Controller.shutdown");
 
         return _controller.getResponse();

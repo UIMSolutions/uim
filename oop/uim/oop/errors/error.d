@@ -4,12 +4,13 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.oop.errors.error;
-UIMErrorimport uim.oop;
+
+import uim.oop;
 
 @safe:
 
 // Error base class for UIM applications
-class DError : UIMObject, IError {
+class UIMError : UIMObject, IError {
   mixin(ErrorThis!());
 
   this(

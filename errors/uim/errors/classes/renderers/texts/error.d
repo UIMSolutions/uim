@@ -33,7 +33,7 @@ class DTextErrorRenderer : DErrorRenderer {
     writeln(outputText);
   }
 
-  string render(IError error, bool isDebug) {
+  override string render(IError error, bool isDebug) {
     if (!isDebug) { return null; }
 
     // isDebug

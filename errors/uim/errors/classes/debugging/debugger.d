@@ -883,9 +883,9 @@ class DDebugger : UIMObject, IErrorDebugger {
     // #endregion outputMask
 
     // Recursively formats and outputs the contents of the supplied variable.
-    static void dump(Json dumpValue, int maxOutputDepth = 3) {
+/*     static void dump(Json dumpValue, int maxOutputDepth = 3) {
         pr(exportVar(dumpValue, maxOutputDepth));
-    }
+    } */
 
     /**
      * Creates an entry in the log file. The log entry will contain a stack trace from where it was called.
@@ -912,9 +912,9 @@ class DDebugger : UIMObject, IErrorDebugger {
      *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
-    static auto trace(Json[string] formatOptions = null) {
+/*     static auto trace(Json[string] formatOptions = null) {
         return Debugger.formatTrace(debug_backtrace(), formatOptions);
-    }
+    } */
 
     /**
      * Formats a stack trace based on the supplied options.

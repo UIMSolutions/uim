@@ -54,7 +54,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     protected string method = "";
 
     // If set, this will be request used to create the controller that will render the error.
-    protected IServerRequest myRequest;
+    protected IServerRequest _request;
 
     /**
      * Map of exceptions to http status codes.
@@ -92,27 +92,27 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * a bare controller will be used.
      */
     protected IErrorController _getController() {
-        auto myRequest = this.request;
+        auto _request = this.request;
         auto routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
         // _SERVER
-        /*         if (myRequest.isNull) {
-            myRequest = routerRequest ?: ServerRequestFactory.fromGlobals();
+        /*         if (_request.isNull) {
+            _request = routerRequest ?: ServerRequestFactory.fromGlobals();
         }
  */
         // If the current request doesn"t have routing data, but we
         // found a request in the router context copy the params over
-        /*         if (myRequest.getParam("controller").isNull && routerRequest  !is null) {
-            myRequest = myRequest.withAttribute("params", routerRequest.getAttribute("params"));
+        /*         if (_request.getParam("controller").isNull && routerRequest  !is null) {
+            _request = _request.withAttribute("params", routerRequest.getAttribute("params"));
         }
 
         auto myErrorOccured = false;
         try {
-            auo params = myRequest.getAttribute("params");
+            auo params = _request.getAttribute("params");
             params["controller"] = "Error";
 
             auto factory = new DControllerFactory(new DContainer());
-            auto myClass = factory.getControllerClass(myRequest.withAttribute("params", params));
+            auto myClass = factory.getControllerClass(_request.withAttribute("params", params));
 
             if (!myClass) {
                 /** @var string myClass * /
@@ -120,14 +120,14 @@ class DExceptionRenderer { // }: IExceptionRenderer
             }
 
             /** @var uim.controllers.Controller controller * /
-            controller = new myClass(myRequest);
+            controller = new myClass(_request);
             controller.startupProcess();
         } catch (Throwable e) {
             myErrorOccured = true;
         }
 
         if (controller.isNull) {
-            return new DController(myRequest);
+            return new DController(_request);
         }
 
  */ // Retry RequestHandler, as another aspect of startupProcess()
@@ -172,12 +172,12 @@ class DExceptionRenderer { // }: IExceptionRenderer
 
         if (cast(UIMException) exception) {
             /** @psalm-suppress DeprecatedMethod */
-            /* foreach (/* (array) * /exception.responseHeader() as myKey: myValue) {
+            /* foreach (myKey, myValue; /* (array) * /exception.responseHeader()) {
                 response = response.withHeader(myKey, myValue);
             } */
         }
         /* if (cast(HttpException)exception) {
-            foreach (exception.getHeaders() as myName: myValue) {
+            foreach (myName, myValue; exception.getHeaders()) {
                 response = response.withHeader(myName, myValue);
             }
         } */

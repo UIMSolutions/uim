@@ -18,12 +18,12 @@ class DHtmlErrorRenderer : DErrorRenderer {
     mixin(ErrorRendererThis!("Html"));
 
     // Output to stdout which is the server response.
-    void write(string outputText) {
+    override void write(string outputText) {
         writeln(outputText);
     }
 
     string render(IError error, bool shouldDebug) {
-        if (!debug) {
+        if (!shouldDebug) {
             return null;
         }
         string anId = "uimErr" ~ uniqid();
@@ -34,10 +34,10 @@ class DHtmlErrorRenderer : DErrorRenderer {
         Json description = htmlAttributeEscape(error.message());
         Json somePath = htmlAttributeEscape(file);
         Json trace = htmlAttributeEscape(error.getTraceAsString());
-        auto line = error.getLine();
+        auto line = error.line();
 
         string errorMessage = "<b>%s</b> (%s)"
-            .format(h(capitalize(error.getLabel())), htmlAttributeEscape(error.code())
+            .format(h(capitalize(error.label())), htmlAttributeEscape(error.code())
        );
         toggle = this.renderToggle(errorMessage,  anId, "trace");
         codeToggle = this.renderToggle("Code",  anId, "code");

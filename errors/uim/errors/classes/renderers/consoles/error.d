@@ -40,10 +40,10 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
     }
     return "<error>%s: %s . %s</error> on line %s of %s%s"
       .format(
-        error.getLabel(),
+        error.label(),
         error.code(),
         error.message(),
-        error.getLine() ? error.getLine() : "",
+        error.line() ? error.line() : "",
         error.getFile() ? error.getFile() : "",
         trace
       );

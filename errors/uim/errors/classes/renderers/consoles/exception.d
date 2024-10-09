@@ -25,7 +25,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
 
     private bool _trace;
 
-    this(DThrowable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {
+    this(Throwable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {
         _error = error;
         // TODO this.output = configuration.get("stderr") ?? new DOutputConsole("d://stderr");
         _trace = configuration.getBoolean("trace", true);

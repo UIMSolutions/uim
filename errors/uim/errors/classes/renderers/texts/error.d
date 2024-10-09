@@ -29,11 +29,11 @@ class DTextErrorRenderer : DErrorRenderer {
     return true;
   } */
 
-  void write(string outputText) {
+  override void write(string outputText) {
     writeln(outputText);
   }
 
-  string render(UIMError error, bool isDebug) {
+  string render(IError error, bool isDebug) {
     if (!isDebug) { return null; }
 
     // isDebug

@@ -34,10 +34,10 @@ class DPropertyErrorNode : DErrorNode {
     return _visibility;
   }
 
-  // Get the property name
+/*   // Get the property name
   string name() {
     return _name;
-  }
+  } */
 
   override IErrorNode[] children() {
     return [this._propertyValue];

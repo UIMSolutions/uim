@@ -9,15 +9,26 @@ class UIMError : IError {
 
     }
 
-    ERRORS code();
+    ERRORS code() {
+        return ERRORS.Error;
+    }
 
-    void message(string message);
-    string message();
+    void message(string message) {
 
-    string fileName();
+    }
+    string message() {
+        return null;
+    }
 
-    size_t lineNumber();
+    string fileName() {
+        return null;
+    }
 
-    size_t[string][] trace();
+    size_t lineNumber() {
+        return 0;
+    }
 
+    size_t[string][] trace() {
+        return null;
+    }
 }

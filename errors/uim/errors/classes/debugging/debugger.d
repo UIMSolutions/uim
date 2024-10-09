@@ -733,7 +733,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     }
     // Holds current output data when outputFormat is false.
     protected Json[string] _data = null;
-    this() {
+    /* this() {
         auto docRef = ini_get("docref_root");
         if (docRef.isEmpty && function_hasKey("ini_set")) {
             ini_set("docref_root", "https://secure.D.net/");
@@ -742,7 +742,7 @@ class DDebugger : UIMObject, IErrorDebugger {
             define("ERRORS.RECOVERABLE_ERROR", 4096);
         }
 
-        aConfig = intersectinternalKey( /* (array) */ Configure.read("Debugger"), _defaultConfig);
+        aConfig = intersectinternalKey( /* (array) * / Configure.read("Debugger"), _defaultConfig);
         configuration.set(aConfig);
         e = `<pre class="uim-error">`;
         e ~= `<a href="javascript:void(0);" onclick="document.getElementById(\"{:id}-trace\")`;
@@ -786,7 +786,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                 ],
                 htmlDoubleTag("b", "Context") ~
                 htmlDoubleTag("p", "{:dumpContext}")));
-    }
+    } */
 
     // Returns a reference to the Debugger singleton object instance.
     static auto getInstance(string aclassname = null) {

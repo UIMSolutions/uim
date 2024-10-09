@@ -14,21 +14,22 @@ import uim.errors;
  *
  * Default output renderer for non CLI SAPI.
  */
-class DHtmlErrorRenderer : UIMObject, IErrorRenderer {
-    mixin(ErrorRenderer!("Html"));
+class DHtmlErrorRenderer : DErrorRenderer {
+    mixin(ErrorRendererThis!("Html"));
 
     // Output to stdout which is the server response.
     void write(string outputText) {
         writeln(outputText);
     }
 
-    string render(UIMError error, bool shouldDebug) {
-        /* if (!debug) {
+    string render(IError error, bool shouldDebug) {
+        if (!debug) {
             return null;
         }
         string anId = "uimErr" ~ uniqid();
-        file = error.getFile();
+        auto file = error.file();
 
+        /*
         // Some of the error data is not HTML safe so we escape everything.
         Json description = htmlAttributeEscape(error.message());
         Json somePath = htmlAttributeEscape(file);

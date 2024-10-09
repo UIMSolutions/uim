@@ -3,4 +3,11 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.oop.errors.registry;import uim.oop;@safe:class DErrorRegistry : DObjectRegistry!DError {}auto ErrorRegistry() { return DErrorRegistry.registry; }
+module uim.oop.errors.registry;UIMError
+
+import uim.oop;
+@safe:
+
+class DErrorRegistry : DObjectRegistry!DError {
+}
+auto ErrorRegistry() { return DErrorRegistry.registry; }

@@ -33,19 +33,18 @@ class DTextErrorRenderer : DErrorRenderer {
     writeln(outputText);
   }
 
-  string render(DError anError, bool isDebug) {
-    /* if (!isDebug) { return null; }
+  string render(UIMError error, bool isDebug) {
+    if (!isDebug) { return null; }
 
     // isDebug
     return 
       "%s: %s . %s on line %s of %s\nTrace:\n%s".format(
-        error.getLabel(),
+        error.label(),
         error.code(),
         error.message(),
-        error.getLine() ? error.getLine() : "",
-        error.getFile() ? "",
-        error.getTraceAsString()); */
-    return null;
+        error.line() ? error.line() : "",
+        error.fileName() ? error.fileName() : "",
+        error.traceAsString());
   }
 }
 mixin(ErrorRendererCalls!("Text"));

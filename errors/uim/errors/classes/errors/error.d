@@ -4,8 +4,20 @@ import uim.errors;
 
 @safe:
 
-class UIMError {
+class UIMError : IError {
     this() {
-        
+
     }
+
+    ERRORS code();
+
+    void message(string message);
+    string message();
+
+    string fileName();
+
+    size_t lineNumber();
+
+    size_t[string][] trace();
+
 }

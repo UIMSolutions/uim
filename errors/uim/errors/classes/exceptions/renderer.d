@@ -65,7 +65,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * @var array<string, int>
      * @psalm-var array<class-string<\Throwable>, int>
      */
-    protected int[string] myExceptionHttpCodes = [
+    protected int[string] myExceptionHttpCodes; /*  = [
         // Controller exceptions
         InvalidParameterException.classname: 404,
         MissingActionException.classname: 404,
@@ -76,7 +76,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         MissingControllerException.classname: 404,
         // Routing exceptions
         MissingRouteException.classname: 404,
-    ];
+    ]; */
 
     // Creates the controller to perform rendering on the error response.
     this(Throwable exception, IServerRequest serverRequest = null) {

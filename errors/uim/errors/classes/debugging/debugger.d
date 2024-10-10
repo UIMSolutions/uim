@@ -123,11 +123,11 @@ class DDebugger : UIMObject, IErrorDebugger {
      * an object based system. Having Debugger handle and render errors
      * will be deprecated and the new DErrorTrap system should be used instead.
      */
-    protected STRINGAA renderers = [
+    protected STRINGAA renderers; /*  = [
         "txt": TextErrorRenderer.classname,
         // The html alias currently uses no JS and will be deprecated.
         "js": HtmlErrorRenderer.classname,
-    ];
+    ]; */
 
     // A map of editors to their link templates.
     protected STRINGAA editors = [
@@ -824,7 +824,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * Closures templates must return a string, and accept two parameters:
      * The file and line.
      */
-    static void addEditor(string editorName, /* Closure */ string templateName) {
+    /* static void addEditor(string editorName, /* Closure * / string templateName) {
         auto instance = getInstance();
         if (!templatenName.isString && !(
                 cast(Closure) templatenName)) {
@@ -833,7 +833,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                 "Invalid editor type of `{type}`. Expected string or Closure.");
         }
         instance.editors[editorName] = templatenName;
-    }
+    } */
 
     // Choose the editor link style you want to use.
 /*     static void setEditor(string editorName) {
@@ -912,9 +912,9 @@ class DDebugger : UIMObject, IErrorDebugger {
      *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
-    static auto trace(Json[string] formatOptions = null) {
+    /* static auto trace(Json[string] formatOptions = null) {
         return Debugger.formatTrace(debug_backtrace(), formatOptions);
-    }
+    } */
 
     /**
      * Formats a stack trace based on the supplied options.
@@ -928,7 +928,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
-    static  /* array| */ string formatTrace(Throwable /* array */ backtrace, Json[string] options = null) {
+    // static  /* array| */ string formatTrace(Throwable /* array */ backtrace, Json[string] options = null) {
         /* if (cast(Throwable) backtrace) {
             backtrace = backtrace.getTrace();
         }
@@ -1024,14 +1024,14 @@ class DDebugger : UIMObject, IErrorDebugger {
         /* return ["array", "points"].has(options.getString(
             "format"))
         ? back : back.join("\n"); */
-        return null;
-    }
+        /* return null;
+    } */
 
     /**
      * Shortens file paths by replacing the application base path with "APP", and the UIM core
      * path with "CORE".
      */
-    static string trimPath(
+    /* static string trimPath(
         string pathToShorten) {
         if (defined("APP") && indexOf(path, APP) == 0) {
             return replace(APP, "APP/", path);
@@ -1044,7 +1044,7 @@ class DDebugger : UIMObject, IErrorDebugger {
         }
 
         return path;
-    }
+    } */
 
     /**
      * Grabs an excerpt from a file and highlights a given line of code.
@@ -1060,7 +1060,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * are processed with highlight_string() as well, so they have basic UIM syntax highlighting
      * applied.
      */
-    static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesContext = 2) {
+    /* static string[] excerpt(string absPathToFile, int lineNumber, int numberLinesContext = 2) {
         auto lines = null;
         if (
             !filehasKey(
@@ -1102,13 +1102,13 @@ class DDebugger : UIMObject, IErrorDebugger {
         }
 
         return lines;
-    }
+    } */
 
     /**
      * Wraps the highlight_string function in case the server API does not
      * implement the function as it is the case of the HipHop interpreter
      */
-    protected static string _highlight(
+/*     protected static string _highlight(
         string stringToConvert) {
         if (function_hasKey("hD_log") || function_hasKey(
                 "hD_gettid")) {
@@ -1136,7 +1136,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
         return highlight;
     }
-
+ */
     /**
      * Get the configured export formatter or infer one based on the environment.
      *
@@ -1178,13 +1178,13 @@ class DDebugger : UIMObject, IErrorDebugger {
 
 
     // Converts a variable to a plain text string.
-    static string exportVarAsPlainText(Json value, int maxOutputDepth = 3) {
+    /* static string exportVarAsPlainText(Json value, int maxOutputDepth = 3) {
         return (new DTextFormatter()).dump(
             export_(
                 value, new DDebugContext(
                 maxOutputDepth))
         );
-    }
+    } */
 
     /**
      * Convert the variable to the internal node tree.
@@ -1192,11 +1192,11 @@ class DDebugger : UIMObject, IErrorDebugger {
      * The node tree can be manipulated and serialized more easily
      * than many object graphs can.
      */
-    static IErrorNode exportVarAsNodes(
+    /* static IErrorNode exportVarAsNodes(
         Json varToConvert, int maxOutputDepth = 3) {
         return export_(varToConvert, new DDebugContext(
                 maxOutputDepth));
-    }
+    } */
 
         /**
      * Converts a variable to a string for debug output.
@@ -1225,7 +1225,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
 
     // Protected export function used to keep track of indentation and recursion.
-    protected static IErrorNode export_(Json varToDump, DDebugContext dumpContext) {
+/*     protected static IErrorNode export_(Json varToDump, DDebugContext dumpContext) {
         auto type = varToDump.getString("type");
         switch (type) {
         case "float":
@@ -1249,7 +1249,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                     .withAddedDepth());
         }
     }
-
+ */
     /**
      * Export an array type object. Filters out keys used in datasource configuration.
      *
@@ -1398,7 +1398,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     }
 
     // Get the type of the given variable. Will return the class name for objects.
-    static string getType(
+/*     static string getType(
         Json value) {
         auto type = getTypeName(
             value);
@@ -1418,7 +1418,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
         return type;
     }
-
+ */
     // Prints out debug information about given variable.
     static void printVar(Json varToShow, Json[string] location = null, bool showHtml = false) {
         location.mergeKeys([

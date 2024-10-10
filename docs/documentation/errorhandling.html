@@ -133,13 +133,13 @@
                         <div class="col">
                             <div class="container-xl">
                                 <div class="page-pretitle">
-                                    {{breadcrumbs}}
+                                    <ol class="breadcrumb breadcrumb-dots" aria-label="breadcrumbs"><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim">Home</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/documentation">Documentation</a></li></ol>
                                 </div>
                                 <h2 class="page-title">
-                                    {{title}}
+                                    Error and Exception Handling
                                 </h2>
                                 <div class="page-pretitle">
-                                    Modified {{modified}}
+                                    Modified 10.10.2024
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,59 @@
                 <div class="page-body">
                     <div class="col">
                         <div class="container-xl">
-                            {{content}}
+                            <!-- Title: Error and Exception Handling -->
+<!-- Navtitle: Error / Exception -->
+<p>Applications based on the <b>UIM framework</b> have
+    error and
+    exception
+    handling
+    functions. The usage is slightly different from
+    those in D.
+    Errors are caught and displayed or logged. Uncaught
+    exceptions
+    are automatically rendered into error pages.</p>
+<p>The Exception class from D is continued in the UM
+    Framework as
+    <a href="https://uimsolutions.github.io/uim/api/classes/uimexception.html"><code>UIMException</code></a>. The Error class in D is
+    retained, but the <code>UIMError</code>
+    class is also introduced.</p>
+
+<h2>
+    Exception handling options</h2>
+<p>Exception handling in uim provides several ways to
+    customize
+    exception handling. Each approach has different
+    levels of
+    control over the exception handling process.
+</p>
+
+<ul>
+    <li>Listen to events<br>
+        This allows you to be notified of events when
+        errors and
+        exceptions have been handled.</li>
+    <li>
+        Custom Templates<br>This allows rendered view
+        templates to
+        be
+        modified like any other template in the
+        application.</li>
+    <li>
+        Custom controller<br>This can be used to control
+        how
+        exception pages are rendered.</li>
+    <li>
+        Custom ExceptionRenderer<br>This can be used to
+        control how
+        exception pages and logging are done.</li>
+    <li>
+        Create and register traps<br>This gives complete
+        control
+        over
+        how errors and exceptions are handled, logged,
+        and rendered.
+    </li>
+</ul>
                         </div>
                     </div>
                 </div>

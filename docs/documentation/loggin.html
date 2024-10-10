@@ -133,13 +133,13 @@
                         <div class="col">
                             <div class="container-xl">
                                 <div class="page-pretitle">
-                                    {{breadcrumbs}}
+                                    <ol class="breadcrumb breadcrumb-dots" aria-label="breadcrumbs"><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim">Home</a></li><li class="breadcrumb-item"><a href="https://uimsolutions.github.io/uim/documentation">Documentation</a></li></ol>
                                 </div>
                                 <h2 class="page-title">
-                                    {{title}}
+                                    Using Logging
                                 </h2>
                                 <div class="page-pretitle">
-                                    Modified {{modified}}
+                                    Modified 10.10.2024
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,11 @@
                 <div class="page-body">
                     <div class="col">
                         <div class="container-xl">
-                            {{content}}
+                            <!-- Title: Using Logging -->
+<!-- Navtitle: Logging -->
+<p>The uim framework has the ability to log to find out what happened in an application over time. Which search terms are used? What type of errors are presented to a user? How often is a specific query executed?
+</p>
+<p>Logging data is done using the log() function. It is provided by the mixin <code>TLog</code>. Logging can also be used directly via <code>Log.write()</code>.</p>
                         </div>
                     </div>
                 </div>

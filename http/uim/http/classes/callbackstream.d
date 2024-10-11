@@ -23,16 +23,16 @@ import uim.http;
  * @internal
  */
 class DCallbackStream { // }: BaseCallbackStream {
-    /* 
     string getContents() {
+        string result = "";
+        /*
         auto aCallback = this.detach();
-        string aresult = "";
         if (aCallback !is null) {
             result = aCallback();
         }
         if (!isString(result)) {
             return null;
-        }
+        } */
         return result;
-    } */
+    }
 } 

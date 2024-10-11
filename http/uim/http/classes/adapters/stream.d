@@ -28,18 +28,10 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      */
     protected _context;
 
-
-
-    /**
-     * The stream resource.
-     *
-     * @var resource|null
-     */
+    // The stream resource.
     protected _stream;
 
-    /**
-     * Connection error list.
-     */
+    // Connection error list.
     protected Json[string] _connectionErrors = null;
 
     Json[string] send(IRequest request, Json[string] options = null) {
@@ -62,7 +54,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Params:
      * Json[string] requestHeaders The list of headers from the request(s)
      */
-    DResponse[] createResponses(Json[string] requestHeaders, string responseContent) {
+    IResponse[] createResponses(Json[string] requestHeaders, string responseContent) {
         auto anIndexes = null;
         auto responses = null;
         foreach (index, aHeader; requestHeaders) {
@@ -83,15 +75,15 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     }
     
     // Build the stream context out of the request object.
-    protected void _buildContext(IRequest request, Json[string] requestOptions = null) {
-       _buildContent(request, requestOptions);
-       _buildHeaders(request, requestOptions);
-       _buildOptions(request, requestOptions);
+    protected void _buildContext(IRequest request, Json[string] options = null) {
+       _buildContent(request, options);
+       _buildHeaders(request, options);
+       _buildOptions(request, options);
 
         auto url = request.getUri();
         auto scheme = parse_url(to!string(url, UIM_URL_SCHEME));
         if (scheme == "https") {
-           _buildSslContext(request, requestOptions);
+           _buildSslContext(request, options);
         }
        _context = stream_context_create([
             "http": _contextOptions,
@@ -101,7 +93,6 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     
     /**
      * Build the header context for the request.
-     *
      * Creates cookies & headers.
      */
     protected void _buildHeaders(IRequest request, Json[string] options = null) {

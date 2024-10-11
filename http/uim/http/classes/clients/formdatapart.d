@@ -145,7 +145,7 @@ class DFormDataPart { // }: Stringable {
         auto transliterated = Text.transliterate(headerParameterValue.replace("\"", ""));
         string result = "%s="%s"".format(headerParameterName, transliterated);
         if (_charset && headerParameterValue != transliterated) {
-            result ~= "; %s*=%s""%s".format(headerParameterName, _charset.lower, rawUrlEncode(headerParameterValue));
+            result ~= "; %s*=%s\""%s".format(headerParameterName, _charset.lower, rawUrlEncode(headerParameterValue));
         }
         return result;
     }

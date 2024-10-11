@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http.classes.clients.client;UIMExceptionUIMException
+module uim.http.classes.clients.client;
 
 import uim.http;
 
@@ -219,7 +219,8 @@ class DClient { // }: IClient {
       removeKey(
         configuration.get("path"));
     }
-    return new static(configData);
+    // return new static(configData);
+    return null; 
   }
 
   // Get the cookies stored in the Client.

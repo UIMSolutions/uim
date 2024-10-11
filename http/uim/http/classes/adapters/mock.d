@@ -44,7 +44,7 @@ class DMockAdapter { //}: IAdapter {
     }
     
     // Find a response if one exists.
-    Response[] send(IRequest requestToMatch, Json[string] options = null) {
+    IResponse[] send(IRequest requestToMatch, Json[string] options = null) {
         auto found = null;
         auto method = requestToMatch.getMethod();
         auto requestUri = to!string(requestToMatch.getUri());

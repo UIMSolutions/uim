@@ -63,7 +63,7 @@ class DApplication {
    ) {
         this.configDir = stripRight(configDataDir, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         this.plugins = Plugin.getCollection();
-       _eventManager = eventManager ?: EventManager.instance();
+       _eventManager = eventManager ? eventManager: EventManager.instance();
         this.controllerFactory = controllerFactory;
     }
     

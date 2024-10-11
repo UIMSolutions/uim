@@ -3,28 +3,28 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.classes.cell;UIMError
+module uim.views.classes.cell;
 
 import uim.views;
 
 @safe:
 
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 abstract class DCell : UIMObject { // : IEventDispatcher {
-// TEventDispatcherTrait<IView 
+    // TEventDispatcherTrait<IView 
     mixin TEventDispatcher;
     // mixin TLocatorAware;
     mixin TViewVars;
 
     this() {
-        super ();
+        super();
     }
 
     this(Json[string] initData) {
-        super (initData);
+        super(initData);
     }
 
     this(DStringContents newTemplate) {
@@ -33,8 +33,8 @@ abstract class DCell : UIMObject { // : IEventDispatcher {
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
-return false;
-}
+            return false;
+        }
 
         return true;
     }
@@ -72,7 +72,7 @@ return false;
     protected string[] _validCellOptions = null;
 
     // Caching setup.
-   protected Json _cache = false;
+    protected Json _cache = false;
 
     /* this(
         DServerRequest serverRequest,
@@ -96,7 +96,7 @@ return false;
         }
         initialize();
     } */
-    
+
     /**
      * Render the cell.
      * Params:
@@ -152,9 +152,9 @@ return false;
         /* return mycache 
             ? Cache.remember(mycache["key"], myrender, mycache["config"])
             : myrender(); */
-        return null; 
+        return null;
     }
-    
+
     /**
      * Generate the cache key to use for this cell.
      *
@@ -164,7 +164,7 @@ return false;
         if (_cache.isNull) {
             return null;
         }
-        
+
         templateName = templateName.ifEmpty("default");
         /* string key = ("cell_" ~ classname.underscore ~ "_" ~ invokedAction ~ "_" ~ templateName).replace("\\", "_");
         auto defaultValue = createMap!(string, Json)
@@ -175,9 +175,9 @@ return false;
             return defaultValue;
         }
         return _cache + defaultValue; */
-        return null; 
+        return null;
     }
-    
+
     /**
      * Magic method.
      *
@@ -189,7 +189,7 @@ return false;
     override string toString() {
         try {
             // return _render();
-            return null; 
+            return null;
         } catch (Exception exception) {
             /* trigger_error(
                 "Could not render cell - %s [%s, line %d]"
@@ -204,14 +204,15 @@ return false;
                 0, error); * /
         } */
     }
-    
+
     // Debug info.
     override Json[string] debugInfo() {
-return super.debugInfo
+        return super.debugInfo
             .set("action", _action)
             .set("args", _arguments);
-            // .set("request", _request)
-            /* .set("response", _response)
-            .set("viewBuilder", viewBuilder() */;
+        // .set("request", _request)
+        /* .set("response", _response)
+            .set("viewBuilder", viewBuilder() */
+        ;
     }
 }

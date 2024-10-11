@@ -32,21 +32,15 @@ class DExceptionRenderer : IExceptionRenderer {
     // The method corresponding to the Exception this object is for.
     protected string method = "";
     
-        /**
-     * The exception being handled.
-     *
-     * @var \Throwable
-     */
+    // The exception being handled.
     protected IError _error;
 
     // Controller instance.
-    protected DCONController controller;
+    protected IController controller;
 
     /**
      * If set, this will be request used to create the controller that will render
      * the error.
-     *
-     * var DHTP.ServerRequest|null
      */
     protected IServerRequest _request;
 
@@ -101,7 +95,7 @@ class DExceptionRenderer : IExceptionRenderer {
         }
 
         _errorOccured = false;
-            DCONController controller;
+            IController controller;
         try {
             auto params = _request.getAttribute("params");
             params.set("controller", "Error");

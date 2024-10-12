@@ -21,31 +21,27 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     // Array of options/content for the SSL stream context.
     protected Json[string] _sslContextOptions = null;
 
-    /**
-     * DContext resource used by the stream API.
-     *
-     * @var resource|null
-     */
-    protected _context;
+    // DContext resource used by the stream API.
+    protected DContext _context;
 
     // The stream resource.
-    protected _stream;
+    protected DStream _stream;
 
     // Connection error list.
     protected Json[string] _connectionErrors = null;
 
     Json[string] send(IRequest request, Json[string] options = null) {
-       _stream = null;
-       _context = null;
-       _contextOptions = null;
-       _sslContextOptions = null;
-       _connectionErrors = null;
+        _stream = null;
+        _context = null;
+        _contextOptions = null;
+        _sslContextOptions = null;
+        _connectionErrors = null;
 
-       _buildContext(request, options);
+        _buildContext(request, options);
 
         return _send(request);
     }
-    
+
     /**
      * Create the response list based on the headers & content
      *
@@ -59,13 +55,13 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         auto responses = null;
         foreach (index, aHeader; requestHeaders) {
             if (subString(aHeader, 0, 5).upper == "HTTP/") {
-                 anIndexes ~= index;
+                anIndexes ~= index;
             }
         }
         size_t last = count(anIndexes) - 1;
         foreach (index, start; anIndexes) {
             /** @psalm-suppress InvalidOperand */
-            auto end = isSet(anIndexes[index + 1]) ?  anIndexes[index + 1] - start : null;
+            auto end = isSet(anIndexes[index + 1]) ? anIndexes[index + 1] - start : null;
             /** @psalm-suppress PossiblyInvalidArgument */
             auto headerSlice = requestHeaders.slice(start, end);
             string bodyText = index == last ? responseContent : "";
@@ -73,35 +69,36 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         }
         return responses;
     }
-    
+
     // Build the stream context out of the request object.
     protected void _buildContext(IRequest request, Json[string] options = null) {
-       _buildContent(request, options);
-       _buildHeaders(request, options);
-       _buildOptions(request, options);
+        _buildContent(request, options);
+        _buildHeaders(request, options);
+        _buildOptions(request, options);
 
         auto url = request.getUri();
         auto scheme = parse_url(to!string(url, UIM_URL_SCHEME));
         if (scheme == "https") {
-           _buildSslContext(request, options);
+            _buildSslContext(request, options);
         }
-       _context = stream_context_create([
+        _context = stream_context_create([
             "http": _contextOptions,
             "ssl": _sslContextOptions,
         ]);
     }
-    
+
     /**
      * Build the header context for the request.
      * Creates cookies & headers.
      */
     protected void _buildHeaders(IRequest request, Json[string] options = null) {
-        auto headers = request.getHeaders().byKeyValue
+        auto headers = request.getHeaders()
+            .byKeyValue
             .map!(kv => "%s: %s".format(kv.key, kv.value.join(", "))).array;
 
-       _contextOptions.set("header", aHeaders.join("\r\n"));
+        _contextOptions.set("header", aHeaders.join("\r\n"));
     }
-    
+
     /**
      * Builds the request content based on the request object.
      *
@@ -111,27 +108,27 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     protected void _buildContent(IRequest request, Json[string] options = null) {
         auto requestBody = request.getBody();
         requestBody.rewind();
-       _contextOptions.set("content", requestBody.getContents());
+        _contextOptions.set("content", requestBody.getContents());
     }
-    
+
     // Build miscellaneous options for the request.
     protected void _buildOptions(IRequest request, Json[string] options = null) {
-       _contextOptions
-        .set("method", request.getMethod())
-        .set("protocol_version", request.getProtocolVersion())
-        .set("ignore_errors", true);
+        _contextOptions
+            .set("method", request.getMethod())
+            .set("protocol_version", request.getProtocolVersion())
+            .set("ignore_errors", true);
 
         _contextOptions.update("timeout", options.get("timeout"));
         // Redirects are handled in the client layer because of cookie handling issues.
-       _contextOptions.set("max_redirects", 0);
+        _contextOptions.set("max_redirects", 0);
 
         if (options.hasKey("proxy.proxy")) {
-           _contextOptions
-            .set("request_fulluri", true)
-            .set("proxy", options.get("proxy.proxy"));
+            _contextOptions
+                .set("request_fulluri", true)
+                .set("proxy", options.get("proxy.proxy"));
         }
     }
-    
+
     // Build SSL options for the request.
     protected void _buildSslContext(IRequest request, Json[string] options = null) {
         auto sslOptions = [
@@ -150,16 +147,16 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         if (options.hasKey("ssl_verify_host")) {
             auto url = request.getUri();
             auto host = parse_url(url.toString, UIM_URL_HOST);
-           _sslContextOptions.set("peer_name", host);
+            _sslContextOptions.set("peer_name", host);
         }
         sslOptions.each!((key) {
             if (options.asKey(aKey)) {
                 auto name = subString(aKey, 4);
-               _sslContextOptions.set(name, options.get(aKey));
+                _sslContextOptions.set(name, options.get(aKey));
             }
         });
     }
-    
+
     // Open the stream and send the request.
     protected Json[string] _send(IRequest request) {
         auto deadline = false;
@@ -168,7 +165,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             deadline = time() + _contextOptions.getLong("timeout");
         }
         auto url = request.getUri();
-       _open(to!string(url, request));
+        _open(to!string(url, request));
         string content = "";
         bool timedOut = false;
 
@@ -192,14 +189,14 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         if (timedOut) {
             throw new DNetworkException("Connection timed out " ~ url, request);
         }
-        
+
         auto aHeaders = meta["wrapper_data"];
         if (aHeaders.hasKey("headers") && isArray(aHeaders["headers"])) {
-             aHeaders = aHeaders["headers"];
+            aHeaders = aHeaders["headers"];
         }
         return _createResponses(aHeaders, content);
     }
-    
+
     /**
      * Build a response object
      * Params:
@@ -208,7 +205,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     protected DResponse _buildResponse(Json[string] aHeaders, string requestBody) {
         return new DResponse(aHeaders, requestBody);
     }
-    
+
     // Open the socket and handle any connection errors.
     protected void _open(string urlToConnect, IRequest request) {
         /* if (!(bool)ini_get("allow_url_fopen")) {
@@ -235,7 +232,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             throw new DRequestException(join("\n", _connectionErrors), request);
         } */
     }
-    
+
     // Get the context options
     Json[string] contextOptions() {
         return array_merge(_contextOptions, _sslContextOptions);

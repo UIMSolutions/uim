@@ -101,8 +101,6 @@ class DClientResponse { // }: Message : IResponse {
      *
      * Looks for gzip signatures, and if gzinflate() exists,
      * the body will be decompressed.
-     * Params:
-     * string abody Gzip encoded body.
      */
     protected string _decodeGzipBody(string encodedBody) {
         if (!function_hasKey("gzinflate")) {
@@ -153,23 +151,17 @@ class DClientResponse { // }: Message : IResponse {
         }
     }
     
-    /**
-     * Check if the response status code was in the 2xx/3xx range
-     */
+    // Check if the response status code was in the 2xx/3xx range
     bool isOk() {
         return _statusCode >= 200 && _statusCode <= 399;
     }
     
-    /**
-     * Check if the response status code was in the 2xx range
-     */
+    // Check if the response status code was in the 2xx range
     bool isSuccess() {
         return _statusCode >= 200 && _statusCode <= 299;
     }
     
-    /**
-     * Check if the response had a redirect status code.
-     */
+    // Check if the response had a redirect status code.
     bool isRedirect() {
         codes = [
             STATUS_MOVED_PERMANENTLY,
@@ -201,15 +193,16 @@ class DClientResponse { // }: Message : IResponse {
     
     // Get the encoding if it was set.
     string getEncoding() {
-        content = getHeaderLine("content-type");
-        if (!content) {
+        auto contentType = getHeaderLine("content-type");
+        if (!contentType) {
             return null;
         }
-        preg_match("/charset\s?=\s?[\']?([a-z0-9-_]+)[\']?/i", content, matches);
-        if (isEmpty(matches[1])) {
+        // preg_match("/charset\s?=\s?[\']?([a-z0-9-_]+)[\']?/i", content, matches);
+        /* if (isEmpty(matches[1])) {
             return null;
         }
-        return matches[1];
+        return matches[1]; */
+        return null; 
     }
     
     // Get the all cookie data.

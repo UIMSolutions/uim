@@ -259,7 +259,7 @@ class DClientResponse { // }: Message : IResponse {
     
     // Property accessor for `_cookies`
     protected Json[string] _getCookies() {
-        auto result;
+        Json[string] result;
         this.buildCookieCollection.each!(cookie => result[cookie.name] = cookie.toJString());
         return result;
     }

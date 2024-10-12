@@ -241,12 +241,8 @@ class DClientResponse { // }: Message : IResponse {
         return cookies.get(name).getValue();
     }
     
-    /**
-     * Get the full data for a single cookie.
-     * Params:
-     * string aName The name of the cookie value.
-     */
-    Json[string] getCookieData(string valueName) {
+    // Get the full data for a single cookie.
+    Json[string] getCookieData(string key) {
         auto cookies = buildCookieCollection();
 
         return cookies.has(valueName)

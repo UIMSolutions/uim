@@ -164,10 +164,7 @@ class DResponseEmitter {
     }
     
     /**
-     * Loops through the output buffer, flushing each, before emitting
-     * the response.
-     * Params:
-     * int maxBufferLevel Flush up to this buffer level.
+     * Loops through the output buffer, flushing each, before emitting the response.
      */
     protected void flush(int maxBufferLevel = null) {
         maxBufferLevel ? maxBufferLevel : ob_get_level();
@@ -178,15 +175,15 @@ class DResponseEmitter {
     }
     
     // Parse content-range header
-    protected array|false parseContentRange(string header) {
-        if (preg_match("/(?P<unit>[\w]+)\s+(?P<first>\d+)-(?P<last>\d+)\/(?P<length>\d+|\*)/",  aHeader, matches)) {
+    protected bool parseContentRange(string header) {
+        /* if (preg_match("/(?P<unit>[\w]+)\s+(?P<first>\d+)-(?P<last>\d+)\/(?P<length>\d+|\*)/",  aHeader, matches)) {
             return [
                 matches["unit"],
                 matches.getLong("first"),
                 matches.getLong("last"),
                 matches.getString("length") == "*" ? "*" : matches.getLong("length"),
             ];
-        }
+        } */
         return false;
     }
 }

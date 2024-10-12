@@ -179,9 +179,11 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
             throw new DOutOfBoundsException("Invalid current position (%s).".format(_position));
         }
         
-        return cast(IHttpMiddleware) _queue[_position]
-            ? _queue[_position]
-            : _queue[_position] = this.resolve(_queue[_position]);
+        if (cast(IHttpMiddleware)_queue[_position])
+            _queue[_position];
+
+        _queue[_position] = this.resolve(_queue[_position]);
+        return _queue[_position];
     }
 
     // Return the key of the middleware.

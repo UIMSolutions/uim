@@ -15,11 +15,11 @@ import uim.http;
  */
 class DServerRequest : UIMObject { // }: IServerRequest {
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        this.initialize(initData);
+        super.initialize(initData);
     }
 
     override bool initialize(Json[string] initData = null) {
@@ -27,8 +27,6 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             return false;
         }
 
-        return true;
-    }
 
     _urlParams = [
         "plugin": Json(null),
@@ -38,7 +36,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         "pass": Json.emptyArray,
     ];
 
-    _detectors = [
+    /* _detectors = [
         "get": ["env": 'REQUEST_METHOD", "value": 'GET"],
         "post": ["env": 'REQUEST_METHOD", "value": 'POST"],
         "put": ["env": 'REQUEST_METHOD", "value": 'PUT"],
@@ -55,7 +53,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             "param": '_ext",
             "value": 'xml",
         ],
-    ];
+    ]; */
 
         return true;
     }
@@ -127,15 +125,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      *
      * @var object|array|null
      */
-    protected object|array|null someData = null;
+    protected Json[string] someData = null;
 
-
-
-    /**
-     * Request body stream. Contains D://input unless `input` constructor option is used.
-     *
-     * @var \Psr\Http\Message\IStream
-     */
+    // Request body stream. Contains D://input unless `input` constructor option is used.
     protected IStream stream;
 
     /**
@@ -145,11 +137,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      */
     protected IUri anUri;
 
-    /**
-     * Instance of a Session object relative to this request
-     *
-     * @var \UIM\Http\Session
-     */
+    // Instance of a Session object relative to this request
     protected ISession session;
 
     /**
@@ -159,31 +147,19 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      */
     protected DFlashMessage flash;
 
-    /**
-     * Store the additional attributes attached to the request.
-     */
+    // Store the additional attributes attached to the request.
     protected Json[string] attributes = null;
 
-    /**
-     * A list of properties that emulated by the PSR7 attribute methods.
-     */
+    // A list of properties that emulated by the PSR7 attribute methods.
     protected string[] emulatedAttributes = ["session", "flash", "webroot", "base", "params", "here"];
 
-    /**
-     * Array of Psr\Http\Message\IUploadedFile objects.
-     *
-     * @var array
-     */
+    // Array of Psr\Http\Message\IUploadedFile objects.
     protected Json[string] uploadedFiles = null;
 
-    /**
-     * The HTTP protocol version used.
-     */
+    // The HTTP protocol version used.
     protected string aprotocol = null;
 
-    /**
-     * The request target if overridden
-     */
+    // The request target if overridden
     protected string arequestTarget = null;
 
     /**
@@ -718,15 +694,13 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     
     /**
      * Get a modified request without a provided header.
-     * Params:
-     * string aName The header name to remove.
      */
-    static auto withoutHeader(string aName) {
-        new = this.clone;
-        name = this.normalizeHeaderName(name);
-        removeKey(new._environmentData[name]);
+    static DServerRequest withoutHeader(string aName) {
+        DServerRequest newRequest = this.clone;
+        auto name = this.normalizeHeaderName(name);
+        removeKey(newRequest._environmentData[name]);
 
-        return new;
+        return newRequest;
     }
     
     /**
@@ -741,41 +715,33 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * by UIM internally, and will effect the result of this method.
      */
     string getMethod() {
-        return (string)getEnvironmentData("REQUEST_METHOD");
+        return /* (string) */getEnvironmentData("REQUEST_METHOD");
     }
     
-    /**
-     * Update the request method and get a new instance.
-     */
-    static withMethod(string httpMethod) {
-        new = this.clone;
+    // Update the request method and get a new instance.
+    static DServerRequest withMethod(string httpMethod) {
+        DServerRequest newRequest = this.clone;
 
-        if (!preg_match("/^[!#%&\'*+.^_`\|~0-9a-z-]+/i", method)) {
+        /* if (!preg_match("/^[!#%&\'*+.^_`\|~0-9a-z-]+/i", method)) {
             throw new DInvalidArgumentException(
                 "Unsupported HTTP method `%s` provided."
                 .format(method)
            );
-        }
-        new._environmentData["REQUEST_METHOD"] = method;
+        } */
+        newRequest._environmentData["REQUEST_METHOD"] = method;
 
-        return new;
+        return newRequest;
     }
     
-    /**
-     * Update the query string data and get a new instance.
-     * Params:
-     * Json[string] aQuery The query string data to use
-     */
-    static withQueryParams(string queryString) {
-        auto newQuery = this.clone;
+    // Update the query string data and get a new instance.
+    static DServerRequest withQueryParams(string queryString) {
+        DServerRequest newQuery = this.clone;
         newQuery.query = queryString;
 
         return newQuery;
     }
     
-    /**
-     * Get the host that the request was handled on.
-     */
+    // Get the host that the request was handled on.
     string host() {
         if (_trustProxy && getEnvironmentData("HTTP_X_FORWARDED_HOST")) {
             return _getEnvironmentData("HTTP_X_FORWARDED_HOST");
@@ -783,9 +749,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         return _getEnvironmentData("HTTP_HOST");
     }
     
-    /**
-     * Get the port the request was handled on.
-     */
+    // Get the port the request was handled on.
     string port() {
         if (_trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PORT")) {
             return _getEnvironmentData("HTTP_X_FORWARDED_PORT");
@@ -800,7 +764,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     string scheme() {
         return _trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PROTO")
             ? getEnvironmentData("HTTP_X_FORWARDED_PROTO")
-            : _getEnvironmentData("HTTPS") ? "https' : 'http";
+            : _getEnvironmentData("HTTPS") ? "https" : "http";
     }
     
     /**
@@ -865,7 +829,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
         
         auto accept = null;
-        content.parseAccept(this).each!(types => accept = array_merge(accept, types))
+        /* content.parseAccept(this).each!(types => accept = array_merge(accept, types)) */
         return accept;
     }
     
@@ -906,7 +870,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     Json getQuery(string name = null, Json defaultValue = Json(null)) {
         return name.isNull
             ? _queryArguments
-            : Hash.get(_query, name, default);
+            : Hash.get(_query, name, defaultValue);
     }
     
     /**
@@ -1050,9 +1014,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * string aversion HTTP protocol version
      */
     static auto withProtocolVersion(string aversion) {
-        if (!preg_match("/^(1\.[01]|2)/", version)) {
+        /* if (!preg_match("/^(1\.[01]|2)/", version)) {
             throw new DInvalidArgumentException("Unsupported protocol version `%s` provided.".format(version));
-        }
+        } */
         auto newServerRequest = this.clone;
         newServerRequest.protocol = aversion;
 
@@ -1068,7 +1032,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         if (!hasKey(key, _environmentData)) {
            _environmentData[key] = enviroment(key);
         }
-        return _environmentData[key] !is null ? (string)_environmentData[key] : default;
+        return _environmentData[key] !is null ? /* (string) */_environmentData[key] : defaultValue;
     }
     
     /**
@@ -1103,9 +1067,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     bool allowMethod(string[] amethods) {
         auto someMethods = /* (array) */ someMethods;
         foreach (method; someMethods) {
-            if (is(method)) {
+            /* if (is(method)) {
                 return true;
-            }
+            } */
         }
         auto allowed = strtoupper(join(", ",  someMethods));
          auto anException = new DMethodNotAllowedException();
@@ -1162,7 +1126,8 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     
     // Safely access the values in _params.
     Json getParam(string path, Json defaultValue = Json(null)) {
-        return Hash.get(_params, name, default);
+        // return Hash.get(_params, name, defaultValue);
+        return Json(null);
     }
     
     // Return an instance with the specified request attribute.
@@ -1195,16 +1160,16 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     
     // Read an attribute from the request, or get the default
     Json getAttribute(string attributeName, Json defaultValue = Json(null)) {
-        if (isIn(attributeName, _emulatedAttributes, true)) {
+        /* if (isIn(attributeName, _emulatedAttributes, true)) {
             if (namattributeNamee == "here") {
                 return _base ~ this.uri.getPath();
             }
             return _{attributeName};
-        }
+        } */
         if (hasKey(attributeName, this.attributes)) {
             return _attributes[attributeName];
         }
-        return default;
+        return defaultValue;
     }
     
     /**

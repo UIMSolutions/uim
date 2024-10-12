@@ -46,7 +46,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *
      * @var callable|null
      */
-    protected skipCheckCallback;
+    // protected skipCheckCallback;
 
     const int TOKEN_VALUE_LENGTH = 32;
 
@@ -66,8 +66,8 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
 
         if (
             hasData
-            && this.skipCheckCallback !is null
-            && call_user_func(this.skipCheckCallback, serverRequest) == true
+            /* && this.skipCheckCallback !is null
+            && call_user_func(this.skipCheckCallback, serverRequest) == true */
             ) {
             return requestHandler.handle(this.unsetTokenField(serverRequest));
         }
@@ -101,9 +101,9 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * Params:
      * callable aCallback A callable.
      */
-    void skipCheckCallback(callable aCallback) {
+    /* void skipCheckCallback(callable aCallback) {
         this.skipCheckCallback = aCallback;
-    }
+    } */
 
     /**
      * Apply entropy to a CSRF token

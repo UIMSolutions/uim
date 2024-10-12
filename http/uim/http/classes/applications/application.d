@@ -148,10 +148,11 @@ class DApplication {
     }
  
     auto DCommandCollection pluginConsole(CommandCollection commands) {
-        foreach (plugin; _plugins.with("console")) {
+        /* foreach (plugin; _plugins.with("console")) {
             commands = plugin.console(commands);
         }
-        return commands;
+        return commands; */
+        return null; 
     }
     
     /**

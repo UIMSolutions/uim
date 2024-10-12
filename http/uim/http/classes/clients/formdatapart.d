@@ -89,16 +89,12 @@ class DFormDataPart { // }: Stringable {
         return _transferEncoding = type;
     }
     
-    /**
-     * Get the part name.
-     */
+    // Get the part name.
     string name() {
         return _name;
     }
     
-    /**
-     * Get the value.
-     */
+    // Get the value.
     string value() {
         return _value;
     }
@@ -143,9 +139,9 @@ class DFormDataPart { // }: Stringable {
      */
     protected string _headerParameterToString(string headerParameterName, string headerParameterValue) {
         auto transliterated = Text.transliterate(headerParameterValue.replace("\"", ""));
-        string result = "%s="%s"".format(headerParameterName, transliterated);
+        string result = "%s=\"%s\"".format(headerParameterName, transliterated);
         if (_charset && headerParameterValue != transliterated) {
-            result ~= "; %s*=%s\""%s".format(headerParameterName, _charset.lower, rawUrlEncode(headerParameterValue));
+            result ~= "; %s*=%s\"\"%s".format(headerParameterName, _charset.lower, rawUrlEncode(headerParameterValue));
         }
         return result;
     }

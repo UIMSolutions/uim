@@ -107,7 +107,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     
     // Check if a cookie with the given name exists
     bool __isSet(string cookieName) {
-        return !__get(cookieName)isNull;
+        return !__get(cookieName).isNull;
     }
     
     /**
@@ -117,9 +117,9 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      */
     static removeKey(string cookieName) {
         auto result = this.clone;
-        aKey = mb_strtolower(cookieName);
-        foreach (result.cookies as  index: cookie) {
-            if (mb_strtolower(cookie.cookieName) == aKey) {
+        string key = cookieName.lower;
+        foreach (index, cookie; result.cookies) {
+            if (cookie.cookieName.lower == key) {
                 removeKey(result.cookies[index]);
             }
         }
@@ -128,16 +128,16 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     
     // Checks if only valid cookie objects are in the array
     protected void checkCookies(ICookie[] cookies) {
-        foreach (anIndex: cookie; cookies) {
+        foreach (anIndex, cookie; cookies) {
             if (!cast(ICookie)!cookie) {
-                throw new DInvalidArgumentException(                   
+                /* throw new DInvalidArgumentException(                   
                     "Expected `%s[]` as cookies but instead got `%s` at index %d"
                     .format(
                         class,
                         get_debug_type(cookie),
                         anIndex
                    )
-               );
+               ); */
             }
         }
     }
@@ -159,13 +159,13 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         cookies = this.findMatchingCookies(
             anUri.getScheme(),
             anUri.getHost(),
-            anUri.getPath() ?: '/'
+            anUri.getPath() ? anUri.getPath() : '/'
        );
         cookies = extraCookies + cookies;
         
         string[] cookiePairs;
         cookies.byKeyValue.each!((kv) {
-            auto cookie = "%s=%s".format(rawUrlEncode((string)kv.key), rawUrlEncode(kv.value));
+            auto cookie = "%s=%s".format(rawUrlEncode(/* (string) */kv.key), rawUrlEncode(kv.value));
             auto size = cookie.length;
             if (size > 4096) {
                 triggerWarning(
@@ -176,10 +176,9 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             cookiePairs ~= cookie;
         });
 
-        if (cookiePairs.isEmpty() {
-            return request;
-        }
-        return request.withHeader("Cookie", cookiePairs.join("; "));
+        return cookiePairs.isEmpty()
+            ? request
+            : request.withHeader("Cookie", cookiePairs.join("; "));
     }
     
     // Find cookies matching the scheme, host, and path
@@ -213,33 +212,29 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     
     // Create a new DCollection that includes cookies from the response.
     static addFromResponse(IResponse response, IRequest request) {
-        anUri = request.getUri();
-        host = anUri.getHost();
-        somePath = anUri.getPath() ?: "/";
+        auto anUri = request.getUri();
+        auto host = anUri.getHost();
+        auto somePath = anUri.getPath() ? anUri.getPath() : "/";
 
-        cookies = createFromHeader(
+        auto cookies = createFromHeader(
             response.getHeader("Set-Cookie"),
             ["domain": host, "path": somePath]
        );
-        new = this.clone;
+        DCookieCollection newCC = this.clone;
         foreach (cookie; cookies) {
-            new.cookies[cookie.id()] = cookie;
+            newCC.cookies[cookie.id()] = cookie;
         }
-        new.removeExpiredCookies(host, somePath);
+        newCC.removeExpiredCookies(host, somePath);
 
-        return new;
+        return newCC;
     }
     
-    /**
-     * Remove expired cookies from the collection.
-     * Params:
-     * string ahost The host to check for expired cookies on.
-     */
+    // Remove expired cookies from the collection.
     protected void removeExpiredCookies(string hostToCheck, string pathToCheck) {
         auto time = new DateTimeImmutable("now", new DateTimeZone("UTC"));
         string hostPattern = "/" ~ preg_quote(hostToCheck, "/") ~ "/";
 
-        foreach (index: cookie; _cookies) {
+        foreach (index, cookie; _cookies) {
             if (!cookie.isExpired(time)) {
                 continue;
             }

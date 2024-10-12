@@ -247,24 +247,21 @@ class DClientResponse { // }: Message : IResponse {
      * string aName The name of the cookie value.
      */
     Json[string] getCookieData(string valueName) {
-        cookies = buildCookieCollection();
+        auto cookies = buildCookieCollection();
 
-        if (!cookies.has(valueName)) {
-            return null;
-        }
-        return cookies.get(valueName).toJString();
+        return cookies.has(valueName)
+            ? cookies.get(valueName).toJString()
+            : null;
     }
     
-    /**
-     * Lazily build the CookieCollection and cookie objects from the response header
-     */
+    // Lazily build the CookieCollection and cookie objects from the response header
     protected ICookieCollection buildCookieCollection() {
-        this.cookies ??= CookieCollection.createFromHeader(getHeader("Set-Cookie"));
+        _cookies ? _cookies : CookieCollection.createFromHeader(getHeader("Set-Cookie"));
 
         return _cookies;
     }
     
-    // Property accessor for `this.cookies`
+    // Property accessor for `_cookies`
     protected Json[string] _getCookies() {
         auto result;
         this.buildCookieCollection.each!(cookie => result[cookie.name] = cookie.toJString());

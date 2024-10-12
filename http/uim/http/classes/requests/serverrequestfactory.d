@@ -44,12 +44,12 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
             createMap!(string, Json)
                 .set("environment", server)
                 .set("uri", anUri)
-                .set("cookies", cookies ?  ? _COOKIE)
-                .set("query", aQuery ?  ? _GET)
+                /* .set("cookies", cookies ?  ? _COOKIE)
+                .set("query", aQuery ?  aQuery : _GET)
                 .set("webroot", webroot)
                 .set("base", base)
                 .set("session", session)
-                .set("input", server.get("uimD_INPUT", null)));
+                .set("input", server.get("uimD_INPUT", null)) */);
 
         request = marshalBodyAndRequestMethod(parsedBody ? parsedBody : _POST, request);
         // This is required as `ServerRequest.scheme()` ignores the value of
@@ -78,9 +78,9 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
 
         if (
             isIn(method, ["PUT", "DELETE", "PATCH"], true) &&
-            (string) serverRequest.contentType().startWith("application/x-www-form-urlencoded")
+           /*  (string) */ serverRequest.contentType().startWith("application/x-www-form-urlencoded")
             ) {
-            someData = (string) serverRequest.getBody();
+            someData = /* (string) */ serverRequest.getBody();
             parse_str(someData, parsedBody);
         }
         if (serverRequest.hasHeader("X-Http-Method-Override")) {

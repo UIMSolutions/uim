@@ -28,8 +28,6 @@ class DResponseEmitter {
      *
      * Emits a response, including status line, headers, and the message body,
      * according to the environment.
-     * Params:
-     * \Psr\Http\Message\IResponse response The response to emit.
      */
    bool emit(IResponse response) {
         string file = "";
@@ -54,11 +52,7 @@ class DResponseEmitter {
         return true;
     }
     
-    /**
-     * Emit the message body.
-     * Params:
-     * \Psr\Http\Message\IResponse response The response to emit
-     */
+    // Emit the message body.
     protected void emitBody(IResponse response) {
         if (isIn(response.statusCode(), [204, 304], true)) {
             return;
@@ -163,9 +157,7 @@ class DResponseEmitter {
         return setcookie(cookie.name, cookie.getScalarValue(), cookie.options());
     }
     
-    /**
-     * Loops through the output buffer, flushing each, before emitting the response.
-     */
+    //Loops through the output buffer, flushing each, before emitting the response.
     protected void flush(int maxBufferLevel = null) {
         maxBufferLevel ? maxBufferLevel : ob_get_level();
 

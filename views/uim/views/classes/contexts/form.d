@@ -8,50 +8,51 @@ module uim.views.classes.contexts.form;
 import uim.views;
 
 @safe:
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+unittest {
+  writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 // Provides a context provider for form instances.
 class DFormContext : DContext {
-    mixin(ContextThis!("Form"));
+  mixin(ContextThis!("Form"));
 
-    // The form object.
-    protected IForm _form;
+  // The form object.
+  protected IForm _form;
 
-    // Validator name.
-    protected string _validatorName = null;
+  // Validator name.
+  protected string _validatorName = null;
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-   // TODO      
-/*         assert(
+    // TODO      
+    /*         assert(
             initData.hasKey("entity") && cast(DForm)initData["entity"],
             "`\mycontext["entity"]` must be an instance of " ~ Form.classname
        );
  */
-       /* _form = initData.getString("entity");
+    /* _form = initData.getString("entity");
        _validatorName = initData.getString("validator", null); */
 
-        return true;
-    }
+    return true;
+  }
 
-    override bool isPrimaryKey(string[] path) {
-        return isPrimaryKey(path.join("."));
-    }
-    override bool isPrimaryKey(string fieldName) {
-        return false;
-    }
+  override bool isPrimaryKey(string[] path) {
+    return isPrimaryKey(path.join("."));
+  }
 
-    override bool isCreate() {
-        return true;
-    }
+  override bool isPrimaryKey(string fieldName) {
+    return false;
+  }
 
-    override Json val(string fieldName, Json[string] options = null) {
-        /* options
+  override bool isCreate() {
+    return true;
+  }
+
+  override Json val(string fieldName, Json[string] options = null) {
+    /* options
             .merge("default", Json(null))
             .merge("schemaDefault", true);
 
@@ -65,31 +66,31 @@ class DFormContext : DContext {
         }
 
         return _schemaDefault(fieldName); */
-        return Json(null);
-    }
+    return Json(null);
+  }
 
-    // Get default value from form schema for given field.
-    protected Json _schemaDefault(string fieldName) {
-        /* auto fieldSchema = _form.getSchema().field(fieldName);
+  // Get default value from form schema for given field.
+  protected Json _schemaDefault(string fieldName) {
+    /* auto fieldSchema = _form.getSchema().field(fieldName);
         return fieldSchema.isNull
             ? null
             : fieldSchema.get("default"); */
-        return Json(null);
-    }
- 
-    override bool isRequired(string fieldName) {
-        /* auto formValidator = _form.getValidator(_validatorName);
+    return Json(null);
+  }
+
+  override bool isRequired(string fieldName) {
+    /* auto formValidator = _form.getValidator(_validatorName);
         if (!formValidator.hasField(fieldName)) {
             return false;
         } 
 
         if (this.type(fieldName) != "boolean") {
             return !formValidator.isEmptyAllowed(fieldName, this.isCreate());
-        } */ 
-        return false;
-    }
- 
-    /* 
+        } */
+    return false;
+  }
+
+  /* 
     string getRequiredMessage(string fieldName) {
         string[] myparts = fieldName.split(".");
 
@@ -144,9 +145,10 @@ class DFormContext : DContext {
         return count(myerrors) > 0;
     } */
 
-    IError[] error(string fieldName) {
-        return null;
-        // TODO return (array)Hash.get(_form.getErrors(), fieldName, []);
-    }
+  IError[] error(string fieldName) {
+    return null;
+    // TODO return (array)Hash.get(_form.getErrors(), fieldName, []);
+  }
 }
+
 mixin(ContextCalls!("Form"));

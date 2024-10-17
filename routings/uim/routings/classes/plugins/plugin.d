@@ -3,9 +3,9 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.oop.plugins.plugin;
+module uim.routings.plugins.plugin;
 
-import uim.oop;
+import uim.routings;
 
 @safe:
 
@@ -14,20 +14,19 @@ import uim.oop;
  * Every plugin should extend from this class or implement the interfaces and
  * include a plugin class in its src root folder.
  */
-class DPlugin : IPlugin {
-    mixin TConfigurable;
-
+class DPlugin : UIMObject, IPlugin {
     this() {
-        initialize;
+        super.initialize;
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
         return true;
     }
@@ -61,10 +60,7 @@ class DPlugin : IPlugin {
 
     // The name of this plugin
     protected string _name;
-    @property void name(string newName) {
-        _name = newName;
-    }
-    @property string name() {
+    override string name() {
         if (_name.isEmpty) {
             return _name;
         }

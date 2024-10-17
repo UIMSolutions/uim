@@ -262,14 +262,15 @@ class DRouteBuilder {
 
     options
       .merge(["connectOptions", "only", "actions", "map"], Json.emptyArray)
-      .merge(["prefix", "path"], Json(null));
-    
-    .merge("inflect", "dasherize")
-      .merge("id", ID ~ "|" ~ UUID) /* foreach (myKey, mymapped; options.get("map")) {
+      .merge(["prefix", "path"], Json(null))
+      .merge("inflect", "dasherize")
+      .merge("id", ID ~ "|" ~ UUID);
+
+    /* foreach (myKey, mymapped; options.get("map")) {
       // options.get("map"][myKey] += ["method": "GET", "path": myKey, "action": ""];
     } */
 
-      auto myext = options.get("_ext");
+    auto myext = options.get("_ext");
     auto myconnectOptions = options.get("connectOptions");
     if (options.isEmpty("path")) {
       mymethod = options.get("inflect");

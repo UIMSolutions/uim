@@ -675,8 +675,6 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      *
      * Existing header values will be retained. The provided value
      * will be appended into the existing values.
-     * Params:
-     * string aName The header name.
      */
     static auto withAddedHeader(string headerName, headerValue) {
         auto newRequest = this.clone;

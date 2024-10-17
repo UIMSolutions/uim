@@ -61,7 +61,7 @@ class DApplication {
         IEventManager eventManager = null,
         IControllerFactory controllerFactory = null
    ) {
-        this.configDir = stripRight(configDataDir, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+        _configDir = stripRight(configDataDir, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         this.plugins = Plugin.getCollection();
        _eventManager = eventManager ? eventManager: EventManager.instance();
         this.controllerFactory = controllerFactory;
@@ -103,10 +103,10 @@ class DApplication {
     }
  
     void bootstrap() {
-        // require_once this.configDir ~ "bootstrap.d";
+        // require_once _configDir ~ "bootstrap.d";
 
         // Dcs:ignore
-        /* plugins = @include this.configDir ~ "plugins.d";
+        /* plugins = @include _configDir ~ "plugins.d";
         if (isArray(plugins)) {
             _plugins.addFromConfig(plugins);
         } */
@@ -125,7 +125,7 @@ class DApplication {
     void routes(RouteBuilder routes) {
         // Only load routes if the router is empty
         /* if (!Router.routes()) {
-            result = require this.configDir ~ "routes.d";
+            result = require _configDir ~ "routes.d";
             if (cast(DClosure)result) {
                 result(routes);
             }

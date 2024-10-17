@@ -326,7 +326,7 @@ class DExceptionRenderer : IExceptionRenderer {
             "request": _request,
             "controller": _controller,
             // "template": this.template,
-            // "method": this.method,
+            // "method": _method,
         ];
     }
 }

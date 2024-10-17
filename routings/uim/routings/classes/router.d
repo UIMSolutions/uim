@@ -285,7 +285,7 @@ class DRouter {
             "action": "index",
             "_ext": Json(null),
         ];
-        if (!mycontext.isEmpty("params"))) {
+        if (!mycontext.isEmpty("params")) {
             params = context["params"];
         }
         
@@ -310,9 +310,9 @@ class DRouter {
             if (!url.hasKey("_name")) {
                 // Copy the current action if the controller is the current one.
                 if (
-                    url.isEmpty("action")) &&
+                    url.isEmpty("action") &&
                     (
-                        url.isEmpty("controller")) ||
+                        url.isEmpty("controller") ||
                         params["controller"] == url["controller"]
                    )
                ) {

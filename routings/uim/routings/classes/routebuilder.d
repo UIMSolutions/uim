@@ -734,7 +734,7 @@ class DRouteBuilder {
      * string ...routingss The names of the middleware to apply to the current scope.
      */
   void applyMiddleware(string[] routings...) {
-    routings
+    /* routings
       .filter!(
         routing => !_collection.middlewarehasKey(
           routing)) {
@@ -742,11 +742,10 @@ class DRouteBuilder {
           ~ "Use registerMiddleware() to register middleware.";
         throw new DInvalidArgumentException(
           message);
-      }
+      } */
   }
 
-  _middleware = chain(_middleware, routings)
-    .unique;
+  // _middleware = chain(_middleware, routings).unique;
 }
 
 // Get the middleware that this builder will apply to routes.
@@ -759,5 +758,4 @@ auto middlewareGroup(string groupName, Json[string] middlewareNames) {
   _collection.middlewareGroup(groupName, middlewareNames);
 
   return this;
-}
 }

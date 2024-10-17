@@ -72,7 +72,7 @@ class DPluginLoadCommand : DCommand {
     // Modify the plugins config file.
     /*    protected int modifyConfigFile(string pluginName, Json[string] options = null) {
 
-        configData = @include this.configFile;
+        configData = @include _configFile;
         configData = !configData.isArray ? Json.empty;
     }
  */
@@ -83,7 +83,7 @@ class DPluginLoadCommand : DCommand {
 
     contents = "\n\n" ~ "return " ~ Json[string] ~ ";" ~ "\n";
 
-    return file_put_contents(this.configFile, contents)
+    return file_put_contents(_configFile, contents)
         ? CODE_SUCCESS : CODE_ERROR; */
     return 0;
 }

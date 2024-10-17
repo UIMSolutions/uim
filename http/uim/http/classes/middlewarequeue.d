@@ -128,7 +128,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * this method will behave like add().
      */
     // auto insertAfter(string classname, IHttpMiddleware middlewareToInsert) {
-    // auto insertAfter(string classname, DClosure middlewareToInsert) {
+    // auto insertAfter(string classname, IClosure middlewareToInsert) {
     auto insertAfter(string classname, string middlewareToInsert) {
         auto found = false;
         auto index = 0;

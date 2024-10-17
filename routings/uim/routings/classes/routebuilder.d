@@ -597,7 +597,7 @@ class DRouteBuilder {
      * });
      * ```
      */
-  void prefix(string routingPrefix, /* Closure |  */ Json[string] params = null, DClosure callbackClosure = null) {
+  void prefix(string routingPrefix, /* Closure |  */ Json[string] params = null, IClosure callbackClosure = null) {
     if (!params.isArray) {
       callbackClosure = params;
       params = null;
@@ -663,7 +663,7 @@ class DRouteBuilder {
      * name of any route created in a scope callback.
      */
   /*  void scope (string path, /* Closure |  * /Json[string] params, /* Closure callbackClosure = null * /) {
-        if (cast(DClosure) params) {
+        if (cast(IClosure) params) {
             // callbackClosure = params;
             params = null;
         }

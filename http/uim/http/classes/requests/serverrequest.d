@@ -400,7 +400,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     // Worker for the is() function
     protected bool _is(string requestType, Json[string] someArguments) {
         auto detect = _detectors[requestType];
-        /* if (cast(DClosure)detect) {
+        /* if (cast(IClosure)detect) {
             someArguments.unshift(this);
 
             return detect(...someArguments);
@@ -451,7 +451,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         foreach (header, aValue; detectorOptions.getMap("header")) {
             auto header = getEnvironmentData("http_" ~  header);
             if (!header.isNull) {
-                /* if (cast(DClosure)aValue) {
+                /* if (cast(IClosure)aValue) {
                     return aValue(header);
                 } */
                 return header == aValue;
@@ -583,7 +583,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      *
      * `addDetector("extension", ["param": '_ext", "options": ["pdf", "csv"]]`
      */
-    static void addDetector(string detectorName, DClosure/* array */ detector) {
+    static void addDetector(string detectorName, IClosure/* array */ detector) {
             _detectors[detectorName.lower] = detector;
     }
 

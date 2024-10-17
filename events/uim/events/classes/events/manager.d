@@ -169,7 +169,7 @@ class DEventManager : IEventManager {
         return eventHandlers;
     }
 
-    /*     protected Json[string] normalizeHandlers(IEventListener subscriber, DClosure eventHandler) {
+    /*     protected Json[string] normalizeHandlers(IEventListener subscriber, IClosure eventHandler) {
         // TODO return [normalizeHandler(subscriber, eventHandler)];
         return null; 
     }

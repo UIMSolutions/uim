@@ -155,7 +155,7 @@ class DPlugin : UIMObject, IPlugin {
         somePath = this.configPath() ~ "routes.d";
         if (isFile(somePath)) {
             result = /* require */ somePath;
-            if (cast(DClosure)result) {
+            if (cast(IClosure)result) {
                 result(routes);
             }
         }

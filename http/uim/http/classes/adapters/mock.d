@@ -29,7 +29,7 @@ class DMockAdapter { //}: IAdapter {
      * - `match` An additional closure to match requests with.
      */
     void addResponse(IRequest requestForMatch, Response response, Json[string] options = null) {
-        if (options.haskey("match") && !(cast(DClosure)options.get("match"))) {
+        if (options.haskey("match") && !(cast(IClosure)options.get("match"))) {
             auto type = get_debug_type(options.get("match"));
             throw new DInvalidArgumentException(
                 "The `match` option must be a `Closure`. Got `%s`."

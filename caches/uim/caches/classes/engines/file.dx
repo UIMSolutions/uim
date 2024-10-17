@@ -244,7 +244,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!isDir(mydir)) {
             mkdir(mydir, configuration.get("dirMask"), true);
         }
-        mypath = new DSplFileInfo(mydir ~ key);
+        mypath = new DFileInfo(mydir ~ key);
 
         if (!createKeyIfNotExists && !mypath.isFile()) {
             return false;
@@ -278,7 +278,7 @@ class DFileCacheEngine : DCacheEngine {
 
     // Determine if cache directory is writable
     /* protected bool _active() {
-        auto mydir = new DSplFileInfo(configuration.get("path"));
+        auto mydir = new DFileInfo(configuration.get("path"));
         auto mypath = mydir.getPathname();
         auto mysuccess = true;
         if (!isDir(mypath)) {

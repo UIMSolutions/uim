@@ -34,18 +34,20 @@ public {
   import uim.oop.containers;
   import uim.oop.containers.maps;
   import uim.oop.core;
+  import uim.oop.direntries;
   import uim.oop.enumerations;
   import uim.oop.errors;
   import uim.oop.exceptions;
   import uim.oop.helpers;
   import uim.oop.formatters;
   import uim.oop.interfaces;
-  import uim.oop.keypairs;	
+  import uim.oop.keypairs;
   import uim.oop.mixins;
   import uim.oop.objects;
   import uim.oop.observers;
   import uim.oop.parsers;
   import uim.oop.patterns;
+
   // TODO import uim.oop.plugins;
   import uim.oop.properties;
   import uim.oop.registries;

@@ -42,7 +42,7 @@ class DAssetMiddleware : IRoutingMiddleware {
             return requestHandler.handle(serverRequest);
         }
         
-        auto file = new DSplFileInfo(assetFile);
+        auto file = new DFileInfo(assetFile);
         auto modifiedTime = file.getMTime();
         if (this.isNotModified(serverRequest, file)) {
             return (new DResponse())
@@ -88,7 +88,7 @@ class DAssetMiddleware : IRoutingMiddleware {
     } */
 
     // Sends an asset file to the client
-    protected IResponse deliverAsset(IServerRequest serverRequest, DSplFileInfo file) {
+    protected IResponse deliverAsset(IServerRequest serverRequest, DFileInfo file) {
         auto resource = fopen(file.getPathname(), "rb");
         if (resource == false) {
             throw new UIMException("Cannot open resource `%s`".format(file.getPathname()));

@@ -1,81 +1,116 @@
 module uim.oop.direntries.fileinfo;
 
 import uim.oop;
+
 @safe:
 
 class DFileInfo : UIMObject {
     int getATime() {
-        return 0; 
+        return 0;
     }
-    string getBasename(string $suffix = "") {
-        return null; 
+
+    string getBasename(string suffix = null) {
+        return null;
     }
+
     int getCTime() {
-        return 0; 
+        return 0;
     }
-    string getExtension(): string
-    DFileInfo getFileInfo(?string $class = null) {
-        return null; 
+
+    string getExtension() {
+        return null;
     }
+
+    DFileInfo getFileInfo(string classname = null) {
+        return null;
+    }
+
     string getFilename() {
-        return null; 
+        return null;
     }
+
     int getGroup() {
-        return 0; 
+        return 0;
     }
+
     int getInode() {
-        return 0; 
+        return 0;
     }
-     getLinkTarget() {
-        return null; 
+
+    string getLinkTarget() {
+        return null;
     }
+
     int getMTime() {
-        return 0; 
+        return 0;
     }
+
     int getOwner() {
-        return 0; 
+        return 0;
     }
+
     string getPath() {
-        return null; 
+        return null;
     }
-    DFileInfo getPathInfo(?string $class = null) {
-        return null; 
+
+    DFileInfo getPathInfo(string classname = null) {
+        return null;
     }
+
     string getPathname() {
-        return null; 
+        return null;
     }
+
     int getPerms() {
-        return 0; 
+        return 0;
     }
+
     string getRealPath() {
-        return null; 
+        return null;
     }
-     getSize() {
-        return 0; 
+
+    int getSize() {
+        return 0;
     }
     string getType() {
-        return null; 
+        return null;
     }
+
     bool isDir() {
-        return false; 
+        return false;
     }
+
     bool isExecutable() {
-        return false; 
+        return false;
     }
+
     bool isFile() {
-        return false; 
+        return false;
     }
+
     bool isLink() {
-        return false; 
+        return false;
     }
+
     bool isReadable() {
-        return false; 
+        return false;
     }
+
     bool isWritable() {
-        return false; 
+        return false;
     }
-     openFile(string $mode = "r", bool $useIncludePath = false, ?resource $context = null): SplFileObject
-     setFileClass(string $class = SplFileObject::class) {}
-     setInfoClass(string $class = SplFileInfo::class) {}
-     __toString(): string
+
+    DFileInfo openFile(string mode = "r", bool useIncludePath = false, Json[string] context = null) {
+        return null;
+    }
+
+    void setFileClass(string classname = null) {
+    }
+
+    void setInfoClass(string classname = null) {
+    }
+
+    override string toString() {
+        return null;
+    }
 }

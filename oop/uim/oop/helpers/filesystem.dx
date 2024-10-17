@@ -149,7 +149,7 @@ class HFilesystem {
      * Copies directory with all it"s contents.
      */
    bool copyDir(string sourcepath, string destinationPath) {
-        auto destPath = (new DSplFileInfo(destinationPath)).getPathname();
+        auto destPath = (new DFileInfo(destinationPath)).getPathname();
 
         if (!isDir(destPath)) {
             this.mkdir(destPath);

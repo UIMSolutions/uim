@@ -1156,7 +1156,7 @@ class DResponse : IResponse {
             throw new DNotFoundException(__d("uim", "The requested file contains `..` and will not be read."));
         }
 
-        auto file = new DSplFileInfo(filePath);
+        auto file = new DFileInfo(filePath);
         if (!file.isFile() || !file.isReadable()) {
             if (configuration.hasKey("debug")) {
                 throw new DNotFoundException("The requested file %s was not found or not readable".format(filePath));

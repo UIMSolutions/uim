@@ -45,27 +45,27 @@ class DExceptionTrap : UIMObject {
         }
 
         /**
-     * Configuration options. Generally these will be defined in your config/app.D
-     *
-     * - `exceptionRenderer` - string - The class responsible for rendering uncaught exceptions.
-     *  The chosen class will be used for for both CLI and web environments. If  you want different
-     *  classes used in CLI and web environments you"ll need to write that conditional logic as well.
-     *  The conventional location for custom renderers is in `src/Error`. Your exception renderer needs to
-     *  implement the `render()` method and return either a string or Http\Response.
-     * - `log` Set to false to disable logging.
-     * - `logger` - string - The class name of the error logger to use.
-     * - `trace` - boolean - Whether or not backtraces should be included in
-     *  logged exceptions.
-     * - `skipLog` - array - List of exceptions to skip for logging. Exceptions that
-     *  extend one of the listed exceptions will also not be logged. E.g.:
-     *  ```
-     *  "skipLog": ["uim\Http\exceptions.NotFoundException", "uim\Http\exceptions.UnauthorizedException"]
-     *  ```
-     *  This option is forwarded to the configured `logger`
-     * - `extraFatalErrorMemory` - int - The number of megabytes to increase the memory limit by when a fatal error is
-     *  encountered. This allows breathing room to complete logging or error handling.
-     * - `stderr` Used in console environments so that renderers have access to the current console output stream.
-     */
+        * Configuration options. Generally these will be defined in your config/app.D
+        *
+        * - `exceptionRenderer` - string - The class responsible for rendering uncaught exceptions.
+        *  The chosen class will be used for for both CLI and web environments. If  you want different
+        *  classes used in CLI and web environments you"ll need to write that conditional logic as well.
+        *  The conventional location for custom renderers is in `src/Error`. Your exception renderer needs to
+        *  implement the `render()` method and return either a string or Http\Response.
+        * - `log` Set to false to disable logging.
+        * - `logger` - string - The class name of the error logger to use.
+        * - `trace` - boolean - Whether or not backtraces should be included in
+        *  logged exceptions.
+        * - `skipLog` - array - List of exceptions to skip for logging. Exceptions that
+        *  extend one of the listed exceptions will also not be logged. E.g.:
+        *  ```
+        *  "skipLog": ["uim\Http\exceptions.NotFoundException", "uim\Http\exceptions.UnauthorizedException"]
+        *  ```
+        *  This option is forwarded to the configured `logger`
+        * - `extraFatalErrorMemory` - int - The number of megabytes to increase the memory limit by when a fatal error is
+        *  encountered. This allows breathing room to complete logging or error handling.
+        * - `stderr` Used in console environments so that renderers have access to the current console output stream.
+        */
         configuration
             .setDefault("exceptionRenderer", Json(null))
             .setDefault("logger", ErrorLogger.classname)
@@ -93,13 +93,11 @@ class DExceptionTrap : UIMObject {
      *
      * This is best effort as we can"t know if/when another
      * exception handler is registered.
-     *
-     * @var uim.errors.ExceptionTrap|null
      */
-    protected static registeredTrap = null;
+    protected static ExceptionTrap registeredTrap = null;
 
     // Track if this trap was removed from the global handler.
-    protected bool _disabled = false;
+    protected bool _isDisabled = false;
 
     // Get an instance of the renderer.
     IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
@@ -174,7 +172,7 @@ class DExceptionTrap : UIMObject {
      */
     void unregister() {
         if (registeredTrap == this) {
-            _disabled = true;
+            _isDisabled = true;
             registeredTrap = null;
         }
     }
@@ -197,7 +195,7 @@ class DExceptionTrap : UIMObject {
      * environment appropriate way.
      */
     void handleException(Throwable exception) {
-        /* if (_disabled) {
+        /* if (_isDisabled) {
             return;
         }
         
@@ -222,7 +220,7 @@ class DExceptionTrap : UIMObject {
      * Convert fatal errors into exceptions that we can render.
      */
     void handleShutdown() {
-        /* if (_disabled) {
+        /* if (_isDisabled) {
             return;
         }
         megabytes = _config["extraFatalErrorMemory"] ?? 4;

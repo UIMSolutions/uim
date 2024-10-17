@@ -27,7 +27,7 @@ class DSocket : UIMObject {
   }
 
   // Hook method
-  bool initialize(Json[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -39,11 +39,24 @@ class DSocket : UIMObject {
       .setDefault("port", 80)
       .setDefault("timeout", 30);
 
+    /* _encryptMethods = [
+      "sslv23_client": STREAM_CRYPTO_METHOD_SSLv23_CLIENT,
+      "tls_client": STREAM_CRYPTO_METHOD_TLS_CLIENT,
+      "tlsv10_client": STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT,
+      "tlsv11_client": STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT,
+      "tlsv12_client": STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT,
+      "sslv23_server": STREAM_CRYPTO_METHOD_SSLv23_SERVER,
+      "tls_server": STREAM_CRYPTO_METHOD_TLS_SERVER,
+      "tlsv10_server": STREAM_CRYPTO_METHOD_TLSv1_0_SERVER,
+      "tlsv11_server": STREAM_CRYPTO_METHOD_TLSv1_1_SERVER,
+      "tlsv12_server": STREAM_CRYPTO_METHOD_TLSv1_2_SERVER,
+    ]; */
+
     return true;
   }
 
   // Reference to socket connection resource
-  protected resource _onnection;
+  // protected resource _connection;
 
   // This boolean contains the current state of the Socket class
   protected bool _connected = false;
@@ -55,18 +68,7 @@ class DSocket : UIMObject {
   protected bool _encrypted = false;
 
   // Contains all the encryption methods available
-  protected int[string] _encryptMethods = [
-    "sslv23_client": STREAM_CRYPTO_METHOD_SSLv23_CLIENT,
-    "tls_client": STREAM_CRYPTO_METHOD_TLS_CLIENT,
-    "tlsv10_client": STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT,
-    "tlsv11_client": STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT,
-    "tlsv12_client": STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT,
-    "sslv23_server": STREAM_CRYPTO_METHOD_SSLv23_SERVER,
-    "tls_server": STREAM_CRYPTO_METHOD_TLS_SERVER,
-    "tlsv10_server": STREAM_CRYPTO_METHOD_TLSv1_0_SERVER,
-    "tlsv11_server": STREAM_CRYPTO_METHOD_TLSv1_1_SERVER,
-    "tlsv12_server": STREAM_CRYPTO_METHOD_TLSv1_2_SERVER,
-  ];
+  protected int[string] _encryptMethods;
 
   /**
      * Used to capture connection warnings which can happen when there are
@@ -76,7 +78,7 @@ class DSocket : UIMObject {
 
   // Connect the socket to the given host and port.
   bool connect() {
-    if (_connection) {
+    /* if (_connection) {
       disconnect();
     }
     if (configuration.getString("host").contains(": //")) {
@@ -130,7 +132,8 @@ class DSocket : UIMObject {
       stream_set_timeout(
         _connection, configuration.getLong("timeout"));
     }
-    return _connected;
+    return _connected; */
+    return false;
   }
 
   // Check the connection status after calling `connect()`.
@@ -162,7 +165,7 @@ class DSocket : UIMObject {
 
   // Configure the SSL context options.
   protected void _setSslContext(string hostName) {
-    _config.byKeyValue
+    /* _config.byKeyValue
       .filter!(kv => str_starts_with(kv.key, "ssl_"))
       .each!((kv) {
         string contextKey = subString(kv.key, 4);
@@ -179,7 +182,7 @@ class DSocket : UIMObject {
     if (!configuration.isEmpty("context/ssl/verify_host")) {
       configuration.set("context/ssl/CN_match", hostName);
     }
-    configuration.removeKey("context/ssl/verify_host");
+    configuration.removeKey("context/ssl/verify_host"); */
   }
 
   /*
@@ -195,35 +198,39 @@ class DSocket : UIMObject {
 
   // Get the connection context.
   Json[string] context() {
-    return !_connection
-      ? null : stream_context_get_options(_connection);
+    /* return !_connection
+      ? null : stream_context_get_options(_connection); */
+    return null; 
   }
 
   // Get the host name of the current connection.
   string host() {
-    if (DValidation.ip(configuration.get("host"))) {
+/*     if (DValidation.ip(configuration.get("host"))) {
       return to!string(gethostbyaddr(
           configuration.get("host")));
-    }
-    return to!string(gethostbyaddr(this.address()));
+    } */
+    // return to!string(gethostbyaddr(this.address()));
+    return null; 
   }
 
   // Get the IP address of the current connection.
   string address() {
-    return DValidation.ip(configuration.get("host"))
+    /* return DValidation.ip(configuration.get("host"))
       ? configuration.get("host") : getHostByName(
-        configuration.getString("host"));
+        configuration.getString("host")); */
+    return null; 
   }
 
   // Get all IP addresses associated with the current connection.
   Json[string] addresses() {
-    if (DValidation.ip(configuration.get("host"))) {
+    /* if (DValidation.ip(configuration.get("host"))) {
       return [
         "host": configuration.getString["host"]
       ];
     }
     return gethostbynamel(
-      configuration.hasKey("host")) ? configuration.getMap("host") : null;
+      configuration.hasKey("host")) ? configuration.getMap("host") : null; */
+    return null; 
   }
 
   // Get the last error as a string.
@@ -234,15 +241,15 @@ class DSocket : UIMObject {
 
   // Set the last error.
   void setLastError(int errorNumber, string errorString) {
-    _lastError = [
+    /* _lastError = [
       "num": errorNumber,
       "str": errorString
-    ];
+    ]; */
   }
 
   // Write data to the socket.
   int write(string adata) {
-    if (!_connected && !this.connect()) {
+    /* if (!_connected && !this.connect()) {
       return 0;
     }
     auto totalBytes = someData
@@ -258,7 +265,8 @@ class DSocket : UIMObject {
       }
       written += rv;
     }
-    return written;
+    return written; */
+    return 0;
   }
 
   // Read data from the socket. Returns null if no data is available or no connection could be established.
@@ -267,7 +275,7 @@ class DSocket : UIMObject {
     if (!_connected && !this.connect()) {
       return null;
     }
-    assert(_connection !is null);
+    /* assert(_connection !is null);
     if (feof(_connection)) {
       return null;
     }
@@ -279,7 +287,8 @@ class DSocket : UIMObject {
       setLastError(ERRORS.WARNING, "Connection timed out");
       return null;
     }
-    return buffer.isEmpty ? buffer : null;
+    return buffer.isEmpty ? buffer : null; */
+    return null; 
   }
 
   /* <<  <<  <<  < HEAD /**
@@ -291,7 +300,7 @@ class DSocket : UIMObject {
   // Disconnect the socket from the current connection
   /* >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf  */
   bool disconnect() {
-    if (
+    /* if (
       !isResource(
         _connection)) {
       _connected = false;
@@ -306,7 +315,8 @@ class DSocket : UIMObject {
       !_connected) {
       _connection = null;
     }
-    return !_connected;
+    return !_connected; */
+    return false;
   }
 
   /* <<  <<  <<  < HEAD
@@ -321,8 +331,8 @@ class DSocket : UIMObject {
      * Params:
      * array|null state Array with key and values to reset
      */
-  void reset(array state = null) {
-    if (state.isEmpty) {
+  void reset(Json[string] state = null) {
+    /* if (state.isEmpty) {
       static anInitialState = null;
       if (
         isEmpty(
@@ -335,24 +345,24 @@ class DSocket : UIMObject {
     }
     foreach (property, value; state) {
       // this. {property}= value;
-    }
+    } */
   }
   // Encrypts current stream socket, using one of the defined encryption methods
   void enableCrypto(string type, string clientOrServer = "client", bool enable = true) {
     if (!_encryptMethods.hasKey(type ~ "_" ~ clientOrServer)) {
-      throw new DInvalidArgumentException("Invalid encryption scheme chosen");
+      // throw new DInvalidArgumentException("Invalid encryption scheme chosen");
     }
 
     auto method = _encryptMethods[type ~ "_" ~ clientOrServer];
-    if (
+    /* if (
       method == STREAM_CRYPTO_METHOD_TLS_CLIENT) {
       method |= STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT | STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT;
     }
     if (
       method == STREAM_CRYPTO_METHOD_TLS_SERVER) {
       method |= STREAM_CRYPTO_METHOD_TLSv1_1_SERVER | STREAM_CRYPTO_METHOD_TLSv1_2_SERVER;
-    }
-    try {
+    } */
+    /* try {
       if (_connection.isNull) {
         throw new UIMException("You must call connect() first.");
       }
@@ -366,11 +376,11 @@ class DSocket : UIMObject {
       _encrypted = enable;
 
       return;
-    }
+    } */
 
     string errorMessage = "Unable to perform enableCrypto operation on the current socket";
-    setLastError(null, errorMessage);
-    throw new DSocketException(errorMessage);
+    /* setLastError(null, errorMessage);
+    throw new DSocketException(errorMessage); */
   }
 
   // Check the encryption status after calling `enableCrypto()`.

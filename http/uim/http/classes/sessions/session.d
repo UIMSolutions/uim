@@ -167,7 +167,7 @@ class DSession {
             .setDefaults(["ini", "handler"], Json.emptyArray);
 
         if (configuration.hasKey("timeout")) {
-            configuration.set("ini.session.gc_maxlifetime", 60 * configuration.get("timeout"));
+            configuration.set("ini.session.gc_maxlifetime", 60 * configuration.getLong("timeout"));
         }
         if (configuration.hasKey("cookie")) {
             configuration.set("ini.session.name", configuration.get("cookie"));
@@ -183,7 +183,7 @@ class DSession {
             auto handlerEngineClassname = configuration.shift("handler.engine").getString;
             engine(handlerEngineClassname, configuration.get("handler"));
         }
-        _lifetime = (int) ini_get("session.gc_maxlifetime");
+        _lifetime = /* (int)  */ini_get("session.gc_maxlifetime");
         _isCLI = (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg");
         session_register_shutdown();
     }

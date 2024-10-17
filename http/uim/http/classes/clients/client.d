@@ -220,7 +220,7 @@ class DClient { // }: IClient {
         configuration.get("path"));
     }
     // return new static(configData);
-    return null; 
+    return null;
   }
 
   // Get the cookies stored in the Client.
@@ -464,23 +464,19 @@ class DClient { // }: IClient {
 
   // Creates a new request object based on the parameters.
   protected DRequest _createRequest(string httpMethod, string url, Json requestBody, Json[string] options = null) {
-    /** @var array<non-empty-string, non-empty-string>  myheaders */
-    auto myheaders = options.get("headers");
+    auto headers = options.getArray("headers");
     if (options.hasKey("type")) {
-      myheaders = chain(myheaders, _typeHeaders(
+      headers = chain(headers, _typeHeaders(
           options.get("type")));
     }
-    if (requestBody.isString && myheaders.isNull("Content-Type") && myheaders
+    if (requestBody.isString && headers.isNull("Content-Type") && headers
       .isNull("content-type")) {
-      myheaders.set("Content-Type", "application/x-www-form-urlencoded");
+      headers.set("Content-Type", "application/x-www-form-urlencoded");
     }
-    auto newRequest = new DRequest(url, httpMethod, myheaders, requestBody);
-    newRequest = newRequest.withProtocolVersion(
-      _configData.hasKey("protocolVersion"));
-    auto mycookies = options.getArray(
-      "cookies"); /** @var \UIM\Http\Client\Request  newRequest */
-    newRequest = _cookies.addToRequest(
-      newRequest, mycookies);
+    auto newRequest = new DRequest(url, httpMethod, headers, requestBody);
+    newRequest = newRequest.withProtocolVersion(_configData.hasKey("protocolVersion"));
+    auto mycookies = options.getArray("cookies"); 
+    newRequest = _cookies.addToRequest(newRequest, mycookies);
     if (
       options.hasKey("auth")) {
       newRequest = _addAuthentication(newRequest, options);
@@ -500,18 +496,20 @@ class DClient { // }: IClient {
       ];
     }
 
-    auto mytypeMap = [
+    auto typeMap = [
       "Json": "application/Json",
       "xml": "application/xml",
     ];
-    if (mytypeMap.isNull(mimetype)) {
+
+    if (typeMap.isNull(mimetype)) {
       throw new UIMException(
         "Unknown type alias `%s`."
           .format(mimetype));
     }
+
     return [
-      "Accept": mytypeMap[mimetype],
-      "Content-Type": mytypeMap[mimetype],
+      "Accept": typeMap[mimetype],
+      "Content-Type": typeMap[mimetype],
     ];
   }
 
@@ -549,18 +547,17 @@ class DClient { // }: IClient {
      *
      * Use the configuration options to create the correct
      * authentication strategy handler.
-     * Params:
      */
   protected auto _createAuth(Json[string] myauth, Json[string] requestOptions = null) {
     if (isEmpty(myauth["type"])) {
       myauth["type"] = "basic";
     }
-    myname = capitalize(myauth["type"]);
-    myclass = App.classname(myname, "Http/Client/Auth");
+    
+    auto myname = myauth.getString("type").capitalize;
+    auto myclass = App.classname(myname, "Http/Client/Auth");
     if (!myclass) {
       throw new UIMException(
-        "Invalid authentication type `%s`.".format(
-          myname)
+        "Invalid authentication type `%s`.".format(myname)
       );
     }
     return new myclass(this, requestOptions);

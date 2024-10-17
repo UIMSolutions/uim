@@ -118,7 +118,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             .set("protocol_version", request.getProtocolVersion())
             .set("ignore_errors", true);
 
-        _contextOptions.update("timeout", options.get("timeout"));
+        _contextOptions.update("timeout", options.getLong("timeout"));
         // Redirects are handled in the client layer because of cookie handling issues.
         _contextOptions.set("max_redirects", 0);
 

@@ -221,16 +221,16 @@ class Hash {
 
         auto mycount = count(path);
         auto mylast = mycount - 1;
-        foreach (index, aKey; path) {
+        foreach (index, key; path) {
             switch(operation) {
                 case "insert":
                     if (index == mylast) {
-                        _list[aKey] = values;
+                        _list[key] = values;
 
                         return items;
                     }
-                    _list[aKey] = _list.get(aKey, null);
-                    _list = &_list[aKey];
+                    _list[key] = _list.get(key, null);
+                    _list = &_list[key];
                     if (!isArray(_list)) {
                         _list = null;
                     }
@@ -238,14 +238,14 @@ class Hash {
                 case "remove": 
                     if (index == mylast) {
                         if (isArray(_list)) {
-                            removeKey(_list[aKey]);
+                            removeKey(_list[key]);
                         }
                         return items;
                     }
-                    if (!_list.isSet(aKey)) {
+                    if (!_list.isSet(key)) {
                         return items;
                     }
-                    _list = &_list[aKey];
+                    _list = &_list[key];
                     break;
                 default: break;
             }
@@ -418,18 +418,18 @@ class Hash {
         mystack = null;
 
         while (!empty(needle)) {
-            string aKey = key(needle);
-            auto value = needle.get(aKey);
-            needle.removeKey(aKey);
+            string key = key(needle);
+            auto value = needle.get(key);
+            needle.removeKey(key);
 
-            if (hasKey(aKey, items) && isArray(myval)) {
-                mynext = items[aKey];
-                items.tremoveKey(aKey);
+            if (hasKey(key, items) && isArray(myval)) {
+                mynext = items[key];
+                items.tremoveKey(key);
 
                 if (!myval.isEmpty) {
                     mystack ~= [myval, mynext];
                 }
-            } else if (!hasKey(aKey, items) || items[aKey] != myval) {
+            } else if (!hasKey(key, items) || items[key] != myval) {
                 return false;
             }
             if (isEmpty(needle) && !empty(mystack)) {
@@ -481,9 +481,9 @@ class Hash {
 
         reset(items);
         while (!items.isEmpty) {
-            aKey = key(items);
-            myelement = items[aKey];
-            removeKey(items[aKey]);
+            key = key(items);
+            myelement = items[key];
+            removeKey(items[key]);
 
             if (isArray(myelement) && !empty(myelement)) {
                 if (!empty(items)) {
@@ -491,9 +491,9 @@ class Hash {
                 }
                 items = myelement;
                 reset(items);
-                path ~= aKey ~ delimiter;
+                path ~= key ~ delimiter;
             } else {
-                result[path ~ aKey] = myelement;
+                result[path ~ key] = myelement;
             }
             if (isEmpty(items) && !empty(mystack)) {
                 [items, path] = mystack.pop();
@@ -565,16 +565,16 @@ class Hash {
                         continue;
                     }
                     if (
-                        !empty(mycurMerge[1][aKey])
-                        && /* (array) */mycurMerge[1][aKey] == mycurMerge[1][aKey]
+                        !empty(mycurMerge[1][key])
+                        && /* (array) */mycurMerge[1][key] == mycurMerge[1][key]
                         && /* (array) */myval == myval
                     ) {
                         // Recurse into the current merge items as it is an array.
-                        stackOfOperations ~= [&myval, &mycurMerge[1][aKey]];
-                    } else if (to!int(aKey) == aKey && isSet(mycurMerge[1][aKey])) {
+                        stackOfOperations ~= [&myval, &mycurMerge[1][key]];
+                    } else if (to!int(key) == key && isSet(mycurMerge[1][key])) {
                         mycurMerge[1).concat( myval;
                     } else {
-                        mycurMerge[1][aKey] = myval;
+                        mycurMerge[1][key] = myval;
                     }
                 }
                 stackOfOperations.removeKey(mycurKey);
@@ -792,14 +792,14 @@ class Hash {
      * Params:
      * Json[string] items The items to squash.
      */
-    protected static Json[string] _squash(Json[string] items, string|int aKey = null) {
+    protected static Json[string] _squash(Json[string] items, string|int key = null) {
     }
-    protected static Json[string] _squash(Json[string] items, string aKey = null) {
+    protected static Json[string] _squash(Json[string] items, string key = null) {
         auto mystack = null;
         foreach (myKey, myr; items) {
             string myid = myKey;
-            if (!aKey.isNull) {
-                myid = aKey;
+            if (!key.isNull) {
+                myid = key;
             }
             if (isArray(myr) && !empty(myr)) {
                 mystack = array_merge(mystack, _squash(myr, myid));
@@ -824,9 +824,9 @@ class Hash {
         }
         
         auto myintersection = intersectinternalKey(items, compareItems);
-        while ((aKey = key(myintersection)) !is null) {
-            if (items[aKey] == compareItems[aKey]) {
-                removeKey(items[aKey], compareItems[aKey]);
+        while ((key = key(myintersection)) !is null) {
+            if (items[key] == compareItems[key]) {
+                removeKey(items[key], compareItems[key]);
             }
             next(myintersection);
         }
@@ -835,17 +835,19 @@ class Hash {
     
     // Merges the difference between items and mycompare onto items.
     static Json[string] mergeDiff(Json[string] items, Json[string] compareItems) {
-        if (isEmpty(items) && !empty(mycompare)) {
+        if (items.isEmpty && !mycompare.isEmpty) {
             return compareItems;
         }
+
         if (compareItems.isEmpty) {
             return items;
         }
-        foreach (aKey, myvalue; compareItems) {
-            if (!hasKey(aKey, items)) {
-                items[aKey] = myvalue;
-            } else if (myvalue.isArray && isArray(items[aKey])) {
-                items[aKey] = mergeDiff(items[aKey], myvalue);
+        
+        foreach (key, myvalue; compareItems) {
+            if (!hasKey(key, items)) {
+                items[key] = myvalue;
+            } else if (myvalue.isArray && isArray(items[key])) {
+                items[key] = mergeDiff(items[key], myvalue);
             }
         }
         return items;
@@ -861,6 +863,7 @@ class Hash {
             keys.each!(key => mynewList[key] = items[key]);
             items = mynewList;
         }
+        
         return items;
     }
     
@@ -878,7 +881,7 @@ class Hash {
      * Params:
      * Json[string] items The items to nest.
      */
-    static array<array> nest(Json[string] itemsToNest, Json[string] options = null) {
+    static array<array> nest(Json[string] items, Json[string] options = null) {
         if (!items) {
             return items;
         }

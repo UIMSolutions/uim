@@ -1075,7 +1075,7 @@ class DResponse : IResponse {
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request object
      */
-    DCorsBuilder cors(ServerRequest serverRequest) {
+    DCorsBuilder cors(IServerRequest serverRequest) {
         origin = serverRequest.getHeaderLine("Origin");
         https = serverRequest.is("https");
 

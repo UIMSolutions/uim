@@ -88,7 +88,7 @@ class DAssetMiddleware : IRoutingMiddleware {
     } */
 
     // Sends an asset file to the client
-    protected DResponse deliverAsset(IServerRequest serverRequest, DSplFileInfo file) {
+    protected IResponse deliverAsset(IServerRequest serverRequest, DSplFileInfo file) {
         auto resource = fopen(file.getPathname(), "rb");
         if (resource == false) {
             throw new UIMException("Cannot open resource `%s`".format(file.getPathname()));

@@ -206,7 +206,7 @@ class DApplication {
         IServerRequest serverRequest
    ) {
         container = getContainer();
-        container.add(ServerRequest.classname, request);
+        container.add(IServerRequest.classname, request);
         container.add(IContainer.classname, container);
 
        /*  this.controllerFactory ??= new DControllerFactory(container);

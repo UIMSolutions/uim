@@ -92,7 +92,7 @@ class DRouteBuilder {
      * - `namePrefix` - The prefix to prepend to all route names.
      * - `middleware` - The names of the middleware routes should have applied.
      */
-  this(RouteCollection routeCollection, string path, Json[string] params = [], Json[string] options = null) {
+  /* this(RouteCollection routeCollection, string path, Json[string] params = [], Json[string] options = null) {
     _collection = routeCollection;
     _path = path;
     _params = params;
@@ -100,7 +100,7 @@ class DRouteBuilder {
     _extensions = options.get("extensions", _extensions);
     _namePrefix = options.get("namePrefix", _namePrefix);
     _middleware = options.getArray("middleware", _middleware);
-  }
+  } */
 
   /**
      * Set the extensions in this route builder"s scope.
@@ -128,9 +128,9 @@ class DRouteBuilder {
      * Params:
      * string[]|string myextensions One or more extensions to add
      */
-  void addExtensions(string[] myextensions) {
-    myextensions = array_merge(_extensions, /* (array) */ myextensions);
-    _extensions = myextensions.unique;
+  void addExtensions(string[] extensions) {
+    extensions = array_merge(_extensions, /* (array) */ extensions);
+    _extensions = extensions.unique;
   }
 
   // Get the path this scope is for.

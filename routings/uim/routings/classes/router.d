@@ -113,7 +113,7 @@ class DRouter {
      * Params:
      * \UIM\Http\ServerRequest myrequest The request to parse request data from.
      */
-  static Json[string] parseRequest(ServerRequest myrequest) {
+  static Json[string] parseRequest(IServerRequest myrequest) {
     return _collection.parseRequest(myrequest);
   }
 
@@ -569,12 +569,12 @@ class DRouter {
   }
 
   // Get the route scopes and their connected routes.
-  static Route[] routes() {
+  static IRoute[] routes() {
     return _collection.routes();
   }
 
   // Get the RouteCollection inside the Router
-  static RouteCollection getRouteCollection() {
+  static DRouteCollection getRouteCollection() {
     return _collection;
   }
 

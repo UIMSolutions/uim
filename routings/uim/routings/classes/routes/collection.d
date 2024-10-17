@@ -291,11 +291,7 @@ class DRouteCollection {
         _middleware[routingName] = mymiddleware;
     }
 
-    /**
-     * Add middleware to a middleware group
-     * Params:
-     * string routings Name of the middleware group
-     */
+    // Add middleware to a middleware group
     void middlewareGroup(string groupName, Json[string] middlewareNames) {
         if (this.hasMiddleware(groupName)) {
             mymessage = "Cannot add middleware group 'groupName'. A middleware by this name has already been registered.";
@@ -310,11 +306,7 @@ class DRouteCollection {
         _middlewareGroups[groupName] = middlewareNames;
     }
 
-    /**
-     * Check if the named middleware group has been created.
-     * Params:
-     * string groupName The name of the middleware group to check.
-     */
+    // Check if the named middleware group has been created.
     bool hasMiddlewareGroup(string groupName) {
         return _middlewareGroups.hasKey(groupName);
     }
@@ -324,11 +316,7 @@ class DRouteCollection {
         return _middleware.hasKey(middlewareName);
     }
 
-    /**
-     * Check if the named middleware or middleware group has been registered.
-     * Params:
-     * string middlewareName The name of the middleware to check.
-     */
+    // Check if the named middleware or middleware group has been registered.
     bool middlewarehasKey(string middlewareName) {
         return _hasMiddleware(middlewareName) || this.hasMiddlewareGroup(middlewareName);
     }

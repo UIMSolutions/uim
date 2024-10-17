@@ -627,11 +627,9 @@ class DRouter {
      * - Admin/Bookmarks.view
      * - Cms.Articles.edit
      * - Vendor/Cms.Management/Admin/Articles.view
-     * Params:
-     * string url Route path in [Plugin.][Prefix/]Controller.action format
      */
     static array<string|int, string> parseRoutePath(string url) {
-        if (_routePaths.haskey(url)) {
+        if (_routePaths.hasKey(url)) {
             return _routePaths[url];
         }
         
@@ -650,15 +648,16 @@ class DRouter {
             throw new DInvalidArgumentException("Could not parse a string route path `%s`.".format(url));
         }
         
-        auto mydefaults = [
+        auto defaults = [
             "controller": mymatches.get("controller"),
             "action": mymatches.get("action"),
         ];
+
         if (!mymatches.isEmpty("plugin")) {
-            mydefaults.set("plugin", mymatches.get("plugin"));
+            defaults.set("plugin", mymatches.get("plugin"));
         }
         if (!mymatches.isEmpty("prefix")) {
-            mydefaults.set("prefix", mymatches.get("prefix"));
+            defaults.set("prefix", mymatches.get("prefix"));
         }
         if (mymatches.hasKey("params") && !mymatches.isEmpty("params")) {
             string[] params = mymatches.getString("params").strip("/").split("/");
@@ -675,17 +674,17 @@ class DRouter {
                             "Param key `{myparamKey}` is not valid in route path `{url}`."
                        );
                     }
-                    mydefaults.set(myparamKey, myparamMatches.getString("value").strip(`"`));
+                    defaults.set(myparamKey, myparamMatches.getString("value").strip(`"`));
                 } else {
-                    mydefaults ~= param;
+                    defaults ~= param;
                 }
             }
         }
         // Only cache 200 routes per request. Beyond that we could
         // be soaking up too much memory.
-        if (count(_routePaths) < 200) {
-            _routePaths[url] = mydefaults;
+        if (_routePaths.length < 200) {
+            _routePaths[url] = defaults;
         }
-        return mydefaults;
+        return defaults;
     }
 }

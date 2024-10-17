@@ -28,32 +28,32 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
 
 
-    _urlParams = [
-        "plugin": Json(null),
-        "controller": Json(null),
-        "action": Json(null),
-        "_ext": Json(null),
-        "pass": Json.emptyArray,
-    ];
+        _urlParams = [
+            "plugin": Json(null),
+            "controller": Json(null),
+            "action": Json(null),
+            "_ext": Json(null),
+            "pass": Json.emptyArray,
+        ];
 
-    /* _detectors = [
-        "get": ["env": 'REQUEST_METHOD", "value": 'GET"],
-        "post": ["env": 'REQUEST_METHOD", "value": 'POST"],
-        "put": ["env": 'REQUEST_METHOD", "value": 'PUT"],
-        "patch": ["env": 'REQUEST_METHOD", "value": 'PATCH"],
-        "delete": ["env": 'REQUEST_METHOD", "value": 'DELETE"],
-        "head": ["env": 'REQUEST_METHOD", "value": 'HEAD"],
-        "options": ["env": 'REQUEST_METHOD", "value": 'OPTIONS"],
-        "https": ["env": 'HTTPS", "options": [1, "on"]],
-        "ajax": ["env": 'HTTP_X_REQUESTED_WITH", "value": 'XMLHttpRequest"],
-        "Json": ["accept": ["application/Json"], "param": '_ext", "value": 'Json"],
-        "xml": [
-            "accept": ["application/xml", "text/xml"],
-            "exclude": ["text/html"],
-            "param": '_ext",
-            "value": 'xml",
-        ],
-    ]; */
+        /* _detectors = [
+            "get": ["env": 'REQUEST_METHOD", "value": 'GET"],
+            "post": ["env": 'REQUEST_METHOD", "value": 'POST"],
+            "put": ["env": 'REQUEST_METHOD", "value": 'PUT"],
+            "patch": ["env": 'REQUEST_METHOD", "value": 'PATCH"],
+            "delete": ["env": 'REQUEST_METHOD", "value": 'DELETE"],
+            "head": ["env": 'REQUEST_METHOD", "value": 'HEAD"],
+            "options": ["env": 'REQUEST_METHOD", "value": 'OPTIONS"],
+            "https": ["env": 'HTTPS", "options": [1, "on"]],
+            "ajax": ["env": 'HTTP_X_REQUESTED_WITH", "value": 'XMLHttpRequest"],
+            "Json": ["accept": ["application/Json"], "param": '_ext", "value": 'Json"],
+            "xml": [
+                "accept": ["application/xml", "text/xml"],
+                "exclude": ["text/html"],
+                "param": '_ext",
+                "value": 'xml",
+            ],
+        ]; */
 
         return true;
     }
@@ -590,7 +590,6 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     static void addDetector(string name, Json[string] detector) {
         auto loweredName = name.lower;
         if (isSet(_detectors[loweredName], detector["options"])) {
-            /** @var array data */
             detector.merge(_detectors.getMap(loweredName));
         }
         _detectors.get(loweredName, detector);
@@ -1141,12 +1140,8 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         return newServerRequest;
     }
     
-    /**
-     * Return an instance without the specified request attribute.
-     * Params:
-     * string aName The attribute name.
-     */
-    static auto withoutAttribute(string aName) {
+    // Return an instance without the specified request attribute.
+    static auto withoutAttribute(string name) {
         auto newServerRequest = this.clone;
         if (isIn(name, _emulatedAttributes, true)) {
             throw new DInvalidArgumentException(
@@ -1166,10 +1161,8 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             }
             return _{attributeName};
         } */
-        if (hasKey(attributeName, this.attributes)) {
-            return _attributes[attributeName];
-        }
-        return defaultValue;
+        
+        return _attributes.get(attributeName, defaultValue);
     }
     
     /**

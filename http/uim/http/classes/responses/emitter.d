@@ -14,11 +14,6 @@ class DResponseEmitter {
     // Maximum output buffering size for each iteration.
     protected int maxBufferLength;
 
-    /**
-     
-     * Params:
-     * int maxBufferLength Maximum output buffering size for each iteration.
-     */
     this(int maxBufferLength = 8192) {
         this.maxBufferLength = maxBufferLength;
     }

@@ -77,13 +77,13 @@ class DSession {
             !sessionConfig.hasKey("ini.session.cookie_secure")
             && enviroment("HTTPS")
             && ini_get("session.cookie_secure") != 1
-           ) {
+            ) {
             sessionConfig.set("ini.session.cookie_secure", 1);
         }
         if (
             !sessionConfig.hasKey("ini.session.name")
             && sessionConfig.hasKey("cookie")
-           ) {
+            ) {
             sessionConfig.set("ini.session.name", sessionConfig["cookie"]);
         }
         if (!sessionConfig.hasKey("ini.session.use_strict_mode") && ini_get(
@@ -95,7 +95,7 @@ class DSession {
             sessionConfig.set("ini.session.cookie_httponly", 1);
         }
         // return new static(sessionConfig);
-        return null; 
+        return null;
     }
 
     // Get one of the prebaked default session configurations.
@@ -173,7 +173,8 @@ class DSession {
             configuration.set("ini.session.name", configuration.get("cookie"));
         }
         if (!configuration.hasKey("ini.session.cookie_path")) {
-            cookiePath = configData.isEmpty("cookiePath") ? "/" : configuration.getString("cookiePath");
+            cookiePath = configData.isEmpty("cookiePath") ? "/" : configuration.getString(
+                "cookiePath");
             configuration.set("ini.session.cookie_path", cookiePath);
         }
         options(configuration.get("ini"));
@@ -202,9 +203,10 @@ class DSession {
      * \!SessionHandler|string  classname The session handler to use
      */
     SessionHandler engine(
-        /* !SessionHandler | */ string handleClassname = null,
+        /* !SessionHandler | */
+        string handleClassname = null,
         Json[string] options = null
-   ) {
+    ) {
         if (handleClassname.isNull) {
             return _engine;
         }
@@ -217,7 +219,7 @@ class DSession {
             throw new DInvalidArgumentException(
                 "The class `%s` does not exist and cannot be used as a session engine"
                     .format(handleClassname)
-           );
+            );
         }
         return _setEngine(new handleClassname(options));
     }
@@ -254,7 +256,7 @@ class DSession {
             if (ini_set(setting, to!string(value)) == false) {
                 throw new UIMException(
                     "Unable to configure the session, setting %s failed.".format(setting)
-               );
+                );
             }
         }
     }
@@ -329,7 +331,7 @@ class DSession {
         }
 
         if (name.isNull) {
-            return /* (bool) */ _SESSION;
+            return  /* (bool) */ _SESSION;
         }
         return Hash.get(_SESSION, variableName) !is null;
     }
@@ -361,7 +363,7 @@ class DSession {
         if (isEmpty(key)) {
             return null;
         }
-        
+
         Json result = this.read(key);
         if (!result.isNull) {
             /** @psalm-suppress InvalidScalarArgument */
@@ -374,6 +376,7 @@ class DSession {
     void write(string variableName, Json value = Json(null)) {
         write([variableName: value], value);
     }
+
     void write(string[string] variables, Json value = Json(null)) {
         bool started = this.started() || this.start();
         if (!started) {
@@ -383,12 +386,12 @@ class DSession {
                     ", headers already sent in file `%s` on line `%s`"
                     .format(Debugger.trimPath(_headerSentInfo.getString("filename")),
                         _headerSentInfo["line"]
-                   );
+                    );
             }
             throw new UIMException(message);
         }
 
-        auto someData = _SESSION ?  _SESSION : [];
+        auto someData = _SESSION ? _SESSION : [];
         name.byKeyValue
             .each(kv => someData = Hash.insert(someData, kv.key, kv.value));
 
@@ -409,7 +412,7 @@ class DSession {
      * string  anId ID to replace the current session ID.
      */
     string id(string aid = null) {
-        if (anId!is null && !headers_sent()) {
+        if (anId !is null && !headers_sent()) {
             session_id(anId);
         }
         return to!string(session_id());
@@ -424,7 +427,7 @@ class DSession {
     }
 
     // Used to write new data to _SESSION, since UIM doesn`t like us setting the _SESSION var it
-/*    protected void _overwrite(Json[string] oldValues, Json[string] newValues) {
+    /*    protected void _overwrite(Json[string] oldValues, Json[string] newValues) {
        ) {
             oldValues.byKeyValue
                 .filter!(kv => newValues.isNull(kv.key))
@@ -434,73 +437,73 @@ class DSession {
                 .each!(kv => oldValues[kv.key] = kv.value);
         }
  */
-        // Helper method to destroy invalid sessions.
-        void destroy() {
-            if (_hasSession() && !this.started()) {
-                this.start();
-            }
-            if (!_isCLI && session_status() == UIM_SESSION_ACTIVE) {
-                session_destroy();
-            }
-            _SESSION = null;
-            _started = false;
+    // Helper method to destroy invalid sessions.
+    void destroy() {
+        if (_hasSession() && !this.started()) {
+            this.start();
         }
+        if (!_isCLI && session_status() == UIM_SESSION_ACTIVE) {
+            session_destroy();
+        }
+        _SESSION = null;
+        _started = false;
+    }
 
-        /**
+    /**
      * Clears the session.
      * Optionally it also clears the session id and renews the session.
      */
-        void clear(bool shouldRenewed = false) {
-            _SESSION = null;
-            if (shouldRenewed) {
-                this.renew();
-            }
+    void clear(bool shouldRenewed = false) {
+        _SESSION = null;
+        if (shouldRenewed) {
+            this.renew();
         }
+    }
 
-        // Returns whether a session exists
-        protected bool _hasSession() {
-            return !ini_get("session.use_cookies")
-                || _COOKIE.hasKey(session_name())
-                || _isCLI
-                || (ini_get("session.use_trans_sid") && _GET.hasKey(session_name()));
+    // Returns whether a session exists
+    protected bool _hasSession() {
+        return !ini_get("session.use_cookies")
+            || _COOKIE.hasKey(session_name())
+            || _isCLI
+            || (ini_get("session.use_trans_sid") && _GET.hasKey(session_name()));
+    }
+
+    // Restarts this session.
+    void renew() {
+        if (!_hasSession() || _isCLI) {
+            return;
         }
+        this.start();
+        params = session_get_cookie_params();
+        setcookie(
+            to!string(session_name()),
+            "",
+            time() - 42000,
+            params["path"],
+            params["domain"],
+            params["secure"],
+            params["httponly"]
+        );
 
-        // Restarts this session.
-        void renew() {
-            if (!_hasSession() || _isCLI) {
-                return;
-            }
-            this.start();
-            params = session_get_cookie_params();
-            setcookie(
-                to!string(session_name()),
-                "",
-                time() - 42000,
-                params["path"],
-                params["domain"],
-                params["secure"],
-                params["httponly"]
-           );
-
-            if (!session_id().isEmpty) {
-                session_regenerate_id(true);
-            }
+        if (!session_id().isEmpty) {
+            session_regenerate_id(true);
         }
+    }
 
-        /**
+    /**
      * Returns true if the session is no longer valid because the last time it was
      * accessed was after the configured timeout.
      */
-        protected bool _timedOut() {
-            time = this.read("Config.time");
-            result = false;
+    protected bool _timedOut() {
+        time = this.read("Config.time");
+        result = false;
 
-            checkTime = time!is null && _lifetime > 0;
-            if (checkTime && (time() - (int)time > _lifetime)) {
-                result = true;
-            }
-            this.write("Config.time", time());
-
-            return result;
+        checkTime = time !is null && _lifetime > 0;
+        if (checkTime && (time() - (int) time > _lifetime)) {
+            result = true;
         }
+        this.write("Config.time", time());
+
+        return result;
+    }
 }

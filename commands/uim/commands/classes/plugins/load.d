@@ -31,7 +31,7 @@ class DPluginLoadCommand : DCommand {
     protected string _configDataFile;
 
     override override ulong execute(Json[string] arguments, IConsole aConsole = null) {
-        return super.execute(arguments, aConsoleIo);
+        return super.execute(arguments, consoleIo);
     }
 
     override ulong execute(Json[string] arguments, IConsole aConsole = null) {
@@ -53,19 +53,18 @@ class DPluginLoadCommand : DCommand {
         try {
             Plugin.getCollection().findPath(plugin);
         } catch (MissingPluginException anException) {
-            /** @psalm-suppress InvalidArgument */
             if (options.isEmpty("optional")) {
-                aConsoleIo.writeErrorMessages(anException.message());
-                aConsoleIo.writeErrorMessages("Ensure you have the correct spelling and casing.");
+                consoleIo.writeErrorMessages(anException.message());
+                consoleIo.writeErrorMessages("Ensure you have the correct spelling and casing.");
 
                 return CODE_ERROR;
             }
         }
         result = this.modifyConfigFile(plugin, options);
         if (result == CODE_ERROR) {
-            aConsoleIo.writeErrorMessages("Failed to update `CONFIG/plugins.d`");
+            consoleIo.writeErrorMessages("Failed to update `CONFIG/plugins.d`");
         }
-        aConsoleIo.success("Plugin added successfully to `CONFIG/plugins.d`");
+        consoleIo.success("Plugin added successfully to `CONFIG/plugins.d`");
 
         return result;
     }

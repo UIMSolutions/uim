@@ -172,13 +172,13 @@ class DPlugin : IPlugin {
         }
     }
  
-    ICommandCollection console(ICommandCollection commands) {
+    /* ICommandCollection console(ICommandCollection commands) {
         return commands.addMany(commands.discoverPlugin(_name));
     }
  
     DMiddlewareQueue middleware(DMiddlewareQueue middlewareQueue) {
         return middlewareQueue;
-    }
+    } */
     
     // Register container services for this plugin.
     void services(IContainer containerWithServices) {

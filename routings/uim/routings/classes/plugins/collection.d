@@ -38,15 +38,10 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
     // Loop depth
     protected int _loopDepth = -1;
 
-    /**
-     
-     * Params:
-     * plugins = The map of plugins to add to the collection.
-     */
-    this(IPlugin[] plugins = null) {
+    /* this(IPlugin[] plugins = null) {
         plugins.each!(plugin => add(plugin));
         // TODO _loaDFileConfigEngine();
-    }
+    } */
 
     /**
      * Add plugins from config array.

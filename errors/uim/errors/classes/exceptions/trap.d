@@ -99,7 +99,7 @@ class DExceptionTrap : UIMObject {
     protected static registeredTrap = null;
 
     // Track if this trap was removed from the global handler.
-    protected bool disabled = false;
+    protected bool _disabled = false;
 
     // Get an instance of the renderer.
     IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {

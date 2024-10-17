@@ -96,7 +96,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             .byKeyValue
             .map!(kv => "%s: %s".format(kv.key, kv.value.join(", "))).array;
 
-        _contextOptions.set("header", aHeaders.join("\r\n"));
+        _contextOptions.set("header", headers.join("\r\n"));
     }
 
     /**
@@ -190,20 +190,16 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             throw new DNetworkException("Connection timed out " ~ url, request);
         }
 
-        auto aHeaders = meta["wrapper_data"];
-        if (aHeaders.hasKey("headers") && isArray(aHeaders["headers"])) {
-            aHeaders = aHeaders["headers"];
+        auto headers = meta["wrapper_data"];
+        if (headers.hasKey("headers") && isArray(headers["headers"])) {
+            headers = headers["headers"];
         }
-        return _createResponses(aHeaders, content);
+        return _createResponses(headers, content);
     }
 
-    /**
-     * Build a response object
-     * Params:
-     * Json[string] aHeaders Unparsed headers.
-     */
-    protected DResponse _buildResponse(Json[string] aHeaders, string requestBody) {
-        return new DResponse(aHeaders, requestBody);
+    // Build a response object
+    protected DResponse _buildResponse(Json[string] headers, string requestBody) {
+        return new DResponse(headers, requestBody);
     }
 
     // Open the socket and handle any connection errors.

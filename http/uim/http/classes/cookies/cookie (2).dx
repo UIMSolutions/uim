@@ -9,27 +9,27 @@ class DCookie : ICookie {
     protected string _name = "";
 
     // Raw Cookie value.
-    protected string[] avalue = "";
+    protected string[] _value = "";
 
     // Whether a Json value has been expanded into an array.
-    protected bool isExpanded = false;
+    protected bool _isExpanded = false;
 
     // Expiration time
-    protected IDateTime expiresAt = null;
+    protected IDateTime _expiresAt = null;
 
     protected string aPath = "/";
 
     protected string adomain = "";
 
-    protected bool isSecure = false;
+    protected bool _isSecure = false;
 
-    protected bool isHttpOnly = false;
+    protected bool _isHttpOnly = false;
 
     // Samesite
-    protected ISameSiteEnum sameSite = null;
+    protected ISameSiteEnum _sameSite = null;
 
     // Default attributes for a cookie.
-    protected static @var Json[string] defaultAttributes = createMap!(string, Json)
+    protected static @var Json[string] _defaultAttributes = createMap!(string, Json)
         .set("expires", Json(null))
         .set("path", "/")
         .set("domain", "")

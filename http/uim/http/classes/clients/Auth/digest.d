@@ -16,7 +16,6 @@ import uim.http;
  * when options.get("auth.type"] is 'digest'
  */
 class DDigest {
-    /* 
     // Algorithms
     const ALGO_MD5 = "MD5";
     const ALGO_SHA_256 = "SHA-256";
@@ -29,9 +28,7 @@ class DDigest {
     const QOP_AUTH = "auth";
     const QOP_AUTH_INT = "auth-int";
 
-    /**
-     * Algorithms <. Hash type
-     */
+    // Algorithms <. Hash type
     const HASH_ALGORITHMS = [
         ALGO_MD5: "md5",
         ALGO_SHA_256: "sha256",
@@ -45,13 +42,13 @@ class DDigest {
     protected IClient _client;
 
     // Algorithm
-    protected string aalgorithm;
+    protected string _algorithm;
 
     // Hash type
-    protected string ahashType;
+    protected string _hashType;
 
     // Is Sess algorithm
-    protected bool isSessAlgorithm = false;
+    protected bool _isSessAlgorithm = false;
 
     this(IClient httpClient, Json[string] initData = null) {
         initialize(initData);

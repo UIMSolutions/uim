@@ -137,7 +137,6 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
             }
         }
         throw new DMissingPluginException(["plugin": pluginName]);
-
         */
         return null; // TODO 
     }

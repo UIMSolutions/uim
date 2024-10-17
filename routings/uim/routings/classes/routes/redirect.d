@@ -18,16 +18,11 @@ import uim.routings;
  */
 class DRedirectRoute : DRoute {
     mixin(RouteThis!("Redirect"));
-    /* 
+
     // The location to redirect to.
     Json[string]myredirect;
 
-    /**
-     
-     * Params:
-     * string mytemplate Template string with parameter placeholders
-     */
-    this(string templateText, Json[string] defaults = [], Json[string] options = null) {
+    this(string templateText, Json[string] defaults = null, Json[string] options = null) {
         super(templateText, defaults, options);
         if (defaults.hasKey("redirect")) {
             /* mydefaults = (array) mydefaults["redirect"]; */
@@ -36,7 +31,7 @@ class DRedirectRoute : DRoute {
     }
 
     // Parses a string URL into an array. Parsed URLs will result in an automatic redirection.
-    Json[string] parse(string urlToParse, string httpMethod = null) {
+    override Json[string] parse(string urlToParse, string httpMethod = null) {
         auto params = super.parse(urlToParse, httpMethod);
         if (!params) {
             return null;
@@ -67,7 +62,7 @@ class DRedirectRoute : DRoute {
     }
 
     // There is no reverse routing redirection routes.
-    string match(Json[string] urlParameters, Json[string] contextParameters = null) {
+    override string match(Json[string] urlParameters, Json[string] contextParameters = null) {
         return null;
     }
 
@@ -78,3 +73,7 @@ class DRedirectRoute : DRoute {
 }
 
 mixin(RouteCalls!("Redirect"));
+
+unittest {
+
+}

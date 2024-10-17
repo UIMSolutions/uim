@@ -79,7 +79,7 @@ class DAsset {
      *  enable timestamping regardless of debug value.
      */
     static string url(string urlPath, Json[string] options = null) {
-        if (preg_match("/^data:[a-z]+\/[a-z]+;/", somePath)) {
+        /* if (preg_match("/^data:[a-z]+\/[a-z]+;/", somePath)) {
             return somePath;
         }
         if (somePath.contains(": //") || preg_match("/^[a-z]+:/i", somePath)) {
@@ -87,8 +87,8 @@ class DAsset {
         }
         if (!hasKey("plugin", options) || options.get("plugin") == true) {
             [plugin, somePath] = pluginSplit(somePath);
-        }
-        if (options.hasKey("pathPrefix") && somePath[0] != "/") {
+        } */
+        /* if (options.hasKey("pathPrefix") && somePath[0] != "/") {
             somePathPrefix = options.get("pathPrefix");
             placeHolderVal = "";
             /* if (options.hasKey("theme")) {
@@ -96,8 +96,8 @@ class DAsset {
             } else if (plugin !is null) {
                 placeHolderVal = inflectString(plugin) ~ "/";
             }
-            somePath = .replace("{plugin}", placeHolderVal, somePathPrefix) ~ somePath; */
-        }
+            somePath = .replace("{plugin}", placeHolderVal, somePathPrefix) ~ somePath; * /
+        } */
         if (
             options.hasKey("ext") &&
             !somePath.contains("?") &&

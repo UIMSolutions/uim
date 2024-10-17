@@ -254,27 +254,22 @@ class DRouteBuilder {
      * Params:
      * string routings A controller name to connect resource routes for.
      */
-  auto resources(string controllerName, /* Closure | */ Json[string] options = null, DClosure nestedCallback = null) {
+  auto resources(string controllerName, /* Closure | */ Json[string] options = null, IClosure nestedCallback = null) {
     if (!options.isArray) {
       nestedCallback = options;
       options = null;
     }
 
     options
-      .merge("connectOptions", Json.emptyArray)
-      .merge("inflect", "dasherize")
-      .merge("id", ID ~ "|" ~ UUID)
-      .merge("only", Json.emptyArray)
-      .merge("actions", Json.emptyArray)
-      .merge("map", Json.emptyArray)
-      .merge("prefix", Json(null))
-      .merge("path", Json(null));
-
-    foreach (myKey, mymapped; options.get("map")) {
+      .merge(["connectOptions", "only", "actions", "map"], Json.emptyArray)
+      .merge(["prefix", "path"], Json(null));
+    
+    .merge("inflect", "dasherize")
+      .merge("id", ID ~ "|" ~ UUID) /* foreach (myKey, mymapped; options.get("map")) {
       // options.get("map"][myKey] += ["method": "GET", "path": myKey, "action": ""];
-    }
+    } */
 
-    auto myext = options.get("_ext");
+      auto myext = options.get("_ext");
     auto myconnectOptions = options.get("connectOptions");
     if (options.isEmpty("path")) {
       mymethod = options.get("inflect");

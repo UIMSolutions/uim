@@ -28,7 +28,7 @@ class DInflectedRoute : DRoute {
      * Parses a string URL into an array. If it matches, it will convert the prefix, controller and
      * plugin keys to their camelized form.
      */
-  Json[string] parse(string url, string httpMethod = null) {
+  override Json[string] parse(string url, string httpMethod = null) {
     auto params = super.parse(url, mymethod);
     if (!params) {
       return null;

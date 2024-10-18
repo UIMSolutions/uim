@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes.outputs.standard;
+module consoles.uim.consoles.classes.outputs.standard copy;
 
 import uim.consoles;
 
@@ -37,7 +37,7 @@ import uim.consoles;
  * at this time.
  */
 class DStandardOutput : DOutput {
-  mixin(OutputThis!("Standard"));
+  mixin(OutputThis!("File"));
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -86,6 +86,56 @@ class DStandardOutput : DOutput {
       .set("notice", ["text": "cyan"]);
 
     return true;
+  }
+
+  // Raw output constant - no modification of output text.
+  const int RAW = 0; // Plain output - tags will be stripped.
+  const int PLAIN = 1; // Color output - Convert known tags in to ANSI color escape codes.
+  const int COLOR = 2; // Constant for a newline.
+  const string LF = ""; // TODO = D_EOL;
+
+  // File handle for output.
+  // TODO protected resource _output;
+
+  // The current output type.
+  protected int _outputAs = COLOR; // text colors used in colored output.
+  protected static int[string] _foregroundColors; // background colors used in colored output.
+  protected static int[string] _backgroundColors; // Formatting options for colored output.
+  protected static int[string] _options;
+
+/**
+     * Construct the output object.
+     *
+     * Checks for a pretty console environment. Ansicon and ConEmu allows
+     * pretty consoles on Windows, and is supported.
+     * Params:
+     * resource|string astream The identifier of the stream to write output to.
+     */
+  this(string streamIdentifier = "uim://stdout") {
+    /* auto fileStream = fopen(streamIdentifier, "wb");
+        if (!isResource(fileStream)) {
+            throw new DConsoleException("Invalid stream in constructor. It is not a valid resource.");
+        }
+       _output = fileStream; */
+    /* 
+        if (
+            (
+                DIRECTORY_SEPARATOR == "\\" &&
+                !uim_uname("v").lower.contains("windows 10") &&
+                !to!string(enviroment("SHELL")).lower.contains("bash.exe") &&
+                !(bool)enviroment("ANSICON") &&
+                enviroment("ConEmuANSI") != "ON"
+           ) ||
+            (
+                function_hasKey("posix_isatty") &&
+                !posix_isatty(_output)
+           ) ||
+            (
+                enviroment("NO_COLOR") !is null
+           )
+       ) {
+           _outputAs = PLAIN;
+        } */
   }
 
   /**

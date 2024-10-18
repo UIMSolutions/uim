@@ -76,7 +76,7 @@ class DHelpFormatter : UIMObject {
             parsedOptions.each!(option => 
                 result ~= Text.wrapBlock(option.help(max), [
                     "width": withOfOutput,
-                    "indent": str_repeat(" ", max),
+                    "indent": repeat(" ", max),
                     "indentAt": 1,
                 ]));
             result ~= "";
@@ -89,7 +89,7 @@ class DHelpFormatter : UIMObject {
             parserArguments.each!(argument => 
                 result ~= Text.wrapBlock(argument.help(max), [
                     "width": withOfOutput,
-                    "indent": str_repeat(" ", max),
+                    "indent": repeat(" ", max),
                     "indentAt": 1,
                 ]));
             }

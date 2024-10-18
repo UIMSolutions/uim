@@ -247,7 +247,7 @@ class DSocket : UIMObject {
   }
 
   // Write data to the socket.
-  int write(string adata) {
+  void write(string adata) {
     /* if (!_connected && !this.connect()) {
       return 0;
     }

@@ -25,7 +25,7 @@ class DStubOutputConsole : DOutput {
   protected string[] _out = null;
 
   // Write output to the buffer.
-  override int write(string[] outputMessage, int newlinesToAppend = 1) {
+  override void write(string[] outputMessage, int newlinesToAppend = 1) {
     /* (array) */
     outputMessage.each!(line => _out ~= line);
 

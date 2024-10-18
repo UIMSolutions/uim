@@ -7,5 +7,6 @@ public {
 
 // Derived classe
 public {
+    import uim.consoles.classes.outputs.file;
     import uim.consoles.classes.outputs.standard;
 }

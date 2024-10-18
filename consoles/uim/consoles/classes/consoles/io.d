@@ -208,14 +208,14 @@ class DConsoleIo : UIMObject {
         bytesToOverwrite = bytesToOverwrite ? bytesToOverwrite : _lastWritten;
 
         // Output backspaces.
-        // writeln(str_repeat("\x08", bytesToOverwrite), 0);
+        // writeln(repeat("\x08", bytesToOverwrite), 0);
 
         auto newBytes = 0; ///* (int) */ writeln(message, 0);
 
         // Fill any remaining bytes with spaces.
         auto fill = bytesToOverwrite - newBytes;
         if (fill > 0) {
-            // writeln(str_repeat(" ", fill), 0);
+            // writeln(repeat(" ", fill), 0);
         }
         if (newLinesToAppend) {
             writeln(this.nl(newLinesToAppend), 0);
@@ -243,14 +243,14 @@ class DConsoleIo : UIMObject {
 
     // Returns a single or multiple linefeeds sequences.
     string nl(int linefeedMultiplier = 1) {
-        // return str_repeat(DOutput.LF, linefeedMultiplier);
+        // return repeat(DOutput.LF, linefeedMultiplier);
         return null;
     }
 
     // Outputs a series of minus characters to the standard output, acts as a visual separator.
     void hr(int newLinesToAppend = 0, int widthOfLine = 79) {
         writeln("", newLinesToAppend);
-        // writeln(str_repeat("-", widthOfLine));
+        // writeln(repeat("-", widthOfLine));
         writeln("", newLinesToAppend);
     }
 

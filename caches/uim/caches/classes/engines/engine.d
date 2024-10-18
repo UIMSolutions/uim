@@ -29,7 +29,7 @@ module uim.caches.classes.engines.engine;
         */
 
             if (configuration.hasKey("groups")) {
-                configuration.getStringArray("groups").sort;// TODO _groupPrefix = str_repeat("%s_", configuration.getStringArray("groups").length);
+                configuration.getStringArray("groups").sort;// TODO _groupPrefix = repeat("%s_", configuration.getStringArray("groups").length);
             }
             /* if (!configuration.isNumeric("duration")) {
             // TODO configuration.set("duration", configuration.get("duration").toTime - time());

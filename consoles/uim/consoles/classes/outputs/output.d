@@ -92,7 +92,7 @@ class DOutput : DConsole, IOutput {
   const int RAW = 0; // Plain output - tags will be stripped.
   const int PLAIN = 1; // Color output - Convert known tags in to ANSI color escape codes.
   const int COLOR = 2; // Constant for a newline.
-  const string LF = ""; // TODO = D_EOL;
+  const string LF = "\n"; // TODO = D_EOL;
 
   // File handle for output.
   // TODO protected resource _output;
@@ -104,7 +104,9 @@ class DOutput : DConsole, IOutput {
   protected static int[string] _options;
 
   // Styles that are available as tags in console output.
-  protected static Json[string] _styles; /**
+  protected static Json[string] _styles; 
+  
+  /**
      * Construct the output object.
      *
      * Checks for a pretty console environment. Ansicon and ConEmu allows
@@ -143,13 +145,10 @@ class DOutput : DConsole, IOutput {
      * Outputs a single or multiple messages to stdout or stderr. If no parameters
      * are passed, outputs just a newline.
      */
-  int write(string[] messages, int numberOfLines = 1) {
-    /* return write(messages.join(LF), numberOfLines); */
-    return 0;
+  void write(string[] messages, int numberOfLines = 1) {
   }
 
-  int write(string message, int numberOfLines = 1) {
-    std.stdio.write(this.styleText(message ~ str_repeat(LF, numberOfLines)));
+  void write(string message, int numberOfLines = 1) {
   }
 
   // Apply styling to text.
@@ -214,9 +213,8 @@ class DOutput : DConsole, IOutput {
   }
 
   // Gets the current styles offered
-  Json[string] getStyle(string styleName) {
-    // return _styles.get(styleName, null);
-    return null;
+  Json style(string name) {
+    return _styles.get(name);
   }
 
   /**
@@ -234,8 +232,12 @@ class DOutput : DConsole, IOutput {
      * this.output.setStyle("annoy", []);
      * ```
      */
+  void style(string style, STRINGAA definition) {
+    _styles.set(style, definition);
+  }
+
   void style(string style, Json definition) {
-    _styles[style] = definition;
+    _styles.set(style, definition);
   }
 
   void removeStyle(string style) {
@@ -262,9 +264,5 @@ class DOutput : DConsole, IOutput {
 
   // Clean up and close handles
   void __destruct() {
-    /** @psalm-suppress RedundantCondition */
-    /* if (isResource(_output)) {
-            fclose(_output);
-        } */
   }
 }

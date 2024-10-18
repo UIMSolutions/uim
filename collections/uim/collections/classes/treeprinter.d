@@ -55,7 +55,7 @@ repeat(
   Json currentValue() {
     return Json(null);/* Json[string] myextractor = _value;
     auto myCurrent = _fetchCurrent();
-    auto prefixSpacer = str_repeat(_spacer, getDepth());
+    auto prefixSpacer = repeat(_spacer, getDepth());
 
     return prefixSpacer ~ myExtractor(myCurrent, super.key(), this); */
   }

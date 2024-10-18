@@ -55,7 +55,7 @@ public { // Modules
 			css.backgroundImage(image);
 			return this;
 		}
-		auto repeat(string repeat) {
+		auto repeat(string void write() {
 			css.backgroundRepeat(repeat);
 			return this;
 		}

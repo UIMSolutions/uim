@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module consoles.uim.consoles.classes.outputs.standard copy;
+module uim.consoles.classes.outputs.file;
 
 import uim.consoles;
 
@@ -36,7 +36,7 @@ import uim.consoles;
  * See OutputConsole.styles() to learn more about defining your own styles. Nested styles are not supported
  * at this time.
  */
-class DStandardOutput : DOutput {
+class DFileOutput : DOutput {
   mixin(OutputThis!("File"));
 
   override bool initialize(Json[string] initData = null) {
@@ -147,7 +147,7 @@ class DStandardOutput : DOutput {
   }
 
   override void write(string message, int numberOfLines = 1) {
-    std.stdio.write(this.styleText(message ~ repeat(LF, numberOfLines)));
+    std.stdio.write(this.styleText(message ~ LF.repeatTxt(numberOfLines)));
   }
 
   // Apply styling to text.
@@ -179,7 +179,7 @@ class DStandardOutput : DOutput {
   // Replace tags with color codes.
   override protected string _replaceTags(Json[string] matches) {
     string tag = matches.getString("tag");
-    Json style = _styles.get(tag);
+    Json style = _styles.get(tag, Json(null));
 
     if (style.isNull) {
       return "<" ~ tag ~ ">" ~ matches.getString("text") ~ "</" ~ tag ~ ">";
@@ -188,12 +188,12 @@ class DStandardOutput : DOutput {
     string[] styleInfo;
     string text = style.getString("text");
     if (_foregroundColors.hasKey(text)) {
-      styleInfo ~= _foregroundColors.getString(text);
+      styleInfo ~= to!string(_foregroundColors[text]);
     }
 
     string background = style.getString("background");
-    if (_backgroundColors.hasKey(style.getString("background"))) {
-      styleInfo ~= _backgroundColors.getString(background);
+    if (_backgroundColors.hasKey(background)) {
+      styleInfo ~= to!string(_backgroundColors[background]);
     }
     style.removeKeys("text", "background");
 
@@ -230,4 +230,9 @@ class DStandardOutput : DOutput {
             fclose(_output);
         } */
   }
+}
+mixin(OutputCalls!("File"));
+
+unittest {
+  // TODO
 }

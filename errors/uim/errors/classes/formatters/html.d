@@ -85,8 +85,8 @@ class DHtmlErrorFormatter : DErrorFormatter {
            style("punct", "[") ~
             "<samp class="uim-debug-array-items">";
         auto vars = null;
-        auto breakTxt = "\n" ~ repeat("  ",  indentLevel);
-        auto endBreak = "\n" ~ repeat("  ",  indentLevel - 1);
+        auto breakTxt = "\n" ~" ".repeatTxt( indentLevel);
+        auto endBreak = "\n" ~" ".repeatTxt( indentLevel - 1);
 
         auto arrow = style("punct", ": ");
         nodeToExport.getChildren().each!((item) {
@@ -108,8 +108,8 @@ class DHtmlErrorFormatter : DErrorFormatter {
   protected override string exportReference(DReferenceErrorNode node, size_t indentLevel) {
     auto objectId = "uim-db-object-{this.id}-{node.id()}";
     auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
-    auto breakTxt = "\n" ~ repeat("  ", indentLevel);
-    auto endBreak = "\n" ~ repeat("  ", indentLevel - 1);
+    auto breakTxt = "\n" ~" ".repeatTxt(indentLevel);
+    auto endBreak = "\n" ~" ".repeatTxt(indentLevel - 1);
 
     auto link = `<a class="uim-debug-ref" href="#%s">id: %s</a>`
       .format(objectId, node.id());
@@ -127,8 +127,8 @@ class DHtmlErrorFormatter : DErrorFormatter {
   protected override string exportClass(DClassErrorNode aNode, size_t indentLevel) {
     /* auto objectId = "uim-db-object-{this.id}-{node.id()}";
         auto result = "<span class=\"uim-debug-object\" id=\"%s\">".format(objectId);
-        auto breakTxt = "\n" ~ repeat("  ",  indentLevel);
-        auto endBreak = "\n" ~ repeat("  ",  indentLevel - 1);
+        auto breakTxt = "\n" ~" ".repeatTxt( indentLevel);
+        auto endBreak = "\n" ~" ".repeatTxt( indentLevel - 1);
 
         
          result ~= style("punct", "object(") ~

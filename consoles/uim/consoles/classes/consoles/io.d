@@ -66,7 +66,7 @@ class DConsoleIo : UIMObject {
     }
 
     void isInteractive(bool aValue) {
-        _isInteractive = aValue; 
+        _isInteractive = aValue;
     }
 
     // Get/set the current output level.
@@ -243,14 +243,14 @@ class DConsoleIo : UIMObject {
 
     // Returns a single or multiple linefeeds sequences.
     string nl(int linefeedMultiplier = 1) {
-        // return repeat(DOutput.LF, linefeedMultiplier);
+        // return DOutput.LF.repeat(linefeedMultiplier);
         return null;
     }
 
     // Outputs a series of minus characters to the standard output, acts as a visual separator.
     void hr(int newLinesToAppend = 0, int widthOfLine = 79) {
         writeln("", newLinesToAppend);
-        // writeln(repeat("-", widthOfLine));
+        // writeln("-".repeat(widthOfLine));
         writeln("", newLinesToAppend);
     }
 
@@ -270,19 +270,19 @@ class DConsoleIo : UIMObject {
     }
 
     // Get defined style.
-    Json[string] getStyle(string styleToGet) {
-        return _output.getStyle(styleToGet);
+    Json style(string name) {
+        return _output.style(name);
     }
 
     // Adds a new output style.
-    void setStyle(string styleToSet, Json[string] styleDefinition) {
-        _output.setStyle(styleToSet, styleDefinition);
+    void style(string name, Json definition) {
+        _output.style(name, definition);
     }
 
     // Prompts the user for input based on a list of options, and returns it.
     string askChoice(string promptText, string option, string defaultInput = null) {
         string[] options;
-        /* if (option.contains(",")) {
+        if (option.contains(",")) {
             options = option.split(",");
         } else if (option.contains("/")) {
             options = option.split("/");
@@ -290,7 +290,7 @@ class DConsoleIo : UIMObject {
             options = [option];
         }
 
-        return askChoice(string promptText, string[] aoptions, string adefault = null); */
+        // return askChoice(string promptText, string[] aoptions, string adefault = null); */
         return null;
     }
 
@@ -309,9 +309,9 @@ class DConsoleIo : UIMObject {
     protected string _getInput(string promptText, string options, string defaultValue) {
         if (!_isInteractive) {
             // return to!string(defaultValue);
-        } 
+        }
 
-        string optionsText = !options.isEmpty? " options " : "";
+        string optionsText = !options.isEmpty ? " options " : "";
 
         string defaultText = !defaultValue.isNull ? "[%s] ".format(defaultValue) : "";
         // _output.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);

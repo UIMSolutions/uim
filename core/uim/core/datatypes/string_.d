@@ -359,7 +359,7 @@ unittest {
 }
 // #endregion countWords
 
-string repeat(string text, size_t times) {
+string repeatTxt(string text, size_t times) {
   string result;
   for (auto i = 0; i < times; i++) {
     result ~= text;
@@ -370,8 +370,8 @@ string repeat(string text, size_t times) {
 unittest {
   writeln("Testing repeat()");
 
-  assert(repeat("bla", 0) is null);
-  assert(repeat("bla", 2) == "blabla");
+  assert(repeatTxt("bla", 0) is null);
+  assert(repeatTxt("bla", 2) == "blabla");
 }
 
 string firstElement(string text, string separator = ".") {

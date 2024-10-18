@@ -48,8 +48,8 @@ class DTextErrorFormatter : DErrorFormatter {
     // #region export
     override protected string exportArray(DArrayErrorNode node, size_t indentLevel) {
         auto result = "[";
-        auto breakTxt = "\n" ~ repeat("  ", indentlevel);
-        auto endtxt = "\n" ~ repeat("  ", indentlevel - 1);
+        auto breakTxt = "\n" ~" ".repeatTxt(indentlevel);
+        auto endtxt = "\n" ~" ".repeatTxt(indentlevel - 1);
 
         auto vars = node.getChildren()
             .map!(item => breakTxt ~ export_(item.getKey(), indentlevel) ~ ": " ~ export_(item.getValue, indentlevel))
@@ -65,8 +65,8 @@ class DTextErrorFormatter : DErrorFormatter {
 
     override protected string exportClass(DClassErrorNode node, size_t indentLevel) {
         string result = "object({" ~ node.getValue() ~ "}) id:{" ~ node.id() ~ "} {";
-        auto breakTxt = "\n" ~ repeat("  ", indentlevel);
-        auto endTxt = "\n" ~ repeat("  ", indentlevel - 1) ~ "}";
+        auto breakTxt = "\n" ~" ".repeatTxt(indentlevel);
+        auto endTxt = "\n" ~" ".repeatTxt(indentlevel - 1) ~ "}";
 
         auto props = node.getChildren()
             .map!(property => exportProperty(property, indentlevel))

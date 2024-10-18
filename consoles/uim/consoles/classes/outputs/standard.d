@@ -140,12 +140,13 @@ class DStandardOutput : DOutput {
     if (_foregroundColors.hasKey(text)) {
       styleInfo ~= _foregroundColors.getString(text);
     }
+    style.remove("text");
 
     string background = style.getString("background");
     if (_backgroundColors.hasKey(style.getString("background"))) {
       styleInfo ~= _backgroundColors.getString(background);
     }
-    style.removeKeys("text", "background");
+    style.remove("background");
 
     styleInfo ~= style.byKeyValue
       .filter!(kv => !kv.value.isEmpty)
@@ -180,4 +181,9 @@ class DStandardOutput : DOutput {
             fclose(_output);
         } */
   }
+}
+mixin(OutputCalls!("Standard"));
+
+unittest {
+  // TODO
 }

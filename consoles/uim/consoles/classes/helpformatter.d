@@ -76,7 +76,7 @@ class DHelpFormatter : UIMObject {
             parsedOptions.each!(option => 
                 result ~= Text.wrapBlock(option.help(max), [
                     "width": withOfOutput,
-                    "indent": repeat(" ", max),
+                    "indent": " ".repeatTxt(max),
                     "indentAt": 1,
                 ]));
             result ~= "";

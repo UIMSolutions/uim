@@ -5,5 +5,8 @@
 *****************************************************************************************************************/
 module uim.apps.interfaces.viewmanager;
 
+import uim.apps;
+
+@safe:
 interface IViewManager {
 }

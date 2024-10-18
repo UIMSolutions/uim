@@ -36,7 +36,7 @@ import uim.consoles;
  * See OutputConsole.styles() to learn more about defining your own styles. Nested styles are not supported
  * at this time.
  */
-class DOutput : DConsole, IOutput {
+class DOutput : UIMObject, IOutput {
   mixin(OutputThis!());
 
   override bool initialize(Json[string] initData = null) {
@@ -44,122 +44,41 @@ class DOutput : DConsole, IOutput {
       return false;
     }
 
-    _foregroundColors = [
-      "black": 30,
-      "red": 31,
-      "green": 32,
-      "yellow": 33,
-      "blue": 34,
-      "magenta": 35,
-      "cyan": 36,
-      "white": 37,
-    ];
-    _backgroundColors = [
-      "black": 40,
-      "red": 41,
-      "green": 42,
-      "yellow": 43,
-      "blue": 44,
-      "magenta": 45,
-      "cyan": 46,
-      "white": 47,
-    ];
-
-    _options = [
-      "bold": 1,
-      "underline": 4,
-      "blink": 5,
-      "reverse": 7,
-    ];
-
-    _styles
-      .set("emergency", ["text": "red"])
-      .set("alert", ["text": "red"])
-      .set("critical", ["text": "red"])
-      .set("error", ["text": "red"])
-      .set("warning", ["text": "yellow"])
-      .set("info", ["text": "cyan"])
-      .set("debug", ["text": "yellow"])
-      .set("success", ["text": "green"])
-      .set("comment", ["text": "blue"])
-      .set("question", ["text": "magenta"])
-      .set("notice", ["text": "cyan"]);
-
     return true;
   }
 
   // Raw output constant - no modification of output text.
-  const int RAW = 0; // Plain output - tags will be stripped.
-  const int PLAIN = 1; // Color output - Convert known tags in to ANSI color escape codes.
-  const int COLOR = 2; // Constant for a newline.
-  const string LF = "\n"; // TODO = D_EOL;
-
-  // File handle for output.
-  // TODO protected resource _output;
+  const string LF = "\n";
 
   // The current output type.
-  protected int _outputAs = COLOR; // text colors used in colored output.
+  protected string _outputType = "COLOR"; // text colors used in colored output.
   protected static int[string] _foregroundColors; // background colors used in colored output.
   protected static int[string] _backgroundColors; // Formatting options for colored output.
   protected static int[string] _options;
 
   // Styles that are available as tags in console output.
-  protected static Json[string] _styles; 
-  
-  /**
-     * Construct the output object.
-     *
-     * Checks for a pretty console environment. Ansicon and ConEmu allows
-     * pretty consoles on Windows, and is supported.
-     * Params:
-     * resource|string astream The identifier of the stream to write output to.
-     */
-  this(string streamIdentifier = "uim://stdout") {
-    /* auto fileStream = fopen(streamIdentifier, "wb");
-        if (!isResource(fileStream)) {
-            throw new DConsoleException("Invalid stream in constructor. It is not a valid resource.");
-        }
-       _output = fileStream; */
-    /* 
-        if (
-            (
-                DIRECTORY_SEPARATOR == "\\" &&
-                !uim_uname("v").lower.contains("windows 10") &&
-                !to!string(enviroment("SHELL")).lower.contains("bash.exe") &&
-                !(bool)enviroment("ANSICON") &&
-                enviroment("ConEmuANSI") != "ON"
-           ) ||
-            (
-                function_hasKey("posix_isatty") &&
-                !posix_isatty(_output)
-           ) ||
-            (
-                enviroment("NO_COLOR") !is null
-           )
-       ) {
-           _outputAs = PLAIN;
-        } */
-  }
+  protected static Json[string] _styles;
 
   /**
      * Outputs a single or multiple messages to stdout or stderr. If no parameters
      * are passed, outputs just a newline.
      */
   void write(string[] messages, int numberOfLines = 1) {
-  }
+    write(messages.join(LF), numberOfLines); 
+  }  
 
   void write(string message, int numberOfLines = 1) {
   }
 
   // Apply styling to text.
   string styleText(string stylingText) {
-    if (_outputAs == RAW) {
+    if (_outputType == "RAW") {
       return stylingText;
     }
 
-    if (_outputAs != PLAIN) {
+    if (_outputType != "PLAIN") {
       /** @var \Closure replaceTags */
-      /* replaceTags = _replaceTags(...);
+      /* replaceTags = replaceTags(...);
 
             output = preg_replace_callback(
                 "/<(?P<tag>[a-z0-9-_]+)>(?P<text>.*?)<\/(\1)>/ims",
@@ -170,6 +89,7 @@ class DOutput : DConsole, IOutput {
                 return output;
             } */
     }
+    
     /* auto tags = _styles.keys.join("|");
         auto output = preg_replace("#</?(?:" ~ tags ~ ")>#", "", stylingText);
  */
@@ -178,43 +98,44 @@ class DOutput : DConsole, IOutput {
   }
 
   // Replace tags with color codes.
-  protected string _replaceTags(Json[string] matches) {
-    string tag = matches.getString("tag");
-    Json style = _styles.get(tag);
+  protected string replaceTags(Json matches) {
+    writeln("_styles keys == ", _styles.keys);
+    writeln("_styles == ", _styles);
+    writeln("matches == ", matches);
+    string tag = matches.getString("tag"); // matches = {"tag": ..., "text": ... }
+    writeln("TAG == ", tag);
+    Json style = _styles.get(tag, Json(null)); // _styles["tag"] -> Json 
+    writeln("style == ", style);
 
-    if (style.isNull) {
-      return "<" ~ tag ~ ">" ~ matches.getString("text") ~ "</" ~ tag ~ ">";
+    if (style.isNull) { // style not found
+      return htmlDoubleTag(tag, matches.getString("text"));
     }
 
     string[] styleInfo;
-    string text = style.getString("text");
+    string text = style.getString("text"); // "red"
     if (_foregroundColors.hasKey(text)) {
-      styleInfo ~= _foregroundColors.getString(text);
+      styleInfo ~= to!string(_foregroundColors[text]); // "31"
     }
+    style.remove("text");
 
-    string background = style.getString("background");
-    if (_backgroundColors.hasKey(style.getString("background"))) {
-      styleInfo ~= _backgroundColors.getString(background);
+    string background = style.getString("background"); // "white"
+    if (_backgroundColors.hasKey(background)) {
+      styleInfo ~= to!string(_backgroundColors[background]); // "47"
     }
-    style.removeKeys("text", "background");
+    style.remove("background");
 
     styleInfo ~= style.byKeyValue
-      .filter!(kv => !kv.value.isEmpty)
-      .map!(kv => _options.get(kv.key))
+      .filter!(kv => kv.key in _options && !kv.value.isNull)
+      .map!(kv => to!string(_options[kv.key]))
       .array;
 
     return "\033[" ~ styleInfo.join(";") ~ "m" ~ matches.getString("text") ~ "\033[0m";
   }
 
-  // Writes a message to the output stream.
-  protected int _write(string messageToWrite) {
-    /*  return to!int(fwrite(_output, messageToWrite)); */
-    return 0;
-  }
 
   // Gets the current styles offered
   Json style(string name) {
-    return _styles.get(name);
+    return name in _styles ? _styles[name] : Json(null);
   }
 
   /**
@@ -232,16 +153,19 @@ class DOutput : DConsole, IOutput {
      * this.output.setStyle("annoy", []);
      * ```
      */
-  void style(string style, STRINGAA definition) {
+  IOutput style(string style, STRINGAA definition) {
     _styles.set(style, definition);
+    return this;
   }
 
-  void style(string style, Json definition) {
+  IOutput style(string style, Json definition) {
     _styles.set(style, definition);
+    return this;
   }
 
-  void removeStyle(string style) {
+  IOutput removeStyle(string style) {
     _styles.removeKey(style);
+    return this;
   }
 
   // Gets all the style definitions.
@@ -250,16 +174,17 @@ class DOutput : DConsole, IOutput {
   }
 
   // Get the output type on how formatting tags are treated.
-  int getOutputAs() {
-    return _outputAs;
+  string outputType() {
+    return _outputType;
   }
 
   // Set the output type on how formatting tags are treated.
-  void setOutputAs(int outputType) {
-    /* if (!isIn(outputType, [RAW, PLAIN, COLOR], true)) {
-            throw new DInvalidArgumentException("Invalid output type `%s`.".format(outputType));
-        } */
-    _outputAs = outputType;
+  IOutput outputType(string type) {
+    /* if (!type.isIn(["RAW", "PLAIN", "COLOR"])) {
+      // throw new DInvalidArgumentException("Invalid output type `%s`.".format(type));
+    } */
+    _outputType = type;
+    return this;
   }
 
   // Clean up and close handles

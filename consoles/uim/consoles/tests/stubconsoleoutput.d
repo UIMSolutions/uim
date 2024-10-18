@@ -22,28 +22,27 @@ import uim.consoles;
  */
 class DStubOutputConsole : DOutput {
   // Buffered messages.
-  protected string[] _out = null;
+  protected string[] _output = null;
 
   // Write output to the buffer.
   override void write(string[] outputMessage, int newlinesToAppend = 1) {
     /* (array) */
-    outputMessage.each!(line => _out ~= line);
+    outputMessage.each!(line => _output ~= line);
 
     /* int newlinesToAppend--;
         while (newlinesToAppend > 0) {
-            _out ~= "";
+            _output ~= "";
             newlinesToAppend--;
         } */
-    return 0;
   }
 
   // Get the buffered output.
   string[] messages() {
-    return _out;
+    return _output;
   }
 
   // Get the output as a string
   string output() {
-    return _out.join("\n");
+    return _output.join("\n");
   }
 }

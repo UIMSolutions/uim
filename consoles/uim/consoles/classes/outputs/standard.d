@@ -54,6 +54,7 @@ class DStandardOutput : DOutput {
       "cyan": 36,
       "white": 37,
     ];
+
     _backgroundColors = [
       "black": 40,
       "red": 41,
@@ -73,106 +74,74 @@ class DStandardOutput : DOutput {
     ];
 
     _styles
-      .set("emergency", ["text": "red"])
-      .set("alert", ["text": "red"])
-      .set("critical", ["text": "red"])
-      .set("error", ["text": "red"])
-      .set("warning", ["text": "yellow"])
-      .set("info", ["text": "cyan"])
-      .set("debug", ["text": "yellow"])
-      .set("success", ["text": "green"])
-      .set("comment", ["text": "blue"])
-      .set("question", ["text": "magenta"])
-      .set("notice", ["text": "cyan"]);
+      .set("emergency", ["text": "red"].toJson)
+      .set("alert", ["text": "red"].toJson)
+      .set("critical", ["text": "red"].toJson)
+      .set("error", ["text": "red"].toJson)
+      .set("warning", ["text": "yellow"].toJson)
+      .set("info", ["text": "cyan"].toJson)
+      .set("debug", ["text": "yellow"].toJson)
+      .set("success", ["text": "green"].toJson)
+      .set("comment", ["text": "blue"].toJson)
+      .set("question", ["text": "magenta"].toJson)
+      .set("notice", ["text": "cyan", "background": "white"].toJson);
 
     return true;
   }
-
-  /**
-     * Outputs a single or multiple messages to stdout or stderr. If no parameters
-     * are passed, outputs just a newline.
-     */
-  override void write(string[] messages, int numberOfLines = 1) {
-    write(messages.join(LF), numberOfLines); 
+  unittest {
+      auto output = StandardOutput;
+      auto matches = Json.emptyObject;
+      matches["tag"] = "notice";
+      matches["text"] = "Hallo World";
+      writeln("replaceTags == ", output.replaceTags(matches));
   }
 
+  // #region write
   override void write(string message, int numberOfLines = 1) {
-    std.stdio.write(this.styleText(message ~ repeat(LF, numberOfLines)));
+    std.stdio.write(message ~ LF.repeatTxt(numberOfLines));
   }
+  // #endregion write
 
   // Apply styling to text.
-  override string styleText(string stylingText) {
-    if (_outputAs == RAW) {
-      return stylingText;
+  override string styleText(string text) {
+    string styledTxt;
+    if (_outputType == "RAW") {
+      return text;
     }
 
-    if (_outputAs != PLAIN) {
-      /** @var \Closure replaceTags */
+    if (_outputType != "PLAIN") {
+      // Clear text
       /* replaceTags = _replaceTags(...);
 
-            output = preg_replace_callback(
+            outputTxt = preg_replace_callback(
                 "/<(?P<tag>[a-z0-9-_]+)>(?P<text>.*?)<\/(\1)>/ims",
                 replaceTags,
-                stylingText
-           );
-            if (output !is null) {
-                return output;
-            } */
-    }
-    /* auto tags = _styles.keys.join("|");
-        auto output = preg_replace("#</?(?:" ~ tags ~ ")>#", "", stylingText);
- */
-    /* return output ? output : stylingText; */
-    return null;
-  }
-
-  // Replace tags with color codes.
-  override protected string _replaceTags(Json[string] matches) {
-    string tag = matches.getString("tag");
-    Json style = _styles.get(tag);
-
-    if (style.isNull) {
-      return "<" ~ tag ~ ">" ~ matches.getString("text") ~ "</" ~ tag ~ ">";
+                text
+           ); */
+      if (!styledTxt.isNull) {
+        return styledTxt;
+      }
     }
 
-    string[] styleInfo;
-    string text = style.getString("text");
-    if (_foregroundColors.hasKey(text)) {
-      styleInfo ~= _foregroundColors.getString(text);
-    }
-    style.remove("text");
-
-    string background = style.getString("background");
-    if (_backgroundColors.hasKey(style.getString("background"))) {
-      styleInfo ~= _backgroundColors.getString(background);
-    }
-    style.remove("background");
-
-    styleInfo ~= style.byKeyValue
-      .filter!(kv => !kv.value.isEmpty)
-      .map!(kv => _options.get(kv.key))
-      .array;
-
-    return "\033[" ~ styleInfo.join(";") ~ "m" ~ matches.getString("text") ~ "\033[0m";
+    auto tags = _styles.keys.join("|");
+    // TODO    auto outputTxt = preg_replace("#</?(?:" ~ tags ~ ")>#", "", styledTxt);
+    return styledTxt.isNull ? text : styledTxt;
   }
 
-  // Writes a message to the output stream.
-  override  protected int _write(string messageToWrite) {
-    /*  return to!int(fwrite(_output, messageToWrite)); */
-    return 0;
-  }
+  unittest {
+    auto output = StandardOutput;
 
-  // Get the output type on how formatting tags are treated.
-  override int getOutputAs() {
-    return _outputAs;
-  }
+    output.outputType("RAW");
+    assert(output.outputType == "RAW");
+    output.write("RAW: Hallo, world");
 
-  // Set the output type on how formatting tags are treated.
-  override void setOutputAs(int outputType) {
-    /* if (!isIn(outputType, [RAW, PLAIN, COLOR], true)) {
-            throw new DInvalidArgumentException("Invalid output type `%s`.".format(outputType));
-        } */
-    _outputAs = outputType;
+    output.outputType("PLAIN");
+    assert(output.outputType == "PLAIN");
+    // output.write("PLAIN: Hallo, world");
+
+    output.outputType("COLOR");
+    assert(output.outputType == "COLOR");
+    // output.write("COLOR: Hallo, world");
   }
 
   // Clean up and close handles
@@ -182,6 +151,7 @@ class DStandardOutput : DOutput {
         } */
   }
 }
+
 mixin(OutputCalls!("Standard"));
 
 unittest {

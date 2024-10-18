@@ -176,54 +176,6 @@ class DFileOutput : DOutput {
     return null;
   }
 
-  // Replace tags with color codes.
-  override protected string _replaceTags(Json[string] matches) {
-    string tag = matches.getString("tag");
-    Json style = _styles.get(tag, Json(null));
-
-    if (style.isNull) {
-      return "<" ~ tag ~ ">" ~ matches.getString("text") ~ "</" ~ tag ~ ">";
-    }
-
-    string[] styleInfo;
-    string text = style.getString("text");
-    if (_foregroundColors.hasKey(text)) {
-      styleInfo ~= to!string(_foregroundColors[text]);
-    }
-
-    string background = style.getString("background");
-    if (_backgroundColors.hasKey(background)) {
-      styleInfo ~= to!string(_backgroundColors[background]);
-    }
-    style.removeKeys("text", "background");
-
-    styleInfo ~= style.byKeyValue
-      .filter!(kv => !kv.value.isEmpty)
-      .map!(kv => _options.get(kv.key))
-      .array;
-
-    return "\033[" ~ styleInfo.join(";") ~ "m" ~ matches.getString("text") ~ "\033[0m";
-  }
-
-  // Writes a message to the output stream.
-  override  protected int _write(string messageToWrite) {
-    /*  return to!int(fwrite(_output, messageToWrite)); */
-    return 0;
-  }
-
-  // Get the output type on how formatting tags are treated.
-  override int getOutputAs() {
-    return _outputAs;
-  }
-
-  // Set the output type on how formatting tags are treated.
-  override void setOutputAs(int outputType) {
-    /* if (!isIn(outputType, [RAW, PLAIN, COLOR], true)) {
-            throw new DInvalidArgumentException("Invalid output type `%s`.".format(outputType));
-        } */
-    _outputAs = outputType;
-  }
-
   // Clean up and close handles
   override void __destruct() {
     /* if (isResource(_output)) {

@@ -260,8 +260,8 @@ class DConsoleIo : UIMObject {
     }
 
     // Change the output mode of the stdout stream
-    void setOutputAs(int outputMode) {
-        _output.setOutputAs(outputMode);
+    void outputType(string type) {
+        _output.outputType(type);
     }
 
     // Gets defined styles.

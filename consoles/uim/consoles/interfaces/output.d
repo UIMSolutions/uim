@@ -10,5 +10,18 @@ import uim.consoles;
 @safe:
 
 interface IOutput : IConsole {
+    IOutput style(string style, STRINGAA definition);
 
+    IOutput style(string style, Json definition);
+
+    IOutput removeStyle(string style);
+
+    // Gets all the style definitions.
+    Json[string] styles();
+
+    // Get the output type on how formatting tags are treated.
+    string outputType();
+
+    // Set the output type on how formatting tags are treated.
+    IOutput outputType(string type);
 }

@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes.outputs.output;
+module uim.consoles.classes.outputs.standard;
 
 import uim.consoles;
 
@@ -36,8 +36,8 @@ import uim.consoles;
  * See OutputConsole.styles() to learn more about defining your own styles. Nested styles are not supported
  * at this time.
  */
-class DOutput : DConsole, IOutput {
-  mixin(OutputThis!());
+class DStandardOutput : DOutput {
+  mixin(OutputThis!("Standard"));
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {

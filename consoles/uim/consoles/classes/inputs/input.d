@@ -11,7 +11,7 @@ import uim.consoles;
 
 // Object wrapper for interacting with stdin
 class DInput : DConsole {
-  mixin(ConsoleThis!("Input"));
+  mixin(InputThis!());
 
   // Input value.
   protected UIMObject _input;

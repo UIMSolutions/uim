@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes.helpformatter;DInput
+module uim.consoles.classes.helpformatter;
 
 import uim.consoles;
 
@@ -19,42 +19,42 @@ import uim.consoles;
  * Xml output is useful for integration with other tools like IDE`s or other build tools.
  */
 class DHelpFormatter : UIMObject {
-    this() {
-        super();
+  this() {
+    super();
+  }
+
+  this(Json[string] initData) {
+    super(initData);
+  }
+
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
     }
 
-    this(Json[string] initData) {
-        super(initData);
-    }
+    return true;
+  }
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
+  // The maximum number of arguments shown when generating usage.
+  protected int _maxArgs = 6;
 
-        return true;
-    }
+  // The maximum number of options shown when generating usage.
+  protected int _maxOptions = 6;
 
-    // The maximum number of arguments shown when generating usage.
-    protected int _maxArgs = 6;
+  // Option parser.
+  protected IConsoleOptionParser _parser;
+  // Build the help formatter for an OptionParser
+  this(IConsoleOptionParser newParser) {
+    _parser = newParser;
+  }
 
-    // The maximum number of options shown when generating usage.
-    protected int _maxOptions = 6;
+  // Alias to display in the output.
+  protected string _alias = "uim";
+  void aliasName(string newAlias) {
+    _alias = newAlias;
+  }
 
-    // Option parser.
-    protected IConsoleOptionParser _parser;
-    // Build the help formatter for an OptionParser
-    this(IConsoleOptionParser newParser) {
-        _parser = newParser;
-    }
-
-    // Alias to display in the output.
-    protected string _alias = "uim";
-    void aliasName(string newAlias) {
-        _alias = newAlias;
-    }
-
-    /*
+  /*
     // Get the help as formatted text suitable for output on the command line.
     string text(int withOfOutput = 72) {
         auto myParser = _parser;
@@ -109,8 +109,8 @@ class DHelpFormatter : UIMObject {
      * Usage strings favor short options over the long ones. and optional args will
      * be indicated with []
      */
-    protected string _generateUsage() {
-        /* string[] usage = [_alias ~ " " ~ _parser.getCommand()];
+  protected string _generateUsage() {
+    /* string[] usage = [_alias ~ " " ~ _parser.getCommand()];
         auto options = _parser.options()
             .map!(options => option.usage())
             .array;
@@ -129,24 +129,24 @@ class DHelpFormatter : UIMObject {
         }
         
         return chain(usage, someArguments).join(" "); */
-        return null;
-    }
+    return null;
+  }
 
-    /**
+  /**
      * Iterate over a collection and find the longest named thing.
      * Params:
      * array<\UIM\Console\InputOptionConsole|\UIM\Console\> collection The collection to find a max length of.
      */
-    protected int _getMaxLength(DInputConsoleArgument[] collection) {
-        int result = 0;
-        /*         collection
+  protected int _getMaxLength(DInputConsoleArgument[] collection) {
+    int result = 0;
+    /*         collection
             .each!(item => result = max(anItem.name.length, result));
  */
-        return result;
-    }
+    return result;
+  }
 
-    // Get the help as an XML string.
-    /* DSimpleXMLElement| * /string xml(bool returnString = true) {
+  // Get the help as an XML string.
+  /* DSimpleXMLElement| * /string xml(bool returnString = true) {
         /* auto myParser = _parser;
         auto xml = new DSimpleXMLElement("<shell></shell>");
          */ /* xml.addChild("command", myParser.getCommand());
@@ -161,7 +161,7 @@ class DHelpFormatter : UIMObject {
         xml.addChild("epilog", myParser.getEpilog());
 
         return returnString ? to!string(xml.asXML()) : xml; */
-    /*         return null; 
+  /*         return null; 
     } 
  */
 }

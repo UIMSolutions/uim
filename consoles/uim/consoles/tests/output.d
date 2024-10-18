@@ -3,11 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes;
+module uim.consoles.tests.output;
 
-public {
-    import uim.consoles.classes.commands;
-    import uim.consoles.classes.consoles;
-    import uim.consoles.classes.inputs;
-    import uim.consoles.classes.outputs;
+import uim.consoles;
+
+@safe:
+
+bool testOutput(IOutput output) {
+    assert(output !is null, "In testOutput: output is null");
+    
+    return true;
 }

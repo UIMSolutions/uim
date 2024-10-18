@@ -3,11 +3,25 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes;
+module uim.consoles.mixins.output;
 
-public {
-    import uim.consoles.classes.commands;
-    import uim.consoles.classes.consoles;
-    import uim.consoles.classes.inputs;
-    import uim.consoles.classes.outputs;
+import uim.consoles;
+
+@safe:
+string outputThis(string name = null) {
+    string fullName = name ~ "Output";
+    return objThis(fullName);
+}
+
+template OutputThis(string name = null) {
+    const char[] OutputThis = outputThis(name);
+}
+
+string outputCalls(string name) {
+    string fullName = name ~ "Output";
+    return objCalls(fullName);
+}
+
+template OutputCalls(string name) {
+    const char[] OutputCalls = outputCalls(name);
 }

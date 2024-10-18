@@ -41,10 +41,10 @@ class DConsoleIo : UIMObject {
     protected bool _isInteractive = true;
 
     // The output stream
-    protected DOutputConsole _out;
+    protected DOutput _out;
 
     // The error stream
-    protected DOutputConsole _err;
+    protected DOutput _err;
 
     // The input stream
     protected DInputConsole _in;
@@ -53,20 +53,20 @@ class DConsoleIo : UIMObject {
     protected DConsoleHelperRegistry _helpers;
 
     this(
-        DOutputConsole output = null,
-        DOutputConsole errOutput = null,
+        DOutput output = null,
+        DOutput errOutput = null,
         DInputConsole input = null,
         DConsoleHelperRegistry helpers = null
     ) {
-        /* _out = output ? result : new DOutputConsole("uim://stdout"); */
-        _err = errOutput.ifNull(new DOutputConsole("uim://stderr"));
+        /* _out = output ? result : new DOutput("uim://stdout"); */
+        _err = errOutput.ifNull(new DOutput("uim://stderr"));
         _in = input.ifNull(new DInputConsole("uim://stdin"));
         _helpers = helpers.ifNull(new DConsoleHelperRegistry());
         /* _helpers.setIo(this); */
     }
 
     void isInteractive(bool aValue) {
-        _isInteractive = aValue; */
+        _isInteractive = aValue; 
     }
 
     // Get/set the current output level.
@@ -243,7 +243,7 @@ class DConsoleIo : UIMObject {
 
     // Returns a single or multiple linefeeds sequences.
     string nl(int linefeedMultiplier = 1) {
-        // return str_repeat(DOutputConsole.LF, linefeedMultiplier);
+        // return str_repeat(DOutput.LF, linefeedMultiplier);
         return null;
     }
 
@@ -311,8 +311,7 @@ class DConsoleIo : UIMObject {
             // return to!string(defaultValue);
         } 
 
-        string optionsText = !options.isEmpty
-            ? " options " : "";
+        string optionsText = !options.isEmpty? " options " : "";
 
         string defaultText = !defaultValue.isNull ? "[%s] ".format(defaultValue) : "";
         // _out.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);

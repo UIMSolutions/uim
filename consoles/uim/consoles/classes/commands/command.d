@@ -116,7 +116,7 @@ abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher
         /* string format = "text";
         if (arguments.getArgumentAt(0) == "xml") {
             format = "xml";
-            aConsoleIo.setOutputAs(DOutputConsole.RAW);
+            aConsoleIo.setOutputAs(DOutput.RAW);
         }
         aConsoleIo.writeln(optionParser.help(format)); */
     }

@@ -36,8 +36,8 @@ import uim.consoles;
  * See OutputConsole.styles() to learn more about defining your own styles. Nested styles are not supported
  * at this time.
  */
-class DOutputConsole : DConsole {
-  mixin(ConsoleThis!("Output"));
+class DOutput : DConsole, IOutput {
+  mixin(OutputThis!());
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -179,40 +179,47 @@ class DOutputConsole : DConsole {
   }
 
   // Replace tags with color codes.
-  protected string _replaceTags(Json[string] matchesToReplace) {
-    string tag = matchesToReplace.getString("tag");
+  protected string _replaceTags(Json[string] matches) {
+    string tag = matches.getString("tag");
     Json style = _styles.get(tag);
 
     if (style.isNull) {
-      return "<" ~ tag ~ ">" ~ matchesToReplace.getString("text") ~ "</" ~ tag ~ ">";
+      return "<" ~ tag ~ ">" ~ matches.getString("text") ~ "</" ~ tag ~ ">";
     }
 
-    auto styleInfo = null;
-    if (_foregroundColors.hasKey(style.getString("text")) {
-        styleInfo ~= _foregroundColors.get(style.getString("text")); }
+    string[] styleInfo;
+    string text = style.getString("text");
+    if (_foregroundColors.hasKey(text)) {
+      styleInfo ~= _foregroundColors.getString(text);
+    }
 
-        if (_backgroundColors.hasKey(style.getString("background")) {
-          styleInfo ~= _backgroundColors.get(style.getString("background")); }
+    string background = style.getString("background");
+    if (_backgroundColors.hasKey(style.getString("background"))) {
+      styleInfo ~= _backgroundColors.getString(background);
+    }
+    style.removeKeys("text", "background");
 
-          style.removeKey("text", "background"); style.byKeyValue
-            .filter!(optionValue => optionValue.value)
-            .each!(optionValue => styleInfo ~= _options.get(optionValue.option));
+    styleInfo ~= style.byKeyValue
+      .filter!(kv => !kv.value.isEmpty)
+      .map!(kv => _options.get(kv.key))
+      .array;
 
-          return "\033[" ~ styleInfo.join(";") ~ "m" ~ matchesToReplace.getString(
-            "text") ~ "\033[0m";  *  /
-            return null; }
+    return "\033[" ~ styleInfo.join(";") ~ "m" ~ matches.getString("text") ~ "\033[0m";
+  }
 
-          // Writes a message to the output stream.
-          protected int _write(string messageToWrite) {
-            /*  return to!int(fwrite(_output, messageToWrite)); */
-            return 0; }
+  // Writes a message to the output stream.
+  protected int _write(string messageToWrite) {
+    /*  return to!int(fwrite(_output, messageToWrite)); */
+    return 0;
+  }
 
-            // Gets the current styles offered
-            Json[string] getStyle(string styleName) {
-              // return _styles.get(styleName, null);
-              return null; }
+  // Gets the current styles offered
+  Json[string] getStyle(string styleName) {
+    // return _styles.get(styleName, null);
+    return null;
+  }
 
-              /**
+  /**
      * Sets style.
      *
      * ### Creates or modifies an existing style.
@@ -227,34 +234,37 @@ class DOutputConsole : DConsole {
      * this.output.setStyle("annoy", []);
      * ```
      */
-              void setStyle(string styleToSet, Json[string] styleDefinition) {
-                /* if (!styleDefinition) {
-            _styles.removeKey(styleToSet);
-            return;
-        }
-        _styles[styleToSet] = styleDefinition; */
-              }
+  void style(string style, Json definition) {
+    _styles[style] = definition;
+  }
 
-              // Gets all the style definitions.
-              Json[string] styles() {
-                return _styles; }
+  void removeStyle(string style) {
+    _styles.removeKey(style);
+  }
 
-                // Get the output type on how formatting tags are treated.
-                int getOutputAs() {
-                  return _outputAs; }
+  // Gets all the style definitions.
+  Json[string] styles() {
+    return _styles;
+  }
 
-                  // Set the output type on how formatting tags are treated.
-                  void setOutputAs(int outputType) {
-                    /* if (!isIn(outputType, [RAW, PLAIN, COLOR], true)) {
+  // Get the output type on how formatting tags are treated.
+  int getOutputAs() {
+    return _outputAs;
+  }
+
+  // Set the output type on how formatting tags are treated.
+  void setOutputAs(int outputType) {
+    /* if (!isIn(outputType, [RAW, PLAIN, COLOR], true)) {
             throw new DInvalidArgumentException("Invalid output type `%s`.".format(outputType));
         } */
-                    _outputAs = outputType; }
+    _outputAs = outputType;
+  }
 
-                    // Clean up and close handles
-                    void __destruct() {
-                      /** @psalm-suppress RedundantCondition */
-                      /* if (isResource(_output)) {
+  // Clean up and close handles
+  void __destruct() {
+    /** @psalm-suppress RedundantCondition */
+    /* if (isResource(_output)) {
             fclose(_output);
         } */
-                    }
-                  }
+  }
+}

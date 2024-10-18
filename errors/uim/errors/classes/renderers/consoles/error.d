@@ -20,12 +20,12 @@ unittest {
 class DConsoleErrorRenderer { // }: IErrorRenderer {
   protected bool _trace = false;
 
-  protected DOutputConsole _output;
+  protected DOutput _output;
 
   this(Json[string] initData = null) {
     initialize(initData);
     // `stderr` - The OutputConsole instance to use. Defaults to `D://stderr`
-    // `trace` - Whether or not stacktraces should be output.       _output = configuration.get("stderr", new DOutputConsole("d://stderr"));
+    // `trace` - Whether or not stacktraces should be output.       _output = configuration.get("stderr", new DOutput("d://stderr"));
     _trace = configuration.getBoolean("trace", false);
   }
 

@@ -21,13 +21,13 @@ unittest {
 class DConsoleExceptionRenderer { // }: IExceptionRenderer {
     private Throwable _error;
 
-    private DOutputConsole _output;
+    private DOutput _output;
 
     private bool _trace;
 
     this(Throwable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {
         _error = error;
-        // TODO this.output = configuration.get("stderr") ?? new DOutputConsole("d://stderr");
+        // TODO this.output = configuration.get("stderr") ?? new DOutput("d://stderr");
         _trace = configuration.getBoolean("trace", true);
     }
 

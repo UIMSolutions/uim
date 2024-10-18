@@ -34,29 +34,20 @@ class DApplication : UIMObject {
     IPluginApplication,
     IRoutingApplication {
      */
-    mixin TEventDispatcher;
+    // mixin TEventDispatcher;
 
     // Contains the path of the config directory
     protected string configDataDir;
 
     // Plugin Collection
-    protected IPluginCollection plugins;
+    protected IPluginCollection _plugins;
 
-    /**
-     * Controller factory
-     *
-     * @var \UIM\Http\IControllerFactory|null
-     */
-    protected IControllerFactory controllerFactory = null;
+    protected IControllerFactory _controllerFactory = null;
 
-    /**
-     * Container
-     *
-     * @var \UIM\Core\IContainer|null
-     */
+    // Container
     protected IContainer container = null;
 
-    this(
+    /* this(
         string configDataDir,
         IEventManager eventManager = null,
         IControllerFactory controllerFactory = null
@@ -65,12 +56,12 @@ class DApplication : UIMObject {
         this.plugins = Plugin.getCollection();
        _eventManager = eventManager ? eventManager: EventManager.instance();
         this.controllerFactory = controllerFactory;
-    }
+    } */
     
     abstract MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
  
     MiddlewareQueue pluginMiddleware(MiddlewareQueue middleware) {
-        /* foreach (_plugins.with("middleware") as plugin) {
+        /* foreach (plugin; _plugins.with("middleware")) {
             middleware = plugin.middleware(middleware);
         } */
         return middleware;
@@ -116,13 +107,8 @@ class DApplication : UIMObject {
         // _plugins.with("bootstrap").each!(plugin => plugin.bootstrap(this));
     }
     
-    /**
-
-     * By default, this will load `config/routes.d` for ease of use and backwards compatibility.
-     * Params:
-     * \UIM\Routing\RouteBuilder routes A route builder to add routes into.
-     */
-    void routes(RouteBuilder routes) {
+    // By default, this will load `config/routes.d` for ease of use and backwards compatibility.
+    void routes(IRouteBuilder routes) {
         // Only load routes if the router is empty
         /* if (!Router.routes()) {
             result = require _configDir ~ "routes.d";
@@ -185,11 +171,7 @@ class DApplication : UIMObject {
         return container;
     }
     
-    /**
-     * Register application container services.
-     * Params:
-     * \UIM\Core\IContainer container The Container to update.
-     */
+    // Register application container services.
     void services(IContainer container) {
     }
     
@@ -199,13 +181,11 @@ class DApplication : UIMObject {
      * - Add the request to the container, enabling its injection into other services.
      * - Create the controller that will handle this request.
      * - Invoke the controller.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request
      */
     IResponse handle(
         IServerRequest serverRequest
    ) {
-        container = getContainer();
+        auto container = getContainer();
         container.add(IServerRequest.classname, request);
         container.add(IContainer.classname, container);
 

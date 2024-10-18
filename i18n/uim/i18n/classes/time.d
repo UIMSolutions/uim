@@ -3,29 +3,15 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.i18n.classes.time;(IClosure
+module uim.i18n.classes.time;
 
 import uim.i18n;
 
 @safe:
 
-/**
- * Time class - Adds handy methods and locale-aware formatting helpers.
- */
-class DTime { // : ChronosTime, JsonSerializable {
-    mixin TConfigurable;
+// Time class - Adds handy methods and locale-aware formatting helpers.
+class DTime : UIMObject  { // : ChronosTime, JsonSerializable {
     // TODO mixin TDateFormat;
-
-    this() {
-        initialize;
-    }
-
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        return true;
-    }
 
     // #region StringFormat
     // Sets the default format used when type converting instances of this type to string
@@ -51,7 +37,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      */
-    protected static  /*Closure|*/ string /* int */ _JsonEncodeFormat = "HH':'mm':'ss";
+    protected static  /*Closure|*/ string /* int */ _jsonEncodeFormat = "HH':'mm':'ss";
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.nice()`
@@ -75,7 +61,7 @@ class DTime { // : ChronosTime, JsonSerializable {
      * can receive this object and return a formatted string.
      */
     static void jsonEncodeFormat( /*Closure|*/ string /* int */ format) {
-        _JsonEncodeFormat = format;
+        _jsonEncodeFormat = format;
     }
 
     /**
@@ -165,10 +151,10 @@ class DTime { // : ChronosTime, JsonSerializable {
 
     // Returns a string that should be serialized when converting this object to Json
     string JsonSerialize() {
-        /* if (cast(DClosure)_JsonEncodeFormat) {
-            return call_user_func(_JsonEncodeFormat, this);
+        /* if (cast(DClosure)_jsonEncodeFormat) {
+            return call_user_func(_jsonEncodeFormat, this);
         }
-        return _i18nFormat(_JsonEncodeFormat); */
+        return _i18nFormat(_jsonEncodeFormat); */
         return null;
     }
 

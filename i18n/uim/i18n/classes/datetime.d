@@ -3,29 +3,18 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.i18n.classes.datetime;(IClosure
+module uim.i18n.classes.datetime;
 
 import uim.i18n;
 
 @safe:
 
 /**
- * : the built-in DateTime class to provide handy methods and locale-aware
+ * Built-in DateTime class to provide handy methods and locale-aware
  * formatting helpers.
  */
-class DateTime /* : Chronos, JsonSerializable */ {
-    mixin TConfigurable;
+class DDateTime : UIMObject { // Chronos, JsonSerializable
     // TODO mixin TDateFormat;
-
-    this() {
-        initialize;
-    }
-
-    bool initialize(Json[string] initData = null) {
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
 
     /**
      * The default locale to be used for displaying formatted date strings.

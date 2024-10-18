@@ -15,15 +15,18 @@ import uim.routings;
  * has sub-optimal performance when compared to serving files
  * with a real webserver.
  */
-class DAssetMiddleware : IRoutingMiddleware {
+class DAssetMiddleware : UIMObject, IRoutingMiddleware {
     // The amount of time to cache the asset.
     protected string _cacheTime = "+1 day";
 
-    /*
-    this(Json[string] options = null) {
-        if (options.hasKey("cacheTime"])) {
-            this.cacheTime = options.get("cacheTime"];
-        }
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+      if (options.hasKey("cacheTime")) {
+          _cacheTime = options.getString("cacheTime");
+      }
     }
     
     // Serve assets if the path matches one.

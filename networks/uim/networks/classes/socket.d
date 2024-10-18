@@ -26,7 +26,6 @@ class DSocket : UIMObject {
     super(name);
   }
 
-  // Hook method
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;

@@ -10,8 +10,8 @@ import uim.consoles;
 @safe:
 
 // Object wrapper for interacting with stdin
-class DInput : DConsole {
-  mixin(InputThis!("Input"));
+class DStandardInput : DInput {
+  mixin(InputThis!("Standard"));
 
   // Input value.
   protected UIMObject _input;
@@ -35,7 +35,7 @@ class DInput : DConsole {
   }
 
   // Read a value from the stream
-  string read() {
+  override string read() {
     string line;
     if (_canReadline) {
       /* line = readline(""); */

@@ -13,7 +13,7 @@ import uim.consoles;
  * An object to represent a single argument used in the command line.
  * DConsoleOptionParser buildOptionParser creates these when you use addArgument()
  */
-class DInputConsoleArgument : UIMObject {
+class DInputArgument : UIMObject {
   mixin(ArgumentThis!("InputConsole"));
 
   override bool initialize(Json[string] initData = null) {
@@ -57,7 +57,7 @@ class DInputConsoleArgument : UIMObject {
   }
 
   // Checks if this argument is equal to another argument.
-  bool isEqualTo(DInputConsoleArgument argument) {
+  bool isEqualTo(DInputArgument argument) {
     /* return _name() == argument.name() &&
             this.usage() == argument.usage(); */
     return false;

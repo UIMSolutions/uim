@@ -137,7 +137,7 @@ class DHelpFormatter : UIMObject {
      * Params:
      * array<\UIM\Console\InputOptionConsole|\UIM\Console\> collection The collection to find a max length of.
      */
-  protected int _getMaxLength(DInputConsoleArgument[] collection) {
+  protected int _getMaxLength(DInputArgument[] collection) {
     int result = 0;
     /*         collection
             .each!(item => result = max(anItem.name.length, result));

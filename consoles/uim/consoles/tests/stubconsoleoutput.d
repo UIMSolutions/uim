@@ -20,7 +20,7 @@ import uim.consoles;
  * aConsoleIo = new DConsoleIo(output);
  * ```
  */
-class DStubOutputConsole : DOutputConsole {
+class DStubOutputConsole : DOutput {
   // Buffered messages.
   protected string[] _out = null;
 

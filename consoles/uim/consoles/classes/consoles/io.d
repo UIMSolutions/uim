@@ -41,13 +41,13 @@ class DConsoleIo : UIMObject {
     protected bool _isInteractive = true;
 
     // The output stream
-    protected DOutput _out;
+    protected DOutput _output;
 
     // The error stream
     protected DOutput _err;
 
     // The input stream
-    protected DInput _in;
+    protected DInput _input;
 
     // The helper registry.
     protected DConsoleHelperRegistry _helpers;
@@ -58,9 +58,9 @@ class DConsoleIo : UIMObject {
         DInput input = null,
         DConsoleHelperRegistry helpers = null
     ) {
-        /* _out = output ? result : new DOutput("uim://stdout"); */
+        /* _output = output ? result : new DOutput("uim://stdout"); */
         _err = errOutput.ifNull(new DOutput("uim://stderr"));
-        _in = input.ifNull(new DInput("uim://stdin"));
+        _input = input.ifNull(new DInput("uim://stdin"));
         _helpers = helpers.ifNull(new DConsoleHelperRegistry());
         /* _helpers.setIo(this); */
     }
@@ -114,7 +114,7 @@ class DConsoleIo : UIMObject {
         /* if (outputLevel > _level) {
             return null;
         }
-       _lastWritten = _out.write(message, newLinesToAppend); */
+       _lastWritten = _output.write(message, newLinesToAppend); */
 
         // return _lastWritten;
         return 0;
@@ -261,22 +261,22 @@ class DConsoleIo : UIMObject {
 
     // Change the output mode of the stdout stream
     void setOutputAs(int outputMode) {
-        _out.setOutputAs(outputMode);
+        _output.setOutputAs(outputMode);
     }
 
     // Gets defined styles.
     Json[string] styles() {
-        return _out.styles();
+        return _output.styles();
     }
 
     // Get defined style.
     Json[string] getStyle(string styleToGet) {
-        return _out.getStyle(styleToGet);
+        return _output.getStyle(styleToGet);
     }
 
     // Adds a new output style.
     void setStyle(string styleToSet, Json[string] styleDefinition) {
-        _out.setStyle(styleToSet, styleDefinition);
+        _output.setStyle(styleToSet, styleDefinition);
     }
 
     // Prompts the user for input based on a list of options, and returns it.
@@ -314,8 +314,8 @@ class DConsoleIo : UIMObject {
         string optionsText = !options.isEmpty? " options " : "";
 
         string defaultText = !defaultValue.isNull ? "[%s] ".format(defaultValue) : "";
-        // _out.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
-        string result = _in.read();
+        // _output.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
+        string result = _input.read();
 
         result = !result.isNull
             ? result.strip : "";
@@ -362,7 +362,7 @@ class DConsoleIo : UIMObject {
         if (enable != QUIET) {
             /* stdout = new DConsoleLog([
                     "types": outLevels,
-                    "stream": _out,
+                    "stream": _output,
                 ]);
             Log.configuration.set("stdout", ["engine": stdout]); */
         }

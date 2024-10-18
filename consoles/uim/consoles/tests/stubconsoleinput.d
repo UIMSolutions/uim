@@ -15,7 +15,7 @@ import uim.consoles;
  * This class enables input to be stubbed and have exceptions
  * raised when no answer is available.
  */
-class DStubInputConsole : DInputConsole {
+class DStubInputConsole : DInput {
   // Reply values for ask() and askChoice()
   protected string[] _replies;
 

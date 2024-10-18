@@ -108,7 +108,7 @@ class DConsoleOptionParser : UIMObject {
         auto newParams = params.merge(defaultOptions);
         auto anIndex = newParams["index"];
         newParams.removeKey("index");
-        auto inputArgument = new DInputConsoleArgument(newParams);
+        auto inputArgument = new DInputArgument(newParams);
 
         _args.each!((a) {
             if (a.isEqualTo(inputArgument)) {
@@ -128,7 +128,7 @@ class DConsoleOptionParser : UIMObject {
 
 
     //  Positional argument definitions.
-    protected DInputConsoleArgument[] _args;
+    protected DInputArgument[] _args;
 
     // Array of args (arguments).
     // TODO protected Json[string] _token;
@@ -343,7 +343,7 @@ class DConsoleOptionParser : UIMObject {
      * \UIM\Console\InputConsoleArgument|string aName The name of the argument.
      * Will also accept an instance of InputConsoleArgument.
      */
-    void addArgument(DInputConsoleArgument aName, Json[string] argumentParameters = null) {
+    void addArgument(DInputArgument aName, Json[string] argumentParameters = null) {
         // TODO
     }
 
@@ -359,7 +359,7 @@ class DConsoleOptionParser : UIMObject {
      */
     void addArguments(Json[string] someArguments) {
         foreach (name, params; someArguments) {
-            /* if (cast(DInputConsoleArgument) params) {
+            /* if (cast(DInputArgument) params) {
                 name = params;
                 params = null;
             }
@@ -382,7 +382,7 @@ class DConsoleOptionParser : UIMObject {
     }
 
     // Gets the arguments defined in the parser.
-    DInputConsoleArgument[] arguments() {
+    DInputArgument[] arguments() {
         // return _args;
         return null;
     }

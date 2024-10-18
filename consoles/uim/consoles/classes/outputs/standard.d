@@ -153,7 +153,7 @@ class DStandardOutput : DOutput {
   }
 
   // Apply styling to text.
-  string styleText(string stylingText) {
+  override string styleText(string stylingText) {
     if (_outputAs == RAW) {
       return stylingText;
     }
@@ -261,7 +261,7 @@ class DStandardOutput : DOutput {
   }
 
   // Clean up and close handles
-  void __destruct() {
+  override void __destruct() {
     /** @psalm-suppress RedundantCondition */
     /* if (isResource(_output)) {
             fclose(_output);

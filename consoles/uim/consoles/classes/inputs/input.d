@@ -10,7 +10,7 @@ import uim.consoles;
 @safe:
 
 // Object wrapper for interacting with stdin
-class DInputConsole : DConsole {
+class DInput : DConsole {
   mixin(ConsoleThis!("Input"));
 
   // Input value.

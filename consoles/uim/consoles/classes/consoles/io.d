@@ -47,7 +47,7 @@ class DConsoleIo : UIMObject {
     protected DOutput _err;
 
     // The input stream
-    protected DInputConsole _in;
+    protected DInput _in;
 
     // The helper registry.
     protected DConsoleHelperRegistry _helpers;
@@ -55,12 +55,12 @@ class DConsoleIo : UIMObject {
     this(
         DOutput output = null,
         DOutput errOutput = null,
-        DInputConsole input = null,
+        DInput input = null,
         DConsoleHelperRegistry helpers = null
     ) {
         /* _out = output ? result : new DOutput("uim://stdout"); */
         _err = errOutput.ifNull(new DOutput("uim://stderr"));
-        _in = input.ifNull(new DInputConsole("uim://stdin"));
+        _in = input.ifNull(new DInput("uim://stdin"));
         _helpers = helpers.ifNull(new DConsoleHelperRegistry());
         /* _helpers.setIo(this); */
     }

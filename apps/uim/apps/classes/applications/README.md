@@ -1,8 +1,8 @@
-# Package 📦 uim.http.classes.applications
+# Package 📦 uim.apps.classes.applications
 
 ## Packages
 
 ## Modules
 
-* uim.http.classes.applications.application
-* uim.http.classes.applications.middleware
+* uim.apps.classes.applications.application
+* uim.apps.classes.applications.middleware

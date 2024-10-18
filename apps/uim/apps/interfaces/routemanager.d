@@ -5,5 +5,8 @@
 *****************************************************************************************************************/
 module uim.apps.interfaces.routemanager;
 
+import uim.apps;
+
+@safe:
 interface IRouteManager {
 }

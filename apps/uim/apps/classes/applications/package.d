@@ -3,4 +3,9 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http.classes.applications;public {    import uim.http.classes.applications.application;    import uim.http.classes.applications.middleware;}
+module uim.apps.classes.applications;uim.appsuim.apps
+
+public {
+    import uim.http.classes.applications.application;
+    import uim.http.classes.applications.middleware;
+}

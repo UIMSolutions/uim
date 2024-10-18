@@ -3,9 +3,9 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http.classes.applications.application;
+module uim.apps.classes.applications.application;
 
-import uim.http;
+import uim.apps;
 
 @safe:
 
@@ -24,7 +24,7 @@ import uim.http;
  * @implements \UIM\Event\IEventDispatcher<TSubject>
  * @implements \UIM\Core\IPluginApplication<TSubject>
  */
-class DApplication {
+class DApplication : UIMObject {
     /*
     }:
     IConsoleApplication,

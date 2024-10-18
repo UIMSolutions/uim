@@ -4,6 +4,8 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.apps.interfaces.controllermanager;
+import uim.apps;
 
+@safe:
 interface IControllerManager {
 }

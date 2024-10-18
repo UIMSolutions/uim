@@ -5,5 +5,8 @@
 *****************************************************************************************************************/
 module uim.apps.interfaces.sessionmanager;
 
+import uim.apps;
+
+@safe:
 interface ISessionManager {
 }

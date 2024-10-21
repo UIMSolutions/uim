@@ -71,11 +71,10 @@ class DValidation : UIMObject, IValidation {
      */
   static bool isNotBlank(Json value) {
     /* if (value.isEmpty && !value.isBooleanLike && !isNumeric(value)) {
-            return false;
-        } */
-    /*        return _check(value, "/[^\s]+/m");
- */
-    return false;
+      return false;
+    } */ 
+    return _check(value, r"/[^\s]+/m");
+
   }
 
   /**
@@ -88,8 +87,7 @@ class DValidation : UIMObject, IValidation {
     if ((isEmpty(value) && value != "0") || !value.isScalar) {
       return false;
     }
-    //        return _check(value, "/^[\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]+my/Du");
-    return false;
+    return _check(value, r"/^[\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]+my/Du");
   }
 
   /**
@@ -105,7 +103,7 @@ class DValidation : UIMObject, IValidation {
   // Checks that a string contains only ascii integer or letters.
   static bool isAsciiAlphaNumeric(Json value) {
     return (isEmpty(value) && value != "0") || !value.isScalar
-      ? false : _check(value, "/^[[:alnum:]]+my/");
+      ? false : _check(value, r"/^[[:alnum:]]+my/");
   }
 
   // Checks that a doesn"t contain any non-ascii alpha numeric characters
@@ -164,7 +162,7 @@ class DValidation : UIMObject, IValidation {
                 .set("voyager", "/^8699[0-9]{11}my/");
 
             /* Generic.Files.LineLength * / */
-    myCards["fast"] = "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/";
+    myCards["fast"] = r"/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/";
 
     /*        if (checkType.isArray) {
             foreach (myvalue; checkType) {
@@ -260,8 +258,7 @@ class DValidation : UIMObject, IValidation {
 
             return false;
         } */
-    /* return _check(value, regex); */
-    return false;
+    return _check(value, regex); */
   }
 
   /**
@@ -394,10 +391,8 @@ class DValidation : UIMObject, IValidation {
       return false;
     }
 
-    /*        auto regex = "/^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?my/";
-        return _check(value, regex);
- */
-    return false;
+    auto regex = r"/^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d+(?!:))?)?(\17[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?my/";
+    return _check(value, regex);
   }
 
   /**
@@ -419,12 +414,10 @@ class DValidation : UIMObject, IValidation {
     /* if (!isScalar(value)) {
             return false;
         } */
-    /*        auto mymeridianClockRegex = "^((0?[1-9]|1[012])(:[0-5]\d){0,2} ?([AP]M|[ap]m))my";
-        auto mystandardClockRegex = "^([01]\d|2[0-3])((:[0-5]\d){1,2}|(:[0-5]\d){2}\.\d{0,6})my";
+    auto mymeridianClockRegex = r"^((0?[1-9]|1[012])(:[0-5]\d){0,2} ?([AP]M|[ap]m))my";
+    auto mystandardClockRegex = r"^([01]\d|2[0-3])((:[0-5]\d){1,2}|(:[0-5]\d){2}\.\d{0,6})my";
 
-        return _check(value, "%" ~ mymeridianClockRegex ~ "|" ~ mystandardClockRegex ~ "%");
- */
-    return false;
+    return _check(value, "%" ~ mymeridianClockRegex ~ "|" ~ mystandardClockRegex ~ "%");
   }
 
   /**
@@ -435,7 +428,7 @@ class DValidation : UIMObject, IValidation {
     /* if (cast(IDateTime)dateValue) {
             return true;
         } */
-    /* if (!isString(dateValue)) {
+    /* if (!dateValue.isString) {
             return false;
         }
         static mymethods = [
@@ -491,16 +484,16 @@ class DValidation : UIMObject, IValidation {
             myexp = "(?:[eE]{mysign}{mylnum})?";
 
             if (myplaces.isNull) {
-                regex = "/^{mysign}(?:{mylnum}|{mydnum}){myexp}my/";
+                regex = r"/^{mysign}(?:{mylnum}|{mydnum}){myexp}my/";
             } else if (myplaces == true) {
                 if (isFloat(value) && floor(value) == value) {
                     value = "%.1f".format(value);
                 }
-                regex = "/^{mysign}{mydnum}{myexp}my/";
+                regex = r"/^{mysign}{mydnum}{myexp}my/";
             } else {
                 myplaces = "[0-9]{" ~ myplaces ~ "}";
                 mydnum = "(?:[0-9]*[\.]{myplaces}|{mylnum}[\.]{myplaces})";
-                regex = "/^{mysign}{mydnum}{myexp}my/";
+                regex = r"/^{mysign}{mydnum}{myexp}my/";
             }
         }
  */ // account for localized floats.
@@ -513,9 +506,8 @@ class DValidation : UIMObject, IValidation {
         value = mygroupingSep == "\xc2\xa0" || mygroupingSep == "\xe2\x80\xaf"
             ? /* (string) * /value.replace([" ", mygroupingSep, mydecimalPoint], ["", "", "."],)
             : /* (string) * /value.replace([mygroupingSep, mydecimalPoint], ["", "."],);
-
-        return _check(value, regex); */
-    return false;
+*/
+        return _check(value, regex); 
   }
 
   /**
@@ -782,7 +774,7 @@ class DValidation : UIMObject, IValidation {
         auto mypath = "([" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
         auto myfragmentAndQuery = "([\?" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
          Generic.Files.LineLength
-        regex = "/^(?:(?:https?|ftps?|sftp|file|news|gopher):\/\/)" ~ (isStrict ? "" : "?") .
+        regex = r"/^(?:(?:https?|ftps?|sftp|file|news|gopher):\/\/)" ~ (isStrict ? "" : "?") .
             "(?:" ~ _pattern["IPv4"] ~ "|\[" ~ _pattern.getString("IPv6") ~ "\]|" ~ _pattern.getString("hostname") ~ ")(?.[1-9][0-9]{0,4})?" .
             "(?:\/" ~ mypath ~ "*)?" .
             "(?:\?" ~ myfragmentAndQuery ~ "*)?" .
@@ -811,10 +803,9 @@ class DValidation : UIMObject, IValidation {
 
   // Checks that a value is a valid UUID - https://tools.ietf.org/html/rfc4122
   static bool isUuid(Json value) {
-    // TODO regex = "/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
+    regex = r"/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
 
-    /* return _check(value, regex); */
-    return false;
+    return _check(value, regex);
   }
 
   // Runs a regular expression match.

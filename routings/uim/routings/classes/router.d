@@ -616,7 +616,7 @@ class DRouter {
             return _routePaths[url];
         }
         
-        auto regex = "#^
+        auto regex = r"#^
             (?:(?<plugin>[a-z0-9]+(?:/[a-z0-9]+)*)\.)?
             (?:(?<prefix>[a-z0-9]+(?:/[a-z0-9]+)*)/)?
             (?<controller>[a-z0-9]+)

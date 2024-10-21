@@ -372,8 +372,8 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * this method will return true if the request matches any type.
      */
     /* bool is(string[] atype, Json[string] arguments) {
-        if (isArray(type)) {
-            foreach (type as _type) {
+        if (type.isArray) {
+            foreach (_type; type) {
                 if (is(_type)) {
                     return true;
                 }

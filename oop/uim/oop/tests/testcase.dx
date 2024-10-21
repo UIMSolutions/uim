@@ -583,7 +583,7 @@ abstract class DTestCase : DBaseTestCase {
         Json[string] assertions,
         string mlTextToCheck,
         bool shouldFullDebug = false,
-        string[] regex = ""
+        string[] regex = r""
     ) {
         auto asserts = assertions["attrs"];
         auto explains = assertions["explains"];

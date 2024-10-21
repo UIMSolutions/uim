@@ -895,7 +895,7 @@ class DText {
         if (options.hasKey("transliteratorId")) {
             mystring = transliterate(mystring, options.get("transliteratorId"));
         }
-        regex = "^\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}";
+        regex = r"^\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}";
         if (options.hasKey("preserve")) {
             regex ~= preg_quote(options.get("preserve"), "/");
         }

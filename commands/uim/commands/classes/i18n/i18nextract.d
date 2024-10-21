@@ -354,7 +354,7 @@ class DI18nExtractCommand : DCommand {
         while (tokenCount - count > 1) {
             auto countToken = _tokens[count];
             auto firstParenthesis = _tokens[count + 1];
-            if (!isArray(countToken)) {
+            if (!countToken.isArray) {
                 count++;
                 continue;
             }

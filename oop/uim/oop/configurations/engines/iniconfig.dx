@@ -119,7 +119,7 @@ class DIniConfig : DConfigEngine {
                     result ~= "["~kv.key~"]";
                     isSection = true;
                 }
-                if (isArray(aValue)) {
+                if (aValue.isArray) {
                     Hash.flatten(kv.value, ".").byKeyValue
                         .each!(kv2 => result ~= "%s = %s".format(kv2.key, _value(kv2.value)));
                 }

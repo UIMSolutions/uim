@@ -98,7 +98,7 @@ class DApplication : UIMObject {
 
         // Dcs:ignore
         /* plugins = @include _configDir ~ "plugins.d";
-        if (isArray(plugins)) {
+        if (plugins.isArray) {
             _plugins.addFromConfig(plugins);
         } */
     }

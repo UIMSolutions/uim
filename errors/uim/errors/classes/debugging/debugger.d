@@ -215,7 +215,7 @@ class DDebugger : UIMObject, IErrorDebugger {
             // return getInstance().configuration.get(key);
         }
 
-        /*         if (isArray(key) || func_num_args() >= 2) {
+        /*         if (key.isArray || func_num_args() >= 2) {
             return getInstance().setConfig(key, aValue, shouldMerge);
         }
  */

@@ -42,7 +42,7 @@ import uim.logging;
  * ```
  * Log.configuration.set("default", [
  *   "classname": "File",
- *   "path": LOGS,
+ *   "path": LogLevels,
  *   "levels": ["error", "critical", "alert", "emergency"]
  * ]);
  * ```
@@ -80,7 +80,7 @@ import uim.logging;
  *
  * ```
  * Log.error("Something horrible happened");
- * Log.write(LOGS.ERROR, "Something horrible happened");
+ * Log.write(LogLevels.ERROR, "Something horrible happened");
  * ```
  *
  * ### Logging scopes
@@ -126,14 +126,14 @@ class DLog : UIMObject {
         ];
 
         /* _levelMap = [
-        "emergency": LOG_EMERG,
-        "alert": LOG_ALERT,
-        "critical": LOG_CRIT,
-        "error": LOGS.ERROR,
-        "warning": LOGS.WARNING,
-        "notice": LOGS.NOTICE,
-        "info": LOG_INFO,
-        "debug": LOG_DEBUG,
+        "emergency": LogLevels.EMERGENCY,
+        "alert": LogLevels.ALERT,
+        "critical": LogLevels.CRITICAL,
+        "error": LogLevels.ERROR,
+        "warning": LogLevels.WARNING,
+        "notice": LogLevels.NOTICE,
+        "info": LogLevels.INFO,
+        "debug": LogLevels.DEBUG,
     ];
  */
         return true;
@@ -256,14 +256,14 @@ class DLog : UIMObject {
      *
      * ### Levels:
      *
-     * - `LOG_EMERG`: "emergency",
-     * - `LOG_ALERT`: "alert",
-     * - `LOG_CRIT`: "critical",
-     * - `LOGS.ERROR`: "error",
-     * - `LOGS.WARNING`: "warning",
-     * - `LOGS.NOTICE`: "notice",
-     * - `LOG_INFO`: "info",
-     * - `LOG_DEBUG`: "debug",
+     * - `LogLevels.EMERGENCY`: "emergency",
+     * - `LogLevels.ALERT`: "alert",
+     * - `LogLevels.CRITICAL`: "critical",
+     * - `LogLevels.ERROR`: "error",
+     * - `LogLevels.WARNING`: "warning",
+     * - `LogLevels.NOTICE`: "notice",
+     * - `LogLevels.INFO`: "info",
+     * - `LogLevels.DEBUG`: "debug",
      *
      * ### Basic usage
      *

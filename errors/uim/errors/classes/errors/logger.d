@@ -38,8 +38,8 @@ class DErrorLogger : UIMObject, IErrorLogger {
         }
         /* label = error.label();
         level = match (label) {
-            "strict": LOGS.NOTICE,
-            "deprecated": LOG_DEBUG,
+            "strict": LogLevels.NOTICE,
+            "deprecated": LogLevels.DEBUG,
             default: label,
         };
 
@@ -99,10 +99,10 @@ class DErrorLogger : UIMObject, IErrorLogger {
     }
 
     // Get the request context for an error/exception trace.
-    string getRequestContext(IServerRequest serverRequest) {
-        /* string message = "\nRequest URL: " ~ request.getRequestTarget();
+    string getRequestContext(IServerRequest request) {
+        // TODO  string message = "\nRequest URL: " ~ request.getRequestTarget();
 
-        referer = request.getHeaderLine("Referer");
+        /*  referer = request.getHeaderLine("Referer");
         if (referer) {
             message ~= "\nReferer URL: " ~ referer;
         }

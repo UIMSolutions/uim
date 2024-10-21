@@ -18,9 +18,8 @@ import uim.http;
  * a client.
  */
 class DCurl { // }: IAdapter {
-    /*
     Json[string] send(IRequest request, Json[string] curlOptions = null) {
-        if (!extension_loaded("curl")) {
+        /* if (!extension_loaded("curl")) {
             throw new DClientException("curl extension is not loaded.");
         }
         ch = curl_initialize();
@@ -48,12 +47,13 @@ class DCurl { // }: IAdapter {
         responses = this.createResponse(ch, body);
         curl_close(ch);
 
-        return responses;
+        return responses; */
+        return null; 
     }
     
     // Convert client options into curl options.
     Json[string] buildOptions(IRequest request, Json[string] clientOptions = null) {
-        string[] aHeaders = request.getHeaders().byKeyValue
+        /* string[] aHeaders = request.getHeaders().byKeyValue
             .map!(keyValues => aKey ~ ": " ~ someValues.join(", ")).array;
 
          result = [
@@ -124,7 +124,9 @@ class DCurl { // }: IAdapter {
                 .each!(kv => result.set(kv.key, kv.value));
 
         }
-        return result;
+        return result; */
+    
+        return null; 
     }
     
     // Convert HTTP version number into curl value.
@@ -145,19 +147,16 @@ class DCurl { // }: IAdapter {
     
     // Convert the raw curl response into an Http\Client\Response
     protected DResponse[] createResponse(CurlHandle handle, string responseData) {
-        auto aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);
+        /* auto aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);
         auto aHeaders = subString(responseData, 0,  aHeaderSize).strip;
         body = subString(responseData,  aHeaderSize);
         auto response = new DResponse(split("\r\n",  aHeaders), body);
-        return [response];
+        return [response]; */
+        return null; 
     }
     
-    /**
-     * Execute the curl handle.
-     * Params:
-     * \CurlHandle ch Curl Resource handle
-     */
-    protected string exec(CurlHandle ch) {
+    // Execute the curl handle.
+    /* protected string exec(CurlHandle ch) {
         return curl_exec(ch);
-    }
+    } */
 }

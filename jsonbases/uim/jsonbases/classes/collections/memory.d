@@ -38,13 +38,10 @@ class DMemoryJsonCollection : DJsonCollection {
     return results;
   }
 
-  version (test_uim_jsonbase) {
-    unittest {
-
-      auto col = MemoryJsonCollection;
-      assert(test_findMany(col));
-      assert(test_findMany_allVersions(col));
-    }
+  unittest {
+    auto col = MemoryJsonCollection;
+    assert(test_findMany(col));
+    assert(test_findMany_allVersions(col));
   }
 
   /// Find all (many) items in a collection with id. allVersions:false = find last version, allVersion:true = find all versions
@@ -59,13 +56,10 @@ class DMemoryJsonCollection : DJsonCollection {
     return results;
   }
 
-  version (test_uim_jsonbase) {
-    unittest {
-
-      auto col = MemoryJsonCollection;
-      assert(test_findMany_id(col));
-      assert(test_findMany_id_allVersions(col));
-    }
+  unittest {
+    auto col = MemoryJsonCollection;
+    assert(test_findMany_id(col));
+    assert(test_findMany_id_allVersions(col));
   }
 
   override Json[] findMany(string[string] select, bool allVersions = false) {
@@ -81,13 +75,10 @@ class DMemoryJsonCollection : DJsonCollection {
     return results;
   }
 
-  version (test_uim_jsonbase) {
-    unittest {
-
-      auto col = MemoryJsonCollection;
-      assert(test_findMany_select(col));
-      assert(test_findMany_select_allVersions(col));
-    }
+  unittest {
+    auto col = MemoryJsonCollection;
+    assert(test_findMany_select(col));
+    assert(test_findMany_select_allVersions(col));
   }
 
   override Json[] findMany(Json select, bool allVersions = false) {

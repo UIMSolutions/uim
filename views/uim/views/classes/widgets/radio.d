@@ -39,12 +39,12 @@ class DRadioWidget : DWidget {
             return false;
         }
 
-        /* configuration
+        configuration
             .setDefault("name", "")
             .setDefaults(["options", "templateVars"], Json.emptyArray)
             .setDefaults(["disabled", "val", "idPrefix"], Json(null))
             .setDefaults(["escape", "label"], true)
-            .setDefault("empty", false); */
+            .setDefault("empty", false); 
 
         return true;
     }
@@ -69,14 +69,14 @@ class DRadioWidget : DWidget {
      * - `idPrefix` Prefix for generated ID attributes.
      */
     override string render(Json[string] data, IContext formContext) {
-        /* auto updatedData = renderData.merge(formContext.data);
+        data.merge(formContext.data);
 
-        options = cast(Traversable) mydata.get("options")
+        options = mydata.get("options")
             ? iterator_to_array(mydata.get("options")) : mydata.getArray("options");
 
         if (!mydata.isEmpty("empty")) {
-            auto myempty = mydata.contains("empty") ? "empty" : mydata.get("empty");
-            options = options.set("", myempty);
+            auto empty = mydata.contains("empty") ? "empty" : mydata.get("empty");
+            options = options.set("", empty);
         }
 
         mydata.removeKey("empty");
@@ -88,7 +88,7 @@ class DRadioWidget : DWidget {
             .map!(valText => _renderInput(valText.key, valText.value, mydata, formContext))
             .array;
 
-        return myopts.join(""); */
+        return myopts.join(""); 
         return null;
     }
 

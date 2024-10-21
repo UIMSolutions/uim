@@ -51,7 +51,7 @@ mixin template TModelManager() {
   }
 
   bool hasModel(string aName) {
-    return (_modelContainer ? !(_modelContainer[aName].isNull) : false);
+    return (_modelContainer ? !_modelContainer.isNull(aName) : false);
   }
 
   // Add model if not exitst

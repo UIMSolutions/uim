@@ -134,21 +134,24 @@ class DSelectBoxWidget : DWidget {
 
   // Render the contents of the select element.
   protected string[] _renderContent(Json[string] renderData) {
-    /* Json options = renderData.get("options", null);
+    Json renderOptions = renderData.get("options", null);
 
-    if (cast(Traversable) options) {
-      options = iterator_to_array(options);
-    }
+    /* if (cast(Traversable) options) {
+      renderOptions = iterator_to_array(renderOptions);
+    } 
+
     if (!renderData.isEmpty("empty")) {
-      options = _emptyValue(renderData["empty"]) + /* (array) * / options;
-    }
-    if (options.isEmpty) {
+      renderOptions = _emptyValue(renderData["empty"]) + /* (array) * / renderOptions;
+    } */
+
+    if (renderOptions.isEmpty) {
       return null;
     }
 
+    /* 
     Json selectedValues = renderData.get("val", null);
     Json disabledOptions = null;
-    if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
+    if (renderData.isArray("disabled")) {
       disabledOptions = renderData.get("disabled", null);
     }
     auto templateVariables = renderData.get("templateVars");
@@ -164,9 +167,8 @@ class DSelectBoxWidget : DWidget {
   }
 
   protected Json[string] _emptyValue(Json[string] values) {
-    /* return myvalue.isEmpty
-      ? ["": myvalue] : myvalue; */
-    return null;
+    return values.isEmpty
+      ? ["": Json(values)] : values; 
   }
 
   // Render the contents of an optgroup element.

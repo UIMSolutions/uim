@@ -143,7 +143,7 @@ class DArrayContext : DContext {
             /* return options.get("default"); * /
         } */
 
-        /* if (_context.get("defaults").isEmpty || !isArray(_context["defaults"])) {
+        /* if (_context.isEmpty("defaults") || !(_context.isArray("defaults")) {
             return null;
         } */
 
@@ -159,7 +159,7 @@ class DArrayContext : DContext {
      * In this context class, this is simply defined by the "required" array.
      */
     override bool isRequired(string fieldName) {
-        /* if (!_context["required"].isArray) {
+        /* if (!_context.isArray("required")) {
             return false;
         } */
 
@@ -174,7 +174,7 @@ class DArrayContext : DContext {
     }
 
     override string getRequiredMessage(string fieldName) {
-        /* if (!_context["required"].isArray) {
+        /* if (!_context.isArray("required")) {
             return null;
         } */
         string required;
@@ -194,7 +194,7 @@ class DArrayContext : DContext {
      * In this context class, this is simply defined by the "length" array.
      */
     int getMaxLength(string fieldName) {
-        /* if (!_context["schema"].isArray) {
+        /* if (!_context.isArray("schema")) {
             return null;
         }
 
@@ -204,9 +204,8 @@ class DArrayContext : DContext {
 
     override string[] fieldNames() {
         /* auto myschema = _context["schema"]; */
-        /* removeKey(myschema["_constraints"], myschema["_indexNames"]); */
+        /* myschema.removeKeys(["_constraints", _indexNames"]); */
 
-        /** @var list<string> */
         /* return myschema.keys; */
         return null;
     }

@@ -872,11 +872,7 @@ class DFormHelper : DHelper {
         return null;
     }
 
-    /**
-     * Generates an input element
-     * Params:
-     * string fieldName the field name
-     */
+    // Generates an input element
     protected string[] _getInput(string fieldName, Json[string] options = null) {
         auto mylabel = options.shift("options");
 
@@ -954,10 +950,11 @@ class DFormHelper : DHelper {
      * and sets the value to the "options" key in the options array.
      */
     protected Json[string] _optionsOptions(string fieldName, Json[string] options = null) {
-        /* if (options.hasKey("options")) {
+        if (options.hasKey("options")) {
             return options;
         }
 
+        /* 
         auto internalType = _getContext().type(fieldName);
         if (internalType && internalType.startsWith("enum-")) {
             mydbType = TypeFactory.build(internalType);
@@ -1375,7 +1372,7 @@ class DFormHelper : DHelper {
             options.removeKey("data");
         }
        /*  button ~= button(caption, options)
-            ~ end(); */ */
+            ~ end(); */ 
 
         return button; 
     }
@@ -1613,7 +1610,7 @@ class DFormHelper : DHelper {
             .merge("secure", true)
             .merge("empty", Json(null));
 
-        /* if (attributes["empty"].isNull && attributes["multiple"] != "checkbox") {
+        /* if (attributes.isNull("empty") && attributes.getString("multiple") != "checkbox") {
             myrequired = _getContext().isRequired(fieldName);
             attributes.set("empty", myrequired.isNull ? false : !myrequired);
         }
@@ -1621,8 +1618,8 @@ class DFormHelper : DHelper {
             attributes.removeKey("multiple", "empty");
 
             return _multiCheckbox(fieldName, options, attributes);
-        }
-        attributes.removeKey("label"); */
+        } */
+        attributes.removeKey("label");
 
         // Secure the field if there are options, or it"s a multi select.
         // Single selects with no options don"t submit, but multiselects do.

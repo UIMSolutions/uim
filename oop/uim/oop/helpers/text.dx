@@ -148,7 +148,7 @@ class DText {
             "clean": false.toJson
         ];
         options = options.add(defaultData);
-        if (isEmpty(mydata)) {
+        if (mydata.isEmpty) {
             return options.hasKey("clean") ? cleanInsert(placeholder, options): placeholder;
         }
 

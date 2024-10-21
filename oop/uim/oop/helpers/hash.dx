@@ -710,7 +710,7 @@ class Hash {
         string /*|int */ mydir = "asc",
         /* Json[string]|string */ string[] directionType = "regular"
     ) {
-        if (isEmpty(items)) {
+        if (items.isEmpty) {
             return null;
         }
         auto myoriginalKeys = items.keys;

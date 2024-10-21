@@ -31,10 +31,7 @@ import uim.consoles;
  * ```
  * this.writeln("<warning>Overwrite:</warning> foo.d was overwritten.");
  * ```
- *
  * This would create orange 'Overwrite:' text, while the rest of the text would remain the normal color.
- * See OutputConsole.styles() to learn more about defining your own styles. Nested styles are not supported
- * at this time.
  */
 class DStandardOutput : DOutput {
   mixin(OutputThis!("Standard"));
@@ -88,60 +85,68 @@ class DStandardOutput : DOutput {
 
     return true;
   }
+
   unittest {
-      auto output = StandardOutput;
-      auto matches = Json.emptyObject;
-      matches["tag"] = "notice";
-      matches["text"] = "Hallo World";
-      writeln("replaceTags == ", output.replaceTags(matches));
+    auto output = StandardOutput;
+    auto matches = Json.emptyObject;
+    matches["tag"] = "notice";
+    matches["text"] = "Hallo World";
+    writeln("replaceTags == ", output.replaceTags(matches));
   }
 
   // #region write
   override void write(string message, int numberOfLines = 1) {
-    std.stdio.write(message ~ LF.repeatTxt(numberOfLines));
+    std.stdio.write(styleText(message) ~ LF.repeatTxt(numberOfLines));
   }
   // #endregion write
 
   // Apply styling to text.
   override string styleText(string text) {
-    string styledTxt;
-    if (_outputType == "RAW") {
+    string styledTxt = text;
+    if (outputType == "RAW") {
       return text;
     }
 
-    if (_outputType != "PLAIN") {
-      // Clear text
-      /* replaceTags = _replaceTags(...);
+    if (outputType == "PLAIN") {
+      styledTxt = text;
+      styles.keys
+        .each!(key => styledTxt = styledTxt.replace("<"~key~">", "").replace("</"~key~">", ""));
 
-            outputTxt = preg_replace_callback(
-                "/<(?P<tag>[a-z0-9-_]+)>(?P<text>.*?)<\/(\1)>/ims",
-                replaceTags,
-                text
-           ); */
       if (!styledTxt.isNull) {
         return styledTxt;
       }
     }
 
-    auto tags = _styles.keys.join("|");
-    // TODO    auto outputTxt = preg_replace("#</?(?:" ~ tags ~ ")>#", "", styledTxt);
-    return styledTxt.isNull ? text : styledTxt;
+    foreach(tag; styles.keys) {
+      if (styledTxt.contains("<"~tag~">")) {
+        styledTxt = styledTxt.replace("<"~tag~">", "").replace("</"~tag~">", "");
+        Json match = Json.emptyObject;
+        match["tag"] = tag;
+        match["text"] = styledTxt;
+        return replaceTags(match);
+      }
+    }
+   
+    return text;
   }
+
 
   unittest {
     auto output = StandardOutput;
+    writeln("output.styles == ", output.styles);
 
     output.outputType("RAW");
     assert(output.outputType == "RAW");
-    output.write("RAW: Hallo, world");
+    output.write("RAW: <notice>Hallo World</notice>");
 
     output.outputType("PLAIN");
     assert(output.outputType == "PLAIN");
-    // output.write("PLAIN: Hallo, world");
+    output.write("PLAIN: <notice>Hallo World</notice>");
 
     output.outputType("COLOR");
     assert(output.outputType == "COLOR");
-    // output.write("COLOR: Hallo, world");
+    output.write("COLOR: <notice>Hallo World</notice>");
+    output.write("COLOR: <info>Hallo World</info>");
   }
 
   // Clean up and close handles

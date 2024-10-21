@@ -44,7 +44,7 @@ class DConsoleIo : UIMObject {
     protected DOutput _output;
 
     // The error stream
-    protected DOutput _err;
+    protected DOutput _error;
 
     // The input stream
     protected DInput _input;
@@ -58,9 +58,9 @@ class DConsoleIo : UIMObject {
         DInput input = null,
         DConsoleHelperRegistry helpers = null
     ) {
-        /* _output = output ? result : new DOutput("uim://stdout"); */
-        _err = errOutput.ifNull(new DOutput("uim://stderr"));
-        _input = input.ifNull(new DInput("uim://stdin"));
+        _output = output.ifNull(StandardOutput("uim://stdout")); 
+        _error = errOutput.ifNull(new DOutput("uim://stderr"));
+        _input = input.ifNull(StandardInput);
         _helpers = helpers.ifNull(new DConsoleHelperRegistry());
         /* _helpers.setIo(this); */
     }
@@ -110,11 +110,11 @@ class DConsoleIo : UIMObject {
      * present in most shells. Using ConsoleIo.QUIET for a message means it will always display.
      * While using ConsoleIo.VERBOSE means it will only display when verbose output is toggled.
      */
-    int out_(string[] amessage = null, int newLinesToAppend = 1, int outputLevel = NORMAL) {
-        /* if (outputLevel > _level) {
-            return null;
+    int out_(string[] message = null, int newLinesToAppend = 1, int outputLevel = NORMAL) {
+        if (outputLevel > _level) {
+            return 0;
         }
-       _lastWritten = _output.write(message, newLinesToAppend); */
+       /* _lastWritten = _output.write(message, newLinesToAppend); */
 
         // return _lastWritten;
         return 0;
@@ -141,27 +141,27 @@ class DConsoleIo : UIMObject {
     }
 
     int comment(string[] outputMessages, int newLinesToAppendToAppend = 1, int outputLevel = NORMAL) {
-        /* auto message = wrapMessageWithType("comment", outputMessages);
-        return _writeln(message, newLinesToAppend, outputLevel); */
+        auto message = wrapMessageWithType("comment", outputMessages);
+        // return _writeln(message, newLinesToAppend, outputLevel); */
         return 0;
     }
 
     // Convenience method for writeErrorMessages() that wraps message between <warning> tag
     int warning(string[] outputMessages, int newLinesToAppend = 1) {
-        /*         auto message = wrapMessageWithType("warning", outputMessages);
+        auto message = wrapMessageWithType("warning", outputMessages);
 
-        return _writeErrorMessages(message, newLinesToAppend); */
+        // return _writeErrorMessages(message, newLinesToAppend); */
         return 0;
     }
 
     /**
      * Convenience method for writeErrorMessages() that wraps message between <error> tag
      * Params:
-     * string[]|string amessage A string or an array of strings to output
+     * string[]|string message A string or an array of strings to output
      */
     int error(string[] message, int newLinesToAppend = 1) {
-        /* string messageType = "error";
-        message = wrapMessageWithType(messageType, message); */
+        string messageType = "error";
+        message = wrapMessageWithType(messageType, message);
 
         // return _writeErrorMessages(message, newLinesToAppend);
         return 0;
@@ -183,6 +183,7 @@ class DConsoleIo : UIMObject {
         // throw new DStopException(errorMessage, errorCode);
     }
 
+    // #region wrapMessageWithType
     // Wraps a message with a given message type, e.g. <warning>
     protected string[] wrapMessageWithType(string messageType, string[] messages) {
         return messages
@@ -193,6 +194,7 @@ class DConsoleIo : UIMObject {
     protected string wrapMessageWithType(string messageType, string message) {
         return "<%s>%s</%s>".format(messageType, message, messageType);
     }
+    // #endregion wrapMessageWithType
 
     /**
      * Overwrite some already output text.
@@ -201,10 +203,8 @@ class DConsoleIo : UIMObject {
      * text already output to the screen with new text.
      *
      * **Warning** You cannot overwrite text that contains newLinesToAppend.
-     * Params:
-     * string[]|string amessage The message to output.
      */
-    void overwrite(string[] amessage, int newLinesToAppend = 1, int bytesToOverwrite = 0) {
+    void overwrite(string[] message, int newLinesToAppend = 1, int bytesToOverwrite = 0) {
         bytesToOverwrite = bytesToOverwrite ? bytesToOverwrite : _lastWritten;
 
         // Output backspaces.
@@ -232,19 +232,17 @@ class DConsoleIo : UIMObject {
      * are passed outputs just a newline.
      */
     int writeErrorMessages(string[] messages...) {
-        // return writeErrorMessages(messages.dup);
-        return 0;
+        return writeErrorMessages(messages.dup);
     }
 
     int writeErrorMessages(string[] messages, int newLinesToAppend = 1) {
-        // return _err.write(messages, newLinesToAppend);
+        // return _error.write(messages, newLinesToAppend);
         return 0;
     }
 
     // Returns a single or multiple linefeeds sequences.
     string nl(int linefeedMultiplier = 1) {
-        // return DOutput.LF.repeat(linefeedMultiplier);
-        return null;
+        return DOutput.LF.repeat(linefeedMultiplier);
     }
 
     // Outputs a series of minus characters to the standard output, acts as a visual separator.
@@ -368,7 +366,7 @@ class DConsoleIo : UIMObject {
         }
         /* auto stderr = new DConsoleLog(createmap!(string, Json)
             .set("types", ["emergency", "alert", "critical", "error", "warning"])
-            .set("stream", _err); */
+            .set("stream", _error); */
         // Log.configuration.set("stderr", ["engine": stderr]);
     }
 

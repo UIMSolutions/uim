@@ -134,7 +134,7 @@ class DI18nExtractCommand : DCommand {
            _paths ~= uim;
         }
         if (arguments.hasOption("output")) {
-           _output = to!string(arguments.getOption("output"));
+           _output = arguments.getString("output");
         } else if (arguments.hasOption("plugin")) {
            _output = Plugin.path(plugin)
                 ~ "resources" ~ DIRECTORY_SEPARATOR

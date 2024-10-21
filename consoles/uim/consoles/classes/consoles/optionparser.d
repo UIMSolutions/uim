@@ -67,32 +67,24 @@ class DConsoleOptionParser : UIMObject {
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        return true;
-    }
-
+    // Map of short ~ long options, generated when using addOption()
+    protected STRINGAA _shortOptions;
+ 
     // #region description
     // Description text - displays before options when help is generated
     mixin(TProperty!("string", "_description"));
 
-    // Map of short ~ long options, generated when using addOption()
-    protected STRINGAA _shortOptions;
 
-    /* 
     // Sets the description text for shell/task.
     void description(string[] descriptionTexts...) {
         description(descriptionTexts.dup);
     }
 
-    @property void description(string[] descriptionTexts) {
-        description(descriptionTexts.join("\n"));
+    @property void description(string[] descriptions) {
+        description(descriptions.join("\n"));
     }
     // #endregion description
 
@@ -102,12 +94,10 @@ class DConsoleOptionParser : UIMObject {
             .set("help", "")
             .set("index", LongData(count(_args)))
             .set("required", false)
-            .set("choices", Json.emptyArray)
-        ];
+            .set("choices", Json.emptyArray);
 
         auto newParams = params.merge(defaultOptions);
-        auto anIndex = newParams["index"];
-        newParams.removeKey("index");
+        auto anIndex = newParams.shift("index");
         auto inputArgument = new DInputArgument(newParams);
 
         _args.each!((a) {

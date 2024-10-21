@@ -99,13 +99,8 @@ class DOutput : UIMObject, IOutput {
 
   // Replace tags with color codes.
   protected string replaceTags(Json matches) {
-    writeln("_styles keys == ", _styles.keys);
-    writeln("_styles == ", _styles);
-    writeln("matches == ", matches);
     string tag = matches.getString("tag"); // matches = {"tag": ..., "text": ... }
-    writeln("TAG == ", tag);
     Json style = _styles.get(tag, Json(null)); // _styles["tag"] -> Json 
-    writeln("style == ", style);
 
     if (style.isNull) { // style not found
       return htmlDoubleTag(tag, matches.getString("text"));

@@ -379,7 +379,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
         auto myvalidationSet = field(rootFieldName); */
         /*        myvalidationSet.add(NESTED, extraData.set("rule": auto (myvalue, context) use (myvalidator, errorMessage) {
-            if (!isArray(myvalue)) { return false; }
+            if (!myvalue.isArray) { return false; }
 
             providers().each!((name) {
                 auto myprovider = getProvider(name);
@@ -388,7 +388,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
             auto myerrors = null;
             foreach (index: myrow; myvalue) {
-                if (!isArray(myrow)) {
+                if (!myrow.isArray) {
                     return false;
                 }
                 mycheck = myvalidator.validate(myrow, context["newRecord"]);
@@ -438,10 +438,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             "message": errorMessage,
         ]; */
 
-        /*        if (!isArray(fieldName)) {
-            fieldName = _convertValidatorToArray((string)fieldName, mydefaults);
+        /*        if (!fieldName.isArray) {
+            fieldNames = _convertValidatorToArray((string)fieldName, mydefaults);
         }
- */ /*        foreach (fieldName as fieldName: mysetting) {
+ */ /*        foreach (fieldName: mysetting; fieldNames) {
             mysettings = _convertValidatorToArray((string)fieldName, mydefaults, mysetting);
             string fieldName = currentValue(mysettings.keys);
 
@@ -2032,8 +2032,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
         /* return _add(fieldName, "hasAtLeast", extraData.set(
             "rule": auto (myvalue) use (numberOfElements) {
-                if (isArray(myvalue) && myvalue.hasKey("_ids")) {
-                    myvalue = myvalue["_ids"];
+                if (myvalue.isArray && myvalue.hasKey("_ids")) {
+                    myvalue = myvalue.get("_ids");
                 }
                 return Validation.numElements(myvalue, Validation.COMPARE_GREATER_OR_EQUAL, numberOfElements);
             },
@@ -2058,7 +2058,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
         /* return _add(fieldName, "hasAtMost", extraData.set(
             "rule": auto (myvalue) use (countElements) {
-                if (isArray(myvalue) && myvalue.hasKey("_ids")) {
+                if (myvalue.isArray && myvalue.hasKey("_ids")) {
                     myvalue = myvalue["_ids"];
                 }
                 return Validation.numElements(myvalue, Validation.COMPARE_LESS_OR_EQUAL, countElements);

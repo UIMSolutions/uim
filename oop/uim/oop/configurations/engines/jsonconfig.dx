@@ -66,7 +66,7 @@ class DJsonConfig : DConfigEngine {
                 .format(aKey, Json_last_error_msg()
             ));
         }
-        if (!isArray(someValues)) {
+        if (!someValues.isArray) {
             throw new UIMException(
                 "Decoding Json[string] configSettings = null file `%s.Json` did not return an array"
                 .format(aKey

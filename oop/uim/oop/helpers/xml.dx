@@ -201,7 +201,7 @@ class Xml {
                         if (isObject(inputData) && hasMethod(inputData, "toArray") && isCallable([inputData, "toArray"])) {
                             inputData = inputData.toArray();
                         }
-                        if (!isArray(inputData) || count(inputData) != 1) {
+                        if (!inputData.isArray || count(inputData) != 1) {
                             throw new XmlException("Invalid input.");
                         }
                         

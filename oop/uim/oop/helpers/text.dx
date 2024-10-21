@@ -398,7 +398,7 @@ class DText {
                 if (options.hasKey("html")) {
                     mysegment = "(?![^<]+>)mysegment(?![^<]+>)";
                 }
-                mywith ~= isArray(options.get("format")) ? options.get("format")[aKey] : options.get("format");
+                mywith ~= options.isArray("format") ? options.get("format")[aKey] : options.get("format");
                 myreplace ~= options.getString("regex").format(mysegment);
             }
             return /* (string) */preg_replace(myreplace, mywith, searchText, options.get("limit"));

@@ -41,7 +41,7 @@ class DRedirectRoute : DRoute {
         if (_redirect && count(_redirect) == 1 && !_redirect.hasKey("controller")) {
             myredirect = _redirect[0];
         }
-        if (configuration.hasKey("persist") && isArray(myredirect)) {
+        if (configuration.hasKey("persist") && myredirect.isArray) {
             myredirect += ["pass": params["pass"], "url": Json.emptyArray];
             if (configuration.isArray("persist")) {
                 configuration.get("persist").toArray

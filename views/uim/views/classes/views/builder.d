@@ -354,7 +354,7 @@ class DViewBuilder { // }: DJsonSerializable {
  */
         // TODO bool delegate (Json value) check = { return return !isArray(index) && (/* (string) */index).length || !index.isEmpty;}
         /* return filterValues(myarray, auto (index) {
-            return !isArray(index) && (/* (string) * /index).length || !index.isEmpty;
+            return !index.isArray && (/* (string) * /index).length || !index.isEmpty;
         }); */
         return null; 
     }

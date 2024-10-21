@@ -52,7 +52,7 @@ class DFileConfigEngine : DConfigEngine {
         auto file = _getFileKey(aKey, true);
 
         auto result = include file;
-        if (isArray(result)) {
+        if (result.isArray) {
             return result;
         }
         throw new UIMException("Config file `%s` did not return an array".format(aKey ~ ".d."));

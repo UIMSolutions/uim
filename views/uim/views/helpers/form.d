@@ -1357,26 +1357,27 @@ class DFormHelper : DHelper {
      * - Other options is the same of button method.
      * - `confirm` - Confirm message to show. Form execution will only continue if confirmed then.
      */
-    string postButton(string caption, string[] myurl, Json[string] options = null) {
-        /* auto myformOptions = ["url": myurl];
+    string postButton(string caption, string[] url, Json[string] options = null) {
+        string button; 
+        Json[string] formOptions = ["url": Json(url)];
         if (options.hasKey("method")) {
-            myformOptions.set("type", options.shift("method"));
+            formOptions.set("type", options.shift("method"));
         }
-        if (options.hasKey("form") && options.isArray("form")) {
-            myformOptions = options.shift("form") + myformOptions;
+        if (options.isArray("form")) {
+            formOptions = options.shift("form").merge(formOptions);
         }
-        result = create(null, myformOptions);
+
+        button = create(null, formOptions);
         if (options.hasKey("data") && options.isArray("data")) {
-            foreach (aKey, myvalue; Hash.flatten(options.get("data"))) {
-                result ~= hidden(aKey, ["value": myvalue]);
-            }
+            /* foreach (aKey, myvalue; Hash.flatten(options.get("data"))) {
+                button ~= hidden(aKey, ["value": myvalue]);
+            } */
             options.removeKey("data");
         }
-        result ~= button(caption, options)
-            ~ end();
+       /*  button ~= button(caption, options)
+            ~ end(); */ */
 
-        return result; */
-        return null;
+        return button; 
     }
 
     /**

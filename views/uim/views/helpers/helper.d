@@ -100,7 +100,7 @@ class DHelper : UIMObject { // TODO }: IEventListener {
 
     // Adds the given class to the element options
     Json[string] addClass(Json[string] options, string classname, string key = "class") {
-        if (options.hasKey(key) && options.isArray(key)) {
+        if (options.isArray(key)) {
             options.set(key, options.getString(key) ~ classname);
         }
         else if(options.hasKey(key) && options.getString(key).strip) {

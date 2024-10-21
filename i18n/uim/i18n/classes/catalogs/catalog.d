@@ -11,6 +11,9 @@ import uim.i18n;
 
 // Message Catalog
 class DMessageCatalog : UIMObject, ICatalog {
+  this() {
+    super();
+  }
 
   this(
     string[][string] messages,

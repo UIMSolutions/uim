@@ -594,9 +594,9 @@ class DResponse : IResponse {
      * string acontentType The content-type or type alias.
      */
     protected string resolveType(string acontentType) {
-        mapped = getMimeType(contentType);
+        auto mapped = getMimeType(contentType);
         if (mapped) {
-            return isArray(mapped) ? currentValue(mapped): mapped;
+            return mapped.isArray ? currentValue(mapped): mapped;
         }
         if (!contentType.contains("/")) {
             throw new DInvalidArgumentException("`%s` is an invalid content type.".format(contentType));
@@ -611,8 +611,8 @@ class DResponse : IResponse {
      * Params:
      * string aalias the content type alias to map
      */
-    string[] getMimeType(string aalias) {
-        return _mimeTypes.get(alias, false);
+    string[] getMimeType(string aliasName) {
+        return _mimeTypes.get(aliasName, false);
     }
     
     /**
@@ -623,29 +623,23 @@ class DResponse : IResponse {
      * string[] actype Either a string content type to map, or an array of types.
      */
     string[] mapType(string[] actype) {
-        if (isArray(ctype)) {
-            return array_map(this.mapType(...), ctype);
+        if (ctype.isArray) {
+            // return array_map(this.mapType(...), ctype);
         }
-        foreach (_mimeTypes as alias: types) {
+        foreach (aliasName, types; _mimeTypes as ) {
             if (isIn(ctype, /* (array) */types, true)) {
-                return alias;
+                return aliasName;
             }
         }
         return null;
     }
     
-    /**
-     * Returns the current charset.
-     */
+    // Returns the current charset.
     string getCharset() {
         return _charset;
     }
     
-    /**
-     * Get a new instance with an updated charset.
-     * Params:
-     * string acharset Character set string.
-     */
+    // Get a new instance with an updated charset.
     static withCharset(string acharset) {
         new = this.clone;
         new._charset = charset;
@@ -654,9 +648,7 @@ class DResponse : IResponse {
         return new;
     }
     
-    /**
-     * Create a new instance with headers to instruct the client to not cache the response
-     */
+    // Create a new instance with headers to instruct the client to not cache the response
     static withDisabledCache() {
         return _withHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT")
             .withHeader("Last-Modified", gmdate(DATE_RFC7231))

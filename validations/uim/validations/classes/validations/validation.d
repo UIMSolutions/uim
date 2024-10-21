@@ -332,7 +332,7 @@ class DValidation : UIMObject, IValidation {
         regex.set("ym", "%^(" ~ myyear ~ myseparator ~ mymonth ~ ")my%");
         regex.set("y", "%^(" ~ myfourDigitYear ~ ")my%");
  */
-    /* auto myformat = isArray(myformat) ? myformat.values: [myformat];
+    /* auto myformat = myformat.isArray ? myformat.values: [myformat];
         return myformat.any!(key => _check(value, regex[key])); */
     return false;
   }

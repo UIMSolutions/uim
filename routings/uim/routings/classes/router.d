@@ -519,12 +519,10 @@ class DRouter {
             url = url.replace("//", "/");
         }
         url = preg_replace("/(?:(\/my))/", "", url);
+        */
 
-        if (isEmpty(url)) {
-            return "/";
-        }
-        return url; */
-    return null;
+    return url.isEmpty
+      ? "/" : url;
   }
 
   /**

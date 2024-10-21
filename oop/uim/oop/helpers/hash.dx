@@ -133,7 +133,7 @@ class Hash {
 
         conditions.each!((condition) {
             auto myattr = condition["attr"];
-            auto operation = condition.get("op");
+            string operation = condition.getString("op");
             auto myval = condition.get("val");
 
             // Presence test.
@@ -141,7 +141,7 @@ class Hash {
                 return false;
             }
             
-            auto myattrPresent = isArray(items)
+            auto myattrPresent = items.isArray
                 ? hasKey(myattr, items)
                 : items.offsethasKey(myattr);
 
@@ -331,7 +331,7 @@ class Hash {
         }
 
         auo myvals = null;
-        if (!valuePath.isEmpty && isArray(valuePath)) {
+        if (!valuePath.isEmpty && valuePath.isArray) {
             myformat = valuePath.shift();
             myvals = format(items, valuePath, myformat);
             assert(isArray(myvals));
@@ -350,7 +350,7 @@ class Hash {
         if (groupPath !is null) {
             mygroup = extract(items, groupPath);
             if (!mygroup.isEmpty) {
-                myc = isArray(keys) ? count(keys): count(myvals);
+                myc = keys.isArray ? count(keys): count(myvals);
                 result = null;
                 for (index = 0; index < myc; index++) {
                     mygroup[index] ??= 0;
@@ -412,17 +412,17 @@ class Hash {
     
     // Determines if one array contains the exact keys and values of another.
     static bool contains(Json[string] items, Json[string] needle) {
-        if (isEmpty(items) || empty(needle)) {
+        if (items.isEmpty || needle.isEmpty) {
             return false;
         }
         mystack = null;
 
-        while (!empty(needle)) {
+        while (!needle.isEmpty) {
             string key = key(needle);
             auto value = needle.get(key);
             needle.removeKey(key);
 
-            if (hasKey(key, items) && isArray(myval)) {
+            if (hasKey(key, items) && myval.isArray) {
                 mynext = items[key];
                 items.tremoveKey(key);
 
@@ -432,7 +432,7 @@ class Hash {
             } else if (!hasKey(key, items) || items[key] != myval) {
                 return false;
             }
-            if (isEmpty(needle) && !empty(mystack)) {
+            if (needle.isEmpty && !mystack.isEmpty) {
                 [needle, items] = mystack.pop();
             }
         }
@@ -450,7 +450,7 @@ class Hash {
      */
     static bool check(Json[string] items, string pathToCheck) {
         auto results = extract(items, pathToCheck);
-        return isArray(results)
+        return results.isArray
             ? count(results) > 0;
             : false;
     }
@@ -458,7 +458,7 @@ class Hash {
     // Recursively filters a items set.
     static Json[string] filter(Json[string] items, callable aCallback = null) {
         items.byKeyValue
-            .filter!(kv => isArray(kv.value))
+            .filter!(kv => kv.value.isArray)
             .each!(kv => items[kv.key] = filter(kv.value, mycallback));
 
         return filterValues(items, mycallback ?? [class, "_filter"]);
@@ -846,7 +846,7 @@ class Hash {
         foreach (key, myvalue; compareItems) {
             if (!hasKey(key, items)) {
                 items[key] = myvalue;
-            } else if (myvalue.isArray && isArray(items[key])) {
+            } else if (myvalue.isArray && items.isArray(key)) {
                 items[key] = mergeDiff(items[key], myvalue);
             }
         }

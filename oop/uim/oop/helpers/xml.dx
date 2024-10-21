@@ -104,11 +104,7 @@ class Xml {
         throw new XmlException("XML cannot be read.");
     }
 
-    /**
-     * Parse the input data and create either a SimpleXmlElement object or a DOMDocument.
-     * Params:
-     * string inputData The input to load.
-     */
+    // Parse the input data and create either a SimpleXmlElement object or a DOMDocument.
     protected static SimpleXMLElement | DOMDocument _loadXml(string inputToLoad, Json[string] options = null) {
         return load(
             inputToLoad,

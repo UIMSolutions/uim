@@ -171,6 +171,7 @@ mixin template TIntegrationTest() {
             "headers": [
                 "Accept": "application/Json",
                 "Content-Type": "application/Json",
+            
         ],]);
     }
 
@@ -881,13 +882,10 @@ mixin template TIntegrationTest() {
         }
         string result = D_EOL;
         foreach (index, error; exceptions) {
-            if (index == 0) {
-                result ~= "Possibly related to '%s': '%s'".format(error.classname, error.message());
-                result ~= D_EOL;
-            } else {
-                result ~= "Caused by '%s': '%s'".format(error.classname, error.message());
-                result ~= D_EOL;
-            }
+            result ~= index == 0
+                ? "Possibly related to '%s': '%s'".format(error.classname, error.message()) ~ D_EOL
+                : "Caused by '%s': '%s'".format(error.classname, error.message()) ~ D_EOL;
+
             result ~= error.getTraceAsString() ~ D_EOL;
         }
         return result;

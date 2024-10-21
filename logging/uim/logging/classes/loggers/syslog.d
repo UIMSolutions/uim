@@ -52,12 +52,12 @@ class DSysLogger : DLogger {
             );
 
         _levelMap = [
-            "emergency": LogLevel.EMERGENCY,
-            "alert": LogLevel.ALERT,
+            "emergency": LogLevel.fatal,
+            "alert": LogLevel.warn,
             "critical": LogLevel.critical,
             "error": LogLevel.error,
             "warning": LogLevel.warn,
-            "notice": LogLevel.diagnostic,
+            "notice": LogLevel.trace,
             "info": LogLevel.info,
             "debug": LogLevel.debug__,
         ];

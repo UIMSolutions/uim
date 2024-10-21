@@ -125,17 +125,17 @@ class DLog : UIMObject {
             "debug",
         ];
 
-        /* _levelMap = [
-        "emergency": LogLevel.EMERGENCY,
-        "alert": LOG_ALERT,
-        "critical": LogLevel.critical,
-        "error": LogLevel.error,
-        "warning": LogLevel.warn,
-        "notice": LogLevel.diagnostic,
-        "info": LogLevel.info,
-        "debug": LogLevel.debug_,
-    ];
- */
+        _levelMap = [
+            "emergency": LogLevel.fatal,
+            "alert": LogLevel.warn, // ALERT
+            "critical": LogLevel.critical,
+            "error": LogLevel.error,
+            "warning": LogLevel.warn,
+            "notice": LogLevel.trace,
+            "info": LogLevel.info,
+            "debug": LogLevel.debug_,
+        ];
+
         return true;
     }
 
@@ -151,7 +151,7 @@ class DLog : UIMObject {
     protected string[] _levels;
 
     // Log levels as detailed in RFC 5424
-    protected Json[string] _levelMap;
+    protected LogLevel[string] _levelMap;
 
     /**
      * Creates registry if doesn"t exist and creates all defined logging
@@ -256,12 +256,12 @@ class DLog : UIMObject {
      *
      * ### Levels:
      *
-     * - `LogLevel.EMERGENCY`: "emergency",
+     * - `LogLevel.fatal`: "emergency",
      * - `LOG_ALERT`: "alert",
      * - `LogLevel.critical`: "critical",
      * - `LogLevel.error`: "error",
      * - `LogLevel.warn`: "warning",
-     * - `LogLevel.diagnostic`: "notice",
+     * - `LogLevel.trace`: "notice",
      * - `LogLevel.info`: "info",
      * - `LogLevel.debug_`: "debug",
      *

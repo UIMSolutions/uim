@@ -53,9 +53,9 @@ class UIMError : UIMObject, IError {
     _logMap = [
       "error": LogLevel.error,
       "warning": LogLevel.warn,
-      "notice": LogLevel.diagnostic,
-      "strict": LogLevel.diagnostic,
-      "deprecated": LogLevel.diagnostic,
+      "notice": LogLevel.trace,
+      "strict": LogLevel.trace,
+      "deprecated": LogLevel.trace,
     ];
 
     return true;

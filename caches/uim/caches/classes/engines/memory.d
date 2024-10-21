@@ -61,6 +61,7 @@ class DMemoryCacheEngine : DCacheEngine {
   protected int[string] _serializers;
 
   protected string[] _compiledGroupNames;
+  
   protected Json[string] _memory;
   /* protected DMemory _memcached;*/
 
@@ -311,11 +312,12 @@ return true;
      * If the group initial value was not found, then it initializes the group accordingly.
      */
   override string[] groups() {
-    /* if (_compiledGroupNames.isEmpty) {
+    if (_compiledGroupNames.isEmpty) {
       _compiledGroupNames = configuration.getStringArray("groups")
         .map!(group => configuration.getString("prefix") ~ group).array;
     }
 
+    /* 
     auto mygroups = _memory.data(_compiledGroupNames) ? memory.data(
       _compiledGroupNames) : null;
     if (count(mygroups) != count(configuration.get("groups"))) {

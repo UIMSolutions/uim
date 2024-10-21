@@ -360,7 +360,7 @@ class DSession {
 
     // Reads and deletes a variable from session.
     Json consume(string key) {
-        if (isEmpty(key)) {
+        if (key.isEmpty) {
             return null;
         }
 

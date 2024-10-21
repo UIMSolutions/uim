@@ -132,10 +132,10 @@ class DConsoleErrorFormatter : DErrorFormatter {
                 export_(
                     prop.getValue(), indentLevel);
         }
-        if (count(props)) {
-            return result ~ breakTxt ~ props.join(breakTxt) ~ endTxt;
-        }
-        return result ~ style("punct", "}");
+        
+        return props.count > 0
+            ? result ~ breakTxt ~ props.join(breakTxt) ~ endTxt
+            : result ~ style("punct", "}");
     }
 
     override protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {

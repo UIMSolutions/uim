@@ -116,11 +116,11 @@ class DFlashComponent : DComponent {
      */
   void __call(string elementName, Json[string] someArguments) {
     string anElement = elementName.underscore;
-    /* if (count(someArguments) == 0) {
-            throw new DInternalErrorException("Flash message missing.");
-        }
+    if (someArguments.isEmpty) {
+      throw new DInternalErrorException("Flash message missing.");
+    }
 
-        auto options = ["element": anElement];
+    /*     auto options = ["element": anElement];
         if (!someArguments[1].isEmpty) {
             if (!someArguments[1].isEmpty("plugin")) {
                 options = createMap!(string, Json)

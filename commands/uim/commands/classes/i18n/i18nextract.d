@@ -607,11 +607,11 @@ class DI18nExtractCommand : DCommand {
         }
         consoleIo.writeErrorMessages("Invalid marker content in %s:%s\n* %s(".format(nameOfFile, lineNumber, foundMarker));
         count += 2;
-        tokenCount = _tokens.length;
-        parenthesis = 1;
+        auto tokenCount = _tokens.length;
+        auto parenthesis = 1;
 
         while ((tokenCount - count > 0) && parenthesis) {
-            if (_tokens[count].isArray) {
+            if (_tokens.isArray(count)) {
                  consoleIo.writeErrorMessages(_tokens[count][1], 0);
             } else {
                  consoleIo.writeErrorMessages(_tokens[count], 0);

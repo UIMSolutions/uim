@@ -53,9 +53,9 @@ class DApplication : UIMObject {
         IControllerFactory controllerFactory = null
    ) {
         _configDir = stripRight(configDataDir, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
-        this.plugins = Plugin.getCollection();
+        _plugins = Plugin.getCollection();
        _eventManager = eventManager ? eventManager: EventManager.instance();
-        this.controllerFactory = controllerFactory;
+        _controllerFactory = controllerFactory;
     } */
     
     abstract MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
@@ -189,13 +189,13 @@ class DApplication : UIMObject {
         container.add(IServerRequest.classname, request);
         container.add(IContainer.classname, container);
 
-       /*  this.controllerFactory ??= new DControllerFactory(container);
+       /*  _controllerFactory ??= new DControllerFactory(container);
 
         if (Router.getRequest() != request) {
             assert(cast(DServerRequest)request);
             Router.setRequest(request);
         }
-        controller = this.controllerFactory.create(request); */
+        controller = _controllerFactory.create(request); */
 
         // return _controllerFactory.invoke(controller);
         return null;

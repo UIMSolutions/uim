@@ -51,11 +51,11 @@ class UIMError : UIMObject, IError {
     ]);
 
     _logMap = [
-      "error": LogLevels.ERROR,
-      "warning": LogLevels.WARNING,
-      "notice": LogLevels.NOTICE,
-      "strict": LogLevels.NOTICE,
-      "deprecated": LogLevels.NOTICE,
+      "error": LogLevel.ERROR,
+      "warning": LogLevel.WARNING,
+      "notice": LogLevel.NOTICE,
+      "strict": LogLevel.NOTICE,
+      "deprecated": LogLevel.NOTICE,
     ];
 
     return true;
@@ -73,11 +73,11 @@ class UIMError : UIMObject, IError {
 
   private string[ERRORS] _levelMap;
 
-  private LogLevels[string] _logMap;
+  private LogLevel[string] _logMap;
 
   // Get the mapped LOG_ constant.
-  int logLevel() {
-    return _logMap.get(this.label(), LogLevels.ERROR);
+  LogLevel logLevel() {
+    return _logMap.get(this.label(), LogLevel.ERROR);
   }
 
   // Get the error code label

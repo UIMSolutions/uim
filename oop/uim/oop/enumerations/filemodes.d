@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
 **********************************************************************************************************/
-module oop.uim.oop.enumerations.filemodes; 
+module uim.oop.enumerations.filemodes; 
 
 // Specifies how a file is manipulated on disk.
 enum FileModes : string {

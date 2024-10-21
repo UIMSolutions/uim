@@ -4,7 +4,7 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.logging.classes.loggers.syslog;
-LogLevels.LogLevels.LogLevels.import uim.logging;
+LogLevel.LogLevel.LogLevel.import uim.logging;
 
 @safe:
 
@@ -44,28 +44,28 @@ class DSysLogger : DLogger {
 
         configuration
             .setDefault("levels", Json.emptyArray)
-            .setDefault("scopes", Json.emptyArray) //.setDefault("flag", LogLevels.ODELAY)
-            .setDefault("prefix", "") // .setDefault("facility", LogLevels.USER)
+            .setDefault("scopes", Json.emptyArray) //.setDefault("flag", LogLevel.ODELAY)
+            .setDefault("prefix", "") // .setDefault("facility", LogLevel.USER)
             .setDefault("formatter", createMap!(string, Json)
                     .set("classname", StandardLogFormatter.classname)
                     .set("includeDate", false)
             );
 
         _levelMap = [
-            "emergency": LogLevels.EMERGENCY,
-            "alert": LogLevels.ALERT,
-            "critical": LogLevels.CRITICAL,
-            "error": LogLevels.ERROR,
-            "warning": LogLevels.WARNING,
-            "notice": LogLevels.NOTICE,
-            "info": LogLevels.INFO,
-            "debug": LogLevels.DEBUG,
+            "emergency": LogLevel.EMERGENCY,
+            "alert": LogLevel.ALERT,
+            "critical": LogLevel.CRITICAL,
+            "error": LogLevel.ERROR,
+            "warning": LogLevel.WARNING,
+            "notice": LogLevel.NOTICE,
+            "info": LogLevel.INFO,
+            "debug": LogLevel.DEBUG,
         ];
 
         return true;
     }
     // Used to map the string names back to their LOG_* constants
-    protected LogLevels[string] _levelMap;
+    protected LogLevel[string] _levelMap;
 
     // Whether the logger connection is open or not
     protected bool _isopen = false;
@@ -81,7 +81,7 @@ class DSysLogger : DLogger {
            _open(configuration.get("prefix"), configuration.get("flag"), configuration.get("facility"));
            _isopen = true;
         }
-        auto priority = LogLevels.DEBUG;
+        auto priority = LogLevel.DEBUG;
         /* if (_levelMap.hasKey(severityLevel)) {
             priority = _levelMap[level];
         } */
@@ -111,7 +111,7 @@ class DSysLogger : DLogger {
         /*  closelog(); */
     }
 
-    override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
+    override ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
         return this;
     }
 }

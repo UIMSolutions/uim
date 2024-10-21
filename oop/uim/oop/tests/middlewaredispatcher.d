@@ -24,12 +24,12 @@ class DMiddlewareDispatcher {
     }
     
     // Resolve the provided URL into a string.
-    string resolveUrl(string[] urlToResolve) {
+    string resolveUrl(string[] url) {
         // If we need to resolve a Route URL but there are no routes, load routes.
-        if (isArray(urlToResolve) && count(Router.getRouteCollection().routes()) == 0) {
-            return _resolveRoute(urlToResolve);
+        if (url.isArray && count(Router.getRouteCollection().routes()) == 0) {
+            return _resolveRoute(url);
         }
-        return Router.url(urlToResolve);
+        return Router.url(url);
     } */
 
   // Convert a URL array into a string URL via routing.

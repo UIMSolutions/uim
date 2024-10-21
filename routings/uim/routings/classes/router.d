@@ -450,17 +450,13 @@ class DRouter {
 
             myQueryString = params.queryArguments();
             params = params.getAttribute("params");
-            assert(isArray(params));
+            assert(params.isArray);
             params["?"] = myQueryString;
         }
         auto mypass = params.getArray("pass");
 
         auto mytemplate = params.get("_matchedRoute", null);
-        removeKey(
-            params["pass"],
-            params["_matchedRoute"],
-            params["_name"]
-       );
+        params.removeKeys(["pass", "_matchedRoute", "_name"]);
         if (!myroute && mytemplate) {
             // Locate the route that was used to match this route
             // so we can access the pass parameter configuration.

@@ -354,7 +354,7 @@ class DValidation : UIMObject, IValidation {
     if (isObject(value)) {
       return false;
     }
-    /* if (isArray(mydateFormat) && count(mydateFormat) == 1) {
+    /* if (mydateFormat.isArray && count(mydateFormat) == 1) {
             mydateFormat = reset(mydateFormat);
         } */
     /* if (mydateFormat == DATETIME_ISO8601 && !isValidIso8601(value)) {
@@ -606,7 +606,7 @@ class DValidation : UIMObject, IValidation {
     auto myextension = pathinfo(value, PATHINFO_EXTENSION).lower;
     return validExtensions.any!(value => myextension == myvalue.lower);
     */
-    
+
     if (value.isEmpty) {
       return false;
     }

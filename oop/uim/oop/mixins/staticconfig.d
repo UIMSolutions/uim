@@ -66,7 +66,7 @@ mixin template TStaticConfig() {
         if (isObject(configData)) {
             configData = ["classname": configData];
         }
-        if (isArray(configData) && configData.hasKey("url")) {
+        if (configData.isArray && configData.hasKey("url")) {
             auto parsed = parseDsn(configuration.get("url"));
             configuration.removeKey("url");
             configData = parsed + configData;

@@ -174,7 +174,7 @@ mixin template TInstanceConfig() {
 
       return;
     }
-    if (isArray(keysToWrite)) {
+    if (keysToWrite.isArray) {
       keysToWrite.byKeyValue
         .each!(kv => _configWrite(kv.key, kv.value));
       return;

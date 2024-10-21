@@ -389,7 +389,7 @@ class DText {
         ];
         options = options.add(defaultData);
 
-        if (isArray(phraseToSearch)) {
+        if (phraseToSearch.isArray) {
             myreplace = null;
             mywith = null;
 

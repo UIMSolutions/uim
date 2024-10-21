@@ -602,7 +602,7 @@ class DFormHelper : DHelper {
             .set("for", mylabelFor)
             .set("text", text);
         if (htmlAttributes.hasKey("input")) {
-            if (isArray(htmlAttributes["input"])) {
+            if (htmlAttributes.isArray("input")) {
                 attributes = htmlAttributes["input"] + attributes;
             }
             return _widget("nestingLabel", attributes);

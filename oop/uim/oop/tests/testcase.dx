@@ -59,8 +59,8 @@ abstract class DTestCase : DBaseTestCase {
        _captureUIMError= null;
         set_error_handler(
             auto (int mycode, string mydescription, string myfile, int myline) {
-                mytrace = Debugger.trace(["start": 1, "format": "points"]);
-                assert(isArray(mytrace));
+                auto mytrace = Debugger.trace(["start": 1, "format": "points"]);
+                assert(mytrace.isArray);
                _captureUIMError= new DPhpError(mycode, mydescription, myfile, myline, mytrace);
 
                 return true;

@@ -90,7 +90,7 @@ class Hash {
             if (myconditions) {
                 myfilter = null;
                 mynext
-                    .filter!(item => (isArray(item) || cast(DArrayAccess)item) && _matches(item, myconditions))
+                    .filter!(item => (item.isArray || cast(DArrayAccess)item) && _matches(item, myconditions))
                     .each!(item => myfilter ~= item);
                 
                 mynext = myfilter;
@@ -276,25 +276,25 @@ class Hash {
         string mynextPath = join(".", mytokens);
 
         [mytoken, myconditions] = _splitConditions(mytoken);
-        foreach (myKey: myv; items) {
-            mymatch = _matchToken(myKey, mytoken);
+        foreach (key: myv; items) {
+            mymatch = _matchToken(key, mytoken);
             if (mymatch && isArray(myv)) {
                 if (myconditions) {
                     if (_matches(myv, myconditions)) {
                         if (!mynextPath.isEmpty) {
-                            items[myKey] = removeKey(myv, mynextPath);
+                            items[key] = removeKey(myv, mynextPath);
                         } else {
-                            removeKey(items[myKey]);
+                            removeKey(items[key]);
                         }
                     }
                 } else {
-                    items[myKey] = removeKey(myv, mynextPath);
+                    items[key] = removeKey(myv, mynextPath);
                 }
-                if (items.isEmpty(myKey)) {
-                    items.removeKey(myKey);
+                if (items.isEmpty(key)) {
+                    items.removeKey(key);
                 }
             } else if (mymatch && mynextPath.isEmpty) {
-                items.removeKey(myKey);
+                items.removeKey(key);
             }
         }
         return items;
@@ -604,13 +604,13 @@ class Hash {
      * Json[string] items Array to count dimensions on
      */
     static int dimensions(Json[string] items) {
-        if (isEmpty(items)) {
+        if (items.isEmpty) {
             return 0;
         }
         reset(items);
         size_t mydepth = 1;
         while (myelem = items.shift) {
-            if (isArray(myelem)) {
+            if (myelem.isArray) {
                 mydepth++;
                 items = myelem;
             } else {
@@ -719,7 +719,7 @@ class Hash {
             items = items.values;
         }
         auto mysortValues = extract(items, path);
-        assert(isArray(mysortValues));
+        assert(mysortValues.isArray);
         auto itemsCount = count(items);
 
         // Make sortValues match the items length, as some keys could be missing
@@ -772,15 +772,15 @@ class Hash {
         mysorted = null;
         keys = keys.unique;
 
-        foreach (keys as myKey) {
+        foreach (keys as key) {
             if (isNumeric) {
-                mysorted ~= items[myKey];
+                mysorted ~= items[key];
                 continue;
             }
-            if (myoriginalKeys.hasKey(myKey)) {
-                mysorted[myoriginalKeys.getString(myKey)] = items[myoriginalKeys.getString(myKey)];
+            if (myoriginalKeys.hasKey(key)) {
+                mysorted[myoriginalKeys.getString(key)] = items[myoriginalKeys.getString(key)];
             } else {
-                mysorted[myKey] = items[myKey];
+                mysorted[key] = items[key];
             }
         }
         return mysorted;
@@ -796,15 +796,15 @@ class Hash {
     }
     protected static Json[string] _squash(Json[string] items, string key = null) {
         auto mystack = null;
-        foreach (myKey, myr; items) {
-            string myid = myKey;
+        foreach (key, value; items) {
+            string myid = key;
             if (!key.isNull) {
                 myid = key;
             }
-            if (isArray(myr) && !empty(myr)) {
-                mystack = array_merge(mystack, _squash(myr, myid));
+            if (value.isArray && !value.isEmpty) {
+                mystack = array_merge(mystack, _squash(value, myid));
             } else {
-                mystack ~= ["id": myid, "value": myr];
+                mystack ~= ["id": myid, "value": value];
             }
         }
         return mystack;
@@ -922,12 +922,12 @@ class Hash {
         if (!result) {
             throw new DInvalidArgumentException("Invalid items array to nest.");
         }
-        myroot = options.get("root", result[0].get(parentKeys));
+        valueoot = options.get("root", result[0].get(parentKeys));
 
         foreach (index, result; result) {
             myid = get(result, idKeys);
             myparentId = get(result, parentKeys);
-            if (myid != myroot && myparentId != myroot) {
+            if (myid != valueoot && myparentId != valueoot) {
                 removeKey(result[index]);
             }
         }

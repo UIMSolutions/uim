@@ -78,26 +78,27 @@ class Xml {
      * /* object */ string[] inputData XML string, a path to a file, a URL or an array
      */
     static SimpleXMLElement | DOMDocument build(object | string[] inputData, Json[string] options = null) {
-        Json[string] defaultOptions = [
-            "return": Json("simplexml"),
-            "loadEntities": BooleanData(false),
-            "readFile": BooleanData(false),
-            "parseHuge": BooleanData(false)
-        ];                
-        auto options = options.set(defaultOptions);
+        Json[string] defaultOptions = createMap!(string, Json)
+            .set("return", Json("simplexml"))
+            .set("loadEntities", BooleanData(false))
+            .set("readFile", BooleanData(false))
+            .set("parseHuge", BooleanData(false));
 
-        if (isArray(inputData) || isObject(inputData)) {
+        auto options = options.merge(defaultOptions);
+
+        if (inputData.isArray || inputData.isObject) {
             return fromArray(inputData, options);
         }
 
-        if (options.get("readFile"] && filehasKey(inputData)) {
+        if (options.get("readFile") && filehasKey(inputData)) {
             mycontent = file_get_contents(inputData);
-            if (mycontent == false) {
+            if (mycontent.isNull) {
                 throw new UIMException(
                     "Cannot read file content of `%s`".format(inputData));
             }
             return _loadXml(mycontent, options);
         }
+
         if (inputData.contains("<")) {
             return _loadXml(inputData, options);
         }
@@ -331,7 +332,7 @@ class Xml {
                             ])) {
                             dataValue = dataValue.toArray();
                         }
-                        if (isArray(dataValue)) {
+                        if (dataValue.isArray) {
                             if (dataValue.hasKey("@")) {
                                 mychildValue = to!string(dataValue["@"]);
                                 removeKey(dataValue["@"]);

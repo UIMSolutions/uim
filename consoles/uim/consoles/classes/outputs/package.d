@@ -1,8 +1,9 @@
 module uim.consoles.classes.outputs;
 
-// Main class
+// Main classes
 public {
     import uim.consoles.classes.outputs.output;
+    import uim.consoles.classes.outputs.factory;
 }
 
 // Derived classe

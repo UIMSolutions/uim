@@ -25,49 +25,13 @@ class DInput : UIMObject, IInput {
      */
   protected bool _canReadline;
 
-  this(string streamLocation = "uim://stdin") {
-    /* bool _canReadline = (extension_loaded("readline") && streamLocation == "uim://stdin");
-        auto anInput = fopen(streamLocation, "rb");
-        if (!anInput) {
-            throw new UIMException("Cannot open handle `%s`".format(streamLocation));
-        } */
-    /* _input = anInput; */
-  }
-
   // Read a value from the stream
   string read() {
-    string line;
-    if (_canReadline) {
-      /* line = readline(""); */
+    return null;
+  }
 
-      /* if (!line.isEmpty) {
-                readline_add_history(line);
-            } */
-    } else {
-      /* line = fgets(_input); */
-    }
-
-    return !line.isEmpty
-      ? line : null;
-
-    // Check if data is available on stdin
-    bool isDataAvailable(int timeToWait = 0) {
-      auto myreadFds = [_input];
-      auto mywriteFds = null;
-      auto myerrorFds = null;
-
-      string error = null;
-      /* set_error_handler(function(int code, string mymessage) use(& error) {
-            error = "stream_select failed with code={code} message={ message}.";
-
-                return true;});
-            readyFds = stream_select(readFds, writeFds, errorFds, timeToWait);
-            restore_error_handler();
-            if (!error.isNull) {
-                throw new DConsoleException(error);
-            }
-            return readyFds > 0; */
-      return false;
-    }
+  // Check if data is available on stdin
+  bool isDataAvailable(int timeToWait = 0) {
+    return false;
   }
 }

@@ -39,14 +39,6 @@ import uim.consoles;
 class DOutput : UIMObject, IOutput {
   mixin(OutputThis!());
 
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    return true;
-  }
-
   // Raw output constant - no modification of output text.
   const string LF = "\n";
 
@@ -70,33 +62,39 @@ class DOutput : UIMObject, IOutput {
   void write(string message, int numberOfLines = 1) {
   }
 
+  // #region styleText
   // Apply styling to text.
-  string styleText(string stylingText) {
-    if (_outputType == "RAW") {
-      return stylingText;
+  override string styleText(string text) {
+    string styledTxt = text;
+    if (outputType == "RAW") {
+      return text;
     }
 
-    if (_outputType != "PLAIN") {
-      /** @var \Closure replaceTags */
-      /* replaceTags = replaceTags(...);
+    if (outputType == "PLAIN") {
+      styledTxt = text;
+      styles.keys
+        .each!(key => styledTxt = styledTxt.replace("<"~key~">", "").replace("</"~key~">", ""));
 
-            output = preg_replace_callback(
-                "/<(?P<tag>[a-z0-9-_]+)>(?P<text>.*?)<\/(\1)>/ims",
-                replaceTags,
-                stylingText
-           );
-            if (output !is null) {
-                return output;
-            } */
+      if (!styledTxt.isNull) {
+        return styledTxt;
+      }
     }
-    
-    /* auto tags = _styles.keys.join("|");
-        auto output = preg_replace("#</?(?:" ~ tags ~ ")>#", "", stylingText);
- */
-    /* return output ? output : stylingText; */
-    return null;
+
+    foreach(tag; styles.keys) {
+      if (styledTxt.contains("<"~tag~">")) {
+        styledTxt = styledTxt.replace("<"~tag~">", "").replace("</"~tag~">", "");
+        Json match = Json.emptyObject;
+        match["tag"] = tag;
+        match["text"] = styledTxt;
+        return replaceTags(match);
+      }
+    }
+   
+    return text;
   }
+  // #endregion styleText
 
+  // #region replaceTags
   // Replace tags with color codes.
   protected string replaceTags(Json matches) {
     string tag = matches.getString("tag"); // matches = {"tag": ..., "text": ... }
@@ -126,8 +124,10 @@ class DOutput : UIMObject, IOutput {
 
     return "\033[" ~ styleInfo.join(";") ~ "m" ~ matches.getString("text") ~ "\033[0m";
   }
+  // #region replaceTags
 
 
+  // #region styles
   // Gets the current styles offered
   Json style(string name) {
     return name in _styles ? _styles[name] : Json(null);
@@ -167,7 +167,9 @@ class DOutput : UIMObject, IOutput {
   Json[string] styles() {
     return _styles;
   }
+  // #endregion styles
 
+  // #region outputType
   // Get the output type on how formatting tags are treated.
   string outputType() {
     return _outputType;
@@ -181,6 +183,7 @@ class DOutput : UIMObject, IOutput {
     _outputType = type;
     return this;
   }
+  // #endregion outputType
 
   // Clean up and close handles
   void __destruct() {

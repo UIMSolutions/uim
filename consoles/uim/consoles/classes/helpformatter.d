@@ -27,14 +27,6 @@ class DHelpFormatter : UIMObject {
     super(initData);
   }
 
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    return true;
-  }
-
   // The maximum number of arguments shown when generating usage.
   protected int _maxArgs = 6;
 
@@ -49,14 +41,14 @@ class DHelpFormatter : UIMObject {
   }
 
   // Alias to display in the output.
-  protected string _alias = "uim";
-  void aliasName(string newAlias) {
-    _alias = newAlias;
+  protected string _aliasname = "uim";
+  void aliasName(string name) {
+    _aliasName = name;
   }
 
-  /*
     // Get the help as formatted text suitable for output on the command line.
     string text(int withOfOutput = 72) {
+  /*
         auto myParser = _parser;
         string[] result;
         auto myDescription = myParser.getDescription();
@@ -101,7 +93,8 @@ class DHelpFormatter : UIMObject {
             result ~= Text.wrap(epilog, withOfOutput)
             result ~= "";
         }
-        return result.join("\n");
+        return result.join("\n"); */
+        return null; 
     }
     
     /**
@@ -110,8 +103,8 @@ class DHelpFormatter : UIMObject {
      * be indicated with []
      */
   protected string _generateUsage() {
-    /* string[] usage = [_alias ~ " " ~ _parser.getCommand()];
-        auto options = _parser.options()
+    string[] usage = [_aliasname ~ " " ~ _parser.getCommand()];
+    /*     auto options = _parser.options()
             .map!(options => option.usage())
             .array;
         

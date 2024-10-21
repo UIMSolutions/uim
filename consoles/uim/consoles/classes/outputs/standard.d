@@ -99,66 +99,24 @@ class DStandardOutput : DOutput {
     std.stdio.write(styleText(message) ~ LF.repeatTxt(numberOfLines));
   }
   // #endregion write
-
-  // Apply styling to text.
-  override string styleText(string text) {
-    string styledTxt = text;
-    if (outputType == "RAW") {
-      return text;
-    }
-
-    if (outputType == "PLAIN") {
-      styledTxt = text;
-      styles.keys
-        .each!(key => styledTxt = styledTxt.replace("<"~key~">", "").replace("</"~key~">", ""));
-
-      if (!styledTxt.isNull) {
-        return styledTxt;
-      }
-    }
-
-    foreach(tag; styles.keys) {
-      if (styledTxt.contains("<"~tag~">")) {
-        styledTxt = styledTxt.replace("<"~tag~">", "").replace("</"~tag~">", "");
-        Json match = Json.emptyObject;
-        match["tag"] = tag;
-        match["text"] = styledTxt;
-        return replaceTags(match);
-      }
-    }
-   
-    return text;
-  }
-
-
-  unittest {
-    auto output = StandardOutput;
-    writeln("output.styles == ", output.styles);
-
-    output.outputType("RAW");
-    assert(output.outputType == "RAW");
-    output.write("RAW: <notice>Hallo World</notice>");
-
-    output.outputType("PLAIN");
-    assert(output.outputType == "PLAIN");
-    output.write("PLAIN: <notice>Hallo World</notice>");
-
-    output.outputType("COLOR");
-    assert(output.outputType == "COLOR");
-    output.write("COLOR: <notice>Hallo World</notice>");
-    output.write("COLOR: <info>Hallo World</info>");
-  }
-
-  // Clean up and close handles
-  override void __destruct() {
-    /* if (isResource(_output)) {
-            fclose(_output);
-        } */
-  }
 }
 
 mixin(OutputCalls!("Standard"));
 
 unittest {
-  // TODO
+  auto output = StandardOutput;
+  writeln("output.styles == ", output.styles);
+
+  output.outputType("RAW");
+  assert(output.outputType == "RAW");
+  output.write("RAW: <notice>Hallo World</notice>");
+
+  output.outputType("PLAIN");
+  assert(output.outputType == "PLAIN");
+  output.write("PLAIN: <notice>Hallo World</notice>");
+
+  output.outputType("COLOR");
+  assert(output.outputType == "COLOR");
+  output.write("COLOR: <notice>Hallo World</notice>");
+  output.write("COLOR: <info>Hallo World</info>");
 }

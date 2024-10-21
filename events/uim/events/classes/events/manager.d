@@ -191,14 +191,14 @@ class DEventManager : IEventManager {
         // auto callable = eventHandler;
         auto settings = null;
 
-        /* if (isArray(eventHandler)) {
+        /* if (eventHandler.isArray) {
         // callable = eventHandler["callable"];
 
         settings = eventHandler;
         settings.removeKey("callable");
     } */
         // TODO
-        /*    if (isString(aCallable)) {
+        /*    if (aCallable.isString) {
         aCallable = subscriber.aCallable(...);
     }
  */

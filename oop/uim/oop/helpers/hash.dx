@@ -316,7 +316,7 @@ class Hash {
             return null;
         }
 
-        if (isArray(keyPath)) {
+        if (keyPath.isArray) {
             string myformat = keyPath.shift;
             keys = format(items, keyPath, myformat);
             assert(keys.isArray);
@@ -324,25 +324,25 @@ class Hash {
             keys = keyPath;
         } else {
             keys = extract(items, keyPath);
-            assert(isArray(keys));
+            assert(keys.isArray);
         }
         if (keyPath !is null && keys.isEmpty) {
             return null;
         }
 
-        auo myvals = null;
+        auo values = null;
         if (!valuePath.isEmpty && valuePath.isArray) {
             myformat = valuePath.shift();
-            myvals = format(items, valuePath, myformat);
-            assert(isArray(myvals));
+            values = format(items, valuePath, myformat);
+            assert(isArray(values));
         } else if (!valuePath.isEmpty) {
-            myvals = extract(items, valuePath);
-            assert(isArray(myvals));
+            values = extract(items, valuePath);
+            assert(values.isArray);
         }
-        if (isEmpty(myvals)) {
-            myvals = array_fill(0, keys.isNull ? count(items): count(keys), null);
+        if (values.isEmpty) {
+            values = array_fill(0, keys.isNull ? count(items): count(keys), null);
         }
-        if (isArray(keys) && count(keys) != count(myvals)) {
+        if (isArray(keys) && count(keys) != count(values)) {
             throw new DInvalidArgumentException(
                 "`Hash.combine()` needs an equal number of keys + values."
             );
@@ -350,24 +350,24 @@ class Hash {
         if (groupPath !is null) {
             mygroup = extract(items, groupPath);
             if (!mygroup.isEmpty) {
-                myc = keys.isArray ? count(keys): count(myvals);
+                myc = keys.isArray ? count(keys): count(values);
                 result = null;
                 for (index = 0; index < myc; index++) {
                     mygroup[index] ??= 0;
                     result[mygroup[index]] ??= null;
                     if (keys.isNull) {
-                        result[mygroup[index]).concat( myvals[index];
+                        result[mygroup[index]).concat( values[index];
                     } else {
-                        result[mygroup[index]][keys[index]] = myvals[index];
+                        result[mygroup[index]][keys[index]] = values[index];
                     }
                 }
                 return result;
             }
         }
         
-        return isEmpty(myvals)
+        return isEmpty(values)
             ? null
-            : combine(keys ?? range(0, count(myvals) - 1), myvals);
+            : combine(keys ?? range(0, count(values) - 1), values);
     }
     
     /**

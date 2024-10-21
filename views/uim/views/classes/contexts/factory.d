@@ -62,8 +62,8 @@ class DContextFactory {
             [
                 "type": "array",
                 "callable": auto (myrequest, mydata) {
-                    if (isArray(mydata["entity"]) && mydata.hasKey("entity.schema")) {
-                        return new ArrayContext(mydata["entity"]);
+                    if (mydata.isArray("entity") && mydata.hasKey("entity.schema")) {
+                        return new ArrayContext(mydata.get("entity"));
                     }
                 },
             ],

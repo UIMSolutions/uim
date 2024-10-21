@@ -72,7 +72,7 @@ class DValidation : UIMObject, IValidation {
   static bool isNotBlank(Json value) {
     /* if (value.isEmpty && !value.isBooleanLike && !isNumeric(value)) {
       return false;
-    } */ 
+    } */
     return _check(value, r"/[^\s]+/m");
 
   }
@@ -258,7 +258,11 @@ class DValidation : UIMObject, IValidation {
 
             return false;
         } */
-    return _check(value, regex); */
+    return _check(value, regex);
+
+    
+
+    *  /
   }
 
   /**
@@ -408,16 +412,16 @@ class DValidation : UIMObject, IValidation {
     }
  */
   static bool isValidTime(Json value) {
-    /* if (isArray(value)) {
+    /* if (value.isArray) {
             value = _getDateString(value);
         } */
-    /* if (!isScalar(value)) {
+    /* if (!value.) {
             return false;
         } */
-    auto mymeridianClockRegex = r"^((0?[1-9]|1[012])(:[0-5]\d){0,2} ?([AP]M|[ap]m))my";
-    auto mystandardClockRegex = r"^([01]\d|2[0-3])((:[0-5]\d){1,2}|(:[0-5]\d){2}\.\d{0,6})my";
+    auto meridianClockRegex = r"^((0?[1-9]|1[012])(:[0-5]\d){0,2} ?([AP]M|[ap]m))my";
+    auto standardClockRegex = r"^([01]\d|2[0-3])((:[0-5]\d){1,2}|(:[0-5]\d){2}\.\d{0,6})my";
 
-    return _check(value, "%" ~ mymeridianClockRegex ~ "|" ~ mystandardClockRegex ~ "%");
+    return _check(value, "%" ~ meridianClockRegex ~ "|" ~ standardClockRegex ~ "%");
   }
 
   /**
@@ -428,10 +432,10 @@ class DValidation : UIMObject, IValidation {
     /* if (cast(IDateTime)dateValue) {
             return true;
         } */
-    /* if (!dateValue.isString) {
-            return false;
-        }
-        static mymethods = [
+    if (!dateValue.isString) {
+      return false;
+    }
+    /*    static mymethods = [
             "date": "parseDate",
             "time": "parseTime",
             "datetime": "parseDateTime"
@@ -507,7 +511,7 @@ class DValidation : UIMObject, IValidation {
             ? /* (string) * /value.replace([" ", mygroupingSep, mydecimalPoint], ["", "", "."],)
             : /* (string) * /value.replace([mygroupingSep, mydecimalPoint], ["", "."],);
 */
-        return _check(value, regex); 
+    return _check(value, regex);
   }
 
   /**
@@ -592,17 +596,17 @@ class DValidation : UIMObject, IValidation {
     /* return false; 
     } */
 
-    /*    else if(isArray(value) && value.hasKey("name")) {
+    /*    else if(value.isArray && value.hasKey("name")) {
         value = value["name"];
  * /    }
 
-    else if(isArray(value)) {
+    else if(value.isArray) {
         return extension(value.shift(), myextensions);
     }
     auto myextension = pathinfo(value, PATHINFO_EXTENSION).lower;
     return validExtensions.any!(value => myextension == myvalue.lower);
-    
     */
+    
     if (value.isEmpty) {
       return false;
     }
@@ -612,11 +616,13 @@ class DValidation : UIMObject, IValidation {
 
   // Validation of an IP address.
   static bool ip(Json value, string protocolType = "both") {
-    /*        if (!isString(value)) {
-            return false;
-        }
-        protocolType = protocolType.lower;
-        auto myflags = 0;
+    if (!value.isString) {
+      return false;
+    }
+
+    protocolType = protocolType.lower;
+    auto myflags = 0;
+    /*       
         if (protocolType == "ipv4") {
             myflags = FILTER_FLAG_IPV4;
         }
@@ -629,31 +635,31 @@ class DValidation : UIMObject, IValidation {
 
   // Checks whether the length of a string (in characters) is greater or equal to a minimal length.
   static bool hasMinLength(string value, int minimalLength) {
-    /* if (!value.isScalar) {
-            return false;
-        } */
+    if (!value.isScalar) {
+      return false;
+    }
     return value.length >= minimalLength;
   }
 
   // Checks whether the length of a string (in characters) is smaller or equal to a maximal length.
   static bool hasMaxLength(string value, int maximalLength) {
-    /* if (!value.isScalar) {
-            return false;
-        } */
+    if (!value.isScalar) {
+      return false;
+    }
     return value.length <= maximalLength;
   }
 
   // Checks whether the length of a string (in bytes) is greater or equal to a minimal length.
   static bool minLengthBytes(string value, int minimalLength) {
-    /* if (!isScalar(value)) {
-            return false;
-        } */
+    if (!value.isScalar) {
+      return false;
+    }
     return  /* (to!string( */ value.length >= minimalLength;
   }
 
   // Checks whether the length of a string (in bytes) is smaller or equal to a maximal length.
   static bool maxLengthBytes(Json value, int maximalLength) {
-    if (!isScalar(value)) {
+    if (!value.isScalar) {
       return false;
     }
     return  /* (string) */ value.length <= maximalLength;

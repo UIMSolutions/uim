@@ -304,7 +304,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         validationRules.byKeyValue
             .each!((nameRule) {
-                if (isArray(nameRule.value)) {
+                if (nameRule.value.isArray) {
                     nameRule.value += [
                         "rule": nameRule.key,
                         "last": _stopOnFailure,
@@ -2228,18 +2228,17 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             }
 
             myerrors[ruleNames] = message;
-            if (isArray(result) && ruleNames == NESTED) {
+            if (result.isArray && ruleNames == NESTED) {
                 myerrors = result;
             }
-            if (isString(result)) {
+            if (result.isString) {
                 myerrors[ruleNames] = result;
             }
             if (ruleName.isLast()) {
                 break;
             }
-        }
-        return myerrors; */
-        return null;
+        } */
+        return myerrors; 
     }
 
     // Get the printable version of this object.

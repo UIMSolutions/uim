@@ -39,7 +39,7 @@ class DMemoryLogger : DLogger {
     protected string[] _content;
 
     // Writing to the internal storage.
-    override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
+    override ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
         auto interpolatedMessage = interpolate(logMessage, logContext);
         // TODO _content ~= _formatter.format(logLevel, interpolatedMessage, logContext);
         return this;

@@ -19,7 +19,7 @@ class DXmlLogFormatter : DLogFormatter {
         return true;
     }
 
-    override string format(LogLevels logLevel, string logMessage, Json[string] logData = null) {
+    override string format(LogLevel logLevel, string logMessage, Json[string] logData = null) {
         string result = logMessage;
         // TODO
         return result;

@@ -80,7 +80,7 @@ import uim.logging;
  *
  * ```
  * Log.error("Something horrible happened");
- * Log.write(LogLevel.ERROR, "Something horrible happened");
+ * Log.write(LogLevel.error, "Something horrible happened");
  * ```
  *
  * ### Logging scopes
@@ -127,13 +127,13 @@ class DLog : UIMObject {
 
         /* _levelMap = [
         "emergency": LogLevel.EMERGENCY,
-        "alert": LogLevel.ALERT,
-        "critical": LogLevel.CRITICAL,
-        "error": LogLevel.ERROR,
-        "warning": LogLevel.WARNING,
-        "notice": LogLevel.NOTICE,
-        "info": LogLevel.INFO,
-        "debug": LogLevel.DEBUG,
+        "alert": LOG_ALERT,
+        "critical": LogLevel.critical,
+        "error": LogLevel.error,
+        "warning": LogLevel.warn,
+        "notice": LogLevel.diagnostic,
+        "info": LogLevel.info,
+        "debug": LogLevel.debug_,
     ];
  */
         return true;
@@ -257,13 +257,13 @@ class DLog : UIMObject {
      * ### Levels:
      *
      * - `LogLevel.EMERGENCY`: "emergency",
-     * - `LogLevel.ALERT`: "alert",
-     * - `LogLevel.CRITICAL`: "critical",
-     * - `LogLevel.ERROR`: "error",
-     * - `LogLevel.WARNING`: "warning",
-     * - `LogLevel.NOTICE`: "notice",
-     * - `LogLevel.INFO`: "info",
-     * - `LogLevel.DEBUG`: "debug",
+     * - `LOG_ALERT`: "alert",
+     * - `LogLevel.critical`: "critical",
+     * - `LogLevel.error`: "error",
+     * - `LogLevel.warn`: "warning",
+     * - `LogLevel.diagnostic`: "notice",
+     * - `LogLevel.info`: "info",
+     * - `LogLevel.debug_`: "debug",
      *
      * ### Basic usage
      *

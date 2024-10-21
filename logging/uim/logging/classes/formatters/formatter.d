@@ -30,5 +30,5 @@ class DLogFormatter : UIMObject, ILogFormatter {
     }
 
   // Formats message.
-  abstract string format(LogLevels logLevel, string logMessage, Json[string] logData = null);
+  abstract string format(LogLevel logLevel, string logMessage, Json[string] logData = null);
 }

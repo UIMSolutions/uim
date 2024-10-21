@@ -152,7 +152,7 @@ class DFileLogger : DLogger {
         return result;
     }
 
-  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
+  override ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
     return this; 
   }
 }

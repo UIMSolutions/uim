@@ -107,5 +107,5 @@ class DLogger : UIMObject, ILogger {
     return message.mustache(logContext);
   }
 
-  abstract ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null);
+  abstract ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null);
 }

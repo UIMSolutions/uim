@@ -7,6 +7,6 @@ enum LogLevel : string {
   .ERROR    = "error",
   .WARNING  = "warning",
   NOTICE   = "notice",
-  INFO     = "info",
+  .INFO     = "info",
   DEBUG    = "debug"
 }

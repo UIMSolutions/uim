@@ -54,12 +54,12 @@ class DSysLogger : DLogger {
         _levelMap = [
             "emergency": LogLevel.EMERGENCY,
             "alert": LogLevel.ALERT,
-            "critical": LogLevel.CRITICAL,
-            "error": LogLevel.ERROR,
-            "warning": LogLevel.WARNING,
-            "notice": LogLevel.NOTICE,
-            "info": LogLevel.INFO,
-            "debug": LogLevel.DEBUG,
+            "critical": LogLevel.critical,
+            "error": LogLevel.error,
+            "warning": LogLevel.warn,
+            "notice": LogLevel.diagnostic,
+            "info": LogLevel.info,
+            "debug": LogLevel.debug__,
         ];
 
         return true;
@@ -81,7 +81,7 @@ class DSysLogger : DLogger {
            _open(configuration.get("prefix"), configuration.get("flag"), configuration.get("facility"));
            _isopen = true;
         }
-        auto priority = LogLevel.DEBUG;
+        auto priority = LogLevel.debug__;
         /* if (_levelMap.hasKey(severityLevel)) {
             priority = _levelMap[level];
         } */

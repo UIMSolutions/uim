@@ -54,7 +54,7 @@ class DConsoleLogger : DLogger {
     string resultMessage = this.interpolate(messageToLog, context);
     _output.write(this.formatter.format(logLevel, resultMessage, context));
   } */
-  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
+  override ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
     return this; 
   }
 

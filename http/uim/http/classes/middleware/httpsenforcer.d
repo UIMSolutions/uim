@@ -82,7 +82,7 @@ class DHttpsEnforcerMiddleware : DMiddleware { // }: IHttpMiddleware {
     // Adds Strict-Transport-Security header to response.
     protected IResponse addHosts(IResponse response) {
         auto configData = configuration.get("hsts");
-        if (!isArray(configData)) {
+        if (!configData.isArray) {
             throw new DUnexpectedValueException("The `hsts` config must be an array.");
         }
 

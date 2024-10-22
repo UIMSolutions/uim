@@ -82,12 +82,12 @@ mixin template TInstanceConfig() {
      * ```
      */
   // TODO Kill code?
-  /* Json getConfig(string keyToGet = null, Json defaultValue = null) {
+  /* Json getConfig(string key = null, Json defaultValue = null) {
         if (!_configInitialized) {
            _config = defaultValue;
            _configInitialized = true;
         }
-        // TODO return _configRead(keyToGet) ?? default;
+        // TODO return _configRead(key) ?? default;
     } */
 
   /**
@@ -97,11 +97,11 @@ mixin template TInstanceConfig() {
      * Params:
      * string keyToGet The key to get.
      */
-  Json getConfigOrFail(string keyToGet) {
-    Json configData = configuration.get(keyToGet);
+  Json getConfigOrFail(string key) {
+    Json configData = configuration.get(key);
     if (configData.isNull) {
       throw new DInvalidArgumentException(
-        "Expected configuration `%s` not found.".format(keyToGet));
+        "Expected configuration `%s` not found.".format(key));
     }
     return configData;
   }
@@ -141,18 +141,20 @@ mixin template TInstanceConfig() {
     if (keyToRead.isNull) {
       return _config;
     }
+
     if (!keyToRead.contains(".")) {
       return configuration.get(keyToRead);
     }
 
     result = _config;
     keyToRead.split(".").each!((key) { // TODO
-      if (!isArray(result) || !result.hasKey(key)) {
+      if (!result.isArray || !result.hasKey(key)) {
         result = null;
         break;
       }
       result = result[key];
     });
+
     return result;
   }
 
@@ -163,6 +165,7 @@ mixin template TInstanceConfig() {
 
       return;
     }
+    
     if (shouldMerge) {
       update = keysToWrite.isArray ? keysToWrite : [
         keysToWrite: valueToWrite

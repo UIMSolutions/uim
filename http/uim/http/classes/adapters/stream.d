@@ -191,8 +191,8 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         }
 
         auto headers = meta["wrapper_data"];
-        if (headers.hasKey("headers") && isArray(headers["headers"])) {
-            headers = headers["headers"];
+        if (headers.hasKey("headers") && headers.isArray("headers")) {
+            headers = headers.get("headers");
         }
         return _createResponses(headers, content);
     }

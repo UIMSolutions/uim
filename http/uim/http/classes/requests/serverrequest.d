@@ -202,7 +202,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         if (isEmpty(configData["environment.REQUEST_METHOD"])) {
             configData["environment.REQUEST_METHOD"] = "GET";
         }
-        this.cookies = configData["cookies"];
+        _cookies = configData["cookies"];
 
         if (isSet(configData["uri"])) {
             if (!cast(IUri)configData["uri"] ) {
@@ -902,18 +902,18 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         if (valueName.isNull) {
             return _data;
         }
-        return !isArray(this.data)  
-            ? Hash.get(this.data, valueName, defaultValue)
+        return !_data.isArray  
+            ? _data.getJson(valueName, defaultValue)
             : defaultValue;
     }
     
     // Read cookie data from the request`s cookie data.
     string[] getCookie(string[] path, string[] defaultValue = null) {
-        return Hash.get(this.cookies, path, defaultValue);
+        return _cookies.get(path, defaultValue);
     }
 
     string[] getCookie(string key, string[] defaultValue = null) {
-        return Hash.get(this.cookies, key, defaultValue);
+        return _cookies.get(key, defaultValue);
     }
     
     /**

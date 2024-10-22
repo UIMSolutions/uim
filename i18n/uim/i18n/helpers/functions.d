@@ -14,11 +14,10 @@ string __(string singularText, Json[string] arguments) {
     if (!singularText) {
         return null;
     }
-    /* if (isSet(arguments[0]) && isArray(arguments[0])) {
+    /* if (arguments.has(0) && arguments.isArray(0))) {
         arguments = arguments[0];
-    }
-    return I18n.getTranslator().translate(singular, arguments); */
-    return null;
+    } */
+    return I18n.getTranslator().translate(singular, arguments); 
 }
 /**
  * Returns correct plural form of message identified by singular and plural for count count.

@@ -110,7 +110,7 @@ mixin template TCollection() {
         if (isString(mypath) && mypath.contains("{*}")) {
             myextractor = myextractor
                 .filter(function (mydata) {
-                    return !mydata.isNull && (cast(Traversable)mydata || isArray(mydata));
+                    return !mydata.isNull && (cast(Traversable)mydata || mydata.isArray);
                 })
                 .unfold();
         }

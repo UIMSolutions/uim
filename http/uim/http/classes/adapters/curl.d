@@ -118,7 +118,7 @@ class DCurl { // }: IAdapter {
             password = !clientOptions.isEmpty("proxy.password") ? clientoptions.get("proxy.password"] : "";
              result[CURLOPT_PROXYUSERPWD] = clientOptions.getString("proxy.username") ~ ": " ~ password;
         }
-        if (clientOptions.hasKey("curl") && clientoptions.isArray("curl"]) {
+        if (clientOptions.hasKey("curl") && clientoptions.isArray("curl")) {
             // Can`t use array_merge() because keys will be re-ordered.
             clientoptions.get("curl"].byKeyValue
                 .each!(kv => result.set(kv.key, kv.value));

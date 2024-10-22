@@ -151,7 +151,7 @@ class DController : UIMObject, IController { // IEventListener, IEventDispatcher
 
     /**
      * Middlewares list.
-     * @psalm-var array<int, array{middleware:\Psr\Http\Server\IMiddleware|\/*Closure|* / string, options:array{only?: string[], except?: string[]}}>
+     * @psalm-var array<int, array{middleware:\Psr\Http\Server\IMiddleware|\/** / string, options:array{only?: string[], except?: string[]}}>
      */
     protected Json[string] _middlewares = null;
 

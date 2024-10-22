@@ -156,7 +156,6 @@ class DEventManager : IEventManager {
      * Builds an array of normalized handlers.
      *
      * A normalized handler is an aray with these keys:
-     *
      * - `callable` - The event handler closure
      * - `settings` - The event handler settings
      */
@@ -169,12 +168,7 @@ class DEventManager : IEventManager {
         return eventHandlers;
     }
 
-    /*     protected Json[string] normalizeHandlers(IEventListener subscriber, IClosure eventHandler) {
-        // TODO return [normalizeHandler(subscriber, eventHandler)];
-        return null; 
-    }
- */
-    protected Json[string] normalizeHandlers(IEventListener subscriber, /* Closure |  */ string eventHandler) {
+    protected Json[string] normalizeHandlers(IEventListener subscriber, string eventHandler) {
         // TODO return [normalizeHandler(subscriber, eventHandler)];
         return null;
     }

@@ -157,7 +157,6 @@ class DFileOutput : DOutput {
     }
 
     if (_outputAs != PLAIN) {
-      /** @var \Closure replaceTags */
       /* replaceTags = _replaceTags(...);
 
             output = preg_replace_callback(

@@ -112,9 +112,6 @@ class DApplication : UIMObject {
         // Only load routes if the router is empty
         /* if (!Router.routes()) {
             result = require _configDir ~ "routes.d";
-            if (cast(IClosure)result) {
-                result(routes);
-            }
         } */
     }
  
@@ -134,11 +131,8 @@ class DApplication : UIMObject {
     }
  
     auto DCommandCollection pluginConsole(CommandCollection commands) {
-        /* foreach (plugin; _plugins.with("console")) {
-            commands = plugin.console(commands);
-        }
-        return commands; */
-        return null; 
+        /* _plugins.with("console".each!(plugin => commands = plugin.console(commands));
+        return commands;
     }
     
     /**
@@ -147,9 +141,11 @@ class DApplication : UIMObject {
      * The first time the container is fetched it will be constructed
      * and stored for future calls.
      */
-    IContainer getContainer() {        
-        // return _container ??= this.buildContainer();
-        return null;
+    IContainer getContainer() {
+        if (_container.isNull) {
+            _container = this.buildContainer();
+        }
+        return _container;
     }
     
     /**

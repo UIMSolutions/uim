@@ -144,7 +144,7 @@ class DSchemaLoader {
         // TODO 
         /* 
         aConnection.disableConstraints(void (Connection aConnection) use (aTables) {
-            foreach (aTables as aTableName: aTable) {
+            foreach (aTableName, aTable; aTables) {
                 name = aTable.getString("table", aTableName);
                 if (!name.isString) {
                     throw new DInvalidArgumentException(

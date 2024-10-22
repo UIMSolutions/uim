@@ -442,7 +442,7 @@ class DValidation : UIMObject, IValidation {
             "time": "parseTime",
             "datetime": "parseDateTime"
         ];
-        if (isEmpty(mymethods[parserType])) {
+        if (mymethods.isEmpty(parserType)) {
             throw new DInvalidArgumentException("Unsupported parser type given.");
         }
         mymethod = mymethods[parserType];
@@ -464,7 +464,9 @@ class DValidation : UIMObject, IValidation {
      * Validates if given value is falsey.
      * The list of what is considered to be falsey values, may be set via falseyValues.
      */
-  static bool falsey(Json value, Json[] falseyValues = [Json(false), Json(0), Json("0")]) {
+  static bool falsey(Json value, Json[] falseyValues = [
+      Json(false), Json(0), Json("0")
+    ]) {
     /* return isIn(value, falseyValues, true); */
     return false;
   }
@@ -622,15 +624,14 @@ class DValidation : UIMObject, IValidation {
     }
 
     protocolType = protocolType.lower;
-    auto myflags = 0;
-    /*       
-        if (protocolType == "ipv4") {
-            myflags = FILTER_FLAG_IPV4;
-        }
-        if (protocolType == "ipv6") {
-            myflags = FILTER_FLAG_IPV6;
-        }
-        return (bool)filter_var(value, FILTER_VALIDATE_IP, ["flags": myflags]); */
+    auto flags = 0;
+    if (protocolType == "ipv4") {
+      flags = FILTER_FLAG_IPV4;
+    }
+    if (protocolType == "ipv6") {
+      flags = FILTER_FLAG_IPV6;
+    }
+    // return (bool)filter_var(value, FILTER_VALIDATE_IP, ["flags": flags]); */
     return false;
   }
 

@@ -23,20 +23,20 @@ mixin template TExtract() {
      * of doing that.
      * /
     protected IClosure _propertyExtractor(string columnPath) {
-/*        if (!isString(somePath)) {
-            return somePath(...);
+/*        if (!columnPath.isString) {
+            return columnPath(...);
         } * /
 
-        string[] someParts = somePath.split(".");
+        string[] paths = columnPath.split(".");
         if (columnPath.contains("{*}")) {
             return fn (anElement)
-                : _extract(anElement, someParts);
+                : _extract(anElement, paths);
         }
-        /* return auto (anElement) use (someParts) {
-            if (!isArray(anElement) && !cast(DArrayAccess)anElement) {
+        /* return auto (anElement) use (paths) {
+            if (!anElement.isArray && !cast(DArrayAccess)anElement) {
                 return null;
             }
-            return _simpleExtract(anElement, someParts);
+            return _simpleExtract(anElement, paths);
         }; * /
         return null; 
     }

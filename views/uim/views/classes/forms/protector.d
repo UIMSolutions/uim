@@ -71,9 +71,11 @@ class DFormProtector : UIMObject {
     } */
 
     // Determine which fields of a form should be used for hash.
+    auto addFields(string field, bool shouldLock = true, Json value = Json(null)) {
+        return addFields(getFieldNameParts(field), shouldLock, value);
+    }
     auto addFields(string[] field, bool shouldLock = true, Json value = Json(null)) {
-        /* if (field.isString) {
-            field = getFieldNameParts(field);
+            field = ;
         }
 
         if (field.isEmpty) {

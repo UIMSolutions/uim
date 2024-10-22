@@ -254,7 +254,7 @@ class DRouteBuilder {
      * Params:
      * string routings A controller name to connect resource routes for.
      */
-  auto resources(string controllerName, /* Closure | */ Json[string] options = null, IClosure nestedCallback = null) {
+  auto resources(string controllerName,  Json[string] options = null, IClosure nestedCallback = null) {
     if (!options.isArray) {
       nestedCallback = options;
       options = null;

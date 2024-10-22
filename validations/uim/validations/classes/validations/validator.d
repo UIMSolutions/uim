@@ -520,7 +520,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * This method is equivalent to calling allowEmptyFor() with EMPTY_STRING flag.
      */
     void allowEmptyString(string fieldName, string errorMessage = null, string mywhen /* = true */ ) {
-        // TODO return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_STRING, mywhen, errorMessage);
     }
 
     /**
@@ -530,7 +530,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     void notEmptyString(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
-        // TODO return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_STRING, mywhen, errorMessage);
     }
 
     /**
@@ -540,7 +540,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * EMPTY_ARRAY flags.
      */
     void allowEmptyArray(string fieldName, string errorMessage = null, string mywhen /* = true */ ) {
-        // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, errorMessage);
     }
 
     /**
@@ -551,7 +551,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     void notEmptyArray(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
 
-        // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, errorMessage);
     }
 
     /**
@@ -562,18 +562,17 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * upload with `error` equal to `UPLOAD_ERR_NO_FILE` will be treated as empty.
      */
     void allowEmptyFile(string fieldName, string errorMessage = null, string mywhen /* = true */ ) {
-        // TODO return _allowEmptyFor(fieldName, EMPTY_FILE, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_FILE, mywhen, errorMessage);
     }
 
     /**
      * Require a field to be a not-empty file.
-     *
      * Opposite to allowEmptyFile()
      */
     auto notEmptyFile(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
 
-        // TODO return _allowEmptyFor(fieldName, EMPTY_FILE, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_FILE, mywhen, errorMessage);
     }
 
     /**
@@ -583,14 +582,14 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * and the `year` key is present.
      */
     auto allowEmptyDate(string fieldName, string errorMessage = null, string mywhen /* = true */ ) { // "create", "update"
-        // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, errorMessage);
     }
 
     // Require a non-empty date value
     auto notEmptyDate(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
 
-        // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, errorMessage);
         return null;
     }
 
@@ -604,7 +603,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * EMPTY_TIME flags.
      */
     auto allowEmptyTime(string fieldName, string errorMessage = null, string mywhenA) {
-        // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, errorMessage);
     }
 
     /**
@@ -613,7 +612,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     void notEmptyTime(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
-        // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, errorMessage);
     }
 
     /**
@@ -628,7 +627,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * the field will allowed to be empty only when the callback returns false.
      */
     auto allowEmptyDateTime(string fieldName, string errorMessage = null, string mywhen /* = true */ ) {
-        // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, errorMessage);
         return null;
 
     }
@@ -640,7 +639,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     auto notEmptyDateTime(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         // auto mywhen = invertWhenClause(mywhen);
-        // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, errorMessage);
+        return allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, errorMessage);
         return this;
     }
 

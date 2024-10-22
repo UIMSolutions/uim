@@ -49,18 +49,18 @@ class DValidationRule {
      * a boolean indicating whether the rule passed or not. If a string is returned
      * it is assumed that the rule failed and the error message was given as a result.
      */
-    string[] process(Json value, Json[string] myproviders, Json[string] context = null) {
+    string[] process(Json value, Json[string] providers, Json[string] context = null) {
         context
             .merge("data", Json.emptyArray)
-            .merge("newRecord", true); /* 
-            .merge("providers", myproviders); */
+            .merge("newRecord", true)
+            .merge("providers", providers); 
 
         /* if (_skip(context)) {
             return true;
         } */
 
         /* if (_rule.isString) {
-            /* myprovider = myproviders[_provider];
+            /* myprovider = providers[_provider];
             /** @var callable mycallable* /
             mycallable = [myprovider, _rule];
             isCallable = isCallable(mycallable);

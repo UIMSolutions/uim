@@ -1147,7 +1147,7 @@ class DFormHelper : DHelper {
 
         string outputText = "";
         /* if (options.hasKey("hiddenField") && isScalar(options.get("hiddenField"))) {
-            myhiddenOptions = createMap!(string, Json)
+            hiddenOptions = createMap!(string, Json)
                 .set("name", options.getString)
                 .set("value", options.getString("hiddenField") != "_split"
                         ? options.getString("hiddenField") : "0")
@@ -1155,9 +1155,9 @@ class DFormHelper : DHelper {
                 .set("secure", false);
 
             if (!options.isNull("disabled")) {
-                myhiddenOptions.set("disabled", "disabled");
+                hiddenOptions.set("disabled", "disabled");
             }
-            outputText = hidden(fieldName, myhiddenOptions);
+            outputText = hidden(fieldName, hiddenOptions);
         } */
         /* if (options.getString("hiddenField") == "_split") {
             options.removeKey("hiddenField", "type");
@@ -1201,9 +1201,9 @@ class DFormHelper : DHelper {
         auto hiddenField = attributes.get("hiddenField", true);
         attributes.removeKey("hiddenField");
 
-        auto myhidden = "";
+        auto hidden = "";
         if (hiddenField == true && isScalar(hiddenField)) {
-            myhidden = hidden(fieldName, [
+            hidden = hidden(fieldName, [
                     "value": hiddenField == true ? "": to!string(hiddenField),
                     "form": attributes["form"].ifNull(null),
                     "name": attributes.getString,
@@ -1214,7 +1214,7 @@ class DFormHelper : DHelper {
             removeKey(attributes["id"]);
         }
         string myradio = widget("radio", attributes);
-        return myhidden ~ myradio; */
+        return hidden ~ myradio; */
         return null;
     }
 
@@ -1355,7 +1355,7 @@ class DFormHelper : DHelper {
      * - `confirm` - Confirm message to show. Form execution will only continue if confirmed then.
      */
     string postButton(string caption, string[] url, Json[string] options = null) {
-        string button; 
+        string button;
         Json[string] formOptions = ["url": Json(url)];
         if (options.hasKey("method")) {
             formOptions.set("type", options.shift("method"));
@@ -1371,10 +1371,10 @@ class DFormHelper : DHelper {
             } */
             options.removeKey("data");
         }
-       /*  button ~= button(caption, options)
-            ~ end(); */ 
+        /*  button ~= button(caption, options)
+            ~ end(); */
 
-        return button; 
+        return button;
     }
 
     /**
@@ -1610,22 +1610,19 @@ class DFormHelper : DHelper {
             .merge("secure", true)
             .merge("empty", Json(null));
 
-        /* if (attributes.isNull("empty") && attributes.getString("multiple") != "checkbox") {
-            myrequired = _getContext().isRequired(fieldName);
-            attributes.set("empty", myrequired.isNull ? false : !myrequired);
+        if (attributes.isNull("empty") && attributes.getString("multiple") != "checkbox") {
+            /*myrequired = _getContext().isRequired(fieldName);
+            attributes.set("empty", myrequired.isNull ? false : !myrequired); */
         }
         if (attributes.getString("multiple") == "checkbox") {
-            attributes.removeKey("multiple", "empty");
-
+            attributes.removeKeys("multiple", "empty");
             return _multiCheckbox(fieldName, options, attributes);
-        } */
+        }
         attributes.removeKey("label");
 
         // Secure the field if there are options, or it"s a multi select.
         // Single selects with no options don"t submit, but multiselects do.
-        /* if (
-            attributes.hasKey("secure") &&
-            options.isEmpty &&
+        if (attributes.hasKey("secure") && options.isEmpty &&
             attributes.isAllEmpty("empty", "multiple")
             ) {
             attributes.set("secure", false);
@@ -1633,19 +1630,18 @@ class DFormHelper : DHelper {
         attributes = _initInputField(fieldName, attributes);
         attributes.set("options", options);
 
-        myhidden = "";
-        if (attributes["multiple"] && attributes["hiddenField"]) {
-            myhiddenAttributes
+        string hidden = "";
+        if (attributes.hasAllKeys("multiple", "hiddenField")) {
+            hiddenAttributes
                 .merge("name", attributes.getString)
                 .merge("value", "")
                 .merge("form", attributes.get("form"))
                 .merge("secure", false);
-            myhidden = hidden(fieldName, myhiddenAttributes);
+            hidden = hidden(fieldName, hiddenAttributes);
         }
         attributes.removeKey("hiddenField", "type");
 
-        return myhidden ~ widget("select", attributes); */
-        return null;
+        return hidden ~ widget("select", attributes);
     }
 
     /**
@@ -1673,7 +1669,7 @@ class DFormHelper : DHelper {
             .merge("hiddenField", true)
             .merge("secure", true);
 
-        /* generatedHiddenId = false;
+        bool generatedHiddenId = false;
         if (!htmlAttributes.hasKey("id")) {
             htmlAttributes.set("id", true);
             generatedHiddenId = true;
@@ -1682,24 +1678,23 @@ class DFormHelper : DHelper {
         htmlAttributes.set("options", options);
         htmlAttributes.set("idPrefix", _idPrefix); */
 
-        /* auto myhidden = "";
+        string hidden = "";
         if (htmlAttributes.hasKey("hiddenField")) {
-            myhiddenAttributes
+            hiddenAttributes
                 .merge("name", htmlAttributes.getString("name"))
                 .merge("value", "")
                 .merge("secure", false)
                 .merge("disabled", htmlAttributes.getString("disabled") == "disabled")
                 .merge("id", htmlAttributes["id"]);
 
-            myhidden = hidden(fieldName, myhiddenAttributes);
+            hidden = hidden(fieldName, hiddenAttributes);
         }
         htmlAttributes.removeKey("hiddenField");
 
         if (generatedHiddenId) {
             htmlAttributes.removeKey("id");
         }
-        return myhidden ~ widget("multicheckbox", htmlAttributes); */
-        return null;
+        return hidden ~ widget("multicheckbox", htmlAttributes); */
     }
 
     /**
@@ -1728,11 +1723,10 @@ class DFormHelper : DHelper {
     string month(string fieldName, Json[string] options = null) {
         options.merge("value", Json(null));
 
-        /* options = _initInputField(fieldName, options);
+        options = _initInputField(fieldName, options);
         options.set("type", "month");
 
-        return _widget("datetime", options); */
-        return null;
+        return _widget("datetime", options); 
     }
 
     /**

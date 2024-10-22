@@ -75,7 +75,7 @@ class DRadioWidget : DWidget {
             ? iterator_to_array(mydata.get("options")) : mydata.getArray("options");
 
         if (!mydata.isEmpty("empty")) {
-            auto empty = mydata.contains("empty") ? "empty" : mydata.get("empty");
+            auto empty = mydata.contains("empty") ? "empty" : mydata.getString("empty");
             options = options.set("", empty);
         }
 

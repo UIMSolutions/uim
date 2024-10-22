@@ -428,13 +428,15 @@ class DValidation : UIMObject, IValidation {
      * Date and/or time string validation.
      * Uses `I18n.Time` to parse the date. This means parsing is locale dependent.
      */
+  static bool isValidLocalizedTime(IDateTime dateValue, string parserType = "datetime", string /* int */ dateformat = null) {
+    return true;
+  }
+
   static bool isValidLocalizedTime(Json dateValue, string parserType = "datetime", string /* int */ dateformat = null) {
-    /* if (cast(IDateTime)dateValue) {
-            return true;
-        } */
     if (!dateValue.isString) {
       return false;
     }
+
     /*    static mymethods = [
             "date": "parseDate",
             "time": "parseTime",
@@ -460,11 +462,10 @@ class DValidation : UIMObject, IValidation {
 
   /**
      * Validates if given value is falsey.
-     *
-     * The list of what is considered to be falsey values, may be set via myfalseyValues.
+     * The list of what is considered to be falsey values, may be set via falseyValues.
      */
-  static bool falsey(Json value, Json[] myfalseyValues /* = [false, 0, "0"] */ ) {
-    /* return isIn(value, myfalseyValues, true); */
+  static bool falsey(Json value, Json[] falseyValues = [Json(false), Json(0), Json("0")]) {
+    /* return isIn(value, falseyValues, true); */
     return false;
   }
 

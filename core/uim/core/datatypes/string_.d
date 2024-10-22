@@ -1111,3 +1111,27 @@ string _caching(string inflectionType, string originalValue, string inflectedVal
 bool isBoolean(string value) {
   return ["yes", "no", "true", "false", "0", "1", "on", "off"].has(value.lower);
 }
+
+protected string shortestText(string[] texts) {
+  if (names.isEmpty) {
+    return null;
+  }
+
+  if (names.length == 1) {
+    return names[0];
+  }
+
+  return names.sort!("a.length < b.length")[0];
+}
+
+protected string longestText(string[] texts) {
+  if (names.isEmpty) {
+    return null;
+  }
+
+  if (names.length == 1) {
+    return names[0];
+  }
+
+  return names.sort!("a.length > b.length")[0];
+}

@@ -58,9 +58,9 @@ class Hash {
             return items;
         }
         // Simple paths.
-        if (!preg_match("/[{\[]/", pathToExtract)) {
+        if (!preg_match(r"/[{\[]/", pathToExtract)) {
             items = get(items, pathToExtract);
-            if (items !is null && !(isArray(items) || cast(DArrayAccess)items)) {
+            if (!items.isNull && !(items.isArray || cast(DArrayAccess)items)) {
                 return [items];
             }
             return !items.isNull ? /* (array) */items : [];
@@ -237,7 +237,7 @@ class Hash {
                     break;
                 case "remove": 
                     if (index == mylast) {
-                        if (isArray(_list)) {
+                        if (_list.isArray) {
                             removeKey(_list[key]);
                         }
                         return items;
@@ -334,7 +334,7 @@ class Hash {
         if (!valuePath.isEmpty && valuePath.isArray) {
             myformat = valuePath.shift();
             values = format(items, valuePath, myformat);
-            assert(isArray(values));
+            assert(values.isArray);
         } else if (!valuePath.isEmpty) {
             values = extract(items, valuePath);
             assert(values.isArray);
@@ -342,7 +342,7 @@ class Hash {
         if (values.isEmpty) {
             values = array_fill(0, keys.isNull ? count(items): count(keys), null);
         }
-        if (isArray(keys) && count(keys) != count(values)) {
+        if (keys.isArray && count(keys) != count(values)) {
             throw new DInvalidArgumentException(
                 "`Hash.combine()` needs an equal number of keys + values."
             );
@@ -485,8 +485,8 @@ class Hash {
             myelement = items[key];
             removeKey(items[key]);
 
-            if (isArray(myelement) && !empty(myelement)) {
-                if (!empty(items)) {
+            if (myelement.isArray && !myelement.isEmpty) {
+                if (!items.isEmpty) {
                     mystack ~= [items, path];
                 }
                 items = myelement;
@@ -558,7 +558,7 @@ class Hash {
     
     // Merge helper auto to reduce duplicated code between merge() and expand().
     protected static void _merge(Json[string] stackOfOperations, Json[string] result) {
-        while (!empty(stackOfOperations)) {
+        while (!stackOfOperations.isEmpty) {
             foreach (mycurKey, &mycurMerge; stackOfOperations) {
                 foreach (mycurMerge[0].byKeyValue) {
                     if (!mycurMerge[1].isArray) {
@@ -628,7 +628,7 @@ class Hash {
      */
     static int maxDimensions(Json[string] items) {
         mydepth = null;
-        if (!empty(items)) {
+        if (!items.isEmpty) {
             items.each!((value) {
                 mydepth ~= value.isArray 
                     ? maxDimensions(value) + 1

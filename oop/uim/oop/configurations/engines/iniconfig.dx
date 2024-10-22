@@ -78,7 +78,7 @@ class DIniConfig : DConfigEngine {
         } else {
              someValues = null;
             foreach (section: attribs; contents) {
-                if (isArray(attribs)) {
+                if (attribs.isArray) {
                      someValues[section] = _parseNestedValues(attribs);
                 } else {
                     parse = _parseNestedValues([attribs]);

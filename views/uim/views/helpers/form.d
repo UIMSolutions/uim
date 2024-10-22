@@ -508,7 +508,7 @@ class DFormHelper : DHelper {
             Json myerror = htmlAttributeEscape(myerror);
             options.removeKey("escape");
         }
-        if (isArray(myerror)) {
+        if (myerror.isArray) {
             if (count(myerror) > 1) {
                 myerrorText = null;
                 foreach (error; myerror) {
@@ -1096,7 +1096,7 @@ class DFormHelper : DHelper {
             .merge("templateVars", Json.emptyArray);
 
         STRINGAA labelAttributes = ["templateVars": options.get("templateVars")];
-        if (isArray(options)) {
+        if (options.isArray) {
             string labelText = null;
             if (options.hasKey("text")) {
                 labelText = options.shift("text").getString;

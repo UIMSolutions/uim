@@ -262,11 +262,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         _fields.removeKey(fieldName);
     }
 
-    // Returns an iterator for each of the fields to be validated
-    /* Traversable<string, DValidationSet> getIterator() {
-        return new DArrayIterator(_fields);
-    } */
-
     // Returns the number of fields having validation rules
     size_t count() {
         // TODO return count(_fields);

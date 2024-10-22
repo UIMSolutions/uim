@@ -253,10 +253,6 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
     _loaded.removeKey(name);
   }
 
-  // Returns an array iterator.
-  Traversable getIterator() {
-    return new DArrayIterator(_loaded);
-  }
 
   // Returns the number of loaded objects.
   size_t count() {

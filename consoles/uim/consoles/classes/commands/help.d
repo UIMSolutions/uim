@@ -37,18 +37,15 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
 
   // Output text.
   protected void asText(DConsoleIo aConsoleIo, string[string] commandCollection) {
-    string[][string] myInvert = null;
-    /*  foreach (name, classname; commands) {
-            /* if (isObject(classname)) {
-                 classname = classname.classname;
-            }* /
-           /*  myInvert.require(classname, null);
-            myInvert[classname).concat( name; * /
-        } */
+    string[][string] inverts = null;
+    commands.byKeyValue
+      .map!(nameCommand => nameCommand.value.classname)
+      .each!(classname => inverts.require(classname, null));
+    // inverts[classname).concat(name);
 
     auto anGrouped = null;
     /* auto plugins = Plugin.loaded(); */
-    myInvert.byKeyValue.each!((classname) {
+    inverts.byKeyValue.each!((classname) {
       // preg_match("/^(.+)\\\\Command\\\\/",  classname, matches);
       // Probably not a useful class
       /*            if (matches.isEmpty) { continue; }
@@ -62,7 +59,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
                 prefix = namespace;
             }
 
-            string shortestName = getShortestName(names);
+            string shortestName = shortestText(names);
             if (shortestName.contains(".")) {
                 string[] names = shortestName.split(".");
                 if (names > 1) { shortestName = names[1..$].join("."); }
@@ -100,11 +97,12 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
   // Output relevant paths if defined
   protected void outputPaths(DConsoleIo aConsoleIo) {
     STRINGAA myPaths;
-    /* if (configuration.check("App.dir")) {
-            /* string appPath = stripRight(configuration.read("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
-            // Extra space is to align output
-            myPaths.set("app", " " ~ appPath); * /
-        } */
+
+    if (configuration.hasKey("App.dir")) {
+      string appPath = stripRight(configuration.getString("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+      // Extra space is to align output
+      myPaths.set("app", " " ~ appPath);
+    }
     /* if (defined("ROOT")) {
             myPaths.set("root", stripRight(ROOT, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
         }
@@ -119,18 +117,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
          aConsoleIo.out(""); */
   }
 
-  protected string getShortestName(string[] names) {
-    if (names.isEmpty) {
-      return null;
-    }
-    if (names.length == 1) {
-      return names[0];
-    }
 
-    /* auto names = names.sort!("a.length < b.length");
-        return names[0]; */
-    return null;
-  }
 
   // Output as XML
   protected void asXml(DConsoleIo aConsoleIo, DCommand[string] commands) {

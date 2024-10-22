@@ -193,16 +193,15 @@ class DValidation : UIMObject, IValidation {
 
   // Used to check the count of a given value of type array or Countable.
   static bool checkNumElements(Json value, string validationOperator, int expectedCount) {
-    /* return !value.isArray/* && !cast(DCountable)value * /
+    return !value.isArray
             ? false
             : comparison(count(value), validationOperator, expectedCount); */
-    return false;
   }
 
   // Used to compare 2 numeric values.
   static bool compare(Json mycheck1, string validationOperator, Json valueToCompare) {
     /* if (
-            (!isNumeric(mycheck1) || !isNumeric(valueToCompare)) &&
+            (!mycheck1.isNumeric || !valueToCompare.isNumeric) &&
             !inArray(validationOperator, COMPARE_STRING)
        ) {
             return false;
@@ -527,14 +526,15 @@ class DValidation : UIMObject, IValidation {
     if (!isString(value)) {
       return false;
     }
+
     /* Generic.Files.LineLength */
-    // regex = regex.ifEmpty("/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ _pattern["hostname"] ~ "my/ui");
+    // regex = regex.ifEmpty(r"/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ _pattern["hostname"] ~ "my/ui");
 
     /* auto result = _check(value, regex);
         if (shouldCheckDeep == false || shouldCheckDeep.isNull) {
             return result;
         }
-        if (result == true && preg_match("/@(" ~ _pattern.getString("hostname") ~ ")my/i", value, myregs)) {
+        if (result == true && preg_match(r"/@(" ~ _pattern.getString("hostname") ~ ")my/i", value, myregs)) {
             if (function_hasKey("getmxrr") && getmxrr(myregs[1], mymxhosts)) {
                 return true;
             }
@@ -557,8 +557,8 @@ class DValidation : UIMObject, IValidation {
 
     auto backingType = null;
     /*        try {
-            myreflectionEnum = new DReflectionenumeration(enumClassname);
-            backingType = myreflectionEnum.getBackingType();
+            auto reflectionEnum = new DReflectionenumeration(enumClassname);
+            backingType = reflectionEnum.getBackingType();
         } catch (ReflectionException) {
         }
         if (backingType.isNull) {

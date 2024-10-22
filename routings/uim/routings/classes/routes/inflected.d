@@ -37,7 +37,7 @@ class DInflectedRoute : DRoute {
       params.set("controller", Inflector.camelize(params.getString("controller")));
     }
     if (!params.isEmpty("plugin")) {
-      if (!params["plugin"].contains("/")) {
+      if (!params.getString("plugin").contains("/")) {
         params.set("plugin", params.getString("plugin").camelize);
       } else {
         [myvendor, myplugin] = params.getString("plugin").split("/", 2);

@@ -109,10 +109,8 @@ class DSchema : UIMObject {
 
     // Get the printable version of this object
     override Json[string] debugInfo() {
-        /* return [
-            "_fields": _fields.toString,
-        ]; */
-        return null;
+        return super.debugInfo()
+            .set("_fields", _fields.toString); 
     }
 }
 

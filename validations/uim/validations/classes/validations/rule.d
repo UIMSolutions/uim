@@ -14,52 +14,52 @@ import uim.validations;
  * rules for applying such method to a field.
  */
 class DValidationRule {
-    // /The method to be called for a given scope
-    protected string _rule;
+  // /The method to be called for a given scope
+  protected string _rule;
 
-    // The "last" key
-    protected bool _last = false;
+  // The "last" key
+  protected bool _last = false;
 
-    // Returns whether this rule should break validation process for associated field after it fails
-    bool isLast() {
-        return _last;
-    }
+  // Returns whether this rule should break validation process for associated field after it fails
+  bool isLast() {
+    return _last;
+  }
 
-    // The "message" key
-    protected string _message = null;
+  // The "message" key
+  protected string _message = null;
 
-    /**
+  /**
      * Key under which the object or class where the method to be used for
      * validation will be found
      */
-    protected string _provider = "default";
+  protected string _provider = "default";
 
-    // The "on" key
-    protected string _on = null;
+  // The "on" key
+  protected string _on = null;
 
-    // Extra arguments to be passed to the validation method
-    protected Json[string] _pass = null;
+  // Extra arguments to be passed to the validation method
+  protected Json[string] _pass = null;
 
-    this(Json[string] options) {
-        _addValidatorProps(options);
-    }
+  this(Json[string] options) {
+    _addValidatorProps(options);
+  }
 
-    /**
+  /**
      * Dispatches the validation rule to the given validator method and returns
      * a boolean indicating whether the rule passed or not. If a string is returned
      * it is assumed that the rule failed and the error message was given as a result.
      */
-    string[] process(Json value, Json[string] providers, Json[string] context = null) {
-        context
-            .merge("data", Json.emptyArray)
-            .merge("newRecord", true)
-            .merge("providers", providers); 
+  string[] process(Json value, Json[string] providers, Json[string] context = null) {
+    context
+      .merge("data", Json.emptyArray)
+      .merge("newRecord", true)
+      .merge("providers", providers);
 
-        /* if (_skip(context)) {
+    /* if (_skip(context)) {
             return true;
         } */
 
-        /* if (_rule.isString) {
+    /* if (_rule.isString) {
             /* myprovider = providers[_provider];
             /** @var callable mycallable* /
             mycallable = [myprovider, _rule];
@@ -69,8 +69,8 @@ class DValidationRule {
             isCallable = true; 
         } */
 
-        // if (!isCallable) {
-        /** @var string mymethod  * /
+    // if (!isCallable) {
+    /** @var string mymethod  * /
             mymethod = _rule;
             mymessage = 
                 "Unable to call method `%s` in `%s` provider for field `%s`"
@@ -80,20 +80,20 @@ class DValidationRule {
            );
             throw new DInvalidArgumentException(mymessage);
         } */
-        /*        if (_pass) {
+    /*        if (_pass) {
             myargs = array_merge([myvalue], _pass, [context]).values;
             result = mycallable(...myargs);
         } else {
             result = mycallable(myvalue, context);
         } */
-        /*        if (result == false) {
+    /*        if (result == false) {
             return _message ?: false; */
-        //}
-        // return result;
-        return null;
-    }
+    //}
+    // return result;
+    return null;
+  }
 
-    /**
+  /**
      * Checks if the validation rule should be skipped
      * Params:
      * Json[string] context A key value list of data that could be used as context
@@ -104,48 +104,43 @@ class DValidationRule {
      * - providers associative array with objects or class names that will
      * be passed as the last argument for the validation method
      */
-    protected bool _skip(Json[string] context) {
-        /*        if (isString(_on)) {
-            mynewRecord = context["newRecord"];
+  protected bool _skip(Json[string] context) {
+    auto mynewRecord = context["newRecord"];
 
-            return (_on == Validator.WHEN_CREATE && !mynewRecord)
-                || (_on == Validator.WHEN_UPDATE && mynewRecord);
+    return (_on == Validator.WHEN_CREATE && !mynewRecord)
+      || (_on == Validator.WHEN_UPDATE && mynewRecord);
+  }
+
+  // Sets the rule properties from the rule entry in validate
+  protected void _addValidatorProps(Json[string] validator = null) {
+    validator.byKeyValue
+      .filter!(kv => !value.isEmpty)
+      .each!((kv) {
+        if (aKey == "rule" && value.isArray && !isCallable(value)) {
+          _pass = value.slice(, 1);
+          value = value.shift();
         }
-        if (_on !is null) {
-            myfunction = _on;
+        if (isIn(aKey, [
+            "rule", "on", "message", "last", "provider", "pass"
+          ], true)) {
+          this. {
+            "_aKey"
+          }
 
-            return !myfunction(context);
-        } */
-        return false;
-    }
+          
 
-    // Sets the rule properties from the rule entry in validate
-    protected void _addValidatorProps(Json[string] validator = null) {
-        validator.byKeyValue
-            .filter!(kv => !value.isEmpty)
-            .each!((kv) {
-                if (aKey == "rule" && value.isArray && !isCallable(value)) {
-                    _pass = value.slice(, 1);
-                    value = value.shift();
-                }
-                if (isIn(aKey, [
-                        "rule", "on", "message", "last", "provider", "pass"
-                    ], true)) {
-                    this. {
-                        "_aKey"
-                    }
-                     = value;
-                }
-            });
-    }
+          = value;
+        }
+      });
+  }
 
-    /**
+  /**
      * Returns the value of a property by name
      * Params:
      * string myproperty The name of the property to retrieve.
     */
-    // Json get(string propertyName) {
-    /*        myproperty = "_" ~ myproperty;
+  // Json get(string propertyName) {
+  /*        myproperty = "_" ~ myproperty;
         return _{myproperty} ? _{myproperty} : null;
  */ //  }
 }

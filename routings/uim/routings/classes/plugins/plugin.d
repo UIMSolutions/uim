@@ -23,28 +23,20 @@ class DPlugin : UIMObject, IPlugin {
         super(initData);
     }
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        return true;
-    }
-
     // Do bootstrapping or not
-    protected bool bootstrapEnabled = true;
+    protected bool _bootstrapEnabled = true;
 
     // Console middleware
-    protected bool consoleEnabled = true;
+    protected bool _consoleEnabled = true;
 
     // Enable middleware
-    protected bool isMiddlewareEnabled = true;
+    protected bool _isMiddlewareEnabled = true;
 
     // Register container services
-    protected bool isServiceEnabled = true;
+    protected bool _isServiceEnabled = true;
 
     // Load routes or not
-    protected bool routesEnabled = true;
+    protected bool _routesEnabled = true;
 
     // The path to this plugin.
     protected string _path = null;

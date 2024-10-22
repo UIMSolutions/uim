@@ -15,8 +15,6 @@ interface IRoutingApplication {
      * Define the routes for an application.
      *
      * Use the provided RouteBuilder to define an application"s routing.
-     * Params:
-     * \UIM\Routing\RouteBuilder myroutes A route builder to add routes into.
      */
-  // void routes(RouteBuilder myroutes);
+  // void routes(RouteBuilder routeBuilder);
 }

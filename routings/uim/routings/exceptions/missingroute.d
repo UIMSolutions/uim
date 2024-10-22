@@ -26,12 +26,6 @@ class DMissingRouteException : UIMException {
   // Message template to use when the requested method is included.
   protected string _messageTemplateWithMethod = "A `%s` route matching `%s` could not be found.";
 
-  /**
-     .
-     * Params:
-     * Json[string]|string errorMessages Either the string of the error message, or an array of attributes
-     * that are made available in the view, and sprintf()"d into Exception._messageTemplate
-     */
   this(string[] errorMessages, int errorCode = 404, Throwable previousException = null) {
     if (errorMessages.isArray) {
       if (errorMessages.hasKey("errorMessages")) {

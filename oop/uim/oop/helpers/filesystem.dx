@@ -61,7 +61,7 @@ class HFilesystem {
     
     // Wrap iterator in additional filtering iterator.
     protected Iterator filterIterator(Iterator iterator,  string regexFilter) {
-        if (isString(myfilter)) {
+        if (regexFilter.isString) {
             return new DRegexIterator(iterator, regexFilter);
         }
         return new DCallbackFilterIterator(iterator, regexFilter);
@@ -87,11 +87,7 @@ class HFilesystem {
         }
     }
     
-    /**
-     * Create directory.
-     * Params:
-     * string mydir Directory path.
-     */
+    // Create directory.
     void mkdir(string directoryPath, int mkdirMode = 0755) {
         if (isDir(directoryPath)) {
             return;
@@ -105,11 +101,7 @@ class HFilesystem {
         umask(myold);
     }
     
-    /**
-     * Delete directory along with all it"s contents.
-     * Params:
-     * string mypath Directory path.
-     */
+    // Delete directory along with all it"s contents.
     bool deleteDir(string mypath) {
         if (!filehasKey(mypath)) {
             return true;
@@ -145,9 +137,7 @@ class HFilesystem {
         return result && @rmdir(mypath);
     }
     
-    /**
-     * Copies directory with all it"s contents.
-     */
+    // Copies directory with all it"s contents.
    bool copyDir(string sourcepath, string destinationPath) {
         auto destPath = (new DFileInfo(destinationPath)).getPathname();
 

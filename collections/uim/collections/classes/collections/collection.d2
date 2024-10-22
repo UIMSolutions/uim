@@ -18,7 +18,6 @@ class D_Collection : IteratorIterator : I_Collection, Serializable {
 
     // Constructor. You can provide an array or any traversable object
     this(Json[string] items) {
-        if (items.isArray) {
             items = new DArrayIterator(items);
         }
 

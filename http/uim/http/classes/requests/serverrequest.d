@@ -355,7 +355,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
             params.unshift(type);
 
-            return _is(...params);
+            return isValid(...params);
         } */
         throw new BadMethodCallException("Method `%s()` does not exist."
         .format(methodName));
@@ -386,9 +386,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             .format(type));
         }
         if (someArguments) {
-            return _is(type, someArguments);
+            return isValid(type, someArguments);
         }
-        _detectorCache.set(_detectorCache.get(type, _is(type, someArguments)));
+        _detectorCache.set(_detectorCache.get(type, isValid(type, someArguments)));
         return _detectorCache[type];
     } */
     
@@ -398,7 +398,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     }
     
     // Worker for the is() function
-    protected bool _is(string requestType, Json[string] someArguments) {
+    protected bool isValid(string requestType, Json[string] someArguments) {
         auto detect = _detectors[requestType];
         
         if (detect.hasKey("env") && _environmentDetector(detect)) {
@@ -416,11 +416,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         return false;
     }
     
-    /**
-     * Detects if a specific accept header is present.
-     * Params:
-     * Json[string] detect Detector options array.
-     */
+    // Detects if a specific accept header is present.
     protected bool _acceptHeaderDetector(Json[string] detect) {
         auto content = new DContentTypeNegotiation();
         auto options = detect["accept"];
@@ -457,30 +453,28 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     protected bool _paramDetector(Json[string] detect) {
         string key = detect.getString("param");
         if (detect.hasKey("value")) {
-            auto aValue = detect.get("value");
+            auto value = detect.get("value");
 
-            return _params.hasKey(key) ? _params[key] == aValue : false;
+            return _params.hasKey(key) ? _params[key] == value : false;
         }
-        /* if (detect.hasKey("options")) {
-            return isSet(_params[key]) ? isIn(_params[key], detect["options"]): false;
-        } */
+        if (detect.hasKey("options")) {
+            // TODO return isSet(_params[key]) ? isIn(_params[key], detect["options"]): false;
+        } 
         return false;
     }
     
-    /**
-     * Detects if a specific environment variable is present.
-     * Params:
-     * Json[string] detect Detector options array.
-     */
+    // Detects if a specific environment variable is present.
     protected bool _environmentDetector(Json[string] detect) {
         if (detect.hasKey("env")) {
             if (detect.hasKey("value")) {
                 return _getEnvironmentData(detect.get("env")) == detect.get("value");
             }
             if (detect.hasKey("pattern")) {
+                // TODO
                 return /* (bool) */preg_match(detect.get("pattern"), /* (string) */getEnvironmentData(detect.get("env")));
             }
             if (detect.hasKey("options")) {
+                // TODO
                 auto somePattern = "/" ~ detect.get("options").join("|") ~ "/i";
                 return /* (bool) */preg_match(somePattern, /* (string) */getEnvironmentData(detect.get("env")));
             }
@@ -495,13 +489,8 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * See Request.is() for how to add additional types and the
      * built-in types.
      */
-    bool isAll(Json[string] types) {
-        foreach (type; types) {
-            /* if (!is(type)) {
-                return false;
-            } */
-        }
-        return true;
+    bool isAllValid(Json[string] types) {
+        return types.all!(t => isValid(t));
     }
     
     /**
@@ -577,7 +566,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * `addDetector("extension", ["param": '_ext", "options": ["pdf", "csv"]]`
      */
     static void addDetector(string detectorName, IClosure/* array */ detector) {
-            _detectors[detectorName.lower] = detector;
+      _detectors[detectorName.lower] = detector;
     }
 
     static void addDetector(string name, Json[string] detector) {
@@ -625,11 +614,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         return result;
     }
     
-    /**
-     * Check if a header is set in the request.
-     * Params:
-     * string aName The header you want to get (case-insensitive)
-     */
+    // Check if a header is set in the request.
     bool hasHeader(string headerName) {
         auto normalizedName = this.normalizeHeaderName(headerName);
         return _environmentData.hasKey(normalizedName);
@@ -682,9 +667,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         return newRequest;
     }
     
-    /**
-     * Get a modified request without a provided header.
-     */
+    // Get a modified request without a provided header.
     static DServerRequest withoutHeader(string aName) {
         DServerRequest newRequest = this.clone;
         auto name = this.normalizeHeaderName(name);
@@ -718,8 +701,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
                 .format(method)
            );
         } */
-        newRequest._environmentData["REQUEST_METHOD"] = method;
-
+        newRequest._environmentData.set("REQUEST_METHOD", method);
         return newRequest;
     }
     

@@ -36,7 +36,7 @@ class DLabelWidget : DWidget {
      * Can use the following variables `attrs`, `text` and `input`.
      */
     this(DStringContents newTemplates) {
-        // super(newTemplates);
+        super(newTemplates);
     }
 
     // Render a label widget.

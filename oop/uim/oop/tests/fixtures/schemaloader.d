@@ -144,15 +144,9 @@ class DSchemaLoader {
         // TODO 
         /* 
         aConnection.disableConstraints(void (Connection aConnection) use (aTables) {
-            foreach (aTableName, aTable; aTables) {
-                name = aTable.getString("table", aTableName);
-                if (!name.isString) {
-                    throw new DInvalidArgumentException(
-                        "`%s` is not a valid table name. Either use a string key for the table definition"~
-                        "(`\"articles\": [...]`) or define the `table` key in the table definition."
-                        .format(name)
-                   );
-                }
+            foreach (tableName, aTable; aTables) {
+                string name = aTable.getString("table", tableName);
+                
                 auto tableSchema = new DTableSchema(name, aTable["columns"]);
                 if (aTable.hasKey("indexes")) {
                     aTable["indexes"].byKeyValue.each(kv => tableSchema.addIndex(kv.key, kv.value));

@@ -40,13 +40,13 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
 
     /* this(IPlugin[] plugins = null) {
         plugins.each!(plugin => add(plugin));
-        // TODO _loaDFileConfigEngine();
+        // TODO _loadFileConfigEngine();
     } */
 
     /**
      * Add plugins from config array.
      * Params:
-     * Json Data Configuration array. For e.g.:
+     * Json data Configuration array. For e.g.:
      * ```
      * [
      *     "Company/TestPluginThree",
@@ -57,11 +57,11 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      * ```
      */
     // TODO 
-    /* void addFromConfig(Json Data = null) {
+    /* void addFromConfig(Json data = null) {
         auto debugData = configuration.get("debug");
-        auto cli = UIM_SAPI == "cli";
+        bool cli = UIM_SAPI == "cli";
 
-        foreach (name, options; Data) {
+        foreach (name, options; data) {
             Json options = options.dup;
             Json onlyDebug = options.get("onlyDebug", null);
             Json onlyCli = options.get("onlyCli", null);
@@ -90,7 +90,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      * in their composer.json file to move plugin outside of vendor/
      */
     // TODO
-    /*  protected void loaDFileConfigEngine() {
+    /*  protected void loadFileConfigEngine() {
         if (Configure.check("plugins")) {
             return;
         }
@@ -105,8 +105,8 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
             }
         }
         
-        auto Data = requirevendorFile;
-        configuration.set(Data);
+        auto data = requirevendorFile;
+        configuration.set(data);
     }
 */
     /**
@@ -121,7 +121,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         // Ensure plugin config is loaded each time. This is necessary primarily
         // for testing because the Configuration.clear() call in TestCase.tearDown()
         // wipes out all configuration including plugin paths config.
-        // TODO _loaDFileConfigEngine();
+        // TODO _loadFileConfigEngine();
 
         // TODO
         /* auto somePath = configuration.get("plugins." ~ pluginName);
@@ -188,10 +188,10 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
     /**
      * Create a plugin instance from a name/classname and configuration.
      * Params:
-     * Data - Configuration options for the plugin.
+     * data - Configuration options for the plugin.
      */
     // TODO
-    /* IPlugin create(string pluginName, Json Data = null) {
+    /* IPlugin create(string pluginName, Json data = null) {
         if (pluginName.isEmpty) {
             throw new UIMException("Cannot create a plugin with empty name");
         }
@@ -199,9 +199,9 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
             if (!class_hasKey(pluginName)) {
                 throw new DInvalidArgumentException("Class `%s` does not exist.".format(pluginName));
             }
-            return new pluginName(Data);
+            return new pluginName(data);
         }
-        Data += ["name": pluginName];
+        data += ["name": pluginName];
         
         string namespace = pluginName.replace("/", "\\");
         string classname = namespace ~ "\\" ~ "Plugin";
@@ -215,12 +215,12 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
             // Check for [Vendor/]Foo/FooPlugin
             if (!class_hasKey(classname)) {
                 string classname = BasePlugin.classname;
-                if (Data("path").isEmpty) {
-                    Data("path", _findPath(pluginName));
+                if (data("path").isEmpty) {
+                    data("path", _findPath(pluginName));
                 }
             }
         }
-        return new classname(Data);
+        return new classname(data);
     }
     */
 

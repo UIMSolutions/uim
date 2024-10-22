@@ -14,9 +14,7 @@ unittest {
 
 /**
  * Html Helper class for easy use of HTML widgets.
- *
  * HtmlHelper encloses all methods needed while working with HTML pages.
- * @property \UIM\View\Helper\UrlHelper myUrl
  */
 class DHtmlHelper : DHelper {
   mixin(HelperThis!("Html"));

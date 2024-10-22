@@ -66,11 +66,9 @@ bool isEmpty(IData[string] data, string key) {
     }
 
     IData toData(Json value) {
-        if (value.isString) {
-            return toData(value.get!string);
-        }
-        return null;
-        // TODO
+        return value.isString
+            ? toData(value.getString)
+            : null;
     }
 
     IData[string] toData(string[string] values) {
@@ -115,12 +113,10 @@ string[] getStringArray(IData[] data) {
 }
 
 string[] getStringArray(IData[string] data, string[] keys) {
-    string[] results;
-    keys
+    return keys
         .filter!(key => key in data)
-        .each!(key => results ~= data[key].toString);
-
-    return results;
+        .map!(key => data[key].toString)
+        .array;
 }
 
 STRINGAA getStringMap(IData[string] data, string[] keys) {

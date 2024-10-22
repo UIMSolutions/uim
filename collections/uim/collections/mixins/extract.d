@@ -23,7 +23,6 @@ mixin template TExtract() {
      * of doing that.
      * /
     protected IClosure _propertyExtractor(string columnPath) {
-/*        if (!columnPath.isString) {
             return columnPath(...);
         } * /
 

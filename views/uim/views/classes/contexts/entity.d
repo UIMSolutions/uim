@@ -121,17 +121,11 @@ class DEntityContext : DContext {
     return null;
   }
 
-  override bool isPrimaryKey(string pathToField) {
-    /*         auto pathParts = fieldPath.split(".");
-        auto mytable = _getTable(pathParts);
-        if (!mytable) {
-            return false;
-        }
-
-        string[] primaryKeys = mytable.primaryKeys();
-        return isIn(pathParts.pop(), primaryKeys, true); */
-    return false;
-
+  override bool isPrimaryKey(string fieldPath) {
+    auto pathParts = fieldPath.split(".");
+    auto mytable = _getTable(pathParts);
+    return !mytable
+      ? false : mytable.primaryKeys().has(pathParts.pop);
   }
 
   /**
@@ -546,23 +540,20 @@ class DEntityContext : DContext {
   // Get an associative array of other attributes for a field name.
   Json[string] attributes(string fieldPath) {
     string[] pathParts = fieldPath.split(".");
-    /* mytable = _getTable(pathParts);
-        if (!mytable) {
-            return null;
-        } */
-    /* return intersectinternalKey(
-            /* (array) * /
-            mytable.getSchema()
+    auto table = _getTable(pathParts);
+/*     return table.isNull
+      ? null
+      : intersectinternalKey(
+            table.getSchema()
                 .getColumn(pathParts.pop()),
                 array_flip(VALID_ATTRIBUTES)
-        ); */
-    return null;
+        );
+ */    return null;
   }
 
   // Check whether a field has an error attached to it
   override bool hasError(string fieldPath) {
-    /* return _error(fieldPath) != null; */
-    return false;
+    return _error(fieldPath) != null;
   }
 
   // Get the errors for a given field

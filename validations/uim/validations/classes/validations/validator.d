@@ -29,15 +29,15 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     // A flag for allowEmptyFor()
     // When `null` is given, it will be recognized as empty.
-    const int EMPTY_NULL = 0;
+    const long EMPTY_NULL = 0;
 
     // A flag for allowEmptyFor()
     // When an empty string is given, it will be recognized as empty.
-    const int EMPTY_STRING = 1;
+    const long EMPTY_STRING = 1;
 
     // A flag for allowEmptyFor()
     // When an empty array is given, it will be recognized as empty.
-    const int EMPTY_ARRAY = 2;
+    const long EMPTY_ARRAY = 2;
 
     /**
      * Contains the validation messages associated with checking the presence
@@ -138,12 +138,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
             }
             auto canBeEmpty = _canBeEmpty(fieldName, context);
 
-            auto myflags = EMPTY_NULL;
+            auto flags = EMPTY_NULL;
             if (_allowEmptyFlags.hasKey(ruleNames)) {
-                myflags = _allowEmptyFlags[ruleNames];
+                flags = _allowEmptyFlags[ruleNames];
             }
 
-            bool myisEmpty = isEmpty(data[ruleNames], myflags);
+            bool myisEmpty = isEmpty(data[ruleNames], flags);
             if (!canBeEmpty && myisEmpty) {
                 myerrors.setPath([ruleNames, "_empty"], getNotEmptyMessage(ruleNames));
                 continue;
@@ -331,7 +331,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto addNested(
         string rootfieldName,
         DValidator validator,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         auto extraData = ["message": errorMessage, "on": mywhen].filterValues;
@@ -367,7 +367,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     void addNestedMany(
         string rootFieldName,
         DValidator myvalidator,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         /* Json[string] myextra = filterValues(["message": errorMessage, "on": mywhen]);
@@ -427,7 +427,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * You can also set mode and message for all passed fields, the individual
      * setting takes precedence over group settings.
      */
-    void requirePresence(string[] fieldName, /*Closure|*/ string mymode /* = true */ , string message = null) {
+    void requirePresence(string[] fieldName, string mymode /* = true */ , string message = null) {
         /* mydefaults = [
             "mode": mymode,
             "message": errorMessage,
@@ -501,7 +501,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     void allowEmptyFor(
         string fieldName,
-        size_t flags = 0, /*Closure|*/
+        size_t flags = 0, 
         string when = null  /* = true */ ,
         string message = null
     ) {
@@ -509,8 +509,8 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (message) {
             _allowEmptyMessages[fieldName] = message;
         }
-        /* if (myflags !is null) {
-            _allowEmptyFlags[fieldName] = myflags;
+        /* if (flags !is null) {
+            _allowEmptyFlags[fieldName] = flags;
         } */
     }
 
@@ -519,7 +519,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * This method is equivalent to calling allowEmptyFor() with EMPTY_STRING flag.
      */
-    void allowEmptyString(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = true */ ) {
+    void allowEmptyString(string fieldName, string errorMessage = null, string mywhen /* = true */ ) {
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, errorMessage);
     }
 
@@ -528,7 +528,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * Opposite to allowEmptyString()
      */
-    void notEmptyString(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
+    void notEmptyString(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING, mywhen, errorMessage);
     }
@@ -539,7 +539,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * This method is equivalent to calling allowEmptyFor() with EMPTY_STRING +
      * EMPTY_ARRAY flags.
      */
-    void allowEmptyArray(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = true */ ) {
+    void allowEmptyArray(string fieldName, string errorMessage = null, string mywhen /* = true */ ) {
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, errorMessage);
     }
 
@@ -548,7 +548,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * Opposite to allowEmptyArray()
      */
-    void notEmptyArray(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
+    void notEmptyArray(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
 
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_ARRAY, mywhen, errorMessage);
@@ -561,7 +561,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * File fields will not accept `""`, or `[]` as empty values. Only `null` and a file
      * upload with `error` equal to `UPLOAD_ERR_NO_FILE` will be treated as empty.
      */
-    void allowEmptyFile(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = true */ ) {
+    void allowEmptyFile(string fieldName, string errorMessage = null, string mywhen /* = true */ ) {
         // TODO return _allowEmptyFor(fieldName, EMPTY_FILE, mywhen, errorMessage);
     }
 
@@ -570,7 +570,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * Opposite to allowEmptyFile()
      */
-    auto notEmptyFile(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
+    auto notEmptyFile(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
 
         // TODO return _allowEmptyFor(fieldName, EMPTY_FILE, mywhen, errorMessage);
@@ -582,12 +582,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Empty date values are `null`, `""`, `[]` and arrays where all values are `""`
      * and the `year` key is present.
      */
-    auto allowEmptyDate(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = true */ ) { // "create", "update"
+    auto allowEmptyDate(string fieldName, string errorMessage = null, string mywhen /* = true */ ) { // "create", "update"
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, errorMessage);
     }
 
     // Require a non-empty date value
-    auto notEmptyDate(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
+    auto notEmptyDate(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
 
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE, mywhen, errorMessage);
@@ -603,7 +603,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * This method is equivalent to calling allowEmptyFor() with EMPTY_STRING +
      * EMPTY_TIME flags.
      */
-    auto allowEmptyTime(string fieldName, string errorMessage = null, /*Closure|*/ string mywhenA) {
+    auto allowEmptyTime(string fieldName, string errorMessage = null, string mywhenA) {
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, errorMessage);
     }
 
@@ -611,7 +611,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Require a field to be a non-empty time.
      * Opposite to allowEmptyTime()
      */
-    void notEmptyTime(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
+    void notEmptyTime(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         mywhen = invertWhenClause(mywhen);
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_TIME, mywhen, errorMessage);
     }
@@ -627,7 +627,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns false.
      */
-    auto allowEmptyDateTime(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = true */ ) {
+    auto allowEmptyDateTime(string fieldName, string errorMessage = null, string mywhen /* = true */ ) {
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, errorMessage);
         return null;
 
@@ -638,7 +638,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * Opposite to allowEmptyDateTime
      */
-    auto notEmptyDateTime(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen /* = false */ ) {
+    auto notEmptyDateTime(string fieldName, string errorMessage = null, string mywhen /* = false */ ) {
         // auto mywhen = invertWhenClause(mywhen);
         // TODO return _allowEmptyFor(fieldName, EMPTY_STRING | EMPTY_DATE | EMPTY_TIME, mywhen, errorMessage);
         return this;
@@ -666,7 +666,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Closure is passed then the field will allowed to be empty only when
      * the callback returns false.
      */
-    protected  /*Closure|*/ string invertWhenClause( /*Closure|*/ string mywhen) {
+    protected   string invertWhenClause(  string mywhen) {
         if (mywhen == WHEN_CREATE || mywhen == WHEN_UPDATE) {
             return mywhen == WHEN_CREATE ? WHEN_UPDATE : WHEN_CREATE;
         }
@@ -677,7 +677,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a notBlank rule to a field.
-    auto notBlank(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto notBlank(string fieldName, string errorMessage = null, string mywhen = null) {
         string message;
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
@@ -697,7 +697,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add an alphanumeric rule to a field.
-    auto alphaNumeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto alphaNumeric(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must be alphanumeric"
@@ -716,7 +716,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a non-alphanumeric rule to a field.
-    auto notAlphaNumeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto notAlphaNumeric(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must not be alphanumeric"
@@ -735,7 +735,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add an ascii-alphanumeric rule to a field.
-    auto asciiAlphaNumeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto asciiAlphaNumeric(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must be ASCII-alphanumeric"
@@ -754,7 +754,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a non-ascii alphanumeric rule to a field.
-    auto notAsciiAlphaNumeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) { // "create" or "update"
+    auto notAsciiAlphaNumeric(string fieldName, string errorMessage = null, string mywhen = null) { // "create" or "update"
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must not be ASCII-alphanumeric"
@@ -774,7 +774,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto lengthBetween(
         string fieldName,
         Json[string] minmaxLengths,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         // if (count(minmaxLengths) != 2) {
@@ -810,7 +810,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto creditCard(
         string fieldName,
         string[] allowedTypeOfCards = null,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         return creditCard(fieldName, allowedTypeOfCards.join(", "), errorMessage);
@@ -819,7 +819,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto creditCard(
         string fieldName,
         string allowedTypeOfCards = "all",
-        string errorMessage = null,/*Closure|*/
+        string errorMessage = null,
         string mywhen = null
     ) {
         string mytypeEnumeration = allowedTypeOfCards;
@@ -853,7 +853,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     Json[string] greaterThan(
         string fieldName,
         float valueToCompare,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -875,7 +875,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     Json[string] greaterThanOrEqual(
         string fieldName,
         float valueToCompare,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -902,7 +902,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto lessThan(
         string fieldName,
         float valueToCompare,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -927,7 +927,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto lessThanOrEqual(
         string fieldName,
         float valueToCompare,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -954,7 +954,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto equals(
         string fieldName,
         Json valueToCompare,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -979,7 +979,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEquals(
         string fieldName,
         Json value,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -1007,7 +1007,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto sameAs(
         string fieldName,
         string secondField,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -1035,7 +1035,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notSameAs(
         string fieldName,
         string secondField,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -1063,7 +1063,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto equalToField(
         string fieldName,
         string secondField,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         /* Closure */
         string mywhen = null  // "create" , "update"
 
@@ -1096,7 +1096,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEqualToField(
         string fieldName,
         string secondField,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         /* Closure */
         string mywhen = null  // "create", "update"
 
@@ -1131,7 +1131,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto greaterThanField(
         string fieldName,
         string secondField,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -1162,7 +1162,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto greaterThanOrEqualToField(
         string fieldName,
         string secondField,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -1194,7 +1194,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto lessThanField(
         string fieldName,
         string secondField,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -1226,7 +1226,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto lessThanOrEqualToField(
         string fieldName,
         string secondField,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -1258,7 +1258,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto date(
         string fieldName,
         string[] dateFormats = ["ymd"],
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         auto myformatEnumeration = dateFormats.join(", ");
@@ -1288,7 +1288,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto dateTime(
         string fieldName,
         string[] dateFormats = ["ymd"],
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         auto myformatEnumeration = dateFormats.join(", ");
@@ -1314,7 +1314,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a time format validation rule to a field.
-    auto time(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto time(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must be a time"
@@ -1338,7 +1338,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto localizedTime(
         string fieldName,
         string parserType = "datetime",
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -1359,7 +1359,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a boolean validation rule to a field.
-    auto isBoolean(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto isBoolean(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must be a boolean"
@@ -1379,7 +1379,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto decimal(
         string fieldName,
         int numberOfPlaces = 0,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -1417,7 +1417,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto email(
         string fieldName,
         bool shouldCheckMX = false,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -1440,7 +1440,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto enumeration(
         string fieldName,
         string myenumclassname,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         /* if (!isIn(BackedEnum.classname, (array) class_implements(myenumclassname), true)) {
@@ -1476,7 +1476,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * This rule will accept both IPv4 and IPv6 addresses.
      * Params:
      */
-    auto ip(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto ip(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must be an IP address"
@@ -1496,7 +1496,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add an IPv4 validation rule to a field.
-    auto ipv4(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto ipv4(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be an IPv4 address")`
@@ -1515,7 +1515,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add an IPv6 validation rule to a field.
-    auto ipv6(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto ipv6(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be an IPv6 address")`
@@ -1533,7 +1533,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a string length validation rule to a field.
-    auto hasMinLength(string fieldName, int requiredMinLength, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto hasMinLength(string fieldName, int requiredMinLength, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be at least '{0}' characters long", mymin)`
@@ -1551,7 +1551,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a string length validation rule to a field.
-    auto minLengthBytes(string fieldName, int requiredMinLength, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto minLengthBytes(string fieldName, int requiredMinLength, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be at least '{0}' bytes long", mymin)`
@@ -1570,7 +1570,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a string length validation rule to a field.
-    auto maxLength(string fieldName, int allowedMaxlength, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto maxLength(string fieldName, int allowedMaxlength, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be at most '{0}' characters long", mymax)`
@@ -1589,7 +1589,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a string length validation rule to a field.
-    auto maxLengthBytes(string fieldName, int allowedMaxlength, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto maxLengthBytes(string fieldName, int allowedMaxlength, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be at most '{0}' bytes long", mymax)`
@@ -1607,7 +1607,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a numeric value validation rule to a field.
-    auto numeric(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto numeric(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be numeric")`
@@ -1626,7 +1626,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a natural number validation rule to a field.
-    auto naturalNumber(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto naturalNumber(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be a natural number")`
@@ -1644,7 +1644,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure a field is a non negative integer.
-    auto nonNegativeInteger(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null  /* "create" or "update" */ ) {
+    auto nonNegativeInteger(string fieldName, string errorMessage = null, string mywhen = null  /* "create" or "update" */ ) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be a non-negative integer")`
@@ -1662,7 +1662,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure a field is within a numeric range
-    auto range(string fieldName, Json[string] bounds, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto range(string fieldName, Json[string] bounds, string errorMessage = null, string mywhen = null) {
         // if (count(bounds) != 2) {
         // TODO throw new DInvalidArgumentException("The minmaxLength argument requires 2 numbers");
         // }
@@ -1692,7 +1692,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure a field is a URL.
      * This validator does not require a protocol.
      */
-    auto url(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto url(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be a URL")`
@@ -1713,7 +1713,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * This validator requires the URL to have a protocol.
      */
-    auto urlWithProtocol(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto urlWithProtocol(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be a URL with protocol")`
@@ -1731,7 +1731,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure the field value is within an allowed list.
-    auto inList(string fieldName, Json[string] validOptions, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto inList(string fieldName, Json[string] validOptions, string errorMessage = null, string mywhen = null) {
         // auto listEnumeration = mylist.join(", ");
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
@@ -1753,7 +1753,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure the field is a UUID
-    auto uuid(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto uuid(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must be a UUID"
@@ -1774,7 +1774,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto uploadedFile(
         string fieldName,
         Json[string] options,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -1798,7 +1798,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * e.g. `<lat>, <lng>`
      */
-    auto latLong(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto latLong(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be a latitude/longitude coordinate")`
@@ -1815,7 +1815,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure the field is a latitude.
-    auto latitude(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto latitude(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be a latitude")`
@@ -1833,7 +1833,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure the field is a longitude.
-    auto longitude(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto longitude(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must be a longitude"
@@ -1852,7 +1852,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure a field contains only ascii bytes
-    auto ascii(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto ascii(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be ASCII bytes only")`
@@ -1870,7 +1870,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure a field contains only BMP utf8 bytes
-    auto utf8(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto utf8(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be UTF-8 bytes only")`
@@ -1893,7 +1893,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * This rule will accept 3 and 4 byte UTF8 sequences, which are necessary for emoji.
      */
-    auto utf8Extended(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto utf8Extended(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must be 3 and 4 byte UTF-8 sequences only"
@@ -1911,7 +1911,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure a field is an integer value.
-    auto integer(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto integer(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be an integer")`
@@ -1929,7 +1929,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure that a field contains an array.
-    auto array(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto array(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must be an array"
@@ -1947,7 +1947,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure that a field contains a scalar.
-    auto scalar(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto scalar(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be scalar")`
@@ -1965,7 +1965,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Add a validation rule to ensure a field is a 6 digits hex color value.
-    auto hexColor(string fieldName, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    auto hexColor(string fieldName, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must be a hex color")`
@@ -1987,7 +1987,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto multipleOptions(
         string fieldName,
         Json[string] options = null,
-        string errorMessage = null, /*Closure|*/
+        string errorMessage = null, 
         string mywhen = null
     ) {
         if (errorMessage.isNull) {
@@ -2013,7 +2013,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure that a field is an array containing at least
      * the specified amount of elements
      */
-    Json[string] hasAtLeast(string fieldName, int numberOfElements, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    Json[string] hasAtLeast(string fieldName, int numberOfElements, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must have at least '{0}' elements", mycount)`
@@ -2040,7 +2040,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure that a field is an array containing at most
      * the specified amount of elements
      */
-    Json[string] hasAtMost(string fieldName, int countElements, string errorMessage = null, /*Closure|*/ string mywhen = null) {
+    Json[string] hasAtMost(string fieldName, int countElements, string errorMessage = null, string mywhen = null) {
         if (errorMessage.isNull) {
             errorMessage = _useI18n
                 ? `__d("uim", "The provided value must have at most '{0}' elements", mycount)`
@@ -2083,7 +2083,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Returns whether a field matches against a regular expression.
-    auto regex(string fieldName, string regex, string errorMessage = null, /*Closure|*/ string mywhen = null) { // "create" or "update"
+    auto regex(string fieldName, string regex, string errorMessage = null, string mywhen = null) { // "create" or "update"
         /* if (errorMessage.isNull) {
             errorMessage = !_useI18n
                 ? "The provided value must match against the pattern '%s'".format(regex)
@@ -2157,9 +2157,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     protected bool _canBeEmpty(DValidationSet fieldName, Json[string] context) {
         auto myallowed = fieldName.isEmptyAllowed();
-        /* if (cast(Closure) myallowed) {
-            return myallowed(context);
-        } */
 
         /* auto isNewRecord = context["newRecord"];
         if (myallowed.isIn([WHEN_CREATE, WHEN_UPDATE])) {
@@ -2171,15 +2168,17 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     }
 
     // Returns true if the field is empty in the passed data array
-    protected bool isEmpty(Json data, int myflags) {
-        /* if (data.isNull) {
+    protected bool isEmpty(Json data, long flags) {
+        if (data.isNull) {
             return true;
         }
-        if (data is null && (myflags & EMPTY_STRING)) {
+        
+        if (data.isNull && (flags & EMPTY_STRING)) {
             return true;
         }
-        auto myarrayTypes = EMPTY_ARRAY | EMPTY_DATE | EMPTY_TIME;
-        if (data is null && (myflags & myarrayTypes)) {
+
+        auto arrayTypes = EMPTY_ARRAY | EMPTY_DATE | EMPTY_TIME;
+        if (data is null && (flags & arrayTypes)) {
             return true;
         }
         if (data.isArray) {
@@ -2191,16 +2190,16 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 }
             }
             if (myallFieldsAreEmpty) {
-                if ((myflags & EMPTY_DATE) && data.hasKey("year")) {
+                if ((flags & EMPTY_DATE) && data.hasKey("year")) {
                     return true;
                 }
-                if ((myflags & EMPTY_TIME) && data.hasKey("hour")) {
+                if ((flags & EMPTY_TIME) && data.hasKey("hour")) {
                     return true;
                 }
             }
         }
 
-        return (myflags & EMPTY_FILE) && cast(IUploadedFile) data && data.getError() == UPLOAD_ERR_NO_FILE; */
+        return (flags & EMPTY_FILE) && cast(IUploadedFile) data && data.getError() == UPLOAD_ERR_NO_FILE; */
         return false;
     }
 

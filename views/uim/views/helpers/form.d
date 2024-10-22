@@ -1891,11 +1891,9 @@ class DFormHelper : DHelper {
      * Get the context instance for the current form set.
      *
      * If there is no active form null will be returned.
-     * Params:
-     * \UIM\View\Form\IContext|null formContext Either the new context when setting, or null to get.
      */
     IContext context(IContext formContext = null) {
-        if (cast(IContext) formContext) {
+        if (!formContext.isNull) {
             _context = formContext;
         }
         return _getContext();
@@ -1903,14 +1901,14 @@ class DFormHelper : DHelper {
 
     /**
      * Find the matching context provider for the data.
-     *
      * If no type can be matched a NullContext will be returned.
      */
     protected IContext _getContext(Json mydata = null) {
-        /* if (_context !is null && mydata.isEmpty) {
+        if (!_context.isNull && mydata.isEmpty) {
             return _context;
         }
-        mydata.merge("entity", Json(null)); */
+
+        mydata.merge("entity", Json(null));
 
         /* return _context = this.contextFactory()
             .get(_view.getRequest(), mydata); */

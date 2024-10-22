@@ -37,7 +37,7 @@ class DTime : UIMObject  { // : ChronosTime, JsonSerializable {
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      */
-    protected static  /*Closure|*/ string /* int */ _jsonEncodeFormat = "HH':'mm':'ss";
+    protected static   string /* int */ _jsonEncodeFormat = "HH':'mm':'ss";
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.nice()`
@@ -60,7 +60,7 @@ class DTime : UIMObject  { // : ChronosTime, JsonSerializable {
      * Alternatively, the format can provide a callback. In this case, the callback
      * can receive this object and return a formatted string.
      */
-    static void jsonEncodeFormat( /*Closure|*/ string /* int */ format) {
+    static void jsonEncodeFormat(  string /* int */ format) {
         _jsonEncodeFormat = format;
     }
 

@@ -717,7 +717,7 @@ class DRouteBuilder {
     string mymiddleware The middleware to register.
         */
   void registerMiddleware(
-    string routings, /* IRoutingMiddleware | */  /*Closure|*/ string mymiddleware) {
+    string routings, /* IRoutingMiddleware | */   string mymiddleware) {
     _collection.registerMiddleware(
       routings, mymiddleware);
   }

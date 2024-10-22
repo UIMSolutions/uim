@@ -60,17 +60,17 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         _queue = chain(_queue, middlewares);
     }
 
-    void add(/* IHttpMiddleware /*Closure|*/ string[] amiddleware) {
+    void add(/* IHttpMiddleware  string[] amiddleware) {
         _queue ~= middleware;
     }
 
     // Alias for MiddlewareQueue.add().
-    MiddlewareQueue push(/* IHttpMiddleware |  /*Closure|*/ string[] amiddleware) {
+    MiddlewareQueue push(/* IHttpMiddleware |   string[] amiddleware) {
         return _add(middleware);
     }
 
     // Prepend a middleware to the start of the queue.
-    auto prepend(/* IHttpMiddleware |  /*Closure|*/ string[] amiddleware) {
+    auto prepend(/* IHttpMiddleware |   string[] amiddleware) {
         if (middleware.isArray) {
             _queue = chain(middleware, _queue);
 
@@ -87,7 +87,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * If the index already exists, the new middleware will be inserted,
      * and the existing element will be shifted one index greater.
      */
-    auto insertAt(int insertTndex, /* IHttpMiddleware| */  /*Closure|*/ string amiddleware) {
+    auto insertAt(int insertTndex, /* IHttpMiddleware| */   string amiddleware) {
         array_splice(_queue, insertTndex, 0, [middleware]);
 
         return this;
@@ -99,7 +99,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Finds the index of the first middleware that matches the provided class,
      * and inserts the supplied middleware before it.
      */
-    auto insertBefore(string classname, /* IHttpMiddleware |  /*Closure|*/ string middlewareToInsert) {
+    auto insertBefore(string classname, /* IHttpMiddleware |   string middlewareToInsert) {
         bool isFound = false;
         auto index = 0;
         foreach (index, object; _queue) {

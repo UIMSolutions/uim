@@ -108,7 +108,7 @@ class DSelectBoxWidget : DWidget {
      * nest complex types as required.
      */
   override string render(Json[string] renderData, IContext formContext) {
-    /* renderData.merge(formContext.data);
+    renderData.merge(formContext.data);
 
     auto options = _renderContent(renderData);
     auto nameData = renderData["name"];
@@ -116,33 +116,27 @@ class DSelectBoxWidget : DWidget {
     if (renderData.isArray("disabled")) {
       renderData.removeKey("disabled");
     }
-    auto mytemplate = "select";
+    auto templateName = "select";
     if (!renderData.isEmpty("multiple")) {
-      mytemplate = "selectMultiple";
+      templateName = "selectMultiple";
       renderData.removeKey("multiple");
     }
     myattrs = _stringContents.formatAttributes(renderData);
 
-    return _stringContents.format(mytemplate, [
-        "name": nameData,
-        "templateVars": renderData["templateVars"],
-        "attrs": myattrs,
-        "content": options.join(""),
-      ]); */
-    return null;
+    return _stringContents.format(mytemplate, createMap!(string, Json)
+        .set("name", nameData)
+        .set("templateVars", renderData["templateVars"])
+        .set("attrs", myattrs)
+        .set("content", options.join("")));
   }
 
   // Render the contents of the select element.
   protected string[] _renderContent(Json[string] renderData) {
     Json renderOptions = renderData.get("options", null);
 
-    /* if (cast(Traversable) options) {
-      renderOptions = iterator_to_array(renderOptions);
-    } 
-
     if (!renderData.isEmpty("empty")) {
-      renderOptions = _emptyValue(renderData["empty"]) + /* (array) * / renderOptions;
-    } */
+      renderOptions = renderOptions.set(_emptyValue(renderData.get("empty")));
+    }
 
     if (renderOptions.isEmpty) {
       return null;
@@ -168,7 +162,7 @@ class DSelectBoxWidget : DWidget {
 
   protected Json[string] _emptyValue(Json[string] values) {
     return values.isEmpty
-      ? ["": Json(values)] : values; 
+      ? ["": Json(values)] : values;
   }
 
   // Render the contents of an optgroup element.

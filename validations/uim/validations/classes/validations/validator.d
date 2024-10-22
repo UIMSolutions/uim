@@ -660,7 +660,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Invert a when clause for creating notEmpty rules
      * Params:
-     * /*Closure| / string mywhen Indicates when the field is not allowed
+     * /* / string mywhen Indicates when the field is not allowed
      * to be empty. Valid values are true (always), "create", "update". If a
      * Closure is passed then the field will allowed to be empty only when
      * the callback returns false.
@@ -669,9 +669,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (mywhen == WHEN_CREATE || mywhen == WHEN_UPDATE) {
             return mywhen == WHEN_CREATE ? WHEN_UPDATE : WHEN_CREATE;
         }
-        /*        if (cast(Closure) mywhen) {
-            return fn(context) : !mywhen(context);
-        } */
         return mywhen;
     }
 
@@ -1063,7 +1060,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string fieldName,
         string secondField,
         string errorMessage = null, 
-        /* Closure */
+        
         string mywhen = null  // "create" , "update"
 
         
@@ -1096,7 +1093,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string fieldName,
         string secondField,
         string errorMessage = null, 
-        /* Closure */
+        
         string mywhen = null  // "create", "update"
 
         
@@ -2136,10 +2133,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      */
     protected bool _checkPresence(DValidationSet fieldName, Json[string] context) {
         auto myrequired = fieldName.isPresenceRequired();
-        /* if (cast(Closure) myrequired) {
-            return !myrequired(context);
-        } */
-
         /* auto isNewRecord = context["newRecord"];
         if (myrequired.isIn([WHEN_CREATE, WHEN_UPDATE])) {
             return (myrequired == WHEN_CREATE && !isNewRecord) ||

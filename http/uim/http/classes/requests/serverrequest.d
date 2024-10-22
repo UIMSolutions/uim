@@ -400,11 +400,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     // Worker for the is() function
     protected bool _is(string requestType, Json[string] someArguments) {
         auto detect = _detectors[requestType];
-        /* if (cast(IClosure)detect) {
-            someArguments.unshift(this);
-
-            return detect(...someArguments);
-        } */
+        
         if (detect.hasKey("env") && _environmentDetector(detect)) {
             return true;
         }
@@ -451,9 +447,6 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         foreach (header, aValue; detectorOptions.getMap("header")) {
             auto header = getEnvironmentData("http_" ~  header);
             if (!header.isNull) {
-                /* if (cast(IClosure)aValue) {
-                    return aValue(header);
-                } */
                 return header == aValue;
             }
         }

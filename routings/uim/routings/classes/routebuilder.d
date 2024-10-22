@@ -597,7 +597,7 @@ class DRouteBuilder {
      * });
      * ```
      */
-  void prefix(string routingPrefix, /* Closure |  */ Json[string] params = null, IClosure callbackClosure = null) {
+  void prefix(string routingPrefix,  Json[string] params = null, IClosure callbackClosure = null) {
     if (!params.isArray) {
       callbackClosure = params;
       params = null;
@@ -662,11 +662,7 @@ class DRouteBuilder {
      * - `_namePrefix` Set a prefix used for named routes. The prefix is prepended to the
      * name of any route created in a scope callback.
      */
-  /*  void scope (string path, /* Closure |  * /Json[string] params, /* Closure callbackClosure = null * /) {
-        if (cast(IClosure) params) {
-            // callbackClosure = params;
-            params = null;
-        }
+  /*  void scope (string path, Json[string] params, /* Closure callbackClosure = null * /) {
         /* if (callbackClosure.isNull) {
             throw new DInvalidArgumentException("Need a valid Closure to connect routes.");
         } * /

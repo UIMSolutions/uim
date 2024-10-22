@@ -17,7 +17,7 @@ class HFilesystem {
     const string TYPE_DIR = "dir";
 
     // Find files / directories (non-recursively) in given directory path.
-    Iterator find(string directoryPath, /* Closure */ string myfilter = null, size_t flags = 0) {
+    Iterator find(string directoryPath,  string myfilter = null, size_t flags = 0) {
         size_t myflags = flags != 0 ? flags : 
             FilesystemIterator.KEY_AS_PATHNAME
             | FilesystemIterator.CURRENT_AS_FILEINFO
@@ -36,7 +36,7 @@ class HFilesystem {
      * `RegexIterator`, if callable will be as callback for `CallbackFilterIterator`.
      * Hidden directories (starting with dot e.g. .git) are always skipped.
      */
-    Iterator findRecursive(string mypath, /* Closure */ string regexFilter = null, int flags = null) {
+    Iterator findRecursive(string mypath,  string regexFilter = null, int flags = null) {
         flags = flags ? flags : FilesystemIterator.KEY_AS_PATHNAME
             | FilesystemIterator.CURRENT_AS_FILEINFO
             | FilesystemIterator.SKIP_DOTS;
@@ -60,7 +60,7 @@ class HFilesystem {
     }
     
     // Wrap iterator in additional filtering iterator.
-    protected Iterator filterIterator(Iterator iterator, /* Closure */ string regexFilter) {
+    protected Iterator filterIterator(Iterator iterator,  string regexFilter) {
         if (isString(myfilter)) {
             return new DRegexIterator(iterator, regexFilter);
         }

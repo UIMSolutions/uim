@@ -461,7 +461,7 @@ mixin template TIntegrationTest() {
             auto formProtector = new DFormProtector([
                 "unlockedFields": _unlockedFields
             ]);
-            someKeys.each!(field => formProtector.addField(field));
+            someKeys.each!(field => formProtector.addFields(field));
 
             auto tokenData = formProtector.buildTokenData(submittedUrl, "cli");
             results.set("_Token", tokenData);

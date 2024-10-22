@@ -389,7 +389,7 @@ class DFormHelper : DHelper {
                 fieldName = myvalue;
                 myvalue = null;
             }
-            _formProtector.addField(fieldName, true, myvalue);
+            _formProtector.addFields(fieldName, true, myvalue);
         } */
         auto mydebugSecurity = configuration.getBoolean("debug");
         /* if (secureAttributes.hasKey("debugSecurity")) {
@@ -1280,7 +1280,7 @@ class DFormHelper : DHelper {
         ));
 
         if (mysecure == true && _formProtector) {
-            _formProtector.addField(
+            _formProtector.addFields(
                 options.get("name"),
                 true,
                 options.hasKey("val") ? "0" : options.getString("val")
@@ -1509,7 +1509,7 @@ class DFormHelper : DHelper {
             .merge("templateVars", Json.emptyArray); */
 
         /* if (options.hasKey("name") && _formProtector) {
-            _formProtector.addField(options.getString(options.get("secure")));
+            _formProtector.addFields(options.getString(options.get("secure")));
         } */
         options.removeKey("secure");
 
@@ -1940,7 +1940,7 @@ class DFormHelper : DHelper {
             mysecure != SECURE_SKIP
             ) {
             namedWidget.secureFields(options)
-                .each!(fieldName => _formProtector.addField(fieldName, mysecure));
+                .each!(fieldName => _formProtector.addFields(fieldName, mysecure));
         } */
         return result;
     }

@@ -61,7 +61,7 @@ class DDateTime : UIMObject { // Chronos, JsonSerializable
      *
      * @var \Closure|array<int>|string|int
      */
-    protected /* Closure */ string[] /* int */ _jsonEncodeFormat = [
+    protected  string[] /* int */ _jsonEncodeFormat = [
         "yyyy-MM-dd'T'HH':'mm':'ssxxx'"
     ];
 
@@ -173,7 +173,7 @@ class DDateTime : UIMObject { // Chronos, JsonSerializable
      */
     // void setJsonEncodeFormat(Closure  format) {
     // void setJsonEncodeFormat(string[]|int format) {
-    void setJsonEncodeFormat( /* Closure */ string[] /* int */ format) {
+    void setJsonEncodeFormat(  string[] /* int */ format) {
         _jsonEncodeFormat = format;
     }
 
@@ -489,8 +489,7 @@ class DDateTime : UIMObject { // Chronos, JsonSerializable
 
     // Returns a string that should be serialized when converting this object to Json
     string jsonSerialize() {
-        /* return cast(DClosure) _jsonEncodeFormat
-            ? call_user_func(_jsonEncodeFormat, this) : _i18nFormat(
+        /* return _i18nFormat(
                 _jsonEncodeFormat); */
         return null; 
     }

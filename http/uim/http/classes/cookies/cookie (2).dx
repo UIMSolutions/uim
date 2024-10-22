@@ -195,9 +195,9 @@ class DCookie : ICookie {
     
     // Returns a header value as string
     string toHeaderValue() {
-        auto aValue = this.value;
+        auto aValue = _value;
         if (_isExpanded) {
-            assert(isArray(aValue), "aValue is not an array");
+            assert(aValue.isArray, "aValue is not an array");
             aValue = _flatten(aValue);
         }
 
@@ -257,11 +257,11 @@ class DCookie : ICookie {
  
     string getScalarValue() {
         if (_isExpanded) {
-            assert(isArray(this.value), "aValue is not an array");
+            assert(_value.isArray, "aValue is not an array");
 
-            return _flatten(this.value);
+            return _flatten(_value);
         }
-        assert(isString(this.value), "aValue is not a string");
+        assert(_value.isString, "aValue is not a string");
 
         return _value;
     }
@@ -281,7 +281,7 @@ class DCookie : ICookie {
      */
     protected void _setValue(string[]|float|bool aValue) {
         _isExpanded = aValue.isArray;
-        this.value = aValue.isArray ? aValue : (string)aValue;
+        _value = aValue.isArray ? aValue : (string)aValue;
     }
  
     auto withPath(string aPath): static
@@ -418,12 +418,12 @@ class DCookie : ICookie {
      */
    bool check(string pathToCheck) {
         if (_isExpanded == false) {
-            assert(isString(this.value), "aValue is not a string");
-            this.value = _expand(this.value);
+            assert(isString(_value), "aValue is not a string");
+            _value = _expand(_value);
         }
-        assert(this.value.isArray, "aValue is not an array");
+        assert(_value.isArray, "aValue is not an array");
 
-        return Hash.check(this.value, pathToCheck);
+        return Hash.check(_value, pathToCheck);
     }
     
     // Create a new cookie with updated data.
@@ -446,7 +446,7 @@ class DCookie : ICookie {
             assert(isString(new.value), "aValue is not a string");
             newCookie.value = newCookie._expand(new.value);
         }
-        assert(isArray(new.value), "aValue is not an array");
+        assert(newCookie.value.isArray, "cookie value is not an array");
 
         newCookie.value = Hash.removeKey(newCookie.value, somepathToRemovePath);
         return newCookie;
@@ -460,16 +460,16 @@ class DCookie : ICookie {
     */
     Json read(string readPath = null) {
         if (_isExpanded == false) {
-            assert(isString(this.value), "aValue is not a string");
+            assert(isString(_value), "aValue is not a string");
 
-            this.value = _expand(this.value);
+            _value = _expand(_value);
         }
         if (readPath.isNull) {
             return _value;
         }
-        assert(this.value.isArray, "aValue is not an array");
+        assert(_value.isArray, "aValue is not an array");
 
-        return Hash.get(this.value, readPath);
+        return Hash.get(_value, readPath);
     }
     
     // Checks if the cookie value was expanded
@@ -478,24 +478,24 @@ class DCookie : ICookie {
     }
  
     Json[string] options() {
-        options = [
-            "expires": to!int(getExpiresTimestamp()),
-            "path": _path,
-            "domain": _domain,
-            "isSecure": _isSecure,
-            "httponly": _httpOnly,
-        ];
+        Json[string] cookieOptions = createMap!(string, Json)
+            .set("expires", to!int(getExpiresTimestamp()))
+            .set("path", _path)
+            .set("domain", _domain)
+            .set("isSecure", _isSecure)
+            .set("httponly", _httpOnly);
 
         if (!_sameSite.isNull) {
             options.set("samesite", _sameSite.value);
         }
         return options;
     }
+
     Json[string] toArray() {
-        return [
-            "name": _name,
-            "value": getScalarValue(),
-        ] + options();
+        return createMap!(string, Json)
+            .set("name", _name)
+            .set("value", getScalarValue())
+            .merge(options());
     }
     
     // Implode method to keep keys are multidimensional arrays

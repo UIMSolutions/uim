@@ -249,7 +249,7 @@ class DClient { // }: IClient {
   DResponse get(string requestUrl, string[] queryData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
     auto requestBody = null;
-    if (isArray(queryData) && queryData.hasKey("_content")) {
+    if (queryData.isArray && queryData.hasKey("_content")) {
       requestBody = queryData["_content"];
       queryData.removeKey("_content");
     }

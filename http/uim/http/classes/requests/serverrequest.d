@@ -232,7 +232,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         _stream = stream;
 
         auto post = configData["post"];
-        if (!(isArray(post) || isObject(post) || post.isNull)) {
+        if (!(post.isArray || post.isObject || post.isNull)) {
             throw new DInvalidArgumentException(
                 "`post` key must be an array, object or null. " ~ 
                 " Got `%s` instead."
@@ -1102,7 +1102,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     static withoutData(string aName) {
         auto newServerRequest = this.clone;
 
-        if (isArray(newServerRequest.data)) {
+        if (newServerRequest.data.isArray) {
             newServerRequest.data = Hash.removeKey(newServerRequest.data, name);
         }
         return newServerRequest;
@@ -1219,7 +1219,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      */
     protected auto validateUploadedFiles(Json[string] uploadedFiles, string path) {
         foreach (key, file; uploadedFiles) {
-            if (isArray(file)) {
+            if (file.isArray) {
                 this.validateUploadedFiles(file, key ~ ".");
                 continue;
             }

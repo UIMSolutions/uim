@@ -256,7 +256,7 @@ class DOauth {
                 kv.key = !isNumeric(kv.key)
                     ? "{convertedPath}[{kv.key}]" : convertedPath;
             }
-            if (isArray(kv.value)) {
+            if (kv.value.isArray) {
                 uksort(kv.value, "strcmp");
                 someData = array_merge(someData, _normalizeData(kv.value, kv.key));
             } else {

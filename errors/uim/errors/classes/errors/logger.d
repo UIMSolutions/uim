@@ -81,7 +81,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
  */
         /* if (includeTrace) {
             trace = Debugger.formatTrace(exceptionToLog, ["format": "points"]);
-            assert(isArray(trace));
+            assert(trace.isArray);
             message ~= "\nStack Trace:\n";
             trace.each!((line) {
                 message ~= isString(line)

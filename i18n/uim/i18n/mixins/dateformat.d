@@ -102,7 +102,7 @@ mixin template TDateFormat() {
     ) {
         string somePattern = "";
 
-        if (isArray(format)) {
+        if (format.isArray) {
             [dateFormat, timeFormat] = format;
         } else {
             dateFormat = timeFormat = IntlDateFormatters.FULL;

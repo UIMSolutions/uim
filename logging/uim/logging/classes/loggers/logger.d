@@ -67,7 +67,7 @@ class DLogger : UIMObject, ILogger {
                 replacements.set(key, value.toString);
                 continue;
             }
-            if (isArray(value)) {
+            if (value.isArray) {
                 replacements.set(key, Json_encode(value, JsonFlags));
                 continue;
             }

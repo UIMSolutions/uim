@@ -343,7 +343,7 @@ class DEventManager : IEventManager {
         if (_eventList) {
             // TODO auto count = count(_eventList);
             /* for (index = 0; index < count; index++) {
-                assert(!empty(_eventList[index]), "Given event item not present");
+                assert(!_eventList.isEmpty(index), "Given event item not present");
 
                 event = _eventList[index];
                 /*            try {

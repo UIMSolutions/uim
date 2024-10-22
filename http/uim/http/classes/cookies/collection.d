@@ -27,7 +27,6 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * array<\UIM\Http\Cookie\ICookie> cookies Array of cookie objects
      */
     this(Json[string] cookies = null) {
-        this.checkCookies(cookies);
         cookies.each!(cookie => _cookies[cookie.id] = cookie);
     }
     
@@ -124,27 +123,6 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             }
         }
         return result;
-    }
-    
-    // Checks if only valid cookie objects are in the array
-    protected void checkCookies(ICookie[] cookies) {
-        foreach (anIndex, cookie; cookies) {
-            if (!cast(ICookie)!cookie) {
-                /* throw new DInvalidArgumentException(                   
-                    "Expected `%s[]` as cookies but instead got `%s` at index %d"
-                    .format(
-                        class,
-                        get_debug_type(cookie),
-                        anIndex
-                   )
-               ); */
-            }
-        }
-    }
-    
-    // Gets the iterator
-    DTraversable getIterator() {
-        return new DArrayIterator(_cookies);
     }
     
     /**

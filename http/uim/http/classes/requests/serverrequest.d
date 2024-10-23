@@ -967,14 +967,12 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             return _protocol;
         }
         // Lazily populate this data as it is generally not used.
-        preg_match("/^HTTP\/([\d.]+)/", (string)getEnvironmentData("SERVER_PROTOCOL"), match);
+        preg_match(r"/^HTTP\/([\d.]+)/", (string)getEnvironmentData("SERVER_PROTOCOL"), match);
         protocol = "1.1";
-        if (match[1] !is null) {
+        if (match[1].isNull) {
             protocol = match[1];
         }
-        _protocol = protocol;
-
-        return _protocol;
+        return _protocol = protocol;
     }
     
     /**
@@ -985,12 +983,12 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * Params:
      * string aversion HTTP protocol version
      */
-    static auto withProtocolVersion(string aversion) {
-        /* if (!preg_match("/^(1\.[01]|2)/", version)) {
+    static auto withProtocolVersion(string protocolVersion) {
+        /* if (!preg_match("/^(1\.[01]|2)/", protocolVersion)) {
             throw new DInvalidArgumentException("Unsupported protocol version `%s` provided.".format(version));
         } */
         auto newServerRequest = this.clone;
-        newServerRequest.protocol = aversion;
+        newServerRequest.protocol = protocolVersion;
 
         return newServerRequest;
     }
@@ -1004,7 +1002,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         if (!hasKey(key, _environmentData)) {
            _environmentData[key] = enviroment(key);
         }
-        return _environmentData[key] !is null ? /* (string) */_environmentData[key] : defaultValue;
+        return !_environmentData.isNull(key) ? /* (string) */_environmentData[key] : defaultValue;
     }
     
     /**
@@ -1043,7 +1041,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
                 return true;
             } */
         }
-        auto allowed = strtoupper(join(", ",  someMethods));
+        auto allowed = someMethods.join(", ").upper;
          auto anException = new DMethodNotAllowedException();
          anException.setHeader("Allow", allowed);
         throw  anException;

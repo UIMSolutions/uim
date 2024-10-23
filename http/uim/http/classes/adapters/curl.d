@@ -142,8 +142,8 @@ class DCurl { // }: IAdapter {
                ),
             default: CURL_HTTP_VERSION_NONE,
         }; */
-        /* return 0;
-    } */
+        return 0;
+    } 
     
     // Convert the raw curl response into an Http\Client\Response
     protected DResponse[] createResponse(CurlHandle handle, string responseData) {

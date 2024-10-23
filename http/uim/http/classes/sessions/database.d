@@ -10,7 +10,8 @@ import uim.http;
 @safe:
 
 // DatabaseSession provides methods to be used with Session.
-class DatabaseSession { // }: SessionHandler {
+class DDatabaseSession : DSession { // }: SessionHandler {
+    mixin(SessionThis("Database"));
     mixin TLocatorAware;
 
     // Reference to the table handling the session data
@@ -119,3 +120,4 @@ class DatabaseSession { // }: SessionHandler {
         return _table.deleteAll(["expires <": time()]);
     }
 }
+    mixin(SessionCalls("Database"));

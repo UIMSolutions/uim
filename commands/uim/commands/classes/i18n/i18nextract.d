@@ -467,7 +467,7 @@ class DI18nExtractCommand : DCommand {
         if (commandArguments.getOption("overwrite")) {
             overwriteAll = true;
         }
-        foreach (domain, sentencesM _storage) {
+        foreach (domain, sentences; _storage) {
             auto outputHeader = _writeHeader(domain);
             auto lengthOfFileheader = outputHeader.length;
             auto sentences.byKeyValue
@@ -481,7 +481,7 @@ class DI18nExtractCommand : DCommand {
             }
             
             string response = "";
-            while (overwriteAll == false && filehasKey(outputPath) && strtoupper(response) != "Y") {
+            while (overwriteAll == false && file.hasKey(outputPath) && response.upper != "Y") {
                 consoleIo.writeln();
                 response = consoleIo.askChoice(
                     "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format(filename),

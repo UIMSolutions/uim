@@ -61,10 +61,10 @@ class DEntityContext : DContext {
   protected bool _isCollection = false;
 
   // A dictionary of tables
-  // TODO protected ITable[] _tables = null;
+  protected ITable[] _tables = null;
 
   // Dictionary of validators.
-  // TODO protected IValidator[] _validator = null;
+  protected IValidator[] _validator = null;
 
   /**
      * Prepare some additional data from the context.
@@ -109,7 +109,7 @@ class DEntityContext : DContext {
         } */
 
     /* auto aliasName = _rootName = mytable.aliasName();
-        _tables[aliasName] = mytable; */
+        getTable(aliasName] = mytable; */
   }
 
   /**
@@ -117,13 +117,12 @@ class DEntityContext : DContext {
      * Gets the primary key columns from the root entity"s schema.
      */
   override string[] primaryKeys() {
-    /* return _tables[_rootName].primaryKeys(); */
-    return null;
+    return getTable(_rootName).primaryKeys();
   }
 
   override bool isPrimaryKey(string fieldPath) {
     auto pathParts = fieldPath.split(".");
-    auto mytable = _getTable(pathParts);
+    auto mytable = getTable(pathParts);
     return !mytable
       ? false : mytable.primaryKeys().has(pathParts.pop);
   }
@@ -200,7 +199,7 @@ class DEntityContext : DContext {
 
   // Get default value from table schema for given entity field.
   protected Json _schemaDefault(Json[string] pathParts) {
-    /* auto mytable = _getTable(pathParts);
+    /* auto mytable = getTable(pathParts);
         if (mytable.isNull) {
             return null;
         }
@@ -225,7 +224,7 @@ class DEntityContext : DContext {
             return null;
         } */
 
-    /* auto mytable = _getTable(mypath, false);
+    /* auto mytable = getTable(mypath, false);
         auto myprimary = mytable ? mytable.primaryKeys() : ["id"];
         return (new DCollection(myvalues)).extract(myprimary[0]).toJString(); */
     return null;
@@ -265,7 +264,7 @@ class DEntityContext : DContext {
             mynext = _getProp(myentity, myprop);
             myisLast = (index == mylast);
             if (!myisLast && mynext.isNull && myprop != "_ids") {
-                mytable = _getTable(mypath);
+                mytable = getTable(mypath);
                 if (mytable) {
                     return mytable.newEmptyEntity();
                 }
@@ -438,7 +437,7 @@ class DEntityContext : DContext {
      * If the context is for an array of entities, the 0th index will be used.
      */
   override string[] fieldNames() {
-    /* mytable = _getTable("0");
+    /* mytable = getTable("0");
         if (!mytable) {
             return null;
         }
@@ -461,7 +460,7 @@ class DEntityContext : DContext {
             return _validator[key];
         } */
 
-    /* auto mytable = _getTable(pathParts);
+    /* auto mytable = getTable(pathParts);
         if (!mytable) {
             throw new DInvalidArgumentException("Validator not found: `%s`.".format(key));
         }
@@ -482,57 +481,55 @@ class DEntityContext : DContext {
   }
 
   //  Get the table instance from a property path
-  /* protected ITable _getTable(string pathParts, bool isFallback = true) {
-        return _tables[_rootName];
+  protected ITable getTable(string path, bool isFallback = true) {
+    return _tables.get(path, null);
+  }
+
+  // protected ITable getTable( /* IEntity| * /string[] pathParts, bool isFallback = true) {
+  protected ITable getTable(string[] pathParts, bool isFallback = true) {
+    if (pathParts.size == 1) {
+      return getTable(pathParts, isFallback);
     }
 
-    protected ITable _getTable(/* IEntity| * /string[] pathParts, bool isFallback = true) {
-        if (count(pathParts) == 1) {
-            return _tables[_rootName];
+    string[] normalized = pathParts.filter!(part => !part.isNumeric).array.slice(0, -1);
+    auto normalizedPath = normalized.join(".");
+    if (_tables.hasKey(normalizedPath)) {
+      return getTable(normalizedPath);
+    }
+    if (currentValue(normalized) == _rootName) {
+      normalized = normalized.slice(1);
+    }
+    auto mytable = getTable(_rootName);
+    auto myassoc = null;
+    foreach (part; normalized) {
+      if (part == "_joinData") {
+        if (myassoc !is null) {
+          mytable = myassoc.junction();
+          myassoc = null;
+          continue;
         }
+      } else {
+        associationCollection = mytable.associations();
+        myassoc = associationCollection.getByProperty(part);
+      }
+      if (myassoc.isNull) {
+        if (isFallback) {
+          break;
+        }
+        return null;
+      }
+      mytable = myassoc.getTarget();
+    }
+    _tables[normalizedPath] = mytable;
+    return getTable(normalizedPath);
+  }
 
-        string[] mynormalized = pathParts.filter!(part => !isNumeric(part)).array.slice(0, -1);
-        auto mypath = mynormalized.join(".");
-        if (_tables.hasKey(mypath)) {
-            return _tables[mypath];
-        }
-        if (currentValue(mynormalized) == _rootName) {
-            mynormalized = mynormalized.slice(1);
-        }
-        auto mytable = _tables[_rootName];
-        auto myassoc = null;
-        foreach (part; mynormalized) {
-            if (part == "_joinData") {
-                if (myassoc !is null) {
-                    mytable = myassoc.junction();
-                    myassoc = null;
-                    continue;
-                }
-            } else {
-                myassociationCollection = mytable.associations();
-                myassoc = myassociationCollection.getByProperty(part);
-            }
-            if (myassoc.isNull) {
-                if (isFallback) {
-                    break;
-                }
-                return null;
-            }
-            mytable = myassoc.getTarget();
-        }
-        return _tables[mypath] = mytable;
-    } */
-
-  /**
-     * Get the abstract field type for a given field name.
-     * Params:
-     * string fieldPath A dot separated path to get a schema type for.
-     */
+  // Get the abstract field type for a given field name.
   override string type(string fieldPath) {
-    /* string[] pathParts = fieldPath.split(".");
-        auto mytable = _getTable(pathParts);
+    string[] pathParts = fieldPath.split(".");
+    auto mytable = getTable(pathParts);
 
-        return mytable is null
+    /* return mytable is null
             ? null : mytable.getSchema().baseColumnType(pathParts.pop()); */
     return null;
   }
@@ -540,15 +537,16 @@ class DEntityContext : DContext {
   // Get an associative array of other attributes for a field name.
   Json[string] attributes(string fieldPath) {
     string[] pathParts = fieldPath.split(".");
-    auto table = _getTable(pathParts);
-/*     return table.isNull
+    auto table = getTable(pathParts);
+    /*     return table.isNull
       ? null
       : intersectinternalKey(
             table.getSchema()
                 .getColumn(pathParts.pop()),
                 array_flip(VALID_ATTRIBUTES)
         );
- */    return null;
+ */
+    return null;
   }
 
   // Check whether a field has an error attached to it
@@ -558,8 +556,7 @@ class DEntityContext : DContext {
 
   // Get the errors for a given field
   IError[] errors(string fieldPath) {
-    string[] pathParts = fieldPath.split(".");
-    /* try {
+    string[] pathParts = fieldPath.split("."); /* try {
             [myentity, myremainingParts] = this.leafEntity(pathParts);
         } catch (UIMException) {
             return null;
@@ -577,3 +574,7 @@ class DEntityContext : DContext {
 }
 
 mixin(ContextCalls!("Entity"));
+
+unittest {
+  assert(EntityContext);
+}

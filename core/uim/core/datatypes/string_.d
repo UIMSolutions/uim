@@ -262,8 +262,8 @@ size_t[] indexOfAll(string text, string searchTxt) {
       results ~= currentPos;
       currentPos++;
     }
-  }
 
+  }
   return results;
 }
 
@@ -1135,3 +1135,10 @@ protected string longestText(string[] texts) {
 
   return texts.sort!("a.length > b.length")[0];
 }
+
+// #region replace
+string replace(string origin, string[] selects, string newTxt) {
+  selects.each!(select => origin = std.string.replace(origin, select, newTxt));
+  return origin;
+}
+// #endregion replace

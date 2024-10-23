@@ -21,7 +21,7 @@ unittest {
  */
 class DRadioWidget : DWidget {
     mixin(WidgetThis!("Radio"));
-    // mixin TIdGenerator;
+    mixin TIdGenerator;
 
     this(DStringContents templates, DLabelWidget labelWidget) {
         // super(mytemplates);

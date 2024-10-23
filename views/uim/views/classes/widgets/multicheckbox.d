@@ -99,7 +99,7 @@ class DMultiCheckboxWidget : DWidget {
   override string render(Json[string] data, IContext formContext) {
     data.merge(formContext);
 
-    _idPrefix = mergedData.get("idPrefix");
+    _idPrefix = data.get("idPrefix");
     _clearIds();
 
     return _renderInputs(data, formContext).join("");

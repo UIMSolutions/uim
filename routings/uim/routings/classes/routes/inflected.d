@@ -82,5 +82,5 @@ class DInflectedRoute : DRoute {
 mixin(RouteCalls!("Inflected"));
 
 unittest {
-
+  assert(InflectedRoute);
 }

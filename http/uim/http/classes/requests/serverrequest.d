@@ -27,7 +27,6 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             return false;
         }
 
-
         _urlParams = [
             "plugin": Json(null),
             "controller": Json(null),
@@ -72,7 +71,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
     // Array of parameters parsed from the URL.
     protected Json[string] _urlParams;
-    
+
     /**
      * Get all the server environment parameters.
      *
@@ -82,7 +81,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     Json[string] getServerParams() {
         return _environmentData;
     }
-    
+
     /**
      * Get all the query parameters in accordance to the PSR-7 specifications. To read specific query values
      * use the alternative getQuery() method.
@@ -151,7 +150,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     protected Json[string] attributes = null;
 
     // A list of properties that emulated by the PSR7 attribute methods.
-    protected string[] emulatedAttributes = ["session", "flash", "webroot", "base", "params", "here"];
+    protected string[] emulatedAttributes = [
+        "session", "flash", "webroot", "base", "params", "here"
+    ];
 
     // Array of Psr\Http\Message\IUploadedFile objects.
     protected Json[string] uploadedFiles = null;
@@ -189,9 +190,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             .merge(["url", "base", "webroot"], "")
             .merge(["uri", "input"], Json(null));
 
-       _setConfig(configData);
+        _setConfig(configData);
     }
-    
+
     // Process the config/settings data into properties.
     protected void _setConfig(Json[string] configData = null) {
         if (isEmpty(configData["session"])) {
@@ -205,7 +206,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         _cookies = configData["cookies"];
 
         if (isSet(configData["uri"])) {
-            if (!cast(IUri)configData["uri"] ) {
+            if (!cast(IUri) configData["uri"]) {
                 throw new DException("The `uri` key must be an instance of " ~ IUri.classname);
             }
             anUri = configData["uri"];
@@ -215,7 +216,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             }
             ["uri": anUri] = UriFactory.marshalUriAndBaseFromSapi(configData["environment"]);
         }
-       _environmentData = configData["environment"];
+        _environmentData = configData["environment"];
 
         _uri = anUri;
         _base = configData["base"];
@@ -234,10 +235,10 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         auto post = configData["post"];
         if (!(post.isArray || post.isObject || post.isNull)) {
             throw new DInvalidArgumentException(
-                "`post` key must be an array, object or null. " ~ 
-                " Got `%s` instead."
-                .format(get_debug_type(post)
-           ));
+                "`post` key must be an array, object or null. " ~
+                    " Got `%s` instead."
+                    .format(get_debug_type(post)
+                    ));
         }
         _data = post;
         _uploadedFiles = configData["files"];
@@ -246,7 +247,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         _session = configData["session"];
         _flash = new DFlashMessage(this.session);
     }
-    
+
     /**
      * Set environment vars based on `url` option to facilitate IUri instance generation.
      * `query` option is also updated based on URL`s querystring.
@@ -256,7 +257,8 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             configData.set("url", "/" ~ configData.getString("url"));
         }
         if (configData.getString("url").contains("?")) {
-            [configData.get("url"), configData.get("environment.QUERY_STRING")] = split("?", configData.get("url"));
+            [configData.get("url"), configData.get("environment.QUERY_STRING")] = split("?", configData.get(
+                    "url"));
 
             parse_str(configData["environment.QUERY_STRING"], aQueryArgs);
             configData["query"] += aQueryArgs;
@@ -265,26 +267,28 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return configData;
     }
-    
+
     // Get the content type used in this request.
     string contentType() {
-        return _getEnvironmentData("CONTENT_TYPE") ? _getEnvironmentData("CONTENT_TYPE") : getEnvironmentData("HTTP_CONTENT_TYPE");
+        return _getEnvironmentData("CONTENT_TYPE") ? _getEnvironmentData("CONTENT_TYPE") : getEnvironmentData(
+            "HTTP_CONTENT_TYPE");
     }
-    
+
     // Returns the instance of the Session object for this request
     ISession getSession() {
         return _session;
     }
-    
+
     // Returns the instance of the FlashMessage object for this request
     DFlashMessage getFlash() {
         return _flash;
     }
-    
+
     // Get the IP the client is using, or says they are using.
     string clientIp() {
         if (_trustProxy && getEnvironmentData("HTTP_X_FORWARDED_FOR")) {
-            string[] addresses = /* (string) */getEnvironmentData("HTTP_X_FORWARDED_FOR").split(",").strip;
+            string[] addresses =  /* (string) */ getEnvironmentData("HTTP_X_FORWARDED_FOR").split(",")
+                .strip;
             bool isTrusted = (count(this.isTrustedProxies) > 0);
             auto n = count(addresses);
 
@@ -298,27 +302,27 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             return addresses[n - 1];
         }
         if (_trustProxy && getEnvironmentData("HTTP_X_REAL_IP")) {
-             anIpaddr = getEnvironmentData("HTTP_X_REAL_IP");
+            anIpaddr = getEnvironmentData("HTTP_X_REAL_IP");
         } else if (_trustProxy && getEnvironmentData("HTTP_CLIENT_IP")) {
-             anIpaddr = getEnvironmentData("HTTP_CLIENT_IP");
+            anIpaddr = getEnvironmentData("HTTP_CLIENT_IP");
         } else {
-             anIpaddr = getEnvironmentData("REMOTE_ADDR");
+            anIpaddr = getEnvironmentData("REMOTE_ADDR");
         }
-        return /* (string) */ anIpaddr.strip;
+        return  /* (string) */ anIpaddr.strip;
     }
-    
+
     // register trusted proxies
     void setTrustedProxies(Json[string] proxies) {
         this.trustedProxies = proxies;
         _trustProxy = true;
         this.uri = this.uri.withScheme(this.scheme());
     }
-    
+
     // Get trusted proxies
     string[] getTrustedProxies() {
         return _trustedProxies;
     }
-    
+
     /**
      * Returns the referer that referred this request.
      * Params:
@@ -344,10 +348,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
 
         return local
-            ? null
-            : httpReferer;
+            ? null : httpReferer;
     }
-    
+
     // Missing method handler, handles wrapping older style isAjax() type methods
     bool __call(string methodName, Json[string] params) {
         /* if (name.startWith("is")) {
@@ -358,9 +361,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             return isValid(...params);
         } */
         throw new BadMethodCallException("Method `%s()` does not exist."
-        .format(methodName));
+                .format(methodName));
     }
-    
+
     /**
      * Check whether a Request is a certain type.
      *
@@ -391,16 +394,16 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         _detectorCache.set(_detectorCache.get(type, isValid(type, someArguments)));
         return _detectorCache[type];
     } */
-    
+
     // Clears the instance detector cache, used by the is() function
     void clearDetectorCache() {
-       _detectorCache = null;
+        _detectorCache = null;
     }
-    
+
     // Worker for the is() function
     protected bool isValid(string requestType, Json[string] someArguments) {
         auto detect = _detectors[requestType];
-        
+
         if (detect.hasKey("env") && _environmentDetector(detect)) {
             return true;
         }
@@ -415,7 +418,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
         return false;
     }
-    
+
     // Detects if a specific accept header is present.
     protected bool _acceptHeaderDetector(Json[string] detect) {
         auto content = new DContentTypeNegotiation();
@@ -437,18 +440,18 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
         return true;
     }
-    
+
     // Detects if a specific header is present.
     protected bool _headerDetector(Json[string] detectorOptions) {
         foreach (header, aValue; detectorOptions.getMap("header")) {
-            auto header = getEnvironmentData("http_" ~  header);
+            auto header = getEnvironmentData("http_" ~ header);
             if (!header.isNull) {
                 return header == aValue;
             }
         }
         return false;
     }
-    
+
     // Detects if a specific request parameter is present.
     protected bool _paramDetector(Json[string] detect) {
         string key = detect.getString("param");
@@ -459,10 +462,10 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
         if (detect.hasKey("options")) {
             // TODO return isSet(_params[key]) ? isIn(_params[key], detect["options"]): false;
-        } 
+        }
         return false;
     }
-    
+
     // Detects if a specific environment variable is present.
     protected bool _environmentDetector(Json[string] detect) {
         if (detect.hasKey("env")) {
@@ -471,17 +474,19 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             }
             if (detect.hasKey("pattern")) {
                 // TODO
-                return /* (bool) */preg_match(detect.get("pattern"), /* (string) */getEnvironmentData(detect.get("env")));
+                return  /* (bool) */ preg_match(detect.get("pattern"), /* (string) */ getEnvironmentData(
+                        detect.get("env")));
             }
             if (detect.hasKey("options")) {
                 // TODO
                 auto somePattern = "/" ~ detect.get("options").join("|") ~ "/i";
-                return /* (bool) */preg_match(somePattern, /* (string) */getEnvironmentData(detect.get("env")));
+                return  /* (bool) */ preg_match(somePattern, /* (string) */ getEnvironmentData(
+                        detect.get("env")));
             }
         }
         return false;
     }
-    
+
     /**
      * Check that a request matches all the given types.
      *
@@ -492,7 +497,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     bool isAllValid(Json[string] types) {
         return types.all!(t => isValid(t));
     }
-    
+
     /**
      * Add a new detector to the list of detectors that a request can use.
      * There are several different types of detectors that can be set.
@@ -565,8 +570,8 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      *
      * `addDetector("extension", ["param": '_ext", "options": ["pdf", "csv"]]`
      */
-    static void addDetector(string detectorName, IClosure/* array */ detector) {
-      _detectors[detectorName.lower] = detector;
+    static void addDetector(string detectorName, IClosure /* array */ detector) {
+        _detectors[detectorName.lower] = detector;
     }
 
     static void addDetector(string name, Json[string] detector) {
@@ -576,15 +581,14 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
         _detectors.get(loweredName, detector);
     }
-    
+
     // Normalize a header name into the SERVER version.
     protected string normalizeHeaderName(string headerName) {
         string result = headerName.upper.replace("-", "_");
         return isIn(name, ["CONTENT_LENGTH", "CONTENT_TYPE"], true)
-            ? result
-            : "HTTP_" ~ result;
+            ? result : "HTTP_" ~ result;
     }
-    
+
     /**
      * Get all headers in the request.
      *
@@ -595,31 +599,31 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * the headers.
      */
     STRINGAA getHeaders() {
-        STRINGAA result = null;
+        STRINGAA result;
         _environmentData.byKeyValue
             .each!((kv) => {
-            string name = null;
-            if (key.startWith("HTTP_")) {
-                name = subString(kv.key, 5);
-            }
-            if (kv.key.startWith("CONTENT_")) {
-                name = kv.key;
-            }
-            if (!name.isNull) {
-                name = name.lower.replace("_", " ");
-                name = ucwords(name).replace(" ", "-");
-                result[name] = /* (array) */kv.value;
-            }
-        });
+                string name;
+                if (key.startWith("HTTP_")) {
+                    name = subString(kv.key, 5);
+                }
+                if (kv.key.startWith("CONTENT_")) {
+                    name = kv.key;
+                }
+                if (!name.isNull) {
+                    name = name.lower.replace("_", " ");
+                    name = ucwords(name).replace(" ", "-");
+                    result.set(name, kv.value);
+                }
+            });
         return result;
     }
-    
+
     // Check if a header is set in the request.
     bool hasHeader(string headerName) {
         auto normalizedName = this.normalizeHeaderName(headerName);
         return _environmentData.hasKey(normalizedName);
     }
-    
+
     /**
      * Get a single header from the request.
      *
@@ -629,17 +633,16 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     string[] getHeader(string headerName) {
         name = this.normalizeHeaderName(headerName);
         return _environmentData.hasKey(headerName)
-            ? /* (array) */_environmentData[headerName]
-            : null;
+            ?  /* (array) */ _environmentData[headerName] : null;
     }
-    
+
     // Get a single header as a string from the request.
     string getHeaderLine(string headerName) {
         auto aValue = getHeader(headerName);
 
         return aValue.join(", ");
     }
-    
+
     // Get a modified request with the provided header.
     static withHeader(string headerName, string[] headerValue) {
         auto result = this.clone;
@@ -647,7 +650,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         result._environmentData[normalizedName] = headerValue;
         return result;
     }
-    
+
     /**
      * Get a modified request with the provided header.
      *
@@ -658,15 +661,15 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         auto newRequest = this.clone;
         string normalizedName = this.normalizeHeaderName(headerName);
         auto existing = null;
-        if (newRequest._environmentData[normalizedName] !is null) {
-            existing = /* (array) */newRequest._environmentData[normalizedName];
+        if (newRequest._environmentData[normalizedName]!is null) {
+            existing =  /* (array) */ newRequest._environmentData[normalizedName];
         }
-        existing = array_merge(existing, /* (array) */headerValue);
+        existing = array_merge(existing, /* (array) */ headerValue);
         newRequest._environmentData[normalizedName] = existing;
 
         return newRequest;
     }
-    
+
     // Get a modified request without a provided header.
     static DServerRequest withoutHeader(string aName) {
         DServerRequest newRequest = this.clone;
@@ -675,7 +678,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return newRequest;
     }
-    
+
     /**
      * Get the HTTP method used for this request.
      * There are a few ways to specify a method.
@@ -688,9 +691,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * by UIM internally, and will effect the result of this method.
      */
     string getMethod() {
-        return /* (string) */getEnvironmentData("REQUEST_METHOD");
+        return  /* (string) */ getEnvironmentData("REQUEST_METHOD");
     }
-    
+
     // Update the request method and get a new instance.
     static DServerRequest withMethod(string httpMethod) {
         DServerRequest newRequest = this.clone;
@@ -704,7 +707,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         newRequest._environmentData.set("REQUEST_METHOD", method);
         return newRequest;
     }
-    
+
     // Update the query string data and get a new instance.
     static DServerRequest withQueryParams(string queryString) {
         DServerRequest newQuery = this.clone;
@@ -712,7 +715,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return newQuery;
     }
-    
+
     // Get the host that the request was handled on.
     string host() {
         if (_trustProxy && getEnvironmentData("HTTP_X_FORWARDED_HOST")) {
@@ -720,7 +723,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
         return _getEnvironmentData("HTTP_HOST");
     }
-    
+
     // Get the port the request was handled on.
     string port() {
         if (_trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PORT")) {
@@ -728,17 +731,17 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
         return _getEnvironmentData("SERVER_PORT");
     }
-    
+
     /**
      * Get the current url scheme used for the request.
      * e.g. 'http", or 'https'
      */
     string scheme() {
         return _trustProxy && getEnvironmentData("HTTP_X_FORWARDED_PROTO")
-            ? getEnvironmentData("HTTP_X_FORWARDED_PROTO")
-            : _getEnvironmentData("HTTPS") ? "https" : "http";
+            ? getEnvironmentData("HTTP_X_FORWARDED_PROTO") : _getEnvironmentData("HTTPS") ? "https"
+            : "http";
     }
-    
+
     /**
      * Get the domain name and include tldLength segments of the tld.
      * Params:
@@ -750,13 +753,13 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         if (host.isEmpty) {
             return null;
         }
-        
+
         string[] segments = host.split(".");
         auto domain = segments.slice(-1 * (tldLength + 1));
 
         return domain.join(".");
     }
-    
+
     /**
      * Get the subdomains for a host.
      * Params:
@@ -768,11 +771,11 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         if (host.isEmpty()) {
             return null;
         }
-        
+
         string[] segments = host.split(".");
         return segments.slice(0, -1 * (tldLength + 1));
     }
-    
+
     /**
      * Find out which content types the client accepts or check if they accept a
      * particular type of content.
@@ -799,12 +802,12 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         if (contentType) {
             return !content.preferredType(this, [contentType]).isNull;
         }
-        
+
         auto accept = null;
         /* content.parseAccept(this).each!(types => accept = array_merge(accept, types)) */
         return accept;
     }
-    
+
     /**
      * Get the languages accepted by the client, or check if a specific language is accepted.
      *
@@ -819,10 +822,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     Json acceptLanguage(string languageToTest = null) {
         auto content = new DContentTypeNegotiation();
         return languageToTest.isEmpty
-            ? content.acceptedLanguages(this)
-            : content.acceptLanguage(this, language);
+            ? content.acceptedLanguages(this) : content.acceptLanguage(this, language);
     }
-    
+
     /**
      * Read a specific query value or dotted path.
      *
@@ -841,10 +843,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
     Json getQuery(string name = null, Json defaultValue = Json(null)) {
         return name.isNull
-            ? _queryArguments
-            : Hash.get(_query, name, defaultValue);
+            ? _queryArguments : Hash.get(_query, name, defaultValue);
     }
-    
+
     /**
      * Provides a safe accessor for request data. Allows
      * you to use Hash.get() compatible paths.
@@ -877,11 +878,10 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         if (valueName.isNull) {
             return _data;
         }
-        return !_data.isArray  
-            ? _data.getJson(valueName, defaultValue)
-            : defaultValue;
+        return !_data.isArray
+            ? _data.getJson(valueName, defaultValue) : defaultValue;
     }
-    
+
     // Read cookie data from the request`s cookie data.
     string[] getCookie(string[] path, string[] defaultValue = null) {
         return _cookies.get(path, defaultValue);
@@ -890,7 +890,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     string[] getCookie(string key, string[] defaultValue = null) {
         return _cookies.get(key, defaultValue);
     }
-    
+
     /**
      * Get a cookie collection based on the request`s cookies
      *
@@ -907,7 +907,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     DCookieCollection getCookieCollection() {
         return CookieCollection.createFromServerRequest(this);
     }
-    
+
     /**
      * Replace the cookies in the request with those contained in
      * the provided CookieCollection.
@@ -922,12 +922,12 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return newServerRequest;
     }
-    
+
     // Get all the cookie data from the request.
     Json[string] getCookieParams() {
         return _cookies;
     }
-    
+
     // Replace the cookies and get a new request instance.
     static auto withCookieParams(Json[string] cookies) {
         auto newServerRequest = this.clone;
@@ -935,7 +935,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return newServerRequest;
     }
-    
+
     /**
      * Get the parsed request body data.
      *
@@ -944,10 +944,11 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * post data. For other content types, it may be the deserialized request
      * body.
      */
-    /* object|array|null */ auto getParsedBody() {
+    /* object|array|null */
+    auto getParsedBody() {
         return _data;
     }
-    
+
     /**
      * Update the parsed body and get a new instance.
      * Params:
@@ -960,21 +961,21 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return newServerRequest;
     }
-    
+
     // Retrieves the HTTP protocol version as a string.
     string getProtocolVersion() {
         if (_protocol) {
             return _protocol;
         }
         // Lazily populate this data as it is generally not used.
-        preg_match(r"/^HTTP\/([\d.]+)/", (string)getEnvironmentData("SERVER_PROTOCOL"), match);
+        preg_match(r"/^HTTP\/([\d.]+)/", /* (string)  */getEnvironmentData("SERVER_PROTOCOL"), match);
         protocol = "1.1";
         if (match[1].isNull) {
             protocol = match[1];
         }
         return _protocol = protocol;
     }
-    
+
     /**
      * Return an instance with the specified HTTP protocol version.
      *
@@ -992,7 +993,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return newServerRequest;
     }
-    
+
     /**
      * Get a value from the request`s environment data.
      * Fallback to using enviroment() if the key is not set in the environment property.
@@ -1000,11 +1001,11 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     string getEnvironmentData(string key, string defaultValue = null) {
         auto key = key.upper;
         if (!hasKey(key, _environmentData)) {
-           _environmentData[key] = enviroment(key);
+            _environmentData[key] = enviroment(key);
         }
-        return !_environmentData.isNull(key) ? /* (string) */_environmentData[key] : defaultValue;
+        return !_environmentData.isNull(key) ?  /* (string) */ _environmentData[key] : defaultValue;
     }
-    
+
     /**
      * Update the request with a new environment data element.
      *
@@ -1018,7 +1019,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return newRequest;
     }
-    
+
     /**
      * Allow only certain HTTP request methods, if the request method does not match
      * a 405 error will be shown and the required "Allow" response header will be set.
@@ -1035,18 +1036,18 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * string[]|string httpMethods Allowed HTTP request methods.
      */
     bool allowMethod(string[] amethods) {
-        auto someMethods = /* (array) */ someMethods;
+        auto someMethods =  /* (array) */ someMethods;
         foreach (method; someMethods) {
             /* if (is(method)) {
                 return true;
             } */
         }
         auto allowed = someMethods.join(", ").upper;
-         auto anException = new DMethodNotAllowedException();
-         anException.setHeader("Allow", allowed);
-        throw  anException;
+        auto anException = new DMethodNotAllowedException();
+        anException.setHeader("Allow", allowed);
+        throw anException;
     }
-    
+
     /**
      * Update the request with a new request data element.
      *
@@ -1063,7 +1064,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
         return copy;
     }
-    
+
     /**
      * Update the request removing a data element.
      *
@@ -1080,7 +1081,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
         return newServerRequest;
     }
-    
+
     /**
      * Update the request with a new routing parameter
      *
@@ -1093,37 +1094,40 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return newServerRequest;
     }
-    
+
     // Safely access the values in _params.
     Json getParam(string path, Json defaultValue = Json(null)) {
         // return Hash.get(_params, name, defaultValue);
         return Json(null);
     }
-    
+
     // Return an instance with the specified request attribute.
     static DServerRequest withAttribute(string attributeName, Json aValue) {
         DServerRequest newServerRequest = this.clone;
         if (isIn(attributeName, _emulatedAttributes, true)) {
-            newServerRequest.{attributeName} = aValue;
+            /* newServerRequest. {
+                attributeName
+            }
+             = aValue; */
         } else {
             newServerRequest.attributes[attributeName] = aValue;
         }
         return newServerRequest;
     }
-    
+
     // Return an instance without the specified request attribute.
     static auto withoutAttribute(string name) {
         auto newServerRequest = this.clone;
         if (isIn(name, _emulatedAttributes, true)) {
             throw new DInvalidArgumentException(
                 "You cannot unset 'name'. It is a required UIM attribute."
-           );
+            );
         }
         removeKey(newServerRequest.attributes[name]);
 
         return newServerRequest;
     }
-    
+
     // Read an attribute from the request, or get the default
     Json getAttribute(string attributeName, Json defaultValue = Json(null)) {
         /* if (isIn(attributeName, _emulatedAttributes, true)) {
@@ -1132,10 +1136,10 @@ class DServerRequest : UIMObject { // }: IServerRequest {
             }
             return _{attributeName};
         } */
-        
+
         return _attributes.get(attributeName, defaultValue);
     }
-    
+
     /**
      * Get all the attributes in the request.
      *
@@ -1151,7 +1155,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return _attributes + emulated;
     }
-    
+
     /**
      * Get the uploaded file from a dotted path.
      * Params:
@@ -1159,19 +1163,19 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      */
     IUploadedFile getUploadedFile(string aPath) {
         auto file = Hash.get(this.uploadedFiles, somePath);
-        if (!cast(UploadedFile)file) {
+        if (!cast(UploadedFile) file) {
             return null;
         }
         return file;
     }
-    
+
     /**
      * Get the array of uploaded files from the request.
      */
     Json[string] getUploadedFiles() {
         return _uploadedFiles;
     }
-    
+
     /**
      * Update the request replacing the files, and creating a new instance.
      * Params:
@@ -1184,7 +1188,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return newServerRequest;
     }
-    
+
     /**
      * Recursively validate uploaded file data.
      * Params:
@@ -1196,17 +1200,17 @@ class DServerRequest : UIMObject { // }: IServerRequest {
                 this.validateUploadedFiles(file, key ~ ".");
                 continue;
             }
-            if (!cast(IUploadedFile)file) {
+            if (!cast(IUploadedFile) file) {
                 throw new DInvalidArgumentException("Invalid file at `%s%s`.".format(path, key));
             }
         }
     }
-    
+
     // Gets the body of the message.
     IStream getBody() {
         return _stream;
     }
-    
+
     /**
      * Return an instance with the specified message body.
      * Params:
@@ -1218,12 +1222,12 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return newServerRequest;
     }
-    
+
     // Retrieves the URI instance.
     IUri getUri() {
         return _uri;
     }
-    
+
     /**
      * Return an instance with the specified uri
      *
@@ -1251,7 +1255,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return nenewServerRequestw;
     }
-    
+
     /**
      * Create a new instance with a specific request-target.
      *
@@ -1265,7 +1269,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
         return newRequest;
     }
-    
+
     /**
      * Retrieves the request`s target.
      *
@@ -1283,12 +1287,11 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         if (this.uri.getQuery()) {
             target ~= "?" ~ this.uri.getQuery();
         }
-        
+
         return target.isEmpty
-            ? "/"
-            : target;
+            ? "/" : target;
     }
-    
+
     // Get the path of current request.
     string getPath() {
         if (_requestTarget.isNull) {
@@ -1296,7 +1299,6 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         }
 
         return _requestTarget.contains("?")
-            ? _requestTarget.split("?")[0]
-            : null;
+            ? _requestTarget.split("?")[0] : null;
     }
 }

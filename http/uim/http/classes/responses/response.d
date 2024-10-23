@@ -18,7 +18,7 @@ import uim.http;
  * include status codes that are now allowed which will throw an
  * `\InvalidArgumentException`.
  */
-class DResponse : IResponse {
+class DResponse : UIMObject, IResponse {
     mixin TMessage;
 
     const int STATUS_CODE_MIN = 100;
@@ -453,11 +453,11 @@ class DResponse : IResponse {
      * string aurl The location to redirect to.
      */
     static withLocation(string aurl) {
-        new = this.withHeader("Location", url);
-        if (new._status == 200) {
-            new._status = 302;
+        auto newResponse = this.withHeader("Location", url);
+        if (newResponse._status == 200) {
+            newResponse._status = 302;
         }
-        return new;
+        return newResponse;
     }
     
     // Sets a header.
@@ -582,10 +582,10 @@ class DResponse : IResponse {
      */
     static auto withType(string acontentType) {
         mappedType = this.resolveType(contentType);
-        new = this.clone;
-        new._setContentType(mappedType);
+        DResponse newResponse = this.clone;
+        newResponse._setContentType(mappedType);
 
-        return new;
+        return newResponse;
     }
     
     /**
@@ -626,7 +626,7 @@ class DResponse : IResponse {
         if (ctype.isArray) {
             // return array_map(this.mapType(...), ctype);
         }
-        foreach (aliasName, types; _mimeTypes as ) {
+        foreach (aliasName, types; _mimeTypes) {
             if (isIn(ctype, /* (array) */types, true)) {
                 return aliasName;
             }
@@ -641,11 +641,11 @@ class DResponse : IResponse {
     
     // Get a new instance with an updated charset.
     static withCharset(string acharset) {
-        new = this.clone;
-        new._charset = charset;
-        new._setContentType(getType());
+        auto newResponse = this.clone;
+        newResponse._charset = charset;
+        newResponse._setContentType(getType());
 
-        return new;
+        return newResponse;
     }
     
     // Create a new instance with headers to instruct the client to not cache the response
@@ -712,11 +712,11 @@ class DResponse : IResponse {
      * int seconds The seconds a cached response can be considered valid
      */
     static withMaxAge(int seconds) {
-        new = this.clone;
-        new._cacheDirectives["max-age"] = seconds;
-        new._setCacheControl();
+        auto newResponse = this.clone;
+        newResponse._cacheDirectives["max-age"] = seconds;
+        newResponse._setCacheControl();
 
-        return new;
+        return newResponse;
     }
     
     /**
@@ -730,15 +730,15 @@ class DResponse : IResponse {
      * bool enable If boolean sets or unsets the directive.
      */
     static withMustRevalidate(bool enable) {
-        new = this.clone;
+        auto newResponse = this.clone;
         if (enable) {
-            new._cacheDirectives["must-revalidate"] = true;
+            newResponse._cacheDirectives["must-revalidate"] = true;
         } else {
-            removeKey(new._cacheDirectives["must-revalidate"]);
+            removeKey(newResponse._cacheDirectives["must-revalidate"]);
         }
-        new._setCacheControl();
+        newResponse._setCacheControl();
 
-        return new;
+        return newResponse;
     }
     
     /**
@@ -746,9 +746,9 @@ class DResponse : IResponse {
      * in other methods
      */
     protected void _setCacheControl() {
-        control = "";
-        foreach (_cacheDirectives as aKey: val) {
-            control ~= val == true ? aKey : "%s=%s".format(aKey, val);
+        auto control = "";
+        foreach (key, value; _cacheDirectives) {
+            control ~= value == true ? key : "%s=%s".format(key, value);
             control ~= ", ";
         }
         control = stripRight(control, ", ");
@@ -789,8 +789,7 @@ class DResponse : IResponse {
      * \Jsontime Valid time string or \DateTime instance.
      */
     static withModified(Jsontime) {
-        date = _getUTCDate(time);
-
+        auto date = _getUTCDate(time);
         return _withHeader("Last-Modified", date.format(DATE_RFC7231));
     }
     
@@ -802,9 +801,9 @@ class DResponse : IResponse {
      * a response body.
      */
     static auto withNotModified() {
-        auto new = this.withStatus(304);
-        new._createStream();
-        auto remove = [
+        auto newResponse = this.withStatus(304);
+        newResponse._createStream();
+        auto removeHeaders = [
             "Allow",
             "Content-Encoding",
             "Content-Language",
@@ -813,10 +812,10 @@ class DResponse : IResponse {
             "Content-Type",
             "Last-Modified",
         ];
-        foreach (aHeader; remove) {
-            new = new.withoutHeader(aHeader);
+        foreach (header; removeHeaders) {
+            newResponse = newResponse.withoutHeader(header);
         }
-        return new;
+        return newResponse;
     }
     
     /**
@@ -863,7 +862,7 @@ class DResponse : IResponse {
      * Params:
      * \Jsontime Valid time string or \IDateTime instance.
      */
-    protected IDateTime _getUTCDate(Jsontime = null) {
+    protected IDateTime _getUTCDate(Json time = Json(null)) {
         if (cast(IDateTime)time) {
             result = time.clone;
         } else if (isInteger(time)) {
@@ -889,30 +888,21 @@ class DResponse : IResponse {
             ob_start("ob_gzhandler");
     }
     
-    /**
-     * Returns whether the resulting output will be compressed by D
-     */
+    // Returns whether the resulting output will be compressed by D
    bool outputCompressed() {
         return /* (string) */enviroment("HTTP_ACCEPT_ENCODING").contains("gzip")
             && (ini_get("zlib.output_compression") == "1" || isIn("ob_gzhandler", ob_list_handlers(), true));
     }
     
-    /**
-     * Create a new instance with the Content-Disposition header set.
-     * Params:
-     * string afilename The name of the file as the browser will download the response
-     */
-    static withDownload(string afilename) {
+    // Create a new instance with the Content-Disposition header set.
+    static withDownload(string filename) {
         return _withHeader("Content-Disposition", "attachment; filename=\"" ~ filename ~ "\"");
     }
     
-    /**
-     * Create a new response with the Content-Length header set.
-     * Params:
-     * string|int bytes Number of bytes
-     */
-    static auto withLength(string|int bytes) {
-        return _withHeader("Content-Length", (string)bytes);
+    // Create a new response with the Content-Length header set.
+    // static auto withLength(string|int bytes) {
+    static auto withLength(string bytes) {
+        return _withHeader("Content-Length", bytes);
     }
     
     /**
@@ -947,21 +937,21 @@ class DResponse : IResponse {
      * before calling this method. Otherwise, a comparison will not be possible.
      */
     bool isNotModified(DServerRequest serverRequest) {
-        etags = preg_split("/\s*,\s*/", serverRequest.getHeaderLine("If-None-Match"), 0, PREG_SPLIT_NO_EMPTY) ?: [];
-        responseTag = getHeaderLine("Etag");
-        etagMatches = null;
+        auto etags = preg_split("/\s*,\s*/", serverRequest.getHeaderLine("If-None-Match"), 0, PREG_SPLIT_NO_EMPTY) ?: [];
+        auto responseTag = getHeaderLine("Etag");
+        auto etagMatches = null;
         if (responseTag) {
             etagMatches = isIn("*", etags, true) || isIn(responseTag, etags, true);
         }
-        modifiedSince = serverRequest.getHeaderLine("If-Modified-Since");
-        timeMatches = null;
+        auto modifiedSince = serverRequest.getHeaderLine("If-Modified-Since");
+        auto timeMatches = null;
         if (modifiedSince && this.hasHeader("Last-Modified")) {
             timeMatches = strtotime(getHeaderLine("Last-Modified")) == strtotime(modifiedSince);
         }
-        if (etagMatches.isNull && timeMatches.isNull) {
-            return false;
-        }
-        return etagMatches == true && timeMatches == true;
+
+        return etagMatches.isNull && timeMatches.isNull
+            ? false
+            : etagMatches == true && timeMatches == true;
     }
     
     /**
@@ -984,8 +974,6 @@ class DResponse : IResponse {
      * add a cookie object
      * response = response.withCookie(new DCookie("remember_me", 1));
      * ```
-     * Params:
-     * \UIM\Http\Cookie\ICookie cookie cookie object
      */
     static auto withCookie(ICookie cookie) {
         auto newResponse = this.clone;
@@ -1003,16 +991,14 @@ class DResponse : IResponse {
      * add a cookie object
      * response = response.withExpiredCookie(new DCookie("remember_me"));
      * ```
-     * Params:
-     * \UIM\Http\Cookie\ICookie cookie cookie object
      */
     static auto withExpiredCookie(ICookie cookie) {
         cookie = cookie.withExpired();
 
-        new = this.clone;
-        new._cookies = new._cookies.add(cookie);
+        auto newResponse = this.clone;
+        newResponse._cookies = newResponse._cookies.add(cookie);
 
-        return new;
+        return newResponse;
     }
     
     /**
@@ -1024,10 +1010,9 @@ class DResponse : IResponse {
      * string aName The cookie name you want to read.
      */
     Json[string] getCookie(string aName) {
-        if (!_cookies.has(name)) {
-            return null;
-        }
-        return _cookies.get(name).toJString();
+        return !_cookies.has(name)
+            ? null
+            : _cookies.get(name).toJString();
     }
     
     /**
@@ -1035,11 +1020,9 @@ class DResponse : IResponse {
      *
      * Returns an associative array of cookie name: cookie data.
      */
-    Json[string] <string, array> getCookies() {
-         auto result;
-        foreach (_cookies as cookie) {
-             result[cookie.name] = cookie.toJString();
-        }
+    Json[string] getCookies() {
+         Json[string] result;
+        _cookies.each!(cookie => result[cookie.name] = cookie.toJString());
         return result;
     }
     
@@ -1050,27 +1033,18 @@ class DResponse : IResponse {
         return _cookies;
     }
     
-    /**
-     * Get a new instance with provided cookie collection.
-     * Params:
-     * \UIM\Http\Cookie\CookieCollection cookieCollection Cookie collection to set.
-     */
+    // Get a new instance with provided cookie collection.
     static withCookieCollection(CookieCollection cookieCollection) {
-        new = this.clone;
-        new._cookies = cookieCollection;
+        auto newResponse = this.clone;
+        newResponse._cookies = cookieCollection;
 
-        return new;
+        return newResponse;
     }
     
-    /**
-     * Get a CorsBuilder instance for defining CORS headers.
-     * Params:
-     * \UIM\Http\ServerRequest serverRequest Request object
-     */
+    // Get a CorsBuilder instance for defining CORS headers.
     DCorsBuilder cors(IServerRequest serverRequest) {
-        origin = serverRequest.getHeaderLine("Origin");
-        https = serverRequest.is("https");
-
+        auto origin = serverRequest.getHeaderLine("Origin");
+        auto https = serverRequest.is("https");
         return new DCorsBuilder(this, origin, https);
     }
     
@@ -1087,11 +1061,9 @@ class DResponse : IResponse {
      * - name: Alternate download name
      * - download: If `true` sets download header and forces file to
      * be downloaded rather than displayed inline.
-     * Params:
-     * string aPath Absolute path to file.
      */
-    static withFile(string aPath, Json[string] options = null) {
-        auto file = validateFile(somePath);
+    static withFile(string path, Json[string] options = null) {
+        auto file = validateFile(path);
         auto options = options.setPath([
             "name": StringData,
             "download": Json(null)
@@ -1100,19 +1072,19 @@ class DResponse : IResponse {
         auto fileExtension = file.getExtension().lower;
         auto mapped = getMimeType(fileExtension);
         if ((!fileExtension || !mapped) && options.isNull("download")) {
-            options.get("download"] = true;
+            options.get("download") = true;
         }
         auto newResponse = this.clone;
         if (mapped) {
             newResponse = newResponse.withType(fileExtension);
         }
         fileSize = file.getSize();
-        if (options.hasKey("download"]) {
+        if (options.hasKey("download")) {
             agent = /* (string) */enviroment("HTTP_USER_AGENT");
 
-            if (agent && preg_match("%Opera([/ ])([0-9].[0-9]{1,2})%", agent)) {
+            if (agent && preg_match(r"%Opera([/ ])([0-9].[0-9]{1,2})%", agent)) {
                 contentType = "application/octet-stream";
-            } else if (agent && preg_match("/MSIE ([0-9].[0-9]{1,2})/", agent)) {
+            } else if (agent && preg_match(r"/MSIE ([0-9].[0-9]{1,2})/", agent)) {
                 contentType = "application/force-download";
             }
             if (contentType !is null) {
@@ -1127,7 +1099,7 @@ class DResponse : IResponse {
         if (httpRange) {
             newResponse._fileRange(file, httpRange);
         } else {
-            newResponse = new.withHeader("Content-Length", (string)fileSize);
+            newResponse = new.withHeader("Content-Length", to!string(fileSize));
         }
         newResponse._file = file;
         newResponse.stream = new DStream(file.getPathname(), "rb");
@@ -1169,16 +1141,14 @@ class DResponse : IResponse {
      *
      * If an invalid range is requested a 416 Status code will be used
      * in the response.
-     * Params:
-     * \SplFileInfo file The file to set a range on.
      */
-    protected void _fileRange(SplFileInfo file, string httpRange) {
+    protected void _fileRange(DFileInfo file, string httpRange) {
         size_t fileSize = file.getSize();
         lastByte = fileSize - 1;
         string start = 0;
         string end = lastByte;
 
-        preg_match("/^bytes\s*=\s*(\d+)?\s*-\s*(\d+)?/", httpRange, matches);
+        preg_match(r"/^bytes\s*=\s*(\d+)?\s*-\s*(\d+)?/", httpRange, matches);
         if (matches) {
             start = matches[1];
             end = !matches[2].ifEmpty("");
@@ -1208,7 +1178,7 @@ class DResponse : IResponse {
     
     // Returns an array that can be used to describe the internal state of this object.
     Json[string] debugInfo() {
-        return createMap!(string, Json)
+        return super.debugInfo()
             .set("status", _status)
             .set("contentType", getType())
             .set("headers", _headers)

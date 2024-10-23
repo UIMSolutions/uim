@@ -67,7 +67,9 @@ class DResponseEmitter {
     
     // Emit a range of the message body.
     protected void emitBodyRange(Json[string] dataToEmit, IResponse responseToEmit) {
-        [, first, last] = dataToEmit;
+        auto values = dataToEmit;
+        auto first = value[1];
+        auto last = value[2];
 
         auto responseBody = responseToEmit.getBody();
 

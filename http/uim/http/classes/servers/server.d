@@ -61,7 +61,7 @@ class DServer : UIMObject { // }: IEventDispatcher {
    ) {
         bootstrap();
 
-        request = request ?: ServerRequestFactory.fromGlobals();
+        request = request ? request : ServerRequestFactory.fromGlobals();
 
         if (middlewareQueue.isNull) {
             if (cast(IContainerApplication)_app) {
@@ -70,7 +70,8 @@ class DServer : UIMObject { // }: IEventDispatcher {
                 middlewareQueue = new DMiddlewareQueue();
             }
         }
-        middleware = _app.middleware(middlewareQueue);
+        
+        auto middleware = _app.middleware(middlewareQueue);
         if (cast(IPluginApplication)_app) {
             middleware = _app.pluginMiddleware(middleware);
         }
@@ -125,7 +126,6 @@ class DServer : UIMObject { // }: IEventDispatcher {
     void eventManager(IEventManager eventManager) {
         if (cast(IEventDispatcher)_app) {
             _app.eventManager(eventManager);
-
             return;
         }
         throw new DInvalidArgumentException("Cannot set the event manager, the application does not support events.");

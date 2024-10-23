@@ -33,6 +33,14 @@ class DVibeSession : DHttpSession {
   override string getString(string key) {
     return get!string(key);
   }
+
+  override void removeKeys(string[] keys) {
+    keys.each!(key => removeKey(key));
+  }
+
+  override void removeKey(string key) {
+    session.remove(key);
+  }
 }
 
 mixin(SessionCalls!("Vibe"));

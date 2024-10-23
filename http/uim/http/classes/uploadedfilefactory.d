@@ -3,15 +3,13 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http.classes.uploadedfilefactory;UIMError
+module uim.http.classes.uploadedfilefactory;
 
 import uim.http;
 
 @safe:
 
-/**
- * Factory class for creating uploaded file instances.
- */
+// Factory class for creating uploaded file instances.
 class DUploadedFileFactory { //}: IUploadedFileFactory {
     /**
      * Create a new uploaded file.

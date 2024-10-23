@@ -263,9 +263,7 @@ class DSession : UIMObject, ISession {
         }
     }
 
-    /**
-     * Starts the Session.
-     */
+    // Starts the Session.
     bool start() {
         if (_started) {
             return true;
@@ -298,21 +296,20 @@ class DSession : UIMObject, ISession {
         return _started;
     }
 
-    /**
-     * Write data and close the session
-     */
+    // Write data and close the session
     bool close() {
         if (!_started) {
             return true;
         }
         if (_isCLI) {
             _started = false;
-
             return true;
         }
-        if (!session_write_close()) {
+
+        // TODO 
+        /* if (!session_write_close()) {
             throw new UIMException("Could not close the session");
-        }
+        } */
         _started = false;
 
         return true;
@@ -340,23 +337,26 @@ class DSession : UIMObject, ISession {
 
     // Returns given session variable, or all of them, if no parameters given.
     Json read(string variableName = null, Json defaultValue = Json(null)) {
-        if (_hasSession() && !this.started()) {
-            this.start();
+        if (_hasSession() && !started()) {
+            start();
         }
         if (_SESSION !is null) {
             return defaultValue;
         }
+
         if (variableName.isNull) {
             return _SESSION ? _SESSION : [];
         }
+
         return Hash.get(_SESSION, variableName, defaultValue);
     }
 
     // Returns given session variable, or throws Exception if not found.
     Json readOrFail(string sessionName) {
-        if (!this.check(sessionName)) {
+        if (!check(sessionName)) {
             throw new UIMException("Expected session key `%s` not found.".format(sessionName));
         }
+
         return _read(sessionName);
     }
 
@@ -366,7 +366,7 @@ class DSession : UIMObject, ISession {
             return null;
         }
 
-        Json result = this.read(key);
+        Json result = read(key);
         if (!result.isNull) {
             /** @psalm-suppress InvalidScalarArgument */
             _overwrite(_SESSION, Hash.removeKey(_SESSION, key));
@@ -380,7 +380,7 @@ class DSession : UIMObject, ISession {
     }
 
     void write(string[string] variables, Json value = Json(null)) {
-        bool started = this.started() || this.start();
+        bool started = started() || start();
         if (!started) {
             auto message = "Could not start the session";
             if (_headerSentInfo !is null) {

@@ -991,7 +991,7 @@ double getDouble(Json value) {
 
 string getString(Json value, string key) {
   return value.isObject && value.hasKey(key)
-      ? value[key].getString : null;
+    ? value[key].getString : null;
 }
 
 string getString(Json value) {
@@ -1266,3 +1266,38 @@ bool isSet(Json json, string key) {
     ? json.byKeyValue.any!(kv => kv.key == key) : false;
 }
 // #endregion isSet
+
+// #region count
+size_t count(Json value) {
+  if (value.isNull) {
+    return 0;
+  }
+
+  if (value.isObject) {
+    return value.byKeyValue.array.length;
+  }
+
+  if (value.isArray) {
+    return value.toArray.length;
+  }
+
+  return 1;
+}
+
+unittest {
+  Json json = Json(null);
+  assert(json.count == 0);
+
+  json = Json("one");
+  assert(json.count == 1);
+
+  json = Json([Json("one"), Json("two")]);
+  assert(json.count == 2);
+
+  json = Json.emptyObject;
+  json["one"] = 1;
+  json["two"] = 2;
+  json["three"] = 3;
+  assert(json.count == 3);
+}
+// #endregion count

@@ -194,8 +194,7 @@ class DValidation : UIMObject, IValidation {
   // Used to check the count of a given value of type array or Countable.
   static bool checkNumElements(Json value, string validationOperator, int expectedCount) {
     return !value.isArray
-            ? false
-            : comparison(count(value), validationOperator, expectedCount); */
+      ? false : comparison(count(value), validationOperator, expectedCount);
   }
 
   // Used to compare 2 numeric values.

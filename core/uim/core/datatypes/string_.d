@@ -1113,25 +1113,25 @@ bool isBoolean(string value) {
 }
 
 protected string shortestText(string[] texts) {
-  if (names.isEmpty) {
+  if (texts.isEmpty) {
     return null;
   }
 
-  if (names.length == 1) {
-    return names[0];
+  if (texts.length == 1) {
+    return texts[0];
   }
 
-  return names.sort!("a.length < b.length")[0];
+  return texts.sort!("a.length < b.length")[0];
 }
 
 protected string longestText(string[] texts) {
-  if (names.isEmpty) {
+  if (texts.isEmpty) {
     return null;
   }
 
-  if (names.length == 1) {
-    return names[0];
+  if (texts.length == 1) {
+    return texts[0];
   }
 
-  return names.sort!("a.length > b.length")[0];
+  return texts.sort!("a.length > b.length")[0];
 }

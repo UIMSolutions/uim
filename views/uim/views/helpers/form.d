@@ -1676,7 +1676,7 @@ class DFormHelper : DHelper {
         }
         htmlAttributes = _initInputField(fieldName, htmlAttributes);
         htmlAttributes.set("options", options);
-        htmlAttributes.set("idPrefix", _idPrefix); */
+        htmlAttributes.set("idPrefix", _idPrefix); 
 
         string hidden = "";
         if (htmlAttributes.hasKey("hiddenField")) {
@@ -1694,7 +1694,7 @@ class DFormHelper : DHelper {
         if (generatedHiddenId) {
             htmlAttributes.removeKey("id");
         }
-        return hidden ~ widget("multicheckbox", htmlAttributes); */
+        return hidden ~ widget("multicheckbox", htmlAttributes); 
     }
 
     /**

@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.classes.loggers.file;LogLevel
+module uim.logging.classes.loggers.file;
 
 import uim.logging;
 
@@ -14,19 +14,19 @@ import uim.logging;
  * based on the level of log it is.
  */
 class DFileLogger : DLogger {
-    mixin(LoggerThis!("File"));
+  mixin(LoggerThis!("File"));
 
-    // Path to save log files on.
-    protected string _path;
+  // Path to save log files on.
+  protected string _path;
 
-    // The name of the file to save logs into.
-    protected string _file = null;
+  // The name of the file to save logs into.
+  protected string _file = null;
 
-    // Max file size, used for log file rotation.
-    protected int _size = 0;
+  // Max file size, used for log file rotation.
+  protected int _size = 0;
 
-    override bool initialize(Json[string] initData = null) {
-        /**
+  override bool initialize(Json[string] initData = null) {
+    /**
      * Default config for this class
      *
      * - `levels` string or array, levels the engine is interested in
@@ -44,19 +44,19 @@ class DFileLogger : DLogger {
      * - `dirMask` The mask used for created folders.
      *
      */
-        configuration
-            .setDefault("path", Json(null))
-            .setDefault("file", Json(null))
-            .setDefault("types", Json(null))
-            .setDefault("levels", Json.emptyArray)
-            .setDefault("scopes", Json.emptyArray)
-            .setDefault("rotate", 10)
-            .setDefault("size", 10_485_760) // 10M)
-            .setDefault("mask", Json(null)) // .setDefault("dirMask", 0770)
-            .setDefault("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
-                    .classname));
+    configuration
+      .setDefault("path", Json(null))
+      .setDefault("file", Json(null))
+      .setDefault("types", Json(null))
+      .setDefault("levels", Json.emptyArray)
+      .setDefault("scopes", Json.emptyArray)
+      .setDefault("rotate", 10)
+      .setDefault("size", 10_485_760) // 10M)
+      .setDefault("mask", Json(null)) // .setDefault("dirMask", 0770)
+      .setDefault("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
+          .classname));
 
-        /* auto _path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
+    /* auto _path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
         if (!isDir(_path)) {
             mkdir(_path, configuration.get("dirMask"), true);
         }
@@ -72,47 +72,46 @@ class DFileLogger : DLogger {
                 : Text.parseFileSize(configuration.get("size"));
         } */
 
-        return true;
+    return true;
+  }
+  // Get filename
+  protected string _getFilename(string logLevel) {
+    string[] debugTypes = ["notice", "info", "debug"];
+
+    string result;
+    if (!_file.isEmpty) {
+      return _file;
+    } else if (logLevel == "error" || logLevel == "warning") {
+      return "error.log";
+    } else if (debugTypes.has(logLevel)) {
+      return "debug.log";
     }
-    // Get filename
-    protected string _getFilename(string logLevel) {
-        string[] debugTypes = ["notice", "info", "debug"];
+    return logLevel ~ ".log";
+  }
 
-        string result;
-        if (!_file.isEmpty) {
-            return _file;
-        } else if (logLevel == "error" || logLevel == "warning") {
-            return "error.log";
-        } else if (debugTypes.has(logLevel)) {
-            return "debug.log";
-        }
-        return logLevel ~ ".log";
-    }
-
-
-    // writing to log files.
-    void log(int logLevel, string messageToLog, Json[string] messageContext = null) {
-        string message; /* = this.interpolate(messageToLog, messageContext);
+  // writing to log files.
+  void log(int logLevel, string messageToLog, Json[string] messageContext = null) {
+    string message; /* = this.interpolate(messageToLog, messageContext);
         message = _formatter.format(logLevel, message, messageContext); */
 
-        string filename; // = _getFilename(logLevel);
-        if (_size) {
-            _rotateFile(filename);
-        }
+    string filename; // = _getFilename(logLevel);
+    if (_size) {
+      _rotateFile(filename);
+    }
 
-        string filePath = _path ~ filename;
-        Json mask = configuration.get("mask");
-        /* if (!mask) {
+    string filePath = _path ~ filename;
+    Json mask = configuration.get("mask");
+    /* if (!mask) {
             file_put_contents(filePath, message ~ "\n", FILE_APPEND);
 
             return;
         } */
 
-        bool fileExists = isFile(filePath);
-        /* file_put_contents(filePath, message ~ "\n", FILE_APPEND); */
+    bool fileExists = isFile(filePath);
+    /* file_put_contents(filePath, message ~ "\n", FILE_APPEND); */
 
-        bool selfError = false;
-        /* if (!selfError && !fileExists && !chmod(filePath, to!int(mask))) {
+    bool selfError = false;
+    /* if (!selfError && !fileExists && !chmod(filePath, to!int(mask))) {
             selfError = true;
             trigger_error(
                 "Could not apply permission mask `%s` on log file `%s`"
@@ -120,28 +119,28 @@ class DFileLogger : DLogger {
                     ERRORS.USER_WARNING);
             selfError = false;
         } */
-    }
+  }
 
-    /**
+  /**
      * Rotate log file if size specified in config is reached.
      * Also if `rotate` count is reached oldest file is removed.
      * Params:
      * string logFilename Log file name
      */
-    protected bool _rotateFile(string logFilename) {
-        bool result = false;
-        string logFilepath = _path ~ logFilename;
-        /* clearstatcache(true, logFilepath); */
+  protected bool _rotateFile(string logFilename) {
+    bool result = false;
+    string logFilepath = _path ~ logFilename;
+    /* clearstatcache(true, logFilepath); */
 
-        /* if (!isFile(logFilepath) || filesize(logFilepath) < _size) {
+    /* if (!isFile(logFilepath) || filesize(logFilepath) < _size) {
             return null;
         } */
 
-        /* size_t rotate = configuration.get("rotate");
+    /* size_t rotate = configuration.get("rotate");
         result = rotate == 0
             ? unlink(logFilepath) : rename(logFilepath, logFilepath ~ "." ~ time()); */
 
-        /* auto files = glob(logFilepath ~ ".*");
+    /* auto files = glob(logFilepath ~ ".*");
         if (files) {
             size_t filesToDelete = files.length - rotate;
             while (filesToDelete > 0) {
@@ -149,11 +148,12 @@ class DFileLogger : DLogger {
                 filesToDelete--;
             }
         } */
-        return result;
-    }
+    return result;
+  }
 
   override ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
-    return this; 
+    return this;
   }
 }
-    mixin(LoggerCalls!("File"));
+
+mixin(LoggerCalls!("File"));

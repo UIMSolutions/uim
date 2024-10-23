@@ -42,7 +42,7 @@ class DWidgetLocator {
     _stringContents = newTemplate;
     _view = newView;
 
-    add(widgets);
+    // TODO add(widgets);
   }
 
   /**
@@ -94,8 +94,8 @@ class DWidgetLocator {
      */
   IWidget get(string widgetName) {
     if (!_widgets.hasKey(widgetName)) {
-      if (_widgets.isEmpty("_default")) {
-        throw new DInvalidArgumentException("Unknown widget `%s`".format(widgetName));
+      if (_widgets.hasKey("_default")) {
+        // TODO throw new DInvalidArgumentException("Unknown widget `%s`".format(widgetName));
       }
       widgetName = "_default";
     }

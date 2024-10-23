@@ -75,9 +75,6 @@ class DFormProtector : UIMObject {
         return addFields(getFieldNameParts(field), shouldLock, value);
     }
     auto addFields(string[] field, bool shouldLock = true, Json value = Json(null)) {
-            field = ;
-        }
-
         if (field.isEmpty) {
             return this;
         }
@@ -105,7 +102,7 @@ class DFormProtector : UIMObject {
             }
         } else {
             this.unlockField(field);
-        } */
+        }
         return this;
     }
 

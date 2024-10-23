@@ -4,7 +4,8 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.logging.classes.loggers.syslog;
-LogLevel.LogLevel.LogLevel.import uim.logging;
+
+import uim.logging;
 
 @safe:
 
@@ -59,7 +60,7 @@ class DSysLogger : DLogger {
             "warning": LogLevel.warn,
             "notice": LogLevel.trace,
             "info": LogLevel.info,
-            "debug": LogLevel.debug__,
+            "debug": LogLevel.debug_,
         ];
 
         return true;
@@ -78,10 +79,10 @@ class DSysLogger : DLogger {
      */
     void log(Json severityLevel, string message, Json[string] context = null) {
         if (!_isopen) {
-           _open(configuration.get("prefix"), configuration.get("flag"), configuration.get("facility"));
-           _isopen = true;
+           /* _open(configuration.get("prefix"), configuration.get("flag"), configuration.get("facility"));
+           _isopen = true; */
         }
-        auto priority = LogLevel.debug__;
+        auto priority = LogLevel.debug_;
         /* if (_levelMap.hasKey(severityLevel)) {
             priority = _levelMap[level];
         } */

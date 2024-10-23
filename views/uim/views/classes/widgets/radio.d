@@ -71,21 +71,21 @@ class DRadioWidget : DWidget {
     override string render(Json[string] data, IContext formContext) {
         data.merge(formContext.data);
 
-        options = mydata.get("options")
-            ? iterator_to_array(mydata.get("options")) : mydata.getArray("options");
+        options = data.get("options")
+            ? iterator_to_array(data.get("options")) : data.getArray("options");
 
-        if (!mydata.isEmpty("empty")) {
-            auto empty = mydata.contains("empty") ? "empty" : mydata.getString("empty");
+        if (!data.isEmpty("empty")) {
+            auto empty = data.hasKey("empty") ? "empty" : data.getString("empty");
             options = options.set("", empty);
         }
 
-        mydata.removeKey("empty");
+        data.removeKey("empty");
 
-        _idPrefix = mydata.get("idPrefix");
+        _idPrefix = data.get("idPrefix");
         _clearIds();
 
         auto myopts = options.byKeyValue
-            .map!(valText => _renderInput(valText.key, valText.value, mydata, formContext))
+            .map!(valText => _renderInput(valText.key, valText.value, data, formContext))
             .array;
 
         return myopts.join(""); 
@@ -144,12 +144,12 @@ class DRadioWidget : DWidget {
             auto selectedClass = _stringContents.format("selectedClass", []);
             mydoptionsata.set("label", _stringContents.addclassnameToList(labelData, selectedClass));
         }
-        radio.set("disabled", _isDisabled(radio, mydata["disabled"]));
+        radio.set("disabled", _isDisabled(radio, data["disabled"]));
         if (options.hasKey("required")) {
             radio.set("required", true);
         }
         if (options.hasKey("form")) {
-            radio.set("form", mydata["form"]);
+            radio.set("form", data["form"]);
         }
         myinput = _stringContents.format("radio", createMap!(string, Json)
                 .merge("name", radio["name"])
@@ -177,7 +177,7 @@ class DRadioWidget : DWidget {
         return _stringContents.format("radioWrapper", createMap!(string, Json)
                 .merge("input", myinput)
                 .merge("label", label)
-                .merge("templateVars", mydata["templateVars"])); */
+                .merge("templateVars", data["templateVars"])); */
 
         return null;
     }

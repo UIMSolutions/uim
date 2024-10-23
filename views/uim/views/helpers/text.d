@@ -8,8 +8,8 @@ module uim.views.helpers.text;
 import uim.views;
 
 @safe:
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 /*
@@ -94,7 +94,7 @@ class DTextHelper : DHelper {
      */
     protected string _insertPlaceHolder(Json[string] mymatches) {
         if (matches.isEmpty) {
-            return null; 
+            return null;
         }
 
         auto mymatch = mymatches.values[0];
@@ -106,7 +106,7 @@ class DTextHelper : DHelper {
         if (mymatches.hasKey("url_bare")) {
             mymatch = mymatches["url_bare"];
         }
-        
+
         string key = hash_hmac("sha1", mymatch, Security.getSalt());
         _placeholders[key] = [
             "content": mymatch,
@@ -114,18 +114,18 @@ class DTextHelper : DHelper {
         ];
 
         return key;
-   }
+    }
 
     // Replace placeholders with links.
     protected string _linkUrls(string text, Json[string] myhtmlOptions) {
-         string  myreplace = null;
-/*        foreach (myhash, mycontent; _placeholders) {
+        string myreplace = null;
+        /*        foreach (myhash, mycontent; _placeholders) {
             auto mylink = myurl = mycontent["content"];
             auto envelope = mycontent["envelope"];
             /* if (!preg_match("#^[a-z]+\://#i", myurl)) {
                 myurl = "http://" ~ myurl;
             } */
-            /* myreplace[myhash] = envelope[0] ~ this.Html.link(mylink, myurl, myhtmlOptions) ~ envelope[1]; * /
+        /* myreplace[myhash] = envelope[0] ~ this.Html.link(mylink, myurl, myhtmlOptions) ~ envelope[1]; * /
         }
         return strtr(text, myreplace); */
         return null;
@@ -133,8 +133,8 @@ class DTextHelper : DHelper {
 
     // Links email addresses
     protected string _linkEmails(string text, Json[string] options = null) {
-         string  myreplace = null;
-/*        foreach (myhash, mycontent; _placeholders) {
+        string myreplace = null;
+        /*        foreach (myhash, mycontent; _placeholders) {
             auto myurl = mycontent["content"];
             auto envelope = mycontent["envelope"];
             myreplace[myhash] = envelope[0] ~ this.Html.link(myurl, "mailto:" ~ myurl, options) ~ envelope[1];
@@ -174,7 +174,7 @@ class DTextHelper : DHelper {
      * - `escape` Control HTML escaping of input. Defaults to true.
      */
     string autoLink(string text, Json[string] options = null) {
-/*         auto linkUrls = autoLinkUrls(text, options);
+        /*         auto linkUrls = autoLinkUrls(text, options);
         return _autoLinkEmails(linkUrls, options.merge("escape", false)); */
         return null;
     }
@@ -191,8 +191,8 @@ class DTextHelper : DHelper {
             text = /* (string) * /preg_replace(r"/\n\n+/", "\n\n", text.replace(["\r\n", "\r"], "\n")); */
             /* mytexts = preg_split(r"/\n\s*\n/", text, -1, PREG_SPLIT_NO_EMPTY) ?: []; * /
             text ~= mytexts.map!(txt => "<p>" ~ nl2br(trim(mytxt, "\n")) ~ "</p>\n").join;
-            text = /* (string) * /preg_replace(r"|<p>\s*</p>|", "", text); * /
-        } */
+            text = /* (string) * /preg_replace(r"|<p>\s*</p>|", "", text); */
+        }
         return text;
     }
 

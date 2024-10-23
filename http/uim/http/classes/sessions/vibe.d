@@ -9,8 +9,26 @@ import uim.http;
 
 @safe:
 
-class DVibeSession : DSession {
+// Represents a single HTTP session using vibe
+class DVibeSession : DHttpSession {
   mixin(SessionThis!("Vibe"));
+
+  protected vibe.http.session.Session = _SESSION;
+  void session(vibe.http.session.Session session) {
+    _session = session;
+  }
+
+  override id() {
+    return _session.id;
+  }
+
+  override bool hasKey(string key) {
+    return _session.isKeySet(key);
+  }
+
+  override string getString(string key) {
+    return get!string(key);
+  }
 }
 
 mixin(SessionCalls!("Vibe"));

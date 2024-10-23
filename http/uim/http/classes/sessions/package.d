@@ -12,5 +12,6 @@ public {
 public {
     import uim.http.classes.sessions.cache;
     import uim.http.classes.sessions.database;
+    import uim.http.classes.sessions.http;
     import uim.http.classes.sessions.vibe;
 }

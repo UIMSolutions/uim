@@ -22,10 +22,8 @@ import uim.http;
  * values from the `session.*` directives in D.ini. This class will also alter such
  * directives when configuration values are provided.
  */
-class DSession {
-    /* 
-    // The Session handler instance used as an engine for persisting the session data.
-    protected ISessionHandler _engine = null;
+class DSession : UIMObject, ISession {
+    mixin(SessionThis!());
 
     // Indicates whether the sessions has already started
     protected bool _started = false;
@@ -36,12 +34,16 @@ class DSession {
     // Whether this session is running under a CLI environment
     protected bool _isCLI = false;
 
+    /* 
+    // The Session handler instance used as an engine for persisting the session data.
+    protected ISessionHandler _engine = null;
+
     /**
      * Info about where the headers were sent.
      *
      * @var array{filename: string, line: int}|null
      */
-    protected Json[string] aHeaderSentInfo = null;
+    protected Json[string] _headerSentInfo = null;
 
     /**
      * Returns a new instance of a session after building a configuration bundle for it.
@@ -100,7 +102,7 @@ class DSession {
 
     // Get one of the prebaked default session configurations.
     protected static Json[string] _defaultConfigData(string configName) {
-        tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
+        auto tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
         Json[string] defaults = [
             "D": [
                 "ini": [
@@ -183,7 +185,7 @@ class DSession {
             auto handlerEngineClassname = configuration.shift("handler.engine").getString;
             engine(handlerEngineClassname, configuration.get("handler"));
         }
-        _lifetime = /* (int)  */ini_get("session.gc_maxlifetime");
+        _lifetime =  /* (int)  */ ini_get("session.gc_maxlifetime");
         _isCLI = (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg");
         session_register_shutdown();
     }
@@ -398,6 +400,7 @@ class DSession {
         _overwrite(_SESSION, someData);
     }
 
+    // #region id
     /**
      * Returns the session ID.
      * Calling this method will not auto start the session. You might have to manually
@@ -408,15 +411,19 @@ class DSession {
      * Note that depending on the session handler, not all characters are allowed
      * within the session ID. For example, the file session handler only allows
      * characters in the range a-z A-Z 0-9 , (comma) and - (minus).
-     * Params:
-     * string  anId ID to replace the current session ID.
      */
-    string id(string aid = null) {
-        if (anId !is null && !headers_sent()) {
+    protected string _id;
+
+    void id(string newId) {
+        if (!anId.isEmpt && !headers_sent()) {
             session_id(anId);
         }
-        return to!string(session_id());
     }
+    
+    string id() {
+        return _id();
+    }
+    // #endregion id
 
     // Removes a variable from session.
     bool removeKey(string sessionName) {

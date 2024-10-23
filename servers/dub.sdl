@@ -1,0 +1,5 @@
+name "servers"
+description "A minimal D application."
+authors "ONS"
+copyright "Copyright © 2024, ONS"
+license "proprietary"

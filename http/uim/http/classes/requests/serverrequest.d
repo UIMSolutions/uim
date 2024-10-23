@@ -272,7 +272,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     }
     
     // Returns the instance of the Session object for this request
-    DSession getSession() {
+    ISession getSession() {
         return _session;
     }
     

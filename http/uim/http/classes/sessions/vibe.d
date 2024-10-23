@@ -26,6 +26,10 @@ class DVibeSession : DHttpSession {
     return _session.isKeySet(key);
   }
 
+  override string getLong(string key) {
+    return get!long(key);
+  }
+
   override string getString(string key) {
     return get!string(key);
   }

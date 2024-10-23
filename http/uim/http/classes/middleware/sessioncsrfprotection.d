@@ -65,24 +65,26 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
             || request.getParsedBody();
 
         if (
-            hasData
-            /* && this.skipCheckCallback !is null
+            hasData /* && this.skipCheckCallback !is null
             && call_user_func(this.skipCheckCallback, serverRequest) == true */
+            
             ) {
             return requestHandler.handle(this.unsetTokenField(serverRequest));
         }
-        session = request.getAttribute("session");
-        if (!session || !(cast(DSession) session)) {
+        
+        auto session = request.getAttribute("session");
+        if (!(cast(DSession) session)) {
             throw new UIMException(
                 "You must have a `session` attribute to use session based CSRF tokens");
         }
-        token = session.read(configuration.getString("key"));
+        
+        auto token = session.read(configuration.getString("key"));
         if (token.isNull) {
             token = this.createToken();
             session.write(configuration.getString("key"), token);
         }
-        request = request.withAttribute("csrfToken", this.saltToken(token));
-
+        
+        auto request = request.withAttribute("csrfToken", this.saltToken(token));
         if (method == "GET") {
             return handler.handle(request);
         }
@@ -177,7 +179,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
     }
 
     // Validate the request data against the cookie token.
-    protected void validateToken(IServerRequest serverRequest, DSession session) {
+    protected void validateToken(IServerRequest serverRequest, ISession session) {
         auto token = session.read(configuration.getString("key"));
         if (!token || !isString(token)) {
             throw new DInvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF session key"));

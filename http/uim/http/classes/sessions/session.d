@@ -70,7 +70,7 @@ class DSession : UIMObject, ISession {
      * Params:
      * Json[string] sessionConfig Session config.
      */
-    static DSession create(Json[string] sessionConfig = null) {
+    static ISession create(Json[string] sessionConfig = null) {
         if (sessionConfig.hasKey("defaults")) {
             sessionConfig = sessionConfig.dup.merge(
                 _defaultConfigData(sessionConfig.getMap("defaults")));

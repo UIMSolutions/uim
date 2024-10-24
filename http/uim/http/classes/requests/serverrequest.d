@@ -598,21 +598,20 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      */
   STRINGAA getHeaders() {
     STRINGAA result;
-    _environmentData.byKeyValue
-      .each!((kv) => {
+    foreach(key, value; _environmentData.byKeyValue) {
         string name;
         if (key.startWith("HTTP_")) {
-          name = subString(kv.key, 5);
+          name = subString(key, 5);
         }
-        if (kv.key.startWith("CONTENT_")) {
-          name = kv.key;
+        if (key.startWith("CONTENT_")) {
+          name = key;
         }
         if (!name.isNull) {
           name = name.lower.replace("_", " ");
           name = ucwords(name).replace(" ", "-");
-          result.set(name, kv.value);
+          result.set(name, value);
         }
-      });
+      }
     return result;
   }
 

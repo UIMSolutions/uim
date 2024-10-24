@@ -201,7 +201,7 @@ class DCookie : ICookie {
 
         string[] aHeaderValue = ["%s=%s".format(_name, rawUrlEncode(aValue))];
         if (_expiresAt) {
-             aHeaderValue ~= "expires=%s".format(getFormattedExpires());
+             aHeaderValue ~= "expires=%s".format(formattedExpires());
         }
         if (!_path.isEmpty) {
              aHeaderValue ~= "path=%s".format(_path);
@@ -230,17 +230,7 @@ class DCookie : ICookie {
         return _name;
     }
     
-    // Validates the cookie name
-    protected void validateName(string cookieName) {
-        if (preg_match("/[=,;\t\r\n\013\014]/", name)) {
-            throw new DInvalidArgumentException(
-                "The cookie name `%s` contains invalid characters.".format(name)
-            );
-        }
-        if (name.isEmpty) {
-            throw new DInvalidArgumentException("The cookie name cannot be empty.");
-        }
-    }
+
  
     auto value() {
         return _value;
@@ -268,25 +258,11 @@ class DCookie : ICookie {
         _value = aValue.isArray ? aValue : (string)aValue;
     }
  
-    auto withPath(string aPath): static
-    {
-        auto newCookie = this.clone;
-        newCookie.path = somePath;
-
-        return newCookie;
-    }
  
     string path() {
         return _path;
     }
  
-    auto withDomain(string adomain): static
-    {
-        auto newCookie = this.clone;
-        newCookie.domain = domain;
-
-        return newCookie;
-    }
  
     string domain() {
         return _domain;
@@ -296,35 +272,12 @@ class DCookie : ICookie {
         return _secure;
     }
  
-    static auto withSecure(bool isSecure) {
-        auto newCookie = this.clone;
-        newCookie.isSecure = isSecure;
 
-        return newCookie;
-    }
- 
-    auto withHttpOnly(bool isHttpOnly): static
-    {
-        auto newCookie = this.clone;
-        newCookie.httpOnly = isHttpOnly;
-
-        return newCookie;
-    }
  
     bool isHttpOnly() {
         return _httpOnly;
     }
  
-    auto withExpiry(IDateTime dateTime): static
-    {
-        if (cast(DateTime)dateTime) {
-            dateTime = dateTime.clone;
-        }
-        auto newCookie = this.clone;
-        new.expiresAt = dateTime.setTimezone(new DateTimeZone("GMT"));
-
-        return new;
-    }
  
     IDateTime expires() {
         return _expiresAt;
@@ -337,7 +290,7 @@ class DCookie : ICookie {
         return (int)_expiresAt.format("U");
     }
  
-    string getFormattedExpires() {
+    string formattedExpires() {
         if (!_expiresAt) {
             return "";
         }
@@ -355,22 +308,6 @@ class DCookie : ICookie {
         return _expiresAt < time;
     }
  
-    auto withNeverExpire(): static
-    {
-        new = this.clone;
-        new.expiresAt = new DateTimeImmutable("2038-01-01");
-
-        return new;
-    }
- 
-    auto withExpired(): static
-    {
-        new = this.clone;
-        new.expiresAt = new DateTimeImmutable("@1");
-
-        return new;
-    }
- 
     SameSiteEnum getSameSite() {
         return _sameSite;
     }
@@ -382,11 +319,7 @@ class DCookie : ICookie {
         return new;
     }
     
-    /**
-     * Create SameSiteEnum instance.
-     * Params:
-     * \UIM\Http\Cookie\SameSiteEnum|string sameSite SameSite value
-     */
+    // Create SameSiteEnum instance.
     protected static SameSiteEnum resolveSameSiteenumeration(SameSiteEnum|string sameSite) {
         return match (true) {
             sameSite.isNull: sameSite,

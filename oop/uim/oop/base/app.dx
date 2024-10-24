@@ -92,7 +92,7 @@ class DApp {
      */
     static string shortName(string nameOfClass, string classType, string classnameSuffix= null) {
         auto myclassname = nameOfClass.replace("\\", "/");
-        string type = "/" ~ classType ~ "/";
+        string type = "/" ~ classType.correctUrl;
 
         size_t pos = indexOf(myclassname, type);
         if (pos == false) {

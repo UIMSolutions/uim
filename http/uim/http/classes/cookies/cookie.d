@@ -32,80 +32,89 @@ import uim.http;
  */
 
 class DCookie : UIMObject, ICookie {
-    mixin(CookieThis!());
+  mixin(CookieThis!());
 
-    // Expires attribute format.
-    const string EXPIRES_FORMAT = "D, d-M-Y H:i:s T";
+  // Expires attribute format.
+  const string EXPIRES_FORMAT = "D, d-M-Y H:i:s T";
 
-    // SameSite attribute value: Lax
-    const string SAMESITE_LAX = "Lax";
+  // SameSite attribute value: Lax
+  const string SAMESITE_LAX = "Lax";
 
-    // SameSite attribute value: Strict
-    const string SAMESITERRORS_NOTICE = "Strict";
+  // SameSite attribute value: Strict
+  const string SAMESITERRORS_NOTICE = "Strict";
 
-    // SameSite attribute value: None
-    const string SAMESITE_NONE = "None";
+  // SameSite attribute value: None
+  const string SAMESITE_NONE = "None";
 
-    // Valid values for "SameSite" attribute.
-    const string[] SAMESITE_VALUES = [
-        SAMESITE_LAX,
-        SAMESITERRORS_NOTICE,
-        SAMESITE_NONE,
-    ];
+  // Valid values for "SameSite" attribute.
+  const string[] SAMESITE_VALUES = [
+    SAMESITE_LAX,
+    SAMESITERRORS_NOTICE,
+    SAMESITE_NONE,
+  ];
 
-    // Get the id for a cookie
-    string id() {
-        return null; 
+  // Get the id for a cookie
+  string id() {
+    return null;
+  }
+
+  // Get the path attribute.
+  string path() {
+    return null;
+  }
+
+  // Get the timestamp from the expiration time
+  int expiresTimestamp() {
+    return 0;
+  }
+
+  // Builds the expiration value part of the header string
+  string formattedExpires() {
+    return null;
+  }
+
+  // Get the domain attribute.
+  string domain() {
+    return null;
+  }
+
+  // Check if the cookie is HTTP only
+  bool isHttpOnly() {
+    return false;
+  }
+
+  // Check if the cookie is secure
+  bool isSecure() {
+    return false;
+  }
+
+  // Get the SameSite attribute.
+  // TOD SameSiteEnum getSameSite();
+
+  // Get cookie options
+  Json[string] options() {
+    return null;
+  }
+
+  // Get cookie data as array.
+  Json[string] toArray() {
+    return null;
+  }
+
+  // Returns the cookie as header value
+  string toHeaderValue() {
+    return null;
+  }
+
+  // Validates the cookie name
+  protected void validateName(string name) {
+    if (!matchFirst(name, r"/[=,;\t\r\n\013\014]/")) {
+      throw new DInvalidArgumentException(
+        "The cookie name `%s` contains invalid characters.".format(name)
+      );
     }
-
-    // Get the path attribute.
-    string path() {
-        return null; 
+    if (name.isEmpty) {
+      throw new DInvalidArgumentException("The cookie name cannot be empty.");
     }
-
-    // Get the timestamp from the expiration time
-    int expiresTimestamp() {
-        return 0;
-    }
-
-    // Builds the expiration value part of the header string
-    string getFormattedExpires() {
-        return null; 
-    }
-
-    // Get the domain attribute.
-    string domain() {
-        return null; 
-    }
-
-    // Check if the cookie is HTTP only
-    bool isHttpOnly() {
-        return false;
-    }
-
-    // Check if the cookie is secure
-    bool isSecure() {
-        return false;
-    }
-
-    // Get the SameSite attribute.
-    // TOD SameSiteEnum getSameSite();
-
-    // Create a cookie with an updated SameSite option.
-    // TODO static withSameSite(SameSiteEnum|string sameSite);
-
-    // Get cookie options
-    Json[string] options() {
-        return null;
-    }
-
-    // Get cookie data as array.
-    Json[string] toArray() {
-        return null;
-    }
-
-    // Returns the cookie as header value
-    string toHeaderValue() {
-        return null;
-    }
+  }
 }

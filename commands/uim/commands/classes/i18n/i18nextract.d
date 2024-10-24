@@ -638,7 +638,7 @@ class DI18nExtractCommand : DCommand {
                 }
                 exclude ~= preg_quote(anException, "/");
             }
-             somePattern = "/" ~ exclude.join("|") ~ "/";
+             somePattern = "/" ~ exclude.join("|").correctUrl;
         }
         _paths.each!((path) {
             somePath = realpath(path);

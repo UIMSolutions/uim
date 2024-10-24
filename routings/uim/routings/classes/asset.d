@@ -92,9 +92,9 @@ class DAsset {
             somePathPrefix = options.get("pathPrefix");
             placeHolderVal = "";
             /* if (options.hasKey("theme")) {
-                placeHolderVal = inflectString(options.getString("theme")) ~ "/";
+                placeHolderVal = inflectString(options.getString("theme")).correctUrl;
             } else if (plugin !is null) {
-                placeHolderVal = inflectString(plugin) ~ "/";
+                placeHolderVal = inflectString(plugin).correctUrl;
             }
             somePath = .replace("{plugin}", placeHolderVal, somePathPrefix) ~ somePath; * /
         } */
@@ -203,7 +203,7 @@ class DAsset {
         auto themeName = options.getString("theme");
         if (themeName) {
             file = file.strip("/");
-            auto theme = inflectString(themeName) ~ "/";
+            auto theme = inflectString(themeName).correctUrl;
 
             if (DIRECTORY_SEPARATOR == "\\") {
                 file = file.replace("/", "\\");

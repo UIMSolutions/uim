@@ -42,18 +42,8 @@ interface ICookie : INamed {
     // Gets the cookie value as scalar.
     string value();
 
-    // Create a cookie with an updated value.
-    static withValue(string[]/* |float|bool */
-        aValue);
-
-    // Create a new cookie with an updated path
-    static auto withPath(string aPath);
-
-    // Create a cookie with an updated domain
-    static auto withDomain(string domainName);
-
     // Builds the expiration value part of the header string
-    string getFormattedExpires();
+    string formattedExpires();
 
     /**
      * Check if a cookie is expired when compared to time

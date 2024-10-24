@@ -179,7 +179,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
                 continue;
             }
             
-            string pattern = "/" ~ preg_quote(domain, "/") ~ "/";
+            string pattern = "/" ~ preg_quote(domain, "/").correctUrl;
             if (!preg_match(pattern, hostToMatch)) {
                 continue;
             }
@@ -210,7 +210,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     // Remove expired cookies from the collection.
     protected void removeExpiredCookies(string hostToCheck, string pathToCheck) {
         auto time = new DateTimeImmutable("now", new DateTimeZone("UTC"));
-        string hostPattern = "/" ~ preg_quote(hostToCheck, "/") ~ "/";
+        string hostPattern = "/" ~ preg_quote(hostToCheck, "/").correctUrl;
 
         foreach (index, cookie; _cookies) {
             if (!cookie.isExpired(time)) {

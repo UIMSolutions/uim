@@ -275,7 +275,7 @@ class DEventManager : IEventManager {
 
     // Returns the listeners matching a specified pattern
     Json[string] matchingListeners(string patternToPattern) {
-        /*    matchPattern = "/" ~ preg_quote(eventKeyPattern, "/") ~ "/";
+        /*    matchPattern = "/" ~ preg_quote(eventKeyPattern, "/").correctUrl;
 
     return intersectinternalKey(
         _listeners,

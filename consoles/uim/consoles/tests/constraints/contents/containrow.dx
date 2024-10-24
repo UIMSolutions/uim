@@ -18,7 +18,7 @@ class DContentsContainRow : DContentsRegExp {
         string[] row = other.map!(cell => preg_quote(cell, "/")).array;
         
         string cells = row.join("\s+\|\s+", );
-        somePattern = "/" ~ cells ~ "/";
+        somePattern = "/" ~ cells.correctUrl;
 
         return preg_match(somePattern, this.contents) > 0;
     }

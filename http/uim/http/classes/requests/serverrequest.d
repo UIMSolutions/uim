@@ -124,44 +124,36 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      *
      * @var object|array|null
      */
-  protected Json[string] someData = null;
+  protected Json[string] _data = null;
 
   // Request body stream. Contains D://input unless `input` constructor option is used.
-  protected IStream stream;
+  protected IStream _stream;
 
-  /**
-     * Uri instance
-     *
-     * @var \Psr\Http\Message\IUri
-     */
-  protected IUri anUri;
+  // Uri instance
+  protected IUri _uri;
 
   // Instance of a Session object relative to this request
   protected ISession session;
 
-  /**
-     * Instance of a FlashMessage object relative to this request
-     *
-     * @var \UIM\Http\FlashMessage
-     */
-  protected DFlashMessage flash;
+  // Instance of a FlashMessage object relative to this request
+  protected DFlashMessage _flash;
 
   // Store the additional attributes attached to the request.
-  protected Json[string] attributes = null;
+  protected Json[string] _attributes = null;
 
   // A list of properties that emulated by the PSR7 attribute methods.
-  protected string[] emulatedAttributes = [
+  protected string[] _emulatedAttributes = [
     "session", "flash", "webroot", "base", "params", "here"
   ];
 
   // Array of Psr\Http\Message\IUploadedFile objects.
-  protected Json[string] uploadedFiles = null;
+  protected Json[string] _uploadedFiles = null;
 
   // The HTTP protocol version used.
-  protected string aprotocol = null;
+  protected string _protocolVersion = null;
 
   // The request target if overridden
-  protected string arequestTarget = null;
+  protected string _requestTarget = null;
 
   /**
      * Create a new request object.
@@ -183,7 +175,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * requests with put, patch or delete data.
      * - `session` An instance of a Session object
      */
-  this(Json[string] configData = null) {
+  /* this(Json[string] configData = null) {
     configData
       .merge("params", _params)
       .merge(["query", "post", "files", "cookies", "environment"], Json.emptyArray)
@@ -191,7 +183,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
       .merge(["uri", "input"], Json(null));
 
     _setConfig(configData);
-  }
+  } */
 
   // Process the config/settings data into properties.
   protected void _setConfig(Json[string] configData = null) {
@@ -654,7 +646,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * Existing header values will be retained. The provided value
      * will be appended into the existing values.
      */
-  static auto withAddedHeader(string headerName, headerValue) {
+  static auto withAddedHeader(string headerName, Json headerValue) {
     auto newRequest = this.clone;
     string normalizedName = this.normalizeHeaderName(headerName);
     auto existing = null;
@@ -668,7 +660,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
   }
 
   // Get a modified request without a provided header.
-  static DServerRequest withoutHeader(string aName) {
+  static DServerRequest withoutHeader(string name) {
     DServerRequest newRequest = this.clone;
     auto name = this.normalizeHeaderName(name);
     removeKey(newRequest._environmentData[name]);

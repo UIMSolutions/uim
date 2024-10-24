@@ -337,7 +337,7 @@ class DResponse : UIMObject, IResponse {
   protected int _status = 200;
 
   // File object for file to be read out as response
-  protected ISplFileInfo _file = null;
+  protected DFileInfo _file = null;
 
   // File range. Used for requesting ranges of files.
   protected Json[string] _fileRange = null;
@@ -352,7 +352,7 @@ class DResponse : UIMObject, IResponse {
   protected Json[string] _cacheDirectives = null;
 
   // Collection of cookies to send to the client
-  protected ICookieCollection _cookies;
+  protected DCookieCollection _cookies;
 
   // Reason Phrase
   protected string _reasonPhrase = "OK";
@@ -655,14 +655,14 @@ class DResponse : UIMObject, IResponse {
   }
 
   // Create a new instance with the headers to enable client caching.
-  static withCache( /* string */ int sinceModified, /* int */ timeExpiry = "+1 day") {
+  static withCache( /* string */ int sinceModified, /* int */ string timeExpiry = "+1 day") {
     if (!isInteger(timeExpiry)) {
-      timeExpiry = strtotime(timeExpiry);
+      /* timeExpiry = strtotime(timeExpiry);
       if (timeExpiry == false) {
         throw new DInvalidArgumentException(
           "Invalid time parameter. Ensure your time value can be parsed by strtotime"
         );
-      }
+      } */
     }
     return _withHeader("Date", gmdate(DATE_RFC7231, timeExpiry()))
       .withModified(sinceModified)
@@ -787,7 +787,7 @@ class DResponse : UIMObject, IResponse {
      * Params:
      * \Jsontime Valid time string or \DateTime instance.
      */
-  static withModified(Jsontime) {
+  static withModified(Json time) {
     auto date = _getUTCDate(time);
     return _withHeader("Last-Modified", date.format(DATE_RFC7231));
   }
@@ -867,10 +867,6 @@ class DResponse : UIMObject, IResponse {
     } else {
       result = new DateTime(time ? time : "now");
     }
-    /**
-         * @psalm-suppress UndefinedInterfaceMethod
-         * @Dstan-ignore-next-line
-         */
     return result.setTimezone(new DateTimeZone("UTC"));
   }
 
@@ -1114,7 +1110,7 @@ class DResponse : UIMObject, IResponse {
   }
 
   // Validate a file path is a valid response body.
-  protected ISplFileInfo validateFile(string filePath) {
+  protected DFileInfo validateFile(string filePath) {
     if (filePath.contains("../") || somefilePathPath.contains("..\\")) {
       throw new DNotFoundException(__d("uim", "The requested file contains `..` and will not be read."));
     }
@@ -1132,7 +1128,7 @@ class DResponse : UIMObject, IResponse {
   }
 
   // Get the current file if one exists.
-  ISplFileInfo getFile() {
+  DFileInfo getFile() {
     return _file;
   }
 

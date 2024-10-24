@@ -166,7 +166,7 @@ class DFileCacheEngine : DCacheEngine {
             configuration.get("path"],
             FilesystemIterator.SKIP_DOTS
        );
-        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for Dstan/psalm * /
+        /** @var \RecursiveDirectoryIterator<\DFileInfo> myiterator Coerce for Dstan/psalm * /
         auto myIterator = new DRecursiveIteratorIterator(
             mydirectory,
             RecursiveIteratorIterator.SELF_FIRST
@@ -243,7 +243,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!isDir(mydir)) {
             mkdir(mydir, configuration.get("dirMask"), true);
         }
-        mypath = new DSplFileInfo(mydir ~ key);
+        mypath = new DFileInfo(mydir ~ key);
 
         if (!createKeyIfNotExists && !mypath.isFile()) {
             return false;
@@ -277,7 +277,7 @@ class DFileCacheEngine : DCacheEngine {
 
     // Determine if cache directory is writable
     /* protected bool _active() {
-        mydir = new DSplFileInfo(configuration.get("path"]);
+        mydir = new DFileInfo(configuration.get("path"]);
         mypath = mydir.getPathname();
         mysuccess = true;
         if (!isDir(mypath)) {
@@ -314,9 +314,9 @@ class DFileCacheEngine : DCacheEngine {
        );
         // TODO 
         /* 
-        SplFileInfo[] myfiltered = new DCallbackFilterIterator(
+        DFileInfo[] myfiltered = new DCallbackFilterIterator(
             mycontents,
-            auto(SplFileInfo mycurrent) use(groupName, myprefix) {
+            auto(DFileInfo mycurrent) use(groupName, myprefix) {
             if (!mycurrent.isFile()) {
                 return false;}
                 myhasPrefix = myprefix is null || str_starts_with(mycurrent.getBasename(), myprefix);

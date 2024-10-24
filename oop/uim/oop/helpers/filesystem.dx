@@ -43,7 +43,7 @@ class HFilesystem {
         auto mydirectory = new DRecursiveDirectoryIterator(mypath, myflags);
         auto mydirFilter = new DRecursiveCallbackFilterIterator(
             mydirectory,
-            auto (SplFileInfo mycurrent) {
+            auto (DFileInfo mycurrent) {
                 return mycurrent.getFilename()[0] == "." && mycurrent.isDir()
                     ? false : true;
             }
@@ -109,7 +109,7 @@ class HFilesystem {
         if (!isDir(mypath)) {
             throw new UIMException("`%s` is not a directory".format(mypath));
         }
-        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Replace type for psalm */
+        /** @var \RecursiveDirectoryIterator<\DFileInfo> myiterator Replace type for psalm */
         auto myIterator = new DRecursiveIteratorIterator(
             new DRecursiveDirectoryIterator(mypath, FilesystemIterator.SKIP_DOTS),
             RecursiveIteratorIterator.CHILD_FIRST

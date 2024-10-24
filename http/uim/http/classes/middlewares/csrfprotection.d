@@ -126,15 +126,11 @@ class DCsrfProtectionMiddleware : DMiddleware { // }: IHttpMiddleware {
      * The callback will receive request instance as argument and must return
      * `true` if you want to skip token check for the current request.
      */
-    void skipCheckCallback(callable aCallback) {
+/*     void skipCheckCallback(callable aCallback) {
         _skipCheckCallback = aCallback;
-    }
+    } */
     
-    /**
-     * Remove CSRF protection token from request data.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request object.
-     */
+    // Remove CSRF protection token from request data.
     protected IServerRequest _unsetTokenField(IServerRequest serverRequest) {
         auto parsedBody = serverRequest.getParsedBody();
         if (parsedBody.isArray) {

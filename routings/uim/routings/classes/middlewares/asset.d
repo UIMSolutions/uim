@@ -60,7 +60,7 @@ class DAssetMiddleware : UIMObject, IRoutingMiddleware {
     }
     
     // Check the not modified header.
-    protected bool isNotModified(IServerRequest serverRequest, SplFileInfo file) {
+    protected bool isNotModified(IServerRequest serverRequest, DFileInfo file) {
         auto modifiedSince = serverRequest.getHeaderLine("If-Modified-Since");
         if (!modifiedSince) {
             return false;

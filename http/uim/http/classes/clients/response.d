@@ -275,7 +275,7 @@ class DClientResponse { // }: Message : IResponse {
     }
     
     // Get the response body as XML decoded data.
-    SimpleXMLElement getXml() {
+    ISimpleXMLElement getXml() {
         return _getXml();
     }
     
@@ -284,7 +284,8 @@ class DClientResponse { // }: Message : IResponse {
         if (!_xml.isNull) {
             return _xml;
         }
-        libxml_use_internal_errors();
+
+        /* libxml_use_internal_errors(); */
         someData = simplexml_load_string(_getBody());
         if (!someData) {
             return null;

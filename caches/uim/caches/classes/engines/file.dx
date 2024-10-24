@@ -167,7 +167,7 @@ class DFileCacheEngine : DCacheEngine {
             configuration.get("path"],
             FilesystemIterator.SKIP_DOTS
        );
-        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for Dstan/psalm * /
+        /** @var \RecursiveDirectoryIterator<\DFileInfo> myiterator Coerce for Dstan/psalm * /
         auto myIterator = new DRecursiveIteratorIterator(
             mydirectory,
             RecursiveIteratorIterator.SELF_FIRST
@@ -314,9 +314,9 @@ class DFileCacheEngine : DCacheEngine {
        );
         // TODO 
         /* 
-        SplFileInfo[] myfiltered = new DCallbackFilterIterator(
+        DFileInfo[] myfiltered = new DCallbackFilterIterator(
             mycontents,
-            auto(SplFileInfo mycurrent) use(groupName, myprefix) {
+            auto(DFileInfo mycurrent) use(groupName, myprefix) {
             if (!mycurrent.isFile()) {
                 return false;}
                 myhasPrefix = myprefix is null || str_starts_with(mycurrent.getBasename(), myprefix);

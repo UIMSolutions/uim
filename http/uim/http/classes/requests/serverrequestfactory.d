@@ -72,15 +72,15 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * Params:
      * Json[string] parsedBody Parsed body.
      */
-    protected static ServerRequest marshalBodyAndRequestMethod(Json[string] parsedBody, ServerRequest serverRequest) {
-        method = serverRequest.getMethod();
-        shouldOverride = false;
+    protected static auto marshalBodyAndRequestMethod(Json[string] parsedBody, DServerRequest serverRequest) {
+        auto method = serverRequest.getMethod();
+        auto shouldOverride = false;
 
         if (
             isIn(method, ["PUT", "DELETE", "PATCH"], true) &&
            /*  (string) */ serverRequest.contentType().startWith("application/x-www-form-urlencoded")
             ) {
-            someData = /* (string) */ serverRequest.getBody();
+            auto someData = /* (string) */ serverRequest.getBody();
             parse_str(someData, parsedBody);
         }
         if (serverRequest.hasHeader("X-Http-Method-Override")) {
@@ -100,7 +100,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
     }
 
     // Process uploaded files and move things onto the parsed body.
-    protected static ServerRequest marshalFiles(Json[string] files, DServerRequest serverRequest) {
+    protected static auto marshalFiles(Json[string] files, DServerRequest serverRequest) {
         auto files = normalizeUploadedFiles(files);
         auto serverRequest = serverRequest.withUploadedFiles(files);
         auto parsedBody = serverRequest.getParsedBody();

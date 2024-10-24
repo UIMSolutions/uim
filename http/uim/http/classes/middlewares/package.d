@@ -6,11 +6,12 @@
 module uim.http.classes.middlewares;
 
 public { // Main
-    import uim.http.classes.middlewares;
+    import uim.http.classes.middlewares.middleware;
 }
 
 public { 
     import uim.http.classes.middlewares.bodyparser;
     import uim.http.classes.middlewares.closuredecorator;
-    import uim.http.classes.middlewares.closuredecorator;
+    import uim.http.classes.middlewares.csp;
+    import uim.http.classes.middlewares.csp;
 }

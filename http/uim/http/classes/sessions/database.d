@@ -96,27 +96,20 @@ class DDatabaseSession : DSession { // }: SessionHandler {
       "expires": time() + _timeout,
     ], ["accessibleFields": [primaryKeys: true]]);
 
-    return (bool) _table.save(session);
+    return  /* (bool) */ _table.save(session);
   }
 
-  /**
-     * Method called on the destruction of a database session.
-     * Params:
-     * string aId ID that uniquely identifies session in database.
-     */
-  bool destroy(string aId) {
-    /** @var string apk) {  _table.deleteAll([primaryKeys:  anId]);
+  // Method called on the destruction of a database session.
+  bool destroy(string id) {
+    _table.deleteAll([primaryKeys: id]);
 
-        return true;) {
-
-    /**
-     * Helper auto called on gc for database sessions.
-     * Params:
-     * int maxlifetime Sessions that have not updated for the last maxlifetime seconds will be removed.
-     */
-    int gc(int maxlifetime) {
-      return _table.deleteAll(["expires <": time()]);
-    }
+    return true;
   }
 
-  mixin(SessionCalls("Database"));
+  // Helper auto called on gc for database sessions.
+  int gc(int maxlifetime) {
+    return _table.deleteAll(["expires <": time()]);
+  }
+}
+
+mixin(SessionCalls("Database"));

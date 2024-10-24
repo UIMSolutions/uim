@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http;
+module uim.http.classes.runner;
 
 import uim.http;
 
@@ -13,30 +13,18 @@ import uim.http;
  * Executes the middleware queue and provides the `next` callable
  * that allows the queue to be iterated.
  */
-class DRunner : IRequestHandler {
-    mixin TConfigurable;
-
+class DRunner : UIMObject, IRequestHandler {
     this() {
-        initialize;
+        super();
     }
 
     this(Json[string] initData) {
-        initialize(initData);
+        super(initData);
     }
 
     this(string name) {
-        this().name(name);
+        super(name);
     }
-
-    // Hook method
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
 
     // The middleware queue being run.
     //protected IHttpMiddlewareQueue queue;
@@ -62,11 +50,7 @@ class DRunner : IRequestHandler {
         return _handle(serverRequest);
     }
     
-    /**
-     * Handle incoming server request and return a response.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The server request
-     */
+    // Handle incoming server request and return a response.
     IResponse handle(IServerRequest serverRequest) {
         if (_queue.valid()) {
             middleware = _queue.currentValue();

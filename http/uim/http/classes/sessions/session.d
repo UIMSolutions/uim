@@ -502,11 +502,11 @@ class DSession : UIMObject, ISession {
      * accessed was after the configured timeout.
      */
     protected bool _timedOut() {
-        time = this.read("Config.time");
-        result = false;
+        auto time = this.read("Config.time");
+        auto result = false;
 
-        checkTime = time !is null && _lifetime > 0;
-        if (checkTime && (time() - (int) time > _lifetime)) {
+        auto checkTime = time !is null && _lifetime > 0;
+        if (checkTime && (time() - /* (int) */ time > _lifetime)) {
             result = true;
         }
         this.write("Config.time", time());

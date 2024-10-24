@@ -98,7 +98,7 @@ class DFactory(T : UIMObject) : UIMObject, IKeyAndPath {
         _workers[workerName] = workFunc;
     }
 
-    T getPath(string[] path, Json[string] options = null) @safe {
+    T path(string[] path, Json[string] options = null) @safe {
         return get(correctKey(path), options);
     }
 
@@ -161,9 +161,9 @@ unittest {
     });
 
     assert(Factory.get("testWorkerOne").name == "one");
-    assert(Factory.getPath(["testWorker", "two"]).name == "two");
+    assert(Factory.path(["testWorker", "two"]).name == "two");
     assert(Factory.get("testWorker.two").name == "two");
-    assert(Factory.getPath(["testWorker", "and", "three"]).name == "three");
+    assert(Factory.path(["testWorker", "and", "three"]).name == "three");
     assert(Factory.get("testWorker.and.three").name == "three");
 
     assert(Factory.hasPath(["testWorkerOne"]));

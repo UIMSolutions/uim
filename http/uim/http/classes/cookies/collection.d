@@ -137,7 +137,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         cookies = this.findMatchingCookies(
             anUri.getScheme(),
             anUri.getHost(),
-            anUri.getPath() ? anUri.getPath() : '/'
+            anUri.path() ? anUri.path() : '/'
        );
         cookies = extraCookies + cookies;
         
@@ -167,7 +167,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             if (hhtpScheme == "http" && cookie.isSecure()) {
                 continue;
             }
-            if (!pathToMatch.startWith(cookie.getPath())) {
+            if (!pathToMatch.startWith(cookie.path())) {
                 continue;
             }
             
@@ -192,7 +192,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     static addFromResponse(IResponse response, IRequest request) {
         auto anUri = request.getUri();
         auto host = anUri.getHost();
-        auto somePath = anUri.getPath() ? anUri.getPath() : "/";
+        auto somePath = anUri.path() ? anUri.path() : "/";
 
         auto cookies = createFromHeader(
             response.getHeader("Set-Cookie"),
@@ -217,7 +217,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
                 continue;
             }
 
-            auto somePathMatches = somePath.startWith(cookie.getPath());
+            auto somePathMatches = somePath.startWith(cookie.path());
             auto hostMatches = preg_match(hostPattern, cookie.domain());
             if (somePathMatches && hostMatches) {
                 removeKey(_cookies[index]);

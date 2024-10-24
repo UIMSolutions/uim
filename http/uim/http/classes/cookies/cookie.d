@@ -67,7 +67,7 @@ class DCookie : UIMObject, ICookie {
     }
 
     // Get the path attribute.
-    string getPath() {
+    string path() {
         return null; 
     }
 

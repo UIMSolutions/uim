@@ -98,7 +98,7 @@ class DPlugin : UIMObject, IPlugin {
     string configPath() {
         return _configPath
             ? _configPath
-            : getPath() ~ "config" ~ DIRECTORY_SEPARATOR;
+            : path() ~ "config" ~ DIRECTORY_SEPARATOR;
     }
  
     string getClassPath() {
@@ -111,7 +111,7 @@ class DPlugin : UIMObject, IPlugin {
         if (this.templatePath !is null) {
             return _templatePath;
         }
-        somePath = getPath();
+        somePath = path();
 
         return _templatePath = somePath ~ "templates" ~ DIRECTORY_SEPARATOR;
     }

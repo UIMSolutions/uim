@@ -54,7 +54,7 @@ class DPluginLoader {
     // Returns the filesystem path for a plugin
     static string path(string pluginName) {
         // TODO auto plugin = pluginCollection().get(pluginName, null);
-        // return plugin.getPath();
+        // return plugin.path();
         return null; 
     } 
 

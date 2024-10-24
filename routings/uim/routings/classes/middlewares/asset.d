@@ -31,7 +31,7 @@ class DAssetMiddleware : UIMObject, IRoutingMiddleware {
     
     // Serve assets if the path matches one.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
-        auto url = serverRequest.getUri().getPath();
+        auto url = serverRequest.getUri().path();
         
         if (url.contains("..") || !url.contains(".")) {
             return requestHandler.handle(serverRequest);

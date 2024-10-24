@@ -292,7 +292,7 @@ class DCookie : ICookie {
         return newCookie;
     }
  
-    string getPath() {
+    string path() {
         return _path;
     }
  

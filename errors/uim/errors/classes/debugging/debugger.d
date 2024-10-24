@@ -1002,10 +1002,10 @@ class DDebugger : UIMObject, IErrorDebugger {
             } else {
                 formatValue = options.getString(
                     "format");
-                tpl = _stringContents.getPath([
+                tpl = _stringContents.path([
                         formatValue,
                         "traceLine"
-                    ], _stringContents.getPath([
+                    ], _stringContents.path([
                             "base",
                             "traceLine"
                         ]));

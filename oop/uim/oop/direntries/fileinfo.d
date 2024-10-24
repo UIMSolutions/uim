@@ -49,7 +49,7 @@ class DFileInfo : UIMObject {
         return 0;
     }
 
-    string getPath() {
+    string path() {
         return null;
     }
 

@@ -66,7 +66,7 @@ class DHttpsEnforcerMiddleware : DMiddleware { // }: IHttpMiddleware {
             auto requestUri = request.getUri().withScheme("https");
             auto requestBase = request.getAttribute("base");
             if (requestBase) {
-                requestUri = requestUri.withPath(requestBase ~ requestUri.getPath());
+                requestUri = requestUri.withPath(requestBase ~ requestUri.path());
             }
             return new DRedirectResponse(
                 requestUri,

@@ -234,7 +234,7 @@ class DClient { // }: IClient {
      * \UIM\Http\Cookie\ICookie  mycookie Cookie object.
      */
   void addCookie(ICookie mycookie) {
-    if (!mycookie.domain() || !mycookie.getPath()) {
+    if (!mycookie.domain() || !mycookie.path()) {
       throw new DInvalidArgumentException("Cookie must have a domain and a path set.");
     }
     _cookies = _cookies.add(mycookie);

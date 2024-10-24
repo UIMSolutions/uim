@@ -1130,7 +1130,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
   Json getAttribute(string attributeName, Json defaultValue = Json(null)) {
     /* if (isIn(attributeName, _emulatedAttributes, true)) {
             if (namattributeNamee == "here") {
-                return _base ~ this.uri.getPath();
+                return _base ~ this.uri.path();
             }
             return _{attributeName};
         } */
@@ -1148,7 +1148,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
       "params": _params,
       "webroot": this.webroot,
       "base": this.base,
-      "here": this.base ~ this.uri.getPath(),
+      "here": this.base ~ this.uri.path(),
     ];
 
     return _attributes + emulated;
@@ -1281,7 +1281,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
       return _requestTarget;
     }
 
-    string target = this.uri.getPath();
+    string target = this.uri.path();
     if (this.uri.getQuery()) {
       target ~= "?" ~ this.uri.getQuery();
     }
@@ -1291,9 +1291,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
   }
 
   // Get the path of current request.
-  string getPath() {
+  string path() {
     if (_requestTarget.isNull) {
-      return _uri.getPath();
+      return _uri.path();
     }
 
     return _requestTarget.contains("?")

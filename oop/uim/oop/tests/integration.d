@@ -513,7 +513,7 @@ mixin template TIntegrationTest() {
     // Creates a valid request url and parameter array more like Request._url()
     protected Json[string] _url(string url) {
         anUri = new Uri(url);
-        path = anUri.getPath();
+        path = anUri.path();
         aQuery = anUri.getQuery();
 
         hostData = null;

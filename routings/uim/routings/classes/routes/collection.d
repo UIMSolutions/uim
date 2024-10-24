@@ -84,7 +84,7 @@ class DRouteCollection {
     // Takes the IServerRequest, iterates the routes until one is able to parse the route.
     Json[string] parseRequest(IServerRequest serverRequest) {
         auto myuri = serverRequest.getUri();
-        auto myurlPath = urldecode(myuri.getPath());
+        auto myurlPath = urldecode(myuri.path());
         if (myurlPath != "/") {
             myurlPath = stripRight(myurlPath, "/");
         }

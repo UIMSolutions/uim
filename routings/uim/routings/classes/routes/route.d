@@ -300,7 +300,7 @@ class DRoute : IRoute {
   Json[string] parseRequest(IServerRequest serverRequest) {
     auto uri = serverRequest.getUri();
     return configuration.hasKey("_host") && !hostMatches(uri.getHost())
-      ? null : _parse(uri.getPath(), serverRequest.getMethod());
+      ? null : _parse(uri.path(), serverRequest.getMethod());
   }
 
   /**

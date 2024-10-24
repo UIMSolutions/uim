@@ -204,7 +204,7 @@ class DSession : UIMObject, ISession {
      * Params:
      * \!SessionHandler|string  classname The session handler to use
      */
-    SessionHandler engine(
+    ISessionHandler engine(
         /* !SessionHandler | */
         string handleClassname = null,
         Json[string] options = null

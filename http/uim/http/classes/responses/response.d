@@ -19,7 +19,7 @@ import uim.http;
  * `\InvalidArgumentException`.
  */
 class DResponse : UIMObject, IResponse {
-  mixin TMessage;
+  // mixin TMessage;
 
   const int STATUS_CODE_MIN = 100;
 
@@ -1029,7 +1029,7 @@ class DResponse : UIMObject, IResponse {
   }
 
   // Get a new instance with provided cookie collection.
-  static withCookieCollection(CookieCollection cookieCollection) {
+  static withCookieCollection(DCookieCollection cookieCollection) {
     auto newResponse = this.clone;
     newResponse._cookies = cookieCollection;
 

@@ -12,7 +12,7 @@ import uim.http;
 // DatabaseSession provides methods to be used with Session.
 class DDatabaseSession : DSession { // }: SessionHandler {
   mixin(SessionThis("Database"));
-  mixin TLocatorAware;
+  // TODO mixin TLocatorAware;
 
   // Reference to the table handling the session data
   protected ITable _table;

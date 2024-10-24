@@ -19,7 +19,7 @@ class DCacheSession : DSession { // }: !SessionHandler {
     }
     
     // Method called on close of a database session.
-    bool close() {
+    override bool close() {
         return true;
     }
     

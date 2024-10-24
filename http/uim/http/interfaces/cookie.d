@@ -48,7 +48,7 @@ interface ICookie : INamed {
     /**
      * Check if a cookie is expired when compared to time
      * Cookies without an expiration date always return false. */
-    bool isExpired(IDateTime time = null);
+    // TODO bool isExpired(IDateTime time = null);
 
     // Check if the cookie is HTTP only
     void isHttpOnly(bool mode);

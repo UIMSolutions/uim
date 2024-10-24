@@ -25,7 +25,7 @@ import uim.http;
  *
  * If you use this middleware *do not* also use CsrfProtectionMiddleware.
  */
-class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
+class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
     mixin(MiddlewareThis!("SessionCsrfProtection"));
     /**
      * Config for the CSRF handling.
@@ -34,10 +34,10 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * - `field` The form field to check. Changing this will also require configuring
      *  FormHelper.
      */
-    protected Json _config = [
+  /*   protected Json _config = [
         "key": Json("csrfToken"),
         "field": Json("_csrfToken"),
-    ];
+    ]; */
 
     /**
      * Callback for deciding whether to skip the token check for particular request.
@@ -54,11 +54,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
         _config = configData + _config;
     }
 
-    /**
-     * Checks and sets the CSRF token depending on the HTTP verb.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request.
-     */
+    // Checks and sets the CSRF token depending on the HTTP verb.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
         auto method = serverRequest.getMethod();
         auto hasData = isIn(method, ["PUT", "POST", "DELETE", "PATCH"], true)
@@ -134,10 +130,8 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
 
      * If the token is not TOKEN_VALUE_LENGTH * 2 it is an old
      * unsalted value that is supported for backwards compatibility.
-     * Params:
-     * string atoken The token that could be salty.
      */
-    protected string unsaltToken(string atoken) {
+    protected string unsaltToken(string token) {
         string decodedToken = base64_decode(token, true);
         if (decodedToken == false || decodedToken.length != TOKEN_VALUE_LENGTH * 2) {
             return token;

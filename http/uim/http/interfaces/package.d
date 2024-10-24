@@ -14,6 +14,8 @@ public {
     import uim.http.interfaces.request;
     import uim.http.interfaces.response;
     import uim.http.interfaces.session;
+    import uim.http.interfaces.sessionhandler;
     import uim.http.interfaces.simplexml;
+    import uim.http.interfaces.stream;
     import uim.http.interfaces.uri;
 }

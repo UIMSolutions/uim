@@ -86,7 +86,7 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IHttpMiddleware {
             .filter!(cookie => isIn(cookie.name, _cookieNames, true))
             .each!((cookie) {
                 aValue = _encrypt(cookie.getValue(), _cipherType);
-                response = response.withCookie(cookie.withValue(aValue));
+                response = response.withCookie(CookieFactory.withValue(cookie, aValue));
             });
 
         return response;
@@ -99,7 +99,7 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IHttpMiddleware {
         cookies.each!((cookie) {
             if (isIn(cookie.name, _cookieNames, true)) {
                 auto value = _encrypt(cookie.getValue(), _cipherType);
-                auto cookieWithValue = cookie.withValue(value);
+                auto cookieWithValue = CookieFactory.withValue(cookie, value);
             }
             aHeader ~= cookieWithValue.toHeaderValue();
         });

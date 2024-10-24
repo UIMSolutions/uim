@@ -27,20 +27,12 @@ import uim.http;
  * cookie objects:
  *
  * ```
- * cookie = cookie.withValue("0");
+ * cookie = CookieFactory.withValue(cookie, "0");
  * ```
  */
 
 class DCookie : UIMObject, ICookie {
     mixin(CookieThis!());
-
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        return true;
-    }
 
     // Expires attribute format.
     const string EXPIRES_FORMAT = "D, d-M-Y H:i:s T";
@@ -72,7 +64,7 @@ class DCookie : UIMObject, ICookie {
     }
 
     // Get the timestamp from the expiration time
-    int getExpiresTimestamp() {
+    int expiresTimestamp() {
         return 0;
     }
 
@@ -91,16 +83,9 @@ class DCookie : UIMObject, ICookie {
         return false;
     }
 
-    // Create a cookie with HTTP Only updated
-    static void withHttpOnly(bool httpOnly);
-
     // Check if the cookie is secure
     bool isSecure() {
         return false;
-    }
-
-    // Create a cookie with Secure updated
-    static void withSecure(bool secure) {
     }
 
     // Get the SameSite attribute.

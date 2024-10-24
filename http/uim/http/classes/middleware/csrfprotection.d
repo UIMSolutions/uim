@@ -250,7 +250,7 @@ class DCsrfProtectionMiddleware : DMiddleware { // }: IHttpMiddleware {
         if (!_verifyToken(cookie)) {
             exception = new DInvalidCsrfTokenException(__d("uim", "Missing or invalid CSRF cookie."));
 
-            expiredCookie = _createCookie("", request).withExpired();
+            expiredCookie = CreateFactory.withExpired(_createCookie("", request));
             exception.setHeader("Set-Cookie", expiredCookie.toHeaderValue());
 
             throw exception;

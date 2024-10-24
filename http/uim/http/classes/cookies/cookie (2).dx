@@ -136,9 +136,7 @@ class DCookie : ICookie {
         return expires;
     }
     
-    /**
-     * Create Cookie instance from "set-cookie" header string.
-     */
+    // Create Cookie instance from "set-cookie" header string.
     static static createFromHeaderString(string cookieHeader, Json[string] defaultAttributes= null) {
         string[] someParts;
         if (cookieHeader.contains(";")) {
@@ -223,13 +221,6 @@ class DCookie : ICookie {
         return aHeaderValue.join("; ");
     }
  
-    static withName(string aName) {
-        validateName(name);
-        auto newCookie = this.clone;
-        newCookie.name = name;
-
-        return newCookie;
-    }
  
     string id() {
         return "{_name};{_domain};{_path}";
@@ -266,13 +257,6 @@ class DCookie : ICookie {
         return _value;
     }
  
-    auto withValue(string[]|float|bool aValue): static
-    {
-        new = this.clone;
-        new._setValue(aValue);
-
-        return new;
-    }
     
     /**
      * Setter for the value attribute.
@@ -346,7 +330,7 @@ class DCookie : ICookie {
         return _expiresAt;
     }
  
-    int getExpiresTimestamp() {
+    int expiresTimestamp() {
         if (!_expiresAt) {
             return null;
         }
@@ -479,7 +463,7 @@ class DCookie : ICookie {
  
     Json[string] options() {
         Json[string] cookieOptions = createMap!(string, Json)
-            .set("expires", to!int(getExpiresTimestamp()))
+            .set("expires", to!int(expiresTimestamp()))
             .set("path", _path)
             .set("domain", _domain)
             .set("isSecure", _isSecure)

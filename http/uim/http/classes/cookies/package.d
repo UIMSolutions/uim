@@ -10,6 +10,7 @@ public {
 }
 
 public {
+    import uim.http.classes.cookies.builder;
     import uim.http.classes.cookies.collection;
     import uim.http.classes.cookies.factory;
 }

@@ -28,14 +28,13 @@ interface ICookie : INamed {
     // Get the current expiry time
     //    IDateTime expires();
     // Get the timestamp from the expiration time
-    int getExpiresTimestamp();
+    int expiresTimestamp();
 
     // maxAge[get, set]long Maximum life time of the cookie 
     // rawValue[get, set] string Undecoded cookie payload 
     // secure[get, set]bool Require a secure connection for transmission of this cookie 
     // value[get, set] string Cookie payload
     // Sets the cookie name
-    static void withName(string aName);
 
     // Gets the cookie value
     string[] values();
@@ -80,24 +79,4 @@ interface ICookie : INamed {
 
     // Check if the cookie is secure
     bool isSecure();
-
-    // #region cookie creation
-    // Create a cookie with an updated expiration date
-    static auto withExpiry(IDateTime dateTime);
-
-    // Create a new cookie that will virtually never expire.
-    static auto withNeverExpire();
-
-    // Create a new cookie that will expire/delete the cookie from the browser.
-    static auto withExpired();
-
-    // Create a cookie with HTTP Only updated
-    static void withHttpOnly(bool httpOnly);
-
-    // Create a cookie with Secure updated
-    static void withSecure(bool secure);
-
-    // Create a cookie with an updated SameSite option.
-    static auto withSameSite( /* SameSiteEnum| */ string sameSite);
-    // #endregion cookie creation
 }

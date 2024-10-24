@@ -14,10 +14,9 @@ interface ICookie : INamed {
     // Get the id for a cookie
     string id();
 
-    // Get the path attribute.
+    // The path / local URI for which the cookie is valid
     string path();
     void path(string value);
-string The path / local URI for which the cookie is valid
 
     // Get the domain attribute.
     void domain(string name);
@@ -31,9 +30,11 @@ string The path / local URI for which the cookie is valid
     // Get the timestamp from the expiration time
     int getExpiresTimestamp();
 
-    maxAge[get, set]long Maximum life time of the cookie 
-     rawValue[get, set] string Undecoded cookie payload sameSite[get, set] Cookie
-        .SameSite Prevent cross - site request forgery.secure[get, set]bool Require a secure connection for transmission of this cookie value[get, set] string Cookie payload /*  // Sets the cookie name
+    // maxAge[get, set]long Maximum life time of the cookie 
+    // rawValue[get, set] string Undecoded cookie payload 
+    // secure[get, set]bool Require a secure connection for transmission of this cookie 
+    // value[get, set] string Cookie payload
+    // Sets the cookie name
     static void withName(string aName);
 
     // Gets the cookie value
@@ -66,6 +67,7 @@ string The path / local URI for which the cookie is valid
 
     // Get the SameSite attribute.
     // TODO SameSiteEnum getSameSite();
+    // sameSite[get, set] Cookie.SameSite Prevent cross - site request forgery.
 
     // Get cookie options
     Json[string] options();

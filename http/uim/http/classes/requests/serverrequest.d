@@ -183,7 +183,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * requests with put, patch or delete data.
      * - `session` An instance of a Session object
      */
-  thisType(Json[string] configData = null) {
+  this(Json[string] configData = null) {
     configData
       .merge("params", _params)
       .merge(["query", "post", "files", "cookies", "environment"], Json.emptyArray)

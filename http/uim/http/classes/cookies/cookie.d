@@ -103,16 +103,10 @@ class DCookie : UIMObject, ICookie {
     static void withSecure(bool secure) {
     }
 
-    /**
-     * Get the SameSite attribute.
-     */
+    // Get the SameSite attribute.
     // TOD SameSiteEnum getSameSite();
 
-    /**
-     * Create a cookie with an updated SameSite option.
-     * Params:
-     * \UIM\Http\Cookie\SameSiteEnum|string sameSite Value for to set for Samesite option.
-     */
+    // Create a cookie with an updated SameSite option.
     // TODO static withSameSite(SameSiteEnum|string sameSite);
 
     // Get cookie options

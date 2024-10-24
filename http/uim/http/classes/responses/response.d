@@ -1043,7 +1043,7 @@ class DResponse : UIMObject, IResponse {
   // Get a CorsBuilder instance for defining CORS headers.
   DCorsBuilder cors(IServerRequest serverRequest) {
     auto origin = serverRequest.getHeaderLine("Origin");
-    auto https = serverRequest. is("https");
+    auto https = serverRequest.isType("https");
     return new DCorsBuilder(this, origin, https);
   }
 

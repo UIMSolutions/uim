@@ -31,7 +31,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     }
     
     // Create a Cookie Collection from an array of Set-Cookie Headers
-    static ICookieCollection createFromHeader(string[] headerValues, Json[string] defaultAttributes = null) {
+    static DCookieCollection createFromHeader(string[] headerValues, Json[string] defaultAttributes = null) {
         auto cookies = null;
        /*  headerValues.each!((value) {
             try {

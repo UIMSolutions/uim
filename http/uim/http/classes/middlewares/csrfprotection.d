@@ -23,7 +23,7 @@ import uim.http;
  * used together your forms will have CSRF tokens automatically added
  * when `this.Form.create(...)` is used in a view.
  */
-class DCsrfProtectionMiddleware : DMiddleware { // }: IHttpMiddleware {
+class DCsrfProtectionMiddleware : DMiddleware { // }: IMiddleware {
     mixin(MiddlewareThis!("CsrfProtection"));
     /**
      * Config for the CSRF handling.
@@ -53,7 +53,7 @@ class DCsrfProtectionMiddleware : DMiddleware { // }: IHttpMiddleware {
      *
      * CSRF protection token check will be skipped if the callback returns `true`.
      */
-    protected callable skipCheckCallback;
+    // TODO protected callable skipCheckCallback;
 
     const int TOKEN_VALUE_LENGTH = 16;
 

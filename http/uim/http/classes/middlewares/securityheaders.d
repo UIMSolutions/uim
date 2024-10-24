@@ -10,7 +10,7 @@ import uim.http;
 @safe:
 
 // Handles common security headers in a convenient way
-class DSecurityHeadersMiddleware : DMiddleware { // }: IHttpMiddleware { 
+class DSecurityHeadersMiddleware : DMiddleware { // }: IMiddleware { 
     mixin(MiddlewareThis!("SecurityHeaders"));
 
     // X-Content-Type-Option nosniff */

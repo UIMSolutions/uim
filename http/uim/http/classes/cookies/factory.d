@@ -16,9 +16,9 @@ class DCookieFactory : DFactory!DCookie {
   }
 
   // Create a cookie with an updated expiration date
-  DCookie withExpiry(DCookie cookie, IDateTime dateTime) {
+ /*  DCookie withExpiry(DCookie cookie, IDateTime dateTime) {
     return null;
-  }
+  } */
 
   // Create a new cookie that will virtually never expire.
   DCookie withNeverExpire(DCookie cookie) {

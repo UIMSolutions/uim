@@ -9,7 +9,7 @@ module uim.http.classes.middlewarequeue;
  * Provides methods for creating and manipulating a "queue" of middlewares.
  * This queue is used to process a request and generate response via \UIM\Http\Runner.
  *
- * @template-implements \SeekableIterator<int, \Psr\Http\Server\IHttpMiddleware>
+ * @template-implements \SeekableIterator<int, \Psr\Http\Server\IMiddleware>
  */
 class MiddlewareQueue { // }: Countable, SeekableIterator {
   // Internal position for iterator.
@@ -20,17 +20,17 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
 
   protected IContainer container;
 
-  this(Json[string] middleware = null, IContainer container = null) {
+/*   this(Json[string] middleware = null, IContainer container = null) {
     _container = container;
     _queue = middleware;
-  }
+  } */
 
   // Resolve middleware name to a PSR 15 compliant middleware instance.
-  protected IHttpMiddleware resolve(IHttpMiddleware middleware) {
+  protected IMiddleware resolve(IMiddleware middleware) {
     return middleware;
   }
 
-  protected IHttpMiddleware resolve( /* IHttpMiddleware|*/ string middlewareName) {
+  protected IMiddleware resolve( /* IMiddleware|*/ string middlewareName) {
     if (this.container && this.container.has(middlewareName)) {
       middlewareName = this.container.get(middlewareName);
     } else {
@@ -41,26 +41,22 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
             .format(middlewareName
             ));
       }
-      IHttpMiddleware middlewareName = new classname();
+      IMiddleware middlewareName = new classname();
     }
     return new DClosureDecoratorMiddleware(middlewareName);
   }
 
-  /**
-     * Append a middleware to the end of the queue.
-     * Params:
-     * \Psr\Http\Server\IHttpMiddleware|\/** / string[] amiddleware The middleware(s) to append.
-     */
+  // Append a middleware to the end of the queue.
   void add(string[] middlewareNames) {
     _queue = chain(_queue, middlewareNames);
   }
 
-  void add(IHttpMiddleware middleware) {
+  void add(IMiddleware middleware) {
     _queue ~= middleware;
   }
 
   // Alias for MiddlewareQueue.add().
-  MiddlewareQueue push(IHttpMiddleware middleware) {
+  MiddlewareQueue push(IMiddleware middleware) {
     return _add(middleware);
   }
 
@@ -73,7 +69,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
   }
 
   // Prepend a middleware to the start of the queue.
-  auto prepend(IHttpMiddleware middleware) {
+  auto prepend(IMiddleware middleware) {
     _queue.unshift(middleware);
     return this;
   }
@@ -93,7 +89,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * If the index already exists, the new middleware will be inserted,
      * and the existing element will be shifted one index greater.
      */
-  auto insertAt(int insertTndex, /* IHttpMiddleware| */ string amiddleware) {
+  auto insertAt(int insertTndex, /* IMiddleware| */ string amiddleware) {
     array_splice(_queue, insertTndex, 0, [middleware]);
     return this;
   }
@@ -104,7 +100,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Finds the index of the first middleware that matches the provided class,
      * and inserts the supplied middleware before it.
      */
-  auto insertBefore(string classname, IHttpMiddleware middleware) {
+  auto insertBefore(string classname, IMiddleware middleware) {
   }
 
   auto insertBefore(string classname, string middlewareToInsert) {
@@ -135,7 +131,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * and inserts the supplied middleware after it. If the class is not found,
      * this method will behave like add().
      */
-  // auto insertAfter(string classname, IHttpMiddleware middlewareToInsert) {
+  // auto insertAfter(string classname, IMiddleware middlewareToInsert) {
   auto insertAfter(string classname, string middlewareToInsert) {
     auto found = false;
     auto index = 0;
@@ -182,13 +178,13 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
   }
 
   // Returns the current middleware.
-  IHttpMiddleware currentValue() {
+  IMiddleware currentValue() {
     if (_queue.isNull(_position)) {
       throw new DOutOfBoundsException(
         "Invalid current position (%s).".format(_position));
     }
 
-    if (cast(IHttpMiddleware) _queue[_position])
+    if (cast(IMiddleware) _queue[_position])
       _queue[_position];
     _queue[_position] = this.resolve(
       _queue[_position]);

@@ -27,7 +27,7 @@ class DRunner : UIMObject, IRequestHandler {
     }
 
     // The middleware queue being run.
-    //protected IHttpMiddlewareQueue queue;
+    //protected IMiddlewareQueue queue;
 
     // Fallback handler to use if middleware queue does not generate response.
     protected IRequestHandler fallbackHandler = null;

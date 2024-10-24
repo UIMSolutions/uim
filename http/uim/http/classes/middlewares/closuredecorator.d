@@ -22,7 +22,7 @@ import uim.http;
  *
  * such that it will operate as PSR-15 middleware.
  */
-class DClosureDecoratorMiddleware : DMiddleware { // }: IHttpMiddleware {
+class DClosureDecoratorMiddleware : DMiddleware { // }: IMiddleware {
     mixin(MiddlewareThis!("ClosureDecorator"));
 
     protected IClosure aCallable;

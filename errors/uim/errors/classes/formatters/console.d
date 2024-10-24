@@ -92,7 +92,7 @@ class DConsoleErrorFormatter : DErrorFormatter {
 
         auto arrowTxt = style("punct", ": ");
         auto vars = node.getChildren()
-            .map!(item => breakTxt ~ export_(item.getKey(), indentLevel) ~ arrowTxt ~ export_(item.getvalue(), indentLevel))
+            .map!(item => breakTxt ~ export_(item.getKey(), indentLevel) ~ arrowTxt ~ export_(item.value(), indentLevel))
             .array;
 
         auto closeTxt = style("punct", "]");
@@ -114,7 +114,7 @@ class DConsoleErrorFormatter : DErrorFormatter {
         string[] props;
 
         result = style("punct", "object(") ~
-            style("class", node.getValue()) ~
+            style("class", node.value()) ~
             style("punct", ") id:") ~
             style("number", to!string(node.id())) ~ style("punct", " {");
         string breakTxt = "\n" ~" ".repeatTxt(indentLevel);
@@ -128,9 +128,9 @@ class DConsoleErrorFormatter : DErrorFormatter {
             props ~= visibility && visibility != "public"
                 ? style("visibility", visibility) ~ " " ~
                 style("property", name) ~ arrow ~
-                export_(prop.getValue(), indentLevel) : style("property", name) ~ arrow ~
+                export_(prop.value(), indentLevel) : style("property", name) ~ arrow ~
                 export_(
-                    prop.getValue(), indentLevel);
+                    prop.value(), indentLevel);
         }
         
         return props.count > 0
@@ -151,9 +151,9 @@ class DConsoleErrorFormatter : DErrorFormatter {
         case "string":
             return style("string", "'" ~ node.getString() ~ "'");
         case "int", "float":
-            return style("visibility", "({node.getType()})") ~ " " ~ style("number", "{node.getValue()}");
+            return style("visibility", "({node.getType()})") ~ " " ~ style("number", "{node.value()}");
         default:
-            return "({node.getType()}) {node.getValue()}";
+            return "({node.getType()}) {node.value()}";
         };
     }
 

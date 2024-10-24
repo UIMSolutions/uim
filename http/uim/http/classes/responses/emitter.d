@@ -151,7 +151,7 @@ class DResponseEmitter {
         return setCookie(Cookie.createFromHeaderString(cookie, ["path": ""]));
     }
     protected bool setCookie(ICookie acookie) {
-        return setcookie(cookie.name, cookie.getScalarValue(), cookie.options());
+        return setcookie(cookie.name, cookie.value(), cookie.options());
     }
     
     //Loops through the output buffer, flushing each, before emitting the response.

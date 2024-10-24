@@ -650,7 +650,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                        ) {
                         aValue = new DSpecialErrorNode("[uninitialized]");
                     } else {
-                        aValue = export_(reflectionProperty.getValue(objToConvert), dumpContext.withAddedDepth());
+                        aValue = export_(reflectionProperty.value(objToConvert), dumpContext.withAddedDepth());
                     }
                     node.addProperty(
                         new DPropertyErrorNode(
@@ -1375,7 +1375,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                         objToConvert)
                     ? new DSpecialErrorNode("[uninitialized]") : export_(
                         reflectionProperty
-                            .getValue(objToConvert), dumpContext
+                            .value(objToConvert), dumpContext
                             .withAddedDepth());
 
                 node.addProperty(

@@ -97,7 +97,7 @@ class DAbstractDocumentTest {
   private final DocumentImplementation document = new DocumentImplementation(new DHashMap<>());
 
   @Test
-  void shouldPutAndGetValue() {
+  void shouldPutAndvalue() {
     document.put(KEY, VALUE);
     assertEquals(VALUE, document.g  this(string value) {
     _value = value; }

@@ -90,7 +90,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
 
         auto arrow = style("punct", ": ");
         nodeToExport.getChildren().each!((item) {
-            val = anItem.getValue();
+            val = anItem.value();
             vars ~= breakTxt ~ htmlDoubleTag("span", ["uim-debug-array-item"], 
                 export_(item.getKey(),  indentLevel) ~ arrow ~ export_(val,  indentLevel) ~
                 style("punct", ","));
@@ -116,7 +116,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
 
     return htmlDoubleTag("span", ["uim-debug-ref"],
       style("punct", "object(") ~
-        style("class", node.getValue()) ~
+        style("class", node.value()) ~
         style("punct", ") ") ~
         link ~
         style("punct", " {}"));
@@ -132,7 +132,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
 
         
          result ~= style("punct", "object(") ~
-           style("class", node.getValue()) ~
+           style("class", node.value()) ~
            style("punct", ") id:") ~
            style("number", (string)node.id()) ~
            style("punct", " {") ~
@@ -146,10 +146,10 @@ class DHtmlErrorFormatter : DErrorFormatter {
             props ~= visibility && visibility != "public"
                 ? breakTxt ~
                     htmlDoubleTag("span", ["uim-debug-prop"], 
-                    style("visibility", visibility) ~ ' ' ~ style("property", name) ~ arrow ~ export_(aProperty.getValue(),  indentLevel))
+                    style("visibility", visibility) ~ ' ' ~ style("property", name) ~ arrow ~ export_(aProperty.value(),  indentLevel))
                 : breakTxt ~
                     htmlDoubleTag("span", ["uim-debug-prop"], 
-                    style("property", name) ~ arrow ~ export_(aProperty.getValue(),  indentLevel));
+                    style("property", name) ~ arrow ~ export_(aProperty.value(),  indentLevel));
         }
         end = "</samp>" ~
             endBreak ~
@@ -176,9 +176,9 @@ class DHtmlErrorFormatter : DErrorFormatter {
       return style("string", "'" ~ node.getString() ~ "'");
     case "int", "float":
       return style("visibility", "({node.getType()})") ~
-        " " ~ style("number", "{node.getValue()}");
+        " " ~ style("number", "{node.value()}");
     default:
-      return "({node.getType()}) {node.getValue()}";
+      return "({node.getType()}) {node.value()}";
     };
 
     return null;

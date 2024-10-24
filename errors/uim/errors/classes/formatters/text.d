@@ -60,11 +60,11 @@ class DTextErrorFormatter : DErrorFormatter {
     }
 
     override protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
-        return "object({node.getValue()}) id:{node.id()} {}";
+        return "object({node.value()}) id:{node.id()} {}";
     }
 
     override protected string exportClass(DClassErrorNode node, size_t indentLevel) {
-        string result = "object({" ~ node.getValue() ~ "}) id:{" ~ node.id() ~ "} {";
+        string result = "object({" ~ node.value() ~ "}) id:{" ~ node.id() ~ "} {";
         auto breakTxt = "\n" ~" ".repeatTxt(indentlevel);
         auto endTxt = "\n" ~" ".repeatTxt(indentlevel - 1) ~ "}";
 
@@ -81,8 +81,8 @@ class DTextErrorFormatter : DErrorFormatter {
         auto propName = property.name;
 
         return propVisibility && propVisibility != "public" 
-            ? "[{propVisibility}] {propName}: " ~ export_(property.getValue(), indentlevel);
-            : "{propName}: " ~ export_(property.getValue(), indentlevel); */
+            ? "[{propVisibility}] {propName}: " ~ export_(property.value(), indentlevel);
+            : "{propName}: " ~ export_(property.value(), indentlevel); */
         return null;
     }
 
@@ -95,7 +95,7 @@ class DTextErrorFormatter : DErrorFormatter {
         case "string":
             return "'" ~ node.getString ~ "'";
         default:
-            return "({" ~ node.getType() ~ "}) {" ~ node.getValue().toString ~ "}";
+            return "({" ~ node.getType() ~ "}) {" ~ node.value().toString ~ "}";
         }
     }
 

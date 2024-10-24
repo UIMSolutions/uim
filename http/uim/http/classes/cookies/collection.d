@@ -183,7 +183,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             if (!preg_match(pattern, hostToMatch)) {
                 continue;
             }
-             result[cookie.name] = cookie.getValue();
+             result[cookie.name] = cookie.value();
         }
         return result;
     }

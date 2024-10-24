@@ -13,7 +13,7 @@ import uim.http;
 class DVibeSession : DHttpSession {
   mixin(SessionThis!("Vibe"));
 
-  protected vibe.http.session.Session = _SESSION;
+  protected vibe.http.session.Session _session;
   void session(vibe.http.session.Session session) {
     _session = session;
   }

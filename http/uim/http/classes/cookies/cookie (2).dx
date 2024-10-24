@@ -251,11 +251,11 @@ class DCookie : ICookie {
         }
     }
  
-    auto getValue() {
+    auto value() {
         return _value;
     }
  
-    string getScalarValue() {
+    string value() {
         if (_isExpanded) {
             assert(_value.isArray, "aValue is not an array");
 
@@ -342,7 +342,7 @@ class DCookie : ICookie {
         return new;
     }
  
-    IDateTime getExpiry() {
+    IDateTime expires() {
         return _expiresAt;
     }
  
@@ -494,7 +494,7 @@ class DCookie : ICookie {
     Json[string] toArray() {
         return createMap!(string, Json)
             .set("name", _name)
-            .set("value", getScalarValue())
+            .set("value", value())
             .merge(options());
     }
     

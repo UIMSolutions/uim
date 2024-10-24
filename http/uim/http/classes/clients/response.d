@@ -231,7 +231,7 @@ class DClientResponse { // }: Message : IResponse {
         if (!cookies.has(name)) {
             return null;
         }
-        return cookies.get(name).getValue();
+        return cookies.get(name).value();
     }
     
     // Get the full data for a single cookie.

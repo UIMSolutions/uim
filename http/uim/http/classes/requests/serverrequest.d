@@ -104,7 +104,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
   protected string[] _trustedProxies = null;
 
   /**
-     * The built in detectors used with `is()` can be modified with `addDetector()`.
+     * The built in detectors used with `isType()` can be modified with `addDetector()`.
      *
      * There are several ways to specify a detector, see \UIM\Http\ServerRequest.addDetector() for the
      * various formats and ways to define detectors.
@@ -112,7 +112,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
   protected static Json[string] _detectors;
 
   /**
-     * Instance cache for results of is(something) calls
+     * Instance cache for results of isType(something) calls
      *
      * @var array<string, bool>
      */
@@ -183,7 +183,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * requests with put, patch or delete data.
      * - `session` An instance of a Session object
      */
-  this(Json[string] configData = null) {
+  thisType(Json[string] configData = null) {
     configData
       .merge("params", _params)
       .merge(["query", "post", "files", "cookies", "environment"], Json.emptyArray)
@@ -369,38 +369,35 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      *
      * Uses the built-in detection rules as well as additional rules
      * defined with {@link \UIM\Http\ServerRequest.addDetector()}. Any detector can be called
-     * as `is(type)` or `isType()`.
+     * as `isType(type)` or `isType()`.
      * Params:
      * string[]|string atype The type of request you want to check. If an array
      * this method will return true if the request matches any type.
      */
-  /* bool is(string[] atype, Json[string] arguments) {
-        if (type.isArray) {
-            foreach (_type; type) {
-                if (is(_type)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-        type = type.lower;
-        if (!_detectors.hasKey(type)) {
-            throw new DInvalidArgumentException("No detector set for type `%s`."
-            .format(type));
-        }
-        if (someArguments) {
-            return isValid(type, someArguments);
-        }
-        _detectorCache.set(_detectorCache.get(type, isValid(type, someArguments)));
-        return _detectorCache[type];
-    } */
+  bool isType(string[] types, Json[string] arguments) {
+      return types.any!(type => isType(type, arguments));
+  }
 
-  // Clears the instance detector cache, used by the is() function
+  bool isType(string type, Json[string] arguments) {
+    type = type.lower;
+    if (!_detectors.hasKey(type)) {
+      throw new DInvalidArgumentException("No detector set for type `%s`."
+          .format(type));
+    }
+
+    if (someArguments) {
+      return isValid(type, someArguments);
+    }
+    _detectorCache.set(_detectorCache.get(type, isValid(type, someArguments)));
+    return _detectorCache[type];
+  }
+
+  // Clears the instance detector cache, used by the isType() function
   void clearDetectorCache() {
     _detectorCache = null;
   }
 
-  // Worker for the is() function
+  // Worker for the isType() function
   protected bool isValid(string requestType, Json[string] someArguments) {
     auto detect = _detectors[requestType];
 
@@ -416,6 +413,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     if (detect.hasKey("param") && _paramDetector(detect)) {
       return true;
     }
+
     return false;
   }
 
@@ -491,7 +489,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * Check that a request matches all the given types.
      *
      * Allows you to test multiple types and union the results.
-     * See Request.is() for how to add additional types and the
+     * See Request.isType() for how to add additional types and the
      * built-in types.
      */
   bool isAllValid(Json[string] types) {
@@ -916,7 +914,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     auto newServerRequest = this.clone;
     Json[string] someValues = null;
     foreach (cookie; cookies) {
-      someValues.set(cookie.name, cookie.getValue());
+      someValues.set(cookie.name, cookie.value());
     }
     newServerRequest.cookies = someValues;
 
@@ -1038,7 +1036,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
   bool allowMethod(string[] amethods) {
     auto someMethods =  /* (array) */ someMethods;
     foreach (method; someMethods) {
-      /* if (is(method)) {
+      /* if (isType(method)) {
                 return true;
             } */
     }

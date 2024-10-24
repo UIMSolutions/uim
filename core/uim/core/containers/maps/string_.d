@@ -65,7 +65,7 @@ unittest {
   /// Add Tests
 }
 
-string getValue(string[string] keyValues, string[] keys...) {
+string value(string[string] keyValues, string[] keys...) {
   foreach (k; keys)
     if (k in keyValues)
       return keyValues[k];

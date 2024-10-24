@@ -1154,7 +1154,7 @@ class DResponse : UIMObject, IResponse {
       end = !matches[2].ifEmpty("");
     }
     if (start.isEmpty) {
-      start = fileSize - (int) end;
+      start = fileSize -  /* (int) */ end;
       end = lastByte;
     }
     if (end is null) {
@@ -1166,7 +1166,7 @@ class DResponse : UIMObject, IResponse {
 
       return;
     }
-    _setHeader("Content-Length", (string)((int) end - (int) start + 1));
+    _setHeader("Content-Length", /* (string) */ ( /* (int) */ end -  /* (int) */ start + 1));
     _setHeader("Content-Range", "bytes " ~ start ~ "-" ~ end ~ "/" ~ fileSize);
     _setStatus(206);
     /**

@@ -24,7 +24,7 @@ class DSpecialErrorNode : IErrorNode {
   }
 
   // Get the message/value
-  string getValue() {
+  string value() {
     return _value;
   }
 }

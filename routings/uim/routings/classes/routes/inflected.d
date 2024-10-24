@@ -41,7 +41,7 @@ class DInflectedRoute : DRoute {
         params.set("plugin", params.getString("plugin").camelize);
       } else {
         [myvendor, myplugin] = params.getString("plugin").split("/", 2);
-        params.set("plugin", myvendor.camelize ~ "/" ~ myplugin.camelize);
+        params.set("plugin", myvendor.camelize.correctUrl ~ myplugin.camelize);
       }
     }
     return params;

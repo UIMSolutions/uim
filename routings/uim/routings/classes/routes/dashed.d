@@ -35,7 +35,7 @@ class DDashedRoute : DRoute {
         }
         [myvendor, updatedPluginName] = split("/", updatedPluginName, 2);
 
-        return myvendor.camelize ~ "/" ~ updatedPluginName.camelize;
+        return myvendor.camelize.correctUrl ~ updatedPluginName.camelize;
     }
 
     /**

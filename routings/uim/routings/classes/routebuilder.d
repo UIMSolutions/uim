@@ -285,7 +285,7 @@ class DRouteBuilder {
 
     string prefix = options.getString("prefix");
     if (_params.hasKey("prefix") && prefix) {
-      prefix = _params.getString("prefix") ~ "/" ~ prefix;
+      prefix = _params.getString("prefix").correctUrl ~ prefix;
     }
     foreach (mymethod, params; myresourceMap) {
       if (!isIn(mymethod, myonly, true)) {
@@ -611,7 +611,7 @@ class DRouteBuilder {
     }
 
     if (_params.hasKey("prefix")) {
-      routings = _params.getString("prefix") ~ "/" ~ routings;
+      routings = _params.getString("prefix").correctUrl ~ routings;
     }
     params = array_merge(params, [
         "prefix": routings

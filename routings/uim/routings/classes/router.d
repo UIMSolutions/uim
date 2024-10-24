@@ -506,7 +506,7 @@ class DRouter {
         if (myrequest) {
             baseUrl = myrequest.getAttribute("base", "");
             if (baseUrl != "" && stristr(url, baseUrl)) {
-                url = (string)preg_replace("/^" ~ preg_quote(baseUrl, "/") ~ "/", "", url, 1);
+                url = (string)preg_replace("/^" ~ preg_quote(baseUrl, "/").correctUrl, "", url, 1);
             }
         }
         url = "/" ~ url;

@@ -110,7 +110,7 @@ class DAsset {
             return Router.url(somePath);
         }
         /* if (plugin !is null) {
-            somePath = inflectString(plugin) ~ "/" ~ somePath;
+            somePath = inflectString(plugin).correctUrl ~ somePath;
         } */
         auto optionTimestamp = null;
         if (hasKey("timestamp", options)) {
@@ -126,7 +126,7 @@ class DAsset {
             fullBaseUrl = options.isString("fullBase")
                 ? options.getString("fullBase")
                 : Router.fullBaseUrl();
-            somePath = fullBaseUrl.stripRight("/") ~ "/" ~ somePath.stripLeft("/");
+            somePath = fullBaseUrl.stripRight("/").correctUrl ~ somePath.stripLeft("/");
         }
         return somePath;
     }
@@ -157,7 +157,7 @@ class DAsset {
         auto timestampEnabled = timestamp == "force" || (timestamp == true && configuration.get("debug"));
         if (timestampEnabled) {
             string filepath = /* (string) */preg_replace(
-                "/^" ~ preg_quote(requestWebroot(), "/") ~ "/", "", urldecode(somePath)
+                "/^" ~ preg_quote(requestWebroot(), "/").correctUrl, "", urldecode(somePath)
            );
             
             string webrootPath = configuration.getString("App.wwwRoot") ~ filepath.replace("/", DIRECTORY_SEPARATOR);

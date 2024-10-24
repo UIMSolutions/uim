@@ -83,7 +83,7 @@ protected static Json[string] getBase(IUri uri, Json[string] serverData) {
     return createMap!(string, Json)
       .set("base", bas);
     
-    .set("webroot", base ~ "/");
+    .set("webroot", base.correctUrl);
 
     if (!baseUrl) {
       auto self = serverData.get("UIM_SELF");
@@ -98,7 +98,7 @@ protected static Json[string] getBase(IUri uri, Json[string] serverData) {
 
         anIndexPos = indexOf(base, "/" ~ webroot ~ "/index.d");
         if (anIndexPos == true) {
-          base = subString(base, 0, anIndexPos) ~ "/" ~ webroot;
+          base = subString(base, 0, anIndexPos).correctUrl ~ webroot;
         }
         if (webroot == basename(base)) {
           base = dirname(base);
@@ -108,7 +108,7 @@ protected static Json[string] getBase(IUri uri, Json[string] serverData) {
         }
         base = array_map("rawurlencode", base.split("/")).join("/");
 
-        return ["base": base, "webroot": base ~ "/"]}
+        return ["base": base, "webroot": base.correctUrl]}
 
         string file = "/" ~ basename(baseUrl);
         string baseDir = dirname(baseUrl);
@@ -121,7 +121,7 @@ protected static Json[string] getBase(IUri uri, Json[string] serverData) {
         docRoot = serverData.get("DOCUMENT_ROOT");
         if (
           (!baseDir.isEmpty || !docRoot.has(webroot))
-          && !webrootDir.contains("/" ~ webroot ~ "/")
+          && !webrootDir.contains("/" ~ webroot.correctUrl)
           ) {
           webrootDir ~= webroot.correctUrl;
         }

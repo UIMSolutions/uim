@@ -69,7 +69,7 @@ class DApcuCacheEngine : DCacheEngine {
   /* override bool clear() {
     if (class_hasKey(APCUIterator.classname, false)) {
       auto myIterator = new APCUIterator(
-        "/^" ~ preg_quote(configuration.getString("prefix"), "/") ~ "/",
+        "/^" ~ preg_quote(configuration.getString("prefix"), "/").correctUrl,
         APC_ITER_NONE
      );
       apcu_removeKey(myiterator);

@@ -1162,12 +1162,12 @@ class DResponse : UIMObject, IResponse {
     }
     if (start > end || end > lastByte || start > lastByte) {
       _setStatus(416);
-      _setHeader("Content-Range", "bytes 0-" ~ lastByte ~ "/" ~ fileSize);
+      _setHeader("Content-Range", "bytes 0-" ~ lastByte.correctUrl ~ fileSize);
 
       return;
     }
     _setHeader("Content-Length", /* (string) */ ( /* (int) */ end -  /* (int) */ start + 1));
-    _setHeader("Content-Range", "bytes " ~ start ~ "-" ~ end ~ "/" ~ fileSize);
+    _setHeader("Content-Range", "bytes " ~ start ~ "-" ~ end.correctUrl ~ fileSize);
     _setStatus(206);
     /**
          * @var int start

@@ -13,14 +13,12 @@ import uim.http;
 class DUploadedFileFactory { //}: IUploadedFileFactory {
     /**
      * Create a new uploaded file.
-     *
-     * If a size is not provided it will be determined by checking the size of
-     * the stream.
+     * If a size is not provided it will be determined by checking the size of the stream.
      */
     IUploadedFile createUploadedFile(
         IStream stream,
-        size_t fileSize = null,
-        int fileUploadError = UPLOAD_ERR_OK,
+        size_t fileSize = 0,
+        int fileUploadError = 0, // UPLOAD_ERR_OK,
         string clientFilename = null,
         string clientMediaType = null
    ) {

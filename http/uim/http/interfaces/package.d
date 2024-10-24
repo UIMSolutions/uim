@@ -17,5 +17,6 @@ public {
     import uim.http.interfaces.sessionhandler;
     import uim.http.interfaces.simplexml;
     import uim.http.interfaces.stream;
+    import uim.http.interfaces.uploadedfile;
     import uim.http.interfaces.uri;
 }

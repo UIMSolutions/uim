@@ -5,6 +5,9 @@
 *****************************************************************************************************************/
 module uim.http.classes.middlewarequeue;
 
+import uim.http;
+
+@safe:
 /**
  * Provides methods for creating and manipulating a "queue" of middlewares.
  * This queue is used to process a request and generate response via \UIM\Http\Runner.
@@ -16,11 +19,11 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
   protected int position = 0;
 
   // The queue of middlewares.
-  protected Json[int] queue = null;
+  protected Json[int] _queue = null;
 
-  protected IContainer container;
+  protected IContainer _container;
 
-/*   this(Json[string] middleware = null, IContainer container = null) {
+  /*   this(Json[string] middleware = null, IContainer container = null) {
     _container = container;
     _queue = middleware;
   } */
@@ -31,8 +34,8 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
   }
 
   protected IMiddleware resolve( /* IMiddleware|*/ string middlewareName) {
-    if (this.container && this.container.has(middlewareName)) {
-      middlewareName = this.container.get(middlewareName);
+    if (_container && _container.has(middlewareName)) {
+      middlewareName = _container.get(middlewareName);
     } else {
       string classname = App.classname(middlewareName, "Middleware", "Middleware");
       if (classname.isNull) {
@@ -155,7 +158,6 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
 
   /**
      * Get the number of connected middleware layers.
-     *
      * Implement the Countable interface.
      */
   size_t count() {
@@ -184,10 +186,10 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         "Invalid current position (%s).".format(_position));
     }
 
-    if (cast(IMiddleware) _queue[_position])
+    if (cast(IMiddleware) _queue[_position]) {
       _queue[_position];
-    _queue[_position] = this.resolve(
-      _queue[_position]);
+    }
+    _queue[_position] = this.resolve(_queue[_position]);
     return _queue[_position];
   }
 

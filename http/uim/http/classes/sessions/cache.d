@@ -11,7 +11,7 @@ import uim.http;
 
 // CacheSession provides method for saving sessions into a Cache engine. Used with Session
 class DCacheSession : DSession { // }: !SessionHandler {
-    mixin(SessionThis("Cache"));
+    mixin(SessionThis!("Cache"));
     
     // Method called on open of a database session.
     bool open(string sessionPath, string sessionName) {

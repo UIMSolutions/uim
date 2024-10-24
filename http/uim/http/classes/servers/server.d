@@ -15,13 +15,13 @@ import uim.http;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Core\IHttpApplication>
  */
 class DServer : UIMObject { // }: IEventDispatcher {
-    mixin TEventDispatcher;
+    // mixin TEventDispatcher;
 
     this() {
-        super("`~ fullName ~ `");
+        super("SERVER");
     }
     this(Json[string] initData) {
-        super("`~ fullName ~ `", initData);
+        super("SERVER", initData);
     }
     this(string name, Json[string] initData = null) {
         super(name, initData);
@@ -39,10 +39,10 @@ class DServer : UIMObject { // }: IEventDispatcher {
 
     protected DRunner _runner;
 
-    this(IHttpApplication httpApp, Runner appRunner = null) {
+/*     this(IHttpApplication httpApp, DRunner appRunner = null) {
         _app = httpApp;
         _runner = appRunner ? appRunner : new DRunner();
-    }
+    } */
     
     /**
      * Run the request/response through the Application and its middleware.
@@ -99,12 +99,12 @@ class DServer : UIMObject { // }: IEventDispatcher {
     }
     
     // Emit the response using the UIM SAPI.
-    void emit(IResponse responseToEmit, ResponseEmitter emitterToUse = null) {
+    /* void emit(IResponse responseToEmit, ResponseEmitter emitterToUse = null) {
         if (!emitterToUse) {
             emitterToUse = new DResponseEmitter();
         }
         emitterToUse.emit(responseToEmit);
-    }
+    } */
     
     // Get the current application.
     IHttpApplication getApp() {
@@ -112,11 +112,11 @@ class DServer : UIMObject { // }: IEventDispatcher {
     }
     
     // Get the application`s event manager or the global one.
-    IEventManager getEventManager() {
+    /* IEventManager getEventManager() {
         return cast(IEventDispatcher)_app
             ? _app.getEventManager()
             : EventManager.instance();
-    }
+    } */
     
     /**
      * Set the application`s event manager.

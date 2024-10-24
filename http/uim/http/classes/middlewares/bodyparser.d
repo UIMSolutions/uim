@@ -85,11 +85,11 @@ class DBodyParserMiddleware : DMiddleware { // }: IHttpMiddleware {
      * });
      * ```
      */
-    void addParser(Json[string] contentTypeHeaders, Closure parserFunction) {
+    /* void addParser(Json[string] contentTypeHeaders, Closure parserFunction) {
         types
             .map!(contentTypeHeaders => contentTypeHeaders.lower)
             .each!(contentTypeHeaders => _parsers[contentTypeHeaders] = parserFunction);
-    }
+    } */
     
     // Get the current parsers
     IClosure[] getParsers() {
@@ -98,10 +98,7 @@ class DBodyParserMiddleware : DMiddleware { // }: IHttpMiddleware {
     
     /**
      * Apply the middleware.
-     *
      * Will modify the request adding a parsed body if the content-type is known.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request.
      */
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
         if (!isIn(serverRequest.getMethod(), this.methods, true)) {

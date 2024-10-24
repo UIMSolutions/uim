@@ -68,7 +68,7 @@ import uim.http;
  * ```
  */
 class DClientResponse { // }: Message : IResponse {
-    mixin TMessage;
+    // mixin TMessage;
 
     // The status code of the response.
     protected int _statusCode = 0;
@@ -77,7 +77,7 @@ class DClientResponse { // }: Message : IResponse {
     protected string _reasonPhrase;
 
     // Cookie Collection instance
-    protected ICookieCollection _cookies = null;
+    protected DCookieCollection _cookies = null;
 
     // Cached decoded XML data.
     protected ISimpleXMLElement _xml = null;
@@ -90,10 +90,10 @@ class DClientResponse { // }: Message : IResponse {
         if (getHeaderLine("Content-Encoding") == "gzip") {
             responseBody = _decodeGzipBody(responseBody);
         }
-        stream = new DStream("d://memory", "wb+");
+        /* stream = new DStream("d://memory", "wb+");
         stream.write(responseBody);
         stream.rewind();
-        this.stream = stream;
+        this.stream = stream; */
     }
     
     /**

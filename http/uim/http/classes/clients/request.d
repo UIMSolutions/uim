@@ -16,58 +16,59 @@ import uim.http;
  * for making requests.
  */
 class DRequest { // }: Message, IRequest {
-    mixin TRequest;
+  // mixin TRequest;
 
-    this(
-        /* IUri| */string requestUrl = "",
-        string httpMethod = METHOD_GET,
-        Json[string] httpHeaders = null,
-        string[] requestBodyData = null
-   ) {
-        setMethod(httpMethod);
-        _uri = createUri(requestUrl);
-        addHeaders(httpHeaders.merge([
-            "Connection": "close",
-            "User-Agent": ini_get("user_agent") ? ini_get("user_agent") : "UIM",
-        ]));
+  this(
+    /* IUri| */
+    string requestUrl = "",
+    string httpMethod = cast(string) HTTPMETHODS.METHOD_GET,
+    Json[string] httpHeaders = null,
+    string[] requestBodyData = null
+  ) {
+    setMethod(httpMethod);
+    _uri = createUri(requestUrl);
+    addHeaders(httpHeaders.merge([
+        "Connection": "close",
+        "User-Agent": ini_get("user_agent") ? ini_get("user_agent"): "UIM",
+      ]));
 
-        if (requestBodyData.isNull) {
-            _stream = new DStream("d://memory", "rw");
-        } else {
-            setContent(requestBodyData);
-        }
+    if (requestBodyData.isNull) {
+      _stream = new DStream("d://memory", "rw");
+    } else {
+      setContent(requestBodyData);
     }
-    
-    // Add an array of headers to the request.
-    protected void addHeaders(string[string] headersToAdd) {
-        headersToAdd.byKeyValue
-            .each!(kv => addHeader(kv.key, kv.value));
-    }
+  }
 
-    protected void addHeader(string key, string value) {
-        string normalized = key.lower;
-        _headers[key] = value;
-        _headerNames[normalized] = key;
-    }
-    
-    /**
+  // Add an array of headers to the request.
+  protected void addHeaders(string[string] headersToAdd) {
+    headersToAdd.byKeyValue
+      .each!(kv => addHeader(kv.key, kv.value));
+  }
+
+  protected void addHeader(string key, string value) {
+    string normalized = key.lower;
+    _headers[key] = value;
+    _headerNames[normalized] = key;
+  }
+
+  /**
      * Set the body/payload for the message.
      *
      * Array data will be serialized with {@link \UIM\Http\FormData},
      * and the content-type will be set.
      */
-    protected void setContent(string[] requestBody) {
-        if (content.isArray) {
-            formData = new DFormData();
-            formData.addMany(requestBody);
-            /** @Dstan-var array<non-empty-string, non-empty-string>  aHeaders *
+  protected void setContent(string[] requestBody) {
+    if (content.isArray) {
+      formData = new DFormData();
+      formData.addMany(requestBody);
+      /** @Dstan-var array<non-empty-string, non-empty-string>  aHeaders *
             /
              aHeaders = ["Content-Type": formData.contentType()];
             this.addHeaders(aHeaders);
             auto myFormData = (string)formData; */
-        }
-        stream = new DStream("d://memory", "rw");
-        stream.write(myFormData);
-        _stream = stream;
     }
+    stream = new DStream("d://memory", "rw");
+    stream.write(myFormData);
+    _stream = stream;
+  }
 }

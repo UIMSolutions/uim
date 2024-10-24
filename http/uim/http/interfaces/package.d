@@ -14,4 +14,5 @@ public {
     import uim.http.interfaces.response;
     import uim.http.interfaces.session;
     import uim.http.interfaces.simplexml;
+    import uim.http.interfaces.uri;
 }

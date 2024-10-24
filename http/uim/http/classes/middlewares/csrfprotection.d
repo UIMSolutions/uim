@@ -40,13 +40,13 @@ class DCsrfProtectionMiddleware : DMiddleware { // }: IHttpMiddleware {
      *  FormHelper.
      *
      */
-    protected Json[sting] _config = createMap!(string, Json)
+    /* protected Json[sting] _config = createMap!(string, Json)
         .set("cookieName", "csrfToken")
         .set("expiry", 0)
         .set("secure", false)
         .set("httponly", false)
         .set("samesite", Json(null))
-        .set("field", "_csrfToken");
+        .set("field", "_csrfToken"); */
 
     /**
      * Callback for deciding whether to skip the token check for particular request.

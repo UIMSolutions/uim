@@ -45,7 +45,7 @@ class DFormData { // }: Countable {
      * Params:
      * string aName The name of the part.
      */
-    FormDataPart newPart(string aName, string valueToAdd) {
+    DFormDataPart newPart(string aName, string valueToAdd) {
         return new DFormDataPart(name, valueToAdd);
     }
 
@@ -62,17 +62,17 @@ class DFormData { // }: Countable {
      * or the part data object.
      */
     void add( /* FormDataPart| */ string partName, Json partValue = null) {
-        if (isString(partName)) {
-            if (partValue.isArray) {
-                this.addRecursive(partName, partValue);
-            } else if (isResource(partValue) || cast(IUploadedFile) partValue) {
-                this.addFile(partName, partValue);
-            } else {
-                _parts ~= this.newPart(partName, /* (string) */ partValue);
-            }
+        _hasComplexPart = true;
+        _parts ~= partName;
+    }
+
+    void add(string partName, Json partValue = null) {
+        if (partValue.isArray) {
+            this.addRecursive(partName, partValue);
+        } else if (isResource(partValue) || cast(IUploadedFile) partValue) {
+            this.addFile(partName, partValue);
         } else {
-            _hasComplexPart = true;
-            _parts ~= partName;
+            _parts ~= this.newPart(partName, /* (string) */ partValue);
         }
     }
 
@@ -87,8 +87,9 @@ class DFormData { // }: Countable {
 
     // Add either a file reference (string starting with @) or a file handle.
     DFormDataPart addFile(string nameToUse, Json aValue) {
-        /* bool _hasFile = true;
+        bool _hasFile = true;
 
+        /*
         string filename = false;
         string contentType = "application/octet-stream";
         if (cast(IUploadedFile) aValue) {
@@ -118,7 +119,7 @@ class DFormData { // }: Countable {
         add(part);
 
         return part; */
-        return null; 
+        return null;
     }
 
     // Recursively add data.

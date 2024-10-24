@@ -123,7 +123,7 @@ class DClient { // }: IClient {
      * Cookies are indexed by the cookie`s domain or
      * request host name.
      */
-  protected ICookieCollection _cookies;
+  protected DCookieCollection _cookies;
 
   // Mock adapter for stubbing requests in tests.
   protected static DMockAdapter _mockAdapter = null;
@@ -224,7 +224,7 @@ class DClient { // }: IClient {
   }
 
   // Get the cookies stored in the Client.
-  CookieCollection cookies() {
+  auto cookies() {
     return _cookies;
   }
 
@@ -519,7 +519,7 @@ class DClient { // }: IClient {
      * Uses the authentication type to choose the correct strategy
      * and use its methods to add headers.
      */
-  protected IRequest _addAuthentication(Request request, Json[string] optionsWithAuthKey = null) {
+  protected IRequest _addAuthentication(IRequest request, Json[string] optionsWithAuthKey = null) {
     /*
     // TODO auto myauth = optionsWithAuthKey["auth"];
     // var \UIM\Http\Client\Auth\Basic  myadapter  
@@ -535,7 +535,7 @@ class DClient { // }: IClient {
      * Uses the authentication type to choose the correct strategy
      * and use its methods to add headers.
      */
-  protected DRequest _addProxy(Request requestToModify, Json[string] options = null) {
+  protected IRequest _addProxy(IRequest requestToModify, Json[string] options = null) {
     auto myauth = options.get("proxy");
     auto adapter = _createAuth(myauth, options);
     return adapter.proxyAuthentication(requestToModify, options

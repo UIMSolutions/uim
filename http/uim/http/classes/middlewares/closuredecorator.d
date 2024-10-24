@@ -39,7 +39,7 @@ class DClosureDecoratorMiddleware : DMiddleware { // }: IHttpMiddleware {
         );
     }
 
-    Closure getCallable() {
+    /* Closure getCallable() {
         return _callable;
-    }
+    } */
 }

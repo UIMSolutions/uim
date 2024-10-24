@@ -21,7 +21,7 @@ import uim.http;
  */
 class DOauth {
     // Add headers for Oauth authorization.
-    Request authentication(DRequest request, Json[string] authCredentials) {
+    IRequest authentication(IRequest request, Json[string] authCredentials) {
         if (!authCredentials.hasKey("consumerKey")) {
             return request;
         }
@@ -70,12 +70,9 @@ class DOauth {
      * Plaintext signing
      *
      * This method is **not** suitable for plain HTTP.
-     * You should only ever use PLAINTEXT when dealing with SSL
-     * services.
-     * Params:
-     * \UIM\Http\Client\Request request The request object.
+     * You should only ever use PLAINTEXT when dealing with SSL services.
      */
-    protected string _plaintext(Request request, Json[string] authCredentials) {
+    protected string _plaintext(IRequest request, Json[string] authCredentials) {
         auto someValues = [
             "oauth_version": "1.0",
             "oauth_nonce": uniqid(),
@@ -101,7 +98,7 @@ class DOauth {
      * Use HMAC-SHA1 signing.
      * This method is suitable for plain HTTP or HTTPS.
      */
-    protected string _hmacSha1(Request request, Json[string] authCredentials) {
+    protected string _hmacSha1(IRequest request, Json[string] authCredentials) {
         auto nonce = authCredentials.get("nonce", uniqid());
         auto timestamp = authCredentials.get("timestamp", time());
         someValues = [
@@ -138,7 +135,7 @@ class DOauth {
     /**
      * Use RSA-SHA1 signing.
      * This method is suitable for plain HTTP or HTTPS. */
-    protected string _rsaSha1(Request request, Json[string] authCredentials) {
+    protected string _rsaSha1(IRequest request, Json[string] authCredentials) {
         if (!function_hasKey("openssl_pkey_get_private")) {
             throw new UIMException("RSA-SHA1 signature method requires the OpenSSL extension.");
         }
@@ -201,7 +198,7 @@ class DOauth {
      * - The request URL (without querystring) is normalized.
      * - The HTTP method, URL and request parameters are concatenated and returned.
      */
-    string baseString(Request request, Json[string] oauthData) {
+    string baseString(IRequest request, Json[string] oauthData) {
         auto someParts = [
             request.getMethod(),
             _normalizedUrl(request.getUri()),
@@ -225,7 +222,7 @@ class DOauth {
      * - URL encode keys + values.
      * - Sort keys & values by byte value.
      */
-    protected string _normalizedParams(Request request, Json[string] oauthData) {
+    protected string _normalizedParams(IRequest request, Json[string] oauthData) {
         auto aQuery = parse_url( /* (string)  */ request.getUri(), UIM_URL_QUERY);
         // parse_str((string) aQuery, aQueryArgs);
 

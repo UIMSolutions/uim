@@ -53,6 +53,7 @@ class DCurl { // }: IAdapter {
     
     // Convert client options into curl options.
     Json[string] buildOptions(IRequest request, Json[string] clientOptions = null) {
+        Json[string] result;
         /* string[] aHeaders = request.getHeaders().byKeyValue
             .map!(keyValues => aKey ~ ": " ~ someValues.join(", ")).array;
 
@@ -123,10 +124,8 @@ class DCurl { // }: IAdapter {
             clientoptions.get("curl"].byKeyValue
                 .each!(kv => result.set(kv.key, kv.value));
 
-        }
-        return result; */
-    
-        return null; 
+        } */
+        return result; 
     }
     
     // Convert HTTP version number into curl value.
@@ -146,7 +145,7 @@ class DCurl { // }: IAdapter {
     } 
     
     // Convert the raw curl response into an Http\Client\Response
-    protected DResponse[] createResponse(CurlHandle handle, string responseData) {
+    protected DResponse[] createResponse(DCurlHandle handle, string responseData) {
         /* auto aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);
         auto aHeaders = subString(responseData, 0,  aHeaderSize).strip;
         body = subString(responseData,  aHeaderSize);

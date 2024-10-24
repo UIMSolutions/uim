@@ -68,7 +68,7 @@ class DDigest {
     }
     
     // Add Authorization header to the request.
-    Request authentication(Request request, Json[string] credentials) {
+    IRequest authentication(IRequest request, Json[string] credentials) {
         if (!credentials.hasAllKeys("username", "password")) {
             return request;
         }
@@ -90,7 +90,7 @@ class DDigest {
      * Will get the realm and other tokens by performing
      * another request without authentication to get authentication challenge.
      */
-    protected Json[string] _getServerInfo(Request request, Json[string] credentials) {
+    protected Json[string] _getServerInfo(IRequest request, Json[string] credentials) {
         auto response = _client.get(
             to!string(request.getUri()),
             [],
@@ -115,7 +115,7 @@ class DDigest {
     }
     
     // Generate the header Authorization
-    protected string _generateHeader(Request request, Json[string] authCredentials) {
+    protected string _generateHeader(IRequest request, Json[string] authCredentials) {
         auto somePath = request.getRequestTarget();
 
         if (this.isSessAlgorithm) {

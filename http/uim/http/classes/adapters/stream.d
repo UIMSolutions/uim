@@ -10,9 +10,7 @@ import uim.http;
 @safe:
 
 /**
- * : sending UIM\Http\Client\Request
- * via D`s stream API.
- *
+ * Sending UIM\Http\Client\Request via D`s stream API.
  * This approach and implementation is partly inspired by Aura.Http
  */
 class DStream { // }: IAdapter {    // Array of options/content for the HTTP stream context.

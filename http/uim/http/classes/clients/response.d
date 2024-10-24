@@ -216,7 +216,7 @@ class DClientResponse { // }: Message : IResponse {
      * This method exposes the response`s CookieCollection
      * instance allowing you to interact with cookie objects directly.
      */
-    CookieCollection getCookieCollection() {
+    auto getCookieCollection() {
         return _buildCookieCollection();
     }
     
@@ -244,9 +244,8 @@ class DClientResponse { // }: Message : IResponse {
     }
     
     // Lazily build the CookieCollection and cookie objects from the response header
-    protected ICookieCollection buildCookieCollection() {
-        _cookies ? _cookies : CookieCollection.createFromHeader(getHeader("Set-Cookie"));
-
+    protected auto buildCookieCollection() {
+        // _cookies ? _cookies : DCookieCollection.createFromHeader(getHeader("Set-Cookie"));
         return _cookies;
     }
     

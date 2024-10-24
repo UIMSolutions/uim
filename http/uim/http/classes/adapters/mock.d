@@ -28,7 +28,7 @@ class DMockAdapter { //}: IAdapter {
      *
      * - `match` An additional closure to match requests with.
      */
-    void addResponse(IRequest requestForMatch, Response response, Json[string] options = null) {
+    void addResponse(IRequest requestForMatch, DResponse response, Json[string] options = null) {
         if (options.haskey("match") && !(cast(IClosure)options.get("match"))) {
             auto type = get_debug_type(options.get("match"));
             throw new DInvalidArgumentException(

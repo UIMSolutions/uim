@@ -23,7 +23,7 @@ class DFormDataPart { // }: Stringable {
     protected string _type;
 
     // Filename to send if using files.
-    mixin(TProperty!("sting", "filename"));
+    mixin(TProperty!("string", "filename"));
 
     // The encoding used in this part.
     protected string atransferEncoding = null;

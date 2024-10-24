@@ -6,12 +6,16 @@
 module uim.http.classes.middlewares;
 
 public { // Main
-    import uim.http.classes.middlewares.middleware;
+  import uim.http.classes.middlewares.middleware;
 }
 
-public { 
-    import uim.http.classes.middlewares.bodyparser;
-    import uim.http.classes.middlewares.closuredecorator;
-    import uim.http.classes.middlewares.csp;
-    import uim.http.classes.middlewares.csp;
+public {
+  import uim.http.classes.middlewares.bodyparser;
+  import uim.http.classes.middlewares.closuredecorator;
+  import uim.http.classes.middlewares.csp;
+  import uim.http.classes.middlewares.csrfprotection;
+  import uim.http.classes.middlewares.encryptedcookie;
+  import uim.http.classes.middlewares.httpsenforcer;
+  import uim.http.classes.middlewares.securityheaders;
+  import uim.http.classes.middlewares.sessioncsrfprotection;
 }

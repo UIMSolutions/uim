@@ -1,4 +1,4 @@
-module http.uim.http.interfaces.session;
+module uim.http.interfaces.session;
 
 import uim.http;
 

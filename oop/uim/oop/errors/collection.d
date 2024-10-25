@@ -10,3 +10,13 @@ import uim.oop;
 
 class DErrorCollection : DCollection!UIMError {   
 }
+
+auto ErrorCollection() {
+    return new DErrorCollection;
+}
+
+unittest {
+  assert(ErrorCollection);
+
+  auto collection = ErrorCollection;
+}

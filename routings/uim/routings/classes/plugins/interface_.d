@@ -42,7 +42,7 @@ interface IPlugin : INamed {
     // TODO CommandCollection console(CommandCollection commandsToUpdate);
 
     // Add middleware for the plugin.
-    // TODO MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
+    // TODO DMiddlewareQueue middleware(MiddlewareQueue DMiddlewareQueue);
 
     /**
      * Add routes for the plugin.

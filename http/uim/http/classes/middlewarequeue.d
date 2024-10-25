@@ -14,7 +14,7 @@ import uim.http;
  *
  * @template-implements \SeekableIterator<int, \Psr\Http\Server\IMiddleware>
  */
-class MiddlewareQueue { // }: Countable, SeekableIterator {
+class DMiddlewareQueue { // }: Countable, SeekableIterator {
   // Internal position for iterator.
   protected int position = 0;
 
@@ -58,16 +58,16 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     _queue ~= middleware;
   }
 
-  // Alias for MiddlewareQueue.add().
-  MiddlewareQueue push(IMiddleware middleware) {
+  // Alias for DMiddlewareQueue.add().
+  DMiddlewareQueue push(IMiddleware middleware) {
     return _add(middleware);
   }
 
-  MiddlewareQueue push(string[] middlewareNames...) {
+  DMiddlewareQueue push(string[] middlewareNames...) {
     return _add(middlewareNames.dup);
   }
 
-  MiddlewareQueue push(string[] middlewareNames) {
+  DMiddlewareQueue push(string[] middlewareNames) {
     return _add(middlewareNames);
   }
 

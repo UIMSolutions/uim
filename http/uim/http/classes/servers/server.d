@@ -57,7 +57,7 @@ class DServer : UIMObject { // }: IEventDispatcher {
      */
     IResponse run(
         IServerRequest serverRequest = null,
-        MiddlewareQueue middlewareQueue = null
+        DMiddlewareQueue DMiddlewareQueue = null
    ) {
         bootstrap();
 
@@ -65,9 +65,9 @@ class DServer : UIMObject { // }: IEventDispatcher {
 
         if (middlewareQueue.isNull) {
             if (cast(IContainerApplication)_app) {
-                middlewareQueue = new DMiddlewareQueue([], _app.getContainer());
+                DMiddlewareQueue = new DMiddlewareQueue([], _app.getContainer());
             } else {
-                middlewareQueue = new DMiddlewareQueue();
+                DMiddlewareQueue = new DMiddlewareQueue();
             }
         }
         

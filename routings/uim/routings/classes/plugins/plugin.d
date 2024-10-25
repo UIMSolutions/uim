@@ -161,8 +161,8 @@ class DPlugin : UIMObject, IPlugin {
         return commands.addMany(commands.discoverPlugin(_name));
     }
  
-    DMiddlewareQueue middleware(DMiddlewareQueue middlewareQueue) {
-        return middlewareQueue;
+    DMiddlewareQueue middleware(DMiddlewareQueue DMiddlewareQueue) {
+        return DMiddlewareQueue;
     } */
     
     // Register container services for this plugin.

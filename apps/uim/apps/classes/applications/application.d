@@ -40,9 +40,9 @@ class DApplication : UIMObject {
     protected string configDataDir;
 
     // Plugin Collection
-    protected IPluginCollection _plugins;
+    protected DPluginCollection _plugins;
 
-    protected IControllerFactory _controllerFactory = null;
+    protected DControllerFactory _controllerFactory = null;
 
     // Container
     protected IContainer container = null;
@@ -50,7 +50,7 @@ class DApplication : UIMObject {
     /* this(
         string configDataDir,
         IEventManager eventManager = null,
-        IControllerFactory controllerFactory = null
+        DControllerFactory controllerFactory = null
    ) {
         _configDir = stripRight(configDataDir, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         _plugins = Plugin.getCollection();
@@ -58,9 +58,9 @@ class DApplication : UIMObject {
         _controllerFactory = controllerFactory;
     } */
 
-    abstract MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
+    abstract DMiddlewareQueue middleware(MiddlewareQueue DMiddlewareQueue);
 
-    MiddlewareQueue pluginMiddleware(MiddlewareQueue middleware) {
+    DMiddlewareQueue pluginMiddleware(MiddlewareQueue middleware) {
         /* foreach (plugin; _plugins.with("middleware")) {
             middleware = plugin.middleware(middleware);
         } */
@@ -88,7 +88,7 @@ class DApplication : UIMObject {
     }
 
     // Get the plugin collection in use.
-    PluginCollection getPlugins() {
+    DPluginCollection getPlugins() {
         return _plugins;
     }
 

@@ -12,7 +12,7 @@ import uim.controllers;
 /**
  * Factory method for building controllers for request.
  */
-class DControllerFactory { // }: IControllerFactory, IRequestHandler {
+class DControllerFactory { // }: DControllerFactory, IRequestHandler {
   mixin TConfigurable;
 
   this() {
@@ -70,7 +70,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
          auto middlewares = controller.getMiddleware();
 
         if (middlewares) {
-            auto middlewareQueue = new DMiddlewareQueue(middlewares, this.container);
+            auto DMiddlewareQueue = new DMiddlewareQueue(middlewares, this.container);
             aut runner = new DRunner();
 
             return runner.run(middlewareQueue, controller.getRequest(), this);

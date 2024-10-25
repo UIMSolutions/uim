@@ -33,11 +33,11 @@ class DRunner : UIMObject, IRequestHandler {
     protected IRequestHandler fallbackHandler = null;
 
     IResponse run(
-        DMiddlewareQueue middlewareQueue,
+        DMiddlewareQueue DMiddlewareQueue,
         IServerRequest serverRequest,
         IRequestHandler fallbackHandler = null
    ) {
-        _queue = middlewareQueue;
+        _queue = DMiddlewareQueue;
         _queue.rewind();
         _fallbackHandler = fallbackHandler;
 

@@ -23,7 +23,7 @@ class DMiddlewareApplication : UIMObject { // }: IHttpApplication {
     /* 
     abstract void bootstrap();
 
-    abstract MiddlewareQueue middleware(MiddlewareQueue aMiddlewareQueue);
+    abstract DMiddlewareQueue middleware(MiddlewareQueue aMiddlewareQueue);
 
     // Generate a 404 response as no middleware handled the request.
     IResponse handle(IServerRequest serverRequest) {

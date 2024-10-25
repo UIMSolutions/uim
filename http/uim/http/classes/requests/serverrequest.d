@@ -944,7 +944,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * object|array|null someData The deserialized body data. This will
      *   typically be in an array or object.
      */
-  static auto withParsedBody(someData) {
+  static auto withParsedBody(Json[string] someData) {
     auto newServerRequest = this.clone;
     newServerRequest.data = someData;
 

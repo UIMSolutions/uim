@@ -19,9 +19,9 @@ import uim.http;
  */
 class DRequestException : UIMException, IRequestException {
     mixin(ExceptionThis!("Request"));
-    /* protected IRequest _request;
+    protected IRequest _request;
 
-    this(string execeptionMessage, IRequest request, Throwable previousException = null) {
+    /* this(string execeptionMessage, IRequest request, Throwable previousException = null) {
         _request = request;
         super(message, 0, previousException);
     }

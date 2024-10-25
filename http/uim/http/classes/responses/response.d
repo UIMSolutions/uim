@@ -19,6 +19,7 @@ import uim.http;
  * `\InvalidArgumentException`.
  */
 class DResponse : UIMObject, IResponse {
+  mixin(ResponseThis!());
   // mixin TMessage;
 
   const int STATUS_CODE_MIN = 100;
@@ -856,18 +857,17 @@ class DResponse : UIMObject, IResponse {
   /**
      * Returns a DateTime object initialized at the time param and using UTC
      * as timezone
-     * Params:
-     * \Jsontime Valid time string or \IDateTime instance.
      */
-  protected IDateTime _getUTCDate(Json time = Json(null)) {
-    if (cast(IDateTime) time) {
-      result = time.clone;
-    } else if (isInteger(time)) {
-      result = new DateTime(date("Y-m-d H:i:s", time));
-    } else {
-      result = new DateTime(time ? time : "now");
-    }
-    return result.setTimezone(new DateTimeZone("UTC"));
+  protected DateTime _getUTCDate() {
+    return (new DateTime(time ? time : "now")).setTimezone(new DateTimeZone("UTC"));  
+  }
+
+  protected DateTime _getUTCDate(long time) {
+    return new DateTime(date("Y-m-d H:i:s", time)).setTimezone(new DateTimeZone("UTC"));
+  }
+
+  protected DateTime _getUTCDate(DateTime time) {
+    return time.clone.setTimezone(new DateTimeZone("UTC"));
   }
 
   /**
@@ -1173,7 +1173,7 @@ class DResponse : UIMObject, IResponse {
   }
 
   // Returns an array that can be used to describe the internal state of this object.
-  Json[string] debugInfo() {
+  override Json[string] debugInfo() {
     return super.debugInfo()
       .set("status", _status)
       .set("contentType", getType())

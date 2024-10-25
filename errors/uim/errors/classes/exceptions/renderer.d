@@ -112,7 +112,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
             params["controller"] = "Error";
 
             auto factory = new DControllerFactory(new DContainer());
-            auto myClass = factory.getControllerClass(_request.withAttribute("params", params));
+            auto myClass = factory.controllerClass(_request.withAttribute("params", params));
 
             if (!myClass) {
                 /** @var string myClass * /

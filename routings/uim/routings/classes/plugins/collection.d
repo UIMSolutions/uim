@@ -25,7 +25,7 @@ import uim.routings;
  *
  * @template-implements \Iterator<string, \UIM\Core\IPlugin>
  */
-class DPluginCollection /* : Iterator, Countable */ { // TODO
+class DPluginCollection : DCollection!DPlugin /* : Iterator, Countable */ { // TODO
     // Plugin list
     protected IPlugin[string] _plugins;
 

@@ -12,42 +12,16 @@ import uim.controllers;
 /**
  * Factory method for building controllers for request.
  */
-class DControllerFactory { // }: DControllerFactory, IRequestHandler {
+class DControllerFactory : DFactory!DController { // }: IRequestHandler {
   mixin TConfigurable;
 
-  this() {
-    initialize;
-  }
-
-  this(Json[string] initData) {
-    initialize(initData);
-  }
-
-  this(IContainer container) {
-    _container = container;
-  }
-
-  bool initialize(Json[string] initData = null) {
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
-
-    return true;
-  }
-
-  mixin(TProperty!("string", "name"));
-
   protected IContainer _container;
-
   protected IController _controller;
 
-  /**
-     * Create a controller for a given request.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request to build a controller for.
-     */
+  // Create a controller for a given request.
   IController create(IServerRequest serverRequest) {
     /* assert(cast(IServerRequest) request);
-        auto classname = getControllerClass(request);
+        auto classname = controllerClass(request);
         if (classname.isNull) {
             throw missingController(request);
         }
@@ -79,11 +53,7 @@ class DControllerFactory { // }: DControllerFactory, IRequestHandler {
     return null;
   }
 
-  /**
-     * Invoke the action.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest Request instance.
-     */
+  // Invoke the action.
   IResponse handle(IServerRequest serverRequest) {
     /*         assert(cast(IServerRequest) request);
         auto controller = _controller;
@@ -202,12 +172,8 @@ class DControllerFactory { // }: DControllerFactory, IRequestHandler {
     return null;
   }
 
-  /**
-     * Determine the controller class name based on current request and controller param
-     * Params:
-     * \UIM\Http\ServerRequest serverRequest The request to build a controller for.
-     */
-  string getControllerClass(IServerRequest serverRequest) {
+  // Determine the controller class name based on current request and controller param
+  string controllerClass(IServerRequest serverRequest) {
     /* pluginPath = "";
         namespace = "Controller";
         controller = request.getParam("controller", "");

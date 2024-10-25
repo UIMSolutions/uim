@@ -101,7 +101,7 @@ class DExceptionRenderer : IExceptionRenderer {
             params.set("controller", "Error");
 
             auto factory = new DControllerFactory(new DContainer());
-            string myClass = factory.getControllerClass(_request.withAttribute("params", params));
+            string myClass = factory.controllerClass(_request.withAttribute("params", params));
 
             if (myClass.isEmpty) {
                 myClass = App.classname("Error", "Controller", "Controller");

@@ -58,16 +58,16 @@ class DApplication : UIMObject {
         _controllerFactory = controllerFactory;
     } */
 
-    abstract DMiddlewareQueue middleware(MiddlewareQueue DMiddlewareQueue);
+    abstract DMiddlewareQueue middleware(DMiddlewareQueue DMiddlewareQueue);
 
-    DMiddlewareQueue pluginMiddleware(MiddlewareQueue middleware) {
+    DMiddlewareQueue pluginMiddleware(DMiddlewareQueue middleware) {
         /* foreach (plugin; _plugins.with("middleware")) {
             middleware = plugin.middleware(middleware);
         } */
         return middleware;
     }
 
-    void addPlugin(name, Json[string] configData = null) {
+    void addPlugin(string name, Json[string] configData = null) {
         auto plugin = isString(name)
             ? _plugins.create(name, configData) : name;
 
@@ -76,7 +76,6 @@ class DApplication : UIMObject {
 
     /**
      * Add an optional plugin
-     *
      * If it isn`t available, ignore it.
      */
     void addOptionalPlugin( /* IPlugin| */ string pluginName, Json[string] pluginData = null) {
@@ -107,14 +106,14 @@ class DApplication : UIMObject {
     }
 
     // By default, this will load `config/routes.d` for ease of use and backwards compatibility.
-    void routes(IRouteBuilder routes) {
+    void routes(DRouteBuilder routes) {
         // Only load routes if the router is empty
         /* if (!Router.routes()) {
             result = require _configDir ~ "routes.d";
         } */
     }
 
-    DRouteBuilder pluginRoutes(RouteBuilder routes) {
+    DRouteBuilder pluginRoutes(DRouteBuilder routes) {
         // _plugins.with("routes").each!(plugin => plugin.routes(routes));
         return routes;
     }

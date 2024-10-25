@@ -110,11 +110,11 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
 
             auto factory = new DControllerFactory(new DContainer());
             // Check including plugin + prefix
-            auto classname = factory.getControllerClass(request.withAttribute("params", params));
+            auto classname = factory.controllerClass(request.withAttribute("params", params));
             if (!classname && !params.isEmpty("prefix") && !params.isEmpty("plugin")) {
                 params.removeKey("prefix");
                 // Fallback to only plugin
-                classname = factory.getControllerClass(request.withAttribute("params", params));
+                classname = factory.controllerClass(request.withAttribute("params", params));
             }
             if (!classname) {
                 // Fallback to app/core provided controller.

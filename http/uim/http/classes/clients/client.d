@@ -194,11 +194,9 @@ class DClient { // }: IClient {
      * string must have a scheme and a domain. Optionally, if a port is included in the string, the port will be scoped
      * too. If a path is included in the URL, the client instance will build urls with it prepended.
      * Other parts of the url string are ignored.
-     * Params:
-     * string myurl A string URL e.g. https://example.com
      */
-  static auto createFromUrl(string myurl) {
-    myparts = parse_url(myurl);
+  static DClient createFromUrl(string myurl) {
+    /* auto myparts = parse_url(myurl);
     if (myparts == false) {
       throw new DInvalidArgumentException(
         "string `%s` did not parse.".format(myurl
@@ -218,7 +216,7 @@ class DClient { // }: IClient {
       configuration.set("basePath", configuration.get("path"));
       removeKey(
         configuration.get("path"));
-    }
+    } */
     // return new static(configData);
     return null;
   }
@@ -228,16 +226,12 @@ class DClient { // }: IClient {
     return _cookies;
   }
 
-  /**
-     * Adds a cookie to the Client collection.
-     * Params:
-     * \UIM\Http\Cookie\ICookie  mycookie Cookie object.
-     */
+  // Adds a cookie to the Client collection.
   void addCookie(ICookie mycookie) {
     if (!mycookie.domain() || !mycookie.path()) {
-      throw new DInvalidArgumentException("Cookie must have a domain and a path set.");
+      // throw new DInvalidArgumentException("Cookie must have a domain and a path set.");
     }
-    _cookies = _cookies.add(mycookie);
+    // _cookies = _cookies.add(mycookie);
   }
 
   /**
@@ -249,7 +243,7 @@ class DClient { // }: IClient {
   DResponse get(string requestUrl, string[] queryData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
     auto requestBody = null;
-    if (queryData.isArray && queryData.hasKey("_content")) {
+    /* if (queryData.isArray && queryData.hasKey("_content")) {
       requestBody = queryData["_content"];
       queryData.removeKey("_content");
     }
@@ -257,7 +251,8 @@ class DClient { // }: IClient {
     auto url = buildUrl(requestUrl, queryData, requestOptions);
     return _doRequest(
       Request.METHOD_GET, url, requestBody, requestOptions
-    );
+    ); */
+    return null;
   }
 
   // Do a POST request.
@@ -265,7 +260,8 @@ class DClient { // }: IClient {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(
       requestUrl, [], options);
-    return _doRequest(Request.METHOD_POST, url, postData, requestOptions);
+    // return _doRequest(Request.METHOD_POST, url, postData, requestOptions);
+    return null; 
   }
 
   // Do a PUT request.
@@ -273,7 +269,8 @@ class DClient { // }: IClient {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(
       requestUrl, [], options);
-    return _doRequest(Request.METHOD_PUT, url, requestData, requestOptions);
+    // return _doRequest(Request.METHOD_PUT, url, requestData, requestOptions);
+    return null; 
   }
 
   // Do a PATCH request.
@@ -281,17 +278,20 @@ class DClient { // }: IClient {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(
       requestUrl, [], requestOptions);
-    return _doRequest(
-      Request.METHOD_PATCH, url, valueToSend, requestOptions);
+    /* return _doRequest(
+      Request.METHOD_PATCH, url, valueToSend, requestOptions); */
+      return null; 
   }
 
   // Do an OPTIONS request.
   IResponse requestOptions(string requestUrl, Json sendData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
-    auto url = buildUrl(
-      urlTorequestUrlRequest, [], requestOptions);
-    return _doRequest(
+    /* auto url = buildUrl(
+      urlTorequestUrlRequest, [], requestOptions); */
+    /*     return _doRequest(
       Request.METHOD_OPTIONS, url, sendData, requestOptions);
+ */
+    return null;
   }
 
   // Do a TRACE request.
@@ -299,8 +299,9 @@ class DClient { // }: IClient {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(
       requestUrl, [], requestOptions);
-    return _doRequest(
-      Request.METHOD_TRACE, url, sendData, requestOptions);
+    /* return _doRequest(
+      Request.METHOD_TRACE, url, sendData, requestOptions); */
+    return null;
   }
 
   // Do a DELETE request.
@@ -308,38 +309,43 @@ class DClient { // }: IClient {
     auto requestOptions = _mergeOptions(options);
     auto url = buildUrl(
       requestUrl, [], requestOptions);
-    return _doRequest(
-      Request.METHOD_DELETE, url, sendData, requestOptions);
+    /* return _doRequest(
+      Request.METHOD_DELETE, url, sendData, requestOptions); */
+    return null;
   }
 
   // Do a HEAD request.
   DResponse head(string requestUrl, Json[string] queryData = null, Json[string] options = null) {
     auto requestOptions = _mergeOptions(options);
-    auto requestUrl = buildUrl(
+    /* auto requestUrl = buildUrl(
       requestUrl, queryData, requestOptions);
     return _doRequest(
-      Request.METHOD_HEAD, requestUrl, "", requestOptions);
+      Request.METHOD_HEAD, requestUrl, "", requestOptions); */
+    return null;
   }
 
   // Helper method for doing non-GET requests.
   protected DClientResponse _doRequest(string httpMethod, string requestUrl, Json requestBody, Json[string] options = null) {
     auto newRequest = _createRequest(
-      hhtpMethod,
+      httpMethod,
       requestUrl,
       requestBody,
       options
     );
-    return _send(newRequest, options);
+    // return _send(newRequest, options);
+    return null; 
   }
 
   // Does a recursive merge of the parameter with the scope config.
   protected Json[string] _mergeOptions(Json[string] optionsToMerge = null) {
-    return _config.dup.merge(optionsToMerge);
+    // return _config.dup.merge(optionsToMerge);
+    return null; 
   }
 
   // Sends a PSR-7 request and returns a PSR-7 response.
   IResponse sendRequest(IRequest psrRequest) {
-    return _send(psrRequest, _config);
+    // return _send(psrRequest, _config);
+    return null; 
   }
 
   /**
@@ -351,9 +357,9 @@ class DClient { // }: IClient {
   IResponse send(IRequest request, Json[string] options = null) {
     int myredirects = 0;
     if (options.hasKey("redirect")) {
-      myredirects = options.shift("redirect").getLong;
+      // myredirects = options.shift("redirect").getLong;
     }
-    do {
+    /* do {
       auto myresponse = _sendRequest(request, options);
       auto myhandleRedirect = myresponse.isRedirect() && myredirects-- > 0;
       if (myhandleRedirect) {
@@ -372,8 +378,9 @@ class DClient { // }: IClient {
           ]);
       }
     }
-    while (myhandleRedirect);
-    return myresponse;
+    while (myhandleRedirect); */
+    // return myresponse;
+    return null; 
   }
 
   // Clear all mocked responses
@@ -399,13 +406,13 @@ class DClient { // }: IClient {
     if (!_mockAdapter) {
       _mockAdapter = new DMockAdapter();
     }
-    _mockAdapter.addResponse(new DRequest(url, httpMethod), response, options);
+    // _mockAdapter.addResponse(new DRequest(url, httpMethod), response, options);
   }
 
   // Send a request without redirection.
   protected DClientResponse _sendRequest(
     IRequest requestToSend, Json[string] options = null) {
-    DClientResponse response;
+    /* DClientResponse response;
     if (_mockAdapter) {
       response = _mockAdapter.send(requestToSend, options);
     }
@@ -413,7 +420,8 @@ class DClient { // }: IClient {
       response = _adapter.send(requestToSend, options);
     }
     response.each!(response => _cookies = _cookies.addFromResponse(response, requestToSend));
-    return response.pop();
+    return response.pop(); */
+    return null; 
   }
 
   // Generate a URL based on the scoped client options.
@@ -421,6 +429,7 @@ class DClient { // }: IClient {
     if (options.isEmpty && queryData.isEmpty) {
       return fullUrl;
     }
+
     options
       .merge("host", Json(null))
       .merge("port", Json(null))
@@ -429,16 +438,16 @@ class DClient { // }: IClient {
       .merge("protocolRelative", false);
 
     if (queryData) {
-      fullUrl ~= fullUrl.contains("?") ? "&" : "?";
-      fullUrl ~= isString(queryData) ? queryData : http_build_query(
-        queryData, "", "&", UIM_QUERY_RFC3986);
+      /* fullUrl ~= fullUrl.contains("?") ? "&" : "?";
+      fullUrl ~= queryData.isString ? queryData : http_build_query(
+        queryData, "", "&", UIM_QUERY_RFC3986); */
     }
-    if (options.hasKey("protocolRelative") && fullUrl.startWith(
+    if (options.hasKey("protocolRelative") && fullUrl.startsWith(
         "//")) {
       fullUrl = options.getString(
         "scheme") ~ ": " ~ fullUrl;
     }
-    if (preg_match("#^https?://#", fullUrl)) {
+    if (fullUrl.matchFirst(r"#^https?://#")) {
       return fullUrl;
     }
 
@@ -466,16 +475,15 @@ class DClient { // }: IClient {
   protected DRequest _createRequest(string httpMethod, string url, Json requestBody, Json[string] options = null) {
     auto headers = options.getArray("headers");
     if (options.hasKey("type")) {
-      headers = chain(headers, _typeHeaders(
-          options.get("type")));
+      /* headers = chain(headers, _typeHeaders(
+          options.get("type"))); */
     }
-    if (requestBody.isString && headers.isNull("Content-Type") && headers
-      .isNull("content-type")) {
-      headers.set("Content-Type", "application/x-www-form-urlencoded");
-    }
-    auto newRequest = new DRequest(url, httpMethod, headers, requestBody);
+    /* if (requestBody.isString && headers.isNull("Content-Type") && headers.isNull("content-type")) {
+      // headers.set("Content-Type", "application/x-www-form-urlencoded");
+    } */
+    /* auto newRequest = new DRequest(url, httpMethod, headers, requestBody);
     newRequest = newRequest.withProtocolVersion(_configData.hasKey("protocolVersion"));
-    auto mycookies = options.getArray("cookies"); 
+    auto mycookies = options.getArray("cookies");
     newRequest = _cookies.addToRequest(newRequest, mycookies);
     if (
       options.hasKey("auth")) {
@@ -483,13 +491,13 @@ class DClient { // }: IClient {
     }
 
     return options.hasKey("proxy")
-      ? _addProxy(newRequest, options) : newRequest;
+      ? _addProxy(newRequest, options) : newRequest; */
+      return null; 
   }
 
   // Returns headers for Accept/Content-Type based on a short type or full mime-type.
-  protected STRINGAA _typeHeaders(
-    string mimetype) {
-    if (mytype.contains("/")) {
+  protected STRINGAA _typeHeaders(string mimetype) {
+    if (mimetype.contains("/")) {
       return [
         "Accept": mimetype,
         "Content-Type": mimetype,
@@ -501,11 +509,11 @@ class DClient { // }: IClient {
       "xml": "application/xml",
     ];
 
-    if (typeMap.isNull(mimetype)) {
+    /* if (typeMap.isNull(mimetype)) {
       throw new UIMException(
         "Unknown type alias `%s`."
           .format(mimetype));
-    }
+    } */
 
     return [
       "Accept": typeMap[mimetype],
@@ -536,10 +544,11 @@ class DClient { // }: IClient {
      * and use its methods to add headers.
      */
   protected IRequest _addProxy(IRequest requestToModify, Json[string] options = null) {
-    auto myauth = options.get("proxy");
+    /* auto myauth = options.get("proxy");
     auto adapter = _createAuth(myauth, options);
     return adapter.proxyAuthentication(requestToModify, options
-        .get("proxy"));
+        .get("proxy")); */
+        return null; 
   }
 
   /**
@@ -548,11 +557,11 @@ class DClient { // }: IClient {
      * Use the configuration options to create the correct
      * authentication strategy handler.
      */
-  protected auto _createAuth(Json[string] myauth, Json[string] requestOptions = null) {
-    if (isEmpty(myauth["type"])) {
+  protected DClient _createAuth(Json[string] myauth, Json[string] requestOptions = null) {
+    /* if (isEmpty(myauth["type"])) {
       myauth["type"] = "basic";
     }
-    
+
     auto myname = myauth.getString("type").capitalize;
     auto myclass = App.classname(myname, "Http/Client/Auth");
     if (!myclass) {
@@ -560,6 +569,7 @@ class DClient { // }: IClient {
         "Invalid authentication type `%s`.".format(myname)
       );
     }
-    return new myclass(this, requestOptions);
+    return new myclass(this, requestOptions); */
+    return null; 
   }
 }

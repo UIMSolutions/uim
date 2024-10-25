@@ -19,24 +19,24 @@ class DBasic {
     // Add Authorization header to the request.
     IRequest authentication(IRequest request, Json[string] credentials) {
         if (credentials.hasAllKeys("username", "password")) {
-            auto headerValue = _generateHeader(credentials["username"], credentials["password"]);
-            request = request.withHeader("Authorization", headerValue);
+            /* auto headerValue = _generateHeader(credentials["username"], credentials["password"]);
+            request = request.withHeader("Authorization", headerValue); */
         }
         return request;
     }
     
     // Proxy Authentication
     IRequest proxyAuthentication(IRequest request, Json[string] credentials) {
-        IRequest request;
-        if (credentials.hasAllKeys("username", credentials["password"])) {
+        /* if (credentials.hasAllKeys("username", credentials["password"])) {
             auto aValue = _generateHeader(credentials["username"], credentials["password"]);
             auto request = request.withHeader("Proxy-Authorization", aValue);
-        }
+        } */
         return request;
     }
     
     // Generate basic [proxy] authentication header
     protected string _generateHeader(string username, string password) {
-        return "Basic " ~ base64_encode(username ~ ": " ~ password);
+        // return "Basic " ~ base64_encode(username ~ ": " ~ password);
+        return null; 
     }
 }

@@ -25,7 +25,7 @@ class DOauth {
         if (!authCredentials.hasKey("consumerKey")) {
             return request;
         }
-        authCredentials.set("method", authCredentials.isEmpty("method")
+        /* authCredentials.set("method", authCredentials.isEmpty("method")
                 ? "hmac-sha1" : authCredentials.getString("method").upper);
 
         switch (authCredentials.getString("method")) {
@@ -36,14 +36,14 @@ class DOauth {
             if (!hasKeys) {
                 return request;
             }
-            aValue = _hmacSha1(request, authCredentials);
+            value = _hmacSha1(request, authCredentials);
             break;
 
         case "RSA-SHA1":
             if (!authCredentials.hasKey("privateKey")) {
                 return request;
             }
-            aValue = _rsaSha1(request, authCredentials);
+            value = _rsaSha1(request, authCredentials);
             break;
 
         case "PLAINTEXT":
@@ -55,7 +55,7 @@ class DOauth {
             if (!hasKeys) {
                 return request;
             }
-            aValue = _plaintext(request, authCredentials);
+            value = _plaintext(request, authCredentials);
             break;
 
         default:
@@ -63,7 +63,8 @@ class DOauth {
                 "Unknown Oauth signature method `%s`.".format(
                     authCredentials["method"]));
         }
-        return request.withHeader("Authorization", aValue);
+        return request.withHeader("Authorization", value); */
+        return null; 
     }
 
     /**
@@ -73,13 +74,13 @@ class DOauth {
      * You should only ever use PLAINTEXT when dealing with SSL services.
      */
     protected string _plaintext(IRequest request, Json[string] authCredentials) {
-        auto someValues = [
+        /* auto someValues = [
             "oauth_version": "1.0",
-            "oauth_nonce": uniqid(),
+            /* "oauth_nonce": uniqid(),
             "oauth_timestamp": time(),
             "oauth_signature_method": "PLAINTEXT",
             "oauth_token": authCredentials.get("token"),
-            "oauth_consumer_key": authCredentials.get("consumerKey"),
+            "oauth_consumer_key": authCredentials.get("consumerKey"), * /
         ];
         if (authCredentials.hasKey("realm")) {
             someValues.set("oauth_realm", authCredentials.get("realm"));
@@ -91,7 +92,8 @@ class DOauth {
         string key = keys.join("&");
         someValues.set("oauth_signature", key);
 
-        return _buildAuth(someValues);
+        return _buildAuth(someValues); */
+        return null; 
     }
 
     /**
@@ -99,8 +101,8 @@ class DOauth {
      * This method is suitable for plain HTTP or HTTPS.
      */
     protected string _hmacSha1(IRequest request, Json[string] authCredentials) {
-        auto nonce = authCredentials.get("nonce", uniqid());
-        auto timestamp = authCredentials.get("timestamp", time());
+        // auto nonce = authCredentials.get("nonce", uniqid());
+        /* auto timestamp = authCredentials.get("timestamp", time());
         someValues = [
             "oauth_version": "1.0",
             "oauth_nonce": nonce,
@@ -129,14 +131,15 @@ class DOauth {
                 hash_hmac("sha1", baseString, key, true)
         ));
 
-        return _buildAuth(someValues);
+        return _buildAuth(someValues); */
+        return null; 
     }
 
     /**
      * Use RSA-SHA1 signing.
      * This method is suitable for plain HTTP or HTTPS. */
     protected string _rsaSha1(IRequest request, Json[string] authCredentials) {
-        if (!function_hasKey("openssl_pkey_get_private")) {
+        /* if (!function_hasKey("openssl_pkey_get_private")) {
             throw new UIMException("RSA-SHA1 signature method requires the OpenSSL extension.");
         }
         auto nonce = authCredentials.get("nonce", bin2hex(Security.randomBytes(16)));
@@ -176,7 +179,7 @@ class DOauth {
             rewind(resource);
             authCredentials.set("privateKeyPassphrase", passphrase);
         }
-        /** @var \OpenSSLAsymmetricKey|\OpenSSLCertificate|string[] aprivateKey */
+        /** @var \OpenSSLAsymmetricKey|\OpenSSLCertificate|string[] aprivateKey * /
         auto privateKey = openssl_pkey_get_private(authCredentials["privateKey"], authCredentials["privateKeyPassphrase"]);
         this.checkSslError();
 
@@ -186,7 +189,8 @@ class DOauth {
 
         someValues["oauth_signature"] = base64_encode(signature);
 
-        return _buildAuth(someValues);
+        return _buildAuth(someValues); */
+        return null; 
     }
 
     /**
@@ -199,19 +203,21 @@ class DOauth {
      * - The HTTP method, URL and request parameters are concatenated and returned.
      */
     string baseString(IRequest request, Json[string] oauthData) {
-        auto someParts = [
+        /* auto someParts = [
             request.getMethod(),
             _normalizedUrl(request.getUri()),
             _normalizedParams(request, oauthData),
         ];
         // someParts = array_map(_encode(...), someParts);
 
-        return join("&", someParts);
-    }
+        return join("&", someParts); */
+        return null;
+    } 
 
     // Builds a normalized URL
     protected string _normalizedUrl(IUri anUri) {
-        return anUri.getScheme() ~ ": //" ~ anUri.getHost().lower ~ anUri.path();
+        // return anUri.getScheme() ~ ": //" ~ anUri.getHost().lower ~ anUri.path();
+        return null; 
     }
 
     /**
@@ -223,7 +229,7 @@ class DOauth {
      * - Sort keys & values by byte value.
      */
     protected string _normalizedParams(IRequest request, Json[string] oauthData) {
-        auto aQuery = parse_url( /* (string)  */ request.getUri(), UIM_URL_QUERY);
+        /* auto aQuery = parse_url( /* (string)  * / request.getUri(), UIM_URL_QUERY);
         // parse_str((string) aQuery, aQueryArgs);
 
         auto post = null;
@@ -239,13 +245,14 @@ class DOauth {
         }
         sort(someData, SORT_STRING);
 
-        return join("&", someData);
+        return join("&", someData); */
+        return null; 
     }
 
     // Recursively convert request data into the normalized form.
     protected Json[string] _normalizeData(Json[string] arguments, string convertedPath = null) {
-        auto someData = null;
-        arguments.byKeyValue((kv) {
+        Json[string] someData;
+        /* arguments.byKeyValue((kv) {
             if (convertedPath) {
                 // Fold string keys with [].
                 // Numeric keys result in a=b&a=c. While this isn`t
@@ -259,34 +266,35 @@ class DOauth {
             } else {
                 someData ~= [kv.key, kv.value];
             }
-        });
+        }); */
         return someData;
     }
 
     // Builds the Oauth Authorization header value.
     protected string _buildAuth(Json[string] oauthData) {
         string result = "OAuth ";
-        string[] params = someData.byKeyValue
-            .map!(kv => kv.key ~ "=\"" ~ _encode( /* (string)  */ kv.value) ~ "\"").array;
+        /* string[] params = someData.byKeyValue
+            .map!(kv => kv.key ~ "=\"" ~ _encode( /* (string)  * / kv.value) ~ "\"").array;
 
-        result ~= params.join(",");
+        result ~= params.join(","); */
 
         return result;
     }
 
     // URL Encodes a value based on rules of rfc3986
     protected string _encode(string valueToEncode) {
-        return rawUrlEncode(valueToEncode).replace(["%7E", "+"], ["~", " "]);
+        // return rawUrlEncode(valueToEncode).replace(["%7E", "+"], ["~", " "]);
+        return null; 
     }
 
     // Check for SSL errors and throw an exception if found.
     protected void checkSslError() {
         string error = "";
-        while (text = openssl_error_string()) {
+        /* while (text = openssl_error_string()) {
             error ~= text;
         }
         if (error.length > 0) {
             throw new UIMException("openssl error: " ~ error);
-        }
+        } */
     }
 }

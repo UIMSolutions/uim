@@ -45,7 +45,8 @@ class DFormData { // }: Countable {
      * string aName The name of the part.
      */
     DFormDataPart newPart(string aName, string valueToAdd) {
-        return new DFormDataPart(name, valueToAdd);
+        // return new DFormDataPart(name, valueToAdd);
+        return null; 
     }
 
     /**
@@ -66,13 +67,13 @@ class DFormData { // }: Countable {
     }
 
     void add(string partName, Json partValue = null) {
-        if (partValue.isArray) {
+        /* if (partValue.isArray) {
             this.addRecursive(partName, partValue);
         } else if (isResource(partValue) || cast(IUploadedFile) partValue) {
             this.addFile(partName, partValue);
         } else {
-            _parts ~= this.newPart(partName, /* (string) */ partValue);
-        }
+            _parts ~= this.newPart(partName, /* (string) * / partValue);
+        } */
     }
 
     /**
@@ -131,7 +132,8 @@ class DFormData { // }: Countable {
 
     // Returns the count of parts inside this object.
     size_t count() {
-        return count(_parts);
+        // return count(_parts);
+        return 0; 
     }
 
     // Check whether the current payload has any files.
@@ -147,7 +149,8 @@ class DFormData { // }: Countable {
      * or use add() with a Part instance.
      */
     bool isMultipart() {
-        return _hasFile() || _hasComplexPart;
+        // return _hasFile() || _hasComplexPart;
+        return false;
     }
 
     /**
@@ -168,7 +171,7 @@ class DFormData { // }: Countable {
      * for use in an HTTP request.
      */
     override string toString() {
-        if (this.isMultipart()) {
+        /* if (this.isMultipart()) {
             auto boundary = this.boundary();
             string result = _parts.map!(part => "--%s\r\n%s\r\n".format(boundary, part)).join;
             result ~= "--%s--\r\n".format(boundary);
@@ -176,6 +179,7 @@ class DFormData { // }: Countable {
         }
         someData = null;
         _parts.each!(part => someData[part.name()] = part.value());
-        return http_build_query(someData);
+        return http_build_query(someData); */
+        return null; 
     }
 }

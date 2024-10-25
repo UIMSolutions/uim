@@ -25,7 +25,7 @@ class DRequest { // }: Message, IRequest {
     Json[string] httpHeaders = null,
     string[] requestBodyData = null
   ) {
-    setMethod(httpMethod);
+    /* setMethod(httpMethod);
     _uri = createUri(requestUrl);
     addHeaders(httpHeaders.merge([
         "Connection": "close",
@@ -36,7 +36,7 @@ class DRequest { // }: Message, IRequest {
       _stream = new DStream("d://memory", "rw");
     } else {
       setContent(requestBodyData);
-    }
+    } */
   }
 
   // Add an array of headers to the request.
@@ -47,8 +47,8 @@ class DRequest { // }: Message, IRequest {
 
   protected void addHeader(string key, string value) {
     string normalized = key.lower;
-    _headers[key] = value;
-    _headerNames[normalized] = key;
+   /*  _headers[key] = value;
+    _headerNames[normalized] = key; */
   }
 
   /**
@@ -58,17 +58,17 @@ class DRequest { // }: Message, IRequest {
      * and the content-type will be set.
      */
   protected void setContent(string[] requestBody) {
-    if (content.isArray) {
+    /* if (content.isArray) {
       formData = new DFormData();
       formData.addMany(requestBody);
       /** @Dstan-var array<non-empty-string, non-empty-string>  aHeaders *
             /
              aHeaders = ["Content-Type": formData.contentType()];
             this.addHeaders(aHeaders);
-            auto myFormData = (string)formData; */
+            auto myFormData = (string)formData; * /
     }
     stream = new DStream("d://memory", "rw");
     stream.write(myFormData);
-    _stream = stream;
+    _stream = stream; */
   }
 }

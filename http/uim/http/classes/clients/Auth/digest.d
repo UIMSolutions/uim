@@ -50,21 +50,21 @@ class DDigest {
     // Is Sess algorithm
     protected bool _isSessAlgorithm = false;
 
-    this(IClient httpClient, Json[string] initData = null) {
+    /* this(IClient httpClient, Json[string] initData = null) {
         initialize(initData);
        _client = httpClient;
-    }
+    } */
     
     // Set algorithm based on credentials
     protected void setAlgorithm(Json[string] credentials) {
-        auto algorithm = credentials.get("algorithm", ALGO_MD5);
+        /* auto algorithm = credentials.get("algorithm", ALGO_MD5);
         if (!HASH_ALGORITHMS.hasKey(algorithm)) {
             throw new DInvalidArgumentException("Invalid Algorithm. Valid ones are: " ~
                 HASH_ALGORITHMS.keys.join(","));
         }
         _algorithm = algorithm;
         this.isSessAlgorithm = indexOf(_algorithm, "-sess") == true;
-        _hashType = Hash.get(HASH_ALGORITHMS, _algorithm);
+        _hashType = Hash.get(HASH_ALGORITHMS, _algorithm); */
     }
     
     // Add Authorization header to the request.
@@ -79,9 +79,10 @@ class DDigest {
             return request;
         }
         setAlgorithm(credentials);
-        aValue = _generateHeader(request, credentials);
+        // value = _generateHeader(request, credentials);
 
-        return request.withHeader("Authorization", aValue);
+        // return request.withHeader("Authorization", value);
+        return null; 
     }
     
     /**
@@ -91,7 +92,7 @@ class DDigest {
      * another request without authentication to get authentication challenge.
      */
     protected Json[string] _getServerInfo(IRequest request, Json[string] credentials) {
-        auto response = _client.get(
+        /* auto response = _client.get(
             to!string(request.getUri()),
             [],
             ["auth": ["type": Json(null)]]
@@ -107,18 +108,20 @@ class DDigest {
         if ((this.isSessAlgorithm || !credentials.isEmpty("qop")) && credentials.isEmpty("nc")) {
             credentials.set("nc", 1);
         }
-        return credentials;
+        return credentials; */
+        return null; 
     }
     
     protected string generateCnonce() {
-        return uniqid();
+        // return uniqid();
+        return null; 
     }
     
     // Generate the header Authorization
     protected string _generateHeader(IRequest request, Json[string] authCredentials) {
-        auto somePath = request.getRequestTarget();
+        // auto somePath = request.getRequestTarget();
 
-        if (this.isSessAlgorithm) {
+        /* if (this.isSessAlgorithm) {
             credentials.set("cnonce", generateCnonce());
             a1 = hash(_hashType, authCredentials.getString("username") ~ ": " ~
                     authCredentials.getString("realm") ~ ": " ~ authCredentials.getString("password")) ~ ": " ~
@@ -169,6 +172,7 @@ class DDigest {
         if (!authCredentials.isEmpty("opaque")) {
             result ~= ", opaque=\"" ~ credentials.getString("opaque") ~ "\"";
         }
-        return result;
+        return result; */
+        return null; 
     }
 }

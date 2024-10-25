@@ -20,9 +20,10 @@ class DContentTypeNegotiation {
      * discarded as they are not frequently used.
      */
     Json[string] parseAccept(IRequest request) {
-        auto acceptHeader = request.getHeaderLine("Accept");
+        // auto acceptHeader = request.getHeaderLine("Accept");
 
-        return _parseQualifiers(acceptHeader);
+        /* return _parseQualifiers(acceptHeader); */
+        return null; 
     }
     
     /**
@@ -40,7 +41,8 @@ class DContentTypeNegotiation {
     
     // Parse a header value into preference: value mapping
     protected string[][string] parseQualifiers(string headerValue) {
-        return HeaderUtility.parseAccept(headerValue);
+        // return HeaderUtility.parseAccept(headerValue);
+        return null; 
     }
     
     /**
@@ -60,7 +62,8 @@ class DContentTypeNegotiation {
             return null;
         }
 
-        if (supportedChoices.isEmpty) {
+
+       /*  if (supportedChoices.isEmpty) {
             auto preferred = parsed.shift;
             return preferred[0];
         }
@@ -69,7 +72,7 @@ class DContentTypeNegotiation {
             if (auto common = intersect(acceptTypes, supportedContenttypeChoices)) {
                 return common.shift;
             }
-        }
+        } */
         return null;
     }
     
@@ -84,10 +87,10 @@ class DContentTypeNegotiation {
         auto accept = null;
         foreach (languages; raw) {
             foreach (ref lan; languages) {
-                if (lang.contains("_")) {
+                /* if (lang.contains("_")) {
                     lang = lang.replace("_", "-");
                 }
-                lang = lang.lower;
+                lang = lang.lower; */
             }
             accept = chain(accept, languages);
         }

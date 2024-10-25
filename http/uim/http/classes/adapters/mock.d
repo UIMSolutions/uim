@@ -29,34 +29,34 @@ class DMockAdapter { //}: IAdapter {
      * - `match` An additional closure to match requests with.
      */
     void addResponse(IRequest requestForMatch, DResponse response, Json[string] options = null) {
-        if (options.haskey("match") && !(cast(IClosure)options.get("match"))) {
-            auto type = get_debug_type(options.get("match"));
+        if (options.hasKey("match") /* && !(cast(IClosure)options.get("match") */) {
+            /* auto type = get_debug_type(options.get("match"));
             throw new DInvalidArgumentException(
                 "The `match` option must be a `Closure`. Got `%s`."
                 .format(type
-           ));
+           )); */
         }
-        _responses ~= [
+        /* _responses ~= [
             "request": requestForMatch,
             "response": response,
             "options": options,
-        ];
+        ]; */
     }
     
     // Find a response if one exists.
     IResponse[] send(IRequest requestToMatch, Json[string] options = null) {
         auto found = null;
         auto method = requestToMatch.getMethod();
-        auto requestUri = to!string(requestToMatch.getUri());
+        // auto requestUri = to!string(requestToMatch.getUri());
 
         size_t foundIndex = -1;
         foreach (index, mock; _responses) {
-            if (method != mock["request"].getMethod()) {
+            /* if (method != mock["request"].getMethod()) {
                 continue;
             }
             if (!urlMatches(requestUri, mock["request"])) {
                 continue;
-            }
+            } */
             if (mock.hasKey("options.match")) {
                 /* match = mock["options.match"](request);
                 if (!isBoolean(match)) {
@@ -66,19 +66,20 @@ class DMockAdapter { //}: IAdapter {
                     continue;
                 } */
             }
-            foundIndex = index;
+            // foundIndex = index;
             break;
         }
         if (foundIndex >= 0) {
             // Move the current mock to the end so that when there are multiple
             // matches for a URL the next match is used on subsequent requests.
-            auto mock = _responses[foundIndex];
-            _responses.removeKey(foundIndex);
-            _responses ~= mock;
+            // auto mock = _responses[foundIndex];
+            /* _responses.removeKey(foundIndex);
+            _responses ~= mock; */
 
-            return [mock["response"]];
+            return null; // [mock["response"]];
         }
-        throw new DMissingResponseException(["method": method, "url": requestUri]);
+        // throw new DMissingResponseException(["method": method, "url": requestUri]);
+         return null;
     }
     
     // Check if the request URI matches the mock URI.

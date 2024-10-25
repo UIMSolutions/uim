@@ -31,7 +31,7 @@ class DFormDataPart { // }: Stringable {
     // The contentId for the part
     protected string _contentId = null;
 
-/*     this(
+    /*     this(
         protected string nameOfData,
         protected string ValueOfData,
         protected string dispositionType = "form-data",
@@ -39,7 +39,7 @@ class DFormDataPart { // }: Stringable {
    ) {
         // TODO 
     } */
-    
+
     /**
      * Get/set the disposition type
      *
@@ -47,34 +47,31 @@ class DFormDataPart { // }: Stringable {
      * header from being added.
      */
     void disposition(string adisposition = null) {
-        _disposition = disposition;
+        // _disposition = disposition;
     }
+
     string disposition() {
-            return _disposition;
+        // return _disposition;
+        return null; 
     }
-    
+
     // Get/set the contentId for a part.
     string contentId(string _contentId = null) {
-        if (_contentId.isNull) {
+        /* if (_contentId.isNull) {
             return _contentId;
         }
-        return _contentId = anId;
+        return _contentId = anId; */
+        return null;
     }
-    
 
-    
-    /**
-     * Get/set the content type.
-     * Params:
-     * string type Use null to get/string to set.
-     */
-    string type(string atype) {
+    // Get/set the content type.
+    string type(string type) {
         if (type.isNull) {
             return _type;
         }
         return _type = type;
     }
-    
+
     /**
      * Set the transfer-encoding for multipart.
      *
@@ -83,54 +80,58 @@ class DFormDataPart { // }: Stringable {
      * string type The type of encoding the value has.
      */
     string transferEncoding(string atype) {
-        if (type.isNull) {
+       /*  if (type.isNull) {
             return _transferEncoding;
         }
-        return _transferEncoding = type;
+        return _transferEncoding = type; */
+        return null; 
     }
-    
+
     // Get the part name.
     string name() {
-        return _name;
+        // return _name;
+        return null; 
     }
-    
+
     // Get the value.
     string value() {
-        return _value;
+        // return _value;
+        return null;
     }
-    
+
     /**
      * Convert the part into a string.
      *
      * Creates a string suitable for use in HTTP requests.
      */
     override string toString() {
-        string result;
+        /* string result;
         if (this.disposition) {
-             result ~= "Content-Disposition: " ~ this.disposition;
+            result ~= "Content-Disposition: " ~ this.disposition;
             if (this.name) {
-                 result ~= "; " ~ _headerParameterToString("name", this.name);
+                result ~= "; " ~ _headerParameterToString("name", this.name);
             }
             if (this.filename) {
-                 result ~= "; " ~ _headerParameterToString("filename", this.filename);
+                result ~= "; " ~ _headerParameterToString("filename", this.filename);
             }
-             result ~= "\r\n";
+            result ~= "\r\n";
         }
         if (this.type) {
-             result ~= "Content-Type: " ~ this.type ~ "\r\n";
+            result ~= "Content-Type: " ~ this.type ~ "\r\n";
         }
         if (this.transferEncoding) {
-             result ~= "Content-Transfer-Encoding: " ~ this.transferEncoding ~ "\r\n";
+            result ~= "Content-Transfer-Encoding: " ~ this.transferEncoding ~ "\r\n";
         }
         if (this.contentId) {
-             result ~= "Content-ID: <" ~ this.contentId ~ ">\r\n";
+            result ~= "Content-ID: <" ~ this.contentId ~ ">\r\n";
         }
-         result ~= "\r\n";
-         result ~= this.value;
+        result ~= "\r\n";
+        result ~= this.value;
 
-        return result;
+        return result; */
+        return null; 
     }
-    
+
     /**
      * Get the string for the header parameter.
      *
@@ -138,11 +139,12 @@ class DFormDataPart { // }: Stringable {
      * the charset encoding will be set.
      */
     protected string _headerParameterToString(string headerParameterName, string headerParameterValue) {
-        auto transliterated = Text.transliterate(headerParameterValue.replace("\"", ""));
-        string result = "%s=\"%s\"".format(headerParameterName, transliterated);
-        if (_charset && headerParameterValue != transliterated) {
+        /* auto transliterated = Text.transliterate(headerParameterValue.replace("\"", ""));
+        string result = "%s=\"%s\"".format(headerParameterName, transliterated); */
+        /* if (_charset && headerParameterValue != transliterated) {
             result ~= "; %s*=%s\"\"%s".format(headerParameterName, _charset.lower, rawUrlEncode(headerParameterValue));
-        }
-        return result;
+        } */
+        /* return result; */
+        return null; 
     }
 }

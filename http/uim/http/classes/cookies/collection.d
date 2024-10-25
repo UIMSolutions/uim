@@ -46,14 +46,16 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     
     // Create a new DCollection from the cookies in a ServerRequest
     static DCookieCollection createFromServerRequest(IServerRequest request) {
-        auto items = request.getCookieParams();
+        /* auto items = request.getCookieParams();
         auto cookies = items.byKeyValue.each!(item => new DCookie(item.key, item.value)).array;
-        return new DCookieCollection(cookies);
+        return new DCookieCollection(cookies); */
+        return null; 
     }
     
     // Get the number of cookies in the collection.
     size_t count() {
-        return _cookies.length;
+        // return _cookies.length;
+        return 0; 
     }
     
     /**
@@ -63,50 +65,48 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * cookies if a cookie collection is used for cookies across multiple
      * domains. This can impact how get(), has() and removeKey() behave.
      */
-    static DCookieCollection add(ICookie cookie) {
-        DCookieCollection cookieCollection = this.clone;
+    static DCookieCollection add(DCookie cookie) {
+        /* DCookieCollection cookieCollection = this.clone;
         cookieCollection.cookies[cookie.id()] = cookie;
 
-        return cookieCollection;
+        return cookieCollection; */
+        return null; 
     }
     
-    /**
-     * Get the first cookie by name.
-     */
+    // Get the first cookie by name.
     ICookie get(string cookieName) {
-        auto cookie = __get(cookieName);
-        if (cookie.isNull) {
-            throw new DInvalidArgumentException(
+        // auto cookie = __get(cookieName);
+        /* if (cookie.isNull) { */
+            /* throw new DInvalidArgumentException(
                 "Cookie `%s` not found. Use `has()` to check first for existence."
                 .format(cookieName)
-           );
-        }
-        return cookie;
+           ); */
+        /* } */
+        // return cookie;
+        return null; 
     }
     
     // Check if a cookie with the given name exists
-    auto has(string cookieName) {
-        return !__get(cookieName).isNull;
+    bool has(string cookieName) {
+        // return !__get(cookieName).isNull;
+        return false;
     }
     
-    /**
-     * Get the first cookie by name if cookie with provided name exists
-     * Params:
-     * string aName The name of the cookie.
-     */
+    // Get the first cookie by name if cookie with provided name exists
     ICookie __get(string cookieName) {
-        aKey = mb_strtolower(cookieName);
+        /* aKey = mb_strtolower(cookieName);
         foreach (cookie; _cookies) {
             if (mb_strtolower(cookie.name) == aKey) {
                 return cookie;
             }
-        }
+        } */
         return null;
     }
     
     // Check if a cookie with the given name exists
     bool __isSet(string cookieName) {
-        return !__get(cookieName).isNull;
+        // return !__get(cookieName).isNull;
+        return false; 
     }
     
     /**
@@ -114,14 +114,14 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      *
      * If the cookie is not in the collection, this method will do nothing.
      */
-    static removeKey(string cookieName) {
+    static DCookieCollection removeKey(string cookieName) {
         auto result = this.clone;
-        string key = cookieName.lower;
+        /* string key = cookieName.lower;
         foreach (index, cookie; result.cookies) {
             if (cookie.cookieName.lower == key) {
                 removeKey(result.cookies[index]);
             }
-        }
+        } */
         return result;
     }
     
@@ -133,7 +133,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * when this method is called will be applied to the request.
      */
     IRequest addToRequest(IRequest request, Json[string] extraCookies = null) {
-        auto anUri = request.getUri();
+        /* auto anUri = request.getUri();
         cookies = this.findMatchingCookies(
             anUri.getScheme(),
             anUri.getHost(),
@@ -143,7 +143,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         
         string[] cookiePairs;
         cookies.byKeyValue.each!((kv) {
-            auto cookie = "%s=%s".format(rawUrlEncode(/* (string) */kv.key), rawUrlEncode(kv.value));
+            auto cookie = "%s=%s".format(rawUrlEncode(/* (string) * /kv.key), rawUrlEncode(kv.value));
             auto size = cookie.length;
             if (size > 4096) {
                 triggerWarning(
@@ -156,13 +156,14 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
 
         return cookiePairs.isEmpty()
             ? request
-            : request.withHeader("Cookie", cookiePairs.join("; "));
+            : request.withHeader("Cookie", cookiePairs.join("; ")); */
+            return null; 
     }
     
     // Find cookies matching the scheme, host, and path
     protected Json[string] findMatchingCookies(string hhtpScheme, string hostToMatch, string pathToMatch) {
         Json[string] result;
-        auto now = new DateTimeImmutable("now", new DateTimeZone("UTC"));
+        /* auto now = new DateTimeImmutable("now", new DateTimeZone("UTC"));
         foreach (cookie; _cookies) {
             if (hhtpScheme == "http" && cookie.isSecure()) {
                 continue;
@@ -184,13 +185,13 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
                 continue;
             }
              result[cookie.name] = cookie.value();
-        }
+        } */
         return result;
     }
     
     // Create a new DCollection that includes cookies from the response.
-    static addFromResponse(IResponse response, IRequest request) {
-        auto anUri = request.getUri();
+    static DCookieCollection addFromResponse(IResponse response, IRequest request) {
+        /* auto anUri = request.getUri();
         auto host = anUri.getHost();
         auto somePath = anUri.path() ? anUri.path() : "/";
 
@@ -202,14 +203,15 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         foreach (cookie; cookies) {
             newCC.cookies[cookie.id()] = cookie;
         }
-        newCC.removeExpiredCookies(host, somePath);
+        newCC.removeExpiredCookies(host, somePath); */
 
-        return newCC;
+        /* return newCC; */
+        return null; 
     }
     
     // Remove expired cookies from the collection.
     protected void removeExpiredCookies(string hostToCheck, string pathToCheck) {
-        auto time = new DateTimeImmutable("now", new DateTimeZone("UTC"));
+        /* auto time = new DateTimeImmutable("now", new DateTimeZone("UTC"));
         string hostPattern = "/" ~ preg_quote(hostToCheck, "/").correctUrl;
 
         foreach (index, cookie; _cookies) {
@@ -222,6 +224,6 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             if (somePathMatches && hostMatches) {
                 removeKey(_cookies[index]);
             }
-        }
+        } */
     }
 }

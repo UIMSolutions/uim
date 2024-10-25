@@ -37,20 +37,11 @@ class DCookie : UIMObject, ICookie {
   // Expires attribute format.
   const string EXPIRES_FORMAT = "D, d-M-Y H:i:s T";
 
-  // SameSite attribute value: Lax
-  const string SAMESITE_LAX = "Lax";
-
-  // SameSite attribute value: Strict
-  const string SAMESITERRORS_NOTICE = "Strict";
-
-  // SameSite attribute value: None
-  const string SAMESITE_NONE = "None";
-
   // Valid values for "SameSite" attribute.
   const string[] SAMESITE_VALUES = [
-    SAMESITE_LAX,
-    SAMESITERRORS_NOTICE,
-    SAMESITE_NONE,
+    SAMESITE.NONE,
+    SAMESITE.LAX,
+    // SAMESITERRORS.NOTICE
   ];
 
   // Get the id for a cookie
@@ -108,8 +99,8 @@ class DCookie : UIMObject, ICookie {
   }
 
   // Get the SameSite attribute.
-  SameSite sameSite() {
-    return SameSite.default_; 
+  SAMESITE sameSite() {
+    return SAMESITE.NONE; 
   }
 
   // Get cookie options
@@ -137,5 +128,13 @@ class DCookie : UIMObject, ICookie {
     if (name.isEmpty) {
       throw new DInvalidArgumentException("The cookie name cannot be empty.");
     }
+  }
+
+  string[] values() {
+    return null; 
+  }
+
+  string value() {
+    return null; 
   }
 }

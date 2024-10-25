@@ -163,7 +163,7 @@ class DClient { // }: IClient {
      * Params:
      * Json[string] configData Config options for scoped clients.
      */
-  this(Json[string] initData = null) {
+  /* this(Json[string] initData = null) {
     configuration.set(initData);
 
     auto myadapter = configuration.get("adapter");
@@ -187,7 +187,7 @@ class DClient { // }: IClient {
     } else {
       _cookies = new DCookieCollection();
     }
-  }
+  } */
 
   /**
      * Client instance returned is scoped to the domain, port, and scheme parsed from the passed URL string. The passed

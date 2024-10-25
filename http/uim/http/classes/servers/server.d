@@ -123,11 +123,11 @@ class DServer : UIMObject { // }: IEventDispatcher {
      *
      * If the application does not support events, an exception will be raised.
      */
-    void eventManager(IEventManager eventManager) {
+/*     void eventManager(IEventManager eventManager) {
         if (cast(IEventDispatcher)_app) {
             _app.eventManager(eventManager);
             return;
         }
         throw new DInvalidArgumentException("Cannot set the event manager, the application does not support events.");
-    }
+    } */
 }

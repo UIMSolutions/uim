@@ -2,6 +2,7 @@ module uim.http.classes.responses.clients.vibe;
 
 import uim.http;
 import vibe.container.dictionarylist;
+static import vibe.internal.interfaceproxy;
 
 @safe:
 

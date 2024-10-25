@@ -68,9 +68,9 @@ class DCsrfProtectionMiddleware : DMiddleware { // }: IMiddleware {
      */
     const int TOKEN_WITH_CHECKSUM_LENGTH = 56;
 
-    this(Json[string] configData = null) {
+    /* this(Json[string] configData = null) {
        _config = configData + _config;
-    }
+    } */
     
     // Checks and sets the CSRF token depending on the HTTP verb.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {

@@ -18,7 +18,7 @@ class DVibeSession : DHttpSession {
     _session = session;
   }
 
-  override id() {
+  override string id() {
     return _session.id;
   }
 

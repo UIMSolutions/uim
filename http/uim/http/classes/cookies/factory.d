@@ -7,81 +7,83 @@ import uim.http;
 class DCookieFactory : DFactory!DCookie {
   static DCookieFactory _factory;
 
-  DCookie withName(DCookie cookie, string name) {
+  DCookie withName(ICookie cookie, string name) {
     validateName(name);
-    auto newCookie = cookie.clone;
-    newCookie.name = name;
+    if (auto newCookie = cast(DCookie) cookie.clone) {
+      newCookie.name = name;
 
-    return newCookie;
+      return newCookie;
+    }
+    return null;
   }
 
   // Create a cookie with an updated expiration date
- /*  DCookie withExpiry(DCookie cookie, DateTime dateTime) {
+  /*  DCookie withExpiry(ICookie cookie, DateTime dateTime) {
     return null;
   } */
 
   // Create a new cookie that will virtually never expire.
-  DCookie withNeverExpire(DCookie cookie) {
+  DCookie withNeverExpire(ICookie cookie) {
     return null;
   }
 
   // Create a new cookie that will expire/delete the cookie from the browser.
-  DCookie withExpired(DCookie cookie) {
+  DCookie withExpired(ICookie cookie) {
     return null;
   }
 
   // Create a cookie with HTTP Only updated
-  DCookie withHttpOnly(DCookie cookie, bool httpOnly) {
-    return null;
-  }
-
-  // Create a cookie with Secure updated
-  DCookie withSecure(DCookie cookie, bool secure) {
+  DCookie withHttpOnly(ICookie cookie, bool httpOnly) {
     return null;
   }
 
   // Create a cookie with an updated SameSite option.
-  DCookie withSameSite(DCookie cookie, /* SameSiteEnum| */ string sameSite) {
+  DCookie withSameSite(ICookie cookie, /* SameSiteEnum| */ string sameSite) {
     return null;
   }
 
-  DCookie withValue(DCookie cookie, /* string[]|float|bool */ string value) {
-    auto newCookie = cookie.clone;
-    newCookie.value(value);
-
-    return newCookie;
+  DCookie withValue(ICookie cookie, /* string[]|float|bool */ string value) {
+    if (auto newCookie = cast(DCookie) cookie.clone) {
+      newCookie.value(value);
+      return newCookie;
+    }
+    return null;
   }
 
-  DCookie withPath(DCookie cookie, string path) {
-    auto newCookie = cookie.clone;
-    newCookie.path(path);
-
-    return newCookie;
+  DCookie withPath(ICookie cookie, string path) {
+    if (auto newCookie = cast(DCookie) cookie.clone) {
+      newCookie.path(path);
+      return newCookie;
+    }
+    return null;
   }
 
-  DCookie withDomain(DCookie cookie, string adomain) {
-    auto newCookie = cookie.clone;
-    newCookie.domain(domain);
-
-    return newCookie;
+  DCookie withDomain(ICookie cookie, string adomain) {
+    if (auto newCookie = cast(DCookie) cookie.clone) {
+      newCookie.domain(domain);
+      return newCookie;
+    }
+    return null;
   }
 
-  DCookie withSecure(DCookie cookie, bool isSecure) {
-    auto newCookie = cookie.clone;
-    newCookie.isSecure(isSecure);
-
-    return newCookie;
+  DCookie withSecure(ICookie cookie, bool isSecure) {
+    if (auto newCookie = cast(DCookie) cookie.clone) {
+      newCookie.isSecure(isSecure);
+      return newCookie;
+    }
+    return null;
   }
 
-  DCookie withHttpOnly(DCookie cookie, bool isHttpOnly) {
-    auto newCookie = cookie.clone;
-    newCookie.httpOnly(isHttpOnly);
-
-    return newCookie;
+  DCookie withHttpOnly(ICookie cookie, bool isHttpOnly) {
+    if (auto newCookie = cast(DCookie) cookie.clone) {
+      newCookie.httpOnly(isHttpOnly);
+      return newCookie;
+    }
+    return null;
   }
 
-  /*   DCookie withExpiry(DCookie cookie, DateTime dateTime) {
-    auto newCookie = cookie.clone;
+  /*   DCookie withExpiry(ICookie cookie, DateTime dateTime) {
+    if (auto newCookie = cast(DCookie)cookie.clone)  {
 
     if (cast(DateTime) dateTime) {
       dateTime = dateTime.clone;
@@ -89,21 +91,24 @@ class DCookieFactory : DFactory!DCookie {
 
     newCookie.expiresAt = dateTime.setTimezone(new DateTimeZone("GMT"));
 
-    return newCookie;
+    return newCookie; 
+    } return null;
   } */
 
-  auto withNeverExpire(DCookie cookie) {
-    auto newCookie = cookie.clone;
-    newCookie.expiresAt = new DateTimeImmutable("2038-01-01");
-
-    return newCookie;
+  auto withNeverExpire(ICookie cookie) {
+    if (auto newCookie = cast(DCookie) cookie.clone) {
+      newCookie.expiresAt = new DateTimeImmutable("2038-01-01");
+      return newCookie;
+    }
+    return null;
   }
 
-  auto withExpired(DCookie cookie) {
-    auto newCookie = cookie.clone;
-    newCookie.expiresAt = new DateTimeImmutable("@1");
-
-    return newCookie;
+  auto withExpired(ICookie cookie) {
+    if (auto newCookie = cast(DCookie) cookie.clone) {
+      newCookie.expiresAt = new DateTimeImmutable("@1");
+      return newCookie;
+    }
+    return null;
   }
 }
 

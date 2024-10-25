@@ -26,16 +26,15 @@ class DFormData { // }: Countable {
     // Whether this formdata object has a complex part.
     protected bool _hasComplexPart = false;
 
-    /* 
     // The parts in the form data.
-    protected DFFFFFFFormDataPart[] _parts = null;
+    protected DFormDataPart[] _parts;
 
     // Get the boundary marker
     string boundary() {
         if (_boundary) {
             return _boundary;
         }
-       _boundary = uniqid(to!string(time()))md5;
+       // _boundary = uniqid(to!string(time()))md5;
 
         return _boundary;
     }
@@ -61,7 +60,7 @@ class DFormData { // }: Countable {
      * \UIM\Http\Client\FormDataPart|string aName The name of the part to add,
      * or the part data object.
      */
-    void add( /* FormDataPart| */ string partName, Json partValue = null) {
+    void add(DFormDataPart partName, Json partValue = null) {
         _hasComplexPart = true;
         _parts ~= partName;
     }

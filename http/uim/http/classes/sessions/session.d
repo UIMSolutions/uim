@@ -163,7 +163,7 @@ class DSession : UIMObject, ISession {
      * the configuration array for the engine. You can set the `engine` key to an already
      * instantiated session handler object.
      */
-    this(Json[string] initData = null) {
+    /* this(Json[string] initData = null) {
         configuration
             .setDefaults(["timeout", "cookie"], Json(null))
             .setDefaults(["ini", "handler"], Json.emptyArray);
@@ -185,10 +185,10 @@ class DSession : UIMObject, ISession {
             auto handlerEngineClassname = configuration.shift("handler.engine").getString;
             engine(handlerEngineClassname, configuration.get("handler"));
         }
-        _lifetime =  /* (int)  */ ini_get("session.gc_maxlifetime");
+        _lifetime =  /* (int)  * / ini_get("session.gc_maxlifetime");
         _isCLI = (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg");
         session_register_shutdown();
-    }
+    } */
 
     /**
      * Sets the session handler instance to use for this session.
@@ -419,19 +419,11 @@ class DSession : UIMObject, ISession {
             session_id(anId);
         }
     }
-    
+
     string id() {
         return _id();
     }
     // #endregion id
-
-    // Removes a variable from session.
-    bool removeKey(string sessionName) {
-        if (this.check(sessionName)) {
-            /** @psalm-suppress InvalidScalarArgument */
-            _overwrite(_SESSION, Hash.removeKey(_SESSION, sessionName));
-        }
-    }
 
     // Used to write new data to _SESSION, since UIM doesn`t like us setting the _SESSION var it
     /*    protected void _overwrite(Json[string] oldValues, Json[string] newValues) {
@@ -506,11 +498,49 @@ class DSession : UIMObject, ISession {
         auto result = false;
 
         auto checkTime = time !is null && _lifetime > 0;
-        if (checkTime && (time() - /* (int) */ time > _lifetime)) {
+        if (checkTime && (time() -  /* (int) */ time > _lifetime)) {
             result = true;
         }
         this.write("Config.time", time());
 
         return result;
+    }
+
+    string getLong(string key) {
+        return null;
+    }
+
+    string getString(string key) {
+        return null;
+    }
+
+    void removeKeys(string[] keys) {
+    }
+
+    void removeKey(string key) {
+/*         if (this.check(sessionName)) {
+            _overwrite(_SESSION, Hash.removeKey(_SESSION, sessionName));
+        }
+ */    }
+
+    bool hasKey(string key) {
+        return false;
+    }
+
+    Json get(string key, Json defaultValue = Json(null)) {
+        return defaultValue;
+    }
+
+    bool opCast() {
+        return false;
+    }
+
+    void set(string key, string value) {
+    }
+
+    void set(string key, int value) {
+    }
+
+    void set(string key, Json value) {
     }
 }

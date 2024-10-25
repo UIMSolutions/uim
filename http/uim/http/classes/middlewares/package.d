@@ -16,6 +16,7 @@ public {
   import uim.http.classes.middlewares.csrfprotection;
   import uim.http.classes.middlewares.encryptedcookie;
   import uim.http.classes.middlewares.httpsenforcer;
+  import uim.http.classes.middlewares.queue;
   import uim.http.classes.middlewares.securityheaders;
   import uim.http.classes.middlewares.sessioncsrfprotection;
 }

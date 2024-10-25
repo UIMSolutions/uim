@@ -57,42 +57,41 @@ class DApplication : UIMObject {
        _eventManager = eventManager ? eventManager: EventManager.instance();
         _controllerFactory = controllerFactory;
     } */
-    
+
     abstract MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
- 
+
     MiddlewareQueue pluginMiddleware(MiddlewareQueue middleware) {
         /* foreach (plugin; _plugins.with("middleware")) {
             middleware = plugin.middleware(middleware);
         } */
         return middleware;
     }
- 
+
     void addPlugin(name, Json[string] configData = null) {
         auto plugin = isString(name)
-            ? _plugins.create(name, configData)
-            : name;
+            ? _plugins.create(name, configData) : name;
 
         _plugins.add(plugin);
     }
-    
+
     /**
      * Add an optional plugin
      *
      * If it isn`t available, ignore it.
      */
-    void addOptionalPlugin(/* IPlugin| */ string pluginName, Json[string] pluginData = null) {
+    void addOptionalPlugin( /* IPlugin| */ string pluginName, Json[string] pluginData = null) {
         try {
             this.addPlugin(pluginName, pluginData);
         } catch (MissingPluginException) {
             // Do not halt if the plugin is missing
         }
     }
-    
+
     // Get the plugin collection in use.
     PluginCollection getPlugins() {
         return _plugins;
     }
- 
+
     void bootstrap() {
         // require_once _configDir ~ "bootstrap.d";
 
@@ -102,11 +101,11 @@ class DApplication : UIMObject {
             _plugins.addFromConfig(plugins);
         } */
     }
- 
+
     void pluginBootstrap() {
         // _plugins.with("bootstrap").each!(plugin => plugin.bootstrap(this));
     }
-    
+
     // By default, this will load `config/routes.d` for ease of use and backwards compatibility.
     void routes(IRouteBuilder routes) {
         // Only load routes if the router is empty
@@ -114,27 +113,27 @@ class DApplication : UIMObject {
             result = require _configDir ~ "routes.d";
         } */
     }
- 
+
     DRouteBuilder pluginRoutes(RouteBuilder routes) {
         // _plugins.with("routes").each!(plugin => plugin.routes(routes));
         return routes;
     }
-    
+
     /**
      * Define the console commands for an application.
      *
      * By default, all commands in UIM, plugins and the application will be
      * loaded using conventions based names.
      */
-    CommandCollection console(CommandCollection commandsToAdd) {
+    DCommandCollection console(DCommandCollection commandsToAdd) {
         return commands.addMany(commandsToAdd.autoDiscover());
     }
- 
-    auto DCommandCollection pluginConsole(CommandCollection commands) {
-        /* _plugins.with("console".each!(plugin => commands = plugin.console(commands));
+
+    auto DCommandCollection pluginConsole(DCommandCollection commands) {
+        // _plugins.with("console".each!(plugin => commands = plugin.console(commands));
         return commands;
     }
-    
+
     /**
      * Get the dependency injection container for the application.
      *
@@ -147,7 +146,7 @@ class DApplication : UIMObject {
         }
         return _container;
     }
-    
+
     /**
      * Build the service container
      *
@@ -160,17 +159,19 @@ class DApplication : UIMObject {
         /* _plugins.with("services")
             .each!(plugin => plugin.services(container)); */
 
-        event = dispatchEvent("Application.buildContainer", ["container": container]);
-        if (cast(IContainer)event.getResult()) {
+        event = dispatchEvent("Application.buildContainer", [
+                "container": container
+            ]);
+        if (cast(IContainer) event.getResult()) {
             return event.getResult();
         }
         return container;
     }
-    
+
     // Register application container services.
     void services(IContainer container) {
     }
-    
+
     /**
      * Invoke the application.
      *
@@ -180,12 +181,12 @@ class DApplication : UIMObject {
      */
     IResponse handle(
         IServerRequest serverRequest
-   ) {
+    ) {
         auto container = getContainer();
         container.add(IServerRequest.classname, request);
         container.add(IContainer.classname, container);
 
-       /*  _controllerFactory ??= new DControllerFactory(container);
+        /*  _controllerFactory ??= new DControllerFactory(container);
 
         if (Router.getRequest() != request) {
             assert(cast(DServerRequest)request);

@@ -30,7 +30,7 @@ class DBodyParserMiddleware : DMiddleware { // }: IMiddleware {
      * Params:
      * Json[string] options The options to use. See above.
      */
-    this(Json[string] options = null) {
+    /* this(Json[string] options = null) {
         options
             .merge("Json", true)
             .merge("xml", false)
@@ -51,7 +51,7 @@ class DBodyParserMiddleware : DMiddleware { // }: IMiddleware {
         if (options.hasKey("methods")) {
             setMethods(options.get("methods"));
         }
-    }
+    } */
 
     // The HTTP methods to parse data on.
     protected string[] _methods = ["PUT", "POST", "PATCH", "DELETE"];

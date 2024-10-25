@@ -45,9 +45,9 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IMiddleware {
     
     // Apply cookie encryption/decryption.
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
-        if (serverRequest.getCookieParams()) {
+        /* if (serverRequest.getCookieParams()) {
             serverRequest = this.decodeCookies(serverRequest);
-        }
+        } */
         /* response = handler.handle(serverRequest);
         if (response.hasHeader("Set-Cookie")) {
             response = this.encodeSetCookieHeader(response);
@@ -64,7 +64,8 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IMiddleware {
      * Part of the CookieCryptTrait implementation.
      */
     protected string _getCookieEncryptionKey() {
-        return _key;
+        // return _key;
+        return null; 
     }
     
     /**
@@ -73,12 +74,13 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IMiddleware {
      * \Psr\Http\Message\IServerRequest serverRequest The request to decode cookies from.
      */
     protected IServerRequest decodeCookies(IServerRequest serverRequest) {
-        auto cookies = serverRequest.getCookieParams();
+        /* auto cookies = serverRequest.getCookieParams();
         _cookieNames
             .filter!(cookieName => cookies.hasKey(cookieName))
             .each!(cookieName => cookies[cookieName] = _decrypt(cookies[cookieName], _cipherType, this.key));
 
-        return serverRequest.withCookieParams(cookies);
+        return serverRequest.withCookieParams(cookies); */
+        return null; 
     }
     
     // Encode cookies from a response`s CookieCollection.
@@ -96,7 +98,7 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IMiddleware {
     
     // Encode cookies from a response`s Set-Cookie header
     protected IResponse encodeSetCookieHeader(IResponse response) {
-        auto aHeader = null;
+        /* auto aHeader = null;
         auto cookies = CookieCollection.createFromHeader(response.getHeader("Set-Cookie"));
         cookies.each!((cookie) {
             if (isIn(cookie.name, _cookieNames, true)) {
@@ -105,6 +107,7 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IMiddleware {
             }
             aHeader ~= cookieWithValue.toHeaderValue();
         });
-        return response.withHeader("Set-Cookie",  aHeader);
+        return response.withHeader("Set-Cookie",  aHeader); */
+        return null; 
     }
 }

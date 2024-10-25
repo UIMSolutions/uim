@@ -35,10 +35,10 @@ class DCspMiddleware : DMiddleware { // }: IMiddleware {
     protected ICSPBuilder csp;
 
     this(/* ICSPBuilder| */Json[string] cspObject, Json[string] configData = null) {
-        if (!class_hasKey(CSPBuilder.classname)) {
+        /* if (!class_hasKey(CSPBuilder.classname)) {
             throw new UIMException("You must install paragonie/csp-builder to use CspMiddleware");
         }
-        configuration.set(configData);
+        configuration.set(configData); */
 
         /* if (!cast(DCSPBuilder)cspObject) {
             cspObject = new DCSPBuilder(cspObject);

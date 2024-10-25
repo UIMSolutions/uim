@@ -43,17 +43,17 @@ mixin template TCookieCrypt() {
 
     // Helper method for validating encryption cipher names.
     protected void _checkCipher(string cipherName) {
-        if (!isIn(cipherName, _validCiphers, true)) {
+        /* if (!isIn(cipherName, _validCiphers, true)) {
             /* string message = "Invalid encryption cipher. Must be one of %s or false.".format(join(", ", _validCiphers));
-            throw new DInvalidArgumentException(message); */
-        }
+            throw new DInvalidArgumentException(message); * /
+        } */
     }
 
     // Decrypts myvalue using mytype method in Security class
     protected string[] _decrypt(string[] valuesToDecrypt, string decryptMode, string decryptKey = null) {
         string[] results;
         // valuesToDecrypt.each!(nameValue => result[nameValue.key] = _decode(nameValue.value, decryptMode, decryptKey));
-        return result;
+        return results;
     }
 
     protected string[] _decrypt(string valueToDecrypt, string decryptMode, string decryptKey = null) {
@@ -62,7 +62,7 @@ mixin template TCookieCrypt() {
 
     // Decodes and decrypts a single value.
     protected string[] _decode(string value, string encryptionCipher, string securitySalt) {
-        if (!encryptionCipher) {
+        /* if (!encryptionCipher) {
             return _split(value);
         }
 
@@ -78,7 +78,7 @@ mixin template TCookieCrypt() {
         string base64Value = base64_decode(subString(value, prefixLength), true);
         if (base64Value.isEmpty) {
             return null;
-        }
+        } */
 
         // auto securitySalt = securitySalt.isEmpty(_getCookieEncryptionKey());
         /* if (encryptionCipher == "aes") {

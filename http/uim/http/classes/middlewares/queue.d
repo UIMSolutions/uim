@@ -25,7 +25,7 @@ class DMiddlewareQueue {
     }
 
     protected IMiddleware resolve( /* IMiddleware|*/ string middlewareName) {
-        if (_container && _container.has(middlewareName)) {
+        /* if (_container && _container.has(middlewareName)) {
             middlewareName = _container.get(middlewareName);
         } else {
             string classname = App.classname(middlewareName, "Middleware", "Middleware");
@@ -37,34 +37,38 @@ class DMiddlewareQueue {
             }
             IMiddleware middlewareName = new classname();
         }
-        return new DClosureDecoratorMiddleware(middlewareName);
+        return new DClosureDecoratorMiddleware(middlewareName); */
+        return null; 
     }
 
     // Append a middleware to the end of the queue.
     void add(string[] middlewareNames) {
-        _queue = chain(_queue, middlewareNames);
+        // _queue = chain(_queue, middlewareNames);
     }
 
     void add(IMiddleware middleware) {
-        _queue ~= middleware;
+        //_queue ~= middleware;
     }
 
     // Alias for DMiddlewareQueue.add().
     DMiddlewareQueue push(IMiddleware middleware) {
-        return _add(middleware);
+        // return _add(middleware);
+        return this;
     }
 
     DMiddlewareQueue push(string[] middlewareNames...) {
-        return _add(middlewareNames.dup);
+        // return _add(middlewareNames.dup);
+        return this; 
     }
 
     DMiddlewareQueue push(string[] middlewareNames) {
-        return _add(middlewareNames);
+        // return _add(middlewareNames);
+        return this; 
     }
 
     // Prepend a middleware to the start of the queue.
     auto prepend(IMiddleware middleware) {
-        _queue.unshift(middleware);
+        // _queue.unshift(middleware);
         return this;
     }
 
@@ -84,7 +88,7 @@ class DMiddlewareQueue {
      * and the existing element will be shifted one index greater.
      */
     auto insertAt(int insertTndex, /* IMiddleware| */ string amiddleware) {
-        array_splice(_queue, insertTndex, 0, [middleware]);
+        // array_splice(_queue, insertTndex, 0, [middleware]);
         return this;
     }
 
@@ -101,7 +105,7 @@ class DMiddlewareQueue {
         bool isFound = false;
         auto index = 0;
         foreach (index, object; _queue) {
-            if (
+            /* if (
                 (
                     object.isString
                     && object == classname
@@ -110,12 +114,12 @@ class DMiddlewareQueue {
                 ) {
                 isFound = true;
                 break;
-            }
+            } */
         }
-        if (isFound) {
+        /* if (isFound) {
             return _insertAt(index, middlewareToInsert);
-        }
-        throw new DLogicException("No middleware matching `%s` could be found.".format(classname));
+        } */
+        // throw new DLogicException("No middleware matching `%s` could be found.".format(classname));
     }
 
     /**
@@ -131,7 +135,7 @@ class DMiddlewareQueue {
         auto index = 0;
         foreach (index, object; _queue) {
             /** @psalm-suppress ArgumentTypeCoercion */
-            if (
+            /* if (
                 (
                     object.isString
                     && object == classname
@@ -140,11 +144,12 @@ class DMiddlewareQueue {
                 ) {
                 found = true;
                 break;
-            }
+            } */
         }
 
-        return found
-            ? _insertAt(index + 1, middlewareToInsert) : _add(middlewareToInsert);
+       /*  return found
+            ? _insertAt(index + 1, middlewareToInsert) : _add(middlewareToInsert); */
+            return null; 
     }
 
     /**
@@ -152,50 +157,54 @@ class DMiddlewareQueue {
      * Implement the Countable interface.
      */
     size_t count() {
-        return count(_queue);
+        // return count(_queue);
+        return 0; 
     }
 
     // Seeks to a given position in the queue.
     void seek(int positionToSeek) {
-        if (_queue.isNull(positionToSeek)) {
-            throw new DOutOfBoundsException(
+        /* if (_queue.isNull(positionToSeek)) {
+            /* throw new DOutOfBoundsException(
                 "Invalid seek position (%s)."
-                    .format(positionToSeek));
-        }
-        _position = positionToSeek;
+                    .format(positionToSeek)); * /
+        } */
+        // _position = positionToSeek;
     }
 
     // Rewinds back to the first element of the queue.
     void rewind() {
-        _position = 0;
+        /* _position = 0; */
     }
 
     // Returns the current middleware.
     IMiddleware currentValue() {
-        if (_queue.isNull(_position)) {
+        /* if (_queue.isNull(_position)) {
             throw new DOutOfBoundsException(
                 "Invalid current position (%s).".format(_position));
-        }
+        } */
 
-        if (cast(IMiddleware) _queue[_position]) {
+        /* if (cast(IMiddleware) _queue[_position]) {
             _queue[_position];
         }
         _queue[_position] = this.resolve(_queue[_position]);
-        return _queue[_position];
+        return _queue[_position]; */
+        return null; 
     }
 
     // Return the key of the middleware.
     int key() {
-        return _position;
+        // return _position;
+        return  0; 
     }
 
     // Moves the current position to the next middleware.
     void next() {
-        ++_position;
+        /* ++_position; */
     }
 
     // Checks if current position is valid.
     bool valid() {
-        return isSet(_queue[_position]);
+        /* return isSet(_queue[_position]); */
+        return false; 
     }
 }

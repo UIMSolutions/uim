@@ -108,7 +108,7 @@ class DSecurityHeadersMiddleware : DMiddleware { // }: IMiddleware {
     void setReferrerPolicy(string policyValue = SAME_ORIGIN) {
         // policyValue = Available Value: 'no-referrer", "no-referrer-when-downgrade", "origin",
         // 'origin-when-cross-origin", "same-origin", "strict-origin", "strict-origin-when-cross-origin", "unsafe-url'
-        auto available = [
+        /* auto available = [
             NO_REFERRER,
             NO_REFERRER_WHEN_DOWNGRADE,
             ORIGIN,
@@ -117,10 +117,10 @@ class DSecurityHeadersMiddleware : DMiddleware { // }: IMiddleware {
             STRICT_ORIGIN,
             STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
             UNSAFE_URL,
-        ];
+        ]; */
 
-        checkValues(policyValue, available);
-        _headers.set("referrer-policy", policyValue);
+        /* checkValues(policyValue, available);
+        _headers.set("referrer-policy", policyValue); */
     }
 
     // X-Frame-Options
@@ -129,14 +129,14 @@ class DSecurityHeadersMiddleware : DMiddleware { // }: IMiddleware {
     void setXFrameOptions(string optionValue = SAMEORIGIN, string url = null) {
         checkValues(optionValue, [DENY, SAMEORIGIN, ALLOW_FROM]);
 
-        if (optionValue == ALLOW_FROM) {
-            if (url.isEmpty) {
+        /* if (optionValue == ALLOW_FROM) { */
+            /* if (url.isEmpty) {
                 throw new DInvalidArgumentException(
                     "The 2nd arg url can not be empty when `allow-from` is used");
             }
             optionValue ~= " " ~ url;
         }
-        _headers.set("x-frame-options", optionValue);
+        _headers.set("x-frame-options", optionValue); */
     }
 
     /**
@@ -166,19 +166,20 @@ class DSecurityHeadersMiddleware : DMiddleware { // }: IMiddleware {
 
     // Convenience method to check if a value is in the list of allowed args
     protected void checkValues(string value, string[] allowedValues) {
-        if (!isIn(value, allowedValues, true)) {
-            throw new DInvalidArgumentException(
+        /* if (!isIn(value, allowedValues, true)) {
+           /*  throw new DInvalidArgumentException(
                 "Invalid arg `%s`, use one of these: %s."
                     .format(value, allowedValues.map!(value => "`" ~ value ~ "`").join(", ")
-                    ));
-        }
+                    )); * /
+        } */
     }
 
     // Serve assets if the path matches one.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
-        IResponse response = handler.handle(requestHandler);
+        /* IResponse response = handler.handle(requestHandler);
         _headers.byKeyValue
             .each!(headerValue => response = response.withHeader(headerValue.key, headerValue.value));
-        return response;
+        return response; */
+        return null; 
     }
 }

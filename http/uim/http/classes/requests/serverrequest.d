@@ -187,7 +187,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
   // Process the config/settings data into properties.
   protected void _setConfig(Json[string] configData = null) {
-    if (isEmpty(configData["session"])) {
+    /* if (isEmpty(configData["session"])) {
       configData["session"] = new DSession([
           "cookiePath": configData["base"],
         ]);
@@ -237,7 +237,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     _query = configData["query"];
     _params = configData["params"];
     _session = configData["session"];
-    _flash = new DFlashMessage(this.session);
+    _flash = new DFlashMessage(this.session); */
   }
 
   /**
@@ -249,11 +249,11 @@ class DServerRequest : UIMObject { // }: IServerRequest {
       configData.set("url", "/" ~ configData.getString("url"));
     }
     if (configData.getString("url").contains("?")) {
-      [configData.get("url"), configData.get("environment.QUERY_STRING")] = split("?", configData.get(
+      /* [configData.get("url"), configData.get("environment.QUERY_STRING")] = split("?", configData.get(
           "url"));
 
       parse_str(configData["environment.QUERY_STRING"], aQueryArgs);
-      configData["query"] += aQueryArgs;
+      configData["query"] += aQueryArgs; */
     }
     configData.set("environment.REQUEST_URI", configData.get("url"));
 
@@ -262,8 +262,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
   // Get the content type used in this request.
   string contentType() {
-    return _getEnvironmentData("CONTENT_TYPE") ? _getEnvironmentData("CONTENT_TYPE") : getEnvironmentData(
-      "HTTP_CONTENT_TYPE");
+    /* return _getEnvironmentData("CONTENT_TYPE") ? _getEnvironmentData("CONTENT_TYPE") : getEnvironmentData(
+      "HTTP_CONTENT_TYPE"); */
+      return null; 
   }
 
   // Returns the instance of the Session object for this request
@@ -284,23 +285,24 @@ class DServerRequest : UIMObject { // }: IServerRequest {
       bool isTrusted = (count(this.isTrustedProxies) > 0);
       auto n = count(addresses);
 
-      if (isTrusted) {
+      /* if (isTrusted) {
         isTrusted = array_diff(addresses, this.trustedProxies);
         isTrusted = (count(isTrusted) == 1);
       }
       if (isTrusted) {
         return addresses[0];
-      }
+      } */
       return addresses[n - 1];
     }
-    if (_trustProxy && getEnvironmentData("HTTP_X_REAL_IP")) {
+    /* if (_trustProxy && getEnvironmentData("HTTP_X_REAL_IP")) {
       anIpaddr = getEnvironmentData("HTTP_X_REAL_IP");
     } else if (_trustProxy && getEnvironmentData("HTTP_CLIENT_IP")) {
       anIpaddr = getEnvironmentData("HTTP_CLIENT_IP");
     } else {
       anIpaddr = getEnvironmentData("REMOTE_ADDR");
     }
-    return  /* (string) */ anIpaddr.strip;
+    return  /* (string) * / anIpaddr.strip; */
+    return null; 
   }
 
   // register trusted proxies

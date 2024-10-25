@@ -49,7 +49,7 @@ class DHttpsEnforcerMiddleware : DMiddleware { // }: IMiddleware {
      * same URL with https or throws an exception.
      */
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
-        if (cast(ServerRequest) request && configuration.isArray("trustedProxies")) {
+        /* if (cast(ServerRequest) request && configuration.isArray("trustedProxies")) {
             request.setTrustedProxies(configuration.get("trustedProxies"));
         }
         if (
@@ -61,8 +61,8 @@ class DHttpsEnforcerMiddleware : DMiddleware { // }: IMiddleware {
                 response = this.addHosts(response);
             }
             return response;
-        }
-        if (configuration.hasKey("redirect") && request.getMethod() == "GET") {
+        } */
+        /* if (configuration.hasKey("redirect") && request.getMethod() == "GET") {
             auto requestUri = request.getUri().withScheme("https");
             auto requestBase = request.getAttribute("base");
             if (requestBase) {
@@ -76,15 +76,16 @@ class DHttpsEnforcerMiddleware : DMiddleware { // }: IMiddleware {
         }
         throw new BadRequestException(
             "Requests to this URL must be made with HTTPS."
-        );
+        ); */
+        return null; 
     }
 
     // Adds Strict-Transport-Security header to response.
     protected IResponse addHosts(IResponse response) {
         auto configData = configuration.get("hsts");
-        if (!configData.isArray) {
+        /* if (!configData.isArray) {
             throw new DUnexpectedValueException("The `hsts` config must be an array.");
-        }
+        } */
 
         string hostInfo = "max-age=" ~ configuration.getString("maxAge");
         if (configuration.hasKey("includeSubDomains")) {

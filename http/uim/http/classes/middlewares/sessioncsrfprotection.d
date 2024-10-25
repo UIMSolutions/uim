@@ -56,13 +56,13 @@ class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
 
     // Checks and sets the CSRF token depending on the HTTP verb.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
-        auto method = serverRequest.getMethod();
+        /* auto method = serverRequest.getMethod();
         auto hasData = isIn(method, ["PUT", "POST", "DELETE", "PATCH"], true)
             || request.getParsedBody();
 
         if (
             hasData /* && this.skipCheckCallback !is null
-            && call_user_func(this.skipCheckCallback, serverRequest) == true */
+            && call_user_func(this.skipCheckCallback, serverRequest) == true * /
             
             ) {
             return requestHandler.handle(this.unsetTokenField(serverRequest));
@@ -88,7 +88,8 @@ class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
             this.validateToken(request, session);
             request = this.unsetTokenField(request);
         }
-        return handler.handle(request);
+        return handler.handle(request); */
+        return null; 
     }
 
     /**
@@ -113,7 +114,7 @@ class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
      * tokenToSalt - The token to salt.
      */
     string saltToken(string tokenToSalt) {
-        string decodedToken = base64_decode(tokenToSalt);
+        /* string decodedToken = base64_decode(tokenToSalt);
         auto tokenLength = decodedToken.length;
         string salt = Security.randomBytes(length);
         string salted;
@@ -121,7 +122,8 @@ class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
             // XOR the token and salt together so that we can reverse it later.
             salted ~= chr(ord(decodedToken[index]) ^ ord(salt[index]));
         }
-        return base64_encode(salted ~ salt);
+        return base64_encode(salted ~ salt); */
+        return null; 
     }
 
     /**
@@ -132,7 +134,7 @@ class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
      * unsalted value that is supported for backwards compatibility.
      */
     protected string unsaltToken(string token) {
-        string decodedToken = base64_decode(token, true);
+        /* string decodedToken = base64_decode(token, true);
         if (decodedToken == false || decodedToken.length != TOKEN_VALUE_LENGTH * 2) {
             return token;
         }
@@ -144,7 +146,8 @@ class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
             // Reverse the XOR to desalt.
             unsalted ~= chr(ord(salted[index]) ^ ord(salt[index]));
         }
-        return base64_encode(unsalted);
+        return base64_encode(unsalted); */
+        return null; 
     }
 
     /**
@@ -153,13 +156,14 @@ class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
      * This ensures that the token does not cause failures during form tampering protection.
      */
     protected IServerRequest unsetTokenField(IServerRequest serverRequest) {
-        auto parsedBody = request.getParsedBody();
+        /* auto parsedBody = request.getParsedBody();
         IServerRequest request = serverRequest;
         if (parsedBody.isArray) {
             parsedBody.removeKey(configuration.getString("field"));
             request = request.withParsedBody(parsedBody);
         }
-        return request;
+        return request; */
+        return null; 
     }
 
     /**
@@ -169,12 +173,13 @@ class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
      * value is stored in the session where it cannot be tampered with.
      */
     string createToken() {
-        return base64_encode(Security.randomBytes(TOKEN_VALUE_LENGTH));
+        // return base64_encode(Security.randomBytes(TOKEN_VALUE_LENGTH));
+        return null; 
     }
 
     // Validate the request data against the cookie token.
     protected void validateToken(IServerRequest serverRequest, ISession session) {
-        auto token = session.read(configuration.getString("key"));
+        /* auto token = session.read(configuration.getString("key"));
         if (!token || !isString(token)) {
             throw new DInvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF session key"));
         }
@@ -194,7 +199,7 @@ class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
         throw new DInvalidCsrfTokenException(__d(
                 "uim",
                 "CSRF token from either the request body or request headers did not match or is missing."
-        ));
+        )); */
     }
 
     /**
@@ -204,11 +209,12 @@ class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
      * tokens is a good idea during privilege escalation or privilege reduction.
      */
     static DServerRequest replaceToken(IServerRequest serverRequest, string key = "csrfToken") {
-        auto middleware = new DSessionCsrfProtectionMiddleware(["key": key]);
+        /* auto middleware = new DSessionCsrfProtectionMiddleware(["key": key]);
 
         auto createdToken = middleware.createToken();
         request.getSession().write(key, createdToken);
 
-        return request.withAttribute(key, middleware.saltToken(createdToken));
+        return request.withAttribute(key, middleware.saltToken(createdToken)); */
+        return null; 
     }
 }

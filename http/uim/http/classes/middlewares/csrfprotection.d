@@ -233,9 +233,10 @@ class DCsrfProtectionMiddleware : DMiddleware { // }: IMiddleware {
         IResponse response
    ) {
         auto cookie = _createCookie(tokenToAdd, serverRequest);
-        return cast(Response)response
+        /* return cast(DResponse)response
             ? response.withCookie(cookie)
-            : response.withAddedHeader("Set-Cookie", cookie.toHeaderValue());
+            : response.withAddedHeader("Set-Cookie", cookie.toHeaderValue()); */
+        return null; 
     }
     
     /**

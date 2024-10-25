@@ -14,6 +14,7 @@ dependency ":models" version="*"
 dependency ":mvc" version="*"
 dependency ":services" version="*"
 dependency ":sites" version="*"
+dependency ":http" version="*"
 
 dependency ":apps" version="*"
 dependency ":html" version="*"

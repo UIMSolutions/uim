@@ -19,6 +19,9 @@ public { // uim libraries
   import uim.oop;
   import uim.models;
   import uim.entitybases;
+  import uim.routings;
+  import uim.controllers;
+  import uim.views;
 }
 
 public { // uim.filesystem libraries

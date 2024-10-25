@@ -26,7 +26,7 @@ class DCookie : ICookie {
     protected bool _isHttpOnly = false;
 
     // Samesite
-    protected ISameSiteEnum _sameSite = null;
+    protected SameSiteEnum _sameSite = null;
 
     // Default attributes for a cookie.
     protected static @var Json[string] _defaultAttributes = createMap!(string, Json)

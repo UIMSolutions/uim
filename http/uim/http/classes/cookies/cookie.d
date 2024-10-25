@@ -69,7 +69,7 @@ class DCookie : UIMObject, ICookie {
   }
 
   // Get the timestamp from the expiration time
-  int expiresTimestamp() {
+  long expiresTimestamp() {
     return 0;
   }
 
@@ -78,9 +78,24 @@ class DCookie : UIMObject, ICookie {
   }
 
   DateTime expiresDateTime() {
-    return null;
+    return DateTime();
   }
 
+  bool isExpired() {
+    return true;
+  }
+
+  bool isExpired(long time) {
+    return true;
+  }
+
+  bool isExpired(DateTime time) {
+    return true;
+  }
+
+  bool isExpired(string time) {
+    return true;
+  }
 
   // Check if the cookie is HTTP only
   bool isHttpOnly() {
@@ -93,7 +108,9 @@ class DCookie : UIMObject, ICookie {
   }
 
   // Get the SameSite attribute.
-  // TOD SameSiteEnum getSameSite();
+  SameSite sameSite() {
+    return SameSite.default_; 
+  }
 
   // Get cookie options
   Json[string] options() {

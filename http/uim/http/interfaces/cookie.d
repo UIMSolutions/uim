@@ -21,37 +21,27 @@ interface ICookie : INamed {
     string domain();
 
     // Expiration date of the cookie
-    int expiresTimestamp();
-
+    long expiresTimestamp();
     string expiresString();
     DateTime expiresDateTime();
 
-    // Get the current expiry time
-    DateTime expires();
+    // Check if a cookie is expired when compared to time
+    bool isExpired();
+    bool isExpired(long time);
+    bool isExpired(DateTime time);
+    bool isExpired(string time);
 
-    // Get the timestamp from the expiration time
-    int expiresTimestamp();
-
-    // Gets the cookie value
+    // Gets the cookie values
     string[] values();
 
     // Gets the cookie value as scalar.
     string value();
 
-    // Builds the expiration value part of the header string
-    string formattedExpires();
-
-    /**
-     * Check if a cookie is expired when compared to time
-     * Cookies without an expiration date always return false. */
-    bool isExpired();
-    bool isExpired(DateTime time);
-
     // Check if the cookie is HTTP only
     bool isHttpOnly();
 
     // Get the SameSite attribute.
-    SameSiteEnum getSameSite();
+    SameSite getSameSite();
 
     // Get cookie options
     Json[string] options();

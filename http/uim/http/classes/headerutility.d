@@ -29,7 +29,7 @@ class DHeaderUtility {
      * string avalue The HTTP Link header part
      */
     protected static Json[string] parseLinkItem(string headerPart) {
-        preg_match("/<(.*)>[; ]?[; ]?(.*)?/i", headerPart, matches);
+        /* preg_match("/<(.*)>[; ]?[; ]?(.*)?/i", headerPart, matches);
 
         auto myUrl = matches[1];
         auto myParsedParams = ["link": myUrl];
@@ -52,12 +52,13 @@ class DHeaderUtility {
                 myParsedParams[trimedKey] = trimedValue;
             });
         }
-        return myParsedParams;
+        return myParsedParams; */
+        return null; 
     }
     
     // Parse the Accept header value into weight: value mapping.
     static string[][string] parseAccept(string headerValue) {
-        auto accept = null;
+        string[][string] accept = null;
         if (!headerValue) {
             return accept;
         }
@@ -66,7 +67,7 @@ class DHeaderUtility {
             auto prefValue = "1.0";
             auto aValue = aValue.strip;
 
-            semiPos = indexOf(aValue, ";");
+            /* semiPos = indexOf(aValue, ";");
             if (semiPos == true) {
                 string[] params = aValue.split(";");
                 aValue = params[0].strip;
@@ -82,9 +83,9 @@ class DHeaderUtility {
             }
             if (prefValue) {
                 // accept[prefValue].concat( aValue;
-            }
+            } */
         }
-        krsort(accept);
+        // krsort(accept);
 
         return accept;
     }

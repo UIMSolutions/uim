@@ -40,9 +40,9 @@ class DCspMiddleware : DMiddleware { // }: IMiddleware {
         }
         configuration.set(configData);
 
-        if (!cast(DCSPBuilder)cspObject) {
+        /* if (!cast(DCSPBuilder)cspObject) {
             cspObject = new DCSPBuilder(cspObject);
-        }
+        } */
         _cspObject = cspObject;
     }
     

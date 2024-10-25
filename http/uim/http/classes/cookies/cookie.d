@@ -125,9 +125,9 @@ class DCookie : UIMObject, ICookie {
         "The cookie name `%s` contains invalid characters.".format(name)
       );
     }
-    if (name.isEmpty) {
+    /* if (name.isEmpty) {
       throw new DInvalidArgumentException("The cookie name cannot be empty.");
-    }
+    } */
   }
 
   string[] values() {

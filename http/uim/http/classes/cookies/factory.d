@@ -28,10 +28,10 @@ class DCookieFactory : DFactory!DCookie {
   }
 
   DCookie withValue(DCookie cookie, /* string[]|float|bool */ string value) {
-    if (auto newCookie = cast(DCookie) cookie.clone) {
+    /* if (auto newCookie = cast(DCookie) cookie.clone) {
       newCookie.value(value);
       return newCookie;
-    }
+    } */
     return null;
   }
 
@@ -44,18 +44,18 @@ class DCookieFactory : DFactory!DCookie {
   }
 
   DCookie withDomain(DCookie cookie, string adomain) {
-    if (auto newCookie = cast(DCookie) cookie.clone) {
+    /* if (auto newCookie = cast(DCookie) cookie.clone) {
       newCookie.domain(domain);
       return newCookie;
-    }
+    } */
     return null;
   }
 
   DCookie withSecure(DCookie cookie, bool isSecure) {
-    if (auto newCookie = cast(DCookie) cookie.clone) {
+   /*  if (auto newCookie = cast(DCookie) cookie.clone) {
       newCookie.isSecure(isSecure);
       return newCookie;
-    }
+    } */
     return null;
   }
 
@@ -81,10 +81,10 @@ class DCookieFactory : DFactory!DCookie {
   } */
 
   auto withNeverExpire(DCookie cookie) {
-    if (auto newCookie = cast(DCookie) cookie.clone) {
+    /* if (auto newCookie = cast(DCookie) cookie.clone) {
       newCookie.expiresAt = new DateTimeImmutable("2038-01-01");
       return newCookie;
-    }
+    } */
     return null;
   }
 
@@ -98,6 +98,6 @@ class DCookieFactory : DFactory!DCookie {
 }
 
 auto CookieFactory() {
-  return factory is null
-    ? factory = new DCookieFactory : factory;
+  return DCookieFactory.factory is null
+    ? DCookieFactory.factory = new DCookieFactory : DCookieFactory.factory;
 }

@@ -86,13 +86,13 @@ class DContentTypeNegotiation {
         auto raw = this.parseAcceptLanguage(request);
         auto accept = null;
         foreach (languages; raw) {
-            foreach (ref lan; languages) {
+            /* foreach (ref lan; languages) {
                 /* if (lang.contains("_")) {
                     lang = lang.replace("_", "-");
                 }
-                lang = lang.lower; */
+                lang = lang.lower; *  /
             }
-            accept = chain(accept, languages);
+            accept = chain(accept, languages); */
         }
         return accept;
     }

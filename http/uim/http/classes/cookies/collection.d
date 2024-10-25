@@ -115,14 +115,15 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * If the cookie is not in the collection, this method will do nothing.
      */
     static DCookieCollection removeKey(string cookieName) {
-        auto result = this.clone;
+        //auto result = this.clone;
         /* string key = cookieName.lower;
         foreach (index, cookie; result.cookies) {
             if (cookie.cookieName.lower == key) {
                 removeKey(result.cookies[index]);
             }
         } */
-        return result;
+        // return result;
+        return null; 
     }
     
     /**

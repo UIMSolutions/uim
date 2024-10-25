@@ -27,16 +27,17 @@ class DClosureDecoratorMiddleware : DMiddleware { // }: IMiddleware {
 
     protected IClosure aCallable;
 
-    this(IClosure aCallable) {
+    /* this(IClosure aCallable) {
         _callable = aCallable;
-    }
+    } */
 
     // Run the callable to process an incoming server request.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
-        return (_callable)(
+        /* return (_callable)(
             serverRequest,
             requestHandler
-        );
+        ); */
+        return null; 
     }
 
     /* Closure getCallable() {

@@ -101,7 +101,7 @@ class DBodyParserMiddleware : DMiddleware { // }: IMiddleware {
      * Will modify the request adding a parsed body if the content-type is known.
      */
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
-        if (!isIn(serverRequest.getMethod(), this.methods, true)) {
+        /* if (!isIn(serverRequest.getMethod(), this.methods, true)) {
             return requestHandler.handle(serverRequest);
         }
         [type] = serverRequest.getHeaderLine("Content-Type").split(";");
@@ -115,7 +115,8 @@ class DBodyParserMiddleware : DMiddleware { // }: IMiddleware {
             throw new BadRequestException();
         }
         return requestHandler.handle(
-            serverRequest.withParsedBody(result));
+            serverRequest.withParsedBody(result)); */
+        return null;  
     }
     
     // Decode Json into an array.
@@ -133,16 +134,17 @@ class DBodyParserMiddleware : DMiddleware { // }: IMiddleware {
     
     // Decode XML into an array.
     protected Json[string] decodeXml(string bodyToDecode) {
-        try {
+        /* try {
             xml = Xml.build(bodyToDecode, ["return": "domdocument", "readFile": false.toJson]);
             // We might not get child nodes if there are nested inline entities.
-            /** @var \DOMNodeList domNodeList */
+            /** @var \DOMNodeList domNodeList * /
             domNodeList = xml.childNodes;
             return domNodeList.length > 0
                 ? Xml.toArray(xml)
                 : null;
         } catch (XmlException) {
             return null;
-        }
+        } */
+        return null; 
     }
 }

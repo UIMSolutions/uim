@@ -50,10 +50,10 @@ class DCorsBuilder {
             return response;
         }
 
-        if (_headers.hasKey("Access-Control-Allow-Origin")) {
+        /* if (_headers.hasKey("Access-Control-Allow-Origin")) {
             _headers.byKeyValue
                 .each!(kv => response.withHeader(kv.key, kv.value));
-        }
+        } */
         
         return response;
     }
@@ -69,13 +69,13 @@ class DCorsBuilder {
     void allowOrigin(string[] allowedDomains) {
         auto normalizeDomains = _normalizeDomains(/* (array) */allowedDomains);
         foreach (domain; normalizeDomains) {
-            if (!preg_match(domain["preg"], _origin)) {
+            /* if (!preg_match(domain["preg"], _origin)) {
                 continue;
             }
             
             string value = domain.getString("original") == "*" ? "*" : _origin;
            _headers.set("Access-Control-Allow-Origin", value);
-            break;
+            break; */
         }
     }
     
@@ -83,11 +83,11 @@ class DCorsBuilder {
     protected Json[string] _normalizeDomains(string[] domainNamesToNormalize) {
         Json[string] result;
         foreach (domainName; domainNamesToNormalize) {
-            if (domainName == "*") {
+            /* if (domainName == "*") {
                 result ~= ["preg": "@.@", "original": "*"];
                 continue;
             }
-            result ~= normalizeDomain(domainName);
+            result ~= normalizeDomain(domainName); */
         }
         return result;
     }

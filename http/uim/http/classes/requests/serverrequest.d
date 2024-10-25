@@ -330,9 +330,9 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     if (isEmpty(httpReferer) || base.isEmpty) {
       return null;
     }
-    if (local && httpReferer.startWith(base)) {
+    if (local && httpReferer.startsWith(base)) {
       httpReferer = subString(httpReferer, base.length);
-      if (httpReferer.isEmpty || httpReferer.startWith("//")) {
+      if (httpReferer.isEmpty || httpReferer.startsWith("//")) {
         httpReferer = "/";
       }
       if (httpReferer[0] != "/") {
@@ -347,7 +347,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
   // Missing method handler, handles wrapping older style isAjax() type methods
   bool __call(string methodName, Json[string] params) {
-    /* if (name.startWith("is")) {
+    /* if (name.startsWith("is")) {
             auto type = subString(methodName, 2).lower;
 
             params.unshift(type);
@@ -379,11 +379,12 @@ class DServerRequest : UIMObject { // }: IServerRequest {
           .format(type));
     }
 
-    if (someArguments) {
+/*     if (someArguments) {
       return isValid(type, someArguments);
     }
-    _detectorCache.set(_detectorCache.get(type, isValid(type, someArguments)));
-    return _detectorCache[type];
+     _detectorCache.set(_detectorCache.get(type, isValid(type, someArguments)));
+    return _detectorCache[type];*/
+    return false;
   }
 
   // Clears the instance detector cache, used by the isType() function
@@ -594,10 +595,10 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     STRINGAA result;
     foreach(key, value; _environmentData.byKeyValue) {
         string name;
-        if (key.startWith("HTTP_")) {
+        if (key.startsWith("HTTP_")) {
           name = subString(key, 5);
         }
-        if (key.startWith("CONTENT_")) {
+        if (key.startsWith("CONTENT_")) {
           name = key;
         }
         if (!name.isNull) {

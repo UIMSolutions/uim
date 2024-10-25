@@ -164,12 +164,12 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             if (hhtpScheme == "http" && cookie.isSecure()) {
                 continue;
             }
-            if (!pathToMatch.startWith(cookie.path())) {
+            if (!pathToMatch.startsWith(cookie.path())) {
                 continue;
             }
             
             auto domain = cookie.domain();
-            if (domain.startWith(".")) {
+            if (domain.startsWith(".")) {
                 domain = stripLeft(domain, ".");
             }
             if (cookie.isExpired(now)) {
@@ -215,7 +215,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
                 continue;
             }
 
-            auto somePathMatches = somePath.startWith(cookie.path());
+            auto somePathMatches = somePath.startsWith(cookie.path());
             auto hostMatches = preg_match(hostPattern, cookie.domain());
             if (somePathMatches && hostMatches) {
                 removeKey(_cookies[index]);

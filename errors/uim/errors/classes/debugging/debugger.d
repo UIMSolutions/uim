@@ -390,13 +390,13 @@ class DDebugger : UIMObject, IErrorDebugger {
 
   // Shortens file paths by replacing the application base path with 'APP", and the UIM core path with 'CORE'.
   static string trimPath(string pathToShorten) {
-    if (defined("APP") && pathToShorten.startWith(APP)) {
+    if (defined("APP") && pathToShorten.startsWith(APP)) {
       return pathToShorten.replace(APP, "APP/");
     }
-    if (defined("uim_CORE_INCLUDE_PATH") && pathToShorten.startWith(uim_CORE_INCLUDE_PATH)) {
+    if (defined("uim_CORE_INCLUDE_PATH") && pathToShorten.startsWith(uim_CORE_INCLUDE_PATH)) {
       return pathToShorten.replace(uim_CORE_INCLUDE_PATH, "CORE");
     }
-    return defined("ROOT") && pathToShorten.startWith(ROOT)
+    return defined("ROOT") && pathToShorten.startsWith(ROOT)
       ? pathToShorten.replace(ROOT, "ROOT") : pathToShorten;
   }
 
@@ -544,7 +544,7 @@ class DDebugger : UIMObject, IErrorDebugger {
   protected static IErrorNode export_(Json valueToDump, DDebugContext context) {
     string type = getType(valueToDump);
 
-    if (type.startWith("resource ")) {
+    if (type.startsWith("resource ")) {
       return new DScalarErrorNode(type, valueToDump);
     }
     return null; // TODO 

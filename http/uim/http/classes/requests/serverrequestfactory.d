@@ -78,7 +78,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
 
         if (
             isIn(method, ["PUT", "DELETE", "PATCH"], true) &&
-           /*  (string) */ serverRequest.contentType().startWith("application/x-www-form-urlencoded")
+           /*  (string) */ serverRequest.contentType().startsWith("application/x-www-form-urlencoded")
             ) {
             auto someData = /* (string) */ serverRequest.getBody();
             parse_str(someData, parsedBody);

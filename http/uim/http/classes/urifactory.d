@@ -47,7 +47,7 @@ class UriFactory { // }: IUriFactory {
   // Updates the request URI to remove the base directory.
   protected static IUri updatePath(string basePath, IUri uriToUpdate) {
     auto uriPath = uriToUpdate.path();
-    if (!basePath.isEmpty && uriPath.startWith(basePath)) {
+    if (!basePath.isEmpty && uriPath.startsWith(basePath)) {
       uriPath = uriPath[0 .. basePath.length];
     }
     if (uriPath == "/index.d" && uriToUpdate.getQuery()) {

@@ -133,7 +133,7 @@ class DMiddlewareQueue {
     auto insertAfter(string classname, string middlewareToInsert) {
         auto found = false;
         auto index = 0;
-        foreach (index, object; _queue) {
+        // foreach (index, object; _queue) {
             /** @psalm-suppress ArgumentTypeCoercion */
             /* if (
                 (
@@ -145,7 +145,7 @@ class DMiddlewareQueue {
                 found = true;
                 break;
             } */
-        }
+        // }
 
        /*  return found
             ? _insertAt(index + 1, middlewareToInsert) : _add(middlewareToInsert); */

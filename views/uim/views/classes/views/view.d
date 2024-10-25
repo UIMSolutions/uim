@@ -816,7 +816,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
         [_plugin, views] = _pluginSplit(views);
         views = views.replace("/", DIRECTORY_SEPARATOR); */
 
-        /* if (!views.has(DIRECTORY_SEPARATOR) && views != "" && !views.startWith(".")) {
+        /* if (!views.has(DIRECTORY_SEPARATOR) && views != "" && !views.startsWith(".")) {
             views = templatePath ~ mysubDir ~ _inflectTemplateFileName(views);
         } else if (views.has(DIRECTORY_SEPARATOR)) {
             if (views[0] == DIRECTORY_SEPARATOR || views[1] == ": ") {
@@ -854,7 +854,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
             return filepath;
         }
         string absolutePath = realpath(filepath);
-        if (absolutePath.isEmpty || !absolutePath.startWith(basePath)) {
+        if (absolutePath.isEmpty || !absolutePath.startsWith(basePath)) {
             throw new DInvalidArgumentException(
                 "Cannot use `%s` as a template, it is not within any view template path."
                 .format(filepath));

@@ -92,7 +92,7 @@ class DMockAdapter { //}: IAdapter {
         if (starPosition == mockUri.length - 4) {
             mockUri = mockUri[0..starPosition];
 
-            return sentRequestUri.startWith(mockUri);
+            return sentRequestUri.startsWith(mockUri);
         } */
         return false;
     }

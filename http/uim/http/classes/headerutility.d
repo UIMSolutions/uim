@@ -17,10 +17,11 @@ class DHeaderUtility {
      * Json[string] linkHeaders An array of Link header strings.
      */
     static Json[string] parseLinks(Json[string] linkHeaders) {
-        auto result = linkHeaders
+        /* auto result = linkHeaders
             .map!(linkHeader => parseLinkItem(linkHeader)).array;
 
-        return result;
+        return result; */
+        return null; 
     }
     
     /**
@@ -63,14 +64,14 @@ class DHeaderUtility {
             return accept;
         }
         string[] aHeaders = headerValue.split(",");
-        foreach (aValue; filterValues(aHeaders)) {
+        foreach (value; filterValues(aHeaders)) {
             auto prefValue = "1.0";
-            auto aValue = aValue.strip;
+            value = value.strip;
 
-            /* semiPos = indexOf(aValue, ";");
+            /* semiPos = indexOf(value, ";");
             if (semiPos == true) {
-                string[] params = aValue.split(";");
-                aValue = params[0].strip;
+                string[] params = value.split(";");
+                value = params[0].strip;
                 params.each!((param) {
                     size_t qPos = indexOf(param, "q=");
                     if (qPos == true) {
@@ -82,7 +83,7 @@ class DHeaderUtility {
                 accept[prefValue] = null;
             }
             if (prefValue) {
-                // accept[prefValue].concat( aValue;
+                // accept[prefValue].concat( value;
             } */
         }
         // krsort(accept);
@@ -100,7 +101,7 @@ class DHeaderUtility {
        ); */
 
         Json[string] result;
-        matches.each!(match => result[match[1]] = match[3] ? match[3] : match[2]);
+        // matches.each!(match => result[match[1]] = match[3] ? match[3] : match[2]);
 
         return result;
     }

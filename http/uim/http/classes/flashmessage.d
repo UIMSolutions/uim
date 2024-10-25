@@ -109,7 +109,8 @@ class DFlashMessage : UIMObject {
 
     // Get the messages for given key and remove from session.
     Json[string] consume(string messageKey) {
-        return _session.consume("Flash.{aKey}");
+        // return _session.consume("Flash.{aKey}");
+        return null; 
     }
 
     /**

@@ -125,11 +125,13 @@ class DBodyParserMiddleware : DMiddleware { // }: IMiddleware {
             return null;
         }
         
-        auto decodedBody = Json_decode(bodyToDecode, true);
+        /* auto decodedBody = Json_decode(bodyToDecode, true);
         if (Json_last_error() != Json_ERROR_NONE) {
             return null;
-        }
-        return /* (array) */decodedBody;
+        } * /
+        return /* (array) * /decodedBody; */
+        return null; 
+        
     }
     
     // Decode XML into an array.

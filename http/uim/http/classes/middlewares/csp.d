@@ -43,19 +43,20 @@ class DCspMiddleware : DMiddleware { // }: IMiddleware {
         /* if (!cast(DCSPBuilder)cspObject) {
             cspObject = new DCSPBuilder(cspObject);
         } */
-        _cspObject = cspObject;
+        // _cspObject = cspObject;
     }
     
     // Add nonces (if enabled) to the request and apply the CSP header to the response.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
-        if (_configData.hasKey("scriptNonce")) {
+        /* if (_configData.hasKey("scriptNonce")) {
             serverRequest = serverRequest.withAttribute("cspScriptNonce", this.csp.nonce("script-src"));
-        }
-        if (getconfig("styleNonce")) {
+        } */
+/*         if (getconfig("styleNonce")) {
             serverRequest = serverRequest.withAttribute("cspStyleNonce", this.csp.nonce("style-src"));
         }
-        
-        auto response = requestHandler.handle(serverRequest);
-        return _csp.injectCSPHeader(response);
+ */        
+/*         auto response = requestHandler.handle(serverRequest);
+        return _csp.injectCSPHeader(response); */
+        return null; 
     }
 }

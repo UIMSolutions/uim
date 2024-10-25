@@ -38,9 +38,9 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IMiddleware {
     protected string acipherType;
 
     this(Json[string] cookieNames, string encryptionKey, string cipherType = "aes") {
-        _cookieNames = cookieNames;
+        /* _cookieNames = cookieNames;
         _key = encryptionKey;
-        _cipherType = cipherType;
+        _cipherType = cipherType; */
     }
     
     // Apply cookie encryption/decryption.
@@ -48,14 +48,15 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IMiddleware {
         if (serverRequest.getCookieParams()) {
             serverRequest = this.decodeCookies(serverRequest);
         }
-        response = handler.handle(serverRequest);
+        /* response = handler.handle(serverRequest);
         if (response.hasHeader("Set-Cookie")) {
             response = this.encodeSetCookieHeader(response);
         }
         if (cast(Response)response) {
             response = this.encodeCookies(response);
         }
-        return response;
+        return response; */
+        return null; 
     }
     
     /**
@@ -82,14 +83,15 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IMiddleware {
     
     // Encode cookies from a response`s CookieCollection.
     protected DResponse encodeCookies(DResponse response) {
-        response.getCookieCollection()
+        /* response.getCookieCollection()
             .filter!(cookie => isIn(cookie.name, _cookieNames, true))
             .each!((cookie) {
                 aValue = _encrypt(cookie.getValue(), _cipherType);
                 response = response.withCookie(CookieFactory.withValue(cookie, aValue));
             });
 
-        return response;
+        return response; */
+        return null; 
     }
     
     // Encode cookies from a response`s Set-Cookie header

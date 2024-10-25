@@ -35,8 +35,9 @@ class DContentTypeNegotiation {
      * \Psr\Http\Message\IRequest request The request to get an accept from.
      */
     Json[string] parseAcceptLanguage(IRequest request) {
-        auto langHeader = request.getHeaderLine("Accept-Language");
-        return _parseQualifiers(langHeader);
+       /*  auto langHeader = request.getHeaderLine("Accept-Language");
+        return _parseQualifiers(langHeader); */
+        return null; 
     }
     
     // Parse a header value into preference: value mapping
@@ -102,7 +103,8 @@ class DContentTypeNegotiation {
      * Language codes in the request will be normalized to lower case and have `_` replaced with `-`.
      */
     bool acceptLanguage(IRequest request, string langCode) {
-        auto accept = acceptedLanguages(request);
-        return isIn(langCode.lower, accept, true);
+        /* auto accept = acceptedLanguages(request);
+        return isIn(langCode.lower, accept, true); */
+        return false;
     }
 }

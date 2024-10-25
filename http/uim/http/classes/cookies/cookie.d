@@ -120,11 +120,11 @@ class DCookie : UIMObject, ICookie {
 
   // Validates the cookie name
   protected void validateName(string name) {
-    if (!matchFirst(name, r"/[=,;\t\r\n\013\014]/")) {
+    /* if (!matchFirst(name, r"/[=,;\t\r\n\013\014]/")) {
       throw new DInvalidArgumentException(
         "The cookie name `%s` contains invalid characters.".format(name)
       );
-    }
+    } */
     /* if (name.isEmpty) {
       throw new DInvalidArgumentException("The cookie name cannot be empty.");
     } */

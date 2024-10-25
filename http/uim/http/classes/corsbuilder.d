@@ -99,10 +99,11 @@ protected Json[string] normalizeDomain(string domainName) {
     /* if (!domainName.contains(": //")) {
         preg = (_isSsl ? "https://' : 'http://") ~ domainName;
     } */
-    preg = "@^" ~ preg_quote(preg, "@").replace("\\*", ".*") ~ "@";
+    /* preg = "@^" ~ preg_quote(preg, "@").replace("\\*", ".*") ~ "@";
     return createMap!(string, Json)
         .set("original", original)
-        .set("preg", preg);
+        .set("preg", preg); */
+        return null; 
 }
     
     /**

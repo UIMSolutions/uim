@@ -21,13 +21,8 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     // Cookie objects
     protected Json[string] cookies;
 
-    /**
-     
-     * Params:
-     * array<\UIM\Http\Cookie\ICookie> cookies Array of cookie objects
-     */
-    this(Json[string] cookies = null) {
-        cookies.each!(cookie => _cookies[cookie.id] = cookie);
+    this(ICookie[] cookies = null) {
+        // cookies.each!(cookie => _cookies[cookie.id] = cookie);
     }
     
     // Create a Cookie Collection from an array of Set-Cookie Headers

@@ -18,7 +18,7 @@ mixin template TDateFormat() {
 
     // Returns a translated and localized date string.
     protected string _formatObject(
-        IDateTime date,
+        DateTime date,
         string[] aformat,
         string localName
     ) {

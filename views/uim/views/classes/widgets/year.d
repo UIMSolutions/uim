@@ -62,7 +62,7 @@ class DYearWidget : DWidget {
 
         if (
             cast(DChronosDate)mydata.get("val")  ||
-            cast(IDateTime)renderData.get("val")
+            cast(DateTime)renderData.get("val")
        ) {
             renderData.set("val", mydata.get("val").format("Y"));
         }

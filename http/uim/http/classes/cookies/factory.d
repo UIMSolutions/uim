@@ -16,7 +16,7 @@ class DCookieFactory : DFactory!DCookie {
   }
 
   // Create a cookie with an updated expiration date
- /*  DCookie withExpiry(DCookie cookie, IDateTime dateTime) {
+ /*  DCookie withExpiry(DCookie cookie, DateTime dateTime) {
     return null;
   } */
 
@@ -80,7 +80,7 @@ class DCookieFactory : DFactory!DCookie {
     return newCookie;
   }
 
-  /*   DCookie withExpiry(DCookie cookie, IDateTime dateTime) {
+  /*   DCookie withExpiry(DCookie cookie, DateTime dateTime) {
     auto newCookie = cookie.clone;
 
     if (cast(DateTime) dateTime) {

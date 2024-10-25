@@ -63,20 +63,24 @@ class DCookie : UIMObject, ICookie {
     return null;
   }
 
+  // Get the domain attribute.
+  string domain() {
+    return null;
+  }
+
   // Get the timestamp from the expiration time
   int expiresTimestamp() {
     return 0;
   }
 
-  // Builds the expiration value part of the header string
-  string formattedExpires() {
+  string expiresString() {
     return null;
   }
 
-  // Get the domain attribute.
-  string domain() {
+  DateTime expiresDateTime() {
     return null;
   }
+
 
   // Check if the cookie is HTTP only
   bool isHttpOnly() {

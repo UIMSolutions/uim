@@ -31,7 +31,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
 
         assert(
             (cast(DChronosDate) first && cast(DChronosDate) second) ||
-                (cast(IDateTime) first && cast(IDateTime) second)
+                (cast(DateTime) first && cast(DateTime) second)
         );
 
         auto diffInterval = first.diff(second);

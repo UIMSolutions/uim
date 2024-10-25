@@ -1,6 +1,7 @@
 module uim.http.classes.responses.clients.vibe;
 
 import uim.http;
+import vibe.container.dictionarylist;
 
 @safe:
 
@@ -16,7 +17,7 @@ class DVibeClientResponse : UIMObject {
     private HTTPClientResponse _response;
 
     // The response header fields
-    DictionaryList/* !(string, false, 12L, false) */ headers;
+    DictionaryList!(string, false, 12L, false) headers;
 
     // The protocol version of the response - should not be changed
     HTTPVersion httpVersion;
@@ -27,7 +28,7 @@ class DVibeClientResponse : UIMObject {
     // The status phrase of the response
     string statusPhrase;
 
-    DictionaryList/* !(vibe.http.common.Cookie, true, 32L, false) */ m_cookies;
+    DictionaryList!(vibe.http.common.Cookie, true, 32L, false) m_cookies;
     // #endregion Fields
 
     // #region Properties

@@ -15,7 +15,7 @@ class DCookie : ICookie {
     protected bool _isExpanded = false;
 
     // Expiration time
-    protected IDateTime _expiresAt = null;
+    protected DateTime _expiresAt = null;
 
     protected string aPath = "/";
 
@@ -47,7 +47,7 @@ class DCookie : ICookie {
     this(
         string cookieName,
         string[] /* float|bool */ cookieValue = "",
-        IDateTime expiresAt = null,
+        DateTime expiresAt = null,
         string path = null,
         string domainName = null,
         bool isSecure = null,
@@ -82,7 +82,7 @@ class DCookie : ICookie {
      *
      * Valid option keys are:
      *
-     * - `expires`: Can be a UNIX timestamp or `strtotime()` compatible string or `IDateTime` instance or `null`.
+     * - `expires`: Can be a UNIX timestamp or `strtotime()` compatible string or `DateTime` instance or `null`.
      * - `path`: A path string. Defauts to `'/'`.
      * - `domain`: Domain name string. Defaults to `""`.
      * - `httponly`: Boolean. Defaults to `false`.
@@ -119,12 +119,12 @@ class DCookie : ICookie {
         );
     }
     
-    // Converts non null expiry value into IDateTime instance.
-    protected static IDateTime dateTimeInstance(Json expires) {
+    // Converts non null expiry value into DateTime instance.
+    protected static DateTime dateTimeInstance(Json expires) {
         if (expires.isNull) {
             return null;
         }
-        if (cast(IDateTime)expires) {
+        if (cast(DateTime)expires) {
             return expires.setTimezone(new DateTimeZone("GMT"));
         }
         if (!isNumeric(expires)) {
@@ -279,7 +279,7 @@ class DCookie : ICookie {
     }
  
  
-    IDateTime expires() {
+    DateTime expires() {
         return _expiresAt;
     }
  
@@ -297,7 +297,7 @@ class DCookie : ICookie {
         return _expiresAt.format(EXPIRES_FORMAT);
     }
  
-    bool isExpired(?IDateTime time = null) {
+    bool isExpired(?DateTime time = null) {
         time = time ?: new DateTimeImmutable("now", new DateTimeZone("UTC"));
         if (cast(DateTime)time) {
             time = time.clone;

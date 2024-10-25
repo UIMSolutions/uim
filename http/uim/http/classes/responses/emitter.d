@@ -155,7 +155,7 @@ class DResponseEmitter {
     }
     
     //Loops through the output buffer, flushing each, before emitting the response.
-    protected void flush(int maxBufferLevel = null) {
+    protected void flush(int maxBufferLevel = 0) {
         maxBufferLevel ? maxBufferLevel : ob_get_level();
 
         while (ob_get_level() > maxBufferLevel) {

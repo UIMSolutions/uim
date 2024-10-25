@@ -51,7 +51,7 @@ class DSortIterator : D_Collection {
       auto isDateTime =
         cast(DChronosDate) callbackValue ||
         cast(DChronosTime) callbackValue ||
-        cast(IDateTime) callbackValue;
+        cast(DateTime) callbackValue;
 
       if (isDateTime && sortType == SORT_NUMERIC) {
         callbackValue = callbackValue.format("U");

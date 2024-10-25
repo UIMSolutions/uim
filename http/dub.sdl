@@ -1,21 +1,18 @@
 name "http"
-homepage "https://"
-license "Apache-2.0"
-copyright "Copyright © 2017-2024, Ozan Nurettin Süel"
-authors "Ozan Nurettin Süel"
-
 description "D-Library for http requirements"
-
-dependency "colored" version="~>0.0.31"
-dependency "vibe-d" version="~>0.10.0"
-
+homepage "https://"
+authors "Ozan Nurettin Süel"
+copyright "Copyright © 2017-2024, Ozan Nurettin Süel"
+license "Apache-2.0"
 dependency "uim:core" path="../"
+dependency "vibe-core" version="~>2.9.5"
+dependency "colored" version="~>0.0.31"
+dependency "vibe-container" version="~>1.3.1"
+dependency "vibe-d" version="~>0.10.1"
+dependency "uim:models" path="../"
 dependency "uim:oop" path="../"
 dependency "uim:filesystems" path="../"
-dependency "uim:models" path="../"
 targetType "library"
-
+targetName "uim-http"
 sourcePaths "."
 importPaths "."
-
-targetName "uim-http"

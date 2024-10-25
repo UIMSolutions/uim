@@ -217,7 +217,7 @@ class DTimeHelper : DHelper {
     // myelement = null;
     /*     auto options = options.merge(["element", "timezone"]);
     options.set("timezone", _getTimezone(options.get("timezone")));
- */ /* if (options.hasKey("timezone") && cast(IDateTime) mydateTime) {
+ */ /* if (options.hasKey("timezone") && cast(DateTime) mydateTime) {
       if (cast(DateTime) mydateTime) {
         mydateTime = mydateTime.clone;
       }

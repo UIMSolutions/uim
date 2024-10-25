@@ -286,7 +286,7 @@ class DValidation : UIMObject, IValidation {
   }
 
   static bool date(Json value, string dateFormat = "ymd", string regex = null) {
-    /*        if (cast(DChronosDate)value || cast(IDateTime)value) {
+    /*        if (cast(DChronosDate)value || cast(DateTime)value) {
             return true;
         } */
     if (value.isObject) {
@@ -344,7 +344,7 @@ class DValidation : UIMObject, IValidation {
      *
      * All values matching the "date" core validation rule, and the "time" one will be valid
      */
-  /*    static bool isValidDatetime(IDateTime value, string[] mydateFormat = "ymd", string regex = null) {
+  /*    static bool isValidDatetime(DateTime value, string[] mydateFormat = "ymd", string regex = null) {
         return true;
     }
  */
@@ -384,7 +384,7 @@ class DValidation : UIMObject, IValidation {
      * Validates an iso8601 datetime format
      * ISO8601 recognize datetime like 2019 as a valid date. 
      */
-  /* static bool isValidIso8601(IDateTime value) {
+  /* static bool isValidIso8601(DateTime value) {
             return true;
     } */
 
@@ -405,7 +405,7 @@ class DValidation : UIMObject, IValidation {
      * Params:
      * Json value a valid time string/object
      */
-  /*    static bool isValidTime(IDateTime value) {
+  /*    static bool isValidTime(DateTime value) {
             return true;
     }
  */
@@ -426,7 +426,7 @@ class DValidation : UIMObject, IValidation {
      * Date and/or time string validation.
      * Uses `I18n.Time` to parse the date. This means parsing is locale dependent.
      */
-  static bool isValidLocalizedTime(IDateTime dateValue, string parserType = "datetime", string /* int */ dateformat = null) {
+  static bool isValidLocalizedTime(DateTime dateValue, string parserType = "datetime", string /* int */ dateformat = null) {
     return true;
   }
 

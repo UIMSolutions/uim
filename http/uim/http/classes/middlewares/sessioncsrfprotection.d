@@ -25,7 +25,7 @@ import uim.http;
  *
  * If you use this middleware *do not* also use CsrfProtectionMiddleware.
  */
-class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
+class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
     mixin(MiddlewareThis!("SessionCsrfProtection"));
     /**
      * Config for the CSRF handling.
@@ -50,9 +50,9 @@ class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
 
     const int TOKEN_VALUE_LENGTH = 32;
 
-    this(Json[string] configData = null) {
+/*     this(Json[string] configData = null) {
         _config = configData + _config;
-    }
+    } */
 
     // Checks and sets the CSRF token depending on the HTTP verb.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {

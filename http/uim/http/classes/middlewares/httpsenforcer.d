@@ -38,9 +38,9 @@ class DHttpsEnforcerMiddleware : DMiddleware { // }: IMiddleware {
         .set("trustedProxies", Json(null))
         .set("hsts", Json(null));
 
-    this(Json[string] configData = null) {
+    /* this(Json[string] configData = null) {
         this.config = configData + this.config;
-    }
+    } */
 
     /**
      * Check whether request has been made using HTTPS.

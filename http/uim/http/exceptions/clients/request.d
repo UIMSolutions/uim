@@ -17,7 +17,7 @@ import uim.http;
  * - Request is invalid (e.g. method is missing)
  * - Runtime request errors (e.g. the body stream is not seekable)
  */
-class DRequestException : UIMException, IRequestException {
+class DRequestException : UIMException/* , IRequestException */ {
     mixin(ExceptionThis!("Request"));
     protected IRequest _request;
 

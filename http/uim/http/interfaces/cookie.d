@@ -41,7 +41,7 @@ interface ICookie : INamed {
     bool isHttpOnly();
 
     // Get the SameSite attribute.
-    SameSite getSameSite();
+    SAMESITE sameSite();
 
     // Get cookie options
     Json[string] options();

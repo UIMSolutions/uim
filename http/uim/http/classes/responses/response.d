@@ -398,7 +398,7 @@ class DResponse : UIMObject, IResponse {
      * - type: a complete mime-type string or an extension mapped in this class
      * - charset: the charset for the response body
      */
-  this(Json[string] options = null) {
+  /* this(Json[string] options = null) {
     _streamTarget = options.get("streamTarget", _streamTarget);
     _streamMode = options.get("streamMode", _streamMode);
     if (options.hasKey("stream")) {
@@ -425,7 +425,7 @@ class DResponse : UIMObject, IResponse {
     }
     _setContentType(type);
     _cookies = new DCookieCollection();
-  }
+  } */
 
   // Creates the stream object.
   protected void _createStream() {
@@ -991,7 +991,7 @@ class DResponse : UIMObject, IResponse {
      * response = response.withCookie(new DCookie("remember_me", 1));
      * ```
      */
-  static auto withCookie(ICookie cookie) {
+  static auto withCookie(DCookie cookie) {
     auto newResponse = this.clone;
     newResponse._cookies = new._cookies.add(cookie);
 
@@ -1008,7 +1008,7 @@ class DResponse : UIMObject, IResponse {
      * response = response.withExpiredCookie(new DCookie("remember_me"));
      * ```
      */
-  static auto withExpiredCookie(ICookie cookie) {
+  static auto withExpiredCookie(DCookie cookie) {
     cookie = cookie.withExpired();
 
     auto newResponse = this.clone;

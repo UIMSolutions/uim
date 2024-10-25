@@ -21,7 +21,7 @@ class DDatabaseSession : DSession { // }: SessionHandler {
   protected int _timeout;
 
   // Looks at Session configuration information and sets up the session model.
-  this(Json[string] configData = null) {
+/*   this(Json[string] configData = null) {
     if (configData.hasKey("tableLocator")) {
       setTableLocator(configuration.get("tableLocator"));
     }
@@ -38,7 +38,7 @@ class DDatabaseSession : DSession { // }: SessionHandler {
       _table = aTableLocator.get(configuration.getString("model"));
     }
     _timeout = to!int(ini_get("session.gc_maxlifetime"));
-  }
+  } */
 
   /**
      * Set the timeout value for sessions.
@@ -59,7 +59,7 @@ class DDatabaseSession : DSession { // }: SessionHandler {
   }
 
   // Method called on close of a database session.
-  bool close() {
+  override bool close() {
     return true;
   }
 

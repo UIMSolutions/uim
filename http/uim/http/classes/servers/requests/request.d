@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http.classes.requests.serverrequest;
+module uim.http.classes.servers.requests.request;
 
 import uim.http;
 
@@ -987,11 +987,11 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * Fallback to using enviroment() if the key is not set in the environment property.
      */
   string getEnvironmentData(string key, string defaultValue = null) {
-    auto key = key.upper;
+    /* auto key = key.upper;
     if (!hasKey(key, _environmentData)) {
       _environmentData[key] = enviroment(key);
     }
-    return !_environmentData.isNull(key) ?  /* (string) */ _environmentData[key] : defaultValue;
+    return !_environmentData.isNull(key) ?  /* (string) */ _environmentData[key] : defaultValue; */
   }
 
   /**

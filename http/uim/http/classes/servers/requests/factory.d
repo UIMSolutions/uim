@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http.classes.requests.serverrequestfactory;
+module uim.http.classes.servers.request.factory;
 
 import uim.http;
 
@@ -16,7 +16,8 @@ import uim.http;
  * attributes. Furthermore the Uri`s path is corrected to only contain the
  * 'virtual' path for the request.
  */
-class DServerRequestFactory { // }: ServerIRequestFactory {
+class DServerRequestFactory : DFactory!DServerRequest { 
+    static DServerRequestFactory factory;
     /**
      * Create a request from the supplied superglobal values.
      * If any argument is not supplied, the corresponding superglobal value will be used.
@@ -150,4 +151,9 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
     return newServerRequest;
   }
 
+}
+DServerRequestFactory ServerRequestFactory() {
+    return factory is null
+        ? factory = new DServerRequestFactory
+        : factory;
 }

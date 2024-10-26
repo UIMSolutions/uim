@@ -28,8 +28,6 @@ public {
   import uim.oop.interfaces.map;
   import uim.oop.interfaces.named;
   import uim.oop.interfaces.pluginapplication;
-  import uim.oop.interfaces.request;
-  import uim.oop.interfaces.requesthandler;
   import uim.oop.interfaces.retrystrategy;
   import uim.oop.interfaces.runnable;
   import uim.oop.interfaces.stringable;

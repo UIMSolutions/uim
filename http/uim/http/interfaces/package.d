@@ -12,6 +12,7 @@ public {
     import uim.http.interfaces.cspbuilder;
     import uim.http.interfaces.middleware;
     import uim.http.interfaces.request;
+    import uim.http.interfaces.requesthandler;
     import uim.http.interfaces.response;
     import uim.http.interfaces.session;
     import uim.http.interfaces.serverrequest;

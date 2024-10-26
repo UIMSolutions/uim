@@ -1,4 +1,4 @@
-module uim.http.classes.responses.servers.vibe;
+module uim.http.classes.servers.responses.vibe;
 
 import uim.http;
 

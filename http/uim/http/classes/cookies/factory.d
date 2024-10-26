@@ -80,11 +80,11 @@ class DCookieFactory : DFactory!DCookie {
     } return null;
   } */
 
-  auto withNeverExpire(DCookie cookie) {
-    /* if (auto newCookie = cast(DCookie) cookie.clone) {
-      newCookie.expiresAt = new DateTimeImmutable("2038-01-01");
+  ICookie withNeverExpire(ICookie cookie) {
+    if (auto newCookie = cast(DCookie)cookie.clone) {
+      // newCookie.expiresAt(new DateTimeImmutable("2038-01-01"));
       return newCookie;
-    } */
+    }
     return null;
   }
 

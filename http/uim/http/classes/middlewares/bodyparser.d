@@ -115,7 +115,7 @@ class DBodyParserMiddleware : DMiddleware { // }: IMiddleware {
             throw new BadRequestException();
         }
         return requestHandler.handle(
-            serverRequest.withParsedBody(result)); */
+            ServerRequestFactoty.withParsedBody(serverRequest, result)); */
         return null;  
     }
     

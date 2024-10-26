@@ -68,18 +68,14 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IMiddleware {
         return null; 
     }
     
-    /**
-     * Decode cookies from the request.
-     * Params:
-     * \Psr\Http\Message\IServerRequest serverRequest The request to decode cookies from.
-     */
+    // Decode cookies from the request.
     protected IServerRequest decodeCookies(IServerRequest serverRequest) {
         /* auto cookies = serverRequest.getCookieParams();
         _cookieNames
             .filter!(cookieName => cookies.hasKey(cookieName))
             .each!(cookieName => cookies[cookieName] = _decrypt(cookies[cookieName], _cipherType, this.key));
 
-        return serverRequest.withCookieParams(cookies); */
+        return ServerRequestFactory.withCookieParams(serverRequest, cookies); */
         return null; 
     }
     
@@ -88,7 +84,7 @@ class DEncryptedCookieMiddleware : DMiddleware { // : IMiddleware {
         /* response.getCookieCollection()
             .filter!(cookie => isIn(cookie.name, _cookieNames, true))
             .each!((cookie) {
-                aValue = _encrypt(cookie.getValue(), _cipherType);
+                auto aValue = _encrypt(cookie.getValue(), _cipherType);
                 response = response.withCookie(CookieFactory.withValue(cookie, aValue));
             });
 

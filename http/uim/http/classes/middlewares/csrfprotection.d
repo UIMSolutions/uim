@@ -132,13 +132,13 @@ class DCsrfProtectionMiddleware : DMiddleware { // }: IMiddleware {
     } */
     
     // Remove CSRF protection token from request data.
-    protected IServerRequest _unsetTokenField(IServerRequest serverRequest) {
-        /* auto parsedBody = serverRequest.getParsedBody();
+    protected IServerRequest _unsetTokenField(IServerRequest request) {
+        /* auto parsedBody = request.getParsedBody();
         if (parsedBody.isArray) {
             parsedBody.removeKey(configuration.getString("field"));
-            serverRequest = serverRequest.withParsedBody(parsedBody);
+            request = ServerRequestFactory.withParsedBody(request, withParsedBody(parsedBody);
         }
-        return serverRequest; */
+        return request; */
         return null; 
     }
     

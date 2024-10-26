@@ -45,18 +45,34 @@ class DCookie : UIMObject, ICookie {
   ];
 
   // Get the id for a cookie
+  protected string _id;
   string id() {
-    return null;
+    return _id;
+  }
+  protected DCookie id(string newId) {
+    _id = newId;
+    return this;
   }
 
+
   // Get the path attribute.
+  protected string _path;
   string path() {
-    return null;
+    return _path;
+  }
+  protected DCookie path(string newPath) {
+    _path = newPath;
+    return this;
   }
 
   // Get the domain attribute.
+  protected string _domain;
   string domain() {
-    return null;
+    return _domain;
+  }
+  protected DCookie domain(string newDomain) {
+    _domain = newDomain;
+    return this;
   }
 
   // Get the timestamp from the expiration time
@@ -136,5 +152,14 @@ class DCookie : UIMObject, ICookie {
 
   string value() {
     return null; 
+  }
+
+  ICookie clone() {
+    DCookie newCookie = new DCookie;
+    newCookie.id(id);
+    newCookie.path(path);
+    newCookie.domain(domain);
+
+    return newCookie; 
   }
 }

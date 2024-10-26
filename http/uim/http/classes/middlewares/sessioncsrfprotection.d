@@ -155,12 +155,12 @@ class DSessionCsrfProtectionMiddleware : UIMObject { // }: IMiddleware {
      *
      * This ensures that the token does not cause failures during form tampering protection.
      */
-    protected IServerRequest unsetTokenField(IServerRequest serverRequest) {
+    protected IServerRequest unsetTokenField(IServerRequest request) {
         /* auto parsedBody = request.getParsedBody();
         IServerRequest request = serverRequest;
         if (parsedBody.isArray) {
             parsedBody.removeKey(configuration.getString("field"));
-            request = request.withParsedBody(parsedBody);
+            request = ServerRequestFactory.withParsedBody(request, parsedBody);
         }
         return request; */
         return null; 

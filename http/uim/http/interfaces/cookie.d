@@ -54,4 +54,6 @@ interface ICookie : INamed {
 
     // Check if the cookie is secure
     bool isSecure();
+
+    ICookie clone();
 }

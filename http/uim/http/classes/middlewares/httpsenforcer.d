@@ -94,6 +94,7 @@ class DHttpsEnforcerMiddleware : DMiddleware { // }: IMiddleware {
         if (configuration.hasKey("preload")) {
             hostInfo ~= "; preload";
         }
-        return response.withHeader("strict-transport-security", hostInfo);
+        // return response.withHeader("strict-transport-security", hostInfo);
+        return null; 
     }
 }

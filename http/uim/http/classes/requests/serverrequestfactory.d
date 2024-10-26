@@ -129,4 +129,25 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
 
         return new DServerRequest(options);
     }
+
+      // Replace the cookies and get a new request instance.
+  static DServerRequest withCookieParams(IServerRequest request, Json[string] someData) {
+    DServerRequest newServerRequest = cast(DServerRequest)request.clone;
+    // newServerRequest.cookies = cookies;
+
+    return newServerRequest;
+  }
+  /**
+     * Update the parsed body and get a new instance.
+     * Params:
+     * object|array|null someData The deserialized body data. This will
+     *   typically be in an array or object.
+     */
+  static IServerRequest withParsedBody(IServerRequest request, Json[string] someData) {
+    DServerRequest newServerRequest = cast(DServerRequest)request.clone;
+    // newServerRequest.data = someData;
+
+    return newServerRequest;
+  }
+
 }

@@ -26,7 +26,7 @@ class DVibeSession : DHttpSession {
     return _session.isKeySet(key);
   }
 
-  override string getLong(string key) {
+  override long getLong(string key) {
     return get!long(key);
   }
 
@@ -39,7 +39,7 @@ class DVibeSession : DHttpSession {
   }
 
   override void removeKey(string key) {
-    session.remove(key);
+    // session.remove(key);
   }
 }
 

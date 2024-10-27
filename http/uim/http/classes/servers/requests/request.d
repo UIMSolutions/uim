@@ -930,6 +930,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
       _environmentData[key] = enviroment(key);
     }
     return !_environmentData.isNull(key) ?  /* (string) * / _environmentData[key] : defaultValue; */
+    return null; 
   }
 
   /**

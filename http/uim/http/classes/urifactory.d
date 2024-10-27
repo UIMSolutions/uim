@@ -24,7 +24,7 @@ class UriFactory { // }: IUriFactory {
      * _SERVER will be used if serverData parameter.isNull.
      */
   static Json[string] marshalUriAndBaseFromSapi(Json[string] serverData = null) {
-    serverData ? serverData : _SERVER;
+    /* serverData ? serverData : _SERVER;
     auto aHeaders = marshalHeadersFromSapi(serverData);
 
     auto anUri = DiactorosUriFactory.createFromSapi(serverData, aHeaders);
@@ -33,21 +33,22 @@ class UriFactory { // }: IUriFactory {
     // Look in PATH_INFO first, as this is the exact value we need prepared by D.
     auto somePathInfo = serverData.get("PATH_INFO", null);
     anUri = somePathInfo
-      ? anUri.withPath(somePathInfo) : updatePath(base, anUri);
+      ? anUri.withPath(somePathInfo) : updatePath(base, anUri); */
 
     /* if (!anUri.getHost()) {
         anUri = anUri.withHost("localhost");
     } */
 
-    return createMap!(string, Json)
+    /* return createMap!(string, Json)
       .set("uri", "anUri")
       .set("base", base)
-      .set("webroot", webroot);
+      .set("webroot", webroot); */
+      return null; 
   }
 
   // Updates the request URI to remove the base directory.
   protected static IUri updatePath(string basePath, IUri uriToUpdate) {
-    auto uriPath = uriToUpdate.path();
+    /* auto uriPath = uriToUpdate.path();
     if (!basePath.isEmpty && uriPath.startsWith(basePath)) {
       uriPath = uriPath[0 .. basePath.length];
     }
@@ -66,19 +67,20 @@ class UriFactory { // }: IUriFactory {
       ) {
       uriPath = "/";
     }
-    return anUri.withPath(uriPath);
+    return anUri.withPath(uriPath); */
+    return null; 
   }
 
   // Calculate the base directory and webroot directory.
   protected static Json[string] getBase(IUri uri, Json[string] serverData) {
-    auto appData = configuration.getMap("App");
+    /* auto appData = configuration.getMap("App");
     configuration.set("App", appData.mergeKeys(["base", "webroot", "baseUrl"]));
 
     string base = configuration.getString("base");
     auto baseUrl = configuration.get("baseUrl");
-    string webroot = configuration.getString("webroot");
+    string webroot = configuration.getString("webroot"); */
 
-    if (!base.isNull) {
+    /* if (!base.isNull) {
       return createMap!(string, Json)
         .set("base", bas)
         .set("webroot", base.correctUrl);
@@ -90,11 +92,11 @@ class UriFactory { // }: IUriFactory {
             .set("base", "")
             .set("webroot", "/");
         }
-      }
+      } */
 
-      base = dirname(serverData.get("UIM_SELF", DIRECTORY_SEPARATOR));
+      /* base = dirname(serverData.get("UIM_SELF", DIRECTORY_SEPARATOR));
       // Clean up additional / which cause following code to fail..
-      base =  /* (string) */ preg_replace(r"#/+#", "/", base);
+      base =  /* (string) * / preg_replace(r"#/+#", "/", base);
 
       anIndexPos = indexOf(base, "/" ~ webroot.correctUrl ~ "index.d");
       if (anIndexPos == true) {
@@ -129,6 +131,7 @@ class UriFactory { // }: IUriFactory {
 
     return createMap!(string, Json)
       .set("baseDir", baseDir ~ file)
-      .set("webroot", webrootDir);
+      .set("webroot", webrootDir); */
+      return null; 
   }
 }

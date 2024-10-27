@@ -15,7 +15,7 @@ class DUnauthorizedException : DHttpException {
         if (message.isEmpty) {
             message = "Unauthorized";
         }
-        super(message, statusCode, previousException);
+        // super(message, statusCode, previousException);
     }
 
     protected int _defaultCode = 401;

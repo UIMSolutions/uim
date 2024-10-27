@@ -7,9 +7,9 @@ enum SAMESITE : string {
 }
 
 SAMESITE toSamesite(string name) {
-    switch(name.lower) {
+    switch(name.toLower) {
         case "lax": return SAMESITE.LAX;
-        case "STRICT": return SAMESITE.STRICT;
+        case "strict": return SAMESITE.STRICT;
         default: return SAMESITE.NONE;
     }
 }

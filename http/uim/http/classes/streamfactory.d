@@ -37,10 +37,11 @@ class DStreamFactory { // }: IStreamFactory {
      * The `filename` MAY be any string supported by `fopen()`.
      */
     IStream createStreamFromFile(string filename, string openMode = "r") {
-        if (!isReadable(filename)) {
+        /* if (!isReadable(filename)) {
             throw new DRuntimeException("Cannot read file `%s`".format(filename));
         }
-        return new DStream(filename, openMode);
+        return new DStream(filename, openMode); */
+        return null;
     }
     
     /**
@@ -49,6 +50,7 @@ class DStreamFactory { // }: IStreamFactory {
      * The stream MUST be readable and may be writable.
      */
     IStream createStreamFromResource(Json[string] resource) {
-        return new DStream(resource);
+        // return new DStream(resource);
+        return null; 
     }
 }

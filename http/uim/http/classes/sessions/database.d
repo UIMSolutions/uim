@@ -103,7 +103,7 @@ class DDatabaseSession : DSession { // }: SessionHandler {
 
   // Method called on the destruction of a database session.
   bool destroy(string id) {
-    _table.deleteAll([primaryKeys: id]);
+    // _table.deleteAll([primaryKeys: id]);
 
     return true;
   }

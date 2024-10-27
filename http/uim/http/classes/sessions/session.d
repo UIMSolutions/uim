@@ -359,7 +359,8 @@ class DSession : UIMObject, ISession {
             throw new UIMException("Expected session key `%s` not found.".format(sessionName));
         }
 
-        return _read(sessionName);
+        // return _read(sessionName);
+        return Json(null);
     }
 
     // Reads and deletes a variable from session.
@@ -379,7 +380,7 @@ class DSession : UIMObject, ISession {
 
     // Writes value to given session variable name.
     void write(string variableName, Json value = Json(null)) {
-        write([variableName: value], value);
+        // write([variableName: value], value);
     }
 
     void write(string[string] variables, Json value = Json(null)) {
@@ -456,10 +457,10 @@ class DSession : UIMObject, ISession {
      * Optionally it also clears the session id and renews the session.
      */
     void clear(bool shouldRenewed = false) {
-        _SESSION = null;
+        /* _SESSION = null;
         if (shouldRenewed) {
             this.renew();
-        }
+        } */
     }
 
     // Returns whether a session exists

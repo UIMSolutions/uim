@@ -1,6 +1,0 @@
-/****************************************************************************************************************
-* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
-* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
-* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
-*****************************************************************************************************************/
-module uim.http.exceptions.conflict;import uim.http;@safe:// Represents an HTTP 409 error.class DConflictException : DHttpException {    mixin(ExceptionThis!("Conflict"));    protected int _defaultCode = 409;    /*     this(string exceptionMessage = null, int statusCode = null, Throwable previousException = null) {        if (exceptionMessage.isEmpty) {            exceptionMessage = "Conflict";        }        super(exceptionMessage, statusCode, previousException);    } */}mixin(ExceptionCalls!("Conflict"));unittest {    testException(ConflictException);}

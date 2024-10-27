@@ -1,6 +1,0 @@
-/****************************************************************************************************************
-* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
-* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
-* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
-*****************************************************************************************************************/
-module uim.networks;mixin(ImportPhobos!());// Dubpublic {   import vibe.d;}public { // Required uim libraries   import uim.core;  import uim.oop;  import uim.filesystems;  import uim.models;}public { // uim.networks packages  import uim.networks.classes;  import uim.networks.exceptions;  import uim.networks.interfaces;  import uim.networks.helpers;  import uim.networks.mixins;  import uim.networks.tests; }

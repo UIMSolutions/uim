@@ -1,6 +1,0 @@
-/****************************************************************************************************************
-* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
-* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
-* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
-*****************************************************************************************************************/
-module uim.models.classes.attributes.lookups.strings.boolean;import uim.models;@safe:class DStringBooleanAttribute : DLookupAttribute {  mixin(AttributeThis!("StringBoolean"));  mixin(TProperty!("bool[string]", "lookups"));  /* override Json createData() {    return LookupData!(string, bool)(this).isNullable(isNullable);  } */}mixin(AttributeCalls!("StringBoolean"));version (test_uim_models) {  unittest {    // TODO tests  }}

@@ -1,6 +1,0 @@
-/****************************************************************************************************************
-* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
-* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
-* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
-*****************************************************************************************************************/
-module uim.models.classes.attributes.integers.calenderparts.integer;import uim.models;@safe:class DIntegerCalendarPartAttribute : DIntegerAttribute {  mixin(AttributeThis!"IntegerCalendarPart");  /* means.calendarmeans.calendar.day */ // Initialization hook method.  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    name("integerCalendarPart");    registerPath("integerCalendarPart");    return true;  }}mixin(AttributeCalls!"IntegerCalendarPart");version (test_uim_models) {  unittest {    testAttribute(new DIntegerCalendarPart);    testAttribute(IntegerCalendarPart);  }}

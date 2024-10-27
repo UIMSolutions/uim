@@ -1,6 +1,0 @@
-/****************************************************************************************************************
-* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
-* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
-* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
-*****************************************************************************************************************/
-module uim.models.classes.attributes.integers.integer;    import uim.models;@safe:class DIntegerAttribute : DAttribute {  mixin(AttributeThis!"Integer");  // Initialization hook method.  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) { return false; }    addDataFormats(["integer"]);    name("integer");    registerPath("integer");    return true;  }    }mixin(AttributeCalls!"Integer");version(test_uim_models) { unittest {    testAttribute(new DIntegerAttribute);    testAttribute(IntegerAttribute);  }}

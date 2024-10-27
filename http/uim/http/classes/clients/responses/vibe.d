@@ -1,4 +1,4 @@
-module uim.http.classes.responses.clients.vibe;
+module http.uim.http.classes.clients.responses.vibe;
 
 import uim.http;
 import vibe.container.dictionarylist;

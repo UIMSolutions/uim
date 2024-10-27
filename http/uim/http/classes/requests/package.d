@@ -7,6 +7,4 @@ module uim.http.classes.requests;
 
 public {
     import uim.http.classes.requests.requestfactory;
-    import uim.http.classes.requests.serverrequest;
-    import uim.http.classes.requests.serverrequestfactory;
 }

@@ -991,7 +991,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     if (!hasKey(key, _environmentData)) {
       _environmentData[key] = enviroment(key);
     }
-    return !_environmentData.isNull(key) ?  /* (string) */ _environmentData[key] : defaultValue; */
+    return !_environmentData.isNull(key) ?  /* (string) * / _environmentData[key] : defaultValue; */
   }
 
   /**
@@ -1177,20 +1177,16 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     return newServerRequest;
   }
 
-  /**
-     * Recursively validate uploaded file data.
-     * Params:
-     * Json[string] uploadedFiles The new files array to validate.
-     */
+  // Recursively validate uploaded file data.
   protected auto validateUploadedFiles(Json[string] uploadedFiles, string path) {
     foreach (key, file; uploadedFiles) {
-      if (file.isArray) {
+      /* if (file.isArray) {
         this.validateUploadedFiles(file, key ~ ".");
         continue;
       }
       if (!cast(IUploadedFile) file) {
         throw new DInvalidArgumentException("Invalid file at `%s%s`.".format(path, key));
-      }
+      } */
     }
   }
 
@@ -1199,11 +1195,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     return _stream;
   }
 
-  /**
-     * Return an instance with the specified message body.
-     * Params:
-     * \Psr\Http\Message\IStream body The new request body
-     */
+  // Return an instance with the specified message body.
   static auto withBody(IStream body) {
     auto newServerRequest = this.clone;
     newServerRequest.stream = body;
@@ -1221,8 +1213,6 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      *
      * *Warning* Replacing the Uri will not update the `base`, `webroot`,
      * and `url` attributes.
-     * Params:
-     * \Psr\Http\Message\IUri anUri The new request uri
      */
   static withUri(IUri anUri, bool preserveHost = false) {
     auto newServerRequest = this.clone;

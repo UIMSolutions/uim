@@ -1,4 +1,4 @@
-module http.uim.http.classes.clients.responses.vibe;
+module uim.http.classes.clients.responses.vibe;
 
 import uim.http;
 import vibe.container.dictionarylist;
@@ -78,9 +78,8 @@ class DVibeClientResponse : UIMObject {
     }
 
     // Provides unsafe means to read raw data from the connection.
-    void readRawBody(scope void delegate(
-            scope vibe.internal.interfaceproxy.InterfaceProxy!(vibe.core.stream.InputStream)) del) {
-        _response.readRawBody(del);
+    void readRawBody(scope void delegate(scope vibe.internal.interfaceproxy.InterfaceProxy!(vibe.core.stream.InputStream)) del) {
+        // _response.readRawBody(del); */
     }
 
     void readRawBody(scope void delegate(scope InputStream) del) {

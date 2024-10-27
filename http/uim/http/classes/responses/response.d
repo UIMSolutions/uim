@@ -429,7 +429,7 @@ class DResponse : UIMObject, IResponse {
 
   // Creates the stream object.
   protected void _createStream() {
-    _stream = new DStream(_streamTarget, _streamMode);
+    // _stream = new DStream(_streamTarget, _streamMode);
   }
 
   /**
@@ -437,8 +437,8 @@ class DResponse : UIMObject, IResponse {
      * the charset will only be set in the header if the response is of type text/*  * Params:
      * string atype The type to set.
      */
-  protected void _setContentType(string atype) {
-    if (isIn(_status, [304, 204], true)) {
+  protected void _setContentType(string type) {
+    /* if (isIn(_status, [304, 204], true)) {
       _clearHeader("Content-Type");
 
       return;
@@ -462,7 +462,7 @@ class DResponse : UIMObject, IResponse {
       _setHeader("Content-Type", "{type}; charset={_charset}");
     } else {
       _setHeader("Content-Type", type);
-    }
+    } */
   }
 
   /**
@@ -470,34 +470,33 @@ class DResponse : UIMObject, IResponse {
      *
      * If the current status code is 200, it will be replaced
      * with 302.
-     * Params:
-     * string aurl The location to redirect to.
      */
-  static withLocation(string aurl) {
-    auto newResponse = this.withHeader("Location", url);
+  static DResponse withLocation(string url) {
+/*     auto newResponse = this.withHeader("Location", url);
     if (newResponse._status == 200) {
       newResponse._status = 302;
     }
-    return newResponse;
+    return newResponse; */
+    return null; 
   }
 
   // Sets a header.
   protected void _setHeader(string key, string value) {
-    auto normalized = key.lower;
+    /* auto normalized = key.lower;
     _headerNames[normalized] = key;
-    _headers[key] = [value];
+    _headers[key] = [value]; */
   }
 
   // Clear header
   protected void _clearHeader(string name) {
-    string normalized = name.lower;
+    /* string normalized = name.lower;
     if (!_headerNames.hasKey(normalized)) {
       return;
     }
 
     auto original = _headerNames[normalized];
     _headerNames.removeKey(normalized);
-    _headers.removeKey(original);
+    _headers.removeKey(original); */
   }
 
   /**
@@ -530,16 +529,17 @@ class DResponse : UIMObject, IResponse {
      * might include status codes that are now allowed which will throw an
      * `\InvalidArgumentException`.
      */
-  static auto withStatus(int statusCode, string reasonPhrase = "") {
-    auto newResponse = clone();
+  static DResponse withStatus(int statusCode, string reasonPhrase = "") {
+    /* auto newResponse = clone();
     newResponse._setStatus(statusCode, reasonPhrase);
 
-    return newResponse;
+    return newResponse; */
+    return null; 
   }
 
   // Modifier for response status
   protected auto _setStatus(int statusCode, string reasonPhrase = "") {
-    if (code < STATUS_CODE_MIN || statusCode > STATUS_CODE_MAX) {
+    /* if (code < STATUS_CODE_MIN || statusCode > STATUS_CODE_MAX) {
       throw new DInvalidArgumentException(
         "Invalid status code: %s. Use a valid HTTP status code in range 1xx - 5xx."
           .format(statusCode)
@@ -554,7 +554,7 @@ class DResponse : UIMObject, IResponse {
     // These status codes don`t have bodies and can`t have content-types.
     if (isIn(statusCode, [304, 204], true)) {
       _clearHeader("Content-Type");
-    }
+    } */
   }
 
   /**
@@ -577,19 +577,20 @@ class DResponse : UIMObject, IResponse {
      * This is needed for RequestHandlerComponent and recognition of types.
      */
   void setTypeMap(string contentType, string mimeType) {
-    _mimeTypes.set(contentType, mimeType);
+    // _mimeTypes.set(contentType, mimeType);
   }
 
   void setTypeMap(string contentType, string[] mimeTypes) {
-    _mimeTypes.set(contentType, mimeTypes);
+    // _mimeTypes.set(contentType, mimeTypes);
   }
 
   // Returns the current content type.
   string[] getType() {
-    string headerLine = getHeaderLine("Content-Type");
+    /* string headerLine = getHeaderLine("Content-Type");
 
     return headerLine.contains(";")
-      ? headerLine.split(";")[0] : headerLine;
+      ? headerLine.split(";")[0] : headerLine; */
+      return null;
   }
 
   /**
@@ -597,60 +598,50 @@ class DResponse : UIMObject, IResponse {
      *
      * If you attempt to set the type on a 304 or 204 status code response, the
      * content type will not take effect as these status codes do not have content-types.
-     * Params:
-     * string acontentType Either a file extension which will be mapped to a mime-type or a concrete mime-type.
      */
-  static auto withType(string acontentType) {
-    mappedType = this.resolveType(contentType);
+  static DResponse withType(string acontentType) {
+    /* mappedType = this.resolveType(contentType);
     DResponse newResponse = this.clone;
     newResponse._setContentType(mappedType);
 
-    return newResponse;
+    return newResponse; */
+    return null; 
   }
 
-  /**
-     * Translate and validate content-types.
-     * Params:
-     * string acontentType The content-type or type alias.
-     */
+  // Translate and validate content-types.
   protected string resolveType(string acontentType) {
-    auto mapped = getMimeType(contentType);
+/*     auto mapped = getMimeType(contentType);
     if (mapped) {
       return mapped.isArray ? currentValue(mapped) : mapped;
     }
     if (!contentType.contains("/")) {
       throw new DInvalidArgumentException("`%s` is an invalid content type.".format(contentType));
     }
-    return contentType;
+    return contentType; */
+    return null; 
   }
 
   /**
      * Returns the mime type definition for an alias
-     *
      * e.g `getMimeType("pdf"); // returns "application/pdf"`
-     * Params:
-     * string aalias the content type alias to map
      */
   string[] getMimeType(string aliasName) {
-    return _mimeTypes.get(aliasName, false);
+    return aliasName in _mimeTypes ? _mimeTypes[aliasName] : null;
   }
 
   /**
      * Maps a content-type back to an alias
-     *
      * e.g `mapType("application/pdf"); // returns "pdf"`
-     * Params:
-     * string[] actype Either a string content type to map, or an array of types.
      */
-  string[] mapType(string[] actype) {
-    if (ctype.isArray) {
+  string[] mapType(string[] ctype) {
+    /* if (ctype.isArray) {
       // return array_map(this.mapType(...), ctype);
-    }
-    foreach (aliasName, types; _mimeTypes) {
-      if (isIn(ctype, /* (array) */ types, true)) {
+    } */
+    /* foreach (aliasName, types; _mimeTypes) {
+      if (isIn(ctype, /* (array) * / types, true)) {
         return aliasName;
       }
-    }
+    } */
     return null;
   }
 
@@ -660,12 +651,13 @@ class DResponse : UIMObject, IResponse {
   }
 
   // Get a new instance with an updated charset.
-  static withCharset(string acharset) {
-    auto newResponse = this.clone;
+  static DResponse withCharset(string acharset) {
+    /* auto newResponse = this.clone;
     newResponse._charset = charset;
     newResponse._setContentType(getType());
 
-    return newResponse;
+    return newResponse; */
+    return null; 
   }
 
   // Create a new instance with headers to instruct the client to not cache the response
@@ -676,7 +668,7 @@ class DResponse : UIMObject, IResponse {
   }
 
   // Create a new instance with the headers to enable client caching.
-  static withCache( /* string */ int sinceModified, /* int */ string timeExpiry = "+1 day") {
+  static DResponse withCache( /* string */ int sinceModified, /* int */ string timeExpiry = "+1 day") {
     if (!isInteger(timeExpiry)) {
       /* timeExpiry = strtotime(timeExpiry);
       if (timeExpiry == false) {
@@ -685,16 +677,17 @@ class DResponse : UIMObject, IResponse {
         );
       } */
     }
-    return _withHeader("Date", gmdate(DATE_RFC7231, timeExpiry()))
+/*     return _withHeader("Date", gmdate(DATE_RFC7231, timeExpiry()))
       .withModified(sinceModified)
       .withExpires(timeExpiry)
       .withSharable(true)
-      .withMaxAge(timeExpiry - timeExpiry());
+      .withMaxAge(timeExpiry - timeExpiry()); */
+      return null; 
   }
 
   //Create a new instace with the public/private Cache-Control directive set.
-  static withSharable(bool isPublic, int maxAge = 0) {
-    IResponse newResponse = this.clone;
+  static DResponse withSharable(bool isPublic, int maxAge = 0) {
+    /* DResponse newResponse = this.clone;
     newResponse._cacheDirectivesremoveKey("private", "public");
 
     newResponse._cacheDirectives.set(isPublic ? "public" : "private", true);
@@ -704,7 +697,8 @@ class DResponse : UIMObject, IResponse {
     }
     newResponse._setCacheControl();
 
-    return newResponse;
+    return newResponse; */
+    return null; 
   }
 
   /**
@@ -716,11 +710,12 @@ class DResponse : UIMObject, IResponse {
      * int seconds The number of seconds for shared max-age
      */
   static DResponse withSharedMaxAge(int seconds) {
-    auto newResponse = this.clone;
+    /* auto newResponse = this.clone;
     newResponse._cacheDirectives.set("s-maxage", seconds);
     newResponse._setCacheControl();
 
-    return newResponse;
+    return newResponse; */
+    return null; 
   }
 
   /**
@@ -969,6 +964,10 @@ class DResponse : UIMObject, IResponse {
 
     return etagMatches.isNull && timeMatches.isNull
       ? false : etagMatches == true && timeMatches == true;
+  }
+
+  string getProtocolVersion() {
+    return null; 
   }
 
   /**

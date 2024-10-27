@@ -14,6 +14,6 @@ public { // Modules
     import uim.http.classes.clients.formdata;
     import uim.http.classes.clients.formdatapart;
     import uim.http.classes.clients.message;
-    import uim.http.classes.clients.request;
-    import uim.http.classes.clients.response;
+    import uim.http.classes.clients.requests;
+    import uim.http.classes.clients.responses;
 }

@@ -25,7 +25,7 @@ class DResponseEmitter {
      * according to the environment.
      */
    bool emit(IResponse response) {
-        string file = "";
+        /* string file = "";
         auto line = 0;
         if (headers_sent(file, line)) {
             string message = "Unable to emit headers. Headers sent in file=file line=line";
@@ -44,7 +44,8 @@ class DResponseEmitter {
         if (function_hasKey("fastcgi_finish_request")) {
             fastcgi_finish_request();
         }
-        return true;
+        return true; */
+        return false;
     }
     
     // Emit the message body.
@@ -67,7 +68,7 @@ class DResponseEmitter {
     
     // Emit a range of the message body.
     protected void emitBodyRange(Json[string] dataToEmit, IResponse responseToEmit) {
-        auto values = dataToEmit;
+        /* auto values = dataToEmit;
         auto first = value[1];
         auto last = value[2];
 
@@ -92,7 +93,7 @@ class DResponseEmitter {
             }
             writeln(streamBody.read(this.maxBufferLength));
             pos = streamBody.tell();
-        }
+        } */
     }
     
     /**
@@ -102,7 +103,7 @@ class DResponseEmitter {
      * the response; if a reason phrase is available, it, too, is emitted.
      */
     protected void emitStatusLine(IResponse response) {
-        reasonPhrase = response.getReasonPhrase();
+        string reasonPhrase = response.getReasonPhrase();
         header("HTTP/%s %d%s"
             .format(response.getProtocolVersion(),
             response.statusCode(),
@@ -156,11 +157,11 @@ class DResponseEmitter {
     
     //Loops through the output buffer, flushing each, before emitting the response.
     protected void flush(int maxBufferLevel = 0) {
-        maxBufferLevel ? maxBufferLevel : ob_get_level();
+        /* maxBufferLevel ? maxBufferLevel : ob_get_level();
 
         while (ob_get_level() > maxBufferLevel) {
             ob_end_flush();
-        }
+        } */
     }
     
     // Parse content-range header

@@ -10,4 +10,7 @@ import uim.http;
 @safe:
 
 interface IResponse {
+    int statusCode();
+    string getReasonPhrase();
+    string getProtocolVersion();
 }

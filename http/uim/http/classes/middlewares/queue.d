@@ -77,7 +77,7 @@ class DMiddlewareQueue {
     }
 
     auto prepend(string[] middlewareNames) {
-        _queue = chain(middlewareNames, _queue);
+        //_queue = chain(middlewareNames, _queue);
         return this;
     }
 
@@ -103,8 +103,8 @@ class DMiddlewareQueue {
 
     auto insertBefore(string classname, string middlewareToInsert) {
         bool isFound = false;
-        auto index = 0;
-        foreach (index, object; _queue) {
+        size_t index = 0;
+        foreach (i, object; _queue) {
             /* if (
                 (
                     object.isString
@@ -113,6 +113,7 @@ class DMiddlewareQueue {
                 || isA(object, classname)
                 ) {
                 isFound = true;
+                index = i;
                 break;
             } */
         }

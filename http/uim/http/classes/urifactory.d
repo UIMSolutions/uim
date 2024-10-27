@@ -13,7 +13,8 @@ import uim.http;
 class UriFactory { // }: IUriFactory {
   // Create a new URI.
   IUri createUri(string uriToParse = null) {
-    return new Uri(uriToParse);
+    // return new Uri(uriToParse);
+    return null; 
   }
 
   /**

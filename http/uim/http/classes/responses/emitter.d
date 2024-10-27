@@ -50,7 +50,7 @@ class DResponseEmitter {
     
     // Emit the message body.
     protected void emitBody(IResponse response) {
-        if (isIn(response.statusCode(), [204, 304], true)) {
+        /* if (isIn(response.statusCode(), [204, 304], true)) {
             return;
         }
         auto responseBody = response.getBody();
@@ -63,7 +63,7 @@ class DResponseEmitter {
         responseBody.rewind();
         while (!responseBody.eof()) {
             writeln(responseBody.read(this.maxBufferLength));
-        }
+        } */
     }
     
     // Emit a range of the message body.
@@ -103,12 +103,12 @@ class DResponseEmitter {
      * the response; if a reason phrase is available, it, too, is emitted.
      */
     protected void emitStatusLine(IResponse response) {
-        string reasonPhrase = response.getReasonPhrase();
+        /* string reasonPhrase = response.getReasonPhrase();
         header("HTTP/%s %d%s"
             .format(response.getProtocolVersion(),
             response.statusCode(),
             (reasonPhrase ? " " ~ reasonPhrase : "")
-       ));
+       )); */
     }
     
     /**
@@ -120,7 +120,7 @@ class DResponseEmitter {
      * the previous).
      */
     protected void emitHeaders(IResponse response) {
-        auto cookies = null;
+        /* auto cookies = null;
         if (cast(DResponse)response) {
             cookies = iterator_to_array(response.getCookieCollection());
         }
@@ -139,20 +139,22 @@ class DResponseEmitter {
                 first = false;
             }
         }
-        this.emitCookies(cookies);
+        this.emitCookies(cookies); */
     }
     
     // Emit cookies using setcookie()
     protected void emitCookies(Json[string] cookies) {
-        cookies.each!(cookie => setCookie(cookie));
+        // cookies.each!(cookie => setCookie(cookie));
     }
     
     // Helper methods to set cookie.
     protected bool setCookie(string acookie) {
-        return setCookie(Cookie.createFromHeaderString(cookie, ["path": ""]));
+        // return setCookie(Cookie.createFromHeaderString(cookie, ["path": ""]));
+        return false;
     }
     protected bool setCookie(ICookie acookie) {
-        return setcookie(cookie.name, cookie.value(), cookie.options());
+        // return setcookie(cookie.name, cookie.value(), cookie.options());
+        return false;
     }
     
     //Loops through the output buffer, flushing each, before emitting the response.

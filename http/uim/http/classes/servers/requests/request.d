@@ -257,7 +257,8 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     }
     // configuration.set("environment.REQUEST_URI", configuration.get("url"));
 
-    return configuration.data;
+    // return configuration.data;
+    return null; 
   }
 
   // Get the content type used in this request.
@@ -324,7 +325,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * Local addresses do not contain hostnames.
      */
   string referer(bool local = true) {
-    auto httpReferer = getEnvironmentData("HTTP_REFERER");
+    /* auto httpReferer = getEnvironmentData("HTTP_REFERER");
 
     auto base = configuration.get("App.fullBaseUrl") ~ this.webroot;
     if (isEmpty(httpReferer) || base.isEmpty) {
@@ -342,7 +343,8 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     }
 
     return local
-      ? null : httpReferer;
+      ? null : httpReferer; */
+      return null; 
   }
 
   // Missing method handler, handles wrapping older style isAjax() type methods
@@ -356,6 +358,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
         } */
     /* throw new BadMethodCallException("Method `%s()` does not exist."
         .format(methodName)); */
+        return false;
   }
 
   /**
@@ -373,11 +376,11 @@ class DServerRequest : UIMObject { // }: IServerRequest {
   }
 
   bool isType(string type, Json[string] arguments) {
-    type = type.lower;
+    /* type = type.lower;
     if (!_detectors.hasKey(type)) {
       throw new DInvalidArgumentException("No detector set for type `%s`."
           .format(type));
-    }
+    } */
 
 /*     if (someArguments) {
       return isValid(type, someArguments);
@@ -461,22 +464,22 @@ class DServerRequest : UIMObject { // }: IServerRequest {
 
   // Detects if a specific environment variable is present.
   protected bool _environmentDetector(Json[string] detect) {
-    if (detect.hasKey("env")) {
+    /* if (detect.hasKey("env")) {
 /*       if (detect.hasKey("value")) {
         return _getEnvironmentData(detect.get("env")) == detect.get("value");
       }
- */      if (detect.hasKey("pattern")) {
+ * /      if (detect.hasKey("pattern")) {
         // TODO
 /*         return  /* (bool) * / preg_match(detect.get("pattern"), /* (string) * / getEnvironmentData(
             detect.get("env")));
- */      }
+ * /      }
       if (detect.hasKey("options")) {
         // TODO
         auto somePattern = "/" ~ detect.get("options").join("|") ~ "/i";
 /*         return  /* (bool) * / preg_match(somePattern, /* (string) * / getEnvironmentData(
             detect.get("env")));
- */      }
-    }
+ * /      }
+    } */
     return false;
   }
 
@@ -595,7 +598,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      */
   STRINGAA getHeaders() {
     STRINGAA result;
-    foreach(key, value; _environmentData.byKeyValue) {
+/*     foreach(key, value; _environmentData.byKeyValue) {
         string name;
         if (key.startsWith("HTTP_")) {
           name = subString(key, 5);
@@ -608,7 +611,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
           name = ucwords(name).replace(" ", "-");
           result.set(name, value);
         }
-      }
+      } */
     return result;
   }
 
@@ -625,9 +628,10 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * is not present an empty array will be returned.
      */
   string[] getHeader(string headerName) {
-    name = this.normalizeHeaderName(headerName);
+    /* name = this.normalizeHeaderName(headerName);
     return _environmentData.hasKey(headerName)
-      ?  /* (array) */ _environmentData[headerName] : null;
+      ?  /* (array) * / _environmentData[headerName] : null; */
+      return null; 
   }
 
   // Get a single header as a string from the request.
@@ -635,44 +639,6 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     auto aValue = getHeader(headerName);
 
     return aValue.join(", ");
-  }
-
-  // Get a modified request with the provided header.
-  static withHeader(string headerName, string[] headerValue) {
-    auto result = this.clone;
-    auto normalizedName = normalizeHeaderName(headerName);
-    result._environmentData[normalizedName] = headerValue;
-    return result;
-  }
-
-  /**
-     * Get a modified request with the provided header.
-     *
-     * Existing header values will be retained. The provided value
-     * will be appended into the existing values.
-     */
-  static DServerRequest withAddedHeader(string headerName, Json headerValue) {
-/*     auto newRequest = this.clone;
-    string normalizedName = this.normalizeHeaderName(headerName);
-    auto existing = null;
-    if (newRequest._environmentData[normalizedName]!is null) {
-      existing =  /* (array) * / newRequest._environmentData[normalizedName];
-    }
-    existing = array_merge(existing, /* (array) * / headerValue);
-    newRequest._environmentData[normalizedName] = existing;
-
-    return newRequest;
- */  
- return null; }
-
-  // Get a modified request without a provided header.
-  static DServerRequest withoutHeader(string name) {
-    DServerRequest newRequest;
-    /* newRequest = this.clone;
-    auto name = this.normalizeHeaderName(name);
-    removeKey(newRequest._environmentData[name]); */
-
-    return newRequest;
   }
 
   /**
@@ -799,14 +765,15 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * string type The content type to check for. Leave null to get all types a client accepts.
      */
   string[] accepts(string contentType = null) {
-    auto content = new DContentTypeNegotiation();
+/*     auto content = new DContentTypeNegotiation();
     if (contentType) {
-      return !content.preferredType(this, [contentType]).isNull;
+      return !content.preferredType(this, [contentType]).isNull; * /
+      return null; 
     }
-
-    auto accept = null;
-    /* content.parseAccept(this).each!(types => accept = array_merge(accept, types)) */
-    return accept;
+    */
+    string[] parsedAccepts = null;
+    /* content.parseAccept(this).each!(types => parsedAccepts = array_merge(parsedAccepts, types)) */
+    return parsedAccepts;
   }
 
   /**
@@ -911,27 +878,14 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * is ideal if your cookies contain complex Json encoded data.
      */
   DCookieCollection getCookieCollection() {
-    return CookieCollection.createFromServerRequest(this);
-  }
-
-  /**
-     * Replace the cookies in the request with those contained in
-     * the provided CookieCollection.
-     */
-  static withCookieCollection(DCookieCollection cookies) {
-    auto newServerRequest = this.clone;
-    Json[string] someValues = null;
-    foreach (cookie; cookies) {
-      someValues.set(cookie.name, cookie.value());
-    }
-    newServerRequest.cookies = someValues;
-
-    return newServerRequest;
+    // return DCookieCollection.createFromServerRequest(this);
+    return null; 
   }
 
   // Get all the cookie data from the request.
   Json[string] getCookieParams() {
-    return _cookies;
+    /// return _cookies;
+    return null; 
   }
 
 
@@ -964,23 +918,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     return null;
   }
 
-  /**
-     * Return an instance with the specified HTTP protocol version.
-     *
-     * The version string MUST contain only the HTTP version number (e.g.,
-     * "1.1", "1.0").
-     * Params:
-     * string aversion HTTP protocol version
-     */
-  static auto withProtocolVersion(string protocolVersion) {
-    /* if (!preg_match("/^(1\.[01]|2)/", protocolVersion)) {
-            throw new DInvalidArgumentException("Unsupported protocol version `%s` provided.".format(version));
-        } */
-    auto newServerRequest = this.clone;
-    newServerRequest.protocol = protocolVersion;
-
-    return newServerRequest;
-  }
+ 
 
   /**
      * Get a value from the request`s environment data.
@@ -992,20 +930,6 @@ class DServerRequest : UIMObject { // }: IServerRequest {
       _environmentData[key] = enviroment(key);
     }
     return !_environmentData.isNull(key) ?  /* (string) * / _environmentData[key] : defaultValue; */
-  }
-
-  /**
-     * Update the request with a new environment data element.
-     *
-     * Returns an updated request object. This method returns
-     * a *new* request object and does not mutate the request in-place.
-     */
-  static auto withEnviroment(string key, string value) {
-    IRequest newRequest = this.clone;
-    newRequest._environmentData.set(key, aValue);
-    newRequest.clearDetectorCache();
-
-    return newRequest;
   }
 
   /**
@@ -1024,16 +948,17 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * string[]|string httpMethods Allowed HTTP request methods.
      */
   bool allowMethod(string[] amethods) {
-    auto someMethods =  /* (array) */ someMethods;
+    /* auto someMethods =  /* (array) * / someMethods;
     foreach (method; someMethods) {
       /* if (isType(method)) {
                 return true;
-            } */
+            } * /
     }
     auto allowed = someMethods.join(", ").upper;
     auto anException = new DMethodNotAllowedException();
     anException.setHeader("Allow", allowed);
-    throw anException;
+    throw anException; */
+    return false;
   }
 
   /**
@@ -1044,76 +969,22 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      *
      * Use `withParsedBody()` if you need to replace the all request data.
      */
-  static auto withData(string pathToInsert, Json value) {
-    auto copy = this.clone;
+  static DServerRequest withData(string pathToInsert, Json value) {
+    /* auto copy = this.clone;
 
     if (copy.data.isArray) {
       copy.data = Hash.insert(copy.data, pathToInsert, value);
     }
-    return copy;
+    return copy; */
+    return null;
   }
 
-  /**
-     * Update the request removing a data element.
-     *
-     * Returns an updated request object. This method returns
-     * a *new* request object and does not mutate the request in-place.
-     * Params:
-     * string aName The dot separated path to remove.
-     */
-  static withoutData(string aName) {
-    auto newServerRequest = this.clone;
-
-    if (newServerRequest.data.isArray) {
-      newServerRequest.data = Hash.removeKey(newServerRequest.data, name);
-    }
-    return newServerRequest;
-  }
-
-  /**
-     * Update the request with a new routing parameter
-     *
-     * Returns an updated request object. This method returns
-     * a *new* request object and does not mutate the request in-place.
-     */
-  static auto withParam(string insertPath, Json valueToInsert) {
-    auto newServerRequest = this.clone;
-    newServerRequest.params = Hash.insert(copy.params, insertPath, valueToInsert);
-
-    return newServerRequest;
-  }
-
+  
+  
   // Safely access the values in _params.
   Json getParam(string path, Json defaultValue = Json(null)) {
     // return Hash.get(_params, name, defaultValue);
     return Json(null);
-  }
-
-  // Return an instance with the specified request attribute.
-  static DServerRequest withAttribute(string attributeName, Json aValue) {
-    DServerRequest newServerRequest = this.clone;
-    if (isIn(attributeName, _emulatedAttributes, true)) {
-      /* newServerRequest. {
-                attributeName
-            }
-             = aValue; */
-    } else {
-      newServerRequest.attributes[attributeName] = aValue;
-    }
-    return newServerRequest;
-  }
-
-  // Return an instance without the specified request attribute.
-  static auto withoutAttribute(string name) {
-    auto newServerRequest = this.clone;
-    if (isIn(name, _emulatedAttributes, true)) {
-      throw new DInvalidArgumentException(
-        "You cannot unset 'name'. It is a required UIM attribute."
-      );
-    }
-    removeKey(newServerRequest.attributes[name]);
-
-    return newServerRequest;
   }
 
   // Read an attribute from the request, or get the default
@@ -1134,14 +1005,15 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * This will include the params, webroot, base, and here attributes that UIM provides.
      */
   Json[string] getAttributes() {
-    auto emulated = [
+    /* auto emulated = [
       "params": _params,
       "webroot": this.webroot,
       "base": this.base,
       "here": this.base ~ this.uri.path(),
     ];
 
-    return _attributes + emulated;
+    return _attributes + emulated; */
+    return null; 
   }
 
   /**
@@ -1150,32 +1022,20 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * string aPath The dot separated path to the file you want.
      */
   IUploadedFile getUploadedFile(string aPath) {
-    auto file = Hash.get(this.uploadedFiles, somePath);
+   /*  auto file = Hash.get(this.uploadedFiles, somePath);
     if (!cast(UploadedFile) file) {
       return null;
     }
-    return file;
+    return file; */
+    return null; 
   }
 
-  /**
-     * Get the array of uploaded files from the request.
-     */
+  // Get the array of uploaded files from the request.
   Json[string] getUploadedFiles() {
     return _uploadedFiles;
   }
 
-  /**
-     * Update the request replacing the files, and creating a new instance.
-     * Params:
-     * Json[string] uploadedFiles An array of uploaded file objects.
-     */
-  static withUploadedFiles(Json[string] uploadedFiles) {
-    this.validateUploadedFiles(uploadedFiles, "");
-    auto newServerRequest = this.clone;
-    newServerRequest.uploadedFiles = uploadedFiles;
 
-    return newServerRequest;
-  }
 
   // Recursively validate uploaded file data.
   protected auto validateUploadedFiles(Json[string] uploadedFiles, string path) {
@@ -1196,42 +1056,17 @@ class DServerRequest : UIMObject { // }: IServerRequest {
   }
 
   // Return an instance with the specified message body.
-  static auto withBody(IStream body) {
-    auto newServerRequest = this.clone;
+  static DServerRequest withBody(IStream body) {
+    /* auto newServerRequest = this.clone;
     newServerRequest.stream = body;
 
-    return newServerRequest;
+    return newServerRequest; */
+    return null; 
   }
 
   // Retrieves the URI instance.
   IUri getUri() {
     return _uri;
-  }
-
-  /**
-     * Return an instance with the specified uri
-     *
-     * *Warning* Replacing the Uri will not update the `base`, `webroot`,
-     * and `url` attributes.
-     */
-  static withUri(IUri anUri, bool preserveHost = false) {
-    auto newServerRequest = this.clone;
-    newServerRequest.uri = anUri;
-
-    if (preserveHost && this.hasHeader("Host")) {
-      return newServerRequest;
-    }
-    host = anUri.getHost();
-    if (!host) {
-      return newServerRequest;
-    }
-    port = anUri.getPort();
-    if (port) {
-      host ~= ": " ~ port;
-    }
-    newServerRequest._environmentData["HTTP_HOST"] = host;
-
-    return nenewServerRequestw;
   }
 
   /**
@@ -1242,10 +1077,11 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * target`s form to an absolute-form, authority-form or asterisk-form
      */
   static IRequest withRequestTarget(string requestTarget) {
-    IRequest newRequest = this.clone;
+    /* IRequest newRequest = this.clone;
     newRequest.requestTarget = requestTarget;
 
-    return newRequest;
+    return newRequest; */
+    return null; 
   }
 
   /**
@@ -1257,7 +1093,7 @@ class DServerRequest : UIMObject { // }: IServerRequest {
      * defined in the SERVER environment.
      */
   string getRequestTarget() {
-    if (_requestTarget !is null) {
+    /* if (_requestTarget !is null) {
       return _requestTarget;
     }
 
@@ -1267,16 +1103,24 @@ class DServerRequest : UIMObject { // }: IServerRequest {
     }
 
     return target.isEmpty
-      ? "/" : target;
+      ? "/" : target; */
+      return null; 
   }
 
   // Get the path of current request.
   string path() {
-    if (_requestTarget.isNull) {
+    /* if (_requestTarget.isNull) {
       return _uri.path();
     }
 
     return _requestTarget.contains("?")
-      ? _requestTarget.split("?")[0] : null;
+      ? _requestTarget.split("?")[0] : null; */
+    return null; 
+  }
+
+  DServerRequest clone() {
+    DServerRequest request = new DServerRequest;
+    // TODO
+    return request;
   }
 }

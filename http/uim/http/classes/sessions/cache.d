@@ -25,14 +25,16 @@ class DCacheSession : DSession { // }: !SessionHandler {
     
     // Method used to read from a cache session.
     string read(string sessionId) {
-        return Cache.read(sessionId, _options.getString("config", ""));
+        // return Cache.read(sessionId, _options.getString("config", ""));
+        return null; 
     }
     
     // Helper auto called on write for cache sessions.
     bool write(string sessionId, string dataToSave) {
-        return sessionId
+        /* return sessionId
             ? Cache.write(sessionId, dataToSave, _options.get("config"))
-            : false;
+            : false; */
+            return false;
     }
     
     // Method called on the destruction of a cache session.

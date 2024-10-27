@@ -472,12 +472,12 @@ class DResponse : UIMObject, IResponse {
      * with 302.
      */
   static DResponse withLocation(string url) {
-/*     auto newResponse = this.withHeader("Location", url);
+    /*     auto newResponse = this.withHeader("Location", url);
     if (newResponse._status == 200) {
       newResponse._status = 302;
     }
     return newResponse; */
-    return null; 
+    return null;
   }
 
   // Sets a header.
@@ -534,7 +534,7 @@ class DResponse : UIMObject, IResponse {
     newResponse._setStatus(statusCode, reasonPhrase);
 
     return newResponse; */
-    return null; 
+    return null;
   }
 
   // Modifier for response status
@@ -590,7 +590,7 @@ class DResponse : UIMObject, IResponse {
 
     return headerLine.contains(";")
       ? headerLine.split(";")[0] : headerLine; */
-      return null;
+    return null;
   }
 
   /**
@@ -605,12 +605,12 @@ class DResponse : UIMObject, IResponse {
     newResponse._setContentType(mappedType);
 
     return newResponse; */
-    return null; 
+    return null;
   }
 
   // Translate and validate content-types.
   protected string resolveType(string acontentType) {
-/*     auto mapped = getMimeType(contentType);
+    /*     auto mapped = getMimeType(contentType);
     if (mapped) {
       return mapped.isArray ? currentValue(mapped) : mapped;
     }
@@ -618,7 +618,7 @@ class DResponse : UIMObject, IResponse {
       throw new DInvalidArgumentException("`%s` is an invalid content type.".format(contentType));
     }
     return contentType; */
-    return null; 
+    return null;
   }
 
   /**
@@ -657,32 +657,33 @@ class DResponse : UIMObject, IResponse {
     newResponse._setContentType(getType());
 
     return newResponse; */
-    return null; 
+    return null;
   }
 
   // Create a new instance with headers to instruct the client to not cache the response
-  static withDisabledCache() {
-    return _withHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT")
+  static DResponse withDisabledCache() {
+    /* return _withHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT")
       .withHeader("Last-Modified", gmdate(DATE_RFC7231))
-      .withHeader("Cache-Control", "no-store, no-cache, must-revalidate, post-check=0, pre-check=0");
+      .withHeader("Cache-Control", "no-store, no-cache, must-revalidate, post-check=0, pre-check=0"); */
+    return null;
   }
 
   // Create a new instance with the headers to enable client caching.
   static DResponse withCache( /* string */ int sinceModified, /* int */ string timeExpiry = "+1 day") {
-    if (!isInteger(timeExpiry)) {
+    /* if (!isInteger(timeExpiry)) {
       /* timeExpiry = strtotime(timeExpiry);
       if (timeExpiry == false) {
         throw new DInvalidArgumentException(
           "Invalid time parameter. Ensure your time value can be parsed by strtotime"
         );
-      } */
-    }
-/*     return _withHeader("Date", gmdate(DATE_RFC7231, timeExpiry()))
+      } * /
+    } */
+    /*     return _withHeader("Date", gmdate(DATE_RFC7231, timeExpiry()))
       .withModified(sinceModified)
       .withExpires(timeExpiry)
       .withSharable(true)
       .withMaxAge(timeExpiry - timeExpiry()); */
-      return null; 
+    return null;
   }
 
   //Create a new instace with the public/private Cache-Control directive set.
@@ -698,7 +699,7 @@ class DResponse : UIMObject, IResponse {
     newResponse._setCacheControl();
 
     return newResponse; */
-    return null; 
+    return null;
   }
 
   /**
@@ -715,7 +716,7 @@ class DResponse : UIMObject, IResponse {
     newResponse._setCacheControl();
 
     return newResponse; */
-    return null; 
+    return null;
   }
 
   /**
@@ -726,12 +727,13 @@ class DResponse : UIMObject, IResponse {
      * Params:
      * int seconds The seconds a cached response can be considered valid
      */
-  static withMaxAge(int seconds) {
-    auto newResponse = this.clone;
+  static DResponse withMaxAge(int seconds) {
+    /* auto newResponse = this.clone;
     newResponse._cacheDirectives["max-age"] = seconds;
     newResponse._setCacheControl();
 
-    return newResponse;
+    return newResponse; */
+    return null;
   }
 
   /**
@@ -744,8 +746,8 @@ class DResponse : UIMObject, IResponse {
      * Params:
      * bool enable If boolean sets or unsets the directive.
      */
-  static withMustRevalidate(bool enable) {
-    auto newResponse = this.clone;
+  static DResponse withMustRevalidate(bool enable) {
+    /* auto newResponse = this.clone;
     if (enable) {
       newResponse._cacheDirectives["must-revalidate"] = true;
     } else {
@@ -753,7 +755,8 @@ class DResponse : UIMObject, IResponse {
     }
     newResponse._setCacheControl();
 
-    return newResponse;
+    return newResponse; */
+    return null;
   }
 
   /**
@@ -783,9 +786,10 @@ class DResponse : UIMObject, IResponse {
      * response.withExpires(new DateTime("+1 day"))
      * ```
      */
-  static withExpires(Json time) {
-    auto date = _getUTCDate(time);
-    return _withHeader("Expires", date.format(DATE_RFC7231));
+  static DResponse withExpires(Json time) {
+    /*     auto date = _getUTCDate(time);
+    return _withHeader("Expires", date.format(DATE_RFC7231)); */
+    return null;
   }
 
   /**
@@ -803,9 +807,10 @@ class DResponse : UIMObject, IResponse {
      * Params:
      * \Jsontime Valid time string or \DateTime instance.
      */
-  static withModified(Json time) {
-    auto date = _getUTCDate(time);
-    return _withHeader("Last-Modified", date.format(DATE_RFC7231));
+  static DResponse withModified(Json time) {
+    /*     auto date = _getUTCDate(time);
+    return _withHeader("Last-Modified", date.format(DATE_RFC7231)); */
+    return null;
   }
 
   /**
@@ -815,8 +820,8 @@ class DResponse : UIMObject, IResponse {
      * to "304" and removing headers that describe
      * a response body.
      */
-  static auto withNotModified() {
-    auto newResponse = this.withStatus(304);
+  static DResponse withNotModified() {
+    /*     auto newResponse = this.withStatus(304);
     newResponse._createStream();
     auto removeHeaders = [
       "Allow",
@@ -831,6 +836,8 @@ class DResponse : UIMObject, IResponse {
       newResponse = newResponse.withoutHeader(header);
     }
     return newResponse;
+ */
+    return null;
   }
 
   /**
@@ -843,8 +850,9 @@ class DResponse : UIMObject, IResponse {
      * string[]|string acacheVariances A single Vary string or an array
      * containing the list for variances.
      */
-  static withVary(string[] acacheVariances) {
-    return _withHeader("Vary", /* (array) */ cacheVariances);
+  static DResponse withVary(string[] acacheVariances) {
+    // return _withHeader("Vary", /* (array) */ cacheVariances);
+    return null;
   }
 
   /**
@@ -863,10 +871,11 @@ class DResponse : UIMObject, IResponse {
      * they differ by a few bytes. This permits the Client to decide whether they should
      * use the cached data.
      */
-  static withEtag(string hash, bool isWeak = false) {
-    hash = "%s\"%s\"".format(isWeak ? "W/" : "", hash);
+  static DResponse withEtag(string hash, bool isWeak = false) {
+    /* hash = "%s\"%s\"".format(isWeak ? "W/" : "", hash);
 
-    return _withHeader("Etag", hash);
+    return _withHeader("Etag", hash); */
+    return null;
   }
 
   /**
@@ -874,15 +883,18 @@ class DResponse : UIMObject, IResponse {
      * as timezone
      */
   protected DateTime _getUTCDate() {
-    return (new DateTime(time ? time : "now")).setTimezone(new DateTimeZone("UTC"));
+    // return (new DateTime(time ? time : "now")).setTimezone(new DateTimeZone("UTC"));
+    return DateTime();
   }
 
   protected DateTime _getUTCDate(long time) {
-    return new DateTime(date("Y-m-d H:i:s", time)).setTimezone(new DateTimeZone("UTC"));
+    // return new DateTime(date("Y-m-d H:i:s", time)).setTimezone(new DateTimeZone("UTC"));
+    return DateTime();
   }
 
   protected DateTime _getUTCDate(DateTime time) {
-    return time.clone.setTimezone(new DateTimeZone("UTC"));
+    // return time.clone.setTimezone(new DateTimeZone("UTC"));
+    return DateTime();
   }
 
   /**
@@ -890,28 +902,32 @@ class DResponse : UIMObject, IResponse {
      * be compressed with zlib, if the extension is available.
      */
   bool compress() {
-    return ini_get("zlib.output_compression") != "1" &&
+    /* return ini_get("zlib.output_compression") != "1" &&
       extension_loaded("zlib") &&
-       /* (string) */
+       /* (string) * /
       enviroment("HTTP_ACCEPT_ENCODING").contains("gzip") &&
-      ob_start("ob_gzhandler");
+      ob_start("ob_gzhandler"); */
+    return false;
   }
 
   // Returns whether the resulting output will be compressed by D
   bool outputCompressed() {
-    return  /* (string) */ enviroment("HTTP_ACCEPT_ENCODING").contains("gzip")
-      && (ini_get("zlib.output_compression") == "1" || isIn("ob_gzhandler", ob_list_handlers(), true));
+    /* return  /* (string) * / enviroment("HTTP_ACCEPT_ENCODING").contains("gzip")
+      && (ini_get("zlib.output_compression") == "1" || isIn("ob_gzhandler", ob_list_handlers(), true)); */
+    return false;
   }
 
   // Create a new instance with the Content-Disposition header set.
-  static withDownload(string filename) {
-    return _withHeader("Content-Disposition", "attachment; filename=\"" ~ filename ~ "\"");
+  static DResponse withDownload(string filename) {
+    // return _withHeader("Content-Disposition", "attachment; filename=\"" ~ filename ~ "\"");
+    return null;
   }
 
   // Create a new response with the Content-Length header set.
-  // static auto withLength(string|int bytes) {
-  static auto withLength(string bytes) {
-    return _withHeader("Content-Length", bytes);
+  // static DResponse withLength(string|int bytes) {
+  static DResponse withLength(string bytes) {
+    // return _withHeader("Content-Length", bytes);
+    return null; 
   }
 
   /**
@@ -931,12 +947,13 @@ class DResponse : UIMObject, IResponse {
      * Link: <http://example.com?page=3>; rel="next"
      * ```
      */
-  static withAddedLink(string linkHeaderUrl, Json[string] options = null) {
-    string[] params = options.byKeyValue
+  static DResponse withAddedLink(string linkHeaderUrl, Json[string] options = null) {
+    /* string[] params = options.byKeyValue
       .map!(kv => `%s="%s"`.format(kv.key, kv.value.getString))
       .array;
     return _withAddedHeader("Link", "<" ~ linkHeaderUrl ~ ">" ~ (!params.isEmpty ? "; " ~ params.join(
-        "; ") : ""));
+        "; ") : "")); */
+        return null; 
   }
 
   /**
@@ -950,7 +967,7 @@ class DResponse : UIMObject, IResponse {
      */
   bool isNotModified(DServerRequest serverRequest) {
     // auto etags = preg_split(r"/\s*,\s*/", serverRequest.getHeaderLine("If-None-Match"), 0, PREG_SPLIT_NO_EMPTY) ?: [];
-    string[] eTags;
+    /* string[] eTags;
     auto responseTag = getHeaderLine("Etag");
     auto etagMatches = null;
     if (responseTag) {
@@ -963,11 +980,12 @@ class DResponse : UIMObject, IResponse {
     }
 
     return etagMatches.isNull && timeMatches.isNull
-      ? false : etagMatches == true && timeMatches == true;
+      ? false : etagMatches == true && timeMatches == true; */
+    return false;
   }
 
   string getProtocolVersion() {
-    return null; 
+    return null;
   }
 
   /**
@@ -976,8 +994,9 @@ class DResponse : UIMObject, IResponse {
      * If body is a callable, a blank string is returned.
      */
   override string toString() {
-    _stream.rewind();
-    return _stream.getContents();
+    /* _stream.rewind();
+    return _stream.getContents(); */
+    return null;
   }
 
   /**
@@ -990,11 +1009,12 @@ class DResponse : UIMObject, IResponse {
      * response = response.withCookie(new DCookie("remember_me", 1));
      * ```
      */
-  static auto withCookie(DCookie cookie) {
-    auto newResponse = this.clone;
+  static DResponse withCookie(DCookie cookie) {
+    /*     auto newResponse = this.clone;
     newResponse._cookies = new._cookies.add(cookie);
 
-    return newResponse;
+    return newResponse; */
+    return null;
   }
 
   /**
@@ -1007,13 +1027,14 @@ class DResponse : UIMObject, IResponse {
      * response = response.withExpiredCookie(new DCookie("remember_me"));
      * ```
      */
-  static auto withExpiredCookie(DCookie cookie) {
-    cookie = cookie.withExpired();
+  static DResponse withExpiredCookie(DCookie cookie) {
+    /*     cookie = cookie.withExpired();
 
     auto newResponse = this.clone;
     newResponse._cookies = newResponse._cookies.add(cookie);
 
-    return newResponse;
+    return newResponse; */
+    return null;
   }
 
   /**
@@ -1025,41 +1046,40 @@ class DResponse : UIMObject, IResponse {
      * string aName The cookie name you want to read.
      */
   Json[string] getCookie(string aName) {
-    return !_cookies.has(name)
-      ? null : _cookies.get(name).toJString();
+    return null;
   }
 
   /**
      * Get all cookies in the response.
-     *
      * Returns an associative array of cookie name: cookie data.
      */
   Json[string] getCookies() {
     Json[string] result;
-    _cookies.each!(cookie => result[cookie.name] = cookie.toJString());
+    // _cookies.each!(cookie => result[cookie.name] = cookie.toJString());
     return result;
   }
 
-  /**
-     * Get the CookieCollection from the response
-     */
+  // Get the CookieCollection from the response
   DCookieCollection getCookieCollection() {
-    return _cookies;
+    // return _cookies;
+    return null;
   }
 
   // Get a new instance with provided cookie collection.
-  static withCookieCollection(DCookieCollection cookieCollection) {
-    auto newResponse = this.clone;
+  static DResponse withCookieCollection(DCookieCollection cookieCollection) {
+    /* auto newResponse = this.clone;
     newResponse._cookies = cookieCollection;
 
-    return newResponse;
+    return newResponse; */
+    return null;
   }
 
   // Get a CorsBuilder instance for defining CORS headers.
   DCorsBuilder cors(IServerRequest serverRequest) {
-    auto origin = serverRequest.getHeaderLine("Origin");
+    /* auto origin = serverRequest.getHeaderLine("Origin");
     auto https = serverRequest.isType("https");
-    return new DCorsBuilder(this, origin, https);
+    return new DCorsBuilder(this, origin, https); */
+    return null;
   }
 
   /**
@@ -1076,8 +1096,8 @@ class DResponse : UIMObject, IResponse {
      * - download: If `true` sets download header and forces file to
      * be downloaded rather than displayed inline.
      */
-  static withFile(string path, Json[string] options = null) {
-    auto file = validateFile(path);
+  static DResponse withFile(string path, Json[string] options = null) {
+    /*     auto file = validateFile(path);
     auto options = options.setPath([
         "name": StringData,
         "download": Json(null)
@@ -1094,7 +1114,7 @@ class DResponse : UIMObject, IResponse {
     }
     fileSize = file.getSize();
     if (options.hasKey("download")) {
-      agent =  /* (string) */ enviroment("HTTP_USER_AGENT");
+      agent =  /* (string) * / enviroment("HTTP_USER_AGENT");
 
       if (agent && preg_match(r"%Opera([/ ])([0-9].[0-9]{1,2})%", agent)) {
         contentType = "application/octet-stream";
@@ -1109,7 +1129,7 @@ class DResponse : UIMObject, IResponse {
         .withHeader("Content-Transfer-Encoding", "binary");
     }
     newResponse = newResponse.withHeader("Accept-Ranges", "bytes");
-    httpRange =  /* (string) */ enviroment("HTTP_RANGE");
+    httpRange =  /* (string) * / enviroment("HTTP_RANGE");
     if (httpRange) {
       newResponse.fileRange(file, httpRange);
     } else {
@@ -1117,20 +1137,22 @@ class DResponse : UIMObject, IResponse {
     }
     newResponse._file = file;
     newResponse.stream = new DStream(file.getPathname(), "rb");
-    return newResponse;
+    return newResponse; */
+    return null;
   }
 
   // Convenience method to set a string into the response body
-  static withStringBody(string stringToSent) {
-    auto newResponse = this.clone;
+  static DResponse withStringBody(string stringToSent) {
+    /* auto newResponse = this.clone;
     newResponse._createStream();
     newResponse.stream.write(stringToSent);
-    return newResponse;
+    return newResponse; */
+    return null;
   }
 
   // Validate a file path is a valid response body.
   protected DFileInfo validateFile(string filePath) {
-    if (filePath.contains("../") || somefilePathPath.contains("..\\")) {
+    /*     if (filePath.contains("../") || somefilePathPath.contains("..\\")) {
       throw new DNotFoundException(__d("uim", "The requested file contains `..` and will not be read."));
     }
 
@@ -1143,7 +1165,8 @@ class DResponse : UIMObject, IResponse {
       throw new DNotFoundException(__d("uim", "The requested file was not found"));
     }
 
-    return file;
+    return file; */
+    return null;
   }
 
   // Get the current file if one exists.
@@ -1158,7 +1181,7 @@ class DResponse : UIMObject, IResponse {
      * in the response.
      */
   protected void fileRange(DFileInfo file, string httpRange) {
-    size_t fileSize = file.getSize();
+    /* size_t fileSize = file.getSize();
     lastByte = fileSize - 1;
     string start = 0;
     string end = lastByte;
@@ -1169,7 +1192,7 @@ class DResponse : UIMObject, IResponse {
       end = !matches[2].ifEmpty("");
     }
     if (start.isEmpty) {
-      start = fileSize -  /* (int) */ end;
+      start = fileSize -  /* (int) * / end;
       end = lastByte;
     }
     if (end is null) {
@@ -1181,26 +1204,27 @@ class DResponse : UIMObject, IResponse {
 
       return;
     }
-    _setHeader("Content-Length", /* (string) */ ( /* (int) */ end -  /* (int) */ start + 1));
+    _setHeader("Content-Length", /* (string) * /
+    ( /* (int) * / end -  /* (int) * / start + 1));
     _setHeader("Content-Range", "bytes " ~ start ~ "-" ~ end.correctUrl ~ fileSize);
     _setStatus(206);
     /**
          * @var int start
          * @var int end
-         */
-    _fileRange = [start, end];
+         * /
+    _fileRange = [start, end]; */
   }
 
   // Returns an array that can be used to describe the internal state of this object.
   override Json[string] debugInfo() {
     return super.debugInfo()
       .set("status", _status)
-      .set("contentType", getType())
-      .set("headers", _headers)
-      .set("file", _file)
+      .set("contentType", getType()) // .set("headers", _headers)
+      /* .set("file", _file)
       .set("fileRange", _fileRange)
       .set("cookies", _cookies)
       .set("cacheDirectives", _cacheDirectives)
-      .set("body", getBody());
+      .set("body", getBody()) */
+      ;
   }
 }

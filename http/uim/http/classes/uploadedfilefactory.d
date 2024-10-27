@@ -22,9 +22,10 @@ class DUploadedFileFactory { //}: IUploadedFileFactory {
         string clientFilename = null,
         string clientMediaType = null
    ) {
-        if (fileSize == 0) {
+        /* if (fileSize == 0) {
             fileSize = stream.getSize() ? stream.getSize() : 0;
         }
-        return new UploadedFile(stream, fileSize, fileUploadError, clientFilename, clientMediaType);
+        return new UploadedFile(stream, fileSize, fileUploadError, clientFilename, clientMediaType); */
+        return null; 
     }
 }

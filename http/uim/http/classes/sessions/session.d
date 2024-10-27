@@ -67,11 +67,9 @@ class DSession : UIMObject, ISession {
      * - handler: An array containing the handler configuration
      * - ini: A list of D.ini directives to set before the session starts.
      * - timeout: The time in minutes the session should stay active
-     * Params:
-     * Json[string] sessionConfig Session config.
      */
     static ISession create(Json[string] sessionConfig = null) {
-        if (sessionConfig.hasKey("defaults")) {
+        /* if (sessionConfig.hasKey("defaults")) {
             sessionConfig = sessionConfig.dup.merge(
                 _defaultConfigData(sessionConfig.getMap("defaults")));
         }
@@ -95,14 +93,14 @@ class DSession : UIMObject, ISession {
         if (!sessionConfig.hasKey("ini.session.cookie_httponly") && ini_get(
                 "session.cookie_httponly") != 1) {
             sessionConfig.set("ini.session.cookie_httponly", 1);
-        }
+        } */
         // return new static(sessionConfig);
         return null;
     }
 
     // Get one of the prebaked default session configurations.
     protected static Json[string] _defaultConfigData(string configName) {
-        auto tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
+        /* auto tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
         Json[string] defaults = [
             "D": [
                 "ini": [
@@ -145,7 +143,7 @@ class DSession : UIMObject, ISession {
                 defaults.set("D.ini.session.cookie_samesite", "Lax");
             }
             return defaults[configName];
-        }
+        } */
         return null;
     }
 
@@ -209,13 +207,12 @@ class DSession : UIMObject, ISession {
         string handleClassname = null,
         Json[string] options = null
     ) {
-        if (handleClassname.isNull) {
+        /* if (handleClassname.isNull) {
             return _engine;
         }
         if (cast(DSessionHandler) handleClassname) {
             return _setEngine(handleClassname);
         }
-        /** @var class-string<\!SessionHandler>|null  classname */
         handleClassname = App.classname(handleClassname, "Http/Session");
         if (handleClassname.isNull) {
             throw new DInvalidArgumentException(
@@ -223,7 +220,8 @@ class DSession : UIMObject, ISession {
                     .format(handleClassname)
             );
         }
-        return _setEngine(new handleClassname(options));
+        return _setEngine(new handleClassname(options)); */
+        return null; 
     }
 
     /**
@@ -251,7 +249,7 @@ class DSession : UIMObject, ISession {
      * Json[string] options Ini options to set.
      */
     void options(Json[string] options = null) {
-        if (session_status() == UIM_SESSION_ACTIVE || headers_sent()) {
+        /* if (session_status() == UIM_SESSION_ACTIVE || headers_sent()) {
             return;
         }
         foreach (setting, value; options) {
@@ -260,12 +258,12 @@ class DSession : UIMObject, ISession {
                     "Unable to configure the session, setting %s failed.".format(setting)
                 );
             }
-        }
+        } */
     }
 
     // Starts the Session.
     bool start() {
-        if (_started) {
+        /* if (_started) {
             return true;
         }
         if (_isCLI) {
@@ -293,7 +291,8 @@ class DSession : UIMObject, ISession {
 
             return _start();
         }
-        return _started;
+        return _started; */
+        return false;
     }
 
     // Write data and close the session
@@ -317,12 +316,13 @@ class DSession : UIMObject, ISession {
 
     // Determine if Session has already been started.
     bool started() {
-        return _started || session_status() == UIM_SESSION_ACTIVE;
+        // return _started || session_status() == UIM_SESSION_ACTIVE;
+        return false;
     }
 
     // Returns true if given variable name is set in session.
     bool check(string variableName = null) {
-        if (_hasSession() && !this.started()) {
+        /* if (_hasSession() && !this.started()) {
             this.start();
         }
         if (_SESSION !is null) {
@@ -330,14 +330,15 @@ class DSession : UIMObject, ISession {
         }
 
         if (name.isNull) {
-            return  /* (bool) */ _SESSION;
+            return  /* (bool) * / _SESSION;
         }
-        return Hash.get(_SESSION, variableName) !is null;
+        return Hash.get(_SESSION, variableName) !is null; */
+        return false;
     }
 
     // Returns given session variable, or all of them, if no parameters given.
     Json read(string variableName = null, Json defaultValue = Json(null)) {
-        if (_hasSession() && !started()) {
+        /* if (_hasSession() && !started()) {
             start();
         }
         if (_SESSION !is null) {
@@ -348,7 +349,8 @@ class DSession : UIMObject, ISession {
             return _SESSION ? _SESSION : [];
         }
 
-        return Hash.get(_SESSION, variableName, defaultValue);
+        return Hash.get(_SESSION, variableName, defaultValue); */
+        return Json(null);
     }
 
     // Returns given session variable, or throws Exception if not found.
@@ -362,16 +364,17 @@ class DSession : UIMObject, ISession {
 
     // Reads and deletes a variable from session.
     Json consume(string key) {
-        if (key.isEmpty) {
+        /* if (key.isEmpty) {
             return null;
         }
 
         Json result = read(key);
         if (!result.isNull) {
-            /** @psalm-suppress InvalidScalarArgument */
+            /** @psalm-suppress InvalidScalarArgument * /
             _overwrite(_SESSION, Hash.removeKey(_SESSION, key));
         }
-        return result;
+        return result; */
+        return Json(null);
     }
 
     // Writes value to given session variable name.
@@ -380,7 +383,7 @@ class DSession : UIMObject, ISession {
     }
 
     void write(string[string] variables, Json value = Json(null)) {
-        bool started = started() || start();
+        /* bool started = started() || start();
         if (!started) {
             auto message = "Could not start the session";
             if (_headerSentInfo !is null) {
@@ -397,7 +400,7 @@ class DSession : UIMObject, ISession {
         name.byKeyValue
             .each(kv => someData = Hash.insert(someData, kv.key, kv.value));
 
-        _overwrite(_SESSION, someData);
+        _overwrite(_SESSION, someData); */
     }
 
     // #region id
@@ -415,9 +418,9 @@ class DSession : UIMObject, ISession {
     protected string _id;
 
     void id(string newId) {
-        if (!anId.isEmpt && !headers_sent()) {
+        /* if (!anId.isEmpt && !headers_sent()) {
             session_id(anId);
-        }
+        } */
     }
 
     string id() {
@@ -438,14 +441,14 @@ class DSession : UIMObject, ISession {
  */
     // Helper method to destroy invalid sessions.
     void destroy() {
-        if (_hasSession() && !this.started()) {
+        /* if (_hasSession() && !this.started()) {
             this.start();
         }
         if (!_isCLI && session_status() == UIM_SESSION_ACTIVE) {
             session_destroy();
         }
         _SESSION = null;
-        _started = false;
+        _started = false; */
     }
 
     /**
@@ -461,15 +464,16 @@ class DSession : UIMObject, ISession {
 
     // Returns whether a session exists
     protected bool _hasSession() {
-        return !ini_get("session.use_cookies")
+        /* return !ini_get("session.use_cookies")
             || _COOKIE.hasKey(session_name())
             || _isCLI
-            || (ini_get("session.use_trans_sid") && _GET.hasKey(session_name()));
+            || (ini_get("session.use_trans_sid") && _GET.hasKey(session_name())); */
+            return false;
     }
 
     // Restarts this session.
     void renew() {
-        if (!_hasSession() || _isCLI) {
+/*         if (!_hasSession() || _isCLI) {
             return;
         }
         this.start();
@@ -487,24 +491,26 @@ class DSession : UIMObject, ISession {
         if (!session_id().isEmpty) {
             session_regenerate_id(true);
         }
-    }
+ */    }
 
     /**
      * Returns true if the session is no longer valid because the last time it was
      * accessed was after the configured timeout.
      */
-    protected bool _timedOut() {
+    protected bool _timedOut() {/* 
         auto time = this.read("Config.time");
         auto result = false;
 
         auto checkTime = time !is null && _lifetime > 0;
-        if (checkTime && (time() -  /* (int) */ time > _lifetime)) {
+        if (checkTime && (time() -  /* (int) * / time > _lifetime)) {
             result = true;
         }
         this.write("Config.time", time());
 
         return result;
-    }
+     */
+     return false;
+     }
 
     string getLong(string key) {
         return null;

@@ -37,7 +37,7 @@ class DRunner : UIMObject, IRequestHandler {
         IServerRequest serverRequest,
         IRequestHandler fallbackHandler = null
    ) {
-        _queue = DMiddlewareQueue;
+        /* _queue = DMiddlewareQueue;
         _queue.rewind();
         _fallbackHandler = fallbackHandler;
 
@@ -47,12 +47,13 @@ class DRunner : UIMObject, IRequestHandler {
        ) {
             Router.setRequest(serverRequest);
         }
-        return _handle(serverRequest);
+        return _handle(serverRequest); */
+        return null; 
     }
     
     // Handle incoming server request and return a response.
     IResponse handle(IServerRequest serverRequest) {
-        if (_queue.valid()) {
+        /* if (_queue.valid()) {
             middleware = _queue.currentValue();
             _queue.next();
 
@@ -66,6 +67,7 @@ class DRunner : UIMObject, IRequestHandler {
             "body": "Middleware queue was exhausted without returning a response "
                 ~ "and no fallback request handler was set for Runner",
             "status": 500,
-        ]);
+        ]); */
+        return null; 
     }
 }

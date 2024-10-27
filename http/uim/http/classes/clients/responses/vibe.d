@@ -83,7 +83,7 @@ class DVibeClientResponse : UIMObject {
     }
 
     void readRawBody(scope void delegate(scope InputStream) del) {
-        _response.readRawBody(del);
+        // _response.readRawBody(del);
     }
 
     // Switches the connection to a new protocol and returns the resulting ConnectionStream.
@@ -95,7 +95,7 @@ class DVibeClientResponse : UIMObject {
         string newProtocol,
         scope void delegate(ConnectionStream) del
     ) {
-        _response.switchProtocol(newProtocol, del);
+        // _response.switchProtocol(newProtocol, del);
     }
 
     override string toString() {

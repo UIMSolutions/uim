@@ -65,7 +65,7 @@ class DDatabaseSession : DSession { // }: SessionHandler {
 
   // Method used to read from a database session.
   string read(string aId) {
-    string[] primaryKeys = _table.primaryKeys();
+    /* string[] primaryKeys = _table.primaryKeys();
     assert(isString(primaryKeys));
     result = _table
       .find("all")
@@ -84,19 +84,21 @@ class DDatabaseSession : DSession { // }: SessionHandler {
 
     string result = stream_get_contents(result["data"]);
     return result
-      ? result : null;
+      ? result : null; */
+      return null; 
   }
 
   // Helper auto called on write for database sessions.
   bool write(string sessionId, string dataToSave) {
-    string[] primaryKeys = _table.primaryKeys();
+    /* string[] primaryKeys = _table.primaryKeys();
     auto session = _table.newEntity([
       primaryKeys: sessionId,
       "data": dataToSave,
       "expires": time() + _timeout,
     ], ["accessibleFields": [primaryKeys: true]]);
 
-    return  /* (bool) */ _table.save(session);
+    return  /* (bool) * / _table.save(session); */
+    return false;
   }
 
   // Method called on the destruction of a database session.
@@ -108,7 +110,8 @@ class DDatabaseSession : DSession { // }: SessionHandler {
 
   // Helper auto called on gc for database sessions.
   int gc(int maxlifetime) {
-    return _table.deleteAll(["expires <": time()]);
+    // return _table.deleteAll(["expires <": time()]);
+    return 0;
   }
 }
 

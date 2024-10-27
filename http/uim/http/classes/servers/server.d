@@ -61,7 +61,7 @@ class DServer : UIMObject { // }: IEventDispatcher {
    ) {
         bootstrap();
 
-        request = request ? request : ServerRequestFactory.fromGlobals();
+        /* request = request ? request : ServerRequestFactory.fromGlobals();
 
         if (middlewareQueue.isNull) {
             if (cast(IContainerApplication)_app) {
@@ -82,7 +82,8 @@ class DServer : UIMObject { // }: IEventDispatcher {
         if (cast(ServerRequest)request ) {
             request.getSession().close();
         }
-        return response;
+        return response; */
+        return null; 
     }
     
     /**
@@ -92,10 +93,10 @@ class DServer : UIMObject { // }: IEventDispatcher {
      * plugins are bootstrapped.
      */
     protected void bootstrap() {
-        _app.bootstrap();
+        /* _app.bootstrap();
         if (cast(IPluginApplication)_app) {
             _app.pluginBootstrap();
-        }
+        } */
     }
     
     // Emit the response using the UIM SAPI.

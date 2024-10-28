@@ -1,5 +1,5 @@
 name "models"
-description "V in MVC"
+description "M in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2024, ONS"
 license "Apache-2.0"

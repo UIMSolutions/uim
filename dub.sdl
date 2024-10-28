@@ -10,6 +10,7 @@ dependency ":core" version="*"
 dependency ":oop" version="*"
 dependency ":controllers" version="*"
 dependency ":views" version="*"
+dependency ":models" version="*"
 
 targetName "uim"
 targetType "library"
@@ -20,10 +21,14 @@ subPackage "core"
 subPackage "oop"
 subPackage "controllers"
 subPackage "views"
+subPackage "models"
 
 configuration "test_uim_core" {
 	subConfiguration ":core" "test_uim_core"
 }
 configuration "test_uim_oop" {
 	subConfiguration ":oop" "test_uim_oop"
+}
+configuration "test_uim_views" {
+	subConfiguration ":views" "test_uim_views"
 }

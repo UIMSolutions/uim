@@ -17,6 +17,8 @@ public {
 public { // uim libraries
   import uim.core;
   import uim.oop;
+  import uim.consoles;
+  import uim.logging;
 }
 
 public { // uim.filesystem libraries

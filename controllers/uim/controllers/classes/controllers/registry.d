@@ -14,7 +14,7 @@ class DControllerRegistry : DObjectRegistry!DController {
 }
 
 auto ControllerRegistry() {
-    return registry is null
-        ? registry = new DControllerRegistry
-        : registry;
+    return DControllerRegistry.registry is null
+        ? DControllerRegistry.registry = new DControllerRegistry
+        : DControllerRegistry.registry;
 }

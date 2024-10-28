@@ -17,17 +17,13 @@ public {
 public { // uim libraries
   import uim.core;
   import uim.oop;
-
-  import uim.events;
-  import uim.logging;
-  import uim.models;
-  // import uim.orm;
   import uim.views;
 }
 
 public { // uim.filesystem libraries
   import uim.controllers.classes;
   import uim.controllers.enumerations;
+  import uim.controllers.errors;
   import uim.controllers.exceptions;
   import uim.controllers.helpers;
   import uim.controllers.interfaces;

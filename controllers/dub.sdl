@@ -3,3 +3,35 @@ description "A minimal D application."
 authors "ONS"
 copyright "Copyright © 2024, ONS"
 license "Apache-2.0"
+
+name "controllers"
+description "C in MVC"
+authors "ONS"
+copyright "Copyright © 2018 - 2024, ONS"
+license "Apache-2.0"
+
+targetType "library"
+targetName "uim-controllers"
+
+dependency "colored" version="~>0.0.31"
+dependency "vibe-d" version="~>0.10.0"
+
+dependency "uim:core" path="../"
+dependency "uim:oop" path="../"
+
+sourcePaths "."
+importPaths "."
+
+targetType "library"
+
+sourcePaths "."
+importPaths "."
+
+// configuration "default" {}
+
+configuration "test_uim_oop" {
+	versions "test_uim_oop"
+}
+configuration "test_all" {
+	versions "test_uim_core" "test_uim_oop"
+}

@@ -46,7 +46,6 @@ public {
   import uim.oop.objects;
   import uim.oop.observers;
   import uim.oop.parsers;
-  import uim.oop.patterns;
 
   // TODO import uim.oop.plugins;
   import uim.oop.properties;

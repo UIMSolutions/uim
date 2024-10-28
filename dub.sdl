@@ -8,6 +8,8 @@ authors "Ozan Nurettin Süel"
 
 dependency ":core" version="*"
 dependency ":oop" version="*"
+dependency ":controllers" version="*"
+dependency ":views" version="*"
 
 targetName "uim"
 targetType "library"
@@ -16,6 +18,8 @@ sourceFiles "source/uim/uim_all.d" "source/uim/uim_base.d"
 
 subPackage "core"
 subPackage "oop"
+subPackage "controllers"
+subPackage "views"
 
 configuration "test_uim_core" {
 	subConfiguration ":core" "test_uim_core"

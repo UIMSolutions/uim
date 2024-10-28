@@ -23,8 +23,8 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_oop" {
-	versions "test_uim_oop"
+configuration "test_uim_views" {
+	versions "test_uim_views"
 }
 configuration "test_all" {
 	versions "test_uim_core" "test_uim_oop"

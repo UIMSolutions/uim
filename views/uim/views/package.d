@@ -22,6 +22,7 @@ public { // uim libraries
 public { // uim.filesystem libraries
   import uim.views.classes;
   import uim.views.enumerations;
+  import uim.views.errors;
   import uim.views.exceptions;
   import uim.views.helpers;
   import uim.views.interfaces;

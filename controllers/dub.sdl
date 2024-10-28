@@ -18,6 +18,7 @@ dependency "vibe-d" version="~>0.10.0"
 
 dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
+dependency "uim:views" path="../"
 
 sourcePaths "."
 importPaths "."

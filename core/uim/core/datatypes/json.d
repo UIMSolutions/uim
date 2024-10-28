@@ -1005,7 +1005,6 @@ Json[] getArray(Json value, string key) {
 }
 
 Json[] getArray(Json value) {
-  writeln("Json::getArray(Json value)");
   if (value.isNull) {
     return null;
   }

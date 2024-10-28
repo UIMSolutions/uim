@@ -1,0 +1,20 @@
+name "filesystems"
+homepage "https://"
+license "Apache-2.0"
+copyright "Copyright © 2017-2024, Ozan Nurettin Süel"
+authors "Ozan Nurettin Süel"
+
+description "D-Library for filesystem management"
+
+dependency "colored" version="~>0.0.31"
+dependency "vibe-d" version="~>0.10.0"
+
+targetName "uim-filesystems"
+targetType "library"
+
+dependency "uim:core" path="../"
+dependency "uim:oop" path="../"
+
+sourcePaths "."
+importPaths "."
+

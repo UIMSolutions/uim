@@ -1,0 +1,30 @@
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.filesystems;
+
+mixin(ImportPhobos!());
+
+// Dub
+public {
+  import colored;
+  import vibe.d;
+  import vibe.http.session : HttpSession = Session;
+}
+
+public { // uim libraries
+  import uim.core;
+  import uim.oop;
+  import uim.models;
+}
+
+public { // uim.filesystem libraries
+  import uim.filesystems.classes;
+  import uim.filesystems.exceptions;
+  import uim.filesystems.helpers;
+  import uim.filesystems.interfaces;
+  import uim.filesystems.mixins;
+  import uim.filesystems.tests;
+}

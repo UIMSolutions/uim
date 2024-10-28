@@ -9,10 +9,9 @@ import uim.oop;
 
 @safe:
 
-// TODO
-
 interface ICloneable {
 } 
+
 /*
 interface ICloneable(T) {
   T create();

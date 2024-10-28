@@ -98,21 +98,19 @@ unittest {
     Json x = Json.emptyObject;
     x["1"] = true;
 
-    writeln("testMap => ", testmap);
+    // writeln("testMap => ", testmap);
     assert(set(testmap, "a", "A")["a"].getString == "A");
     assert(set(testmap, ["b", "c"], "bc")["b"].getString == "bc");
-    writeln("testMap => ", testmap);
+    // writeln("testMap => ", testmap);
     assert(set(testmap, "one", 1)["one"].getLong == 1);
     assert(set(testmap, ["hundred", "hundred1"], 100)["hundred"].getLong == 100);
-    writeln("testMap => ", testmap);
+    // writeln("testMap => ", testmap);
     assert(set(testmap, "one.dot", 1.0)["one.dot"].getDouble == 1.0);
     assert(set(testmap, ["hundred.dot", "hundred1.dot"], 100.1)["hundred.dot"].getDouble == 100.1);
-    writeln("testMap => ", testmap);
+    // writeln("testMap => ", testmap);
     assert(set(testmap, "json", Json("X"))["json"].getString == "X");
     assert(set(testmap, ["json.a", "json.b"], Json(100))["json.a"].getLong == 100);
-    writeln("testMap => ", testmap);
-
-    
+    // writeln("testMap => ", testmap);
   }
 // #endregion set
 

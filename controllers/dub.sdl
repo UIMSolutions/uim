@@ -17,6 +17,7 @@ dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.0"
 
 dependency "uim:core" path="../"
+dependency "uim:models" path="../"
 dependency "uim:oop" path="../"
 dependency "uim:views" path="../"
 
@@ -34,5 +35,5 @@ configuration "test_uim_oop" {
 	versions "test_uim_oop"
 }
 configuration "test_all" {
-	versions "test_uim_core" "test_uim_oop"
+	versions "test_uim_core" "test_uim_oop" "test_uim_models" "test_uim_views"
 }

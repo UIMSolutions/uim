@@ -79,8 +79,8 @@ unittest {
   Json[string] testMap;
   assert(testMap.length == 0);
   assert(testMap.merge("a", "A").length == 1);
-  writeln("testmap: ", testMap.merge("one", 1));
-  writeln("testmap: ", testMap /* .merge("one", 1) */ .merge("double", 2.2));
+  // writeln("testmap: ", testMap.merge("one", 1));
+  // writeln("testmap: ", testMap /* .merge("one", 1) */ .merge("double", 2.2));
   /// assert(testMap.merge("one", 1).merge("double", 2.2).length == 3);
 }
 // #endregion merge

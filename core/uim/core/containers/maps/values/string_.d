@@ -29,12 +29,12 @@ unittest {
 
   unittest {
     string[string] testmap;
-    writeln("testmap => ", testmap.set("one", 2));
+    // writeln("testmap => ", testmap.set("one", 2));
 
     Json x = Json.emptyObject;
     x["1"] = true;
 
-    writeln("testmap => ", testmap.set("one", x));
+    // writeln("testmap => ", testmap.set("one", x));
     assert(set(testmap, "a", "A")["a"] == "A");
     assert(set(testmap, "a", "A").set("b", "B")["b"] == "B");
 

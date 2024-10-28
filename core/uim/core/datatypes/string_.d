@@ -300,8 +300,7 @@ string subString(string aText, size_t startPos, long aLength) {
 }
 
 unittest {
-  writeln("Testing subString()");
-
+  version(test_uim_core) writeln("Testing subString()");
   assert("This is a test".subString(4) == " is a test");
   assert("This is a test".subString(-4) == "This is a ");
 
@@ -317,8 +316,7 @@ string capitalizeWords(string aText, string separator = " ") {
 }
 
 unittest {
-  writeln("Testing capitalizeWords()");
-
+  // writeln("Testing capitalizeWords()");
   assert("this is a test".capitalizeWords == "This Is A Test");
   assert("this  is  a  test".capitalizeWords == "This  Is  A  Test");
 }

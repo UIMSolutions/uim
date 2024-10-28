@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/consoles
+consoles.so
+consoles.dylib
+consoles.dll
+consoles.a
+consoles.lib
+consoles-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

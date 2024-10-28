@@ -1,17 +1,18 @@
-name "views"
+name "logging"
 description "V in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2024, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-views"
+targetName "uim-logging"
 
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.0"
 
 dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
+dependency "uim:consoles" path="../"
 
 sourcePaths "."
 importPaths "."
@@ -23,8 +24,8 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_views" {
-	versions "test_uim_views"
+configuration "test_uim_logging" {
+	versions "test_uim_logging"
 }
 configuration "test_all" {
 	versions "test_uim_core" "test_uim_oop"

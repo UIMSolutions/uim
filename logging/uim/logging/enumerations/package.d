@@ -1,0 +1,2 @@
+module uim.logging.enumerations;
+

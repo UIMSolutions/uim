@@ -17,11 +17,12 @@ public {
 public { // uim libraries
   import uim.core;
   import uim.oop;
-  import uim.models;
 }
 
 public { // uim.filesystem libraries
   import uim.filesystems.classes;
+  import uim.filesystems.enumerations;
+  import uim.filesystems.errors;
   import uim.filesystems.exceptions;
   import uim.filesystems.helpers;
   import uim.filesystems.interfaces;

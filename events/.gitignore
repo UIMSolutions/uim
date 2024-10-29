@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/events
+events.so
+events.dylib
+events.dll
+events.a
+events.lib
+events-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

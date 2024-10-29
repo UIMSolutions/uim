@@ -12,7 +12,7 @@ dependency "vibe-d" version="~>0.10.0"
 
 dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
-dependency "uim:console" path="../"
+dependency "uim:consoles" path="../"
 dependency "uim:logging" path="../"
 
 sourcePaths "."

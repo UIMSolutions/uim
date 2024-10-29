@@ -16,8 +16,6 @@ dependency "uim:oop" path="../"
 sourcePaths "."
 importPaths "."
 
-targetType "library"
-
 sourcePaths "."
 importPaths "."
 

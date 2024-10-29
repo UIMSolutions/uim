@@ -1,5 +1,5 @@
 name "networks"
-description "V in MVC"
+description "Network management"
 authors "ONS"
 copyright "Copyright © 2018 - 2024, ONS"
 license "Apache-2.0"

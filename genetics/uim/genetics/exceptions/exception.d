@@ -4,7 +4,7 @@ import uim.genetics;
 
 @safe:
 
-class DGeneticsException : DException {
+class DGeneticsException : UIMException {
   mixin(ExceptionThis!("Genetics"));
 
   override bool initialize(Json[string] initData = null) {

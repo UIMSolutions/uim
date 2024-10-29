@@ -1,16 +1,16 @@
-name "consoles"
+name "datasources"
 description "V in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2024, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-consoles"
+targetName "uim-datasources"
 
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.0"
 
-# dependency "uim:core" path="../"
+dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
 
 sourcePaths "."
@@ -23,8 +23,8 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_consoles" {
-	versions "test_uim_consoles"
+configuration "test_uim_datasources" {
+	versions "test_uim_datasources"
 }
 configuration "test_all" {
 	versions "test_uim_core" "test_uim_oop"

@@ -1,5 +1,5 @@
 name "datasources"
-description "V in MVC"
+description "Datasources for models"
 authors "ONS"
 copyright "Copyright © 2018 - 2024, ONS"
 license "Apache-2.0"
@@ -10,13 +10,12 @@ targetName "uim-datasources"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.0"
 
-dependency "uim:core" path="../"
+# dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
 
 sourcePaths "."
 importPaths "."
 
-targetType "library"
 
 sourcePaths "."
 importPaths "."

@@ -8,7 +8,7 @@ module uim.jsonbases.classes.collections.collection;
 import uim.jsonbases;
 
 unittest {
-  version (testUimJsonbase) {
+  version (test_uim_jsonbase) {
     debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
   }
 }
@@ -41,7 +41,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   // #region READ
   // #region has()
   bool has(Json jsonObject, UUID id) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -55,7 +55,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   bool has(Json jsonObject, string name) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -69,7 +69,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   bool has(Json jsonObject, size_t versionNumber = 0) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -113,7 +113,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   /// Count items in the collection with id and versions.
   /// allVersion = true include versions; = false results in existing id (1 if exists, 0 if none) 
   size_t count(bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -121,7 +121,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   size_t count(UUID id, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -131,7 +131,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   /// Count all items in the collection with ids and versionNumber.
   /// allVersion = true include versions; = false results in existing ids 
   size_t count(UUID[] ids, size_t versionNumber) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -208,7 +208,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
 
   /// Find all (many) items in a collection with select. allVersions:false = find last version, allVersion:true = find all versions
   Json[] findMany(Json select, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -220,7 +220,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   // Searching in store
   // Searching for existing ids
   Json findOne(UUID[] ids, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -230,7 +230,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
 
   // Searching for existing id
   Json findOne(UUID id, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -239,7 +239,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
 
   /// Searching for existing ids & versionNumber
   Json findOne(UUID[] ids, size_t versionNumber) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -265,7 +265,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
 
   // Searching for existing selects:json[]
   Json findOne(Json[] selects, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
     auto jsons = selects.map!(a => findOne(a, allVersions)).array;
@@ -282,7 +282,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   // #region UPDATE
   // #region updateMany()
   size_t updateMany(string[string] select, string[string] updateData) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -290,7 +290,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   size_t updateMany(string[string] select, Json updateData) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -298,7 +298,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   size_t updateMany(Json select, string[string] updateData) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -310,7 +310,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
 
   // #region updateOne()
   bool updateOne(string[string] select, string[string] updateData) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -318,7 +318,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   bool updateOne(string[string] select, Json updateData) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -326,7 +326,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   bool updateOne(Json select, string[string] updateData) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -340,7 +340,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   // #region DELETE
   // #region removeMany()
   size_t removeMany(UUID[] ids, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -348,7 +348,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   size_t removeMany(UUID id, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -356,7 +356,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   size_t removeMany(UUID[] ids, size_t versionNumber) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -364,7 +364,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   size_t removeMany(UUID id, size_t versionNumber) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -372,7 +372,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   size_t removeMany(string[string][] selects, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -380,7 +380,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   size_t removeMany(string[string] select, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -389,7 +389,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   size_t removeMany(Json[] selects, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -397,7 +397,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
   }
 
   size_t removeMany(Json select, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -448,7 +448,7 @@ abstract class DJsonCollection : UIMObject, IJsonCollection {
 }
 
 unittest {
-  version (testUimJsonbase) {
+  version (test_uim_jsonbase) {
     debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
   }
 }

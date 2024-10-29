@@ -8,7 +8,7 @@ module uim.jsonbases.classes.collections.memory;
 import uim.jsonbases;
 
 unittest {
-  version (testUimJsonbase) {
+  version (test_uim_jsonbase) {
     debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
   }
 }

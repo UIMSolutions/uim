@@ -7,7 +7,7 @@ module uim.jsonbases.helpers.versions;
 
 import uim.jsonbases;
 
-version(testUimJsonbase) { 
+version(test_uim_jsonbase) { 
   unittest {
     debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }

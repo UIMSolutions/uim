@@ -1,0 +1,21 @@
+name "html"
+homepage "https://"
+license "Apache-2.0"
+copyright "Copyright © 2017-2024, Ozan Nurettin Süel"
+authors "Ozan Nurettin Süel"
+
+description "D-Library for working with HTML"
+
+dependency "colored" version="~>0.0.31"
+dependency "vibe-d" version="~>0.10.0"
+
+dependency "uim:core" path="../"
+dependency "uim:oop" path="../"
+dependency "uim:models" path="../"
+dependency "uim:css" path="../"
+targetType "library"
+
+sourcePaths "."
+importPaths "."
+
+targetName "uim-html"

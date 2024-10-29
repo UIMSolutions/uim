@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/validations
+validations.so
+validations.dylib
+validations.dll
+validations.a
+validations.lib
+validations-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

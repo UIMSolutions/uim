@@ -3,12 +3,12 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.jsonbases.helpers.folder;test_uim_jsonbase
+module uim.jsonbases.helpers.folder;
 
 import uim.jsonbases;
 
 unittest { 
-  version(testUimJsonbase) { 
+  version(test_uim_jsonbase) { 
     debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
   }
 }

@@ -50,7 +50,7 @@ version(test_uim_jsonbase) {
 
     foreach (key; selector.byKey) {      
       // debug writeln("-> %s : %s".format(value[key].type, value[key]));
-      auto strValue = aVersion.isString(key) 
+      auto strValue = aVersion[key].isString 
         ? aVersion[key].get!string 
         : aVersion[key].toString;
       

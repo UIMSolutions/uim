@@ -5,17 +5,19 @@ license "Apache-2.0"
 copyright "Copyright © 2018-2024, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
+targetName "uim"
+targetType "library"
 
 dependency ":core" version="*"
 dependency ":oop" version="*"
 dependency ":consoles" version="*"
 dependency ":logging" version="*"
+dependency ":filesystems" version="*"
+dependency ":jsonbases" version="*"
 dependency ":controllers" version="*"
+dependency ":orm" version="*"
 dependency ":models" version="*"
 dependency ":views" version="*"
-
-targetName "uim"
-targetType "library"
 
 sourceFiles "source/uim/uim_all.d" "source/uim/uim_base.d"
 
@@ -23,7 +25,10 @@ subPackage "core"
 subPackage "oop"
 subPackage "consoles"
 subPackage "logging"
+subPackage "filesystems"
+subPackage "jsonbases"
 subPackage "controllers"
+subPackage "orm"
 subPackage "models"
 subPackage "views"
 

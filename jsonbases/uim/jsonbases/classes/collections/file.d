@@ -3,12 +3,12 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.jsonbases.classes.collections.file;test_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbase
+module uim.jsonbases.classes.collections.file;
 
 import uim.jsonbases;
 
 unittest {
-  version (testUimJsonbase) {
+  version (test_uim_jsonbase) {
     debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
   }
 }
@@ -30,7 +30,7 @@ class DFileJsonCollection : DJsonCollection {
 
   // Find all (many) items in a collection. allVersions:false = find last versions, allVersion:true = find all versions
   override Json[] findMany(bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -51,7 +51,7 @@ class DFileJsonCollection : DJsonCollection {
 
   /// Find all (many) items in a collection with id. allVersions:false = find last version, allVersion:true = find all versions
   override Json[] findMany(UUID anId, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -73,7 +73,7 @@ class DFileJsonCollection : DJsonCollection {
   }
 
   override Json[] findMany(string[string] select, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -82,7 +82,7 @@ class DFileJsonCollection : DJsonCollection {
 
   /// find items by select - allVersions:false - last versions; allVersions:true - all versions
   override Json[] findMany(Json select, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -95,7 +95,7 @@ class DFileJsonCollection : DJsonCollection {
 
   /// Find one item in a collection. allVersions:false = last version, allVersion:true = one version
   override Json findOne(UUID id, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -117,7 +117,7 @@ class DFileJsonCollection : DJsonCollection {
   }
 
   override Json findOne(UUID anId, size_t versionNumber) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -139,7 +139,7 @@ class DFileJsonCollection : DJsonCollection {
   }
 
   override Json findOne(string[string] select, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -173,7 +173,7 @@ class DFileJsonCollection : DJsonCollection {
   }
 
   override Json findOne(Json select, bool allVersions = false) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -212,7 +212,7 @@ class DFileJsonCollection : DJsonCollection {
   alias insertOne = DJsonCollection.insertOne;
 
   override Json insertOne(Json newData) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -245,7 +245,7 @@ class DFileJsonCollection : DJsonCollection {
 
   // #region updateMany()
   override size_t updateMany(string[string] select, string[string] updateData) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -265,7 +265,7 @@ class DFileJsonCollection : DJsonCollection {
   }
 
   override size_t updateMany(Json select, Json updateData) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -286,7 +286,7 @@ class DFileJsonCollection : DJsonCollection {
   // #region updateOne()
   alias updateOne = DJsonCollection.updateOne;
   override bool updateOne(Json select, Json updateData) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -524,7 +524,7 @@ class DFileJsonCollection : DJsonCollection {
 mixin(JsonCollectionCalls!("File"));
 
 unittest {
-  version (testUimJsonbase) {
+  version (test_uim_jsonbase) {
     debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
   }
 }

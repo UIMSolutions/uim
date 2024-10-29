@@ -3,12 +3,12 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.jsonbases.classes.collections.null_;test_uim_jsonbasetest_uim_jsonbase
+module uim.jsonbases.classes.collections.null_;
 
 import uim.jsonbases;
 
 unittest {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
         debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 }
@@ -294,7 +294,7 @@ class DNullJsonCollection : DJsonCollection {
 mixin(JsonCollectionCalls!("Null"));
 
 unittest {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
         debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 }

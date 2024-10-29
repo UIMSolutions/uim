@@ -3,12 +3,12 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.jsonbases.classes.bases.base;test_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbase
+module uim.jsonbases.classes.bases.base;
 
 import uim.jsonbases;
 
 unittest {
-  version (testUimJsonbase) {
+  version (test_uim_jsonbase) {
     debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
   }
 }
@@ -93,7 +93,7 @@ class DJsonBase : UIMObject, IJsonBase, IJsonTenantManager {
 
   // Add tenant
   bool addTenant(IJsonTenant aTenant) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -101,7 +101,7 @@ class DJsonBase : UIMObject, IJsonBase, IJsonTenantManager {
   }
 
   bool addTenant(string aName, IJsonTenant aTenant) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -115,7 +115,7 @@ class DJsonBase : UIMObject, IJsonBase, IJsonTenantManager {
 
   // #region CREATE
   IJsonTenant[] createTenants(string[] someNames...) {
-    version (testUimJsonbase) {
+    version (test_uim_jsonbase) {
       debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
     }
 
@@ -157,7 +157,7 @@ class DJsonBase : UIMObject, IJsonBase, IJsonTenantManager {
 }
 
 unittest {
-  version (testUimJsonbase) {
+  version (test_uim_jsonbase) {
     debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
   }
 }

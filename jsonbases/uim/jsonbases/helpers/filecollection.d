@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.jsonbases.helpers.filecollection;test_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbasetest_uim_jsonbase
+module uim.jsonbases.helpers.filecollection;
 
 import uim.jsonbases;
 

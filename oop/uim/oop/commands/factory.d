@@ -9,6 +9,6 @@ import uim.oop;
 
 @safe:
 
-class DUIMCommandFactory : DFactory!DCommand {
+class DCommandFactory : DFactory!DCommand {
 }
-auto CommandFactory() { return DUIMCommandFactory.factory; }
+auto CommandFactory() { return DCommandFactory.factory; }

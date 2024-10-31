@@ -4,6 +4,9 @@ license "Apache-2.0"
 copyright "Copyright © 2015-2024, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
+targetName "uim-genetics"
+targetType "library"
+
 description "D-Library for genetic algorithms"
 
 dependency "colored" version="~>0.0.31"
@@ -12,9 +15,7 @@ dependency "vibe-d" version="~>0.10.0"
 dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
 dependency "uim:models" path="../"
-targetType "library"
 
 sourcePaths "."
 importPaths "."
 
-targetName "uim-genetics"

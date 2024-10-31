@@ -6,10 +6,11 @@
 module uim.core.containers.arrays.array_;
 
 import uim.core;
+
 @safe:
 
 unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+  writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 // #region size
@@ -335,8 +336,6 @@ unittest {
   assert([1, 2, 3, 4].index(0) == -1);
 }
 
-
-
 size_t[] indexes(T)(T[] values, T value) {
   size_t[] results;
   foreach (count, key; values)
@@ -376,26 +375,26 @@ unittest {
 // #endregion Searching
 
 // #region shift
-  // #region shiftFirst
-    T shiftFirst(T)(auto ref T[] values) {
-      // IN Check
-      if (values.isEmpty) {
-        return null;
-      }
+// #region shiftFirst
+T shiftFirst(T)(auto ref T[] values) {
+  // IN Check
+  if (values.isEmpty) {
+    return null;
+  }
 
-      T value = values[0];
-      values = values.length > 1
-        ? values[1 .. $] : null;
+  T value = values[0];
+  values = values.length > 1
+    ? values[1 .. $] : null;
 
-      return value;
-    }
-    ///
-    unittest {
-      string[] anArray = ["x", "y", "z"];
-      assert(anArray.shiftFirst == "x");
-      assert(anArray == ["y", "z"]);
-    }
-  // #endregion shiftFirst
+  return value;
+}
+///
+unittest {
+  string[] anArray = ["x", "y", "z"];
+  assert(anArray.shiftFirst == "x");
+  assert(anArray == ["y", "z"]);
+}
+// #endregion shiftFirst
 // #endregion shift
 
 T[] ifNull(T)(T[] values, T[] defaultValues) {

@@ -9,5 +9,5 @@ module uim.core.containers.maps.values.map;
 import uim.core;
 
 unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+  writeln("-----  ", __MODULE__, "\t  -----");
 }

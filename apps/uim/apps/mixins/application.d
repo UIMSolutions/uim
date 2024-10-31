@@ -1,4 +1,4 @@
-module apps.uim.views.mixins.application;
+module uim.apps.mixins.application;
 
 import uim.apps;
 

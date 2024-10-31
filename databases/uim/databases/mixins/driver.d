@@ -3,25 +3,25 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.models.mixins.attribute;
+module uim.databases.mixins.driver;
 
-import uim.models;
+import uim.databases;
 @safe:
 
-string attributeThis(string name = null) {
-    string fullName = name ~ "Attribute";
+string driverThis(string name = null) {
+    string fullName = name ~ "Driver";
     return objThis(fullName);
 }
 
-template AttributeThis(string name = null) {
-    const char[] AttributeThis = attributeThis(name);
+template DriverThis(string name = null) {
+    const char[] DriverThis = driverThis(name);
 }
 
-string attributeCalls(string name) {
-    string fullName = name ~ "Attribute";
+string driverCalls(string name) {
+    string fullName = name ~ "Driver";
     return objCalls(fullName);
 }
 
-template AttributeCalls(string name) {
-    const char[] AttributeCalls = attributeCalls(name);
+template DriverCalls(string name) {
+    const char[] DriverCalls = driverCalls(name);
 }

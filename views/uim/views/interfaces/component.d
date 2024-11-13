@@ -1,4 +1,4 @@
-module uim.views.interfaces.viewcomponent;
+module uim.views.interfaces.component;
 
 import uim.views;
 

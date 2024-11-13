@@ -4,6 +4,6 @@ import uim.mvc;
 
 @safe: 
 interface IController {
-    string process(HTTPServerRequest request, HTTPServerResponse response);
+    void process(HTTPServerRequest request, HTTPServerResponse response);
 }
 

@@ -1,3 +1,8 @@
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
 module uim.databases.classes.drivers.driver;
 
 import uim.databases;
@@ -12,31 +17,61 @@ class DDriver : UIMObject, IDriver {
         return this;
     }
 
-    // String used to start a database identifier quoting to make it safe
-    string startQuote() {
-        return null; 
+    // #region startQuote
+        // String used to start a database identifier quoting to make it safe
+        protected string _startQuote;
+        string startQuote() {
+            return _startQuote;
+        }
+
+        IDriver startQuote(string quote) {
+            _startQuote = quote;
+            return this;
+        }
+    // #endregion startQuote
+
+    // #region endQuote
+        // String used to end a database identifier quoting to make it safe
+        protected string _endQuote;
+        string endQuote() {
+            return _endQuote;
+        }
+
+        IDriver endQuote(string quote) {
+            _endQuote = quote;
+            return this;
+        }
+    // #endregion endQuote
+
+    // #region connection
+        // Returns correct connection resource or object that is internally used.
+        IDatabaseConnection connection() {
+            return null;
+        }
+
+        // Set the internal connection object.
+        IDriver connection(IDatabaseConnection connection) {
+            return this;
+        }
+    // #endregion connection
+
+    // true if it is valid to use this driver
+    bool enabled() {
+        return false;
     }
 
-    IDriver startQuote(string quote) {
-        return this;
-    }
+    // #region SQL
+        string sqlReleaseSavePoint(string name) {
+            // SQLServer has no release save point operation.
+            return null;
+        }
 
-    // String used to end a database identifier quoting to make it safe
-    string endQuote() {
-        return null; 
-    }
+        string sqlDisableForeignKey() {
+            return null;
+        }
 
-    IDriver endQuote(string quote) {
-        return this;
-    }
-
-    // Returns correct connection resource or object that is internally used.
-    IConnection connection() {
-        return null; 
-    }
-
-    // Set the internal connection object.
-    IDriver connection(IConnection connection) {
-        return this;
-    }
+        string sqlEnableForeignKey() {
+            return null;
+        }
+    // #endregion SQL
 }

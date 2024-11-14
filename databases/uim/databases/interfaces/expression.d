@@ -4,4 +4,6 @@ import uim.databases;
 
 @safe:
 
-interface IExpression {}
+interface IExpression {
+    
+}

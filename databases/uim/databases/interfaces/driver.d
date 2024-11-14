@@ -17,9 +17,15 @@ interface IDriver {
     IDriver endQuote(string quote);
 
     // Returns correct connection resource or object that is internally used.
-    IConnection connection();
+    IDatabaseConnection connection();
 
     // Set the internal connection object.
-    IDriver connection(IConnection connection);
+    IDriver connection(IDatabaseConnection connection);
 
+    // true if it is valid to use this driver
+    bool enabled();
+
+    string sqlDisableForeignKey();
+
+    string sqlEnableForeignKey();
 }

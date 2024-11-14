@@ -1,3 +1,8 @@
+/****************************************************************************************************************
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
 module uim.databases.classes.drivers.mysql;
 
 import uim.databases;
@@ -29,7 +34,7 @@ class DMysqlDriver : DDriver {
             .merge("port", "3306")
             .merge("flags", Json.emptyArray)
             .merge("encoding", "utf8mb4")
-            .merge("timezone", null)
+            .merge("timezone", Json(null))
             .merge("init", Json.emptyArray);
 
         startQuote("`");
@@ -37,5 +42,21 @@ class DMysqlDriver : DDriver {
 
         return true;
     }
+
+    // #region SQL
+    // Get the SQL for disabling foreign keys.
+    override string sqlDisableForeignKey() {
+        return "SET foreign_key_checks = 0";
+    }
+
+    override string sqlEnableForeignKey() {
+        return "SET foreign_key_checks = 1";
+    }
+    // #endregion SQL
 }
+
 mixin(DriverCalls!("Mysql"));
+
+unittest {
+    assert(MysqlDriver);
+}

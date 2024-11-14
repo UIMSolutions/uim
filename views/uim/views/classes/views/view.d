@@ -3,7 +3,7 @@ module uim.views.classes.views.view;
 import uim.views;
 
 @safe: 
-class DView : UIMObject, IView { //  }: IEventDispatcher {
+class DView : UIMObject, IView { 
     mixin(ViewThis!());
 
     override bool initialize(Json[string] initData = null) {

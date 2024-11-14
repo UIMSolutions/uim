@@ -4,5 +4,5 @@ import uim.views;
 
 @safe: 
 interface IViewComponent {
-
+    string render(string[string] data); 
 }

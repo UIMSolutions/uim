@@ -3,25 +3,27 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.databases.mixins.query;
+module controllers.uim.controllers.mixins.component;
 
-import uim.databases;
+import uim.controllers;
+
 @safe:
 
-string sqlQueryThis(string name = null) {
-    string fullName = name ~ "SQLQuery";
+string controllerComponentThis(string name = null) {
+    string fullName = name ~ "ControllerComponent";
     return objThis(fullName);
+
 }
 
-template SQLQueryThis(string name = null) {
-    const char[] SQLQueryThis = sqlQueryThis(name);
+template ControllerComponentThis(string name = null) {
+    const char[] ControllerComponentThis = controllerComponentThis(name);
 }
 
-string sqlQueryCalls(string name) {
-    string fullName = name ~ "SQLQuery";
+string controllerComponentCalls(string name) {
+    string fullName = name ~ "ControllerComponent";
     return objCalls(fullName);
 }
 
-template SQLQueryCalls(string name) {
-    const char[] SQLQueryCalls = sqlQueryCalls(name);
+template ControllerComponentCalls(string name) {
+    const char[] ControllerComponentCalls = controllerComponentCalls(name);
 }

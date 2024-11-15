@@ -4,6 +4,16 @@ import uim.databases;
 
 @safe:
 
-class DDatabaseConnection : UIMObject {
-    
+class DDatabaseConnection : UIMObject, IDatabaseConnection {
+    IDatabaseConnection connect() {
+        return this;
+    }
+
+    IDatabaseConnection disconnect () {
+        return this;
+    }
+
+    bool isConnected() {
+        return false;
+    }
 }

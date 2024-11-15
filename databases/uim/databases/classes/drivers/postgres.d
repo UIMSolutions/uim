@@ -35,6 +35,21 @@ class DPostgresDriver : DDriver {
         return true;
     }
 
+    bool supports(DriverFeaturesfeature) {
+        switch(feature) {
+            case
+            DriverFeatures.CTE,
+            DriverFeatures.Json,
+            DriverFeatures.SAVEPOINT,
+            DriverFeatures.WINDOW : return true;
+
+            case
+            DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION : return false;
+
+            default: return false;
+        };
+    }
+
     // #region SQL
         // Get the SQL for disabling foreign keys.
         override string sqlDisableForeignKey() {

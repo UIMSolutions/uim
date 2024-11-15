@@ -46,6 +46,27 @@ class DSqliteDriver : DDriver {
             return "PRAGMA foreign_keys = ON";
         }
     // #endregion foreignKeySQL
+
+    bool supports(DriverFeatures feature) {
+        switch(feature) {
+            case 
+            DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION,
+            DriverFeatures.SAVEPOINT,
+            DriverFeatures.TRUNCATE_WITH_CONSTRAINTS: return true;
+
+            case
+            DriverFeatures.Json: return false;
+
+            case
+            DriverFeatures.CTE,
+            DriverFeatures.WINDOW: return version_compare(
+                this.currentVersion(),
+                this.featureVersions[feature.value],
+                ">="
+           );
+            default: return false;
+        };
+    }
 }
 mixin(DriverCalls!("Sqlite"));
 

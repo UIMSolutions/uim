@@ -1,4 +1,4 @@
-module datasources.uim.datasources.tests.rule;
+module uim.datasources.tests.rule;
 
 import uim.datasources;
 

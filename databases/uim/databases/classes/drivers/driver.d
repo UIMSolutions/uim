@@ -17,6 +17,11 @@ class DDriver : UIMObject, IDriver {
         return this;
     }
 
+    // Returns connected server version.
+    string currentVersion() {
+        return null; 
+    }
+
     // #region startQuote
         // String used to start a database identifier quoting to make it safe
         protected string _startQuote;
@@ -74,4 +79,14 @@ class DDriver : UIMObject, IDriver {
             return null;
         }
     // #endregion SQL
+
+    // Checks whether the driver is connected.
+    bool isConnected() {
+        return false;
+    }
+
+   // Disconnects from database server. 
+    IDriver disconnect() {
+        return this;
+    }
 }

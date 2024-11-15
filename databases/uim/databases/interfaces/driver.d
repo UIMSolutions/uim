@@ -7,6 +7,9 @@ import uim.databases;
 interface IDriver {
     // Establishes a connection to the database server.
     IDriver connect();
+    
+    // Returns connected server version.
+    string currentVersion();
 
     // String used to start a database identifier quoting to make it safe
     string startQuote();
@@ -28,4 +31,10 @@ interface IDriver {
     string sqlDisableForeignKey();
 
     string sqlEnableForeignKey();
+
+         // Checks whether the driver is connected.
+    bool isConnected();
+
+   // Disconnects from database server. 
+    IDriver disconnect();
 }

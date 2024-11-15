@@ -4,4 +4,3 @@ import uim.datasources;
 
 @safe:
 
-bool testConnection(IConne)

@@ -9,8 +9,8 @@ class DViewFactory : DFactory!DView {
 }
 
 auto ViewFactory() {
-    return factory is null
-        ? factory = new DViewFactory() : factory;
+    return DViewFactory.factory is null
+        ? DViewFactory.factory = new DViewFactory() : DViewFactory.factory;
 }
 
 unittest {

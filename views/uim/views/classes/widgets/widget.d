@@ -17,7 +17,7 @@ override bool initialize(Json[string] initData = null) {
       .merge("escape", true)
       .merge("templateVars", Json.emptyArray);
 
-    this.templater(HtmlTemplater);
+    // TODO this.templater(HtmlTemplater);
 
     return true;
   }

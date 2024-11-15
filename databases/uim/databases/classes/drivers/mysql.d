@@ -19,6 +19,17 @@ class DMysqlDriver : DDriver {
     // Server type MariaDB
     protected const string SERVER_TYPE_MARIADB = "mariadb";
 
+    /**
+     * Server type.
+     *
+     * If the underlying server is MariaDB, its value will get set to `'mariadb'`
+     * after `currentVersion()` method is called.
+     */
+    protected string _serverType;
+
+    // Mapping of feature to db server version for feature availability checks.
+    protected Json[string] _featureVersions;
+
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
@@ -40,7 +51,47 @@ class DMysqlDriver : DDriver {
         startQuote("`");
         endQuote("`");
 
+        // Server type.
+        _serverType = SERVER_TYPE_MYSQL;
+
+        // Mapping of feature to db server version for feature availability checks.
+        Json[string] mysql = createMap!(string, Json)
+            .set("Json", "5.7.0")
+            .set("cte", "8.0.0")
+            .set("window", "8.0.0");
+
+        Json[string] mariadb = createMap!(string, Json)
+            .set("Json", "10.2.7")
+            .set("cte", "10.2.1")
+            .set("window", "10.2.0");
+
+        _featureVersions
+            .set("mysql", mysql)
+            .set("mariadb", mariadb);
+
         return true;
+
+    }
+
+    bool supports(DriverFeatures feature) {
+        switch (feature) {
+        case DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION,
+            DriverFeatures.SAVEPOINT:
+            return true;
+
+        case DriverFeatures.TRUNCATE_WITH_CONSTRAINTS:
+            return false;
+
+        case DriverFeatures.CTE,
+            DriverFeatures.JSON,
+            DriverFeatures.WINDOW: return false; // TODO
+            /* return version_compare(
+                this.currentVersion(),
+                this.featureVersions[this.serverType][feature.value],
+                ">="); */
+        default:
+            return false;
+        }
     }
 
     // #region SQL

@@ -20,10 +20,10 @@ class DSqliteDriver : DDriver {
         // `mask` The mask used for created database
         configuration
             .merge("persistent", false.toJson)  
-            .merge("username", "".toJson)
-            .merge("password", "".toJson)
-            .merge("database", Json(": memory:"))
-            .merge("encoding", Json("utf8"),)
+            .merge("username", "")
+            .merge("password", "")
+            .merge("database", ": memory:")
+            .merge("encoding", "utf8")
             .merge("mask", Json(/*0*/644))
             .merge("cache", Json(null))
             .merge("mode", Json(null))
@@ -36,7 +36,7 @@ class DSqliteDriver : DDriver {
         return true;
     }
 
-        // #region foreignKeySQL
+        // #region SQL
         // Get the SQL for disabling foreign keys.
         override string sqlDisableForeignKey() {
             return "PRAGMA foreign_keys = OFF";
@@ -45,7 +45,7 @@ class DSqliteDriver : DDriver {
         override string sqlEnableForeignKey() {
             return "PRAGMA foreign_keys = ON";
         }
-    // #endregion foreignKeySQL
+    // #endregion SQL
 
     bool supports(DriverFeatures feature) {
         switch(feature) {
@@ -55,15 +55,16 @@ class DSqliteDriver : DDriver {
             DriverFeatures.TRUNCATE_WITH_CONSTRAINTS: return true;
 
             case
-            DriverFeatures.Json: return false;
+            DriverFeatures.JSON: return false;
 
-            case
+            case // TODO
             DriverFeatures.CTE,
-            DriverFeatures.WINDOW: return version_compare(
+            DriverFeatures.WINDOW: return false; 
+            /* return version_compare(
                 this.currentVersion(),
-                this.featureVersions[feature.value],
+                this.featureVersions.getString("feature.value"),
                 ">="
-           );
+           ); */
             default: return false;
         };
     }

@@ -1,4 +1,4 @@
-module databases.uim.databases.enumerations.driver;
+module uim.databases.enumerations.driver;
 
 enum DriverFeatures : string {
     // Common Table Expressions (with clause) support.

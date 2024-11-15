@@ -35,11 +35,11 @@ class DPostgresDriver : DDriver {
         return true;
     }
 
-    bool supports(DriverFeaturesfeature) {
+    bool supports(DriverFeatures feature) {
         switch(feature) {
             case
             DriverFeatures.CTE,
-            DriverFeatures.Json,
+            DriverFeatures.JSON,
             DriverFeatures.SAVEPOINT,
             DriverFeatures.WINDOW : return true;
 

@@ -4,5 +4,5 @@ import uim.i18n;
 @safe:
 
 class DParser {
-    
+    mixin(ParserThis!());
 }

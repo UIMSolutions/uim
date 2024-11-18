@@ -78,17 +78,17 @@ class DTranslator : UIMObject, ITranslator {
 
         // TODO
         // Check for missing/invalid context
-        if (tokensValues.hasKey("_context")) {
+        if (settings.hasKey("_context")) {
             /*             message = resolveContext(messageKey, message, tokensValues);
             tokensValues.removeKey("_context");
  */
         }
-        if (tokensValues.isEmpty) { // Fallback for plurals that were using the singular key
+        if (settings.isEmpty) { // Fallback for plurals that were using the singular key
             // return translatedMessage ~ [""].values[0];
         }
 
         // Singular message, but plural call
-        if (tokensValues.hasKey("_singular")) {
+        if (settings.hasKey("_singular")) {
             // translatedMessage = [tokensValues["_singular"], message];
         }
 

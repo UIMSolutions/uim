@@ -8,20 +8,20 @@ module uim.i18n.mixins.catalog;
 import uim.i18n;
 @safe:
 
-string catalogThis(string name = null) {
-    string fullName = name ~ "Catalog";
+string messageCatalogThis(string name = null) {
+    string fullName = name ~ "MessageCatalog";
     return objThis(fullName);
 }
 
-template CatalogThis(string name = null) {
-    const char[] CatalogThis = catalogThis(name);
+template MessageCatalogThis(string name = null) {
+    const char[] MessageCatalogThis = messageCatalogThis(name);
 }
 
-string catalogCalls(string name) {
-    string fullName = name ~ "Catalog";
+string messageCatalogCalls(string name) {
+    string fullName = name ~ "MessageCatalog";
     return objCalls(fullName);
 }
 
-template CatalogCalls(string name) {
-    const char[] CatalogCalls = catalogCalls(name);
+template MessageCatalogCalls(string name) {
+    const char[] MessageCatalogCalls = messageCatalogCalls(name);
 }

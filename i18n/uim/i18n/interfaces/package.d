@@ -4,4 +4,5 @@ public {
     import uim.i18n.interfaces.catalog;
     import uim.i18n.interfaces.formatter;
     import uim.i18n.interfaces.parser;
+    import uim.i18n.interfaces.translator;
 }

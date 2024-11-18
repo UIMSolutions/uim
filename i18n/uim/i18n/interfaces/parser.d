@@ -9,5 +9,5 @@ import uim.i18n;
 
 @safe:
 
-interface IParser {
+interface II18NParser {
 }

@@ -3,4 +3,25 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.i18n.mixins.parser;import uim.i18n;@safe:string parserThis(string name = null) {    string fullName = name ~ "Parser";    return objThis(fullName);}template ParserThis(string name = null) {    const char[] ParserThis = parserThis(name);}string parserCalls(string name) {    string fullName = name ~ "Parser";    return objCalls(fullName);}template ParserCalls(string name) {    const char[] ParserCalls = parserCalls(name);}
+module uim.i18n.mixins.parser;
+
+import uim.i18n;
+@safe:
+
+string i18nParserThis(string name = null) {
+    string fullName = name ~ "I18NParser";
+    return objThis(fullName);
+}
+
+template I18NParserThis(string name = null) {
+    const char[] I18NParserThis = i18nParserThis(name);
+}
+
+string i18nparserCalls(string name) {
+    string fullName = name ~ "I18NParser";
+    return objCalls(fullName);
+}
+
+template I18NParserCalls(string name) {
+    const char[] I18NParserCalls = i18nparserCalls(name);
+}

@@ -49,7 +49,16 @@ class UIMObject : INamed {
         return memberNames.has(name);
     }
 
-    Json[string] debugInfo() {
+    Json toJson(string[] showKeys = null, string[] hideKeys = null) {
+        Json json = Json.emptyObject;
+        json
+            .set("name", name)
+            .set("classname", this.classname);
+
+        return json;
+    }
+
+    Json[string] debugInfo(string[] hideKeys = null) {
         Json[string] info;
         return info
             .set("name", name)

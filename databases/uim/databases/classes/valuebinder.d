@@ -47,7 +47,7 @@ class DValueBinder : UIMObject {
     }
 
     // Get verbose debugging data.
-    override Json[string] debugInfo() {        
+    override Json[string] debugInfo(string[] hideKeys = null) {        
         return super.debugInfo
             .set("bindings", bindings());
     }

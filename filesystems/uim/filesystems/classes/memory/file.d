@@ -17,7 +17,7 @@ unittest {
 class DMemoryFile : DFile {
   mixin(FileThis!("Memory"));
 
-  override Json[string] debugInfo() {
+  override Json[string] debugInfo(string[] hideKeys = null) {
     return super.debugInfo();
   }
 

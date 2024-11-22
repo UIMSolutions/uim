@@ -152,7 +152,7 @@ class DFilesystemEntry : UIMObject, IFilesystemEntry {
     return this.classname ~ ": " ~ name;
   }
 
-  override Json[string] debugInfo() {
+  override Json[string] debugInfo(string[] hideKeys = null) {
     return super.debugInfo()
       .set("relPath", relPath)
       .set("absolutePath", absolutePath);

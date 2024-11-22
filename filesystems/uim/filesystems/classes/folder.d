@@ -110,7 +110,7 @@ class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkMa
     return this.classname ~ ": " ~ name;
   }
 
-  override Json[string] debugInfo() {
+  override Json[string] debugInfo(string[] hideKeys = null) {
     return super.debugInfo();
   }
 

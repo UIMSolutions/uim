@@ -199,9 +199,8 @@ class DAttribute : UIMObject, IAttribute {
     }
 
     // Convert data to json (using vibe's funcs)
-    /* override  */
-    Json toJson(string[] showFields = null, string[] hideFields = null) {
-        auto result = Json.emptyObject;
+    override Json toJson(string[] showKeys = null, string[] hideKeys = null) {
+        auto result = super.toJson;
 
         // Fields
         result.set("isNullable", this.isNullable);

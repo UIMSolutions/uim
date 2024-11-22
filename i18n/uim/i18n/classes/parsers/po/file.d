@@ -166,6 +166,8 @@ class DPoFile : UIMObject {
             .set("xGenerator", xGenerator)
             .set("messages", messages);
 
+        if (showKeys) json = json.filterKeys(showKeys);
+        if (hideKeys) json = json.removeKeys(hideKeys);
         return json;
     }
     /// 
@@ -174,6 +176,8 @@ class DPoFile : UIMObject {
         auto file = new DPoFile;
         file.load("tests\\de.po");
         writeln(file.toJson);
+        writeln;
+        writeln(file.toJson(null, ["messages"]));
     }
 
     void save() {

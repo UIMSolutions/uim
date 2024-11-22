@@ -1300,3 +1300,33 @@ unittest {
   assert(json.count == 3);
 }
 // #endregion count
+
+// #region remove
+Json removeKeys(Json json, string[] keys...) {
+  return removeKeys(json, keys.dup);
+}
+
+Json removeKeys(Json json, string[] keys) {
+  keys.each!(key => json = json.removeKey(key));
+  return json;
+}
+
+Json removeKey(Json json, string key) {
+  json.remove(key);
+  return json;
+}
+// #endregion remove
+
+// #region filter
+Json filterKeys(Json json, string[] keys...) {
+  return filterKeys(json, keys.dup);
+}
+
+Json filterKeys(Json json, string[] keys) {
+  return json.removeKeys(json.byKeyValue
+      .map!(kv => kv.key)
+      .filter!(key => !keys.has(key)).array);
+
+  return json;
+}
+// #endregion filter

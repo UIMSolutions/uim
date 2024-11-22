@@ -9,7 +9,7 @@ class DPoFile : UIMObject {
         super();
     }
 
-    protected Json[string] messages;
+    protected Json[] messages;
 
     protected string projectIdVersion;
     protected string potCreationDate;
@@ -34,11 +34,9 @@ class DPoFile : UIMObject {
             .split("\n")
             .map!(line => cast(string) line).array;
 
-        Json[] messages = splitInMessageLines(content)
+        messages = splitInMessageLines(content)
             .map!(region => regionToMessage(region))
             .array;
-
-        writeln(messages);
     }
     /// 
     unittest {
@@ -83,46 +81,61 @@ class DPoFile : UIMObject {
                 message["ctxt"] = deleteQuotes(line.subString("msgctxt ".length).strip);
                 continue;
             }
-            if (message.getString("id") == "" && message.getString("str") == "") {
-                if (line.startsWith("Project-Id-Version: ")) {
-                    projectIdVersion = deleteQuotes(line.strip);
-                }
-                if (line.startsWith("POT-Creation-Date: ")) {
-                    potCreationDate = deleteQuotes(line.strip);
-                }
-                if (line.startsWith("PO-Revision-Date: ")) {
-                    poRevisionDate = deleteQuotes(line.strip);
-                }
-                if (line.startsWith("Last-Translator: ")) {
-                    lastTranslator = deleteQuotes(line.strip);
-                }
-                if (line.startsWith("Language-Team: ")) {
-                    languageTeam = deleteQuotes(line.strip);
-                }
-                if (line.startsWith("Language: ")) {
-                    language = deleteQuotes(line.strip);
-                }
-                if (line.startsWith("Plural-Forms: ")) {
-                    pluralForms = deleteQuotes(line.strip);
-                }
-                if (line.startsWith("MIME-Version: ")) {
-                    mimeVersion = deleteQuotes(line.strip);
-                }
-                if (line.startsWith("Content-Type: ")) {
-                    contentType = deleteQuotes(line.strip);
-                }
-                if (line.startsWith("Content-Transfer-Encoding: ")) {
-                    contentTransferEncoding = deleteQuotes(line.strip);
-                }
-                if (line.startsWith("X-Source-Language: ")) {
-                    xSourceLanguage = deleteQuotes(line.strip);
-                }
-                if (line.startsWith("X-Generator: ")) {
-                    xGenerator = deleteQuotes(line.strip);
-                }
+            if (isHeader(message)) {
+                readHeader(region);
             }
         }
         return message;
+    }
+
+    bool isHeader(Json message) {
+        return !message.isNull && message.hasKey("id") && message.hasKey("str")
+            && message.getString("id") == "" && message.getString("str") == "";
+    }
+
+    void readHeader(string[] region) {
+        foreach(line; region
+            .map!strip
+            .filter!(line => line.startsWith("\""))
+            .map!(line => deleteQuotes(line)).array) {
+                line = line.replace("\\n", "");
+            if (line.startsWith("Project-Id-Version:")) {
+                projectIdVersion = deleteQuotes(line.subString("Project-Id-Version:".length).strip);
+            }
+            if (line.startsWith("POT-Creation-Date:")) {
+                potCreationDate = deleteQuotes(line.subString("POT-Creation-Date:".length).strip);
+            }
+            if (line.startsWith("PO-Revision-Date:")) {
+                poRevisionDate = deleteQuotes(line.subString("PO-Revision-Date:".length).strip);
+            }
+            if (line.startsWith("Last-Translator:")) {
+                lastTranslator = deleteQuotes(line.subString("Last-Translator:".length).strip);
+            }
+            if (line.startsWith("Language-Team:")) {
+                languageTeam = deleteQuotes(line.subString("Language-Team:".length).strip);
+            }
+            if (line.startsWith("Language:")) {
+                language = deleteQuotes(line.subString("Language:".length).strip);
+            }
+            if (line.startsWith("Plural-Forms:")) {
+                pluralForms = deleteQuotes(line.subString("Plural-Forms:".length).strip);
+            }
+            if (line.startsWith("MIME-Version:")) {
+                mimeVersion = deleteQuotes(line.subString("MIME-Version:".length).strip);
+            }
+            if (line.startsWith("Content-Type:")) {
+                contentType = deleteQuotes(line.subString("Content-Type:".length).strip);
+            }
+            if (line.startsWith("Content-Transfer-Encoding:")) {
+                contentTransferEncoding = deleteQuotes(line.subString("Content-Transfer-Encoding:".length).strip);
+            }
+            if (line.startsWith("X-Source-Language:")) {
+                xSourceLanguage = deleteQuotes(line.subString("X-Source-Language:".length).strip);
+            }
+            if (line.startsWith("X-Generator:")) {
+                xGenerator = deleteQuotes(line.subString("X-Generator:".length).strip);
+            }
+        }
     }
 
     string deleteQuotes(string line, string quote = `"`) {
@@ -138,26 +151,26 @@ class DPoFile : UIMObject {
     }
 
     override Json toJson(string[] showKeys = null, string[] hideKeys = null) {
-        Json json = super.toJson;
-
-        json.set("projectIdVersion", projectIdVersion);
-        json.set("potCreationDate", potCreationDate);
-        json.set("poRevisionDate", poRevisionDate);
-        json.set("lastTranslator", lastTranslator);
-        json.set("languageTeam", languageTeam);
-        json.set("language", language);
-        json.set("pluralForms", pluralForms);
-        json.set("mimeVersion", mimeVersion);
-        json.set("contentType", contentType);
-        json.set("contentTransferEncoding", contentTransferEncoding);
-        json.set("xSourceLanguage", xSourceLanguage);
-        json.set("xGenerator", xGenerator);
-        json.set("messages", messages);
+        Json json = super.toJson
+            .set("projectIdVersion", projectIdVersion)
+            .set("potCreationDate", potCreationDate)
+            .set("poRevisionDate", poRevisionDate)
+            .set("lastTranslator", lastTranslator)
+            .set("languageTeam", languageTeam)
+            .set("language", language)
+            .set("pluralForms", pluralForms)
+            .set("mimeVersion", mimeVersion)
+            .set("contentType", contentType)
+            .set("contentTransferEncoding", contentTransferEncoding)
+            .set("xSourceLanguage", xSourceLanguage)
+            .set("xGenerator", xGenerator)
+            .set("messages", messages);
 
         return json;
     }
     /// 
     unittest {
+        writeln("\n-- test - toJson");
         auto file = new DPoFile;
         file.load("tests\\de.po");
         writeln(file.toJson);
@@ -168,6 +181,7 @@ class DPoFile : UIMObject {
     }
     /// 
     unittest {
+        writeln("\n-- test - save");
         auto file = new DPoFile;
         file.load("tests\\de.po");
         // TODO

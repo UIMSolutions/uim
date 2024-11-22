@@ -12,22 +12,22 @@ import uim.oop;
 class DMemoryConfiguration : DConfiguration {
     // mixin(ConfigurationThis!("Memory"));
     this() {
-        writeln("DMemoryConfiguration::this() - ", this.classinfo);
+        // writeln("DMemoryConfiguration::this() - ", this.classinfo);
         super("MemoryConfiguration");
     }
 
     this(Json[string] initData) {
-        writeln("this(Json[string] initData) - DMemoryConfiguration");
+        // writeln("this(Json[string] initData) - DMemoryConfiguration");
         super(initData);
     }
 
     this(string name, Json[string] initData = null) {
-        writeln("this(string newName, Json[string] initData) - DMemoryConfiguration");
+        // writeln("this(string newName, Json[string] initData) - DMemoryConfiguration");
         super(name, initData);
     }
 
     override bool initialize(Json[string] initData = null) {
-        writeln("DMemoryConfiguration::initialize(Json[string] initData = null) - ", this.classinfo);
+        // writeln("DMemoryConfiguration::initialize(Json[string] initData = null) - ", this.classinfo);
         if (!super.initialize(initData)) {
             return false;
         }

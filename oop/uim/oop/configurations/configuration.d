@@ -16,7 +16,7 @@ class DConfiguration : UIMObject, IConfiguration {
     mixin(ConfigurationThis!("Configuration"));
 
     override bool initialize(Json[string] initData = null) {
-        writeln("DConfiguration::initialize(Json[string] initData = null) - ", this.classinfo);
+        // writeln("DConfiguration::initialize(Json[string] initData = null) - ", this.classinfo);
         return true;
     }
 

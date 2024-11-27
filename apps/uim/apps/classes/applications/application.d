@@ -7,8 +7,8 @@ class DApplication : UIMObject, IApplication {
     mixin(ApplicationThis!());
 
     // #region controllers
-    protected IControllers[string] _controllers;
-    IControllers[string] controllers() {
+    protected IController[string] _controllers;
+    IController[string] controllers() {
         return controllers.dup;
     }
 
@@ -22,8 +22,8 @@ class DApplication : UIMObject, IApplication {
     // #endregion controllers
 
     // #region models
-    protected IModels[string] _models;
-    IModels[string] models() {
+    protected IModel[string] _models;
+    IModel[string] models() {
         return _models.dup;
     }
 

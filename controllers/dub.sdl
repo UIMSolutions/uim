@@ -17,7 +17,6 @@ dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.0"
 
 dependency "uim:core" path="../"
-dependency "uim:models" path="../"
 dependency "uim:oop" path="../"
 dependency "uim:mvc" path="../"
 

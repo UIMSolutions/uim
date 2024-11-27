@@ -10,14 +10,14 @@ import uim.apps;
 @safe:
 interface IApplication : INamed {
     // #region controllers
-    IControllers[string] controllers();
+    IController[string] controllers();
     
     IController controller(string key);
     IApplication controller(string key, IController newController);
     // #endregion controllers
 
     // #region models
-    IModels[string] models();
+    IModel[string] models();
 
     IModel model(string key);
     IApplication model(string key, IModel newModel);

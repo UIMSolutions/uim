@@ -1,4 +1,4 @@
-module orm.uim.orm.classes.rules.rule;
+module uim.orm.classes.rules.rule;
 
 import uim.orm;
 @safe:

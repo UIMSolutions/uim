@@ -3,26 +3,26 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.orm.mixins.behavior;
+module uim.orm.mixins.query;
 
 import uim.orm;
 
 @safe:
 
-string behaviorThis(string name = null) {
-    string fullName = name ~ "Behavior";
+string ormQueryThis(string name = null) {
+    string fullName = name ~ "ORMQuery";
     return objThis(fullName);
 }
 
-template BehaviorThis(string name = null) {
-    const char[] BehaviorThis = behaviorThis(name);
+template ORMQueryThis(string name = null) {
+    const char[] ORMQueryThis = ormQueryThis(name);
 }
 
-string behaviorCalls(string name) {
-    string fullName = name ~ "Behavior";
+string ormQueryCalls(string name) {
+    string fullName = name ~ "ORMQuery";
     return objCalls(fullName);
 }
 
-template BehaviorCalls(string name) {
-    const char[] BehaviorCalls = behaviorCalls(name);
+template ORMQueryCalls(string name) {
+    const char[] ORMQueryCalls = ormQueryCalls(name);
 }

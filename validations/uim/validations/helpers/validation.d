@@ -1,10 +1,8 @@
 module uim.validations.helpers.validation;
 
+import uim.validations;
+@safe:
 class Validation {
-    this() {
-
-    }
-
     static bool lengthBetween(Json value, int minLength, int maxLength) {
         if (!value.isScalar) {
             return false;

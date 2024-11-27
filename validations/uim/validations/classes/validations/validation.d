@@ -2,6 +2,7 @@ module uim.validations.classes.validations.validation;
 
 import uim.validations;
 
+@safe:
 class DValidation {
       // Default locale
   const string DEFAULT_LOCALE = "en_US";

@@ -1,7 +1,7 @@
 module uim.validations.classes.validators.validator;
 
 import uim.validations;
-
+@safe:
 class DValidator {
         // By using "create" you can make fields required when records are first created.
     const string WHEN_CREATE = "create";

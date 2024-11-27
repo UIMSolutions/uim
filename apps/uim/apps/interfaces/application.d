@@ -9,4 +9,24 @@ import uim.apps;
 
 @safe:
 interface IApplication : INamed {
+    // #region controllers
+    IControllers[string] controllers();
+    
+    IController controller(string key);
+    IApplication controller(string key, IController newController);
+    // #endregion controllers
+
+    // #region models
+    IModels[string] models();
+
+    IModel model(string key);
+    IApplication model(string key, IModel newModel);
+    // #endregion models
+
+    // #region views
+    IView[string] views();
+
+    IView view(string key);
+    IApplication view(string key, IView newView);
+    // #endregion views
 }

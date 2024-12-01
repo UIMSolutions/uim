@@ -56,6 +56,10 @@ class DSqlserverDriver : DDriver {
     string sqlSavePoint(string name) {
         return "SAVE TRANSACTION t" ~ name;
     }
+
+    void connect() {
+        // TODO
+    }
 }
 
 mixin(DriverCalls!("Sqlserver"));

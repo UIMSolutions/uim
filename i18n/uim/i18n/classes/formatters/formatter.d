@@ -11,20 +11,19 @@ import uim.i18n;
 
 // A formatter that will interpolate variables using the MessageFormatter class
 class DI18NFormatter : UIMObject, II18NFormatter {
-    this() {
-        initialize;
-    }
-
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        return true;
-    }
-
+    mixin(I18NFormatterThis!());
+    
     // Returns a string with all passed variables interpolated into the original message. 
-    string format(string messageLocale, string messageToTranslate, string[] tokenValues) {
-        return messageToTranslate;
+    string format(string local, string message, string[] tokens) {
+        return message;
     }
+}
+
+unittest {
+    auto formatter = new DI18NFormatter;
+    assert(formatter.format("en", "", null) == ""); 
+    assert(formatter.format("en", "message", null) == "message"); 
+
+    assert(formatter.format("en", "", ["A", "B"]) == ""); 
+    assert(formatter.format("en", "message", ["A", "B"]) == "message"); 
 }

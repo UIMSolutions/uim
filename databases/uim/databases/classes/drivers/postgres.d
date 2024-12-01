@@ -61,6 +61,9 @@ class DPostgresDriver : DDriver {
         }
     // #endregion SQL
 
+    void connect() {
+        // TODO
+    }
 }
 mixin(DriverCalls!("Postgres"));
 

@@ -103,7 +103,11 @@ class DMysqlDriver : DDriver {
     override string sqlEnableForeignKey() {
         return "SET foreign_key_checks = 1";
     }
-    // #endregion SQL
+    // #endregion 
+    
+    void connect() {
+        // TODO
+    }
 }
 
 mixin(DriverCalls!("Mysql"));

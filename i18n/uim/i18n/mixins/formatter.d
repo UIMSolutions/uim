@@ -8,17 +8,17 @@ module uim.i18n.mixins.formatter;
 import uim.i18n;
 @safe:
 
-string formatterThis(string name = null) {
-    string fullName = name ~ "Formatter";
+string i18nFormatterThis(string name = null) {
+    string fullName = name ~ "I18NFormatter";
     return objThis(fullName);
 }
 
-template FormatterThis(string name = null) {
-    const char[] FormatterThis = formatterThis(name);
+template I18NFormatterThis(string name = null) {
+    const char[] I18NFormatterThis = i18nFormatterThis(name);
 }
 
 string formatterCalls(string name) {
-    string fullName = name ~ "Formatter";
+    string fullName = name ~ "I18NFormatter";
     return objCalls(fullName);
 }
 

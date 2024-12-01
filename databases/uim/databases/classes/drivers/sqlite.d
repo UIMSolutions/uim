@@ -68,6 +68,10 @@ class DSqliteDriver : DDriver {
             default: return false;
         };
     }
+
+    void connect() {
+        // TODO
+    }
 }
 mixin(DriverCalls!("Sqlite"));
 

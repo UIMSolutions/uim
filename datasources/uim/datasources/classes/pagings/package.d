@@ -1,2 +1,5 @@
-module datasources.uim.datasources.classes.locators copy;
+module uim.datasources.classes.pagings;
 
+public {
+    import uim.datasources.classes.pagings.paging;
+}

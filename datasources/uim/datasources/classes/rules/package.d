@@ -1,2 +1,5 @@
-module datasources.uim.datasources.classes.repositories copy;
+module uim.datasources.classes.rules;
 
+public {
+    import uim.datasources.classes.rules.rule;
+}

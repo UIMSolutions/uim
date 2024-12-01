@@ -1,2 +1,5 @@
-module datasources.uim.datasources.classes.pagings copy;
+module uim.datasources.classes.queries;
 
+public {
+    import uim.datasources.classes.queries.query;
+}

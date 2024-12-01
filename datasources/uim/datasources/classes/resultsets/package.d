@@ -1,2 +1,5 @@
-module datasources.uim.datasources.classes.rules copy;
+module uim.datasources.classes.resultsets;
 
+public {
+    import uim.datasources.classes.resultsets.resultset;
+}

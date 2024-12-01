@@ -9,7 +9,7 @@ import uim.i18n;
 
 @safe:
 // Message in PO format
-class DPoMessage : UIMObject{
+class DPoMessage : UIMObject {
     this() {
         initialize;
     }
@@ -37,15 +37,17 @@ class DPoMessage : UIMObject{
     auto addId(string newId) {
         string prefix = `msgid "`;
         newId = newId.strip;
-       // TODO 
-       /* if (newId.startsWith(prefix)) {
+        if (newId.startsWith(prefix)) {
+            // TODO 
+            /*
             newId = newId[prefix.length .. $];
             if (newId.endsWith(`"`)) {
                 newId = newId[prefix ..  - 1];
                 _ids = newId.strip;
                 return this;
             }
-        } */
+        */
+        }
     }
 
     string[] ids() {
@@ -115,9 +117,8 @@ class DPoMessage : UIMObject{
             result = result[1 .. $];
         }
         if (result.endsWith("\"")) {
-            result = result[0 ..  - 1];
+            result = result[0 .. -1];
         }
         return result;
     }
 }
-

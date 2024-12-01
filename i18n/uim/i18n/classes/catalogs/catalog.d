@@ -12,6 +12,17 @@ import uim.i18n;
 class DMessageCatalog : UIMObject, IMessageCatalog {
     mixin(MessageCatalogThis!());
 
+    this(
+        string[][string] messages,
+        string formatterName = "default",
+        string fallbackName = null,
+    ) {
+        super();
+        this.messages(messages);
+        this.formatterName(formatterName);
+        this.fallbackName(fallbackName);
+    }
+
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
@@ -151,7 +162,10 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
     ///
     unittest {
         auto catalog = new DMessageCatalog;
-        catalog.setMessages(["de": ["Willkommen", "zu", "Deinem", "Framework"], "en": ["Welcome"]]);
+        catalog.setMessages([
+            "de": ["Willkommen", "zu", "Deinem", "Framework"],
+            "en": ["Welcome"]
+        ]);
         assert(catalog.messages.length == 2);
         assert(catalog.messages["de"].length == 4);
     }
@@ -177,20 +191,27 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
     ///
     unittest {
         auto catalog = new DMessageCatalog;
-        catalog.setMessages(["de": ["Willkommen", "zu", "Deinem", "Framework"], "en": ["Welcome"]]);
+        catalog.setMessages([
+            "de": ["Willkommen", "zu", "Deinem", "Framework"],
+            "en": ["Welcome"]
+        ]);
         catalog.updateMessages(["de": ["hi"], "fr": ["Salut"]]);
         assert(catalog.messages.length == 2);
         assert(catalog.messages["de"].length == 1);
     }
 
     IMessageCatalog updateMessage(string key, string[] message) {
-        if (_messages.hasKey(key)) _messages[key] = message;
+        if (_messages.hasKey(key))
+            _messages[key] = message;
         return this;
     }
     ///
     unittest {
         auto catalog = new DMessageCatalog;
-        catalog.setMessages(["de": ["Willkommen", "zu", "Deinem", "Framework"], "en": ["Welcome"]]);
+        catalog.setMessages([
+            "de": ["Willkommen", "zu", "Deinem", "Framework"],
+            "en": ["Welcome"]
+        ]);
 
         catalog.updateMessage("de", ["hi"]);
         assert(catalog.messages.length == 2);
@@ -210,7 +231,10 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
     ///
     unittest {
         auto catalog = new DMessageCatalog;
-        catalog.setMessages(["de": ["Willkommen", "zu", "Deinem", "Framework"], "en": ["Welcome"]]);
+        catalog.setMessages([
+            "de": ["Willkommen", "zu", "Deinem", "Framework"],
+            "en": ["Welcome"]
+        ]);
 
         catalog.mergeMessages(["de": ["hi"], "fr": ["salut"]]);
         assert(catalog.messages.length == 3);
@@ -218,13 +242,17 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
     }
 
     IMessageCatalog mergeMessage(string key, string[] message) {
-        if (!_messages.hasKey(key)) _messages[key] = message;
+        if (!_messages.hasKey(key))
+            _messages[key] = message;
         return this;
     }
     ///
     unittest {
         auto catalog = new DMessageCatalog;
-        catalog.setMessages(["de": ["Willkommen", "zu", "Deinem", "Framework"], "en": ["Welcome"]]);
+        catalog.setMessages([
+            "de": ["Willkommen", "zu", "Deinem", "Framework"],
+            "en": ["Welcome"]
+        ]);
 
         catalog.mergeMessage("de", ["hi"]);
         assert(catalog.messages.length == 2);

@@ -1,4 +1,4 @@
-module datasources.uim.datasources.classes.datasources.registry;
+module uim.datasources.classes.datasources.registry;
 
 import uim.datasources;
 
@@ -9,5 +9,5 @@ class DDatasourceRegistry : DObjectRegistry!DDatasource {
 }
 
 auto DatasourceRegistry() {
-    return DDatasourceRegistry.instance;
+    return DDatasourceRegistry.registry;
 }

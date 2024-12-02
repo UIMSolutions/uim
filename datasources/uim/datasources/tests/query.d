@@ -8,3 +8,8 @@ module uim.datasources.tests.query;
 import uim.datasources;
 
 @safe:
+
+bool testDatasourceQuery(IDatasourceQuery query) {
+    // TODO
+    return true;
+}

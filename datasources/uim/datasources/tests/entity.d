@@ -4,3 +4,7 @@ import uim.datasources;
 
 @safe:
 
+bool testDatasourceEntity(IDatasourceEntity entity) {
+    // TODO
+    return true;
+}

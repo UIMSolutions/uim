@@ -4,3 +4,7 @@ import uim.datasources;
 
 @safe:
 
+bool testDatasourceRule(IDatasourceRule rule) {
+    // TODO
+    return true;
+}

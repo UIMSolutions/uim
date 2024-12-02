@@ -10,17 +10,15 @@ import uim.oop;
 @safe:
 
 class DObjectRegistry(T : UIMObject) {
-  this() {
-  }
-
-  public static DObjectRegistry!T registry() {
-    if (_registry is null) {
-      _registry = new DObjectRegistry!T;
-    }
-    return _registry;
-  }
-
+  // #region Singleton
   protected static DObjectRegistry!T _registry;
+  public static DObjectRegistry!T registry() {
+    return (_registry is null) 
+      ? _registry = new DObjectRegistry!T
+      : _registry;
+  }
+  // #endregion Singleton
+
   protected T[string] _objects;
   protected T _nullValue = null;
   protected string _pathSeparator = ".";

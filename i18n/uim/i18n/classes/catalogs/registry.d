@@ -9,7 +9,5 @@ class DCatalogRegistry : DObjectRegistry!DMessageCatalog {
 }
 
 auto CatalogRegistry() {
-    return DCatalogRegistry.registry is null
-        ? DCatalogRegistry.registry = new DCatalogRegistry
-        : DCatalogRegistry.registry;
+    return DCatalogRegistry.registry;
 }

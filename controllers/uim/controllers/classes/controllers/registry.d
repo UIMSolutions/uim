@@ -10,11 +10,8 @@ import uim.controllers;
 @safe:
 
 class DControllerRegistry : DObjectRegistry!DController {
-    static DControllerRegistry registry;
 }
 
 auto ControllerRegistry() {
-    return DControllerRegistry.registry is null
-        ? DControllerRegistry.registry = new DControllerRegistry
-        : DControllerRegistry.registry;
+    return DControllerRegistry.registry;
 }

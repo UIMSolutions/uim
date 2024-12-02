@@ -1,2 +1,5 @@
-module controllers.uim.controllers.classes.components;
+module uim.controllers.classes.components;
 
+public {
+    import uim.controllers.classes.components.component;
+}

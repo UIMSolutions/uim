@@ -12,7 +12,7 @@ template DatasourceRepositoryThis(string name = null) {
     const char[] DatasourceRepositoryThis = datasourceRepositoryThis(name);
 }
 
-string datasourcerepositoryCalls(string name) {
+string datasourceRepositoryCalls(string name) {
     string fullName = name ~ "DatasourceRepository";
     return objCalls(fullName);
 }

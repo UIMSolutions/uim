@@ -12,7 +12,7 @@ template DatasourceResultsetThis(string name = null) {
     const char[] DatasourceResultsetThis = datasourceResultsetThis(name);
 }
 
-string datasourceresultsetCalls(string name) {
+string datasourceResultsetCalls(string name) {
     string fullName = name ~ "DatasourceResultset";
     return objCalls(fullName);
 }

@@ -12,7 +12,7 @@ template DatasourceRuleThis(string name = null) {
     const char[] DatasourceRuleThis = datasourceRuleThis(name);
 }
 
-string datasourceruleCalls(string name) {
+string datasourceRuleCalls(string name) {
     string fullName = name ~ "DatasourceRule";
     return objCalls(fullName);
 }

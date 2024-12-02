@@ -12,7 +12,7 @@ template DatasourceConnectionThis(string name = null) {
     const char[] DatasourceConnectionThis = datasourceConnectionThis(name);
 }
 
-string datasourceconnectionCalls(string name) {
+string datasourceConnectionCalls(string name) {
     string fullName = name ~ "DatasourceConnection";
     return objCalls(fullName);
 }

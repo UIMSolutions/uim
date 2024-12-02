@@ -12,11 +12,6 @@ import uim.databases;
 class DDriver : UIMObject, IDriver {
     mixin(DriverThis!());
 
-    // Establishes a connection to the database server.
-    IDriver connect() {
-        return this;
-    }
-
     // Returns connected server version.
     string currentVersion() {
         return null; 
@@ -83,6 +78,11 @@ class DDriver : UIMObject, IDriver {
     // Checks whether the driver is connected.
     bool isConnected() {
         return false;
+    }
+
+   // Disconnects from database server. 
+    IDriver connect() {
+        return this;
     }
 
    // Disconnects from database server. 

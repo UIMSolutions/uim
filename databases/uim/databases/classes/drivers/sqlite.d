@@ -69,8 +69,16 @@ class DSqliteDriver : DDriver {
         };
     }
 
-    void connect() {
+    override IDriver connect() {
+        super.connect();
         // TODO
+        return this;
+    }
+
+    override IDriver disconnect() {
+        super.disconnect();
+        // TODO
+        return this;
     }
 }
 mixin(DriverCalls!("Sqlite"));

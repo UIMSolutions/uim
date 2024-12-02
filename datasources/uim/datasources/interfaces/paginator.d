@@ -1,4 +1,4 @@
-module datasources.uim.datasources.interfaces.paginator;
+module uim.datasources.interfaces.paginator;
 
 import uim.datasources;
 

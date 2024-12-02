@@ -9,20 +9,20 @@ import uim.i18n;
 
 @safe:
 
-string middlewareThis(string name = null) {
-    string fullName = name ~ "Middleware";
+string i18nMiddlewareThis(string name = null) {
+    string fullName = name ~ "I18NMiddleware";
     return objThis(fullName);
 }
 
-template MiddlewareThis(string name = null) {
-    const char[] MiddlewareThis = middlewareThis(name);
+template I18NMiddlewareThis(string name = null) {
+    const char[] I18NMiddlewareThis = i18nMiddlewareThis(name);
 }
 
-string middlewareCalls(string name) {
-    string fullName = name ~ "Middleware";
+string i18nMiddlewareCalls(string name) {
+    string fullName = name ~ "I18NMiddleware";
     return objCalls(fullName);
 }
 
-template MiddlewareCalls(string name) {
-    const char[] MiddlewareCalls = middlewareCalls(name);
+template I18NMiddlewareCalls(string name) {
+    const char[] I18NMiddlewareCalls = i18nMiddlewareCalls(name);
 }

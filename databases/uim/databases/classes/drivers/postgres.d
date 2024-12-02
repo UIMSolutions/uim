@@ -36,35 +36,45 @@ class DPostgresDriver : DDriver {
     }
 
     bool supports(DriverFeatures feature) {
-        switch(feature) {
-            case
-            DriverFeatures.CTE,
+        switch (feature) {
+        case DriverFeatures.CTE,
             DriverFeatures.JSON,
             DriverFeatures.SAVEPOINT,
-            DriverFeatures.WINDOW : return true;
+            DriverFeatures.WINDOW:
+            return true;
 
-            case
-            DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION : return false;
+        case DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION:
+            return false;
 
-            default: return false;
+        default:
+            return false;
         };
     }
 
     // #region SQL
-        // Get the SQL for disabling foreign keys.
-        override string sqlDisableForeignKey() {
-            return "SET CONSTRAINTS ALL DEFERRED";
-        }
+    // Get the SQL for disabling foreign keys.
+    override string sqlDisableForeignKey() {
+        return "SET CONSTRAINTS ALL DEFERRED";
+    }
 
-        override string sqlEnableForeignKey() {
-            return "SET CONSTRAINTS ALL IMMEDIATE";
-        }
+    override string sqlEnableForeignKey() {
+        return "SET CONSTRAINTS ALL IMMEDIATE";
+    }
     // #endregion SQL
 
-    void connect() {
+    override IDriver connect() {
+        super.connect();
         // TODO
+        return this;
+    }
+
+    override IDriver disconnect() {
+        super.disconnect();
+        // TODO
+        return this;
     }
 }
+
 mixin(DriverCalls!("Postgres"));
 
 unittest {

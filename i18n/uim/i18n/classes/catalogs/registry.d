@@ -4,10 +4,9 @@ import uim.i18n;
 
 @safe:
 
-class DCatalogRegistry : DObjectRegistry!DMessageCatalog {
-    static DCatalogRegistry registry;
+class DMessageCatalogRegistry : DObjectRegistry!DMessageCatalog {
 }
 
-auto CatalogRegistry() {
-    return DCatalogRegistry.registry;
+auto MessageCatalogRegistry() {
+    return DMessageCatalogRegistry.registry;
 }

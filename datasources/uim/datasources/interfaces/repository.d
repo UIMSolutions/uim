@@ -3,6 +3,6 @@ module uim.datasources.interfaces.repository;
 import uim.datasources;
 
 @safe:
-interface IDatasourceRepository {
+interface IDatasourceRepository : INamed {
     
 }

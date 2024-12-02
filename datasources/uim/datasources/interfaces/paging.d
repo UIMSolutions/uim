@@ -3,6 +3,6 @@ module uim.datasources.interfaces.paging;
 import uim.datasources;
 
 @safe:
-interface IDatasourcePaging {
+interface IDatasourcePaging : INamed {
     
 }

@@ -1,4 +1,4 @@
-module datasources.uim.datasources.mixins.query;
+module uim.datasources.mixins.query;
 
 import uim.datasources;
 

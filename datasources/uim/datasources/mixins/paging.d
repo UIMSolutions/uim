@@ -1,4 +1,4 @@
-module datasources.uim.datasources.mixins.paging;
+module uim.datasources.mixins.paging;
 
 import uim.datasources;
 

@@ -1,4 +1,4 @@
-module datasources.uim.datasources.mixins.locator;
+module uim.datasources.mixins.locator;
 
 import uim.datasources;
 

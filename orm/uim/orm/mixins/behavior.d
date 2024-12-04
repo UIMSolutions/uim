@@ -9,20 +9,20 @@ import uim.orm;
 
 @safe:
 
-string behaviorThis(string name = null) {
-    string fullName = name ~ "Behavior";
+string ormBehaviorThis(string name = null) {
+    string fullName = name ~ "ORMBehavior";
     return objThis(fullName);
 }
 
-template BehaviorThis(string name = null) {
-    const char[] BehaviorThis = behaviorThis(name);
+template ORMBehaviorThis(string name = null) {
+    const char[] ORMBehaviorThis = ormBehaviorThis(name);
 }
 
-string behaviorCalls(string name) {
-    string fullName = name ~ "Behavior";
+string ormBehaviorCalls(string name) {
+    string fullName = name ~ "ORMBehavior";
     return objCalls(fullName);
 }
 
-template BehaviorCalls(string name) {
-    const char[] BehaviorCalls = behaviorCalls(name);
+template ORMBehaviorCalls(string name) {
+    const char[] ORMBehaviorCalls = ormBehaviorCalls(name);
 }

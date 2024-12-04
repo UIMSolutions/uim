@@ -4,5 +4,5 @@ import uim.orm;
 @safe:
 
 class DORMAssociation : UIMObject, IORMAssociation {
-    mixin(AssociationThis!());
+    mixin(ORMAssociationThis!());
 }

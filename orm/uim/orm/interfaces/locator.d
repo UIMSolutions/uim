@@ -1,4 +1,4 @@
-module orm.uim.orm.interfaces.locator;
+module uim.orm.interfaces.locator;
 
 import uim.orm;
 @safe:

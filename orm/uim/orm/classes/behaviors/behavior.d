@@ -3,6 +3,6 @@ module uim.orm.classes.behaviors.behavior;
 import uim.orm;
 @safe:
 
-class DBehavior : UIMObject, IORMBehavior {
-    mixin(BehaviorThis!());
+class DORMBehavior : UIMObject, IORMBehavior {
+    mixin(ORMBehaviorThis!());
 }

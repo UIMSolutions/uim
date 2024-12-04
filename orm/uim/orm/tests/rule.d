@@ -4,7 +4,7 @@ import uim.orm;
 
 @safe:
 
-bool testRule(IRule rule) {
+bool testRule(IORMRule rule) {
     assert(rule !is null, "In testRule: rule is null");
     
     return true;

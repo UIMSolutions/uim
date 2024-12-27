@@ -15,3 +15,34 @@ class DControllerRegistry : DObjectRegistry!DController {
 auto ControllerRegistry() { // for Singleton
     return DControllerRegistry.registry;
 }
+
+unittest { // Singleton tests
+    assert(ControllerRegistry.length == 0);
+    assert(ControllerRegistry.register("test", new DController).length == 1);
+    assert(ControllerRegistry.remove("test").length == 0);
+}
+
+unittest { // Instance tests
+    auto registry = new DControllerRegistry;
+    assert(registry.length == 0);
+    assert(registry.register("test", new DController).length == 1);
+    assert(registry.remove("test").length == 0);
+}
+
+unittest { // Singleton tests
+    assert(ControllerRegistry.length == 0);
+    assert(ControllerRegistry.register("test", new DController).length == 1);
+    assert(ControllerRegistry.remove("test").length == 0);
+}
+
+unittest { // combined tests
+    auto registry = new DControllerRegistry;
+    assert(registry.length == 0);
+    assert(ControllerRegistry.length == 0);
+
+    assert(registry.register("test", new DController).length == 1);
+    assert(ControllerRegistry.length == 0);
+
+    assert(registry.remove("test").length == 0);
+    assert(ControllerRegistry.length == 0);
+}

@@ -40,8 +40,6 @@ class DRoute : UIMObject, IRoute {
     ];
 }
 
-mixin(RouteCalls!());
-
 unittest {
-    // TODO
+    assert(testRoute(new DRoute));
 }

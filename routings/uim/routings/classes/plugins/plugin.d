@@ -14,7 +14,7 @@ class DRoutingPlugin : UIMObject, IRoutingPlugin {
 
         return true;
     }
-    
+
     // Do bootstrapping or not
     protected bool _bootstrapEnabled = true;
 
@@ -41,4 +41,7 @@ class DRoutingPlugin : UIMObject, IRoutingPlugin {
 
     // The templates path for this plugin.
     protected string _templatePath = null;
+}
+unittest {
+    assert(testRoutingPlugin(new DRoutingPlugin));
 }

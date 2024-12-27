@@ -4,7 +4,7 @@ import uim.apps;
 
 @safe:
 class DApp : UIMObject, IApp {
-    mixin(ApplicationThis!());
+  mixin(ApplicationThis!());
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -14,77 +14,77 @@ class DApp : UIMObject, IApp {
     _controllerRegistry = new DControllerRegistry;
     _modelRegistry = new DModelRegistry;
     _viewRegistry = new DViewRegistry;
-    
+
     return true;
   }
 
-    // #region controllers
-    mixin(MixinRegistry!("Controller", "Controllers"));
-    unittest {
-      auto app = new DApp;
-      writeln("Controllers length = ", app.controllers.length);
-      writeln("Singleton Controllers length = ", ControllerRegistry.length);
+  // #region controllers
+  mixin(MixinRegistry!("Controller", "Controllers"));
+  unittest {
+    auto app = new DApp;
+    assert(app.controllers.length == 0);
+    assert(ControllerRegistry.length == 0);
 
-      app.controller("test", new DController);
-      writeln("Controllers length = ", app.controllers.length);
-      writeln("Singleton Controllers length = ", ControllerRegistry.length);
+    app.controller("test", new DController);
+    assert(app.controllers.length == 1);
+    assert(ControllerRegistry.length == 0);
 
-      ControllerRegistry.register("test", new DController);
-      ControllerRegistry.register("test1", new DController);
-      writeln("Controllers length = ", app.controllers.length);
-      writeln("Singleton Controllers length = ", ControllerRegistry.length);
+    ControllerRegistry.register("test", new DController);
+    ControllerRegistry.register("test1", new DController);
+    assert(app.controllers.length == 1);
+    assert(ControllerRegistry.length == 2);
 
-      app.removeController("test");
-      writeln("Controllers length = ", app.controllers.length);
-      writeln("Singleton Controllers length = ", ControllerRegistry.length);
-    }
-    // #endregion controllers
+    app.removeController("test");
+    assert(app.controllers.length == 0);
+    assert(ControllerRegistry.length == 2);
+  }
+  // #endregion controllers
 
-    // #region models
-    mixin(MixinRegistry!("Model", "Models"));
-    unittest {
-      auto app = new DApp;
-      writeln("Models length = ", app.models.length);
-      writeln("Singleton Models length = ", ModelRegistry.length);
+  // #region models
+  mixin(MixinRegistry!("Model", "Models"));
+  unittest {
+    auto app = new DApp;
+    assert(app.models.length == 0);
+    assert(ModelRegistry.length == 0);
 
-      app.model("test", new DModel);
-      writeln("Models length = ", app.models.length);
-      writeln("Singleton Models length = ", ModelRegistry.length);
+    app.model("test", new DModel);
+    assert(app.models.length == 1);
+    assert(ModelRegistry.length == 0); // Unchanged
 
-      ModelRegistry.register("test", new DModel);
-      ModelRegistry.register("test1", new DModel);
-      writeln("Models length = ", app.models.length);
-      writeln("Singleton Models length = ", ModelRegistry.length);
+    ModelRegistry.register("test", new DModel);
+    ModelRegistry.register("test1", new DModel);
+    assert(app.models.length == 1); // Unchanged
+    assert(ModelRegistry.length == 2);
 
-      app.removeModel("test");
-      writeln("Models length = ", app.models.length);
-      writeln("Singleton Models length = ", ModelRegistry.length);
-    }
-    // #endregion models
+    app.removeModel("test");
+    assert(app.models.length == 0);
+    assert(ModelRegistry.length == 2); // Unchanged
+  }
+  // #endregion models
 
-    // #region views
-    mixin(MixinRegistry!("View", "Views"));
-    unittest {
-      auto app = new DApp;
-      writeln("Views length = ", app.views.length);
-      writeln("Singleton Views length = ", ViewRegistry.length);
+  // #region views
+  mixin(MixinRegistry!("View", "Views"));
+  unittest {
+    auto app = new DApp;
+    assert(app.views.length == 0);
+    assert(ViewRegistry.length == 0);
 
-      app.view("test", new DView);
-      writeln("Views length = ", app.views.length);
-      writeln("Singleton Views length = ", ViewRegistry.length);
+    app.view("test", new DView);
+    assert(app.views.length == 1);
+    assert(ViewRegistry.length == 0); // Unchanged
 
-      ViewRegistry.register("test", new DView);
-      ViewRegistry.register("test1", new DView);
-      writeln("Views length = ", app.views.length);
-      writeln("Singleton Views length = ", ViewRegistry.length);
+    ViewRegistry.register("test", new DView);
+    ViewRegistry.register("test1", new DView);
+    assert(app.views.length == 1); // UNchanged
+    assert(ViewRegistry.length == 2);
 
-      app.removeView("test");
-      writeln("Views length = ", app.views.length);
-      writeln("Singleton Views length = ", ViewRegistry.length);
-    }
-    // #endregion views
+    app.removeView("test");
+    assert(app.views.length == 0);
+    assert(ViewRegistry.length == 2); // UNchanged
+  }
+  // #endregion views
 
-    void response(HTTPServerRequest req, HTTPServerResponse res) {
-        // TODO 
-    }
+  void response(HTTPServerRequest req, HTTPServerResponse res) {
+    // TODO 
+  }
 }

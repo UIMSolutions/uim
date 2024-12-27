@@ -17,5 +17,5 @@ class DEntityRoute : DRoute {
 mixin(RouteCalls!("Entity"));
 
 unittest {
-    // TODO
+    assert(testRoute(new DEntityRoute));
 }

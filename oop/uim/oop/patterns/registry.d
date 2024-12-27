@@ -149,6 +149,11 @@ class DObjectRegistry(T : UIMObject) {
     return cast(O)this;
   }
 
+  O remove(this O)(string key) {
+    _objects.removeKey(key);
+    return cast(O)this;
+  }
+
   O removeKey(this O)(string key) {
     _objects.removeKey(key);
     return cast(O)this;

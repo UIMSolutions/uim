@@ -18,11 +18,12 @@ public {
   import uim.oop.mixins.configuration;
   import uim.oop.mixins.conventions;
   import uim.oop.mixins.cookiecrypt;
+  import uim.oop.mixins.data;
   import uim.oop.mixins.element;
   import uim.oop.mixins.exception;
   import uim.oop.mixins.fileconfig;
   import uim.oop.mixins.mergevariables;
-  import uim.oop.mixins.data;
+  import uim.oop.mixins.registry;
   import uim.oop.mixins.staticconfig;
   import uim.oop.mixins.valuemap;
 }

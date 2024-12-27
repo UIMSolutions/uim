@@ -3,15 +3,15 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.controllers.classes.controllers.registry;
+module uim.views.classes.views.registry;
 
-import uim.controllers;
+import uim.views;
 
 @safe:
 
-class DControllerRegistry : DObjectRegistry!DController {
+class DViewRegistry : DObjectRegistry!DView {
 }
 
-auto ControllerRegistry() { // for Singleton
-    return DControllerRegistry.registry;
+auto ViewRegistry() { // for Singleton
+    return DViewRegistry.registry;
 }

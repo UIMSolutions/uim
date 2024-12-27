@@ -4,24 +4,25 @@ import uim.oop;
 
 @safe:
 
-template TRegistry(T : UIMObject, R, M) {
-    R registry;
-
-    size_t length() {
-        return registry.length;
+string mixinRegistry(string single, string plural) {
+    return "
+    protected D"~single~"Registry _"~single.toLower~"Registry;
+    I"~single~"[] "~plural.toLower~"() {
+        return _"~single.toLower~"Registry.objects.map!(c => cast(I"~single~")c).array;
     }
 
-    T[] objects() {
-        return registry.objects;
+    I"~single~" "~single.toLower~"(string key) {
+        return cast(I"~single~")_"~single.toLower~"Registry.get(key);
     }
-
-    T get(string key) {
-        return registry.get(key, null);
+    IApplication "~single.toLower~"(string key, I"~single~" new"~single~") {
+        _"~single.toLower~"Registry.register(key, cast(D"~single~")new"~single~");
+        return this;
     }
-
-    M set(string key, IController newController) {
-        registry.set(key, newController);
-        return cast(M)this;
-    }
-
+    IApplication remove"~single~"(string key) {
+        _"~single.toLower~"Registry.removeKey(key);
+        return this;
+    }"; 
+}
+template MixinRegistry(string single, string plural) {
+    const char[] MixinRegistry = mixinRegistry(single, plural);
 }

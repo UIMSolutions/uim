@@ -18,6 +18,9 @@ public { // uim libraries
   import uim.core;
   import uim.oop;
   import uim.mvc;
+  import uim.controllers;
+  import uim.models;
+  import uim.views;
 }
 
 public { // uim.filesystem libraries

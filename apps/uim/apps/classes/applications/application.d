@@ -11,57 +11,76 @@ class DApplication : UIMObject, IApplication {
       return false;
     }
 
-    _controllers = new DControllerRegistry;
+    _controllerRegistry = new DControllerRegistry;
+    _modelRegistry = new DModelRegistry;
+    _viewRegistry = new DViewRegistry;
     
     return true;
   }
 
     // #region controllers
-    protected DControllerRegistry _controllers;
-    IController[] controllers() {
-        return objects;
-    }
-
-    IController controller(string key) {
-        return _controllers.get(key, null);
-    }
-    IApplication controller(string key, IController newController) {
-        _controllers[key] = newController;
-        return this;
-    }
+    mixin(MixinRegistry!("Controller", "Controllers"));
     unittest {
       auto app = new DApplication;
       writeln("Controllers length = ", app.controllers.length);
+      writeln("Singleton Controllers length = ", ControllerRegistry.length);
+
+      app.controller("test", new DController);
+      writeln("Controllers length = ", app.controllers.length);
+      writeln("Singleton Controllers length = ", ControllerRegistry.length);
+
+      ControllerRegistry.register("test", new DController);
+      ControllerRegistry.register("test1", new DController);
+      writeln("Controllers length = ", app.controllers.length);
+      writeln("Singleton Controllers length = ", ControllerRegistry.length);
+
+      app.removeController("test");
+      writeln("Controllers length = ", app.controllers.length);
+      writeln("Singleton Controllers length = ", ControllerRegistry.length);
     }
     // #endregion controllers
 
     // #region models
-    protected IModel[string] _models;
-    IModel[string] models() {
-        return _models.dup;
-    }
+    mixin(MixinRegistry!("Model", "Models"));
+    unittest {
+      auto app = new DApplication;
+      writeln("Models length = ", app.models.length);
+      writeln("Singleton Models length = ", ModelRegistry.length);
 
-    IModel model(string key) {
-        return _models.get(key, null);
-    }
-    IApplication model(string key, IModel newModel) {
-        _models[key] = newModel;
-        return this;
+      app.model("test", new DModel);
+      writeln("Models length = ", app.models.length);
+      writeln("Singleton Models length = ", ModelRegistry.length);
+
+      ModelRegistry.register("test", new DModel);
+      ModelRegistry.register("test1", new DModel);
+      writeln("Models length = ", app.models.length);
+      writeln("Singleton Models length = ", ModelRegistry.length);
+
+      app.removeModel("test");
+      writeln("Models length = ", app.models.length);
+      writeln("Singleton Models length = ", ModelRegistry.length);
     }
     // #endregion models
 
     // #region views
-    protected IView[string] _views;
-    IView[string] views() {
-        return _views.dup;
-    }
+    mixin(MixinRegistry!("View", "Views"));
+    unittest {
+      auto app = new DApplication;
+      writeln("Views length = ", app.views.length);
+      writeln("Singleton Views length = ", ViewRegistry.length);
 
-    IView view(string key) {
-        return _views.get(key, null);
-    }
-    IApplication view(string key, IView newView) {
-        _views[key] = newView;
-        return this;
+      app.view("test", new DView);
+      writeln("Views length = ", app.views.length);
+      writeln("Singleton Views length = ", ViewRegistry.length);
+
+      ViewRegistry.register("test", new DView);
+      ViewRegistry.register("test1", new DView);
+      writeln("Views length = ", app.views.length);
+      writeln("Singleton Views length = ", ViewRegistry.length);
+
+      app.removeView("test");
+      writeln("Views length = ", app.views.length);
+      writeln("Singleton Views length = ", ViewRegistry.length);
     }
     // #endregion views
 

@@ -78,6 +78,7 @@ class DObjectRegistry(T : UIMObject) {
     return objects.all!(obj => hasObject(obj));
   }
 
+  // TODO
   bool hasObject(T object) {
     foreach (obj; _objects.values) {
       // if (obj.isEquals(object)) { return true; }

@@ -3,25 +3,29 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.mvc.exceptions.exception;
+module collections.uim.collections.exceptions.exception;
 
-import uim.mvc;
+import uim.collections;
 
 @safe:
 
-// Base MVC exception.
-class DMVCException : UIMException {
-  mixin(ExceptionThis!("MVC"));
+// Base collections exception.
+class D_CollectionsException : UIMException {
+  mixin(ExceptionThis!("Collections"));
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
 
-    messageTemplate("default", "Exception in libary uim-mvc");
+    messageTemplate("default", "Exception in libary uim-collections");
 
     return true;
   }
-}   
+}
 
-mixin(ExceptionCalls!("MVC"));
+mixin(ExceptionCalls!("Collections"));
+
+unittest {
+  testException(new D_CollectionsException);
+}

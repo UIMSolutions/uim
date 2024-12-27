@@ -6,10 +6,20 @@ import uim.apps;
 class DApplication : UIMObject, IApplication {
     mixin(ApplicationThis!());
 
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+    _controllers = new DControllerRegistry;
+    
+    return true;
+  }
+
     // #region controllers
-    protected IController[string] _controllers;
-    IController[string] controllers() {
-        return controllers.dup;
+    protected DControllerRegistry _controllers;
+    IController[] controllers() {
+        return objects;
     }
 
     IController controller(string key) {
@@ -18,6 +28,10 @@ class DApplication : UIMObject, IApplication {
     IApplication controller(string key, IController newController) {
         _controllers[key] = newController;
         return this;
+    }
+    unittest {
+      auto app = new DApplication;
+      writeln("Controllers length = ", app.controllers.length);
     }
     // #endregion controllers
 

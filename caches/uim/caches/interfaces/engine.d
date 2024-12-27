@@ -10,7 +10,7 @@ import uim.caches;
 @safe:
 
 interface ICacheEngine : INamed {
-  void groupName(string name);
+  /* void groupName(string name);
   string groupName();
 
   void items(Json[string] newItems, long timeToLive = 0);
@@ -34,5 +34,5 @@ interface ICacheEngine : INamed {
   bool removeKey(string key);
 
   bool clear();
-  bool clearGroup(string groupName);
+  bool clearGroup(string groupName); */
 }

@@ -3,7 +3,7 @@ module uim.apps.classes.applications.application;
 import uim.apps;
 
 @safe:
-class DApplication : UIMObject, IApplication {
+class DApp : UIMObject, IApp {
     mixin(ApplicationThis!());
 
   override bool initialize(Json[string] initData = null) {
@@ -21,7 +21,7 @@ class DApplication : UIMObject, IApplication {
     // #region controllers
     mixin(MixinRegistry!("Controller", "Controllers"));
     unittest {
-      auto app = new DApplication;
+      auto app = new DApp;
       writeln("Controllers length = ", app.controllers.length);
       writeln("Singleton Controllers length = ", ControllerRegistry.length);
 
@@ -43,7 +43,7 @@ class DApplication : UIMObject, IApplication {
     // #region models
     mixin(MixinRegistry!("Model", "Models"));
     unittest {
-      auto app = new DApplication;
+      auto app = new DApp;
       writeln("Models length = ", app.models.length);
       writeln("Singleton Models length = ", ModelRegistry.length);
 
@@ -65,7 +65,7 @@ class DApplication : UIMObject, IApplication {
     // #region views
     mixin(MixinRegistry!("View", "Views"));
     unittest {
-      auto app = new DApplication;
+      auto app = new DApp;
       writeln("Views length = ", app.views.length);
       writeln("Singleton Views length = ", ViewRegistry.length);
 

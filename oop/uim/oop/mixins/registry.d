@@ -14,11 +14,11 @@ string mixinRegistry(string single, string plural) {
     I"~single~" "~single.toLower~"(string key) {
         return cast(I"~single~")_"~single.toLower~"Registry.get(key);
     }
-    IApplication "~single.toLower~"(string key, I"~single~" new"~single~") {
+    IApp "~single.toLower~"(string key, I"~single~" new"~single~") {
         _"~single.toLower~"Registry.register(key, cast(D"~single~")new"~single~");
         return this;
     }
-    IApplication remove"~single~"(string key) {
+    IApp remove"~single~"(string key) {
         _"~single.toLower~"Registry.removeKey(key);
         return this;
     }"; 

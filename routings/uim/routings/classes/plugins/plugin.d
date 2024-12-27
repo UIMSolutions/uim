@@ -4,15 +4,17 @@ import uim.routings;
 
 @safe:
 
-class DRoutingPlugin :  UIMObject, IPlugin {
-    this() {
-        super.initialize;
-    }
+class DRoutingPlugin : UIMObject, IRoutingPlugin {
+    mixin(RoutingPluginThis!());
 
-    this(Json[string] initData) {
-        super(initData);
-    }
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
+        return true;
+    }
+    
     // Do bootstrapping or not
     protected bool _bootstrapEnabled = true;
 

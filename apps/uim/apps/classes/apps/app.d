@@ -1,4 +1,4 @@
-module uim.apps.classes.applications.application;
+module uim.apps.classes.apps.app;
 
 import uim.apps;
 

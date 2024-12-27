@@ -1,5 +1,5 @@
 module uim.apps.interfaces;
 
 public {
-    import uim.apps.interfaces.application;
+    import uim.apps.interfaces.app;
 }

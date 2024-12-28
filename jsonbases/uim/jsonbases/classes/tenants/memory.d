@@ -21,5 +21,5 @@ class DMemoryJsonTenant : DJsonTenant {
 mixin(JsonTenantCalls!("Memory"));
 
 unittest {
-  testTenant(MemoryJsonTenant);
+  testJsonTenant(MemoryJsonTenant);
 }

@@ -3,29 +3,25 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.collections.exceptions.exception;
+module uim.http.mixins.session;
 
-import uim.collections;
-
+import uim.http;
 @safe:
 
-// Base collections exception.
-class DCollectionsException : UIMException {
-  mixin(ExceptionThis!("Collections"));
-
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    messageTemplate("default", "Exception in libary uim-collections");
-
-    return true;
-  }
+string sessionThis(string name = null) {
+    string fullName = name ~ "Session";
+    return objThis(fullName);
 }
 
-mixin(ExceptionCalls!("Collections"));
+template SessionThis(string name = null) {
+    const char[] SessionThis = sessionThis(name);
+}
 
-unittest {
-  testException(new DCollectionsException);
+string sessionCalls(string name) {
+    string fullName = name ~ "Session";
+    return objCalls(fullName);
+}
+
+template SessionCalls(string name) {
+    const char[] SessionCalls = sessionCalls(name);
 }

@@ -1,2 +1,2 @@
-module uim.http.classes.response.response;
+module uim.http.classes.responses.response;
 

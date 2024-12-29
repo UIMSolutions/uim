@@ -10,11 +10,11 @@ import uim.models;
 @safe:
 class DModelRegistry : DObjectRegistry!DModel{
 }
-auto ModelRegistry() { 
+auto ModelRegistration() { 
   return DModelRegistry.registration;
 }
 
 unittest {
-/*   assert(ModelRegistry.register("mvc/model",  new DModel).paths == ["mvc/model"]);
-  assert(ModelRegistry.register("mvc/model2", new DModel).paths.length == 2); */
+/*   assert(ModelRegistration.register("mvc/model",  new DModel).paths == ["mvc/model"]);
+  assert(ModelRegistration.register("mvc/model2", new DModel).paths.length == 2); */
 }

@@ -45,20 +45,20 @@ class DApp : UIMObject, IApp {
   unittest {
     auto app = new DApp;
     assert(app.models.length == 0);
-    assert(ModelRegistry.length == 0);
+    assert(ModelRegistration.length == 0);
 
     app.model("test", new DModel);
     assert(app.models.length == 1);
-    assert(ModelRegistry.length == 0); // Unchanged
+    assert(ModelRegistration.length == 0); // Unchanged
 
-    ModelRegistry.register("test", new DModel);
-    ModelRegistry.register("test1", new DModel);
+    ModelRegistration.register("test", new DModel);
+    ModelRegistration.register("test1", new DModel);
     assert(app.models.length == 1); // Unchanged
-    assert(ModelRegistry.length == 2);
+    assert(ModelRegistration.length == 2);
 
     app.removeModel("test");
     assert(app.models.length == 0);
-    assert(ModelRegistry.length == 2); // Unchanged
+    assert(ModelRegistration.length == 2); // Unchanged
   }
   // #endregion models
 

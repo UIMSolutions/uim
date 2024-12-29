@@ -10,4 +10,4 @@ import uim.oop;
 
 class DCommandRegistry : DObjectRegistry!DCommand {
 }
-auto CommandRegistry() { return DCommandRegistry.registration; }
+auto CommandRegistration() { return DCommandRegistry.registration; }

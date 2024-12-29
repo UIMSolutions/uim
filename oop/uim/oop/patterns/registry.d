@@ -12,8 +12,8 @@ import uim.oop;
 class DObjectRegistry(T : UIMObject) {
   // #region Singleton
   protected static DObjectRegistry!T _registration;
-  public static O _registrationtry(this O)() {
-    return cast(O)(_registration is null) 
+  public static DObjectRegistry!T registration() {
+    return (_registration is null) 
       ? _registration = new DObjectRegistry!T
       : _registration;
   }
@@ -187,6 +187,6 @@ class DObjectRegistry(T : UIMObject) {
 
   class TestRegistry : DObjectRegistry!Test {}
 
-  assert(TestRegistry.registration.length == 0);
-  assert(TestRegistry.registration.length == 0);
+  assert(TestRegistry.registry.length == 0);
+  assert(TestRegistry.registry.length == 0);
 } */

@@ -14,14 +14,14 @@ interface ISqlGenerator {
      * Generate the SQL to create the Table.
      *
      * Uses the connection to access the schema dialect to generate platform specific SQL.
-     */
+     * /
     Json[string] createSql(Connection connection);
 
     /**
      * Generate the SQL to drop a table.
      *
      * Uses the connection to access the schema dialect to generate platform specific SQL.
-     */
+     * /
     Json[string] dropSql(DDBAConnection connection);
 
     // Generate the SQL statements to truncate a table
@@ -41,7 +41,7 @@ interface ISqlGenerator {
      *
      * Uses the connection to access the schema dialect
      * to generate platform specific SQL.
-     */
+     * /
     Json[string] createSql(Connection connection);
 
     // Generate the SQL to drop a table.
@@ -55,5 +55,5 @@ interface ISqlGenerator {
 
     // Generate the SQL statements to drop the constraints to the table
     Json[string] dropConstraintSql(Connection connection);
-
+*/
 }

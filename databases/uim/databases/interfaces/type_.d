@@ -8,7 +8,7 @@ import uim.databases;
  */
 interface IType {
     // Casts given value from a UIM type to one acceptable by a database.
-    Json toDatabase(Json valueToConvert, IDriver driver) ;
+    /* Json toDatabase(Json valueToConvert, IDriver driver) ;
 
     // Casts given value from a database type to a UIM equivalent.
     Json ToD(Json valueToConvert, IDriver driver);
@@ -21,7 +21,7 @@ interface IType {
      *
      * Most useful for converting request data into UIM objects,
      * that make sense for the rest of the ORM/Database layers.
-     */
+     * /
     Json marshal(Json valueToConvert);
 
     /**
@@ -30,7 +30,7 @@ interface IType {
      * This is useful when extending base type for adding extra functionality,
      * but still want the rest of the framework to use the same assumptions it would
      * do about the base type it inherits from.
-     */
+     * /
     string getBaseType();
 
     // Returns type identifier name for this object.
@@ -41,6 +41,7 @@ interface IType {
      *
      * This method can be used by types to create new primary key values
      * when entities are inserted.
-     */
-    Json newId() ;
+     * /
+    Json newId() ; 
+    */
 }

@@ -6,7 +6,7 @@ import uim.databases;
 
 // This defines the functions used for building window expressions.
 interface IWindow {
-    const string PRECEDING = "PRECEDING";
+    /* const string PRECEDING = "PRECEDING";
 
     const string FOLLOWING = "FOLLOWING";
 
@@ -19,16 +19,16 @@ interface IWindow {
     /**
      * Adds one or more partition expressions to the window.
      * Params:
-     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\/* IExpression| */ string>|string apartitions Partition expressions
-     */
-    auto partition(/* IExpression|Closure */string[] apartitions);
+     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\/* IExpression| * / string>|string apartitions Partition expressions
+     * /
+    auto partition(/* IExpression|Closure * /string[] apartitions);
 
     /**
      * Adds one or more order by clauses to the window.
      * Params:
-     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\/* IExpression| */ string>|string fieldNames DOrder expressions
-     */
-    auto orderBy(/* IExpression|Closure */string[] fieldNames);
+     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\/* IExpression| * / string>|string fieldNames DOrder expressions
+     * /
+    auto orderBy(/* IExpression|Closure * /string[] fieldNames);
 
     /**
      * Adds a simple range frame to the window.
@@ -45,8 +45,8 @@ interface IWindow {
      *
      * If you need to use 'FOLLOWING' with frame start or
      * 'PRECEDING' with frame end, use `frame()` instead.
-     */
-    auto range(/* /* IExpression| */ string */ int frameStart = 0, /* /* IExpression| */ string */ int frameEnd = 0);
+     * /
+    auto range(/* /* IExpression| * / string * / int frameStart = 0, /* /* IExpression| * / string * / int frameEnd = 0);
 
     // Adds a simple rows frame to the window.
     auto rows(int frameStart, int frameEnd = 0);
@@ -65,12 +65,12 @@ interface IWindow {
      * With both `startOffset` and `endOffset`:
      * - `0` - 'CURRENT ROW'
      * - `null` - 'UNBOUNDED'
-     */
+     * /
     void frame(
         string frameType,
-        /* /* IExpression| */ string| */ int frameStartOffset,
+        /* /* IExpression| * / string| * / int frameStartOffset,
         string frameStartDirection,
-        /* /* IExpression| */ string| */ int frameEndOffset,
+        /* /* IExpression| * / string| * / int frameEndOffset,
         string frameEndDirection
    );
 
@@ -82,4 +82,5 @@ interface IWindow {
 
     // Adds ties frame exclusion.
     auto excludeTies();
+    */
 }

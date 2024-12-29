@@ -7,10 +7,10 @@ import uim.databases;
 // Describes a getter and a setter for the a field property
 interface IField {
     // #region fieldnames
-      void fieldNames(IExpression expression);
+    /*   void fieldNames(IExpression expression);
       void fieldNames(string[] newfieldNames);
 
       // Get field names
-      string[] fieldNames();
+      string[] fieldNames(); */
     // #endregion fieldNames 
 }

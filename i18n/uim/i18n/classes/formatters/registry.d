@@ -7,6 +7,6 @@ import uim.i18n;
 class DFormatterRegistry : DObjectRegistry!DI18NFormatter {
 }
 
-auto FormatterRegistry() {
-    return DFormatterRegistry.registry;
+auto FormatterRegistration() {
+    return DFormatterRegistry.registration;
 }

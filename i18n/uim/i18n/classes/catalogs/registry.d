@@ -8,5 +8,5 @@ class DMessageCatalogRegistry : DObjectRegistry!DMessageCatalog {
 }
 
 auto MessageCatalogRegistry() {
-    return DMessageCatalogRegistry.registry;
+    return DMessageCatalogRegistry.registration;
 }

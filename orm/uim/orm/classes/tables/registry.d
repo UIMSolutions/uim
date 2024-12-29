@@ -8,5 +8,5 @@ import uim.orm;
 class DORMTableRegistry : DObjectRegistry!DORMTable {
 }
 auto ORMTableRegistry() { 
-    return DORMTableRegistry.registry;
+    return DORMTableRegistry.registration;
 }

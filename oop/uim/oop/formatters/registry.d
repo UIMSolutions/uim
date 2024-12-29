@@ -10,4 +10,4 @@ import uim.oop;
 
 class DFormatterRegistry : DObjectRegistry!DFormatter {
 }
-auto FormatterRegistry() { return DFormatterRegistry.registry; }
+auto FormatterRegistration() { return DFormatterRegistry.registration; }

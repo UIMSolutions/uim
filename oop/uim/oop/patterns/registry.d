@@ -11,11 +11,11 @@ import uim.oop;
 
 class DObjectRegistry(T : UIMObject) {
   // #region Singleton
-  protected static DObjectRegistry!T _registry;
-  public static DObjectRegistry!T registry() {
-    return (_registry is null) 
-      ? _registry = new DObjectRegistry!T
-      : _registry;
+  protected static DObjectRegistry!T _registration;
+  public static O _registrationtry(this O)() {
+    return cast(O)(_registration is null) 
+      ? _registration = new DObjectRegistry!T
+      : _registration;
   }
   // #endregion Singleton
 
@@ -187,6 +187,6 @@ class DObjectRegistry(T : UIMObject) {
 
   class TestRegistry : DObjectRegistry!Test {}
 
-  assert(TestRegistry.registry.length == 0);
-  assert(TestRegistry.registry.length == 0);
+  assert(TestRegistry.registration.length == 0);
+  assert(TestRegistry.registration.length == 0);
 } */

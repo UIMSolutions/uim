@@ -10,4 +10,4 @@ import uim.oop;
 
 class DValidatorRegistry : DObjectRegistry!DUIMValidator {
 }
-auto ValidatorRegistry() { return DValidatorRegistry.registry; }
+auto ValidatorRegistry() { return DValidatorRegistry.registration; }

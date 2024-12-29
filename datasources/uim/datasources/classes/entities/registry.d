@@ -7,7 +7,7 @@ import uim.datasources;
 // A registry object for Entity instances.
 class DDatasourceEntityRegistry : DObjectRegistry!DDatasourceEntity {
 }
-auto DataSourceEntityRegistry() { return DDatasourceEntityRegistry.registry; }
+auto DataSourceEntityRegistry() { return DDatasourceEntityRegistry.registration; }
 
 
     

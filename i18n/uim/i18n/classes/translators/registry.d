@@ -7,5 +7,5 @@ import uim.i18n;
 class DTranslatorRegistry : DObjectRegistry!DTranslator {
 }
 auto TranslatorRegistry() { 
-    return DTranslatorRegistry.registry;
+    return DTranslatorRegistry.registration;
 }

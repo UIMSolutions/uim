@@ -8,5 +8,5 @@ class DParserRegistry : DObjectRegistry!DParser {
 }
 
 auto ParserRegistry() {
-    return DParserRegistry.registry;
+    return DParserRegistry.registration;
 }

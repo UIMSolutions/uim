@@ -13,5 +13,5 @@ class DErrorRegistry : DObjectRegistry!UIMError {
 }
 
 auto ErrorRegistry() {
-    return DErrorRegistry.registry;
+    return DErrorRegistry.registration;
 }

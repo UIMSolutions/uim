@@ -11,7 +11,7 @@ import uim.models;
 class DModelRegistry : DObjectRegistry!DModel{
 }
 auto ModelRegistry() { 
-  return DModelRegistry.registry;
+  return DModelRegistry.registration;
 }
 
 unittest {

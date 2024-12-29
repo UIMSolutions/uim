@@ -14,5 +14,5 @@ class DCacheEngineRegistry : DObjectRegistry!DCacheEngine {
 }
 
 auto CacheEngineRegistry() { // Singleton
-  return DCacheEngineRegistry.registry;
+  return DCacheEngineRegistry.registration;
 }

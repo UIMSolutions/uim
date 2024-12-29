@@ -8,6 +8,6 @@ import uim.datasources;
 class DDatasourceRegistry : DObjectRegistry!DDatasource {
 }
 
-auto DatasourceRegistry() {
-    return DDatasourceRegistry.registry;
+auto DatasourceRegistration() {
+    return DDatasourceRegistry.registration;
 }

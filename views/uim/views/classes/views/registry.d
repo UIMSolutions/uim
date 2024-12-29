@@ -13,5 +13,5 @@ class DViewRegistry : DObjectRegistry!DView {
 }
 
 auto ViewRegistry() { // for Singleton
-    return DViewRegistry.registry;
+    return DViewRegistry.registration;
 }

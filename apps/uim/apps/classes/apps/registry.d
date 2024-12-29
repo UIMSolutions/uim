@@ -12,14 +12,14 @@ import uim.apps;
 class DAppRegistry : DObjectRegistry!DApp {
 }
 
-auto AppRegistry() { // for Singleton
-    return DAppRegistry.registry;
+auto AppRegistration() { // for Singleton
+    return DAppRegistry.registration;
 }
 
 unittest { // Singleton tests
-    assert(AppRegistry.length == 0);
-    assert(AppRegistry.register("test", new DApp).length == 1);
-    assert(AppRegistry.remove("test").length == 0);
+    assert(AppRegistration.length == 0);
+    assert(AppRegistration.register("test", new DApp).length == 1);
+    assert(AppRegistration.remove("test").length == 0);
 }
 
 unittest { // Instance tests
@@ -30,19 +30,19 @@ unittest { // Instance tests
 }
 
 unittest { // Singleton tests
-    assert(AppRegistry.length == 0);
-    assert(AppRegistry.register("test", new DApp).length == 1);
-    assert(AppRegistry.remove("test").length == 0);
+    assert(AppRegistration.length == 0);
+    assert(AppRegistration.register("test", new DApp).length == 1);
+    assert(AppRegistration.remove("test").length == 0);
 }
 
 unittest { // combined tests
     auto registry = new DAppRegistry;
     assert(registry.length == 0);
-    assert(AppRegistry.length == 0);
+    assert(AppRegistration.length == 0);
 
     assert(registry.register("test", new DApp).length == 1);
-    assert(AppRegistry.length == 0);
+    assert(AppRegistration.length == 0);
 
     assert(registry.remove("test").length == 0);
-    assert(AppRegistry.length == 0);
+    assert(AppRegistration.length == 0);
 }

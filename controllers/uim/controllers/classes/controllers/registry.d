@@ -13,7 +13,7 @@ class DControllerRegistry : DObjectRegistry!DController {
 }
 
 auto ControllerRegistry() { // for Singleton
-    return DControllerRegistry.registry;
+    return DControllerRegistry.registration;
 }
 
 unittest { // Singleton tests

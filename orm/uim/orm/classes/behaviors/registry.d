@@ -13,5 +13,5 @@ class DORMBehaviorRegistry : DObjectRegistry!DORMBehavior {
 }
 
 auto ORMBehaviorRegistry() {
-    return DORMBehaviorRegistry.registry();
+    return DORMBehaviorRegistry.registration();
 }

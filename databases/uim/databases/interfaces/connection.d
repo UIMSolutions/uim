@@ -4,8 +4,9 @@ import uim.databases;
 
 @safe:
 interface IDatabaseConnection {
-    IDatabaseConnection connect();
+    // TODO
+    /* IDatabaseConnection connect();
     IDatabaseConnection disconnect ();
 
-    bool isConnected();
+    bool isConnected(); */
 }

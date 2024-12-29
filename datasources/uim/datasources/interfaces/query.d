@@ -27,7 +27,7 @@ interface IDatasourceQuery : INamed {
      * Params:
      * \/* Closure * / string[] fields Fields.
      * /
-    auto select(/* Closure */ string[] fields, bool shuldOverwrite = false);
+    auto select(/* Closure * / string[] fields, bool shuldOverwrite = false);
 
     /**
      * Returns a key: value array representing a single aliased field
@@ -207,7 +207,7 @@ interface IDatasourceQuery : INamed {
      * If you need to set complex expressions as order conditions, you
      * should use `orderByAsc()` or `orderByDesc()`.
      * /
-    auto orderBy(/* Closure */ string[] fieldNames, bool shouldOverwrite = false);
+    auto orderBy(/* Closure * / string[] fieldNames, bool shouldOverwrite = false);
 
     /**
      * Set the page of results you want.

@@ -61,7 +61,7 @@ interface IDatasourceRepository : INamed {
      * This method will *not* trigger beforeSave/afterSave events. If you need those
      * first load a collection of records and update them.
      * /
-    int updateAll(/* Closure */ string[] fieldNames,/* IClosure */ string[] conditions);
+    int updateAll(/* Closure * / string[] fieldNames,/* IClosure * / string[] conditions);
 
     /**
      * Deletes all records matching the provided conditions.

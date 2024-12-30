@@ -9,4 +9,9 @@ import uim.http;
 @safe:
 
 interface IHTTPRequest {
+   /*   Json[string] getHeaders();
+    string getBody();
+    string getMethod();
+    string getProtocolVersion();
+    string getHeaderLine(); */
 }

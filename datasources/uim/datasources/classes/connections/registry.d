@@ -7,4 +7,7 @@ import uim.datasources;
 // A registry object for connection instances.
 class DDatasourceConnectionRegistry : DObjectRegistry!DDatasourceConnection {
 }
-auto DatasourceConnectionRegistry() { return new DDatasourceConnectionRegistry; }
+
+auto DatasourceConnectionRegistration() { // SIngleton
+    return DDatasourceConnectionRegistry.registration;
+}

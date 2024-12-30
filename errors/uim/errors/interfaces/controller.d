@@ -3,20 +3,11 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.models.classes.models.registry;
+module uim.errors.interfaces.controller;
 
-import uim.models;
+import uim.errors;
 
 @safe:
-class DModelRegistry : DObjectRegistry!DModel{
-}
+interface IErrorController {
 
-// Singleton
-auto ModelRegistration() { 
-  return DModelRegistry.registration;
-}
-
-unittest {
-/*   assert(ModelRegistration.register("mvc/model",  new DModel).paths == ["mvc/model"]);
-  assert(ModelRegistration.register("mvc/model2", new DModel).paths.length == 2); */
 }

@@ -3,13 +3,12 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.http.interfaces.adapter;
+module uim.http.interfaces.serverrequest;
 
 import uim.http;
+
 @safe:
 
-    // Http client adapter interface.
-interface IHTTPAdapter {
-    // Send a request and get a response back.
-    // TODO IResponse[] send(IRequest requestObjectToSend, Json[string] streamOptions = null);
+interface IServerRequest {
+    IServerRequest clone();
 }

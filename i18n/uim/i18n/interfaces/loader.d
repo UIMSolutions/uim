@@ -10,4 +10,5 @@ import uim.i18n;
 @safe:
 
 interface II18NLoader {
+    IMessageCatalog catalog(); 
 }

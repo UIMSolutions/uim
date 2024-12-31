@@ -4,9 +4,14 @@ import uim.i18n;
 
 @safe:
 
-// Message Catalog
+// Translator to translate the message.
 interface ITranslator {
+    // Translates the message formatting any placeholders
+    // TODO string translate(string messageKey, string[string] tokensValues);
+    
+    // Returns the translator catalog
+    IMessageCatalog catalog();    
     ITranslator catalog(IMessageCatalog newCatalog);
-    IMessageCatalog catalog();
+    
     string[] message(string key);
 }

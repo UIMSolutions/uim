@@ -22,12 +22,12 @@ class DDuplicateNamedRouteException : UIMException {
         return true;
     }
 
-    this(string[] amessage, int errorCode = 404, Throwable previousException = null) {
+/*     this(string[] amessage, int errorCode = 404, Throwable previousException = null) {
         if (message.isArray && message.hasKey("message")) {
             _messageTemplate = message["message"];
         }
         super(message, errorCode, previousException);
-    }
+    } */
 }
 mixin(ExceptionCalls!("DuplicateNamedRoute"));
 

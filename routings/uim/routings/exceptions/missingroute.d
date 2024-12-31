@@ -26,7 +26,7 @@ class DMissingRouteException : UIMException {
   // Message template to use when the requested method is included.
   protected string _messageTemplateWithMethod = "A `%s` route matching `%s` could not be found.";
 
-  this(string[] errorMessages, int errorCode = 404, Throwable previousException = null) {
+/*   this(string[] errorMessages, int errorCode = 404, Throwable previousException = null) {
     if (errorMessages.isArray) {
       if (errorMessages.hasKey("errorMessages")) {
         _messageTemplate = errorMessages["message"];
@@ -35,7 +35,7 @@ class DMissingRouteException : UIMException {
       }
     }
     super(errorMessages, errorCode, previousException);
-  }
+  } */
 }
 
 mixin(ExceptionCalls!("MissingRoute"));

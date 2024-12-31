@@ -9,7 +9,7 @@ import uim.models;
 @safe:
 
 bool dataSetGet(Json data) {
-    assert(data !is null, "data is null");
+    assert(!data.isNull, "data is null");
     /* 
     data.set("0");
     assert(data.toString == "1", "dataSetGet: data 'set string - get string' not work");

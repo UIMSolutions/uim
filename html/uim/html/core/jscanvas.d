@@ -1,4 +1,4 @@
-﻿module html.uim.html.core.jscanvas;
+﻿module uim.html.core.jscanvas;
 
 import uim.html;
 @safe:

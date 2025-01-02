@@ -1,2 +1,2 @@
-module views.uim.views.classes.widgets;
+module uim.views.classes.widgets;
 

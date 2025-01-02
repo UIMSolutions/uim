@@ -1,3 +1,3 @@
-module validations.uim.validations.interfaces.validator;
+module uim.validations.interfaces.validator;
 
 

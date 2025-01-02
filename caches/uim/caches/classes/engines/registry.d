@@ -13,6 +13,6 @@ import uim.caches;
 class DCacheEngineRegistry : DObjectRegistry!DCacheEngine {
 }
 
-auto CacheEngineRegistry() { // Singleton
+auto CacheEngineRegistration() { // Singleton
   return DCacheEngineRegistry.registration;
 }

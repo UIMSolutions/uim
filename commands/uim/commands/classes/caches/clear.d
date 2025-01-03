@@ -45,7 +45,7 @@ class DCacheClearCommand : DCommand {
   } */
 
   // Implement this method with your command`s logic.
-  override ulong execute(Json[string] arguments, IConsole aConsole = null) {
+  override bool execute(Json[string] arguments, IConsole aConsole = null) {
     string engineName = to!string(commandArguments.getArgument("engine"));
     try {
       aConsoleIo.writeln("Clearing {engineName}");

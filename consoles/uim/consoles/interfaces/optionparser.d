@@ -5,8 +5,22 @@
 *****************************************************************************************************************/
 module uim.consoles.interfaces.optionparser;
 
+import uim.consoles;
+
+@safe:
+
 interface IConsoleOptionParser {
-    // Get or set the command name for shell/task.
-    void merge(DConsoleOptionParser buildOptionParser); 
-    void merge(Json[string] options);
+  // #region description
+  // Sets the description text for shell/task.
+  string description();
+  IConsoleOptionParser description(string[] descriptions...);
+  IConsoleOptionParser description(string[] descriptions);
+  // #endregion description
+
+  // Get or set the command name for shell/task.
+  IConsoleOptionParser merge(IConsoleOptionParser buildOptionParser);
+  IConsoleOptionParser merge(Json[string] options);
+
+  IConsoleOptionParser addArgument(DInputArgument inputArgument, Json[string] argumentParameters = null);
+  IConsoleOptionParser addArgument(string name, Json[string] params = null);
 }

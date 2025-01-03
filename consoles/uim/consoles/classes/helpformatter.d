@@ -43,7 +43,7 @@ class DHelpFormatter : UIMObject {
   // Alias to display in the output.
   protected string _aliasname = "uim";
   void aliasName(string name) {
-    _aliasName = name;
+    // _aliasName = name;
   }
 
     // Get the help as formatted text suitable for output on the command line.
@@ -103,7 +103,7 @@ class DHelpFormatter : UIMObject {
      * be indicated with []
      */
   protected string _generateUsage() {
-    string[] usage = [_aliasname ~ " " ~ _parser.getCommand()];
+    // string[] usage = [_aliasname ~ " " ~ _parser.getCommand()];
     /*     auto options = _parser.options()
             .map!(options => option.usage())
             .array;

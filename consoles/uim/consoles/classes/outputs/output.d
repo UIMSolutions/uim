@@ -40,7 +40,7 @@ class DOutput : UIMObject, IOutput {
   mixin(OutputThis!());
 
   // Raw output constant - no modification of output text.
-  const string LF = "\n";
+  static const string LF = "\n";  // TODO = D_EOL;
 
   // The current output type.
   protected string _outputType = "COLOR"; // text colors used in colored output.
@@ -48,21 +48,21 @@ class DOutput : UIMObject, IOutput {
   protected static int[string] _backgroundColors; // Formatting options for colored output.
   protected static int[string] _options;
 
-  // Styles that are available as tags in console output.
-  protected static Json[string] _styles;
-
   // #region write
-  // Outputs a single or multiple messages or newlines to stdout / stderr.
-  void write(uint numberOfLines = 1) {
-    write("", numberOfLines);
-  }
+    // Outputs a single or multiple messages or newlines to stdout / stderr.
+    IOutput write(uint numberOfLines = 1) {
+      write("", numberOfLines);
+      return this;
+    }
 
-  void write(string[] messages, int numberOfLines = 1) {
-    write(messages.join(LF), numberOfLines); 
-  }  
+    IOutput write(string[] messages, uint numberOfLines = 1) {
+      write(messages.join(LF), numberOfLines); 
+      return this;
+    }  
 
-  void write(string message, int numberOfLines = 1) {
-  }
+    IOutput write(string message, uint numberOfLines = 1) {
+      return this;
+    }
   // #endregion write
 
   // #region styleText
@@ -129,8 +129,10 @@ class DOutput : UIMObject, IOutput {
   }
   // #region replaceTags
 
-
   // #region styles
+  // Styles that are available as tags in console output.
+  protected static Json[string] _styles;
+  
   // Gets the current styles offered
   Json style(string name) {
     return name in _styles ? _styles[name] : Json(null);
@@ -189,6 +191,7 @@ class DOutput : UIMObject, IOutput {
   // #endregion outputType
 
   // Clean up and close handles
-  void __destruct() {
+  IOutput close() {
+    return this; 
   }
 }

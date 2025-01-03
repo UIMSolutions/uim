@@ -60,7 +60,7 @@ class DConsoleIo : UIMObject {
     ) {
         _output = output.ifNull(StandardOutput("uim://stdout")); 
         _error = errOutput.ifNull(new DOutput("uim://stderr"));
-        _input = input.ifNull(StandardInput);
+        _input = input.ifNull(new DStandardInput);
         _helpers = helpers.ifNull(new DConsoleHelperRegistry());
         /* _helpers.setIo(this); */
     }
@@ -232,21 +232,21 @@ class DConsoleIo : UIMObject {
      * are passed outputs just a newline.
      */
     int writeErrorMessages(string[] messages...) {
-        return writeErrorMessages(messages.dup);
+        return writeErrorMessages(messages.dup, 1);
     }
 
-    int writeErrorMessages(string[] messages, int newLinesToAppend = 1) {
+    int writeErrorMessages(string[] messages, uint newLinesToAppend = 1) {
         // return _error.write(messages, newLinesToAppend);
         return 0;
     }
 
     // Returns a single or multiple linefeeds sequences.
-    string nl(int linefeedMultiplier = 1) {
-        return DOutput.LF.repeat(linefeedMultiplier);
+    string nl(uint linefeedMultiplier = 1) {
+        return DOutput.LF.repeatTxt(linefeedMultiplier);
     }
 
     // Outputs a series of minus characters to the standard output, acts as a visual separator.
-    void hr(int newLinesToAppend = 0, int widthOfLine = 79) {
+    void hr(uint newLinesToAppend = 0, int widthOfLine = 79) {
         writeln("", newLinesToAppend);
         // writeln("-".repeat(widthOfLine));
         writeln("", newLinesToAppend);

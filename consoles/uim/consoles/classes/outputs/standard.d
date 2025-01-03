@@ -95,8 +95,9 @@ class DStandardOutput : DOutput {
   }
 
   // #region write
-  override void write(string message, int numberOfLines = 1) {
+  override IOutput write(string message, uint numberOfLines = 1) {
     std.stdio.write(styleText(message) ~ LF.repeatTxt(numberOfLines));
+    return this;
   }
   // #endregion write
 }

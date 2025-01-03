@@ -61,7 +61,7 @@ import uim.consoles;
  * By providing help text for your positional arguments and named arguments, the DConsoleOptionParser buildOptionParser
  * can generate a help display for you. You can view the help for shells by using the `--help` or `-h` switch.
  */
-class DConsoleOptionParser : UIMObject {
+class DConsoleOptionParser : UIMObject, IConsoleOptionParser {
   this() {
     super();
   }
@@ -74,45 +74,24 @@ class DConsoleOptionParser : UIMObject {
   protected STRINGAA _shortOptions;
 
   // #region description
-  // Description text - displays before options when help is generated
-  mixin(TProperty!("string", "_description"));
-
   // Sets the description text for shell/task.
-  void description(string[] descriptions...) {
-    description(descriptions.dup);
+  protected string _description;
+  string description() {
+    return _description;
   }
 
-  @property void description(string[] descriptions) {
-    description(descriptions.join("\n"));
+  IConsoleOptionParser description(string[] descriptions...) {
+    description(descriptions.dup);
+    return this;
+  }
+
+  IConsoleOptionParser description(string[] descriptions) {
+    _description = descriptions.join("\n");
+    return this;
   }
   // #endregion description
 
-  void addArgument(string argName, Json[string] params = null) {
-    Json[string] defaultOptions = createMap!(string, Json)
-      .set("name", Json(argName))
-      .set("help", "")
-      .set("index", LongData(count(_arguments)))
-      .set("required", false)
-      .set("choices", Json.emptyArray);
-
-    auto newParams = params.merge(defaultOptions);
-    auto anIndex = newParams.shift("index");
-    auto inputArgument = new DInputArgument(newParams);
-
-    _arguments.each!((a) {
-      if (a.isEqualTo(inputArgument)) {
-        return;
-      }
-      if (options.hasKey("required") && !a.isRequired()) {
-        throw new DLogicException("A required argument cannot follow an optional one");
-      }
-    });
-
-    _arguments.set(anIndex, arg);
-    ksort(_arguments);
-  }
-
-  // Option definitions.
+    // Option definitions.
   protected DInputOptionConsole[string] _options;
 
   //  Positional argument definitions.
@@ -232,12 +211,13 @@ class DConsoleOptionParser : UIMObject {
   }
 
   // Get or set the command name for shell/task.
-  void merge(DConsoleOptionParser buildOptionParser) {
+  IConsoleOptionParser merge(IConsoleOptionParser buildOptionParser) {
     /*  merge(spec.toJString()); */
+    return this; 
   }
 
-  void merge(Json[string] options) {
-    if (!options.isEmpty("arguments")) {
+  IConsoleOptionParser merge(Json[string] options) {
+    /* if (!options.isEmpty("arguments")) {
       addArguments(options.get("arguments"));
     }
     if (!options.isEmpty("options")) {
@@ -248,7 +228,9 @@ class DConsoleOptionParser : UIMObject {
     }
     if (!options.isEmpty("epilog")) {
       epilog(options.get("epilog"));
-    }
+    } */
+
+    return this; 
   }
 
   /**
@@ -276,10 +258,14 @@ class DConsoleOptionParser : UIMObject {
      */
   void addOption(string optionName, Json[string] behaviorOptions = null) {
     behaviorOptions = behaviorOptions
-      .merge(["short", "help"], "")
-      .merge(["boolean", "multiple", "required"], false)
+      .merge("short", "")
+      .merge("help", "")
+      .merge("boolean", false)
+      .merge("multiple", false)
+      .merge("required", false)
       .merge("choices", Json.emptyArray)
-      .merge(["default", "prompt"], Json(null));
+      .merge("default", Json(null))
+      .merge("prompt", Json(null));
 
     /* auto inputOption = new DInputOptionConsole(
             name,
@@ -323,12 +309,35 @@ class DConsoleOptionParser : UIMObject {
      * \UIM\Console\InputConsoleArgument|string aName The name of the argument.
      * Will also accept an instance of InputConsoleArgument.
      */
-  void addArgument(DInputArgument aName, Json[string] argumentParameters = null) {
+  IConsoleOptionParser addArgument(DInputArgument argument, Json[string] options = null) {
     // TODO
+    return this;
   }
 
-  void addArgument(string aName, Json[string] params = null) {
-    // TODO
+  IConsoleOptionParser addArgument(string argName, Json[string] options = null) {
+    Json[string] defaultOptions = createMap!(string, Json)
+      .set("name", argName)
+      .set("help", "")
+      .set("index", _arguments.length)
+      .set("required", false)
+      .set("choices", Json.emptyArray);
+
+    auto newParams = options.merge(defaultOptions);
+    auto anIndex = newParams.shift("index");
+    auto inputArgument = new DInputArgument(newParams);
+
+    /* _arguments.each!((arg) {
+      if (arg.isEqualTo(inputArgument)) {
+        return;
+      }
+      if (options.hasKey("required") && !arg.isRequired()) {
+        throw new DLogicException("A required argument cannot follow an optional one");
+      }
+    }); */
+
+    // TODO _arguments.set(anIndex, arg);
+    // TODO ksort(_arguments);
+    return this;
   }
 
   /**
@@ -380,8 +389,8 @@ class DConsoleOptionParser : UIMObject {
   }
 
   // Parse the arguments array into a set of params and args.
-  Json[string] parse(Json[string] arguments, DConsoleIo aConsoleIo = null) {
-    _tokens = arguments;
+  Json[string] parse(Json[string] arguments, DConsoleIo consoleIo = null) {
+    // _tokens = arguments;
     /* auto params = someArguments = null;
 
         bool afterDoubleDash = false;
@@ -428,16 +437,16 @@ class DConsoleOptionParser : UIMObject {
             }
             auto prompt = option.prompt();
             if (!params.hasKey(name) && prompt) {
-                if (!aConsoleIo) {
+                if (!consoleIo) {
                     throw new DConsoleException(
                         "Cannot use interactive option prompts without a ConsoleIo instance. " ~
-                        "Please provide a ` aConsoleIo` parameter to `parse()`."
+                        "Please provide a ` consoleIo` parameter to `parse()`."
                     );
                 }
                 auto choices = option.choices();
 
                 auto aValue = choices
-                    ? aConsoleIo.askChoice(prompt, choices) : aConsoleIo.ask(prompt);
+                    ? consoleIo.askChoice(prompt, choices) : consoleIo.ask(prompt);
 
                 params[name] = aValue;
             }

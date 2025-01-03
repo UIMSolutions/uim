@@ -92,7 +92,7 @@ class DFileOutput : DOutput {
   const int RAW = 0; // Plain output - tags will be stripped.
   const int PLAIN = 1; // Color output - Convert known tags in to ANSI color escape codes.
   const int COLOR = 2; // Constant for a newline.
-  const string LF = ""; // TODO = D_EOL;
+  protected string filename = "output.txt";
 
   // File handle for output.
   // TODO protected resource _output;
@@ -142,12 +142,9 @@ class DFileOutput : DOutput {
      * Outputs a single or multiple messages to stdout or stderr. If no parameters
      * are passed, outputs just a newline.
      */
-  override void write(string[] messages, int numberOfLines = 1) {
-    write(messages.join(LF), numberOfLines); 
-  }
-
-  override void write(string message, int numberOfLines = 1) {
-    std.stdio.write(this.styleText(message ~ LF.repeatTxt(numberOfLines)));
+  override IOutput write(string message, uint numberOfLines = 1) {
+    append(filename, this.styleText(message ~ LF.repeatTxt(numberOfLines)));
+    return this; 
   }
 
   // Apply styling to text.
@@ -176,10 +173,11 @@ class DFileOutput : DOutput {
   }
 
   // Clean up and close handles
-  override void __destruct() {
+  override IOutput close() {
     /* if (isResource(_output)) {
             fclose(_output);
         } */
+    return this;
   }
 }
 mixin(OutputCalls!("File"));

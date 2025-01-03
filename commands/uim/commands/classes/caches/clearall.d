@@ -27,7 +27,7 @@ class DCacheClearallCommand : DCommand {
   }
 
   // Hook method for defining this command`s option parser.
-  DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBeDefined) {
+  /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBeDefined) {
     auto result = super.buildOptionParser(parserToBeDefined);
     result.description("Clear all data in all configured cache engines.");
 
@@ -40,5 +40,5 @@ class DCacheClearallCommand : DCommand {
     // myEngines.each!(engine => this.executeCommand(CacheClearCommand.class, [engine], aConsoleIo));
 
     return CODE_SUCCESS;
-  }
+  } */
 }

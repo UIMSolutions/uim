@@ -27,7 +27,7 @@ class DCacheClearGroupCommand : DCommand {
   }
 
   // Hook method for defining this command`s option parser.
-  DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToDefine) {
+  /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToDefine) {
     auto definedParser = super.buildOptionParser(parserToDefine);
     with (definedParser) {
       description("Clear all data in a single cache group.");
@@ -42,7 +42,7 @@ class DCacheClearGroupCommand : DCommand {
     }
 
     return definedParser;
-  }
+  } */
 
   // Clears the cache group
   override ulong execute(Json[string] arguments, IConsole aConsole = null) {

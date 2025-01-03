@@ -63,8 +63,8 @@ class DI18nExtractCommand : DCommand {
     //  Extracted strings indexed by domain.
 
     // Method to interact with the user and get path selections.
-    protected void _getPaths(IConsoleIo consoleIo) {
-        /** @psalm-suppress UndefinedConstant */
+    /* protected void _getPaths(IConsoleIo consoleIo) {
+        /** @psalm-suppress UndefinedConstant * /
         defaultPaths = chain(
             [APP],
             App.path("templates"),
@@ -97,7 +97,7 @@ class DI18nExtractCommand : DCommand {
             }
              consoleIo.writeln();
         }
-    }
+    } */
 
     // Execute the command
   ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
@@ -268,11 +268,11 @@ class DI18nExtractCommand : DCommand {
             .set("boolean", true).set("default", true)
             .set("help", "Ignores all files in plugins if this command is run inside from the same app directory.")
         );
-        aParser.addOption("plugin", createMap!(string, Json)
+        /* aParser.addOption("plugin", createMap!(string, Json)
             .set("help", "Extracts tokens only from the plugin specified and " ~ 
                 "puts the result in the plugin\`s `locales` directory.")
             .set("short", "p")
-        );
+        ); */
         aParser.addOption("exclude", createMap!(string, Json)
             .set("help", "Comma separated list of directories to exclude." ~
                 " Any path containing a path segment with the provided values will be skipped. E.g. test,vendors")
@@ -315,7 +315,7 @@ class DI18nExtractCommand : DCommand {
             "__dx": ["domain", "context", "singular"],
             "__dxn": ["domain", "context", "singular", "plural"]
         ];
-        string somePattern = "/(" ~ functions.keys.join("|") ~ ")\s*\(/";
+        string somePattern; // TODO = "/(" ~ functions.keys.join("|") ~ ")\s*\(/";
 
         /* _fileNames.each!((fileName) {
             auto _fileName = fileName;
@@ -408,8 +408,8 @@ class DI18nExtractCommand : DCommand {
             return a.length - b.length;
         }); */
 
-        foreach (domain, translations; _translations) {
-            foreach (msgid: contexts; translations) {
+/*         foreach (domain, translations; _translations) {
+            foreach (msgid, contexts; translations) {
                 contexts.byKeyValue
                     .each!((contextDetails) {
                     auto plural = contextDetails.value["msgid_plural"];
@@ -446,7 +446,7 @@ class DI18nExtractCommand : DCommand {
                         : _store(domain,  aHeader, sentence);
                 });
             }
-        };
+        }; */
     }
     
     // Prepare a file to be stored
@@ -470,7 +470,7 @@ class DI18nExtractCommand : DCommand {
         foreach (domain, sentences; _storage) {
             auto outputHeader = _writeHeader(domain);
             auto lengthOfFileheader = outputHeader.length;
-            auto sentences.byKeyValue
+            sentences.byKeyValue
                 .each!(sentenceHeader => outputHeader ~= sentenceHeader.value ~ sentenceHeader.key);
             auto filename = domain.replace("/", "_") ~ ".pot";
             auto outputPath = _output ~ filename;
@@ -594,7 +594,7 @@ class DI18nExtractCommand : DCommand {
         textToFormat = textToFormat.replace("\r\n", "\n");
 
         /* return addcslashes(string, "\0..\37\\\""); */
-        retturn null; 
+        return null; 
     }
     
     // Indicate an invalid marker on a processed file
@@ -629,7 +629,7 @@ class DI18nExtractCommand : DCommand {
     
     // Search files that may contain translatable strings
     protected void _searchFiles() {
-        auto somePattern = false;
+/*         auto somePattern = false;
         if (!_exclude.isEmpty) {
             exclude = null;
             foreach (anException; _exclude) {
@@ -652,18 +652,19 @@ class DI18nExtractCommand : DCommand {
             files = iterator_to_array(files).keys.sort;
             
             if (somePattern) {
+
                 files = preg_grep(somePattern, files, PREG_GREP_INVERT) ?: [];
                 files = files.values;
             }
            _fileNames = chain(_fileNames, files);
         });
-       _fileNames = _fileNames.unique;
+       _fileNames = _fileNames.unique; */
     }
     
     /**
      * Returns whether this execution is meant to extract string only from directories in folder represented by the
      * APP constant, i.e. this task is extracting strings from same application.
-     */
+     * /
     protected bool _isExtractingApp() {
         return _paths == [APP];
     }

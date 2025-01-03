@@ -64,13 +64,13 @@ class DI18nCommand : DCommand {
     }
 
     //  Gets the option parser instance and configures it.
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
+    /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
         parserToUpdate.description(
             "I18n commands let you generate .pot files to power translations in your application."
         );
 
         return aParser;
-    }
+    } */
 }
 
 mixin(CommandCalls!("I18n"));

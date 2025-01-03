@@ -4,9 +4,6 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.commands.classes.commands.i18n.i18ninit;
-if (!super.initialize(initData)) {
-    UIMExceptionreturn false;
-}
 
 import uim.commands;
 
@@ -45,9 +42,9 @@ class DI18nInitCommand : DCommand {
         string response = consoleIo.ask("What folder?", stripRight(somePaths[0], DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
         string sourceFolder = stripRight(response, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         string targetFolder = sourceFolder ~ myLanguage ~ DIRECTORY_SEPARATOR;
-        if (!isDir(targetFolder)) {
+/*         if (!isDir(targetFolder)) {
             mkdir(targetFolder, 0770, true);
-        }
+        } */
         size_t countFiles = 0;
         auto anIterator = new DirectoryIterator(sourceFolder);
         anIterator

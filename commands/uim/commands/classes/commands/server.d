@@ -76,7 +76,7 @@ class DServerCommand : DCommand {
         } */
     }
 
-    override ulong execute(Json[string] arguments, IConsole aConsole = null) {
+    /* override ulong execute(Json[string] arguments, IConsole aConsole = null) {
         this.startup(commandArguments, aConsoleIo);
         DBinary = to!string(enviroment("D", "d"));
         string commandText = "%s -S %s:%d -t %s"
@@ -89,16 +89,16 @@ class DServerCommand : DCommand {
 
         /*         if (!_iniPath.isEmpty) {
             commandText = "%s -c %s".format(commandText, _iniPath);
-        } */
+        } * /
         commandText = "%s %s".format(commandText, escapeshellarg(_documentRoot ~ "/index.d"));
 
         /* string port = ": " ~ _port;
          aConsoleIo.writeln("built-in server is running in http://%s%s/".format(_host, port));
          aConsoleIo.writeln("You can exit with <info>`CTRL-C`</info>");
-        system(commandText); */
+        system(commandText); * /
 
         return CODE_SUCCESS;
-    }
+    } */
 
     // Hook method for defining this command`s option parser.
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {

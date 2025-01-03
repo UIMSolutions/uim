@@ -33,7 +33,7 @@ class DPluginLoadedCommand : DCommand {
     //  Displays all currently loaded plugins.
      * Params:
      * \UIM\Console\Json[string] arguments The command arguments.
-  override ulong execute(Json[string] arguments, IConsole aConsole = null) {
+  override ulong execute(Json[string] arguments, IConsole console = null) {
         loaded = Plugin. loaded();
         aConsoleIo.out (loaded);
 

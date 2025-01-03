@@ -52,7 +52,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
      * fallbacks to copying the assets. For vendor namespaced plugin, parent folder
      * for vendor name are created if required.
      */
-    override ulong execute(Json[string] arguments, IConsole aConsole = null) {
+    override ulong execute(Json[string] arguments, IConsole console = null) {
         _io = aConsoleIo;
         _args = commandArguments;
 

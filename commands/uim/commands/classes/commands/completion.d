@@ -56,7 +56,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             .set("help", "The sub-command related to command to get information on.")
             .set("required", false)
         );
-        aParser.setEpilog(
+        aParser.epilog(
             [
             "The various modes allow you to get help information on commands and their arguments.",
             "The available modes are:",
@@ -71,7 +71,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     }
 
     // Main auto Prints out the list of commands.
-    override ulong execute(Json[string] arguments, IConsole aConsole = null) {
+    override ulong execute(Json[string] arguments, IConsole console = null) {
         return match(commandArguments.getArgument("mode")) {
             "commands" : getCommands(commandArguments, aConsoleIo),
             "subcommands" : getSubcommands(commandArguments, aConsoleIo),

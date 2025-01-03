@@ -23,13 +23,13 @@ class DRoutesGenerateCommand : DCommand {
     return "routes-generate";
   }
 
-  /* override */ ulong execute(Json[string] arguments, IConsole aConsole = null) {
+  /* override */ ulong execute(Json[string] arguments, IConsole console = null) {
     return super.execute(arguments, aConsoleIo);
   }
 
   /* 
   // Display all routes in an application
-  override ulong execute(Json[string] arguments, IConsole aConsole = null) {
+  override ulong execute(Json[string] arguments, IConsole console = null) {
     try {
       commandArguments = _splitArgs(commandArguments.getArguments());
       auto routerUrl = Router.url(commandArguments);

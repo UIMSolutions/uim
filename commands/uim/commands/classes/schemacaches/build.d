@@ -26,9 +26,9 @@ class DSchemacacheBuildCommand : DCommand {
         return "schema_cache-build";
     }
 
-    override ulong execute(Json[string] arguments, IConsole aConsole = null) {
+    /* override ulong execute(Json[string] arguments, IConsole aConsole = null) {
         return super.execute(arguments, aConsoleIo);
-    }
+    } */
 
     /* 
     // Display all routes in an application

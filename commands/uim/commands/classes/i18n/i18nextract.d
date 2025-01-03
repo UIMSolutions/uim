@@ -217,7 +217,7 @@ class DI18nExtractCommand : DCommand {
     }
     
     // Extract text
-    protected void _extract(Json[string] commandArguments, IConsoleIo consoleIo) {
+    /* protected void _extract(Json[string] commandArguments, IConsoleIo consoleIo) {
          consoleIo.writeln();
          consoleIo.writeln();
          consoleIo.writeln("Extracting...");
@@ -238,10 +238,10 @@ class DI18nExtractCommand : DCommand {
              consoleIo.writeErrorMessages(": Use the --marker-error option to display errors.");
         }
          consoleIo.writeln("Done.");
-    }
+    } */
     
     // Gets the option parser instance and configures it.
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser aParser) {
+    /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser aParser) {
          aParser.description(
             "Extract i18n POT files from application source files. " ~
             "source files are parsed and string literal format strings " ~
@@ -272,7 +272,7 @@ class DI18nExtractCommand : DCommand {
             .set("help", "Extracts tokens only from the plugin specified and " ~ 
                 "puts the result in the plugin\`s `locales` directory.")
             .set("short", "p")
-        ); */
+        ); * /
         aParser.addOption("exclude", createMap!(string, Json)
             .set("help", "Comma separated list of directories to exclude." ~
                 " Any path containing a path segment with the provided values will be skipped. E.g. test,vendors")
@@ -295,7 +295,7 @@ class DI18nExtractCommand : DCommand {
         );
 
         return aParser;
-    }
+    } */
     
     // Extract tokens out of all files to be processed
     protected void _extractTokens(Json[string] commandArguments, IConsoleIo consoleIo) {

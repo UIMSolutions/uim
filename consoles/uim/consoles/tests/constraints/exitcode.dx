@@ -1,0 +1,30 @@
+module uim.consoles.tests.constraints.exitcode;
+
+import uim.consoles;
+
+@safe:
+
+// ExitCode constraint
+class DExitCode : DConstraint {
+    private size_t _exitCode = 0;
+
+    this(size_t exitCode) {
+        _exitCode = exitCode;
+    }
+    
+    // Checks if event is in fired array
+   bool matches(size_t checkValue) {
+        return checkValue == _exitCode;
+    }
+    
+    // Assertion message string
+    string toString() {
+        return "matches exit code `%s`".format(_exitCode != 0 ?? "null");
+    }
+    
+    // Returns the description of the failure.
+    string failureDescription(string description) {
+        return "`" ~ description ~ "` " ~ toString();
+    }
+}
+

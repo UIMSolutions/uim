@@ -276,14 +276,10 @@ class DConsoleOptionParser : UIMObject {
      */
   void addOption(string optionName, Json[string] behaviorOptions = null) {
     behaviorOptions = behaviorOptions
-      .merge("short", "")
-      .merge("help", "")
-      .merge("default", Json(null))
-      .merge("boolean", false)
-      .merge("multiple", false)
+      .merge(["short", "help"], "")
+      .merge(["boolean", "multiple", "required"], false)
       .merge("choices", Json.emptyArray)
-      .merge("required", false)
-      .merge("prompt", Json(null));
+      .merge(["default", "prompt"], Json(null));
 
     /* auto inputOption = new DInputOptionConsole(
             name,

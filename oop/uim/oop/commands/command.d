@@ -23,5 +23,5 @@ class DCommand : UIMObject, ICommand {
     }
 
     // Implement this method with your command`s logic.
-    // abstract ulong execute(Json[string] options, IConsole console = null);
+    abstract bool execute(Json[string] options, IConsole console = null);
 }

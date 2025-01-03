@@ -3,10 +3,4 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module consoles.uim.consoles.helpers.package copy;
-
-public {
-    import uim.consoles.helpers.command;
-    import uim.consoles.helpers.console;
-    import uim.consoles.helpers.registry;
-}
+module uim.consoles.exceptions.missinghelper;import uim.consoles;@safe:// Used when a Helper cannot be found.class DMissingHelperException : DConsoleException {  mixin(ExceptionThis!("MissingHelper"));  override bool initialize(Json[string] initData = null) {    if (!super.initialize(initData)) {      return false;    }    messageTemplate("default", "Helper class '%s' could not be found.");    return true;  }}mixin(ExceptionCalls!("MissingHelper"));unittest {  testException(MissingHelperException);}

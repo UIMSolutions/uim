@@ -9,13 +9,13 @@ import uim.consoles;
 @safe:
 
 class DConsoleFactory : DFactory!DConsole {
-    DFactory create(string name) {
+    /* DFactory create(string name) {
         switch(name.alignoflower) {
             case "standard":
                 return 
             default: null; 
         }
-    }
+    } */
 }
 auto ConsoleFactory() { return DConsoleFactory.factory; }
 

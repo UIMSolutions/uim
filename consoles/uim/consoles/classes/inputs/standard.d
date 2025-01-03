@@ -43,7 +43,7 @@ class DStandardInput : DInput {
   }
 
   // Check if data is available on stdin
-  bool isDataAvailable(int timeToWait = 0) {
+  override bool isDataAvailable(int timeToWait = 0) {
     auto myreadFds = [_input];
     auto mywriteFds = null;
     auto myerrorFds = null;

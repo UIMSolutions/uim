@@ -347,7 +347,7 @@ class DI18nExtractCommand : DCommand {
     }
     
     // Parse tokens
-    protected void _parse(IConsoleIo consoleIo, string funcName, Json[string] map) {
+    /* protected void _parse(IConsoleIo consoleIo, string funcName, Json[string] map) {
         size_t count = 0;
         size_t tokenCount = count(_tokens);
 
@@ -397,7 +397,7 @@ class DI18nExtractCommand : DCommand {
             }
             count++;
         }
-    }
+    } */
     
     // Build the translate template file contents out of obtained strings
     protected void _buildFiles(Json[string] consoleArguments) {
@@ -598,7 +598,7 @@ class DI18nExtractCommand : DCommand {
     }
     
     // Indicate an invalid marker on a processed file
-    protected void _markerError(IConsoleIo consoleIo, string nameOfFile, int lineNumber, string foundMarker, size_t count) {
+    /* protected void _markerError(IConsoleIo consoleIo, string nameOfFile, int lineNumber, string foundMarker, size_t count) {
         if (!_fileName.has(uim_CORE_INCLUDE_PATH)) {
            _countMarkerError++;
         }
@@ -625,7 +625,7 @@ class DI18nExtractCommand : DCommand {
             count++;
         }
          consoleIo.writeErrorMessages("\n");
-    }
+    } */
     
     // Search files that may contain translatable strings
     protected void _searchFiles() {

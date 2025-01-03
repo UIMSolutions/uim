@@ -19,7 +19,7 @@ class DPluginAssetsRemoveCommand : DCommand {
   }
 
   // Remove plugin assets from app`s webroot.
-  override ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+  /* override ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
     _io = consoleIo;
     _args = arguments;
 
@@ -38,10 +38,10 @@ class DPluginAssetsRemoveCommand : DCommand {
     _io.writeln("Done");
 
     return CODE_SUCCESS;
-  }
+  } */
 
   // Get the option parser.
-  DConsoleOptionParser buildOptionParser(DConsoleOptionParser parser) {
+  /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser parser) {
     parser.description("Remove plugin assets from app`s webroot.");
 
     parser.addArgument("name", createMap!(string, Json)
@@ -50,7 +50,7 @@ class DPluginAssetsRemoveCommand : DCommand {
     );
 
     return parser;
-  }
+  } */
 }
 
 mixin(CommandCalls!("PluginAssetsRemove"));

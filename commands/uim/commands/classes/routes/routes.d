@@ -21,9 +21,9 @@ class DRoutesCommand : DCommand {
         return true;
     }
 
-    override ulong execute(Json[string] arguments, IConsole aConsole = null) {
+    /* override ulong execute(Json[string] arguments, IConsole aConsole = null) {
         return super.execute(arguments, aConsoleIo);
-    }
+    } */
 
     /* 
     // Display all routes in an application

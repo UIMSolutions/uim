@@ -53,7 +53,7 @@ class DSchemacacheClearCommand : DCommand {
   } */
 
   // Get the option parser.
-  DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
+  /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
     with (parserToUpdate) {
       description(
         "Clear all metadata caches for the connection. If a table name is provided, only that table will be removed."
@@ -71,5 +71,5 @@ class DSchemacacheClearCommand : DCommand {
       );
     }
     return parserToUpdate;
-  }
+  } */
 }

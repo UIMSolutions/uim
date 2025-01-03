@@ -101,7 +101,7 @@ class DServerCommand : DCommand {
     } */
 
     // Hook method for defining this command`s option parser.
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
+    /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) { */
         /* with (parserToUpdate) {
             description([
                 "D Built-in Server for UIM",
@@ -126,6 +126,6 @@ class DServerCommand : DCommand {
             ]);
         } */
 
-        return aParser;
-    }
+        /* return aParser;
+    } */
 }

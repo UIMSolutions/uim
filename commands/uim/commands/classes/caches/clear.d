@@ -31,7 +31,7 @@ class DCacheClearCommand : DCommand {
      * aDConsoleOptionParser buildOptionParser - The parser to be defined
      * returns - The built parser.
      */
-  DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBeDefined) {
+  /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBeDefined) {
     auto myParser = super.buildOptionParser(parserToBeDefined);
     myParser.description("Clear all data in a single cache engine");
     myParser.addArgument("engine", createMap!(string, Json)
@@ -42,7 +42,7 @@ class DCacheClearCommand : DCommand {
     );
 
     return myParser;
-  }
+  } */
 
   // Implement this method with your command`s logic.
   override ulong execute(Json[string] arguments, IConsole aConsole = null) {

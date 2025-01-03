@@ -3,25 +3,25 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module commands.uim.commands.classes.mixins;
+module commands.uim.commands.classes.commands.command;
 
 import uim.oop;
-@safe: 
+@safe:
 
-string commandThis(string name = null) {
-    string fullName = name ~ "Command";
-    return objThis(fullName);
-}
+// Base class for commands
+class DCommand : UIMObject, ICommand {
+    mixin(CommandThis!());
+/*    mixin TLocatorAware;
+    mixin TLog; */
 
-template CommandThis(string name = null) {
-    const char[] CommandThis = commandThis(name);
-}
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
-string commandCalls(string name) {
-    string fullName = name ~ "Command";
-    return objCalls(fullName);
-}
+        return true;
+    }
 
-template CommandCalls(string name) {
-    const char[] CommandCalls = commandCalls(name);
+    // Implement this method with your command`s logic.
+    abstract bool execute(Json[string] options, IConsole console = null);
 }

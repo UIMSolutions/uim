@@ -7,5 +7,5 @@ module uim.commands.mixins;
 
 public {
     import uim.commands.mixins.assets;
-    // TODO import uim.commands.mixins.command;
+    import uim.commands.mixins.command;
 }

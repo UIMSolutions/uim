@@ -12,6 +12,6 @@ import uim.consoles;
 class DConsoleRegistry : DObjectRegistry!DConsole {
 }
 
-auto ConsoleRegistry() {
-    return DConsoleRegistry.registry;
+auto ConsoleRegistration() {
+    return DConsoleRegistry.registration;
 }

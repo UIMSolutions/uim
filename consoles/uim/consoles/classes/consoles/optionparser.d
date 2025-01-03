@@ -214,7 +214,7 @@ class DConsoleOptionParser : UIMObject {
             aParser.description(sepcData["description"]);
         }
         if (!sepcData.isEmpty("epilog")) {
-            aParser.setEpilog(sepcData["epilog"]);
+            aParser.epilog(sepcData["epilog"]);
         }
         return aParser; */
     return null;
@@ -236,19 +236,19 @@ class DConsoleOptionParser : UIMObject {
     /*  merge(spec.toJString()); */
   }
 
-  void merge(Json[string] spec) {
-    /* if (!spec.isEmpty("arguments")) {
-            addArguments(spec["arguments"]);
-        }
-        if (!spec.isEmpty("options")) {
-            addOptions(spec["options"]);
-        }
-        if (!spec.isEmpty("description")) {
-            description(spec["description"]);
-        }
-        if (!spec.isEmpty("epilog")) {
-            setEpilog(spec["epilog"]);
-        } */
+  void merge(Json[string] options) {
+    if (!options.isEmpty("arguments")) {
+      addArguments(options.get("arguments"));
+    }
+    if (!options.isEmpty("options")) {
+      addOptions(options.get("options"));
+    }
+    if (!options.isEmpty("description")) {
+      description(options.get("description"));
+    }
+    if (!options.isEmpty("epilog")) {
+      epilog(options.get("epilog"));
+    }
   }
 
   /**
@@ -385,7 +385,7 @@ class DConsoleOptionParser : UIMObject {
 
   // Parse the arguments array into a set of params and args.
   Json[string] parse(Json[string] arguments, DConsoleIo aConsoleIo = null) {
-      _tokens = arguments;
+    _tokens = arguments;
     /* auto params = someArguments = null;
 
         bool afterDoubleDash = false;

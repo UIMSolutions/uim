@@ -10,6 +10,12 @@ import uim.consoles;
 @safe:
 
 interface IOutput : IConsole {
+    
+  // Outputs a single or multiple messages or newlines to stdout / stderr.
+  void write(uint numberOfLines = 1);
+  void write(string[] messages, uint numberOfLines = 1);
+  void write(string message, uint numberOfLines = 1);
+
 /*
     IOutput style(string style, STRINGAA definition);
 

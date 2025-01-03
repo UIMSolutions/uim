@@ -10,7 +10,7 @@ import uim.consoles;
 @safe:
 
 // ContentsNotContain
-class DContentsNotContain : DContentsBase {
+/* class DContentsNotContain : DContentsBase {
     this(string[] contents, string outputType) {
         super(contents, outputType);
     }
@@ -21,10 +21,10 @@ class DContentsNotContain : DContentsBase {
       */
 /*     bool matches(Json other) {
         return mb_indexOf(_contents, other) == false;
-    } */
+    } * /
     
     // Assertion message
     override string toString() {
         return "is not in %s".format(_output);
     } 
-} 
+}  */

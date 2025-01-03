@@ -51,16 +51,19 @@ class DOutput : UIMObject, IOutput {
   // Styles that are available as tags in console output.
   protected static Json[string] _styles;
 
-  /**
-     * Outputs a single or multiple messages to stdout or stderr. If no parameters
-     * are passed, outputs just a newline.
-     */
+  // #region write
+  // Outputs a single or multiple messages or newlines to stdout / stderr.
+  void write(uint numberOfLines = 1) {
+    write("", numberOfLines);
+  }
+
   void write(string[] messages, int numberOfLines = 1) {
     write(messages.join(LF), numberOfLines); 
   }  
 
   void write(string message, int numberOfLines = 1) {
   }
+  // #endregion write
 
   // #region styleText
   // Apply styling to text.

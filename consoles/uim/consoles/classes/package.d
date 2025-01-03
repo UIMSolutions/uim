@@ -6,7 +6,11 @@
 module uim.consoles.classes;
 
 public {
-    import uim.consoles.classes.commands;
+    import uim.consoles.classes.arguments;
+    import uim.consoles.classes.helpformatter;
+}
+
+public {
     import uim.consoles.classes.consoles;
     import uim.consoles.classes.inputs;
     import uim.consoles.classes.outputs;

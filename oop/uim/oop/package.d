@@ -19,7 +19,6 @@ public import vibe.d;
 public import uim.core;
 
 public {
-  import uim.oop.commands;
   import uim.oop.configurations;
   import uim.oop.containers;
   import uim.oop.containers.maps;

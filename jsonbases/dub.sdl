@@ -2,7 +2,7 @@ name "jsonbases"
 description "D-Lib for json databases"
 homepage "https://"
 license "Apache-2.0"
-copyright "Copyright © 2017-2024, Ozan Nurettin Süel"
+copyright "Copyright © 2017-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
 targetName "uim-jsonbases"

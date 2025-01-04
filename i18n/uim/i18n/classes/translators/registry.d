@@ -5,7 +5,7 @@ import uim.i18n;
 @safe:
 
 class DTranslatorRegistry : DObjectRegistry!DTranslator {
-// Fallback loader name.
+    /* // Fallback loader name.
     const string FALLBACK_LOADER = "_fallback";
 
     // A registry to retain translator objects.
@@ -23,7 +23,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     /**
      * The name of the default formatter to use for newly created
      * translators from the fallback loader
-     */
+     * /
     protected string _defaultFormatter = "default";
 
     // Use fallback-domain for translation loaders.
@@ -37,7 +37,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * callables that are invoked as a default for building translation
      * catalogs where none can be found for the combination of translator
      * name and locale.
-     */
+     * /
     // protected callable[] _loaders = null;
 
     this(
@@ -61,7 +61,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             catalog.setFormatter(formatter);
 
             return catalog;
-        }); */
+        }); * /
     }
     
     // Sets the default locale code.
@@ -87,7 +87,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     // Sets the CacheEngine instance used to remember translators across requests.
    /* void cacher(/* ICache * / DCacheEngine cacher) {
        _cacher = cacher;
-    } */
+    }  * /
     
     // Gets a translator from the registry by catalog for a locale.
     DTranslator translator(string catalogName, string localName = null) {
@@ -110,7 +110,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             translator = _getTranslator(catalogName, locale);
            _cacher.set(aKey, translator);
         }
-        return _registry.register([catalogName, localName], translator).getPath([catalogName, localName]); */
+        return _registry.register([catalogName, localName], translator).getPath([catalogName, localName]); * /
         return null; 
     }
     
@@ -127,7 +127,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         catalog = setFallbackPackage(catalogName, catalog);
         _catalogLocator.set(catalogName, localname, catalog); * / 
 
-        return createInstance(catalogName, localName); */
+        return createInstance(catalogName, localName); * /
         return null; 
     }
     
@@ -141,7 +141,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         }
         formatter = _formatters.get(catalog.formatterName());
 
-        return new DTranslator(localName, catalog, formatter, fallback); */
+        return new DTranslator(localName, catalog, formatter, fallback); * /
         return null; 
     }
     
@@ -151,7 +151,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      *
      * Loader callbacks will get as first argument the catalog name and the locale as
      * the second argument.
-     */
+     * /
     void registerLoader(string catalogName, ILoader loader) {
         //_loaders[catalogName] = loader;
     }
@@ -161,7 +161,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * translator instances.
      *
      * If called with no arguments, it will return the currently configured value.
-     */
+     * /
     string defaultFormatter(string formatterName = null) {
         if (formatterName.isNull) {
             return _defaultFormatter;
@@ -186,7 +186,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             fallbackDomain = "default";
         }
         catalog.(fallbackDomain);
-        return catalog; */
+        return catalog; * /
         return null; 
     }
     
@@ -202,9 +202,9 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
                 catalog.(fallbackDomain);
             }
             return catalog;
-        }; */
+        }; * /
         return null; 
-    }
+    } */
 }
 auto TranslatorRegistry() { 
     return DTranslatorRegistry.registration;

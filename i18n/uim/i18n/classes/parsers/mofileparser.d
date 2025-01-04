@@ -15,8 +15,8 @@ class MoFileParser {
      * was created on. Both 32bit and 64bit systems are supported.
      */
     Json[string] parse(string filetoParsed) {
-        // ...
-        string magic = unpack("V1", (string) fread(fileStream, 4));
+        /* // ...
+        string magic = unpack("V1", /* (string)  * /fread(fileStream, 4));
         magic = hexdec(subString(dechex(currentValue(magic)),  - 8));
 
         if (magic == MO_LITTLE_ENDIAN_MAGIC) {

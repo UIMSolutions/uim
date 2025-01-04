@@ -39,7 +39,7 @@ class DChainMessagesLoader {
     }
 
     // Executes this object returning the translations catalog as configured in the chain.
-    ICatalog execute() {
+    IMessageCatalog execute() {
         /* _loaders.byKeyValue.each!((keyLoader) {
             auto loader = keyLoader.value;
 

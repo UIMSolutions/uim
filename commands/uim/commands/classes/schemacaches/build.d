@@ -27,7 +27,7 @@ class DSchemacacheBuildCommand : DCommand {
     }
 
     /* override bool execute(Json[string] arguments, IConsole console = null) {
-        return super.execute(arguments, aConsoleIo);
+        return super.execute(arguments, aConsole);
     } */
 
     /* 
@@ -40,15 +40,15 @@ class DSchemacacheBuildCommand : DCommand {
 
             schemaCache = new DSchemaCache(aConnection);
         } catch (RuntimeException  anException) {
-             aConsoleIo.error(anException.message());
+             aConsole.error(anException.message());
 
             return CODE_ERROR;
         }
 
         auto aTables = cache.build(commandArguments.getArgument("name"));
-        aTables.each!(table => aConsoleIo.verbose("Cached `%s`".format(table)));
+        aTables.each!(table => aConsole.verbose("Cached `%s`".format(table)));
 
-        aConsoleIo.writeln("<success>Cache build complete</success>");
+        aConsole.writeln("<success>Cache build complete</success>");
 
         return CODE_SUCCESS;
     }

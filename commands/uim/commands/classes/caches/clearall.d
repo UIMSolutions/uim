@@ -37,7 +37,7 @@ class DCacheClearallCommand : DCommand {
   // Implement this method with your command`s logic.
   override bool execute(Json[string] arguments, IConsole console = null) {
     auto myEngines = Cache.configured();
-    // myEngines.each!(engine => this.executeCommand(CacheClearCommand.class, [engine], aConsoleIo));
+    // myEngines.each!(engine => this.executeCommand(CacheClearCommand.class, [engine], aConsole));
 
     return CODE_SUCCESS;
   } */

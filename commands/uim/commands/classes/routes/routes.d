@@ -22,7 +22,7 @@ class DRoutesCommand : DCommand {
     }
 
     /* override bool execute(Json[string] arguments, IConsole console = null) {
-        return super.execute(arguments, aConsoleIo);
+        return super.execute(arguments, aConsole);
     } */
 
     /* 
@@ -67,8 +67,8 @@ class DRoutesCommand : DCommand {
                 }
                 output.unshift(aHeader);
 
-                aConsoleIo.helper("table").output(output);
-                aConsoleIo.writeln();
+                aConsole.helper("table").output(output);
+                aConsole.writeln();
 
                 someDuplicateRoutes = null;
 
@@ -96,10 +96,10 @@ class DRoutesCommand : DCommand {
                     }
                     if (someDuplicateRoutes) {
                         someDuplicateRoutes.unshift(aHeader);
-                        aConsoleIo.warning(
+                        aConsole.warning(
                             "The following possible route collisions were detected.");
-                        aConsoleIo.helper("table").output(someDuplicateRoutes);
-                        aConsoleIo.writeln();
+                        aConsole.helper("table").output(someDuplicateRoutes);
+                        aConsole.writeln();
                     }
                     return CODE_SUCCESS;
                 }
@@ -138,8 +138,8 @@ class DRoutesCommand : DCommand {
                 }
                 output.unshift(aHeader);
 
-                aConsoleIo.helper("table").output(output);
-                aConsoleIo.writeln();
+                aConsole.helper("table").output(output);
+                aConsole.writeln();
 
                 auto someDuplicateRoutes = null;
                 foreach (myRoute; someAvailableRoutes) {
@@ -166,10 +166,10 @@ class DRoutesCommand : DCommand {
                     }
                     if (someDuplicateRoutes) {
                         someDuplicateRoutes.unshift(aHeader);
-                        aConsoleIo.warning(
+                        aConsole.warning(
                             "The following possible route collisions were detected.");
-                        aConsoleIo.helper("table").output(someDuplicateRoutes);
-                        aConsoleIo.writeln();
+                        aConsole.helper("table").output(someDuplicateRoutes);
+                        aConsole.writeln();
                     }
                     return CODE_SUCCESS;
                 }

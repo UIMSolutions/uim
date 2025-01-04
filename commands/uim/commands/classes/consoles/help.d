@@ -18,17 +18,17 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
   }
 
   // Main auto Prints out the list of commands.
-  override bool execute(Json[string] arguments, DConsoleIo aConsoleIo) {
+  override bool execute(Json[string] arguments, DConsole aConsole) {
     /*         auto commandIterator = _commands.getIterator();
         if (cast(DArrayIterator) commandIterator) {
             commandIterator.ksort();
         }
         if (commandArguments.getOption("xml")) {
-            this.asXml(aConsoleIo, commandIterator);
+            this.asXml(aConsole, commandIterator);
 
             return CODE_SUCCESS;
         }
-        asText(aConsoleIo, commandIterator);
+        asText(aConsole, commandIterator);
 
         return CODE_SUCCESS;
  */
@@ -36,7 +36,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
   }
 
   // Output text.
-  protected void asText(DConsoleIo aConsoleIo, string[string] commandCollection) {
+  protected void asText(DConsole aConsole, string[string] commandCollection) {
     string[][string] inverts = null;
     commands.byKeyValue
       .map!(nameCommand => nameCommand.value.classname)
@@ -74,28 +74,28 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     });
     // ksort(anGrouped);
 
-    /* outputPaths(aConsoleIo);
-        aConsoleIo.out("<info>Available Commands:</info>", 2);
+    /* outputPaths(aConsole);
+        aConsole.out("<info>Available Commands:</info>", 2);
  */
     /* foreach (prefix, names;  anGrouped) {
-            aConsoleIo.out("<info>%s</info>:".format(prefix));
+            aConsole.out("<info>%s</info>:".format(prefix));
             auto sortedNames = names.sort;
             foreach (someData; sortedNames) {
-                 aConsoleIo.out(" - " ~ someData.getString("name"));
+                 aConsole.out(" - " ~ someData.getString("name"));
                 if (auto description = someData.get("description", null)) {
-                     aConsoleIo.info(str_pad(" \u{2514}", 13, "\u{2500}") ~ " " ~ description.get!string);
+                     aConsole.info(str_pad(" \u{2514}", 13, "\u{2500}") ~ " " ~ description.get!string);
                 }
             }
-             aConsoleIo.out("");
+             aConsole.out("");
         } */
     string root = rootName();
-    /*        aConsoleIo.out("To run a command, type <info>`{root} command_name [args|options]`</info>");
-        aConsoleIo.out("To get help on a specific command, type <info>`{root} command_name --help`</info>", 2);
+    /*        aConsole.out("To run a command, type <info>`{root} command_name [args|options]`</info>");
+        aConsole.out("To get help on a specific command, type <info>`{root} command_name --help`</info>", 2);
  */
   }
 
   // Output relevant paths if defined
-  protected void outputPaths(DConsoleIo aConsoleIo) {
+  protected void outputPaths(DConsole aConsole) {
     STRINGAA myPaths;
 
     if (configuration.hasKey("App.dir")) {
@@ -112,29 +112,29 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         if (!count(myPaths)) {
             return;
         } */
-    /*         aConsoleIo.out("<info>Current Paths:</info>", 2);
-        myPaths.each!(kv => aConsoleIo.out("* %s: %s".format(kv.key, kv.value)));
-         aConsoleIo.out(""); */
+    /*         aConsole.out("<info>Current Paths:</info>", 2);
+        myPaths.each!(kv => aConsole.out("* %s: %s".format(kv.key, kv.value)));
+         aConsole.out(""); */
   }
 
 
 
   // Output as XML
-  protected void asXml(DConsoleIo aConsoleIo, DCommand[string] commands) {
+  protected void asXml(DConsole aConsole, DCommand[string] commands) {
     STRINGAA names;
     /* commands.byKeyValue
             .each!(nameCommand => names[nameCommand.key] = nameCommand.value); */
 
-    /*         asXml(aConsoleIo, names); */
+    /*         asXml(aConsole, names); */
   }
 
-  /* protected void asXml(DConsoleIo aConsoleIo, string[string] commandNames) {
+  /* protected void asXml(DConsole aConsole, string[string] commandNames) {
         auto shells = new DSimpleXMLElement("<shells></shells>");
         commandNames.byKeyValue
             .each(nameclassname => shells.addCommandToShells(nameclassname.key, nameclassname.value));
 
-        /*        aConsoleIo.setOutputAs(DOutput.RAW);
-        aConsoleIo.out(castto!string(xmlShells.saveXML())); * /
+        /*        aConsole.setOutputAs(DOutput.RAW);
+        aConsole.out(castto!string(xmlShells.saveXML())); * /
     } */
 
   // TODO

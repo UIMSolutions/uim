@@ -18,7 +18,7 @@ class DRoutesCheckCommand : DCommand {
   }
 
   /* override bool execute(Json[string] arguments, IConsole console = null) {
-    return super.execute(arguments, aConsoleIo);
+    return super.execute(arguments, aConsole);
   } */
 
   // Display all routes in an application
@@ -42,18 +42,18 @@ class DRoutesCheckCommand : DCommand {
         ["Route name", "URI template", "Defaults"],
         [name, url, Json_encode(route, Json_THROW_ON_ERROR)],
       ];
-      aConsoleIo.helper("table").output(output);
-      aConsoleIo.out ();
+      aConsole.helper("table").output(output);
+      aConsole.out ();
     } catch (DRedirectException anException) {
       output = [
         ["URI template", "Redirect"],
         [url, anException.message()],
       ];
-      aConsoleIo.helper("table").output(output);
-      aConsoleIo.out ();
+      aConsole.helper("table").output(output);
+      aConsole.out ();
     } catch (MissingRouteException) {
-      aConsoleIo.warning("'url' did not match any routes.");
-      aConsoleIo.out ();
+      aConsole.warning("'url' did not match any routes.");
+      aConsole.out ();
 
       return CODE_ERROR;
     } */

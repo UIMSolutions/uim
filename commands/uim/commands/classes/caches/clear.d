@@ -48,18 +48,18 @@ class DCacheClearCommand : DCommand {
   override bool execute(Json[string] arguments, IConsole console = null) {
     string engineName = to!string(commandArguments.getArgument("engine"));
     try {
-      aConsoleIo.writeln("Clearing {engineName}");
+      aConsole.writeln("Clearing {engineName}");
 
       auto engine = Cache.pool(engineName);
       Cache.clear(engineName);
       if (cast(DApcuEngine) engine) {
-        aConsoleIo.warning("ApcuEngine detected: Cleared {engineName} CLI cache successfully " ~
+        aConsole.warning("ApcuEngine detected: Cleared {engineName} CLI cache successfully " ~
             "but {engineName} web cache must be cleared separately.");
       } else {
-        // aConsoleIo.out("<success>Cleared {engineName} cache</success>");
+        // aConsole.out("<success>Cleared {engineName} cache</success>");
       }
     } catch (DInvalidArgumentException exception) {
-      aConsoleIo.error(exception.message());
+      aConsole.error(exception.message());
       this.abort();
     }
     return CODE_SUCCESS;

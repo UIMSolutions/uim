@@ -81,7 +81,7 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
      * - Trigger the `Console.buildCommands` event of auto-wiring plugins.
      * - Run the requested command.
      */
-    ulong run(Json[string] arguments, DConsoleIo aConsoleIo = null) {
+    ulong run(Json[string] arguments, DConsole aConsole = null) {
         assert(!arguments.isEmpty, "Cannot run any commands. No arguments received.");
 
         bootstrap();
@@ -104,19 +104,19 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
 
         // Remove the root executable segment
         // TODO arguments.shift();
-        aConsoleIo = aConsoleIo ? aConsoleIo : new DConsoleIo();
+        aConsole = aConsole ? aConsole : new DConsole();
 
         /* try {
             [name, arguments] = this.longestCommandName(myCommands, arguments);
-            name = this.resolveName(myCommands, aConsoleIo, name);
+            name = this.resolveName(myCommands, aConsole, name);
         } catch (MissingOptionException anException) {
-            aConsoleIo.error(anException.getFullMessage());
+            aConsole.error(anException.getFullMessage());
 
             return ICommand.CODE_ERROR;
         } */
-        auto command = getCommand(aConsoleIo, myCommands, name);
+        auto command = getCommand(aConsole, myCommands, name);
 
-        auto result = this.runCommand(command, arguments, aConsoleIo);
+        auto result = this.runCommand(command, arguments, aConsole);
         /* if (result.isNull) {
             return 0; // ICommand.CODE_SUCCESS;
         } */
@@ -158,7 +158,7 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
     }
 
     // Get the shell instance for a given command name
-    protected ICommand getCommand(DConsoleIo aConsoleIo, DCommandCollection commands, string commandName) {
+    protected ICommand getCommand(DConsole aConsole, DCommandCollection commands, string commandName) {
         /* auto anInstance = commands.get(commandName);
         if (isString(anInstance)) {
             anInstance = this.createCommand(anInstance);
@@ -200,9 +200,9 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
      * a command name in the CommandCollection. More specific
      * command names take precedence over less specific ones.
      */
-    protected string resolveName(DCommandCollection comandsToCheck, DConsoleIo aConsoleIo, string cliArgumentName) {
+    protected string resolveName(DCommandCollection comandsToCheck, DConsole aConsole, string cliArgumentName) {
         if (!cliArgumentName) {
-            /* aConsoleIo.writeErrorMessages(
+            /* aConsole.writeErrorMessages(
                 "<error>No command provided. Choose one of the available commands.</error>", 2);
             cliArgumentName = "help"; */
         }
@@ -222,12 +222,12 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
     }
 
     // Execute a Command class.
-    protected ulong runCommand(ICommand command, Json[string] argumentsToInvoke, DConsoleIo aConsoleIo) {
+    protected ulong runCommand(ICommand command, Json[string] argumentsToInvoke, DConsole aConsole) {
         /* try {
             if (cast(IEventDispatcher) command) {
                 command.eventManager(getEventManager());
             }
-            return command.run(argumentsToInvoke, aConsoleIo);
+            return command.run(argumentsToInvoke, aConsole);
         } catch (StopException anException) {
             return anException.code();
         } */

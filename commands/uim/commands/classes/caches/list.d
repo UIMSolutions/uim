@@ -38,7 +38,7 @@ class DCacheListCommand : DCommand {
   override bool execute(Json[string] arguments, IConsole console = null) {
     auto myEngines = Cache.configured();
     myEngines
-      .each!(engine => aConsoleIo.writeln("- %s".format(engine)));
+      .each!(engine => aConsole.writeln("- %s".format(engine)));
 
     return CODE_SUCCESS;
   } */

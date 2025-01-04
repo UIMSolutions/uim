@@ -16,7 +16,7 @@ import uim.commands;
  *
  * - `initialize` Acts as a post-construct hook.
  * - `buildOptionParser` Build/Configure the option parser for your command.
- * - `execute` Execute your command with parsed Json[string] and ConsoleIo
+ * - `execute` Execute your command with parsed Json[string] and Console
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
@@ -75,35 +75,35 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
         return null;
     }
 
-    ulong run(Json[string] arguments, DConsoleIo aConsoleIo) {
+    ulong run(Json[string] arguments, DConsole aConsole) {
         initialize();
 
         /*         auto aParser = getOptionParser();
         try {
-            auto parsedResults = aParser.parse(arguments, aConsoleIo);
+            auto parsedResults = aParser.parse(arguments, aConsole);
             auto arguments = createMap!(string, Json);
                 /* parsedResults[1],
                 parsedResults[0],
                 aParser.argumentNames()
             ); * /
         } catch (DConsoleException anException) {
-            aConsoleIo.writeErrorMessages("Error: " ~ anException.message());
+            aConsole.writeErrorMessages("Error: " ~ anException.message());
 
             return 0; //CODE_ERROR;
         }
-        setOutputLevel(arguments, aConsoleIo);
+        setOutputLevel(arguments, aConsole);
 
         if (arguments.getOption("help")) {
-            displayHelp(aParser, arguments, aConsoleIo);
+            displayHelp(aParser, arguments, aConsole);
 
             return 0; // CODE_SUCCESS;
         }
         if (arguments.getOption("quiet")) {
-            aConsoleIo.isInteractive(false);
+            aConsole.isInteractive(false);
         }
         dispatchEvent("Command.beforeExecute", ["args": arguments]);
 
-        auto result = execute(arguments, aConsoleIo);
+        auto result = execute(arguments, aConsole);
         dispatchEvent("Command.afterExecute", createMap!(string, Json)
             .set("args", arguments)
             .set("result", result)); */
@@ -112,30 +112,30 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
     }
 
     // Output help content
-    protected void displayHelp(DConsoleOptionParser optionParser, Json[string] arguments, DConsoleIo aConsoleIo) {
+    protected void displayHelp(DConsoleOptionParser optionParser, Json[string] arguments, DConsole aConsole) {
         /* string format = "text";
         if (arguments.getArgumentAt(0) == "xml") {
             format = "xml";
-            aConsoleIo.setOutputAs(DOutput.RAW);
+            aConsole.setOutputAs(DOutput.RAW);
         }
-        aConsoleIo.writeln(optionParser.help(format)); */
+        aConsole.writeln(optionParser.help(format)); */
     }
 
     // Set the output level based on the Json[string].
-    protected void setOutputLevel(Json[string] arguments, DConsoleIo aConsoleIo) {
-        // aConsoleIo.setLoggers(DConsoleIo.NORMAL);
+    protected void setOutputLevel(Json[string] arguments, DConsole aConsole) {
+        // aConsole.setLoggers(DConsole.NORMAL);
         /*  if (arguments.hasKey("quiet")) {
-            aConsoleIo.level(DConsoleIo.QUIET);
-            aConsoleIo.setLoggers(DConsoleIo.QUIET);
+            aConsole.level(DConsole.QUIET);
+            aConsole.setLoggers(DConsole.QUIET);
         }
         if (arguments.hasKey("verbose")) {
-            aConsoleIo.level(DConsoleIo.VERBOSE);
-            aConsoleIo.setLoggers(DataGetConsoleIo.VERBOSE);
+            aConsole.level(DConsole.VERBOSE);
+            aConsole.setLoggers(DataGetConsole.VERBOSE);
         } */
     }
 
     // Implement this method with your command`s logic.
-    abstract ulong execute(Json[string] commandArguments, DConsoleIo aConsoleIo);
+    abstract ulong execute(Json[string] commandArguments, DConsole aConsole);
 
     // Halt the current process with a StopException.
     /* never abort(int exitCode = CODE_ERROR) {
@@ -149,22 +149,22 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
      * will not be resolved with the application container. Instead you will
      * need to pass the command as an object with all of its dependencies.
      */
-    size_t executeCommand(string commandclassname, Json[string] commandArguments = null, DConsoleIo aConsoleIo = null) {
+    size_t executeCommand(string commandclassname, Json[string] commandArguments = null, DConsole aConsole = null) {
         /* assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
         ); */
 
         // auto newCommand = new command();
-        // return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? DConsoleIo aConsoleIo = null);
+        // return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? DConsole aConsole = null);
         return 0;
     }
 
-    size_t executeCommand(DCommand command, Json[string] commandArguments = null, DConsoleIo aConsoleIo = null) {
-        auto consoleIo = aConsoleIo ? aConsoleIo : new DConsoleIo();
+    size_t executeCommand(DCommand command, Json[string] commandArguments = null, DConsole aConsole = null) {
+        auto console = aConsole ? aConsole : new DConsole();
 
         /* try {
-                return command.run(commandArguments, consoleIo);
+                return command.run(commandArguments, console);
             }
             catch (StopException anException) {
                 return anException.code();

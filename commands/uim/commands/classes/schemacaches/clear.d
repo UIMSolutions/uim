@@ -27,7 +27,7 @@ class DSchemacacheClearCommand : DCommand {
   }
 
   /* override bool execute(Json[string] arguments, IConsole console = null) {
-    return super.execute(arguments, aConsoleIo);
+    return super.execute(arguments, aConsole);
   } */
 
   /* 
@@ -40,13 +40,13 @@ class DSchemacacheClearCommand : DCommand {
 
       cache = new DSchemaCache(aConnection);
     } catch (RuntimeException anException) {
-      aConsoleIo.error(anException.message());
+      aConsole.error(anException.message());
 
       return CODE_ERROR;
     }
     
     auto tables = cache.clear(commandArguments.getArgument("name"));
-    tables.each!(table => aConsoleIo.verbose("Cleared `%s`".format(aTable)));
+    tables.each!(table => aConsole.verbose("Cleared `%s`".format(aTable)));
     aConsoleio.out ("<success>Cache clear complete</success>");
 
     return CODE_SUCCESS;

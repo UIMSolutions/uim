@@ -50,14 +50,14 @@ class DCacheClearGroupCommand : DCommand {
     try {
       anGroupConfigs = Cache.groupConfigs(anGroup);
     } catch (InvalidArgumentException anException) {
-      aConsoleIo.error("Cache group '%s' not found".format(anGroup));
+      aConsole.error("Cache group '%s' not found".format(anGroup));
 
       return CODE_ERROR;
     }
 
     auto configData = commandArguments.getArgument("config");
     if (!configData.isNull && Cache.configuration.get(configData).isNull) {
-      aConsoleIo.error("Cache config '%s' not found".format(configData));
+      aConsole.error("Cache config '%s' not found".format(configData));
 
       return CODE_ERROR;
     }
@@ -65,12 +65,12 @@ class DCacheClearGroupCommand : DCommand {
       .filter(config => configData.isNull || configData == config)
       .each!((config) {
         if (!Cache.clearGroup(anGroup, config)) {
-          aConsoleIo.error(
+          aConsole.error(
             "Error encountered clearing group '%s'. Was unable to clear entries for '%s'."
             .format(anGroup, config));
           abort();
         } else {
-          aConsoleIo.success("Group '%s' was cleared.".format(anGroup));
+          aConsole.success("Group '%s' was cleared.".format(anGroup));
         }
       });
 

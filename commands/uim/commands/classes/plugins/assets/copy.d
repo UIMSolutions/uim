@@ -27,7 +27,7 @@ class DPluginAssetsCopyCommand : DCommand {
         return "plugin-assets-copy";
     }
 
-    override ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+    override bool execute(Json[string] arguments, IConsoleIo consoleIo) {
         return super.execute(arguments, consoleIo);
     }
 
@@ -55,7 +55,7 @@ class DPluginAssetsCopyCommand : DCommand {
      * Copying plugin assets to app`s webroot. For vendor namespaced plugin,
      * parent folder for vendor name are created if required.
      */
-    /* ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+    /* bool execute(Json[string] arguments, IConsoleIo consoleIo) {
         _io = consoleIo;
         _args = arguments;
 

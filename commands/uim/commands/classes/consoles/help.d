@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.commands.help;
+module uim.commands.classes.consoles.help;
 
 import uim.commands;
 
@@ -18,7 +18,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
   }
 
   // Main auto Prints out the list of commands.
-  override ulong execute(Json[string] arguments, DConsoleIo aConsoleIo) {
+  override bool execute(Json[string] arguments, DConsoleIo aConsoleIo) {
     /*         auto commandIterator = _commands.getIterator();
         if (cast(DArrayIterator) commandIterator) {
             commandIterator.ksort();

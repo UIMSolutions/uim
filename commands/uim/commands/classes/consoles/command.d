@@ -20,7 +20,7 @@ import uim.commands;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
-abstract class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
+class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
     mixin(CommandThis!("Console"));
     //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
     mixin TEventDispatcher;

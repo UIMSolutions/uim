@@ -21,13 +21,13 @@ class DRoutesCommand : DCommand {
         return true;
     }
 
-    /* override ulong execute(Json[string] arguments, IConsole console = null) {
+    /* override bool execute(Json[string] arguments, IConsole console = null) {
         return super.execute(arguments, aConsoleIo);
     } */
 
     /* 
     // Display all routes in an application
-  override ulong execute(Json[string] arguments, IConsole console = null) {
+  override bool execute(Json[string] arguments, IConsole console = null) {
         auto myheader = ["Route name", "URI template", "Plugin", "Prefix", "Controller", "Action", "Method(s)"];
         if (arguments.hasKey("verbose")) {
              aHeader ~= "Defaults";
@@ -117,7 +117,7 @@ class DRoutesCommand : DCommand {
             }
 
             // Display all routes in an application
-            override ulong execute(Json[string] arguments, IConsole console = null) {
+            override bool execute(Json[string] arguments, IConsole console = null) {
                 if (commandArguments.getOption("verbose")) {
                     ksort(route.defaults);
                     anItem ~= Json_encode(route.defaults, Json_THROW_ON_ERROR);

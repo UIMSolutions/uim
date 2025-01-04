@@ -100,7 +100,7 @@ class DI18nExtractCommand : DCommand {
     } */
 
     // Execute the command
-  ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+  bool execute(Json[string] arguments, IConsoleIo consoleIo) {
         string myPlugin = "";
         if (arguments.hasKey("exclude")) {
            _exclude = arguments.getString("exclude").split(",");
@@ -191,12 +191,11 @@ class DI18nExtractCommand : DCommand {
         }
        _extract(arguments, consoleIo);
 
-        return CODE_SUCCESS;
+        return true;
     }
     
     /**
      * Add a translation to the internal translations property
-     *
      * Takes care of duplicate translations
      */
     protected void _addTranslation(string domainName, string messageId, Json[string] contextData = null) {

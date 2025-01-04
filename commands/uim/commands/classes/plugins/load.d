@@ -30,11 +30,11 @@ class DPluginLoadCommand : DCommand {
     //  Config file
     protected string _configDataFile;
 
-    override ulong execute(Json[string] arguments, IConsole console = null) {
+    override bool execute(Json[string] arguments, IConsole console = null) {
         return super.execute(arguments, consoleIo);
     }
 
-    override ulong execute(Json[string] arguments, IConsole console = null) {
+    override bool execute(Json[string] arguments, IConsole console = null) {
         auto plugin = arguments.getString("plugin");
         auto options = null;
         if (arguments.hasKey("only-debug")) {

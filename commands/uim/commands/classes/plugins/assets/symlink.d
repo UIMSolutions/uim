@@ -27,7 +27,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return "plugin-assets-symlink";
     }
 
-    override ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+    override bool execute(Json[string] arguments, IConsoleIo consoleIo) {
         return super.execute(arguments, consoleIo);
     }
 
@@ -52,7 +52,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
      * fallbacks to copying the assets. For vendor namespaced plugin, parent folder
      * for vendor name are created if required.
      */
-    override ulong execute(Json[string] arguments, IConsole console = null) {
+    override bool execute(Json[string] arguments, IConsole console = null) {
         _io = aConsoleIo;
         _args = commandArguments;
 

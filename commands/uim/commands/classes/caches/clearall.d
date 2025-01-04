@@ -35,7 +35,7 @@ class DCacheClearallCommand : DCommand {
   }
 
   // Implement this method with your command`s logic.
-  override ulong execute(Json[string] arguments, IConsole console = null) {
+  override bool execute(Json[string] arguments, IConsole console = null) {
     auto myEngines = Cache.configured();
     // myEngines.each!(engine => this.executeCommand(CacheClearCommand.class, [engine], aConsoleIo));
 

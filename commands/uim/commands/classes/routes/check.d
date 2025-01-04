@@ -17,12 +17,12 @@ class DRoutesCheckCommand : DCommand {
     return "routes-check";
   }
 
-  /* override ulong execute(Json[string] arguments, IConsole console = null) {
+  /* override bool execute(Json[string] arguments, IConsole console = null) {
     return super.execute(arguments, aConsoleIo);
   } */
 
   // Display all routes in an application
-  /* override */ ulong execute(Json[string] arguments, IConsole console = null) {
+  /* override */ bool execute(Json[string] arguments, IConsole console = null) {
     auto myUrl = commandArguments.getArgument("url");
     /* try {
       auto request = new DServerRequest(["url": url]);

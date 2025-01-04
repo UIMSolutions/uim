@@ -13,10 +13,10 @@ import uim.commands;
 class DVersionCommand : DCommand {
   mixin(CommandThis!("Version"));
 
-  override ulong execute(Json[string] arguments, IConsole console = null) {
+  override bool execute(Json[string] arguments, IConsole console = null) {
     console.writeln(Configure.currentVersion());
 
-    return CODE_SUCCESS;
+    return true;
   }
 }
 mixin(CommandCalls!("Version"));

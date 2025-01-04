@@ -22,7 +22,7 @@ class DI18nCommand : DCommand {
     }
 
     // Execute interactive mode
-    ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+    override bool execute(Json[string] arguments, IConsoleIo consoleIo) {
         consoleIo.writeln("<info>I18n Command</info>");
         consoleIo.hr();
         consoleIo.writeln("[E]xtract POT file from sources");
@@ -60,7 +60,7 @@ class DI18nCommand : DCommand {
         }
         while (choice != "q");
 
-        return CODE_SUCCESS;
+        return true;
     }
 
     //  Gets the option parser instance and configures it.

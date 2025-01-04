@@ -17,7 +17,7 @@ class DI18nInitCommand : DCommand {
         return "i18n-init";
     }
 
-    ulong execute(Json[string] arguments, IConsoleIo consoleIo) {
+    bool execute(Json[string] arguments, IConsoleIo consoleIo) {
         auto myLanguage = commandArguments.getArgument("language");
         if (myLanguage.isNull) {
             myLanguage = consoleIo.ask(

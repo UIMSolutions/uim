@@ -3,12 +3,11 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (UIManufaktur)                                                      
 **********************************************************************************************************/
-module uim.databases.exceptions;
+module uim.databases.exceptions.missingextension;
 
-public {
-	import uim.databases.exceptions.exception;
-	import uim.databases.exceptions.missingconnection;
-	import uim.databases.exceptions.missingdriver;
-	import uim.databases.exceptions.missingextension;
-	import uim.databases.exceptions.nestedtransactionrollback;
+@safe:
+import uim.databases;
+
+class MissingExtensionException : DDatabaseException {
+    // TODO protected _messageTemplate = "Database driver %s cannot be used due to a missing extension or unmet dependency. Requested by connection '%s'";
 }

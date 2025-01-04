@@ -5,7 +5,7 @@
 *****************************************************************************************************************/
 module uim.commands.classes.commands.factory;
 
-import uim.oop;
+import uim.commands;
 
 @safe:
 

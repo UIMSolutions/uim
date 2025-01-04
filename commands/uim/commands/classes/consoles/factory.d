@@ -3,14 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes.commands.factory;
+module uim.commands.classes.consoles.factory;
 
-import uim.consoles;
+import uim.commands;
 
 @safe:
 
 // This is a factory for creating Command instances.
-class DCommandFactory { // }: ICommandFactory {
+/* class DCommandFactory { // }: ICommandFactory {
   mixin TConfigurable;
 
   this() {
@@ -40,5 +40,5 @@ class DCommandFactory { // }: ICommandFactory {
     return _container && _container.has(aclassname)
       ? _container.get(aclassname).clone : null;
   } 
-  */
-}
+  * /
+} */

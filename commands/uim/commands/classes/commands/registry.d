@@ -5,7 +5,7 @@
 *****************************************************************************************************************/
 module uim.commands.classes.commands.registry;
 
-import uim.oop;
+import uim.commands;
 @safe:
 
 class DCommandRegistry : DObjectRegistry!DCommand {

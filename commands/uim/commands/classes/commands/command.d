@@ -5,7 +5,7 @@
 *****************************************************************************************************************/
 module uim.commands.classes.commands.command;
 
-import uim.oop;
+import uim.commands;
 @safe:
 
 // Base class for commands

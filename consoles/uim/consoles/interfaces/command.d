@@ -12,5 +12,5 @@ import uim.consoles;
 // Describe the interface between a command and the surrounding console libraries.
 interface IConsoleCommand : INamed {
     // Run the command.
-    // TODO ulong run(Json[string] cliArguments, ConsoleIo consoleIo);
+    // TODO ulong run(Json[string] cliArguments, Console consoleIo);
 }

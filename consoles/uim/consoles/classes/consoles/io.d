@@ -16,7 +16,7 @@ import uim.consoles;
  * consistent interface for shells to use. This class DAlso makes mocking streams
  * easy to do in unit tests.
  */
-class DConsoleIo : UIMObject {
+class DConsole : UIMObject {
     // Output constant making verbose shells.
     const int VERBOSE = 2;
 
@@ -105,10 +105,10 @@ class DConsoleIo : UIMObject {
      *
      * ### Output levels
      *
-     * There are 3 built-in output level. ConsoleIo.QUIET, ConsoleIo.NORMAL, ConsoleIo.VERBOSE.
+     * There are 3 built-in output level. Console.QUIET, Console.NORMAL, Console.VERBOSE.
      * The verbose and quiet output levels, map to the `verbose` and `quiet` output switches
-     * present in most shells. Using ConsoleIo.QUIET for a message means it will always display.
-     * While using ConsoleIo.VERBOSE means it will only display when verbose output is toggled.
+     * present in most shells. Using Console.QUIET for a message means it will always display.
+     * While using Console.VERBOSE means it will only display when verbose output is toggled.
      */
     int out_(string[] message = null, int newLinesToAppend = 1, int outputLevel = NORMAL) {
         if (outputLevel > _level) {

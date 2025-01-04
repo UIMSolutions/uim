@@ -26,11 +26,11 @@ class DConsoleHelperRegistry : UIMObject { // }: ObjectRegistry {
 
     /* 
     // IO instance.
-    protected IConsoleIo _io;
+    protected IConsole _io;
 
     // Sets The IO instance that should be passed to the shell helpers
-    void setIo(IConsoleIo aConsoleIo) {
-        _io = aConsoleIo;
+    void setIo(IConsole aConsole) {
+        _io = aConsole;
     }
 
     /**

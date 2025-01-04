@@ -50,10 +50,10 @@ mixin template TConsoleIntegrationTest() {
                 "You can use ` anInput` only if ` _in` property.isNull and will be reset.");
         }
         someArguments = _commandstringToArgs("uim command");
-        aConsoleIo = new DConsoleIo(_out, _err, _in);
+        aConsole = new DConsole(_out, _err, _in);
 
         try {
-            _exitCode = runner.run(someArguments, aConsoleIo);
+            _exitCode = runner.run(someArguments, aConsole);
         } catch (MissingInputConsoleException anException) {
             messages = _out.messages();
             if (count(messages)) {

@@ -29,12 +29,12 @@ abstract class DConsoleHelper : UIMObject {
         return true;
     }
 
-    this(DConsoleIo aConsoleIo, Json[string] configData = null) {
+    this(DConsole aConsole, Json[string] configData = null) {
         this();
         initialize(configData);
     }
     
-    protected DConsoleIo _io;
+    protected DConsole _io;
 
 
     // This method should output content using `_io`.

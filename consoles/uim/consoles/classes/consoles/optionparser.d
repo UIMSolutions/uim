@@ -389,7 +389,7 @@ class DConsoleOptionParser : UIMObject, IConsoleOptionParser {
   }
 
   // Parse the arguments array into a set of params and args.
-  Json[string] parse(Json[string] arguments, DConsoleIo consoleIo = null) {
+  Json[string] parse(Json[string] arguments, DConsole console = null) {
     // _tokens = arguments;
     /* auto params = someArguments = null;
 
@@ -437,16 +437,16 @@ class DConsoleOptionParser : UIMObject, IConsoleOptionParser {
             }
             auto prompt = option.prompt();
             if (!params.hasKey(name) && prompt) {
-                if (!consoleIo) {
+                if (!console) {
                     throw new DConsoleException(
-                        "Cannot use interactive option prompts without a ConsoleIo instance. " ~
-                        "Please provide a ` consoleIo` parameter to `parse()`."
+                        "Cannot use interactive option prompts without a Console instance. " ~
+                        "Please provide a ` console` parameter to `parse()`."
                     );
                 }
                 auto choices = option.choices();
 
                 auto aValue = choices
-                    ? consoleIo.askChoice(prompt, choices) : consoleIo.ask(prompt);
+                    ? console.askChoice(prompt, choices) : console.ask(prompt);
 
                 params[name] = aValue;
             }

@@ -12,12 +12,12 @@ import uim.consoles;
 /**
  * StubOutput makes testing shell commands/shell helpers easier.
  *
- * You can use this class by injecting it into a ConsoleIo instance
+ * You can use this class by injecting it into a Console instance
  * that your command/task/helper uses:
  *
  * ```
  * output = new DStubOutputConsole();
- * aConsoleIo = new DConsoleIo(output);
+ * aConsole = new DConsole(output);
  * ```
  */
 class DStubOutputConsole : DOutput {

@@ -22,34 +22,34 @@ class DI18nCommand : DCommand {
     }
 
     // Execute interactive mode
-    override bool execute(Json[string] arguments, IConsoleIo consoleIo) {
-        consoleIo.writeln("<info>I18n Command</info>");
-        consoleIo.hr();
-        consoleIo.writeln("[E]xtract POT file from sources");
-        consoleIo.writeln("[I]nitialize a language from POT file");
-        consoleIo.writeln("[H]elp");
-        consoleIo.writeln("[Q]uit");
+    override bool execute(Json[string] arguments, IConsole console) {
+        console.writeln("<info>I18n Command</info>");
+        console.hr();
+        console.writeln("[E]xtract POT file from sources");
+        console.writeln("[I]nitialize a language from POT file");
+        console.writeln("[H]elp");
+        console.writeln("[Q]uit");
 
         do {
-            string choice = consoleIo.askChoice("What would you like to do?", [
+            string choice = console.askChoice("What would you like to do?", [
                     "E", "I", "H", "Q"
                 ])
                 .lower;
             auto code = null;
             switch (choice) {
             case "e":
-                code = executeCommand(I18nExtractCommand.classname, [], consoleIo);
+                code = executeCommand(I18nExtractCommand.classname, [], console);
                 break;
             case "i":
-                code = executeCommand(I18nInitCommand.classname, [], consoleIo);
+                code = executeCommand(I18nInitCommand.classname, [], console);
                 break;
             case "h":
-                consoleIo.writeln(getOptionParser().help());
+                console.writeln(getOptionParser().help());
                 break;
             case "q": // Do nothing
                 break;
             default:
-                consoleIo.writeErrorMessages(
+                console.writeErrorMessages(
                     "You have made an invalid selection. " ~
                         "Please choose a command to execute by entering E, I, H, or Q."
                 );

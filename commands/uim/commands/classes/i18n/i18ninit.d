@@ -17,7 +17,7 @@ class DI18nInitCommand : DCommand {
         return "i18n-init";
     }
 
-    bool execute(Json[string] arguments, IConsoleIo consoleIo) {
+    bool execute(Json[string] arguments, IConsole consoleIo) {
         auto myLanguage = commandArguments.getArgument("language");
         if (myLanguage.isNull) {
             myLanguage = consoleIo.ask(
@@ -58,7 +58,7 @@ class DI18nInitCommand : DCommand {
                     throw new UIMException(
                         "Cannot read file content of `%s`".format(sourceFolder ~ filename));
                 }
-                aConsoleIo.createFile(targetFolder ~ newFilename, content);
+                aConsole.createFile(targetFolder ~ newFilename, content);
                 countFiles++;
             });
         consoleIo.writeln("Generated " ~ countFiles ~ " PO files in " ~ targetFolder);

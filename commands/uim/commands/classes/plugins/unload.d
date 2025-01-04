@@ -27,11 +27,11 @@ class DPluginUnloadCommand : DCommand {
         return "plugin-unload";
     }
 
-    override bool execute(Json[string] arguments, IConsoleIo consoleIo) {
+    override bool execute(Json[string] arguments, IConsole consoleIo) {
         return super.execute(arguments, consoleIo);
     }
 
-    bool execute(Json[string] arguments, IConsoleIo consoleIo) {
+    bool execute(Json[string] arguments, IConsole consoleIo) {
         string pluginName = arguments.getString("plugin");
 
         auto modificationResult = modifyConfigFile(pluginName);

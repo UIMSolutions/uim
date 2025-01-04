@@ -25,7 +25,7 @@ class DPluginLoadedCommand : DCommand {
         return "plugin-loaded";
     }
 
-    override bool execute(Json[string] arguments, IConsoleIo consoleIo) {
+    override bool execute(Json[string] arguments, IConsole consoleIo) {
         return super.execute(arguments, consoleIo);
     }
 
@@ -35,7 +35,7 @@ class DPluginLoadedCommand : DCommand {
      * \UIM\Console\Json[string] arguments The command arguments.
   override bool execute(Json[string] arguments, IConsole console = null) {
         loaded = Plugin. loaded();
-        aConsoleIo.out (loaded);
+        aConsole.out (loaded);
 
         return static . CODE_SUCCESS;
     }

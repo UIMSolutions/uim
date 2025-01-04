@@ -27,7 +27,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return "plugin-assets-symlink";
     }
 
-    override bool execute(Json[string] arguments, IConsoleIo consoleIo) {
+    override bool execute(Json[string] arguments, IConsole consoleIo) {
         return super.execute(arguments, consoleIo);
     }
 
@@ -53,7 +53,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
      * for vendor name are created if required.
      */
     override bool execute(Json[string] arguments, IConsole console = null) {
-        _io = aConsoleIo;
+        _io = aConsole;
         _args = commandArguments;
 
         auto name = commandArguments.getArgument("name");

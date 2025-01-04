@@ -17,7 +17,7 @@ mixin template TPluginAssets() {
 
     /*
     // Console IO
-    protected IConsoleIo aConsoleIo;
+    protected IConsole aConsole;
 
     /**
      * Get list of plugins to process. Plugins without a webroot directory are skipped.

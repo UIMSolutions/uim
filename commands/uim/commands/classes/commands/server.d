@@ -43,7 +43,7 @@ class DServerCommand : DCommand {
      * Starts up the Command and displays the welcome message.
      * Allows for checking and configuring prior to command or main execution
      */
-    /* protected void startup(Json[string] arguments, IConsoleIo aConsoleIo) {
+    /* protected void startup(Json[string] arguments, IConsole aConsole) {
         _host = arguments.getString("host", _host);
         _port = arguments.getLong("port", _port);
         if (arguments.hasKey("document_root")) {
@@ -64,7 +64,7 @@ class DServerCommand : DCommand {
         /* if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _iniPath, m)) {
            _iniPath = m[1] ~ "\\" ~ m[2];
         }
-        with (aConsoleIo) {
+        with (aConsole) {
             writeln();
             writeln("<info>Welcome to UIM %s Console</info>".format("v" ~ Configure.currentVersion()));
             hr();

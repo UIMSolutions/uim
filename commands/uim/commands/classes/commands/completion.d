@@ -73,29 +73,29 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     // Main auto Prints out the list of commands.
     override bool execute(Json[string] arguments, IConsole console = null) {
         return match(commandArguments.getArgument("mode")) {
-            "commands" : getCommands(commandArguments, aConsoleIo),
-            "subcommands" : getSubcommands(commandArguments, aConsoleIo),
-            "options" : options(commandArguments, aConsoleIo),
+            "commands" : getCommands(commandArguments, aConsole),
+            "subcommands" : getSubcommands(commandArguments, aConsole),
+            "options" : options(commandArguments, aConsole),
             default : CODE_ERROR,
         };
     }
 
     // Get the list of defined commands.
-    protected int getCommands(Json[string] arguments, IConsoleIo aConsoleIo) {
+    protected int getCommands(Json[string] arguments, IConsole aConsole) {
         auto options = null;
         foreach (aKey, aValue; _commands) {
             string[] someParts = aKey.split(" ");
             options ~= someParts[0];
         }
         options = options.unique;
-        aConsoleIo.
+        aConsole.
         out (join(" ", options));
 
         return CODE_SUCCESS;
     }
 
     // Get the list of defined sub-commands.
-    protected int getSubcommands(Json[string] arguments, IConsoleIo aConsoleIo) {
+    protected int getSubcommands(Json[string] arguments, IConsole aConsole) {
         string commandName = commandArguments.getArgument("command");
         if (commandName.isNull || commandName.isEmpty) {
             return CODE_SUCCESS;
@@ -114,13 +114,13 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
                 }
             });
         options = options.unique;
-        aConsoleIo.out (options.join(" "));
+        aConsole.out (options.join(" "));
 
         return CODE_SUCCESS;
     }
 
     // Get the options for a command or subcommand
-    protected int options(Json[string] arguments, IConsoleIo aConsoleIo) {
+    protected int options(Json[string] arguments, IConsole aConsole) {
         auto commandName = commandArguments.getArgument("command");
         auto subcommand = commandArguments.getArgument("subcommand");
 
@@ -155,7 +155,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             }
         }
         options = options.unique;
-        aConsoleIo.out (options.join(" "));
+        aConsole.out (options.join(" "));
 
         return static.CODE_SUCCESS;
     } */

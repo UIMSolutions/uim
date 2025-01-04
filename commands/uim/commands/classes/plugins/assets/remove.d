@@ -19,7 +19,7 @@ class DPluginAssetsRemoveCommand : DCommand {
   }
 
   // Remove plugin assets from app`s webroot.
-  /* override bool execute(Json[string] arguments, IConsoleIo consoleIo) {
+  /* override bool execute(Json[string] arguments, IConsole consoleIo) {
     _io = consoleIo;
     _args = arguments;
 

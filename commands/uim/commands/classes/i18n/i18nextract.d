@@ -63,7 +63,7 @@ class DI18nExtractCommand : DCommand {
     //  Extracted strings indexed by domain.
 
     // Method to interact with the user and get path selections.
-    /* protected void _getPaths(IConsoleIo consoleIo) {
+    /* protected void _getPaths(IConsole console) {
         /** @psalm-suppress UndefinedConstant * /
         defaultPaths = chain(
             [APP],
@@ -77,30 +77,30 @@ class DI18nExtractCommand : DCommand {
                 "Current paths: %s\nWhat is the path you would like to extract?\n[Q]uit [D]one"
                 .format(currentPaths.join(", "));
 
-            string response = consoleIo.ask(message, defaultPaths.getString(defaultPathIndex, "D"));
+            string response = console.ask(message, defaultPaths.getString(defaultPathIndex, "D"));
             if (response.upper == "Q") {
-                 consoleIo.writeErrorMessages("Extract Aborted");
+                 console.writeErrorMessages("Extract Aborted");
                 abort();
             }
             if (response.upper == "D" && count(_paths)) {
-                 consoleIo.writeln();
+                 console.writeln();
 
                 return;
             }
             if (response.upper == "D") {
-                 consoleIo.warning("No directories selected. Please choose a directory.");
+                 console.warning("No directories selected. Please choose a directory.");
             } else if (isDir(response)) {
                _paths ~= response;
                 defaultPathIndex++;
             } else {
-                 consoleIo.writeErrorMessages("The directory path you supplied was not found. Please try again.");
+                 console.writeErrorMessages("The directory path you supplied was not found. Please try again.");
             }
-             consoleIo.writeln();
+             console.writeln();
         }
     } */
 
     // Execute the command
-  bool execute(Json[string] arguments, IConsoleIo consoleIo) {
+  bool execute(Json[string] arguments, IConsole console) {
         string myPlugin = "";
         if (arguments.hasKey("exclude")) {
            _exclude = arguments.getString("exclude").split(",");
@@ -114,13 +114,13 @@ class DI18nExtractCommand : DCommand {
             myPlugin = commandArguments.getString("plugin").camelize;
            _paths = [Plugin.classPath(myPlugin), Plugin.templatePath(myPlugin)];
         } else {
-           _getPaths(consoleIo);
+           _getPaths(console);
         }
         string _extractCore; 
         if (arguments.hasOption("extract-core")) {
            // _extractCore = !arguments.getString("extract-core").lower == "no");
         } else {
-            response = consoleIo.askChoice(
+            response = console.askChoice(
                 "Would you like to extract the messages from the UIM core?",
                 ["y", "n"],
                 "n"
@@ -146,12 +146,12 @@ class DI18nExtractCommand : DCommand {
                 localePaths ~= ROOT ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales";
             }
             while (true) {
-                response = consoleIo.ask(
+                response = console.ask(
                     message,
                     localePaths[0]
                );
                 if (response.upper == "Q") {
-                     consoleIo.writeErrorMessages("Extract Aborted");
+                     console.writeErrorMessages("Extract Aborted");
 
                     return CODE_ERROR;
                 }
@@ -159,19 +159,19 @@ class DI18nExtractCommand : DCommand {
                    _output = response ~ DIRECTORY_SEPARATOR;
                     break;
                 }
-                 consoleIo.writeErrorMessages("");
-                 consoleIo.writeErrorMessages(
+                 console.writeErrorMessages("");
+                 console.writeErrorMessages(
                     "<error>The directory path you supplied was " ~
                     "not found. Please try again.</error>"
                );
-                 consoleIo.writeErrorMessages("");
+                 console.writeErrorMessages("");
             }
         }
         if (arguments.hasOption("merge")) {
            _merge = !(strtolower(to!string(arguments.getOption("merge")) == "no"));
         } else {
-             consoleIo.writeln();
-            response = consoleIo.askChoice(
+             console.writeln();
+            response = console.askChoice(
                 "Would you like to merge all domain strings into the default.pot file?",
                 ["y", "n"],
                 "n"
@@ -185,11 +185,11 @@ class DI18nExtractCommand : DCommand {
         }
        _output = stripRight(_output, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         if (!_isPathUsable(_output)) {
-             consoleIo.writeErrorMessages("The output directory `%s` was not found or writable.".format(_output));
+             console.writeErrorMessages("The output directory `%s` was not found or writable.".format(_output));
 
             return CODE_ERROR;
         }
-       _extract(arguments, consoleIo);
+       _extract(arguments, console);
 
         return true;
     }
@@ -216,27 +216,27 @@ class DI18nExtractCommand : DCommand {
     }
     
     // Extract text
-    /* protected void _extract(Json[string] commandArguments, IConsoleIo consoleIo) {
-         consoleIo.writeln();
-         consoleIo.writeln();
-         consoleIo.writeln("Extracting...");
-         consoleIo.hr();
-         consoleIo.writeln("Paths:");
-        _paths.each!(path => consoleIo.writeln("   " ~ path));
+    /* protected void _extract(Json[string] commandArguments, IConsole console) {
+         console.writeln();
+         console.writeln();
+         console.writeln("Extracting...");
+         console.hr();
+         console.writeln("Paths:");
+        _paths.each!(path => console.writeln("   " ~ path));
 
-         consoleIo.writeln("Output Directory: " ~ _output);
-         consoleIo.hr();
-       _extractTokens(commandArguments,  consoleIo);
+         console.writeln("Output Directory: " ~ _output);
+         console.hr();
+       _extractTokens(commandArguments,  console);
        _buildFiles(commandArguments);
-       _writeFiles(commandArguments,  consoleIo);
+       _writeFiles(commandArguments,  console);
        _paths = _fileNames = _storage = null;
        _translations = _tokens = null;
-         consoleIo.writeln();
+         console.writeln();
         if (_countMarkerError) {
-             consoleIo.writeErrorMessages("{_countMarkerError} marker error(s) detected.");
-             consoleIo.writeErrorMessages(": Use the --marker-error option to display errors.");
+             console.writeErrorMessages("{_countMarkerError} marker error(s) detected.");
+             console.writeErrorMessages(": Use the --marker-error option to display errors.");
         }
-         consoleIo.writeln("Done.");
+         console.writeln("Done.");
     } */
     
     // Gets the option parser instance and configures it.
@@ -297,8 +297,8 @@ class DI18nExtractCommand : DCommand {
     } */
     
     // Extract tokens out of all files to be processed
-    protected void _extractTokens(Json[string] commandArguments, IConsoleIo consoleIo) {
-        auto progress = consoleIo.helper("progress");
+    protected void _extractTokens(Json[string] commandArguments, IConsole console) {
+        auto progress = console.helper("progress");
         assert(cast(ProgressHelper)progress);
         
         progress.initialize(["total": count(_fileNames)]);
@@ -319,7 +319,7 @@ class DI18nExtractCommand : DCommand {
         /* _fileNames.each!((fileName) {
             auto _fileName = fileName;
             if (isVerbose) {
-                 consoleIo.verbose("Processing %s...".format(fileName));
+                 console.verbose("Processing %s...".format(fileName));
             }
             auto code = to!string(file_get_contents(file));
 
@@ -335,7 +335,7 @@ class DI18nExtractCommand : DCommand {
                 allTokens.clear;
 
                 foreach (functionName: map; functions) {
-                   _parse(consoleIo, functionName, map);
+                   _parse(console, functionName, map);
                 }
             }
             if (!isVerbose) {
@@ -346,7 +346,7 @@ class DI18nExtractCommand : DCommand {
     }
     
     // Parse tokens
-    /* protected void _parse(IConsoleIo consoleIo, string funcName, Json[string] map) {
+    /* protected void _parse(IConsole console, string funcName, Json[string] map) {
         size_t count = 0;
         size_t tokenCount = count(_tokens);
 
@@ -391,7 +391,7 @@ class DI18nExtractCommand : DCommand {
                     }
                    _addTranslation(domain, singular, details);
                 } else {
-                   _markerError(consoleIo, _fileName, line, functionName, count);
+                   _markerError(console, _fileName, line, functionName, count);
                 }
             }
             count++;
@@ -460,8 +460,8 @@ class DI18nExtractCommand : DCommand {
     }
     
     // Write the files that need to be stored
-    protected void _writeFiles(Json[string] commandArguments, IConsoleIo consoleIo) {
-        consoleIo.writeln();
+    protected void _writeFiles(Json[string] commandArguments, IConsole console) {
+        console.writeln();
         bool overwriteAll = false;
         if (commandArguments.getOption("overwrite")) {
             overwriteAll = true;
@@ -475,14 +475,14 @@ class DI18nExtractCommand : DCommand {
             auto outputPath = _output ~ filename;
 
             if (checkUnchanged(outputPath,  lengthOfFileheader, outputHeader) == true) {
-                 consoleIo.writeln(filename ~ " is unchanged. Skipping.");
+                 console.writeln(filename ~ " is unchanged. Skipping.");
                 continue;
             }
             
             string response = "";
             while (overwriteAll == false && file.hasKey(outputPath) && response.upper != "Y") {
-                consoleIo.writeln();
-                response = consoleIo.askChoice(
+                console.writeln();
+                response = console.askChoice(
                     "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format(filename),
                     ["y", "n", "a"],
                     'y'
@@ -490,7 +490,7 @@ class DI18nExtractCommand : DCommand {
                 if (response.upper == "N") {
                     response = "";
                     while (!response) {
-                        response = consoleIo.ask("What would you like to name this file?", "new_" ~ filename);
+                        response = console.ask("What would you like to name this file?", "new_" ~ filename);
                         filename = response;
                     }
                 } else if (response.upper == "A") {
@@ -597,23 +597,23 @@ class DI18nExtractCommand : DCommand {
     }
     
     // Indicate an invalid marker on a processed file
-    /* protected void _markerError(IConsoleIo consoleIo, string nameOfFile, int lineNumber, string foundMarker, size_t count) {
+    /* protected void _markerError(IConsole console, string nameOfFile, int lineNumber, string foundMarker, size_t count) {
         if (!_fileName.has(uim_CORE_INCLUDE_PATH)) {
            _countMarkerError++;
         }
         if (!_markerError) {
             return;
         }
-        consoleIo.writeErrorMessages("Invalid marker content in %s:%s\n* %s(".format(nameOfFile, lineNumber, foundMarker));
+        console.writeErrorMessages("Invalid marker content in %s:%s\n* %s(".format(nameOfFile, lineNumber, foundMarker));
         count += 2;
         auto tokenCount = _tokens.length;
         auto parenthesis = 1;
 
         while ((tokenCount - count > 0) && parenthesis) {
             if (_tokens.isArray(count)) {
-                 consoleIo.writeErrorMessages(_tokens[count][1], 0);
+                 console.writeErrorMessages(_tokens[count][1], 0);
             } else {
-                 consoleIo.writeErrorMessages(_tokens[count], 0);
+                 console.writeErrorMessages(_tokens[count], 0);
                 if (_tokens[count] == "(") {
                     parenthesis++;
                 }
@@ -623,7 +623,7 @@ class DI18nExtractCommand : DCommand {
             }
             count++;
         }
-         consoleIo.writeErrorMessages("\n");
+         console.writeErrorMessages("\n");
     } */
     
     // Search files that may contain translatable strings

@@ -3,16 +3,12 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes;
+module uim.consoles.classes.erroroutputs.output;
 
-public {
-    import uim.consoles.classes.arguments;
-    import uim.consoles.classes.helpformatter;
-}
+import uim.consoles;
 
-public {
-    import uim.consoles.classes.consoles;
-    import uim.consoles.classes.erroroutputs;
-    import uim.consoles.classes.inputs;
-    import uim.consoles.classes.outputs;
+@safe:
+
+class DErrorOutput : UIMObject, IErrorOutput {
+  mixin(ErrorOutputThis!());
 }

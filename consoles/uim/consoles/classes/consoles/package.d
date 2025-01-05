@@ -13,8 +13,5 @@ public { // Main
 }
 
 public {
-    import uim.consoles.classes.consoles.inputargument;
-    import uim.consoles.classes.consoles.inputoption;
-    import uim.consoles.classes.consoles.io;
     import uim.consoles.classes.consoles.optionparser;
 }

@@ -22,8 +22,8 @@ class DRoutesCheckCommand : DCommand {
   } */
 
   // Display all routes in an application
-  /* override */ bool execute(Json[string] arguments, IConsole console = null) {
-    auto myUrl = commandArguments.getArgument("url");
+  override bool execute(Json[string] arguments, IConsole console = null) {
+    // auto myUrl = commandArguments.getArgument("url");
     /* try {
       auto request = new DServerRequest(["url": url]);
       auto route = Router.parseRequest(request);

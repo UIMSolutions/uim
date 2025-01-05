@@ -38,11 +38,11 @@ class DPluginUnloadCommand : DCommand {
         if (modificationResult.isNull) {
             consoleIo.success("Plugin removed from `CONFIG/plugins.d`");
 
-            return CODE_SUCCESS;
+            return true;
         }
         consoleIo.writeErrorMessages(modificationResult);
 
-        return CODE_ERROR;
+        return false;
     }
 
     //  Modify the plugins config file.

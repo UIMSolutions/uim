@@ -3,9 +3,9 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module commands.uim.commands.classes.collection;
+module uim.commands.classes.collection;
 
-import uim.oop;
+import uim.commands;
 @safe:
 
 class DCommandCollection : DCollection!DCommand {   

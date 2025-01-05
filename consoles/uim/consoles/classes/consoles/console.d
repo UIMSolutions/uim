@@ -59,7 +59,7 @@ class DConsole : UIMObject, IConsole {
 
     this(
         DOutput output = null,
-        DOutput errOutput = null,
+        DErrorOutput errOutput = null,
         DInput input = null,
         DConsoleHelperRegistry helpers = null
     ) {
@@ -318,13 +318,14 @@ class DConsole : UIMObject, IConsole {
 
         string defaultText = !defaultValue.isNull ? "[%s] ".format(defaultValue) : "";
         // _output.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
-        string result = _input.read();
+        /* string result = _input.read();
 
         result = !result.isNull
             ? result.strip : "";
 
         return !result.isEmpty
-            ? result : defaultValue;
+            ? result : defaultValue; */
+        return null;
     }
 
     /**

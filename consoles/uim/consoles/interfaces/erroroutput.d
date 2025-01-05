@@ -1,4 +1,4 @@
-module uim.consoles.interfaces.error;
+module uim.consoles.interfaces.erroroutput;
 
 import uim.consoles;
 

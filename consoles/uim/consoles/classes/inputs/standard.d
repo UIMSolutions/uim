@@ -62,3 +62,4 @@ class DStandardInput : DInput {
     return false;
   }
 }
+mixin(InputCalls!("Standard"));

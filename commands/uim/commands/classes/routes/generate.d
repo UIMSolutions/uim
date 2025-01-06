@@ -40,9 +40,9 @@ class DRoutesGenerateCommand : DCommand {
         "<warning>The provided parameters do not match any routes.</warning>");
       aConsole.out ();
 
-      return CODE_ERROR;
+      return false;
     }
-    return CODE_SUCCESS;
+    return true;
   }
 
   // Split the CLI arguments into a hash.

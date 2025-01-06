@@ -61,7 +61,7 @@ class DPluginLoadCommand : DCommand {
             }
         }
         /* result = this.modifyConfigFile(plugin, options);
-        if (result == CODE_ERROR) {
+        if (result == false) {
             consoleIo.writeErrorMessages("Failed to update `CONFIG/plugins.d`");
         }
         consoleIo.success("Plugin added successfully to `CONFIG/plugins.d`");
@@ -86,7 +86,7 @@ class DPluginLoadCommand : DCommand {
     contents = "\n\n" ~ "return " ~ Json[string] ~ ";" ~ "\n";
 
     return file_put_contents(_configFile, contents)
-        ? CODE_SUCCESS : CODE_ERROR; */
+        ? true : false; */
         return 0;
     }
 

@@ -42,14 +42,14 @@ class DSchemacacheClearCommand : DCommand {
     } catch (RuntimeException anException) {
       aConsole.error(anException.message());
 
-      return CODE_ERROR;
+      return false;
     }
     
     auto tables = cache.clear(commandArguments.getArgument("name"));
     tables.each!(table => aConsole.verbose("Cleared `%s`".format(aTable)));
     aConsoleio.out ("<success>Cache clear complete</success>");
 
-    return CODE_SUCCESS;
+    return true;
   } */
 
   // Get the option parser.

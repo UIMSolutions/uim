@@ -54,7 +54,7 @@ class DI18nCommand : DCommand {
                         "Please choose a command to execute by entering E, I, H, or Q."
                 );
             }
-            if (code == CODE_ERROR) {
+            if (code == false) {
                 abort();
             }
         }

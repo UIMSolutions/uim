@@ -76,7 +76,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             "commands" : getCommands(commandArguments, aConsole),
             "subcommands" : getSubcommands(commandArguments, aConsole),
             "options" : options(commandArguments, aConsole),
-            default : CODE_ERROR,
+            default : false,
         };
     }
 
@@ -91,14 +91,14 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         aConsole.
         out (join(" ", options));
 
-        return CODE_SUCCESS;
+        return true;
     }
 
     // Get the list of defined sub-commands.
     protected int getSubcommands(Json[string] arguments, IConsole aConsole) {
         string commandName = commandArguments.getArgument("command");
         if (commandName.isNull || commandName.isEmpty) {
-            return CODE_SUCCESS;
+            return true;
         }
         auto options = null;
         _commands.byKeyValue
@@ -116,7 +116,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         options = options.unique;
         aConsole.out (options.join(" "));
 
-        return CODE_SUCCESS;
+        return true;
     }
 
     // Get the options for a command or subcommand
@@ -157,6 +157,6 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         options = options.unique;
         aConsole.out (options.join(" "));
 
-        return static.CODE_SUCCESS;
+        return static.true;
     } */
 }

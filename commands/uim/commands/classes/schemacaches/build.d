@@ -42,7 +42,7 @@ class DSchemacacheBuildCommand : DCommand {
         } catch (RuntimeException  anException) {
              aConsole.error(anException.message());
 
-            return CODE_ERROR;
+            return false;
         }
 
         auto aTables = cache.build(commandArguments.getArgument("name"));
@@ -50,7 +50,7 @@ class DSchemacacheBuildCommand : DCommand {
 
         aConsole.writeln("<success>Cache build complete</success>");
 
-        return CODE_SUCCESS;
+        return true;
     }
     
     // Get the option parser.

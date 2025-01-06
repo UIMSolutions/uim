@@ -112,17 +112,17 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
         } catch (MissingOptionException anException) {
             aConsole.error(anException.getFullMessage());
 
-            return ICommand.CODE_ERROR;
+            return ICommand.false;
         } */
         auto command = getCommand(aConsole, myCommands, name);
 
         auto result = this.runCommand(command, arguments, aConsole);
         /* if (result.isNull) {
-            return 0; // ICommand.CODE_SUCCESS;
+            return 0; // ICommand.true;
         } */
 
         return result >= 0 && result <= 255
-            ? result : 0; // ICommand.CODE_ERROR;
+            ? result : 0; // ICommand.false;
     }
 
     /**

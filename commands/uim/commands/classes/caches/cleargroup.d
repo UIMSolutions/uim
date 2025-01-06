@@ -45,21 +45,21 @@ class DCacheClearGroupCommand : DCommand {
   } */
 
   // Clears the cache group
-  /* override */ bool execute(Json[string] arguments, IConsole console = null) {
+  override bool execute(Json[string] arguments, IConsole console = null) {
     auto anGroup = to!string(commandArguments.getArgument("group"));
     try {
       anGroupConfigs = Cache.groupConfigs(anGroup);
     } catch (InvalidArgumentException anException) {
       aConsole.error("Cache group '%s' not found".format(anGroup));
 
-      return CODE_ERROR;
+      return false;
     }
 
     auto configData = commandArguments.getArgument("config");
     if (!configData.isNull && Cache.configuration.get(configData).isNull) {
       aConsole.error("Cache config '%s' not found".format(configData));
 
-      return CODE_ERROR;
+      return false;
     }
     anGroupConfigs[anGroup]
       .filter(config => configData.isNull || configData == config)
@@ -74,6 +74,6 @@ class DCacheClearGroupCommand : DCommand {
         }
       });
 
-    return CODE_SUCCESS;
+    return true;
   }
 }

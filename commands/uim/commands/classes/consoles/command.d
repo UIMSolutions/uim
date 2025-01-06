@@ -89,14 +89,14 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
         } catch (DConsoleException anException) {
             aConsole.writeErrorMessages("Error: " ~ anException.message());
 
-            return 0; //CODE_ERROR;
+            return 0; //false;
         }
         setOutputLevel(arguments, aConsole);
 
         if (arguments.getOption("help")) {
             displayHelp(aParser, arguments, aConsole);
 
-            return 0; // CODE_SUCCESS;
+            return 0; // true;
         }
         if (arguments.getOption("quiet")) {
             aConsole.isInteractive(false);
@@ -138,7 +138,7 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
     abstract ulong execute(Json[string] commandArguments, DConsole aConsole);
 
     // Halt the current process with a StopException.
-    /* never abort(int exitCode = CODE_ERROR) {
+    /* never abort(int exitCode = false) {
         throw new DStopException("Command aborted", exitCode);
     } */
 

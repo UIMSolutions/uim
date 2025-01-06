@@ -1,2 +1,2 @@
-module containers.uim.containers.classes.arrays.array;
+module uim.containers.classes.arrays.array;
 

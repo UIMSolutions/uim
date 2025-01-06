@@ -7,7 +7,7 @@ license "Apache-2.0"
 name "controllers"
 description "C in MVC"
 authors "ONS"
-copyright "Copyright © 2018 - 2024, ONS"
+copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"

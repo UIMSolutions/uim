@@ -13,6 +13,7 @@ dependency "vibe-d" version="~>0.10.0"
 dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
 dependency "uim:consoles" path="../"
+dependency "uim:events" path="../"
 dependency "uim:i18n" path="../"
 
 sourcePaths "."

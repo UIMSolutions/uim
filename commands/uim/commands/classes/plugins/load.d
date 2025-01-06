@@ -30,10 +30,10 @@ class DPluginLoadCommand : DCommand {
     //  Config file
     protected string _configDataFile;
 
-    override bool execute(Json[string] arguments, IConsole console = null) {
+/*     override bool execute(Json[string] arguments, IConsole console = null) {
         return super.execute(arguments, consoleIo);
     }
-
+ */
     override bool execute(Json[string] arguments, IConsole console = null) {
         auto plugin = arguments.getString("plugin");
         auto options = null;
@@ -57,16 +57,17 @@ class DPluginLoadCommand : DCommand {
                 consoleIo.writeErrorMessages(anException.message());
                 consoleIo.writeErrorMessages("Ensure you have the correct spelling and casing.");
 
-                return CODE_ERROR;
+                return false;
             }
         }
-        result = this.modifyConfigFile(plugin, options);
+        /* result = this.modifyConfigFile(plugin, options);
         if (result == CODE_ERROR) {
             consoleIo.writeErrorMessages("Failed to update `CONFIG/plugins.d`");
         }
         consoleIo.success("Plugin added successfully to `CONFIG/plugins.d`");
 
-        return result;
+        return result; */
+        return true;
     }
 
     // Modify the plugins config file.

@@ -18,6 +18,7 @@ public { // uim libraries
   import uim.core;
   import uim.oop;
   import uim.consoles;
+  import uim.events;
   import uim.i18n;
 }
 

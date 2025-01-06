@@ -17,7 +17,7 @@ class DI18nInitCommand : DCommand {
         return "i18n-init";
     }
 
-    bool execute(Json[string] arguments, IConsole consoleIo) {
+    override bool execute(Json[string] arguments, IConsole consoleIo) {
         auto myLanguage = commandArguments.getArgument("language");
         if (myLanguage.isNull) {
             myLanguage = consoleIo.ask(
@@ -27,7 +27,7 @@ class DI18nInitCommand : DCommand {
             consoleIo.writeErrorMessages(
                 "Invalid language code. Valid is `en`, `eng`, `en_US` etc.");
 
-            return CODE_ERROR;
+            return false;
         }
 
         auto somePaths = App.path("locales");
@@ -63,7 +63,7 @@ class DI18nInitCommand : DCommand {
             });
         consoleIo.writeln("Generated " ~ countFiles ~ " PO files in " ~ targetFolder);
 
-        return CODE_SUCCESS;
+        return true;
     }
 
     /**

@@ -60,7 +60,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
         auto overwrite = arguments.getBoolean("overwrite");
         _process(_list(name), false, overwrite);
 
-        return CODE_SUCCESS;
+        return true;
     }
 }
 

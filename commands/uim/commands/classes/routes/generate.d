@@ -23,7 +23,7 @@ class DRoutesGenerateCommand : DCommand {
     return "routes-generate";
   }
 
-  /* override */ bool execute(Json[string] arguments, IConsole console = null) {
+  override bool execute(Json[string] arguments, IConsole console = null) {
     return super.execute(arguments, aConsole);
   }
 

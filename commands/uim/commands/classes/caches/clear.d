@@ -62,6 +62,6 @@ class DCacheClearCommand : DCommand {
       aConsole.error(exception.message());
       this.abort();
     }
-    return CODE_SUCCESS;
+    return true;
   }
 }

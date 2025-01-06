@@ -26,11 +26,11 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         if (commandArguments.getOption("xml")) {
             this.asXml(aConsole, commandIterator);
 
-            return CODE_SUCCESS;
+            return true;
         }
         asText(aConsole, commandIterator);
 
-        return CODE_SUCCESS;
+        return true;
  */
     return 0;
   }

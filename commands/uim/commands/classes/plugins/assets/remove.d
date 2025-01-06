@@ -37,7 +37,7 @@ class DPluginAssetsRemoveCommand : DCommand {
     _io.writeln();
     _io.writeln("Done");
 
-    return CODE_SUCCESS;
+    return true;
   } */
 
   // Get the option parser.

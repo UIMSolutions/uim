@@ -40,6 +40,6 @@ class DCacheListCommand : DCommand {
     myEngines
       .each!(engine => aConsole.writeln("- %s".format(engine)));
 
-    return CODE_SUCCESS;
+    return true;
   } */
 }

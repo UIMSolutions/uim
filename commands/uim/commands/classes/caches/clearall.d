@@ -39,6 +39,6 @@ class DCacheClearallCommand : DCommand {
     auto myEngines = Cache.configured();
     // myEngines.each!(engine => this.executeCommand(CacheClearCommand.class, [engine], aConsole));
 
-    return CODE_SUCCESS;
+    return true;
   } */
 }

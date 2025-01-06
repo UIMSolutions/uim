@@ -37,7 +37,7 @@ class DPluginLoadedCommand : DCommand {
         loaded = Plugin. loaded();
         aConsole.out (loaded);
 
-        return static . CODE_SUCCESS;
+        return static . true;
     }
     
     // Get the option parser.

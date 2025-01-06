@@ -182,7 +182,7 @@ class DConsole : UIMObject, IConsole {
     }
 
     // Halts the the current process with a StopException.
-    void abort(string errorMessage, int errorCode /* = DCommand.CODE_ERROR */ ) {
+    void abort(string errorMessage, int errorCode /* = DCommand.false */ ) {
         // error(errorMessage);
 
         // throw new DStopException(errorMessage, errorCode);

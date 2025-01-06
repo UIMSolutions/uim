@@ -101,7 +101,7 @@ class DRoutesCommand : DCommand {
                         aConsole.helper("table").output(someDuplicateRoutes);
                         aConsole.writeln();
                     }
-                    return CODE_SUCCESS;
+                    return true;
                 }
 
                 DConsoleOptionParser buildOptionParser(DConsoleOptionParser aParser) {
@@ -171,7 +171,7 @@ class DRoutesCommand : DCommand {
                         aConsole.helper("table").output(someDuplicateRoutes);
                         aConsole.writeln();
                     }
-                    return CODE_SUCCESS;
+                    return true;
                 }
 
                 DConsoleOptionParser buildOptionParser(

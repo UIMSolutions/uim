@@ -63,7 +63,7 @@ class DPluginAssetsCopyCommand : DCommand {
         auto shouldOverwrite = arguments.getBoolean("overwrite");
         _process(_list(name), true, shouldOverwrite);
 
-        return CODE_SUCCESS;
+        return true;
     } */
 }
 

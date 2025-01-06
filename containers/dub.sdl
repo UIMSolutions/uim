@@ -1,11 +1,11 @@
-name "collections"
+name "Containers"
 description "V in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2024, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-collections"
+targetName "uim-containers"
 
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.0"
@@ -23,8 +23,8 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_collections" {
-	versions "test_uim_collections"
+configuration "test_uim_containers" {
+	versions "test_uim_containers"
 }
 configuration "test_all" {
 	versions "test_uim_core" "test_uim_oop"

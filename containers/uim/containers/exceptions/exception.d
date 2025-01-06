@@ -9,7 +9,7 @@ import uim.containers;
 
 @safe:
 
-// Base collections exception.
+// Base containers exception.
 class DCollectionsException : UIMException {
   mixin(ExceptionThis!("Collections"));
 
@@ -18,7 +18,7 @@ class DCollectionsException : UIMException {
       return false;
     }
 
-    messageTemplate("default", "Exception in libary uim-collections");
+    messageTemplate("default", "Exception in libary uim-containers");
 
     return true;
   }

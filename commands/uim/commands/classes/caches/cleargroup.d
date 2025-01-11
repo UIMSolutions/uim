@@ -46,18 +46,18 @@ class DCacheClearGroupCommand : DCommand {
 
   // Clears the cache group
   override bool execute(Json[string] arguments, IConsole console = null) {
-    auto anGroup = to!string(commandArguments.getArgument("group"));
+/*     auto anGroup = to!string(commandArguments.getArgument("group"));
     try {
       anGroupConfigs = Cache.groupConfigs(anGroup);
     } catch (InvalidArgumentException anException) {
-      aConsole.error("Cache group '%s' not found".format(anGroup));
+      console.error("Cache group '%s' not found".format(anGroup));
 
       return false;
     }
 
     auto configData = commandArguments.getArgument("config");
     if (!configData.isNull && Cache.configuration.get(configData).isNull) {
-      aConsole.error("Cache config '%s' not found".format(configData));
+      console.error("Cache config '%s' not found".format(configData));
 
       return false;
     }
@@ -65,14 +65,14 @@ class DCacheClearGroupCommand : DCommand {
       .filter(config => configData.isNull || configData == config)
       .each!((config) {
         if (!Cache.clearGroup(anGroup, config)) {
-          aConsole.error(
+          console.error(
             "Error encountered clearing group '%s'. Was unable to clear entries for '%s'."
             .format(anGroup, config));
           abort();
         } else {
-          aConsole.success("Group '%s' was cleared.".format(anGroup));
+          console.success("Group '%s' was cleared.".format(anGroup));
         }
-      });
+      }); */
 
     return true;
   }

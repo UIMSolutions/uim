@@ -101,8 +101,8 @@ class DI18nExtractCommand : DCommand {
 
   // Execute the command
   override bool execute(Json[string] arguments, IConsole console) {
-    string myPlugin = "";
-    if (arguments.hasKey("exclude")) {
+    string pluginName = "";
+/*     if (arguments.hasKey("exclude")) {
       _exclude = arguments.getString("exclude").split(",");
     }
     if (arguments.hasKey("files")) {
@@ -111,8 +111,8 @@ class DI18nExtractCommand : DCommand {
     if (arguments.getOption("paths")) {
       _paths = arguments.getString("paths").split(",");
     } else if (arguments.getOption("plugin")) {
-      myPlugin = commandArguments.getString("plugin").camelize;
-      _paths = [Plugin.classPath(myPlugin), Plugin.templatePath(myPlugin)];
+      pluginName = commandArguments.getString("plugin").camelize;
+      _paths = [Plugin.classPath(pluginName), Plugin.templatePath(pluginName)];
     } else {
       _getPaths(console);
     }
@@ -191,7 +191,7 @@ class DI18nExtractCommand : DCommand {
 
       return false;
     }
-    _extract(arguments, console);
+    _extract(arguments, console); */
 
     return true;
   }
@@ -468,7 +468,7 @@ class DI18nExtractCommand : DCommand {
   protected void _writeFiles(Json[string] commandArguments, IConsole console) {
     console.writeln();
     bool overwriteAll = false;
-    if (commandArguments.getOption("overwrite")) {
+/*     if (commandArguments.getOption("overwrite")) {
       overwriteAll = true;
     }
     foreach (domain, sentences; _storage) {
@@ -504,12 +504,12 @@ class DI18nExtractCommand : DCommand {
       }
       fs = new DFilesystem();
       fs.dumpFile(_output ~ filename, outputHeader);
-    }
+    } */
   }
 
   // Build the translation template header
   protected string _writeHeader(string domainName) {
-    projectIdVersion = domainName == "uim"
+    string projectIdVersion = domainName == "uim"
       ? "UIM " ~ Configure.currentVersion() : "PROJECT VERSION";
 
     string result = "# LANGUAGE translation of UIM Application\n";
@@ -519,7 +519,7 @@ class DI18nExtractCommand : DCommand {
     result ~= "msgid \"\"\n";
     result ~= "msgstr \"\"\n";
     result ~= "Project-Id-Version: " ~ projectIdVersion ~ "\\n\"\n";
-    result ~= "POT-Creation-Date: " ~ date("Y-m-d H:iO") ~ "\\n\"\n";
+    // TODO result ~= "POT-Creation-Date: " ~ date("Y-m-d H:iO") ~ "\\n\"\n";
     result ~= "\"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\\n\"\n";
     result ~= "\"Last-Translator: NAME <EMAIL@ADDRESS>\\n\"\n";
     result ~= "\"Language-Team: LANGUAGE <EMAIL@ADDRESS>\\n\"\n";
@@ -541,21 +541,22 @@ class DI18nExtractCommand : DCommand {
       return false;
     }
 
-    auto oldFileContent = file_get_contents(oldFile);
+/*     auto oldFileContent = file_get_contents(oldFile);
     if (oldFileContent == false) {
       throw new UIMException("Cannot read file content of `%s`".format(oldFile));
-    }
-    auto oldChecksum = sha1(subString(oldFileContent, lengthOfFileheader));
+    } */
+/*     auto oldChecksum = sha1(subString(oldFileContent, lengthOfFileheader));
     auto newChecksum = sha1(subString(newFileContent, lengthOfFileheader));
 
-    return oldChecksum == newChecksum;
+    return oldChecksum == newChecksum; */
+    return false;
   }
 
   // Get the strings from the position forward
   protected string[] _getStrings(ref int position, int numberOfStrings) {
     string[] strings = null;
-    count = 0;
-    while (
+    size_t count = 0;
+/*     while (
       count < numberOfStrings
       && (_tokens[position] == ","
         || _tokens[position][0] == T_CONSTANT_ENCAPSED_STRING
@@ -581,7 +582,7 @@ class DI18nExtractCommand : DCommand {
         strings ~= _tokens[position][1];
       }
       position++;
-    }
+    } */
     return strings;
   }
 

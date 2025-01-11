@@ -27,10 +27,6 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return "plugin-assets-symlink";
     }
 
-    override bool execute(Json[string] arguments, IConsole consoleIo) {
-        return super.execute(arguments, consoleIo);
-    }
-
     /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
         with (parserToUpdate) {
             description("symlink (copy as fallback) plugin assets to app`s webroot.");
@@ -53,12 +49,12 @@ class DPluginAssetsSymlinkCommand : DCommand {
      * for vendor name are created if required.
      */
     override bool execute(Json[string] arguments, IConsole console = null) {
-        _io = aConsole;
+/*         _io = aConsole;
         _args = commandArguments;
 
         auto name = commandArguments.getArgument("name");
         auto overwrite = arguments.getBoolean("overwrite");
-        _process(_list(name), false, overwrite);
+        _process(_list(name), false, overwrite); */
 
         return true;
     }

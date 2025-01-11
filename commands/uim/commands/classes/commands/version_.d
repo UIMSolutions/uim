@@ -14,7 +14,7 @@ class DVersionCommand : DCommand {
   mixin(CommandThis!("Version"));
 
   override bool execute(Json[string] arguments, IConsole console = null) {
-    console.writeln(Configure.currentVersion());
+// TODO    console.writeln(Configure.currentVersion());
 
     return true;
   }

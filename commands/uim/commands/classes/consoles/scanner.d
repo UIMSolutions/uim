@@ -85,7 +85,7 @@ class DCommandScanner {
         commandsToHide ~= "";
 
         string classnamePattern = "/Command\\.d$/";
-        auto fs = new DFilesystem();
+        // auto fs = new DFilesystem();
         /* /** @var array<\SplFileInfo> files * /
         auto files = fs.find(somePath, classnamePattern); */
 

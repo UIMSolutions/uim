@@ -23,7 +23,7 @@ class DI18nCommand : DCommand {
 
     // Execute interactive mode
     override bool execute(Json[string] arguments, IConsole console) {
-        console.writeln("<info>I18n Command</info>");
+        /* console.writeln("<info>I18n Command</info>");
         console.hr();
         console.writeln("[E]xtract POT file from sources");
         console.writeln("[I]nitialize a language from POT file");
@@ -58,7 +58,7 @@ class DI18nCommand : DCommand {
                 abort();
             }
         }
-        while (choice != "q");
+        while (choice != "q"); */
 
         return true;
     }

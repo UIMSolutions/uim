@@ -23,8 +23,8 @@ import uim.commands;
 class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
     mixin(CommandThis!("Console"));
     //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
-    mixin TEventDispatcher;
-    mixin TValidatorAware;
+    /* mixin TEventDispatcher;
+    mixin TValidatorAware; */
 
     // Get the command description.
     static string description() {

@@ -27,20 +27,16 @@ class DPluginUnloadCommand : DCommand {
         return "plugin-unload";
     }
 
-    override bool execute(Json[string] arguments, IConsole consoleIo) {
-        return super.execute(arguments, consoleIo);
-    }
-
-    override bool execute(Json[string] arguments, IConsole consoleIo) {
+    override bool execute(Json[string] arguments, IConsole console) {
         string pluginName = arguments.getString("plugin");
 
         auto modificationResult = modifyConfigFile(pluginName);
         if (modificationResult.isNull) {
-            consoleIo.success("Plugin removed from `CONFIG/plugins.d`");
+            console.success("Plugin removed from `CONFIG/plugins.d`");
 
             return true;
         }
-        consoleIo.writeErrorMessages(modificationResult);
+        console.writeErrorMessages(modificationResult);
 
         return false;
     }

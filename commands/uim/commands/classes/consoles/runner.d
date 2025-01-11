@@ -16,7 +16,7 @@ import uim.commands;
  */
 class DCommandRunner : UIMObject { // }: IEventDispatcher {
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
-    mixin TEventDispatcher;
+    // TODO mixin TEventDispatcher;
 
     this() {
         super();

@@ -29,10 +29,8 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             return true;
         }
         asText(aConsole, commandIterator);
-
-        return true;
- */
-    return 0;
+    */
+    return true;
   }
 
   // Output text.

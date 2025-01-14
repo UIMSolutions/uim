@@ -541,7 +541,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * Params:
      * Json var The variable to dump.
      */
-  protected static IErrorNode export_(Json valueToDump, DDebugContext context) {
+  /* protected static IErrorNode export_(Json valueToDump, DDebugContext context) {
     string type = getType(valueToDump);
 
     if (type.startsWith("resource ")) {
@@ -555,8 +555,8 @@ class DDebugger : UIMObject, IErrorDebugger {
             "array" : exportArray(valueToDump, context.withAddedDepth()),
             "unknown" : new DSpecialErrorNode("(unknown)"),
             default : exportObject(valueToDump, context.withAddedDepth()),
-        }; */
-  }
+        }; * /
+  } */
 
   /**
      * Export an array type object. Filters out keys used in datasource configuration.
@@ -571,7 +571,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * - prefix
      * - schema
      */
-  protected static DArrayErrorNode exportArray(Json[string] exportValues, DDebugContext dumpContext) {
+  /* protected static DArrayErrorNode exportArray(Json[string] exportValues, DDebugContext dumpContext) {
     auto someItems = null;
 
     auto remaining = dumpContext.remainingDepth();
@@ -596,7 +596,7 @@ class DDebugger : UIMObject, IErrorDebugger {
       );
     }
     return new DArrayErrorNode(someItems);
-  }
+  } */
 
   // Handles object to node conversion.
   protected static IErrorNode exportObject(UIMObject objToConvert, DDebugContext dumpContext) {

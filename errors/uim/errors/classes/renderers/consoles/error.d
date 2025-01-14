@@ -20,7 +20,7 @@ unittest {
 class DConsoleErrorRenderer { // }: IErrorRenderer {
   protected bool _trace = false;
 
-  protected DOutput _output;
+ /*  protected DOutput _output; */
 
   this(Json[string] initData = null) {
     initialize(initData);
@@ -29,9 +29,9 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
     _trace = configuration.getBoolean("trace", false);
   }
 
-  void write(string outputText) {
+  /* void write(string outputText) {
     _output.write(outputText);
-  }
+  } */
 
   string render(IError error, bool shouldDebug) {
     string trace = "";

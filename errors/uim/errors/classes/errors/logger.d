@@ -28,7 +28,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
         return true;
     }
 
-    void logError(IError error, IServerRequest serverRequest = null, bool anIncludeTrace = false) {
+    /* void logError(IError error, IServerRequest serverRequest = null, bool anIncludeTrace = false) {
         auto errorMessage = error.message();
         if (request) {
             errorMessage ~= getRequestContext(request);
@@ -43,10 +43,10 @@ class DErrorLogger : UIMObject, IErrorLogger {
             default: label,
         };
 
-        Log.write(level, errorMessage); */
-    }
+        Log.write(level, errorMessage); * /
+    } */
 
-    void logException(
+    /* void logException(
         Throwable exception,
         IServerRequest serverRequest = null,
         bool anIncludeTrace = false
@@ -57,7 +57,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
             exceptionMessage ~= getRequestContext(request);
         }
         Log.error(exceptionMessage);
-    }
+    } */
 
     // Generate the message for the exception
     protected string message(Throwable exceptionToLog, bool isPrevious = false, bool includeTrace = false) {
@@ -99,7 +99,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
     }
 
     // Get the request context for an error/exception trace.
-    string getRequestContext(IServerRequest request) {
+    /* string getRequestContext(IServerRequest request) {
         // TODO  string message = "\nRequest URL: " ~ request.getRequestTarget();
 
         /*  referer = request.getHeaderLine("Referer");
@@ -112,7 +112,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
                 message ~= "\nClient IP: " ~ clientIp;
             }
         }
-        return message; */
+        return message; * /
         return null;
-    }
+    } */
 }

@@ -54,7 +54,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     protected string method = "";
 
     // If set, this will be request used to create the controller that will render the error.
-    protected IServerRequest _request;
+    /* protected IServerRequest _request; */
 
     /**
      * Map of exceptions to http status codes.
@@ -79,11 +79,11 @@ class DExceptionRenderer { // }: IExceptionRenderer
     ]; */
 
     // Creates the controller to perform rendering on the error response.
-    this(Throwable exception, IServerRequest serverRequest = null) {
+    /* this(Throwable exception, IServerRequest serverRequest = null) {
         _error = exception;
         _request = serverRequest;
         _controller = _getController();
-    }
+    } */
 
     /**
      * Get the controller instance to handle the exception.
@@ -286,7 +286,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     }
 
     // Generate the response using the controller object.
-    protected IResponse _outputMessage(string templateToRender) {
+    /* protected IResponse _outputMessage(string templateToRender) {
         /*         try {
             _controller.render(templateToRender);
 
@@ -310,9 +310,9 @@ class DExceptionRenderer { // }: IExceptionRenderer
             return _outputMessageSafe("error500");
         } catch (Throwable e) {
             return _outputMessageSafe("error500");
-        } */
+        } * /
         return null;
-    }
+    } */
 
     /**
      * A safer way to render error messages, replaces all helpers, with basics

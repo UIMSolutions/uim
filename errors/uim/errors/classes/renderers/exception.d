@@ -36,13 +36,13 @@ class DExceptionRenderer : IExceptionRenderer {
     protected IError _error;
 
     // Controller instance.
-    protected IController controller;
+   /*  protected IController controller; */
 
     /**
      * If set, this will be request used to create the controller that will render
      * the error.
      */
-    protected IServerRequest _request;
+    /* protected IServerRequest _request; */
 
     /**
      * Map of exceptions to http status codes.
@@ -67,11 +67,11 @@ class DExceptionRenderer : IExceptionRenderer {
     ];
 
     // Creates the controller to perform rendering on the error response.
-    this(Throwable exception, IServerRequest serverRequest = null) {
+    /* this(Throwable exception, IServerRequest serverRequest = null) {
         _error = exception;
         _request = serverRequest;
         _controller = _getController();
-    }
+    } */
 
     /**
      * Get the controller instance to handle the exception.
@@ -142,7 +142,7 @@ class DExceptionRenderer : IExceptionRenderer {
     }
 
     // Renders the response for the exception.
-    IResponse render() {
+    /* IResponse render() {
         /* auto myException = _error;
         code = getHttpCode(myException);
         method = methodName(myException);
@@ -200,20 +200,20 @@ class DExceptionRenderer : IExceptionRenderer {
         }
         _controller.setResponse(response);
 
-        return _outputMessage(myTemplate); */
+        return _outputMessage(myTemplate); * /
         return null; 
-    }
+    } */
 
     // Render a custom error method/template.
-    protected IResponse _customMethod(string methodToInvoke, Throwable myExceptionToRender) {
+    /* protected IResponse _customMethod(string methodToInvoke, Throwable myExceptionToRender) {
         /* myResult = this.{method}(myException);
         _shutdown();
 
         return !myResult.isString
             ? myResult
-            : _controller.getResponse().withStringBody(myResult); */
+            : _controller.getResponse().withStringBody(myResult); * /
         return null; 
-    }
+    } */
 
     // Get method name
     protected string methodName(Throwable myException) {
@@ -265,7 +265,7 @@ class DExceptionRenderer : IExceptionRenderer {
     }
 
     // Generate the response using the controller object.
-    protected IResponse _outputMessage(string templateName) {
+    /* protected IResponse _outputMessage(string templateName) {
         try {
             _controller.render(templateName);
 
@@ -286,13 +286,13 @@ class DExceptionRenderer : IExceptionRenderer {
         } catch (Throwable throwable) {
             return _outputMessageSafe("error500");
         }
-    }
+    } */
 
     /**
      * A safer way to render error messages, replaces all helpers, with basics
      * and doesn"t call component methods.
      */
-    protected IResponse _outputMessageSafe(string templateToRender) {
+    /* protected IResponse _outputMessageSafe(string templateToRender) {
         auto myBuilder = _controller.viewBuilder();
         myBuilder
             .setHelpers([], false)
@@ -306,18 +306,18 @@ class DExceptionRenderer : IExceptionRenderer {
         _controller.setResponse(response);
 
         return response;
-    }
+    } */
 
     /**
      * Run the shutdown events.
      *
      * Triggers the afterFilter and afterDispatch events.
      */
-    protected IResponse _shutdown() {
+    /* protected IResponse _shutdown() {
         _controller.dispatchEvent("Controller.shutdown");
 
         return _controller.getResponse();
-    }
+    } */
 
     // Returns an array that can be used to describe the internal state of this object.
     Json[string] debugInfo() {

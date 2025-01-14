@@ -25,11 +25,11 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
 
     private bool _trace;
 
-    this(Throwable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {
+    /* this(Throwable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {
         _error = error;
         // TODO this.output = configuration.get("stderr") ?? new DOutput("d://stderr");
         _trace = configuration.getBoolean("trace", true);
-    }
+    } */
 
     // Render an exception into a plain text message.
     string render() {

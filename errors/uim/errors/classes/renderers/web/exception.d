@@ -33,11 +33,11 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * \Throwable exception Exception.
      * instead of creating a new one.
      */
-    this(Throwable exception, IServerRequest serverRequest = null) {
+    /* this(Throwable exception, IServerRequest serverRequest = null) {
         _error = exception;
         _request = serverRequest;
         _controller = _getController();
-    }
+    } */
 
     // Controller instance.
     protected IErrorController controller;
@@ -61,7 +61,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      *
      * @var \UIM\Http\ServerRequest|null
      */
-    protected IServerRequest serverRequest;
+    /* protected IServerRequest serverRequest; */
 
     /**
      * Map of exceptions to http status codes.
@@ -141,7 +141,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     }
 
     // Renders the response for the exception.
-    IResponse render() {
+    /* IResponse render() {
         /* auto exception = _error;
         auto code = getHttpCode(exception);
         auto method = methodName(exception);
@@ -202,9 +202,9 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         }
         _controller.setResponse(response);
 
-        return _outputMessage(template); */
+        return _outputMessage(template); * / 
         return null;
-    }
+    } */
 
     /**
      * Emit the response content
@@ -221,7 +221,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     }
 
     // Render a custom error method/template.
-    protected IResponse _customMethod(string methodName, Throwable exceptionToRender) {
+    /* protected IResponse _customMethod(string methodName, Throwable exceptionToRender) {
         /*         auto result = this.{
             methodName
         }
@@ -230,9 +230,9 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         if (isString(result)) {
             result = _controller.getResponse().withStringBody(result);
         }
-        return result; */
+        return result; * /
         return null;
-    }
+    } */
 
     // Get method name
     override protected string methodName(Throwable exception) {

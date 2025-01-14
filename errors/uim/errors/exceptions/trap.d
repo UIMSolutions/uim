@@ -95,7 +95,7 @@ class DExceptionTrap {
   }
 
   // Get an instance of the renderer.
-  IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
+  /* IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
     auto myRequest = serverRequest.isNull ? Router.getRequest() : serverRequest;
 
     string classname = _configData.hasKey("exceptionRenderer") ? _configuration.get(
@@ -106,12 +106,12 @@ class DExceptionTrap {
                     "Cannot use `{ classname}` as an `exceptionRenderer`. " ~
                     "It must be an instance of `UIM\Error\IExceptionRenderer`."
                );
-            } */
+            } * /
       // return new classname(exceptionToRender, myRequest, _configData);
     }
     // return classname(exceptionToRender, myRequest);
     return null;
-  }
+  } */
 
   // Choose an exception renderer based on config or the SAPI
   protected string chooseRenderer() {
@@ -157,9 +157,9 @@ class DExceptionTrap {
      * is mutable and the object returned by this method
      * could be a stale value.
      */
-  static auto DExceptionTrap instance() {
+  /* static auto DExceptionTrap instance() {
     return RegisteredTrap;
-  }
+  } */
 
   /**
      * Handle uncaught exceptions.
@@ -264,7 +264,7 @@ class DExceptionTrap {
      * Params:
      * \Throwable exception The exception to log
      */
-  void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
+  /* void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
     shouldLog = configuration.get("log");
     if (shouldLog) {
       foreach (classname; _configData.hasKey("skipLog")) {
@@ -277,7 +277,7 @@ class DExceptionTrap {
     if (shouldLog) {
       logger().logException(exceptionToLog, serverRequest, configuration.get("trace"));
     }
-  }
+  } */
 
   /**
      * Trigger an error that occurred during rendering an exception.

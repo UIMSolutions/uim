@@ -25,11 +25,11 @@ mixin template TPluginAssets() {
      * If null all plugins will be processed.
      */
     protected Json[string] _list(string pluginName = null) {
-        auto pluginsList = pluginName.isNull
-            ? Plugin.loaded() : [pluginName];
+        /* auto pluginsList = pluginName.isNull
+            ? Plugin.loaded() : [pluginName]; */
 
         Json[string] plugins = null;
-        pluginsList.each!((plugin) {
+        /* pluginsList.each!((plugin) {
             auto somePath = Plugin.path(plugin) ~ "webroot";
             if (!isDir(somePath)) {
                 _io.verbose("", 1);
@@ -52,14 +52,14 @@ mixin template TPluginAssets() {
                     "link": link,
                     "namespaced": isNamespaced,
                 ]);
-        });
+        }); */
 
         return plugins;
     }
 
     // Process plugins
     protected void _process(Json[string] pluginsToProcess, bool copyMode = false, bool overwriteExisting = false) {
-        foreach (plugin, configData; pluginsToProcess) {
+/*         foreach (plugin, configData; pluginsToProcess) {
             _io.writeln();
             _io.writeln("For plugin: " ~ plugin);
             _io.hr();
@@ -99,16 +99,15 @@ mixin template TPluginAssets() {
             );
         }
         _io.writeln();
-        _io.writeln("Done");
+        _io.writeln("Done"); */
     }
 
     /**
      * Remove folder/symlink.
-     *
      * configData - Plugin config.
      */
     protected bool _removeKey(Json[string] configData = null) {
-        if (configuration.hasKey("namespaced") && !isDir(configuration.get("destDir"))) {
+        /* if (configuration.hasKey("namespaced") && !isDir(configuration.get("destDir"))) {
             _io.verbose(
                 configuration.getString(
                     "destDir") ~ configuration.getString("link") ~ " does not exist",
@@ -126,7 +125,7 @@ mixin template TPluginAssets() {
             );
 
             return false;
-        }
+        } */
         /* if (isLink(dest)) {
             
             success = DIRECTORY_SEPARATOR == "\\" ? @rmdir(dest): @unlink(dest);
@@ -141,7 +140,7 @@ mixin template TPluginAssets() {
             }
         } */
 
-        auto fs = new DFilesystem();
+        /* auto fs = new DFilesystem();
         if (fs.deleteDir(dest)) {
             _io.writeln("Deleted " ~ dest);
 
@@ -150,12 +149,14 @@ mixin template TPluginAssets() {
             _io.writeErrorMessages("Failed to delete " ~ dest);
 
             return false;
-        }
+        } */
+        
+        return false;
     }
 
     // Create directory
     protected bool _createDirectory(string directoryName) {
-        auto old = umask(0);
+        /* auto old = umask(0);
         // auto result = @mkdir(directoryName, 0755, true);
         umask(old);
 
@@ -164,7 +165,7 @@ mixin template TPluginAssets() {
 
             return true;
         } */
-        _io.writeErrorMessages("Failed creating directory " ~ directoryName);
+        // _io.writeErrorMessages("Failed creating directory " ~ directoryName); */
 
         return false;
     }
@@ -182,13 +183,13 @@ mixin template TPluginAssets() {
 
     // Copy directory
     protected bool _copyDirectory(string sourceDir, string destinationDir) {
-        auto fs = new DFilesystem();
+        /* auto fs = new DFilesystem();
         if (fs.copyDir(sourceDir, destinationDir)) {
             _io.writeln("Copied assets to directory " ~ destinationDir);
 
             return true;
         }
-        _io.writeErrorMessages("Error copying assets to directory " ~ destinationDir);
+        _io.writeErrorMessages("Error copying assets to directory " ~ destinationDir); */
 
         return false;
     }

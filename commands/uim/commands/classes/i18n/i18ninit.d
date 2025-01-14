@@ -17,35 +17,35 @@ class DI18nInitCommand : DCommand {
         return "i18n-init";
     }
 
-    override bool execute(Json[string] arguments, IConsole consoleIo) {
-        auto myLanguage = commandArguments.getArgument("language");
+    override bool execute(Json[string] arguments, IConsole console) {
+/*         auto myLanguage = commandArguments.getArgument("language");
         if (myLanguage.isNull) {
-            myLanguage = consoleIo.ask(
+            myLanguage = console.ask(
                 "Please specify language code, e.g. `en`, `eng`, `en_US` etc.");
         }
         if (myLanguage.length < 2) {
-            consoleIo.writeErrorMessages(
+            console.writeErrorMessages(
                 "Invalid language code. Valid is `en`, `eng`, `en_US` etc.");
 
             return false;
-        }
+        } */
 
-        auto somePaths = App.path("locales");
+/*         auto somePaths = App.path("locales");
         if (arguments.hasKey("plugin")) {
             plugin = arguments.getString("plugin").camelize;
             somePaths = [
                 Plugin.path(
                     plugin) ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR
             ];
-        }
+        } */
         
-        string response = consoleIo.ask("What folder?", stripRight(somePaths[0], DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
+/*         string response = console.ask("What folder?", stripRight(somePaths[0], DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
         string sourceFolder = stripRight(response, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         string targetFolder = sourceFolder ~ myLanguage ~ DIRECTORY_SEPARATOR;
-/*         if (!isDir(targetFolder)) {
+ *//*         if (!isDir(targetFolder)) {
             mkdir(targetFolder, 0770, true);
         } */
-        size_t countFiles = 0;
+/*         size_t countFiles = 0;
         auto anIterator = new DirectoryIterator(sourceFolder);
         anIterator
             .filter!(fileInfo => fileInfo.isFile())
@@ -61,8 +61,8 @@ class DI18nInitCommand : DCommand {
                 aConsole.createFile(targetFolder ~ newFilename, content);
                 countFiles++;
             });
-        consoleIo.writeln("Generated " ~ countFiles ~ " PO files in " ~ targetFolder);
-
+        console.writeln("Generated " ~ countFiles ~ " PO files in " ~ targetFolder);
+ */
         return true;
     }
 

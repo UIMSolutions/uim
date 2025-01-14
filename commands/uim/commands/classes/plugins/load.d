@@ -35,7 +35,7 @@ class DPluginLoadCommand : DCommand {
     }
  */
     override bool execute(Json[string] arguments, IConsole console = null) {
-        auto plugin = arguments.getString("plugin");
+        /* auto plugin = arguments.getString("plugin");
         auto options = null;
         if (arguments.hasKey("only-debug")) {
             options.set("onlyDebug", true);
@@ -59,7 +59,7 @@ class DPluginLoadCommand : DCommand {
 
                 return false;
             }
-        }
+        } */
         /* result = this.modifyConfigFile(plugin, options);
         if (result == false) {
             consoleIo.writeErrorMessages("Failed to update `CONFIG/plugins.d`");
@@ -67,7 +67,7 @@ class DPluginLoadCommand : DCommand {
         consoleIo.success("Plugin added successfully to `CONFIG/plugins.d`");
 
         return result; */
-        return true;
+        return false;
     }
 
     // Modify the plugins config file.

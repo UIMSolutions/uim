@@ -201,7 +201,7 @@ class DI18nExtractCommand : DCommand {
      * Takes care of duplicate translations
      */
   protected void _addTranslation(string domainName, string messageId, Json[string] contextData = null) {
-    auto context = contextData.get("msgctxt", "");
+    /* auto context = contextData.get("msgctxt", "");
 
     if (isEmpty(_translations[domainName][messageId][context])) {
       _translations.setPath([domainName, messageId, context], [
@@ -218,7 +218,7 @@ class DI18nExtractCommand : DCommand {
       _translations.append([
         domainName, messageId, context, "references", contextData["file"]
       ], line);
-    }
+    } */
   }
 
   // Extract text
@@ -304,11 +304,11 @@ class DI18nExtractCommand : DCommand {
 
   // Extract tokens out of all files to be processed
   protected void _extractTokens(Json[string] commandArguments, IConsole console) {
-    auto progress = console.helper("progress");
+    /* auto progress = console.helper("progress");
     assert(cast(ProgressHelper) progress);
 
     progress.initialize(["total": count(_fileNames)]);
-    bool isVerbose = commandArguments.getOption("verbose");
+    bool isVerbose = commandArguments.getBoolean("verbose"); */
 
     auto functions = [
       "__": ["singular"],
@@ -407,7 +407,7 @@ class DI18nExtractCommand : DCommand {
   // Build the translate template file contents out of obtained strings
   protected void _buildFiles(Json[string] consoleArguments) {
     auto somePaths = _paths;
-    somePaths ~= realpath(APP) ~ DIRECTORY_SEPARATOR;
+    /* somePaths ~= realpath(APP) ~ DIRECTORY_SEPARATOR; */
 
     /* usort(somePaths, auto (string aa, string ab) {
             return a.length - b.length;
@@ -456,17 +456,17 @@ class DI18nExtractCommand : DCommand {
 
   // Prepare a file to be stored
   protected void _store(string domainName, string headerContent, string sentenceToStore) {
-    _storage.set(domainName, _storage.get(domainName));
+    /* _storage.set(domainName, _storage.get(domainName));
 
     _storage.setPath([domainName, sentence],
       _storage.hasKeyPath([domainName, sentence])
         ? _storage.getStringPath([domainName, sentence]) ~ headerContent : headerContent
-    );
+    ); */
   }
 
   // Write the files that need to be stored
   protected void _writeFiles(Json[string] commandArguments, IConsole console) {
-    console.writeln();
+    /* console.writeln(); */
     bool overwriteAll = false;
 /*     if (commandArguments.getOption("overwrite")) {
       overwriteAll = true;
@@ -509,8 +509,8 @@ class DI18nExtractCommand : DCommand {
 
   // Build the translation template header
   protected string _writeHeader(string domainName) {
-    string projectIdVersion = domainName == "uim"
-      ? "UIM " ~ Configure.currentVersion() : "PROJECT VERSION";
+    string projectIdVersion; /*  = domainName == "uim"
+      ? "UIM " ~ Configure.currentVersion() : "PROJECT VERSION"; */
 
     string result = "# LANGUAGE translation of UIM Application\n";
     result ~= "# Copyright YEAR NAME <EMAIL@ADDRESS>\n";
@@ -537,9 +537,9 @@ class DI18nExtractCommand : DCommand {
      * Compares the sha1 hashes of the old and new file without header.
      */
   protected bool checkUnchanged(string oldFile, int lengthOfFileheader, string newFileContent) {
-    if (!filehasKey(oldFile)) {
+/*     if (!filehasKey(oldFile)) {
       return false;
-    }
+    } */
 
 /*     auto oldFileContent = file_get_contents(oldFile);
     if (oldFileContent == false) {

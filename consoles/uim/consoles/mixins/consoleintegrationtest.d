@@ -84,14 +84,14 @@ mixin template TConsoleIntegrationTest() {
     }
 
     // Asserts shell exited with the Command.true
-    void assertExitSuccess(string failureMessage = null) {
+/*     void assertExitSuccess(string failureMessage = null) {
         this.assertThat(Command.true, new DExitCode(_exitCode), failureMessage);
     }
 
     // Asserts shell exited with Command.false
     void assertExitError(string failureMessage = null) {
         this.assertThat(Command.false, new DExitCode(_exitCode), failureMessage);
-    }
+    } */
 
     /**
      * Asserts that `stdout` is empty

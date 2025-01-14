@@ -30,13 +30,13 @@ class DPluginUnloadCommand : DCommand {
     override bool execute(Json[string] arguments, IConsole console) {
         string pluginName = arguments.getString("plugin");
 
-        auto modificationResult = modifyConfigFile(pluginName);
+        /* auto modificationResult = modifyConfigFile(pluginName);
         if (modificationResult.isNull) {
             console.success("Plugin removed from `CONFIG/plugins.d`");
 
             return true;
         }
-        console.writeErrorMessages(modificationResult);
+        console.writeErrorMessages(modificationResult); */
 
         return false;
     }

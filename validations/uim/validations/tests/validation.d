@@ -3,8 +3,14 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module validations.uim.validations.tests;
+module uim.validations.tests.validation;
 
-public {
-    import uim.validations.tests.validation;
+import uim.validations;
+
+@safe:
+
+bool testValidation(IValidation validation) {
+    assert(validation !is null, "In testValidation: validation is null");
+    
+    return true;
 }

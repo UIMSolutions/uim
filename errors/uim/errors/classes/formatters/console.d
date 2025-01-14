@@ -103,17 +103,18 @@ class DConsoleErrorFormatter : DErrorFormatter {
 
     override protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
         // object(xxx) id: xxx{}
-        return _style("punct", "object(") ~
+        /* return _style("punct", "object(") ~
             style("class", node.value()) ~
             style("punct", ") id:") ~
             style("number", to!string(node.id())) ~
-            style("punct", " {}");
+            style("punct", " {}"); */
+        return null;
     }
 
     override protected string exportClass(DClassErrorNode node, size_t indentLevel) {
         string[] props;
 
-        result = style("punct", "object(") ~
+/*         result = style("punct", "object(") ~
             style("class", node.value()) ~
             style("punct", ") id:") ~
             style("number", to!string(node.id())) ~ style("punct", " {");
@@ -135,7 +136,9 @@ class DConsoleErrorFormatter : DErrorFormatter {
         
         return props.count > 0
             ? result ~ breakTxt ~ props.join(breakTxt) ~ endTxt
-            : result ~ style("punct", "}");
+            : result ~ style("punct", "}"); */
+        
+        return null;
     }
 
     override protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {
@@ -143,7 +146,7 @@ class DConsoleErrorFormatter : DErrorFormatter {
     }
 
     override protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
-        switch (node.getType()) {
+       /*  switch (node.getType()) {
         case "bool":
             return style("const", node.getBoolean() ? "true" : "false");
         case "null":
@@ -154,7 +157,8 @@ class DConsoleErrorFormatter : DErrorFormatter {
             return style("visibility", "({node.getType()})") ~ " " ~ style("number", "{node.value()}");
         default:
             return "({node.getType()}) {node.value()}";
-        };
+        }; */
+        return null; 
     }
 
     override protected string exportSpecial(
@@ -165,7 +169,8 @@ class DConsoleErrorFormatter : DErrorFormatter {
 
     // Style text with ANSI escape codes.
     protected string style(string styleToUse, string textToStyle) {
-        auto code = _styles[styleToUse];
-        return "\033[{code}m{textToStyle}\033[0m";
+        /* auto code = _styles[styleToUse];
+        return "\033[{code}m{textToStyle}\033[0m"; */
+        return null; 
     }
 }

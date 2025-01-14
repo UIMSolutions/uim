@@ -66,14 +66,14 @@ class DExceptionTrap : UIMObject {
         *  encountered. This allows breathing room to complete logging or error handling.
         * - `stderr` Used in console environments so that renderers have access to the current console output stream.
         */
-        configuration
+        /* configuration
             .setDefault("exceptionRenderer", Json(null))
             .setDefault("logger", ErrorLogger.classname)
             .setDefault("stderr", Json(null))
             .setDefault("log", true)
             .setDefault("skipLog", Json.emptyArray)
             .setDefault("trace", false)
-            .setDefault("extraFatalErrorMemory", 4);
+            .setDefault("extraFatalErrorMemory", 4); */
 
         return true;
     }
@@ -141,15 +141,17 @@ class DExceptionTrap : UIMObject {
     // Choose an exception renderer based on config or the SAPI
     protected string chooseRenderer() {
         /** @var class-string<uim.errors.IExceptionRenderer> */
-        return D_SAPI == "cli" ? ConsoleExceptionRenderer.classname : ExceptionRenderer.classname;
+        // return D_SAPI == "cli" ? ConsoleExceptionRenderer.classname : ExceptionRenderer.classname;
+        return null; 
     }
 
     // Get an instance of the logger.
     IErrorLogger logger() {
         /** @var class-string<uim.errors.IErrorLogger> aclassname */
-        auto aclassname = configuration.get("logger", _defaultConfig["logger"]);
+/*         auto aclassname = configuration.get("logger", _defaultConfig["logger"]);
 
-        return new aclassname(_config);
+        return new aclassname(_config); */
+        return null;
     }
 
     /**
@@ -159,9 +161,9 @@ class DExceptionTrap : UIMObject {
      * previous exception handler will be discarded.
      */
     void register() {
-        set_exception_handler([this, "handleException"]);
+        /* set_exception_handler([this, "handleException"]);
         register_shutdown_function([this, "handleShutdown"]);
-        registeredTrap = this;
+        registeredTrap = this; */
     }
 
     /**
@@ -171,11 +173,11 @@ class DExceptionTrap : UIMObject {
      * nothing happens.
      */
     void unregister() {
-        if (registeredTrap == this) {
+/*         if (registeredTrap == this) {
             _isDisabled = true;
             registeredTrap = null;
         }
-    }
+ */    }
 
     /**
      * Get the registered global instance if set.
@@ -185,7 +187,8 @@ class DExceptionTrap : UIMObject {
      * could be a stale value.
      */
     static DExceptionTrap instance() {
-        return registeredTrap;
+        // return registeredTrap;
+        return null;
     }
 
     /**
@@ -272,7 +275,7 @@ class DExceptionTrap : UIMObject {
 
     // Display/Log a fatal error.
     void handleFatalError(int errorCode, string errorDescription, string fileWithError, int errorLine) {
-        this.handleException(new DFatalErrorException("Fatal Error: " ~ description, 500, fileWithError, errorLine));
+        // this.handleException(new DFatalErrorException("Fatal Error: " ~ description, 500, fileWithError, errorLine));
     }
 
     /**
@@ -317,12 +320,12 @@ class DExceptionTrap : UIMObject {
      * and hopefully render an error page.
      */
     void logInternalError(Throwable exceptionToLog) {
-        string message = "[%s] %s (%s:%s)".format( // Keeping same message format
+        /* string message = "[%s] %s (%s:%s)".format( // Keeping same message format
             get_class(exceptionToLog),
             exceptionToLog.message(),
             exceptionToLog.getFile(),
             exceptionToLog.getLine(),
         );
-        trigger_error(message, ERRORS.USER_ERROR);
+        trigger_error(message, ERRORS.USER_ERROR); */
     }
 }

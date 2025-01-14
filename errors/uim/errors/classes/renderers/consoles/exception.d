@@ -50,7 +50,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
 
     // Render an individual exception
     protected Json[string] renderException(Throwable exceptionToRender, Throwable parentException) {
-        auto result = [
+        /* auto result = [
             "<error>%s[%s] %s</error> in %s on line %s"
             .format(
                 parent ? "Caused by " : "",
@@ -59,10 +59,10 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
                 exceptionToRender.getFile(),
                 exceptionToRender.getLine()
             ),
-        ];
+        ]; */
 
         auto debugValue = configuration.get("debug");
-        if (debugValue && cast(UIMException) exceptionToRender) {
+/*         if (debugValue && cast(UIMException) exceptionToRender) {
             auto attributes = exceptionToRender.getAttributes();
             if (attributes) {
                 result ~= "";
@@ -70,15 +70,15 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
                 result ~= "";
                 result ~= var_export_(exceptionToRender.getAttributes(), true);
             }
-        }
-        if (_trace) {
+        } */
+/*         if (_trace) {
             auto stacktrace = Debugger.getUniqueFrames(exceptionToRender, parentException);
             result ~= "";
             result ~= "<info>Stack Trace:</info>";
             result ~= "";
             result ~= Debugger.formatTrace(stacktrace, ["format": "text"]);
             result ~= "";
-        }
+        } */
         return result;
     }
 
@@ -89,6 +89,6 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
      */
     // TODO void write(IResponse aoutput) {
     void write(string outputText) {
-        _output.write(outputText);
+        // _output.write(outputText);
     }
 }

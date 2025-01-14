@@ -37,8 +37,9 @@ class DHtmlErrorFormatter : DErrorFormatter {
 
   // Check if the current environment is not a CLI context
   static bool environmentMatches() {
-    return UIM_SAPI == "cli" || UIM_SAPI == "Ddbg"
-      ? false : true;
+/*     return UIM_SAPI == "cli" || UIM_SAPI == "Ddbg"
+      ? false : true; */
+      return false;
   }
 
   string formatWrapper(string acontents, Json[string] location) {
@@ -167,7 +168,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
   }
 
   protected override string exportScalar(DScalarErrorNode node, size_t indentLevel) {
-    switch (node.getType()) {
+    /* switch (node.getType()) {
     case "bool":
       return style("const", node.getBoolean() ? "true" : "false");
     case "null":
@@ -179,7 +180,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
         " " ~ style("number", "{node.value()}");
     default:
       return "({node.getType()}) {node.value()}";
-    };
+    }; */
 
     return null;
   }
@@ -191,7 +192,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
 
   // Style text with HTML class names
   protected string style(string styleToUse, string testToStyle) {
-    return htmlDoubletag("span", ["uim-debug-%s"], "%s")
+    return htmlDoubleTag("span", ["uim-debug-%s"], "%s")
       .format(styleToUse, htmlAttributeEscape(testToStyle));
   }
 }

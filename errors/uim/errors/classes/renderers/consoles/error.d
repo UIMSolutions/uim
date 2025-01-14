@@ -23,10 +23,10 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
  /*  protected DOutput _output; */
 
   this(Json[string] initData = null) {
-    initialize(initData);
+    // initialize(initData);
     // `stderr` - The OutputConsole instance to use. Defaults to `D://stderr`
     // `trace` - Whether or not stacktraces should be output.       _output = configuration.get("stderr", new DOutput("d://stderr"));
-    _trace = configuration.getBoolean("trace", false);
+    // _trace = configuration.getBoolean("trace", false);
   }
 
   /* void write(string outputText) {
@@ -35,7 +35,7 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
 
   string render(IError error, bool shouldDebug) {
     string trace = "";
-    if (this.trace) {
+   /*  if (this.trace) {
       trace = "\n<info>Stack Trace:</info>\n\n" ~ error.getTraceAsString();
     }
     return "<error>%s: %s . %s</error> on line %s of %s%s"
@@ -46,6 +46,7 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
         error.line() ? error.line() : "",
         error.getFile() ? error.getFile() : "",
         trace
-      );
+      ); */
+      return null; 
   }
 }

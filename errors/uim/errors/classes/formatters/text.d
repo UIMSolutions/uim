@@ -47,7 +47,7 @@ class DTextErrorFormatter : DErrorFormatter {
 
     // #region export
     override protected string exportArray(DArrayErrorNode node, size_t indentLevel) {
-        auto result = "[";
+/*         auto result = "[";
         auto breakTxt = "\n" ~" ".repeatTxt(indentlevel);
         auto endtxt = "\n" ~" ".repeatTxt(indentlevel - 1);
 
@@ -56,7 +56,9 @@ class DTextErrorFormatter : DErrorFormatter {
             .array;
 
         return !nodes.isEmpty
-            ? result ~ join(",", nodes) ~ end ~ "]" : result ~ "]";
+            ? result ~ join(",", nodes) ~ end ~ "]" : result ~ "]"; */
+        
+        return null;
     }
 
     override protected string exportReference(DReferenceErrorNode node, size_t indentLevel) {
@@ -64,7 +66,7 @@ class DTextErrorFormatter : DErrorFormatter {
     }
 
     override protected string exportClass(DClassErrorNode node, size_t indentLevel) {
-        string result = "object({" ~ node.value() ~ "}) id:{" ~ node.id() ~ "} {";
+        /* string result = "object({" ~ node.value() ~ "}) id:{" ~ node.id() ~ "} {";
         auto breakTxt = "\n" ~" ".repeatTxt(indentlevel);
         auto endTxt = "\n" ~" ".repeatTxt(indentlevel - 1) ~ "}";
 
@@ -73,7 +75,9 @@ class DTextErrorFormatter : DErrorFormatter {
             .array;
 
         return !props.isEmpty
-            ? result ~ breakTxt ~ props.join(breakTxt) ~ endTxt : result ~ "}";
+            ? result ~ breakTxt ~ props.join(breakTxt) ~ endTxt : result ~ "}"; */
+        
+        return null;
     }
 
     override protected string exportProperty(DPropertyErrorNode node, size_t indentLevel) {

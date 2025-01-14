@@ -26,7 +26,8 @@ class DPropertyErrorNode : DErrorNode {
 
   // Get the value
   IErrorNode value() {
-    return _propertyValue.value;
+    // return _propertyValue.value;
+    return null; // TODO
   }
 
   // Get the property visibility

@@ -36,7 +36,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
             return false;
         } */
 
-    _allMethods = [__traits(allMembers, DORMTable)];
+    // _allMethods = [__traits(allMembers, DORMTable)];
 
     return true;
   }
@@ -92,8 +92,8 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * a bare controller will be used.
      */
   protected IErrorController _getController() {
-    auto _request = this.request;
-    auto routerRequest = Router.getRequest();
+/*     auto _request = this.request;
+    auto routerRequest = Router.getRequest(); */
     // Fallback to the request in the router or make a new one from
     // _SERVER
     /*         if (_request.isNull) {
@@ -133,7 +133,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
  */ // Retry RequestHandler, as another aspect of startupProcess()
     // could have failed. Ignore any exceptions out of startup, as
     // there could be userland input data parsers.
-    if (myErrorOccured && controller.RequestHandler !is null) {
+    /* if (myErrorOccured && controller.RequestHandler !is null) {
       try {
         myEvent = new DEvent("Controller.startup", controller);
         controller.RequestHandler.startup(myEvent);
@@ -141,17 +141,18 @@ class DExceptionRenderer { // }: IExceptionRenderer
       }
     }
 
-    return controller;
+    return controller; */
+    return null; 
   }
 
   // Clear output buffers so error pages display properly.
   protected void clearOutput() {
-    if (hasAllValues(D_SAPI, ["cli", "Ddbg"])) {
+    /* if (hasAllValues(D_SAPI, ["cli", "Ddbg"])) {
       return;
     }
     while (ob_get_level()) {
       ob_end_clean();
-    }
+    } */
   }
 
   // Renders the response for the exception.
@@ -345,12 +346,12 @@ class DExceptionRenderer { // }: IExceptionRenderer
   } */
 
   // Returns an array that can be used to describe the internal state of this object.
-  Json[string] debugInfo() {
+/*   Json[string] debugInfo() {
     return super.debugInfo
       .set("error", _error)
       .set("request", _request)
       .set("controller", _controller)
       .set("template", _template)
       .set("method", _method);
-  }
+  } */
 }

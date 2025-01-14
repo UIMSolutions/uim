@@ -16,9 +16,9 @@ import uim.errors;
  * Only runs if debug mode is enabled.
  */
 Json debugInfo(Json debugVariable, bool showHtml = false, bool showFrom = true) {
-    if (!configuration.hasKey("debug")) {
+    /* if (!configuration.hasKey("debug")) {
         return debugVariable;
-    }
+    } */
 
     /* 
     auto location = null;
@@ -33,7 +33,8 @@ Json debugInfo(Json debugVariable, bool showHtml = false, bool showFrom = true) 
     }
     Debugger.printVar(debugVariable, location, showHtml);
     */
-    return debugVariable;
+    // return debugVariable;
+    return Json(null);
 }
 /**
  * Outputs a stack trace based on the supplied options.
@@ -64,7 +65,7 @@ void stackTrace(Json[string] options = null) {
  * It will otherwise just continue code execution and ignore this function.
  */
 void dd(Json varForDebugInfo, bool showHtml = false) {
-    if (!configuration.hasKey("debug")) {
+   /*  if (!configuration.hasKey("debug")) {
         return;
     }
 
@@ -78,5 +79,5 @@ void dd(Json varForDebugInfo, bool showHtml = false) {
         .set("file", trace[0]["file"]);
 
     Debugger.printVar(varForDebugInfo, location, showHtml);
-    die(1);
+    die(1); */
 }

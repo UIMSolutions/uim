@@ -80,7 +80,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * a bare controller will be used.
      */
     protected IErrorController _getController() {
-        auto _request = _request;
+        /* auto _request = _request;
         auto routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from
         // _SERVER
@@ -115,12 +115,12 @@ class DExceptionRenderer : IExceptionRenderer {
 
         if (controller.isNull) {
             return new DController(_request);
-        }
+        } */
 
         // Retry RequestHandler, as another aspect of startupProcess()
         // could have failed. Ignore any exceptions out of startup, as
         // there could be userland input data parsers.
-        if (_errorOccured && controller.RequestHandler !is null) {
+        /* if (_errorOccured && controller.RequestHandler !is null) {
             try {
                 myEvent = new DEvent("Controller.startup", controller);
                 controller.RequestHandler.startup(myEvent);
@@ -128,17 +128,19 @@ class DExceptionRenderer : IExceptionRenderer {
             }
         }
 
-        return controller;
+        return controller; */
+
+        return null;
     }
 
     // Clear output buffers so error pages display properly.
     protected void clearOutput() {
-        if (hasAllValues(D_SAPI, ["cli", "Ddbg"])) {
+/*         if (hasAllValues(D_SAPI, ["cli", "Ddbg"])) {
             return;
         }
         while (ob_get_level()) {
             ob_end_clean();
-        }
+        } */
     }
 
     // Renders the response for the exception.
@@ -231,37 +233,37 @@ class DExceptionRenderer : IExceptionRenderer {
     }
 
     // Get error message.
-    protected string errorMessage(Throwable myException, int errorCode) {
-        auto myMessage = myException.message();
+    protected string errorMessage(Throwable throwableException, int errorCode) {
+        auto myMessage = throwableException.message();
 
-        if (
+/*         if (
             !Configure.read("debug") &&
-            !(cast(HttpException)myException)
+            !(cast(HttpException)throwableException)
        ) {
             myMessage = errorCode < 500
                 ? __d("uim", "Not Found")
                 : __d("uim", "An Internal Error Has Occurred.");
-        }
+        } */
 
         return myMessage;
     }
 
     // Get template for rendering exception info.
-    protected string templateName(Throwable exception, string methodName, int errorCode) {
-        if (cast(HttpException)exception || !Configure.read("debug")) {
+    protected string templateName(Throwable throwableException, string methodName, int errorCode) {
+        if (cast(HttpException)throwableException || !Configure.read("debug")) {
             return _template = errorCode < 500 ? "error400" : "error500";
         }
 
-        return cast(PDOException)myException
+        return cast(PDOException)throwableException
             ? "pdo_error"
             : methodName;
     }
 
     // Gets the appropriate http status code for exception.
-    protected int getHttpCode(Throwable exception) {
+    protected int getHttpCode(Throwable throwableException) {
         return cast(HttpException)exception
-            ? exception.code()
-            : _exceptionHttpCodesgetInteger(get_class(myException), 500);
+            ? throwableException.code()
+            : _exceptionHttpCodesgetInteger(get_class(throwableException), 500);
     }
 
     // Generate the response using the controller object.

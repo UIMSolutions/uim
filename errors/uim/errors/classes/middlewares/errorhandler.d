@@ -108,12 +108,13 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
 
     // Get a error handler instance
     protected IErrorHandler getErrorHandler() {
-        if (_errorHandler.isNull) {
-            /** @var class-string<uim.errorss.ErrorHandler> myclassname */
+        /* if (_errorHandler.isNull) {
+            /** @var class-string<uim.errorss.ErrorHandler> myclassname * /
             myclassname = App.classname("ErrorHandler", "Error");
             // _errorHandler = new myclassname(this.configuration.data);
         }
 
-        return _errorHandler;
+        return _errorHandler; */
+        return null; // TODO
     }
 }

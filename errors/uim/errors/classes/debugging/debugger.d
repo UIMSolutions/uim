@@ -50,7 +50,7 @@ class DDebugger : UIMObject, IErrorDebugger {
       "vscode": "vscode://file/{file}:{line}",
     ];
 
-    _stringContents = createMap!(string, Json)
+/*     _stringContents = createMap!(string, Json)
       .set("log",
         createMap!(string, Json) // These templates are not actually used, as Debugger.log() is called instead.
         .set("trace", "{:reference} - {:path}, line {:line}")
@@ -67,7 +67,6 @@ class DDebugger : UIMObject, IErrorDebugger {
           .set("links", Json.emptyArray)
           .set("escapeContext", true)
       )
-
       .set("html",
         createMap!(string, Json)
           .set("trace", htmlDoubleTag("pre", ["uim-error trace"], "<b>Trace</b> <p>{:trace}</p>"))
@@ -76,21 +75,19 @@ class DDebugger : UIMObject, IErrorDebugger {
             ], "<b>Context</b> <p>{:dumpContext}</p>"))
           .set("escapeContext", true)
       )
-
       .set("txt",
         createMap!(string, Json)
           .set("error", "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}")
           .set("code", "")
           .set("info", "")
       )
-
       .set("base",
         createMap!(string, Json)
           .set("traceLine", "{:reference} - {:path}, line {:line}")
           .set("trace", "Trace:\n{:trace}\n")
           .set("dumpContext", "Context:\n{:dumpContext}\n")
       );
-
+ */
     return true;
   }
 
@@ -226,18 +223,17 @@ class DDebugger : UIMObject, IErrorDebugger {
 
   // Reads the current output masking.
   static STRINGAA outputMask() {
-    return configInstance("outputMask");
+    // return configInstance("outputMask");
+    return null;
   }
 
   /**
      * Sets configurable masking of debugger output by property name and array key names.
-     *
      * ### Example
-     *
      * Debugger.setOutputMask(["password": '[*************]");
      */
   static void setOutputMask(Json[string] keyReplaceData, bool shouldMerge = true) {
-    configInstance("outputMask", keyReplaceData, shouldMerge);
+    // configInstance("outputMask", keyReplaceData, shouldMerge);
   }
 
   // Recursively formats and outputs the contents of the supplied variable.
@@ -389,7 +385,8 @@ class DDebugger : UIMObject, IErrorDebugger {
     if (options.getString("format") == "array" || options.getString("format") == "points") {
       return back;
     } */
-    return back.join("\n");
+    // return back.join("\n");
+    return null; 
   }
 
   // Shortens file paths by replacing the application base path with 'APP", and the UIM core path with 'CORE'.
@@ -478,7 +475,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
   // Get the configured export formatter or infer one based on the environment.
   IErrorFormatter getExportFormatter() {
-    auto anInstance = getInstance();
+    /* auto anInstance = getInstance();
     string formatterClassname = anInstance.configuration.get("exportFormatter");
     if (!formatterClassname) {
       /*          if (DConsoleErrorFormatter.environmentMatches()) {
@@ -487,7 +484,7 @@ class DDebugger : UIMObject, IErrorDebugger {
                 formatterClassname = HtmlErrorFormatter.classname;
             } else {
                 formatterClassname = TextErrorFormatter.classname;
-            } */
+            } * /
     }
 
     /* anInstance = new formatterClassname();
@@ -528,9 +525,10 @@ class DDebugger : UIMObject, IErrorDebugger {
 
   // Converts a variable to a plain text string.
   static string exportVarAsPlainText(Json value, int maxOutputDepth = 3) {
-    return (new DTextFormatter()).dump(
+/*     return (new DTextFormatter()).dump(
       export_(value, new DDebugContext(maxOutputDepth))
-    );
+    ); */
+    return null; 
   }
 
   /**
@@ -540,7 +538,8 @@ class DDebugger : UIMObject, IErrorDebugger {
      * than many object graphs can.
      */
   static IErrorNode exportVarAsNodes(Json value, int maxOutputDepth = 3) {
-    return export_(value, new DDebugContext(maxOutputDepth));
+    // return export_(value, new DDebugContext(maxOutputDepth));
+    return null; 
   }
 
   /**
@@ -675,7 +674,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
   // Get the type of the given variable. Will return the class name for objects.
   static string getType(Json variableToCheck) {
-    string variableType = get_debug_type(variableToCheck);
+/*     string variableType = get_debug_type(variableToCheck);
 
     switch (variableType) {
     case "double":
@@ -684,7 +683,8 @@ class DDebugger : UIMObject, IErrorDebugger {
       return "unknown";
     default:
       return variableType;
-    }
+    } */
+    return null; 
   }
 
   // Prints out debug information about given variable.
@@ -729,14 +729,14 @@ class DDebugger : UIMObject, IErrorDebugger {
 
   // Verifies that the application`s salt and cipher seed value has been changed from the default value.
   static void checkSecurityKeys() {
-    auto salt = Security.getSalt();
+/*     auto salt = Security.getSalt();
     if (salt == "__SALT__" || salt.length < 32) {
       trigger_error(
         "Please change the value of `Security.salt` in `ROOT/config/app_local.d` " ~
           "to a random value of at least 32 characters.",
           ERRORS.USER_NOTICE
       );
-    }
+    } */
   }
   // Holds current output data when outputFormat is false.
   protected Json[string] _data = null;
@@ -809,20 +809,21 @@ class DDebugger : UIMObject, IErrorDebugger {
     }
 
     return instance[0]; */
-    return unll; 
+    return null; 
   }
 
   // Read or write configuration options for the Debugger instance.
   static Json configInstance(string key = null, Json valueToSet = null, bool shouldMerge = true) {
-    if (key == null) {
+    /* if (key == null) {
       return getInstance().configuration.get(key);
-    }
+    } */
 
-    if (key.isArray || func_num_args() >= 2) {
+    /* if (key.isArray || func_num_args() >= 2) {
       return getInstance().setConfig(key, valueToSet, shouldMerge);
-    }
+    } */
 
-    return getInstance().configuration.get(key);
+    // return getInstance().configuration.get(key);
+    return Json(null);
   }
 
   /**
@@ -885,7 +886,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * Debugger.setOutputMask(["password": "[*************]");
      */
   static void outputMask(Json[string] keyvalues, bool shouldMerge = true) {
-    configInstance("outputMask", value, shouldMerge);
+    // configInstance("outputMask", value, shouldMerge);
   }
   // #endregion outputMask
 
@@ -899,12 +900,12 @@ class DDebugger : UIMObject, IErrorDebugger {
      * as well as export the variable using exportVar. By default, the log is written to the debug log.
      */
   static void log(Json varToLog, string logLevel = "debug", size_t maxOutputDepth = 3) {
-    string source = trace(["start": 1]) ~ "\n";
+    // string source = trace(["start": 1]) ~ "\n";
 
-    Log.write(
+    /* Log.write(
       logLevel,
       "\n" ~ source ~ exportVarAsPlainText(varToLog, maxOutputDepth)
-    );
+    ); */
   }
 
   /**
@@ -1426,7 +1427,7 @@ class DDebugger : UIMObject, IErrorDebugger {
  */
   // Prints out debug information about given variable.
   static void printVar(Json varToShow, Json[string] location = null, bool showHtml = false) {
-    location.mergeKeys([
+    /* location.mergeKeys([
         "file",
         "line"
       ]);
@@ -1455,7 +1456,7 @@ class DDebugger : UIMObject, IErrorDebugger {
       debugger.setConfig(
         "exportFormatter", restore);
     }
-    writeln(formatter.formatWrapper(contents, location));
+    writeln(formatter.formatWrapper(contents, location)); */
   }
 
   /**

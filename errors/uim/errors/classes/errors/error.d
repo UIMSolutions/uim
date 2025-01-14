@@ -10,12 +10,13 @@ class UIMError : IError {
     }
 
     ERRORS code() {
-        return ERRORS.Error;
+        return ERRORS.ERROR;
     }
 
     void message(string message) {
 
     }
+
     string message() {
         return null;
     }

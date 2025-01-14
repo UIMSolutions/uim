@@ -86,13 +86,13 @@ mixin template TEntity() {
      * purposes or to be able to log it away.
     */
   void setFieldsInvalid(Json[string] fields, bool shouldOverwrite = false) {
-    foreach (fields as field : aValue) {
+    /* foreach (fields as field : aValue) {
       if (shouldOverwrite == true) {
         _invalidFields.set(field, aValue);
         continue;
       }
       _invalidFields += [field: aValue];
-    }
+    } */
   }
 
   void setFieldInvalid(field, aValue, booloverwrite = false) {
@@ -123,9 +123,9 @@ mixin template TEntity() {
      * Params:
      * string fieldName Name of the field to access
    */
-  Json & __get(string fieldName) {
+  /* Json & __get(string fieldName) {
     return get(field);
-  }
+  } */
 
   // Magic setter to add or edit a field in this entity
   void __set(string fieldName, Json valueToSet) {
@@ -218,7 +218,7 @@ mixin template TEntity() {
     if (!fieldName.isArray) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
-    options      
+    options
       .merge("setter", true)
       .merge("guard", guard)
       .merge("asOriginal", false);
@@ -226,15 +226,16 @@ mixin template TEntity() {
     if (options.getBoolean("asOriginal")) {
       setOriginalField(fieldName.keys);
     }
-    fieldName.byKeyValue
+    /*  fieldName.byKeyValue
       .each((kv) {
-        auto fieldName =  /* (string)  */ name;
-        if (options.getBoolean("guard") && !this.isAccessible(fieldName)) {
-          continue;
-        }
-        isChanged(fieldName, true);
+        auto fieldName =  /* (string)  */
+    name;
+    if (options.getBoolean("guard") && !this.isAccessible(fieldName)) {
+      continue;
+    }
+    isChanged(fieldName, true);
 
-        if (options.hasey("setter")) {
+    /* if (options.hasey("setter")) {
           setter = _accessor(fieldName, "set");
           if (setter) {
             valueToSet = this. {
@@ -242,15 +243,15 @@ mixin template TEntity() {
             }
             (valueToSet);
           }
-        }
-        if (
+        } */
+    /* if (
           this.isOriginalField(fieldName) && !hasKey(fieldName, _originalFields) &&
         hasKey(fieldName, _fields) && valueToSet != _fields[fieldName]
           ) {
           _originalFields[fieldName] = _fields[fieldName];
-        }
+        } * /
         _fields[fieldName] = valueToSet;
-      });
+      }); */
   }
 
   // Returns the value of a field by name
@@ -758,19 +759,19 @@ mixin template TEntity() {
       return;
     }
 
-    foreach (f, error; errors) {
+    /* foreach (f, error; errors) {
       _fieldErrors += [f: []]; // String messages are appended to the list,
       // while more complex error structures need their
       // keys preserved for nested validator.
-      if (isString(error)) {
+      /* if (isString(error)) {
         _fieldErrors[f).concat(error;
             } else {
             errors.byKeyValue.each!(kv => _fieldErrors[f][kv.key] = kv.value);
-          }
-          }
-          }
+          } * /
+    } */
+  }
 
-          /**
+  /**
      * Sets errors for a single field
      *
      * ### Example
@@ -780,34 +781,34 @@ mixin template TEntity() {
      * entity.setErrors("salary", ["must be numeric", "must be a positive number"]);
      * ```
     */
-          auto setErrors(string fieldName, string[] errorsForField, bool shouldOverwrite = false) {
-            if (isString(errorsForField)) {
-              errors = [errorsForField];
-            }
-            return _setErrors([fieldName: errorsForField], shouldOverwrite);
-          }
+  auto setErrors(string fieldName, string[] errorsForField, bool shouldOverwrite = false) {
+    if (isString(errorsForField)) {
+      errors = [errorsForField];
+    }
+    return _setErrors([fieldName: errorsForField], shouldOverwrite);
+  }
 
-          // Auxiliary method for getting errors in nested entities
-          protected Json[string] _nestedErrors(string fieldName) {
-            // Only one path element, check for nested entity with error.
-            if (!fieldName.contains(".")) {
-              entity = get(fieldName);
-              if (cast(IDatasourceEntity) entity || is_iterable(
-                  entity)) {
-                return _readError(entity);
-              }
-              return null;
-            }
-            // Try reading the errors data with field as a simple path
-            auto error = Hash.get(_fieldErrors, fieldName);
-            if (error !is null) {
-              return error;
-            }
-            string[] somePath = split(".", fieldName); // Traverse down the related entities/arrays for
-            // the relevant entity.
-            auto entity = this;
-            size_t pathLength = count(somePath);
-            /* while (pathLength) {
+  // Auxiliary method for getting errors in nested entities
+  protected Json[string] _nestedErrors(string fieldName) {
+    // Only one path element, check for nested entity with error.
+    /* if (!fieldName.contains(".")) {
+      entity = get(fieldName);
+      if (cast(IDatasourceEntity) entity || is_iterable(
+          entity)) {
+        return _readError(entity);
+      }
+      return null;
+    }
+    // Try reading the errors data with field as a simple path
+    auto error = Hash.get(_fieldErrors, fieldName);
+    if (error !is null) {
+      return error;
+    }
+    string[] somePath = split(".", fieldName); // Traverse down the related entities/arrays for
+    // the relevant entity.
+    auto entity = this;
+    size_t pathLength = count(somePath); */
+    /* while (pathLength) {
       string part = somePath.shift;
       pathLength = count(somePath);
       auto val = null;
@@ -830,52 +831,54 @@ mixin template TEntity() {
     if (count(somePath) <= 1) {
       return _readError(entity, somePath.pop());
     } */
-            return null;
-          }
+    return null;
+  }
 
-          /**
+  /**
      * Reads if there are errors for one or many objects.
      * Params:
      * \UIM\Datasource\IDatasourceEntity|array object The object to read errors from.
     */
-          protected bool _readHasErrors(
-            IDatasourceEntity[] object) {
-            if (cast(IDatasourceEntity) object && object
-              .hasErrors()) {
-              return true;
-            }
-            if (object.isArray) {
-              foreach (aValue; object) {
-                if (
-                  _readHasErrors(aValue)) {
-                  return true;
-                }
-              }
-            }
-            return false;
-          }
+  // protected bool _readHasErrors(
+    /* IDatasourceEntity[] object) {
+    if (cast(IDatasourceEntity) object && object
+      .hasErrors()) {
+      return true;
+    }
+    if (object.isArray) {
+      foreach (aValue; object) {
+        if (
+          _readHasErrors(aValue)) {
+          return true;
+        }
+      }
+    } */
+    /* return false;
+  } */
 
-          /**
+  /**
      * Read the error(s) from one or many objects.
      * Params:
      * \UIM\Datasource\IDatasourceEntity|range object The object to read errors from.
     */
-          protected Json[string] _readError(
-            /* IDatasourceEntity | range*/
-            Json[string] object, string errorFieldname = null) {
-            if (errorFieldname !is null && cast(IDatasourceEntity) object) {
-              return object.getError(
-                errorFieldname);
-            }
-            if (
-              cast(IDatasourceEntity) object) {
-              return object.getErrors();
-            }
-            Json[string] values = object.filter!(val => cast(IDatasourceEntity) val).map!(val => val.getErrors()).array;
-            return filterValues(values);
-          }
+  protected Json[string] _readError(
+    /* IDatasourceEntity | range*/
+    Json[string] object, string errorFieldname = null) {
+    if (errorFieldname !is null && cast(IDatasourceEntity) object) {
+      return object.getError(
+        errorFieldname);
+    }
+    if (
+      cast(IDatasourceEntity) object) {
+      return object.getErrors();
+    }
+    Json[string] values = object.filter!(val => cast(IDatasourceEntity) val)
+      .map!(val => val.getErrors())
+      .array;
+    return filterValues(values);
+  }
 
-          /**
+  /**
      * Stores whether a field value can be changed or set in this entity.
      * The special field `*` can also be marked as accessible or protected, meaning
      * that any other field specified before will take its value. For example
@@ -896,26 +899,26 @@ mixin template TEntity() {
      * Params:
      * string[]|string fieldName Single or list of fields to change its accessibility
     */
-          void setAccess(string[] fieldNames, bool isFieldAccessible) {
-            fieldNames.each!(fieldName => setAccess(fieldName, isFieldAccessible));
-          }
+  void setAccess(string[] fieldNames, bool isFieldAccessible) {
+    fieldNames.each!(fieldName => setAccess(fieldName, isFieldAccessible));
+  }
 
-          void setAccess(string fieldName, bool isFieldAccessible) {
-            if (fieldName == "*") {
-              _accessible = array_map(fn(p) : isFieldAccessible, _accessible);
-              _accessible["*"] = isFieldAccessible;
-            }
-          }
+  void setAccess(string fieldName, bool isFieldAccessible) {
+   /*  if (fieldName == "*") {
+      _accessible = array_map(fn(p) : isFieldAccessible, _accessible);
+      _accessible["*"] = isFieldAccessible;
+    } */
+  }
 
-          /**
+  /**
      * Returns the raw accessible configuration for this entity.
      * The `*` wildcard refers to all fields.
     */
-          bool[] getAccessible() {
-            return _accessible;
-          }
+  bool[] getAccessible() {
+    return _accessible;
+  }
 
-          /**
+  /**
      * Checks if a field is accessible
      *
      * ### Example:
@@ -924,46 +927,46 @@ mixin template TEntity() {
      * entity.isAccessible("id"); // Returns whether it can be set or not
      * ```
     */
-          bool isAccessible(string fieldName) {
-            auto aValue = _accessible.ifNull(fieldName, null);
+  bool isAccessible(string fieldName) {
+    auto aValue = _accessible.ifNull(fieldName, null);
 
-            return (aValue.isNull && !_accessible.isEmpty("*") || aValue);
-          }
+    return (aValue.isNull && !_accessible.isEmpty("*") || aValue);
+  }
 
-          // Returns the alias of the repository from which this entity came from.
-          string source() {
-            return _registryAlias;
-          }
+  // Returns the alias of the repository from which this entity came from.
+  string source() {
+    return _registryAlias;
+  }
 
-          // Sets the source alias
-          auto setSource(string aliasName) {
-            _registryAlias = aliasName;
+  // Sets the source alias
+  auto setSource(string aliasName) {
+    _registryAlias = aliasName;
 
-            return this;
-          }
+    return this;
+  }
 
-          // Returns a string representation of this object in a human readable format.
-          override string toString() {
-            return to!string(Json_encode(this, Json_PRETTY_PRINT));
-          }
+  // Returns a string representation of this object in a human readable format.
+  override string toString() {
+    return to!string(Json_encode(this, Json_PRETTY_PRINT));
+  }
 
-          // Returns an array that can be used to describe the internal state of this object.
-          Json[string] debugInfo() {
-            auto fields = _fields;
-            foreach (field; _virtual) {
-              fields[field] = _field;
-            }
-            return fields ~ [
-              "[new]": this.isNew(),
-              "[accessible]": _accessible,
-              "[dirty]": _isChangedFields,
-              "[original]": _originalFields,
-              "[originalFields]": _originalFieldsFields,
-              "[virtual]": _virtual,
-              "[hasErrors]": hasErrors(),
-              "[errors]": _fieldErrors,
-              "[invalid]": _invalidFields,
-              "[repository]": _registryAlias,
-            ];
-          }
-          }
+  // Returns an array that can be used to describe the internal state of this object.
+  Json[string] debugInfo() {
+    auto fields = _fields;
+    foreach (field; _virtual) {
+      fields[field] = _field;
+    }
+    return fields ~ [
+      "[new]": this.isNew(),
+      "[accessible]": _accessible,
+      "[dirty]": _isChangedFields,
+      "[original]": _originalFields,
+      "[originalFields]": _originalFieldsFields,
+      "[virtual]": _virtual,
+      "[hasErrors]": hasErrors(),
+      "[errors]": _fieldErrors,
+      "[invalid]": _invalidFields,
+      "[repository]": _registryAlias,
+    ];
+  }
+}

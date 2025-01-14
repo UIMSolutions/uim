@@ -27,7 +27,7 @@ mixin template TRulesAware() {
         string operationToRun = RulesChecker.CREATE,
         Json[string] ruleOptions = null
    ) {
-        auto rules = this.rulesChecker();
+        /* auto rules = this.rulesChecker();
         ruleOptions = ruleOptions ?: new Json[string]();
         ruleOptions = ruleOptions.isArray ? new Json[string](ruleOptions): ruleOptions;
         bool hasEvents = (cast(IEventDispatcher)this);
@@ -58,7 +58,8 @@ mixin template TRulesAware() {
                 return event.getResult();
             }
         }
-        return result;
+        return result; */
+        return true;
     }
     
     /**
@@ -89,7 +90,7 @@ mixin template TRulesAware() {
      *
      * Subclasses should override this method in order to initialize the rules to be applied to
      * entities saved by this instance.
-     */
+     * /
     RulesChecker buildRules(RulesChecker rules) {
         return rules;
     } */

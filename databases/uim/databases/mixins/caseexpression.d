@@ -19,7 +19,7 @@ mixin template TCaseExpression() {
         auto type = null;
 
         /** @psalm-suppress RedundantCondition */
-        if (isString(aValue)) {
+        /* if (isString(aValue)) {
             type = "String";
         } else if (isInt(aValue)) {
             type = "integer";
@@ -43,7 +43,7 @@ mixin template TCaseExpression() {
             type = _typeMap.type(aValue.getIdentifier());
         } else if (aValue  ITypedResult) {
             type = aValue.getReturnType();
-        }
+        } */
         return type;
     }
     

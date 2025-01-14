@@ -3,7 +3,7 @@
 	"versions": {
 		"arsd-official": "11.2.3",
 		"colored": "0.0.31",
-		"diet-ng": "1.8.2",
+		"diet-ng": "1.8.3",
 		"dlib": "1.2.1",
 		"eventcore": "0.9.35",
 		"libasync": "0.8.6",

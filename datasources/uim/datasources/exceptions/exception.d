@@ -5,7 +5,7 @@ import uim.datasources;
 @safe:
 
 // Datasource exception.
-class DDatasourcesException : DException {
+class DDatasourcesException : UIMException {
   mixin(ExceptionThis!("Datasources"));
 
   override bool initialize(Json[string] initData = null) {

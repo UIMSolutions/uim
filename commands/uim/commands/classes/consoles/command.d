@@ -163,7 +163,7 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
     }
 
     size_t executeCommand(DCommand command, Json[string] commandArguments = null, DConsole console = null) {
-        auto console = console ? console : new DConsole();
+        /* auto console = console ? console : new DConsole(); */
 
         /* try {
                 return command.run(commandArguments, console);

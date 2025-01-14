@@ -29,7 +29,7 @@ string exceptionThis(string exceptionName) {
   `;
 } 
 
-template ExceptionThis(string exceptionName) {
+/* template ExceptionThis(string exceptionName) {
   const char[] ExceptionThis = exceptionThis(exceptionName);
 }
 
@@ -43,4 +43,4 @@ auto "~name~"() { return new D"~name~"();  }
 
 template ExceptionCalls(string exceptionName) {
   const char[] ExceptionCalls = exceptionCalls(exceptionName);
-}
+} */

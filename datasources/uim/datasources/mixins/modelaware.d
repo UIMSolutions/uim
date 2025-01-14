@@ -65,7 +65,7 @@ mixin template TModelAware() {
         }
         modelType = modelType.ifEmpty(getModelType());
 
-        auto options = null;
+        /* auto options = null;
         if (indexOf(modelClass, "\\") == false) {
             [, aliasName] = pluginSplit(modelClass, true);
         } else {
@@ -77,7 +77,7 @@ mixin template TModelAware() {
                 -modelType.length
             );
             modelClass = aliasName;
-        }
+        } */
         factory = _modelFactories.get(modelType, FactoryLocator.get(modelType));
         anInstance = cast(
             IDatasourceLocator) factory

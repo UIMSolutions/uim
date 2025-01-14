@@ -75,35 +75,35 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
         return null;
     }
 
-    ulong run(Json[string] arguments, DConsole aConsole) {
+    ulong run(Json[string] arguments, DConsole console) {
         initialize();
 
         /*         auto aParser = getOptionParser();
         try {
-            auto parsedResults = aParser.parse(arguments, aConsole);
+            auto parsedResults = aParser.parse(arguments, console);
             auto arguments = createMap!(string, Json);
                 /* parsedResults[1],
                 parsedResults[0],
                 aParser.argumentNames()
             ); * /
         } catch (DConsoleException anException) {
-            aConsole.writeErrorMessages("Error: " ~ anException.message());
+            console.writeErrorMessages("Error: " ~ anException.message());
 
             return 0; //false;
         }
-        setOutputLevel(arguments, aConsole);
+        setOutputLevel(arguments, console);
 
         if (arguments.getOption("help")) {
-            displayHelp(aParser, arguments, aConsole);
+            displayHelp(aParser, arguments, console);
 
             return 0; // true;
         }
         if (arguments.getOption("quiet")) {
-            aConsole.isInteractive(false);
+            console.isInteractive(false);
         }
         dispatchEvent("Command.beforeExecute", ["args": arguments]);
 
-        auto result = execute(arguments, aConsole);
+        auto result = execute(arguments, console);
         dispatchEvent("Command.afterExecute", createMap!(string, Json)
             .set("args", arguments)
             .set("result", result)); */
@@ -112,30 +112,32 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
     }
 
     // Output help content
-    protected void displayHelp(DConsoleOptionParser optionParser, Json[string] arguments, DConsole aConsole) {
+    protected void displayHelp(DConsoleOptionParser optionParser, Json[string] arguments, DConsole console) {
         /* string format = "text";
         if (arguments.getArgumentAt(0) == "xml") {
             format = "xml";
-            aConsole.setOutputAs(DOutput.RAW);
+            console.setOutputAs(DOutput.RAW);
         }
-        aConsole.writeln(optionParser.help(format)); */
+        console.writeln(optionParser.help(format)); */
     }
 
     // Set the output level based on the Json[string].
-    protected void setOutputLevel(Json[string] arguments, DConsole aConsole) {
-        // aConsole.setLoggers(DConsole.NORMAL);
+    protected void setOutputLevel(Json[string] arguments, DConsole console) {
+        // console.setLoggers(DConsole.NORMAL);
         /*  if (arguments.hasKey("quiet")) {
-            aConsole.level(DConsole.QUIET);
-            aConsole.setLoggers(DConsole.QUIET);
+            console.level(DConsole.QUIET);
+            console.setLoggers(DConsole.QUIET);
         }
         if (arguments.hasKey("verbose")) {
-            aConsole.level(DConsole.VERBOSE);
-            aConsole.setLoggers(DataGetConsole.VERBOSE);
+            console.level(DConsole.VERBOSE);
+            console.setLoggers(DataGetConsole.VERBOSE);
         } */
     }
 
     // Implement this method with your command`s logic.
-    abstract ulong execute(Json[string] commandArguments, DConsole aConsole);
+    override bool execute(Json[string] commandArguments, IConsole console = null) {
+        return true;
+    }
 
     // Halt the current process with a StopException.
     /* never abort(int exitCode = false) {
@@ -149,19 +151,19 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
      * will not be resolved with the application container. Instead you will
      * need to pass the command as an object with all of its dependencies.
      */
-    size_t executeCommand(string commandclassname, Json[string] commandArguments = null, DConsole aConsole = null) {
+    size_t executeCommand(string commandclassname, Json[string] commandArguments = null, DConsole console = null) {
         /* assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
         ); */
 
         // auto newCommand = new command();
-        // return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? DConsole aConsole = null);
+        // return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? DConsole console = null);
         return 0;
     }
 
-    size_t executeCommand(DCommand command, Json[string] commandArguments = null, DConsole aConsole = null) {
-        auto console = aConsole ? aConsole : new DConsole();
+    size_t executeCommand(DCommand command, Json[string] commandArguments = null, DConsole console = null) {
+        auto console = console ? console : new DConsole();
 
         /* try {
                 return command.run(commandArguments, console);

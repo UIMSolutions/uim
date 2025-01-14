@@ -24,7 +24,8 @@ class DRoutesGenerateCommand : DCommand {
   }
 
   override bool execute(Json[string] arguments, IConsole console = null) {
-    return super.execute(arguments, aConsole);
+    /* return super.execute(arguments, console); */
+    return true;
   }
 
   /* 
@@ -33,12 +34,12 @@ class DRoutesGenerateCommand : DCommand {
     try {
       commandArguments = _splitArgs(commandArguments.getArguments());
       auto routerUrl = Router.url(commandArguments);
-      aConsole.out ("> " ~ routerUrl);
-      aConsole.out ();
+      console.out ("> " ~ routerUrl);
+      console.out ();
     } catch (MissingRouteException) {
-      aConsole.writeErrorMessages(
+      console.writeErrorMessages(
         "<warning>The provided parameters do not match any routes.</warning>");
-      aConsole.out ();
+      console.out ();
 
       return false;
     }

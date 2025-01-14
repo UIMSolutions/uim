@@ -63,7 +63,7 @@ class DI18nExtractCommand : DCommand {
   //  Extracted strings indexed by domain.
 
   // Method to interact with the user and get path selections.
-  /* protected void _getPaths(IConsole console) {
+  /* protected void _getPaths(IConsole console = null) {
         /** @psalm-suppress UndefinedConstant * /
         defaultPaths = chain(
             [APP],
@@ -100,7 +100,7 @@ class DI18nExtractCommand : DCommand {
     } */
 
   // Execute the command
-  override bool execute(Json[string] arguments, IConsole console) {
+  override bool execute(Json[string] arguments, IConsole console = null) {
     string pluginName = "";
 /*     if (arguments.hasKey("exclude")) {
       _exclude = arguments.getString("exclude").split(",");
@@ -222,7 +222,7 @@ class DI18nExtractCommand : DCommand {
   }
 
   // Extract text
-  /* protected void _extract(Json[string] commandArguments, IConsole console) {
+  /* protected void _extract(Json[string] commandArguments, IConsole console = null) {
          console.writeln();
          console.writeln();
          console.writeln("Extracting...");
@@ -303,7 +303,7 @@ class DI18nExtractCommand : DCommand {
     } */
 
   // Extract tokens out of all files to be processed
-  protected void _extractTokens(Json[string] commandArguments, IConsole console) {
+  protected void _extractTokens(Json[string] commandArguments, IConsole console = null) {
     /* auto progress = console.helper("progress");
     assert(cast(ProgressHelper) progress);
 
@@ -465,7 +465,7 @@ class DI18nExtractCommand : DCommand {
   }
 
   // Write the files that need to be stored
-  protected void _writeFiles(Json[string] commandArguments, IConsole console) {
+  protected void _writeFiles(Json[string] commandArguments, IConsole console = null) {
     /* console.writeln(); */
     bool overwriteAll = false;
 /*     if (commandArguments.getOption("overwrite")) {

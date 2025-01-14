@@ -5,9 +5,9 @@
 *****************************************************************************************************************/
 module uim.commands.interfaces.command;
 
-import uim.oop;
+import uim.commands;
 @safe:
 
 interface ICommand : INamed {
-    bool execute(Json[string] options = null);
+    bool execute(Json[string] options = null, IConsole console = null);
 }

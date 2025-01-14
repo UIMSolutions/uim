@@ -12,8 +12,8 @@ import uim.commands;
 // Command for removing plugin assets from app`s webroot.
 class DPluginAssetsRemoveCommand : DCommand {
   mixin(CommandThis!("PluginAssetsRemove"));
-  mixin TPluginAssets;
-
+  /* mixin TPluginAssets;
+ */
   static string defaultName() {
     return "plugin-assets-remove";
   }

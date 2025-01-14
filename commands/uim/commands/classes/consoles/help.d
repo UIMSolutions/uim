@@ -18,7 +18,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
   }
 
   // Main auto Prints out the list of commands.
-  /* override */ bool execute(Json[string] arguments, DConsole console) {
+  /* override */ bool execute(Json[string] arguments, IConsole console = null) {
     /*         auto commandIterator = _commands.getIterator();
         if (cast(DArrayIterator) commandIterator) {
             commandIterator.ksort();

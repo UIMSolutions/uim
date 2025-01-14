@@ -28,7 +28,8 @@ class DPluginAssetsCopyCommand : DCommand {
     }
 
     override bool execute(Json[string] arguments, IConsole consoleIo) {
-        return super.execute(arguments, consoleIo);
+        /* return super.execute(arguments, consoleIo); */
+        return true;
     }
 
     // Get the option parser.

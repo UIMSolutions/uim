@@ -22,7 +22,7 @@ class DI18nCommand : DCommand {
     }
 
     // Execute interactive mode
-    override bool execute(Json[string] arguments, IConsole console) {
+    override bool execute(Json[string] arguments, IConsole console = null) {
         /* console.writeln("<info>I18n Command</info>");
         console.hr();
         console.writeln("[E]xtract POT file from sources");

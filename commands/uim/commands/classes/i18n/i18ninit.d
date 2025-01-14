@@ -17,7 +17,7 @@ class DI18nInitCommand : DCommand {
         return "i18n-init";
     }
 
-    override bool execute(Json[string] arguments, IConsole console) {
+    override bool execute(Json[string] arguments, IConsole console = null) {
 /*         auto myLanguage = commandArguments.getArgument("language");
         if (myLanguage.isNull) {
             myLanguage = console.ask(

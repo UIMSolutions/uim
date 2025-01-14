@@ -38,7 +38,7 @@ class DDebugContext : UIMObject {
     // private SplObjectStorage _refs;
     this(int aMaxDepth) {
         _maxDepth = aMaxDepth;
-        _refs = new DSplObjectStorage();
+        // _refs = new DSplObjectStorage();
     }
 
     // Return a clone with increased depth.
@@ -70,6 +70,7 @@ class DDebugContext : UIMObject {
 
     // Check whether an object has been seen before.
     bool hasReference(UIMObject referenceObject) {
-        return _refObjects.any!(obj => obj == referenceObject);
+        // return _refObjects.any!(obj => obj == referenceObject);
+        return true;
     }
 }

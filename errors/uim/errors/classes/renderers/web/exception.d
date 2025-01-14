@@ -27,43 +27,43 @@ import uim.errors;
  * can configure your class in your config/app.d.
  */
 class DWebExceptionRenderer { // }: IExceptionRenderer {
-    /**
+  /**
      * Creates the controller to perform rendering on the error response.
      * Params:
      * \Throwable exception Exception.
      * instead of creating a new one.
      */
-    /* this(Throwable exception, IServerRequest serverRequest = null) {
+  /* this(Throwable exception, IServerRequest serverRequest = null) {
         _error = exception;
         _request = serverRequest;
         _controller = _getController();
     } */
 
-    // Controller instance.
-    protected IErrorController controller;
+  // Controller instance.
+  protected IErrorController controller;
 
-    // Template to render for {@link \UIM\Core\Exception\UIMException}
-    protected string atemplate = "";
+  // Template to render for {@link \UIM\Core\Exception\UIMException}
+  protected string atemplate = "";
 
-    // The method corresponding to the Exception this object is for.
-    protected string methodName = "";
+  // The method corresponding to the Exception this object is for.
+  protected string methodName = "";
 
-    /**
+  /**
      * The exception being handled.
      *
      * @var \Throwable
      */
-    protected Throwable error;
+  protected Throwable error;
 
-    /**
+  /**
      * If set, this will be request used to create the controller that will render
      * the error.
      *
      * @var \UIM\Http\ServerRequest|null
      */
-    /* protected IServerRequest serverRequest; */
+  /* protected IServerRequest serverRequest; */
 
-    /**
+  /**
      * Map of exceptions to http status codes.
      *
      * This can be customized for users that don`t want specific exceptions to throw 404 errors
@@ -72,76 +72,77 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * @var array<string, int>
      * @psalm-var array<class-string<\Throwable>, int>
      */
-    protected Json[string] exceptionHttpCodes = [
-        // Controller exceptions
-        InvalidParameterException.classname: 404,
-        MissingActionException.classname: 404,
-        // Datasource exceptions
-        PageOutOfBoundsException.classname: 404,
-        RecordNotFoundException.classname: 404,
-        // Http exceptions
-        MissingControllerException.classname: 404,
-        // Routing exceptions
-        MissingRouteException.classname: 404,
-    ];
+  protected Json[string] exceptionHttpCodes = null; 
+  /* [
+    // Controller exceptions
+    /* InvalidParameterException.classname: 404,
+    MissingActionException.classname: 404,
+    // Datasource exceptions
+    PageOutOfBoundsException.classname: 404,
+    RecordNotFoundException.classname: 404,
+    // Http exceptions
+    MissingControllerException.classname: 404,
+    // Routing exceptions
+    MissingRouteException.classname: 404, * /
+  ]; */
 
-    /**
+  /**
      * Get the controller instance to handle the exception.
      * Override this method in subclasses to customize the controller used.
      * This method returns the built in `ErrorController` normally, or if an error is repeated
      * a bare controller will be used.
      */
-    protected IErrorController _getController() {
-        request = _request;
-        routerRequest = Router.getRequest();
-        // Fallback to the request in the router or make a new one from
-        // _SERVER
-        if (request.isNull) {
-            request = routerRequest ? routerRequest : ServerRequestFactory.fromGlobals();
-        }
-        // If the current request doesn`t have routing data, but we
-        // found a request in the router context copy the params over
-        if (request.getParam("controller").isNull && routerRequest !is null) {
-            request = request.withAttribute("params", routerRequest.getAttribute("params"));
-        }
-        try {
-            params = request.getAttribute("params");
-            params.set("controller", "Error");
+  protected IErrorController _getController() {
+    request = _request;
+    routerRequest = Router.getRequest();
+    // Fallback to the request in the router or make a new one from
+    // _SERVER
+    if (request.isNull) {
+      request = routerRequest ? routerRequest : ServerRequestFactory.fromGlobals();
+    }
+    // If the current request doesn`t have routing data, but we
+    // found a request in the router context copy the params over
+    if (request.getParam("controller").isNull && routerRequest !is null) {
+      request = request.withAttribute("params", routerRequest.getAttribute("params"));
+    }
+    try {
+      params = request.getAttribute("params");
+      params.set("controller", "Error");
 
-            auto factory = new DControllerFactory(new DContainer());
-            // Check including plugin + prefix
-            auto classname = factory.controllerClass(request.withAttribute("params", params));
-            if (!classname && !params.isEmpty("prefix") && !params.isEmpty("plugin")) {
-                params.removeKey("prefix");
-                // Fallback to only plugin
-                classname = factory.controllerClass(request.withAttribute("params", params));
-            }
-            if (!classname) {
-                // Fallback to app/core provided controller.
-                classname = App.classname("Error", "Controller", "Controller");
-            }
-            assert(isSubclass_of(classname, Controller.classname));
-            controller = new classname(request);
-            controller.startupProcess();
-        } catch (Throwable anException) {
-        }
-
-        return controller is null
-            ? new DController(request) : controller;
+      auto factory = new DControllerFactory(new DContainer());
+      // Check including plugin + prefix
+      auto classname = factory.controllerClass(request.withAttribute("params", params));
+      if (!classname && !params.isEmpty("prefix") && !params.isEmpty("plugin")) {
+        params.removeKey("prefix");
+        // Fallback to only plugin
+        classname = factory.controllerClass(request.withAttribute("params", params));
+      }
+      if (!classname) {
+        // Fallback to app/core provided controller.
+        classname = App.classname("Error", "Controller", "Controller");
+      }
+      assert(isSubclass_of(classname, Controller.classname));
+      controller = new classname(request);
+      controller.startupProcess();
+    } catch (Throwable anException) {
     }
 
-    // Clear output buffers so error pages display properly.
-    protected void clearOutput() {
-        if (isIn(UIM_SAPI, ["cli", "Ddbg"])) {
-            return;
-        }
-        while (ob_get_level()) {
-            ob_end_clean();
-        }
-    }
+    return controller is null
+      ? new DController(request) : controller;
+  }
 
-    // Renders the response for the exception.
-    /* IResponse render() {
+  // Clear output buffers so error pages display properly.
+  protected void clearOutput() {
+    if (isIn(UIM_SAPI, ["cli", "Ddbg"])) {
+      return;
+    }
+    while (ob_get_level()) {
+      ob_end_clean();
+    }
+  }
+
+  // Renders the response for the exception.
+  /* IResponse render() {
         /* auto exception = _error;
         auto code = getHttpCode(exception);
         auto method = methodName(exception);
@@ -206,22 +207,22 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         return null;
     } */
 
-    /**
+  /**
      * Emit the response content
      * Params:
      * \Psr\Http\Message\IResponse|string aoutput The response to output.
      */
-    void write(string outputText) {
-        writeln(output);
-    }
+  void write(string outputText) {
+    writeln(output);
+  }
 
-    void write(IResponse outputResponse) {
+  /* void write(IResponse outputResponse) {
         auto emitter = new DResponseEmitter();
         emitter.emit(outputResponse);
-    }
+    } */
 
-    // Render a custom error method/template.
-    /* protected IResponse _customMethod(string methodName, Throwable exceptionToRender) {
+  // Render a custom error method/template.
+  /* protected IResponse _customMethod(string methodName, Throwable exceptionToRender) {
         /*         auto result = this.{
             methodName
         }
@@ -234,9 +235,9 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         return null;
     } */
 
-    // Get method name
-    override protected string methodName(Throwable exception) {
-        /* [, baseClass] = namespaceSplit(exception.classname);
+  // Get method name
+  /* override */ /* protected string methodName(Throwable exception) {
+    /* [, baseClass] = namespaceSplit(exception.classname);
 
         if (baseClass.endsWith("Exception")) {
             baseClass = subString(baseClass, 0, -9);
@@ -244,13 +245,13 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         // baseClass would be an empty string if the exception class is \Exception.
         method = baseClass is null ? "error500" : Inflector.variable(baseClass);
 
-        return _method = method; */
-        return null;
-    }
+        return _method = method; * /
+    return null;
+  } */
 
-    // Get error message.
-    protected string errorMessage(Throwable exception, int errorCode) {
-        /* string result = exception.message();
+  // Get error message.
+  protected string errorMessage(Throwable exception, int errorCode) {
+    /* string result = exception.message();
 
         if (
             !configuration.hasKey("debug") &&
@@ -262,16 +263,16 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     }
 
     return result; */
-        return null;
-    }
+    return null;
+  }
 
-    /**
+  /**
      * Get template for rendering exception info.
      * Params:
      * \Throwable exception Exception instance.
      */
-    protected string templateName(Throwable exception, string methodName, int errorCode) {
-        /* if (cast(HttpException) exception || !configuration.hasKey("debug")) {
+  protected string templateName(Throwable exception, string methodName, int errorCode) {
+    /* if (cast(HttpException) exception || !configuration.hasKey("debug")) {
         return _template = errorCode < 500 ? "error400' : 'error500";
     }
 
@@ -279,21 +280,21 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         ? "pdo_error" : methodName;
 
     return _template; */
-        return null;
-    }
+    return null;
+  }
 
-    // Gets the appropriate http status code for exception.
-    protected int getHttpCode(Throwable exception) {
-        /* if (cast(HttpException) exception) {
+  // Gets the appropriate http status code for exception.
+  protected int getHttpCode(Throwable exception) {
+    /* if (cast(HttpException) exception) {
             return exception.code();
         }
         return _exceptionHttpCodes[exception.classname] ?  ? 500; */
-        return 0;
-    }
+    return 0;
+  }
 
-    // Generate the response using the controller object.
-    protected IResponse _outputMessage(string templateToRender) {
-        /* try {
+  // Generate the response using the controller object.
+  /* protected IResponse _outputMessage(string templateToRender) {
+    /* try {
         _controller.render(templateToRender);
 
         return _shutdown();
@@ -318,52 +319,52 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         } catch (Throwable anInner) {
             throw outer;
         }
-    } */
-        return null;
-    }
+    } * /
+    return null;
+  } */
 
-    /**
+  /**
      * A safer way to render error messages, replaces all helpers, with basics
      * and doesn`t call component methods.
      * Params:
      * string atemplate The template to render.
      */
-    protected IResponse _outputMessageSafe(string templateText) {
-        auto builder = _controller.viewBuilder();
-        builder
-            .setHelpers([])
-            .setLayoutPath("")
-            .setTemplatePath("Error");
+  /* protected IResponse _outputMessageSafe(string templateText) {
+    auto builder = _controller.viewBuilder();
+    builder
+      .setHelpers([])
+      .setLayoutPath("")
+      .setTemplatePath("Error");
 
-        auto view = _controller.createView("View");
-        auto response = _controller.getResponse()
-            .withType("html")
-            .withStringBody(view.render(templateText, "error"));
-        _controller.setResponse(response);
+    auto view = _controller.createView("View");
+    auto response = _controller.getResponse()
+      .withType("html")
+      .withStringBody(view.render(templateText, "error"));
+    _controller.setResponse(response);
 
-        return response;
-    }
+    return response;
+  } */
 
-    /**
+  /**
      * Run the shutdown events.
      * Triggers the afterFilter and afterDispatch events.
      */
-    protected IResponse _shutdown() {
+  /* protected IResponse _shutdown() {
         _controller.dispatchEvent("Controller.shutdown");
 
         return _controller.getResponse();
-    }
+    } */
 
-    /**
+  /**
      * Returns an array that can be used to describe the internal state of this
      * object.
      */
-    Json[string] debugInfo() {
-        return super.debugInfo()
-            .set("error", _error)
-            .set("request", _request)
-            .set("controller", _controller)
-            .set("template", _template)
-            .set("method", _method);
-    }
+  Json[string] debugInfo() {
+    return super.debugInfo()
+      .set("error", _error)
+      .set("request", _request)
+      .set("controller", _controller)
+      .set("template", _template)
+      .set("method", _method);
+  }
 }

@@ -94,13 +94,13 @@ class DExceptionTrap : UIMObject {
      * This is best effort as we can"t know if/when another
      * exception handler is registered.
      */
-    protected static ExceptionTrap registeredTrap = null;
+    // protected static ExceptionTrap registeredTrap = null;
 
     // Track if this trap was removed from the global handler.
     protected bool _isDisabled = false;
 
     // Get an instance of the renderer.
-    IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
+    /* IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
         /* serverRequest = serverRequest ? serverRequest : Router.getRequest();
 
         /** @var class-string|callable aclassname * /
@@ -134,9 +134,9 @@ class DExceptionTrap : UIMObject {
             return new aclassname(exception, serverRequest, _config);
         }
 
-        return aclassname(exception, serverRequest); */
+        return aclassname(exception, serverRequest); * /
         return null;
-    }
+    } */
 
     // Choose an exception renderer based on config or the SAPI
     protected string chooseRenderer() {
@@ -284,7 +284,7 @@ class DExceptionTrap : UIMObject {
      *
      * After logging is attempted the `Exception.beforeRender` event is triggered.
      */
-    void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
+    /* void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
         /* auto shouldLog = _config["log"];
         if (shouldLog) {
             foreach (aclassname, configuration.get("skipLog")) {
@@ -306,8 +306,8 @@ class DExceptionTrap : UIMObject {
                 logger().log(exceptionToLog, serverRequest);
             }
         }
-        dispatchEvent("Exception.beforeRender", ["exception": exceptionToLog]); */
-    }
+        dispatchEvent("Exception.beforeRender", ["exception": exceptionToLog]); * /
+    } */
 
     /**
      * Trigger an error that occurred during rendering an exception.

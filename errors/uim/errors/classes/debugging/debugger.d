@@ -37,9 +37,9 @@ class DDebugger : UIMObject, IErrorDebugger {
     }
 
     configuration
-      .setDefaults("outputMask", Json.emptyArray)
-      .setDefaults("exportFormatter", Json(null))
-      .setDefaults("editor", "vscode");
+      .setDefault("outputMask", Json.emptyArray)
+      .setDefault("exportFormatter", Json(null))
+      .setDefault("editor", "vscode");
 
     _editors = [
       "atom": "atom://core/open/file?filename={file}&line={line}",
@@ -108,7 +108,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * The file and line.
      */
   static void addEditor(string editorName,  string templateText) {
-    getInstance().editors[editorName] = templateText;
+    // getInstance().editors[editorName] = templateText;
   }
   /**
      * Templates used when generating trace or error strings. Can be global or indexed by the format
@@ -142,7 +142,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
   // Choose the editor link style you want to use.
   static void setEditor(string editorName) {
-    auto anInstance = getInstance();
+    /* auto anInstance = getInstance();
     if (!anInstance.editors.hasKey(editorName)) {
       auto known = anInstance.editors.keys.join(", ");
       throw new DInvalidArgumentException(
@@ -150,7 +150,7 @@ class DDebugger : UIMObject, IErrorDebugger {
           .format(editorName, known)
       );
     }
-    anInstance.configuration.set("editor", name);
+    anInstance.configuration.set("editor", name); */
   }
 
   /**
@@ -159,7 +159,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * string afile The file to create a link for.
      */
   static string editorUrl(string filename, int lineNumber) {
-    auto anInstance = getInstance();
+    /* auto anInstance = getInstance();
     auto editor = anInstance.configuration.get("editor");
     if (!anInstance.editors.hasKey(editor)) {
       throw new DInvalidArgumentException(
@@ -172,7 +172,8 @@ class DDebugger : UIMObject, IErrorDebugger {
           filename, to!string(lineNumber)
         ]);
     }
-    return templateText(file, lineNumber);
+    return templateText(file, lineNumber); */
+    return null; 
   }
   /*
     //Holds current output data when outputFormat is false.
@@ -241,7 +242,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
   // Recursively formats and outputs the contents of the supplied variable.
   static void dump(Json valueToDump, int maxOutputDepth = 3) {
-    pr(exportVar(valueToDump, maxOutputDepth));
+    // pr(exportVar(valueToDump, maxOutputDepth));
   }
 
   /**
@@ -249,29 +250,29 @@ class DDebugger : UIMObject, IErrorDebugger {
      * as well as export the variable using exportVar. By default, the log is written to the debug log.
      */
   static void log(Json varToLog, string levelType = "debug", int maxDepth = 3) {
-    string source = trace(["start": 1]);
+    /* string source = trace(["start": 1]);
     source ~= "\n";
 
     Log.write(
       levelType,
       "\n" ~ source ~ exportVarAsPlainText(varToLog, maxDepth)
-    );
+    ); */
   }
 
   // Get the frames from exception that are not present in parent
   static Json[string] getUniqueFrames(Throwable exception, Throwable parent) {
-    if (parent.isNull) {
+    /* if (parent.isNull) {
       return exception.getTrace();
-    }
-    parentFrames = parent.getTrace();
+    } */
+    /* parentFrames = parent.getTrace();
     frames = exception.getTrace();
 
     parentCount = count(parentFrames) - 1;
-    frameCount = count(frames) - 1;
+    frameCount = count(frames) - 1; */
 
     // Reverse loop through both traces removing frames that
     // are the same.
-    for (index = frameCount, p = parentCount; index >= 0 && p >= 0; p--) {
+/*     for (index = frameCount, p = parentCount; index >= 0 && p >= 0; p--) {
       parentTail = parentFrames[p];
       tail = frames[index];
 
@@ -289,7 +290,8 @@ class DDebugger : UIMObject, IErrorDebugger {
         index--;
       }
     }
-    return frames;
+    return frames; */
+    return null; 
   }
 
   /**
@@ -306,10 +308,12 @@ class DDebugger : UIMObject, IErrorDebugger {
      */
   static string[] trace(Json[string] options = null) {
     // Remove the frame for Debugger.trace()
-    backtrace = debug_backtrace();
+    /* backtrace = debug_backtrace();
     backtrace.shift;
 
-    return Debugger.formatTrace(backtrace, options);
+    return Debugger.formatTrace(backtrace, options); */
+  
+    return null;
   }
 
   /**
@@ -325,7 +329,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
   static string[] formatTrace(Throwable backtrace, Json[string] options = null) {
-    if (cast(Throwable) backtrace) {
+    /* if (cast(Throwable) backtrace) {
       backtrace = backtrace.getTrace();
     }
 
@@ -335,12 +339,12 @@ class DDebugger : UIMObject, IErrorDebugger {
       .merge("args", false)
       .merge("start", 0)
       .merge("scope", Json(null))
-      .merge("exclude", ["call_user_func_array", "trigger_error"]);
+      .merge("exclude", ["call_user_func_array", "trigger_error"]); */
 
-    auto count = count(backtrace) + 1;
-    string[] back = null;
+    /* auto count = count(backtrace) + 1;
+    string[] back = null; */
 
-    for (index = options.getLong("start"); index < count && index < options.getLong("depth");
+/*     for (index = options.getLong("start"); index < count && index < options.getLong("depth");
       index++) {
       frame = ["file": "[main]", "line": ""];
       if (isSet(backtrace[index])) {
@@ -379,25 +383,26 @@ class DDebugger : UIMObject, IErrorDebugger {
         /* debug (options);
                 throw new DInvalidArgumentException(
                     "Invalid trace format of `{options.get(\"format\"]}` chosen. Must be one of `array`, `points` or `text`."
-               ); */
+               ); * /
       }
     }
     if (options.getString("format") == "array" || options.getString("format") == "points") {
       return back;
-    }
+    } */
     return back.join("\n");
   }
 
   // Shortens file paths by replacing the application base path with 'APP", and the UIM core path with 'CORE'.
   static string trimPath(string pathToShorten) {
-    if (defined("APP") && pathToShorten.startsWith(APP)) {
+    /* if (defined("APP") && pathToShorten.startsWith(APP)) {
       return pathToShorten.replace(APP, "APP/");
     }
     if (defined("uim_CORE_INCLUDE_PATH") && pathToShorten.startsWith(uim_CORE_INCLUDE_PATH)) {
       return pathToShorten.replace(uim_CORE_INCLUDE_PATH, "CORE");
     }
     return defined("ROOT") && pathToShorten.startsWith(ROOT)
-      ? pathToShorten.replace(ROOT, "ROOT") : pathToShorten;
+      ? pathToShorten.replace(ROOT, "ROOT") : pathToShorten; */
+    return null; 
   }
 
   /**
@@ -416,11 +421,11 @@ class DDebugger : UIMObject, IErrorDebugger {
      */
   static string[] excerpt(string filePath, int lineToHighlight, int numberOfLinesToExtract = 2) {
     string[] lines = null;
-    if (!filehasKey(filePath)) {
+    /* if (!filehasKey(filePath)) {
       return null;
-    }
+    } */
 
-    string[] contents = file_get_contents(filePath);
+    /* string[] contents = file_get_contents(filePath);
     if (contents.isEmpty) {
       return lines;
     }
@@ -430,9 +435,9 @@ class DDebugger : UIMObject, IErrorDebugger {
     lineToHighlight--;
     if (contents.isNull(lineToHighlight)) {
       return lines;
-    }
+    } */
 
-    for (index = lineToHighlight - numberOfLinesToExtract; index < lineToHighlight + numberOfLinesToExtract + 1;
+    /* for (index = lineToHighlight - numberOfLinesToExtract; index < lineToHighlight + numberOfLinesToExtract + 1;
       index++) {
       if (contents[index]!is null) {
         continue;
@@ -442,7 +447,7 @@ class DDebugger : UIMObject, IErrorDebugger {
       ], "");
       lines ~= index == lineToHighlight
         ? htmlDoubleTag("span", ["code-highlight"], "string") : lineToHighlight;
-    }
+    } */
     return lines;
   }
 
@@ -451,7 +456,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * implement the auto as it is the case of the HipHop interpreter
      */
   protected static string _highlight(string stringToConvert) {
-    if (function_hasKey("hD_log") || function_hasKey("hD_gettid")) {
+    /* if (function_hasKey("hD_log") || function_hasKey("hD_gettid")) {
       return htmlentities(stringToConvert);
     }
 
@@ -467,7 +472,8 @@ class DDebugger : UIMObject, IErrorDebugger {
         ["&lt;?D&nbsp;<br/>", "&lt;?D&nbsp;<br />"],
         "");
     }
-    return highlight;
+    return highlight; */
+    return null; 
   }
 
   // Get the configured export formatter or infer one based on the environment.
@@ -513,10 +519,11 @@ class DDebugger : UIMObject, IErrorDebugger {
      * shown in an error message if UIM is deployed in development mode.
      */
   static string exportVar(Json value, int maxDepth = 3) {
-    auto context = new DDebugContext(maxDepth);
+    /* auto context = new DDebugContext(maxDepth);
     auto node = export_(value, context);
 
-    return getInstance().getExportFormatter().dump(node);
+    return getInstance().getExportFormatter().dump(node); */
+    return null; 
   }
 
   // Converts a variable to a plain text string.
@@ -599,7 +606,7 @@ class DDebugger : UIMObject, IErrorDebugger {
   } */
 
   // Handles object to node conversion.
-  protected static IErrorNode exportObject(UIMObject objToConvert, DDebugContext dumpContext) {
+  /* protected static IErrorNode exportObject(UIMObject objToConvert, DDebugContext dumpContext) {
     /* auto isRef = dumpContext.hasReference(objToConvert);
         auto refNum = dumpContext.getReferenceId(objToConvert);
 
@@ -662,9 +669,9 @@ class DDebugger : UIMObject, IErrorDebugger {
                 }
             }
         }
-        return node; */
+        return node; * /
     return null;
-  }
+  } */
 
   // Get the type of the given variable. Will return the class name for objects.
   static string getType(Json variableToCheck) {
@@ -789,8 +796,8 @@ class DDebugger : UIMObject, IErrorDebugger {
     } */
 
   // Returns a reference to the Debugger singleton object instance.
-  static auto getInstance(string aclassname = null) {
-    static instance = null;
+  static Object getInstance(string aclassname = null) {
+    /* static instance = null;
     if (!aclassname.isEmpty) {
       if (!instance || strtolower(aclassname) != strtolower(
           get_class(instance[0]))) {
@@ -801,7 +808,8 @@ class DDebugger : UIMObject, IErrorDebugger {
       instance[0] = new Debugger();
     }
 
-    return instance[0];
+    return instance[0]; */
+    return unll; 
   }
 
   // Read or write configuration options for the Debugger instance.
@@ -825,14 +833,14 @@ class DDebugger : UIMObject, IErrorDebugger {
      * The file and line.
      */
 
-  static void addEditor(string editorName, string function(string filename, string line) templateNameFunc) {
+  /* static void addEditor(string editorName, string function(string filename, string line) templateNameFunc) {
     // addEditor(editorName, string templateName) {
-  }
+  } */
 
-  static void addEditor(string editorName, string templateName) {
+/*   static void addEditor(string editorName, string templateName) {
     auto instance = getInstance();
     instance.editors[editorName] = templatenName;
-  }
+  } */
 
   // Choose the editor link style you want to use.
   /*     static void setEditor(string editorName) {
@@ -847,7 +855,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     } */
 
   // Get a formatted URL for the active editor.
-  static string editorUrl(string filename, int lineNumber) {
+  /* static string editorUrl(string filename, int lineNumber) {
     auto instance = getInstance();
     auto editor = instance.getConfig(
       "editor");
@@ -862,7 +870,7 @@ class DDebugger : UIMObject, IErrorDebugger {
           "file": filename,
           "line": lineNumber
         ]) : templateText(filename, lineNumber);
-  }
+  } */
 
   // #region outputMask
   // Reads the current output masking.
@@ -1299,7 +1307,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     } */
 
   // Handles object to node conversion.
-  protected static IErrorNode exportObject(Object objToConvert, DDebugContext dumpContext) {
+  /* protected static IErrorNode exportObject(Object objToConvert, DDebugContext dumpContext) {
     /* auto isRef = dumpContext.hasReference(
         objToConvert);
     auto refNum = dumpContext
@@ -1390,9 +1398,9 @@ class DDebugger : UIMObject, IErrorDebugger {
         }
     }
 
-    return node; */
+    return node; * /
     return null;
-  }
+  } */
 
   // Get the type of the given variable. Will return the class name for objects.
   /*     static string getType(

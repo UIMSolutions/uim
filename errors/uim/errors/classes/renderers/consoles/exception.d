@@ -21,7 +21,7 @@ unittest {
 class DConsoleExceptionRenderer { // }: IExceptionRenderer {
     private Throwable _error;
 
-    private DOutput _output;
+    /* private DOutput _output; */
 
     private bool _trace;
 

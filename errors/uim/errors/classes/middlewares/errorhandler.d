@@ -62,19 +62,19 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
     protected IErrorHandler _errorHandler;
 
     // Wrap the remaining middleware with error handling.
-    IResponse process(IServerRequest request, IRequestHandler requestHandler) {
+    /* IResponse process(IServerRequest request, IRequestHandler requestHandler) {
         try {
             return requestHandler.handle(request);
         }  /* catch (DRedirectException exception) {
             return _handleRedirect(exception);
-        } */
+        } * /
         catch (Throwable exception) {
             return _handleException(exception, request);
         }
-    }
+    } */
 
     // Handle an exception and generate an error response
-    IResponse handleException(Throwable exception, IServerRequest request) {
+    /* IResponse handleException(Throwable exception, IServerRequest request) {
         auto _errorHandler = getErrorHandler();
         auto renderer = _errorHandler.getRenderer(exception, request);
 
@@ -84,11 +84,11 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
             response = renderer.render();
         } catch (Throwable internalException) {
             /*  _errorHandler.logException@(DInternalException, request);
-            response = handleInternalError(); */
+            response = handleInternalError(); * /
         }
 
         return response;
-    }
+    } */
 
     // Convert a redirect exception into a response.
     /*     IResponse handleRedirect(DRedirectException exceptionToHandle) {
@@ -100,11 +100,11 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
     }
  */
     // Handle internal errors.
-    protected IResponse handleInternalError() {
+    /* protected IResponse handleInternalError() {
         response = new DResponse(["body": "An Internal Server Error Occurred"]);
 
         return response.withStatus(500);
-    }
+    } */
 
     // Get a error handler instance
     protected IErrorHandler getErrorHandler() {

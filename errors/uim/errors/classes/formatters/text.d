@@ -91,7 +91,7 @@ class DTextErrorFormatter : DErrorFormatter {
     }
 
     override protected string exportScalar(DScalarErrorNode node, size_t indentLevel) {
-        switch (node.getType()) {
+        /* switch (node.getType()) {
         case "bool":
             return node.getBoolean() ? "true" : "false";
         case "null":
@@ -100,7 +100,8 @@ class DTextErrorFormatter : DErrorFormatter {
             return "'" ~ node.getString ~ "'";
         default:
             return "({" ~ node.getType() ~ "}) {" ~ node.value().toString ~ "}";
-        }
+        } */
+        return null;
     }
 
     override protected string exportSpecial(DSpecialErrorNode node, size_t indentLevel) {

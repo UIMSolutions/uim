@@ -23,7 +23,7 @@ class DErrorFormatter : UIMObject, IErrorFormatter {
 
     // Convert a tree of IErrorNode objects into HTML
     protected string export_(IErrorNode nodeToDump, size_t indentLevel) {
-        if (cast(DArrayErrorNode) nodeToDump) {
+       /*  if (cast(DArrayErrorNode) nodeToDump) {
             return exportArray(cast(DArrayErrorNode) nodeToDump, indentLevel + 1);
         }
         if (cast(DClassErrorNode) nodeToDump) {
@@ -41,7 +41,9 @@ class DErrorFormatter : UIMObject, IErrorFormatter {
         if (cast(DSpecialErrorNode) nodeToDump) {
             return exportSpecial(cast(DSpecialErrorNode) nodeToDump, indentLevel + 1);
         }
-        throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname);
+        throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname); */
+
+        return null; 
     }
 
     protected string exportArray(DArrayErrorNode tvar, size_t indentLevel) {

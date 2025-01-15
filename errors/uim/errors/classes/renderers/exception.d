@@ -250,20 +250,24 @@ class DExceptionRenderer : IExceptionRenderer {
 
     // Get template for rendering exception info.
     protected string templateName(Throwable throwableException, string methodName, int errorCode) {
-        if (cast(HttpException)throwableException || !Configure.read("debug")) {
+/*         if (cast(HttpException)throwableException || !Configure.read("debug")) {
             return _template = errorCode < 500 ? "error400" : "error500";
         }
 
         return cast(PDOException)throwableException
             ? "pdo_error"
-            : methodName;
+            : methodName; */
+
+        return null;
     }
 
     // Gets the appropriate http status code for exception.
     protected int getHttpCode(Throwable throwableException) {
-        return cast(HttpException)exception
+        /* return cast(HttpException)exception
             ? throwableException.code()
-            : _exceptionHttpCodesgetInteger(get_class(throwableException), 500);
+            : _exceptionHttpCodesgetInteger(get_class(throwableException), 500); */
+        
+        return 0;
     }
 
     // Generate the response using the controller object.
@@ -322,7 +326,7 @@ class DExceptionRenderer : IExceptionRenderer {
     } */
 
     // Returns an array that can be used to describe the internal state of this object.
-    Json[string] debugInfo() {
+    /* Json[string] debugInfo() {
         return [
             "error": _error,
             "request": _request,
@@ -330,5 +334,5 @@ class DExceptionRenderer : IExceptionRenderer {
             // "template": this.template,
             // "method": _method,
         ];
-    }
+    } */
 }

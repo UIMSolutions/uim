@@ -27,13 +27,14 @@ class DTextExceptionRenderer {
 
     // Render an exception into a plain text message.
     string render() {
-        return "%s : %s on line %s of %s\nTrace:\n%s".format(
+/*         return "%s : %s on line %s of %s\nTrace:\n%s".format(
             _error.code(),
             _error.message(),
             _error.line(),
             _error.getFile(),
             _error.getTraceAsString(),
-       );
+       ); */
+       return null; // TODO
     }
 
     // Write output to stdout.

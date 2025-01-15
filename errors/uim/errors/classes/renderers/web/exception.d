@@ -93,7 +93,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * a bare controller will be used.
      */
   protected IErrorController _getController() {
-    request = _request;
+    /* request = _request;
     routerRequest = Router.getRequest();
     // Fallback to the request in the router or make a new one from
     // _SERVER
@@ -128,7 +128,9 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     }
 
     return controller is null
-      ? new DController(request) : controller;
+      ? new DController(request) : controller; */
+
+    return null;
   }
 
   // Clear output buffers so error pages display properly.
@@ -359,12 +361,12 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Returns an array that can be used to describe the internal state of this
      * object.
      */
-  Json[string] debugInfo() {
+/*   Json[string] debugInfo() {
     return super.debugInfo()
       .set("error", _error)
       .set("request", _request)
       .set("controller", _controller)
       .set("template", _template)
       .set("method", _method);
-  }
+  } */
 }

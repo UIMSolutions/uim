@@ -26,8 +26,8 @@ class DHtmlErrorRenderer : DErrorRenderer {
         if (!shouldDebug) {
             return null;
         }
-        string anId = "uimErr" ~ uniqid();
-        auto file = error.file();
+        /* string anId = "uimErr" ~ uniqid();
+        auto file = error.file(); */
 
         /*
         // Some of the error data is not HTML safe so we escape everything.

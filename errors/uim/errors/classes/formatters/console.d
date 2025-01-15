@@ -90,14 +90,14 @@ class DConsoleErrorFormatter : DErrorFormatter {
         auto breakTxt = "\n" ~" ".repeatTxt(indentLevel);
         auto endTxt = "\n" ~" ".repeatTxt(indentLevel - 1);
 
-        auto arrowTxt = style("punct", ": ");
+/*         auto arrowTxt = style("punct", ": ");
         auto vars = node.getChildren()
             .map!(item => breakTxt ~ export_(item.getKey(), indentLevel) ~ arrowTxt ~ export_(item.value(), indentLevel))
             .array;
 
         auto closeTxt = style("punct", "]");
         return !vars.isEmpty
-            ? result ~ vars.join(style("punct", ",")) ~ endTxt ~ closeTxt : result ~ closeTxt;
+            ? result ~ vars.join(style("punct", ",")) ~ endTxt ~ closeTxt : result ~ closeTxt; */
         return null;
     }
 

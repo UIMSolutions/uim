@@ -31,7 +31,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
       return false;
     }
 
-    _id = uniqid("", true);
+    // _id = uniqid("", true);
     return true;
   }
 
@@ -46,15 +46,16 @@ class DHtmlErrorFormatter : DErrorFormatter {
     string lineInfo = "";
     if (location.hasAllKeys("file", "line")) {
       lineInfo = htmlDoubleTag("span", "<strong>{file}</strong> (line <strong>{line}</strong>)")
-        .moustache(location, ["file", "line"]);
+        .mustache(location, ["file", "line"]);
     }
 
-    return [
+/*     return [
       `<div class="uim-debug-output uim-debug" style="direction:ltr">`,
       lineInfo,
       contents,
       "</div>",
-    ].join("\n");
+    ].join("\n"); */
+    return null;
   }
 
   /**

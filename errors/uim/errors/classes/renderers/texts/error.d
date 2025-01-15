@@ -37,14 +37,15 @@ class DTextErrorRenderer : DErrorRenderer {
     if (!isDebug) { return null; }
 
     // isDebug
-    return 
+/*     return 
       "%s: %s . %s on line %s of %s\nTrace:\n%s".format(
         error.label(),
         error.code(),
         error.message(),
         error.line() ? error.line() : "",
         error.fileName() ? error.fileName() : "",
-        error.traceAsString());
+        error.traceAsString()); */
+      return null; 
   }
 }
 mixin(ErrorRendererCalls!("Text"));

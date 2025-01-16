@@ -9,9 +9,10 @@ import uim.errors;
 
 @safe:
 
-class DErrorRegistry : DObjectRegistry!UIMError {
+/* class DErrorRegistry : DObjectRegistry!UIMError {
 }
 
 auto ErrorRegistry() {
     return DErrorRegistry.registration;
 }
+ */

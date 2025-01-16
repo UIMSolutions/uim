@@ -80,6 +80,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
             result ~= "";
         } */
         // return result;
+        return null; 
     }
 
     /**

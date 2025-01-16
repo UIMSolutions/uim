@@ -8,7 +8,7 @@ module uim.errors.classes.errors.collection;
 import uim.errors;
 @safe:
 
-class DErrorCollection : DCollection!UIMError {   
+/* class DErrorCollection : DCollection!UIMError {   
 }
 
 auto ErrorCollection() {
@@ -19,4 +19,4 @@ unittest {
   assert(ErrorCollection);
 
   auto collection = ErrorCollection;
-}
+} */

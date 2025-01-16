@@ -13,18 +13,7 @@ import uim.errors;
 class DSpecialErrorNode : DErrorNode {
   mixin(ErrorNodeThis!("Special"));
 
-  private string _value;
-
-  /**
-    * Params:
-    * string avalue The message/value to include in dump results.
-    */
-  this(string aValue) {
-    _value = aValue;
-  }
-
-  // Get the message/value
-  string value() {
-    return _value;
+  this(string value) {
+    _value = Json(value);
   }
 }

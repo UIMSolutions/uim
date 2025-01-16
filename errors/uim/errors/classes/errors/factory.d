@@ -9,6 +9,7 @@ import uim.errors;
 
 @safe:
 
-class DErrorFactory : DFactory!UIMError {
+/* class DErrorFactory : DFactory!UIMError {
 }
 auto ErrorFactory() { return DErrorFactory.factory; }
+ */

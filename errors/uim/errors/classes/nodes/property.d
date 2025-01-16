@@ -25,9 +25,9 @@ class DPropertyErrorNode : DErrorNode {
   }
 
   // Get the value
-  IErrorNode value() {
+  override Json value() {
     // return _propertyValue.value;
-    return null; // TODO
+    return Json(null); // TODO
   }
 
   // Get the property visibility

@@ -12,7 +12,7 @@ import uim.errors;
 class DErrorNode : UIMObject, IErrorNode {
     mixin(ErrorNodeThis!());
 
-    private Json _value;
+    protected Json _value;
     Json value() {
         return _value;
     }

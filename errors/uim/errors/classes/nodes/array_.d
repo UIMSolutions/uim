@@ -27,8 +27,8 @@ class DArrayErrorNode : DErrorNode {
   }
 
   // Get the contained items
-  string value() {
+/*   string value() {
     return null;
     // TODO return _items.map!(item => item.value).join(", ");
-  }
+  } */
 }

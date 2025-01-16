@@ -116,12 +116,12 @@ class DHtmlErrorFormatter : DErrorFormatter {
     auto link = `<a class="uim-debug-ref" href="#%s">id: %s</a>`
       .format(objectId, node.id());
 
-    return htmlDoubleTag("span", ["uim-debug-ref"],
+/*     return htmlDoubleTag("span", ["uim-debug-ref"],
       style("punct", "object(") ~
         style("class", node.value()) ~
         style("punct", ") ") ~
         link ~
-        style("punct", " {}"));
+        style("punct", " {}")); */
 
     return null;
   }

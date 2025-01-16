@@ -53,13 +53,6 @@ class DException : UIMObject, IException {
   }
   // #endregion messageTemplates
 
-  string[] memberNames() {
-    return [__traits(allMembers, typeof(this))];
-  }
-
-  bool hasMember(string name) {
-    return memberNames.has(name);
-  }
 
   /* Json toJson(string[] showKeys = null, string[] hideKeys = null) {
     Json json = Json.emptyObject;

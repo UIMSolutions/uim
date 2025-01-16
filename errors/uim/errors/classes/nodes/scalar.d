@@ -16,7 +16,7 @@ class DScalarErrorNode : DErrorNode {
     this(string newType, Json newValue) {
         super();
         _type = newType;
-        // _value = newValue;
+        _value = newValue;
     }
     
     // Type of scalar data

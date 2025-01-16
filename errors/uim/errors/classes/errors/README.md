@@ -1,4 +1,4 @@
-# Package 📦 uim.oop.errors
+# Package 📦 uim.errors.errors
 
 The UIM library has error and exception handling capabilities. Errors are caught, displayed or logged.
 Exceptions, however, are handled in the program flow.

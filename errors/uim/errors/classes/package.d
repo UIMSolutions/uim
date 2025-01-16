@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module errors.uim.errors.classes;
+module uim.errors.classes;
 
 public {
     import uim.errors.classes.debugging;

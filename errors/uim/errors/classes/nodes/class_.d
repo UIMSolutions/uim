@@ -21,7 +21,7 @@ class DClassErrorNode : DErrorNode {
 
     // Add a property
     void addProperty(DPropertyErrorNode node) {
-        _properties ~= node;
+        // _properties ~= node;
     }
 
     private string _classname;

@@ -18,12 +18,12 @@ class DFatalErrorException : DErrorsException {
         int lineNumber = 0,
         Throwable previousException = null
     ) {
-        super(message, code, previousException);
+//         super(message, code, previousException);
         if (fileName) {
-            _fileName = fileName;
+/*             _fileName = fileName; */
         }
         if (lineNumber > 0) { // TODO Logical error 
-            _lineNumber = lineNumber;
+/*             _lineNumber = lineNumber; */
         }
     }
 

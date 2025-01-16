@@ -9,10 +9,10 @@ import uim.oop;
 
 @safe:
 class UIMException : Exception, IException {
-  this() {
-    this.initialize;
-    super(message, __FILE__, cast(size_t) __LINE__, null);
-  }
+/*   this() {
+/*     this.initialize;
+    super(message, __FILE__, cast(size_t) __LINE__, null); 
+  } */
 
   this(
     string msg,
@@ -66,6 +66,30 @@ class UIMException : Exception, IException {
     _stringContents = templates;
   }
   // #endregion messageTemplates
+
+  string[] memberNames() {
+    return [__traits(allMembers, typeof(this))];
+  }
+
+  bool hasMember(string name) {
+    return memberNames.has(name);
+  }
+
+  /* Json toJson(string[] showKeys = null, string[] hideKeys = null) {
+    Json json = Json.emptyObject;
+    json
+      .set("name", name)
+      .set("classname", this.classname);
+
+    return json;
+  } */
+
+ /*  Json[string] debugInfo(string[] hideKeys = null) {
+    Json[string] info;
+    return info
+      .set("name", name)
+      .set("classname", this.classname);
+  } */
 }
 
 /**

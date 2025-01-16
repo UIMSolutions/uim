@@ -33,12 +33,12 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
 
     // Render an exception into a plain text message.
     string render() {
-        auto exceptions = [_error];
+/*         auto exceptions = [_error];
         auto previous = _error.getPrevious();
         while (!previous.isNull) {
             exceptions ~= previous;
             previous = previous.getPrevious();
-        }
+        } */
 
         string[] results;
 /*         foreach (index, error; exceptions) {
@@ -61,7 +61,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
             ),
         ]; */
 
-        auto debugValue = configuration.get("debug");
+        // auto debugValue = configuration.get("debug");
 /*         if (debugValue && cast(UIMException) exceptionToRender) {
             auto attributes = exceptionToRender.getAttributes();
             if (attributes) {
@@ -79,7 +79,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
             result ~= Debugger.formatTrace(stacktrace, ["format": "text"]);
             result ~= "";
         } */
-        return result;
+        // return result;
     }
 
     /**

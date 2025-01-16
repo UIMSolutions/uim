@@ -82,7 +82,7 @@ class DExceptionTrap {
   }
 
   bool initialize(Json[string] initData = null) {
-    configuration
+/*     configuration
       .setDefault("exceptionRenderer", Json(null))
       .setDefault("logger", ErrorLogger.classname)
       .setDefault("stderr", Json(null))
@@ -90,7 +90,7 @@ class DExceptionTrap {
       .setDefault("skipLog", Json.emptyArray)
       .setDefault("trace", false)
       .setDefault("extraFatalErrorMemory", 4);
-    _configData = merge(initData, defaultData);
+    _configData = merge(initData, defaultData); */
     return true;
   }
 
@@ -115,14 +115,16 @@ class DExceptionTrap {
 
   // Choose an exception renderer based on config or the SAPI
   protected string chooseRenderer() {
-    return UIM_SAPI == "cli" ? ConsoleExceptionRenderer.classname : WebExceptionRenderer.classname;
+/*     return UIM_SAPI == "cli" ? ConsoleExceptionRenderer.classname : WebExceptionRenderer.classname; */
+return null;
   }
 
   // Get an instance of the logger.
   IErrorLogger logger() {
-    classname = _configData.hasKey("logger", _defaultConfigData["logger"]);
+/*     classname = _configData.hasKey("logger", _defaultConfigData["logger"]);
 
-    return new classname(_config);
+    return new classname(_config); */
+    return null;
   }
 
   /**
@@ -144,10 +146,10 @@ class DExceptionTrap {
      * If this instance is not currently the registered singleton nothing happens.
      */
   void unregister() {
-    if (RegisteredTrap == this) {
+/*     if (RegisteredTrap == this) {
       this.disabled = true;
       RegisteredTrap = null;
-    }
+    } */
   }
 
   /**
@@ -171,7 +173,7 @@ class DExceptionTrap {
     if (this.disabled) {
       return;
     }
-    auto myRequest = Router.getRequest();
+    /* auto myRequest = Router.getRequest();
 
     logException(anException, myRequest);
 
@@ -187,23 +189,23 @@ class DExceptionTrap {
       renderer.write(event.getResult() ? event.getResult() : renderer.render());
     } catch (Throwable myException) {
       this.logInternalError(myException);
-    }
+    } */
     // Use this constant as a proxy for UIM tests.
-    if (UIM_SAPI == "cli" && !enviroment("FIXTURE_SCHEMA_METADATA")) {
+/*     if (UIM_SAPI == "cli" && !enviroment("FIXTURE_SCHEMA_METADATA")) {
       exit(1);
-    }
+    } */
   }
 
   // Shutdown handler - Convert fatal errors into exceptions that we can render.
   void handleShutdown() {
-    if (this.disabled) {
+/*     if (this.disabled) {
       return;
-    }
-    auto megabytes = configuration.getLong("extraFatalErrorMemory", 4);
+    } */
+/*     auto megabytes = configuration.getLong("extraFatalErrorMemory", 4);
     if (megabytes > 0) {
       this.increaseMemoryLimit(megabytes * 1024);
-    }
-    error = error_get_last();
+    } */
+    /* error = error_get_last();
     if (!error.isArray) {
       return;
     }
@@ -221,19 +223,19 @@ class DExceptionTrap {
       error["message"],
       error["file"],
       error["line"]
-    );
+    ); */
   }
 
   // Increases the UIM "memory_limit" ini setting by the specified amount in kilobytes
   void increaseMemoryLimit(int additionalKb) {
-    string aLimit = 0; // ini_get("memory_limit");
-    if (aLimit == false || aLimit is null || aLimit == "-1") {
+    string limit; // ini_get("memory_limit");
+/*     if (limit == false || limit is null || limit == "-1") {
       return;
     }
 
-    auto aLimit = aLimit.strip;
-    string units = subString(aLimit, -1).upper;
-    auto myCurrent = to!int(subString(aLimit, 0, -1));
+    auto limit = limit.strip;
+    string units = subString(limit, -1).upper;
+    auto myCurrent = to!int(subString(limit, 0, -1));
 
     if (units == "M") {
       myCurrent *= 1024;
@@ -246,7 +248,7 @@ class DExceptionTrap {
     if (units == "K") {
       // ini_set("memory_limit", ceil(current + additionalKb) ~ "K");
     }
-  }
+ */  }
 
   //Display/Log a fatal error.
   void handleFatalError(int errorCode, string errorDescription, string fileName, int triggerdLine) {
@@ -289,7 +291,7 @@ class DExceptionTrap {
      * \Throwable logException Exception to log
      */
   void logInternalError(Throwable logException) {
-    string message =
+    /* string message =
       "[%s] %s (%s:%s)" // Keeping same message format
       .format(
         logException.classname,
@@ -297,6 +299,6 @@ class DExceptionTrap {
         logException.getFile(),
         logException.getLine(),
       );
-    trigger_error(message, ERRORS.USER_ERROR);
+    trigger_error(message, ERRORS.USER_ERROR); */
   }
 }

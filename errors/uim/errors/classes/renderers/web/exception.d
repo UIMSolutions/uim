@@ -135,12 +135,12 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
 
   // Clear output buffers so error pages display properly.
   protected void clearOutput() {
-    if (isIn(UIM_SAPI, ["cli", "Ddbg"])) {
+    /* if (isIn(UIM_SAPI, ["cli", "Ddbg"])) {
       return;
-    }
-    while (ob_get_level()) {
+    } */
+/*     while (ob_get_level()) {
       ob_end_clean();
-    }
+    } */
   }
 
   // Renders the response for the exception.
@@ -215,7 +215,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * \Psr\Http\Message\IResponse|string aoutput The response to output.
      */
   void write(string outputText) {
-    writeln(output);
+    // writeln(output);
   }
 
   /* void write(IResponse outputResponse) {

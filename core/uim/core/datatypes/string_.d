@@ -767,8 +767,14 @@ unittest {
 // #endregion mustache
 
 // #region doubleMustache
-string doubleMustache(string text, Json[string] items) {
-  items.byKeyValue.each!(item => text = text.doubleMustache(item.key, item.value));
+string doubleMustache(string text, Json[string] items, string[] selectedKeys = null) {
+  if (selectedKeys.length > 0) {
+    selectedKeys.filter!(key => key in items)
+      .each!(key => text = text.doubleMustache(key, items[key]));
+  } 
+  else {
+    items.byKeyValue.each!(item => text = text.doubleMustache(item.key, item.value));
+  }
   return text;
 }
 

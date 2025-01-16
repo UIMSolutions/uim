@@ -234,7 +234,7 @@ class DExceptionRenderer : IExceptionRenderer {
 
     // Get error message.
     protected string errorMessage(Throwable throwableException, int errorCode) {
-        auto myMessage = throwableException.message();
+        // auto myMessage = throwableException.message();
 
 /*         if (
             !Configure.read("debug") &&
@@ -245,7 +245,8 @@ class DExceptionRenderer : IExceptionRenderer {
                 : __d("uim", "An Internal Error Has Occurred.");
         } */
 
-        return myMessage;
+        // return myMessage;
+        return null; 
     }
 
     // Get template for rendering exception info.

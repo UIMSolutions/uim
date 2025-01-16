@@ -6,6 +6,9 @@
 module uim.containers.classes;
 
 public {
-    import uim.containers.classes.collections;
     import uim.containers.classes.arrays;
+    import uim.containers.classes.collections;
+    import uim.containers.classes.lists;
+    import uim.containers.classes.maps;
+    import uim.containers.classes.sets;
 }

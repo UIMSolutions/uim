@@ -1,12 +1,23 @@
 /****************************************************************************************************************
-* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* Copyright: © 2018-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.errors.classes.exceptions;
+module errors.uim.errors.classes.errors.interfaces;
 
-public {
-    import uim.errors.exceptions.exception;
-    import uim.errors.exceptions.renderer;
-    import uim.errors.exceptions.trap;
+import uim.oop;
+
+@safe:
+
+interface IError {
+  // ERRORS code();
+
+  void message(string message);
+  string message();
+
+  string fileName();
+
+  size_t lineNumber();
+
+  size_t[string][] trace();
 }

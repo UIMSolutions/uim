@@ -21,7 +21,7 @@ unittest {
  */
 class DMultiCheckboxWidget : DWidget {
   mixin(WidgetThis!("MultiCheckbox"));
-  mixin TIdGenerator;
+  // mixin TIdGenerator;
 
   /**
      * Render multi-checkbox widget.
@@ -96,7 +96,7 @@ class DMultiCheckboxWidget : DWidget {
      * This form **requires** that both the `value` and `text` keys be defined.
      * If either is not set options will not be generated correctly.
      */
-  override string render(Json[string] data, IContext formContext) {
+  override string render(Json[string] data, IFormContext formContext) {
     data.merge(formContext);
 
     _idPrefix = data.get("idPrefix");
@@ -106,7 +106,7 @@ class DMultiCheckboxWidget : DWidget {
   }
 
   // Render the checkbox inputs.
-  protected string[] _renderInputs(Json[string] data, IContext formContext) {
+  protected string[] _renderInputs(Json[string] data, IFormContext formContext) {
     string[] result = null;
     /* data.getMap("options").byKeyValue
       .each!((kv) => {
@@ -160,7 +160,7 @@ class DMultiCheckboxWidget : DWidget {
   }
 
   // Render a single checkbox & wrapper.
-  protected string _renderInput(Json[string] checkboxData, IContext formContext) {
+  protected string _renderInput(Json[string] checkboxData, IFormContext formContext) {
     /* auto myinput = _stringContents.format("checkbox", [
         "name": checkboxData.getString("name") ~ "[]",
         "value": checkboxData.hasKey("escape") ? htmlAttributeEscape(

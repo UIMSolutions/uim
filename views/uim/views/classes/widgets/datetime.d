@@ -78,7 +78,7 @@ class DDateTimeWidget : DWidget {
      *
      * All other keys will be converted into HTML attributes.
      */
-    override string render(Json[string] renderData, IContext formContext) {
+    override string render(Json[string] renderData, IFormContext formContext) {
         auto updatedData = renderData.merge(formContext.data);
 
         /* string typeName = updatedData.getString("type");
@@ -102,7 +102,7 @@ class DDateTimeWidget : DWidget {
     }
 
     // Set value for "step" attribute if applicable.
-    override protected Json[string] setStep(Json[string] data, IContext formContext, string fieldName) {
+    override protected Json[string] setStep(Json[string] data, IFormContext formContext, string fieldName) {
         /* if (hasKey("step", data)) {
             return data;
         }

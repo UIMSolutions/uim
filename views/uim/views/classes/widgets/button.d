@@ -35,7 +35,7 @@ class DButtonWidget : DWidget {
     }    
     
     // Render a button.
-    override string render(Json[string] renderData, IContext formContext) {
+    override string render(Json[string] renderData, IFormContext formContext) {
         renderData
             .merge("text", "") // `text` The text of the button. Unlike all other form controls, buttons do not escape their contents by default.
             .merge("type", "submit") // `type` The button type defaults to "submit"

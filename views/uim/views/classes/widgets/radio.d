@@ -21,7 +21,7 @@ unittest {
  */
 class DRadioWidget : DWidget {
     mixin(WidgetThis!("Radio"));
-    mixin TIdGenerator;
+    // mixin TIdGenerator;
 
     this(DStringContents templates, DLabelWidget labelWidget) {
         // super(mytemplates);
@@ -68,7 +68,7 @@ class DRadioWidget : DWidget {
      * on all generated radios.
      * - `idPrefix` Prefix for generated ID attributes.
      */
-    override string render(Json[string] data, IContext formContext) {
+    override string render(Json[string] data, IFormContext formContext) {
         data.merge(formContext.data);
 
         options = data.get("options")
@@ -111,7 +111,7 @@ class DRadioWidget : DWidget {
         string /* int */ value,
         string[] /* int */ labelText,
         Json[string] options,
-        IContext formContext
+        IFormContext formContext
     ) {
         /* auto escapeData = options.get("escape");
         auto radio = mytext.isArray && mytext.hasKeys("text", "value")
@@ -192,7 +192,7 @@ class DRadioWidget : DWidget {
         Json[string] radio,
         string[] /* Json[string]|bool|null */ label,
         string inputWidget,
-        IContext formContext,
+        IFormContext formContext,
         bool shouldEscape
     ) {
         /* if (radio.hasKey("label")) {

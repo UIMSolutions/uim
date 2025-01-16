@@ -40,7 +40,7 @@ class DLabelWidget : DWidget {
     }
 
     // Render a label widget.
-    override string render(Json[string] options, IContext formContext) {
+    override string render(Json[string] options, IFormContext formContext) {
         // set defaults
         options
             .merge("text", "") // `text` The text for the label.

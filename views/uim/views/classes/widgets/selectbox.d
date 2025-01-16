@@ -107,7 +107,7 @@ class DSelectBoxWidget : DWidget {
      * You are free to mix each of the forms in the same option set, and
      * nest complex types as required.
      */
-  override string render(Json[string] renderData, IContext formContext) {
+  override string render(Json[string] renderData, IFormContext formContext) {
     renderData.merge(formContext.data);
 
     auto options = _renderContent(renderData);

@@ -22,8 +22,6 @@ public { // uim libraries
 public { // uim.filesystem libraries
   import uim.containers.classes;
   import uim.containers.enumerations;
-  import uim.containers.errors;
-  import uim.containers.exceptions;
   import uim.containers.helpers;
   import uim.containers.interfaces;
   import uim.containers.mixins;

@@ -1,80 +1,57 @@
 module uim.containers.classes.lists.list;
 
+import uim.containers;
+
+@safe:
+
 class DList(T : UIMObject) {
-    private {
-        class DNode {
-            public {
-                DNode next;
-                DNode prev;
-                T value;
-            }
-        }
-        DNode head;
-        DNode tail;
-        T size;
+    protected T[] _items;
+
+    this() {
+        _items = 0;
     }
-    public {
-        this() {
-            head = null;
-            tail = null;
-            size = 0;
+
+    void pushFront(T value) {
+        _items = value ~ _items;
+    }
+
+    void pushBack(T value) {
+        _items ~= value;
+    }
+
+    T popFront() {
+        if (_items.length == 0) {
+            return null;
         }
-        void pushFront(T value) {
-            DNode node = new DNode;
-            node.value = value;
-            if (head == null) {
-                head = node;
-                tail = node;
-            } else {
-                node.next = head;
-                head.prev = node;
-                head = node;
-            }
-            size++;
+
+        if (_items.length == 1) {
+            T item = _items[0];
+            _items = null;
+            return item;
         }
-        void pushBack(T value) {
-            DNode node = new DNode;
-            node.value = value;
-            if (tail == null) {
-                head = node;
-                tail = node;
-            } else {
-                node.prev = tail;
-                tail.next = node;
-                tail = node;
-            }
-            size++;
+
+        T item = _items[0];
+        _items = _items[1..$];
+        return item;
+    }
+
+    T popBack() {
+        if (_items.length == 0) {
+            return null;
         }
-        T popFront() {
-            if (head == null) {
-                return -1;
-            }
-            T value = head.value;
-            head = head.next;
-            if (head != null) {
-                head.prev = null;
-            } else {
-                tail = null;
-            }
-            size--;
-            return value;
+
+        if (_items.length == 1) {
+            T item = _items[0];
+            _items = null;
+            return item;
         }
-        T popBack() {
-            if (tail == null) {
-                return -1;
-            }
-            T value = tail.value;
-            tail = tail.prev;
-            if (tail != null) {
-                tail.next = null;
-            } else {
-                head = null;
-            }
-            size--;
-            return value;
-        }
-        T getSize() {
-            return size;
-        }
+
+        T item = _items[$-1];
+        _items = _items[0..$-1];
+        return item;
+    }
+
+    T length() {
+        return _items.length;
     }
 }

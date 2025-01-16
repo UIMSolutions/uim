@@ -24,8 +24,6 @@ public {
   import uim.oop.containers.maps;
   import uim.oop.direntries;
   import uim.oop.enumerations;
-  import uim.oop.errors;
-  import uim.oop.exceptions;
   import uim.oop.helpers;
   import uim.oop.formatters;
   import uim.oop.interfaces;

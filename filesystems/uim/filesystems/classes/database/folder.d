@@ -17,8 +17,8 @@ unittest {
 class DDatabaseFolder : DFolder {
   mixin(FolderThis!("Database"));
 
-  override Json[string] debugInfo(string[] hideKeys = null) {
-    return super.debugInfo();
+  override Json[string] debugInfo(string[] showKeys = null, string[] hideKeys = null) {
+    return super.debugInfo(showKeys, hideKeys);
   }
 }
 mixin(FolderCalls!("Database"));

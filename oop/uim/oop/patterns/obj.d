@@ -58,7 +58,7 @@ class UIMObject : INamed {
         return json;
     }
 
-    Json[string] debugInfo(string[] hideKeys = null) {
+    Json[string] debugInfo(string[] showKeys = null, string[] hideKeys = null) {
         Json[string] info;
         return info
             .set("name", name)

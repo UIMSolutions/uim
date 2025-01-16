@@ -951,7 +951,7 @@ mixin template TEntity() {
   }
 
   // Returns an array that can be used to describe the internal state of this object.
-  Json[string] debugInfo() {
+  Json[string] debugInfo(string[] showKeys = null, string[] hideKeys = null) {
     auto fields = _fields;
     foreach (field; _virtual) {
       fields[field] = _field;

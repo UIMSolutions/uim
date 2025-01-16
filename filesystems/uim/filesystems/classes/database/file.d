@@ -15,8 +15,8 @@ unittest {
 class DDatabaseFile : DFile {
   mixin(FileThis!("Database"));
 
-  override Json[string] debugInfo(string[] hideKeys = null) {
-    return super.debugInfo();
+  override Json[string] debugInfo(string[] showKeys = null, string[] hideKeys = null) {
+    return super.debugInfo(showKeys, hideKeys);
   }
 }
 mixin(FileCalls!("Database"));

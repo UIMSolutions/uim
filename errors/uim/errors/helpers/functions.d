@@ -47,9 +47,9 @@ Json debugInfo(Json debugVariable, bool showHtml = false, bool showFrom = true) 
  * - `start` - The stack frame to start generating a trace from. Defaults to 1
  */
 void stackTrace(Json[string] options = null) {
-    if (!configuration.hasKey("debug")) {
+    /* if (!configuration.hasKey("debug")) {
         return;
-    }
+    } */
 
     options
         .merge("start", 0)

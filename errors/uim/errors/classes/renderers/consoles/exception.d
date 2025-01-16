@@ -49,7 +49,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
     }
 
     // Render an individual exception
-    protected Json[string] renderException(Throwable exceptionToRender, Throwable parentException) {
+    protected Json[string] renderException(DException exception, DException parentException) {
         /* auto result = [
             "<error>%s[%s] %s</error> in %s on line %s"
             .format(
@@ -62,7 +62,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
         ]; */
 
         // auto debugValue = configuration.get("debug");
-/*         if (debugValue && cast(UIMException) exceptionToRender) {
+/*         if (debugValue && cast(DException) exceptionToRender) {
             auto attributes = exceptionToRender.getAttributes();
             if (attributes) {
                 result ~= "";

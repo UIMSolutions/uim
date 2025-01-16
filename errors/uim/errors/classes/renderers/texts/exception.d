@@ -21,7 +21,7 @@ import uim.errors;
 class DTextExceptionRenderer {
     private Throwable _error;
 
-    this(Throwable errorToRender) {
+    this(Throwable error) {
         _error = error;
     }
 

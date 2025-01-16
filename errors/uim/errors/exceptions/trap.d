@@ -170,9 +170,9 @@ return null;
      * environment appropriate way.
      */
   void handleException(Throwable anException) {
-    if (this.disabled) {
+    /* if (this.disabled) {
       return;
-    }
+    } */
     /* auto myRequest = Router.getRequest();
 
     logException(anException, myRequest);
@@ -250,9 +250,9 @@ return null;
     }
  */  }
 
-  //Display/Log a fatal error.
+  // Display/Log a fatal error.
   void handleFatalError(int errorCode, string errorDescription, string fileName, int triggerdLine) {
-    this.handleException(new DFatalErrorException("Fatal Error: " ~ errorDescription, 500, fileName, triggerdLine));
+    // this.handleException(new DFatalErrorException("Fatal Error: " ~ errorDescription, 500, fileName, triggerdLine));
   }
 
   /**

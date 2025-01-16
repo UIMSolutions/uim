@@ -8,7 +8,7 @@ module uim.jsonbases.exceptions.exception;
 import uim.jsonbases;
 
 @safe:
-class DJsonBaseException : UIMException {
+class DJsonBaseException : DException {
   mixin(ExceptionThis!("JsonBase"));
 
   override bool initialize(Json[string] initData = null) {

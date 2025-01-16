@@ -24,7 +24,7 @@ class MoFileParser {
         } else if (magic == MO_BIG_ENDIAN_MAGIC) {
             isBigEndian = true;
         } else {
-            throw new UIMException("Invalid format for MO translations file");
+            throw new DException("Invalid format for MO translations file");
         }
         // offset formatRevision
         fread(fileStream, 4);
@@ -62,7 +62,7 @@ class MoFileParser {
             fseek(fileStream, offsetTranslated + index * 8);
             length = _readLong(fileStream, isBigEndian);
             if (length < 0) {
-                throw new UIMException("Length must be > 0");
+                throw new DException("Length must be > 0");
             }
 
             anOffset = _readLong(fileStream, isBigEndian);

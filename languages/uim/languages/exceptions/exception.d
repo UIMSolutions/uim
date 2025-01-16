@@ -10,7 +10,7 @@ import uim.languages;
 @safe:
 
 // I18n exception.
-class DLanguagesException : UIMException {
+class DLanguagesException : DException {
   mixin(ExceptionThis!("Languages"));
 
   override bool initialize(Json[string] initData = null) {

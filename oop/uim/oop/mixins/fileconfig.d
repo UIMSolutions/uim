@@ -17,7 +17,7 @@ mixin template TFileConfig() {
     // Get file path
     protected string _getFilePath(string KeyToWrite, bool checkExists = false) {
         if (KeyToWrite.contains("..")) {
-            throw new UIMException("Cannot load/dump configuration files with ../ in them.");
+            throw new DException("Cannot load/dump configuration files with ../ in them.");
         }
         [pluginName, KeyToWrite] = pluginSplit(KeyToWrite);
 
@@ -33,6 +33,6 @@ mixin template TFileConfig() {
         if (realFilePath == true && isFile(realFilePath)) {
             return realFilePath;
         }
-        throw new UIMException("Could not load configuration file: `%s`.".format(filePath));
+        throw new DException("Could not load configuration file: `%s`.".format(filePath));
     }
 }

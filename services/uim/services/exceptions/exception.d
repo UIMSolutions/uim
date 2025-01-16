@@ -10,7 +10,7 @@ import uim.services;
 @safe:
 
 // Service exception.
-class DServiceException : UIMException {
+class DServiceException : DException {
   mixin(ExceptionThis!("Service"));
 
   override bool initialize(Json[string] initData = null) {

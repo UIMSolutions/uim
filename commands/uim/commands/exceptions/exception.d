@@ -10,7 +10,7 @@ import uim.commands;
 @safe:
 
 // Base commands exception.
-class DCommandsException : UIMException {
+class DCommandsException : DException {
   mixin(ExceptionThis!("Commands"));
 
   override bool initialize(Json[string] initData = null) {

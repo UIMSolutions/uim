@@ -17,7 +17,7 @@ import uim.http;
  * You may also use this as a meaningful bridge to {@link \UIM\Core\Exception\DException}, e.g.:
  * throw new \UIM\Network\Exception\HttpException("HTTP Version Not Supported", 505);
  */
-class DHttpException : UIMException {
+class DHttpException : DException {
   mixin(ExceptionThis!("Http"));
 
   override bool initialize(Json[string] initData = null) {

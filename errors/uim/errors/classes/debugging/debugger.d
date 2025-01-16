@@ -489,7 +489,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
     /* anInstance = new formatterClassname();
         if (!cast(IErrorFormatter) anInstance) {
-            throw new UIMException(
+            throw new DException(
                 "The `%s` formatter does not implement `%s`."
                     .format(formatterClassname, IErrorFormatter.classname)
             );

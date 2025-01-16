@@ -118,7 +118,7 @@ class DMessagesFileLoader : UIMObject {
         string name = capitalize(_extension);
         auto classname = App.classname(name, "I18n\Parser", "FileParser");
         if (!classname) {
-            throw new UIMException("Could not find class `%s`.".format("{name}FileParser"));
+            throw new DException("Could not find class `%s`.".format("{name}FileParser"));
         }
 
         auto object = Object.factory(classname);

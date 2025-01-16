@@ -15,5 +15,5 @@ import uim.oop;
  */
 interface IRetryStrategy {
     // Returns true if the action can be retried, false otherwise.
-    bool shouldRetry(UIMException failException, int retryCount);
+    bool shouldRetry(DException failException, int retryCount);
 }

@@ -8,24 +8,11 @@ module uim.oop.exceptions.exception;
 import uim.oop;
 
 @safe:
-class UIMException : Exception, IException {
-/*   this() {
-/*     this.initialize;
-    super(message, __FILE__, cast(size_t) __LINE__, null); 
-  } */
+class DException : UIMObject, IException {
+  mixin(ExceptionThis!());
 
-  this(
-    string msg,
-    string file = __FILE__,
-    size_t line = cast(size_t) __LINE__,
-    Throwable nextInChain = null
-  ) {
-    super(msg, file, line, nextInChain);
-    this.initialize;
-  }
-
-  bool initialize(Json[string] initData = null) {
-    _attributes.set(initData);
+  bool initialize(Json[string] options = null) {
+    _attributes.set(options);
     messageTemplate("default", "");
     return true;
   }
@@ -84,7 +71,7 @@ class UIMException : Exception, IException {
     return json;
   } */
 
- /*  Json[string] debugInfo(string[] hideKeys = null) {
+  /*  Json[string] debugInfo(string[] hideKeys = null) {
     Json[string] info;
     return info
       .set("name", name)
@@ -97,7 +84,7 @@ class UIMException : Exception, IException {
  *
  * @method int getCode() Gets the Exception code.
  */
-//class UIMException : IException /* : RuntimeException */ {
+//class DException : IException /* : RuntimeException */ {
 /**
      * Array of attributes that are passed in from the constructor, and
      * made available in the view when a development error is displayed.

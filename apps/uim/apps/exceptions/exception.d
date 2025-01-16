@@ -10,7 +10,7 @@ import uim.apps;
 @safe:
 
 // App exception.
-class DAppException : UIMException {
+class DAppException : DException {
   mixin(ExceptionThis!("App"));
 
   override bool initialize(Json[string] initData = null) {

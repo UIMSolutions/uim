@@ -26,7 +26,7 @@ import uim.errors;
  * can configure your class in your config/app.D.
  */
 class DExceptionRenderer : IExceptionRenderer {
-    // Template to render for {@link uim.Core\exceptions.UIMException}
+    // Template to render for {@link uim.Core\exceptions.DException}
     protected string _template = "";
 
     // The method corresponding to the Exception this object is for.
@@ -159,7 +159,7 @@ class DExceptionRenderer : IExceptionRenderer {
         auto myUrl = _controller.getRequest().getRequestTarget();
         auto response = _controller.getResponse();
 
-        if (cast(UIMException)myException) {
+        if (cast(DException)myException) {
             /** @psalm-suppress DeprecatedMethod * /
             foreach (/* (array) * /myException.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);
@@ -197,7 +197,7 @@ class DExceptionRenderer : IExceptionRenderer {
         _controller.set(viewVars);
         _controller.viewBuilder().setOption("serialize", serialize);
 
-        if (cast(UIMException)myException && Configure.hasKey("debug")) {
+        if (cast(DException)myException && Configure.hasKey("debug")) {
             _controller.set(myException.getAttributes());
         }
         _controller.setResponse(response);

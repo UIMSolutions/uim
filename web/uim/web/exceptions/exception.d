@@ -10,7 +10,7 @@ import uim.web;
 @safe:
 
 // Web exception.
-class DWebException : UIMException {
+class DWebException : DException {
   mixin(ExceptionThis!("Web"));
 
   override bool initialize(Json[string] initData = null) {

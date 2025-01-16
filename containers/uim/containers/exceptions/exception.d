@@ -10,7 +10,7 @@ import uim.containers;
 @safe:
 
 // Base containers exception.
-class DCollectionsException : UIMException {
+class DCollectionsException : DException {
   mixin(ExceptionThis!("Collections"));
 
   override bool initialize(Json[string] initData = null) {

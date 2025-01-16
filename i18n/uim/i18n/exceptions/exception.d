@@ -10,7 +10,7 @@ import uim.i18n;
 @safe:
 
 // I18n exception.
-class DI18nException : UIMException {
+class DI18nException : DException {
   mixin(ExceptionThis!("I18n"));
 
   override bool initialize(Json[string] initData = null) {

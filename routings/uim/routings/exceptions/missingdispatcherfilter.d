@@ -10,7 +10,7 @@ import uim.routings;
 @safe:
 
 // Exception raised when a Dispatcher filter could not be found
-class DMissingDispatcherFilterException : UIMException {
+class DMissingDispatcherFilterException : DException {
     mixin(ExceptionThis!("MissingDispatcherFilter"));
 
     override bool initialize(Json[string] initData = null) {

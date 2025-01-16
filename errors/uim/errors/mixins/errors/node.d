@@ -1,27 +1,27 @@
 /****************************************************************************************************************
-* Copyright: © 2018-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* Copyright: © 2017-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.errors.errors.mixins;
+module uim.errors.mixins.errors.node;
 
 import uim.errors;
-@safe: 
 
-string errorThis(string name = null) {
-    string fullName = name ~ "Error";
+@safe:
+string errorNodeThis(string name = null) {
+    string fullName = name ~ "ErrorNode";
     return objThis(fullName);
 }
 
-template ErrorThis(string name = null) {
-    const char[] ErrorThis = errorThis(name);
+template ErrorNodeThis(string name = null) {
+    const char[] ErrorNodeThis = errorNodeThis(name);
 }
 
-string errorCalls(string name) {
-    string fullName = name ~ "Error";
+string errorNodeCalls(string name) {
+    string fullName = name ~ "ErrorNode";
     return objCalls(fullName);
 }
 
-template ErrorCalls(string name) {
-    const char[] ErrorCalls = errorCalls(name);
+template ErrorNodeCalls(string name) {
+    const char[] ErrorNodeCalls = errorNodeCalls(name);
 }

@@ -12,10 +12,8 @@ public { // Main class
 public { // Helper modules
   // import uim.errors.errors.handler;    
   import uim.errors.classes.errors.collection;
-  import uim.errors.classes.errors.enumerations;
   import uim.errors.classes.errors.factory;
   import uim.errors.classes.errors.interfaces;
-  import uim.errors.classes.errors.mixins;
   import uim.errors.classes.errors.registry;
   import uim.errors.classes.errors.logger;
   import uim.errors.classes.errors.trap;

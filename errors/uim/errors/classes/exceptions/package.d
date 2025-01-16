@@ -6,7 +6,7 @@
 module uim.errors.classes.exceptions;
 
 public {
-    import uim.errors.exceptions.exception;
-    import uim.errors.exceptions.renderer;
-    import uim.errors.exceptions.trap;
+    import uim.errors.classes.exceptions.exception;
+    import uim.errors.classes.exceptions.renderer;
+    import uim.errors.classes.exceptions.trap;
 }

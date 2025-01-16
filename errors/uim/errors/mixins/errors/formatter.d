@@ -3,25 +3,25 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.errors.mixins.node;
+module uim.errors.mixins.errors.formatter;
 
 import uim.errors;
 
 @safe:
-string errorNodeThis(string name = null) {
-    string fullName = name ~ "ErrorNode";
+string errorFormatterThis(string name = null) {
+    string fullName = name ~ "ErrorFormatter";
     return objThis(fullName);
 }
 
-template ErrorNodeThis(string name = null) {
-    const char[] ErrorNodeThis = errorNodeThis(name);
+template ErrorFormatterThis(string name = null) {
+    const char[] ErrorFormatterThis = errorFormatterThis(name);
 }
 
-string errorNodeCalls(string name) {
-    string fullName = name ~ "ErrorNode";
+string errorCalls(string name) {
+    string fullName = name ~ "ErrorFormatter";
     return objCalls(fullName);
 }
 
-template ErrorNodeCalls(string name) {
-    const char[] ErrorNodeCalls = errorNodeCalls(name);
+template ErrorCalls(string name) {
+    const char[] ErrorCalls = errorCalls(name);
 }

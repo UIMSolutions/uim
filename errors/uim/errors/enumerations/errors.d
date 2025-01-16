@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.errors.errors.enumerations;
+module uim.errors.enumerations.errors;
 
 enum ERRORS : size_t {
   ERROR = 1, // Fatal run-time errors. These indicate errors that can not be recovered from, such as a memory allocation problem. Execution of the script is halted.

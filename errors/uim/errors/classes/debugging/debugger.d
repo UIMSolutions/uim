@@ -619,7 +619,7 @@ class DDebugger : UIMObject, IErrorDebugger {
         if (remaining > 0) {
             if (hasMethod(objToConvert, "debugInfo")) {
                  try {
-                    foreach (key, val; /* (array) * / objToConvert.debugInfo()) {
+                    foreach (key, val; /* (array) * / objToConvert.debugInfo(string[] showKeys = null, string[] hideKeys = null)) {
                         node.addProperty(new DPropertyErrorNode("'{key}'", null, export_(val, dumpContext)));
                     }
                     return node;
@@ -1328,7 +1328,7 @@ class DDebugger : UIMObject, IErrorDebugger {
         if (hasMethod(objToConvert, "debugInfo")) {
             try {
                 foreach (key, val;  /* (array) * / objToConvert
-                    .debugInfo()) {
+                    .debugInfo(string[] showKeys = null, string[] hideKeys = null)) {
                     node.addProperty(
                         new DPropertyErrorNode(
                             "" {

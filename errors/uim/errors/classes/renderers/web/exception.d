@@ -361,8 +361,8 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Returns an array that can be used to describe the internal state of this
      * object.
      */
-/*   Json[string] debugInfo() {
-    return super.debugInfo()
+/*   Json[string] debugInfo(string[] showKeys = null, string[] hideKeys = null) {
+    return super.debugInfo(showKeys, hideKeys)
       .set("error", _error)
       .set("request", _request)
       .set("controller", _controller)

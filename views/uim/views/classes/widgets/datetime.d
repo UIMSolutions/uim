@@ -79,7 +79,7 @@ class DDateTimeWidget : DWidget {
      * All other keys will be converted into HTML attributes.
      */
     override string render(Json[string] renderData, IFormContext formContext) {
-        auto updatedData = renderData.merge(formContext.data);
+        // auto updatedData = renderData.merge(formContext.data);
 
         /* string typeName = updatedData.getString("type");
         if (formatMap.isNull(typeName)) {

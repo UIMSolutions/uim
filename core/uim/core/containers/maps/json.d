@@ -39,34 +39,120 @@ Json[string] copy(Json[string] values, string[] keys = null) {
   return items;
 } */
 
-Json[string] merge(T)(Json[string] items, string[] keys, T value) {
-  keys.each!(key => items.merge(key, Json(value)));
+Json[string] merge(ref Json[string] items, string[] keys, Json value) {
+  keys.each!(key => items = items.merge(key, value));
   return items;
 }
-
-Json[string] merge(T)(Json[string] items, string[] keys, Json value) {
-  keys.each!(key => uim.core.containers.maps.map.merge(items, key, value));
+Json[string] merge(ref Json[string] items, string key, Json value) {
+  if (key !in items) {
+    items[key] = value;
+  }
   return items;
 }
+unittest {
+  Json[string] test_map;
+  assert(test_map.length == 0);
+  assert(test_map.merge("one", Json(true)).length == 1);
+  assert(test_map.merge("two", Json(false)).length == 2);
+  assert(test_map.getBoolean("one"));
+  assert(!test_map.getBoolean("two"));
 
-/* Json[string] merge(T)(Json[string] items, string key, T value) {
-  return items.merge(key, Json(value));
-}
- */
-Json[string] merge(Json[string] items, string key, bool value) {
-  return uim.core.containers.maps.map.merge(items, key, Json(value));
-}
-
-Json[string] merge(Json[string] items, string key, string value) {
-  return uim.core.containers.maps.map.merge(items, key, Json(value));
+  Json[string] testMap;
+  assert(testMap.length == 0);
+  assert(testMap.merge(["a", "b"], Json(true)).length == 2);
+  assert(testMap.merge(["c", "d"], Json(false)).length == 4);
+  assert(testMap.getBoolean("a"));
+  assert(!testMap.getBoolean("c"));
 }
 
-Json[string] merge(Json[string] items, string key, long value) {
-  return uim.core.containers.maps.map.merge(items, key, Json(value));
+Json[string] merge(ref Json[string] items, string[] keys, bool value) {
+  return merge(items, keys, Json(value));
+}
+Json[string] merge(ref Json[string] items, string key, bool value) {
+  return merge(items, key, Json(value));
+}
+unittest {
+  Json[string] test_map;
+  assert(test_map.length == 0);
+  assert(test_map.merge("one", true).length == 1);
+  assert(test_map.merge("two", false).length == 2);
+  assert(test_map.getBoolean("one"));
+  assert(!test_map.getBoolean("two"));
+
+  Json[string] testMap;
+  assert(testMap.length == 0);
+  assert(testMap.merge(["a", "b"], true).length == 2);
+  assert(testMap.merge(["c", "d"], false).length == 4);
+  assert(testMap.getBoolean("a"));
+  assert(!testMap.getBoolean("c"));
 }
 
-Json[string] merge(Json[string] items, string key, double value) {
-  return uim.core.containers.maps.map.merge(items, key, Json(value));
+Json[string] merge(ref Json[string] items, string[] keys, string value) {
+  return merge(items, keys, Json(value));
+}
+Json[string] merge(ref Json[string] items, string key, string value) {
+  return merge(items, key, Json(value));
+}
+unittest {
+  Json[string] test_map;
+  assert(test_map.length == 0);
+  assert(test_map.merge("one", "true").length == 1);
+  assert(test_map.merge("two", "false").length == 2);
+  assert(test_map.getString("one") == "true");
+  assert(test_map.getString("two") == "false");
+
+  Json[string] testMap;
+  assert(testMap.length == 0);
+  assert(testMap.merge(["a", "b"], "true").length == 2);
+  assert(testMap.merge(["c", "d"], "false").length == 4);
+  assert(testMap.getString("a") == "true");
+  assert(testMap.getString("c") == "false");
+}
+
+Json[string] merge(ref Json[string] items, string[] keys, long value) {
+  return merge(items, keys, Json(value));
+}
+Json[string] merge(ref Json[string] items, string key, long value) {
+  return merge(items, key, Json(value));
+}
+unittest {
+  writeln("merge long");
+  Json[string] test_map;
+  assert(test_map.length == 0);
+  assert(test_map.merge("one", 1).length == 1);
+  assert(test_map.merge("two", 2).length == 2);
+/*   assert(test_map.getLong("one") == 1);
+  assert(test_map.getLong("two") == 2); */
+
+  Json[string] testMap;
+  assert(testMap.length == 0);
+  assert(testMap.merge(["a", "b"], 1).length == 2);
+  assert(testMap.merge(["c", "d"], 2).length == 4);
+/*   assert(testMap.getLong("a") == 1);
+  assert(testMap.getLong("c") == 2); */
+}
+
+Json[string] merge(ref Json[string] items, string[] keys, double value) {
+  return merge(items, keys, Json(value));
+}
+Json[string] merge(ref Json[string] items, string key, double value) {
+  return merge(items, key, Json(value));
+}
+unittest {
+  writeln("merge double");
+  Json[string] test_map;
+  assert(test_map.length == 0);
+  assert(test_map.merge("one", 1.1).length == 1);
+  assert(test_map.merge("two", 2.2).length == 2);
+  assert(test_map.getDouble("one") == 1.1);
+  assert(test_map.getDouble("two") == 2.2);
+
+  Json[string] testMap;
+  assert(testMap.length == 0);
+  assert(testMap.merge(["a", "b"], 1.1).length == 2);
+  assert(testMap.merge(["c", "d"], 2.2).length == 4);
+  assert(testMap.getDouble("a") == 1.1);
+  assert(testMap.getDouble("c") == 2.2);
 }
 
 /* Json[string] merge(Json[string] items, string key, Json value) {
@@ -134,11 +220,25 @@ bool getBoolean(Json[string] values, string key, bool defaultValue = false) {
   return !uim.core.datatypes.json.isNull(json)
     ? json.get!bool : defaultValue;
 }
+unittest {
+  Json[string] values;
+  values["a"] = true;
+  values["b"] = Json(false);
+  assert(values.getBoolean("a"));
+  assert(!values.getBoolean("b"));
+}
 
 int getInteger(Json[string] values, string key, int defaultValue = 0) {
   auto json = getJson(values, key);
   return !uim.core.datatypes.json.isNull(json)
     ? json.get!int : defaultValue;
+}
+unittest {
+  Json[string] values;
+  values["a"] = 0;
+  values["b"] = Json(1);
+  assert(values.getInteger("a") == 0);
+  assert(values.getInteger("b") == 1);
 }
 
 long getLong(Json[string] values, string key, long defaultValue = 0) {
@@ -146,11 +246,25 @@ long getLong(Json[string] values, string key, long defaultValue = 0) {
   return !uim.core.datatypes.json.isNull(json)
     ? json.get!long : defaultValue;
 }
+unittest {
+  Json[string] values;
+  values["a"] = 0;
+  values["b"] = Json(1);
+  assert(values.getLong("a") == 0);
+  assert(values.getLong("b") == 1);
+}
 
 double getDouble(Json[string] values, string key, double defaultValue = 0.0) {
   auto json = getJson(values, key);
   return !uim.core.datatypes.json.isNull(json)
     ? json.get!double : defaultValue;
+}
+unittest {
+  Json[string] values;
+  values["a"] = 1.1;
+  values["b"] = Json(2.2);
+  assert(values.getDouble("a") == 1.1);
+  assert(values.getDouble("b") == 2.2);
 }
 
 string getString(Json[string] values, string key, string defaultValue = null) {
@@ -158,11 +272,10 @@ string getString(Json[string] values, string key, string defaultValue = null) {
   return !uim.core.datatypes.json.isNull(json)
     ? json.get!string : defaultValue;
 }
-
 unittest {
   Json[string] values;
   values["a"] = Json("A");
-  values["b"] = "B".toJson;
+  values["b"] = "B";
   assert(values.getString("a") == "A");
   assert(values.getString("b") != "A");
   assert(values.getString("b") == "B");

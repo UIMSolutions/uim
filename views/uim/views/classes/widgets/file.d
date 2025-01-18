@@ -45,8 +45,8 @@ class DFileWidget : DWidget {
      * ignored.
      */
     override string render(Json[string] renderData, IFormContext formContext) {
-        renderData.merge(formContext.data);
-        renderData.removeKey("val");
+        /* renderData.merge(formContext.data);
+        renderData.removeKey("val"); */
 
         /* return _stringContents.format("file", 
             renderData.data(["name", "templateVars"])

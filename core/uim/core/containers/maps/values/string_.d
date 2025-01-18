@@ -14,18 +14,110 @@ unittest {
 }
 
 // #region set
-  V[K] set(K, V:string, T)(V[K] items, K key, T value) if (!is(T == string) && !is(T == Json)) {
+/*   V[K] set(K, V:string, T)(auto ref V[K] items, K key, T value) if (!is(T == string) && !is(T == Json)) {
     return items.set(key, to!string(value));
-  }
+  } */
 
-  V[K] set(K, V:string)(V[K] items, K key, Json value) {
+  // #region V[K] set(K, V:string)(..., bool value)
+    V[K] set(K, V:string)(auto ref V[K] items, K[] keys, bool value) {
+      return set(items, keys, value ? "true" : "false");
+    }
+    unittest {
+      string[string] testmap;
+      assert(set(testmap, ["a", "b"], true)["a"] == "true");
+      assert(set(testmap, ["c", "d"], false)["c"] == "false");
+    }
+
+    V[K] set(K, V:string)(auto ref V[K] items, K key, bool value) {
+      return set(items, key, value ? "true" : "false");
+    }
+    unittest {
+      string[string] testmap;
+      assert(set(testmap, "a", true)["a"] == "true");
+      assert(set(testmap, "b", false)["b"] == "false");
+    }
+  // #endregion V[K] set(K, V:string)(..., bool value)
+
+  // #region V[K] set(K, V:string)(..., int value)
+    V[K] set(K, V:string)(auto ref V[K] items, K[] keys, int value) {
+      return set(items, keys, to!string(value));
+    }
+    unittest {
+      string[string] testmap;
+      writeln(set(testmap, ["a", "b"], 0));
+      assert(set(testmap, ["a", "b"], 0)["a"] == "0");
+      assert(set(testmap, ["c", "d"], 1)["c"] == "1");
+    }
+
+    V[K] set(K, V:string)(auto ref V[K] items, K key, int value) {
+      return set(items, key, to!string(value));
+    }
+    unittest {
+      string[string] testmap;
+      assert(set(testmap, "a", 0)["a"] == "0");
+      assert(set(testmap, "b", 1)["b"] == "1");
+    }
+  // #endregion V[K] set(K, V:string)(..., int value)
+
+  // #region V[K] set(K, V:string)(..., long value)
+    V[K] set(K, V:string)(auto ref V[K] items, K[] keys, long value) {
+      return set(items, keys, to!string(value));
+    }
+    unittest {
+      string[string] testmap;
+      writeln(set(testmap, ["a", "b"], 0));
+      assert(set(testmap, ["a", "b"], 0)["a"] == "0");
+      assert(set(testmap, ["c", "d"], 1)["c"] == "1");
+    }
+
+    V[K] set(K, V:string)(auto ref V[K] items, K key, long value) {
+      return set(items, key, to1string(value));
+    }
+    unittest {
+      string[string] testmap;
+      assert(set(testmap, "a", 0)["a"] == "0");
+      assert(set(testmap, "b", 1)["b"] == "1");
+    }
+  // #endregion V[K] set(K, V:string)(..., long value)
+
+  // #region V[K] set(K, V:string)(..., double value)
+    V[K] set(K, V:string)(auto ref V[K] items, K[] keys, double value) {
+      return set(items, keys, to!string(value));
+    }
+    unittest {
+      string[string] testmap;
+      assert(set(testmap, ["a", "b"], 0.1)["a"] == "0.1");
+      assert(set(testmap, ["c", "d"], 1.1)["c"] == "1.1");
+    }
+
+    V[K] set(K, V:string)(auto ref V[K] items, K key, double value) {
+      return set(items, key, to!string(value));
+    }
+    unittest {
+      string[string] testmap;
+      assert(set(testmap, "a", 0.1)["a"] == "0.1");
+      assert(set(testmap, "b", 1.1)["b"] == "1.1");
+    }
+  // #endregion V[K] set(K, V:string)(..., double value)
+
+  V[K] set(K, V:string)(auto ref V[K] items, K key, Json value) {
     return items.set(key, value.toString);
   }
 
-  V[K] set(K, V:string)(V[K] items, K key, V value) {
+  V[K] set(K, V:string)(auto ref V[K] items, K key, Json value) {
+    return items.set(key, value.toString);
+  }
+
+  // #region V[K] set(K, V:string)(..., string value)
+  V[K] set(K, V:string)(auto ref V[K] items, K[] keys, string value) {
+    keys.each!(key => set(items, key, value));
+    return items;
+  }
+  V[K] set(K, V:string)(auto ref V[K] items, K key, string value) {
     items[key] = value;
     return items;
   }
+  // #endregion V[K] set(K, V:string)(..., string value)
 
   unittest {
     string[string] testmap;

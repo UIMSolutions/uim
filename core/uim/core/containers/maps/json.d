@@ -294,6 +294,11 @@ STRINGAA getStrings(Json[string] values, string[] keys) {
 
 unittest {
   Json[string] values;
+
+  Json testArray = Json.emptyArray;
+  testArray ~= "A";
+  testArray ~= "B";
+
   values["a"] = Json("A");
   values["b"] = "B".toJson;
   assert(values.getStrings(["a"]) == ["a": "A"]);

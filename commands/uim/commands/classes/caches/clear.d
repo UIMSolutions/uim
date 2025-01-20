@@ -34,7 +34,7 @@ class DCacheClearCommand : DCommand {
   /* DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBeDefined) {
     auto myParser = super.buildOptionParser(parserToBeDefined);
     myParser.description("Clear all data in a single cache engine");
-    myParser.addArgument("engine", createMap!(string, Json)
+    myParser.addArgument("engine", Map.create!(string, Json)
         .set("help", "The cache engine to clear." ~
           "For example, `uim cache clear _uim_model_` will clear the model cache." ~
           " Use `uim cache list` to list available engines.")

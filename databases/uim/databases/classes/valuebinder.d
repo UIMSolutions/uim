@@ -35,7 +35,7 @@ class DValueBinder : UIMObject {
 
     // Associates a query placeholder to a value and a type
     void bind(string placeholder, Json value, string typeName = null) {
-        _bindings[placeholder] = createMap!(string, Json)
+        _bindings[placeholder] = Map.create!(string, Json)
             .set("value", value)
             .set("type", typeName)
             .set("placeholder", placeholder.subString(1));
@@ -83,7 +83,7 @@ class DValueBinder : UIMObject {
         Json[string] placeholders;
         foreach(key; items.byKey) {
             string parameter = placeholder("c");
-            _bindings.set(parameter, createMap!(string, Json)
+            _bindings.set(parameter, Map.create!(string, Json)
                 .set("value", items[key].getJson("value)"))
                 .set("type", type)
                 .set("placeholder", subString(parameter, 1)));

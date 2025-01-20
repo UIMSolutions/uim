@@ -57,7 +57,7 @@ class DTextareaWidget : DWidget {
             ) {
             data = setMaxLength(data, formContext, data.getString("fieldName"));
         }
-        return _stringContents.format("textarea", createMap!(string, Json)
+        return _stringContents.format("textarea", Map.create!(string, Json)
                 .set("name", mydata.getString)
                 .set("value", mydata.hasKey("escape")
                     ? htmlAttributeEscape(mydata["val"]) 
@@ -65,7 +65,7 @@ class DTextareaWidget : DWidget {
                 .set("templateVars", mydata.get("templateVars"))
                 .set("attrs", _stringContents.formatAttributes(data, ["name", "val"]))); */
 
-        return _templater.render("textarea", createMap!(string, Json));
+        return _templater.render("textarea", Map.create!(string, Json));
     }
 }
 

@@ -31,11 +31,11 @@ class DPluginAssetsSymlinkCommand : DCommand {
         with (parserToUpdate) {
             description("symlink (copy as fallback) plugin assets to app`s webroot.");
 
-            addArgument("name", createMap!(string, Json)
+            addArgument("name", Map.create!(string, Json)
                     .set("help", "A specific plugin you want to symlink assets for.")
                     .set("required", false));
 
-            addOption("overwrite", createMap!(string, Json)
+            addOption("overwrite", Map.create!(string, Json)
                     .set("help", "Overwrite existing symlink / folder / files.")
                     .set("default", false)
                     .set("boolean", true));

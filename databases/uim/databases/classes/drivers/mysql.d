@@ -55,12 +55,12 @@ class DMysqlDriver : DDriver {
         _serverType = SERVER_TYPE_MYSQL;
 
         // Mapping of feature to db server version for feature availability checks.
-        Json[string] mysql = createMap!(string, Json)
+        Json[string] mysql = Map.create!(string, Json)
             .set("Json", "5.7.0")
             .set("cte", "8.0.0")
             .set("window", "8.0.0");
 
-        Json[string] mariadb = createMap!(string, Json)
+        Json[string] mariadb = Map.create!(string, Json)
             .set("Json", "10.2.7")
             .set("cte", "10.2.1")
             .set("window", "10.2.0");

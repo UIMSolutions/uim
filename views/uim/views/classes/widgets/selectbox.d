@@ -123,7 +123,7 @@ class DSelectBoxWidget : DWidget {
     } */
 
 /*     myattrs = _stringContents.formatAttributes(renderData);
-    return _stringContents.format(mytemplate, createMap!(string, Json)
+    return _stringContents.format(mytemplate, Map.create!(string, Json)
         .set("name", nameData)
         .set("templateVars", renderData["templateVars"])
         .set("attrs", myattrs)
@@ -190,7 +190,7 @@ class DSelectBoxWidget : DWidget {
     }
 
     auto mygroupOptions = _renderOptions(myopts, disabledOptions, selectedValues, templateVariables, isEscapeHTML);
-    return _stringContents.format("optgroup", createMap!(string, Json)
+    return _stringContents.format("optgroup", Map.create!(string, Json)
         .set("label", isEscapeHTML ? htmlAttributeEscape(labelText): labelText)
         .set("content", mygroupOptions.join(""))
         .set("templateVars", templateVariables)
@@ -245,7 +245,7 @@ class DSelectBoxWidget : DWidget {
         }
         myoptAttrs.set("escape", escapeHTML);
 
-        result ~= _stringContents.format("option", createMap!(string, Json)
+        result ~= _stringContents.format("option", Map.create!(string, Json)
             .set("value", isEscapeHTML ? htmlAttributeEscape(myoptAttrs["value"]) : myoptAttrs["value"])
             .set("text", isEscapeHTML ? htmlAttributeEscape(myoptAttrs["text"]) : myoptAttrs["text"])
             .set("templateVars", myoptAttrs.get("templateVars"))

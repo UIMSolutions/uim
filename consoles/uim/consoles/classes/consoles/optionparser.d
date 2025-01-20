@@ -139,18 +139,18 @@ class DConsoleOptionParser : UIMObject, IConsoleOptionParser {
     super();
     /* setCommand(command);
 
-        addOption("help", createMap!(string, Json)
+        addOption("help", Map.create!(string, Json)
                 .set("short", "h")
                 .set("help", "Display this help.")
                 .set("boolean", true));
 
         if (isVerboseAndQuiet) {
-            addOption("verbose", createMap!(string, Json)
+            addOption("verbose", Map.create!(string, Json)
                     .set("short", "v")
                     .set("help", "Enable verbose output.")
                     .set("boolean", true));
 
-            addOption("quiet", createMap!(string, Json)
+            addOption("quiet", Map.create!(string, Json)
                     .set("short", "q")
                     .set("help", "Enable quiet output.")
                     .set("boolean", true));
@@ -315,7 +315,7 @@ class DConsoleOptionParser : UIMObject, IConsoleOptionParser {
   }
 
   IConsoleOptionParser addArgument(string argName, Json[string] options = null) {
-    Json[string] defaultOptions = createMap!(string, Json)
+    Json[string] defaultOptions = Map.create!(string, Json)
       .set("name", argName)
       .set("help", "")
       .set("index", _arguments.length)

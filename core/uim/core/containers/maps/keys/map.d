@@ -109,9 +109,9 @@ V[K] replaceKey(K, V)(V[K] entries, K originalKey, K newKey) {
 
 ///
 unittest {
-  auto testMap = createMap!(string, Json)
+  auto testMap = Map.create!(string, Json)
     .set("a", "A")
-    .set("obj", createMap!(string, Json).set("b", "B"));
+    .set("obj", Map.create!(string, Json).set("b", "B"));
 
   assert(!testMap.hasKey("A"));
   assert(testMap.getString("a") == "A");

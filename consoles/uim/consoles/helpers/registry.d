@@ -49,7 +49,7 @@ class DConsoleHelperRegistry : UIMObject { // }: ObjectRegistry {
      * and UIM\Core\ObjectRegistry.unload()
      */
     protected void _throwMissingClassError(string classname, string pluginName) {
-        /* throw new DMissingHelperException(createMap!(string, Json)
+        /* throw new DMissingHelperException(Map.create!(string, Json)
             .set("class", classname)
             .set("plugin", pluginName)
         ); */

@@ -27,7 +27,8 @@ public {
   import uim.views.classes.widgets.year;
 }
 
-static this() {
+/* static this() {
   WidgetRegistry.register("Button", ButtonWidget);
   WidgetRegistry.register("Checkbox", CheckboxWidget);
 }
+ */

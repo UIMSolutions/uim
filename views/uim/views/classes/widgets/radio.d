@@ -69,7 +69,7 @@ class DRadioWidget : DWidget {
      * - `idPrefix` Prefix for generated ID attributes.
      */
     override string render(Json[string] data, IFormContext formContext) {
-        data.merge(formContext.data);
+/*         data.merge(formContext.data);
 
         options = data.get("options")
             ? iterator_to_array(data.get("options")) : data.getArray("options");
@@ -89,7 +89,7 @@ class DRadioWidget : DWidget {
             .array;
 
         return myopts.join(""); 
-        return null;
+ */        return null;
     }
 
     // Disabled attribute detection.

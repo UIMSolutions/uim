@@ -97,12 +97,13 @@ class DMultiCheckboxWidget : DWidget {
      * If either is not set options will not be generated correctly.
      */
   override string render(Json[string] data, IFormContext formContext) {
-    data.merge(formContext);
+/*     data.merge(formContext);
 
     _idPrefix = data.get("idPrefix");
     _clearIds();
 
-    return _renderInputs(data, formContext).join("");
+    return _renderInputs(data, formContext).join(""); */
+    return null; 
   }
 
   // Render the checkbox inputs.
@@ -233,7 +234,8 @@ class DMultiCheckboxWidget : DWidget {
       return true;
     }
  */
-    return disabledValues.has(key);
+    // return disabledValues.has(key);
+    return false;
   }
 }
 

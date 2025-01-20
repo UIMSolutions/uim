@@ -41,7 +41,7 @@ override bool initialize(Json[string] initData = null) {
      * Any other keys provided in mydata will be converted into HTML attributes.
      */
   string render(Json[string] data, IFormContext formContext) {
-    data.merge(formContext.data);
+/*     data.merge(formContext.data); */
     if (data.hasKey("val")) {
       data.set("value", data.shift("val"));
     }
@@ -97,9 +97,9 @@ override bool initialize(Json[string] initData = null) {
 
   // Set value for "maxlength" attribute if applicable.
   protected Json[string] setMaxLength(Json[string] data, IFormContext formContext, string fieldName) {
-    if (auto maxLength = formContext.maxLength(fieldName)) {
+/*     if (auto maxLength = formContext.maxLength(fieldName)) {
       data.set("maxlength", min(maxLength, 100000));
-    }
+    } */
     return data;
   }
 

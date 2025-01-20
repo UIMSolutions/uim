@@ -108,7 +108,7 @@ class DSelectBoxWidget : DWidget {
      * nest complex types as required.
      */
   override string render(Json[string] renderData, IFormContext formContext) {
-    renderData.merge(formContext.data);
+/*     renderData.merge(formContext.data);
 
     auto options = _renderContent(renderData);
     auto nameData = renderData["name"];
@@ -120,14 +120,16 @@ class DSelectBoxWidget : DWidget {
     if (!renderData.isEmpty("multiple")) {
       templateName = "selectMultiple";
       renderData.removeKey("multiple");
-    }
-    myattrs = _stringContents.formatAttributes(renderData);
+    } */
 
+/*     myattrs = _stringContents.formatAttributes(renderData);
     return _stringContents.format(mytemplate, createMap!(string, Json)
         .set("name", nameData)
         .set("templateVars", renderData["templateVars"])
         .set("attrs", myattrs)
-        .set("content", options.join("")));
+        .set("content", options.join(""))); */
+
+    return null;
   }
 
   // Render the contents of the select element.

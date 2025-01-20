@@ -30,7 +30,7 @@ unittest {
 }
 // #endregion sortKeys
 
-pure size_t[V] indexAA(V)(V[] values, size_t startPos = 0) {
+pure size_t[V] indexAA(V)(Json[] values, size_t startPos = 0) {
   size_t[V] results;
   foreach (i, value; values)
     results[value] = i + startPos;
@@ -42,7 +42,7 @@ unittest {
   assert(["a", "b", "c"].indexAA(1) == ["a": 1UL, "b": 2UL, "c": 3UL]);
 }
 
-pure size_t[V] indexAAReverse(V)(V[] values, size_t startPos = 0) {
+pure size_t[V] indexAAReverse(V)(Json[] values, size_t startPos = 0) {
   size_t[V] results;
   foreach (i, value; values)
     results[i + startPos] = value;
@@ -54,11 +54,11 @@ unittest {
 }
 
 // #region hasKeys
-bool hasAllKeys(K, V)(V[K] base, K[] keys...) {
+bool hasAllKeys(Json[string] base, string[] keys...) {
   return base.hasAllKeys(keys.dup);
 }
 
-bool hasAllKeys(K, V)(V[K] base, K[] keys) {
+bool hasAllKeys(Json[string] base, string[] keys) {
   return keys.all!(key => base.hasKey(key));
 }
 ///
@@ -79,11 +79,11 @@ unittest {
   assert(!["a": "A", "c": "C"].hasAllKeys(["x", "c"]));
 }
 
-bool hasAnyKeys(K, V)(V[K] base, K[] keys...) {
+bool hasAnyKeys(Json[string] base, string[] keys...) {
   return base.hasAnyKeys(keys.dup);
 }
 
-bool hasAnyKeys(K, V)(V[K] base, K[] keys) {
+bool hasAnyKeys(Json[string] base, string[] keys) {
   return keys.any!(key => base.hasKey(key));
 }
 ///
@@ -101,7 +101,7 @@ unittest {
   assert(!["a": "A", "c": "C"].hasAnyKeys(["x", "y"]));
 }
 
-bool hasKey(K, V)(V[K] base, K key) {
+bool hasKey(Json[string] base, string key) {
   return (key in base)
     ? true : false;
 }
@@ -113,19 +113,19 @@ unittest {
 // #endregion hasKey
 
 // #region hasValue
-bool hasAllValues(T)(Json[string] items, T[] values...) {
+bool hasAllValues(Json[string] items, Json[] values...) {
   return items.hasAllValues(values.dup);
 }
 
-bool hasAllValues(T)(Json[string] items, T[] values) {
+bool hasAllValues(Json[string] items, Json[] values) {
   return values.all!(value => items.hasValue(value));
 }
 
-bool hasAnyValues(T)(Json[string] items, T[] values...) {
+bool hasAnyValues(Json[string] items, Json[] values...) {
   return items.hasAnyValues(values.dup);
 }
 
-bool hasAnyValues(T)(Json[string] items, T[] values) {
+bool hasAnyValues(Json[string] items, Json[] values) {
   return values.any!(value => items.hasValue(value));
 }
 
@@ -141,9 +141,8 @@ unittest {
 }
 // #endregion hasAllValues
 
-pure string toJSONString(K, V)(V[K] values, bool sorted = NOTSORTED) {
-  string result = "{" ~ values
-    .sortKeys
+pure string toJSONString(Json[string] values, bool sorted = NOTSORTED) {
+  string result = "{" ~ Map.sortedKeys(values)
     .map!(key => `"%s": %s`.format(key, values[key]))
     .join(",") ~ "}";
 
@@ -155,6 +154,7 @@ unittest {
 }
 
 pure string toHTML(Json[string] items, bool sorted = NOTSORTED) {
+  
   return items.sortKeys(sorted ? "ASC" : "NONE")
     .map!(key => `%s="%s"`.format(key, items[key]))
     .join(" ");
@@ -204,7 +204,7 @@ unittest {
   assert(!["a": 1, "b": 2].hasValues(["a": 1, "c": 2]));
 }
 
-V[K] setValues(K, V)(V[K] target, V[K] someValues) {
+Json[string] setValues(Json[string] target, Json[string] someValues) {
   // IN Check
   if (someValues.length == 0) {
     return target;
@@ -224,30 +224,30 @@ unittest {
 }
 
 // #region ifNull
-V ifNull(K, V)(V[K] map, K key, V defaultValue) {
+Json ifNull(Json[string] map, string key, Json defaultValue) {
   return key in map
     ? (!map[k].isNull ? map[k] : defaultValue) : defaultValue;
 }
 // #endregion ifNull
 
 // #region isSet
-bool isSetAny(K, V)(V[K] map, K[] keys...) {
+bool isSetAny(Json[string] map, string[] keys...) {
   return isSetAny(map, keys.dup);
 }
 
-bool isSetAny(K, V)(V[K] map, K[] keys) {
+bool isSetAny(Json[string] map, string[] keys) {
   return keys.any!(key => isSet(map, key));
 }
 
-bool isSetAll(K, V)(V[K] map, K[] keys...) {
+bool isSetAll(Json[string] map, string[] keys...) {
   return isSetAll(map, keys.dup);
 }
 
-bool isSetAll(K, V)(V[K] map, K[] keys) {
+bool isSetAll(Json[string] map, string[] keys) {
   return keys.all!(key => isSet(map, key));
 }
 
-bool isSet(K, V)(V[K] map, K key) {
+bool isSet(Json[string] map, string key) {
   return (key in map) ? true : false;
 }
 
@@ -283,7 +283,7 @@ auto set(Json[string] items, string[] keys, Json value) {
 
   // #region merge
   /+ Merge new items if key not exists +/
-  auto merge(Json[string] items, V[K] mergeItems, K[] keys = null) {
+  auto merge(Json[string] items, Json[string] mergeItems, string[] keys = null) {
     keys.isNull
       ? mergeItems.byKeyValue
       .each!(item => items = items.merge(item.key, item.value)) : mergeItems.byKeyValue
@@ -330,7 +330,7 @@ auto set(Json[string] items, string[] keys, Json value) {
   // #endregion merge
 
   // #region update
-  V[K] update(Json[string] items, V[K] updateItems, string[] excludedKeys = null) {
+  Json[string] update(Json[string] items, Json[string] updateItems, string[] excludedKeys = null) {
     updateItems.byKeyValue
       .filter!(updateItem => !excludedKeys.has(updateItem.key))
       .each!(updateItem => update(items, updateItem.key, updateItem.value));
@@ -338,7 +338,7 @@ auto set(Json[string] items, string[] keys, Json value) {
     return items;
   }
 
-  V[K] update(Json[string] items, string key, V value) {
+  Json[string] update(Json[string] items, string key, Json value) {
     if (key in items) {
       items[key] = value;
     }
@@ -364,7 +364,7 @@ auto set(Json[string] items, string[] keys, Json value) {
 
   // #region updateKeys
   /+ Update existing keys +/
-  V[K] update(K, V)(V[K] values, K[] keys, V value = Null!V) {
+  Json[string] update(Json[string] values, string[] keys, Json value = Json(null)) {
     keys.each!(key => values.update(key, value));
     return values;
   }
@@ -386,24 +386,24 @@ auto set(Json[string] items, string[] keys, Json value) {
   // #endregion updateKeys
 
   // #region remove
-  V[K] removeKeys(Json[string] items, K[] keys...) {
+  Json[string] removeKeys(Json[string] items, string[] keys...) {
     removeKeys(items, keys.dup);
     return items;
   }
 
-  V[K] removeKeys(Json[string] items, K[] keys) {
+  Json[string] removeKeys(Json[string] items, string[] keys) {
     keys.each!(key => removeKey(items, key));
     return items;
   }
 
-  V[K] removeKey(Json[string] items, K[] path) {
+  Json[string] removeKey(Json[string] items, string[] path) {
     if (!hasKey(items, path)) {
       return items;
     }
     return items; // TODO
   }
 
-  V[K] removeKey(Json[string] items, string key) {
+  Json[string] removeKey(Json[string] items, string key) {
     if (hasKey(items, key)) {
       items.remove(key);
     }
@@ -428,16 +428,16 @@ auto set(Json[string] items, string[] keys, Json value) {
   // #endregion remove
 
   // #region removeByValues
-  V[K] removeByValues(Json[string] items, V[] values...) {
+  Json[string] removeByValues(Json[string] items, Json[] values...) {
     return removeByValues(items, values.dup);
   }
 
-  V[K] removeByValues(Json[string] items, V[] values) {
+  Json[string] removeByValues(Json[string] items, Json[] values) {
     values.each!(value => removeByValue(items, value));
     return items;
   }
 
-  V[K] removeByValue(Json[string] items, V value) {
+  Json[string] removeByValue(Json[string] items, Json value) {
     return null; // TODO
     /*   return hasValue(items, value)
     ? items.remove(keyByValue(items, value)) : items; */
@@ -459,7 +459,7 @@ auto set(Json[string] items, string[] keys, Json value) {
   }
   // #endregion removeByValues
 
-  K keyByValue(Json[string] items, V searchValue) {
+  string keyByValue(Json[string] items, Json searchValue) {
     foreach (key, value; items) {
       if (value == searchValue)
         return key;
@@ -468,12 +468,12 @@ auto set(Json[string] items, string[] keys, Json value) {
   }
 
   // #region intersect 
-  V[K] intersect(K, V)(V[K] left, V[K] right) {
+  Json[string] intersect(Json[string] left, Json[string] right) {
     return left.intersect(right.keys);
   }
 
-  V[K] intersect(K, V)(V[K] left, string[] right) {
-    V[K] result;
+  Json[string] intersect(Json[string] left, string[] right) {
+    Json[string] result;
     right
       .filter!(key => left.hasKey(key))
       .each!(key => result[key] = left[key]);
@@ -481,13 +481,13 @@ auto set(Json[string] items, string[] keys, Json value) {
     return result;
   }
 
-  V[K] intersect(K, V)(V[K] left, Json right) {
+/*   Json[string] intersect(Json[string] left, Json right) {
     return right.isArray
       ? intersect(left,
         right.toArray.map!(val => val.get!K).array) : null;
-  }
+  } */
 
-  V[K] intersect(K, V)(V[K] left, Json right) {
+  Json[string] intersect(Json[string] left, Json right) {
     if (right.isArray) {
       return intersect(left,
         right.toArray.map!(val => val.get!V).array);
@@ -504,7 +504,7 @@ auto set(Json[string] items, string[] keys, Json value) {
     // TODO 
     /* string[string] left = ["a": "A"].set("b", "B").set("c", "C");
 
-  K[] keys = ["a", "x", "y"]; */
+  string[] keys = ["a", "x", "y"]; */
     // TODO
     /* assert(left.intersect(keys).length == 1);
   assert(left.intersect(keys)["a"] == "A");
@@ -519,12 +519,12 @@ auto set(Json[string] items, string[] keys, Json value) {
 
   // #region diff 
   // Computes the difference of maps
-  V[K] diff(K, V)(V[K] left, V[K] right) {
+  Json[string] diff(Json[string] left, Json[string] right) {
     return left.diff(right.keys);
   }
 
-  V[K] diff(K, V)(V[K] left, string[] right) {
-    V[K] result;
+  Json[string] diff(Json[string] left, string[] right) {
+    Json[string] result;
     right
       .filter!(key => !left.hasKey(key))
       .each!(key => result[key] = left[key]);
@@ -532,23 +532,19 @@ auto set(Json[string] items, string[] keys, Json value) {
     return result;
   }
 
-  V[K] diff(K, V)(V[K] left, Json right) {
+/*   Json[string] diff(Json[string] left, Json right) {
     return right.isArray
       ? diff(left,
         right.toArray.map!(val => val.get!K).array) : null;
-  }
+  } */
 
-  V[K] diff(K, V)(V[K] left, Json right) {
-    if (right.isArray) {
-      return diff(left,
-        right.toArray.map!(val => val.get!V).array);
-    }
+  Json[string] diff(Json[string] left, Json right) {
     if (right.isObject) {
       return diff(left,
         right.keys
           .map!(key => val.get(key, Null!V)).array);
     }
-    return null;
+    return left;
   }
 
   unittest {
@@ -566,15 +562,15 @@ auto set(Json[string] items, string[] keys, Json value) {
   }
   // #endregion diff 
 
-  V[K] column(V, K)(V[K][] values, K key) {
+  Json[string] column(V, K)(Json[string][] values, string key) {
     return values
       .filter!(value => value.hasKey(key))
       .map!(value => value[key])
       .array;
   }
 
-  V[K] combine(V, K)(K[] keys, V[] values) {
-    V[K] results;
+  Json[string] combine(V, K)(string[] keys, Json[] values) {
+    Json[string] results;
     size_t lastIndex = min(keys.length, values.length);
     for (size_t i = 0; i < lastIndex; i++) {
       results[keys[i]] = values[i];
@@ -583,8 +579,8 @@ auto set(Json[string] items, string[] keys, Json value) {
   }
 
   // #region filterValues
-  V[K] filterValues(Json[string] items) {
-    V[K] results;
+  Json[string] filterValues(Json[string] items) {
+    Json[string] results;
     items.byKeyValue
       .filter!(item => !item.value.isNull)
       .each!(item => results[item.key] = item.value);
@@ -592,8 +588,8 @@ auto set(Json[string] items, string[] keys, Json value) {
     return results;
   }
 
-  V[K] filterValues(Json[string] items, bool delegate(K key, V value) check) {
-    V[K] results;
+  Json[string] filterValues(Json[string] items, bool delegate(string key, Json value) check) {
+    Json[string] results;
     () @trusted {
       items.byKeyValue
         .filter!(item => check(item.key, item.value))
@@ -618,8 +614,8 @@ auto set(Json[string] items, string[] keys, Json value) {
 
   // #region unique
   /// Unique - Reduce duplicates in array
-  V[K] unique(Json[string] items) {
-    V[K] results;
+  Json[string] unique(Json[string] items) {
+    Json[string] results;
     V[V] values;
     items.byKeyValue.each!((item) {
       if (!values.hasKey(item.value)) {
@@ -637,8 +633,8 @@ auto set(Json[string] items, string[] keys, Json value) {
   // #endregion unique
 
   // #region createMap
-  V[K] createMap(K, V)(V[K] startItems = null) {
-    V[K] map = startItems;
+  Json[string] createMap(Json[string] startItems = null) {
+    Json[string] map = startItems;
     return map;
   }
 
@@ -652,7 +648,7 @@ auto set(Json[string] items, string[] keys, Json value) {
   // #endregion createMap
 
   // #region clear
-  /* V[K] clear(Json[string] items) {
+  /* Json[string] clear(Json[string] items) {
   items = null;
   return items;
 } */
@@ -667,16 +663,16 @@ auto set(Json[string] items, string[] keys, Json value) {
   // #endregion clear
 
   // #region shift
-  V[K] shift(Json[string] items, K[] keys) {
-    V[K] result;
+  Json[string] shift(Json[string] items, string[] keys) {
+    Json[string] result;
     keys
       .filter!(key => items.hasKey(key))
       .each!(key => result[key] = items.shift(key));
     return result;
   }
 
-  V shift(Json[string] items, string key) {
-    V result = items.value(key);
+  Json shift(Json[string] items, string key) {
+    Json result = items.value(key);
     items.remove(key);
     return result;
   }
@@ -694,7 +690,7 @@ auto set(Json[string] items, string[] keys, Json value) {
   }
   // #endregion shift
 
-  V value(Json[string] items, string key, V defaultValue = Null!V) {
+  Json value(Json[string] items, string key, Json defaultValue = Json(null)) {
     return key in items ? items[key] : defaultValue;
   }
 

@@ -14,7 +14,7 @@ unittest {
 }
 
 // #region set
-  V[K] set(K, V:Json)(auto ref Json[string] items, V[K] newItems) {
+  V[K] set(K, V:Json)(auto ref Json[string] items, Json[string] newItems) {
     newItems.byKeyValue.each!(item => items[item.key] = item.value);
     return items;
   }

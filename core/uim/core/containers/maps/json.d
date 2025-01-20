@@ -50,17 +50,6 @@ Json[string] merge(Json[string] items, string key, Json value) {
   return items;
 } */ 
 
-V[K] merge(K:string, V:Json)(Json[string] items, string[] keys, Json value) {
-  keys.each!(key => items = items.merge(key, value));
-  return items;
-}
-
-V[K] merge(K:string, V:Json)(Json[string] items, string key, V value) {
-  if (key !in items) {
-    items[key] = value;
-  }
-  return items;
-}
 
 Json[string] merge(Json[string] items, string[] keys, bool value) {
   return items.merge(keys, Json(value));
@@ -179,6 +168,19 @@ unittest {
   // writeln("testmap: ", testMap /* .merge("one", 1) */ .merge("double", 2.2));
   /// assert(testMap.merge("one", 1).merge("double", 2.2).length == 3);
 }
+
+Json[string] merge(Json[string] items, string[] keys, Json value) {
+  keys.each!(key => items = items.merge(key, value));
+  return items;
+}
+
+Json[string] merge(Json[string] items, string key, Json value) {
+  if (key !in items) {
+    items[key] = value;
+  }
+  return items;
+}
+
 // #endregion merge
 
 // #region Getter
@@ -412,7 +414,7 @@ unittest {
 Json[string] toJsonMap(bool[string] values, string[] excludeKeys = null) {
   Json[string] result;
   values.byKeyValue
-    .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
+    .filter!(kv => !excludeKeys.any!(key => key in values))
     .each!(kv => result[kv.key] = Json(kv.value));
   return result;
 }
@@ -420,7 +422,7 @@ Json[string] toJsonMap(bool[string] values, string[] excludeKeys = null) {
 Json[string] toJsonMap(long[string] values, string[] excludeKeys = null) {
   Json[string] result;
   values.byKeyValue
-    .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
+    .filter!(kv => !excludeKeys.any!(key => key in values))
     .each!(kv => result[kv.key] = Json(kv.value));
   return result;
 }
@@ -428,7 +430,7 @@ Json[string] toJsonMap(long[string] values, string[] excludeKeys = null) {
 Json[string] toJsonMap(double[string] values, string[] excludeKeys = null) {
   Json[string] result;
   values.byKeyValue
-    .filter!(kv => !excludeKeys.any!(key => values.hasKey(key)))
+    .filter!(kv => !excludeKeys.any!(key => key in values))
     .each!(kv => result[kv.key] = Json(kv.value));
   return result;
 }

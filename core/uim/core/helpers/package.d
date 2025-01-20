@@ -10,5 +10,6 @@ public {
     import uim.core.helpers.css;
     import uim.core.helpers.html;
     import uim.core.helpers.json;
+    import uim.core.helpers.jsonmap;
     import uim.core.helpers.xml;
 }

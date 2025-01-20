@@ -14,13 +14,13 @@ unittest {
 }
 
 /// Add prefix to key
-V[K] addPrefixKey(K : string, V)(V[K] items, string prefix) {
+V[K] addPrefixKey(K : string, V)(Json[string] items, string prefix) {
   items.dup.byKeyValue
     .each!(item => items = items.addPrefixKey(item.key, prefix));
   return items;
 }
 
-V[K] addPrefixKey(K : string, V)(V[K] items, K key, K prefix) {
+V[K] addPrefixKey(K : string, V)(Json[string] items, string key, K prefix) {
   if (prefix.isEmpty) {
     return items;
   }
@@ -44,7 +44,7 @@ unittest {
 }
 
 /// Selects only entries, where key starts with prefix. Creates a new DV[K]
-V[K] allKeysStartsWith(K : string, V)(V[K] items, string prefix) {
+V[K] allKeysStartsWith(K : string, V)(Json[string] items, string prefix) {
   V[K] results;
   items.byKeyValue
     .filter!(item => item.key.startsWith(prefix))
@@ -74,11 +74,11 @@ unittest {
 // #endregion keysStartsNotWith
 
 // #region keysEndsWith
-bool allKeysEndsWith(K : string, V)(V[K] items, string postfix) { // right will overright left
+bool allKeysEndsWith(K : string, V)(Json[string] items, string postfix) { // right will overright left
   return items.byKeyValue.all!(item => endsWith(item.key, postfix));
 }
 
-bool anyKeysEndsWith(K : string, V)(V[K] items, string postfix) { // right will overright left
+bool anyKeysEndsWith(K : string, V)(Json[string] items, string postfix) { // right will overright left
   return items.byKeyValue.any!(item => endsWith(item.key, postfix));
 }
 
@@ -98,22 +98,22 @@ unittest {
 // #endregion keysEndsWith
 
 // #region lowerKeys
-V[K] lowerKeys(K : string, V)(V[K] items) {
+V[K] lowerKeys(K : string, V)(Json[string] items) {
   items.keys.each!(key => items.lowerKey(key));
   return items;
   ;
 }
 
-V[K] lowerKeys(K : string, V)(V[K] items, K[] keys...) {
+V[K] lowerKeys(K : string, V)(Json[string] items, K[] keys...) {
   return lowerKeys(items, keys.dup);
 }
 
-V[K] lowerKeys(K : string, V)(V[K] items, K[] keys) {
+V[K] lowerKeys(K : string, V)(Json[string] items, K[] keys) {
   keys.each!(key => items.lowerKey(key));
   return items;
 }
 
-V[K] lowerKey(K : string, V)(V[K] items, string key) {
+V[K] lowerKey(K : string, V)(Json[string] items, string key) {
   if (key !in items) {
     return items;
   }
@@ -131,22 +131,22 @@ unittest {
 // #endregion lowerKeys
 
 // #region upperKeys
-V[K] upperKeys(K : string, V)(V[K] items) {
+V[K] upperKeys(K : string, V)(Json[string] items) {
   items.keys.each!(key => items.upperKey(key));
   return items;
   ;
 }
 
-V[K] upperKeys(K : string, V)(V[K] items, K[] keys...) {
+V[K] upperKeys(K : string, V)(Json[string] items, K[] keys...) {
   return upperKeys(items, keys.dup);
 }
 
-V[K] upperKeys(K : string, V)(V[K] items, K[] keys) {
+V[K] upperKeys(K : string, V)(Json[string] items, K[] keys) {
   keys.each!(key => items.upperKey(key));
   return items;
 }
 
-V[K] upperKey(K : string, V)(V[K] items, string key) {
+V[K] upperKey(K : string, V)(Json[string] items, string key) {
   if (key !in items) {
     return items;
   }

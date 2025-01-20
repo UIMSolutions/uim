@@ -42,12 +42,11 @@ class DLabelWidget : DWidget {
     // Render a label widget.
     override string render(Json[string] options, IFormContext formContext) {
         // set defaults
-        options
-            .merge("text", "") // `text` The text for the label.
-            .merge("input", "") // `input` The input that can be formatted into the label if the template allows it.
-            .merge("hidden", "")
-            .merge("escape", true) // `escape` Set to false to disable HTML escaping.
-            .merge("templateVars", Json.emptyArray());
+        options.merge("text", ""); // `text` The text for the label.
+        options.merge("input", ""); // `input` The input that can be formatted into the label if the template allows it.
+        options.merge("hidden", "");
+        options.merge("escape", true); // `escape` Set to false to disable HTML escaping.
+        options.merge("templateVars", Json.emptyArray());
 
         Json[string] settings = createMap!(string, Json)
             .set("text", options.getBoolean("escape") ? htmlAttributeEscape(options.getString("text")) : options.getString("text"))

@@ -14,12 +14,12 @@ unittest {
 }
 
 // #region set
-/*   V[K] set(K, V:string, T)(auto ref V[K] items, K key, T value) if (!is(T == string) && !is(T == Json)) {
+/*   V[K] set(K, V:string, T)(auto ref Json[string] items, string key, T value) if (!is(T == string) && !is(T == Json)) {
     return items.set(key, to!string(value));
   } */
 
   // #region V[K] set(K, V:string)(..., bool value)
-    V[K] set(K, V:string)(auto ref V[K] items, K[] keys, bool value) {
+    V[K] set(K, V:string)(auto ref Json[string] items, K[] keys, bool value) {
       return set(items, keys, value ? "true" : "false");
     }
     unittest {
@@ -28,7 +28,7 @@ unittest {
       assert(set(testmap, ["c", "d"], false)["c"] == "false");
     }
 
-    V[K] set(K, V:string)(auto ref V[K] items, K key, bool value) {
+    V[K] set(K, V:string)(auto ref Json[string] items, string key, bool value) {
       return set(items, key, value ? "true" : "false");
     }
     unittest {
@@ -39,17 +39,16 @@ unittest {
   // #endregion V[K] set(K, V:string)(..., bool value)
 
   // #region V[K] set(K, V:string)(..., int value)
-    V[K] set(K, V:string)(auto ref V[K] items, K[] keys, int value) {
+    V[K] set(K, V:string)(auto ref Json[string] items, K[] keys, int value) {
       return set(items, keys, to!string(value));
     }
     unittest {
       string[string] testmap;
-      writeln(set(testmap, ["a", "b"], 0));
       assert(set(testmap, ["a", "b"], 0)["a"] == "0");
       assert(set(testmap, ["c", "d"], 1)["c"] == "1");
     }
 
-    V[K] set(K, V:string)(auto ref V[K] items, K key, int value) {
+    V[K] set(K, V:string)(auto ref Json[string] items, string key, int value) {
       return set(items, key, to!string(value));
     }
     unittest {
@@ -60,17 +59,15 @@ unittest {
   // #endregion V[K] set(K, V:string)(..., int value)
 
   // #region V[K] set(K, V:string)(..., long value)
-    V[K] set(K, V:string)(auto ref V[K] items, K[] keys, long value) {
+    V[K] set(K, V:string)(auto ref Json[string] items, K[] keys, long value) {
       return set(items, keys, to!string(value));
     }
     unittest {
       string[string] testmap;
-      writeln(set(testmap, ["a", "b"], 0));
-      assert(set(testmap, ["a", "b"], 0)["a"] == "0");
       assert(set(testmap, ["c", "d"], 1)["c"] == "1");
     }
 
-    V[K] set(K, V:string)(auto ref V[K] items, K key, long value) {
+    V[K] set(K, V:string)(auto ref Json[string] items, string key, long value) {
       return set(items, key, to1string(value));
     }
     unittest {
@@ -81,7 +78,7 @@ unittest {
   // #endregion V[K] set(K, V:string)(..., long value)
 
   // #region V[K] set(K, V:string)(..., double value)
-    V[K] set(K, V:string)(auto ref V[K] items, K[] keys, double value) {
+    V[K] set(K, V:string)(auto ref Json[string] items, K[] keys, double value) {
       return set(items, keys, to!string(value));
     }
     unittest {
@@ -90,7 +87,7 @@ unittest {
       assert(set(testmap, ["c", "d"], 1.1)["c"] == "1.1");
     }
 
-    V[K] set(K, V:string)(auto ref V[K] items, K key, double value) {
+    V[K] set(K, V:string)(auto ref Json[string] items, string key, double value) {
       return set(items, key, to!string(value));
     }
     unittest {
@@ -100,20 +97,20 @@ unittest {
     }
   // #endregion V[K] set(K, V:string)(..., double value)
 
-  V[K] set(K, V:string)(auto ref V[K] items, K key, Json value) {
+  V[K] set(K, V:string)(auto ref Json[string] items, string key, Json value) {
     return items.set(key, value.toString);
   }
 
-  V[K] set(K, V:string)(auto ref V[K] items, K key, Json value) {
+  V[K] set(K, V:string)(auto ref Json[string] items, string key, Json value) {
     return items.set(key, value.toString);
   }
 
   // #region V[K] set(K, V:string)(..., string value)
-  V[K] set(K, V:string)(auto ref V[K] items, K[] keys, string value) {
+  V[K] set(K, V:string)(auto ref Json[string] items, K[] keys, string value) {
     keys.each!(key => set(items, key, value));
     return items;
   }
-  V[K] set(K, V:string)(auto ref V[K] items, K key, string value) {
+  V[K] set(K, V:string)(auto ref Json[string] items, string key, string value) {
     items[key] = value;
     return items;
   }

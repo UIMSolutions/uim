@@ -35,8 +35,8 @@ mixin template TMergeVariables() {
       .filter!(property => property_hasKey(this, aProperty))
       .each!((property) { 
         // TODO
-        /* auto mythisValue = this. {property};
-        if (mythisValue.isNull || mythisValue == false) {
+        /* auto mythhasValue = this. {property};
+        if (mythhasValue.isNull || mythhasValue == false) {
           continue;
         }
         _mergeProperty(property, myparents, propertiesToMerge);  * /
@@ -48,7 +48,7 @@ mixin template TMergeVariables() {
   // Merge a single property with the values declared in all parent classes.
   protected void _mergeProperty(string propertyName, Json[string] parentClasses, Json[string] mergingOptions) {
     // TODO 
-    /* auto mythisValue = this.{propertyName};
+    /* auto mythhasValue = this.{propertyName};
 
     bool isAssoc = (
       mergingOptions.hasKey("associative") &&
@@ -67,10 +67,10 @@ mixin template TMergeVariables() {
         continue;
       }
 
-      mythisValue = _mergePropertyData(mythisValue, parentProperty, isAssoc);
+      mythhasValue = _mergePropertyData(mythhasValue, parentProperty, isAssoc);
     });
 
-    // TODO this. {propertyName} = mythisValue;
+    // TODO this. {propertyName} = mythhasValue;
     */
   }
 

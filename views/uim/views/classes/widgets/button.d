@@ -6,10 +6,11 @@
 module uim.views.classes.widgets.button;
 
 import uim.views;
+
 @safe:
 
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+unittest {
+  writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 /**
@@ -20,39 +21,39 @@ import uim.views;
  * use the Basic input widget.
  */
 class DButtonWidget : DWidget {
-    mixin(WidgetThis!("Button"));
+  mixin(WidgetThis!("Button"));
 
-    this(DStringContents mytemplates) {
-       _stringContents = mytemplates;
+  this(DStringContents mytemplates) {
+    _stringContents = mytemplates;
+  }
+
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
     }
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false; 
-        }
+    return true;
+  }
 
-        return true;
-    }    
-    
-    // Render a button.
-    override string render(Json[string] renderData, IFormContext formContext) {
-        renderData
-            .merge("text", "") // `text` The text of the button. Unlike all other form controls, buttons do not escape their contents by default.
-            .merge("type", "submit") // `type` The button type defaults to "submit"
-            .merge("escapeTitle", true) // `escapeTitle` Set to false to disable escaping of button text.
-            .merge("escape", true) // `escape` Set to false to disable escaping of attributes.
-            .merge("templateVars", Json.emptyArray());
+  // Render a button.
+  override string render(Json[string] renderData, IFormContext formContext) {
+    renderData.merge("text", ""); // `text` The text of the button. Unlike all other form controls, buttons do not escape their contents by default.
+    renderData.merge("type", "submit"); // `type` The button type defaults to "submit"
+    renderData.merge("escapeTitle", true); // `escapeTitle` Set to false to disable escaping of button text.
+    renderData.merge("escape", true); // `escape` Set to false to disable escaping of attributes.
+    renderData.merge("templateVars", Json.emptyArray());
 
-        return null; 
-        /* _stringContents.format("button", [
+    return null;
+    /* _stringContents.format("button", [
             "text": !renderData.isEmpty("escapeTitle") ? htmlAttributeEscape(renderData.getString("text")) : renderData.getString("text"),
             "templateVars": renderData.getString("templateVars"),
             "attrs": _stringContents.formatAttributes(renderData, ["text", "escapeTitle"]),
         ]); */
-    }
+  }
 }
+
 mixin(WidgetCalls!("Button"));
 
 unittest {
-    assert(ButtonWidget);
+  assert(ButtonWidget);
 }

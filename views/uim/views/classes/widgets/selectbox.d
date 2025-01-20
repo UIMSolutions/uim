@@ -137,7 +137,7 @@ class DSelectBoxWidget : DWidget {
     Json renderOptions = renderData.get("options", null);
 
     if (!renderData.isEmpty("empty")) {
-      renderOptions = renderOptions.set(_emptyValue(renderData.get("empty")));
+      renderOptions = renderOptions.set(isEmptyValue(renderData.get("empty")));
     }
 
     if (renderOptions.isEmpty) {
@@ -157,12 +157,17 @@ class DSelectBoxWidget : DWidget {
   }
 
   // Generate the empty value based on the input.
-  protected Json[string] _emptyValue(bool myvalue) {
-    return myvalue
-      ? ["": "".toJson] : ["": Json(myvalue)];
+  protected Json[string] isEmptyValue(bool _value) {
+    return _value
+      ? ["": "".toJson] : ["": Json(_value)];
+  }
+  unittest {
+    auto widget = new DSelectBoxWidget();
+    assert(widget.isEmptyValue(true) == ["": "".toJson]);
+    assert(widget.isEmptyValue(false) == ["": false.toJson]);
   }
 
-  protected Json[string] _emptyValue(Json[string] values) {
+  protected Json[string] isEmptyValue(Json[string] values) {
     return values.isEmpty
       ? ["": Json(values)] : values;
   }

@@ -39,69 +39,74 @@ Json[string] copy(Json[string] values, string[] keys = null) {
   return items;
 } */
 
-Json[string] merge(ref Json[string] items, string[] keys, Json value) {
+/* Json[string] merge(Json[string] items, string[] keys, Json value) {
+  keys.each!(key => items.merge(key, value));
+  return items;
+}
+Json[string] merge(Json[string] items, string key, Json value) {
+  if (items.hasKey(key)) {
+    items = items.set(key, value);
+  }
+  return items;
+} */ 
+
+V[K] merge(K:string, V:Json)(Json[string] items, string[] keys, Json value) {
   keys.each!(key => items = items.merge(key, value));
   return items;
 }
-Json[string] merge(ref Json[string] items, string key, Json value) {
+
+V[K] merge(K:string, V:Json)(Json[string] items, string key, V value) {
   if (key !in items) {
     items[key] = value;
   }
   return items;
 }
-unittest {
-  Json[string] test_map;
-  assert(test_map.length == 0);
-  assert(test_map.merge("one", Json(true)).length == 1);
-  assert(test_map.merge("two", Json(false)).length == 2);
-  assert(test_map.getBoolean("one"));
-  assert(!test_map.getBoolean("two"));
 
-  Json[string] testMap;
-  assert(testMap.length == 0);
-  assert(testMap.merge(["a", "b"], Json(true)).length == 2);
-  assert(testMap.merge(["c", "d"], Json(false)).length == 4);
-  assert(testMap.getBoolean("a"));
-  assert(!testMap.getBoolean("c"));
+Json[string] merge(Json[string] items, string[] keys, bool value) {
+  return items.merge(keys, Json(value));
 }
-
-Json[string] merge(ref Json[string] items, string[] keys, bool value) {
-  return merge(items, keys, Json(value));
-}
-Json[string] merge(ref Json[string] items, string key, bool value) {
-  return merge(items, key, Json(value));
+Json[string] merge(Json[string] items, string key, bool value) {
+  return items.merge(key, Json(value));
 }
 unittest {
-  Json[string] test_map;
-  assert(test_map.length == 0);
-  assert(test_map.merge("one", true).length == 1);
-  assert(test_map.merge("two", false).length == 2);
-  assert(test_map.getBoolean("one"));
-  assert(!test_map.getBoolean("two"));
-
   Json[string] testMap;
   assert(testMap.length == 0);
+  
+  testMap.merge("one", true);
+  assert(testMap.length == 1);
+  
+  testMap.merge("two", false);
+  assert(testMap.length == 2);
+  
+  assert(testMap.getBoolean("one"));
+  assert(!testMap.getBoolean("two"));
+
+  testMap.clear;
+  assert(testMap.length == 0);
+  
   assert(testMap.merge(["a", "b"], true).length == 2);
+  assert(testMap.merge(["c", "d"], false).length == 4);
   assert(testMap.merge(["c", "d"], false).length == 4);
   assert(testMap.getBoolean("a"));
   assert(!testMap.getBoolean("c"));
 }
 
-Json[string] merge(ref Json[string] items, string[] keys, string value) {
+Json[string] merge(Json[string] items, string[] keys, string value) {
   return merge(items, keys, Json(value));
 }
-Json[string] merge(ref Json[string] items, string key, string value) {
+Json[string] merge(Json[string] items, string key, string value) {
   return merge(items, key, Json(value));
 }
 unittest {
-  Json[string] test_map;
-  assert(test_map.length == 0);
-  assert(test_map.merge("one", "true").length == 1);
-  assert(test_map.merge("two", "false").length == 2);
-  assert(test_map.getString("one") == "true");
-  assert(test_map.getString("two") == "false");
-
   Json[string] testMap;
+  assert(testMap.length == 0);
+  
+  assert(testMap.merge("one", "true").length == 1);
+  assert(testMap.merge("two", "false").length == 2);
+  assert(testMap.getString("one") == "true");
+  assert(testMap.getString("two") == "false");
+
+  testMap.clear;
   assert(testMap.length == 0);
   assert(testMap.merge(["a", "b"], "true").length == 2);
   assert(testMap.merge(["c", "d"], "false").length == 4);
@@ -109,45 +114,50 @@ unittest {
   assert(testMap.getString("c") == "false");
 }
 
-Json[string] merge(ref Json[string] items, string[] keys, long value) {
+Json[string] merge(Json[string] items, string[] keys, long value) {
   return merge(items, keys, Json(value));
 }
-Json[string] merge(ref Json[string] items, string key, long value) {
+Json[string] merge(Json[string] items, string key, long value) {
   return merge(items, key, Json(value));
 }
 unittest {
   writeln("merge long");
-  Json[string] test_map;
-  assert(test_map.length == 0);
-  assert(test_map.merge("one", 1).length == 1);
-  assert(test_map.merge("two", 2).length == 2);
-/*   assert(test_map.getLong("one") == 1);
-  assert(test_map.getLong("two") == 2); */
-
   Json[string] testMap;
+  assert(testMap.length == 0);
+  
+  assert(testMap.merge("one", 1).length == 1);
+  assert(testMap.merge("two", 2).length == 2);
+/*   assert(testMap.getLong("one") == 1);
+  assert(testMap.getLong("two") == 2); */
+
+  testMap.clear;
   assert(testMap.length == 0);
   assert(testMap.merge(["a", "b"], 1).length == 2);
   assert(testMap.merge(["c", "d"], 2).length == 4);
 /*   assert(testMap.getLong("a") == 1);
   assert(testMap.getLong("c") == 2); */
+
+  testMap.clear;
+  assert(testMap.length == 0);
+  // assert(testMap.merge("a", 1).merge("b", 1).merge(["c", "d"], 2).length == 4);
 }
 
-Json[string] merge(ref Json[string] items, string[] keys, double value) {
+Json[string] merge(Json[string] items, string[] keys, double value) {
   return merge(items, keys, Json(value));
 }
-Json[string] merge(ref Json[string] items, string key, double value) {
+Json[string] merge(Json[string] items, string key, double value) {
   return merge(items, key, Json(value));
 }
 unittest {
   writeln("merge double");
-  Json[string] test_map;
-  assert(test_map.length == 0);
-  assert(test_map.merge("one", 1.1).length == 1);
-  assert(test_map.merge("two", 2.2).length == 2);
-  assert(test_map.getDouble("one") == 1.1);
-  assert(test_map.getDouble("two") == 2.2);
-
   Json[string] testMap;
+  assert(testMap.length == 0);
+  assert(testMap.merge("one", 1.1).length == 1);
+  assert(testMap.merge("two", 2.2).length == 2);
+  assert(testMap.getDouble("one") == 1.1);
+  assert(testMap.getDouble("two") == 2.2);
+
+  testMap.clear;
   assert(testMap.length == 0);
   assert(testMap.merge(["a", "b"], 1.1).length == 2);
   assert(testMap.merge(["c", "d"], 2.2).length == 4);

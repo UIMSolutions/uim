@@ -31,12 +31,12 @@ class DCacheClearGroupCommand : DCommand {
     auto definedParser = super.buildOptionParser(parserToDefine);
     with (definedParser) {
       description("Clear all data in a single cache group.");
-      addArgument("group", Map.create!(string, Json)
+      addArgument("group", MapHelper.create!(string, Json)
           .set("help", "The cache group to clear. For example, `uim cache clear_group mygroup` will clear "
             ~ "all cache items belonging to group 'mygroup'.")
           .set("required", true)
       );
-      addArgument("config", Map.create!(string, Json)
+      addArgument("config", MapHelper.create!(string, Json)
           .set("help", "Name of the configuration to use. Defaults to no value which clears all cache configurations.")
       );
     }

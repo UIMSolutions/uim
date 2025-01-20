@@ -536,19 +536,19 @@ unittest {
 unittest {
   // writeln("--- JMap all");
 
-  /* writeln(Map.create!(string, Json).set("x", "X"));
-  writeln(Map.create!(string, Json).set("x", "X").set("x", "X"));
-  writeln(Map.create!(string, Json).set("x", "X").set("y", "Y"));
-  writeln(Map.create!(string, Json).set("bool", true));
-  writeln(Map.create!(string, Json).set("bool", true).set("x", "X"));
+  /* writeln(MapHelper.create!(string, Json).set("x", "X"));
+  writeln(MapHelper.create!(string, Json).set("x", "X").set("x", "X"));
+  writeln(MapHelper.create!(string, Json).set("x", "X").set("y", "Y"));
+  writeln(MapHelper.create!(string, Json).set("bool", true));
+  writeln(MapHelper.create!(string, Json).set("bool", true).set("x", "X"));
 
-  writeln(Map.create!(string, Json).set("x", Json("X")));
-  writeln(Map.create!(string, Json).set("x", Json("X")).set("x", Json("X")));
-  writeln(Map.create!(string, Json).set("x", Json("X")).set("y", "Y"));
-  writeln(Map.create!(string, Json).set("bool", Json(true)));
-  writeln(Map.create!(string, Json).set("bool", Json(true)).set("x", Json("X")));
+  writeln(MapHelper.create!(string, Json).set("x", Json("X")));
+  writeln(MapHelper.create!(string, Json).set("x", Json("X")).set("x", Json("X")));
+  writeln(MapHelper.create!(string, Json).set("x", Json("X")).set("y", "Y"));
+  writeln(MapHelper.create!(string, Json).set("bool", Json(true)));
+  writeln(MapHelper.create!(string, Json).set("bool", Json(true)).set("x", Json("X")));
 
-  auto testMap = Map.create!(string, Json).set("x", "X");
+  auto testMap = MapHelper.create!(string, Json).set("x", "X");
   writeln(testMap.set("x", "X"));
   writeln(testMap.set("x", "X").set("x", "X"));
   writeln(testMap.set("x", "X").set("y", "Y"));

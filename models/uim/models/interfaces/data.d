@@ -171,10 +171,10 @@ You can support the project by donating on Patreon. Enterprise coverage is avail
 Underscore is an open-source component of DocumentCloud.
 
 v1.13.6 Downloads (Right-click, and use "Save As")
-ESM (Development)  65.9 KB, Uncompressed with Plentiful Comments  (Source Map)
-ESM (Production)  8.59 KB, Minified and Gzipped  (Source Map)
-UMD (Development)  68.4 KB, Uncompressed with Bountiful Comments  (Source Map)
-UMD (Production)  7.48 KB, Minified and Gzipped  (Source Map)
+ESM (Development)  65.9 KB, Uncompressed with Plentiful Comments  (Source MapHelper)
+ESM (Production)  8.59 KB, Minified and Gzipped  (Source MapHelper)
+UMD (Development)  68.4 KB, Uncompressed with Bountiful Comments  (Source MapHelper)
+UMD (Production)  7.48 KB, Minified and Gzipped  (Source MapHelper)
 Edge ESM  Unreleased, current master, use by your own judgement and at your own risk
 Edge UMD  Unreleased, current master, use if you’re feeling lucky
 v1.13.6 CDN URLs (Use with <script src="..."></script>)
@@ -900,9 +900,9 @@ Returns true if object is a Symbol.
 _.isSymbol(Symbol());
 => true
 isMap_.isMap(object) source
-Returns true if object is a Map.
+Returns true if object is a MapHelper.
 
-_.isMap(new Map());
+_.isMap(new MapHelper());
 => true
 isWeakMap_.isWeakMap(object) source
 Returns true if object is a WeakMap.

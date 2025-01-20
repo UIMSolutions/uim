@@ -61,7 +61,7 @@ mixin template TEntity() {
   protected bool _isNew = true;
 
   /**
-    * Map of fields in this entity that can be safely mass assigned, each
+    * MapHelper of fields in this entity that can be safely mass assigned, each
     * field name points to a boolean indicating its status. An empty array
     * means no fields are accessible for mass assigment.
     *

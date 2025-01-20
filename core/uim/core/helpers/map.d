@@ -4,12 +4,12 @@ import uim.core;
 
 @safe:
 
-class Map {
+class MapHelper {
     static V[K] create(K, V)() {
         return V[K]();
     }
     unittest {
-        auto items = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
         assert(items.length == 0);
     }
 
@@ -23,8 +23,8 @@ class Map {
         return results;
     }
     unittest {
-        auto items = Map.create!(string, string)();
-        auto otherItems = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
+        auto otherItems = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         otherItems["b"] = "2";
@@ -42,8 +42,8 @@ class Map {
         return results;
     }
     unittest {
-        auto items = Map.create!(string, string)();
-        auto otherItems = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
+        auto otherItems = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         otherItems["b"] = "2";
@@ -55,7 +55,7 @@ class Map {
         return (items.length == 0);   
     }
     unittest {
-        auto items = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
         assert(items.isEmpty);
 
         items["a"] = "1";
@@ -70,8 +70,8 @@ class Map {
         return results;
     }
     unittest {
-        auto items = Map.create!(string, string)();
-        auto otherItems = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
+        auto otherItems = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         otherItems["b"] = "2";
@@ -85,7 +85,7 @@ class Map {
         return results;
     }	
     unittest {
-        auto items = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         items["c"] = "3";
@@ -98,7 +98,7 @@ class Map {
         return results;
     }
     unittest {
-        auto items = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         assert(items.remove("b") == ["a": "1"]);
@@ -112,7 +112,7 @@ class Map {
         return results;
     }
     unittest {
-        auto items = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         assert(items.reverse == ["1": "a", "2": "b"]);
@@ -122,7 +122,7 @@ class Map {
         return items.keys.sort;
     }
     unittest {
-        auto items = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
         items["b"] = "2";
         items["a"] = "1";
         assert(items.sortedKeys == ["a", "b"]);
@@ -131,7 +131,7 @@ class Map {
         return items.values.sort;
     }
     unittest {
-        auto items = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
         items["b"] = "2";
         items["a"] = "1";
         assert(items.sortedValues == ["1", "2"]);
@@ -141,7 +141,7 @@ class Map {
         return "%s".format(items);
     }
     unittest {
-        auto items = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         assert(items.toString == `["a": "1", "b": "2"]`);
@@ -155,8 +155,8 @@ class Map {
         return results;
     }
     unittest {
-        auto items = Map.create!(string, string)();
-        auto updates = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
+        auto updates = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         updates["b"] = "3";
@@ -172,12 +172,12 @@ class Map {
         return results;
     }
     unittest {
-        auto items = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         assert(items.update(["a", "b"], "3") == ["a": "3", "b": "3"]);
 
-        items = Map.create!(string, string)();
+        items = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         assert(items.update(["a", "b", "c"], "3") == ["a": "3", "b": "3"]);
@@ -191,12 +191,12 @@ class Map {
         return results;
     }
     unittest {
-        auto items = Map.create!(string, string)();
+        auto items = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         assert(items.update("b", "3") == ["a": "1", "b": "3"]);
 
-        items = Map.create!(string, string)();
+        items = MapHelper.create!(string, string)();
         items["a"] = "1";
         items["b"] = "2";
         assert(items.update("b", "3") == ["a": "1", "b": "3"]);
@@ -204,5 +204,5 @@ class Map {
     }
 }
 unittest {
-    auto map = Map.create!(string, string)();
+    auto map = MapHelper.create!(string, string)();
 }

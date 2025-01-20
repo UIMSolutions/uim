@@ -50,15 +50,15 @@ class DDebugger : UIMObject, IErrorDebugger {
       "vscode": "vscode://file/{file}:{line}",
     ];
 
-/*     _stringContents = Map.create!(string, Json)
+/*     _stringContents = MapHelper.create!(string, Json)
       .set("log",
-        Map.create!(string, Json) // These templates are not actually used, as Debugger.log() is called instead.
+        MapHelper.create!(string, Json) // These templates are not actually used, as Debugger.log() is called instead.
         .set("trace", "{:reference} - {:path}, line {:line}")
           .set("error", "{:error} ({:code}): {:description} in [{:file}, line {:line}]")
       )
 
       .set("js",
-        Map.create!(string, Json)
+        MapHelper.create!(string, Json)
           .set("error", "")
           .set("info", "")
           .set("trace", htmlDoubleTag("pre", ["stack-trace"], "{:trace}"))
@@ -68,7 +68,7 @@ class DDebugger : UIMObject, IErrorDebugger {
           .set("escapeContext", true)
       )
       .set("html",
-        Map.create!(string, Json)
+        MapHelper.create!(string, Json)
           .set("trace", htmlDoubleTag("pre", ["uim-error trace"], "<b>Trace</b> <p>{:trace}</p>"))
           .set("dumpContext", htmlDoubleTag("pre", [
               "uim-error dumpContext"
@@ -76,13 +76,13 @@ class DDebugger : UIMObject, IErrorDebugger {
           .set("escapeContext", true)
       )
       .set("txt",
-        Map.create!(string, Json)
+        MapHelper.create!(string, Json)
           .set("error", "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}")
           .set("code", "")
           .set("info", "")
       )
       .set("base",
-        Map.create!(string, Json)
+        MapHelper.create!(string, Json)
           .set("traceLine", "{:reference} - {:path}, line {:line}")
           .set("trace", "Trace:\n{:trace}\n")
           .set("dumpContext", "Context:\n{:dumpContext}\n")
@@ -957,7 +957,7 @@ class DDebugger : UIMObject, IErrorDebugger {
 
         auto count = count(backtrace);
         auto back = null;
-        _trace = Map.create!(string, Json)
+        _trace = MapHelper.create!(string, Json)
             .set("line", "??")
             .set("file", "[internal]")
             .set("class", Json(null))

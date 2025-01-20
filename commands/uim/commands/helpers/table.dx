@@ -19,7 +19,7 @@ class DTableHelper : UIMObject { // }: Helper {
       return false;
     }
     
-    configuration.mergeDefaults(Map.create!(string, Json)
+    configuration.mergeDefaults(MapHelper.create!(string, Json)
       .set("headers", true)
       .set("rowSeparator", false)
       .set("headerStyle", "info"));

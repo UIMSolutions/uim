@@ -66,7 +66,7 @@ class DRoutesCheckCommand : DCommand {
       "Check a URL string against the routes. " ~
         "Will output the routing parameters the route resolves to."
    )
-      .addArgument("url", Map.create!(string, Json)
+      .addArgument("url", MapHelper.create!(string, Json)
           .set("help", "The URL to check.")
           .set("required", true)
         );

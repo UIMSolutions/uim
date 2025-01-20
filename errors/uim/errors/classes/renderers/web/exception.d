@@ -64,7 +64,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
   /* protected IServerRequest serverRequest; */
 
   /**
-     * Map of exceptions to http status codes.
+     * MapHelper of exceptions to http status codes.
      *
      * This can be customized for users that don`t want specific exceptions to throw 404 errors
      * or want their application exceptions to be automatically converted.

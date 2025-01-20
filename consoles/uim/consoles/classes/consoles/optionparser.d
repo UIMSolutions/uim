@@ -70,7 +70,7 @@ class DConsoleOptionParser : UIMObject, IConsoleOptionParser {
     super(initData);
   }
 
-  // Map of short ~ long options, generated when using addOption()
+  // MapHelper of short ~ long options, generated when using addOption()
   protected STRINGAA _shortOptions;
 
   // #region description
@@ -139,18 +139,18 @@ class DConsoleOptionParser : UIMObject, IConsoleOptionParser {
     super();
     /* setCommand(command);
 
-        addOption("help", Map.create!(string, Json)
+        addOption("help", MapHelper.create!(string, Json)
                 .set("short", "h")
                 .set("help", "Display this help.")
                 .set("boolean", true));
 
         if (isVerboseAndQuiet) {
-            addOption("verbose", Map.create!(string, Json)
+            addOption("verbose", MapHelper.create!(string, Json)
                     .set("short", "v")
                     .set("help", "Enable verbose output.")
                     .set("boolean", true));
 
-            addOption("quiet", Map.create!(string, Json)
+            addOption("quiet", MapHelper.create!(string, Json)
                     .set("short", "q")
                     .set("help", "Enable quiet output.")
                     .set("boolean", true));
@@ -315,7 +315,7 @@ class DConsoleOptionParser : UIMObject, IConsoleOptionParser {
   }
 
   IConsoleOptionParser addArgument(string argName, Json[string] options = null) {
-    Json[string] defaultOptions = Map.create!(string, Json)
+    Json[string] defaultOptions = MapHelper.create!(string, Json)
       .set("name", argName)
       .set("help", "")
       .set("index", _arguments.length)

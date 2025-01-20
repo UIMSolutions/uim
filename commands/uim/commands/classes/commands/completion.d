@@ -43,16 +43,16 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         aParser.description(
             "Used by shells like bash to autocomplete command name, options and arguments"
        );
-        aParser.addArgument("mode", Map.create!(string, Json)
+        aParser.addArgument("mode", MapHelper.create!(string, Json)
             .set("help", "The type of thing to get completion on.")
             .set("required", true)
             .set("choices", modes.keys)
         );
-        aParser.addArgument("command", Map.create!(string, Json)
+        aParser.addArgument("command", MapHelper.create!(string, Json)
             .set("help", "The command name to get information on.")
             .set("required", false)
         );
-        aParser.addArgument("subcommand", Map.create!(string, Json)
+        aParser.addArgument("subcommand", MapHelper.create!(string, Json)
             .set("help", "The sub-command related to command to get information on.")
             .set("required", false)
         );

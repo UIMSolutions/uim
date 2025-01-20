@@ -142,7 +142,7 @@ unittest {
 // #endregion hasAllValues
 
 pure string toJSONString(Json[string] values, bool sorted = NOTSORTED) {
-  string result = "{" ~ Map.sortedKeys(values)
+  string result = "{" ~ MapHelper.sortedKeys(values)
     .map!(key => `"%s": %s`.format(key, values[key]))
     .join(",") ~ "}";
 

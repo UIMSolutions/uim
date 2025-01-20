@@ -167,7 +167,7 @@ abstract class DCell : UIMObject { // : IEventDispatcher {
 
         templateName = templateName.ifEmpty("default");
         /* string key = ("cell_" ~ classname.underscore ~ "_" ~ invokedAction ~ "_" ~ templateName).replace("\\", "_");
-        auto defaultValue = Map.create!(string, Json)
+        auto defaultValue = MapHelper.create!(string, Json)
             .set("config", "default")
             .set("key", key); */
 

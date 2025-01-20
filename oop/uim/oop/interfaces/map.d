@@ -27,7 +27,7 @@ boolean  containsKey(Object key)
 Returns true if this map contains a mapping for the specified key.
 boolean  containsValue(Object value)
 Returns true if this map maps one or more keys to the specified value.
-Set<Map.Entry<K,V>>  entrySet()
+Set<MapHelper.Entry<K,V>>  entrySet()
 Returns a Set view of the mappings contained in this map.
 boolean  equals(Object o)
 Compares the specified object with this map for equality.
@@ -47,7 +47,7 @@ default V  merge(K key, V value, BiFunction<? super V,? super V,? extends V> rem
 If the specified key is not already associated with a value or is associated with null, associates it with the given non-null value.
 V  put(K key, V value)
 Associates the specified value with the specified key in this map (optional operation).
-void  putAll(Map<? extends K,? extends V> m)
+void  putAll(MapHelper<? extends K,? extends V> m)
 Copies all of the mappings from the specified map to this map (optional operation).
 default V  putIfAbsent(K key, V value)
 If the specified key is not already associated with a value (or is mapped to null) associates it with the given value and returns null, else returns the current value.

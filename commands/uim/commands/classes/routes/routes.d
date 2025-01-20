@@ -107,7 +107,7 @@ class DRoutesCommand : DCommand {
                 DConsoleOptionParser buildOptionParser(DConsoleOptionParser aParser) {
                     aParser
                         .description("Get the list of routes connected in this application.")
-                        .addOption("sort", Map.create!(string, Json)
+                        .addOption("sort", MapHelper.create!(string, Json)
                                 .set("help", "sorts alphabetically by route name A-Z")
                                 .set("short", "s")
                                 .set("boolean", true));
@@ -178,7 +178,7 @@ class DRoutesCommand : DCommand {
                     DConsoleOptionParser buildOptionParser aParser) {
                     aParser
                         .description("Get the list of routes connected in this application.")
-                        .addOption("sort", Map.create!(string, Json)
+                        .addOption("sort", MapHelper.create!(string, Json)
                             .set("help", "sorts alphabetically by route name A-Z")
                             .set("short", "s")
                             .set("boolean", true)

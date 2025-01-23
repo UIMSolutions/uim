@@ -6,6 +6,7 @@
 module uim.core.helpers;
 
 public {
+    import uim.core.helpers.array;
     import uim.core.helpers.classes;
     import uim.core.helpers.css;
     import uim.core.helpers.html;

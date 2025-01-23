@@ -66,9 +66,10 @@ V[K] filterByKeys(K, V)(V[K] entries, K[] keys) {
 V[K] filterByKey(K, V)(V[K] entries, K key) {
   V[K] results;
 
-  return entries.hasKey(key)
-    ? results.set(key, entries[key])
-    : results;
+  if (entries.hasKey(key)) {
+    results[key] = entries[key];
+  }
+  return results;
 }
 
 unittest {
@@ -120,3 +121,52 @@ unittest {
   assert(testMap.getString("A") == "A");
 }
 // #endregion replaceKey
+
+// #region hasKeys
+bool hasAllKeys(K, V)(V[K] base, K[] keys...) {
+  return base.hasAllKeys(keys.dup);
+}
+
+bool hasAllKeys(K, V)(V[K] base, string[] keys) {
+  return keys.all!(key => base.hasKey(key));
+}
+///
+unittest {
+  assert(["a": 1, "b": 2, "c": 3].hasAllKeys(["a", "b", "c"]));
+  assert(!["a": 1, "b": 2, "c": 3].hasAllKeys(["x", "b", "c"]));
+
+  assert(["a": "A", "c": "C"].hasAllKeys("a"));
+  assert(["a": "A", "c": "C"].hasAllKeys("a", "c"));
+
+  assert(["a": "A", "c": "C"].hasAllKeys(["a"]));
+  assert(["a": "A", "c": "C"].hasAllKeys(["a", "c"]));
+
+  assert(!["a": "A", "c": "C"].hasAllKeys("x"));
+  assert(!["a": "A", "c": "C"].hasAllKeys("x", "c"));
+
+  assert(!["a": "A", "c": "C"].hasAllKeys(["x"]));
+  assert(!["a": "A", "c": "C"].hasAllKeys(["x", "c"]));
+}
+
+bool hasAnyKeys(K, V)(V[K] base, string[] keys...) {
+  return base.hasAnyKeys(keys.dup);
+}
+
+bool hasAnyKeys(K, V)(V[K] base, string[] keys) {
+  return keys.any!(key => base.hasKey(key));
+}
+///
+unittest {
+  assert(["a": "A", "c": "C"].hasAnyKeys("a"));
+  assert(["a": "A", "c": "C"].hasAnyKeys("a", "x"));
+
+  assert(["a": "A", "c": "C"].hasAnyKeys(["a"]));
+  assert(["a": "A", "c": "C"].hasAnyKeys(["a", "x"]));
+
+  assert(!["a": "A", "c": "C"].hasAnyKeys("x"));
+  assert(!["a": "A", "c": "C"].hasAnyKeys("x", "y"));
+
+  assert(!["a": "A", "c": "C"].hasAnyKeys(["x"]));
+  assert(!["a": "A", "c": "C"].hasAnyKeys(["x", "y"]));
+}
+// #endregion hasKey

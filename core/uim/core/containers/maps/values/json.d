@@ -14,12 +14,12 @@ unittest {
 }
 
 // #region set
-  V[K] set(K, V:Json)(auto ref Json[string] items, Json[string] newItems) {
+  Json[string] set(Json[string] items, Json[string] newItems) {
     newItems.byKeyValue.each!(item => items[item.key] = item.value);
     return items;
   }
 
-  V[K] set(K, V:Json)(auto ref Json[string] items, K[] keys, bool value) {
+  Json[string] set(Json[string] items, string[] keys, bool value) {
     return set(items, keys, Json(value));
   }
   unittest {
@@ -28,7 +28,7 @@ unittest {
     assert(set(testmap, ["c", "d"], false)["c"].getBoolean == false);
   }
 
-  V[K] set(K, V:Json)(auto ref Json[string] items, string key, bool value) {
+  Json[string] set(Json[string] items, string key, bool value) {
     return set(items, key, Json(value));
   }
   unittest {
@@ -37,8 +37,8 @@ unittest {
     assert(set(testmap, "b", false)["b"].getBoolean == false);
   }
 
-  // #region set(K, V:Json)(..., int value)
-    V[K] set(K, V:Json)(auto ref Json[string] items, K[] keys, int value) {
+  // #region set(..., int value)
+    Json[string] set(Json[string] items, string[] keys, int value) {
       return set(items, keys, Json(value));
     }
     unittest {
@@ -47,7 +47,7 @@ unittest {
       assert(set(testmap, ["c", "d"], 2)["c"].getLong == 2);
     }
     
-    V[K] set(K, V:Json)(auto ref Json[string] items, string key, int value) {
+    Json[string] set(Json[string] items, string key, int value) {
       return set(items, key, Json(value));
     }
     unittest {
@@ -55,10 +55,10 @@ unittest {
       assert(set(testmap, "a", 1)["a"].getLong == 1);
       assert(set(testmap, "b", 2)["b"].getLong == 2);
     }
-  // #endregion set(K, V:Json)(..., int value)
+  // #endregion set(..., int value)
 
-  // #region set(K, V:Json)(..., long value)
-    V[K] set(K, V:Json)(auto ref Json[string] items, K[] keys, long value) {
+  // #region set(..., long value)
+    Json[string] set(Json[string] items, string[] keys, long value) {
       return set(items, keys, Json(value));
     }
     unittest {
@@ -67,7 +67,7 @@ unittest {
       assert(set(testmap, ["c", "d"], 2)["c"].getLong == 2);
     }
     
-    V[K] set(K, V:Json)(auto ref Json[string] items, string key, long value) {
+    Json[string] set(Json[string] items, string key, long value) {
       return set(items, key, Json(value));
     }
     unittest {
@@ -75,9 +75,9 @@ unittest {
       assert(set(testmap, "a", 1)["a"].getLong == 1);
       assert(set(testmap, "b", 2)["b"].getLong == 2);
     }
-  // #endregion set(K, V:Json)(..., long value)
+  // #endregion set(..., long value)
 
-  V[K] set(K, V:Json)(auto ref Json[string] items, K[] keys, double value) {
+  Json[string] set(Json[string] items, string[] keys, double value) {
     return set(items, keys, Json(value));
   }
   unittest {
@@ -86,7 +86,7 @@ unittest {
     assert(set(testmap, ["c", "d"], 2.1)["c"].getDouble == 2.1);
   }
   
-  V[K] set(K, V:Json)(auto ref Json[string] items, string key, double value) {
+  Json[string] set(Json[string] items, string key, double value) {
     return set(items, key, Json(value));
   }
   unittest {
@@ -95,8 +95,8 @@ unittest {
     assert(set(testmap, "b", 2.1)["b"].getDouble == 2.1);
   }
 
-  // #region set(K, V:Json)(..., string value)
-    V[K] set(K, V:Json)(auto ref Json[string] items, K[] keys, string value) {
+  // #region set(..., string value)
+    Json[string] set(Json[string] items, string[] keys, string value) {
       return set(items, keys, Json(value));
     }
     unittest {
@@ -105,7 +105,7 @@ unittest {
       assert(set(testmap, ["c", "d"], "two")["c"].getString == "two");
     }
 
-    V[K] set(K, V:Json)(auto ref Json[string] items, string key, string value) {
+    Json[string] set(Json[string] items, string key, string value) {
       return set(items, key, Json(value));
     }
     unittest {
@@ -113,46 +113,34 @@ unittest {
       assert(set(testmap, "a", "one")["a"].getString == "one");
       assert(set(testmap, "b", "two")["b"].getString == "two");
     }
-  // #endregion set(K, V:Json)(..., string value)
+  // #endregion set(..., string value)
 
-  // #region set(K, V:Json)(..., Json value)
-    V[K] set(K, V:Json)(auto ref Json[string] items, K[] keys, Json value) {
-      keys.each!(key => set(items, key, value));
-      return items;
-    }
-    unittest {
-      Json[string] testmap;
-      assert(set(testmap, ["a", "b"], Json("one"))["a"].getString == "one");
-      assert(set(testmap, ["c", "d"], Json("two"))["c"].getString == "two");
-    }
-
-    V[K] set(K, V:Json)(auto ref Json[string] items, string key, Json value) {
-      items[key] = value;
-      return items;
-      }
-      unittest {
-        Json[string] testmap;
-        assert(set(testmap, "a", Json("one"))["a"].getString == "one");
-        assert(set(testmap, "b", Json("two"))["b"].getString == "two");
-      }
-  // #endregion set(K, V:Json)(..., Json value)
-
-  V[K] set(K, V:Json)(auto ref Json[string] items, string key, string[] value) {
+  Json[string] set(Json[string] items, string key, string[] value) {
     return set(items, key, value.map!(v => Json(v)).array);
   }
 
-  V[K] set(K, V:Json)(auto ref Json[string] items, string key, Json[] value) {
+  Json[string] set(Json[string] items, string key, Json[] value) {
     return set(items, key, Json(value));
   }
 
-  V[K] set(K, V:Json)(auto ref Json[string] items, string key, string[string] value) {
+  Json[string] set(Json[string] items, string key, string[string] value) {
     Json[string] map;
     value.byKeyValue.each!(kv => map.set(kv.key, kv.value));
     return map;
   }
 
-  V[K] set(K, V:Json)(auto ref Json[string] items, string key, Json[string] value) {
+  Json[string] set(Json[string] items, string key, Json[string] value) {
     return set(items, key, Json(value));
+  }
+
+  Json[string] set(Json[string] items, string[] keys, Json value) {
+    keys.each!(key => items.set(key, value));
+    return items;
+  }
+
+  Json[string] set(Json[string] items, string key, Json value) {
+    items[key] = value;
+    return items;
   }
 
   unittest {

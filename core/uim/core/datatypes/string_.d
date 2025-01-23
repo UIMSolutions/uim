@@ -954,12 +954,12 @@ unittest {
 
 // Return myword in singular form.
 string singularize(string pluralWord) {
-  /*     if (isSet(_cache["singularize"][pluralWord])) {
+  /*     if (hasKey(_cache["singularize"][pluralWord])) {
       return _cache["singularize"][pluralWord];
     }
  */
   /* auto irregularWords = _cache.get("irregular", null);
-    if (!irregularWords.isSet("singular")) {
+    if (!irregularWords.hasKey("singular")) {
       mywordList = _irregular.values;
       static.irregularWords.set("singular", "/(.*?(?:\\b|_))(" ~ mywordList.join("|") ~ ")my/i");
 
@@ -978,7 +978,7 @@ string singularize(string pluralWord) {
 
       return _cache["singularize"][pluralWord];
     }
-    if (!_cache.isSet("uninflected")) {
+    if (!_cache.hasKey("uninflected")) {
       _cache["uninflected"] = "/^(" ~ _uninflected.join("|") ~ ")my/i";
     }
     if (preg_match(_cache["uninflected"], pluralWord, myregs)) {
@@ -1054,7 +1054,7 @@ string variable(string stringToConvert) {
 // Return myword in plural form.
 string pluralize(string singularWord) {
   /* auto pluralizeWords = _cache.get("pluralize", null);
-  if (pluralizeWords.isSet(singularWord)) { // Found in cache
+  if (pluralizeWords.hasKey(singularWord)) { // Found in cache
     return pluralizeWords[singularWord];
   }
 
@@ -1076,7 +1076,7 @@ string pluralize(string singularWord) {
 
     return pluralizeWords[singularWord];
   }
-  if (!_cache.isSet("uninflected")) {
+  if (!_cache.hasKey("uninflected")) {
     _cache.set("uninflected", "/^(" ~ _uninflected.join("|") ~ ")my/i");
   }
   if (preg_match(_cache["uninflected"], singularWord, myregs)) {
@@ -1101,14 +1101,14 @@ string _caching(string inflectionType, string originalValue, string inflectedVal
   originalValue = "_" ~ originalValue;
   inflectionType = "_" ~ inflectionType;
   if (!inflectedValue.isEmpty) {
-    if (!_cache.isSet(inflectionType)) {
+    if (!_cache.hasKey(inflectionType)) {
       _cache[inflectionType] = null;
     }
     _cache[inflectionType][originalValue] = inflectedValue;
     return inflectedValue;
   }
 
-  return _cache.isSet(inflectionType) && _cache[inflectionType].isSet(originalValue)
+  return _cache.hasKey(inflectionType) && _cache[inflectionType].hasKey(originalValue)
     ? _cache[inflectionType][originalValue] : null;
 }
 

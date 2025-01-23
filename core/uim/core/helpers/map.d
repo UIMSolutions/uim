@@ -5,204 +5,274 @@ import uim.core;
 @safe:
 
 class MapHelper {
-    static V[K] create(K, V)() {
-        return V[K]();
-    }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        assert(items.length == 0);
-    }
+  static V[K] create(K, V)() {
+    V[K] result; 
+    return result;
+  }
 
-    static V[K] diff(K, V)(V[K] items, V[K] otherItems) {
-        auto keys = items.keys.filter!(key => key !in otherItems).array;   
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    assert(items.length == 0);
+  }
 
-        V[K] results;
-        foreach (key; keys) {
-            results[key] = items[key];
-        }
-        return results;
-    }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        auto otherItems = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        otherItems["b"] = "2";
-        otherItems["c"] = "3";
-        assert(items.diff(otherItems) == ["a": "1"]);
-    }
+  static V[K] clear(K, V)(V[K] items) {
+    return V[K]();
+  }
 
-    static V[K] intersect(K, V)(V[K] items, V[K] otherItems) {
-        auto keys = items.keys.filter!(key => key in otherItems).array;   
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    assert(MapHelper.clear(items).length == 0);
+  }
 
-        V[K] results;
-        foreach (key; keys) {
-            results[key] = items[key];
-        }
-        return results;
-    }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        auto otherItems = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        otherItems["b"] = "2";
-        otherItems["c"] = "3";
-        assert(items.intersect(otherItems) == ["b": "2"]);
-    }
+  static V[K] clone(K, V)(V[K] items) {
+    return items.dup;
+  }
 
-    static bool isEmpty(K, V)(V[K] items) {
-        return (items.length == 0);   
-    }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        assert(items.isEmpty);
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    assert(MapHelper.clone(items) == items);
+  }
 
-        items["a"] = "1";
-        assert(!items.isEmpty);
-    }
+  static V[K] compact(K, V)(V[K] items) {
+    return items.filter!(value => value != null);
+  }
 
-    static V[K] merge(K, V)(V[K] items, V[K] otherItems) {
-        V[K] results = items.dup;
-        foreach (key, value; otherItems) {
-            results[key] = value;
-        }
-        return results;
-    }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        auto otherItems = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        otherItems["b"] = "2";
-        otherItems["c"] = "3";
-        assert(items.merge(otherItems) == ["a": "1", "b": "2", "c": "3"]);
-    }
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = null;
+    assert(MapHelper.compact(items) == ["a": "1"]);
+  }
 
-    static V[K] remove(K, V)(V[K] items, K[] keys) {
-        V[K] results = items.dup;
-        keys.each!(key => results.remove(key));
-        return results;
-    }	
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        items["c"] = "3";
-        assert(items.remove(["b", "c"]) == ["a": "1"]);
-    }
+  static V[K] set(K, V)(V[K] items, K key, V value) {
+    auto results = items.dup;
+    results[key] = value;
+    return results;
+  }
 
-    static V[K] remove(K, V)(V[K] items, K key) {
-        V[K] results = items.dup;
-        results.remove(key);
-        return results;
-    }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        assert(items.remove("b") == ["a": "1"]);
-    }
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    assert(MapHelper.set(items, "b", "3") == ["a": "1", "b": "3"]);
+  }
 
-    static V[K] reverse(K, V)(V[K] items) {
-        V[K] results;
-        foreach (key, value; items) {
-            results[value] = key;
-        }
-        return results;
-    }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        assert(items.reverse == ["1": "a", "2": "b"]);
-    }
+  static V[K] diff(K, V)(V[K] items, V[K] otherItems) {
 
-    static K[] sortedKeys(K, V)(V[K] items) {
-        return items.keys.sort;
+    V[K] results;
+    foreach (key; keys) {
+      results[key] = items[key];
     }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        items["b"] = "2";
-        items["a"] = "1";
-        assert(items.sortedKeys == ["a", "b"]);
-    }
-    static K[] sortedValues(K, V)(V[K] items) {
-        return items.values.sort;
-    }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        items["b"] = "2";
-        items["a"] = "1";
-        assert(items.sortedValues == ["1", "2"]);
-    }
+    return results;
+  }
 
-    static string toString(K, V)(V[K] items) {
-        return "%s".format(items);
-    }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        assert(items.toString == `["a": "1", "b": "2"]`);
-    }
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    auto otherItems = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    otherItems["b"] = "2";
+    otherItems["c"] = "3";
+    assert(MapHelper.diff(items, otherItems) == ["a": "1"]);
+  }
 
-    static V[K] update(K, V)(V[K] items, V[K] updates) {
-        V[K] results = items.dup;
-        updates.keys
-            .filter!(key => key in items)
-            .each!(key => results[k] = updates[key]);
-        return results;
-    }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        auto updates = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        updates["b"] = "3";
-        updates["c"] = "4";
-        assert(items.update(updates) == ["a": "1", "b": "3"]);
-    }
+  static V[K] intersect(K, V)(V[K] items, V[K] otherItems) {
+    auto keys = items.keys.filter!(key => key in otherItems).array;
 
-    static V[K] update(K, V)(V[K] items, K[] keys, V value) {
-        V[K] results = items.dup;
-        keys
-            .filter!(key => key in items)
-            .each!(key => results[k] = value);
-        return results;
+    V[K] results;
+    foreach (key; keys) {
+      results[key] = items[key];
     }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        assert(items.update(["a", "b"], "3") == ["a": "3", "b": "3"]);
+    return results;
+  }
 
-        items = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        assert(items.update(["a", "b", "c"], "3") == ["a": "3", "b": "3"]);
-    }
-    
-    static V[K] update(K, V)(V[K] items, K key, V value) {
-        if (key in items) {
-            V[K] results = items.dup;
-            results[key] = value;
-        }
-        return results;
-    }
-    unittest {
-        auto items = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        assert(items.update("b", "3") == ["a": "1", "b": "3"]);
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    auto otherItems = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    otherItems["b"] = "2";
+    otherItems["c"] = "3";
+    assert(MapHelper.intersect(items, otherItems) == ["b": "2"]);
+  }
 
-        items = MapHelper.create!(string, string)();
-        items["a"] = "1";
-        items["b"] = "2";
-        assert(items.update("b", "3") == ["a": "1", "b": "3"]);
-        assert(items.update("c", "1") == ["a": "1", "b": "3"]);
+  static bool isEmpty(K, V)(V[K] items) {
+    return (items.length == 0);
+  }
+
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    assert(items.isEmpty);
+
+    items["a"] = "1";
+    assert(!items.isEmpty);
+  }
+
+  static V[K] merge(K, V)(V[K] items, V[K] otherItems) {
+    V[K] results = items.dup;
+    foreach (key, value; otherItems) {
+      results[key] = value;
     }
+    return results;
+  }
+
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    auto otherItems = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    otherItems["b"] = "2";
+    otherItems["c"] = "3";
+    assert(MapHelper.merge(items, otherItems) == ["a": "1", "b": "2", "c": "3"]);
+  }
+
+  static V[K] remove(K, V)(V[K] items, K[] keys) {
+    V[K] results = items.dup;
+    keys.each!(key => results.remove(key));
+    return results;
+  }
+
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    items["c"] = "3";
+    assert(MapHelper.remove(items, ["b", "c"]) == ["a": "1"]);
+  }
+
+  static V[K] remove(K, V)(V[K] items, K key) {
+    V[K] results = items.dup;
+    results.remove(key);
+    return results;
+  }
+
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    assert(MapHelper.remove(items, "b") == ["a": "1"]);
+  }
+
+  static V[K] reverse(K, V)(V[K] items) {
+    V[K] results;
+    foreach (key, value; items) {
+      results[value] = key;
+    }
+    return results;
+  }
+
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    assert(MapHelper.reverse(items) == ["1": "a", "2": "b"]);
+  }
+
+  static K[] sortedKeys(K, V)(V[K] items, SortDir dir = SortDir.ASC) {
+    auto keys = items.keys;
+    switch (dir) {
+    case SortDir.ASC:
+      return keys.sort!("a < b").array;
+    case SortDir.DESC:
+      return keys.sort!("a > b").array;
+    default:
+      return keys;
+    }
+  }
+
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["b"] = "2";
+    items["a"] = "1";
+    assert(MapHelper.sortedKeys(items, SortDir.ASC) == ["a", "b"]);
+    assert(MapHelper.sortedKeys(items, SortDir.DESC) == ["b", "a"]);
+  }
+
+  static K[] sortedValues(K, V)(V[K] items) {
+    return sort!(items.values).array;
+  }
+
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["b"] = "2";
+    items["a"] = "1";
+    assert(MapHelper.sortedValues(items) == ["1", "2"]);
+  }
+
+  static string toString(K, V)(V[K] items) {
+    return "%s".format(items);
+  }
+
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    assert(MapHelper.toString(items) == `["a": "1", "b": "2"]`);
+  }
+
+  static V[K] update(K, V)(V[K] items, V[K] updates) {
+    V[K] results = items.dup;
+    updates.keys
+      .filter!(key => key in items)
+      .each!(key => results[k] = updates[key]);
+    return results;
+  }
+
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    auto updates = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    updates["b"] = "3";
+    updates["c"] = "4";
+    assert(MapHelper.update(items, updates) == ["a": "1", "b": "3"]);
+  }
+
+  static V[K] update(K, V)(V[K] items, K[] keys, V value) {
+    V[K] results = items.dup;
+    keys
+      .filter!(key => key in items)
+      .each!(key => results[k] = value);
+    return results;
+  }
+
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    assert(MapHelper.update(items, ["a", "b"], "3") == ["a": "3", "b": "3"]);
+
+    items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    assert(MapHelper.update(items, ["a", "b", "c"], "3") == ["a": "3", "b": "3"]);
+  }
+
+  static V[K] update(K, V)(V[K] items, K key, V value) {
+    if (key in items) {
+      V[K] results = items.dup;
+      results[key] = value;
+    }
+    return results;
+  }
+
+  unittest {
+    auto items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    assert(MapHelper.update(items, "b", "3") == ["a": "1", "b": "3"]);
+
+    items = MapHelper.create!(string, string)();
+    items["a"] = "1";
+    items["b"] = "2";
+    assert(MapHelper.update(items, "b", "3") == ["a": "1", "b": "3"]);
+  }
 }
+
 unittest {
-    auto map = MapHelper.create!(string, string)();
+  auto map = MapHelper.create!(string, string)();
 }

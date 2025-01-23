@@ -11,3 +11,9 @@ enum SortTypes : string {
     NUMERIC = "numeric", // Compare items numerically
     LOCALESTRING = "localstring" // Compare items as strings, based on current locale
 }
+
+enum SortDir : string {
+    NONE = "none", 
+    ASC = "asc", 
+    DESC = "desc" 
+}

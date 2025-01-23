@@ -59,10 +59,10 @@ class UIMObject : INamed {
     }
 
     Json[string] debugInfo(string[] showKeys = null, string[] hideKeys = null) {
-        Json[string] info;
-        return info
-            .set("name", name)
-            .set("classname", this.classname);
+        Json[string] info = MapHelper.create!(string, Json)();
+        info = set(info, "name", name);
+        info = set(info, "classname", this.classname);
+        return info; 
     }
 }
 

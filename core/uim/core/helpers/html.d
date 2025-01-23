@@ -12,3 +12,5 @@ import uim.core;
 unittest {
   writeln("-----  ", __MODULE__, "\t  -----");
 }
+
+

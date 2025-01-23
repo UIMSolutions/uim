@@ -30,12 +30,12 @@ string[] keys(Json anObject) {
 // #endregion Properties
 
 // #region Check json value
-bool isMap(Json aJson) {
-  return aJson.type == Json.Type.object;
+bool isMap(Json json) {
+  return json.type == Json.Type.object;
 }
 
-bool isObject(Json aJson) {
-  return aJson.type == Json.Type.object;
+bool isObject(Json json) {
+  return json.type == Json.Type.object;
 }
 ///
 unittest {
@@ -43,8 +43,8 @@ unittest {
   assert(!parseJsonString(`["a", "b", "c"]`).isObject);
 }
 
-bool isArray(Json aJson) {
-  return (aJson.type == Json.Type.array);
+bool isArray(Json json) {
+  return (json.type == Json.Type.array);
 }
 ///
 unittest {
@@ -52,8 +52,8 @@ unittest {
   assert(!parseJsonString(`{"a": "b"}`).isArray);
 }
 
-bool isBigInteger(Json aJson) {
-  return (aJson.type == Json.Type.bigInt);
+bool isBigInteger(Json json) {
+  return (json.type == Json.Type.bigInt);
 }
 ///
 unittest {
@@ -174,9 +174,9 @@ bool isIntegral(Json value) {
 }
 
 /// Checks if every key is in json object
-bool hasAllKeys(Json aJson, string[] keys, bool deepSearch = false) {
+bool hasAllKeys(Json json, string[] keys, bool deepSearch = false) {
   return keys
-    .filter!(k => hasKey(aJson, k, deepSearch))
+    .filter!(k => hasKey(json, k, deepSearch))
     .array.length == keys.length;
 }
 ///
@@ -187,9 +187,9 @@ unittest {
 }
 
 /// Check if Json has key
-bool hasAnyKeys(Json aJson, string[] keys, bool deepSearch = false) {
+bool hasAnyKeys(Json json, string[] keys, bool deepSearch = false) {
   foreach (key; keys) {
-    if (hasKey(aJson, key, deepSearch)) {
+    if (hasKey(json, key, deepSearch)) {
       return true;
     }
   }
@@ -205,9 +205,9 @@ unittest {
 
 /// Searching key in json, if depth = true also in subnodes  
 
-bool hasKey(Json aJson, string key, bool deepSearch = false) {
-  if (aJson.isObject) {
-    foreach (kv; aJson.byKeyValue) {
+bool hasKey(Json json, string key, bool deepSearch = false) {
+  if (json.isObject) {
+    foreach (kv; json.byKeyValue) {
       if (kv.key == key) {
         return true;
       }
@@ -221,9 +221,9 @@ bool hasKey(Json aJson, string key, bool deepSearch = false) {
   }
 
   if (deepSearch) {
-    if (aJson.isArray) {
-      for (size_t i = 0; i < aJson.length; i++) {
-        const result = aJson[i].hasKey(key, deepSearch);
+    if (json.isArray) {
+      for (size_t i = 0; i < json.length; i++) {
+        const result = json[i].hasKey(key, deepSearch);
         if (result) {
           return true;
         }
@@ -240,9 +240,9 @@ unittest {
   assert(json.hasKey("d", true));
 }
 
-bool hasAllValues(Json aJson, Json[] values, bool deepSearch = false) {
+bool hasAllValues(Json json, Json[] values, bool deepSearch = false) {
   foreach (value; values)
-    if (!hasValue(aJson, value, deepSearch)) {
+    if (!hasValue(json, value, deepSearch)) {
       return false;
     }
   return true;
@@ -306,13 +306,13 @@ unittest {
 }
 
 /// Check if jsonPath exists
-bool hasPath(Json aJson, string path, string separator = "/") {
-  if (!aJson.isObject) {
+bool hasPath(Json json, string path, string separator = "/") {
+  if (!json.isObject) {
     return false;
   }
 
   auto pathItems = path.split(separator);
-  return hasPath(aJson, pathItems);
+  return hasPath(json, pathItems);
 }
 
 bool hasPath(Json value, string[] path) {
@@ -385,8 +385,8 @@ Json remove(Json json, string[] delKeys...) {
   return remove(json, delKeys.dup);
 }
 
-Json remove(Json aJson, string[] delKeys) {
-  auto result = aJson;
+Json remove(Json json, string[] delKeys) {
+  auto result = json;
   delKeys.each!(k => result.remove(k));
   return result;
 }
@@ -1244,19 +1244,19 @@ bool isScalar(Json value) {
 }
 
 // #region isSet
-bool isSetAll(Json json, string[] keys...) {
-  return isSetAll(json, keys.dup);
+bool hasAllKeys(Json json, string[] keys...) {
+  return hasAllKeys(json, keys.dup);
 }
 
-bool isSetAll(Json json, string[] keys) {
+bool hasAllKeys(Json json, string[] keys) {
   return keys.all!(key => isSet(json, key));
 }
 
-bool isSetAny(Json json, string[] keys...) {
-  return isSetAny(json, keys.dup);
+bool hasAnyKey(Json json, string[] keys...) {
+  return hasAnyKey(json, keys.dup);
 }
 
-bool isSetAny(Json json, string[] keys) {
+bool hasAnyKey(Json json, string[] keys) {
   return keys.any!(key => isSet(json, key));
 }
 

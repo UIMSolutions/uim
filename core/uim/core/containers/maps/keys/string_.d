@@ -8,6 +8,8 @@ module uim.core.containers.maps.keys.string_;
 @safe:
 import std.algorithm : startsWith, endsWith;
 import uim.core;
+import uim.core.containers.maps.keys;
+import uim.core.containers.maps.values;
 
 unittest {
   writeln("-----  ", __MODULE__, "\t  -----");
@@ -73,11 +75,11 @@ unittest {
 // #endregion keysStartsNotWith
 
 // #region keysEndsWith
-bool allKeysEndsWith(K : string, V)(V[K] items, string postfix) { // right will overright left
+bool allKeysEndsWith(K, V)(V[K] items, K postfix) if (is(K == string)) { // right will overright left
   return items.byKeyValue.all!(item => endsWith(item.key, postfix));
 }
 
-bool anyKeysEndsWith(K : string, V)(V[K] items, string postfix) { // right will overright left
+bool anyKeysEndsWith(K, V)(V[K] items, K postfix) if (is(K == string)) { // right will overright left
   return items.byKeyValue.any!(item => endsWith(item.key, postfix));
 }
 
@@ -131,7 +133,7 @@ unittest {
 // #endregion lowerKeys
 
 // #region upperKeys
-V[K] upperKeys(K : string, V)(V[K] items) {
+V[K] upperKeys(K, V)(V[K] items) if (is(K == string)) {
   items.keys.each!(key => items.upperKey(key));
   return items;
   ;
@@ -153,7 +155,8 @@ V[K] upperKey(K, V)(V[K] items, string key) if (is(K == string)) {
 
   auto value = items[key];
   items.remove(key);
-  return set(items, key.upper, value);
+  items[key.upper] = value;
+  return items;
 }
 
 unittest {

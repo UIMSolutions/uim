@@ -8,9 +8,15 @@ module uim.core.containers.maps.keys.map;
 @safe:
 import uim.core;
 
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
+}
+
 // #region sortKeys
-K[] sortKeys(K, V)(V[K] items, SortDir dir = SortDir.ASC) {
-  switch (mode) {
+
+// Returns the keys of a map sorted in ascending or descending order.
+pure K[] sortKeys(K, V)(V[K] items, SortDir dir = SortDir.ASC) {
+  switch (dir) {
   case SortDir.ASC:
     return items.keys.sort!("a < b").array;
   case SortDir.DESC:
@@ -26,53 +32,55 @@ unittest {
 }
 // #endregion sortKeys
 
-unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+// #region withoutKeys
+// Returns a new map without the specified keys
+pure V[K] withoutKeys(K, V)(V[K] entries, K[] keys...) {
+  return withoutKeys(entries, keys.dup);
 }
 
-// #region notfilter
-V[K] notFilterByKeys(K, V)(V[K] entries, K[] keys...) {
-  return notFilterByKeys(entries, keys.dup);
-}
-
-V[K] notFilterByKeys(K, V)(V[K] entries, K[] keys) {
+// Returns a new map without the specified keys
+pure V[K] withoutKeys(K, V)(V[K] entries, K[] keys) {
   V[K] results = entries.dup;
   keys
-    .filter!(key => results.hasKey(key))
+    .filter!(key => entries.hasKey(key))
     .each!(key => results.remove(key));
 
   return results;
 }
 
-V[K] notFilterByKey(K, V)(V[K] entries, K key) {
-  V[K] results;
-
-  return !entries.hasKey(key)
-    ? results.set(key, entries.get(key))
-    : results;
+// Returns a new map without the specified key
+pure V[K] withoutKey(K, V)(V[K] entries, K key) {
+  V[K] results = entries.dup;
+  results.remove(key);
+  return results;
 }
-
 unittest {
-  assert(["a": 1, "b": 2].length == 2);
-  assert(["a": 1, "b": 2].hasKey("a"));
-  assert(["a": 1, "b": 2].hasKey("b"));
+  auto base = ["a": 1, "b": 2, "c": 3];
+  assert(base.length == 3);
+  assert(base.hasKey("a") && base.hasKey("b") && base.hasKey("c"));
 
-/*   assert(["a": 1, "b": 2].notFilterByKey("b").length == 1);
-  assert(["a": 1, "b": 2].hasKey("a"));
-  assert(!["a": 1, "b": 2].hasKey("b"));
+  auto result = base.withoutKey("a");
+  assert(result.length == 2 && !result.hasKey("a") && result.hasKey("b") && result.hasKey("c"));
 
-  assert(["a": 1, "b": 2].notFilterByKeys("b").length == 1);
-  assert(["a": 1, "b": 2].hasKey("a"));
-  assert(!["a": 1, "b": 2].hasKey("b")); */
+  result = base.withoutKeys(["b", "a"]);
+  assert(result.length == 1 && !result.hasKey("a") && !result.hasKey("b") && result.hasKey("c"));
+
+  result = base.withoutKeys("a", "c", "b");
+  assert(result.length == 0 && !result.hasKey("a") && !result.hasKey("b") && !result.hasKey("c"));
+
+  result = base.withoutKeys(["a", "c", "b"]);
+  assert(result.length == 0 && !result.hasKey("a") && !result.hasKey("b") && !result.hasKey("c"));
 }
-// #endregion notfilter
+// #endregion withoutKeys
 
 // #region filter
-V[K] filterByKeys(K, V)(V[K] entries, K[] keys...) {
-  return filterByKeys(entries, keys.dup);
+// returns a new map with only the specified keys
+pure V[K] filterKeys(K, V)(V[K] entries, K[] keys...) {
+  return filterKeys(entries, keys.dup);
 }
 
-V[K] filterByKeys(K, V)(V[K] entries, K[] keys) {
+// returns a new map with only the specified keys
+pure V[K] filterKeys(K, V)(V[K] entries, K[] keys) {
   V[K] results;
   keys
     .filter!(key => entries.hasKey(key))
@@ -81,9 +89,9 @@ V[K] filterByKeys(K, V)(V[K] entries, K[] keys) {
   return results;
 }
 
-V[K] filterByKey(K, V)(V[K] entries, K key) {
+// returns a new map with only the specified keys
+pure V[K] filterKey(K, V)(V[K] entries, K key) {
   V[K] results;
-
   if (entries.hasKey(key)) {
     results[key] = entries[key];
   }
@@ -91,17 +99,22 @@ V[K] filterByKey(K, V)(V[K] entries, K key) {
 }
 
 unittest {
-  assert(["a": 1, "b": 2].length == 2);
-  assert(["a": 1, "b": 2].hasKey("a"));
-  assert(["a": 1, "b": 2].hasKey("b"));
+  auto base = ["a": 1, "b": 2, "c": 3];
+  assert(base.length == 3);
+  assert(base.hasKey("a") && base.hasKey("b") && base.hasKey("c"));
 
-  assert(["a": 1, "b": 2].filterByKey("a").length == 1);
-  assert(["a": 1, "b": 2].hasKey("a"));
-  assert(!["a": 1, "b": 2].hasKey("c"));
+  auto result = base.filterKeys("b", "c");
+  assert(result.length == 2 && !result.hasKey("a") && result.hasKey("b") && result.hasKey("c"));
 
-  assert(["a": 1, "b": 2].filterByKeys("a").length == 1);
-  assert(["a": 1, "b": 2].hasKey("a"));
-  assert(!["a": 1, "b": 2].hasKey("c"));
+  result = base.filterKeys(["b", "c"]);
+  assert(result.length == 2);
+  assert(!result.hasKey("a") && result.hasKey("b") && result.hasKey("c"));
+
+  result = base.filterKey("c");
+  assert(result.length == 1 && !result.hasKey("a") && !result.hasKey("b") && result.hasKey("c"));
+
+  result = base.filterKey("c");
+  assert(result.length == 1 && !result.hasKey("a") && !result.hasKey("b") && result.hasKey("c"));
 }
 // #endregion filter
 

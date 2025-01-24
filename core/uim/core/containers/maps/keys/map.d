@@ -118,40 +118,46 @@ unittest {
 }
 // #endregion filter
 
-// #region replaceKey
-V[K] replaceKey(K, V)(V[K] entries, K[] originalPath, K[] newPath) {
-  if (originalPath.length != newPath.length) {
-    return entries;
-  }
-
-  // TODO 
-  return entries;
+// #region renameKey
+// Returns a new map with the specified key(s) renamed
+V[K] renameKeys(K, V)(V[K] entries, K[K] mapping) {
+  V[K] results = entries.dup;
+  mapping.each!((originalKey, newKey) {
+      results = results.renameKey(originalKey, newKey);
+  });
+  return results;
 }
 
-V[K] replaceKey(K, V)(V[K] entries, K originalKey, K newKey) {
-  if (!entries.hasKey(originalKey)) {
-    return entries;
-  }
-
-  V value = entries.shift(originalKey);
-  entries.set(newKey, value);
-
-  return entries;
+V[K] renameKey(K, V)(V[K] entries, K[] originalPath, K[] newPath) {
+  return entries.renameKey(originalPath.join("."), newPath.join("."));
 }
 
-///
+V[K] renameKey(K, V)(V[K] entries, K originalKey, K newKey) {
+  V[K] results = entries.dup;
+  if (!results.hasKey(originalKey)) {
+    return results;
+  }
+
+  V value = results.shift(originalKey);
+  results[newKey] = value;
+
+  return results;
+}
 unittest {
-  auto testMap = MapHelper.create!(string, Json)
-    .set("a", "A")
-    .set("obj", MapHelper.create!(string, Json).set("b", "B"));
+  auto base = ["a": 1, "b": 2, "c": 3, "a.a": 4, "a.b": 5];
+  assert(base.length == 5);
+  assert(base.hasKey("a") && base.hasKey("b") && base.hasKey("c"));
 
-  assert(!testMap.hasKey("A"));
-  assert(testMap.getString("a") == "A");
-  assert(testMap.replaceKey("a", "A"));
-  assert(testMap.hasKey("A"));
-  assert(testMap.getString("A") == "A");
+  auto result = base.renameKey("a", "x");
+  assert(result.length == 5 && !result.hasKey("a") && result.hasKey("b") && result.hasKey("c") && result.hasKey("x"));
+
+  result = base.renameKey(["a", "a"], ["x", "x"]);
+  assert(result.length == 5 && !result.hasKey("a.a") && result.hasKey("x.x"));
+
+  result = base.renameKeys(["a": "x", "b": "y"]);
+  assert(result.length == 5 && !result.hasKey("a") && !result.hasKey("b") && result.hasKey("c") && result.hasKey("x") && result.hasKey("y"));
 }
-// #endregion replaceKey
+// #endregion renameKey
 
 // #region hasKeys
 bool hasAllKeys(K, V)(V[K] base, K[] keys...) {

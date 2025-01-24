@@ -10,8 +10,9 @@ targetName "uim-consoles"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.0"
 
-# dependency "uim:core" path="../"
+dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
+dependency "uim:errors" path="../"
 
 sourcePaths "."
 importPaths "."

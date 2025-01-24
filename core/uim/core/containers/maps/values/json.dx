@@ -133,15 +133,13 @@ unittest {
     return set(items, key, Json(value));
   }
 
-  Json[string] set(Json[string] items, string[] keys, Json value) {
-    keys.each!(key => items.set(key, value));
-    return items;
+/*   Json[string] set(Json[string] items, string[] keys, Json value) {
+    return MapHelper.set(items, keys, value);
   }
 
   Json[string] set(Json[string] items, string key, Json value) {
-    items[key] = value;
-    return items;
-  }
+    return MapHelper.set(items, key, value);
+  } */
 
   unittest {
     Json[string] testmap;

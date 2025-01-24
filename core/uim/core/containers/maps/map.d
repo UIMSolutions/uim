@@ -11,7 +11,6 @@ import uim.core;
 enum SORTED = true;
 enum NOTSORTED = false;
 
-
 size_t[V] indexAA(V)(V[] values, size_t startPos = 0) {
   size_t[V] results;
   foreach (i, value; values)
@@ -185,151 +184,157 @@ unittest {
 // #endregion hasKey
 
 // #region set
-V[K] set(K, V)(V[K] items, K[] keys, V value) if (
-    (!is(K == string) && !is(V == Json)) &&
-    (!is(K == string) && !is(V == string))) {
-  keys.each!(key => items.set(key, value));
-  return items;
+V[K] set(K, V)(V[K] items, K[] keys, V value)
+    /* if (
+      (!is(K == string) && !is(V == Json)) &&
+    (!is(K == string) && !is(V == string))) */ {
+      auto results = items.dup;
+  keys.each!(key => results.set(key, value));
+  return results;
 }
 
-V[K] set(K, V)(V[K] items, K key, V value)  if (
-    (!is(K == string) && !is(V == Json)) &&
-    (!is(K == string) && !is(V == string))) {
+V[K] set(K, V)(V[K] items, K key, V value)
+    /* if (
+      (!is(K == string) && !is(V == Json)) &&
+    (!is(K == string) && !is(V == string))) */ {
   items[key] = value;
   return items;
 }
 
 unittest {
+  string[string] base = ["a": "A", "b": "B", "c": "C"];
+  assert(base.length == 3);
 
-  /* V[K] testJson;
-  // assert(set(testJson, "a", Json("A"))["a"].getString == "A"); */
+  auto test = base.set("d", "D");
+  assert(test.length == 4 && test.hasKey("d"));
+
+  test = base.set(["d", "e", "f"], "x");
+  assert(test.length == 6 && test.hasKey("d") && test["f"] == "x");
+
+  Json[string] base2 = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
+  assert(base2.length == 3);
+
+  auto test2 = base2.set("d", Json("x"));
+  assert(test2.length == 4 && test2.hasKey("d"));
+
+  test2 = base2.set(["d", "e", "f"], Json("x"));
+  assert(test2.length == 6 && test2.hasKey("d") && test2["f"] == "x");
 }
 // #endregion set
 
 // #region merge
 /+ Merge new items if key not exists +/
-auto merge(K, V)(V[K] items, V[K] mergeItems, K[] keys = null) {
+V[K] merge(K, V)(V[K] items, V[K] mergeItems, K[] keys = null) {
+  auto results = items.dup;
   keys.isNull
     ? mergeItems.byKeyValue
-    .each!(item => items = items.merge(item.key, item.value)) : mergeItems.byKeyValue
+    .each!(item => results = results.merge(item.key, item.value)) : mergeItems.byKeyValue
     .filter!(item => !keys.has(item.key))
-    .each!(item => items = items.merge(item.key, item.value));
+    .each!(item => results = results.merge(item.key, item.value));
 
-  return items;
+  return results;
 }
 
-auto merge(K, V)(V[K] items, K[] keys, V value) {
-  keys.each!(key => items = items.merge(key, value));
-  return items;
+V[K] merge(K, V)(V[K] items, K[] keys, V value) {
+  auto results = items.dup;
+  keys
+    .filter!(key => !(key in results))
+    .each!(key => results[key] = value);
+  return results;
 }
 
-auto merge(K, V)(V[K] items, K key, V value) {
-  if (key !in items) {
-    items[key] = value;
+V[K] merge(K, V)(V[K] items, K key, V value) {
+  auto results = items.dup;
+  if (key !in results) {
+    results[key] = value;
   }
-  return items;
+  return results;
 }
 
 unittest {
-/*   string[string] map = ["a": "A", "b": "B"];
-  // assert(map.length == 2);
-  // assert(map.merge("c", "C"));
-  // assert(map.length == 3);
-  // assert(map.merge("a", "X"));
-  // assert(map.length == 3);
+  string[string] base = ["a": "A", "b": "B"];
+  assert(base.length == 2);
 
-  V[K] testMap;
-  // assert(testMap.length == 0);
-  // assert(testMap.merge("one", Json(true)).length == 1);
-  // assert(testMap.merge("two", Json(false)).length == 2);
-  // assert(testMap.getBoolean("one"));
-  // assert(!testMap.getBoolean("two"));
+  auto test = base.merge("c", "C");
+  assert(test.length == 3 && test.hasKey("c"));
+  test = test.merge("a", "X");
+  assert(test.length == 3);
 
-  testMap.clear;
-  // assert(testMap.length == 0);
-  // assert(testMap.merge(["a", "b"], Json(true)).length == 2);
-  // assert(testMap.merge(["c", "d"], Json(false)).length == 4);
-  // assert(testMap.getBoolean("a"));
-  // assert(!testMap.getBoolean("c")); */
+  Json[string] base2 = ["a": Json("A"), "b": Json("B")];
+  assert(base2.length == 2);
+
+  auto test2 = base2.merge("c", Json("C"));
+  assert(test2.length == 3 && test2.hasKey("c"));
+  test2 = test2.merge("a", Json("X"));
+  assert(test2.length == 3);
 }
 // #endregion merge
 
 // #region update
+// Returns a new map with updated values
 V[K] update(K, V)(V[K] items, V[K] updateItems, K[] excludedKeys = null) {
+  V[K] results = items.dup;
   updateItems.byKeyValue
     .filter!(updateItem => !excludedKeys.has(updateItem.key))
-    .each!(updateItem => update(items, updateItem.key, updateItem.value));
+    .each!(updateItem => results = results.update(updateItem.key, updateItem.value));
 
-  return items;
+  return results;
 }
 
-V[K] update(K, V)(V[K] items, string key, Json value) {
+// Returns a new map with updated values
+V[K] update(K, V)(V[K] items, K[] keys, V value) {
+  V[K] results = items.dup;
+  keys.each!(key => results = results.update(key, value));
+  return results;
+}
+
+// Returns a new map with updated values
+V[K] update(K, V)(V[K] items, K key, V value) {
+  V[K] results = items.dup;
   if (key in items) {
-    items[key] = value;
+    results[key] = value;
   }
-  return items;
+  return results;
 }
 ///
 unittest {
-/*   // assert(["a": "A", "b": "B", "c": "C"].length == 3);
+  string[string] base = ["a": "A", "b": "B", "c": "C"];
+  assert(base.length == 3);
 
-  // assert(["a": "A", "b": "B", "c": "C"].update("a", "x").length == 3);
-  // assert(["a": "A", "b": "B", "c": "C"].update("a", "x")["a"] == "x");
+  auto test = base.update("b", "X");
+  assert(test.length == 3 && test.hasKey("b") && test["b"] == "X");
 
-  // assert(["a": "A", "b": "B", "c": "C"].update("x", "y").length == 3);
+  Json[string] base2 = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
+  assert(base2.length == 3);
 
-  // assert(["a": "A", "b": "B", "c": "C"].update(["a": "x"]).length == 3);
-  // assert(["a": "A", "b": "B", "c": "C"].update(["a": "x"])["a"] == "x");
-
-  // assert(["a": "A", "b": "B", "c": "C"].update(["a": "x", "b": "y"], ["b"]).length == 3);
-  // assert(["a": "A", "b": "B", "c": "C"].update(["a": "x", "b": "y"], ["b"])["a"] == "x");
-  // assert(["a": "A", "b": "B", "c": "C"].update(["a": "x", "b": "y"], ["b"])["b"] == "B"); */
+  auto test2 = base2.update("b", Json("X"));
+  assert(test2.length == 3 && test2.hasKey("b")/*  && test2["b"] == "X" */);
 }
 // #endregion update
 
-// #region updateKeys
-/+ Update existing keys +/
-V[K] update(K, V)(V[K] values, string[] keys, Json value = Json(null)) {
-  keys.each!(key => values.update(key, value));
-  return values;
-}
-
-unittest {
-/*   // assert(["a": "A", "b": "B", "c": "C"].length == 3);
-
-  // assert(["a": "A", "b": "B", "c": "C"].update("a", "x").length == 3);
-  // assert(["a": "A", "b": "B", "c": "C"].update("a", "x")["a"] == "x");
-
-  // assert(["a": "A", "b": "B", "c": "C"].update(["a"], "x").length == 3);
-  // assert(["a": "A", "b": "B", "c": "C"].update(["a"], "x")["a"] == "x");
-  // assert(["a": "A", "b": "B", "c": "C"].update(["a", "b"], "x")["b"] == "x");
-
-  // assert(["a": "A", "b": "B", "c": "C"].update("a", "x").length == 3);
-  // assert(["a": "A", "b": "B", "c": "C"].update("a", "x")["a"] == "x");
-  // assert(["a": "A", "b": "B", "c": "C"].update("a", "x")["b"] != "x"); */
-}
-// #endregion updateKeys
-
 // #region remove
 V[K] removeKeys(K, V)(V[K] items, K[] keys) {
+  V[K] results = items.dup;
   keys.each!(key => removeKey(items, key));
   return items;
 }
 
 V[K] removePath(K, V)(V[K] items, K[] path) {
+  V[K] results = items.dup;
   return !hasPath(items, path)
     ? items : items.removeKey(path.join("."));
 }
 
 V[K] removeKey(K, V)(V[K] items, K key) {
+  V[K] results = items.dup;
   if (hasKey(items, key)) {
-    items.remove(key); 
-   }
-   return items;
+    items.remove(key);
+  }
+  return results;
 }
 
 unittest {
-/*   // assert(["a": "A", "b": "B", "c": "C"].length == 3);
+  /*   // assert(["a": "A", "b": "B", "c": "C"].length == 3);
 
   // assert(removeKey(["a": "A", "b": "B", "c": "C"], "a").length == 2);
   // assert(["a": "A", "b": "B", "c": "C"].removeKey("a").length == 2);
@@ -526,7 +531,8 @@ V[K] shift(K, V)(V[K] items, K[] keys) {
 
 V shift(K, V)(V[K] items, K key) {
   V result;
-  if (key in items) result = items[key];
+  if (key in items)
+    result = items[key];
   items.remove(key);
   return result;
 }

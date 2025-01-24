@@ -1,5 +1,5 @@
 /****************************************************************************************************************
-* Copyright: © 2018-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
@@ -54,12 +54,18 @@ Json[string] merge(Json[string] items, string key, Json value) {
 Json[string] merge(Json[string] items, string[] keys, bool value) {
   return items.merge(keys, Json(value));
 }
+unittest {
+  Json[string] testMap;
+  assert(testMap.length == 0);
+  
+}
+
 Json[string] merge(Json[string] items, string key, bool value) {
   return items.merge(key, Json(value));
 }
 unittest {
   Json[string] testMap;
-  // assert(testMap.length == 0);
+  assert(testMap.length == 0);
   
   testMap.merge("one", true);
   // assert(testMap.length == 1);

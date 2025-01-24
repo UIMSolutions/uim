@@ -1,5 +1,5 @@
 /****************************************************************************************************************
-* Copyright: © 2018-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
@@ -11,8 +11,8 @@ import uim.core;
 
 class ArrayHelper {
   // Returns the first element of an array. Passing n will return the first n elements of the array.    
-  static V first(V)(V[] values, size_t number = 0) {
-    if (values.length == 0)
+  static V[] first(V)(V[] values, size_t number = 1) {
+    if (values.length == 0 || number == 0)
       return null;
 
     if (number >= values.length)
@@ -22,12 +22,17 @@ class ArrayHelper {
   }
 
   unittest {
-    auto values = ["1", "2", "3"];
-    // assert(ArrayHelper.initial(values) == ["1", "2"]);
+    string[] values = ["1", "2", "3"];
+    assert(ArrayHelper.first(values) == ["1"]);
+
+    assert(ArrayHelper.first(values, 1) == ["1"]);
+    assert(ArrayHelper.first(values, 0) is null);
+    assert(ArrayHelper.first(values, 2) == ["1", "2"]);
   }
 
   // Returns everything but the last entry of the array. Especially useful on the arguments object. Pass n to exclude the last n elements from the result.
-  static V[] initial(V)(V[] values, size_t number = 0) {
+  static V[] initial(V)(V[]
+   values, size_t number = 0) {
     if (values.length == 0)
       return null;
 
@@ -38,36 +43,41 @@ class ArrayHelper {
   }
 
   unittest {
-    /* string[] values = ["1", "2", "3"];
+    string[] values = ["1", "2", "3"];
         // assert(values.initial == ["1", "2"]); */
   }
 
   // Returns the last element of an array. Passing n will return the last n elements of the array.
-  static V last(V)(V[] values) {
+  static V[] last(V)(V[] values, size_t number = 1) {
     if (values.length == 0)
       return null;
 
-    return values.dup[$ - 1];
+    if (number >= values.length)
+      return values.dup;
+
+    return values.dup[$ - number..$];
   }
 
   unittest {
-    /*         auto values = ["1", "2", "3"];
-        // assert(ArrayHelper.last(values) == "3");
- */
+    string[] values = ["1", "2", "3"];
+    assert(ArrayHelper.last(values) == ["3"]);
   }
 
   // Returns the rest of the elements in an array. Pass an index to return the values of the array from that index onward.
   static V[] rest(V)(V[] values, size_t index = 0) {
-    if (values.length == 0)
+    if (values.length == 0 || index >= values.length)
       return null;
-    if (index < values.length)
-      return values.dup;
-    return values.dup[index .. $];
+
+    return values.dup[index+1 .. $];
   }
 
   unittest {
-    /*         auto values = ["1", "2", "3"];
-        // assert(ArrayHelper.rest(values) == ["2", "3"]); */
+    string[] values = ["1", "2", "3"];
+    assert(ArrayHelper.rest(values) == ["2", "3"]); 
+    assert(ArrayHelper.rest(values, 0) == ["2", "3"]); 
+    assert(ArrayHelper.rest(values, 1) == ["3"]); 
+    assert(ArrayHelper.rest(values, 2) == []); 
+    assert(ArrayHelper.rest(values, 3) == []); 
   }
 
   // 
@@ -76,18 +86,19 @@ class ArrayHelper {
   }
 
   unittest {
-    /*         auto values = [null, "2", "3"];
+    string[] values = [null, "2", "3"];
         // assert(ArrayHelper.compact(values) == ["2", "3"]); */
   }
 
   static V[] without(V)(V[] values, V[] others) {
-    return values.filter!(v => !others.any!(o => o == v));
+    return values.filter!(v => !others.any!(o => o == v)).array;
   }
 
   unittest {
-    /*         auto values = ["1", "2", "3"];
-        auto others = ["2", "3"];
-        // assert(ArrayHelper.without(values, others) == ["1"]); */
+    string[] values = ["1", "2", "3"];
+    string[] others = ["2", "3"];
+    assert(ArrayHelper.without(values, others) == ["1"]);
+    assert(ArrayHelper.without(values, null) == ["1", "2", "3"]);
   }
 
   static V[] unify(V)(V[] values) {

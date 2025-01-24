@@ -1,5 +1,5 @@
 /****************************************************************************************************************
-* Copyright: © 2018-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
@@ -11,24 +11,6 @@ import uim.core;
 enum SORTED = true;
 enum NOTSORTED = false;
 
-// #region sortKeys
-K[] sortKeys(K, V)(V[K] items, string mode = "ASC") {
-  switch (mode) {
-  case "NONE":
-    return items.keys;
-  case "DESC":
-    return items.keys.sort!("a > b").array;
-  default: // ASC
-    return items.keys.sort!("a < b").array;
-  }
-}
-
-unittest {
-  string[string] testMap = ["a": "A", "b": "B"];
-  // assert(testMap.sortKeys == ["a", "b"]);
-  // assert(testMap.sortKeys("DESC") == ["b", "a"]);
-}
-// #endregion sortKeys
 
 size_t[V] indexAA(V)(V[] values, size_t startPos = 0) {
   size_t[V] results;
@@ -38,8 +20,8 @@ size_t[V] indexAA(V)(V[] values, size_t startPos = 0) {
 }
 
 unittest {
-  // assert(["a", "b", "c"].indexAA == ["a": 0UL, "b": 1UL, "c": 2UL]);
-  // assert(["a", "b", "c"].indexAA(1) == ["a": 1UL, "b": 2UL, "c": 3UL]);
+  assert(["a", "b", "c"].indexAA == ["a": 0UL, "b": 1UL, "c": 2UL]);
+  assert(["a", "b", "c"].indexAA(1) == ["a": 1UL, "b": 2UL, "c": 3UL]);
 }
 
 size_t[V] indexAAReverse(V)(V[] values, size_t startPos = 0) {

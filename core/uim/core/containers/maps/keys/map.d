@@ -1,5 +1,5 @@
 /****************************************************************************************************************
-* Copyright: © 2018-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
@@ -7,6 +7,24 @@ module uim.core.containers.maps.keys.map;
 
 @safe:
 import uim.core;
+
+// #region sortKeys
+K[] sortKeys(K, V)(V[K] items, SortDir dir = SortDir.ASC) {
+  switch (mode) {
+  case SortDir.ASC:
+    return items.keys.sort!("a < b").array;
+  case SortDir.DESC:
+    return items.keys.sort!("a > b").array;
+  default: 
+    return items.keys;
+  }
+}
+unittest {
+  string[string] testMap = ["a": "A", "b": "B"];
+  assert(testMap.sortKeys == ["a", "b"]);
+  assert(testMap.sortKeys(SortDir.DESC) == ["b", "a"]);
+}
+// #endregion sortKeys
 
 unittest {
   writeln("-----  ", __MODULE__ , "\t  -----");

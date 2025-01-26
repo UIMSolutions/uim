@@ -5,8 +5,8 @@
 *****************************************************************************************************************/
 module uim.core.containers.maps.map;
 
-@safe:
 import uim.core;
+@safe:
 
 enum SORTED = true;
 enum NOTSORTED = false;

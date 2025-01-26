@@ -22,12 +22,31 @@ unittest {
   assert(Null!Json.isNull);
 }
 
-// #region Properties
+// #region keys
+// Get keys from json object
 string[] keys(Json anObject) {
   return !anObject.isNull
     ? anObject.byKeyValue.map!(kv => kv.key).array : null;
 }
-// #endregion Properties
+unittest {
+  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
+  assert(json.keys.hasAll("a", "c", "e"));
+  assert(!json.keys.hasAll("a", "c", "x"));
+}
+// #endregion keys
+
+// #region values
+// Get values from json object
+Json[] values(Json anObject) {
+  return !anObject.isNull
+    ? anObject.byKeyValue.map!(kv => kv.value).array : null;
+}
+unittest {
+  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
+/*   assert(json.values.hasAll("a", "c", "e"));
+  assert(!json.values.hasAll("a", "c", "x")); */
+}
+// #endregion values
 
 // #region Check json value
 bool isMap(Json json) {
@@ -109,9 +128,13 @@ unittest {
   assert(!parseJsonString(`1.1`).isInteger);
 }
 
+// #region isNull
+// Check if json value is null
 bool isNull(Json value) {
   return (value.type == Json.Type.null_);
 }
+
+mixin(CheckJsonIs!("Null"));
 
 bool isNull(Json value, string[] path) {
   if (uim.core.containers.arrays.array_.isEmpty(path)) {
@@ -128,23 +151,71 @@ bool isNull(Json value, string[] path) {
 }
 
 bool isNull(Json value, string key) {
-  return value.isObject && value.hasKey(key);
+  return value.isObject && value.hasKey(key) 
+    ? value[key].isNull
+    : true;
 }
 
 unittest {
-  /* assert(Json(null).isNull);
+  assert(Json(null).isNull);
   assert(!Json.emptyObject.isNull);
-  assert(!Json.emptyArray.isNull); */
-}
+  assert(!Json.emptyArray.isNull);
 
+  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
+  assert(json.isNull("x"));
+  assert(!json.isNull("a"));
+
+  assert(json.isNull(["x"]));
+  assert(!json.isNull(["a"]));
+  assert(json.isNull(["c", "x"]));
+  assert(!json.isNull(["c", "d"]));
+  assert(json.isNull(["c", "d", "x"]));
+
+  assert(json.allNull(["x", "y"]));
+  assert(!json.allNull(["a", "y"]));
+  assert(json.anyNull(["x", "y"]));
+  assert(!json.anyNull(["a", "c"]));
+}
+// #endregion isNull
+
+// #region isString
 bool isString(Json value) {
   return (value.type == Json.Type.string);
+}
+
+mixin(CheckJsonIs!("String"));
+
+bool isString(Json value, string[] path) {
+  if (value.isNull(path)) {
+    return false;
+  }
+
+  auto firstKey = path[0];
+  if (value.isString(firstKey)) {
+    return true;
+  }
+
+  return path.length > 1
+    ? isString(value[firstKey], path.removeFirst) : false;
+}
+
+bool isString(Json value, string key) {
+  return value.isObject && value.hasKey(key) 
+    ? value[key].isString
+    : true;
 }
 
 unittest {
   assert(parseJsonString(`"a"`).isString);
   assert(!parseJsonString(`1.1`).isString);
+
+  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": 1.1}], "i": {"j": "x"}}`);
+  assert(json.isString("a"));
+  assert(!json.isString("c"));
+  assert(json.isString(["i", "j"]));
+  assert(!json.isString(["e", "g"]));
 }
+// #endregion isString
 
 bool isUndefined(Json value) {
   return (value.type == Json.Type.undefined);
@@ -173,7 +244,8 @@ bool isIntegral(Json value) {
   return value.isLong;
 }
 
-/// Checks if every key is in json object
+// #region hasKey
+// Check if json has key
 bool hasAllKeys(Json json, string[] keys, bool deepSearch = false) {
   return keys
     .filter!(k => hasKey(json, k, deepSearch))
@@ -239,6 +311,7 @@ unittest {
   assert(json.hasKey("a"));
   assert(json.hasKey("d", true));
 }
+// #endregion hasKey
 
 bool hasAllValues(Json json, Json[] values, bool deepSearch = false) {
   foreach (value; values)

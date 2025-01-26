@@ -128,10 +128,12 @@ V[K] renameKeys(K, V)(V[K] entries, K[K] mapping) {
   return results;
 }
 
+// Returns a new map with the specified key(s) renamed
 V[K] renameKey(K, V)(V[K] entries, K[] originalPath, K[] newPath) {
   return entries.renameKey(originalPath.join("."), newPath.join("."));
 }
 
+// Returns a new map with the specified key(s) renamed
 V[K] renameKey(K, V)(V[K] entries, K originalKey, K newKey) {
   V[K] results = entries.dup;
   if (!results.hasKey(originalKey)) {

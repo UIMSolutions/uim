@@ -245,6 +245,22 @@ bool has(T)(in T[] source, in T[] values) {
   return hasAllValues(source, values);
 }
 
+bool hasAll(T)(in T[] source, in T[] values...) {
+  return hasAllValues(source, values.dup);
+}
+
+bool hasAll(T)(in T[] source, in T[] values) {
+  return hasAllValues(source, values);
+}
+
+bool hasAny(T)(in T[] source, in T[] values...) {
+  return hasAnyValues(source, values.dup);
+}
+
+bool hasAny(T)(in T[] source, in T[] values) {
+  return hasAnyValues(source, values);
+}
+
 // #region hasAllValues & hasValue
 bool hasAllValues(T)(in T[] source, in T[] values...) {
   return hasAllValues(source, values.dup);

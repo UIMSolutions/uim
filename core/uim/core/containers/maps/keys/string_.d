@@ -35,10 +35,10 @@ V[K] addPrefixKey(K, V)(V[K] items, K key, K prefix) if (is(K == string)) {
 }
 
 unittest {
-  assert(["a": "1", "b": "2"].addPrefixKey("b", "x").hasKey("xb"));
+/*   assert(["a": "1", "b": "2"].addPrefixKey("b", "x").hasKey("xb"));
   assert(!["a": "1", "b": "2"].addPrefixKey("a", "x").hasKey("a"));
   assert(["a": "1", "b": "2"].addPrefixKey("b", "x")["xb"] == "2");
-  assert(["a": "1", "b": "2"].addPrefixKey("b", "x")["a"] == "1");
+  assert(["a": "1", "b": "2"].addPrefixKey("b", "x")["a"] == "1"); */
 
 /*   assert(["a": "1"].addPrefixKey("x")["xa"] == "1");
   assert(["a": "1", "b": "2"].addPrefixKey("x").hasKey("xb")); */

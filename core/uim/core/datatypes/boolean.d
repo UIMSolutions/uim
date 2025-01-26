@@ -28,18 +28,16 @@ bool toggle(bool value) {
   return !value;
 }
 
-bool toggle(ref bool value) {
-  value = !value;
-  return value;
-}
-
 unittest {
   assert(toggle(true) == false, "Error in toggle(bool)");
   assert(toggle(toggle(true)) == true, "Error in toggle(bool)");
 
   bool value = true;
   assert(value.toggle == false);
-  assert(value == false);
+  /* assert(value == false);
+
+  value = true;
+  assert(value.toggle.toggle == true); */
 }
 
 /// Translates boolean to defined values
@@ -50,6 +48,9 @@ pure T translate(T)(bool value, T ifTrue, T ifFalse) {
 unittest {
   assert(translate(true, "YES", "NO") == "YES", "Error in translate(bool, T, T)");
   assert(translate(false, "YES", "NO") == "NO", "Error in translate(bool, T, T)");
+
+  assert(translate(true, 1, 2) == 1, "Error in translate(bool, T, T)");
+  assert(translate(false, 1, 2) == 2, "Error in translate(bool, T, T)");
 }
 
 /// Translates boolean to defined values

@@ -3,10 +3,12 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.core.containers.maps.values;
+module uim.core.containers.maps.values.json;
 
-public {
-    import uim.core.containers.maps.values.json;
-    import uim.core.containers.maps.values.map;
-    import uim.core.containers.maps.values.string_;
+@safe:
+import std.algorithm : startsWith, endsWith;
+import uim.core;
+
+unittest {
+  writeln("-----  ", __MODULE__ , "\t  -----");
 }

@@ -271,8 +271,7 @@ unittest {
   // Returns a new map with updated values for existing keys
   V[K] update(K, V)(V[K] items, K[] keys, V value) {
     keys
-      .filter!(key => key in items)
-      .each!(key => items.set(key, value));
+      .each!(key => items.update(key, value));
     return items;
   }
 

@@ -13,3 +13,9 @@ dependency "colored" version="~>0.0.31"
 
 sourcePaths "."
 importPaths "."
+
+// configuration "default" {}
+
+configuration "test_uim_core" {
+	versions "test_uim_core"
+}

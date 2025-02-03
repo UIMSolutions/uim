@@ -75,30 +75,62 @@ unittest {
 }
 
 // #region update
-STRINGAA update(string[string] items, string key, bool value) {
-  return items.update(key, to!string(value));
-}
+  // returns a updated map with new values
+  V[K] update(K : string, V:
+    string, T)(V[K] items, T[K] others, K[] keys...) {
+    return update(items, others, keys.dup);
+  }
 
-STRINGAA update(string[string] items, string key, long value) {
-  return items.update(key, to!string(value));
-}
+  // Returns a new map with updated values for existing keys
+  V[K] update(K : string, V:
+    string, T)(V[K] items, T[K] others, K[] keys = null) {
+    keys.length == 0
+      ? others
+      .each!((key, value) => items.update(key, value)) : keys
+      .each!(key => items.update(key, others[key]));
 
-STRINGAA update(string[string] items, string key, double value) {
-  return items.update(key, to!string(value));
-}
+    return items;
+  }
 
-STRINGAA update(string[string] items, string key, Json value) {
-  return items.update(key, value.toString);
-}
-
-STRINGAA update(string[string] items, string key, string value = null) {
-  items[key] = value;
+V[K] update(K:string, V:string, T)(V[K] items, K[] keys, T value) {
+  keys.each!(key => items.update(key, to!string(value)));
   return items;
 }
 
+V[K] update(K:string, V:string, T)(V[K] items, K key, T value) {
+  return items.update(key, to!string(value));
+}
+
+V[K] update(K:string, V:string, T:Json)(V[K] items, K key, T value) {
+  return items.update!(key, value.toString);
+}
+
+V[K] update(K:string, V:string, T:string)(V[K] items, K key, T value) {
+  return items.update!(K, V)(key, value);
+}
+
 unittest {
-  string[string] testmap = ["a": "a", "b": "b"];
-  assert(update(testmap, "a", "A")["a"] == "A");
+    string[string] test = ["a": "A", "b": "B", "c": "C"];
+    assert(test.length == 3 && test.hasAllKeys("a", "b", "c") && test["a"] == "A");
+
+    test.update("a", "x").update("d", "x").update("e", "x").update("f", "x");
+    assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] == "x");
+
+    test = ["a": "A", "b": "B", "c": "C"]; // Reset map
+    update(test, ["c", "d", "e"], "x");
+    assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] != "x" && test["c"] == "x");
+
+    test = ["a": "A", "b": "B", "c": "C"]; // Reset map
+    test.update(["a", "b", "c"], "x").update(["d", "e", "f"], "x");
+    assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] == "x" && test["c"] == "x");
+
+    test = ["a": "A", "b": "B", "c": "C"]; // Reset map
+    test.update(["c": "x", "d": "x", "e": "x"]);
+    assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] != "x" && test["c"] == "x");
+
+    test = ["a": "A", "b": "B", "c": "C"]; // Reset map
+    test.update(["c": "x", "d": "x", "e": "x"], "c", "e");
+    assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] != "x" && test["c"] == "x");
 }
 // #endregion update
 

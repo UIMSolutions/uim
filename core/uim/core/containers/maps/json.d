@@ -51,6 +51,11 @@ alias JMAP = Json[string];
   }
 
   unittest {
+    Json[string] map1;
+    map1.set("name", "Ozan").set("classname", "UIManufaktur");
+    writeln(map1);
+    assert(map1.length == 2);
+
     Json[string] map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
     assert(map.length == 3);
 
@@ -568,13 +573,6 @@ unittest {
   writeln("toString -> ", testItems);
   writeln("toString -> ", testItems.toString);
   writeln("toString -> ", testItems.toString(["long", "string"]));
-}
-
-STRINGAA toStringMap(Json[string] map) {
-  STRINGAA stringMap;
-  map.byKeyValue
-    .each!(kv => stringMap[kv.key] = kv.value.to!string);
-  return stringMap;
 }
 
 Json[string] copy(Json[string] values, string[] keys = null) {

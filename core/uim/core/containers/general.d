@@ -8,6 +8,13 @@ module uim.core.containers.general;
 @safe:
 import uim.core;
 
+version (test_uim_core) {
+unittest {
+  writeln(__FILE__, "/", __LINE__);
+  // assert(["a": 1, "b": 2].toHTML(SORTED) == `a="1" b="2"`);
+}
+}
+
 bool isSet(V)(V value) {
   return !(value is null);
 }

@@ -9,10 +9,11 @@ import uim.core;
 
 @safe:
 
-unittest {
+version (test_uim_core) {
+  unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
-
 string jsonValue(bool value) {
     return value ? "true" : "false";
 }

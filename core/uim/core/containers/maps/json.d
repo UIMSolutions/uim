@@ -18,14 +18,14 @@ alias JMAP = Json[string];
 
 // #region set
   // returns a updated map with new values
-  V[K] set(K : string, V:
-    Json, T)(V[K] items, T[K] others, K[] keys...) {
+  ref set(K : string, V:
+    Json, T)(ref V[K] items, T[K] others, K[] keys...) {
     return set(items, others, keys.dup);
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] set(K : string, V:
-    Json, T)(V[K] items, T[K] others, K[] keys = null) {
+  ref set(K : string, V:
+    Json, T)(ref V[K] items, T[K] others, K[] keys = null) {
     keys.length == 0
       ? others
       .each!((key, value) => items.set(key, value)) : keys
@@ -36,28 +36,32 @@ alias JMAP = Json[string];
   }
 
   // returns a updated map with new values
-  V[K] set(K : string, V:
-    Json, T)(V[K] items, K[] keys, T value) {
+  ref set(K : string, V:
+    Json, T)(ref V[K] items, K[] keys, T value) {
     keys.each!(key => items.set(key, value));
     return items;
   }
 
   // returns a updated map with new values
-  V[K] set(K : string, V:
-    Json, T)(V[K] items, K key, T value) if (!is(typeof(value) == Json)) {
+  ref set(K : string, V:
+    Json, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == Json)) {
     return items.set(key, Json(value));
   }
 
   // returns a updated map with new values
-  V[K] set(K : string, V:
-    Json, T)(V[K] items, K key, T value) if (is(typeof(value) == Json)) {
-    items[key] = value;
+  ref set(K : string, V:
+    Json, T)(ref V[K] items, K key, T value) if (is(typeof(value) == Json)) {
+    if (items is null) {
+
+    }
+    items[key] = value;    
     return items;
   }
 
   unittest {
-    Json[string] map1;
-    map1.set("name", "Ozan").set("classname", "UIManufaktur");
+    Json[string] map1 = MapHelper.create!(string, Json)();
+    map1.set("name", "Ozan");
+    map1.set("classname", "UIManufaktur");
     writeln(map1);
     assert(map1.length == 2);
 
@@ -101,14 +105,14 @@ alias JMAP = Json[string];
 
 // #region update
   // Returns a updated map with updated of existing keys and new values
-  V[K] update(K : string, V:
-    Json, T)(V[K] items, T[K] merges, K[] keys...) {
+  ref update(K : string, V:
+    Json, T)(ref V[K] items, T[K] merges, K[] keys...) {
     return update(items, merges, keys.dup);
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] update(K : string, V:
-    Json, T)(V[K] items, T[K] merges, K[] keys = null) {
+  ref update(K : string, V:
+    Json, T)(ref V[K] items, T[K] merges, K[] keys = null) {
     keys.length == 0
       ? merges
       .each!((key, value) => items.update(key, value)) : keys
@@ -119,22 +123,22 @@ alias JMAP = Json[string];
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] update(K : string, V:
-    Json, T)(V[K] items, K[] keys, T value) {
+  ref update(K : string, V:
+    Json, T)(ref V[K] items, K[] keys, T value) {
     keys
       .each!(key => items.update(key, value));
     return items;
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] update(K : string, V:
-    Json, T)(V[K] items, K key, T value) if (!is(typeof(value) == Json)) {
+  ref update(K : string, V:
+    Json, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == Json)) {
     return items.update(key, Json(value));
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] update(K : string, V:
-    Json, T)(V[K] items, K key, T value) if (is(typeof(value) == Json)) {
+  ref update(K : string, V:
+    Json, T)(ref V[K] items, K key, T value) if (is(typeof(value) == Json)) {
     if (key in items) {
       items[key] = value;
     }
@@ -171,14 +175,14 @@ alias JMAP = Json[string];
 
 // #region merge
   // Returns a updated map with updated of existing keys and new values
-  V[K] merge(K : string, V:
-    Json, T)(V[K] items, T[K] merges, K[] keys...) {
+  ref merge(K : string, V:
+    Json, T)(ref V[K] items, T[K] merges, K[] keys...) {
     return merge(items, merges, keys.dup);
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] merge(K : string, V:
-    Json, T)(V[K] items, T[K] merges, K[] keys = null) {
+  ref merge(K : string, V:
+    Json, T)(ref V[K] items, T[K] merges, K[] keys = null) {
     keys.length == 0
       ? merges
       .each!((key, value) => items.merge(key, value)) : keys
@@ -189,22 +193,22 @@ alias JMAP = Json[string];
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] merge(K : string, V:
-    Json, T)(V[K] items, K[] keys, T value) {
+  ref merge(K : string, V:
+    Json, T)(ref V[K] items, K[] keys, T value) {
     keys
       .each!(key => items.merge(key, value));
     return items;
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] merge(K : string, V:
-    Json, T)(V[K] items, K key, T value) if (!is(typeof(value) == Json)) {
+  ref merge(K : string, V:
+    Json, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == Json)) {
     return items.merge(key, Json(value));
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] merge(K : string, V:
-    Json, T)(V[K] items, K key, T value) if (is(typeof(value) == Json)) {
+  ref merge(K : string, V:
+    Json, T)(ref V[K] items, K key, T value) if (is(typeof(value) == Json)) {
     if (key !in items) {
       items[key] = value;
     }
@@ -240,11 +244,11 @@ alias JMAP = Json[string];
 // #endregion merge
 
 // #region ifNull
-Json ifNull(K:string, V:Json, T)(V[K] items, K key, T defaultValue) {
+Json ifNull(K:string, V:Json, T)(ref V[K] items, K key, T defaultValue) {
   return items.isNull(key) ? Json(defaultValue) : items[key];
 }
 
-Json ifNull(K:string, V:Json, T:Json)(V[K] items, K key, T defaultValue) {
+Json ifNull(K:string, V:Json, T:Json)(ref V[K] items, K key, T defaultValue) {
   return items.isNull(key) ? defaultValue : items[key];
 }
 unittest {

@@ -5,3 +5,9 @@
 *****************************************************************************************************************/
 module uim.core.enumerations.logs;
 
+version (test_uim_core) {
+  unittest {
+    import std.stdio;
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}

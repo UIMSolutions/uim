@@ -18,7 +18,7 @@ version (test_uim_core) {
 // #region sortKeys
 
 // Returns the keys of a map sorted in ascending or descending order.
-pure K[] sortKeys(K, V)(V[K] items, SortDir dir = SortDir.ASC) {
+pure K[] sortKeys(K, V)(ref V[K] items, SortDir dir = SortDir.ASC) {
   switch (dir) {
   case SortDir.ASC:
     return items.keys.sort!("a < b").array;
@@ -123,7 +123,7 @@ unittest {
 
 // #region renameKey
 // Returns a new map with the specified key(s) renamed
-V[K] renameKeys(K, V)(V[K] items, K[K] mapping) {
+V[K] renameKeys(K, V)(ref V[K] items, K[K] mapping) {
   mapping.each!((originalKey, newKey) {
       items.renameKey(originalKey, newKey);
   });
@@ -131,7 +131,7 @@ V[K] renameKeys(K, V)(V[K] items, K[K] mapping) {
 }
 
 // Returns a new map with the specified key(s) renamed
-V[K] renameKeys(K, V)(V[K] items, K[] keys, K[] others) {
+V[K] renameKeys(K, V)(ref V[K] items, K[] keys, K[] others) {
   if (keys.length <= others.length) {
     keys.each!((i, key) => items.renameKey(key, others[i])); 
   }
@@ -142,7 +142,7 @@ V[K] renameKeys(K, V)(V[K] items, K[] keys, K[] others) {
 }
 
 // Returns a new map with the specified key(s) renamed
-V[K] renameKey(K, V)(V[K] items, K originalKey, K newKey) {
+V[K] renameKey(K, V)(ref V[K] items, K originalKey, K newKey) {
   if (!items.hasKey(originalKey)) {
     return items;
   }
@@ -262,16 +262,16 @@ unittest {
 // #endregion hasKey
 
 // #region removeKey
-  V[K] removeKeys(K, V)(V[K] items, K[] keys...) {
+  V[K] removeKeys(K, V)(ref V[K] items, K[] keys...) {
     return removeKeys(items, keys.dup);
   }
 
-  V[K] removeKeys(K, V)(V[K] items, K[] keys) {
+  V[K] removeKeys(K, V)(ref V[K] items, K[] keys) {
     keys.each!(key => removeKey(items, key));
     return items;
   }
 
-  V[K] removeKey(K, V)(V[K] items, K key) {
+  V[K] removeKey(K, V)(ref V[K] items, K key) {
     if (hasKey(items, key)) {
       items.remove(key);
     }

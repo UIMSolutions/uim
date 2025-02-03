@@ -5,6 +5,13 @@
 *****************************************************************************************************************/
 module uim.core.enumerations.sort;
 
+version (test_uim_core) {
+  unittest {
+    import std.stdio;
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 enum SortTypes : string {
     STRING = "string", // Default. Compare items as strings
     REGULAR = "regular", // Compare items normally (don't change types)

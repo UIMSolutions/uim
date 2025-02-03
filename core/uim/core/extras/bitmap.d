@@ -6,8 +6,14 @@
 module uim.core.extras.bitmap;
 
 import uim.core;
-
 @safe:
+
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 final class DImage(T) {
     static if (is(typeof({ auto x = T.black; })))
         const static T black = T.black;

@@ -47,7 +47,7 @@ unittest {
   // assert(["a": 1, "b": 2].toJSONString(SORTED) == `{"a": 1,"b": 2}`);
 }
 
-string toHTML(K, V)(V[K] items, bool sorted = NOTSORTED) {
+string toHTML(K, V)(ref V[K] items, bool sorted = NOTSORTED) {
 
   return items.sortKeys(sorted ? "ASC" : "NONE")
     .map!(key => `%s="%s"`.format(key, items[key]))
@@ -59,7 +59,7 @@ unittest {
   // assert(["a": 1, "b": 2].toHTML(SORTED) == `a="1" b="2"`);
 }
 
-string toSqlUpdate(K, V)(V[K] items, bool sorted = NOTSORTED) {
+string toSqlUpdate(K, V)(ref V[K] items, bool sorted = NOTSORTED) {
   return items.sortKeys
     .map!(key => `%s=%s`.format(key, items[key]))
     .join(",");
@@ -71,7 +71,7 @@ unittest {
 }
 
 /// Checks if key exists and has values
-bool hasValue(K, V)(V[K] items, K key, V value) {
+bool hasValue(K, V)(ref V[K] items, K key, V value) {
   return (key in items)
     ? items[key] == value : false;
 }
@@ -86,7 +86,7 @@ unittest {
 }
 
 // Checks if values exist in base
-bool hasValues(K, V)(V[K] items, V[K] others) {
+bool hasValues(K, V)(ref V[K] items, V[K] others) {
   return others.byKeyValue
     .all!(other => other.key in items && items[other.key] == other.value);
 }
@@ -101,19 +101,19 @@ unittest {
 
 // #region set
   // Returns a updated map with new values
-  V[K] set(K, V)(V[K] items, V[K] others) {
+  ref set(K, V)(ref V[K] items, V[K] others) {
     others.each!((key, value) => items.set(key, value));
     return items;
   }
 
   // returns a updated map with new values
-  V[K] set(K, V)(V[K] items, K[] keys, V value) {
+  ref set(K, V)(ref V[K] items, K[] keys, V value) {
     keys.each!(key => items.set(key, value));
     return items;
   }
 
   // returns a updated map with new value
-  V[K] set(K, V)(V[K] items, K key, V value) {
+  ref set(K, V)(ref V[K] items, K key, V value) {
     items[key] = value;
     return items;
   }
@@ -159,12 +159,12 @@ unittest {
 
 // #region merge
   // Returns a new map with merged values for not existing keys
-  V[K] merge(K, V)(V[K] items, V[K] merges, K[] keys...) {
+  ref merge(K, V)(ref V[K] items, V[K] merges, K[] keys...) {
     return merge(items, merges, keys.dup);
   }
 
   // Returns a new map with merged values for not existing keys
-  V[K] merge(K, V)(V[K] items, V[K] merges, K[] keys = null) {
+  ref merge(K, V)(ref V[K] items, V[K] merges, K[] keys = null) {
     keys.isNull
       ? merges
           .each!((key, value) => items.merge(key, value)) 
@@ -176,7 +176,7 @@ unittest {
   }
 
   // Returns a new map with merged values for not existing keys
-  V[K] merge(K, V)(V[K] items, K[] keys, V value) {
+  ref merge(K, V)(ref V[K] items, K[] keys, V value) {
     keys
       .filter!(key => key !in items)
       .each!(key => items.set(key, value));
@@ -184,7 +184,7 @@ unittest {
   }
 
   // Returns a new map with merged values for not existing keys
-  V[K] merge(K, V)(V[K] items, K key, V value) {
+  ref merge(K, V)(ref V[K] items, K key, V value) {
     if (key !in items) {
       items[key] = value;
     }
@@ -252,12 +252,12 @@ unittest {
 
 // #region update
   // Returns a new map with updated values for existing keys
-  V[K] update(K, V)(V[K] items, V[K] merges, K[] keys...) {
+  ref update(K, V)(ref V[K] items, V[K] merges, K[] keys...) {
     return update(items, merges, keys.dup);
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] update(K, V)(V[K] items, V[K] merges, K[] keys = null) {
+  ref update(K, V)(ref V[K] items, V[K] merges, K[] keys = null) {
     keys.isNull
       ? merges
           .each!((key, value) => items.update(key, value)) 
@@ -269,14 +269,14 @@ unittest {
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] update(K, V)(V[K] items, K[] keys, V value) {
+  ref update(K, V)(ref V[K] items, K[] keys, V value) {
     keys
       .each!(key => items.update(key, value));
     return items;
   }
 
   // Returns a new map with updated values for existing keys
-  V[K] update(K, V)(V[K] items, K key, V value) {
+  ref update(K, V)(ref V[K] items, K key, V value) {
     if (key in items) {
       items[key] = value;
     }
@@ -330,7 +330,7 @@ unittest {
   }
 // #endregion update
 
-string keyByValue(K, V)(V[K] items, Json searchValue) {
+string keyByValue(K, V)(ref V[K] items, Json searchValue) {
   foreach (key, value; items) {
     if (value == searchValue)
       return key;
@@ -452,7 +452,7 @@ V[K] combine(V, K)(string[] keys, Json[] values) {
 
 // #region unique
 /// Unique - Reduce duplicates in array
-V[K] unique(K, V)(V[K] items) {
+V[K] unique(K, V)(ref V[K] items) {
   V[K] results;
   V[K] values;
   items.byKeyValue.each!((item) {
@@ -486,7 +486,7 @@ unittest {
 // #endregion createMap
 
 // #region clear
-/* V[K] clear(V[K] items) {
+/* V[K] clear(ref V[K] items) {
   items = null;
   return items;
 } */
@@ -501,7 +501,7 @@ unittest {
 // #endregion clear
 
 // #region shift
-V[K] shift(K, V)(V[K] items, K[] keys) {
+V[K] shift(K, V)(ref V[K] items, K[] keys) {
   V[K] result;
   keys
     .filter!(key => items.hasKey(key))
@@ -509,7 +509,7 @@ V[K] shift(K, V)(V[K] items, K[] keys) {
   return result;
 }
 
-V shift(K, V)(V[K] items, K key) {
+V shift(K, V)(ref V[K] items, K key) {
   V result;
   if (key in items)
     result = items[key];
@@ -530,12 +530,12 @@ unittest {
 }
 // #endregion shift
 
-K value(K, V)(V[K] items, string key, K defaultValue) {
+K value(K, V)(ref V[K] items, string key, K defaultValue) {
   return key in items ? items[key] : defaultValue;
 }
 
 // #region isEmpty
-bool isEmpty(K, V)(V[K] items) {
+bool isEmpty(K, V)(ref V[K] items) {
   return items.length == 0;
 }
 

@@ -13,7 +13,7 @@ unittest {
 }
 
 // #region filterValues
-V[K] filterValues(K, V)(V[K] items) {
+V[K] filterValues(K, V)(ref V[K] items) {
   V[K] results;
   items.byKeyValue
     .filter!(item => !item.value.isNull)
@@ -22,7 +22,7 @@ V[K] filterValues(K, V)(V[K] items) {
   return results;
 }
 
-V[K] filterValues(K, V)(V[K] items, bool delegate(string key, Json value) check) {
+V[K] filterValues(K, V)(ref V[K] items, bool delegate(string key, Json value) check) {
   V[K] results;
   () @trusted {
     items.byKeyValue
@@ -47,16 +47,16 @@ unittest {
 // #endregion filterValues
 
 // #region removeByValues
-V[K] removeByValues(K, V)(V[K] items, Json[] values...) {
+V[K] removeByValues(K, V)(ref V[K] items, Json[] values...) {
   return removeByValues(items, values.dup);
 }
 
-V[K] removeByValues(K, V)(V[K] items, Json[] values) {
+V[K] removeByValues(K, V)(ref V[K] items, Json[] values) {
   values.each!(value => removeByValue(items, value));
   return items;
 }
 
-V[K] removeByValue(K, V)(V[K] items, Json value) {
+V[K] removeByValue(K, V)(ref V[K] items, Json value) {
   return null; // TODO
   /*   return hasValue(items, value)
     ? items.remove(keyByValue(items, value)) : items; */
@@ -80,27 +80,27 @@ unittest {
 
 // #region hasValue
 // Returns true if the map has all values
-bool hasAllValues(K, V)(V[K] items, V[] values...) {
+bool hasAllValues(K, V)(ref V[K] items, V[] values...) {
   return items.hasAllValues(values.dup);
 }
 
 // Returns true if the map has all values
-bool hasAllValues(K, V)(V[K] items, V[] values) {
+bool hasAllValues(K, V)(ref V[K] items, V[] values) {
   return values.all!(value => items.hasValue(value));
 }
 
 // Returns true if the map has any value
-bool hasAnyValue(K, V)(V[K] items, V[] values...) {
+bool hasAnyValue(K, V)(ref V[K] items, V[] values...) {
   return items.hasAnyValue(values.dup);
 }
 
 // Returns true if the map has any value
-bool hasAnyValue(K, V)(V[K] items, V[] values) {
+bool hasAnyValue(K, V)(ref V[K] items, V[] values) {
   return values.any!(value => items.hasValue(value));
 }
 
 // Returns true if the map has the value
-bool hasValue(K, V)(V[K] items, V value) {
+bool hasValue(K, V)(ref V[K] items, V value) {
   return items.byKeyValue.any!(item => item.value == value);
 }
 

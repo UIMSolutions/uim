@@ -17,13 +17,13 @@ version (test_uim_core) {
   }
 }
 /// Add prefix to key
-V[K] addPrefixKey(K : string, V)(V[K] items, K prefix) {
+V[K] addPrefixKey(K : string, V)(ref V[K] items, K prefix) {
   items.dup.byKeyValue
     .each!(item => items = items.addPrefixKey(item.key, prefix));
   return items;
 }
 
-V[K] addPrefixKey(K, V)(V[K] items, K key, K prefix) if (is(K == string)) {
+V[K] addPrefixKey(K, V)(ref V[K] items, K key, K prefix) if (is(K == string)) {
   if (prefix.isEmpty) {
     return items;
   }
@@ -76,11 +76,11 @@ unittest {
 // #endregion keysStartsNotWith
 
 // #region keysEndsWith
-bool allKeysEndsWith(K, V)(V[K] items, K postfix) if (is(K == string)) { // right will overright left
+bool allKeysEndsWith(K, V)(ref V[K] items, K postfix) if (is(K == string)) { // right will overright left
   return items.byKeyValue.all!(item => endsWith(item.key, postfix));
 }
 
-bool anyKeysEndsWith(K, V)(V[K] items, K postfix) if (is(K == string)) { // right will overright left
+bool anyKeysEndsWith(K, V)(ref V[K] items, K postfix) if (is(K == string)) { // right will overright left
   return items.byKeyValue.any!(item => endsWith(item.key, postfix));
 }
 
@@ -100,22 +100,22 @@ unittest {
 // #endregion keysEndsWith
 
 // #region lowerKeys
-V[K] lowerKeys(K : string, V)(V[K] items) {
+V[K] lowerKeys(K : string, V)(ref V[K] items) {
   items.keys.each!(key => items.lowerKey(key));
   return items;
   ;
 }
 
-V[K] lowerKeys(K, V)(V[K] items, K[] keys...) if (is(K == string)) {
+V[K] lowerKeys(K, V)(ref V[K] items, K[] keys...) if (is(K == string)) {
   return lowerKeys(items, keys.dup);
 }
 
-V[K] lowerKeys(K, V)(V[K] items, K[] keys) if (is(K == string)) {
+V[K] lowerKeys(K, V)(ref V[K] items, K[] keys) if (is(K == string)) {
   keys.each!(key => items.lowerKey(key));
   return items;
 }
 
-V[K] lowerKey(K, V)(V[K] items, K key) if (is(K == string)) {
+V[K] lowerKey(K, V)(ref V[K] items, K key) if (is(K == string)) {
   if (key !in items) {
     return items;
   }
@@ -134,22 +134,22 @@ unittest {
 // #endregion lowerKeys
 
 // #region upperKeys
-V[K] upperKeys(K, V)(V[K] items) if (is(K == string)) {
+V[K] upperKeys(K, V)(ref V[K] items) if (is(K == string)) {
   items.keys.each!(key => items.upperKey(key));
   return items;
   ;
 }
 
-V[K] upperKeys(K, V)(V[K] items, K[] keys...) if (is(K == string)) {
+V[K] upperKeys(K, V)(ref V[K] items, K[] keys...) if (is(K == string)) {
   return upperKeys(items, keys.dup);
 }
 
-V[K] upperKeys(K, V)(V[K] items, K[] keys) if (is(K == string)) {
+V[K] upperKeys(K, V)(ref V[K] items, K[] keys) if (is(K == string)) {
   keys.each!(key => items.upperKey(key));
   return items;
 }
 
-V[K] upperKey(K, V)(V[K] items, string key) if (is(K == string)) {
+V[K] upperKey(K, V)(ref V[K] items, string key) if (is(K == string)) {
   if (key !in items) {
     return items;
   }

@@ -8,9 +8,12 @@ module uim.core.containers.maps.keys.map;
 @safe:
 import uim.core;
 
-unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
+
 
 // #region sortKeys
 

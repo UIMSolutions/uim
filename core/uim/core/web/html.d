@@ -9,10 +9,11 @@ import uim.core;
 
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
-
 // #region startTag
 string htmlStartTag(A, B)(string name, string id, A classes, B attributes /* , bool isClosed = false */ )
     if (

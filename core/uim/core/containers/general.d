@@ -9,10 +9,9 @@ module uim.core.containers.general;
 import uim.core;
 
 version (test_uim_core) {
-unittest {
-  writeln(__FILE__, "/", __LINE__);
-  // assert(["a": 1, "b": 2].toHTML(SORTED) == `a="1" b="2"`);
-}
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 bool isSet(V)(V value) {

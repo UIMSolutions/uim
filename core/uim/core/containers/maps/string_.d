@@ -5,9 +5,15 @@
 *****************************************************************************************************************/
 module uim.core.containers.maps.string_;
 
-@safe:
 import std.algorithm : startsWith, endsWith;
 import uim.core;
+@safe:
+
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 STRINGAA allEndsNotWith(string[string] entries, string postfix) { // right will overright left
   STRINGAA results;

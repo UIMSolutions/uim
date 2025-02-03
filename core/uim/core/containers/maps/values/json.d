@@ -9,9 +9,12 @@ module uim.core.containers.maps.values.json;
 import std.algorithm : startsWith, endsWith;
 import uim.core;
 
-unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
+
 
 /* Json[string] setNull(Json[string] items, string[] path) {
   return set(items, path, Json(null));

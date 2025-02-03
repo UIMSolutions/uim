@@ -8,9 +8,12 @@ module uim.core.web.json;
 import uim.core;
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
+
 
 /// Convert a boolean to a JsonValue
 string toJSONValue(T)(T value) if (isBoolean!T) {

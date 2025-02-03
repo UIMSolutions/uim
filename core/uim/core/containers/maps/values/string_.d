@@ -10,9 +10,12 @@ import std.algorithm : startsWith, endsWith;
 import uim.core;
 import uim.core.containers.maps.map;
 
-unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
+
 
 // #region set
 /*   string[string] set(K, V:string, T)(string[string] items, string key, T value) if (!is(T == string) && !is(T == Json)) {

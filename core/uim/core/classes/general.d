@@ -5,7 +5,14 @@
 *****************************************************************************************************************/
 module uim.core.classes.general;
 
+import uim.core;
 @safe:
+
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 V Null(V:Object)(){
   return null; 

@@ -11,4 +11,8 @@ public {
     import uim.core.containers.maps.keys.string_;
 }
 
-
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}

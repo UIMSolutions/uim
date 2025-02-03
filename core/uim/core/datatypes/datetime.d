@@ -9,8 +9,10 @@ import uim.core;
 
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 enum startUNIX = DateTime(1970, 1, 1, 0, 0, 0);

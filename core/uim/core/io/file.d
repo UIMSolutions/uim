@@ -8,6 +8,12 @@ module uim.core.io.file;
 import std.file;
 import uim.core;
 
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 version (linux) {
   bool copy(string fileName, string fromDir, string toDir, bool createMissingDirs = true, bool overwriteExistingFile = true) {
     if (fileName.length == 0) {

@@ -9,6 +9,12 @@ import uim.oop;
 
 @safe:
 
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 class UIMObject : INamed {
     mixin TConfigurable;
 

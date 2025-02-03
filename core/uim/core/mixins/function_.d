@@ -5,6 +5,15 @@
 *****************************************************************************************************************/
 module uim.core.mixins.function_;
 
+import uim.core;
+@safe:
+
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 template OFunction(string fName, string fParameters, string fBody) {
   const char[] TFunction = "
     void "~fName~"("~fParameters~") {"~fBody~" }";

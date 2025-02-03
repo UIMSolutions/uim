@@ -23,6 +23,12 @@ public {
   import uim.core.tests;
 }
 
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 @safe:
 alias STRINGAA = string[string];
 alias INTAA = int[int];

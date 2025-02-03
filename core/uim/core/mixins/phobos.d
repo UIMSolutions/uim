@@ -5,6 +5,15 @@
 *****************************************************************************************************************/
 module uim.core.mixins.phobos;
 
+import uim.core;
+@safe:
+
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 auto importPhobos(string[] libNames = null) {
   char[] result;
   foreach (libName; libNames.length > 0 ? libNames : [

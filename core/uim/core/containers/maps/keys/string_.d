@@ -11,10 +11,11 @@ import uim.core;
 import uim.core.containers.maps.keys;
 import uim.core.containers.maps.values;
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
-
 /// Add prefix to key
 V[K] addPrefixKey(K : string, V)(V[K] items, K prefix) {
   items.dup.byKeyValue

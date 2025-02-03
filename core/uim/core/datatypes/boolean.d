@@ -8,8 +8,10 @@ module uim.core.datatypes.boolean;
 @safe:
 import uim.core;
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 V Null(V : bool)() {

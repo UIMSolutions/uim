@@ -39,7 +39,7 @@ class DFormatterLocator {
     // Gets a formatter from the locator by name.
    II18NFormatter get(string key) {
         if (!_classNames.hasKey(key)) {
-            throw new DI18nException("Formatter named `%s` has not been registered.".format(key));
+            // throw new DI18nException("Formatter named `%s` has not been registered.".format(key));
         }
         
         if (!_converted.hasKey(key)) {

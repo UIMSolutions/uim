@@ -93,7 +93,7 @@ class DPluginLoadCommand : DCommand {
   DConsoleOptionParser buildOptionParser(DConsoleOptionParser parser) {
     with (parser) {
       description("Command for loading plugins.");
-      addArgument("plugin", MapHelper.create!(string, Json)
+/*       addArgument("plugin", MapHelper.create!(string, Json)
           .set("help", "Name of the plugin to load. Must be in CamelCase format. Example: uim plugin load Example")
           .set("required", true)
       );
@@ -105,22 +105,29 @@ class DPluginLoadCommand : DCommand {
           .set("boolean", true)
           .set("help", "Load the plugin only for CLI.")
       );
-      addOption("optional", MapHelper.create!(string, Json)
-          .set("boolean", true)
-          .set("help", "Do not throw an error if the plugin is not available.")
-      );
+      Json[string] optional;
+      optional.set("boolean", true);
+      optional.set("help", "Do not throw an error if the plugin is not available.");
+      addOption("optional", optional);
+
+      Json[string] noBootstrap;
       addOption("no-bootstrap", MapHelper.create!(string, Json)
           .set("boolean", true)
           .set("help", "Do not run the `bootstrap()` hook.")
       );
+      
+      Json[string] noConsole;
       addOption("no-console", MapHelper.create!(string, Json)
           .set("boolean", true)
           .set("help", "Do not run the `console()` hook.")
       );
-      addOption("no-middleware", MapHelper.create!(string, Json)
-          .set("boolean", true)
-          .set("help", "Do not run the `middleware()` hook..")
-      );
+      
+      Json[string] noMiddleware;
+      noMiddleware.set("boolean", true);
+      noMiddleware.set("help", "Do not run the `middleware()` hook..");
+      addOption("no-middleware", noMiddleware);
+
+      Json[string] noRoutes;
       addOption("no-routes", MapHelper.create!(string, Json)
           .set("boolean", true)
           .set("help", "Do not run the `routes()` hook.")
@@ -129,7 +136,7 @@ class DPluginLoadCommand : DCommand {
           .set("boolean", true)
           .set("help", "Do not run the `services()` hook.")
       );
-
+ */
     }
     return parser;
   }

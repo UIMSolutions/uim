@@ -101,8 +101,7 @@ class DI18N : UIMObject {
         
         auto translator = translators.get(domainName);
         if (translator is null) {
-            throw new DI18nException(
-                "Translator for domain `%s` could not be found.".format("domainname"));
+            // throw new DI18nException("Translator for domain `%s` could not be found.".format("domainname"));
         }
        /* if (isSet(currentLocale)) {
             translators.localeNamecurrentLocale);

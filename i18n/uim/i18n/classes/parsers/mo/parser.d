@@ -23,20 +23,20 @@ class DMoI18NParser : DI18NParser {
 
     Json[string] parse(string fileName) {
         if (!fileName.exists) {
-            throw new DException("`%s` not found".format(fileName));
+            // throw new DException("`%s` not found".format(fileName));
         }
 
         if (!fileName.isFile) {
-            throw new DException("`%s` not a file".format(fileName));
+            // throw new DException("`%s` not a file".format(fileName));
         }
 
         auto fileStream = File(fileName, "rb");
         if (fileStream.error) {
-            throw new DException("Cannot open resource `%s`".format(fileName));
+            // throw new DException("Cannot open resource `%s`".format(fileName));
         }
         
         if (fileStream.size < MO_HEADER_SIZE) {
-            throw new DException("Invalid format for MO translations file");
+            // throw new DException("Invalid format for MO translations file");
         }
 
         string first = (() @trusted => cast(string)fileStream.rawRead(new char[4]))();

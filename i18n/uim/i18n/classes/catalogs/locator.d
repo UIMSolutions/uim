@@ -53,11 +53,11 @@ class DMesseCatalogLocator : UIMObject {
   // Gets a Catalog object.
   IMessageCatalog get(string catalogName, string catalogLocale) {
     if (!hasCatalog(catalogName)) {
-      throw new DI18nException(format!"Catalog `%s` is not registered."(catalogName));
+      // throw new DI18nException(format!"Catalog `%s` is not registered."(catalogName));
     }
 
     if (!hasCatalog(catalogName, catalogLocale)) {
-      throw new DI18nException(format!"Catalog `%s` with locale `%s` is not registered."(catalogName, catalogLocale));
+      // throw new DI18nException(format!"Catalog `%s` with locale `%s` is not registered."(catalogName, catalogLocale));
     }
 
     return _catalogs[catalogName][catalogLocale];
@@ -65,7 +65,7 @@ class DMesseCatalogLocator : UIMObject {
 
   IMessageCatalog[string] get(string catalogName) {
     if (!hasCatalog(catalogName)) {
-      throw new DI18nException(format!"Catalog `%s` is not registered."(catalogName));
+      // throw new DI18nException(format!"Catalog `%s` is not registered."(catalogName));
     }
 
     return _catalogs[catalogName];

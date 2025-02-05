@@ -9,8 +9,10 @@ import uim.core;
 
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 enum NULLID = "00000000-0000-0000-0000-000000000000";

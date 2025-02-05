@@ -5,11 +5,9 @@
 *****************************************************************************************************************/
 module uim.core.mixins.phobos;
 
-import uim.core;
-@safe:
-
 version (test_uim_core) {
   unittest {
+    import std.stdio;
     writeln("-----  ", __MODULE__, "\t  -----");
   }
 }

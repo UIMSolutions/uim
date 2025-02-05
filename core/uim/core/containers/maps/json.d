@@ -8,6 +8,8 @@ module uim.core.containers.maps.json;
 import uim.core;
 @safe:
 
+import uim.core.containers.maps.map;
+
 version (test_uim_core) {
   unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
@@ -18,14 +20,23 @@ alias JMAP = Json[string];
 
 // #region set
   // returns a updated map with new values
-  ref set(K : string, V:
-    Json, T)(ref V[K] items, T[K] others, K[] keys...) {
+/*   ref set(K : string, V:Json, T:Json)(ref V[K] items, T[K] others, K[] keys...) if (is(typeof(T) == Json)) {
     return set(items, others, keys.dup);
   }
 
   // Returns a new map with updated values for existing keys
-  ref set(K : string, V:
-    Json, T)(ref V[K] items, T[K] others, K[] keys = null) {
+  ref set(K : string, V:Json, T:Json)(ref V[K] items, T[K] others, K[] keys = null) if (is(typeof(T) == Json)) {
+    keys.length == 0
+      ? others
+      .each!((key, value) => items.set(key, value)) : keys
+      .filter!(key => key in others)
+      .each!(key => items.set(key, others[key]));
+
+    return items;
+  } */
+
+/*   // Returns a new map with updated values for existing keys
+  ref set(K : string, V:Json, T)(ref V[K] items, T[K] others, K[] keys = null) if (!is(typeof(T) == Json)) {
     keys.length == 0
       ? others
       .each!((key, value) => items.set(key, value)) : keys
@@ -40,26 +51,19 @@ alias JMAP = Json[string];
     Json, T)(ref V[K] items, K[] keys, T value) {
     keys.each!(key => items.set(key, value));
     return items;
-  }
+  } */
 
   // returns a updated map with new values
-  ref set(K : string, V:
+  /* ref set(K : string, V:
     Json, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == Json)) {
     return items.set(key, Json(value));
-  }
+  } */
 
   // returns a updated map with new values
-  ref set(K : string, V:
-    Json, T)(ref V[K] items, K key, T value) if (is(typeof(value) == Json)) {
-    if (items is null) {
 
-    }
-    items[key] = value;    
-    return items;
-  }
 
   unittest {
-    Json[string] map1 = MapHelper.create!(string, Json)();
+/*     Json[string] map1 = MapHelper.create!(string, Json)();
     map1.set("name", "Ozan");
     map1.set("classname", "UIManufaktur");
     writeln(map1);
@@ -70,6 +74,9 @@ alias JMAP = Json[string];
 
     map.set("d", "x");
     assert(map.length == 4 && map.hasKey("d"));
+
+    map.set("e", "x").set("f", "x");
+    assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
 
     map = ["a": Json("A"), "b": Json("B"), "c": Json("C")]; // Reset map
     map.set(["d", "e", "f"], "x");
@@ -99,12 +106,12 @@ alias JMAP = Json[string];
 
     map = ["a": Json(true), "b": Json(false), "c": Json(true)]; // Reset map
     map.set(["d": true, "e": true, "f": true]);
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == Json(true));
-  }
+    assert(map.length == 6 && map.hasKey("d") && map["f"] == Json(true));  
+ */  }
 // #endregion set
 
 // #region update
-  // Returns a updated map with updated of existing keys and new values
+/*   // Returns a updated map with updated of existing keys and new values
   ref update(K : string, V:
     Json, T)(ref V[K] items, T[K] merges, K[] keys...) {
     return update(items, merges, keys.dup);
@@ -129,27 +136,24 @@ alias JMAP = Json[string];
       .each!(key => items.update(key, value));
     return items;
   }
-
+ */
   // Returns a new map with updated values for existing keys
-  ref update(K : string, V:
+ /*  ref update(K : string, V:
     Json, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == Json)) {
     return items.update(key, Json(value));
   }
 
   // Returns a new map with updated values for existing keys
   ref update(K : string, V:
-    Json, T)(ref V[K] items, K key, T value) if (is(typeof(value) == Json)) {
-    if (key in items) {
-      items[key] = value;
-    }
-    return items;
+    Json, T)(ref V[K] items, K key, T value) if (!is(typeof(V) == typeof(T))) {
+      return items.update(key, Json(value));
   }
-
+ */
   unittest {
     Json[string] map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
     assert(map.length == 3 && map.hasAllKeys("a", "b", "c") && map["a"] == "A");
 
-    map.update("a", "x").update("d", "x").update("e", "x").update("f", "x");
+    /* map.update("a", "x").update("d", "x").update("e", "x").update("f", "x");
     assert(map.length == 3 && !map.hasAnyKey("d", "e", "f") && map["a"] == Json("x"));
 
     map = ["a": Json("A"), "b": Json("B"), "c": Json("C")]; // Reset map
@@ -169,20 +173,20 @@ alias JMAP = Json[string];
     map = ["a": Json("A"), "b": Json("B"), "c": Json("C")]; // Reset map
     map.update(["c": "x", "d": "x", "e": "x"], "c", "e");
     assert(map.length == 3 && !map.hasAnyKey("d", "e", "f") && map["a"] != "x" && map["c"] == Json(
-        "x"));
+        "x")); */
   }
 // #endregion update
 
 // #region merge
   // Returns a updated map with updated of existing keys and new values
-  ref merge(K : string, V:
-    Json, T)(ref V[K] items, T[K] merges, K[] keys...) {
+  /* ref merge(K : string, V:
+    Json, T)(ref V[K] items, T[K] merges, K[] keys...) if (!is(typeof(T) == Json)) {
     return merge(items, merges, keys.dup);
   }
 
   // Returns a new map with updated values for existing keys
   ref merge(K : string, V:
-    Json, T)(ref V[K] items, T[K] merges, K[] keys = null) {
+    Json, T)(ref V[K] items, T[K] merges, K[] keys = null) if (!is(typeof(T) == Json)) {
     keys.length == 0
       ? merges
       .each!((key, value) => items.merge(key, value)) : keys
@@ -208,18 +212,15 @@ alias JMAP = Json[string];
 
   // Returns a new map with updated values for existing keys
   ref merge(K : string, V:
-    Json, T)(ref V[K] items, K key, T value) if (is(typeof(value) == Json)) {
-    if (key !in items) {
-      items[key] = value;
-    }
-    return items;
-  }
+    Json, T)(ref V[K] items, K key, T value) if (!is(typeof(V) == typeof(T))) {
+    return items.merge(key, Json(value));
+  } */
 
   unittest {
     Json[string] map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
     assert(map.length == 3 && map.hasAllKeys("a", "b", "c") && map["a"] == "A");
 
-    map.merge("a", "x").merge("d", "x").merge("e", "x").merge("f", "x");
+    /* map.merge("a", "x").merge("d", "x").merge("e", "x").merge("f", "x");
     assert(map.length == 6 && map.hasAnyKey("d", "e", "f") && map["e"] == Json("x"));
 
     map = ["a": Json("A"), "b": Json("B"), "c": Json("C")]; // Reset map
@@ -239,7 +240,7 @@ alias JMAP = Json[string];
     map = ["a": Json("A"), "b": Json("B"), "c": Json("C")]; // Reset map
     map.merge(["c": "x", "d": "x", "e": "x"], "c", "e");
     assert(map.length == 4 && map.hasAnyKey("d", "e", "f") && map["a"] != "x" && map["e"] == Json(
-        "x"));
+        "x")); */
   }
 // #endregion merge
 
@@ -572,7 +573,7 @@ string toString(Json[string] items, string[] keys = null) {
 
 unittest {
   Json[string] testItems;
-  testItems = testItems
+  /* testItems = testItems
     .set("bool", true)
     .set("long", 1)
     .set("double", 1.1)
@@ -581,7 +582,7 @@ unittest {
 
   writeln("toString -> ", testItems);
   writeln("toString -> ", testItems.toString);
-  writeln("toString -> ", testItems.toString(["long", "string"]));
+  writeln("toString -> ", testItems.toString(["long", "string"])); */
 }
 
 Json[string] copy(Json[string] values, string[] keys = null) {

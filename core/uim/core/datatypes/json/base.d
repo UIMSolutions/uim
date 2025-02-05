@@ -15,6 +15,7 @@ version (test_uim_core) {
   }
 }
 
+// #region Null
 V Null(V : Json)() {
   return Json(null);
 }
@@ -23,32 +24,9 @@ unittest {
   assert(Null!Json == Json(null));
   assert(Null!Json.isNull);
 }
+// #endregion Null
 
-// #region keys
-// Get keys from json object
-string[] keys(Json anObject) {
-  return !anObject.isNull
-    ? anObject.byKeyValue.map!(kv => kv.key).array : null;
-}
-unittest {
-  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
-  assert(json.keys.hasAll("a", "c", "e"));
-  assert(!json.keys.hasAll("a", "c", "x"));
-}
-// #endregion keys
 
-// #region values
-// Get values from json object
-Json[] values(Json anObject) {
-  return !anObject.isNull
-    ? anObject.byKeyValue.map!(kv => kv.value).array : null;
-}
-unittest {
-  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
-/*   assert(json.values.hasAll("a", "c", "e"));
-  assert(!json.values.hasAll("a", "c", "x")); */
-}
-// #endregion values
 
 // #region Check json value
 bool isMap(Json json) {
@@ -244,140 +222,6 @@ bool isEmpty(Json value) {
 
 bool isIntegral(Json value) {
   return value.isLong;
-}
-
-// #region hasKey
-// Check if json has key
-bool hasAllKeys(Json json, string[] keys, bool deepSearch = false) {
-  return keys
-    .filter!(k => hasKey(json, k, deepSearch))
-    .array.length == keys.length;
-}
-///
-unittest {
-  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
-  assert(json.hasAllKeys(["a", "c"]));
-  assert(json.hasAllKeys(["a", "d"], true));
-}
-
-/// Check if Json has key
-bool hasAnyKeys(Json json, string[] keys, bool deepSearch = false) {
-  foreach (key; keys) {
-    if (hasKey(json, key, deepSearch)) {
-      return true;
-    }
-  }
-
-  return false;
-}
-///
-unittest {
-  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
-  assert(json.hasAnyKeys(["a"]));
-  assert(json.hasAnyKeys(["d"], true));
-}
-
-/// Searching key in json, if depth = true also in subnodes  
-
-bool hasKey(Json json, string key, bool deepSearch = false) {
-  if (json.isObject) {
-    foreach (kv; json.byKeyValue) {
-      if (kv.key == key) {
-        return true;
-      }
-      if (deepSearch) {
-        auto result = kv.value.hasKey(key, deepSearch);
-        if (result) {
-          return true;
-        }
-      }
-    }
-  }
-
-  if (deepSearch) {
-    if (json.isArray) {
-      for (size_t i = 0; i < json.length; i++) {
-        const result = json[i].hasKey(key, deepSearch);
-        if (result) {
-          return true;
-        }
-      }
-    }
-  }
-  return false;
-}
-///
-
-unittest {
-  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
-  assert(json.hasKey("a"));
-  assert(json.hasKey("d", true));
-}
-// #endregion hasKey
-
-bool hasAllValues(Json json, Json[] values, bool deepSearch = false) {
-  foreach (value; values)
-    if (!hasValue(json, value, deepSearch)) {
-      return false;
-    }
-  return true;
-}
-///
-
-unittest {
-  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}], "i": "j"}`);
-  assert(json.hasAllValues([Json("b"), Json("j")]));
-  assert(json.hasAllValues([Json("h"), Json(1)], true));
-}
-
-// Search if jsonData has any of the values
-bool hasAnyValue(Json jsonData, Json[] values, bool deepSearch = false) {
-  return values.any!(value => hasValue(jsonData, value, deepSearch));
-}
-///
-
-unittest {
-  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}], "i": "j"}`);
-  assert(json.hasAllValues([Json("b"), Json("j")]));
-  assert(json.hasAllValues([Json("h"), Json(1)], true));
-}
-
-// Search if jsonData has value
-bool hasValue(Json jsonData, Json value, bool deepSearch = false) {
-  if (jsonData.isObject) {
-    foreach (kv; jsonData.byKeyValue) {
-      if (kv.value == value) {
-        return true;
-      }
-      if (deepSearch) {
-        auto result = kv.value.hasValue(value, deepSearch);
-        if (result) {
-          return true;
-        }
-      }
-    }
-  }
-
-  if (deepSearch) {
-    if (jsonData.isArray) {
-      for (size_t i = 0; i < jsonData.length; i++) {
-        const result = jsonData[i].hasValue(value, deepSearch);
-        if (result) {
-          return true;
-        }
-      }
-    }
-  }
-
-  return false;
-}
-///
-unittest {
-  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": "h"}]}`);
-  assert(json.hasValue(Json("b")));
-  assert(json.hasValue(Json("h"), true));
-  assert(!json.hasValue(Json("x")));
-  assert(!json.hasValue(Json("y"), true));
 }
 
 /// Check if jsonPath exists

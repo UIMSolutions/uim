@@ -9,8 +9,10 @@ import uim.core;
 
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
+version (test_uim_core) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 size_t indexIn(T)(T value, T[] values) {

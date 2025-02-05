@@ -74,8 +74,9 @@ override bool initialize(Json[string] initData = null) {
   }
 
   // Merge default values with supplied data.
-  protected Json[string] mergeDefaults(Json[string] dataToMerge, IFormContext formContext) {
-    Json[string] renderData = configuration.defaultData.merge(dataToMerge);
+  protected Json[string] mergeDefaults(Json[string] mergeDefaults, IFormContext formContext) {
+    auto defaults = configuration.defaultData;
+    Json[string] renderData = defaults.merge(mergeDefaults);
 
     if (renderData.hasKey("fieldName") && !renderData.hasKey("required")) {
       renderData = setRequired(renderData, formContext, renderData.getString("fieldName"));

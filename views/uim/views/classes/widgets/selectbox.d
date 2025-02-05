@@ -134,10 +134,10 @@ class DSelectBoxWidget : DWidget {
 
   // Render the contents of the select element.
   protected string[] _renderContent(Json[string] renderData) {
-    Json renderOptions = renderData.get("options", null);
+    Json renderOptions = renderData.get("options", Json(null));
 
     if (!renderData.isEmpty("empty")) {
-      renderOptions = renderOptions.set(isEmptyValue(renderData.get("empty")));
+      // renderOptions = renderOptions.set(isEmptyValue(renderData.get("empty")));
     }
 
     if (renderOptions.isEmpty) {

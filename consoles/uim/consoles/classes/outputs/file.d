@@ -72,18 +72,17 @@ class DFileOutput : DOutput {
       "reverse": 7,
     ];
 
-    _styles
-      .set("emergency", ["text": "red"])
-      .set("alert", ["text": "red"])
-      .set("critical", ["text": "red"])
-      .set("error", ["text": "red"])
-      .set("warning", ["text": "yellow"])
-      .set("info", ["text": "cyan"])
-      .set("debug", ["text": "yellow"])
-      .set("success", ["text": "green"])
-      .set("comment", ["text": "blue"])
-      .set("question", ["text": "magenta"])
-      .set("notice", ["text": "cyan"]);
+    style("emergency", ["text": "red"]);
+    style("alert", ["text": "red"]);
+    style("critical", ["text": "red"]);
+    style("error", ["text": "red"]);
+    style("warning", ["text": "yellow"]);
+    style("info", ["text": "cyan"]);
+    style("debug", ["text": "yellow"]);
+    style("success", ["text": "green"]);
+    style("comment", ["text": "blue"]);
+    style("question", ["text": "magenta"]);
+    style("notice", ["text": "cyan"]);
 
     return true;
   }
@@ -103,7 +102,7 @@ class DFileOutput : DOutput {
   protected static int[string] _backgroundColors; // Formatting options for colored output.
   protected static int[string] _options;
 
-/**
+  /**
      * Construct the output object.
      *
      * Checks for a pretty console environment. Ansicon and ConEmu allows
@@ -144,7 +143,7 @@ class DFileOutput : DOutput {
      */
   override IOutput write(string message, uint numberOfLines = 1) {
     append(filename, this.styleText(message ~ LF.repeatTxt(numberOfLines)));
-    return this; 
+    return this;
   }
 
   // Apply styling to text.
@@ -180,6 +179,7 @@ class DFileOutput : DOutput {
     return this;
   }
 }
+
 mixin(OutputCalls!("File"));
 
 unittest {

@@ -17,13 +17,13 @@ class DConsoleException : DException {
   protected int _exceptionCode;
   protected Throwable _previousException;
 
-  this(
+/*   this(
     string message, int exceptionCode = 0, Throwable previousException = null
   ) {
     super(message);
     _exceptionCode = exceptionCode;
     _previousException = previousException;
-  }
+  } */
 }
 
 mixin(ExceptionCalls!("Console"));

@@ -9,59 +9,60 @@ import uim.views;
 
 @safe:
 
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+unittest {
+  writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 // Form "widget" for creating labels.
 class DLabelWidget : DWidget {
-    mixin(WidgetThis!("Label"));
+  mixin(WidgetThis!("Label"));
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        _labelTemplate = "label";
-        
-        return true;
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
     }
 
-    // The template to use.
-    protected string _labelTemplate;
+    _labelTemplate = "label";
 
-    /**
+    return true;
+  }
+
+  // The template to use.
+  protected string _labelTemplate;
+
+  /**
      * This class uses the following template:
      * - `label` Used to generate the label for a radio button.
      * Can use the following variables `attrs`, `text` and `input`.
      */
-    this(DStringContents newTemplates) {
-        // super(newTemplates);
-    }
+  this(DStringContents newTemplates) {
+    // super(newTemplates);
+  }
 
-    // Render a label widget.
-    override string render(Json[string] options, IFormContext formContext) {
-        // set defaults
-        options.merge("text", ""); // `text` The text for the label.
-        options.merge("input", ""); // `input` The input that can be formatted into the label if the template allows it.
-        options.merge("hidden", "");
-        options.merge("escape", true); // `escape` Set to false to disable HTML escaping.
-        options.merge("templateVars", Json.emptyArray());
+  // Render a label widget.
+  override string render(Json[string] options, IFormContext formContext) {
+    // set defaults
+    options.merge("text", ""); // `text` The text for the label.
+    options.merge("input", ""); // `input` The input that can be formatted into the label if the template allows it.
+    options.merge("hidden", "");
+    options.merge("escape", true); // `escape` Set to false to disable HTML escaping.
+    options.merge("templateVars", Json.emptyArray());
 
-        Json[string] settings = MapHelper.create!(string, Json)
-            .set("text", options.getBoolean("escape") ? htmlAttributeEscape(options.getString("text")) : options.getString("text"))
-            .set("input", options.get("input"))
-            .set("hidden", options.get("hidden"))
-            .set("templateVars", options.get("templateVars"));
-            /* .set("attrs", _stringContents.formatAttributes(options, [
+    Json[string] settings = MapHelper.create!(string, Json);
+    settings.set("text", options.getBoolean("escape") ? htmlAttributeEscape(
+        options.getString("text")) : options.getString("text"));
+    settings.set("input", options.get("input", Json(null)));
+    settings.set("hidden", options.get("hidden", Json(null)));
+    settings.set("templateVars", options.get("templateVars", Json(null)));
+    /* .set("attrs", _stringContents.formatAttributes(options, [
                 "text", "input", "hidden"
             ])) * /); */
-        return _stringContents.format(_labelTemplate, settings);
-    }
+    return _stringContents.format(_labelTemplate, settings);
+  }
 }
 
 mixin(WidgetCalls!("Label"));
 
 unittest {
-    assert(LabelWidget);
+  assert(LabelWidget);
 }

@@ -207,12 +207,12 @@ abstract class DCell : UIMObject { // : IEventDispatcher {
 
     // Debug info.
     override Json[string] debugInfo(string[] showKeys = null, string[] hideKeys = null) {
-        return super.debugInfo
-            .set("action", _action)
-            .set("args", _arguments);
+        auto info = super.debugInfo(showKeys, hideKeys);
+        info.set("action", Json(_action));
+        info.set("args", Json(_arguments));
         // .set("request", _request)
         /* .set("response", _response)
             .set("viewBuilder", viewBuilder() */
-        ;
+        return info;
     }
 }

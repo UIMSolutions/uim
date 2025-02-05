@@ -153,18 +153,27 @@ class DOutput : UIMObject, IOutput {
      * this.output.setStyle("annoy", []);
      * ```
      */
-  IOutput style(string style, STRINGAA definition) {
-    _styles.set(style, definition);
+  IOutput style(string name, STRINGAA definition) {
+    Json[string] map;
+    definition.each!((key, value) => map[key] = Json(value));
+
+    return style(name, map);
+  }
+
+  IOutput style(string name, Json[string] definition) {
+    Json json = Json.emptyObject;
+    definition.each!((key, value) => json[key] = value);
+
+    return style(name, json);
+  }
+
+  IOutput style(string name, Json definition) {
+    _styles[name] = definition;
     return this;
   }
 
-  IOutput style(string style, Json definition) {
-    _styles.set(style, definition);
-    return this;
-  }
-
-  IOutput removeStyle(string style) {
-    _styles.removeKey(style);
+  IOutput removeStyle(string name) {
+    _styles.remove(name);
     return this;
   }
 

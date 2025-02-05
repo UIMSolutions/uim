@@ -98,7 +98,7 @@ class DSchema : UIMObject {
 
     // Get the attributes for a given field.
     Json field(string fieldName) {
-        return _fields.value(fieldName);
+        return _fields.get(fieldName, Json(null));
     }
 
     DSchema removeField(string fieldName) {
@@ -109,8 +109,9 @@ class DSchema : UIMObject {
 
     // Get the printable version of this object
     override Json[string] debugInfo(string[] showKeys = null, string[] hideKeys = null) {
-        return super.debugInfo(showKeys, hideKeys)
-            .set("_fields", _fields.toString); 
+        auto info = super.debugInfo(showKeys, hideKeys);
+        info.set("_fields", Json(_fields));
+        return info;
     }
 }
 

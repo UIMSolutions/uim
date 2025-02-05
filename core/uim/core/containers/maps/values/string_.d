@@ -22,7 +22,7 @@ version (test_uim_core) {
     return items.set(key, to!string(value));
   } */
 
-  // #region string[string] set(..., bool value)
+/*   // #region string[string] set(..., bool value)
     string[string] set(string[string] items, string[] keys, bool value) {
       return set(items, keys, value ? "true" : "false");
     }
@@ -79,10 +79,10 @@ version (test_uim_core) {
       assert(set(testmap, "a", 0)["a"] == "0");
       assert(set(testmap, "b", 1)["b"] == "1");
     }
-  // #endregion string[string] set(..., long value)
+ */  // #endregion string[string] set(..., long value)
 
   // #region string[string] set(..., double value)
-    string[string] set(string[string] items, string[] keys, double value) {
+/*     string[string] set(string[string] items, string[] keys, double value) {
       return set(items, keys, to!string(value));
     }
     unittest {
@@ -114,7 +114,7 @@ version (test_uim_core) {
     items[key] = value;
     return items;
   }
-
+ */
   // #region string[string] set(..., string value)
 /*   string[string] set(string[string] items, string[] keys, string value) {
     keys.each!(key => set(items, key, value));

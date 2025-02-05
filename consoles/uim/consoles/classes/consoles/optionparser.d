@@ -315,12 +315,12 @@ class DConsoleOptionParser : UIMObject, IConsoleOptionParser {
   }
 
   IConsoleOptionParser addArgument(string argName, Json[string] options = null) {
-    Json[string] defaultOptions = MapHelper.create!(string, Json)
-      .set("name", argName)
-      .set("help", "")
-      .set("index", _arguments.length)
-      .set("required", false)
-      .set("choices", Json.emptyArray);
+    Json[string] defaultOptions;
+      defaultOptions.set("name", argName);
+      defaultOptions.set("help", "");
+      defaultOptions.set("index", _arguments.length);
+      defaultOptions.set("required", false);
+      defaultOptions.set("choices", Json.emptyArray);
 
     auto newParams = options.merge(defaultOptions);
     auto anIndex = newParams.shift("index");

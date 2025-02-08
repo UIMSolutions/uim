@@ -6,8 +6,13 @@
 module uim.errors.classes.renderers.error;
 
 import uim.errors;
-
 @safe:
+
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 class DErrorRenderer : UIMObject, IErrorRenderer {
     mixin(ErrorRendererThis!());

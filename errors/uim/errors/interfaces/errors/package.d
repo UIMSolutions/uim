@@ -7,4 +7,6 @@ public {
     import uim.errors.interfaces.errors.handler;
     import uim.errors.interfaces.errors.logger;
     import uim.errors.interfaces.errors.middleware;
+    import uim.errors.interfaces.errors.node;
+    import uim.errors.interfaces.errors.renderer;
 }

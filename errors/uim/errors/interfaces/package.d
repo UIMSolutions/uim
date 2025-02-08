@@ -6,13 +6,6 @@
 module uim.errors.interfaces;
 
 public {
-    import uim.errors.interfaces.controller;
-    import uim.errors.interfaces.debugger;
-    import uim.errors.interfaces.handler;
-    import uim.errors.interfaces.logger;
-    import uim.errors.interfaces.renderer;
-    import uim.errors.interfaces.exceptionrenderer;
-    import uim.errors.interfaces.formatter;
-    import uim.errors.interfaces.middleware;
-    import uim.errors.interfaces.node;
+    import uim.errors.interfaces.errors;
+    import uim.errors.interfaces.exceptions;
 }

@@ -8,6 +8,12 @@ module uim.errors.classes.renderers.exception;
 import uim.errors;
 @safe:
 
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 /**
  * Exception Renderer.
  *

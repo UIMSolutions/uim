@@ -9,6 +9,12 @@ import uim.errors;
 
 @safe:
 
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 /**
  * Prints out debug information about given variable and returns the
  * variable that was passed.

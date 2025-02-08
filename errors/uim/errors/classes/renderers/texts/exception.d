@@ -5,10 +5,14 @@
 *****************************************************************************************************************/
 module uim.errors.classes.renderers.texts.exception;
 
-@safe:
 import uim.errors;
+@safe:
 
-// s
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 /**
  * Plain text exception rendering with a stack trace.

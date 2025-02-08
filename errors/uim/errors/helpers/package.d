@@ -6,5 +6,7 @@
 module uim.errors.helpers;
 
 public {
+    import uim.errors.helpers.error;
+    import uim.errors.helpers.exception;
     import uim.errors.helpers.functions;
 }

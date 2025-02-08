@@ -6,8 +6,13 @@
 module uim.errors.classes.renderers.web.exception;
 
 import uim.errors;
-
 @safe:
+
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 /**
  * Web Exception Renderer.

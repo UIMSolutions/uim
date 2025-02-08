@@ -6,12 +6,14 @@
 module uim.errors.classes.renderers.consoles.exception;
 
 import uim.errors;
-
 @safe:
 
-unittest {
+version (test_uim_errors) {
+  unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
+
 
 /**
  * Plain text exception rendering with a stack trace.

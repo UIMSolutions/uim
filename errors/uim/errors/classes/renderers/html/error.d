@@ -6,8 +6,13 @@
 module uim.errors.classes.renderers.html.error;
 
 import uim.errors;
-
 @safe:
+
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 /*
  * Interactive HTML error rendering with a stack trace.

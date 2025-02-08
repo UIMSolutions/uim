@@ -6,12 +6,14 @@
 module uim.errors.classes.renderers.texts.error;
 
 import uim.errors;
-
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
+
 
 /**
  * Plain text error rendering with a stack trace.

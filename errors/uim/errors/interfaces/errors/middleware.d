@@ -1,4 +1,4 @@
-module uim.errors.interfaces.middleware;
+module uim.errors.interfaces.errors.middleware;
 
 import uim.errors;
 

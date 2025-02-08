@@ -26,8 +26,14 @@ Json toJson(string value) {
   return Json(value);
 }
 
-Json toJson(UUID value) {
-  return toJson(value.toString);
+Json toJson(Json value) {
+  return value;
+}
+
+Json toJson(T)(T[] values) {
+  Json json = Json.emptyArray;
+  values.each!(value => json ~= value.toJson);
+  return json;
 }
 
 Json toJson(string aKey, string aValue) {
@@ -40,16 +46,36 @@ unittest {
   assert(toJson("a", "3")["a"] == "3");
 }
 
-Json toJson(string aKey, UUID aValue) {
+// #region UUID 
+Json toJson(UUID value) {
+  return toJson(value.toString);
+}
+Json toJson(string aKey, UUID uuid) {
   Json result = Json.emptyObject;
-  result[aKey] = aValue.toString;
+  result[aKey] = uuid.toJson;
   return result;
 }
-
+Json toJson(UUID[] uuids) {
+  Json result = Json.emptyArray;
+  uuids.each!(uuid => result ~= uuid.toJson);
+  return result;
+}
 unittest {
   auto id = randomUUID;
-  assert(UUID(toJson("id", id)["id"].get!string) == id);
+  auto id2 = randomUUID;
+  auto id3 = randomUUID;
+  auto id4 = randomUUID;
+  
+  assert(id.toJson.get!string == id.toString);
+  assert([id, id2, id3].toJson.has(id));
+  assert(![id, id2, id3].toJson.has(id4));
+
+  assert([id, id2, id3].toJson.hasAll(id, id2, id3));
+  // assert(id.toJson.get!string == id.toString);
+
+  // assert(UUID(toJson("id", id)["id"].get!string) == id); */
 }
+// #endregion UUID
 
 /// Special case for managing entities
 Json toJson(UUID id, size_t versionNumber) {

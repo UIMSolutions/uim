@@ -55,19 +55,18 @@ class DMysqlDriver : DDriver {
         _serverType = SERVER_TYPE_MYSQL;
 
         // Mapping of feature to db server version for feature availability checks.
-        Json[string] mysql = MapHelper.create!(string, Json)
-            .set("Json", "5.7.0")
-            .set("cte", "8.0.0")
-            .set("window", "8.0.0");
+        Json[string] mysql;
+        mysql.set("Json", "5.7.0");
+        mysql.set("cte", "8.0.0");
+        mysql.set("window", "8.0.0");
 
-        Json[string] mariadb = MapHelper.create!(string, Json)
-            .set("Json", "10.2.7")
-            .set("cte", "10.2.1")
-            .set("window", "10.2.0");
+        Json[string] mariadb;
+        mariadb.set("Json", "10.2.7");
+        mariadb.set("cte", "10.2.1");
+        mariadb.set("window", "10.2.0");
 
-        _featureVersions
-            .set("mysql", mysql)
-            .set("mariadb", mariadb);
+/*         _featureVersions.set("mysql", mysql);
+        _featureVersions.set("mariadb", mariadb); */
 
         return true;
 
@@ -84,7 +83,8 @@ class DMysqlDriver : DDriver {
 
         case DriverFeatures.CTE,
             DriverFeatures.JSON,
-            DriverFeatures.WINDOW: return false; // TODO
+            DriverFeatures.WINDOW:
+            return false; // TODO
             /* return version_compare(
                 this.currentVersion(),
                 this.featureVersions[this.serverType][feature.value],
@@ -104,7 +104,7 @@ class DMysqlDriver : DDriver {
         return "SET foreign_key_checks = 1";
     }
     // #endregion 
-    
+
     override IDriver connect() {
         super.connect();
         // TODO

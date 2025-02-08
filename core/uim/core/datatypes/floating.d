@@ -23,44 +23,54 @@ V Null(V : double)() {
   return 0.0;
 }
 
-T fuzzy(T)(T value, T minLimit, T maxLimit, T minFactor = 0, T maxFactor = 1)
-    if (isFloatingPoint!T) {
-
-  if (value < minLimit) {
-    return minFactor;
+// #region fuzzy
+T fuzzy(T)(double fuzzyValue, T minValue, T maxValue, T minFuzzy = 0, T maxFuzzy = 1)
+in {
+  assert(minValue < maxValue, "toFuzzy(): minValue must be less than maxValue");
+  assert(minFuzzy < maxFuzzy, "toFuzzy(): minFuzzy must be less than maxFuzzy");
+}
+do {
+  if (fuzzyValue <= minFuzzy) {
+    return minValue;
   }
-  if (value > maxLimit) {
-    return maxFactor;
+  if (fuzzyValue >= maxFuzzy) {
+    return maxValue;
   }
 
-  return to!T(minFactor + (maxFactor - minFactor) * (value - minLimit) / (maxLimit - minLimit));
+  auto fuzzyPos = (fuzzyValue - minFuzzy) / (maxFuzzy - minFuzzy);
+  auto delta = maxValue - minValue;
+  return to!T(minValue + (fuzzyPos * delta));
+}
+
+T toFuzzy(T)(T value, T minValue, T maxValue, T minFuzzy = 0, T maxFuzzy = 1)
+in {
+  assert(minValue < maxValue, "toFuzzy(): minValue must be less than maxValue");
+  assert(minFuzzy < maxFuzzy, "toFuzzy(): minFuzzy must be less than maxFuzzy");
+}
+do {
+  if (value <= minValue) {
+    return minFuzzy;
+  }
+
+  if (value >= maxValue) {
+    return maxFuzzy;
+  }
+
+  auto fuzzyPos = (value - minValue) / (maxValue - minValue);
+  auto delta = maxFuzzy - minFuzzy;
+  return minFuzzy + (fuzzyPos * delta);
 }
 
 unittest {
-  /*   assert(fuzzy(0, 0, 1) == 0);
+  assert(fuzzy(0, 0, 1) == 0);
   assert(fuzzy(1, 0, 1) == 1);
+
+  assert(fuzzy(0, 10, 20) == 10);
+  assert(fuzzy(.5, 10, 20) == 15);
+  assert(fuzzy(1, 10, 20) == 20);
+
   assert(fuzzy(0, 1, 2) == 1);
   assert(fuzzy(2, 0, 1) == 1);
-  assert(fuzzy(0.5, 0.0, 1.0) == 0.5); */
+  assert(fuzzy(0.5, 0.0, 1.0) == 0.5);
 }
-
-/* string toString(T)(T value, size_t length = 0, string fillTxt = "0") {
-//    if (isFloatingPoint!T) {
-  string result = fill(length, fillTxt);
-
-  import std.conv;
-
-  string convert = to!string(value);
-  result = convert.length < length
-    ? result[0 .. $ - convert.length] ~ convert : convert;
-
-  return result;
-} */
-
-unittest {
-  // TODO
-  // writeln((1.01).toString);
-  //   assert((1.0).toString == "1.0");
-  //   assert((1.0).toString == "1.0");
-  //   assert((1.0).toString(10, "X") == "XXXXXXX1.0");
-}
+// #endregion fuzzy

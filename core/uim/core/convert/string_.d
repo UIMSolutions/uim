@@ -7,3 +7,70 @@ version (test_uim_core) {
     writeln("-----  ", __MODULE__, "\t  -----");
   }
 }
+
+// #region toStrings
+string[] toStrings(Json json) {
+  if (!json.isArray) return null; 
+  return json.byValue.array.toStrings;
+}
+
+string[] toStrings(Json[] jsons) {
+  return jsons.map!(json => json.toString).array;
+}
+
+string[] toStrings(UUID[] uuids) {
+  return uuids.map!("a.toString").array;
+}
+// #endregion toStrings
+
+// #region toString
+string toString(Json json) {
+  if (!json.isArray) return null; 
+  return json.byValue.array.toString;
+}
+
+string toString(Json[] jsons) {
+  return jsons.toJson.toString;
+}
+
+string toString(UUID[] uuids) {
+  return uuids.map!("a.toString").array.toString;
+}
+
+string toString(string[] values) {
+  return "\"["~values.map!(value => `\"%s\"`.format(value)).join(",")~"]\"";
+}
+
+/* string toString(T)(T value, size_t length = 0, string fillTxt = "0") {
+//    if (isFloatingPoint!T) {
+  string result = fill(length, fillTxt);
+
+  import std.conv;
+
+  string convert = to!string(value);
+  result = convert.length < length
+    ? result[0 .. $ - convert.length] ~ convert : convert;
+
+  return result;
+} */
+
+unittest {
+  // TODO
+  // writeln((1.01).toString);
+  //   assert((1.0).toString == "1.0");
+  //   assert((1.0).toString == "1.0");
+  //   assert((1.0).toString(10, "X") == "XXXXXXX1.0");
+}
+
+// #endregion toString
+
+unittest {
+  auto jsons = [Json(1), Json("x"), Json(true)];
+  auto txt = jsons.toString;
+  assert(jsons.toStrings == ["1", "\"x\"", "true"]);
+
+  assert(jsons.toJson.toStrings == ["1", "\"x\"", "true"]);
+
+  writeln("UUIDs:", [randomUUID, randomUUID, randomUUID].toStrings);
+  writeln("UUIDs:", [randomUUID, randomUUID, randomUUID].toString);
+}

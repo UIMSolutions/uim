@@ -35,10 +35,12 @@ class DValueBinder : UIMObject {
 
   // Associates a query placeholder to a value and a type
   void bind(string placeholder, Json value, string typeName = null) {
-    _bindings[placeholder] = MapHelper.create!(string, Json)
-      .set("value", value)
-      .set("type", typeName)
-      .set("placeholder", placeholder.subString(1));
+    Json[string] map;
+    map.set("value", value);
+    map.set("type", typeName);
+    map.set("placeholder", placeholder.subString(1));
+
+    _bindings[placeholder] = map;
   }
 
   unittest {

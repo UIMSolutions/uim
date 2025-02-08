@@ -14,3 +14,10 @@ version (test_uim_core) {
     writeln("-----  ", __MODULE__, "\t  -----");
   }
 }
+
+class CSSHelper {
+  static string selector() {
+    // TODO
+    return null; 
+  }
+}

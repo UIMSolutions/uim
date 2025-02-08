@@ -153,9 +153,12 @@ class DFilesystemEntry : UIMObject, IFilesystemEntry {
   }
 
   override Json[string] debugInfo(string[] showKeys = null, string[] hideKeys = null) {
-    return super.debugInfo(showKeys, hideKeys)
-      .set("relPath", relPath)
-      .set("absolutePath", absolutePath);
+    auto info = super.debugInfo(showKeys, hideKeys);
+
+      info.set("relPath", relPath);
+      info.set("absolutePath", absolutePath);
+
+      return info;
   }
 }
 

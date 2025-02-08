@@ -1071,22 +1071,6 @@ bool isScalar(Json value) {
 }
 
 // #region isSet
-bool hasAllKeys(Json json, string[] keys...) {
-  return hasAllKeys(json, keys.dup);
-}
-
-bool hasAllKeys(Json json, string[] keys) {
-  return keys.all!(key => isSet(json, key));
-}
-
-bool hasAnyKey(Json json, string[] keys...) {
-  return hasAnyKey(json, keys.dup);
-}
-
-bool hasAnyKey(Json json, string[] keys) {
-  return keys.any!(key => isSet(json, key));
-}
-
 bool isSet(Json json, string key) {
   return json.isObject
     ? json.byKeyValue.any!(kv => kv.key == key) : false;

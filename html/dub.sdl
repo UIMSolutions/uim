@@ -1,7 +1,7 @@
 name "html"
 homepage "https://"
 license "Apache-2.0"
-copyright "Copyright © 2017-2025, Ozan Nurettin Süel"
+copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
 description "D-Library for working with HTML"

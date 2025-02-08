@@ -1,6 +1,8 @@
 module uim.errors.interfaces.errors;
 
 public {
+    import uim.errors.interfaces.errors.error;
+
     import uim.errors.interfaces.errors.controller;
     import uim.errors.interfaces.errors.debugger;
     import uim.errors.interfaces.errors.formatter;

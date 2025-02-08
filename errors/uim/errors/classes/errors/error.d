@@ -17,7 +17,15 @@ class UIMError : IError {
 
     }
 
-    string message() {
+    string label() {
+        return null;
+    }
+
+   string line() {
+        return null;
+   }
+
+   string message() {
         return null;
     }
 
@@ -30,6 +38,10 @@ class UIMError : IError {
     }
 
     size_t[string][] trace() {
+        return null;
+    }
+
+    string traceAsString() {
         return null;
     }
 }

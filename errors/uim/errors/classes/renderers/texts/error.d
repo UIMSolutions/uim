@@ -23,13 +23,13 @@ class DTextErrorRenderer : DErrorRenderer {
   mixin(ErrorRendererThis!("Text"));
 
   // Hook method
-  /* override bool initialize(Json[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
 
     return true;
-  } */
+  }
 
   override void write(string outputText) {
     writeln(outputText);
@@ -39,15 +39,14 @@ class DTextErrorRenderer : DErrorRenderer {
     if (!isDebug) { return null; }
 
     // isDebug
-/*     return 
+    return 
       "%s: %s . %s on line %s of %s\nTrace:\n%s".format(
         error.label(),
         error.code(),
         error.message(),
         error.line() ? error.line() : "",
         error.fileName() ? error.fileName() : "",
-        error.traceAsString()); */
-      return null; 
+        error.traceAsString());
   }
 }
 mixin(ErrorRendererCalls!("Text"));

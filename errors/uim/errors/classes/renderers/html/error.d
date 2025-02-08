@@ -16,7 +16,6 @@ version (test_uim_errors) {
 
 /*
  * Interactive HTML error rendering with a stack trace.
- *
  * Default output renderer for non CLI SAPI.
  */
 class DHtmlErrorRenderer : DErrorRenderer {
@@ -31,8 +30,8 @@ class DHtmlErrorRenderer : DErrorRenderer {
         if (!shouldDebug) {
             return null;
         }
-        /* string anId = "uimErr" ~ uniqid();
-        auto file = error.file(); */
+        string anId = "error-" ~ randomUUID.toString;
+        // auto file = error.file(); */
 
         /*
         // Some of the error data is not HTML safe so we escape everything.

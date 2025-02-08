@@ -31,7 +31,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
       return false;
     }
 
-    // _id = uniqid("", true);
+    _id = randomUUID.toString;
     return true;
   }
 

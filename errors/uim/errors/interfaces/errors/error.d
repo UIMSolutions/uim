@@ -1,23 +1,32 @@
+
 /****************************************************************************************************************
-* Copyright: © 2018-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.errors.classes.errors.interfaces;
+module uim.errors.interfaces.errors.error;
 
 import uim.errors;
-
 @safe:
 
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 interface IError {
-  // ERRORS code();
+    ERRORS code(); 
 
-  void message(string message);
-  string message();
+    string label(); 
+    string line(); 
+    string message(); 
 
-  string fileName();
+    string fileName(); 
 
-  size_t lineNumber();
+    size_t lineNumber(); 
 
-  size_t[string][] trace();
+    size_t[string][] trace(); 
+        string traceAsString(); 
+
 }

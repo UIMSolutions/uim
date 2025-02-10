@@ -23,5 +23,8 @@ class DErrorRenderer : UIMObject, IErrorRenderer {
     }
 
     // Write output to the renderer`s output stream
-    void write(string output) {}
+  IErrorRenderer write(string outputText) {
+    // writeln(outputText);
+    return this;
+  }
 }

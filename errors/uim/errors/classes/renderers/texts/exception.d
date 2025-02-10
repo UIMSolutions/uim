@@ -23,7 +23,7 @@ version (test_uim_errors) {
  * @todo 5.0 Implement uim.errors.IExceptionRenderer. This implementation can"t implement
  * the concrete interface because the return types are not compatible.
  */
-class DTextExceptionRenderer {
+class DTextExceptionRenderer : IExceptionRenderer{
   private IError _error;
 
   this(IError error) {
@@ -43,7 +43,8 @@ class DTextExceptionRenderer {
   }
 
   // Write output to stdout.
-  void write(string outputText) {
+  IExceptionRenderer write(string outputText) {
     writeln(outputText);
+    return this;
   }
 }

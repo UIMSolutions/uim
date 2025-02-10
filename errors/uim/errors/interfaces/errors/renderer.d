@@ -19,10 +19,6 @@ interface IErrorRenderer {
     // Render output for the provided error.
     string render(IError errorToRender, bool shouldDebug);
 
-    /**
-     * Write output to the renderer`s output stream
-     * Params:
-     * string aout The content to output.
-     */
-    void write(string aout);
+    // Write output to the renderer`s output stream
+    IErrorRenderer write(string output);
 }

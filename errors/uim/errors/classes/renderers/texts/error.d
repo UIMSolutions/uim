@@ -31,8 +31,9 @@ class DTextErrorRenderer : DErrorRenderer {
     return true;
   }
 
-  override void write(string outputText) {
+  override IErrorRenderer write(string outputText) {
     writeln(outputText);
+    return this;
   }
 
   override string render(IError error, bool isDebug) {

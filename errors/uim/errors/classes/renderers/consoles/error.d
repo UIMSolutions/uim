@@ -18,7 +18,7 @@ version (test_uim_errors) {
  * Plain text error rendering with a stack trace.
  * Writes to STDERR via a UIM\Console\OutputConsole instance for console environments
  */
-class DConsoleErrorRenderer { // }: IErrorRenderer {
+class DConsoleErrorRenderer : DErrorRenderer { 
   protected bool _trace = false;
 
  /*  protected DOutput _output; */
@@ -30,11 +30,12 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
     // _trace = configuration.getBoolean("trace", false);
   }
 
-  /* void write(string outputText) {
-    _output.write(outputText);
-  } */
+  override IErrorRenderer write(string outputText) {
+    writeln(outputText);
+    return this;
+  }
 
-  string render(IError error, bool shouldDebug) {
+  override string render(IError error, bool shouldDebug) {
     string trace = "";
    /*  if (this.trace) {
       trace = "\n<info>Stack Trace:</info>\n\n" ~ error.traceAsString();

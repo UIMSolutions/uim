@@ -22,9 +22,10 @@ class DHtmlErrorRenderer : DErrorRenderer {
     mixin(ErrorRendererThis!("Html"));
 
     // Output to stdout which is the server response.
-    override void write(string outputText) {
-        writeln(outputText);
-    }
+  override IErrorRenderer write(string outputText) {
+    writeln(outputText);
+    return this;
+  }
 
     override string render(IError error, bool shouldDebug) {
         if (!shouldDebug) {

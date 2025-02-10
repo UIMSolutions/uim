@@ -48,7 +48,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
   protected IErrorController controller;
 
   // Template to render for {@link \UIM\Core\Exception\DException}
-  protected string atemplate = "";
+  protected string _template = "";
 
   // The method corresponding to the Exception this object is for.
   protected string methodName = "";
@@ -334,7 +334,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * A safer way to render error messages, replaces all helpers, with basics
      * and doesn`t call component methods.
      * Params:
-     * string atemplate The template to render.
+     * string _template The template to render.
      */
   /* protected IResponse _outputMessageSafe(string templateText) {
     auto builder = _controller.viewBuilder();

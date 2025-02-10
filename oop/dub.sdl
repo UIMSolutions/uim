@@ -2,7 +2,7 @@ name "oop"
 description "D-Library for core OOP functionalities"
 homepage "https://"
 license "Apache-2.0"
-copyright "Copyright © 2018-2024, Ozan Nurettin Süel"
+copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
 dependency "colored" version="~>0.0.31"

@@ -2,7 +2,7 @@ name "uim"
 description "UIM framework for building web applications"
 homepage "https://"
 license "Apache-2.0"
-copyright "Copyright © 2018-2024, Ozan Nurettin Süel"
+copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
 targetName "uim"

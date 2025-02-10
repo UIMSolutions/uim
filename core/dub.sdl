@@ -2,7 +2,7 @@ name "core"
 description "Core D-Library for the uim framework"
 homepage "https://"
 authors "Ozan Nurettin Süel"
-copyright "Copyright © 2018-2024, Ozan Nurettin Süel"
+copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 license "Apache-2.0"
 
 targetType "library"

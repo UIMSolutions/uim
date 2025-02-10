@@ -37,7 +37,7 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
   string render(IError error, bool shouldDebug) {
     string trace = "";
    /*  if (this.trace) {
-      trace = "\n<info>Stack Trace:</info>\n\n" ~ error.getTraceAsString();
+      trace = "\n<info>Stack Trace:</info>\n\n" ~ error.traceAsString();
     }
     return "<error>%s: %s . %s</error> on line %s of %s%s"
       .format(
@@ -45,7 +45,7 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
         error.code(),
         error.message(),
         error.line() ? error.line() : "",
-        error.getFile() ? error.getFile() : "",
+        error.fileName() ? error.fileName() : "",
         trace
       ); */
       return null; 

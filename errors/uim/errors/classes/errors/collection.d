@@ -8,6 +8,12 @@ module uim.errors.classes.errors.collection;
 import uim.errors;
 @safe:
 
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 /* class DErrorCollection : DCollection!UIMError {   
 }
 

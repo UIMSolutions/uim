@@ -6,14 +6,15 @@
 module uim.errors.interfaces.errors.logger;
 
 import uim.errors;
-
 @safe:
 
-/**
- * Interface for error logging handlers.
- *
- * Used by the ErrorHandlerMiddleware and global error handlers to log exceptions and errors.
- */
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
+// Used by the ErrorHandlerMiddleware and global error handlers to log exceptions and errors.
 interface IErrorLogger {
     // Log an error for an exception with optional request context.
     /* void logException(

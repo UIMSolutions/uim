@@ -5,9 +5,13 @@
 *****************************************************************************************************************/
 module uim.errors.interfaces.errors.controller;
 
-import uim.errors;
-
 @safe:
+
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 interface IErrorController {
 
 }

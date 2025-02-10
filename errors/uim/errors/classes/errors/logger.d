@@ -34,7 +34,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
             errorMessage ~= getRequestContext(request);
         }
         if (anIncludeTrace) {
-            errorMessage ~= "\nTrace:\n" ~ error.getTraceAsString() ~ "\n";
+            errorMessage ~= "\nTrace:\n" ~ error.traceAsString() ~ "\n";
         }
         /* label = error.label();
         level = match (label) {

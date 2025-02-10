@@ -6,6 +6,7 @@
 module uim.errors.classes.renderers.texts.exception;
 
 import uim.errors;
+
 @safe:
 
 version (test_uim_errors) {
@@ -23,26 +24,26 @@ version (test_uim_errors) {
  * the concrete interface because the return types are not compatible.
  */
 class DTextExceptionRenderer {
-    private Throwable _error;
+  private IError _error;
 
-    this(Throwable error) {
-        _error = error;
-    }
+  this(IError error) {
+    _error = error;
+  }
 
-    // Render an exception into a plain text message.
-    string render() {
-/*         return "%s : %s on line %s of %s\nTrace:\n%s".format(
-            _error.code(),
-            _error.message(),
-            _error.line(),
-            _error.getFile(),
-            _error.getTraceAsString(),
-       ); */
-       return null; // TODO
-    }
+  // Render an exception into a plain text message.
+  string render() {
+    return "%s : %s on line %s of %s\nTrace:\n%s".format(
+      _error.code(),
+      _error.message(),
+      _error.line(),
+      _error.fileName(),
+      _error.traceAsString(),
+    );
+    return null; // TODO
+  }
 
-    // Write output to stdout.
-    void write(string outputText) {
-        writeln(outputText);
-    }
+  // Write output to stdout.
+  void write(string outputText) {
+    writeln(outputText);
+  }
 }

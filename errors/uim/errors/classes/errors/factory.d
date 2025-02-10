@@ -6,8 +6,13 @@
 module uim.errors.classes.errors.factory;
 
 import uim.errors;
-
 @safe:
+
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 /* class DErrorFactory : DFactory!UIMError {
 }

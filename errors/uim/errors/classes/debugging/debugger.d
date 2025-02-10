@@ -6,17 +6,15 @@
 module uim.errors.classes.debugging.debugger;
 
 import uim.errors;
-
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
-/**
- * Provide custom logging and error handling.
- * Debugger : D"s default error handling and gives simpler to use more powerful interfaces.
- */
+// Provide custom logging and error handling.
 class DDebugger : UIMObject, IErrorDebugger {
   this() {
     super("Debugger");
@@ -50,44 +48,43 @@ class DDebugger : UIMObject, IErrorDebugger {
       "vscode": "vscode://file/{file}:{line}",
     ];
 
-/*     _stringContents = MapHelper.create!(string, Json)
-      .set("log",
-        MapHelper.create!(string, Json) // These templates are not actually used, as Debugger.log() is called instead.
-        .set("trace", "{:reference} - {:path}, line {:line}")
-          .set("error", "{:error} ({:code}): {:description} in [{:file}, line {:line}]")
-      )
+     _stringContents = null;
 
-      .set("js",
-        MapHelper.create!(string, Json)
-          .set("error", "")
-          .set("info", "")
-          .set("trace", htmlDoubleTag("pre", ["stack-trace"], "{:trace}"))
-          .set("code", "")
-          .set("dumpContext", "")
-          .set("links", Json.emptyArray)
-          .set("escapeContext", true)
-      )
-      .set("html",
-        MapHelper.create!(string, Json)
-          .set("trace", htmlDoubleTag("pre", ["uim-error trace"], "<b>Trace</b> <p>{:trace}</p>"))
-          .set("dumpContext", htmlDoubleTag("pre", [
-              "uim-error dumpContext"
-            ], "<b>Context</b> <p>{:dumpContext}</p>"))
-          .set("escapeContext", true)
-      )
-      .set("txt",
-        MapHelper.create!(string, Json)
-          .set("error", "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}")
-          .set("code", "")
-          .set("info", "")
-      )
-      .set("base",
-        MapHelper.create!(string, Json)
-          .set("traceLine", "{:reference} - {:path}, line {:line}")
-          .set("trace", "Trace:\n{:trace}\n")
-          .set("dumpContext", "Context:\n{:dumpContext}\n")
-      );
- */
+    Json[string] logMap; // These templates are not actually used, as Debugger.log() is called instead.
+    logMap.set("trace", "{:reference} - {:path}, line {:line}");
+    logMap.set("error", "{:error} ({:code}): {:description} in [{:file}, line {:line}]");
+    _stringContents["log"] = logMap;
+
+    Json[string] jsMap; 
+    jsMap.set("error", "");
+    jsMap.set("info", "");
+    jsMap.set("trace", htmlDoubleTag("pre", ["stack-trace"], "{:trace}"));
+    jsMap.set("code", "");
+    jsMap.set("dumpContext", "");
+    jsMap.set("links", Json.emptyArray);
+    jsMap.set("escapeContext", true);
+    _stringContents["js"] = jsMap;
+
+    Json[string] htmlMap; 
+    htmlMap.set("trace", htmlDoubleTag("pre", ["uim-error trace"], "<b>Trace</b> <p>{:trace}</p>"));
+    htmlMap.set("dumpContext", htmlDoubleTag("pre", [
+        "uim-error dumpContext"
+      ], "<b>Context</b> <p>{:dumpContext}</p>"));
+    htmlMap.set("escapeContext", true);
+    _stringContents["html"] = htmlMap;
+
+    Json[string] txtMap; 
+    txtMap.set("error", "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}");
+    txtMap.set("code", "");
+    txtMap.set("info", "");
+    _stringContents["txt"] = txtMap;
+
+    Json[string] baseMap; 
+    baseMap.set("traceLine", "{:reference} - {:path}, line {:line}");
+    baseMap.set("trace", "Trace:\n{:trace}\n");
+    baseMap.set("dumpContext", "Context:\n{:dumpContext}\n");
+    _stringContents["base"] = baseMap;
+
     return true;
   }
 

@@ -5,11 +5,13 @@
 *****************************************************************************************************************/
 module uim.errors.classes.debugging.context;
 
-@safe:
 import uim.errors;
+@safe:
 
-unittest {
+version (test_uim_errors) {
+  unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 /**

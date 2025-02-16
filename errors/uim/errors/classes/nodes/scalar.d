@@ -41,7 +41,7 @@ unittest {
     Json json = Json.emptyObject;   
     json["a"] = 1;
     
-    auto node = new DScalarErrorNode("int", json["a"]);
+    auto node = new DScalarErrorNode("int", json);
     assert(node.value["a"] == 1);
     assert(node.type == "int");
     assert(node.children.length == 0);

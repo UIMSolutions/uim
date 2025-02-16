@@ -17,11 +17,7 @@ version (test_uim_errors) {
 
 /**
  * Plain text exception rendering with a stack trace.
- *
  * Useful in CI or plain text environments.
- *
- * @todo 5.0 Implement uim.errors.IExceptionRenderer. This implementation can"t implement
- * the concrete interface because the return types are not compatible.
  */
 class DTextExceptionRenderer : IExceptionRenderer{
   private IError _error;

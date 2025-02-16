@@ -16,7 +16,7 @@ version (test_uim_errors) {
 }
 
 interface IError {
-    ERRORS code(); 
+    string code(); 
 
     string label(); 
     string line(); 

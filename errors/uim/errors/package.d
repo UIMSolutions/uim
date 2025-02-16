@@ -22,7 +22,6 @@ public { // uim libraries
 public { // uim.filesystem libraries
   import uim.errors.classes;
   import uim.errors.enumerations;
-  import uim.errors.errors;
   import uim.errors.exceptions;
   import uim.errors.helpers;
   import uim.errors.interfaces;

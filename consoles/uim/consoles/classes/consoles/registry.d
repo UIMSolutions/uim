@@ -6,12 +6,22 @@
 module uim.consoles.classes.consoles.registry;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 class DConsoleRegistry : DObjectRegistry!DConsole {
 }
 
 auto ConsoleRegistration() {
     return DConsoleRegistry.registration;
+}
+
+unittest {
+    auto registry = ConsoleRegistration();
+    assert(registry !is null);
 }

@@ -6,8 +6,13 @@
 module uim.oop.configurations.configuration;
 
 import uim.oop;
-
 @safe:
+
+version (test_uim_oop) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 private alias KeyValue = Tuple!(string, "key", Json, "value");
 
@@ -177,12 +182,12 @@ class DConfiguration : UIMObject, IConfiguration {
 
     // #region mergeDefault
     IConfiguration mergeDefaults(T)(T[string] items) {
-        items.byKeyValue.each!(item => mergeDefault(item.key, item.value));
+        items.each!((key, value) => mergeDefault(key, value));
         return this;
     }
 
     IConfiguration mergeDefaults(T)(string[] keys, T value) {
-        keys.each!(item => mergeDefault(item.key, item.value));
+        keys.each!((key, value) => mergeDefault(key, value));
         return this;
     }
 
@@ -302,7 +307,7 @@ class DConfiguration : UIMObject, IConfiguration {
 
     abstract Json get(string key, Json nullValue = Json(null));
 
-    long getBoolean(string key, bool nullValue = false) {
+    bool getBoolean(string key, bool nullValue = false) {
         return hasKey(key) ? get(key).getBoolean : nullValue;
     }
 
@@ -336,7 +341,7 @@ class DConfiguration : UIMObject, IConfiguration {
 
     string[string] getStringMap(string key) {
         string[string] result;
-        getMap(key).byKeyValue.each!(kv => result[kv.key] = kv.value.get!string);
+        getMap(key).each!((key, value) => result[key] = value.get!string);
         return result;
     }
 
@@ -375,7 +380,7 @@ class DConfiguration : UIMObject, IConfiguration {
     // #region update
     IConfiguration update(Json[string] newItems, string[] validKeys = null) {
         validKeys.isNull
-            ? newItems.byKeyValue.each!(item => update(item.key, item.value)) : newItems.byKeyValue
+            ? newItems.each!((key, value) => update(key, value)) : newItems.byKeyValue
             .filter!(item => validKeys.has(item.key))
             .each!(item => update(item.key, item.value));
 
@@ -572,4 +577,32 @@ class DConfiguration : UIMObject, IConfiguration {
         return value;
     }
 
+}
+
+unittest {
+    auto config = new DConfiguration();
+    assert(config !is null);
+/*     assert(config is IConfiguration);
+    assert(config is DConfiguration); */
+    assert(config.initialize());
+    assert(config.defaultData().length == 0);
+    assert(config.data().length == 0);
+    assert(config.keys().length == 0);
+    assert(config.values().length == 0);
+    assert(config.hasKey("test") == false);
+    assert(config.hasValue(Json("test")) == false);
+    assert(config.get("test") == Json(null));
+    assert(config.get("test", Json("test")) == Json("test"));
+    assert(config.get("test", Json(1)) == Json(1));
+    assert(config.get("test", Json(1.0)) == Json(1.0));
+    assert(config.get("test", Json(true)) == Json(true));
+    assert(config.get("test", Json(false)) == Json(false));
+    assert(config.get("test", Json([1, 2, 3])) == Json([1, 2, 3]));
+    assert(config.get("test", Json(["a", "b", "c"])) == Json(["a", "b", "c"]));
+    assert(config.get("test", Json(["a": 1, "b": 2, "c": 3])) == Json(["a": 1, "b": 2, "c": 3]));
+    assert(config.get("test", Json(["a": "a", "b": "b", "c": "c"])) == Json(["a": "a", "b": "b", "c": "c"]));
+    assert(config.get("test", Json(["a": true, "b": false, "c": true])) == Json(["a": true, "b": false, "c": true]));
+    assert(config.get("test", Json(["a": 1, "b": 2, "c": 3])) == Json(["a": 1, "b": 2, "c": 3]));
+    assert(config.get("test", Json(["a": 1.0, "b": 2.0, "c": 3.0])) == Json(["a": 1.0, "b": 2.0, "c": 3.0]));
+    // assert(config.get("test", Json(["a": "a", "b": "b
 }

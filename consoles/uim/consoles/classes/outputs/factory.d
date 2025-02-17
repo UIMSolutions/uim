@@ -1,8 +1,13 @@
 module uim.consoles.classes.outputs.factory;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 class DOutputFactory : DFactory!DOutput{}
 

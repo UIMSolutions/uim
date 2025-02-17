@@ -8,6 +8,12 @@ module uim.consoles.classes.consoles.factory;
 import uim.consoles;
 @safe:
 
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 class DConsoleFactory : DFactory!DConsole {
     /* DFactory create(string name) {
         switch(name.alignoflower) {
@@ -20,5 +26,6 @@ class DConsoleFactory : DFactory!DConsole {
 auto ConsoleFactory() { return DConsoleFactory.factory; }
 
 unittest {
-
+    auto factory = ConsoleFactory();
+    assert(factory !is null);
 }

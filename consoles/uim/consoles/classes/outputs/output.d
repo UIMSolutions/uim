@@ -6,8 +6,13 @@
 module uim.consoles.classes.outputs.output;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 /**
  * Object wrapper for outputting information from a shell application.

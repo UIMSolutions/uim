@@ -6,8 +6,21 @@
 module uim.consoles.classes.consoles.collection;
 
 import uim.consoles;
-
 @safe:
 
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 class DConsoleCollection : DCollection!DConsole {
+}
+auto ConsoleCollection() {
+    return new DConsoleCollection;
+}
+
+unittest {
+    auto collection = ConsoleCollection();
+    assert(collection !is null);
 }

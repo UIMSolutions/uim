@@ -6,8 +6,13 @@
 module uim.consoles.classes.helpformatter;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 /**
  * HelpFormatter formats help for console shells. Can format to either

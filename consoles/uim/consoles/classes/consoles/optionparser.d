@@ -6,8 +6,13 @@
 module uim.consoles.classes.consoles.optionparser;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 /**
  * Handles parsing the ARGV in the command line and provides support

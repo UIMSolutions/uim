@@ -17,6 +17,14 @@ version (test_uim_errors) {
 class DErrorRenderer : UIMObject, IErrorRenderer {
     mixin(ErrorRendererThis!());
 
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
+    
     // Render output for the provided error.
     string render(IError error, bool shouldDebug) {
         return null; 

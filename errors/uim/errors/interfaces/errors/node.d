@@ -6,8 +6,13 @@
 module uim.errors.interfaces.errors.node;
 
 import uim.errors;
-
 @safe:
+
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // Interface for Error Nodes
 // Provides methods to look at the contained value and iterate on child nodes in the error tree.

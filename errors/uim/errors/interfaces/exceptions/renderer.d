@@ -6,8 +6,13 @@
 module uim.errors.interfaces.exceptions.renderer;
 
 import uim.errors;
-
 @safe:
+
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 interface IExceptionRenderer {
     // Renders the response for the exception.

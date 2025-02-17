@@ -1,4 +1,4 @@
-module uim.errors.tests.middleware;
+module uim.errors.tests.logger;
 
 import uim.errors;
 
@@ -10,7 +10,7 @@ version (test_uim_errors) {
   }
 }
 
-bool testErrorMiddleware(IErrorMiddleware middleware) {
-  assert(middleware !is null, "Middleware is null");
+bool testErrorLogger(IErrorLogger logger) {
+  assert(logger !is null, "Logger is null");
   return true;
 }

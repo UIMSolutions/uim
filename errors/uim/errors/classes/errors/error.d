@@ -58,30 +58,46 @@ class DError : UIMObject, IError {
     protected LogLevel[string] _logMap;
     // #endregion logMap
 
+    // #region label
+    // Get the error code
+    protected string _code;
     string code() {
-        return null;
+        return _code;
     }
+    IError code(string newCode) {
+        _code = newCode;
+        return this;
+    }
+    // #endregion code
 
+    // #region label
     // Get the error code label
     string label() {
         return _levelMap.get(code, "error");
     }
+    // #endregion label
 
+    // #region logLevel
     // Get the mapped LOG_ constant.
     LogLevel logLevel() {
         return _logMap.get(label(), LogLevel.error);
     }
+    // #endregion logLevel
 
+    // #region line
     string line() {
-        return null;
+        return to!string(_lineNumber);
     }
+    // #endregion line
 
     // #region message
     protected string _message;
+    // Get the error message.
     string message() {
         return _message;
     }
 
+    // Set the error message.
     IError message(string newMessage) {
         _message = newMessage;
         return this;
@@ -90,10 +106,12 @@ class DError : UIMObject, IError {
 
     // #region filemname
     protected string _fileName;
+    // Get the filename.
     string fileName() {
         return _fileName;
     }
 
+    // Set the filename.
     IError fileName(string name) {
         _fileName = name;
         return this;
@@ -113,15 +131,31 @@ class DError : UIMObject, IError {
 
     // #region trace
     // Get the stacktrace.
-    protected size_t[string][] _trace;
-    size_t[string][] trace() {
+    protected STRINGAA[] _trace;
+    STRINGAA[] trace() {
         return _trace;
     }
-    IError trace( size_t[string][] newTrace) {
+    IError trace(STRINGAA[] newTrace) {
         _trace = newTrace;
         return this;
     }
-    IError addTrace(size_t[string] newTrace) {
+    // Add a trace entry.
+    IError addTrace(STRINGAA[] newTrace) {
+        _trace ~= newTrace;
+        return this;
+    }
+    // Add a trace entry.
+    IError addTrace(string reference, string file, string line) {  
+        STRINGAA newTrace;
+        newTrace["reference"] = reference;
+        newTrace["file"] = file;
+        newTrace["line"] = line;
+        addTrace(newTrace);
+
+        return this;
+    }
+    // Add a trace entry.
+    IError addTrace(STRINGAA newTrace) {
         _trace ~= newTrace;
         return this;
     }
@@ -129,7 +163,10 @@ class DError : UIMObject, IError {
     // Get the stacktrace as a string.
     string traceAsString() {
         return trace
-            .map!(entry => "{%s} {%s, %s}".format(entry["reference"], entry["file"], entry["line"]))
+            .map!(entry => "{%s} {%s, %s}".format(
+                entry["reference"], 
+                entry["file"], 
+                entry["line"]))
             .join("\n");
     }
     // #endregion trace

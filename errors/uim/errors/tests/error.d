@@ -5,3 +5,16 @@
 *****************************************************************************************************************/
 module uim.errors.tests.error;
 
+import uim.errors;
+@safe:
+
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
+bool testError(IError error) {
+  assert(error !is null, "Error is null");
+  return true;
+}

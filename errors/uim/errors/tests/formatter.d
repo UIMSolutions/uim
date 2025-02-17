@@ -1,4 +1,4 @@
-module uim.errors.tests.middleware;
+module uim.errors.tests.formatter;
 
 import uim.errors;
 
@@ -10,7 +10,7 @@ version (test_uim_errors) {
   }
 }
 
-bool testErrorMiddleware(IErrorMiddleware middleware) {
-  assert(middleware !is null, "Middleware is null");
+bool testErrorFormatter(IErrorFormatter formatter) {
+  assert(formatter !is null, "Formatter is null");
   return true;
 }

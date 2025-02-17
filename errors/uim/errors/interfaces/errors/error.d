@@ -1,4 +1,3 @@
-
 /****************************************************************************************************************
 * Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
@@ -7,6 +6,7 @@
 module uim.errors.interfaces.errors.error;
 
 import uim.errors;
+
 @safe:
 
 version (test_uim_errors) {
@@ -16,17 +16,22 @@ version (test_uim_errors) {
 }
 
 interface IError {
-    string code(); 
+  string code();
+  IError code(string newCode);
 
-    string label(); 
-    string line(); 
-    string message(); 
+  string label();
+  string line();
 
-    string fileName(); 
+  string message();
+  IError message(string newMessage);
 
-    size_t lineNumber(); 
+  string fileName();
+  IError fileName(string newFileName);
 
-    size_t[string][] trace(); 
-        string traceAsString(); 
+  size_t lineNumber();
+  IError lineNumber(size_t newLineNumber);
 
+  STRINGAA[] trace();
+  IError trace(STRINGAA[] newTrace);
+  string traceAsString();
 }

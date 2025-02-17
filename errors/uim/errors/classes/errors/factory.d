@@ -14,7 +14,7 @@ version (test_uim_errors) {
   }
 }
 
-class DErrorFactory : DFactory!UIMError {
+class DErrorFactory : DFactory!DError {
 }
 auto ErrorFactory() { return DErrorFactory.factory; }
 

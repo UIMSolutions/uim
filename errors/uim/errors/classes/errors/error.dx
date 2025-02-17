@@ -5,7 +5,7 @@
 *****************************************************************************************************************/
 module uim.errors.errors.error;
 
-class UIMError : UIMObject, IError {
+class DError : UIMObject, IError {
   mixin(ErrorThis!());
 
   this(

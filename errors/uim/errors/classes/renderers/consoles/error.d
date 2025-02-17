@@ -19,16 +19,33 @@ version (test_uim_errors) {
  * Writes to STDERR via a UIM\Console\OutputConsole instance for console environments
  */
 class DConsoleErrorRenderer : DErrorRenderer { 
-  protected bool _trace = false;
+  mixin(ErrorRendererThis!("Console"));
 
- /*  protected DOutput _output; */
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-  this(Json[string] initData = null) {
-    // initialize(initData);
     // `stderr` - The OutputConsole instance to use. Defaults to `D://stderr`
-    // `trace` - Whether or not stacktraces should be output.       _output = configuration.get("stderr", new DOutput("d://stderr"));
-    // _trace = configuration.getBoolean("trace", false);
+    // TODO _output = configuration.get("stderr", new DOutput("d://stderr"));
+    // `trace` - Whether or not stacktraces should be output.       
+    _showTrace = configuration.getBoolean("trace", false);
+
+    return true;
   }
+
+  // #region trace
+  protected bool _showTrace = false;
+  bool showTrace() {
+    return _showTrace;
+  }
+  IErrorRenderer showTrace(bool value) {
+    _showTrace = value;
+    return this;
+  }
+  // #endregion trace
+
+  // TODO protected DOutput _output;
 
   override IErrorRenderer write(string outputText) {
     writeln(outputText);
@@ -36,10 +53,6 @@ class DConsoleErrorRenderer : DErrorRenderer {
   }
 
   override string render(IError error, bool shouldDebug) {
-    string trace = "";
-   /*  if (this.trace) {
-      trace = "\n<info>Stack Trace:</info>\n\n" ~ error.traceAsString();
-    }
     return "<error>%s: %s . %s</error> on line %s of %s%s"
       .format(
         error.label(),
@@ -47,8 +60,20 @@ class DConsoleErrorRenderer : DErrorRenderer {
         error.message(),
         error.line() ? error.line() : "",
         error.fileName() ? error.fileName() : "",
-        trace
-      ); */
-      return null; 
+        showTrace ? "\n<info>Stack Trace:</info>\n\n" ~ error.traceAsString() : ""
+      ); 
   }
+}
+
+unittest {
+  auto renderer = new DConsoleErrorRenderer();
+  assert(is(typeof(renderer) == IErrorRenderer));
+  /* assert(renderer is DErrorRenderer);
+  assert(renderer is DConsoleErrorRenderer); */
+  assert(renderer.render(new DError("Test Error", "TEST_ERROR", "This is a test error", __FILE__, __LINE__), true) == "<error>Test Error: TEST_ERROR . This is a test error</error> on line 33 of errors/uim/errors/classes/renderers/consoles/error.d\n<info>Stack Trace:</info>\n\n");
+  assert(renderer.render(new DError("Test Error", "TEST_ERROR", "This is a test error", __FILE__, __LINE__), false) == "<error>Test Error: TEST_ERROR . This is a test error</error> on line 33 of errors/uim/errors/classes/renderers/consoles/error.d");
+  assert(renderer.showTrace(true) is renderer);
+  assert(renderer.showTrace() == true);
+  assert(renderer.showTrace(false) is renderer);
+  assert(renderer.showTrace() == false);
 }

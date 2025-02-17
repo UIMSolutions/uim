@@ -56,11 +56,8 @@ class DDebugger : UIMObject, IErrorDebugger {
     _stringContents["log"] = logMap;
 
     Json[string] jsMap; 
-    jsMap.set("error", "");
-    jsMap.set("info", "");
+    jsMap.set(["error", "info", "code", "dumpContext"], "");
     jsMap.set("trace", htmlDoubleTag("pre", ["stack-trace"], "{:trace}"));
-    jsMap.set("code", "");
-    jsMap.set("dumpContext", "");
     jsMap.set("links", Json.emptyArray);
     jsMap.set("escapeContext", true);
     _stringContents["js"] = jsMap;
@@ -74,9 +71,8 @@ class DDebugger : UIMObject, IErrorDebugger {
     _stringContents["html"] = htmlMap;
 
     Json[string] txtMap; 
+    txtMap.set(["code", "info"], "");
     txtMap.set("error", "{:error}: {:code} . {:description} on line {:line} of {:path}\n{:info}");
-    txtMap.set("code", "");
-    txtMap.set("info", "");
     _stringContents["txt"] = txtMap;
 
     Json[string] baseMap; 

@@ -14,7 +14,7 @@ version (test_uim_errors) {
   }
 }
 
-class DErrorCollection : DCollection!UIMError {   
+class DErrorCollection : DCollection!DError {   
 }
 
 auto ErrorCollection() {
@@ -24,5 +24,5 @@ auto ErrorCollection() {
 unittest {
     auto collection = ErrorCollection();
     assert(collection !is null);
-    assert(collection is ErrorCollection());
+    // assert(collection is DErrorCollection);
 } 

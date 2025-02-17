@@ -11,7 +11,7 @@ version (test_uim_errors) {
 }
 
 // This class is used to represent errors in UIM applications.
-class UIMError : UIMObject, IError {
+class DError : UIMObject, IError {
     mixin(ErrorThis!());
 
     override bool initialize(Json[string] initData = null) {
@@ -137,7 +137,7 @@ class UIMError : UIMObject, IError {
 }
 
 unittest {
-    auto error = new UIMError();
+    auto error = new DError();
     assert(error !is null);
 
     assert(error.initialize());

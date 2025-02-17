@@ -14,7 +14,7 @@ version (test_uim_errors) {
   }
 }
 
-class DErrorRegistry : DObjectRegistry!UIMError {
+class DErrorRegistry : DObjectRegistry!DError {
 }
 
 auto ErrorRegistry() {

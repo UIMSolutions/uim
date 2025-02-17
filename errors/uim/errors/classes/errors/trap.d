@@ -6,6 +6,7 @@
 module uim.errors.classes.errors.trap;
 
 import uim.errors;
+
 @safe:
 
 version (test_uim_errors) {
@@ -23,25 +24,25 @@ version (test_uim_errors) {
  * Finally, errors are 'rendered' using the defined renderer. If no error renderer is defined in configuration
  * one of the default implementations will be chosen based on the UIM SAPI.
  */
-class DErrorTrap {
-    mixin TConfigurable;
-    // @use \UIM\Event\EventDispatcherTrait<\UIM\Error\ErrorTrap>
-    // TODO mixin TEventDispatcher;
+class DErrorTrap : UIMObject {
+  // @use \UIM\Event\EventDispatcherTrait<\UIM\Error\ErrorTrap>
+  // TODO mixin TEventDispatcher;
 
-    this() {
-        initialize;
+  this() {
+    initialize;
+  }
+
+  this(Json[string] initData) {
+    initialize(initData);
+  }
+
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
     }
 
-    this(Json[string] initData) {
-        initialize(initData);
-    }
-
-    bool initialize(Json[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        /**
-        * Configuration options. Generally these are defined in config/app.d
+    /**
+        * Configuration options
         *
         * - `errorLevel` - int - The level of errors you are interested in capturing.
         * - `errorRenderer` - string - The class name of render errors with. Defaults
@@ -50,28 +51,26 @@ class DErrorTrap {
         * - `logger` - string - The class name of the error logger to use.
         * - `trace` - boolean - Whether or not backtraces should be included in logged errors.
         */
-        configuration // TODOD "errorLevel": E_ALL,
-        .setDefault("errorRenderer", Json(null))
-            .setDefault("log", true) // TODO "logger": ErrorLogger.classname,
-            .setDefault("trace", false);
+    configuration // TODOD "errorLevel": E_ALL,
+    .setDefault("errorRenderer", Json(null))
+      .setDefault("log", true) // TODO "logger": ErrorLogger.classname,
+      .setDefault("trace", false);
 
-        return true;
-    }
+    return true;
+  }
 
-    mixin(TProperty!("string", "name"));
-
-    // Choose an error renderer based on config or the SAPI
-    protected string chooseErrorRenderer() {
-        auto errorRendererData = configuration.get("errorRenderer");
-/*         if (!errorRendererData.isNull) {
+  // Choose an error renderer based on config or the SAPI
+  protected string chooseErrorRenderer() {
+    auto errorRendererData = configuration.get("errorRenderer");
+    /*         if (!errorRendererData.isNull) {
             return errorRendererData;
         }
- */        /** @var class-string<\UIM\Error\IErrorRenderer> */
-        // return UIM_SAPI == "cli" ? ConsoleErrorRenderer.classname : HtmlErrorRenderer.classname;
-        return null;
-    }
+ */ /** @var class-string<\UIM\Error\IErrorRenderer> */
+    // return UIM_SAPI == "cli" ? ConsoleErrorRenderer.classname : HtmlErrorRenderer.classname;
+    return null;
+  }
 
-    /**
+  /**
      * Attach this ErrorTrap to D`s default error handler.
      *
      * This will replace the existing error handler, and the
@@ -80,13 +79,13 @@ class DErrorTrap {
      * This method will also set the global error level
      * via error_reporting().
      */
-    void register() {
-        auto level = configuration.getLong("errorLevel", -1);
-        /* error_reporting(level);
+  void register() {
+    auto level = configuration.getLong("errorLevel", -1);
+    /* error_reporting(level);
         set_error_handler(this.handleError(...), level); */
-    }
+  }
 
-    /**
+  /**
      * Handle an error from UIM set_error_handler
      *
      * Will use the configured renderer to generate output
@@ -95,26 +94,26 @@ class DErrorTrap {
      * This method will dispatch the `Error.beforeRender` event which can be listened
      * to on the global event manager.
      */
-    bool handleError(
-        int errorCode,
-        string errorDescription,
-        string fileName = null,
-        int errorTriggerLine = 0
-    ) {
-/*         if (!(error_reporting() & errorCode)) {
+  bool handleError(
+    int errorCode,
+    string errorDescription,
+    string fileName = null,
+    int errorTriggerLine = 0
+  ) {
+    /*         if (!(error_reporting() & errorCode)) {
             return false;
         }
         if (errorCode == ERRORS.USER_ERROR || errorCode == ERRORS.ERROR || errorCode == ERRORS
             .PARSE) {
             throw new DFatalErrorException(errorDescription, errorCode, fileName, errorTriggerLine);
         }
- */        /* auto trace =  /* (array) * / Debugger.trace([
+ */ /* auto trace =  /* (array) * / Debugger.trace([
                 "start": 1,
                 "format": "points"
             ]);
-        auto error = new UIMError(errorCode, errorDescription, fileName, errorTriggerLine, trace);
+        auto error = new DError(errorCode, errorDescription, fileName, errorTriggerLine, trace);
  */
-       /*  auto anIgnoredPaths = configuration.getArray("Error.ignoredDeprecationPaths");
+    /*  auto anIgnoredPaths = configuration.getArray("Error.ignoredDeprecationPaths");
         if (errorCode == ERRORS.USER_DEPRECATED && anIgnoredPaths) {
             string relativePath = subString(fileName, ROOT.length + 1).replace(
                 DIRECTORY_SEPARATOR, "/");
@@ -126,9 +125,9 @@ class DErrorTrap {
             }
         } */
 
-        auto debugData = configuration.get("debugData");
-        auto renderer = this.renderer();
-        /* try {
+    auto debugData = configuration.get("debugData");
+    auto renderer = this.renderer();
+    /* try {
             // Log first incase rendering or event listeners fail
             logError(error);
             auto event = dispatchEvent("Error.beforeRender", ["error": error]);
@@ -141,30 +140,30 @@ class DErrorTrap {
             logger().logException(exception);
             return false;
         } */
-        return true;
-    }
+    return true;
+  }
 
-    // Logging helper method.
-    protected void logError(IError error) {
-/*         if (!configuration.hasKey("log")) {
+  // Logging helper method.
+  protected void logError(IError error) {
+    /*         if (!configuration.hasKey("log")) {
             return;
         }
         logger().logError(error, Router.getRequest(), configuration.get("trace")); */
-    }
+  }
 
-    // Get an instance of the renderer.
-    IErrorRenderer renderer() {
-/*         string classname = configuration.getString("errorRenderer", chooseErrorRenderer());
+  // Get an instance of the renderer.
+  IErrorRenderer renderer() {
+    /*         string classname = configuration.getString("errorRenderer", chooseErrorRenderer());
 
         return new classname(_config); */
-        return null; // TODO
-    }
+    return null; // TODO
+  }
 
-    // Get an instance of the logger.
-    IErrorLogger logger() {
-/*         string classname = configuration.getString("logger", defaultconfiguration.getString(
+  // Get an instance of the logger.
+  IErrorLogger logger() {
+    /*         string classname = configuration.getString("logger", defaultconfiguration.getString(
                 "logger"));
         return new classname(_config); */
-        return null; // TODO
-    }
+    return null; // TODO
+  }
 }

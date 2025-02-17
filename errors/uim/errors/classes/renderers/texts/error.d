@@ -14,7 +14,6 @@ version (test_uim_errors) {
   }
 }
 
-
 /**
  * Plain text error rendering with a stack trace.
  * Useful in CLI environments.
@@ -22,7 +21,6 @@ version (test_uim_errors) {
 class DTextErrorRenderer : DErrorRenderer {
   mixin(ErrorRendererThis!("Text"));
 
-  // Hook method
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;

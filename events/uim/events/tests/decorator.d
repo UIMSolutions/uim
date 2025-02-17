@@ -6,8 +6,13 @@
 module uim.events.tests.decorator;
 
 import uim.events;
-
 @safe:
+
+version (test_uim_events) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 bool testDecorator(IDecorator decorator) {
     assert(decorator !is null, "Decorator is null");

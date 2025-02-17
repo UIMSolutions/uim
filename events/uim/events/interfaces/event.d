@@ -6,8 +6,13 @@
 module uim.events.interfaces.event;
 
 import uim.events;
-
 @safe:
+
+version (test_uim_events) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 /*
  * Represents the transport class of events across the system. It receives a name, subject and an optional

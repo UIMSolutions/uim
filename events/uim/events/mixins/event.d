@@ -6,7 +6,13 @@
 module uim.events.mixins.event;
 
 import uim.events;
-@safe: 
+@safe:
+
+version (test_uim_events) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 string eventThis(string name = null) {
     string fullName = name ~ "Event";

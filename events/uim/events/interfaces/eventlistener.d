@@ -6,9 +6,13 @@
 module uim.events.interfaces.eventlistener;
 
 import uim.events;
-
 @safe:
 
+version (test_uim_events) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 /*
  * Objects implementing this interface should declare the `implementedEvents()` method
  * to notify the event manager what methods should be called when an event is triggered.

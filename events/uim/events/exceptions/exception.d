@@ -6,8 +6,13 @@
 module uim.events.exceptions.exception;
 
 import uim.events;
-
 @safe:
+
+version (test_uim_events) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // Base events exception.
 class DEventsException : DException {

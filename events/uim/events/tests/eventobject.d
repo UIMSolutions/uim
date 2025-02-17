@@ -5,3 +5,11 @@
 *****************************************************************************************************************/
 module uim.events.tests.eventobject;
 
+import uim.events;
+@safe:
+
+version (test_uim_events) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}

@@ -6,8 +6,13 @@
 module uim.events.tests.event;
 
 import uim.events;
-
 @safe:
+
+version (test_uim_events) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 bool testEvent(IEvent event) {
     assert(event !is null, "Event is null");

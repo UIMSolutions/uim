@@ -6,8 +6,13 @@
 module uim.events.interfaces.eventmanager;
 
 import uim.events;
-
 @safe:
+
+version (test_uim_events) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 interface IEventManager {
     /**

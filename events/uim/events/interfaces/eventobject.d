@@ -6,8 +6,13 @@
 module uim.events.interfaces.eventobject;
 
 import uim.events;
-
 @safe:
+
+version (test_uim_events) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 interface IEventObject {
 

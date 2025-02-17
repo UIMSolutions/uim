@@ -14,7 +14,12 @@ version (test_uim_errors) {
   }
 }
 
-/* class DErrorFactory : DFactory!UIMError {
+class DErrorFactory : DFactory!UIMError {
 }
 auto ErrorFactory() { return DErrorFactory.factory; }
- */
+
+unittest {
+  auto factory = ErrorFactory();
+  assert(factory !is null);
+  assert(factory is ErrorFactory());
+}

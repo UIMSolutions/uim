@@ -6,8 +6,13 @@
 module uim.errors.classes.errors.trap;
 
 import uim.errors;
-
 @safe:
+
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 /**
  * Entry point to UIM`s error handling.

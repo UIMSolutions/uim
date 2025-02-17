@@ -6,11 +6,12 @@
 module uim.errors.classes.formatters.html;
 
 import uim.errors;
-
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 /**

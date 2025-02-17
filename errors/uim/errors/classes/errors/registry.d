@@ -6,13 +6,23 @@
 module uim.errors.classes.errors.registry;
 
 import uim.errors;
-
 @safe:
 
-/* class DErrorRegistry : DObjectRegistry!UIMError {
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
+class DErrorRegistry : DObjectRegistry!UIMError {
 }
 
 auto ErrorRegistry() {
     return DErrorRegistry.registration;
 }
- */
+
+unittest {
+    auto registry = ErrorRegistry();
+    assert(registry !is null);
+    assert(registry is ErrorRegistry());
+}

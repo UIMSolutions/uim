@@ -6,11 +6,12 @@
 module uim.errors.classes.formatters.formatter;
 
 import uim.errors;
-
 @safe:
 
-unittest {
+version (test_uim_errors) {
+  unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 class DErrorFormatter : UIMObject, IErrorFormatter {

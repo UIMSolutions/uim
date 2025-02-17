@@ -111,6 +111,7 @@ class UIMError : UIMObject, IError {
     }
     // #endregion lineNumber
 
+    // #region trace
     // Get the stacktrace.
     protected size_t[string][] _trace;
     size_t[string][] trace() {
@@ -131,6 +132,8 @@ class UIMError : UIMObject, IError {
             .map!(entry => "{%s} {%s, %s}".format(entry["reference"], entry["file"], entry["line"]))
             .join("\n");
     }
+    // #endregion trace
+
 }
 
 unittest {

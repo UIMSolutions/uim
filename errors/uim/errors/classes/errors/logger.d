@@ -6,8 +6,13 @@
 module uim.errors.classes.errors.logger;
 
 import uim.errors;
-
 @safe:
+
+version (test_uim_errors) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // Log errors and unhandled exceptions to `UIM\Log\Log`
 class DErrorLogger : UIMObject, IErrorLogger {

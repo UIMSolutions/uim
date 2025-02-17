@@ -6,11 +6,12 @@
 module uim.errors.classes.formatters.console;
 
 import uim.errors;
-
 @safe:
 
-unittest {
+version (test_uim_errors) {
+  unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 // Debugger formatter for generating output with ANSI escape codes

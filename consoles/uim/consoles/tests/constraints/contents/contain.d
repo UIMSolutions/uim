@@ -6,8 +6,14 @@
 module uim.consoles.tests.constraints.contents.contain;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 // ContentsContain
 class DContentsContain : UIMObject /* DContentsBase */ {

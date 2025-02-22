@@ -6,8 +6,14 @@
 module uim.consoles.exceptions.stop;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 // Exception class for halting errors in console tasks
 class DStopException : DConsoleException {

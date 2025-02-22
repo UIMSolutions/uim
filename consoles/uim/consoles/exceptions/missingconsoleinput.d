@@ -6,8 +6,14 @@
 module uim.consoles.exceptions.missingconsoleinput;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 // Exception class used to indicate missing console input.
 class DMissingInputConsoleException : DConsoleException {

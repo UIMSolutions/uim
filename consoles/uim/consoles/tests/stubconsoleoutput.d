@@ -6,8 +6,14 @@
 module uim.consoles.tests.stubconsoleoutput;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 /**
  * StubOutput makes testing shell commands/shell helpers easier.

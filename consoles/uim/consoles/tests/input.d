@@ -6,8 +6,14 @@
 module uim.consoles.tests.input;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 bool testInput(IInput input) {
     assert(input !is null, "testInput: input is null");

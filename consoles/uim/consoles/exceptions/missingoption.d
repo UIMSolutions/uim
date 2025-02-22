@@ -6,8 +6,13 @@
 module uim.consoles.exceptions.missingoption;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 // Exception raised with suggestions
 class DMissingOptionException : DConsoleException {

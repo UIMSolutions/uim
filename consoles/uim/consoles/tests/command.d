@@ -6,8 +6,14 @@
 module uim.consoles.tests.command;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 bool testCommand(IConsoleCommand commandToTest) {
     assert(commandToTest !is null, "In testCommand: commandToTest is null");

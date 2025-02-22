@@ -6,8 +6,14 @@
 module uim.consoles.tests.constraints.contents.content;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 // Base constraint for content constraints
 abstract class DContentsBase : DConstraint {

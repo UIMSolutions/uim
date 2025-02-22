@@ -12,7 +12,7 @@ public {
 
 public {
     import uim.consoles.classes.consoles;
-    import uim.consoles.classes.erroroutputs;
+    import uim.consoles.classes.error;
     import uim.consoles.classes.inputs;
     import uim.consoles.classes.outputs;
 }

@@ -6,8 +6,14 @@
 module uim.consoles.tests.output;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 bool testOutput(IOutput output) {
     assert(output !is null, "In testOutput: output is null");

@@ -6,8 +6,14 @@
 module uim.consoles.tests.constraints.contents.notcontain;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 // ContentsNotContain
 /* class DContentsNotContain : DContentsBase {

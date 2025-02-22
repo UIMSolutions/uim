@@ -6,8 +6,13 @@
 module uim.consoles.helpers.console;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 /*
  * Base class for Helpers.

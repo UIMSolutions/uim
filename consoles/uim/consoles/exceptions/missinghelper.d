@@ -6,8 +6,13 @@
 module uim.consoles.exceptions.missinghelper;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 // Used when a Helper cannot be found.
 class DMissingHelperException : DConsoleException {

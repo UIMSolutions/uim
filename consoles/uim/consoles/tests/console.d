@@ -6,8 +6,14 @@
 module uim.consoles.tests.console;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 bool testConsole(IConsole consoleToTest) {
     assert(consoleToTest !is null, "In testConsole: consoleToTest is null");

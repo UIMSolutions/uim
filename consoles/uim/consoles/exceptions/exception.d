@@ -6,8 +6,13 @@
 module uim.consoles.exceptions.exception;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 // Exception class for Console libraries. This exception will be thrown from Console library classes when they encounter an error.
 class DConsoleException : DException {

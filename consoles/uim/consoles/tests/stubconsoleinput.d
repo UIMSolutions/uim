@@ -6,8 +6,14 @@
 module uim.consoles.tests.stubconsoleinput;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 /**
  * Stub class used by the console integration harness.

@@ -10,7 +10,7 @@ import uim.consoles;
 @safe:
 
 bool testInput(IInput input) {
-    assert(input !is null, "In testInput: input is null");
+    assert(input !is null, "testInput: input is null");
     
     return true;
 }

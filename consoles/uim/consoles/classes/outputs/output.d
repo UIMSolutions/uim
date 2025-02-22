@@ -209,3 +209,8 @@ class DOutput : UIMObject, IOutput {
     return this; 
   }
 }
+
+unittest {
+  auto output = new DOutput();
+  assert(output !is null, "Output object is null.");
+}

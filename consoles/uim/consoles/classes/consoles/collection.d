@@ -13,7 +13,6 @@ version (test_uim_consoles) {
         writeln("-----  ", __MODULE__, "\t  -----");
     }
 }
-
 class DConsoleCollection : DCollection!DConsole {
 }
 auto ConsoleCollection() {

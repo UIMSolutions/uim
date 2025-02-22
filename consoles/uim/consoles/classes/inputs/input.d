@@ -6,8 +6,13 @@
 module uim.consoles.classes.inputs.input;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 // Object wrapper for interacting with stdin
 class DInput : UIMObject, IInput {

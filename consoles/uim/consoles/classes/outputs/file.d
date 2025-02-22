@@ -188,5 +188,6 @@ class DFileOutput : DOutput {
 mixin(OutputCalls!("File"));
 
 unittest {
-  // TODO
+  auto output = FileOutput;
+  testOutput(output);
 }

@@ -88,21 +88,12 @@ class DConsole : UIMObject, IConsole {
 	}
 
 	// Output at the verbose level.
-	ulong verbose(string[] messages...) {
-		return verbose(messages.dup);
-		 *  /
-	}
-
 	ulong verbose(string[] messages, int newLinesToAppend = 1) {
 		/* return _writeln(messages, newLinesToAppend, VERBOSE); */
 		return 0;
 	}
 
 	// Output at all levels.
-	ulong quiet(string[] outputMessages...) {
-		return quiet(outputMessages.dup);
-	}
-
 	ulong quiet(string[] outputMessages, int newLinesToAppend = 1) {
 		/* return _writeln(outputMessages, newLinesToAppend, QUIET); */
 		return 0;
@@ -129,11 +120,7 @@ class DConsole : UIMObject, IConsole {
 		return 0;
 	}
 
-	// Convenience method for out() that wraps message between <info> tag
-	int info(string[] outputMessages...) {
-		return info(outputMessages.dup);
-	}
-
+	// Convenience method for out() that wraps message between <info> ta
 	int info(string[] messages, int newLinesToAppend = 1, int outputLevel = NORMAL) {
 		string messageType = "info";
 		auto outputMessages = wrapMessageWithType(messageType, messages);
@@ -143,10 +130,6 @@ class DConsole : UIMObject, IConsole {
 	}
 
 	// Convenience method for out() that wraps message between <comment> tag
-	int comment(string[] outputMessages...) {
-		return comment(outputMessages.dup); */
-	}
-
 	int comment(string[] outputMessages, int newLinesToAppendToAppend = 1, int outputLevel = NORMAL) {
 		auto message = wrapMessageWithType("comment", outputMessages);
 		// return _writeln(message, newLinesToAppend, outputLevel); */

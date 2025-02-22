@@ -6,8 +6,13 @@
 module uim.consoles.classes.inputs.argument;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 /**
  * An object to represent a single argument used in the command line.

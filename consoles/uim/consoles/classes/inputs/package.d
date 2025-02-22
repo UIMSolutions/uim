@@ -7,7 +7,9 @@ public {
     import uim.consoles.classes.inputs.option;
 }
 
-// Derived classe
+// Derived classes
 public {
+    import uim.consoles.classes.inputs.file;
+    import uim.consoles.classes.inputs.rest;
     import uim.consoles.classes.inputs.standard;
 }

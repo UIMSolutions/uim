@@ -6,8 +6,14 @@
 module uim.consoles.classes.inputs.standard;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 
 // Object wrapper for interacting with stdin
 class DStandardInput : DInput {
@@ -31,9 +37,9 @@ class DStandardInput : DInput {
     if (_canReadline) {
       /* line = readline(""); */
 
-      /* if (!line.isEmpty) {
-                readline_add_history(line);
-            } */
+      if (!line.isEmpty) {
+        // TODO           readline_add_history(line);
+      } 
     } else {
       /* line = fgets(_input); */
     }
@@ -63,3 +69,8 @@ class DStandardInput : DInput {
   }
 }
 mixin(InputCalls!("Standard"));
+
+unittest {
+  auto input = StandardInput;
+  assert(testInput(input));
+}

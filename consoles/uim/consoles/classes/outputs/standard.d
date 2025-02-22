@@ -6,8 +6,13 @@
 module uim.consoles.classes.outputs.standard;
 
 import uim.consoles;
-
 @safe:
+
+version (test_uim_consoles) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
 /**
  * Object wrapper for outputting information from a shell application.
@@ -106,6 +111,8 @@ mixin(OutputCalls!("Standard"));
 
 unittest {
   auto output = StandardOutput;
+  testOutput(output);
+
   writeln("output.styles == ", output.styles);
 
   output.outputType("RAW");

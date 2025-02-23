@@ -189,5 +189,5 @@ mixin(OutputCalls!("File"));
 
 unittest {
   auto output = FileOutput;
-  testOutput(output);
+  assert(testOutput(output));
 }

@@ -17,3 +17,8 @@ version (test_uim_consoles) {
 class DErrorOutput : UIMObject, IErrorOutput {
   mixin(OutputThis!("Error"));
 }
+
+unittest {
+  auto output = new DErrorOutput();
+  assert(testErrorOutput(output));
+}

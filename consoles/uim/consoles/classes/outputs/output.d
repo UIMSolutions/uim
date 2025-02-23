@@ -212,5 +212,5 @@ class DOutput : UIMObject, IOutput {
 
 unittest {
   auto output = new DOutput();
-  assert(output !is null, "Output object is null.");
+  assert(testOutput(output));
 }

@@ -110,8 +110,8 @@ class DStandardOutput : DOutput {
 mixin(OutputCalls!("Standard"));
 
 unittest {
-  auto output = StandardOutput;
-  testOutput(output);
+  auto output = new DOutput();
+  assert(testOutput(output));
 
   writeln("output.styles == ", output.styles);
 

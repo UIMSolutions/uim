@@ -6,12 +6,13 @@
 module uim.consoles.classes.consoles.console;
 
 import uim.consoles;
+
 @safe:
 
 version (test_uim_consoles) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 /**
@@ -22,84 +23,126 @@ version (test_uim_consoles) {
  * easy to do in unit tests.
  */
 class DConsole : UIMObject, IConsole {
-	mixin(ConsoleThis!());
+  mixin(ConsoleThis!());
 
-	/*    mixin TLocatorAware;
+  /*    mixin TLocatorAware;
     mixin TLog; */
 
-	// Output constant making verbose shells.
-	const int VERBOSE = 2;
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-	// Output constant for making normal shells.
-	const int NORMAL = 1;
+    output(StandardOutput);
+    errorOutput(StandardErrorOutput);
+    input(StandardInput);
 
-	// Output constants for making quiet shells.
-	const int QUIET = 0;
+    return true;
+  }
 
-	// The current output level.
-	protected int _level = NORMAL;
+  // Output constant making verbose shells.
+  const int VERBOSE = 2;
 
-	/**
+  // Output constant for making normal shells.
+  const int NORMAL = 1;
+
+  // Output constants for making quiet shells.
+  const int QUIET = 0;
+
+  // The current output level.
+  protected int _level = NORMAL;
+
+  /**
      * The number of bytes last written to the output stream
      * used when overwriting the previous message.
      */
-	protected int _lastWritten = 0;
+  protected int _lastWritten = 0;
 
-	// Whether files should be overwritten
-	protected bool _shouldOverwrite = false;
+  // Whether files should be overwritten
+  protected bool _shouldOverwrite = false;
 
-	protected bool _isInteractive = true;
+  protected bool _isInteractive = true;
 
-	// The output stream
-	protected IOutput _output;
+  // #region Output
+    // The output  stream
+    protected IOutput _output;
+    IOutput output() {
+      return _output;
+    }
 
-	// The error stream
-	protected IErrorOutput _error;
+    DConsole output(IOutput newOutput) {
+      _output = newOutput;
+      return this;
+    }
+  // #endregion Output
 
-	// The input stream
-	protected IInput _input;
+  // #region ErrorOutput
+    // The error stream
+    protected IErrorOutput _errorOutput;
+    IErrorOutput errorOutput() {
+      return _errorOutput;
+    }
 
-	// The helper registry.
-	protected DConsoleHelperRegistry _helpers;
+    DConsole errorOutput(IErrorOutput newOutput) {
+      _errorOutput = newOutput;
+      return this;
+    }
+  // #endregion ErrorOutput
 
-	this(
-		DOutput output = null,
-		DErrorOutput errOutput = null,
-		DInput input = null,
-		DConsoleHelperRegistry helpers = null
-	) {
-		_output = output.ifNull(StandardOutput);
-		_error = errOutput.ifNull(StandardErrorOutput);
-		_input = input.ifNull(StandardInput);
-		_helpers = helpers.ifNull(new DConsoleHelperRegistry());
-		/* _helpers.setIo(this); */
-	}
+  // #region InputOutput
+  // The input stream
+    protected IInput _input;
+    IInput input() {
+      return _input;
+    }
 
-	void isInteractive(bool aValue) {
-		_isInteractive = aValue;
-	}
+    DConsole input(IInput newIntput) {
+      _input = newIntput;
+      return this;
+    }
+  // #endregion InputOutput
 
-	// Get/set the current output level.
-	int level(int outputLevel = 0) {
-		if (outputLevel != 0) {
-			_level = outputLevel;
-		}
-		return _level;
-	}
+  // The helper registry.
+  protected DConsoleHelperRegistry _helpers;
 
-	// Output at the verbose level.
-	ulong verbose(string[] messages, int newLinesToAppend = 1) {
-		/* return _writeln(messages, newLinesToAppend, VERBOSE); */
-		return 0;
-	}
+  this(
+    DOutput output = null,
+    DErrorOutput errOutput = null,
+    DInput input = null,
+    DConsoleHelperRegistry helpers = null
+  ) {
+    _output = output.ifNull(StandardOutput);
+    _errorOutput = errOutput.ifNull(StandardErrorOutput);
+    _input = input.ifNull(StandardInput);
+    _helpers = helpers.ifNull(new DConsoleHelperRegistry());
+    /* _helpers.setIo(this); */
+  }
 
-	// Output at all levels.
-	ulong quiet(string[] outputMessages, int newLinesToAppend = 1) {
-		/* return _writeln(outputMessages, newLinesToAppend, QUIET); */
-		return 0;
-	}
+  void isInteractive(bool aValue) {
+    _isInteractive = aValue;
+  }
 
-	/**
+  // Get/set the current output level.
+  int level(int outputLevel = 0) {
+    if (outputLevel != 0) {
+      _level = outputLevel;
+    }
+    return _level;
+  }
+
+  // Output at the verbose level.
+  ulong verbose(string[] messages, int newLinesToAppend = 1) {
+    /* return _writeln(messages, newLinesToAppend, VERBOSE); */
+    return 0;
+  }
+
+  // Output at all levels.
+  ulong quiet(string[] outputMessages, int newLinesToAppend = 1) {
+    /* return _writeln(outputMessages, newLinesToAppend, QUIET); */
+    return 0;
+  }
+
+  /**
      * Outputs a single or multiple messages to stdout. If no parameters
      * are passed outputs just a newline.
      *
@@ -110,83 +153,83 @@ class DConsole : UIMObject, IConsole {
      * present in most shells. Using Console.QUIET for a message means it will always display.
      * While using Console.VERBOSE means it will only display when verbose output is toggled.
      */
-	int out_(string[] message = null, int newLinesToAppend = 1, int outputLevel = NORMAL) {
-		if (outputLevel > _level) {
-			return 0;
-		}
-		/* _lastWritten = _output.write(message, newLinesToAppend); */
+  int out_(string[] message = null, int newLinesToAppend = 1, int outputLevel = NORMAL) {
+    if (outputLevel > _level) {
+      return 0;
+    }
+    /* _lastWritten = _output.write(message, newLinesToAppend); */
 
-		// return _lastWritten;
-		return 0;
-	}
+    // return _lastWritten;
+    return 0;
+  }
 
-	// Convenience method for out() that wraps message between <info> ta
-	int info(string[] messages, int newLinesToAppend = 1, int outputLevel = NORMAL) {
-		string messageType = "info";
-		auto outputMessages = wrapMessageWithType(messageType, messages);
+  // Convenience method for out() that wraps message between <info> ta
+  int info(string[] messages, int newLinesToAppend = 1, int outputLevel = NORMAL) {
+    string messageType = "info";
+    auto outputMessages = wrapMessageWithType(messageType, messages);
 
-		// return _writeln(outputMessages, newLinesToAppend, outputLevel);
-		return 0;
-	}
+    // return _writeln(outputMessages, newLinesToAppend, outputLevel);
+    return 0;
+  }
 
-	// Convenience method for out() that wraps message between <comment> tag
-	int comment(string[] outputMessages, int newLinesToAppendToAppend = 1, int outputLevel = NORMAL) {
-		auto message = wrapMessageWithType("comment", outputMessages);
-		// return _writeln(message, newLinesToAppend, outputLevel); */
-		return 0;
-	}
+  // Convenience method for out() that wraps message between <comment> tag
+  int comment(string[] outputMessages, int newLinesToAppendToAppend = 1, int outputLevel = NORMAL) {
+    auto message = wrapMessageWithType("comment", outputMessages);
+    // return _writeln(message, newLinesToAppend, outputLevel); */
+    return 0;
+  }
 
-	// Convenience method for writeErrorMessages() that wraps message between <warning> tag
-	int warning(string[] outputMessages, int newLinesToAppend = 1) {
-		auto message = wrapMessageWithType("warning", outputMessages);
+  // Convenience method for writeErrorMessages() that wraps message between <warning> tag
+  int warning(string[] outputMessages, int newLinesToAppend = 1) {
+    auto message = wrapMessageWithType("warning", outputMessages);
 
-		// return _writeErrorMessages(message, newLinesToAppend); */
-		return 0;
-	}
+    // return _writeErrorMessages(message, newLinesToAppend); */
+    return 0;
+  }
 
-	/**
+  /**
      * Convenience method for writeErrorMessages() that wraps message between <error> tag
      * Params:
      * string[]|string message A string or an array of strings to output
      */
-	int error(string[] message, int newLinesToAppend = 1) {
-		string messageType = "error";
-		message = wrapMessageWithType(messageType, message);
+  int error(string[] message, int newLinesToAppend = 1) {
+    string messageType = "error";
+    message = wrapMessageWithType(messageType, message);
 
-		// return _writeErrorMessages(message, newLinesToAppend);
-		return 0;
-	}
+    // return _writeErrorMessages(message, newLinesToAppend);
+    return 0;
+  }
 
-	// Convenience method for out() that wraps message between <success> tag
-	int success(string[] message, int newLinesToAppend = 1, int outputLevel = NORMAL) {
-		string messageType = "success";
-		message = wrapMessageWithType(messageType, message);
+  // Convenience method for out() that wraps message between <success> tag
+  int success(string[] message, int newLinesToAppend = 1, int outputLevel = NORMAL) {
+    string messageType = "success";
+    message = wrapMessageWithType(messageType, message);
 
-		// return _writeln(message, newLinesToAppend, outputLevel);
-		return 0;
-	}
+    // return _writeln(message, newLinesToAppend, outputLevel);
+    return 0;
+  }
 
-	// Halts the the current process with a StopException.
-	void abort(string errorMessage, int errorCode /* = DCommand.false */ ) {
-		// error(errorMessage);
+  // Halts the the current process with a StopException.
+  void abort(string errorMessage, int errorCode /* = DCommand.false */ ) {
+    // error(errorMessage);
 
-		// throw new DStopException(errorMessage, errorCode);
-	}
+    // throw new DStopException(errorMessage, errorCode);
+  }
 
-	// #region wrapMessageWithType
-	// Wraps a message with a given message type, e.g. <warning>
-	protected string[] wrapMessageWithType(string messageType, string[] messages) {
-		return messages
-			.map!(message => wrapMessageWithType(messageType, message))
-			.array;
-	}
+  // #region wrapMessageWithType
+  // Wraps a message with a given message type, e.g. <warning>
+  protected string[] wrapMessageWithType(string messageType, string[] messages) {
+    return messages
+      .map!(message => wrapMessageWithType(messageType, message))
+      .array;
+  }
 
-	protected string wrapMessageWithType(string messageType, string message) {
-		return "<%s>%s</%s>".format(messageType, message, messageType);
-	}
-	// #endregion wrapMessageWithType
+  protected string wrapMessageWithType(string messageType, string message) {
+    return "<%s>%s</%s>".format(messageType, message, messageType);
+  }
+  // #endregion wrapMessageWithType
 
-	/**
+  /**
      * Overwrite some already output text.
      *
      * Useful for building progress bars, or when you want to replace
@@ -194,126 +237,126 @@ class DConsole : UIMObject, IConsole {
      *
      * **Warning** You cannot overwrite text that contains newLinesToAppend.
      */
-	void overwrite(string[] message, int newLinesToAppend = 1, int bytesToOverwrite = 0) {
-		bytesToOverwrite = bytesToOverwrite ? bytesToOverwrite : _lastWritten;
+  void overwrite(string[] message, int newLinesToAppend = 1, int bytesToOverwrite = 0) {
+    bytesToOverwrite = bytesToOverwrite ? bytesToOverwrite : _lastWritten;
 
-		// Output backspaces.
-		// writeln(repeat("\x08", bytesToOverwrite), 0);
+    // Output backspaces.
+    // writeln(repeat("\x08", bytesToOverwrite), 0);
 
-		auto newBytes = 0; ///* (int) */ writeln(message, 0);
+    auto newBytes = 0; ///* (int) */ writeln(message, 0);
 
-		// Fill any remaining bytes with spaces.
-		auto fill = bytesToOverwrite - newBytes;
-		if (fill > 0) {
-			// writeln(repeat(" ", fill), 0);
-		}
-		if (newLinesToAppend) {
-			writeln(this.nl(newLinesToAppend), 0);
-		}
-		// Store length of content + fill so if the new content
-		// is shorter than the old content the next overwrite will work.
-		if (fill > 0) {
-			_lastWritten = newBytes + fill;
-		}
-	}
+    // Fill any remaining bytes with spaces.
+    auto fill = bytesToOverwrite - newBytes;
+    if (fill > 0) {
+      // writeln(repeat(" ", fill), 0);
+    }
+    if (newLinesToAppend) {
+      writeln(this.nl(newLinesToAppend), 0);
+    }
+    // Store length of content + fill so if the new content
+    // is shorter than the old content the next overwrite will work.
+    if (fill > 0) {
+      _lastWritten = newBytes + fill;
+    }
+  }
 
-	/**
+  /**
      * Outputs a single or multiple error messages to stderr. If no parameters
      * are passed outputs just a newline.
      */
-	int writeErrorMessages(string[] messages...) {
-		return writeErrorMessages(messages.dup, 1);
-	}
+  int writeErrorMessages(string[] messages...) {
+    return writeErrorMessages(messages.dup, 1);
+  }
 
-	int writeErrorMessages(string[] messages, uint newLinesToAppend = 1) {
-		// return _error.write(messages, newLinesToAppend);
-		return 0;
-	}
+  int writeErrorMessages(string[] messages, uint newLinesToAppend = 1) {
+    // return _errorOutput.write(messages, newLinesToAppend);
+    return 0;
+  }
 
-	// Returns a single or multiple linefeeds sequences.
-	string nl(uint linefeedMultiplier = 1) {
-		return DOutput.LF.repeatTxt(linefeedMultiplier);
-	}
+  // Returns a single or multiple linefeeds sequences.
+  string nl(uint linefeedMultiplier = 1) {
+    return DOutput.LF.repeatTxt(linefeedMultiplier);
+  }
 
-	// Outputs a series of minus characters to the standard output, acts as a visual separator.
-	void hr(uint newLinesToAppend = 0, int widthOfLine = 79) {
-		writeln("", newLinesToAppend);
-		// writeln("-".repeat(widthOfLine));
-		writeln("", newLinesToAppend);
-	}
+  // Outputs a series of minus characters to the standard output, acts as a visual separator.
+  void hr(uint newLinesToAppend = 0, int widthOfLine = 79) {
+    writeln("", newLinesToAppend);
+    // writeln("-".repeat(widthOfLine));
+    writeln("", newLinesToAppend);
+  }
 
-	// Prompts the user for input, and returns it.
-	string ask(string promptText, string defaultInputValue = null) {
-		return _getInput(promptText, null, defaultInputValue);
-	}
+  // Prompts the user for input, and returns it.
+  string ask(string promptText, string defaultInputValue = null) {
+    return _getInput(promptText, null, defaultInputValue);
+  }
 
-	// Change the output mode of the stdout stream
-	void outputType(string type) {
-		_output.outputType(type);
-	}
+  // Change the output mode of the stdout stream
+  void outputType(string type) {
+    _output.outputType(type);
+  }
 
-	// Gets defined styles.
-	Json[string] styles() {
-		return _output.styles();
-	}
+  // Gets defined styles.
+  Json[string] styles() {
+    return _output.styles();
+  }
 
-	// Get defined style.
-	Json style(string name) {
-		return _output.style(name);
-	}
+  // Get defined style.
+  Json style(string name) {
+    return _output.style(name);
+  }
 
-	// Adds a new output style.
-	void style(string name, Json definition) {
-		_output.style(name, definition);
-	}
+  // Adds a new output style.
+  void style(string name, Json definition) {
+    _output.style(name, definition);
+  }
 
-	// Prompts the user for input based on a list of options, and returns it.
-	string askChoice(string promptText, string option, string defaultInput = null) {
-		string[] options;
-		if (option.contains(",")) {
-			options = option.split(",");
-		} else if (option.contains("/")) {
-			options = option.split("/");
-		} else {
-			options = [option];
-		}
+  // Prompts the user for input based on a list of options, and returns it.
+  string askChoice(string promptText, string option, string defaultInput = null) {
+    string[] options;
+    if (option.contains(",")) {
+      options = option.split(",");
+    } else if (option.contains("/")) {
+      options = option.split("/");
+    } else {
+      options = [option];
+    }
 
-		// return askChoice(string promptText, string[] aoptions, string adefault = null); */
-		return null;
-	}
+    // return askChoice(string promptText, string[] aoptions, string adefault = null); */
+    return null;
+  }
 
-	string askChoice(string aprompt, string[] choices, string defaultValue = null) {
-		string printChoices = "(" ~ choices.join("/") ~ ")";
-		// choices = chain(choices.lower, choices.upper, choices);
+  string askChoice(string aprompt, string[] choices, string defaultValue = null) {
+    string printChoices = "(" ~ choices.join("/") ~ ")";
+    // choices = chain(choices.lower, choices.upper, choices);
 
-		string anIn = "";
-		/* while (anIn.isEmpty || !anIn.isIn(choices)) {
+    string anIn = "";
+    /* while (anIn.isEmpty || !anIn.isIn(choices)) {
             // anIn = _getInput(prompt, printOptions, defaultValue);
         } */
-		return anIn;
-	}
+    return anIn;
+  }
 
-	// Prompts the user for input, and returns it.
-	protected string _getInput(string promptText, string options, string defaultValue) {
-		if (!_isInteractive) {
-			// return to!string(defaultValue);
-		}
+  // Prompts the user for input, and returns it.
+  protected string _getInput(string promptText, string options, string defaultValue) {
+    if (!_isInteractive) {
+      // return to!string(defaultValue);
+    }
 
-		string optionsText = !options.isEmpty ? " options " : "";
+    string optionsText = !options.isEmpty ? " options " : "";
 
-		string defaultText = !defaultValue.isNull ? "[%s] ".format(defaultValue) : "";
-		// _output.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
-		/* string result = _input.read();
+    string defaultText = !defaultValue.isNull ? "[%s] ".format(defaultValue) : "";
+    // _output.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
+    /* string result = _input.read();
 
         result = !result.isNull
             ? result.strip : "";
 
         return !result.isEmpty
             ? result : defaultValue; */
-		return null;
-	}
+    return null;
+  }
 
-	/**
+  /**
      * Connects or disconnects the loggers to the console output.
      *
      * Used to enable or disable logging stream output to stdout and stderr
@@ -329,8 +372,8 @@ class DConsole : UIMObject, IConsole {
      * to control logging levels. VERBOSE enables debug logs, NORMAL does not include debug logs,
      * QUIET disables notice, info and debug logs.
      */
-	void setLoggers(bool enable) {
-		/* Log.drop("stdout");
+  void setLoggers(bool enable) {
+    /* Log.drop("stdout");
         Log.drop("stderr");
         if (enable == false) {
             return;
@@ -344,24 +387,24 @@ class DConsole : UIMObject, IConsole {
             }
         }); */
 
-		string[] outLevels = ["notice", "info"];
-		if (enable == VERBOSE || enable == true) {
-			outLevels ~= "debug";
-		}
-		if (enable != QUIET) {
-			/* stdout = new DConsoleLog([
+    string[] outLevels = ["notice", "info"];
+    if (enable == VERBOSE || enable == true) {
+      outLevels ~= "debug";
+    }
+    if (enable != QUIET) {
+      /* stdout = new DConsoleLog([
                     "types": outLevels,
                     "stream": _output,
                 ]);
             Log.configuration.set("stdout", ["engine": stdout]); */
-		}
-		/* auto stderr = new DConsoleLog(createmap!(string, Json)
+    }
+    /* auto stderr = new DConsoleLog(createmap!(string, Json)
             .set("types", ["emergency", "alert", "critical", "error", "warning"])
-            .set("stream", _error); */
-		// Log.configuration.set("stderr", ["engine": stderr]);
-	}
+            .set("stream", _errorOutput); */
+    // Log.configuration.set("stderr", ["engine": stderr]);
+  }
 
-	/**
+  /**
      * Render a Console Helper
      *
      * Create and render the output for a helper object. If the helper
@@ -371,12 +414,12 @@ class DConsole : UIMObject, IConsole {
      * initData - Configuration data for the helper.
      * returns = Created helper instance.
      */
-	/* DHelper helper(string nameToRender, Json[string] initData = null) {
+  /* DHelper helper(string nameToRender, Json[string] initData = null) {
         auto renderName = capitalize(nameToRender);
         return _helpers.load(renderName, initData);
     } */
 
-	/**
+  /**
      * Create a file at the given path.
      *
      * This method will prompt the user if a file will be overwritten.
@@ -386,11 +429,11 @@ class DConsole : UIMObject, IConsole {
      * If the user replies `a` subsequent `forceOverwrite` parameters will
      * be coerced to true and all files will be overwritten.
      */
-	bool createFile(string fileCreationPath, string contentsForFile, bool shouldOverwrite = false) {
-		/* writeln();
+  bool createFile(string fileCreationPath, string contentsForFile, bool shouldOverwrite = false) {
+    /* writeln();
         shouldOverwrite = shouldOverwrite || _forceOverwrite; */
 
-		/*         if (filehasKey(fileCreationPath) && shouldOverwrite == false) {
+    /*         if (filehasKey(fileCreationPath) && shouldOverwrite == false) {
             warning("File `{fileCreationPath}` exists");
             aKey = askChoice("Do you want to overwrite?", [
                     "y", "n", "a", "q"
@@ -424,14 +467,14 @@ class DConsole : UIMObject, IConsole {
 
             return false;
         } */
-		/* file.rewind();
+    /* file.rewind();
         file.fwrite(contentsForFile); */
-		/* if (filehasKey(fileCreationPath)) {
+    /* if (filehasKey(fileCreationPath)) {
             writeln("<success>Wrote</success> `{fileCreationPath}`");
 
             return true;
         } */
-		/* error("Could not write to `{fileCreationPath}`.", 2); */
-		return false;
-	}
+    /* error("Could not write to `{fileCreationPath}`.", 2); */
+    return false;
+  }
 }

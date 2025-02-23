@@ -5,6 +5,7 @@
 *****************************************************************************************************************/
 module uim.consoles.helpers.command;
 
+import uim.consoles;
 @safe:
 
 version (test_uim_consoles) {

@@ -40,3 +40,8 @@ class DInput : UIMObject, IInput {
     return false;
   }
 }
+
+unittest {
+  auto input = new DInput();
+  assert(testInput(input));
+}

@@ -25,8 +25,3 @@ unittest {
   assert(testOutput(output));
 }
 
-static this() {
-  OutputFactory.set("rest", (Json[string] options = null) @safe {
-      return new DRestOutput(options);
-  });
-}

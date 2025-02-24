@@ -75,9 +75,3 @@ unittest {
   assert(testInput(input));
 }
 
-static this() {
-    import vibe.vibe;
-    InputFactory.set("standard", (Json[string] options = null) @safe {
-        return new DStandardInput(options);
-    });
-}

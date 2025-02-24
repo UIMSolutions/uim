@@ -192,8 +192,3 @@ unittest {
   assert(testOutput(output));
 }
 
-static this() {
-    OutputFactory.set("file", (Json[string] options = null) @safe {
-        return new DFileOutput(options);
-    });
-}

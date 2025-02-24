@@ -1,7 +1,6 @@
 module uim.consoles.classes.inputs.rest;
 
 import uim.consoles;
-
 @safe:
 
 version (test_uim_consoles) {
@@ -20,10 +19,4 @@ mixin(InputCalls!("Rest"));
 unittest {
   auto input = RestInput;
   assert(testInput(input));
-}
-
-static this() {
-  InputFactory.set("rest", (Json[string] options = null) @safe {
-    return new DRestInput(options);
-  });
 }

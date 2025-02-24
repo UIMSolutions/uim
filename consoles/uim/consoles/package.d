@@ -29,6 +29,7 @@ public { // uim.filesystem libraries
   import uim.consoles.helpers;
   import uim.consoles.interfaces;
   import uim.consoles.mixins;
+  import uim.consoles.repositories;
   import uim.consoles.tests;
 }
 

@@ -78,6 +78,7 @@ unittest {
 // #endregion UUID
 
 /// Special case for managing entities
+
 Json toJson(UUID id, size_t versionNumber) {
   Json result = toJson("id", id);
   result["versionNumber"] = versionNumber;
@@ -126,4 +127,11 @@ unittest {
   assert(["a": "1", "b": "2", "c": "3"].toJson.length == 3);
   assert(["a": "1", "b": "2", "c": "3"].toJson["a"] == "1");
 }
+
+Json toJson(Json[string] map) {
+  Json json = Json.emptyObject;  
+  map.each!((key, value) => json[key] = value);
+  return json;
+}
 // #endregion toJson
+

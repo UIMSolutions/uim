@@ -9,7 +9,7 @@ import uim.oop;
 
 @safe:
 
-version (test_uim_core) {
+version (test_uim_oop) {
   unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
   }

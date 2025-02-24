@@ -25,6 +25,7 @@ public { // uim.filesystem libraries
   import uim.datasources.enumerations;
   import uim.datasources.errors;
   import uim.datasources.exceptions;
+  import uim.datasources.factories;
   import uim.datasources.helpers;
   import uim.datasources.interfaces;
   import uim.datasources.mixins;

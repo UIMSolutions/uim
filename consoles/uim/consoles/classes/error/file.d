@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes.error.output;
+module uim.consoles.classes.error.file;
 
 import uim.consoles;
 @safe:
@@ -14,11 +14,14 @@ version (test_uim_consoles) {
   }
 }
 
-class DErrorOutput : UIMObject, IErrorOutput {
-  mixin(ErrorOutputThis!());
+class DFileErrorOutput : DErrorOutput {
+  mixin(ErrorOutputThis!("File"));
 }
+mixin(ErrorOutputCalls!("File"));
 
 unittest {
-  auto output = new DErrorOutput();
+  auto output = FileErrorOutput();
   assert(testErrorOutput(output));
+
+  assert(output.name == "FileErrorOutput");
 }

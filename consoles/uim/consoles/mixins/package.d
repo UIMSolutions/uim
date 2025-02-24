@@ -11,6 +11,7 @@ public {
     // import uim.consoles.mixins.command;
     import uim.consoles.mixins.console;
     import uim.consoles.mixins.consoleintegrationtest;
+    import uim.consoles.mixins.error;
     import uim.consoles.mixins.input;
     import uim.consoles.mixins.output;
 }

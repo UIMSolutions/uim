@@ -13,35 +13,7 @@ public {
 public {
   import uim.consoles.classes.consoles;
   import uim.consoles.classes.error;
-  import uim.consoles.classes.factories;
   import uim.consoles.classes.inputs;
   import uim.consoles.classes.outputs;
 }
 
-static this() { // Init 
-  import uim.core;
-
-  InputFactory.set("file", (Json[string] options = null) @safe {
-      return new DFileInput(options);
-  });
-
-  InputFactory.set("rest", (Json[string] options = null) @safe {
-    return new DRestInput(options);
-  });
-
-  InputFactory.set("standard", (Json[string] options = null) @safe {
-      return new DStandardInput(options);
-  });
-
-  OutputFactory.set("file", (Json[string] options = null) @safe {
-      return new DFileOutput(options);
-  });
-
-  OutputFactory.set("rest", (Json[string] options = null) @safe {
-      return new DRestOutput(options);
-  });
-
-  OutputFactory.set("standard", (Json[string] options = null) @safe {
-    return new DStandardOutput(options);
-  });
-}

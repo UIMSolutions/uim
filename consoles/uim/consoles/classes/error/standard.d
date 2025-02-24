@@ -9,17 +9,19 @@ import uim.consoles;
 @safe:
 
 version (test_uim_consoles) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
+  unittest {
+      writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 class DStandardErrorOutput : DErrorOutput {
-  mixin(OutputThis!("StandardError"));
+  mixin(ErrorOutputThis!("Standard"));
 }
-mixin(OutputCalls!("StandardError"));
+mixin(ErrorOutputCalls!("Standard"));
 
 unittest {
   auto output = StandardErrorOutput();
   assert(testErrorOutput(output));
+
+  assert(output.name == "StandardErrorOutput");
 }

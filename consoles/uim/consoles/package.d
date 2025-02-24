@@ -25,6 +25,7 @@ public { // uim.filesystem libraries
   import uim.consoles.enumerations;
   import uim.consoles.errors;
   import uim.consoles.exceptions;
+  import uim.consoles.factories;
   import uim.consoles.helpers;
   import uim.consoles.interfaces;
   import uim.consoles.mixins;

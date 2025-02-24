@@ -1,4 +1,4 @@
-module uim.consoles.classes.factories.input;
+module uim.consoles.factories.input;
 
 import uim.consoles;
 @safe:
@@ -15,10 +15,11 @@ auto InputFactory() {
     return DInputFactory.factory;
 }
 
-/* unittest {
+unittest {
     assert(InputFactory);
     assert(InputFactory.create("standard").name == "StandardInput");
     assert(InputFactory.create("file").name == "FileInput");
     assert(InputFactory.create("rest").name == "RestInput");
 }
- */
+
+

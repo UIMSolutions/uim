@@ -31,5 +31,6 @@ public { // uim.filesystem libraries
   import uim.apps.helpers;
   import uim.apps.interfaces;
   import uim.apps.mixins;
+  import uim.apps.registries;
   import uim.apps.tests;
 }

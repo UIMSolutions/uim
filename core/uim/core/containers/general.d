@@ -5,8 +5,8 @@
 *****************************************************************************************************************/
 module uim.core.containers.general;
 
-@safe:
 import uim.core;
+@safe:
 
 version (test_uim_core) {
   unittest {

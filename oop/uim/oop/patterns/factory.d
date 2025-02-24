@@ -99,15 +99,15 @@ class DFactory(T : UIMObject) : UIMObject, IKeyAndPath {
     }
 
     T path(string[] path, Json[string] options = null) @safe {
-        return get(correctKey(path), options);
+        return create(correctKey(path), options);
     }
 
-    T get(string key, Json[string] options = null) @safe {
+    T create(string key, Json[string] options = null) @safe {
         return correctKey(key) in _workers
             ? _workers[correctKey(key)](options) : null;
     }
     T opIndex(string key, Json[string] options = null) {
-        return get(key, options);
+        return create(key, options);
     }
 
     // #region remove
@@ -160,11 +160,11 @@ unittest {
         return new Test("three");
     });
 
-    assert(Factory.get("testWorkerOne").name == "one");
+    assert(Factory.create("testWorkerOne").name == "one");
     assert(Factory.path(["testWorker", "two"]).name == "two");
-    assert(Factory.get("testWorker.two").name == "two");
+    assert(Factory.create("testWorker.two").name == "two");
     assert(Factory.path(["testWorker", "and", "three"]).name == "three");
-    assert(Factory.get("testWorker.and.three").name == "three");
+    assert(Factory.create("testWorker.and.three").name == "three");
 
     assert(Factory.hasPath(["testWorkerOne"]));
     assert(Factory.hasKey("testWorkerOne"));

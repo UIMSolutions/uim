@@ -1,9 +1,9 @@
 /****************************************************************************************************************
 * Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
-* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt rest.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.consoles.classes.consoles.factory;
+module uim.consoles.classes.outputs.rest;
 
 import uim.consoles;
 @safe:
@@ -14,11 +14,19 @@ version (test_uim_consoles) {
     }
 }
 
-class DConsoleFactory : DFactory!DConsole {
+class DRestOutput : DOutput {
+  mixin(OutputThis!("Rest"));
 }
-auto ConsoleFactory() { return DConsoleFactory.factory; }
+
+mixin(OutputCalls!("Rest"));
 
 unittest {
-    auto factory = ConsoleFactory();
-    assert(factory !is null);
+  auto output = RestOutput;
+  assert(testOutput(output));
+}
+
+static this() {
+  OutputFactory.set("rest", (Json[string] options = null) @safe {
+      return new DRestOutput(options);
+  });
 }

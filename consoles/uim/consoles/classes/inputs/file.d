@@ -19,3 +19,9 @@ unittest {
   auto input = FileInput;
   assert(testInput(input));
 }
+
+static this() {
+    InputFactory.set("file", (Json[string] options = null) @safe {
+        return new DFileInput(options);
+    });
+}

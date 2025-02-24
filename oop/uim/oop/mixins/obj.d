@@ -13,7 +13,7 @@ string objThis(string name) {
             super("`~ name ~ `");
         }
         this(Json[string] initData) {
-            super(initData);
+            super("`~ name ~ `", initData);
         }
         this(string name, Json[string] initData = null) {
             super(name, initData);

@@ -19,19 +19,18 @@ class UIMObject : INamed {
     mixin TConfigurable;
 
     this() {
-        // writeln("UIMObject::this()", this.classname);
-        this.initialize; 
+        this.initialize;
+        this.name(this.classname); 
     }
 
     this(Json[string] initData) {
-        // writeln("UIMObject::this(Json[string] initData)", this.classname);
         this.initialize(initData);
+        this.name(this.classname); 
     }
 
     this(string newName, Json[string] initData = null) {
-        // writeln("UIMObject::this(string newName, Json[string] initData)", this.classname);
-        this.name(newName);
         this.initialize(initData);
+        this.name(newName);
     }
 
     bool initialize(Json[string] initData = null) {

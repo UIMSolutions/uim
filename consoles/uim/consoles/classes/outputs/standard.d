@@ -128,3 +128,9 @@ unittest {
   output.write("COLOR: <notice>Hallo World</notice>");
   output.write("COLOR: <info>Hallo World</info>");
 }
+
+static this() {
+    OutputFactory.set("standard", (Json[string] options = null) @safe {
+        return new DStandardOutput(options);
+    });
+}

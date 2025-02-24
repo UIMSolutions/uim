@@ -6,8 +6,13 @@
 module uim.commands.classes.commands.completion;
 
 import uim.commands;
-
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // Provide command completion shells such as bash.
 class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {

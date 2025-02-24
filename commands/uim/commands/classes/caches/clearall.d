@@ -6,8 +6,13 @@
 module uim.commands.classes.commands.caches.clearall;
 
 import uim.commands;
-
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // CacheClearall command.
 class DCacheClearallCommand : DCommand {

@@ -6,8 +6,13 @@
 module uim.commands.classes.commands.caches.list;
 
 import uim.commands;
-
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // CacheList command.
 class DCacheListCommand : DCommand {

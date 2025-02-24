@@ -6,8 +6,13 @@
 module uim.commands.classes.commands.version_;
 
 import uim.commands;
-
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // Print out the version of UIM in use.
 class DVersionCommand : DCommand {

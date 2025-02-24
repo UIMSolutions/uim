@@ -6,8 +6,13 @@
 module uim.commands.classes.commands.factory;
 
 import uim.commands;
-
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 class DCommandFactory : DFactory!DCommand {
 }

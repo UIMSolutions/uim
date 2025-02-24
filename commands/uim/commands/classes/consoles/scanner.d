@@ -6,8 +6,13 @@
 module uim.commands.classes.consoles.scanner;
 
 import uim.commands;
-
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 /**
  * Used by CommandCollection and CommandTask to scan the filesystem

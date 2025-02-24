@@ -6,8 +6,13 @@
 module uim.commands.classes.commands.server;
 
 import uim.commands;
-
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // built-in Server command
 class DServerCommand : DCommand {

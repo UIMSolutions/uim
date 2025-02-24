@@ -6,8 +6,13 @@
 module uim.commands.classes.commands.caches.cleargroup;
 
 import uim.commands;
-
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // Cache Clear Group command.
 class DCacheClearGroupCommand : DCommand {

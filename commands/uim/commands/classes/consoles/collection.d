@@ -6,8 +6,13 @@
 module uim.commands.classes.consoles.collection;
 
 import uim.commands;
-
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // Collection for Commands.
 class DCommandCollection : UIMObject { // : IteratorAggregate, Countable {

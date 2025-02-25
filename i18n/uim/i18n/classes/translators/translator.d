@@ -1,7 +1,6 @@
 module uim.i18n.classes.translators.translator;
 
 import uim.i18n;
-
 @safe:
 
 version (test_uim_i18n) {
@@ -148,4 +147,8 @@ class DTranslator : UIMObject, ITranslator {
     return resolved.isEmpty
       ? [key] : resolved;
   }
+}
+unittest {
+  auto translator = new DTranslator;
+  assert(message.locale("de_De").locale == "de_De");
 }

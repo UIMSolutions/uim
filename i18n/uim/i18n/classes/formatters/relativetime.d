@@ -4,8 +4,15 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.i18n.classes.formatters.relativetime;
+
 import uim.i18n;
 @safe:
+
+version (test_uim_i18n) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // Helper class for formatting relative dates & times.
 class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {

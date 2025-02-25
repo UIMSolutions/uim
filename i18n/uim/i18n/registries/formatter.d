@@ -1,4 +1,4 @@
-module uim.i18n.classes.formatters.registry;
+module uim.i18n.registries.formatter;
 
 import uim.i18n;
 

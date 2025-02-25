@@ -6,8 +6,13 @@
 module uim.i18n.classes.formatters.print;
 
 import uim.i18n;
-
 @safe:
+
+version (test_uim_i18n) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // A formatter that will interpolate variables and select the correct plural form when required
 class DPrintFormatter : DI18NFormatter {

@@ -6,8 +6,13 @@
 module uim.i18n.classes.catalogs.locator;
 
 import uim.i18n;
-
 @safe:
+
+version (test_uim_i18n) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // A ServiceLocator implementation for loading and retaining catalog objects.
 class DMesseCatalogLocator : UIMObject {

@@ -7,9 +7,13 @@ import uim.i18n;
 // Translator to translate the message.
 interface ITranslator {
     // Translates the message formatting any placeholders
-    // TODO string translate(string messageKey, string[string] tokensValues);
+    // TODO string translate(string key, string[string] options);
     
-    // Returns the translator catalog
+    // Get/Set locale
+    string locale(); 
+    ITranslator locale(string newLocale);
+
+    // Get/Set the translator catalog
     IMessageCatalog catalog();    
     ITranslator catalog(IMessageCatalog newCatalog);
     

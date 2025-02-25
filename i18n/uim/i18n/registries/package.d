@@ -1,5 +1,6 @@
-module i18n.uim.i18n.registries;
+module uim.i18n.registries;
 
 public {
-    import i18n.uim.i18n.registries.catalog;
+    import uim.i18n.registries.catalog;
+    import uim.i18n.registries.formatter;
 }

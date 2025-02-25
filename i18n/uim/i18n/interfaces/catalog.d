@@ -11,49 +11,46 @@ import uim.i18n;
 
 // Message Catalog
 interface IMessageCatalog {
-    // #region messages
-        // Sets the messages for this catalog.
-        IMessageCatalog messages(string[][string] messages); 
+  // #region messages
+  // Sets the messages for this catalog.
+  IMessageCatalog messages(string[][string] messages);
 
-        // Gets the messages for this catalog.
-        string[][string] messages(string[] keys...); 
-        string[][string] messages(string[] keys); 
-        string[][string] messages(); 
+  // Gets the messages for this catalog.
+  string[][string] messages(string[] keys...);
+  string[][string] messages(string[] keys);
+  string[][string] messages();
 
-        string[] message(string key); 
+  string[] message(string key);
 
-    // #region setMessages
-        IMessageCatalog setMessages(string[][string] messages); 
+  // #region setMessages
+  IMessageCatalog setMessages(string[][string] messages);
+  IMessageCatalog setMessage(string key, string[] message);
+  // #endregion setMessages
 
-        IMessageCatalog setMessage(string key, string[] message); 
-    // #endregion setMessages
+  // #region updateMessages
+  IMessageCatalog updateMessages(string[][string] messages);
+  IMessageCatalog updateMessage(string key, string[] message);
+  // #endregion updateMessages
 
-    // #region updateMessages
-        IMessageCatalog updateMessages(string[][string] messages); 
+  // #region mergeMessages
+  IMessageCatalog mergeMessages(string[][string] messages);
+  IMessageCatalog mergeMessage(string key, string[] message);
+  // #endregion updateMessages
+  // #endregion messages
 
-        IMessageCatalog updateMessage(string key, string[] message); 
-    // #endregion updateMessages
+  // #region formatterName
+  // Sets the formatter name for this catalog.
+  IMessageCatalog formatterName(string name);
 
-    // #region mergeMessages
-        IMessageCatalog mergeMessages(string[][string] messages); 
+  // Gets the formatter name for this catalog.
+  string formatterName();
+  // #endregion formatterName
 
-        IMessageCatalog mergeMessage(string key, string[] message); 
-    // #endregion updateMessages
-    // #endregion messages
+  // #region fallbackName
+  // Sets the fallback catalog name.
+  IMessageCatalog fallbackName(string name);
 
-    // #region formatterName
-        // Sets the formatter name for this catalog.
-        IMessageCatalog formatterName(string name); 
-        
-        // Gets the formatter name for this catalog.
-        string formatterName(); 
-    // #endregion formatterName
-    
-    // #region fallbackName
-        // Sets the fallback catalog name.
-        IMessageCatalog fallbackName(string name);
-
-        // Gets the fallback catalog name.
-        string fallbackName();
-    // #endregion fallbackName
+  // Gets the fallback catalog name.
+  string fallbackName();
+  // #endregion fallbackName
 }

@@ -1,8 +1,13 @@
 module uim.i18n.classes.i18n;
 
 import uim.i18n;
-
 @safe:
+
+version (test_uim_i18n) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // I18n handles translation of Text and time format strings.
 class DI18N : UIMObject {

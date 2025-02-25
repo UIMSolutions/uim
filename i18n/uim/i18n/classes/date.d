@@ -6,8 +6,13 @@
 module uim.i18n.classes.date;
 
 import uim.i18n;
-
 @safe:
+
+version (test_uim_i18n) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 /**
  * Date class provided by Chronos.

@@ -6,8 +6,13 @@
 module uim.i18n.classes.datetime;
 
 import uim.i18n;
-
 @safe:
+
+version (test_uim_i18n) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 /**
  * Built-in DateTime class to provide handy methods and locale-aware

@@ -6,8 +6,13 @@
 module uim.i18n.classes.number;
 
 import uim.i18n;
-
 @safe:
+
+version (test_uim_i18n) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 /**
  * Number helper library.

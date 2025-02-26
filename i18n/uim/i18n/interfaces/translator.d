@@ -6,16 +6,20 @@ import uim.i18n;
 
 // Translator to translate the message.
 interface ITranslator {
-    // Translates the message formatting any placeholders
-    // TODO string translate(string key, string[string] options);
-    
-    // Get/Set locale
-    string locale(); 
-    ITranslator locale(string newLocale);
+  // Translates the message formatting any placeholders
+  // TODO string translate(string key, string[string] options);
 
-    // Get/Set the translator catalog
-    IMessageCatalog catalog();    
-    ITranslator catalog(IMessageCatalog newCatalog);
-    
-    string[] message(string key, string[] defaultMessage = null);
+  // Get/Set fallback translator
+  ITranslator fallbackTranslator();
+  ITranslator fallbackTranslator(ITranslator newFallback);
+
+  // Get/Set locale
+  string locale();
+  ITranslator locale(string newLocale);
+
+  // Get/Set translator catalog
+  IMessageCatalog catalog();
+  ITranslator catalog(IMessageCatalog newCatalog);
+
+  string[] message(string key, string[] defaultMessage = null);
 }

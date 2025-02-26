@@ -122,5 +122,5 @@ mixin(DBDriverCalls!("Mysql"));
 
 unittest {
     auto driver = MysqlDriver;
-    assert(testDriver(driver));
+    assert(testDBDriver(driver));
 }

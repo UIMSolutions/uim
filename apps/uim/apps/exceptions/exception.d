@@ -6,9 +6,13 @@
 module uim.apps.exceptions.exception;
 
 import uim.apps;
-
 @safe:
 
+version (test_uim_apps) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 // App exception.
 class DAppException : DException {
   mixin(ExceptionThis!("App"));

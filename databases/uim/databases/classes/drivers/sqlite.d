@@ -84,5 +84,6 @@ class DSqliteDriver : DDBDriver {
 mixin(DBDriverCalls!("Sqlite"));
 
 unittest {
-    assert(SqliteDriver);
+    auto driver = SqliteDriver;
+    assert(testDBDriver(driver));
 }

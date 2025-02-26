@@ -73,5 +73,6 @@ class DSqlserverDriver : DDBDriver {
 mixin(DBDriverCalls!("Sqlserver"));
 
 unittest {
-    assert(SqlserverDriver);
+    auto driver = SqlserverDriver;
+    assert(testDBDriver(driver));
 }

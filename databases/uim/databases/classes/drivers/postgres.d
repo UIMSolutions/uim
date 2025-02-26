@@ -78,5 +78,6 @@ class DPostgresDriver : DDBDriver {
 mixin(DBDriverCalls!("Postgres"));
 
 unittest {
-    assert(PostgresDriver);
+    auto driver = PostgresDriver;
+    assert(testDBDriver(driver));
 }

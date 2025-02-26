@@ -1,9 +1,9 @@
 module uim.databases.tests.driver;
 
-import uim.commands;
+import uim.databases;
 @safe:
 
-version (test_uim_commands) {
+version (test_uim_databases) {
   unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
   }

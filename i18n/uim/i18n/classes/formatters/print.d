@@ -20,11 +20,10 @@ class DPrintFormatter : DI18NFormatter {
   // Returns a string with all passed variables interpolated into the original message. 
   override string format(string local, string message, string[] tokens) {
     tokens.each!((token) {
-      if (!message.contains("%s"))
-        return No.each;
-
-      auto pos = message.indexOf("%s");
-      message = message[0 .. pos] ~ token ~ message[pos + "%s".length .. $];
+      if (message.contains("%s")) {
+        auto pos = message.indexOf("%s");
+        message = message[0 .. pos] ~ token ~ message[pos + "%s".length .. $];
+      }
     });
     return message;
   }
@@ -40,5 +39,5 @@ unittest {
 }
 
 static this() {
-  
+
 }

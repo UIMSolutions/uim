@@ -4,7 +4,6 @@ public {
     import uim.datasources.classes.connections;
     import uim.datasources.classes.datasources;
     import uim.datasources.classes.entities;
-    import uim.datasources.classes.locators;
     import uim.datasources.classes.pagings;
     import uim.datasources.classes.queries;
     import uim.datasources.classes.repositories;

@@ -17,5 +17,5 @@ interface ITranslator {
     IMessageCatalog catalog();    
     ITranslator catalog(IMessageCatalog newCatalog);
     
-    string[] message(string key);
+    string[] message(string key, string[] defaultMessage = null);
 }

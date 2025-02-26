@@ -6,8 +6,13 @@
 module uim.i18n.interfaces.formatter;
 
 import uim.i18n;
-
 @safe:
+
+version (test_uim_i18n) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // Formatter Interface
 interface II18NFormatter {

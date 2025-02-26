@@ -96,11 +96,11 @@ class DTranslator : UIMObject, ITranslator {
     // TODO
     // Check for missing/invalid context
     if (options.hasKey("_context") && catalog !is null) {
-      translatedMessage = resolveContext(key, catalog.messages, options);
+      // translatedMessage = resolveContext(key, catalog.messages, options);
       options.removeKey("_context");
     }
     if (options.isEmpty) { // Fallback for plurals that were using the singular key
-      return translatedMessage ~ [""].values[0];
+      // return translatedMessage ~ [""].values[0];
     }
 
     // Singular message, but plural call
@@ -129,7 +129,7 @@ class DTranslator : UIMObject, ITranslator {
 
   // Resolve a message`s context structure.
   protected string[] resolveContext(string key, string[][string][string] messageContent, string[string] options) {
-    if (messageContent.isEmpty("_context")) {
+    if ("_context" in messageContent) {
       return [key];
     }
 
@@ -152,5 +152,5 @@ class DTranslator : UIMObject, ITranslator {
 
 unittest {
   auto translator = new DTranslator;
-  assert(message.locale("de_De").locale == "de_De");
+  assert(translator.locale("de_De").locale == "de_De");
 }

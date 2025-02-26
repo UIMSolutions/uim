@@ -121,5 +121,6 @@ class DMysqlDriver : DDriver {
 mixin(DriverCalls!("Mysql"));
 
 unittest {
-    assert(MysqlDriver);
+    auto driver = MysqlDriver;
+    assert(testDriver(driver));
 }

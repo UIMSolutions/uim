@@ -12,6 +12,7 @@ public {
   import colored;
   import vibe.d;
   import vibe.http.session : HttpSession = Session;
+  import ddbc;
 }
 
 public { // uim libraries
@@ -23,11 +24,14 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.databases.classes;
+  import uim.databases.collections;
   import uim.databases.enumerations;
   import uim.databases.errors;
   import uim.databases.exceptions;
+  import uim.databases.factories;
   import uim.databases.helpers;
   import uim.databases.interfaces;
   import uim.databases.mixins;
+  import uim.databases.registries;
   import uim.databases.tests;
 }

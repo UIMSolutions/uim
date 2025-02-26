@@ -6,8 +6,13 @@
 module uim.databases.classes.drivers.driver;
 
 import uim.databases;
-
 @safe:
+
+version (test_uim_databases) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 class DDBDriver : UIMObject, IDBDriver {
     mixin(DBDriverThis!());

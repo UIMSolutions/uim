@@ -6,8 +6,13 @@
 module uim.databases.classes.drivers.sqlite;
 
 import uim.databases;
-
 @safe:
+
+version (test_uim_databases) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 class DSqliteDriver : DDBDriver {
     mixin(DBDriverThis!("Sqlite"));

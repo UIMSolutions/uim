@@ -21,9 +21,12 @@ public { // Required uim libraries
 
 public { // uim.entitybases packages
   import uim.entitybases.classes;
+  import uim.entitybases.collections;
   import uim.entitybases.exceptions;
+  import uim.entitybases.factories;
   import uim.entitybases.interfaces;
   import uim.entitybases.helpers;
   import uim.entitybases.mixins;
+  import uim.entitybases.registries;
   import uim.entitybases.tests;
 }

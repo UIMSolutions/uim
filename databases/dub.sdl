@@ -3,31 +3,22 @@ description "V in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
-
-targetType "library"
-targetName "uim-databases"
-
+dependency "uim:core" path="../"
+dependency "uim:consoles" path="../"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.0"
-
-dependency "uim:core" path="../"
-dependency "uim:oop" path="../"
-dependency "uim:consoles" path="../"
 dependency "uim:logging" path="../"
-
-sourcePaths "."
-importPaths "."
-
+dependency "ddbc" version="~>0.7.0"
+dependency "uim:oop" path="../"
 targetType "library"
-
-sourcePaths "."
-importPaths "."
-
-// configuration "default" {}
-
+targetName "uim-databases"
+sourcePaths "." "."
+importPaths "." "."
 configuration "test_uim_databases" {
+	targetType "library"
 	versions "test_uim_databases"
 }
 configuration "test_all" {
+	targetType "library"
 	versions "test_uim_core" "test_uim_oop"
 }

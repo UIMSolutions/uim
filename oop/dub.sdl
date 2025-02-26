@@ -6,7 +6,7 @@ copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
 dependency "colored" version="~>0.0.31"
-dependency "vibe-d" version="~>0.10.0"
+dependency "vibe-d" version="~>0.10.2"
 dependency "uim:core" path="../"
 targetType "library"
 

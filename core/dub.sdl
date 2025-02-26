@@ -8,7 +8,7 @@ license "Apache-2.0"
 targetType "library"
 targetName "uim-core"
 
-dependency "vibe-d" version="~>0.10.0"
+dependency "vibe-d" version="~>0.10.2"
 dependency "colored" version="~>0.0.31"
 
 sourcePaths "."

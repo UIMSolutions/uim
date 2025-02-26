@@ -9,7 +9,7 @@ targetName "uim-jsonbases"
 targetType "library"
 
 dependency "colored" version="~>0.0.31"
-dependency "vibe-d" version="~>0.10.0"
+dependency "vibe-d" version="~>0.10.2"
 
 dependency "uim:core" path="../"
 dependency "uim:oop" path="../"

@@ -8,20 +8,20 @@ module uim.databases.mixins.driver;
 import uim.databases;
 @safe:
 
-string driverThis(string name = null) {
+string DBDriverThis(string name = null) {
     string fullName = name ~ "Driver";
     return objThis(fullName);
 }
 
-template DriverThis(string name = null) {
-    const char[] DriverThis = driverThis(name);
+template DBDriverThis(string name = null) {
+    const char[] DBDriverThis = DBDriverThis(name);
 }
 
-string driverCalls(string name) {
+string DBDriverCalls(string name) {
     string fullName = name ~ "Driver";
     return objCalls(fullName);
 }
 
-template DriverCalls(string name) {
-    const char[] DriverCalls = driverCalls(name);
+template DBDriverCalls(string name) {
+    const char[] DBDriverCalls = DBDriverCalls(name);
 }

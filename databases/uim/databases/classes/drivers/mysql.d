@@ -8,8 +8,8 @@ module uim.databases.classes.drivers.mysql;
 import uim.databases;
 
 @safe:
-class DMysqlDriver : DDriver {
-    mixin(DriverThis!("Mysql"));
+class DMysqlDriver : DDBDriver {
+    mixin(DBDriverThis!("Mysql"));
 
     protected const MAX_ALIAS_LENGTH = 256;
 
@@ -105,20 +105,20 @@ class DMysqlDriver : DDriver {
     }
     // #endregion 
 
-    override IDriver connect() {
+    override IDBDriver connect() {
         super.connect();
         // TODO
         return this;
     }
 
-    override IDriver disconnect() {
+    override IDBDriver disconnect() {
         super.disconnect();
         // TODO
         return this;
     }
 }
 
-mixin(DriverCalls!("Mysql"));
+mixin(DBDriverCalls!("Mysql"));
 
 unittest {
     auto driver = MysqlDriver;

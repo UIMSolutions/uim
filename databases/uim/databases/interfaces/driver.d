@@ -4,26 +4,26 @@ import uim.databases;
 
 @safe:
 
-interface IDriver {
+interface IDBDriver {
     // Establishes a connection to the database server.
-    IDriver connect();
+    IDBDriver connect();
     
     // Returns connected server version.
     string currentVersion();
 
     // String used to start a database identifier quoting to make it safe
     string startQuote();
-    IDriver startQuote(string quote);
+    IDBDriver startQuote(string quote);
 
     // String used to end a database identifier quoting to make it safe
     string endQuote();
-    IDriver endQuote(string quote);
+    IDBDriver endQuote(string quote);
 
     // Returns correct connection resource or object that is internally used.
     IDatabaseConnection connection();
 
     // Set the internal connection object.
-    IDriver connection(IDatabaseConnection connection);
+    IDBDriver connection(IDatabaseConnection connection);
 
     // true if it is valid to use this driver
     bool enabled();
@@ -36,7 +36,7 @@ interface IDriver {
     bool isConnected();
 
    // Disconnects from database server. 
-    IDriver disconnect();
+    IDBDriver disconnect();
 
     /*
     // Is able to use this driver for connecting to database.
@@ -109,10 +109,10 @@ interface IDriver {
     string lastInsertId(string tableName = null, string columName = null);
 
     // Sets whether this driver should automatically quote identifiers in queries.
-    IDriver enableAutoQuoting(bool enableAutoQuoting = true);
+    IDBDriver enableAutoQuoting(bool enableAutoQuoting = true);
 
     // Disable auto quoting of identifiers in queries.
-    IDriver disableAutoQuoting();
+    IDBDriver disableAutoQuoting();
 
     // Returns whether this driver should automatically quote identifiers in queries.
     bool isAutoQuotingEnabled();

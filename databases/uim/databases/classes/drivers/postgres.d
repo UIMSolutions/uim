@@ -3,8 +3,8 @@ module uim.databases.classes.drivers.postgres;
 import uim.databases;
 
 @safe:
-class DPostgresDriver : DDriver {
-    mixin(DriverThis!("Postgres"));
+class DPostgresDriver : DDBDriver {
+    mixin(DBDriverThis!("Postgres"));
 
     // #region consts
     protected const MAX_ALIAS_LENGTH = 63;
@@ -62,20 +62,20 @@ class DPostgresDriver : DDriver {
     }
     // #endregion SQL
 
-    override IDriver connect() {
+    override IDBDriver connect() {
         super.connect();
         // TODO
         return this;
     }
 
-    override IDriver disconnect() {
+    override IDBDriver disconnect() {
         super.disconnect();
         // TODO
         return this;
     }
 }
 
-mixin(DriverCalls!("Postgres"));
+mixin(DBDriverCalls!("Postgres"));
 
 unittest {
     assert(PostgresDriver);

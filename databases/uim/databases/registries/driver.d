@@ -15,9 +15,9 @@ version (test_uim_databases) {
 }
 
 // A registry object for database instances.
-class DDriverRegistry : DObjectRegistry!DDriver {
+class DDBDriverRegistry : DObjectRegistry!DDBDriver {
 }
 
 auto DriverRegistration() {
-    return DDriverRegistry.registration;
+    return DDBDriverRegistry.registration;
 }

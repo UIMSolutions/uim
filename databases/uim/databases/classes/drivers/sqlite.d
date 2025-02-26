@@ -9,8 +9,8 @@ import uim.databases;
 
 @safe:
 
-class DSqliteDriver : DDriver {
-    mixin(DriverThis!("Sqlite"));
+class DSqliteDriver : DDBDriver {
+    mixin(DBDriverThis!("Sqlite"));
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -69,19 +69,19 @@ class DSqliteDriver : DDriver {
         };
     }
 
-    override IDriver connect() {
+    override IDBDriver connect() {
         super.connect();
         // TODO
         return this;
     }
 
-    override IDriver disconnect() {
+    override IDBDriver disconnect() {
         super.disconnect();
         // TODO
         return this;
     }
 }
-mixin(DriverCalls!("Sqlite"));
+mixin(DBDriverCalls!("Sqlite"));
 
 unittest {
     assert(SqliteDriver);

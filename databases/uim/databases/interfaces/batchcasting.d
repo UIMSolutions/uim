@@ -9,5 +9,5 @@ import uim.databases;
  */
 interface IBatchCasting {
     // Returns an array of the values converted to the UIM representation of this type.
-    // TODO Json[string] manyToD(Json[string] fieldsToCast, string[] fieldNames, IDriver driver);
+    // TODO Json[string] manyToD(Json[string] fieldsToCast, string[] fieldNames, IDBDriver driver);
 }

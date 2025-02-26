@@ -8,8 +8,8 @@ module uim.databases.classes.drivers.sqlserver;
 import uim.databases;
 
 @safe:
-class DSqlserverDriver : DDriver {
-    mixin(DriverThis!("Sqlserver"));
+class DSqlserverDriver : DDBDriver {
+    mixin(DBDriverThis!("Sqlserver"));
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -57,20 +57,20 @@ class DSqlserverDriver : DDriver {
         return "SAVE TRANSACTION t" ~ name;
     }
 
-    override IDriver connect() {
+    override IDBDriver connect() {
         super.connect();
         // TODO
         return this;
     }
 
-    override IDriver disconnect() {
+    override IDBDriver disconnect() {
         super.disconnect();
         // TODO
         return this;
     }
 }
 
-mixin(DriverCalls!("Sqlserver"));
+mixin(DBDriverCalls!("Sqlserver"));
 
 unittest {
     assert(SqlserverDriver);

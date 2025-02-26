@@ -8,13 +8,13 @@ import uim.databases;
  */
 interface IType {
     // Casts given value from a UIM type to one acceptable by a database.
-    /* Json toDatabase(Json valueToConvert, IDriver driver) ;
+    /* Json toDatabase(Json valueToConvert, IDBDriver driver) ;
 
     // Casts given value from a database type to a UIM equivalent.
-    Json ToD(Json valueToConvert, IDriver driver);
+    Json ToD(Json valueToConvert, IDBDriver driver);
 
     // Get the binding type to use in a PDO statement.
-    int toStatement(Json value, IDriver driver);
+    int toStatement(Json value, IDBDriver driver);
 
     /**
      * Marshals flat data into UIM objects.

@@ -9,8 +9,8 @@ import uim.databases;
 
 @safe:
 
-class DDriver : UIMObject, IDriver {
-    mixin(DriverThis!());
+class DDBDriver : UIMObject, IDBDriver {
+    mixin(DBDriverThis!());
 
     // Returns connected server version.
     string currentVersion() {
@@ -24,7 +24,7 @@ class DDriver : UIMObject, IDriver {
             return _startQuote;
         }
 
-        IDriver startQuote(string quote) {
+        IDBDriver startQuote(string quote) {
             _startQuote = quote;
             return this;
         }
@@ -37,7 +37,7 @@ class DDriver : UIMObject, IDriver {
             return _endQuote;
         }
 
-        IDriver endQuote(string quote) {
+        IDBDriver endQuote(string quote) {
             _endQuote = quote;
             return this;
         }
@@ -50,7 +50,7 @@ class DDriver : UIMObject, IDriver {
         }
 
         // Set the internal connection object.
-        IDriver connection(IDatabaseConnection connection) {
+        IDBDriver connection(IDatabaseConnection connection) {
             return this;
         }
     // #endregion connection
@@ -81,12 +81,12 @@ class DDriver : UIMObject, IDriver {
     }
 
    // Disconnects from database server. 
-    IDriver connect() {
+    IDBDriver connect() {
         return this;
     }
 
    // Disconnects from database server. 
-    IDriver disconnect() {
+    IDBDriver disconnect() {
         return this;
     }
 }

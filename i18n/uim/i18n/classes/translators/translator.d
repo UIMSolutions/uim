@@ -1,6 +1,7 @@
 module uim.i18n.classes.translators.translator;
 
 import uim.i18n;
+
 @safe:
 
 version (test_uim_i18n) {
@@ -37,9 +38,10 @@ class DTranslator : UIMObject, ITranslator {
   string locale() {
     return locale;
   }
+
   ITranslator locale(string newLocale) {
     _locale = newLocale;
-    return _locale;
+    return this;
   }
   // #endregion locale
 
@@ -57,10 +59,14 @@ class DTranslator : UIMObject, ITranslator {
   // #endregion catalog
 
   // Gets the message translation by its key.
-  protected string[] message(string key) {
-    string[] message = _catalog.message(key);
+  protected string[] message(string key, string[] defaultMessage = null) {
+    if (_catalog is null) {
+      return _fallbackTranslator is null
+        ? defaultMessage : _fallbackTranslator.message(key);
+    }
 
-    if (message.isEmpty && _fallbackTranslator) {
+    string[] message = _catalog.message(key);
+    if (message.isEmpty && _fallbackTranslator !is null) {
       message = _fallbackTranslator.message(key);
       if (!message.isEmpty)
         catalog.mergeMessage(key, message);
@@ -78,16 +84,10 @@ class DTranslator : UIMObject, ITranslator {
   string[] translate(string key, string[string] options) {
     string[] translatedMessage;
 
-    if (options.hasKey("_count")) { // use plural
-      translatedMessage = message(PLURAL_PREFIX ~ key);
-      if (translatedMessage.isEmpty) { // Fallback to singular
-        translatedMessage = message(key);
-      }
-    } else { // Use singular
-      translatedMessage = message(key);
-      if (translatedMessage.isEmpty) { // fallback to plural
-        translatedMessage = message(PLURAL_PREFIX ~ key);
-      }
+    if (options.hasKey("_count")) { // Use plural if possible
+      translatedMessage = message(PLURAL_PREFIX ~ key, message(key)); // Not Plural found use Singular
+    } else { // Use singular if possible
+      translatedMessage = message(key, message(PLURAL_PREFIX ~ key)); // Not Singular found us Plural
     }
     if (translatedMessage.isEmpty) { // Fallback to the message key
       translatedMessage = [key];
@@ -95,8 +95,8 @@ class DTranslator : UIMObject, ITranslator {
 
     // TODO
     // Check for missing/invalid context
-    if (options.hasKey("_context")) {
-      translatedMessage = resolveContext(key, translatedMessage, options);
+    if (options.hasKey("_context") && catalog !is null) {
+      translatedMessage = resolveContext(key, catalog.messages, options);
       options.removeKey("_context");
     }
     if (options.isEmpty) { // Fallback for plurals that were using the singular key
@@ -105,11 +105,11 @@ class DTranslator : UIMObject, ITranslator {
 
     // Singular message, but plural call
     if (options.hasKey("_singular")) {
-      // translatedMessage = [tokensValues["_singular"], message];
+      // translatedMessage = [options["_singular"], message];
     }
 
     // Resolve plural form.
-    /*         size_t count = to!size_t(tokensValues.get("_count", 0));
+    /*         size_t count = to!size_t(options.get("_count", 0));
         auto form = PluralRules.calculate(this.locale, to!int(count));
         translatedMessage = translatedMessage.ifNull(form, (string) end(message));
 
@@ -117,20 +117,21 @@ class DTranslator : UIMObject, ITranslator {
             translatedMessage = key;
 
             // If singular haven`t been translated, fallback to the key.
-            if (tokensValues.hasKey("_singular") && tokensValues.getLong("_count") == 1) {
-                translatedMessage = tokensValues["_singular"];
+            if (options.hasKey("_singular") && options.getLong("_count") == 1) {
+                translatedMessage = options["_singular"];
             }
         }
-        tokensValues.removeKey("_count", "_singular");
-        return formatter.format(_locale, translatedMessage, tokensValues); */
+        options.removeKey("_count", "_singular");
+        return formatter.format(_locale, translatedMessage, options); */
 
     return translatedMessage;
   }
 
   // Resolve a message`s context structure.
   protected string[] resolveContext(string key, string[][string][string] messageContent, string[string] options) {
-    if (messageContent.isEmpty("_context"))
+    if (messageContent.isEmpty("_context")) {
       return [key];
+    }
 
     string context = options.get("_context", null);
     string[][string] messageContext = messageContent.get("_context", null);
@@ -148,6 +149,7 @@ class DTranslator : UIMObject, ITranslator {
       ? [key] : resolved;
   }
 }
+
 unittest {
   auto translator = new DTranslator;
   assert(message.locale("de_De").locale == "de_De");

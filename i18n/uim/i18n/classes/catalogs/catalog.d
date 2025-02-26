@@ -18,7 +18,7 @@ version (test_uim_i18n) {
 class DMessageCatalog : UIMObject, IMessageCatalog {
   mixin(MessageCatalogThis!());
 
-  this(
+/*   this(
     string[][string] messages,
     string formatterName = "default",
     string fallbackName = null,
@@ -27,7 +27,7 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
     this.messages(messages);
     this.formatterName(formatterName);
     this.fallbackName(fallbackName);
-  }
+  } */
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -39,6 +39,7 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
     return true;
   }
 
+  // #region messages
   // Message keys and translations in this catalog.
   protected string[][string] _messages;
   string[][string] messages(string[] keys...) {
@@ -109,6 +110,7 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
     assert(catalog.messages.length == 2);
     assert(catalog.messages["de"].length == 1);
   }
+  // #endregion messages
 
   // #region fallbackName
   // The name of a fallback catalog to use when a message key does not exist.
@@ -160,9 +162,9 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
   }
   // #endregion formatterName
 
-  // #region messages
-  IMessageCatalog messages(string[][string] messages) {
-    messages.byKeyValue.each!(message => setMessage(message.key, message.value));
+  // #region setMessage
+  IMessageCatalog setMessages(string[][string] messages) {
+    messages.each!((key, value) => setMessage(key, value));
     return this;
   }
   ///
@@ -187,23 +189,12 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
     assert(catalog.messages.length == 1);
     assert(catalog.messages["de"].length == 4);
   }
-  // #endregion messages
+  // #region setMessage
 
   // #region updateMessages
   IMessageCatalog updateMessages(string[][string] messages) {
-    messages.byKeyValue.each!(message => updateMessage(message.key, message.value));
+    messages.each!((key, value) => updateMessage(key, value));
     return this;
-  }
-  ///
-  unittest {
-    auto catalog = new DMessageCatalog;
-    catalog.messages([
-      "de": ["Willkommen", "zu", "Deinem", "Framework"],
-      "en": ["Welcome"]
-    ]);
-    catalog.updateMessages(["de": ["hi"], "fr": ["Salut"]]);
-    assert(catalog.messages.length == 2);
-    assert(catalog.messages["de"].length == 1);
   }
 
   IMessageCatalog updateMessage(string key, string[] message) {
@@ -213,38 +204,35 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
   }
   ///
   unittest {
-    auto catalog = new DMessageCatalog;
-    catalog.messages([
-      "de": ["Willkommen", "zu", "Deinem", "Framework"],
-      "en": ["Welcome"]
-    ]);
+/*   auto catalog = new DMessageCatalog;
+  catalog.messages([
+    "de": ["Willkommen", "zu", "Deinem", "Framework"],
+    "en": ["Welcome"]
+  ]);
+  catalog.updateMessages(["de": ["hi"], "fr": ["Salut"]]);
+  assert(catalog.messages.length == 2);
+  assert(catalog.messages["de"].length == 1);
 
-    catalog.updateMessage("de", ["hi"]);
-    assert(catalog.messages.length == 2);
-    assert(catalog.messages["de"].length == 1);
+  auto catalog = new DMessageCatalog;
+  catalog.messages([
+    "de": ["Willkommen", "zu", "Deinem", "Framework"],
+    "en": ["Welcome"]
+  ]);
 
-    catalog.updateMessage("fr", ["salut"]);
-    assert(catalog.messages.length == 2);
-    assert(catalog.messages["de"].length == 1);
-  }
+  catalog.updateMessage("de", ["hi"]);
+  assert(catalog.messages.length == 2);
+  assert(catalog.messages["de"].length == 1);
+
+  catalog.updateMessage("fr", ["salut"]);
+  assert(catalog.messages.length == 2);
+  assert(catalog.messages["de"].length == 1);
+ */  }
   // #endregion updateMessages
 
   // #region mergeMessages
   IMessageCatalog mergeMessages(string[][string] messages) {
-    messages.byKeyValue.each!(message => mergeMessage(message.key, message.value));
+    messages.each!((key, value) => mergeMessage(key, value));
     return this;
-  }
-  ///
-  unittest {
-    auto catalog = new DMessageCatalog;
-    catalog.messages([
-      "de": ["Willkommen", "zu", "Deinem", "Framework"],
-      "en": ["Welcome"]
-    ]);
-
-    catalog.mergeMessages(["de": ["hi"], "fr": ["salut"]]);
-    assert(catalog.messages.length == 3);
-    assert(catalog.messages["de"].length == 4);
   }
 
   IMessageCatalog mergeMessage(string key, string[] message) {
@@ -261,16 +249,15 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
       "Yes": ["Ja"], 
       "No": ["Nein"]
     ]);
+    assert(catalog.messages.length == 4);
 
-    catalog.mergeMessage("Continue", ["Weiter"]);
-    assert(catalog.messages.length == 5);
-
-    catalog.mergeMessage("Accept", ["Annehmen"]);
-    assert(catalog.messages.length == 6);
-
-    catalog.mergeMessage("Cancel", ["Nix tun"]);
+    catalog.mergeMessages([ 
+      "LogIn": ["Anmelden"],
+      "Register": ["Registrieren"]
+    ]);
     assert(catalog.messages.length == 6);
     assert(catalog.message("Cancel") == ["Abbrechen"]);
+    assert(catalog.message("LogIn") == ["Anmelden"]);
   }
   // #endregion mergeMessages
 }

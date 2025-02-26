@@ -21,11 +21,14 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.ai.classes;
+  import uim.ai.collections;
   import uim.ai.enumerations;
   import uim.ai.errors;
   import uim.ai.exceptions;
+  import uim.ai.factories;
   import uim.ai.helpers;
   import uim.ai.interfaces;
   import uim.ai.mixins;
+  import uim.ai.registries;
   import uim.ai.tests;
 }

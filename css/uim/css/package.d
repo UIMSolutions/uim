@@ -4,33 +4,36 @@ mixin(ImportPhobos!());
 
 // Dub
 public {
-	import vibe.d;
+  import vibe.d;
 }
 
 public { // Required uim libraries 
-	import uim.core;
-	import uim.oop;
-	import uim.errors;
+  import uim.core;
+  import uim.oop;
+  import uim.errors;
 
-	// import uim.filesystems;
-	// import uim.models;
+  // import uim.filesystems;
+  // import uim.models;
 }
 
 public { // Packages
-	import uim.css.classes;
-	import uim.css.helpers;
-	import uim.css.exceptions;
+  import uim.css.classes;
+  import uim.css.collections;
+  import uim.css.helpers;
+  import uim.css.exceptions;
+  import uim.css.factories;
+  import uim.css.registries;
 }
 
 public { // Modules 
-	import uim.css.declaration;
-	import uim.css.obj;
-	import uim.css.rule;
-	import uim.css.rules;
-	import uim.css.media;
-	import uim.css.interfaces;
-	import uim.css.mixins;
-	import uim.css.tests;
+  import uim.css.declaration;
+  import uim.css.obj;
+  import uim.css.rule;
+  import uim.css.rules;
+  import uim.css.media;
+  import uim.css.interfaces;
+  import uim.css.mixins;
+  import uim.css.tests;
 }
 
 /* class DCSSx : DCSSRules {

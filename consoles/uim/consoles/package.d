@@ -22,6 +22,7 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.consoles.classes;
+  import uim.consoles.collections;
   import uim.consoles.enumerations;
   import uim.consoles.errors;
   import uim.consoles.exceptions;
@@ -29,7 +30,7 @@ public { // uim.filesystem libraries
   import uim.consoles.helpers;
   import uim.consoles.interfaces;
   import uim.consoles.mixins;
-  import uim.consoles.repositories;
+  import uim.consoles.registries;
   import uim.consoles.tests;
 }
 

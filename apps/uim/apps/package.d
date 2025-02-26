@@ -25,9 +25,11 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.apps.classes;
+  import uim.apps.collections;
   import uim.apps.enumerations;
   import uim.apps.errors;
   import uim.apps.exceptions;
+  import uim.apps.factories;
   import uim.apps.helpers;
   import uim.apps.interfaces;
   import uim.apps.mixins;

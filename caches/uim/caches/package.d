@@ -22,11 +22,14 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.caches.classes;
+  import uim.caches.collections;
   import uim.caches.enumerations;
   import uim.caches.errors;
   import uim.caches.exceptions;
+  import uim.caches.factories;
   import uim.caches.helpers;
   import uim.caches.interfaces;
   import uim.caches.mixins;
+  import uim.caches.registries;
   import uim.caches.tests;
 }

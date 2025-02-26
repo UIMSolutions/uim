@@ -1,6 +1,7 @@
 module uim.consoles.factories;
 
 public {
+    import uim.consoles.factories.console;
     import uim.consoles.factories.error;
     import uim.consoles.factories.input;
     import uim.consoles.factories.output;

@@ -23,11 +23,14 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.logging.classes;
+  import uim.logging.collections;
   import uim.logging.enumerations;
   import uim.logging.errors;
   import uim.logging.exceptions;
+  import uim.logging.factories;
   import uim.logging.helpers;
   import uim.logging.interfaces;
   import uim.logging.mixins;
+  import uim.logging.registries;
   import uim.logging.tests;
 }

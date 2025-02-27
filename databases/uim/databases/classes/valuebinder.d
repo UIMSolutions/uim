@@ -1,8 +1,14 @@
 module uim.databases.classes.valuebinder;
 
 import uim.databases;
-
 @safe:
+
+version (test_uim_databases) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 class DValueBinder : UIMObject {
   this() {
     super();

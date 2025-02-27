@@ -70,8 +70,14 @@ class DPostgresDriver : DDBDriver {
 
     override IDBDriver connect() {
         super.connect();
-        // TODO
-        return this;
+
+/*         string connectUrl;
+        connectUrl ~= configuration.getString("host") // ex. "localhost"
+        configuration.getString("username", "root")
+            .setDefault("password", "")
+            .setDefault("database", "uim")
+        string connectUrl = "postgresql://localhost:{port}/ddbctestdb?user={username},password={password},ssl=true";
+ */        return this;
     }
 
     override IDBDriver disconnect() {

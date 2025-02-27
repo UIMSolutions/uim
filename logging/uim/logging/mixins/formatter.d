@@ -6,7 +6,6 @@
 module uim.logging.mixins.formatter;
 
 import uim.logging;
-
 @safe:
 
 string logFormatterThis(string name = null) {

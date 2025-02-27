@@ -14,8 +14,8 @@ version (test_uim_logging) {
   }
 }
 
-bool testLogFormatter(ILogFormatter formatter) {
-  assert(formatter !is null, "testLogFormatter -> formatter is null");
-
-  return true;
+bool testLogger(ILogger logger) {
+    assert(logger !is null, "testLogger: logger is null");
+    
+    return true;
 }

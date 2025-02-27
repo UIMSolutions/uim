@@ -6,8 +6,13 @@
 module uim.i18n.classes.middlewares.localeselector;
 
 import uim.i18n;
-
 @safe:
+
+version (test_uim_i18n) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 /**
  * Sets the runtime default locale for the request based on the

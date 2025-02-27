@@ -6,8 +6,14 @@
 module uim.i18n.classes.parsers.mofileparser;
 
 import uim.i18n;
-
 @safe:
+
+version (test_uim_i18n) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 // Parses file in MO format
 class MoFileParser {
     /**

@@ -9,5 +9,5 @@ public {
     import uim.oop.patterns.collection;
     import uim.oop.patterns.obj;
     import uim.oop.patterns.factory;
-    import uim.oop.patterns.registry;
+    import uim.oop.patterns.registration;
 }

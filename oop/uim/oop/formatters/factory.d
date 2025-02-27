@@ -5,9 +5,14 @@
 *****************************************************************************************************************/
 module uim.oop.formatters.factory;
 
-import uim.oop;
-
+import uim.core;
 @safe:
+
+version (test_uim_oop) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 class DFormatterFactory : DFactory!DFormatter {
 }

@@ -18,5 +18,5 @@ class DLoggerRegistry : DObjectRegistry!DLogger {
 }
 
 auto LoggerRegistry() {
-    return DLoggerRegistry.registry;
+    return DLoggerRegistry.registration;
 }

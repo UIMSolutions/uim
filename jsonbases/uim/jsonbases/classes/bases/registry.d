@@ -1,2 +1,2 @@
-module uim.jsonbases.classes.bases.registry;
+module uim.jsonbases.classes.bases.registration;
 

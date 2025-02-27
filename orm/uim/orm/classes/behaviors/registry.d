@@ -1,4 +1,4 @@
-module uim.orm.classes.behaviors.registry;
+module uim.orm.classes.behaviors.registration;
 
 import uim.orm;
 @safe:

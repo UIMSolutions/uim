@@ -5,6 +5,10 @@
 *****************************************************************************************************************/
 module uim.logging.classes.formatters;
 
-public {
+public { // Main class
     import uim.logging.classes.formatters.formatter;
+}
+
+public { // Subclasses
+    import uim.logging.classes.formatters.standard;
 }

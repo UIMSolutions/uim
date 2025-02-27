@@ -14,5 +14,5 @@ public {
     import uim.oop.validators.factory;
     import uim.oop.validators.interfaces;
     import uim.oop.validators.mixins;
-    import uim.oop.validators.registry;
+    import uim.oop.validators.registration;
 }

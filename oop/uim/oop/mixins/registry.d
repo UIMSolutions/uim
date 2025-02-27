@@ -1,4 +1,4 @@
-module uim.oop.mixins.registry;
+module uim.oop.mixins.registration;
 
 import uim.oop;
 

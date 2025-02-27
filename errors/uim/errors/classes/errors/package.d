@@ -13,7 +13,7 @@ public { // Helper modules
   // import uim.errors.errors.handler;    
   import uim.errors.classes.errors.collection;
   import uim.errors.classes.errors.factory;
-  import uim.errors.classes.errors.registry;
+  import uim.errors.classes.errors.registration;
   import uim.errors.classes.errors.logger;
   import uim.errors.classes.errors.trap;
 }

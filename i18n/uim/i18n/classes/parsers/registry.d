@@ -1,4 +1,4 @@
-module uim.i18n.classes.parsers.registry;
+module uim.i18n.classes.parsers.registration;
 
 import uim.i18n;
 

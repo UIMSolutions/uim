@@ -5,8 +5,8 @@
 *****************************************************************************************************************/
 module uim.oop.containers.arrays.fifo;
 
-@safe:
 import uim.core;
+@safe:
 
 version (test_uim_oop) {
   unittest {

@@ -1,4 +1,4 @@
-module uim.models.classes.attributes.registry;
+module uim.models.classes.attributes.registration;
 
 import uim.models;
 

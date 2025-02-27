@@ -5,8 +5,14 @@
 *****************************************************************************************************************/
 module uim.oop.containers.maps.map;
 
-import uim.oop;
+import uim.core;
 @safe:
+
+version (test_uim_oop) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 class DMap(T : Object) : IMap {
   this() {}

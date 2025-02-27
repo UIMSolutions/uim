@@ -1,23 +1,17 @@
 /****************************************************************************************************************
-* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.oop.formatters.formatter;
+module uim.logging.classes.formatters.standard;
 
-import uim.core;
+import uim.logging;
+
 @safe:
 
-version (test_uim_oop) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
-
-// Base class for Formatters
-class DFormatter : UIMObject, IFormatter {
-/*    mixin TLocatorAware;
-    mixin TLog; */
+// Base class for LogFormatters
+class DStandardLogFormatter : DLogFormatter {
+    mixin(LogFormatterThis!("Standard"));
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -26,4 +20,12 @@ class DFormatter : UIMObject, IFormatter {
 
         return true;
     }
+
+    override string format(LogLevel logLevel, string logMessage, Json[string] logData = null) {
+        string result = logMessage;
+        // TODO
+        return result;
+    }
 }
+
+mixin(LogFormatterCalls!("Standard"));

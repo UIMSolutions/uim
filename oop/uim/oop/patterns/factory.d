@@ -5,8 +5,14 @@
 *****************************************************************************************************************/
 module uim.oop.patterns.factory;
 
-import uim.oop;
+import uim.core;
 @safe:
+
+version (test_uim_oop) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 class DFactory(T : UIMObject) : UIMObject, IKeyAndPath {
     this() {

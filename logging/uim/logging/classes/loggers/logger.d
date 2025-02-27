@@ -21,6 +21,8 @@ class DLogger : UIMObject, ILogger {
     if (!super.initialize(initData)) {
       return false;
     }
+
+    return true;
   }
 
     // Get the levels this logger is interested in.

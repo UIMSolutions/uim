@@ -23,9 +23,9 @@ class DConsoleLogger : DLogger {
       .setDefault("levels", Json(null)) // `levels` string or array, levels the engine is interested in
       .setDefault("scopes", Json.emptyArray) // `scopes` string or array, scopes the engine is interested in
       .setDefault("outputAs", Json(null)) // `outputAs` integer or ConsoleOutput.[RAW|PLAIN|COLOR]
-      .setDefault("formatter", createMap!(string, Json)
-          .set("classname", StandardLogFormatter.classname)
-          .set("includeTags", true));
+      /* .setDefault("formatter", createMap!(string, Json)
+          .set("classname", StandardLogFormatter.className)
+          .set("includeTags", true)) */;
     // `dateFormat` UIM date() format.
 
     return true;

@@ -14,5 +14,5 @@ public {
     import uim.oop.parsers.factory;
     import uim.oop.parsers.interfaces;
     import uim.oop.parsers.mixins;
-    import uim.oop.parsers.registration;
+    import uim.oop.parsers.registry;
 }

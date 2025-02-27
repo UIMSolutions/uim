@@ -31,6 +31,9 @@ class DFileLogger : DLogger {
   protected int _size = 0;
 
   override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
     /**
      * Default config for this class
      *
@@ -58,8 +61,8 @@ class DFileLogger : DLogger {
       .setDefault("rotate", 10)
       .setDefault("size", 10_485_760) // 10M)
       .setDefault("mask", Json(null)) // .setDefault("dirMask", 0770)
-      .setDefault("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
-          .classname));
+      /* .setDefault("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
+          .classname)) */;
 
     /* auto _path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
         if (!isDir(_path)) {

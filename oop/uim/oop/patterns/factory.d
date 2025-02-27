@@ -5,7 +5,7 @@
 *****************************************************************************************************************/
 module uim.oop.patterns.factory;
 
-import uim.core;
+import uim.oop;
 @safe:
 
 version (test_uim_oop) {

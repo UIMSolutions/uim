@@ -6,8 +6,13 @@
 module uim.logging.classes.formatters.standard;
 
 import uim.logging;
-
 @safe:
+
+version (test_uim_logging) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // Base class for LogFormatters
 class DStandardLogFormatter : DLogFormatter {

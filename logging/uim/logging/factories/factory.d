@@ -1,19 +1,15 @@
 /****************************************************************************************************************
-* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* Copyright: © 2017-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.registries.command;
+module uim.logging.factories.factory;
 
-import uim.commands;
+import uim.logging;
+
 @safe:
 
-version (test_uim_commands) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
+class DLogFormatterFactory : DFactory!DLogFormatter {
 }
+auto LogFormatterFactory() { return DLogFormatterFactory.factory; }
 
-class DCommandRegistry : DObjectRegistry!DCommand {
-}
-auto CommandRegistration() { return DCommandRegistry.registration; }

@@ -211,7 +211,7 @@ class DStringContents : UIMObject {
         /* myplaceholders.each!((placeholder) {
             Json replacement = templateVars.get(placeholder);
             replaces ~= replacement.isArray
-                ? replacement.getStringArray.join("") : "";
+                ? replacement.getStrings.join("") : "";
         }); */
 
         // TODO return mytemplate.format(replaces); 

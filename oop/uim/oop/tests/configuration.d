@@ -92,7 +92,7 @@ bool testConfiguration(IConfiguration aConfig) {
         float getDouble(string key);
         double getDouble(string key);
         string getString(string key);
-        string[] getStringArray(string key);
+        string[] getStrings(string key);
         Json getJson(string key);
     // #endregion get
 

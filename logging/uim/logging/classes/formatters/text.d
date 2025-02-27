@@ -32,3 +32,10 @@ class DTextLogFormatter : DLogFormatter {
 }
 
 mixin(LogFormatterCalls!("Text"));
+
+unittest {
+  auto formatter = TextLogFormatter;
+  assert(testLogFormatter(formatter));
+  
+  assert(LogFormatterFactory.create("text").name == "TextLogFormatter");
+}

@@ -31,6 +31,7 @@ class DConsoleLogger : DLogger {
     return true;
   }
 }
+mixin(LoggerCalls!("Console"));
 
 unittest {
     auto logger = new DConsoleLogger;

@@ -34,3 +34,10 @@ class DHtmlLogFormatter : DLogFormatter {
 }
 
 mixin(LogFormatterCalls!("Html"));
+
+unittest {
+  auto formatter = HtmlLogFormatter;
+  assert(testLogFormatter(formatter));
+  
+  assert(LogFormatterFactory.create("html").name == "HtmlLogFormatter");
+}

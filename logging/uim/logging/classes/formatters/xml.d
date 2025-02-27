@@ -20,3 +20,10 @@ class DXmlLogFormatter : DLogFormatter {
 }
 
 mixin(LogFormatterCalls!("Xml"));
+
+unittest {
+  auto formatter = XmlLogFormatter;
+  assert(testLogFormatter(formatter));
+  
+  assert(LogFormatterFactory.create("xml").name == "XmlLogFormatter");
+}

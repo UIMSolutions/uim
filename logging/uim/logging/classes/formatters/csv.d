@@ -27,3 +27,10 @@ class DCsvLogFormatter : DLogFormatter {
 }
 
 mixin(LogFormatterCalls!("Csv"));
+
+unittest {
+  auto formatter = CsvLogFormatter;
+  assert(testLogFormatter(formatter));
+  
+  assert(LogFormatterFactory.create("csv").name == "CsvLogFormatter");
+}

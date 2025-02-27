@@ -6,5 +6,6 @@
 module uim.logging.factories;
 
 public {
+  import uim.logging.factories.formatter;
   import uim.logging.factories.logger;
 }

@@ -10,6 +10,7 @@ public { // Main class
 }
 
 public { // Subclasses
+    import uim.logging.classes.formatters.csv;
     import uim.logging.classes.formatters.html;
     import uim.logging.classes.formatters.json;
     import uim.logging.classes.formatters.standard;

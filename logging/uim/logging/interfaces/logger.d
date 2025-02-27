@@ -17,7 +17,7 @@ interface ILogger : INamed {
     string[] scopes();
 
     // Logs with an arbitrary level.
-    void log(LogLevel logLevel, string logMessage, Json[string] logContext = null); 
+    ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null); 
 
     /*
     

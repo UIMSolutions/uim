@@ -31,3 +31,8 @@ class DConsoleLogger : DLogger {
     return true;
   }
 }
+
+unittest {
+    auto logger = new DConsoleLogger;
+    assert(testLogger(logger));
+}

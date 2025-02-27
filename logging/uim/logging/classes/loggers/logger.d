@@ -17,4 +17,18 @@ class DLogger : UIMObject, ILogger {
       return false;
     }
   }
+
+    // Get the levels this logger is interested in.
+  string[] levels() {
+    return configuration.getStrings("levels");
+  }
+
+  // Get the scopes this logger is interested in.
+  string[] scopes() {
+    return configuration.getStrings("scopes");
+  }
+
+  ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
+    return this;
+  }
 }

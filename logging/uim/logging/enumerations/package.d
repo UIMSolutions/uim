@@ -4,3 +4,7 @@
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
 module uim.logging.enumerations;
+
+public {
+    
+}

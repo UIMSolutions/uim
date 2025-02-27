@@ -7,4 +7,5 @@ module uim.logging.registries;
 
 public {
     import uim.logging.registries.logger;
+    import uim.logging.registries.registry;
 }

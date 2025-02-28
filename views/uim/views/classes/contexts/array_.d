@@ -3,17 +3,30 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.interfaces.widget;
+module uim.views.classes.contexts.array_;
 
 import uim.views;
-
 @safe:
 
-// Interface for input widgets.
-interface IWidget {
-    // Converts the data into one or many HTML elements.
-    string render(Json[string] dataToRender, IFormContext context = null);
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
-    // Returns a list of fields that need to be secured for this widget.
-    string[] secureFields(Json[string] dataToRender);
+class DArrayContext : DContext {
+  mixin(ContextThis!("Array"));
+
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+    return true;
+  }
+}
+
+unittest {
+  auto context = new DArrayContext;
+  assert(context !is null);
 }

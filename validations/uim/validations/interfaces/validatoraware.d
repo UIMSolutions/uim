@@ -6,7 +6,6 @@
 module uim.validations.interfaces.validatoraware;
 
 import uim.validations;
-
 @safe:
 
 // Provides methods for managing multiple validators.

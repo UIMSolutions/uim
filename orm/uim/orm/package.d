@@ -21,11 +21,30 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.orm.classes;
+  import uim.orm.collections;
   import uim.orm.enumerations;
   import uim.orm.errors;
   import uim.orm.exceptions;
+  import uim.orm.factories;
   import uim.orm.helpers;
   import uim.orm.interfaces;
   import uim.orm.mixins;
+  import uim.orm.registries;
   import uim.orm.tests;
 }
+
+/* public { // uim.filesystem libraries
+  mixin(Imports!("uim.orm", [
+      "classes",
+      "collections",
+      "enumerations",
+      "errors",
+      "exceptions",
+      "factories",
+      "helpers",
+      "interfaces",
+      "mixins",
+      "registries",
+      "tests"
+  ]));
+} */

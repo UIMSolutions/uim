@@ -1,8 +1,14 @@
 module uim.validations.classes.rules.rule;
 
 import uim.validations;
-
 @safe:
+
+version (test_uim_validations) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
+
 /**
  * ValidationRule object. Represents a validation method, error message and
  * rules for applying such method to a field.

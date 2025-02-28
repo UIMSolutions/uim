@@ -6,11 +6,16 @@
 module uim.validations.tests.validation;
 
 import uim.validations;
-
 @safe:
 
+version (test_uim_validations) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
+
 bool testValidation(IValidation validation) {
-    assert(validation !is null, "In testValidation: validation is null");
+    assert(validation !is null, "testValidation -> validation is null");
     
     return true;
 }

@@ -6,12 +6,13 @@
 module uim.views.classes.widgets.button;
 
 import uim.views;
-
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
-}
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
 
 /**
  * Button input class

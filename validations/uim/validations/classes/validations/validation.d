@@ -1,8 +1,14 @@
 module uim.validations.classes.validations.validation;
 
 import uim.validations;
-
 @safe:
+
+version (test_uim_validations) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
+
 class DValidation {
       // Default locale
   const string DEFAULT_LOCALE = "en_US";

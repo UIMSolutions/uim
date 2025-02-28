@@ -2,6 +2,13 @@ module uim.validations.helpers.validation;
 
 import uim.validations;
 @safe:
+
+version (test_uim_validations) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
+
 class Validation {
     static bool lengthBetween(Json value, int minLength, int maxLength) {
         if (!value.isScalar) {

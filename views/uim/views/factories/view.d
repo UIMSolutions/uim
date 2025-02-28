@@ -1,4 +1,4 @@
-module uim.views.classes.views.factory;
+module uim.views.factories.view;
 
 import uim.views;
 

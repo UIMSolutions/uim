@@ -49,11 +49,13 @@ auto importPhobos(string[] libNames = null) {
 
     case "Networking":
       result ~= "
-          public import std.socket; // Socket primitives.
-          public import std.net.curl; // Networking client functionality as provided by libcurl.
-          public import std.net.isemail; // Validates an email address according to RFCs 5321, 5322 and others.
-          public import std.uri; // Encode and decode Uniform Resource Identifiers (URIs).
-          public import std.uuid; // Universally-unique identifiers for resources in distributed systems.";
+          public {
+            import std.socket; // Socket primitives.
+            import std.net.curl; // Networking client functionality as provided by libcurl.
+            import std.net.isemail; // Validates an email address according to RFCs 5321, 5322 and others.
+            import std.uri; // Encode and decode Uniform Resource Identifiers (URIs).
+            import std.uuid; // Universally-unique identifiers for resources in distributed systems.
+          }";
       break;
 
     case "Numeric":
@@ -98,7 +100,7 @@ template ImportPhobos(string[] libNames = null) {
 string imports(string rootNamespace, string[] additionalNames) {
   import std.algorithm;
   import std.array;
-  return additionalNames.map!(name => rootNamespace~"."~name~";").join(";");
+  return additionalNames.map!(name => "import "~rootNamespace~"."~name~";").join("\n");
 }
 
 template Imports(string rootNamespace, string[] additionalNames) {

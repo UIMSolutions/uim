@@ -22,6 +22,7 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.i18n.classes;
+  import uim.i18n.collections;
   import uim.i18n.enumerations;
   import uim.i18n.errors;
   import uim.i18n.exceptions;

@@ -31,7 +31,7 @@ public { // uim.filesystem libraries
       "helpers",
       "interfaces",
       "mixins",
-      "repositories",
+      "registries",
       "tests"
   ]));
 }

@@ -40,6 +40,7 @@ static this() { // Init factories
     return XmlLogFormatter(options);
   });
 
+  // #region init Logger factory
   LoggerFactory.set("console", (Json[string] options = null) @safe {
     return ConsoleLogger(options);
   });
@@ -48,7 +49,24 @@ static this() { // Init factories
     return new DFileLogger(options);
   });
 
+  LoggerFactory.set("memory", (Json[string] options = null) @safe {
+    return MemoryLogger(options);
+  });
+
+  LoggerFactory.set("multi", (Json[string] options = null) @safe {
+    return MultiLogger(options);
+  });
+
+  LoggerFactory.set("null", (Json[string] options = null) @safe {
+    return NullLogger(options);
+  });
+
   LoggerFactory.set("standard", (Json[string] options = null) @safe {
     return StandardLogger(options);
   });
+
+  LoggerFactory.set("syslog", (Json[string] options = null) @safe {
+    return StandardLogger(options);
+  });
+  // #endregion init Logger factory
 }

@@ -1,6 +1,7 @@
 module uim.logging.classes.loggers.console;
 
 import uim.logging;
+
 @safe:
 
 version (test_uim_logging) {
@@ -25,15 +26,46 @@ class DConsoleLogger : DLogger {
       .setDefault("outputAs", Json(null)) // `outputAs` integer or ConsoleOutput.[RAW|PLAIN|COLOR]
       /* .setDefault("formatter", createMap!(string, Json)
           .set("classname", StandardLogFormatter.className)
-          .set("includeTags", true)) */;
+          .set("includeTags", true)) */
+      ;
     // `dateFormat` UIM date() format.
+
+    /* if (cast(DConsoleOutput) configuration.get("stream")) {
+      _output = configuration.get("stream");
+    } else if (configuration.isString("stream")) {
+      _output = new DConsoleOutput(configuration.get("stream"));
+    } else {
+      throw new DInvalidArgumentException("`stream` not a ConsoleOutput nor string");
+    }
+    if (configuration.hasKey("outputAs")) {
+      _output.setOutputAs(configuration.get("outputAs"));
+    } */
 
     return true;
   }
+
+  // #region output
+  // Output stream
+  protected IOutput _output;
+  IOutput output() {
+    return _output;
+  }
+
+  ILogger output(IOutput newOutput) {
+    _output = newOutput;
+    return this;
+  }
+
+  override ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
+    /* string resultMessage = this.interpolate(messageToLog, context);
+    _output.write(this.formatter.format(logLevel, resultMessage, context)); */
+    return this;
+  }
 }
+
 mixin(LoggerCalls!("Console"));
 
 unittest {
-    auto logger = new DConsoleLogger;
-    assert(testLogger(logger));
+  auto logger = new DConsoleLogger;
+  assert(testLogger(logger));
 }

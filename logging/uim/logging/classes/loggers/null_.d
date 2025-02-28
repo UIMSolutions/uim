@@ -3,9 +3,10 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.exceptions.exception;
+module uim.logging.classes.loggers.null_;
 
 import uim.logging;
+
 @safe:
 
 version (test_uim_logging) {
@@ -14,23 +15,26 @@ version (test_uim_logging) {
   }
 }
 
-// Logging exception.
-class DLoggingException : DException {
-  mixin(ExceptionThis!("Logging"));
+class DNullLogger : DLogger {
+  mixin(LoggerThis!("Null"));
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
 
-    messageTemplate("default", "Exception in libary uim-logging");
-
     return true;
+  }
+
+  override ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
+    // TODO
+    return this;
   }
 }
 
-mixin(ExceptionCalls!("Logging"));
+mixin(LoggerCalls!("Null"));
 
 unittest {
-  assert(LoggingException);
+  auto logger = NullLogger;
+  assert(testLogger(logger));
 }

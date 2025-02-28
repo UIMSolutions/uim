@@ -21,15 +21,6 @@ version (test_uim_logging) {
 class DFileLogger : DLogger {
   mixin(LoggerThis!("File"));
 
-  // Path to save log files on.
-  protected string _path;
-
-  // The name of the file to save logs into.
-  protected string _file = null;
-
-  // Max file size, used for log file rotation.
-  protected int _size = 0;
-
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
@@ -71,26 +62,42 @@ class DFileLogger : DLogger {
             mkdir(_path, configuration.get("dirMask"), true);
         }
         if (!configuration.isEmpty("file")) {
-           _filename = configuration.getString("file");
-            if (!_filename.endsWith(".log")) {
-               _filename ~= ".log";
+           _fileNamename = configuration.getString("file");
+            if (!_fileNamename.endsWith(".log")) {
+               _fileNamename ~= ".log";
             }
         }
         if (!configuration.isEmpty("size")) {
-            _size = isNumeric(configuration.get("size"))
+            _maxFileSize = isNumeric(configuration.get("size"))
                 ? configuration.toLong("size")
                 : Text.parseFileSize(configuration.get("size"));
         } */
 
     return true;
   }
+
+  // #region path
+  // Path to save log files on.
+  protected string _path;
+  string path() {
+    return _path;
+  }
+  ILogger path(string newPath) {
+    _path = newPath;
+    return this;
+  }
+  // #endregion path
+
+  // #region fileName
+  // The name of the file to save logs into.
+  protected string _fileName = null;
   // Get filename
-  protected string _getFilename(string logLevel) {
+  string getOrCreateFileName(string logLevel) {
     string[] debugTypes = ["notice", "info", "debug"];
 
     string result;
-    if (!_file.isEmpty) {
-      return _file;
+    if (!_fileName.isEmpty) {
+      return _fileName;
     } else if (logLevel == "error" || logLevel == "warning") {
       return "error.log";
     } else if (debugTypes.has(logLevel)) {
@@ -98,14 +105,34 @@ class DFileLogger : DLogger {
     }
     return logLevel ~ ".log";
   }
+  string fileName() {
+    return _fileName;
+  }
+  ILogger fileName(string newName) {
+    _fileName = newName;
+    return this;
+  }
+  // #endregion fileName
+
+  // #region maxFileSize
+  // Max file size, used for log file rotation.
+  protected int _maxFileSize = 0;
+  int maxFileSize() {
+    return _maxFileSize;
+  };
+  ILogger maxFileSize(int newMaxSize) {
+    _maxFileSize = newMaxSize;
+    return this;
+  };
+  // #endregion maxFileSize
 
   // writing to log files.
   void log(int logLevel, string messageToLog, Json[string] messageContext = null) {
     string message; /* = this.interpolate(messageToLog, messageContext);
         message = _formatter.format(logLevel, message, messageContext); */
 
-    string filename; // = _getFilename(logLevel);
-    if (_size) {
+    string filename; // = fileName(logLevel);
+    if (_maxFileSize) {
       _rotateFile(filename);
     }
 
@@ -142,7 +169,7 @@ class DFileLogger : DLogger {
     string logFilepath = _path ~ logFilename;
     /* clearstatcache(true, logFilepath); */
 
-    /* if (!isFile(logFilepath) || filesize(logFilepath) < _size) {
+    /* if (!isFile(logFilepath) || filesize(logFilepath) < _maxFileSize) {
             return null;
         } */
 

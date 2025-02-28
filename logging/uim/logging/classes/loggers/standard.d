@@ -6,6 +6,7 @@
 module uim.logging.classes.loggers.standard;
 
 import uim.logging;
+
 @safe:
 
 version (test_uim_logging) {
@@ -24,5 +25,16 @@ class DStandardLogger : DLogger {
 
     return true;
   }
+
+  override ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
+    // TODO
+    return this;
+  }
 }
+
 mixin(LoggerCalls!("Standard"));
+
+unittest {
+  auto logger = StandardLogger;
+  assert(testLogger(logger));
+}

@@ -8,7 +8,6 @@ public {
 
 public {
     import uim.i18n.classes.parsers.parser;
-    import uim.i18n.classes.parsers.registration;
 }
 
 public {

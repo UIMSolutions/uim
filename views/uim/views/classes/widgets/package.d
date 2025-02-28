@@ -7,9 +7,6 @@ module uim.views.classes.widgets;
 
 public {
   import uim.views.classes.widgets.widget;
-  import uim.views.classes.widgets.collection;
-  import uim.views.classes.widgets.factory;
-  import uim.views.classes.widgets.registration;
 }
 
 public {

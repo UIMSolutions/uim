@@ -20,12 +20,17 @@ public { // uim libraries
 }
 
 public { // uim.filesystem libraries
-  import uim.models.classes;
-  import uim.models.enumerations;
-  import uim.models.errors;
-  import uim.models.exceptions;
-  import uim.models.helpers;
-  import uim.models.interfaces;
-  import uim.models.mixins;
-  import uim.models.tests;
+  mixin(Imports!("uim.models", [
+      "classes",
+      "collections",
+      "enumerations",
+      "errors",
+      "exceptions",
+      "factories",
+      "helpers",
+      "interfaces",
+      "mixins",
+      "repositories",
+      "tests"
+  ]));
 }

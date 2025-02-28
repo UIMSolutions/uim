@@ -1,4 +1,4 @@
-module uim.models.classes.attributes.factory;
+module uim.models.factories.attribute;
 
 import uim.models;
 

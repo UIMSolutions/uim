@@ -9,7 +9,7 @@ import uim.datasources;
 
 @safe:
     // This interface defines the methods you can depend on in a connection
-interface IDatasourceConnection : INamed { // : ILoggerAware
+interface IDatasourceConnection : IObject { // : ILoggerAware
   // Gets the driver instance.
   // object getDriver(string role = ROLE_WRITE);
 

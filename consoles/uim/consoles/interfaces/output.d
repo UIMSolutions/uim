@@ -9,7 +9,7 @@ import uim.consoles;
 
 @safe:
 
-interface IOutput : INamed {
+interface IOutput : IObject {
     // Outputs a single or multiple messages or newlines to stdout / stderr.
     IOutput write(uint numberOfLines = 1);
     IOutput write(string[] messages, uint numberOfLines = 1);

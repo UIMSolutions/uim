@@ -9,5 +9,5 @@ version (test_uim_errors) {
   }
 }
 
-interface IErrorMiddleware : INamed {
+interface IErrorMiddleware : IObject {
 }

@@ -19,14 +19,23 @@ class DEvent : UIMObject, IEvent {
      * event = new DEvent("User.afterRegister", userModel);
      * ```
      */
-    this(string name, IEventObject subject, Json[string] initData = null) {
+    this(string name, UIMObject subject, Json[string] initData = null) {
         this(name, initData);
         _subject = subject;
         _data = initData;
     }
 
+    // #region subject
     // The object this event applies to (usually the same object that generates the event)
-    protected IEventObject _subject = null;
+    protected UIMObject _subject = null;
+    // Returns the subject of this event
+    UIMObject subject() {
+        if (_subject is null) {
+            throw new DEventsException("No subject set for this event");
+        }
+        return _subject;
+    }
+    // #endregion subject
 
     // Custom data for the method that receives the event
     protected Json[string] _data;
@@ -48,13 +57,6 @@ class DEvent : UIMObject, IEvent {
         return _isStopped;
     }
 
-    // Returns the subject of this event
-    IEventObject getSubject() {
-        if (_subject is null) {
-            throw new DEventsException("No subject set for this event");
-        }
-        return _subject;
-    }
 
     // #region data 
     Json opIndex(string key) {

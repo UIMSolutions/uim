@@ -9,5 +9,5 @@ import uim.oop;
 
 @safe:
 
-interface IFormatter : INamed {
+interface IFormatter : IObject {
 }

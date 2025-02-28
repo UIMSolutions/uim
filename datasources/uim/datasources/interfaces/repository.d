@@ -7,7 +7,7 @@ import uim.datasources;
  * Describes the methods that any class representing a data storage should
  * comply with.
  */
-interface IDatasourceRepository : INamed {
+interface IDatasourceRepository : IObject {
     /* // Get / Set the repository alias name.
     mixin(IProperty!("string", "aliasName"));
 

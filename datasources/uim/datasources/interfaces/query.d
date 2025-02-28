@@ -15,7 +15,7 @@ import uim.datasources;
  * provided list using the AND operator. 
  * @method \UIM\Datasource\IDatasourceEntity|array firstOrFail() Get the first result from the executing query or raise an exception.
  */
-interface IDatasourceQuery : INamed {
+interface IDatasourceQuery : IObject {
     /**
      * Adds fields to be selected from datasource.
      *

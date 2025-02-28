@@ -9,6 +9,6 @@ import uim.consoles;
 
 @safe:
 
-interface IConsole : INamed {
+interface IConsole : IObject {
 
 }

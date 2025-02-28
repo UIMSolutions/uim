@@ -9,7 +9,7 @@ import uim.datasources;
 
 @safe:
     // Registries for repository objects should implement this interface.
-interface IDatasourceLocator : INamed {
+interface IDatasourceLocator : IObject {
     // Get a repository instance from the registry.
     /* 
     IDatasourceRepository get(string aliasName, Json[string] buildData = null);

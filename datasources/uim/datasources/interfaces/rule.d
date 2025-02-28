@@ -3,6 +3,6 @@ module uim.datasources.interfaces.rule;
 import uim.datasources;
 
 @safe:
-interface IDatasourceRule : INamed {
+interface IDatasourceRule : IObject {
     
 }

@@ -8,7 +8,7 @@ module uim.jsonbases.interfaces.collection;
 import uim.jsonbases;
 
 @safe:
-interface IJsonCollection : INamed {  
+interface IJsonCollection : IObject {  
   // #region READ
     // #region findMany()
       Json[] findMany(bool allVersions = false);

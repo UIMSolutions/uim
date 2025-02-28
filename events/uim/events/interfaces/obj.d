@@ -14,6 +14,6 @@ version (test_uim_events) {
   }
 }
 
-interface IEventObject {
+interface UIMObject {
 
 }

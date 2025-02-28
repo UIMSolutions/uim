@@ -10,7 +10,7 @@ import uim.datasources;
  * @property Json anId Alias for commonly used primary key.
  * @template-extends \ArrayAccess<string, mixed>
  */
-interface IDatasourceEntity : INamed { // : ArrayAccess, JsonSerializable
+interface IDatasourceEntity : IObject { // : ArrayAccess, JsonSerializable
   // Sets hidden fields.
   /*
   void hiddenFields(string[] fieldNames, bool shouldMerge = false);

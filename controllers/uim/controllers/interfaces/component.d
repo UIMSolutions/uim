@@ -4,6 +4,6 @@ import uim.controllers;
 
 @safe:
 
-interface IControllerComponent : INamed {
+interface IControllerComponent : IObject {
 
 }

@@ -9,7 +9,7 @@ import uim.logging;
 
 @safe:
 
-interface ILogger : INamed {
+interface ILogger : IObject {
     // Get the levels this logger is interested in.
     string[] levels();
 

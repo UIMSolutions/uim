@@ -8,7 +8,7 @@ module uim.filesystems.interfaces.entry;
 import uim.filesystems;
 
 @safe:
-interface IFilesystemEntry : INamed {
+interface IFilesystemEntry : IObject {
   bool hasFilesystem();
   IFilesystem filesystem();
 

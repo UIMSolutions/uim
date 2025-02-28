@@ -8,7 +8,7 @@ module uim.apps.interfaces.app;
 import uim.apps;
 
 @safe:
-interface IApp : INamed {
+interface IApp : IObject {
     // #region controllers
     IController[] controllers();
     

@@ -3,7 +3,7 @@ module uim.models.interfaces.attribute;
 import uim.models;
 @safe:
 
-interface IAttribute : INamed {
+interface IAttribute : IObject {
   // Data formats of the attribute. 
   // string[] dataFormats(); 
 

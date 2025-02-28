@@ -9,7 +9,7 @@ import uim.caches;
 
 @safe:
 
-interface ICacheEngine : INamed {
+interface ICacheEngine : IObject {
   /* void groupName(string name);
   string groupName();
 

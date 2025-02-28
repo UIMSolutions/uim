@@ -5,7 +5,7 @@ import uim.controllers;
 @safe:
 
 // Defined in uim-mvc
-/* interface IController : INamed {} */
+/* interface IController : IObject {} */
 /* interface IController {
     IView[] views();
     IController addView(IView newView);

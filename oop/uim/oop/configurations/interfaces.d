@@ -8,7 +8,7 @@ module uim.oop.configurations.interfaces;
 import uim.oop;
 
 @safe:
-interface IConfiguration : INamed {
+interface IConfiguration : IObject {
   // #region default data
   Json[string] data();
   void data(Json[string] items);

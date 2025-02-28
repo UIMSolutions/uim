@@ -8,7 +8,7 @@ module uim.oop.interfaces.named;
 import uim.oop;
 @safe:
 
-interface INamed {
+interface IObject {
   string name();
   void name(string newName);
 }

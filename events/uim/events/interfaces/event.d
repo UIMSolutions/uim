@@ -19,7 +19,7 @@ version (test_uim_events) {
  * payload. The name can be any string that uniquely identifies the event across the application, while the subject
  * represents the object that the event applies to.
  */
-interface IEvent : INamed {
+interface IEvent : IObject {
   // Stops the event from being used anymore.
   IEvent stopPropagation();
 
@@ -43,7 +43,7 @@ interface IEvent : INamed {
   IEvent data(string key, Json aValue);
   /* 
   // Returns the subject of this event.
-  IEventObject subject();
+  UIMObject subject();
 
   // The result value of the event listeners.
   Json result();

@@ -3,6 +3,6 @@ module uim.datasources.interfaces.datasource;
 import uim.datasources;
 
 @safe:
-interface IDatasource : INamed {
+interface IDatasource : IObject {
     
 }

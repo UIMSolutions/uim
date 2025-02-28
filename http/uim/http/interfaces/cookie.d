@@ -10,7 +10,7 @@ import uim.http;
 @safe:
 
 // Cookie Interface
-interface ICookie : INamed {
+interface ICookie : IObject {
     // Get the id for a cookie
     /* string id();
 

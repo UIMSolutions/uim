@@ -15,7 +15,7 @@ version (test_uim_oop) {
   }
 }
 
-class UIMObject : INamed {
+class UIMObject : IObject {
     mixin TConfigurable;
 
     this() {

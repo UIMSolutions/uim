@@ -4,7 +4,7 @@ import uim.datasources;
 
 @safe:
     // This interface describes the methods for paginator instance.
-interface IDatasourcePaginator : INamed {
+interface IDatasourcePaginator : IObject {
     //  Handles pagination of data.
 /*     IDatasourceResultset paginate(Json target, Json[string] requestData = null, Json[string] paginationData = null);
 

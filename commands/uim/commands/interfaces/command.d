@@ -8,6 +8,6 @@ module uim.commands.interfaces.command;
 import uim.commands;
 @safe:
 
-interface ICommand : INamed {
+interface ICommand : IObject {
     bool execute(Json[string] options = null, IConsole console = null);
 }

@@ -6,7 +6,14 @@
 module uim.logging.tests.engine;
 
 import uim.logging;
+
 @safe:
+
+version (test_uim_logging) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 bool testLogEngine(ILogEngine engine) {
     assert(engine !is null, "testLogEngine: engine is null");

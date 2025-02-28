@@ -9,6 +9,12 @@ import uim.logging;
 
 @safe:
 
+version (test_uim_logging) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 // Syslog stream for Logging. Writes logs to the system logger
 class DSysLogger : DLogger {
     mixin(LoggerThis!("Sys"));
@@ -47,10 +53,10 @@ class DSysLogger : DLogger {
             .setDefault("levels", Json.emptyArray)
             .setDefault("scopes", Json.emptyArray) //.setDefault("flag", LogLevel.ODELAY)
             .setDefault("prefix", "") // .setDefault("facility", LogLevel.USER)
-            .setDefault("formatter", createMap!(string, Json)
+           /*  .setDefault("formatter", createMap!(string, Json)
                     .set("classname", StandardLogFormatter.classname)
                     .set("includeDate", false)
-            );
+            ) */;
 
         _levelMap = [
             "emergency": LogLevel.fatal,

@@ -9,6 +9,11 @@ import uim.logging;
 
 @safe:
 
+version (test_uim_logging) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 // TODO
 /* 
 class DLogEngineFactory : DFactory!DLogEngine {

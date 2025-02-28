@@ -8,6 +8,13 @@ module uim.logging.classes.loggers.memory;
 import uim.logging;
 
 @safe:
+
+version (test_uim_logging) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 /**
  * Array logger.
  *
@@ -40,7 +47,7 @@ class DMemoryLogger : DLogger {
 
     // Writing to the internal storage.
     override ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
-        auto interpolatedMessage = interpolate(logMessage, logContext);
+        // auto interpolatedMessage = interpolate(logMessage, logContext);
         // TODO _content ~= _formatter.format(logLevel, interpolatedMessage, logContext);
         return this;
     }

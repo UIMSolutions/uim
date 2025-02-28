@@ -15,6 +15,12 @@ version (test_uim_logging) {
   }
 }
 
+version (test_uim_logging) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 class DLoggerFactory : DFactory!DLogger {
 }
 

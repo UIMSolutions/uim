@@ -8,6 +8,12 @@ module uim.logging.classes.formatters.text;
 import uim.logging;
 
 @safe:
+
+version (test_uim_logging) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 class DTextLogFormatter : DLogFormatter {
     mixin(LogFormatterThis!("Text"));
 

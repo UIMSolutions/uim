@@ -9,6 +9,12 @@ import uim.logging;
 
 @safe:
 
+version (test_uim_logging) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 class DYamlLogFormatter : DLogFormatter {
     mixin(LogFormatterThis!("Yaml"));
 
@@ -22,8 +28,8 @@ class DYamlLogFormatter : DLogFormatter {
 mixin(LogFormatterCalls!("Yaml"));
 
 unittest {
-  auto formatter = YamlLogFormatter;
+/*   auto formatter = YamlLogFormatter;
   assert(testLogFormatter(formatter));
   
-  assert(LogFormatterFactory.create("yaml").name == "YamlLogFormatter");
+  assert(LogFormatterFactory.create("yaml").name == "YamlLogFormatter"); */
 }

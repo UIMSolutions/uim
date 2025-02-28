@@ -8,20 +8,20 @@ module uim.views.mixins.context;
 import uim.views;
 @safe: 
 
-string contextThis(string name = null) {
-    string fullName = name ~ "Context";
+string formContextThis(string name = null) {
+    string fullName = name ~ "FormContext";
     return objThis(fullName);
 }
 
-template ContextThis(string name = null) {
-    const char[] ContextThis = contextThis(name);
+template FormContextThis(string name = null) {
+    const char[] FormContextThis = formContextThis(name);
 }
 
-string contextCalls(string name) {
-    string fullName = name ~ "Context";
+string formContextCalls(string name) {
+    string fullName = name ~ "FormContext";
     return objCalls(fullName);
 }
 
-template ContextCalls(string name) {
-    const char[] ContextCalls = contextCalls(name);
+template FormContextCalls(string name) {
+    const char[] FormContextCalls = formContextCalls(name);
 }

@@ -21,12 +21,17 @@ public { // uim libraries
 }
 
 public { // uim.filesystem libraries
-  import uim.neural.classes;
-  import uim.neural.enumerations;
-  import uim.neural.errors;
-  import uim.neural.exceptions;
-  import uim.neural.helpers;
-  import uim.neural.interfaces;
-  import uim.neural.mixins;
-  import uim.neural.tests;
+  mixin(Imports!("uim.neural", [
+      "classes",
+      "collections",
+      "enumerations",
+      "errors",
+      "exceptions",
+      "factories",
+      "helpers",
+      "interfaces",
+      "mixins",
+      "repositories",
+      "tests"
+  ]));
 }

@@ -94,3 +94,13 @@ auto importPhobos(string[] libNames = null) {
 template ImportPhobos(string[] libNames = null) {
   const char[] ImportPhobos = importPhobos(libNames);
 }
+
+string imports(string rootNamespace, string[] additionalNames) {
+  import std.algorithm;
+  import std.array;
+  return additionalNames.map!(name => rootNamespace~"."~name~";").join(";");
+}
+
+template Imports(string rootNamespace, string[] additionalNames) {
+  const char[] Imports = imports(rootNamespace, additionalNames);
+}

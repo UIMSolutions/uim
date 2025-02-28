@@ -22,6 +22,7 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.gui.classes;
+  import uim.gui.collections;
   import uim.gui.exceptions;
   import uim.gui.helpers;
   import uim.gui.interfaces;

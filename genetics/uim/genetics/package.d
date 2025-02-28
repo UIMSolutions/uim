@@ -20,10 +20,12 @@ public { // Required uim libraries
 
 public { // uim.genetics packages
   import uim.genetics.classes;
+  import uim.genetics.collections;
   import uim.genetics.exceptions;
+  import uim.genetics.factories;
   import uim.genetics.interfaces;
   import uim.genetics.helpers;
   import uim.genetics.mixins;
-  import uim.genetics.mixins;
+  import uim.genetics.registries;
   import uim.genetics.tests; 
 }

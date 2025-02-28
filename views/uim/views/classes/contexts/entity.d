@@ -14,7 +14,7 @@ version (test_uim_views) {
   }
 }
 
-class DEntityContext : DContext {
+class DEntityContext : DFormContext {
   mixin(ContextThis!("Entity"));
 
   override bool initialize(Json[string] initData = null) {

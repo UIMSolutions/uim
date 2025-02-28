@@ -3,13 +3,17 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.events.interfaces;
+module events.uim.events.interfaces.obj;
 
-public {
-    import uim.events.interfaces.decorator;
-    import uim.events.interfaces.event;
-    import uim.events.interfaces.dispatcher;
-    import uim.events.interfaces.obj;
-    import uim.events.interfaces.listener;
-    import uim.events.interfaces.manager;
+import uim.events;
+@safe:
+
+version (test_uim_events) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
+interface IEventObject {
+
 }

@@ -15,7 +15,7 @@ version (test_uim_views) {
   }
 }
 
-class DContext : UIMObject, IContext {
+class DFormContext : UIMObject, IFormContext {
   mixin(ContextThis!());
 
   override bool initialize(Json[string] initData = null) {

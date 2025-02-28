@@ -14,7 +14,7 @@ version (test_uim_views) {
   }
 }
 
-class DArrayContext : DContext {
+class DArrayContext : DFormContext {
   mixin(ContextThis!("Array"));
 
   override bool initialize(Json[string] initData = null) {

@@ -1,19 +1,6 @@
 /****************************************************************************************************************
-* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.events.interfaces.eventobject;
-
-import uim.events;
-@safe:
-
-version (test_uim_events) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
-
-interface IEventObject {
-
-}
+module uim.events.classes.events;public {    import uim.events.classes.events.event;    import uim.events.classes.events.list;    import uim.events.classes.events.manager;}

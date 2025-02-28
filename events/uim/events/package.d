@@ -22,11 +22,14 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.events.classes;
+  import uim.events.collections;
   import uim.events.enumerations;
   import uim.events.errors;
   import uim.events.exceptions;
+  import uim.events.factories;
   import uim.events.helpers;
   import uim.events.interfaces;
   import uim.events.mixins;
+  import uim.events.registries;
   import uim.events.tests;
 }

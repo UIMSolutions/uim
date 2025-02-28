@@ -24,5 +24,6 @@ public { // uim.genetics packages
   import uim.genetics.interfaces;
   import uim.genetics.helpers;
   import uim.genetics.mixins;
+  import uim.genetics.mixins;
   import uim.genetics.tests; 
 }

@@ -21,10 +21,13 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.errors.classes;
+  import uim.errors.collections;
   import uim.errors.enumerations;
   import uim.errors.exceptions;
+  import uim.errors.factories;
   import uim.errors.helpers;
   import uim.errors.interfaces;
   import uim.errors.mixins;
+  import uim.errors.registries;
   import uim.errors.tests;
 }

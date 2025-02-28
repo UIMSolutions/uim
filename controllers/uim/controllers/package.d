@@ -22,7 +22,7 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.controllers.classes;
-  import uim.controllers.factories;
+  import uim.controllers.collections;
   import uim.controllers.enumerations;
   import uim.controllers.errors;
   import uim.controllers.exceptions;

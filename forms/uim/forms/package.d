@@ -22,11 +22,14 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.forms.classes;
+  import uim.forms.collections;
   import uim.forms.enumerations;
   import uim.forms.errors;
   import uim.forms.exceptions;
+  import uim.forms.factories;
   import uim.forms.helpers;
   import uim.forms.interfaces;
   import uim.forms.mixins;
+  import uim.forms.registries;
   import uim.forms.tests;
 }

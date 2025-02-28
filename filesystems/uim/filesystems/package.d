@@ -22,11 +22,14 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.filesystems.classes;
+  import uim.filesystems.collections;
   import uim.filesystems.enumerations;
   import uim.filesystems.errors;
   import uim.filesystems.exceptions;
+  import uim.filesystems.factories;
   import uim.filesystems.helpers;
   import uim.filesystems.interfaces;
   import uim.filesystems.mixins;
+  import uim.filesystems.registries;
   import uim.filesystems.tests;
 }

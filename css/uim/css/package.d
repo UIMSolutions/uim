@@ -22,7 +22,9 @@ public { // Packages
   import uim.css.helpers;
   import uim.css.exceptions;
   import uim.css.factories;
+  import uim.css.mixins;
   import uim.css.registries;
+  import uim.css.tests;
 }
 
 public { // Modules 

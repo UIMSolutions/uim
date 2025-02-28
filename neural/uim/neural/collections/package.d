@@ -1,4 +1,4 @@
-module neural.uim.neural.collections;
+module uim.neural.collections;
 
 public {
     

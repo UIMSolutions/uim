@@ -1,12 +1,18 @@
 module uim.views.classes.components.component;
 
 import uim.views;
+@safe:
 
-@safe: 
-class DViewComponent : UIMObject, IViewComponent { 
-    mixin(ViewThis!());
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
-    string render(string[string] data) {
-        return "";
-    }
+class DViewComponent : UIMObject, IViewComponent {
+  mixin(ViewThis!());
+
+  string render(string[string] data) {
+    return "";
+  }
 }

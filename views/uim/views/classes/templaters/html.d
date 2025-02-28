@@ -6,11 +6,13 @@
 module uim.views.classes.templaters.html;
 
 import uim.views;
-
 @safe:
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
-}
+
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
 
 class DHtmlTemplater : DTemplater {
   mixin(TemplaterThis!("Html"));

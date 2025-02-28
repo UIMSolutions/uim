@@ -1,8 +1,14 @@
 module uim.views.classes.views.view;
 
 import uim.views;
+@safe:
 
-@safe: 
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
+
 class DView : UIMObject, IView { 
     mixin(ViewThis!());
 

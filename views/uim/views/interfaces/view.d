@@ -3,13 +3,13 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.interfaces.view;IObject
+module uim.views.interfaces.view;
 
 import uim.views;
 
 @safe:
 
-interface IView : INamed {
+interface IView : IObject {
     string currentType(); 
 
     string[] blockNames(); 

@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module events.uim.events.classes.events.event;
+module uim.events.classes.events.event;
 
 import uim.events;
 @safe:
@@ -19,7 +19,7 @@ class DEvent : UIMObject, IEvent {
      * event = new DEvent("User.afterRegister", userModel);
      * ```
      */
-    this(string name, UIMObject subject, Json[string] initData = null) {
+    this(string name, IObject subject, Json[string] initData = null) {
         this(name, initData);
         _subject = subject;
         _data = initData;
@@ -27,11 +27,11 @@ class DEvent : UIMObject, IEvent {
 
     // #region subject
     // The object this event applies to (usually the same object that generates the event)
-    protected UIMObject _subject = null;
+    protected IObject _subject = null;
     // Returns the subject of this event
-    UIMObject subject() {
+    IObject subject() {
         if (_subject is null) {
-            throw new DEventsException("No subject set for this event");
+            // TODO throw new DEventsException("No subject set for this event");
         }
         return _subject;
     }
@@ -68,7 +68,8 @@ class DEvent : UIMObject, IEvent {
     }
 
     Json data(string key) {
-        return _data.value(key);
+        // return _data.value(key);
+        return Json(null);
     }
 
 

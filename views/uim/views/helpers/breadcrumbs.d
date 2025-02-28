@@ -12,5 +12,5 @@ version (test_uim_views) {
 // BreadcrumbsHelper to register and display a breadcrumb trail for your views
 class BreadcrumbsHelper : DHelper {
     mixin(HelperThis!("Breadcrumbs"));
-    mixin TStringContents;
+    // TODO mixin TStringContents;
 }

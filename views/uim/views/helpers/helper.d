@@ -134,12 +134,12 @@ class DHelper : UIMObject { // TODO }: IEventListener {
     }
 
     // Returns an array that can be used to describe the internal state of this object.
-    override Json[string] debugInfo() {
+    /* override Json[string] debugInfo() {
         return super.debugInfo
             /* .get("helpers", helpers)
             .get("implementedEvents", implementedEvents())
-            .get("configuration", configuration.data) */;
+            .get("configuration", configuration.data);
     }
-
+ */
      
 }

@@ -9,7 +9,6 @@ public {
     import uim.events.interfaces.decorator;
     import uim.events.interfaces.event;
     import uim.events.interfaces.dispatcher;
-    import uim.events.interfaces.obj;
     import uim.events.interfaces.listener;
     import uim.events.interfaces.manager;
 }

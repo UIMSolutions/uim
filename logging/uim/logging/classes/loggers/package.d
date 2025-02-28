@@ -12,5 +12,7 @@ public { // Main class
 public { // Subclasses
   import uim.logging.classes.loggers.console;
   import uim.logging.classes.loggers.file;
+  import uim.logging.classes.loggers.memory;
   import uim.logging.classes.loggers.standard;
+  import uim.logging.classes.loggers.syslog;
 }

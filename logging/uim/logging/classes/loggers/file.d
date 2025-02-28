@@ -52,17 +52,19 @@ class DFileLogger : DLogger {
      * - `dirMask` The mask used for created folders.
      *
      */
-    configuration
+     configuration
       .setDefault("path", Json(null))
       .setDefault("file", Json(null))
       .setDefault("types", Json(null))
-      .setDefault("levels", Json.emptyArray)
-      .setDefault("scopes", Json.emptyArray)
+      .setDefault("mask", Json(null));
+/*     configuration
+      .setDefault(["path", "file", "types", "mask"], Json(null))
+      .setDefault(["levels", "scopes"], Json.emptyArray)
       .setDefault("rotate", 10)
-      .setDefault("size", 10_485_760) // 10M)
-      .setDefault("mask", Json(null)) // .setDefault("dirMask", 0770)
+      .setDefault("size", 10_485_760) */ // 10M)
+      // .setDefault("dirMask", 0770)
       /* .setDefault("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
-          .classname)) */;
+          .classname)) *//* ; */
 
     /* auto _path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
         if (!isDir(_path)) {

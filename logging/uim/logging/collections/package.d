@@ -6,5 +6,6 @@
 module uim.logging.collections;
 
 public {
-    import uim.logging.collections;
+    import uim.logging.collections.formatter;
+    import uim.logging.collections.logger;
 }

@@ -1,11 +1,17 @@
 /****************************************************************************************************************
-* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* Copyright: © 2017-2024 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.helpers;
+module uim.logging.factories.engine;
 
-public {
-    import uim.logging.helpers.formatter;
-    import uim.logging.helpers.logger;
+import uim.logging;
+
+@safe:
+
+// TODO
+/* 
+class DLogEngineFactory : DFactory!DLogEngine {
 }
+auto LogEngineFactory() { return DLogEngineFactory.factory; }
+*/ 

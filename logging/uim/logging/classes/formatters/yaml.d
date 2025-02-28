@@ -3,22 +3,27 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.logging.collections.formatter;
+module uim.logging.classes.formatters.yaml;
 
 import uim.logging;
+
 @safe:
 
-version (test_uim_logging) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
+class DYamlLogFormatter : DLogFormatter {
+    mixin(LogFormatterThis!("Yaml"));
+
+    override string format(LogLevel logLevel, string logMessage, Json[string] logData = null) {
+        string result = logMessage;
+        // TODO
+        return result;
+    }
 }
 
-class DLogFormatterCollection : DCollection!DLogFormatter {   
-}
-auto LogFormatterCollection() { return new DLogFormatterCollection; }
+mixin(LogFormatterCalls!("Yaml"));
 
 unittest {
-  auto collection = LogFormatterCollection;
-  assert(collection !is null);
+  auto formatter = YamlLogFormatter;
+  assert(testLogFormatter(formatter));
+  
+  assert(LogFormatterFactory.create("yaml").name == "YamlLogFormatter");
 }

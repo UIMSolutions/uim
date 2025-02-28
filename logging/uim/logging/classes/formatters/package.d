@@ -16,4 +16,5 @@ public { // Subclasses
     import uim.logging.classes.formatters.standard;
     import uim.logging.classes.formatters.text;
     import uim.logging.classes.formatters.xml;
+    import uim.logging.classes.formatters.yaml;
 }

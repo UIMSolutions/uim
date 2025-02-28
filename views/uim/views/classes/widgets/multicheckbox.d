@@ -6,12 +6,13 @@
 module uim.views.classes.widgets.multicheckbox;
 
 import uim.views;
-
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
-}
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
 
 /**
  * Input widget class for generating multiple checkboxes.

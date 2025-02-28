@@ -6,12 +6,14 @@
 module uim.views.classes.stringcontents;
 
 import uim.views;
-
 @safe:
 
-unittest {
+version (test_uim_views) {
+  unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
-}
+  }
+} 
+
 
 /**
  * Provides an interface for registering and inserting

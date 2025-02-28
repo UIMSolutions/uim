@@ -6,12 +6,14 @@
 module uim.views.classes.widgets.nestinglabel;
 
 import uim.views;
-
 @safe:
 
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
-}
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
+
 
 /* * Form "widget" for creating labels that contain their input.
  *

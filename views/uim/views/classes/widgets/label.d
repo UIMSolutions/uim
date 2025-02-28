@@ -6,12 +6,13 @@
 module uim.views.classes.widgets.label;
 
 import uim.views;
-
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
-}
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
 
 // Form "widget" for creating labels.
 class DLabelWidget : DWidget {

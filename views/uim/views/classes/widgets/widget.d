@@ -1,8 +1,14 @@
 module uim.views.classes.widgets.widget;
 
 import uim.views;
+@safe:
 
-@safe: 
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
+
 class DWidget : UIMObject, IWidget { 
   mixin(WidgetThis!());
 

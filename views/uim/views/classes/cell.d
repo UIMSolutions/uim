@@ -6,12 +6,14 @@
 module uim.views.classes.cell;
 
 import uim.views;
-
 @safe:
 
-unittest {
+version (test_uim_views) {
+  unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
-}
+  }
+} 
+
 
 abstract class DCell : UIMObject { // : IEventDispatcher {
     // TEventDispatcherTrait<IView 

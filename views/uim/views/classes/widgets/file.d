@@ -6,12 +6,14 @@
 module uim.views.classes.widgets.file;
 
 import uim.views;
-
 @safe:
 
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
-}
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
+
 
 /**
  * Input widget class for generating a file upload control.

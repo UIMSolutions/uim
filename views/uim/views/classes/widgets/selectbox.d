@@ -6,12 +6,13 @@
 module uim.views.classes.widgets.selectbox;
 
 import uim.views;
-
 @safe:
 
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
-}
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
 
 /**
  * Input widget class for generating a selectbox.

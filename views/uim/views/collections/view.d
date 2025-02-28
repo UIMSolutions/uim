@@ -6,8 +6,14 @@
 module uim.views.collections.view;
 
 import uim.views;
-
 @safe:
+
+version (test_uim_views) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+} 
+
 
 // An object Collection for Widget.
 class DWidgetCollection : DCollection!DWidget {

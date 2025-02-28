@@ -6,12 +6,14 @@
 module uim.views.classes.widgets.year;
 
 import uim.views;
-
 @safe:
 
-unittest {
+version (test_uim_views) {
+  unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
-}
+  }
+} 
+
 
 /**
  * Input widget class for generating a calendar year select box.

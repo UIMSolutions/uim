@@ -31,13 +31,9 @@ class DMemoryLogger : DLogger {
             return false;
         } 
         
-        /* configuration
-            .setDefault("levels", Json.emptyArray)
-            .setDefault("scopes", Json.emptyArray)
-            .setDefault("formatter",
-                createMap!(string, Json)
-                    .set("classname", StandardLogFormatter.classname)
-                    .set("includeDate", false)); */
+        configuration
+            .setDefault("formatter.classname", StandardLogFormatter.classname)
+            .setDefault("formatter.includeDate", false);
 
         return true;
     }
@@ -65,6 +61,6 @@ class DMemoryLogger : DLogger {
 mixin(LoggerCalls!("Memory"));
 
 unittest {
-    writeln("DMemoryLogger/unittest");
-    assert(MemoryLogger);
+    auto logger = MemoryLogger;
+    assert(logger !is null);
 }

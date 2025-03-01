@@ -17,30 +17,26 @@ version (test_uim_logging) {
 class DLogger : UIMObject, ILogger {
   mixin(LoggerThis!());
 
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
+  override bool initialize(Json[string] options = null) {
+    if (!super.initialize(options)) {
       return false;
     }
 
-    writeln("Set configuration defaults - ", this.classinfo);
     configuration
       .setDefault("levels", Json.emptyArray)
       .setDefault("scopes", Json.emptyArray)
-      .setDefault("formatter", StandardLogFormatter.classname);
+      .setDefault("formatter.classname", StandardLogFormatter.classname);
 
-    writeln(configuration.name, ":Set configuration - ", this.classinfo);
-    if (configuration.hasKey("scopes")) {
-      configuration.set("scopes", configuration.get("scopes").toArray);
+    if (options.hasKey("scopes")) {
+      configuration.set("scopes", options.getArray("scopes"));
     }
-    configuration.set("levels", configuration.get("levels").toArray);
-
-    if (configuration.hasKey("types") && configuration.get("levels").isEmpty) {
-      configuration.set("levels", configuration.get("types").toArray);
+    configuration.set("levels", options.getArray("levels"));
+  
+    if (options.hasKey("types") && configuration.isEmpty("levels")) {
+      configuration.set("levels", options.getArray("types"));
     }
 
-    auto formatterClassName = configuration.getString("formatter", StandardLogFormatter
-        .classname);
-    _formatter = LogFormatterRegistry.create(formatterClassName);
+    _formatter = LogFormatterFactory.create(configuration.getString("formatter.classname"));
 
     return true;
   }

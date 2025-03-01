@@ -69,6 +69,7 @@ interface IConfiguration : IObject {
   // #endregion default data
 
   // #region is
+  bool isEmpty(string key);
   bool isBoolean(string key);
   bool isLong(string key);
   bool isDouble(string key);

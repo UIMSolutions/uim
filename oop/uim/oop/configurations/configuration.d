@@ -6,6 +6,7 @@
 module uim.oop.configurations.configuration;
 
 import uim.oop;
+
 @safe:
 
 version (test_uim_oop) {
@@ -258,6 +259,13 @@ class DConfiguration : UIMObject, IConfiguration {
     abstract Json[] values(string[] includedKeys = null);
     // #endregion Values
 
+    // #region isEmpty
+    bool isEmpty(string key) {
+        return hasKey(key)
+            ? get(key).isEmpty : false;
+    }
+    // #endregion isEmpty
+
     // #region is
     bool isBoolean(string key) {
         return hasKey(key)
@@ -329,7 +337,6 @@ class DConfiguration : UIMObject, IConfiguration {
     }
 
     Json[] getArray(string key) {
-        writeln("DConfiguraton::Json[] getArray(string key) - ", this.classinfo);
         return hasKey(key) && isArray(key)
             ? get(key).getArray : null;
     }
@@ -582,7 +589,7 @@ class DConfiguration : UIMObject, IConfiguration {
 unittest {
     auto config = new DConfiguration();
     assert(config !is null);
-/*     assert(config is IConfiguration);
+    /*     assert(config is IConfiguration);
     assert(config is DConfiguration); */
     assert(config.initialize());
     assert(config.defaultData().length == 0);
@@ -599,10 +606,30 @@ unittest {
     assert(config.get("test", Json(false)) == Json(false));
     assert(config.get("test", Json([1, 2, 3])) == Json([1, 2, 3]));
     assert(config.get("test", Json(["a", "b", "c"])) == Json(["a", "b", "c"]));
-    assert(config.get("test", Json(["a": 1, "b": 2, "c": 3])) == Json(["a": 1, "b": 2, "c": 3]));
-    assert(config.get("test", Json(["a": "a", "b": "b", "c": "c"])) == Json(["a": "a", "b": "b", "c": "c"]));
-    assert(config.get("test", Json(["a": true, "b": false, "c": true])) == Json(["a": true, "b": false, "c": true]));
-    assert(config.get("test", Json(["a": 1, "b": 2, "c": 3])) == Json(["a": 1, "b": 2, "c": 3]));
-    assert(config.get("test", Json(["a": 1.0, "b": 2.0, "c": 3.0])) == Json(["a": 1.0, "b": 2.0, "c": 3.0]));
+    assert(config.get("test", Json(["a": 1, "b": 2, "c": 3])) == Json([
+            "a": 1,
+            "b": 2,
+            "c": 3
+        ]));
+    assert(config.get("test", Json(["a": "a", "b": "b", "c": "c"])) == Json([
+            "a": "a",
+            "b": "b",
+            "c": "c"
+        ]));
+    assert(config.get("test", Json(["a": true, "b": false, "c": true])) == Json([
+            "a": true,
+            "b": false,
+            "c": true
+        ]));
+    assert(config.get("test", Json(["a": 1, "b": 2, "c": 3])) == Json([
+            "a": 1,
+            "b": 2,
+            "c": 3
+        ]));
+    assert(config.get("test", Json(["a": 1.0, "b": 2.0, "c": 3.0])) == Json([
+            "a": 1.0,
+            "b": 2.0,
+            "c": 3.0
+        ]));
     // assert(config.get("test", Json(["a": "a", "b": "b
 }

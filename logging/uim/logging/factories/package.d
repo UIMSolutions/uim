@@ -12,36 +12,62 @@ public {
 
 static this() { // Init factories
   import uim.logging;
+
+  // #region init LogFormatter factory
+  // CsvLogFormatter
+  LogFormatterFactory.set(CsvLogFormatter.classname, (Json[string] options = null) @safe {
+    return CsvLogFormatter(options);
+  });
   LogFormatterFactory.set("csv", (Json[string] options = null) @safe {
     return CsvLogFormatter(options);
   });
 
+  // HtmlLogFormatter
+  LogFormatterFactory.set(HtmlLogFormatter.classname, (Json[string] options = null) @safe {
+    return HtmlLogFormatter(options);
+  });
   LogFormatterFactory.set("html", (Json[string] options = null) @safe {
     return HtmlLogFormatter(options);
   });
 
+  // JsonLogFormatter
+  LogFormatterFactory.set(JsonLogFormatter.classname, (Json[string] options = null) @safe {
+    return JsonLogFormatter(options);
+  });
   LogFormatterFactory.set("json", (Json[string] options = null) @safe {
     return JsonLogFormatter(options);
   });
 
+  // StandardLogFormatter
+  LogFormatterFactory.set(StandardLogFormatter.classname, (Json[string] options = null) @safe {
+    return StandardLogFormatter(options);
+  });
   LogFormatterFactory.set("standard", (Json[string] options = null) @safe {
     return StandardLogFormatter(options);
   });
 
+  // TextLogFormatter
+  LogFormatterFactory.set(TextLogFormatter.classname, (Json[string] options = null) @safe {
+    return TextLogFormatter(options);
+  });
   LogFormatterFactory.set("text", (Json[string] options = null) @safe {
     return TextLogFormatter(options);
   });
 
+  // XmlLogFormatter
   LogFormatterFactory.set("xml", (Json[string] options = null) @safe {
     return XmlLogFormatter(options);
   });
-
   LogFormatterFactory.set("xml", (Json[string] options = null) @safe {
     return XmlLogFormatter(options);
   });
+  // #endregion init LogFormatter factory
 
   // #region init Logger factory
   LoggerFactory.set("console", (Json[string] options = null) @safe {
+    return ConsoleLogger(options);
+  });
+  LoggerFactory.set(ConsoleLogger.classname, (Json[string] options = null) @safe {
     return ConsoleLogger(options);
   });
 

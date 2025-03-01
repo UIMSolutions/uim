@@ -19,6 +19,7 @@ class DConsoleLogger : DLogger {
       return false;
     }
 
+    writeln("StandardLogFormatter.classname -> ", StandardLogFormatter.classname);
     configuration
       .setDefault("stream", "d://stderr") // `stream` the path to save logs on.
       .setDefault("levels", Json(null)) // `levels` string or array, levels the engine is interested in

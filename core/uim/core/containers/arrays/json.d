@@ -16,7 +16,7 @@ version (test_uim_core) {
 }
 
 
-string[] getStrings(Json[] values) {
+string[] getStringArray(Json[] values) {
   return values
     .filter!(value => value.isString)
     .map!(value => value.get!string)

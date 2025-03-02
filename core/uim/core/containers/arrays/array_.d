@@ -719,7 +719,7 @@ unittest {
 }
 // #endregion push
 
-string[] getStrings(T)(T[] values) {
+string[] getStringArray(T)(T[] values) {
   static if (is(T == string)) {
     return values;
   } else {

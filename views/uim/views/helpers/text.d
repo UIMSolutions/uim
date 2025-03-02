@@ -92,19 +92,19 @@ class DTextHelper : DHelper {
      * Saves the placeholder for a string, for later use. This gets around double
      * escaping content in URL"s.
      */
-    protected string _insertPlaceHolder(Json[string] mymatches) {
+    protected string _insertPlaceHolder(Json[string] matches) {
         if (matches.isEmpty) {
             return null;
         }
 
-        auto mymatch = mymatches.values[0];
+        Json match = matches.values[0];
         string[] envelope = ["", ""];
-        if (mymatches.hasKey("url")) {
-            mymatch = mymatches["url"];
-            // auto envelope = mymatches.getStrings("left", "right");
+        if (matches.hasKey("url")) {
+            match = matches["url"];
+            // auto envelope = mymatches.getStringArray("left", "right");
         }
-        if (mymatches.hasKey("url_bare")) {
-            mymatch = mymatches["url_bare"];
+        if (matches.hasKey("url_bare")) {
+            match = matches["url_bare"];
         }
 
         string key;  /* = hash_hmac("sha1", mymatch, Security.getSalt());

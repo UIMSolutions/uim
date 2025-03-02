@@ -28,7 +28,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
         * /
 
         if (configuration.hasKey("groups")) {
-            configuration.getStrings("groups").sort; // TODO _groupPrefix = repeat("%s_", configuration.getStrings("groups").length);
+            configuration.getStringArray("groups").sort; // TODO _groupPrefix = repeat("%s_", configuration.getStringArray("groups").length);
         }
         /* if (!configuration.isNumeric("duration")) {
             // TODO configuration.set("duration", configuration.get("duration").toTime - time());
@@ -157,7 +157,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
      * this is the token representing each group in the cache key
      * /
     string[] groups() {
-        return configuration.getStrings(
+        return configuration.getStringArray(
             "groups");
     }
 

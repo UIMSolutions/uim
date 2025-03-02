@@ -313,7 +313,7 @@ return true;
      * /
   override string[] groups() {
     if (_compiledGroupNames.isEmpty) {
-      _compiledGroupNames = configuration.getStrings("groups")
+      _compiledGroupNames = configuration.getStringArray("groups")
         .map!(group => configuration.getString("prefix") ~ group).array;
     }
 

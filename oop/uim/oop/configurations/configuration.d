@@ -331,7 +331,7 @@ class DConfiguration : UIMObject, IConfiguration {
         return hasKey(key) ? get(key).getString : nullValue;
     }
 
-    string[] getStrings(string key, string[] nullValue = null) {
+    string[] getStringArray(string key, string[] nullValue = null) {
         return getArray(key)
             .map!(item => item.getString).array;
     }

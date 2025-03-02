@@ -111,7 +111,7 @@ interface IConfiguration : IObject {
   long getLong(string key, long nullValue = 0);
   double getDouble(string key, double nullValue = 0.0);
   string getString(string key, string nullValue = null);
-  string[] getStrings(string key, string[] nullValue = null);
+  string[] getStringArray(string key, string[] nullValue = null);
   Json[] getArray(string key, Json[] nullValue = null);
   Json[string] getMap(string key, Json[string] nullValue = null);
   string[string] getStringMap(string key, string[string] nullValue = null);

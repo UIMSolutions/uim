@@ -345,11 +345,11 @@ unittest {
 }
 
 // #region getStrings
-STRINGAA getStrings(Json[string] values, string[] keys...) {
-  return getStrings(values, keys.dup);
+STRINGAA getStringArray(Json[string] values, string[] keys...) {
+  return getStringArray(values, keys.dup);
 }
 
-STRINGAA getStrings(Json[string] values, string[] keys) {
+STRINGAA getStringArray(Json[string] values, string[] keys) {
   STRINGAA results;
   keys.each!(key => results[key] = values.getString(key));
   return results;
@@ -364,7 +364,7 @@ unittest {
 
   values["a"] = Json("A");
   values["b"] = "B".toJson;
-  // assert(values.getStrings(["a"]) == ["a": "A"]);
+  // assert(values.getStringArray(["a"]) == ["a": "A"]);
 }
 // #endregion getStrings
 

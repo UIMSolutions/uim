@@ -111,46 +111,18 @@ class DHtmlHelper : DHelper {
       types.set("icon.link", "favicon.ico");
     } else {
       types
-        .set("rss", createMap!(string, Json)
-            .set("type", "application/rss+xml")
-            .set("rel", "alternate")
-            .set("title", type)
-            .set("link", content))
-        .set("atom", createMap!(string, Json)
-            .set("type", "application/atom+xml")
-            .set("title", type)
-            .set("link", content))
-        .set("icon", createMap!(string, Json)
-            .set("type", "image/x-icon")
-            .set("rel", "icon")
-            .set("link", content))
-        .set("keywords", createMap!(string, Json)
-            .set("name", "keywords")
-            .set("content", content))
-        .set("description", createMap!(string, Json)
-            .set("name", "description")
-            .set("content", content))
-        .set("robots", createMap!(string, Json)
-            .set("name", "robots")
-            .set("content", content))
-        .set("viewport", createMap!(string, Json)
-            .set("name", "viewport")
-            .set("content", content))
-        .set("canonical", createMap!(string, Json)
-            .set("rel", "canonical")
-            .set("link", content))
-        .set("next", createMap!(string, Json)
-            .set("rel", "next")
-            .set("link", content))
-        .set("prev", createMap!(string, Json)
-            .set("rel", "prev")
-            .set("link", content))
-        .set("first", createMap!(string, Json)
-            .set("rel", "first")
-            .set("link", content))
-        .set("last", createMap!(string, Json)
-            .set("rel", "last")
-            .set("link", content));
+        .set("rss", MetaHelper.rss!Json(type, content))
+        .set("atom", MetaHelper.atom!Json(type, content))
+        .set("icon", MetaHelper.icon!Json(content))
+        .set("keywords", MetaHelper.keywords!Json( content))
+        .set("description", MetaHelper.description!Json(content))
+        .set("robots", MetaHelper.robots!Json(content))
+        .set("viewport", MetaHelper.viewport!Json(content))
+        .set("canonical", MetaHelper.canonical!Json(content))
+        .set("next", MetaHelper.next!Json(content))
+        .set("prev", MetaHelper.prev!Json(content))
+        .set("first", MetaHelper.first!Json(content))
+        .set("last", MetaHelper.last!Json(content));
 
       Json foundType = Json(null);
       if (types.hasKey(type)) {
@@ -182,24 +154,24 @@ class DHtmlHelper : DHelper {
                         htmlAttributes.get("link"))); */
 
       if (htmlAttributes.getString("rel") == "icon") {
-        result = _templates.getString("metalink").doubleMustache(
-          createMap!(string, Json)
+        // TODO result = _templates.getString("metalink").doubleMustache(
+          /* createMap!(string, Json)
             .set("url", htmlAttributes.getString("link")) /* .set("attrs", templater()
                             .formatAttributes(htmlAttributes, [
                                 "block", "link"
-                            ])) */
+                            ])) * /
             
-        );
+        ); */
         htmlAttributes.set("rel", "shortcut icon");
       }
-      result ~= _templates.getString("metalink").doubleMustache(createMap!(string, Json)
+      /* result ~= _templates.getString("metalink").doubleMustache(createMap!(string, Json)
           .set("url", htmlAttributes.getString("link") /*                 "attrs": templater().formatAttributes(htmlAttributes, [
                         "block", "link"
-                    ]), */
+                    ]), * /
 
           
 
-      ));
+      )); */
     } else {
       /* result = _templates.getString("meta").doubleMustache([
                 "attrs": templater().formatAttributes(htmlAttributes, [

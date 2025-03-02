@@ -67,7 +67,7 @@ class FormHelper : DHelper {
             .set("binary", "file");
  */
 
-    _defaultWidgets
+    /* _defaultWidgets
       .set("button", ["Button"])
       .set("checkbox", ["Checkbox"])
       .set("file", ["File"])
@@ -79,7 +79,7 @@ class FormHelper : DHelper {
       .set("textarea", ["Textarea"])
       .set("datetime", ["DateTime", "select"])
       .set("year", ["Year", "select"])
-      .set("_default", ["Basic"]);
+      .set("_default", ["Basic"]); */
 
     configuration
       .setDefault("idPrefix", Json(null))
@@ -111,7 +111,7 @@ class FormHelper : DHelper {
      */
   const string SECURE_SKIP = "skip"; // Defines the type of form being created. Set by FormHelper.create().
   string _requestType = null; // DContext for the current form.
-  protected IFormContext _context = null; /**
+  protected IFormContext _formcontext = null; /**
      * The action attribute value of the last created form.
      * Used to make form/request specific hashes for form tampering protection.
      */
@@ -124,7 +124,7 @@ class FormHelper : DHelper {
   protected DWidgetLocator _locator;
 
   // DContext factory.
-  protected DFormContextFactory _contextFactory = null;
+  protected DFormContextFactory _formcontextFactory = null;
   // Other helpers used by FormHelper
   protected string[] myhelpers = ["Url", "Html"];
 
@@ -158,10 +158,10 @@ class FormHelper : DHelper {
   // Set the context factory the helper will use.
   DFormContextFactory contextFactory(DFormContextFactory factory = null, Json[string] contexts = null) {
     /* if (factory.isNull) {
-            return _contextFactory ? _contextFactory : DFormContextFactory.createWithDefaults(contexts);
+            return _formcontextFactory ? _formcontextFactory : DFormContextFactory.createWithDefaults(contexts);
         }
-        _contextFactory = factory;
-        return _contextFactory; */
+        _formcontextFactory = factory;
+        return _formcontextFactory; */
     return null;
   }
 
@@ -359,7 +359,7 @@ class FormHelper : DHelper {
 
         templater().pop();
         _requestType = null;
-        _context = null;
+        _formcontext = null;
         _valueSources = ["data", "context"];
         _idPrefix = configurationData.hasKey("idPrefix");
         _formProtector = null;
@@ -1358,17 +1358,17 @@ class FormHelper : DHelper {
     if (options.hasKey("method")) {
       // TODO formOptions.set("type", options.shift("method"));
     }
-    if (options.isArray("form")) {
+    /* if (options.isArray("form")) {
       formOptions = options.shift("form").merge(formOptions);
-    }
+    } */
 
-    button = create(null, formOptions);
+    /* button = create(null, formOptions);
     if (options.hasKey("data") && options.isArray("data")) {
       /* foreach (aKey, myvalue; Hash.flatten(options.get("data"))) {
                 button ~= hidden(aKey, ["value": myvalue]);
-            } */
+            } * /
       options.removeKey("data");
-    }
+    } */
     /*  button ~= button(caption, options)
             ~ end(); */
 
@@ -1519,7 +1519,7 @@ class FormHelper : DHelper {
     if (isUrl || isImage) {
       mytype = "image";
 
-      if (_formProtector) {
+      /* if (_formProtector) {
         auto myunlockFields = ["x", "y"];
         if (options.hasKey("name")) {
           myunlockFields = [
@@ -1528,7 +1528,7 @@ class FormHelper : DHelper {
           ];
         }
         myunlockFields.each!(myignore => unlockField(myignore));
-      }
+      } */
     }
     /* if (isUrl) {
             options.set("src", caption);
@@ -1612,10 +1612,10 @@ class FormHelper : DHelper {
       /*myrequired = _getContext().isRequired(fieldName);
             attributes.set("empty", myrequired.isNull ? false : !myrequired); */
     }
-    if (attributes.getString("multiple") == "checkbox") {
+    /* if (attributes.getString("multiple") == "checkbox") {
       attributes.removeKeys("multiple", "empty");
       return _multiCheckbox(fieldName, options, attributes);
-    }
+    } */
     attributes.removeKey("label");
 
     // Secure the field if there are options, or it"s a multi select.
@@ -1630,14 +1630,14 @@ class FormHelper : DHelper {
 
     string hidden = "";
     if (attributes.hasAllKeys("multiple", "hiddenField")) {
-      hiddenAttributes
+      /* hiddenAttributes
         .merge("name", attributes.getString)
         .merge("value", "")
         .merge("form", attributes.get("form"))
         .merge("secure", false);
-      hidden = hidden(fieldName, hiddenAttributes);
+      hidden = hidden(fieldName, hiddenAttributes); */
     }
-    attributes.removeKey("hiddenField", "type");
+    attributes.removeKeys("hiddenField", "type");
 
     return hidden ~ widget("select", attributes);
   }
@@ -1673,7 +1673,7 @@ class FormHelper : DHelper {
       generatedHiddenId = true;
     }
     htmlAttributes = _initInputField(fieldName, htmlAttributes);
-    htmlAttributes.set("options", options);
+    // htmlAttributes.set("options", options);
     // TODO htmlAttributes.set("idPrefix", _idPrefix);
 
     string hidden = "";
@@ -1887,7 +1887,7 @@ class FormHelper : DHelper {
   IFormContext context(IFormContext formContext = null) {
     // TODO 
     /* if (!formContext.isNull) {
-      _context = formContext;
+      _formcontext = formContext;
     } */
     return _getContext();
   }
@@ -1896,15 +1896,15 @@ class FormHelper : DHelper {
      * Find the matching context provider for the data.
      * If no type can be matched a NullContext will be returned.
      */
-  protected IFormContext _getContext(Json mydata = null) {
-   /*  if (!_context.isNull && mydata.isEmpty) {
-      return _context;
+  protected IFormContext _getContext(Json contextdata = null) {
+   /*  if (!_formcontext.isNull && contextdata.isEmpty) {
+      return _formcontext;
     } */
 
-    mydata.merge("entity", Json(null));
+    // contextdata.merge("entity", Json(null));
 
-    /* return _context = this.contextFactory()
-            .get(_view.getRequest(), mydata); */
+    /* return _formcontext = this.contextFactory()
+            .get(_view.getRequest(), contextdata); */
     return null;
   }
 
@@ -1997,7 +1997,8 @@ class FormHelper : DHelper {
 
   // Gets a single field value from the sources available.
   Json getSourceValue(string fieldName, Json[string] options = null) {
-    auto myvalueMap = createMap!(string, Json)
+    Json[string] myvalueMap;
+    myvalueMap
       .set("data", "getData")
       .set("query", "getQuery");
 

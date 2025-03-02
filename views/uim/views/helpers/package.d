@@ -7,6 +7,7 @@ public {
     import uim.views.helpers.general;
     import uim.views.helpers.helper;
     import uim.views.helpers.html;
+    import uim.views.helpers.meta;
     import uim.views.helpers.number;
     import uim.views.helpers.paginator;
     import uim.views.helpers.registry;

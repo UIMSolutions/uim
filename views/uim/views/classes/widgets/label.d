@@ -55,7 +55,7 @@ class DLabelWidget : DWidget {
     settings.set("input", options.get("input", Json(null)));
     settings.set("hidden", options.get("hidden", Json(null)));
     settings.set("templateVars", options.get("templateVars", Json(null)));
-    /* .set("attrs", _stringContents.formatAttributes(options, [
+    /* .set("attrs", AttributeHelper.formatAttributes(options, [
                 "text", "input", "hidden"
             ])) * /); */
     return _stringContents.format(_labelTemplate, settings);

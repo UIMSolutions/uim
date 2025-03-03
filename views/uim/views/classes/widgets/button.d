@@ -48,7 +48,7 @@ class DButtonWidget : DWidget {
     /* _stringContents.format("button", [
             "text": !renderData.isEmpty("escapeTitle") ? htmlAttributeEscape(renderData.getString("text")) : renderData.getString("text"),
             "templateVars": renderData.getString("templateVars"),
-            "attrs": _stringContents.formatAttributes(renderData, ["text", "escapeTitle"]),
+            "attrs": AttributeHelper.formatAttributes(renderData, ["text", "escapeTitle"]),
         ]); */
   }
 }

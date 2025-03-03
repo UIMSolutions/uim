@@ -156,7 +156,7 @@ class DRadioWidget : DWidget {
                 .merge("name", radio["name"])
                 .merge("value", myescape ? htmlAttributeEscape(radio["value"]) : radio["value"])
                 .merge("templateVars", radio["templateVars"])
-                /* .merge("attrs", _stringContents.formatAttributes(
+                /* .merge("attrs", AttributeHelper.formatAttributes(
                     radio + options,
                     ["name", "value", "text", "options", "label", "val", "type"]
                 ))] * /);

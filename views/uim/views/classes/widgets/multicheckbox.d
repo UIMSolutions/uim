@@ -168,7 +168,7 @@ class DMultiCheckboxWidget : DWidget {
         "value": checkboxData.hasKey("escape") ? htmlAttributeEscape(
           checkboxData["value"]): checkboxData["value"],
         "templateVars": checkboxData["templateVars"],
-        "attrs": _stringContents.formatAttributes(
+        "attrs": AttributeHelper.formatAttributes(
           checkboxData,
           [
             "name", "value",

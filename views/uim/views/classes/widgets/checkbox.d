@@ -61,7 +61,7 @@ class DCheckboxWidget : DWidget {
         updatedData.removeKey("val"); */
 
         /* 
-        auto myattrs = _stringContents.formatAttributes(
+        auto myattrs = AttributeHelper.formatAttributes(
             updatedData,
             ["name", "value"]
        );

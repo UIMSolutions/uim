@@ -65,7 +65,7 @@ class DTextareaWidget : DWidget {
                     ? htmlAttributeEscape(mydata["val"]) 
                     : mydata.get("val"))
                 .set("templateVars", mydata.get("templateVars"))
-                .set("attrs", _stringContents.formatAttributes(data, ["name", "val"]))); */
+                .set("attrs", AttributeHelper.formatAttributes(data, ["name", "val"]))); */
 
         return _templater.render("textarea", MapHelper.create!(string, Json));
     }

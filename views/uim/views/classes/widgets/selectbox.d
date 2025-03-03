@@ -123,7 +123,7 @@ class DSelectBoxWidget : DWidget {
       renderData.removeKey("multiple");
     } */
 
-/*     myattrs = _stringContents.formatAttributes(renderData);
+/*     myattrs = AttributeHelper.formatAttributes(renderData);
     return _stringContents.format(mytemplate, MapHelper.create!(string, Json)
         .set("name", nameData)
         .set("templateVars", renderData["templateVars"])
@@ -195,7 +195,7 @@ class DSelectBoxWidget : DWidget {
         .set("label", isEscapeHTML ? htmlAttributeEscape(labelText): labelText)
         .set("content", mygroupOptions.join(""))
         .set("templateVars", templateVariables)
-        .set("attrs", _stringContents.formatAttributes(myattrs, ["text", "options"]))); */
+        .set("attrs", AttributeHelper.formatAttributes(myattrs, ["text", "options"]))); */
     return null;
   }
 
@@ -250,7 +250,7 @@ class DSelectBoxWidget : DWidget {
             .set("value", isEscapeHTML ? htmlAttributeEscape(myoptAttrs["value"]) : myoptAttrs["value"])
             .set("text", isEscapeHTML ? htmlAttributeEscape(myoptAttrs["text"]) : myoptAttrs["text"])
             .set("templateVars", myoptAttrs.get("templateVars"))
-            .set("attrs", _stringContents.formatAttributes(myoptAttrs, [
+            .set("attrs", AttributeHelper.formatAttributes(myoptAttrs, [
               "text", "value"
             ])));
       });

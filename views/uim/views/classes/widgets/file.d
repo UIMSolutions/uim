@@ -52,7 +52,7 @@ class DFileWidget : DWidget {
 
         /* return _stringContents.format("file", 
             renderData.data(["name", "templateVars"])
-                .setPath(["attrs": _stringContents.formatAttributes(renderData, ["name"])]);  */
+                .setPath(["attrs": AttributeHelper.formatAttributes(renderData, ["name"])]);  */
         return null; 
     }
 }

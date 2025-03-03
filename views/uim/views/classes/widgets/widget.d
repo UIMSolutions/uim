@@ -68,7 +68,7 @@ override bool initialize(Json[string] initData = null) {
     return _stringContents.format("input",
       data.get("name", "type", "templateVars")
         .setPath([
-          "attrs": _stringContents.formatAttributes(data, ["name", "type"])
+          "attrs": AttributeHelper.formatAttributes(data, ["name", "type"])
         ])
     ); */
     return null;

@@ -32,7 +32,7 @@ class AttributeHelper {
      * templates to change how attributes are formatted.
      */
   static bool boolAttribute(string name) {
-    return (name in [
+    return [
         "allowfullscreen": true,
         "async": true,
         "autofocus": true,
@@ -75,7 +75,7 @@ class AttributeHelper {
         "truespeed": true,
         "typemustmatch": true,
         "visible": true,
-      ]);
+      ].hasKey(name);
   }
 
   static string formatAttributes(Json[string] options, string[] excludedKeys) {
@@ -84,7 +84,7 @@ class AttributeHelper {
     return formatAttributes(options, excluded);
   }
 
-  string formatAttributes(Json[string] options, bool[string] excluded = null) {
+   static string formatAttributes(Json[string] options, bool[string] excluded = null) {
     string insertBefore = " ";
     options
       .merge("escape", true);

@@ -98,3 +98,10 @@ class DHtmlTemplater : DTemplater {
 }
 
 mixin(TemplaterCalls!("Html"));
+
+unittest {
+  assert(HtmlTemplater);
+
+  auto templater = HtmlTemplater;
+  assert(templater !is null, "templater is null");
+}

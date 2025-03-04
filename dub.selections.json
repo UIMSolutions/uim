@@ -2,7 +2,7 @@
 	"fileVersion": 1,
 	"versions": {
 		"arsd-official": "11.2.3",
-		"colored": "0.0.31",
+		"colored": "0.0.33",
 		"d-unit": "0.10.2",
 		"ddbc": "0.7.0",
 		"derelict-pq": "2.2.0",
@@ -23,7 +23,7 @@
 		"stdx-allocator": "2.77.5",
 		"taggedalgebraic": "0.11.23",
 		"undead": "1.1.8",
-		"unit-threaded": "2.1.9",
+		"unit-threaded": "2.2.1",
 		"vibe-container": "1.4.2",
 		"vibe-core": "2.9.6",
 		"vibe-d": "0.10.2",

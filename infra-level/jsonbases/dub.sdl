@@ -1,0 +1,29 @@
+name "jsonbases"
+description "D-Lib for json databases"
+homepage "https://"
+license "Apache-2.0"
+copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
+authors "Ozan Nurettin Süel"
+
+targetName "uim-jsonbases"
+targetType "library"
+
+dependency "colored" version="~>0.0.31"
+dependency "vibe-d" version="~>0.10.2"
+
+dependency "uim:core" path="../"
+dependency "uim:oop" path="../"
+dependency "uim:errors" path="../"
+dependency "uim:filesystems" path="../"
+
+sourcePaths "."
+importPaths "."
+
+// configuration "default" {}
+
+configuration "test_uim_jsonbase" {
+	versions "test_uim_jsonbase"
+}
+configuration "test_all" {
+	versions "test_uim_core" "test_uim_oop"
+}

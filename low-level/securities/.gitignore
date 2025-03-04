@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/securities
+securities.so
+securities.dylib
+securities.dll
+securities.a
+securities.lib
+securities-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

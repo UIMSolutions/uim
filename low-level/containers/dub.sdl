@@ -1,0 +1,31 @@
+name "containers"
+description "V in MVC"
+authors "ONS"
+copyright "Copyright © 2018 - 2025, ONS"
+license "Apache-2.0"
+
+targetType "library"
+targetName "uim-containers"
+
+dependency "colored" version="~>0.0.31"
+dependency "vibe-d" version="~>0.10.2"
+
+dependency "uim:core" path="../"
+dependency "uim:oop" path="../"
+
+sourcePaths "."
+importPaths "."
+
+targetType "library"
+
+sourcePaths "."
+importPaths "."
+
+// configuration "default" {}
+
+configuration "test_uim_containers" {
+	versions "test_uim_containers"
+}
+configuration "test_all" {
+	versions "test_uim_core" "test_uim_oop"
+}

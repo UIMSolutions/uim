@@ -1,0 +1,30 @@
+name "events"
+description "Eventmanagement"
+authors "ONS"
+copyright "Copyright © 2018 - 2025, ONS"
+license "Apache-2.0"
+
+targetType "library"
+targetName "uim-events"
+
+dependency "colored" version="~>0.0.31"
+dependency "vibe-d" version="~>0.10.2"
+
+dependency "uim:core" path="../"
+dependency "uim:oop" path="../"
+dependency "uim:errors" path="../"
+
+sourcePaths "."
+importPaths "."
+
+sourcePaths "."
+importPaths "."
+
+// configuration "default" {}
+
+configuration "test_uim_events" {
+	versions "test_uim_events"
+}
+configuration "test_all" {
+	versions "test_uim_core" "test_uim_oop"
+}

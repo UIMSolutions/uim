@@ -51,6 +51,9 @@ class DHtmlHelper : DHelper {
   // Options for the currently opened script block buffer if any.
   protected Json[string] _scriptBlockOptions;
 
+  string attributeEscape(string title) {
+    return htmlAttributeEscape(title);
+  }
   /**
      * Creates a link to an external resource and handles basic meta tags
      *

@@ -51,28 +51,28 @@ class DSysLogger : DLogger {
 
         configuration
             .setDefault("levels", Json.emptyArray)
-            .setDefault("scopes", Json.emptyArray) //.setDefault("flag", LogLevel.ODELAY)
-            .setDefault("prefix", "") // .setDefault("facility", LogLevel.USER)
+            .setDefault("scopes", Json.emptyArray) //.setDefault("flag", LogLevels.ODELAY)
+            .setDefault("prefix", "") // .setDefault("facility", LogLevels.USER)
            /*  .setDefault("formatter", createMap!(string, Json)
                     .set("classname", StandardLogFormatter.classname)
                     .set("includeDate", false)
             ) */;
 
         _levelMap = [
-            "emergency": LogLevel.fatal,
-            "alert": LogLevel.warn,
-            "critical": LogLevel.critical,
-            "error": LogLevel.error,
-            "warning": LogLevel.warn,
-            "notice": LogLevel.trace,
-            "info": LogLevel.info,
-            "debug": LogLevel.debug_,
+            "emergency": LogLevels.fatal,
+            "alert": LogLevels.warn,
+            "critical": LogLevels.critical,
+            "error": LogLevels.error,
+            "warning": LogLevels.warn,
+            "notice": LogLevels.trace,
+            "info": LogLevels.info,
+            "debug": LogLevels.debug_,
         ];
 
         return true;
     }
     // Used to map the string names back to their LOG_* constants
-    protected LogLevel[string] _levelMap;
+    protected LogLevels[string] _levelMap;
 
     // Whether the logger connection is open or not
     protected bool _isopen = false;
@@ -88,7 +88,7 @@ class DSysLogger : DLogger {
            /* _open(configuration.get("prefix"), configuration.get("flag"), configuration.get("facility"));
            _isopen = true; */
         }
-        auto priority = LogLevel.debug_;
+        auto priority = LogLevels.debug_;
         /* if (_levelMap.hasKey(severityLevel)) {
             priority = _levelMap[level];
         } */
@@ -118,7 +118,7 @@ class DSysLogger : DLogger {
         /*  closelog(); */
     }
 
-    override ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
+    override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
         return this;
     }
 }

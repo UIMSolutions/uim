@@ -18,7 +18,7 @@ version (test_uim_logging) {
 class DYamlLogFormatter : DLogFormatter {
     mixin(LogFormatterThis!("Yaml"));
 
-    override string format(LogLevel logLevel, string logMessage, Json[string] logData = null) {
+    override string format(LogLevels logLevel, string logMessage, Json[string] logData = null) {
         string result = logMessage;
         // TODO
         return result;

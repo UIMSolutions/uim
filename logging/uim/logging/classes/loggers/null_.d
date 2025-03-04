@@ -26,7 +26,7 @@ class DNullLogger : DLogger {
     return true;
   }
 
-  override ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null) {
+  override ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null) {
     // TODO
     return this;
   }

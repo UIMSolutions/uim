@@ -1,6 +1,6 @@
 module uim.oop.enumerations.loglevel;
 
-/* enum LogLevel : string {
+/* enum LogLevels : string {
   EMERGENCY = "emergency",
   ALERT    = "alert",
   .CRITICAL = "critical",

@@ -17,7 +17,7 @@ interface ILogger : IObject {
     string[] scopes();
 
     // Logs with an arbitrary level.
-    ILogger log(LogLevel logLevel, string logMessage, Json[string] logContext = null); 
+    ILogger log(LogLevels logLevel, string logMessage, Json[string] logContext = null); 
 
     /*
     

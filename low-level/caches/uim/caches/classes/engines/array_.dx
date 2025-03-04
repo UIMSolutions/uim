@@ -1,0 +1,126 @@
+module uim.caches.classes.engines.array_;
+
+import uim.caches;
+
+@safe:
+
+/**
+ * Array storage engine for cache.
+ * Not actually a persistent cache engine. All data is only
+ * stored in memory for the duration of a single process. While not
+ * useful in production settings this engine can be useful in tests
+ * or console tools where you don`t want the overhead of interacting
+ * with a cache servers, but want the work saving properties a cache provides.
+ */
+class DArrayCacheEngine : DCacheEngine {
+  mixin(CacheEngineThis!("Array"));
+
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  // Write data for key into cache
+  override bool updateKey(string itemKey, Json dataForCache, long timeToLive = 0) {
+    Json data = Json.emptyObject;
+    data.set("exp", 0); // TODO time() + duration(timeToLive));
+    data.set("val", dataForCache);
+    _cachedData.set(internalKey(itemKey), data);
+
+    return true;
+  }
+
+  // Cached data.
+  // Structured as [key: [exp: expiration, val: value]]
+  protected Json[string] _cachedData;
+  // Delete a key from the cache
+  override bool removeKey(string key) {
+    string internKey = internalcorrectKey(key);
+    return _cachedData.removeKey(internKey);
+  }
+
+  // Delete all keys from the cache. This will clear every cache config using APC.
+
+  // Read a key from the cache
+  override Json read(string key, Json defaultValue = Json(null)) {
+    string internKey = internalcorrectKey(key);
+    if (!_cachedData.hasKey(internKey)) {
+      return defaultValue;
+    }
+
+    auto value = _cachedData[internKey];
+
+    // Check expiration
+    auto checkTime = time();
+    if (value.getLong("exp") <= checkTime) {
+      _cachedData.removeKey(internKey);
+      return defaultValue;
+    }
+
+    return value["val"];
+  }
+
+  // Increments the value of an integer cached key
+  override long increment(string key, int incValue = 1) {
+    if (read(key).isNull) {
+      updateKey(key, 0);
+    }
+    auto internKey = internalcorrectKey(key);
+    _cachedData.set(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") + incValue);
+
+    return _cachedData[internKey ~ ".val"];
+  }
+
+  // Decrements the value of an integer cached key
+  override long decrement(string key, int decValue = 1) {
+    if (get(key).isNull) {
+      set(key, 0);
+    }
+    auto internKey = internalcorrectKey(key);
+    _cachedData.set(internKey ~ ".val", _cachedData.getLong(internKey ~ ".val") - decValue);
+
+    return _cachedData.get(internKey ~ ".val");
+  }
+
+  /**
+     * Returns the `group value` for each of the configured groups.
+     * If the group initial value was not found, then it initializes the group accordingly.
+     */
+  override string[] groups() {
+    string[] results;
+
+    // TODO
+    /*
+    configuration.get("groups").each!((group) {
+      string key = configuration.getString("prefix") ~ myGroup;
+      if (!_cachedData.hasKey(key)) {
+        _cachedData[aKey] = ["exp": D_INT_MAX, "val": 1];
+      }
+      string myvalue = _cachedData[aKey]["val"];
+      results ~= myGroup ~ myvalue;
+    });
+    */
+    return results;
+  }
+
+  override bool clear() {
+    return _cachedData.clear;
+  }
+  /**
+     * Increments the group value to simulate deletion of all keys under a group
+     * old values will remain in storage until they expire.
+     */
+  override bool clearGroup(string groupName) {
+    string key = configuration.get("prefix").toString ~ groupName;
+    // TODO 
+    /*   if (_cachedData.hasKey(key)) {
+      _cachedData[key]["val"] += 1;
+    } */
+    return true;
+  }
+}
+
+mixin(CacheEngineCalls!("Array"));

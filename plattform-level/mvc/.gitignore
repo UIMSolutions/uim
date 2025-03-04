@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/mvc
+mvc.so
+mvc.dylib
+mvc.dll
+mvc.a
+mvc.lib
+mvc-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

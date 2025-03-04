@@ -9,7 +9,7 @@ description "D-Library for creating guis"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-dependency "uim:core" path="../"
+dependency "uim:core" path="../base-level/"
 dependency "uim:oop" path="../"
 dependency "uim:filesystems" path="../"
 dependency "uim:models" path="../"

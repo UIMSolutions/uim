@@ -12,7 +12,7 @@ dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
 dependency "uim:core" path="../base-level/"
-dependency "uim:oop" path="../"
+dependency "uim:oop" path="../base-level/"
 dependency "uim:errors" path="../"
 dependency "uim:filesystems" path="../"
 

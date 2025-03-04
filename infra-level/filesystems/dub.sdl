@@ -13,7 +13,7 @@ targetName "uim-filesystems"
 targetType "library"
 
 dependency "uim:core" path="../base-level/"
-dependency "uim:oop" path="../"
+dependency "uim:oop" path="../base-level/"
 dependency "uim:errors" path="../"
 
 sourcePaths "."

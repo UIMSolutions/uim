@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/neural
+neural.so
+neural.dylib
+neural.dll
+neural.a
+neural.lib
+neural-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

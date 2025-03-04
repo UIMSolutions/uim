@@ -1,0 +1,17 @@
+name "uim-base-level"
+description "UIM base library"
+homepage "https://www.sueel.de"
+license "Apache-2.0"
+copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
+authors "Ozan Nurettin Süel"
+
+targetName "uim-base-level"
+targetType "library"
+
+dependency "uim:core" version="*"
+dependency "uim:oop" version="*"
+
+sourceFiles "source/uim/uim_base_level.d"
+
+subPackage "core"
+subPackage "oop"

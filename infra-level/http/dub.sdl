@@ -10,7 +10,7 @@ targetName "uim-http"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-dependency "uim:core" path="../"
+dependency "uim:core" path="../base-level/"
 dependency "uim:oop" path="../"
 dependency "uim:errors" path="../"
 

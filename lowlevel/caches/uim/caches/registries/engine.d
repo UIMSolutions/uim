@@ -3,16 +3,16 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.caches.classes.caches.registration;
+module uim.caches.registries.engine;
 
 import uim.caches;
 
 @safe:
 
 // An object registry for cache engines.
-class DCacheRegistry : DObjectRegistry!DCache {
+class DCacheEngineRegistry : DObjectRegistry!DCacheEngine {
 }
 
-auto CacheRegistry() { // Singleton
-  return DCacheRegistry.registration;
+auto CacheEngineRegistry() { // Singleton
+  return DCacheEngineRegistry.registration;
 }

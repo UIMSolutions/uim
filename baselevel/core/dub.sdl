@@ -6,7 +6,7 @@ copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-core"
+targetname "uim-core"
 
 dependency "uim-vibe" path="../vibe"
 

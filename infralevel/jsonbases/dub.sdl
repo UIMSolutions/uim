@@ -1,11 +1,11 @@
-name "jsonbases"
+name "uim-jsonbases"
 description "D-Lib for json databases"
 homepage "https://www.sueel.de/uim"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-targetName "uim-jsonbases"
+targetname "uim-jsonbases"
 targetType "library"
 
 dependency "colored" version="~>0.0.31"

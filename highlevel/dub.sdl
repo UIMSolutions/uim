@@ -1,11 +1,11 @@
-name "highlevel"
+name "uim-highlevel"
 description "UIM high level library"
 homepage "https://www.sueel.de/uim"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-targetName "uim-highlevel"
+targetname "uim-highlevel"
 targetType "library"
 
 dependency "platformlevel" path="../platformlevel/"

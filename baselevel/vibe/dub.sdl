@@ -6,7 +6,7 @@ copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-vibe"
+targetname "uim-vibe"
 
 dependency "vibe-d" version="~>0.10.2"
 dependency "colored" version="~>0.0.31"

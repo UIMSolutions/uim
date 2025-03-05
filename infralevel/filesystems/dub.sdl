@@ -1,4 +1,4 @@
-name "filesystems"
+name "uim-filesystems"
 homepage "https://www.sueel.de/uim"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
@@ -9,7 +9,7 @@ description "D-Library for filesystem management"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-targetName "uim-filesystems"
+targetname "uim-filesystems"
 targetType "library"
 
 dependency "core" path="../../baselevel/core"

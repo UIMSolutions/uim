@@ -1,11 +1,11 @@
-name "infralevel"
+name "uim-infralevel"
 description "UIM framework for building web applications"
 homepage "https://www.sueel.de/uim"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-targetName "uim-intralevel"
+targetname "uim-intralevel"
 targetType "library"
 
 dependency "lowlevel" path="../lowlevel/"

@@ -1,11 +1,11 @@
-name "consoles"
+name "uim-consoles"
 description "V in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-consoles"
+targetname "uim-consoles"
 
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
@@ -13,7 +13,7 @@ dependency "vibe-d" version="~>0.10.2"
 dependency "core" path="../../baselevel/core"
 dependency "oop" path="../../baselevel/oop"
 
-dependency "errors" path="../errors"
+dependency "uim-errors" path="../errors"
 
 sourcePaths "."
 importPaths "."

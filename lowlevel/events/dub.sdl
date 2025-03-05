@@ -1,11 +1,11 @@
-name "events"
+name "uim-events"
 description "Eventmanagement"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-events"
+targetname "uim-events"
 
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"

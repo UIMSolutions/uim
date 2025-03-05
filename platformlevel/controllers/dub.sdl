@@ -1,17 +1,17 @@
-name "controllers"
+name "uim-controllers"
 description "A minimal D application."
 authors "ONS"
 copyright "Copyright © 2024, ONS"
 license "Apache-2.0"
 
-name "controllers"
+name "uim-controllers"
 description "C in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-controllers"
+targetname "uim-controllers"
 
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"

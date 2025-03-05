@@ -1,10 +1,10 @@
-name "genetics"
+name "uim-genetics"
 homepage "https://www.sicherheitsschmiede.de/"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-targetName "uim-genetics"
+targetname "uim-genetics"
 targetType "library"
 
 description "D-Library for genetic algorithms"

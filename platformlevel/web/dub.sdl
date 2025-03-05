@@ -1,11 +1,11 @@
-name "web"
+name "uim-web"
 homepage "https://www.sueel.de/uim"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
 description "D-Library for general web uses"
-targetName "uim-web"
+targetname "uim-web"
 targetType "library"
 
 dependency "colored" version="~>0.0.31"

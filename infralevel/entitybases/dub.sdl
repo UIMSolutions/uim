@@ -1,4 +1,4 @@
-name "entitybases"
+name "uim-entitybases"
 homepage "https://www.sueel.de/uim"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
@@ -19,4 +19,4 @@ targetType "library"
 sourcePaths "."
 importPaths "."
 
-targetName "uim-entitybases"
+targetname "uim-entitybases"

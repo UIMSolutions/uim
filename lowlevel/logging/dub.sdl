@@ -13,12 +13,6 @@ dependency "uim-consoles" path="../consoles"
 sourcePaths "."
 importPaths "."
 
-
-
-
-sourcePaths "."
-importPaths "."
-
 targetType "library"
 
 sourcePaths "."

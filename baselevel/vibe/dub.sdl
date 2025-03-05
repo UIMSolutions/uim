@@ -4,20 +4,15 @@ homepage "https://www.sueel.de"
 authors "Ozan Nurettin Süel"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 license "Apache-2.0"
-
-targetType "library"
-targetname "uim-vibe"
-
 dependency "vibe-d" version="~>0.10.2"
+dependency "unit-threaded" version="~>2.2.2"
 dependency "colored" version="~>0.0.31"
-
 dependency "uim-phobos" path="../phobos"
-
+targetType "library"
+targetName "uim-vibe"
 sourcePaths "."
 importPaths "."
-
-// configuration "default" {}
-
 configuration "test_uim_vibe" {
+	targetType "library"
 	versions "test_uim_vibe"
 }

@@ -13,7 +13,7 @@ dependency "uim-vibe" path="./vibe"
 dependency "uim-core" path="./core"
 dependency "uim-oop" path="./oop"
 
-sourceFiles "source/uim/all.d"
+sourceFiles "./uim/baselevel.d"
 
 sourcePaths "."
 importPaths "."

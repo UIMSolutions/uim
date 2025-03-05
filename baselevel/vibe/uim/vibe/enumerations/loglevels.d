@@ -5,14 +5,13 @@ enum LogLevels : string {
   EMERGENCY = "emergency",
   ALERT = "alert",
   CRITICAL = "critical",
-  ERROR = "error",
+  ERROR = "error", // Normal error that is handled gracefully
   WARNING = "warning", // Unexpected condition that could indicate an error but has no direct consequences
   NOTICE = "notice",
   INFO = "info", // Informational message
 	DEBUG = "debug", 
   TRACE = "trace", // Information for locating events when no useful stack traces are available
   DIAGNOSTIC = "diagnostic", // Extended information (e.g. for more detailed error information)
-	ERROR = "error"      /// Normal error that is handled gracefully}
 }
 
 /* Vibe is using

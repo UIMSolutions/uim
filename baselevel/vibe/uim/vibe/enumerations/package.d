@@ -1,5 +1,5 @@
 module uim.vibe.enumerations;
 
 public {
-    import uim.vibe.enumerations.loglevel;
+    import uim.vibe.enumerations.loglevels;
 }

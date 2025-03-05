@@ -5,6 +5,7 @@ import uim.core;
 
 class JsonMapHelper {
   static string toString(Json[string] aa) {
-    return "%s".format(aa);
+    // TODO return "%s".format(aa);
+    return null; 
   }
 }

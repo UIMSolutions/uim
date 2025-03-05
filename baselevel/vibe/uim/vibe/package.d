@@ -4,6 +4,7 @@ public import vibe.d;
 
 public {
     import uim.phobos;
+    import unit_threaded;
 }
 
 public {

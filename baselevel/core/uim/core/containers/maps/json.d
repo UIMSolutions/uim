@@ -563,12 +563,13 @@ unittest {
 } */
 
 string toString(Json[string] items, string[] keys = null) {
-  return keys is null
+  /* return keys is null
     ? "[" ~ items.byKeyValue.map!(item => `"%s":%s`.format(item.key, item.value)).join(
       ",") ~ "]" : "[" ~ items.byKeyValue
     .filter!(item => keys.has(item.key))
     .map!(item => `"%s":%s`.format(item.key, item.value))
-    .join(",") ~ "]";
+    .join(",") ~ "]"; */
+    return null; 
 }
 
 unittest {

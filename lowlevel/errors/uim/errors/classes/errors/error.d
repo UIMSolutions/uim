@@ -40,11 +40,11 @@ class DError : UIMObject, IError {
 
         // Map error levels to log levels.
         _logMap = [
-            "error": LogLevels.error,
-            "warning": LogLevels.warn,
-            "notice": LogLevels.trace,
-            "strict": LogLevels.trace,
-            "deprecated": LogLevels.trace,
+            "error": LogLevel.error,
+            "warning": LogLevel.warn,
+            "notice": LogLevel.trace,
+            "strict": LogLevel.trace,
+            "deprecated": LogLevel.trace,
         ];
 
         return true;
@@ -55,7 +55,7 @@ class DError : UIMObject, IError {
     // #endregion levelMap
 
     // #region logMap
-    protected LogLevels[string] _logMap;
+    protected LogLevel[string] _logMap;
     // #endregion logMap
 
     // #region label
@@ -79,8 +79,8 @@ class DError : UIMObject, IError {
 
     // #region logLevel
     // Get the mapped LOG_ constant.
-    LogLevels logLevel() {
-        return _logMap.get(label(), LogLevels.error);
+    LogLevel logLevel() {
+        return _logMap.get(label(), LogLevel.error);
     }
     // #endregion logLevel
 

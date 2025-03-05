@@ -3,26 +3,20 @@ description "Eventmanagement"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
-
+dependency "vibe-d" version="~>0.10.2"
+dependency "oop" path="../../baselevel/oop"
+dependency "unit-threaded" version="~>2.2.2"
+dependency "core" path="../../baselevel/core"
+dependency "colored" version="~>0.0.31"
 targetType "library"
 targetName "uim-errors"
-
-dependency "colored" version="~>0.0.31"
-dependency "vibe-d" version="~>0.10.2"
-
-dependency "core" path="../../baselevel/core"
-dependency "oop" path="../../baselevel/oop"
-
-dependency "logging" path="../logging"
-
 sourcePaths "."
 importPaths "."
-
-// configuration "default" {}
-
 configuration "test_uim_errors" {
+	targetType "library"
 	versions "test_uim_errors"
 }
 configuration "test_all" {
+	targetType "library"
 	versions "test_uim_core" "test_uim_oop"
 }

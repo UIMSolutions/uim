@@ -1,0 +1,19 @@
+name "uim-phobos"
+description "Phobos wrapper library for the uim framework"
+homepage "https://www.sueel.de/uim"
+authors "Ozan Nurettin Süel"
+copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
+license "Apache-2.0"
+
+targetType "library"
+targetName "uim-phobos"
+
+dependency "colored" version="~>0.0.31"
+sourcePaths "."
+importPaths "."
+
+// configuration "default" {}
+
+/* configuration "test_uim_phobos" {
+	versions "test_uim_phobos"
+} */

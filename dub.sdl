@@ -8,11 +8,11 @@ authors "Ozan Nurettin Süel"
 targetName "uim"
 targetType "library"
 
-dependency "baselevel" path="../baselevel"
-dependency "lowlevel" path="../lowlevel"
-dependency "infralevel" path="../infralevel"
-dependency "platformlevel" path="../platformlevel"
-dependency "highlevel" path="../highlevel"
+dependency "baselevel" path="./baselevel/"
+dependency "lowlevel" path="./lowlevel/"
+dependency "infralevel" path="./infralevel/"
+dependency "platformlevel" path="./platformlevel/"
+dependency "highlevel" path="./highlevel/"
 
 sourceFiles "source/uim/all.d" 
 

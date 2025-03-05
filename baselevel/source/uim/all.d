@@ -12,8 +12,7 @@ public {
     import std.exception;
 }
 
-/* public {
+public {
     import uim.core;
     import uim.oop;
 }
- */

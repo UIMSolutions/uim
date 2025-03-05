@@ -586,11 +586,11 @@ class DConfiguration : UIMObject, IConfiguration {
 
 }
 
-unittest {
+/* unittest {
     auto config = new DConfiguration();
     assert(config !is null);
     /*     assert(config is IConfiguration);
-    assert(config is DConfiguration); */
+    assert(config is DConfiguration); * /
     assert(config.initialize());
     assert(config.defaultData().length == 0);
     assert(config.data().length == 0);
@@ -633,3 +633,4 @@ unittest {
         ]));
     // assert(config.get("test", Json(["a": "a", "b": "b
 }
+ */

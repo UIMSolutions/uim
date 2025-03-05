@@ -10,8 +10,8 @@ targetName "uim-sites"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-dependency "uim:core" path="../base-level/"
-dependency "uim:oop" path="../base-level/"
+dependency "uim:core" path="../baselevel/"
+dependency "uim:oop" path="../baselevel/"
 dependency "uim:errors" path="../"
 
 sourcePaths "."

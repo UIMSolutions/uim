@@ -1,2 +1,0 @@
-module uim.routings.enumerations;
-

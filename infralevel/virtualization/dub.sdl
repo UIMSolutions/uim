@@ -1,13 +1,12 @@
-name "uim-validations"
-description "V in MVC"
+name "uim-virtualization"
+description "Library for virtualization"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetname "uim-validations"
+targetname "uim-virtualization"
 
-dependency "uim-baselevel" path="../../baselevel"
 dependency "uim-lowlevel" path="../../lowlevel"
 
 sourcePaths "."
@@ -15,8 +14,8 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_validations" {
-	versions "test_uim_validations"
+configuration "test_uim_virtualization" {
+	versions "test_uim_virtualization"
 }
 configuration "test_all" {
 	versions "test_uim_core" "test_uim_oop"

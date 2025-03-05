@@ -3,9 +3,9 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.commands.schemacaches;
+module uim.commands.classes.schemacaches;
 
 public {
-    import uim.commands.classes.commands.schemacaches.build;
-    import uim.commands.classes.commands.schemacaches.clear;
+    import uim.commands.classes.schemacaches.build;
+    import uim.commands.classes.schemacaches.clear;
 }

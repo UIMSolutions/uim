@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.collection;
+module uim.commands.classes.version_;
 
 import uim.commands;
 @safe:
@@ -14,13 +14,14 @@ version (test_uim_commands) {
   }
 }
 
-class DCommandCollection : DCollection!DCommand {   
+// Print out the version of UIM in use.
+class DVersionCommand : DCommand {
+  mixin(CommandThis!("Version"));
+
+  override bool execute(Json[string] arguments, IConsole console = null) {
+// TODO    console.writeln(Configure.currentVersion());
+
+    return true;
+  }
 }
-
-auto CommandCollection() { return new DCommandCollection; } 
-
-unittest {
-  assert(CommandCollection);
-
-  auto collection = CommandCollection;
-}
+mixin(CommandCalls!("Version"));

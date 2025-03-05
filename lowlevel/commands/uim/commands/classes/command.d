@@ -3,11 +3,27 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.commands.classes.commands.caches;
+module uim.commands.classes.command;
 
-public {
-    import uim.commands.classes.commands.caches.clear;
-    import uim.commands.classes.commands.caches.clearall;
-    import uim.commands.classes.commands.caches.cleargroup;
-    import uim.commands.classes.commands.caches.list;
+import uim.commands;
+@safe:
+
+// Base class for commands
+class DCommand : UIMObject, ICommand {
+    mixin(CommandThis!());
+/*    mixin TLocatorAware;
+    mixin TLog; */
+
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // Implement this method with your command`s logic.
+    bool execute(Json[string] options, IConsole console = null) {
+        return true;
+    }
 }

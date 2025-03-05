@@ -4,8 +4,8 @@ authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
-dependency "core" path="../../baselevel/core"
-dependency "oop" path="../../baselevel/oop"
+dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-errors" path="../errors"
 
 dependency "uim:consoles" path="../"
 dependency "colored" version="~>0.0.31"

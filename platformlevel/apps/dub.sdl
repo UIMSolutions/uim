@@ -21,11 +21,6 @@ dependency "uim:views" path="../"
 sourcePaths "."
 importPaths "."
 
-targetType "library"
-
-sourcePaths "."
-importPaths "."
-
 // configuration "default" {}
 
 configuration "test_uim_apps" {

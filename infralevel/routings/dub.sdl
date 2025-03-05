@@ -18,11 +18,6 @@ dependency "uim:errors" path="../"
 sourcePaths "."
 importPaths "."
 
-targetType "library"
-
-sourcePaths "."
-importPaths "."
-
 // configuration "default" {}
 
 configuration "test_uim_routings" {

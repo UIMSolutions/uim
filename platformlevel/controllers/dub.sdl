@@ -24,11 +24,6 @@ dependency "uim:mvc" path="../"
 sourcePaths "."
 importPaths "."
 
-targetType "library"
-
-sourcePaths "."
-importPaths "."
-
 // configuration "default" {}
 
 configuration "test_uim_oop" {

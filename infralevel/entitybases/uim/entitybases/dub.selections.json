@@ -16,7 +16,7 @@
 		"silly": "1.1.1",
 		"stdx-allocator": "2.77.5",
 		"taggedalgebraic": "0.11.22",
-		"uim": {"path":"../"},
+		
 		"unit-threaded": "2.1.9",
 		"vibe-container": "1.1.1",
 		"vibe-core": "2.7.4",

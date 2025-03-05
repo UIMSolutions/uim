@@ -31,8 +31,9 @@ class DAsset {
      * `Asset.assetTimestamp()` to add timestamp to local files.
      */
     static string imageUrl(string path, Json[string] options = null) {
-        return url(path, options.merge(createMap!(string, Json)
-            .set("pathPrefix", configuration.get("App.imageBaseUrl"))));
+        /* return url(path, options.merge(createMap!(string, Json)
+            .set("pathPrefix", configuration.get("App.imageBaseUrl")))); */
+            return null; 
     }
     
     /**
@@ -98,21 +99,21 @@ class DAsset {
             }
             somePath = .replace("{plugin}", placeHolderVal, somePathPrefix) ~ somePath; * /
         } */
-        if (
+       /*  if (
             options.hasKey("ext") &&
             !somePath.contains("?") &&
             !somePath.endsWith(options.getString("ext"))
        ) {
             somePath ~= options.getString("ext");
-        }
+        } */
         // Check again if path has protocol as `pathPrefix` could be for CDNs.
-        if (preg_match("|^([a-z0-9]+:)?//|", somePath)) {
-            return Router.url(somePath);
-        }
+        /* if  * /(preg_match("|^([a-z0-9]+:)?//|", somePath)) {
+        /*     * / return Router.url(somePath);
+        /* } */
         /* if (plugin !is null) {
             somePath = inflectString(plugin).correctUrl ~ somePath;
         } */
-        auto optionTimestamp = null;
+        /* auto optionTimestamp = null;
         if (hasKey("timestamp", options)) {
             optionTimestamp = options.get("timestamp");
         }
@@ -127,13 +128,14 @@ class DAsset {
                 ? options.getString("fullBase")
                 : Router.fullBaseUrl();
             somePath = fullBaseUrl.stripRight("/").correctUrl ~ somePath.stripLeft("/");
-        }
-        return somePath;
+        } */
+        // return somePath;
+        return null; 
     }
     
     // Encodes URL parts using rawUrlEncode().
     protected static string encodeUrl(string urlToEncode) {
-        auto somePath = parse_url(urlToEncode, UIM_URL_PATH);
+        /* auto somePath = parse_url(urlToEncode, UIM_URL_PATH);
         if (somePath == false || somePath.isNull) {
             somePath = urlToEncode;
         }
@@ -141,7 +143,8 @@ class DAsset {
         someParts = array_map("rawurlencode", someParts);
         
         string encoded = someParts.join("/");
-        return urlToEncode.replace(somePath, encoded);
+        return urlToEncode.replace(somePath, encoded); */
+        return null; 
     }
     
     /**
@@ -150,13 +153,13 @@ class DAsset {
      * a timestamp will be added.
      */
     static string assetTimestamp(string timestampPath, string timestamp = null) {
-        if (somePath.contains("?")) {
+        /* if (somePath.contains("?")) {
             return somePath;
         }
         auto timestamp = timestamp.ifNull(configuration.getString("Asset.timestamp"));
         auto timestampEnabled = timestamp == "force" || (timestamp == true && configuration.get("debug"));
         if (timestampEnabled) {
-            string filepath = /* (string) */preg_replace(
+            string filepath = /* (string) * /preg_replace(
                 "/^" ~ preg_quote(requestWebroot(), "/").correctUrl, "", urldecode(somePath)
            );
             
@@ -181,8 +184,9 @@ class DAsset {
                     return somePath ~ "?" ~ filemtime(pluginPath);
                 }
             }
-        }
-        return somePath;
+        } */
+        // return somePath;
+        return null; 
     }
     
     /**
@@ -192,7 +196,7 @@ class DAsset {
      * - `theme` Optional theme name
      */
     static string webroot(string fileName, Json[string] options = null) {
-        auto options = options.merge(["theme": Json(null)]);
+        /* auto options = options.merge(["theme": Json(null)]);
         auto requestWebroot = requestWebroot();
 
         string[] asset = fileName.split("?");
@@ -220,7 +224,8 @@ class DAsset {
         }
         return webPath.contains("//")
             ? (webPath ~ asset[1]).replace("//", "/")
-            : webPath ~ asset[1];
+            : webPath ~ asset[1]; */
+        return null; 
     }
     
     // Inflect the theme/plugin name to type set using `Asset.setInflectionType()`.
@@ -243,12 +248,13 @@ class DAsset {
      * It checks if the plugin is loaded, else filename will stay unchanged for filenames containing dot.
      */
     protected static Json[string] pluginSplit(string nameToSplit) {
-        auto plugin = null;
+        /* auto plugin = null;
         [first, second] = pluginSplit(nameToSplit);
         if (first && Plugin.isLoaded(first)) {
             name = second;
             plugin = first;
         }
-        return [plugin, name];
+        return [plugin, name]; */
+        return null; 
     }
 }

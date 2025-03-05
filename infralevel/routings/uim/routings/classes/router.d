@@ -56,9 +56,9 @@ class DRouter {
   protected static Json[string] _requestContext = null;
 
   // Maintains the request object reference.
-  protected static DServerRequest _request = null;
+  protected static IServerRequest _request = null;
   // Get the current request object.
-  static DServerRequest getRequest() {
+  static IServerRequest getRequest() {
     return _request;
   }
 
@@ -91,7 +91,7 @@ class DRouter {
      * The stack of URL filters to apply against routing URLs before passing the
      * parameters to the route collection.
      */
-  protected static DClosure[] _urlFilters = null;
+  protected static IClosure[] _urlFilters = null;
 
   // Get or set default route class.
   static string defaultRouteClass(string routeclassname = null) {
@@ -122,7 +122,7 @@ class DRouter {
      * Params:
      * \UIM\Http\ServerRequest myrequest request object.
      */
-  static void setRequest(DServerRequest myrequest) {
+  static void setRequest(IServerRequest myrequest) {
     _request = myrequest;
     auto myuri = _request.getUri();
 
@@ -204,7 +204,7 @@ class DRouter {
      * Params:
      * \Closure myfunction The auto to add
      */
-  static void addUrlFilter(Closure myfunction) {
+  static void addUrlFilter(IClosure myfunction) {
     _urlFilters ~= myfunction;
   }
 
@@ -364,7 +364,7 @@ class DRouter {
      * - Cms.Articles.edit
      * - Vendor/Cms.Management/Admin/Articles.view
      */
-  static string pathUrl(string path, Json[string] params = [], bool isFull = false) {
+  static string pathUrl(string path, Json[string] params = null, bool isFull = false) {
     return url(["_path": path] + params, isFull);
   }
 
@@ -442,7 +442,7 @@ class DRouter {
      * \UIM\Http\ServerRequest|array params The params array or
      *   {@link \UIM\Http\ServerRequest} object that needs to be reversed.
      */
-  static Json[string] reverseToArray(DServerRequest /* |array */ params) {
+  static Json[string] reverseToArray(IServerRequest /* |array */ params) {
     /* auto myroute = null;
         if (cast(DServerRequest)params) {
             myroute = params.getAttribute("route");
@@ -483,7 +483,7 @@ class DRouter {
      * keys like "pass", "_matchedRoute" etc. those keys need to be specially
      * handled in order to reverse a params array into a string URL.
      */
-  static string reverse(DServerRequest /* array */ params, bool isFull = false) {
+  static string reverse(IServerRequest /* array */ params, bool isFull = false) {
     auto params = reverseToArray(params);
     return url(params, isFull);
   }
@@ -494,7 +494,7 @@ class DRouter {
      * Will strip the base path off and replace any double /"s.
      * It will not unify the casing and underscoring of the input value.
      */
-  static string normalize(string[] url = "/") {
+  static string normalize(string[] url = ["/"]) {
     /* if (url.isArray) {
             url = url(url);
         }
@@ -550,7 +550,7 @@ class DRouter {
   }
 
   // Create a RouteBuilder for the provided path.
-  static RouteBuilder createRouteBuilder(string path, Json[string] options = null) {
+  static DRouteBuilder createRouteBuilder(string path, Json[string] options = null) {
     Json[string] defaults = createMap!(string, Json)
       .set("routeClass", Json(defaultRouteClass()))
       .set("extensions", Json(_defaultExtensions));
@@ -573,7 +573,7 @@ class DRouter {
   }
 
   // Set the RouteCollection inside the Router
-  static void setRouteCollection(RouteCollection routeCollection) {
+  static void setRouteCollection(DRouteCollection routeCollection) {
     _collection = routeCollection;
   }
 

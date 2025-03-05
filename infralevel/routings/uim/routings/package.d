@@ -10,6 +10,7 @@ mixin(ImportPhobos!());
 
 public { // uim libraries
   import uim.lowlevel;
+  import uim.http;
 }
 
 public { // uim.filesystem libraries

@@ -9,7 +9,7 @@ targetName "uim-jsonbases"
 targetType "library"
 
 dependency "uim-lowlevel" path="../../lowlevel"
-dependency "uim:filesystems" path="../"
+dependency "uim-filesystems" path="../filesystems"
 
 sourcePaths "."
 importPaths "."

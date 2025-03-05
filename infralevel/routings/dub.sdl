@@ -8,6 +8,7 @@ targetType "library"
 targetName "uim-routings"
 
 dependency "uim-lowlevel" path="../../lowlevel"
+dependency "uim-http" path="../http"
 
 sourcePaths "."
 importPaths "."

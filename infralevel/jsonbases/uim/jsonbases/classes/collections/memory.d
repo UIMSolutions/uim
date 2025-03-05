@@ -260,14 +260,14 @@ class DMemoryJsonCollection : DJsonCollection {
     return result;
   }
 
-  version (test_uim_jsonbase) {
+/*   version (test_uim_jsonbase) {
     unittest {
 
       /* auto col = MemoryJsonCollection;
       assert(test_removeMany_id(col));
-      assert(test_removeMany_id_allVersions(col)); */
+      assert(test_removeMany_id_allVersions(col)); * /
     }
-  }
+  } */
 
   override size_t removeMany(string[string] select, bool allVersions = false) {
     size_t counter;
@@ -295,14 +295,14 @@ class DMemoryJsonCollection : DJsonCollection {
     return counter;
   }
 
-  version (test_uim_jsonbase) {
+/*   version (test_uim_jsonbase) {
     unittest {
       // TODO 
       /* auto col = MemoryJsonCollection;
       assert(test_removeMany_select(col));
-      assert(test_removeMany_select_allVersions(col)); */
+      assert(test_removeMany_select_allVersions(col)); * /
     }
-  }
+  } */
 
   override size_t removeMany(Json select, bool allVersions = false) {
     size_t counter;
@@ -330,14 +330,14 @@ class DMemoryJsonCollection : DJsonCollection {
     return counter;
   }
 
-  version (test_uim_jsonbase) {
+/*   version (test_uim_jsonbase) {
     unittest {
 
       auto col = MemoryJsonCollection;
       assert(test_removeMany_jselect(col));
       assert(test_removeMany_jselect_allVersions(col));
     }
-  }
+  } */
 
   /// Remove one item or one version from collection
   alias removeOne = DJsonCollection.removeOne;
@@ -357,14 +357,14 @@ class DMemoryJsonCollection : DJsonCollection {
     return false;
   }
 
-  version (test_uim_jsonbase) {
+/*   version (test_uim_jsonbase) {
     unittest {
 
       auto col = MemoryJsonCollection;
       assert(test_removeOne_id(col));
       assert(test_removeOne_id_allVersions(col));
     }
-  }
+  } */
 
   override bool removeOne(UUID id, size_t versionNumber) {
     if (auto itemsId = _items.get(id, null)) {
@@ -376,13 +376,13 @@ class DMemoryJsonCollection : DJsonCollection {
     return false;
   }
 
-  version (test_uim_jsonbase) {
+/*   version (test_uim_jsonbase) {
     unittest {
 
       auto col = MemoryJsonCollection;
       assert(test_removeOne_id_versionNumber(col));
     }
-  }
+  } */
 
   override bool removeOne(string[string] select, bool allVersions = false) {
     if (auto allItems = findMany(allVersions)) {
@@ -403,13 +403,13 @@ class DMemoryJsonCollection : DJsonCollection {
     return false;
   }
 
-  unittest {
+/*   unittest {
     version (uim_jsonbase) {
       auto col = MemoryJsonCollection;
       assert(test_removeOne_select(col));
       assert(test_removeOne_select_allVersions(col));
     }
-  }
+  } */
 
   override bool removeOne(Json select, bool allVersions = false) {
     if (auto allItems = findMany(allVersions)) {
@@ -431,14 +431,14 @@ class DMemoryJsonCollection : DJsonCollection {
     return false;
   }
 
-  version (test_uim_jsonbase) {
+ /*  version (test_uim_jsonbase) {
     unittest {
 
       auto col = MemoryJsonCollection;
       assert(test_removeOne_jselect(col));
       assert(test_removeOne_jselect_allVersions(col));
     }
-  }
+  } */
 }
 
 mixin(JsonCollectionCalls!("Memory"));

@@ -15,7 +15,7 @@ public {
 }
 
 public { // uim libraries
-  import import uim.baselevel;
+  import import uim.lowlevel;
   import uim.errors;
 }
 

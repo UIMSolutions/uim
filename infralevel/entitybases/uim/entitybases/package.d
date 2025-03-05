@@ -13,7 +13,7 @@ public {
 }
 
 public { // Required uim libraries 
-  import uim.baselevel;
+  import uim.lowlevel;
   import uim.filesystems;
   import uim.models;
 }

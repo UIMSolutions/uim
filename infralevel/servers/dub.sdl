@@ -1,11 +1,11 @@
-name "uim-orm"
-description "ORM library"
+name "uim-servers"
+description "Library for virtualization"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-orm"
+targetName "uim-servers"
 
 dependency "uim-lowlevel" path="../../lowlevel"
 
@@ -14,8 +14,8 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_orm" {
-	versions "test_uim_orm"
+configuration "test_uim_servers" {
+	versions "test_uim_servers"
 }
 configuration "test_all" {
 	versions "test_uim_core" "test_uim_oop"

@@ -13,7 +13,7 @@ public {
 }
 
 public {
-  import import uim.baselevel;
+  import import uim.lowlevel;
   import uim.errors;
   import uim.filesystems;
 

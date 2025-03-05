@@ -9,8 +9,9 @@ description "D-Library for managing entity databases"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-dependency "uim:core" path="../baselevel/"
-dependency "uim:oop" path="../baselevel/"
+dependency "core" path="../../baselevel/core"
+dependency "oop" path="../../baselevel/oop"
+
 dependency "uim:filesystems" path="../"
 dependency "uim:models" path="../"
 targetType "library"

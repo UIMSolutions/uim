@@ -12,8 +12,9 @@ dependency "vibe-d" version="~>0.10.2"
 targetName "uim-filesystems"
 targetType "library"
 
-dependency "uim:core" path="../baselevel/"
-dependency "uim:oop" path="../baselevel/"
+dependency "core" path="../../baselevel/core"
+dependency "oop" path="../../baselevel/oop"
+
 dependency "uim:errors" path="../"
 
 sourcePaths "."

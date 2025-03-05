@@ -1,0 +1,21 @@
+name "genetics"
+homepage "https://www.sicherheitsschmiede.de/"
+license "Apache-2.0"
+copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
+authors "Ozan Nurettin Süel"
+
+targetName "uim-genetics"
+targetType "library"
+
+description "D-Library for genetic algorithms"
+
+dependency "colored" version="~>0.0.31"
+dependency "vibe-d" version="~>0.10.2"
+
+dependency "uim:core" path="../base-level/"
+dependency "uim:oop" path="../base-level/"
+dependency "uim:models" path="../"
+
+sourcePaths "."
+importPaths "."
+

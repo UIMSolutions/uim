@@ -1,0 +1,2 @@
+module uim.ai.exceptions;
+

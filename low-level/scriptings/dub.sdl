@@ -1,5 +1,5 @@
 name "scriptings"
-description "V in MVC"
+description "Library for scripting"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
@@ -10,8 +10,8 @@ targetName "uim-scriptings"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-dependency "uim:core" path="../base-level/"
-dependency "uim:oop" path="../base-level/"
+dependency "uim:core" path="../../base-level/"
+dependency "uim:oop" path="../../base-level/"
 dependency "uim:errors" path="../"
 
 sourcePaths "."

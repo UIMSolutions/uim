@@ -1,11 +1,11 @@
-name "base-level"
+name "high-level"
 description "UIM base library"
-homepage "https://www.sueel.de"
+homepage "https://www.sueel.de/uim"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-targetName "uim-baselevel"
+targetName "uim-highlevel"
 targetType "library"
 
 /* dependency "uim:baselevel:core" version="*"

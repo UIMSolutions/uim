@@ -22,6 +22,7 @@
 		"silly": "1.1.1",
 		"stdx-allocator": "2.77.5",
 		"taggedalgebraic": "0.11.23",
+		"uim": "25.2.1",
 		"undead": "1.1.8",
 		"unit-threaded": "2.2.1",
 		"vibe-container": "1.4.2",

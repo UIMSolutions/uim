@@ -13,6 +13,9 @@ public {
 }
 
 public {
-    import uim.core;
-    import uim.oop;
+    import uim.baselevel;
+    import uim.lowlevel;
+    import uim.infralevel;
+    import uim.plattform;
+    import uim.highlevel;
 }

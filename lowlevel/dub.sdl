@@ -1,4 +1,4 @@
-name "low-level"
+name "lowlevel"
 description "UIM framework for building web applications"
 homepage "https://"
 license "Apache-2.0"
@@ -8,10 +8,10 @@ authors "Ozan Nurettin Süel"
 targetName "uim-lowlevel"
 targetType "library"
 
-dependency "base-level" path="../base-level/"
+dependency "baselevel" path="../baselevel/"
 
-sourcePaths "."
-importPaths "."
+/* sourcePaths "."
+importPaths "." */
 
 /* dependency ":caches" version="*"
 dependency ":commands" version="*"

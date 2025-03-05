@@ -9,6 +9,13 @@ import uim.commands;
 
 @safe:
 
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
+
 // Command for interactive I18N management.
 class DI18nCommand : DCommand {
     mixin(CommandThis!("I18n"));

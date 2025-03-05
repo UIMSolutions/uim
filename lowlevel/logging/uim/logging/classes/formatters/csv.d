@@ -8,6 +8,13 @@ module uim.logging.classes.formatters.csv;
 import uim.logging;
 
 @safe:
+
+version (test_uim_logging) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 class DCsvLogFormatter : DLogFormatter {
   mixin(LogFormatterThis!("Csv"));
 

@@ -9,6 +9,13 @@ import uim.commands;
 
 @safe:
 
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
+
 // Language string extractor
 class DI18nExtractCommand : DCommand {
   mixin(CommandThis!("I18nExtract"));

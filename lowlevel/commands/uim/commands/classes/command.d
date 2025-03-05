@@ -6,7 +6,14 @@
 module uim.commands.classes.command;
 
 import uim.commands;
+
 @safe:
+
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
 
 // Base class for commands
 class DCommand : UIMObject, ICommand {

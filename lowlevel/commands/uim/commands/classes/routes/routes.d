@@ -9,6 +9,13 @@ import uim.commands;
 
 @safe:
 
+version (test_uim_commands) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
+
 // Provides interactive CLI tools for routing.
 class DRoutesCommand : DCommand {
     mixin(CommandThis!("Routes"));

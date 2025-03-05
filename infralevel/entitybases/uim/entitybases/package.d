@@ -7,11 +7,6 @@ module uim.entitybases;
 
 mixin(ImportPhobos!());
 
-// Dub
-public {
-  import vibe.d;
-}
-
 public { // Required uim libraries 
   import uim.lowlevel;
   import uim.filesystems;

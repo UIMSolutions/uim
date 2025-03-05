@@ -7,18 +7,12 @@ module uim.databases;
 
 mixin(ImportPhobos!());
 
-// Dub
 public {
-  import colored;
-  import vibe.d;
-  import vibe.http.session : HttpSession = Session;
   import ddbc;
 }
 
 public { // uim libraries
-  import import uim.lowlevel;
-  import uim.consoles;
-  import uim.logging;
+  import uim.lowlevel;
 }
 
 public { // uim.filesystem libraries

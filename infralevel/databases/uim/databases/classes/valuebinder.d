@@ -52,7 +52,7 @@ class DValueBinder : UIMObject {
   unittest {
     auto binder = ValueBinder;
     binder.bind(":ABC", Json(1), "int");
-    writeln(binder.bindings);
+    // writeln(binder.bindings);
   }
 
   // Get verbose debugging data.
@@ -65,7 +65,7 @@ class DValueBinder : UIMObject {
   unittest {
     auto binder = ValueBinder;
     binder.bind(":ABC", Json(1), "int");
-    writeln(binder.debugInfo);
+    // writeln(binder.debugInfo);
   }
 
   /**
@@ -116,7 +116,7 @@ class DValueBinder : UIMObject {
     item2["value"] = "cde";
 
     binder.generateManyNamed(["XYZ": item1, "CDE": item2]);
-    writeln(binder.bindings);
+    // writeln(binder.bindings);
   }
 }
 

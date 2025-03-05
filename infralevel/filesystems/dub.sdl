@@ -10,7 +10,6 @@ targetName "uim-filesystems"
 targetType "library"
 
 dependency "uim-lowlevel" path="../../lowlevel"
-dependency "uim-errors" path="../errors"
 
 sourcePaths "."
 importPaths "."

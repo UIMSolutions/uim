@@ -7,11 +7,7 @@ license "Apache-2.0"
 targetType "library"
 targetName "uim-http"
 
-dependency "colored" version="~>0.0.31"
-dependency "vibe-d" version="~>0.10.2"
-
 dependency "uim-lowlevel" path="../../lowlevel"
-dependency "uim-errors" path="../errors"
 
 sourcePaths "."
 importPaths "."

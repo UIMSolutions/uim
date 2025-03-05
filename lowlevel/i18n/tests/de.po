@@ -1,0 +1,60 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PO File Editor Demo\n"
+"POT-Creation-Date: 2024-11-19 18:12+0100\n"
+"PO-Revision-Date: 2024-11-19 18:12+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Source-Language: en\n"
+"X-Generator: PO File Editor https://pofile.net/free-po-editor\n"
+
+msgid "Home page"
+msgstr "Startseite"
+
+msgid "About us"
+msgstr "Über uns"
+
+msgid "Contact us"
+msgstr "Kontaktiere uns"
+
+# Source text has been changed, please update the translation.
+#, fuzzy
+msgid "Welcome %s!"
+msgstr "Willkommen %s!"
+
+msgid "Total amount: %d"
+msgstr "Gesamtbetrag: %d"
+
+msgid "You have successfully completed the task!"
+msgstr "Sie haben die Aufgabe erfolgreich abgeschlossen!"
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Back"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Revert"
+msgstr ""
+
+msgid "Continue"
+msgstr ""
+
+#. This is an example of a plural message
+msgid "%d file"
+msgid_plural "%d files"
+msgstr[0] "%d Datei"
+msgstr[1] "%d Dateien"
+
+#. Common usage of the 'Confirm'
+msgctxt "common"
+msgid "Confirm"
+msgstr "Bestätigen Sie"

@@ -1,0 +1,34 @@
+module uim.consoles.tests.constraints.contents.containrow;
+
+import uim.consoles;
+
+@safe:
+
+/* * ContentsContainRow
+ *
+ * @internal
+ */
+class DContentsContainRow : DContentsRegExp {
+    /**
+     * Checks if contents contain expected
+     * Params:
+     * Json other Row
+     */
+    bool matches(Json other) {
+        string[] row = other.map!(cell => preg_quote(cell, "/")).array;
+        
+        string cells = row.join("\s+\|\s+", );
+        somePattern = "/" ~ cells.correctUrl;
+
+        return preg_match(somePattern, this.contents) > 0;
+    }
+    
+    // Assertion message
+    string toString() {
+        return "row was in %s".format(this.output);
+    }
+    
+    string failureDescription(Json expectedContent) {
+        return "`" ~ _exporter().shortenedExport(expectedContent) ~ "` " ~ toString();
+    } 
+}

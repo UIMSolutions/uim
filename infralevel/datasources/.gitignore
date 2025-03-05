@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/datasources
+datasources.so
+datasources.dylib
+datasources.dll
+datasources.a
+datasources.lib
+datasources-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

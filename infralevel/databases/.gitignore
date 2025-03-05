@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/databases
+databases.so
+databases.dylib
+databases.dll
+databases.a
+databases.lib
+databases-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst

@@ -10,12 +10,15 @@ targetname "uim-commands"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-dependency "core" path="../../baselevel/core"
-dependency "oop" path="../../baselevel/oop"
+dependency "colored" version="~>0.0.31"
+dependency "vibe-d" version="~>0.10.2"
 
-dependency "uim:consoles" path="../"
-dependency "uim:events" path="../"
-dependency "uim:i18n" path="../"
+dependency "uim-baselevel" path="../../baselevel"
+
+dependency "uim-errors" path="../errors"
+dependency "uim-consoles" path="../consoles"
+dependency "uim-events" path="../events"
+dependency "uim-i18n" path="../i18n"
 
 sourcePaths "."
 importPaths "."

@@ -40,11 +40,11 @@ class DError : UIMObject, IError {
 
         // Map error levels to log levels.
         _logMap = [
-            "error": LogLevels.error,
-            "warning": LogLevels.warn,
-            "notice": LogLevels.trace,
-            "strict": LogLevels.trace,
-            "deprecated": LogLevels.trace,
+            "error": LogLevels.ERROR,
+            "warning": LogLevels.WARNING,
+            "notice": LogLevels.TRACE,
+            "strict": LogLevels.TRACE,
+            "deprecated": LogLevels.TRACE,
         ];
 
         return true;
@@ -80,7 +80,7 @@ class DError : UIMObject, IError {
     // #region logLevel
     // Get the mapped LOG_ constant.
     LogLevels logLevel() {
-        return _logMap.get(label(), LogLevels.error);
+        return _logMap.get(label(), LogLevels.ERROR);
     }
     // #endregion logLevel
 
@@ -179,7 +179,7 @@ unittest {
 
     assert(error.initialize());
     assert(error.label() == "error");
-    assert(error.logLevel() == LogLevels.error);
+    assert(error.logLevel() == LogLevels.ERROR);
     assert(error.message == null);
     assert(error.fileName == null);
     assert(error.lineNumber == 0);
@@ -189,7 +189,7 @@ unittest {
     error.message = "This is a test message";
     assert(error.message == "This is a test message");
     assert(error.label() == "error");
-    assert(error.logLevel() == LogLevels.error);
+    assert(error.logLevel() == LogLevels.ERROR);
     assert(error.fileName == null);
     assert(error.lineNumber == 0);
     assert(error.trace() == null);
@@ -198,7 +198,7 @@ unittest {
     error.fileName = "test.d";
     assert(error.message == "This is a test message");
     assert(error.label() == "error");
-    assert(error.logLevel() == LogLevels.error);
+    assert(error.logLevel() == LogLevels.ERROR);
     assert(error.fileName == "test.d");
     assert(error.lineNumber == 0);
     assert(error.trace() == null);
@@ -207,7 +207,7 @@ unittest {
     error.lineNumber = 42;
     assert(error.message == "This is a test message");
     assert(error.label() == "error");
-    assert(error.logLevel() == LogLevels.error);
+    assert(error.logLevel() == LogLevels.ERROR);
     assert(error.fileName == "test.d");
     assert(error.lineNumber == 42);
     assert(error.trace() == null);

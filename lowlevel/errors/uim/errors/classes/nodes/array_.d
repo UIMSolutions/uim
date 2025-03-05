@@ -19,7 +19,7 @@ class DArrayErrorNode : DErrorNode {
 
   // Add nodes
   void add(DArrayItemErrorNode[] nodes...) {
-    add(nodes);
+    add(nodes.dup);
   }
 
   void add(DArrayItemErrorNode[] nodes) {

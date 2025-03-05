@@ -1,0 +1,35 @@
+name "apps"
+description "V in MVC"
+authors "ONS"
+copyright "Copyright © 2018 - 2025, ONS"
+license "Apache-2.0"
+
+targetType "library"
+targetName "uim-apps"
+
+dependency "colored" version="~>0.0.31"
+dependency "vibe-d" version="~>0.10.2"
+
+dependency "uim:core" path="../base-level/"
+dependency "uim:oop" path="../base-level/"
+dependency "uim:mvc" path="../"
+dependency "uim:controllers" path="../"
+dependency "uim:models" path="../"
+dependency "uim:views" path="../"
+
+sourcePaths "."
+importPaths "."
+
+targetType "library"
+
+sourcePaths "."
+importPaths "."
+
+// configuration "default" {}
+
+configuration "test_uim_apps" {
+	versions "test_uim_apps"
+}
+configuration "test_all" {
+	versions "test_uim_core" "test_uim_oop"
+}

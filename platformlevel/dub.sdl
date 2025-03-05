@@ -1,0 +1,11 @@
+name "platformlevel"
+description "UIM framework for building web applications"
+homepage "https://www.sueel.de/uim/"
+license "Apache-2.0"
+copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
+authors "Ozan Nurettin Süel"
+
+targetName "uim-platformlevel"
+targetType "library"
+
+dependency "infralevel" path="../infralevel/"

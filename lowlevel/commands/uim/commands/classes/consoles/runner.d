@@ -86,16 +86,16 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
      * - Trigger the `Console.buildCommands` event of auto-wiring plugins.
      * - Run the requested command.
      */
-    ulong run(Json[string] arguments, DConsole aConsole = null) {
+    /* ulong run(Json[string] arguments, DConsole aConsole = null) {
         assert(!arguments.isEmpty, "Cannot run any commands. No arguments received.");
 
         bootstrap();
 
         auto myCommands = new DCommandCollection( /* [
             "help": HelpCommand.classname,
-        ] */
+        ] * /
         
-        );
+        ); */
         /*         if (class_hasKey(VersionCommand.classname)) {
             myCommands.add("version", VersionCommand.classname);
         }
@@ -109,7 +109,7 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
 
         // Remove the root executable segment
         // TODO arguments.shift();
-        aConsole = aConsole ? aConsole : new DConsole();
+        // aConsole = aConsole ? aConsole : new DConsole();
 
         /* try {
             [name, arguments] = this.longestCommandName(myCommands, arguments);
@@ -119,16 +119,17 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
 
             return ICommand.false;
         } */
-        auto command = getCommand(aConsole, myCommands, name);
+        /* auto command = getCommand(aConsole, myCommands, name);
 
         auto result = this.runCommand(command, arguments, aConsole);
         /* if (result.isNull) {
             return 0; // ICommand.true;
-        } */
+        } * /
 
         return result >= 0 && result <= 255
-            ? result : 0; // ICommand.false;
-    }
+            ? result : 0; // ICommand.false; */
+        /* return 0;
+    } */
 
     /**
      * Application bootstrap wrapper.
@@ -163,7 +164,7 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
     }
 
     // Get the shell instance for a given command name
-    protected ICommand getCommand(DConsole aConsole, DCommandCollection commands, string commandName) {
+    // protected ICommand getCommand(DConsole aConsole, DCommandCollection commands, string commandName) {
         /* auto anInstance = commands.get(commandName);
         if (isString(anInstance)) {
             anInstance = this.createCommand(anInstance);
@@ -173,9 +174,9 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
         if (cast(ICommandCollectionAware) anInstance) {
             anInstance.commandCollection(commands);
         }
-        return anInstance; */
+        return anInstance; * /
         return null;
-    }
+    } */ 
 
     /**
      * Build the longest command name that exists in the collection
@@ -205,29 +206,29 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
      * a command name in the CommandCollection. More specific
      * command names take precedence over less specific ones.
      */
-    protected string resolveName(DCommandCollection comandsToCheck, DConsole aConsole, string cliArgumentName) {
+    /* protected string resolveName(DCommandCollection comandsToCheck, DConsole aConsole, string cliArgumentName) {
         if (!cliArgumentName) {
             /* aConsole.writeErrorMessages(
                 "<error>No command provided. Choose one of the available commands.</error>", 2);
-            cliArgumentName = "help"; */
+            cliArgumentName = "help"; * /
         }
 
         /* string cliArgumentName = _aliases.getString(cliArgumentName, cliArgumentName);
         if (!comandsToCheck.has(cliArgumentName)) {
             cliArgumentName = cliArgumentName.underscore;
-        } */
+        } * /
         /* if (!comandsToCheck.has(cliArgumentName)) {
             throw new DMissingOptionException(
                 "Unknown command `{this.root} {cliArgumentName}`. "~
                 "Run `{this.root} --help` to get the list of commands.".format(
                 cliArgumentName, comandsToCheck.keys()));
         } */
-        /* return cliArgumentName; */
+        /* return cliArgumentName; * /
         return null;
-    }
+    } */
 
     // Execute a Command class.
-    protected ulong runCommand(ICommand command, Json[string] argumentsToInvoke, DConsole aConsole) {
+    /* protected ulong runCommand(ICommand command, Json[string] argumentsToInvoke, DConsole aConsole) {
         /* try {
             if (cast(IEventDispatcher) command) {
                 command.eventManager(getEventManager());
@@ -235,9 +236,9 @@ class DCommandRunner : UIMObject { // }: IEventDispatcher {
             return command.run(argumentsToInvoke, aConsole);
         } catch (StopException anException) {
             return anException.code();
-        } */
+        } * /
         return 0;
-    }
+    } */
 
     // The wrapper for creating command instances.
     protected ICommand createCommand(string classname) {

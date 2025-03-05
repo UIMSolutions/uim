@@ -15,8 +15,9 @@ version (test_uim_consoles) {
 }
 
 
-bool testCommand(IConsoleCommand commandToTest) {
+/* bool testCommand(IConsoleCommand commandToTest) {
     assert(commandToTest !is null, "In testCommand: commandToTest is null");
 
     return true;
 }
+ */

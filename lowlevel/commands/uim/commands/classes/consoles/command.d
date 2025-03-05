@@ -26,14 +26,14 @@ version (test_uim_commands) {
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
-class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
+class DConsoleCommand : DCommand /* , IEventDispatcher */ {
     mixin(CommandThis!("Console"));
     //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
     /* mixin TEventDispatcher;
     mixin TValidatorAware; */
 
     // Get the command description.
-    static string description() {
+    /* static string description() {
         return null;
     }
 
@@ -48,7 +48,7 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
     protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToDefine) {
         return null;
         // TODO return parserToDefine;
-    }
+    } * /
 
     /**
      * Get the command name.
@@ -57,11 +57,11 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
      * For e.g. for a command with class name `UpdateTableCommand` the default
      * name returned would be `'update_table'`.
      */
-    static string defaultName() {
+    /* static string defaultName() {
         /* size_t pos = class.indexOf("\\");
         /** @psalm-suppress PossiblyFalseOperand * /
         string name = class.subString(pos + 1,  - 7);
-        return name.underscore; */
+        return name.underscore; * /
         return null;
     }
 
@@ -69,7 +69,7 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
      * Get the option parser.
      *
      * You can override buildOptionParser() to define your options & arguments.
-     */
+     * /
     DConsoleOptionParser getOptionParser() {
         /* [root, name] = split(" ", _name, 2);
         auto aParser = new DConsoleOptionParser buildOptionParser(name);
@@ -77,7 +77,7 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
         aParser.description(getDescription());
         aParser = this.buildOptionParser(aParser);
 
-        return aParser; */
+        return aParser; * /
         return null;
     }
 
@@ -112,7 +112,7 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
         auto result = execute(arguments, console);
         dispatchEvent("Command.afterExecute", MapHelper.create!(string, Json)
             .set("args", arguments)
-            .set("result", result)); */
+            .set("result", result)); * /
 
         return 0; // result;
     }
@@ -124,7 +124,7 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
             format = "xml";
             console.setOutputAs(DOutput.RAW);
         }
-        console.writeln(optionParser.help(format)); */
+        console.writeln(optionParser.help(format)); * /
     }
 
     // Set the output level based on the Json[string].
@@ -137,7 +137,7 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
         if (arguments.hasKey("verbose")) {
             console.level(DConsole.VERBOSE);
             console.setLoggers(DataGetConsole.VERBOSE);
-        } */
+        } * /
     }
 
     // Implement this method with your command`s logic.
@@ -156,12 +156,12 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
      * If you are using a string command name, that command`s dependencies
      * will not be resolved with the application container. Instead you will
      * need to pass the command as an object with all of its dependencies.
-     */
+     * /
     size_t executeCommand(string commandclassname, Json[string] commandArguments = null, DConsole console = null) {
         /* assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
-        ); */
+        ); * /
 
         // auto newCommand = new command();
         // return executeCommand(ICommand acommand, Json[string] commandArguments = null,  ? DConsole console = null);
@@ -176,7 +176,8 @@ class DConsoleCommand : DCommand, IConsoleCommand /* , IEventDispatcher */ {
             }
             catch (StopException anException) {
                 return anException.code();
-            } */
+            } * /
         return 0;
-    }
+    } */
 }
+

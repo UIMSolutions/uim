@@ -9,7 +9,7 @@ description "D-Library for filesystem management"
 targetname "uim-filesystems"
 targetType "library"
 
-dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-lowlevel" path="../../lowlevel"
 dependency "uim-errors" path="../errors"
 
 sourcePaths "."

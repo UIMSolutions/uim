@@ -9,7 +9,7 @@ description "D-Library for managing entity databases"
 targetType "library"
 targetName "uim-entitybases"
 
-dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-lowlevel" path="../../lowlevel"
 dependency "uim-errors" path="../errors"
 
 dependency "uim:filesystems" path="../"

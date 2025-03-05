@@ -17,10 +17,10 @@ dependency "uim-containers" path="./containers"
 dependency "uim-errors" path="./errors"
 dependency "uim-events" path="./events"
 dependency "uim-i18n" path="./i18n"
-dependency "uim-languages" path="./languages"
+/* dependency "uim-languages" path="./languages" */
 dependency "uim-logging" path="./logging"
 dependency "uim-scriptings" path="./scriptings"
-dependency "uim-securities" path="./securities"
+dependency "uim-securities" path="./securities" 
 
 sourceFiles "./uim/lowlevel.d"
 /*

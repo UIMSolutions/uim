@@ -17,7 +17,7 @@ version (test_uim_commands) {
 // Print out command list
 class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
   // The command collection to get help on.
-  protected DCommandCollection _commands;
+ /*  protected DCommandCollection _commands;
   void commandCollection(DCommandCollection newCommands) {
     _commands = newCommands;
   }
@@ -34,7 +34,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             return true;
         }
         asText(console, commandIterator);
-    */
+    * /
     return true;
   }
 
@@ -43,11 +43,11 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     string[][string] inverts = null;
     /* commands.byKeyValue
       .map!(nameCommand => nameCommand.value.classname)
-      .each!(classname => inverts.require(classname, null)); */
+      .each!(classname => inverts.require(classname, null)); * /
     // inverts[classname).concat(name);
 
     auto anGrouped = null;
-    /* auto plugins = Plugin.loaded(); */
+    /* auto plugins = Plugin.loaded(); * /
     inverts.byKeyValue.each!((classname) {
       // preg_match("/^(.+)\\\\Command\\\\/",  classname, matches);
       // Probably not a useful class
@@ -73,13 +73,13 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
                     ?  classname.getDescription()
                     : ""
             ];
- */
+ * /
     });
     // ksort(anGrouped);
 
     /* outputPaths(console);
         console.out("<info>Available Commands:</info>", 2);
- */
+ * /
     /* foreach (prefix, names;  anGrouped) {
             console.out("<info>%s</info>:".format(prefix));
             auto sortedNames = names.sort;
@@ -90,11 +90,11 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
                 }
             }
              console.out("");
-        } */
+        } * /
     string root = rootName();
     /*        console.out("To run a command, type <info>`{root} command_name [args|options]`</info>");
         console.out("To get help on a specific command, type <info>`{root} command_name --help`</info>", 2);
- */
+ * /
   }
 
   // Output relevant paths if defined
@@ -114,19 +114,19 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         }
         if (!count(myPaths)) {
             return;
-        } */
+        } * /
     /*         console.out("<info>Current Paths:</info>", 2);
         myPaths.each!(kv => console.out("* %s: %s".format(kv.key, kv.value)));
-         console.out(""); */
+         console.out(""); * /
   }
 
   // Output as XML
   protected void asXml(DConsole console, DCommand[string] commands) {
     STRINGAA names;
     /* commands.byKeyValue
-            .each!(nameCommand => names[nameCommand.key] = nameCommand.value); */
+            .each!(nameCommand => names[nameCommand.key] = nameCommand.value); * /
 
-    /*         asXml(console, names); */
+    /*         asXml(console, names); * /
   }
 
   /* protected void asXml(DConsole console, string[string] commandNames) {
@@ -136,12 +136,12 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
 
         /*        console.setOutputAs(DOutput.RAW);
         console.out(castto!string(xmlShells.saveXML())); * /
-    } */
+    } * /
 
   // TODO
   /*    void addCommandToShells(DSimpleXMLElement shells, string commandName, DCommand command) {
         addCommandToShells(shells, commandName, command.classname);
-    } */
+    } * /
 
   /* void addCommandToShells(DSimpleXMLElement shells, string commandName, string commandclassname) {
         auto shell = shells.addChild("shell");
@@ -149,7 +149,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
         shell.addAttribute("call_as", commandName);
         shell.addAttribute("provider", commandclassname);
         shell.addAttribute("help", commandName ~ " -h");
-    } */
+    } * /
 
   // Gets the option parser instance and configurations it.
   override protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToBuild) {
@@ -157,10 +157,10 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
 
         auto addOption = Json.emptyObject;
         addOption.set("help", "Get the listing as XML.");
-        addOption.set("boolean", true); */
-    /*         parserToBuild.addOption("xml", addOption); */
+        addOption.set("boolean", true); * /
+    /*         parserToBuild.addOption("xml", addOption); * /
 
     // return parserToBuild;
     return null;
-  }
+  } */
 }

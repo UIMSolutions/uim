@@ -10,7 +10,7 @@ targetname "uim-datasources"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-lowlevel" path="../../lowlevel"
 dependency "uim-errors" path="../errors"
 
 sourcePaths "."

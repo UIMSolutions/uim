@@ -8,7 +8,7 @@ authors "Ozan Nurettin Süel"
 targetname "uim-jsonbases"
 targetType "library"
 
-dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-lowlevel" path="../../lowlevel"
 dependency "uim-errors" path="../errors"
 
 dependency "uim:errors" path="../"

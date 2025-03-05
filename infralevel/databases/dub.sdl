@@ -13,7 +13,7 @@ dependency "vibe-d" version="~>0.10.2"
 dependency "uim:logging" path="../"
 dependency "ddbc" version="~>0.7.0"
 targetType "library"
-targetname "uim-databases"
+targetName "uim-databases"
 sourcePaths "." "."
 importPaths "." "."
 configuration "test_uim_databases" {

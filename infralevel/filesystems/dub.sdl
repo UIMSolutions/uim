@@ -6,7 +6,7 @@ authors "Ozan Nurettin Süel"
 
 description "D-Library for filesystem management"
 
-targetname "uim-filesystems"
+targetName "uim-filesystems"
 targetType "library"
 
 dependency "uim-lowlevel" path="../../lowlevel"

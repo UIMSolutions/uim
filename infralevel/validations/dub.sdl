@@ -5,7 +5,7 @@ copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetname "uim-validations"
+targetName "uim-validations"
 
 dependency "uim-baselevel" path="../../baselevel"
 dependency "uim-lowlevel" path="../../lowlevel"

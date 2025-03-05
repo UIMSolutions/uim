@@ -5,7 +5,7 @@ copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetname "uim-routings"
+targetName "uim-routings"
 
 dependency "uim-lowlevel" path="../../lowlevel"
 dependency "uim-errors" path="../errors"

@@ -44,7 +44,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
         /* label = error.label();
         level = match (label) {
             "strict": LogLevels.trace,
-            "deprecated": LogLevel.debug__,
+            "deprecated": LogLevels.debug__,
             default: label,
         };
 

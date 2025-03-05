@@ -10,9 +10,10 @@ targetName "uim-logging"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-dependency "uim:core" path="../base-level/"
-dependency "uim:oop" path="../base-level/"
-dependency "uim:consoles" path="../"
+dependency "core" path="../../baselevel/core"
+dependency "oop" path="../../baselevel/oop"
+
+dependency "consoles" path="../consoles"
 
 sourcePaths "."
 importPaths "."

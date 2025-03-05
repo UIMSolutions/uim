@@ -14,8 +14,7 @@ public {
 }
 
 public { // uim libraries
-  import uim.core;
-  import uim.oop;
+  import uim.baselevel;
   import uim.mvc;
 }
 

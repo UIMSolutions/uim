@@ -12,8 +12,9 @@ public {
     import std.exception;
 }
 
-/* public {
-    import uim.core;
-    import uim.oop;
+public {
+    import uim.baselevel;
+    import uim.lowlevel;
+    import uim.infralevel;
+    import uim.platformlevel;
 }
- */

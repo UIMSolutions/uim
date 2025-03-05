@@ -5,7 +5,7 @@
 *****************************************************************************************************************/
 module uim.http.interfaces.requesthandler;
 
-import uim.oop;
+import uim.http;
 
 @safe:
 

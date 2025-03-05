@@ -5,7 +5,7 @@
 *****************************************************************************************************************/
 module uim.commands.mixins.command;
 
-import uim.oop;
+import uim.commands;
 @safe: 
 
 string commandThis(string name = null) {

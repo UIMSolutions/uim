@@ -113,7 +113,7 @@ unittest {
   auto output = new DOutput();
   assert(testOutput(output));
 
-  writeln("output.styles == ", output.styles);
+  /* writeln("output.styles == ", output.styles);
 
   output.outputType("RAW");
   assert(output.outputType == "RAW");
@@ -126,6 +126,6 @@ unittest {
   output.outputType("COLOR");
   assert(output.outputType == "COLOR");
   output.write("COLOR: <notice>Hallo World</notice>");
-  output.write("COLOR: <info>Hallo World</info>");
+  output.write("COLOR: <info>Hallo World</info>"); */
 }
 

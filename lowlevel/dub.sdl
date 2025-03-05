@@ -10,23 +10,20 @@ targetType "library"
 
 dependency "baselevel" path="../baselevel/"
 
-/* sourcePaths "."
-importPaths "." */
+dependency "uim-caches" version="*"
+dependency "uim-commands" version="*"
+dependency "uim-consoles" version="*"
+dependency "uim-containers" version="*"
+dependency "uim-errors" version="*"
+dependency "uim-events" version="*"
+dependency "uim-i18n" version="*"
+dependency "uim-languages" version="*"
+dependency "uim-logging" version="*"
+dependency "uim-scriptings" version="*"
+dependency "uim-securities" version="*"
 
-/* dependency ":caches" version="*"
-dependency ":commands" version="*"
-dependency ":consoles" version="*"
-dependency ":containers" version="*"
-dependency ":errors" version="*"
-dependency ":events" version="*"
-dependency ":i18n" version="*"
-dependency ":languages" version="*"
-dependency ":logging" version="*"
-dependency ":scriptings" version="*"
-dependency ":securities" version="*"
-
-sourceFiles "source/uim/all.d"
-
+sourceFiles "./uim/lowlevel.d"
+/*
 subPackage "caches"
 subPackage "commands"
 subPackage "consoles"

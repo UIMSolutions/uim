@@ -59,14 +59,14 @@ class DSysLogger : DLogger {
             ) */;
 
         _levelMap = [
-            "emergency": LogLevels.fatal,
-            "alert": LogLevels.warn,
-            "critical": LogLevels.critical,
-            "error": LogLevels.error,
-            "warning": LogLevels.warn,
-            "notice": LogLevels.trace,
-            "info": LogLevels.info,
-            "debug": LogLevels.debug_,
+            "emergency": LogLevels.FATAL,
+            "alert": LogLevels.WARNING,
+            "critical": LogLevels.CRITICAL,
+            "error": LogLevels.ERROR,
+            "warning": LogLevels.WARNING,
+            "notice": LogLevels.TRACE,
+            "info": LogLevels.INFO,
+            "debug": LogLevels.DEBUG,
         ];
 
         return true;
@@ -88,7 +88,7 @@ class DSysLogger : DLogger {
            /* _open(configuration.get("prefix"), configuration.get("flag"), configuration.get("facility"));
            _isopen = true; */
         }
-        auto priority = LogLevels.debug_;
+        auto priority = LogLevels.DEBUG;
         /* if (_levelMap.hasKey(severityLevel)) {
             priority = _levelMap[level];
         } */

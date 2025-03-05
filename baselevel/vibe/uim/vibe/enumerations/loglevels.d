@@ -9,9 +9,10 @@ enum LogLevels : string {
   WARNING = "warning", // Unexpected condition that could indicate an error but has no direct consequences
   NOTICE = "notice",
   INFO = "info", // Informational message
-	DEBUG = "debug", 
+	DEBUG = "debug",     // Developer information useful for algorithm debugging
   TRACE = "trace", // Information for locating events when no useful stack traces are available
   DIAGNOSTIC = "diagnostic", // Extended information (e.g. for more detailed error information)
+	FATAL = "fatal", // Error that forces the application to terminate
 }
 
 /* Vibe is using
@@ -25,8 +26,8 @@ LogLevels {
 	warn,       /// Unexpected condition that could indicate an error but has no direct consequences
 	error,      /// Normal error that is handled gracefully
 	critical,   /// Error that severely influences the execution of the application
-	fatal,      /// Error that forces the application to terminate
 	none,       /// Special value used to indicate no logging when set as the minimum log level
+	fatal,      /// Error that forces the application to terminate
 
 	verbose1 = diagnostic, /// Alias for diagnostic messages
 	verbose2 = debug_,     /// Alias for debug messages

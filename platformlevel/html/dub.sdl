@@ -1,6 +1,6 @@
 name "html"
 description "D-Library for working with HTML"
-homepage "https://"
+homepage "https://www.sueel.de/uim"
 authors "Ozan Nurettin Süel"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 license "Apache-2.0"

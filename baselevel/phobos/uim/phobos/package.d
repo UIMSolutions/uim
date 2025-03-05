@@ -4,6 +4,8 @@ module uim.phobos;
 public import vibe.d; */
 
 public {
+  import std.stdio;
+  import std.string;
 /*   import uim.phobos.classes;
   import uim.phobos.containers;
   import uim.phobos.convert;

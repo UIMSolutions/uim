@@ -8,11 +8,8 @@ description "D-Library for general web uses"
 targetname "uim-web"
 targetType "library"
 
-dependency "colored" version="~>0.0.31"
-dependency "vibe-d" version="~>0.10.2"
-
-dependency "core" path="../../baselevel/core"
-dependency "oop" path="../../baselevel/oop"
+dependency "uim-baselevel" path="../../baselevel"
+dependency "uim-errors" path="../errors"
 
 dependency "uim:filesystems" path="../"
 dependency "uim:models" path="../"

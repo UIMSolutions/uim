@@ -4,8 +4,8 @@ authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
-targetType "library"
 targetName "uim-applications"
+targetType "library"
 
 dependency "uim-plattformlevel" path="../../plattformlevel"
 

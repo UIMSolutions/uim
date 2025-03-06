@@ -6,8 +6,9 @@ authors "Ozan Nurettin Süel"
 
 description "D-Library for managing entity databases"
 
-targetType "library"
+// target
 targetName "uim-entitybases"
+targetType "library"
 
 dependency "uim-lowlevel" path="../../lowlevel"
 

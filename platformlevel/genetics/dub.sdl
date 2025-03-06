@@ -11,7 +11,7 @@ description "D-Library for genetic algorithms"
 
 dependency "uim-infralevel" path="../../infralevel"
 
-dependency "uim:models" path="../"
+dependency "uim-models" path="../models"
 
 sourcePaths "."
 importPaths "."

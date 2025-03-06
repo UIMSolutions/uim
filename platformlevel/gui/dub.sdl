@@ -3,16 +3,17 @@ homepage "https://www.sueel.de/uim"
 license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
-
 description "D-Library for creating guis"
+
+// target
+targetName "uim-gui"
+targetType "library"
 
 dependency "uim-infralevel" path="../../infralevel"
 
-dependency "uim:filesystems" path="../"
-dependency "uim:models" path="../"
-targetType "library"
+dependency "uim-filesystems" path="../filesystems"
+dependency "uim-models" path="../models"
 
 sourcePaths "."
 importPaths "."
 
-targetName "uim-gui"

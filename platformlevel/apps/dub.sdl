@@ -1,5 +1,5 @@
 name "uim-apps"
-description "V in MVC"
+description "Apps Library"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
@@ -9,10 +9,10 @@ targetName "uim-apps"
 
 dependency "uim-infralevel" path="../../infralevel"
 
-dependency "uim:mvc" path="../"
-dependency "uim:controllers" path="../"
-dependency "uim:models" path="../"
-dependency "uim:views" path="../"
+dependency "uim-mvc" path="../mvc"
+dependency "uim-controllers" path="../controllers"
+dependency "uim-models" path="../models"
+dependency "uim-views" path="../views"
 
 sourcePaths "."
 importPaths "."

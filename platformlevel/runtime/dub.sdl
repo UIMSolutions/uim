@@ -1,11 +1,11 @@
-name "uim-ai"
-description "V in MVC"
+name "uim-runtime"
+description "Library for runtime"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 // target
-targetName "uim-ai"
+targetName "uim-runtime"
 targetType "library"
 
 dependency "uim-infralevel" path="../../infralevel"
@@ -15,8 +15,8 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_ai" {
-	versions "test_uim_ai"
+configuration "test_uim_runtime" {
+	versions "test_uim_runtime"
 }
 configuration "test_all" {
 	versions "test_uim_core" "test_uim_oop"

@@ -9,7 +9,7 @@ description "D-Library for general web uses"
 targetName "uim-web"
 targetType "library"
 
-dependency "uim-infralevel" path="../infralevel"
+dependency "uim-infralevel" path="../../infralevel"
 dependency "uim:filesystems" path="../"
 dependency "uim:models" path="../"
 

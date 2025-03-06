@@ -8,6 +8,7 @@ targetName "uim-applications"
 targetType "library"
 
 dependency "uim-plattformlevel" path="../../plattformlevel"
+dependency "uim-applications" path="../applications"
 
 sourcePaths "."
 importPaths "."

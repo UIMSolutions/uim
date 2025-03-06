@@ -11,11 +11,10 @@ targetType "library"
 
 dependency "uim-platformlevel" path="../platformlevel/"
 
-/* sourceFiles "source/uim/all.d"
-
+sourceFiles "source/uim/platformlevel.d"
 sourcePaths "."
 importPaths "."
- */
+
 /* subPackage "core"
 subPackage "oop"
  */

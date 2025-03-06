@@ -8,7 +8,7 @@ license "Apache-2.0"
 targetName "uim-models"
 targetType "library"
 
-dependency "uim-infralevel" path="../infralevel"
+dependency "uim-infralevel" path="../../infralevel"el"el"
 dependency "uim:mvc" path="../"
 
 sourcePaths "."

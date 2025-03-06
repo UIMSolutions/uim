@@ -9,6 +9,7 @@ targetName "uim-data"
 targetType "library"
 
 dependency "uim-plattformlevel" path="../../plattformlevel"
+dependency "uim-data" path="../data"
 
 sourcePaths "."
 importPaths "."

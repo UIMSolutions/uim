@@ -9,7 +9,7 @@ license "Apache-2.0"
 targetType "library"
 targetName "uim-html"
 
-dependency "uim-infralevel" path="../infralevel"
+dependency "uim-infralevel" path="../../infralevel"el"el"
 dependency "uim:css" path="../"
 dependency "uim:models" path="../"
 

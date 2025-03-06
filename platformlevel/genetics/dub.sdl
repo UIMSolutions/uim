@@ -9,7 +9,7 @@ targetType "library"
 
 description "D-Library for genetic algorithms"
 
-dependency "uim-infralevel" path="../infralevel"
+dependency "uim-infralevel" path="../../infralevel"
 
 dependency "uim:models" path="../"
 

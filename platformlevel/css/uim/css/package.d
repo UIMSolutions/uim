@@ -8,7 +8,7 @@ public {
 }
 
 public { // Required uim libraries 
-  import uim.baselevel;
+  import uim.infralevel;
   import uim.errors;
 
   // import uim.filesystems;

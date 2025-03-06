@@ -7,16 +7,8 @@ module uim.controllers;
 
 mixin(ImportPhobos!());
 
-// Dub
-public {
-  import colored;
-  import vibe.d;
-  import vibe.http.session : HttpSession = Session;
-}
-
 public { // uim libraries
-  import uim.baselevel;
-  import uim.mvc;
+  import uim.infralevel;
 }
 
 public { // uim.filesystem libraries

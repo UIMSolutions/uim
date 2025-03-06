@@ -15,7 +15,7 @@ public {
 }
 
 public { 
-  import uim.baselevel;
+  import uim.infralevel;
   import uim.errors;
 }
 

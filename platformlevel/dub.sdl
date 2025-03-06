@@ -11,7 +11,7 @@ targetType "library"
 
 dependency "uim-infralevel" path="../infralevel/"
 
-sourceFiles "./uim/infralevel.d"
+sourceFiles "./uim/platformlevel.d"
 
 sourcePaths "."
 importPaths "."

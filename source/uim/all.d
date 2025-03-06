@@ -11,12 +11,7 @@ public {
     import std.datetime;
     import std.exception;
 }
-/* 
+
 public {
-    import uim.baselevel;
-    import uim.lowlevel;
     import uim.infralevel;
-    import uim.plattform;
-    import uim.highlevel;
 }
- */

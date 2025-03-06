@@ -1,2 +1,2 @@
-module uim.controllers.helpers.classes;
+module uim.controllers.helpers;
 

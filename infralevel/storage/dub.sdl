@@ -1,11 +1,11 @@
-name "uim-virtualization"
-description "Library for virtualization"
+name "uim-storage"
+description "Library for storage"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-virtualization"
+targetName "uim-storage"
 
 dependency "uim-lowlevel" path="../../lowlevel"
 
@@ -14,8 +14,8 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_virtualization" {
-	versions "test_uim_virtualization"
+configuration "test_uim_storage" {
+	versions "test_uim_storage"
 }
 configuration "test_all" {
 	versions "test_uim_core" "test_uim_oop"

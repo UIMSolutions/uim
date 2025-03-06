@@ -11,7 +11,7 @@ targetType "library"
 dependency "uim-lowlevel" path="../lowlevel/"
 
 dependency "uim-datasources" path="./datasources/"
-dependency "uim-databases" path="./lowdatabaseslevel/"
+dependency "uim-databases" path="./databases/"
 dependency "uim-entitybases" path="./entitybases/"
 dependency "uim-filesystems" path="./filesystems/"
 dependency "uim-http" path="./http/"

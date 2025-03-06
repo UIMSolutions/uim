@@ -23,5 +23,6 @@ Json[string] urlArray(string path, Json[string] params= null) {
 
 // Convenience wrapper for Router.url().
 string url(/* IUri| */string[] url = null, bool isFull = false) {
-    return Router.url(url, isFull);
+    /* return Router.url(url, isFull); */
+    return null;
 }

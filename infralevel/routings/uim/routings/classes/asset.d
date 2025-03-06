@@ -43,9 +43,10 @@ class DAsset {
      * `Asset.assetTimestamp()` to add timestamp to local files.
      */
     static string cssUrl(string path, Json[string] options = null) {
-        return url(path, options.merge(createMap!(string, Json)
+        /* return url(path, options.merge(createMap!(string, Json)
             .set("pathPrefix", configuration.get("App.cssBaseUrl"))
-            .set("ext", ".css")));
+            .set("ext", ".css"))); */
+        return null;
     }
     
     /**
@@ -55,9 +56,10 @@ class DAsset {
      * `Asset.assetTimestamp()` to add timestamp to local files.
      */
     static string scriptUrl(string path, Json[string] options = null) {
-        return url(path, options.merge(createMap!(string, Json)
+        /* return url(path, options.merge(createMap!(string, Json)
             .set("pathPrefix", configuration.get("App.jsBaseUrl"))
-            .set("assetExtension", ".js")));
+            .set("assetExtension", ".js"))); */
+        return null; 
     }
     
     /**
@@ -236,10 +238,11 @@ class DAsset {
     
     // Get webroot from request.
     protected static string requestWebroot() {
-        request = Router.getRequest();
+        /* request = Router.getRequest();
         return request.isNull
             ? "/"
-            : request.getAttribute("webroot");
+            : request.getAttribute("webroot"); */
+        return null;
     }
     
     /**

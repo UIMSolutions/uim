@@ -8,8 +8,7 @@ description "D-Library for general web uses"
 targetname "uim-web"
 targetType "library"
 
-dependency "uim-baselevel" path="../../baselevel"
-dependency "uim-errors" path="../errors"
+dependency "uim-infralevel" path="../infralevel"
 
 dependency "uim:filesystems" path="../"
 dependency "uim:models" path="../"

@@ -10,8 +10,7 @@ targetname "uim-views"
 dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
-dependency "uim-baselevel" path="../../baselevel"
-dependency "uim-errors" path="../errors"
+dependency "uim-infralevel" path="../infralevel"
 dependency "uim:events" path="../"
 dependency "uim:mvc" path="../"
 

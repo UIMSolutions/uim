@@ -6,8 +6,7 @@ authors "Ozan Nurettin Süel"
 
 description "D-Library for creating guis"
 
-dependency "uim-baselevel" path="../../baselevel"
-dependency "uim-errors" path="../errors"
+dependency "uim-infralevel" path="../infralevel"
 
 dependency "uim:filesystems" path="../"
 dependency "uim:models" path="../"

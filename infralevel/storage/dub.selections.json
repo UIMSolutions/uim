@@ -17,7 +17,6 @@
 		"uim-core": {"path":"../../baselevel/core"},
 		"uim-errors": {"path":"../../lowlevel/errors"},
 		"uim-events": {"path":"../../lowlevel/events"},
-		"uim-http": {"path":"../http"},
 		"uim-i18n": {"path":"../../lowlevel/i18n"},
 		"uim-logging": {"path":"../../lowlevel/logging"},
 		"uim-lowlevel": {"path":"../../lowlevel"},

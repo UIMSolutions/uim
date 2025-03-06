@@ -95,10 +95,10 @@ class DRouter {
 
   // Get or set default route class.
   static string defaultRouteClass(string routeclassname = null) {
-    if (routeclassname.isNull) {
+    /* if (routeclassname.isNull) {
       return _defaultRouteClass;
     }
-    _defaultRouteClass = routeclassname;
+    _defaultRouteClass = routeclassname; */
 
     return null;
   }
@@ -106,7 +106,7 @@ class DRouter {
   // Gets the named route patterns for use in config/routes.d
   static STRINGAA getNamedExpressions() {
     // return _namedExpressions;
-    return null; 
+    return null;
   }
 
   /**
@@ -116,7 +116,7 @@ class DRouter {
      */
   static Json[string] parseRequest(IServerRequest myrequest) {
     // return _routeCollection.parseRequest(myrequest);
-return null;
+    return null;
   }
 
   /**
@@ -125,8 +125,8 @@ return null;
      * \UIM\Http\ServerRequest myrequest request object.
      */
   static void setRequest(IServerRequest myrequest) {
-    _serverRequest = myrequest;
-    auto myuri = _serverRequest.getUri();
+    /* _serverRequest = myrequest;
+    auto myuri = _serverRequest.getUri(); */
 
     /*
         _serverRequestContext.get("_base", myrequest.getAttribute("base", ""));
@@ -368,7 +368,8 @@ return null;
      * - Vendor/Cms.Management/Admin/Articles.view
      */
   static string pathUrl(string path, Json[string] params = null, bool isFull = false) {
-    return url(["_path": path] + params, isFull);
+    // return url(["_path": path] + params, isFull);
+    return null;
   }
 
   /**
@@ -524,9 +525,9 @@ return null;
         url = preg_replace("/(?:(\/my))/", "", url);
         */
 
-    return url.isEmpty
-      ? "/" : url;
-      return null;
+   /*  return url.isEmpty
+      ? "/" : url; */
+    return null;
   }
 
   /**
@@ -545,12 +546,12 @@ return null;
      * If called without any parameters it will return current list of set extensions.
      */
   static string[] extensions(string[] /* string */ myextensions = null, bool shouldMerge = true) {
-    auto mycollection = _routeCollection;
+    /* auto mycollection = _routeCollection;
     if (myextensions.isNull) {
       return chain(_defaultExtensions, mycollection.getExtensions()).unique;
-    }
+    } */
 
-/*     myextensions =  /* (array) * / myextensions;
+    /*     myextensions =  /* (array) * / myextensions;
     if (shouldMerge) {
       myextensions = array_merge(_defaultExtensions, myextensions).unique;
     }
@@ -560,7 +561,7 @@ return null;
 
   // Create a RouteBuilder for the provided path.
   static DRouteBuilder createRouteBuilder(string path, Json[string] options = null) {
-/*     Json[string] defaults = createMap!(string, Json)
+    /*     Json[string] defaults = createMap!(string, Json)
       .set("routeClass", Json(defaultRouteClass()))
       .set("extensions", Json(_defaultExtensions));
 
@@ -569,14 +570,14 @@ return null;
     return new DRouteBuilder(_routeCollection, path, [], createMap!(strin, Json)
         .set("routeClass", options.get("routeClass"))
         .set("extensions", options.get("extensions")));
- */ 
- return null; 
+ */
+    return null;
   }
 
   // Get the route scopes and their connected routes.
   static IRoute[] routes() {
-/*     return _routeCollection.routes(); */
-return null;
+    /*     return _routeCollection.routes(); */
+    return null;
   }
 
   // Get the RouteCollection inside the Router
@@ -591,7 +592,7 @@ return null;
 
   // Inject route defaults from `_path` key
   protected static Json[string] unwrapShortString(Json[string] url) {
-/*     foreach (key; ["plugin", "prefix", "controller", "action"]) {
+    /*     foreach (key; ["plugin", "prefix", "controller", "action"]) {
       if (hasKey(key, url)) {
         throw new DInvalidArgumentException(
           "`key` cannot be used when defining route targets with a string route path."
@@ -606,7 +607,7 @@ return null;
     url.removeKey("_path");
 
     return url; */
-    return null; 
+    return null;
   }
 
   /**

@@ -21,5 +21,6 @@ public { // uim.filesystem libraries
   import uim.datasources.helpers;
   import uim.datasources.interfaces;
   import uim.datasources.mixins;
+  import uim.datasources.registries;
   import uim.datasources.tests;
 }

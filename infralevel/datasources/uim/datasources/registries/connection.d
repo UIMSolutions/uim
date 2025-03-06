@@ -1,4 +1,4 @@
-module uim.datasources.classes.connections.registration;
+module uim.datasources.registries.connection;
 
 import uim.datasources;
 
@@ -8,6 +8,6 @@ import uim.datasources;
 class DDatasourceConnectionRegistry : DObjectRegistry!DDatasourceConnection {
 }
 
-auto DatasourceConnectionRegistration() { // SIngleton
+auto DatasourceConnectionRegistry() { // Singleton
     return DDatasourceConnectionRegistry.registration;
 }

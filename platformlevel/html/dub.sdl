@@ -4,11 +4,14 @@ homepage "https://www.sueel.de/uim"
 authors "Ozan Nurettin Süel"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 license "Apache-2.0"
+
+// target
 targetType "library"
 targetName "uim-html"
 
 dependency "uim-infralevel" path="../infralevel"
 dependency "uim:css" path="../"
 dependency "uim:models" path="../"
+
 sourcePaths "."
 importPaths "."

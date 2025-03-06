@@ -5,6 +5,7 @@ license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
+// target
 targetName "uim-uim"
 targetType "library"
 
@@ -15,6 +16,8 @@ dependency "platformlevel" path="./platformlevel/"
 dependency "highlevel" path="./highlevel/"
 
 sourceFiles "source/uim/all.d" 
+sourcePaths "."
+importPaths "."
 
 subPackage "baselevel"
 subPackage "lowlevel"

@@ -50,16 +50,16 @@ class DRouter {
   const string UUID = "[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}";
 
   // The route collection routes would be added to.
-  protected static DRouteCollection _collection;
+  protected static DRouteCollection _routeCollection;
 
   // A hash of request context data.
-  protected static Json[string] _requestContext = null;
+  protected static Json[string] _serverRequestContext = null;
 
   // Maintains the request object reference.
-  protected static IServerRequest _request = null;
+  protected static IServerRequest _serverRequest = null;
   // Get the current request object.
   static IServerRequest getRequest() {
-    return _request;
+    return _serverRequest;
   }
 
   // Default extensions defined with Router.extensions()
@@ -105,7 +105,8 @@ class DRouter {
 
   // Gets the named route patterns for use in config/routes.d
   static STRINGAA getNamedExpressions() {
-    return _namedExpressions;
+    // return _namedExpressions;
+    return null; 
   }
 
   /**
@@ -114,7 +115,8 @@ class DRouter {
      * \UIM\Http\ServerRequest myrequest The request to parse request data from.
      */
   static Json[string] parseRequest(IServerRequest myrequest) {
-    return _collection.parseRequest(myrequest);
+    // return _routeCollection.parseRequest(myrequest);
+return null;
   }
 
   /**
@@ -123,15 +125,15 @@ class DRouter {
      * \UIM\Http\ServerRequest myrequest request object.
      */
   static void setRequest(IServerRequest myrequest) {
-    _request = myrequest;
-    auto myuri = _request.getUri();
+    _serverRequest = myrequest;
+    auto myuri = _serverRequest.getUri();
 
     /*
-        _requestContext.get("_base", myrequest.getAttribute("base", ""));
-        _requestContext.get("params", myrequest.getAttribute("params", []));
-        _requestContext.get("_scheme", ??= myuri.getScheme();
-        _requestContext.set("_host", _requestContext.get("_host", myuri.getHost());
-        _requestContext.set("_port", _requestContext.get("_port", myuri.getPort());
+        _serverRequestContext.get("_base", myrequest.getAttribute("base", ""));
+        _serverRequestContext.get("params", myrequest.getAttribute("params", []));
+        _serverRequestContext.get("_scheme", ??= myuri.getScheme();
+        _serverRequestContext.set("_host", _serverRequestContext.get("_host", myuri.getHost());
+        _serverRequestContext.set("_port", _serverRequestContext.get("_port", myuri.getPort());
         */
   }
 
@@ -141,7 +143,7 @@ class DRouter {
      */
   static void reload() {
     /* if (_initialState.isEmpty) {
-            _collection = new DRouteCollection();
+            _routeCollection = new DRouteCollection();
             _initialState = get_class_vars(class);
 
             return;
@@ -149,11 +151,11 @@ class DRouter {
 
         _initialState.byKeyValue
             .each!((kv) {
-                if (kv.key != "_initialState" && kv.key != "_collection") {
+                if (kv.key != "_initialState" && kv.key != "_routeCollection") {
                     // TODO my{kv.key} = kv.value;
                 }
             });
-        _collection = new DRouteCollection();
+        _routeCollection = new DRouteCollection();
         _routePaths = null; */
   }
 
@@ -172,7 +174,7 @@ class DRouter {
      * Extensions and default route classes will not be modified
      */
   static void resetRoutes() {
-    _collection = new DRouteCollection();
+    _routeCollection = new DRouteCollection();
     _urlFilters = null;
   }
 
@@ -214,7 +216,7 @@ class DRouter {
      * Json[string] url The URL array being modified.
      */
   protected static Json[string] _applyUrlFilters(Json[string] url) {
-    myrequest = getRequest();
+    /*     myrequest = getRequest();
     _urlFilters.each!((filter) {
       try {
         url = myfilter(url, myrequest);
@@ -227,7 +229,8 @@ class DRouter {
         throw new DException(exceptionMessage, to!int(exception.code()), exception);
       }
     });
-    return url;
+    return url; */
+    return null;
   }
 
   /**
@@ -265,7 +268,7 @@ class DRouter {
      * string or it can be an IUri instance.
      */
   static string url( /* IUri| */ string[] url = null, bool isFull = false) {
-    /* auto context = _requestContext;
+    /* auto context = _serverRequestContext;
         context.set("_base", context.getString("_base", ""));
 
         if (url.isEmpty) {
@@ -332,7 +335,7 @@ class DRouter {
                 url.set("_host", mycontext["_host"]);
             }
             mycontext.set("params", params);
-            myoutput = _collection.match(url, mycontext);
+            myoutput = _routeCollection.match(url, mycontext);
         } else {
             url = (string)url;
 
@@ -376,12 +379,12 @@ class DRouter {
      * ### Usage
      */
   static bool routehasKey(string[] url = null, bool isFull = false) {
-    try {
+    /*     try {
       url(url, isFull);
       return true;
-    } catch (MissingRouteException) {
-      return false;
-    }
+    } catch (MissingRouteException) { */
+    return false;
+    /*     } */
   }
 
   /**
@@ -396,9 +399,9 @@ class DRouter {
      * required to call this method passing such value again.
      */
   static string fullBaseUrl(string baseUrl = null) {
-    if (baseUrl.isNull && _fullBaseUrl !is null) {
-      return _fullBaseUrl;
-    }
+    /* if (baseUrl.isNull && _fullBaseUrl !is null) {
+      return _fullBaseUrl; */
+    /*     }
     if (baseUrl !is null) {
       _fullBaseUrl = baseUrl;
       configuration.set("App.fullBaseUrl", baseUrl);
@@ -406,14 +409,14 @@ class DRouter {
       baseUrl = configuration.getString("App.fullBaseUrl");
 
       // If App.fullBaseUrl is empty but context is set from request through setRequest()
-      if (!baseUrl && !_requestContext.isEmpty("_host")) {
+      if (!baseUrl && !_serverRequestContext.isEmpty("_host")) {
         baseUrl =
           "%s://%s"
-          .format(_requestContext["_scheme"],
-            _requestContext["_host"]
+          .format(_serverRequestContext["_scheme"],
+            _serverRequestContext["_host"]
           );
-        if (!_requestContext.isEmpty("_port")) {
-          baseUrl ~= ": " ~ _requestContext.getString("_port");
+        if (!_serverRequestContext.isEmpty("_port")) {
+          baseUrl ~= ": " ~ _serverRequestContext.getString("_port");
         }
         configuration.set("App.fullBaseUrl", baseUrl);
 
@@ -421,15 +424,17 @@ class DRouter {
       }
       _fullBaseUrl = baseUrl;
     }
-
-    auto myparts = parse_url(_fullBaseUrl);
-    _requestContext = [
+ */
+    /*     auto myparts = parse_url(_fullBaseUrl);
+    _serverRequestContext = [
       "_scheme": myparts.get("scheme"),
       "_host": myparts.get("host"),
       "_port": myparts.get("port"),
-    ].merge(_requestContext);
+    ].merge(_serverRequestContext);
 
     return _fullBaseUrl;
+ */
+    return null;
   }
 
   /**
@@ -460,7 +465,7 @@ class DRouter {
         if (!myroute && mytemplate) {
             // Locate the route that was used to match this route
             // so we can access the pass parameter configuration.
-            foreach (mymaybe; getRouteCollection().routes()) {
+            foreach (mymaybe; routeCollection().routes()) {
                 if (mymaybe.template == mytemplate) {
                     myroute = mymaybe;
                     break;
@@ -484,8 +489,10 @@ class DRouter {
      * handled in order to reverse a params array into a string URL.
      */
   static string reverse(IServerRequest /* array */ params, bool isFull = false) {
-    auto params = reverseToArray(params);
+    /* auto params = reverseToArray(params);
     return url(params, isFull);
+     */
+    return null;
   }
 
   /**
@@ -519,6 +526,7 @@ class DRouter {
 
     return url.isEmpty
       ? "/" : url;
+      return null;
   }
 
   /**
@@ -527,7 +535,7 @@ class DRouter {
      * Instructs the router to parse out file extensions
      * from the URL. For example, http://example.com/posts.rss would yield a file
      * extension of "rss". The file extension itself is made available in the
-     * controller as `_request.getParam("_ext")`, and is used by content
+     * controller as `_serverRequest.getParam("_ext")`, and is used by content
      * type negotiation to automatically switch to alternate layouts and templates, and
      * load helpers corresponding to the given content, i.e. RssHelper. Switching
      * layouts and helpers requires that the chosen extension has a defined mime type
@@ -537,49 +545,53 @@ class DRouter {
      * If called without any parameters it will return current list of set extensions.
      */
   static string[] extensions(string[] /* string */ myextensions = null, bool shouldMerge = true) {
-    auto mycollection = _collection;
+    auto mycollection = _routeCollection;
     if (myextensions.isNull) {
       return chain(_defaultExtensions, mycollection.getExtensions()).unique;
     }
 
-    myextensions =  /* (array) */ myextensions;
+/*     myextensions =  /* (array) * / myextensions;
     if (shouldMerge) {
       myextensions = array_merge(_defaultExtensions, myextensions).unique;
     }
-    return _defaultExtensions = myextensions;
+    return _defaultExtensions = myextensions; */
+    return null;
   }
 
   // Create a RouteBuilder for the provided path.
   static DRouteBuilder createRouteBuilder(string path, Json[string] options = null) {
-    Json[string] defaults = createMap!(string, Json)
+/*     Json[string] defaults = createMap!(string, Json)
       .set("routeClass", Json(defaultRouteClass()))
       .set("extensions", Json(_defaultExtensions));
 
     Json[string] options = options.merge(defaults);
 
-    return new DRouteBuilder(_collection, path, [], createMap!(strin, Json)
+    return new DRouteBuilder(_routeCollection, path, [], createMap!(strin, Json)
         .set("routeClass", options.get("routeClass"))
         .set("extensions", options.get("extensions")));
+ */ 
+ return null; 
   }
 
   // Get the route scopes and their connected routes.
   static IRoute[] routes() {
-    return _collection.routes();
+/*     return _routeCollection.routes(); */
+return null;
   }
 
   // Get the RouteCollection inside the Router
-  static DRouteCollection getRouteCollection() {
-    return _collection;
+  static DRouteCollection routeCollection() {
+    return _routeCollection;
   }
 
   // Set the RouteCollection inside the Router
   static void setRouteCollection(DRouteCollection routeCollection) {
-    _collection = routeCollection;
+    _routeCollection = routeCollection;
   }
 
   // Inject route defaults from `_path` key
   protected static Json[string] unwrapShortString(Json[string] url) {
-    foreach (key; ["plugin", "prefix", "controller", "action"]) {
+/*     foreach (key; ["plugin", "prefix", "controller", "action"]) {
       if (hasKey(key, url)) {
         throw new DInvalidArgumentException(
           "`key` cannot be used when defining route targets with a string route path."
@@ -593,7 +605,8 @@ class DRouter {
 
     url.removeKey("_path");
 
-    return url;
+    return url; */
+    return null; 
   }
 
   /**

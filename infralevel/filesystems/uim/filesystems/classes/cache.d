@@ -6,6 +6,7 @@
 module uim.filesystems.classes.cache;
 
 import uim.filesystems;
+@safe:
 
 unittest { 
   version(testUimFilesystems) { 
@@ -13,7 +14,6 @@ unittest {
   }
 }
 
-@safe:
 class DCacheFilesystem : DFilesystem {
   this() { super(); }
 }

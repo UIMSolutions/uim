@@ -1,8 +1,13 @@
 module uim.routings.classes.routes.inflected;
 
 import uim.routings;
-
 @safe:
+
+unittest { 
+  version(test_uim_routings) { 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
+  }
+}
 /**
  * This route class will transparently inflect the controller and plugin routing
  * parameters, so that requesting `/_controller` is parsed as `["controller": "MyController"]`

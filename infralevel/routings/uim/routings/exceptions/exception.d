@@ -6,8 +6,13 @@
 module uim.routings.exceptions.exception;
 
 import uim.routings;
-
 @safe:
+
+unittest { 
+  version(test_uim_routings) { 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
+  }
+}
 
 // Base Routings exception.
 class DRoutingsException : DException {

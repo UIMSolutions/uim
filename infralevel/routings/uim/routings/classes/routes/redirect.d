@@ -1,8 +1,13 @@
 module uim.routings.classes.routes.redirect;
 
 import uim.routings;
-
 @safe:
+
+unittest { 
+  version(test_uim_routings) { 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
+  }
+}
 /**
  * Redirect route will perform an immediate redirect. Redirect routes
  * are useful when you want to have Routing layer redirects occur in your

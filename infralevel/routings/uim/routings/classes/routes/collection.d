@@ -1,8 +1,13 @@
 module uim.routings.classes.routes.collection;
 
 import uim.routings;
-
 @safe:
+
+unittest { 
+  version(test_uim_routings) { 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
+  }
+}
     /**
  * Contains a collection of routes.
  *

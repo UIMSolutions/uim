@@ -6,8 +6,13 @@
 module uim.routings.exceptions.missingroute;
 
 import uim.routings;
-
 @safe:
+
+unittest { 
+  version(test_uim_routings) { 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
+  }
+}
 
 // Exception raised when a URL cannot be reverse routed or when a URL cannot be parsed.
 class DMissingRouteException : DException {

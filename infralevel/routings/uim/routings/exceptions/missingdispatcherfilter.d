@@ -6,8 +6,13 @@
 module uim.routings.exceptions.missingdispatcherfilter;
 
 import uim.routings;
-
 @safe:
+
+unittest { 
+  version(test_uim_routings) { 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
+  }
+}
 
 // Exception raised when a Dispatcher filter could not be found
 class DMissingDispatcherFilterException : DException {

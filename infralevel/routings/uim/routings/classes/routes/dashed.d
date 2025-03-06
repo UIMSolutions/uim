@@ -1,8 +1,13 @@
 module uim.routings.classes.routes.dashed;
 
 import uim.routings;
-
 @safe:
+
+unittest { 
+  version(test_uim_routings) { 
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
+  }
+}
 /**
  * This route class will transparently inflect the controller, action and plugin
  * routing parameters, so that requesting `/my-plugin/my-controller/my-action`

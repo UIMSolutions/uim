@@ -1,4 +1,4 @@
-module models.uim.models.collections;
+module uim.models.collections;
 
 public {
     

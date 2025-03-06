@@ -1,4 +1,4 @@
-module views.uim.views.factories;
+module uim.views.factories;
 
 public {
   import uim.views.factories.context;

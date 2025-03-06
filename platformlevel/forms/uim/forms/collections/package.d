@@ -1,4 +1,4 @@
-module forms.uim.forms.collections;
+module uim.forms.collections;
 
 public {
     

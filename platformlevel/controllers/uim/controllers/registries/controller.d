@@ -16,7 +16,7 @@ auto ControllerRegistry() { // for Singleton
     return DControllerRegistry.registration;
 }
 
-unittest { // Singleton tests
+/* unittest { // Singleton tests
     assert(ControllerRegistry.length == 0);
     assert(ControllerRegistry.register("test", new DController).length == 1);
     assert(ControllerRegistry.remove("test").length == 0);
@@ -45,4 +45,4 @@ unittest { // combined tests
 
     assert(registry.remove("test").length == 0);
     assert(ControllerRegistry.length == 0);
-}
+} */

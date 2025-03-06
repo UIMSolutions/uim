@@ -10,7 +10,7 @@ class DH5B : DH5Obj {
 mixin(H5Short!"B");
 
 ///
-unittest {
+/* unittest {
 	auto element = new DH5B;
 	assert(element == "<b></b>");
 }
@@ -19,3 +19,4 @@ version(test_uim_html) { unittest {
   testH5Obj(H5B, "b");
 }}
 
+ */

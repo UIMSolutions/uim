@@ -11,19 +11,19 @@ import uim.views;
 
 // UrlHelper class for generating URLs.
 class UrlHelper : DHelper {
-    mixin(HelperThis!("Url"));
+  mixin(HelperThis!("Url"));
 
-    // Asset URL engine class name
-    protected string _assetUrlclassname;
+  // Asset URL engine class name
+  protected string _assetUrlclassname;
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-        auto myengineClassConfig = configurationData.hasKey("assetUrlclassname");
+    // auto myengineClassConfig = configurationData.hasKey("assetUrlclassname");
 
-        /** @var class-string<\UIM\Routing\Asset>|null myengineClass * /
+    /** @var class-string<\UIM\Routing\Asset>|null myengineClass * /
         auto myengineClass = App.classname(myengineClassConfig, "Routing");
         if (myengineClass.isNull) {
             throw new UIMException("Class for `%s` could not be found.".format(myengineClassConfig));
@@ -32,10 +32,10 @@ class UrlHelper : DHelper {
         _assetUrlclassname = myengineClass;
         configuration.setDefault("assetUrlclassname", Asset.classname);
         */
-        return true;
-    }
+    return true;
+  }
 
-    /**
+  /**
      * Returns a URL based on provided parameters.
      *
      * ### Options:
@@ -48,20 +48,21 @@ class UrlHelper : DHelper {
      *  an array of URL parameters. Using an array for URLs will allow you to leverage
      *  the reverse routing features of UIM.
      */
-    static string build(string[] myurl = null, Json[string] options = null) {
-        options
+  static string build(string[] myurl = null, Json[string] options = null) {
+    /*         options
             .merge("fullBase", false)
             .merge("escape", true);
 
-        string myurl;
-        /*        auto myurl = Router.url(myurl, options.get("fullBase"));
+ */
+    string buildUrl;
+    /*        auto myurl = Router.url(myurl, options.get("fullBase"));
         if (options.getBoolean("escape")) {
             myurl = to!string(h(myurl));
         } */
-        return myurl; 
-    }
+    return buildUrl;
+  }
 
-    /**
+  /**
      * Returns a URL from a route path string.
      *
      * ### Options:
@@ -70,50 +71,50 @@ class UrlHelper : DHelper {
      *  escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
      */
-    static string buildFromPath(string routePath, Json[string] params = null, Json[string] options = null) {
-        /*         return _build(["_path": routePath] + params, options); */
-        return null;
-    }
+  static string buildFromPath(string routePath, Json[string] params = null, Json[string] options = null) {
+    /*         return _build(["_path": routePath] + params, options); */
+    return null;
+  }
 
-    /**
+  /**
      * Generates URL for given image file.
      *
      * Depending on options passed provides full URL with domain name. Also calls
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
-    static string image(string path, Json[string] options = null) {
-        /*         options.merge("theme", _view.theme());
+  static string image(string path, Json[string] options = null) {
+    /*         options.merge("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.imageUrl(path, options)); */
-        return null;
-    }
+    return null;
+  }
 
-    /**
+  /**
      * Generates URL for given CSS file.
      *
      * Depending on options passed provides full URL with domain name. Also calls
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
-    static string css(string path, Json[string] options = null) {
-        options.merge("theme", _view.theme());
-        return htmlAttributeEscape(_assetUrlclassname.cssUrl(path, options));
-        return null;
-    }
+  static string css(string path, Json[string] options = null) {
+/*     options.merge("theme", _view.theme());
+    return htmlAttributeEscape(_assetUrlclassname.cssUrl(path, options));
+ */    return null;
+  }
 
-    /**
+  /**
      * Generates URL for given javascript file.
      *
      * Depending on options passed provides full URL with domain name. Also calls
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
-    static string script(string path, Json[string] options = null) {
-        /*         auto options = options.set("theme", _view.theme());
+  static string script(string path, Json[string] options = null) {
+    /*         auto options = options.set("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.scriptUrl(path, options)); */
-        return null;
-    }
+    return null;
+  }
 
-    /**
+  /**
      * Generates URL for given asset file.
      *
      * Depending on options passed provides full URL with domain name. Also calls
@@ -131,30 +132,30 @@ class UrlHelper : DHelper {
      *  Set to true to apply timestamps when debug is true. Set to "force" to always
      *  enable timestamping regardless of debug value.
      */
-    static string assetUrl(string path, Json[string] options = null) {
-        /* options
+  static string assetUrl(string path, Json[string] options = null) {
+    /* options
             .merge("theme", _view.theme()); */
 
-        // return htmlAttributeEscape(_assetUrlclassname.url(path, options));
-        return null;
-    }
+    // return htmlAttributeEscape(_assetUrlclassname.url(path, options));
+    return null;
+  }
 
-    /**
+  /**
      * Adds a timestamp to a file based resource based on the value of `Asset.timestamp` in
      * Configure. If Asset.timestamp is true and debug is true, or Asset.timestamp == "force"
      * a timestamp will be added.
      */
-    static string assetTimestamp(string path, string timestamp = null) {
-        /*         return htmlAttributeEscape(
+  static string assetTimestamp(string path, string timestamp = null) {
+    /*         return htmlAttributeEscape(
             _assetUrlclassname.assetTimestamp(path, timestamp)); */
-        return null;
-    }
+    return null;
+  }
 
-    // Checks if a file exists when theme is used, if no file is found default location is returned
-    static string webroot(string filename) {
-        /*         options.merge("theme", _view.theme());
+  // Checks if a file exists when theme is used, if no file is found default location is returned
+  static string webroot(string filename) {
+    /*         options.merge("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.webroot(filename, options)); */
-        return null;
-    }
+    return null;
+  }
 }

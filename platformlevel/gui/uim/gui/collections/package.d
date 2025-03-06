@@ -1,4 +1,4 @@
-module gui.uim.gui.collections;
+module uim.gui.collections;
 
 public {
     

@@ -1,4 +1,4 @@
-module genetics.uim.genetics.collections;
+module uim.genetics.collections;
 
 public {
     

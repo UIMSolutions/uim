@@ -8,7 +8,7 @@ authors "Ozan Nurettin Süel"
 targetName "uim-css"
 targetType "library"
 
-dependency "uim-infralevel" path="../../infralevel"el"el"el"el"
+dependency "uim-infralevel" path="../../infralevel"
 
 sourcePaths "."
 importPaths "."

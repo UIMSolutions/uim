@@ -1,11 +1,11 @@
-name "uim-sites"
-description "V in MVC"
+name "uim-middleware"
+description "middleware library"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 // target
-targetName "uim-sites"
+targetName "uim-middleware"
 targetType "library"
 
 dependency "uim-infralevel" path="../../infralevel"
@@ -15,8 +15,8 @@ importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_sites" {
-	versions "test_uim_sites"
+configuration "test_uim_mails" {
+	versions "test_uim_mails"
 }
 configuration "test_all" {
 	versions "test_uim_core" "test_uim_oop"

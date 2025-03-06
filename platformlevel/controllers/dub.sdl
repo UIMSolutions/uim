@@ -1,21 +1,16 @@
 name "uim-controllers"
-description "A minimal D application."
+description "C in MVC"
 authors "ONS"
 copyright "Copyright © 2024, ONS"
 license "Apache-2.0"
 
-name "uim-controllers"
-description "C in MVC"
-authors "ONS"
-copyright "Copyright © 2018 - 2025, ONS"
-license "Apache-2.0"
 
-targetType "library"
+// Target
 targetName "uim-controllers"
+targetType "library"
 
-dependency "uim-infralevel" path="../../infralevel"el"el"el"el"el"el"
-
-dependency "uim:mvc" path="../"
+dependency "uim-infralevel" path="../../infralevel"
+dependency "uim-mvc" path="../mvc"
 
 sourcePaths "."
 importPaths "."

@@ -1,11 +1,11 @@
-name "uim-ai"
+name "uim-portals"
 description "V in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 // target
-targetName "uim-ai"
+targetName "uim-portals"
 targetType "library"
 
 dependency "uim-infralevel" path="../../infralevel"

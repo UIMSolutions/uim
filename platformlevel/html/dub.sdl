@@ -9,9 +9,9 @@ license "Apache-2.0"
 targetType "library"
 targetName "uim-html"
 
-dependency "uim-infralevel" path="../../infralevel"el"el"
-dependency "uim:css" path="../"
-dependency "uim:models" path="../"
+dependency "uim-infralevel" path="../../infralevel"
+dependency "uim-css" path="../css"
+dependency "uim-models" path="../models"
 
 sourcePaths "."
 importPaths "."

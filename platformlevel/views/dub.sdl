@@ -12,8 +12,7 @@ dependency "colored" version="~>0.0.31"
 dependency "vibe-d" version="~>0.10.2"
 
 dependency "uim-infralevel" path="../../infralevel"
-dependency "uim:events" path="../"
-dependency "uim:mvc" path="../"
+dependency "uim-mvc" path="../mvc"
 
 sourcePaths "."
 importPaths "."

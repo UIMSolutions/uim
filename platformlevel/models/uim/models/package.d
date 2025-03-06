@@ -7,12 +7,6 @@ module uim.models;
 
 mixin(ImportPhobos!());
 
-// Dub
-public {
-  import colored;
-  import vibe.d;
-}
-
 public { // uim libraries
   import uim.infralevel;
   import uim.mvc;

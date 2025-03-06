@@ -7,13 +7,6 @@ module uim.web;
 
 mixin(ImportPhobos!());
 
-// Dub
-public {
-  import colored;
-  import vibe.d;
-  import vibe.http.session : HttpSession = Session;
-}
-
 public { // uim libraries
   import uim.infralevel;
   import uim.models;
@@ -21,9 +14,12 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.web.classes;
+  import uim.web.collections;
   import uim.web.exceptions;
+  import uim.web.factories;
   import uim.web.helpers;
   import uim.web.interfaces;
   import uim.web.mixins;
+  import uim.web.registries;
   import uim.web.tests;
 }

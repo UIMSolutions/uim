@@ -2,14 +2,8 @@
 
 mixin(ImportPhobos!());
 
-// Dub
-public {
-  import vibe.d;
-}
-
 public { // Required uim libraries 
   import uim.infralevel;
-  import uim.errors;
 
   // import uim.filesystems;
   // import uim.models;

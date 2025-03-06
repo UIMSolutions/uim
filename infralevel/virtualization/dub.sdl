@@ -4,8 +4,9 @@ authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
-targetType "library"
+// target
 targetName "uim-virtualization"
+targetType "library"
 
 dependency "uim-lowlevel" path="../../lowlevel"
 

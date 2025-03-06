@@ -1,11 +1,12 @@
 name "uim-validations"
-description "V in MVC"
+description "Validations in MVC"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
-targetType "library"
+// target
 targetName "uim-validations"
+targetType "library"
 
 dependency "uim-baselevel" path="../../baselevel"
 dependency "uim-lowlevel" path="../../lowlevel"

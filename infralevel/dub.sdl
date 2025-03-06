@@ -5,12 +5,13 @@ license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
+// target
 targetName "uim-infralevel"
 targetType "library"
 
 dependency "uim-lowlevel" path="../lowlevel/"
 
-dependency "uim-datasources" path="./datasources/"
+/* dependency "uim-datasources" path="./datasources/"
 dependency "uim-databases" path="./databases/"
 dependency "uim-entitybases" path="./entitybases/"
 dependency "uim-filesystems" path="./filesystems/"
@@ -22,4 +23,4 @@ dependency "uim-routings" path="./routings/"
 dependency "uim-servers" path="./servers/"
 dependency "uim-storage" path="./storage/"
 dependency "uim-validations" path="./validations/"
-dependency "uim-virtualization" path="./virtualization/"
+dependency "uim-virtualization" path="./virtualization/" */

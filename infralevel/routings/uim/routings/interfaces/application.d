@@ -6,7 +6,6 @@
 module uim.routings.interfaces.application;
 
 import uim.routings;
-
 @safe:
 
 // Interface for applications that use routing.

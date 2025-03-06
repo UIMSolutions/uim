@@ -15,4 +15,4 @@ targetType "library"
 sourcePaths "."
 importPaths "."
 
-targetname "uim-gui"
+targetName "uim-gui"

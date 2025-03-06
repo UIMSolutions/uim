@@ -1,22 +1,21 @@
-name "uim-i18n"
-description "V in MVC"
+name "uim-applications"
+description "Library for applications"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-i18n"
+targetName "uim-applications"
 
-dependency "uim-baselevel" path="../../baselevel"
-dependency "uim-errors" path="../errors"
+dependency "uim-plattformlevel" path="../../plattformlevel"
 
 sourcePaths "."
 importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_i18n" {
-	versions "test_uim_i18n"
+configuration "test_uim_applications" {
+	versions "test_uim_applications"
 }
 configuration "test_all" {
 	versions "test_uim_core" "test_uim_oop"

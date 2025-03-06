@@ -4,7 +4,7 @@ license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-targetname "uim-genetics"
+targetName "uim-genetics"
 targetType "library"
 
 description "D-Library for genetic algorithms"

@@ -16,4 +16,4 @@ targetType "library"
 sourcePaths "."
 importPaths "."
 
-targetname "uim-languages"
+targetName "uim-languages"

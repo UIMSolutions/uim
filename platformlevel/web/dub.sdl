@@ -5,7 +5,7 @@ copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
 description "D-Library for general web uses"
-targetname "uim-web"
+targetName "uim-web"
 targetType "library"
 
 dependency "uim-infralevel" path="../infralevel"

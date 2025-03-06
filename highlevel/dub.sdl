@@ -5,10 +5,10 @@ license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-targetname "uim-highlevel"
+targetName "uim-highlevel"
 targetType "library"
 
-dependency "platformlevel" path="../platformlevel/"
+dependency "uim-platformlevel" path="../platformlevel/"
 
 /* sourceFiles "source/uim/all.d"
 

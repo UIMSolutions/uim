@@ -5,7 +5,7 @@ copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetname "uim-models"
+targetName "uim-models"
 
 dependency "uim-infralevel" path="../infralevel"
 

@@ -1,22 +1,21 @@
-name "uim-i18n"
-description "V in MVC"
+name "uim-data"
+description "Library for data"
 authors "ONS"
 copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetName "uim-i18n"
+targetName "uim-data"
 
-dependency "uim-baselevel" path="../../baselevel"
-dependency "uim-errors" path="../errors"
+dependency "uim-plattformlevel" path="../../plattformlevel"
 
 sourcePaths "."
 importPaths "."
 
 // configuration "default" {}
 
-configuration "test_uim_i18n" {
-	versions "test_uim_i18n"
+configuration "test_uim_data" {
+	versions "test_uim_data"
 }
 configuration "test_all" {
 	versions "test_uim_core" "test_uim_oop"

@@ -11,7 +11,7 @@ copyright "Copyright © 2018 - 2025, ONS"
 license "Apache-2.0"
 
 targetType "library"
-targetname "uim-controllers"
+targetName "uim-controllers"
 
 dependency "uim-infralevel" path="../infralevel"
 

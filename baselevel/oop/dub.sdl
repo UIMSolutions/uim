@@ -5,7 +5,7 @@ license "Apache-2.0"
 copyright "Copyright © 2018-2025, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-targetname "uim-oop"
+targetName "uim-oop"
 
 dependency "uim-core" path="../core"
 

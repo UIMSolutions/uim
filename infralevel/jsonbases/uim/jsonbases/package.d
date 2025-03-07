@@ -8,7 +8,7 @@ module uim.jsonbases;
 mixin(ImportPhobos!());
 
 public {
-  import  uim.lowlevel;
+  import uim.lowlevel;
   import uim.filesystems;
 
   // import uim.logging;
@@ -18,7 +18,7 @@ public {
   import uim.jsonbases.classes;
   import uim.jsonbases.collections;
   import uim.jsonbases.exceptions;
-  import uim.jsonbases.fatories;
+  import uim.jsonbases.factories;
   import uim.jsonbases.helpers;
   import uim.jsonbases.interfaces;
   import uim.jsonbases.mixins;

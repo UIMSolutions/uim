@@ -57,6 +57,12 @@ string toString(string[] values) {
   return "\"["~values.map!(value => `\"%s\"`.format(value)).join(",")~"]\"";
 }
 
+string toString(string[string] items) {
+  Json json = Json.emptyObject;
+  items.each!((key, value) => json[key] = value);
+  return json.toString;
+}
+
 /* string toString(T)(T value, size_t length = 0, string fillTxt = "0") {
 //    if (isFloatingPoint!T) {
   string result = fill(length, fillTxt);

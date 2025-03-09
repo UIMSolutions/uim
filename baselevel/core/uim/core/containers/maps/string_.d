@@ -50,14 +50,14 @@ unittest {
 }
 // #endregion filter
 
-string toString(string[string] aa) {
+/* string toString(string[string] aa) {
   return "%s".format(aa);
 }
 
 unittest {
   /// Add Tests
 }
-
+ */
 string aa2String(string[string] atts, string sep = "=") {
   string[] strings;
   foreach (k, v; atts)

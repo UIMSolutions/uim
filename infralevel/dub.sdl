@@ -9,10 +9,7 @@ authors "Ozan Nurettin Süel"
 targetName "uim-infralevel"
 targetType "library"
 
-dependency "uim-lowlevel" path="../lowlevel/"
-
-sourcePaths "."
-importPaths "."
+// dependency "uim-lowlevel" path="../lowlevel/"
 
 dependency "uim-datasources" path="./datasources/"
 dependency "uim-databases" path="./databases/"
@@ -27,3 +24,7 @@ dependency "uim-servers" path="./servers/"
 dependency "uim-storage" path="./storage/"
 dependency "uim-validations" path="./validations/"
 dependency "uim-virtualization" path="./virtualization/"
+
+sourceFiles "source/uim/infralevel.d"
+sourcePaths "."
+importPaths "."

@@ -9,7 +9,7 @@ authors "Ozan Nurettin Süel"
 targetName "uim-platformlevel"
 targetType "library"
 
-dependency "uim-infralevel" path="../infralevel/"
+// dependency "uim-infralevel" path="../infralevel/"
 
 dependency "uim-ai" path="./ai/"
 dependency "uim-apps" path="./apps/"

@@ -10,54 +10,48 @@ version (test_uim_core) {
 }
 
 // #region toJson
-Json toJson(bool value) {
+// #region value to Json
+Json toJson(T)(T value) {
   return Json(value);
 }
-
-Json toJson(long value) {
-  return Json(value);
+Json toJson(T:UUID)(T value) {
+  return Json(value.toString);
 }
-
-Json toJson(double value) {
-  return Json(value);
-}
-
-Json toJson(string value) {
-  return Json(value);
-}
-
-Json toJson(Json value) {
+Json toJson(T:Json)(T value) {
   return value;
 }
+unittest {
+  assert(true.toJson == Json(1));
+  assert(true.toJson.toJson == Json(1));
 
+  assert(1.toJson == Json(1));
+  assert(1.toJson.toJson == Json(1));
+
+  assert("a".toJson == Json("a"));
+  assert("a".toJson.toJson == Json("a"));
+
+  auto id = randomUUID;
+  assert(id.toJson == Json(id.toString));
+}
+// #endregion value to Json
+
+// #region array to Json
 Json toJson(T)(T[] values) {
   Json json = Json.emptyArray;
   values.each!(value => json ~= value.toJson);
   return json;
 }
-
-Json toJson(string aKey, string aValue) {
-  Json result = Json.emptyObject;
-  result[aKey] = aValue;
+Json toJson(T:UUID)(UUID[] uuids) {
+  Json result = Json.emptyArray;
+  uuids.each!(uuid => result ~= uuid.toJson);
   return result;
 }
-
-unittest {
-  assert(toJson("a", "3")["a"] == "3");
-}
+// #endregion array to Json
 
 // #region UUID 
-Json toJson(UUID value) {
-  return toJson(value.toString);
-}
 Json toJson(string aKey, UUID uuid) {
   Json result = Json.emptyObject;
   result[aKey] = uuid.toJson;
-  return result;
-}
-Json toJson(UUID[] uuids) {
-  Json result = Json.emptyArray;
-  uuids.each!(uuid => result ~= uuid.toJson);
   return result;
 }
 unittest {

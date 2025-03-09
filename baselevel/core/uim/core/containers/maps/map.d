@@ -24,8 +24,8 @@ unittest {
   assert(["a", "b", "c"].indexAA(1) == ["a": 1UL, "b": 2UL, "c": 3UL]);
 }
 
-size_t[V] indexAAReverse(V)(V[] values, size_t startPos = 0) {
-  size_t[V] results;
+size_t[V] indexAAReverse(T)(T[] values, size_t startPos = 0) {
+  size_t[T] results;
   foreach (i, value; values)
     results[i + startPos] = value;
   return results;
@@ -59,7 +59,7 @@ unittest {
   // assert(["a": 1, "b": 2].toHTML(SORTED) == `a="1" b="2"`);
 }
 
-string toSqlUpdate(K, V)(ref V[K] items, bool sorted = NOTSORTED) {
+string toSqlUpdate(K, V)(V[K] items, bool sorted = NOTSORTED) {
   return items.sortKeys
     .map!(key => `%s=%s`.format(key, items[key]))
     .join(",");
@@ -113,32 +113,143 @@ ref set(K, V, T)(ref V[K] items, T[K] others) {
 }
 
 // #region set(K, V, T)(ref V[K] items, K key, T value)
-  // #region set(K, V:string, T)(ref V[K] items, K key, T value)
-  // returns a updated map with new value
-  ref set(K, V:
-    string, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == V)) {
-    return items.set(key, to!string(value));
-  }
+  // #region set Json
+    ref set(ref Json obj, string[string] newItems) {
+      if (obj.isObject)
+        newItems.each!((key, value) => obj[key] = value);
+      return obj;
+    }
+    ref set(ref Json obj, Json[string] newItems) {
+      if (obj.isObject)
+        newItems.each!((key, value) => obj[key] = value);
+      return obj;
+    }
+    ref set(ref Json obj, string[] keys, string value) {
+      return obj.set();
+    }
+    ref set(ref Json obj, string key, string value) {
+      obj[key] = value;
+      return obj;
+    }
+    ref set(ref Json obj, string key, Json value) {
+      if (obj.isObject)
+        obj[key] = value;
+      else thro
 
-  ref set(K, V:
-    string, T:
-    Json)(ref V[K] items, K key, T value) if (!is(typeof(value) == V)) {
-    return items.set(key, value.toString);
-  }
-  // #region set(K, V:string, T)(ref V[K] items, K key, T value)
+      return obj;
+    }
+    unittest {
+      Json map = Json.emptyObject;
+      map["a"] = "A"; 
+      map["b"] = "B"; 
+      map["c"] = "C"; 
+      assert(map.length == 3);
 
-  // #region set(K, V:Json, T)(ref V[K] items, K key, T value)
-  // returns a updated map with new value
-  ref set(K, V:Json, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == V)) {
-    return items.set(key, Json(value));
-  }
+      map.set("d", Json("x"));
+      assert(map.length == 4 && map.hasKey("d"));
 
-  ref set(K, V:Json, T)(ref V[K] items, K key, T[string] value) {
-    Json json = Json.emptyObject;
-    value.each!((key, value) => json[key] = Json(value));
-    return items.set(key, json);
-  }
-  // #endregion set(K, V:Json, T)(ref V[K] items, K key, T value)
+      map.set("e", Json("x")).set("f", Json("x"));
+      assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
+
+      map = Json.emptyObject;
+      map["a"] = "A"; 
+      map["b"] = "B"; 
+      map["c"] = "C"; 
+      map.set(["d", "e", "f"], Json("x"));
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
+
+      map = Json.emptyObject;
+      map["a"] = "A"; 
+      map["b"] = "B"; 
+      map["c"] = "C"; 
+      map.set("d", Json("x")).set("e", Json("x")).set("f", Json("x"));
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
+
+      map = Json.emptyObject;
+      map["a"] = "A"; 
+      map["b"] = "B"; 
+      map["c"] = "C"; 
+      map.set(["d": Json("x"), "e": Json("x"), "f": Json("x")]);
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
+    }
+  // #region set Json
+
+  // #region set Json[string]
+    Json[string] set(Json[string] items, string[string] newItems) {
+      newItems.each!((key, value) => items.set(key, Json(value)));
+      return items;
+    }
+
+    Json[string] set(Json[string] items, Json[string] newItems) {
+      newItems.each!((key, value) => items.set(key, value));
+      return items;
+    }
+    Json[string] set(Json[string] items, string key, Json value) {
+      items[key] = value;
+      return items;
+    }
+    unittest {
+      Json[string] map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
+      assert(map.length == 3);
+
+      map.set("d", Json("x"));
+      assert(map.length == 4 && map.hasKey("d"));
+
+      map.set("e", Json("x")).set("f", Json("x"));
+      assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
+
+      map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
+      map.set(["d", "e", "f"], Json("x"));
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
+
+      map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
+      map.set("d", Json("x")).set("e", Json("x")).set("f", Json("x"));
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
+
+      map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
+      map.set(["d": Json("x"), "e": Json("x"), "f": Json("x")]);
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
+    }
+  // #region set Json[string]
+
+  // #region set string[string]
+    string[string] set(string[string] items, Json[string] newItems) {
+      newItems.each!((key, value) => items.set(key, value.toString));
+      return items;
+    }
+
+    string[string] set(string[string] items, string[string] newItems) {
+      newItems.each!((key, value) => items.set(key, value));
+      return items;
+    }
+    string[string] set(string[string] items, string key, string value) {
+      items[key] = value;
+      return items;
+    }
+    unittest {
+      string[string] map = ["a": "A", "b": "B", "c": "C"];
+      assert(map.length == 3);
+
+      map.set("d", "D");
+      assert(map.length == 4 && map.hasKey("d"));
+
+      map.set("e", "x").set("f", "x");
+      assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
+
+      map = ["a": "A", "b": "B", "c": "C"];
+      map.set(["d", "e", "f"], "x");
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
+
+      map = ["a": "A", "b": "B", "c": "C"];
+      map.set("d", "x").set("e", "x").set("f", "x");
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
+
+      map = ["a": "A", "b": "B", "c": "C"];
+      map.set(["d": "x", "e": "x", "f": "x"]);
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
+    }
+  // #endregion set string[string]
+// #endregion set(K, V:Json, T)(ref V[K] items, K key, T value)
 
 // returns a updated map with new value
 ref set(K, V, T)(ref V[K] items, K key, T value) if (is(typeof(value) == V)) {
@@ -148,50 +259,6 @@ ref set(K, V, T)(ref V[K] items, K key, T value) if (is(typeof(value) == V)) {
 // #endregion set(K, V, T)(ref V[K] items, K key, T value)
 
 unittest {
-  { // test 1
-    string[string] map = ["a": "A", "b": "B", "c": "C"];
-    assert(map.length == 3);
-
-    map.set("d", "D");
-    assert(map.length == 4 && map.hasKey("d"));
-
-    map.set("e", "x").set("f", "x");
-    assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
-
-    map = ["a": "A", "b": "B", "c": "C"];
-    map.set(["d", "e", "f"], "x");
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
-
-    map = ["a": "A", "b": "B", "c": "C"];
-    map.set("d", "x").set("e", "x").set("f", "x");
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
-
-    map = ["a": "A", "b": "B", "c": "C"];
-    map.set(["d": "x", "e": "x", "f": "x"]);
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
-  }
-  { // test 2
-    Json[string] map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-    assert(map.length == 3);
-
-    map.set("d", Json("x"));
-    assert(map.length == 4 && map.hasKey("d"));
-
-    map.set("e", Json("x")).set("f", Json("x"));
-    assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
-
-    map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-    map.set(["d", "e", "f"], Json("x"));
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
-
-    map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-    map.set("d", Json("x")).set("e", Json("x")).set("f", Json("x"));
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
-
-    map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-    map.set(["d": Json("x"), "e": Json("x"), "f": Json("x")]);
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
-  }
   { // test 3
     Json[string] map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
     assert(map.length == 3);

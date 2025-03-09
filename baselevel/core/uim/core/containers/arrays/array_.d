@@ -69,26 +69,36 @@ unittest {
 }
 // #endregion firstPosition
 
-/// Creates a associative array with all positions of a value in an array
-auto positions(T)(in T[] baseArray...) {
-  size_t[][T] results = positions(baseArray, null);
-  return results;
+// #region filterValues
+auto filterValues(T)(T[] values, T[] filterItems...) {
+  return filterValues(values, filterItems.dup);
 }
 
-///
+auto filterValues(T)(T[] values, T[] filterItems) {
+  return values.filter!(v => filterItems.has(v)).array;
+}
+
 unittest {
-  assert(positions(1) == [1: [0UL]]);
-  assert(positions(1, 1) == [1: [0UL, 1UL]]);
-  assert(positions(1, 2) == [1: [0UL], 2: [1UL]]);
+  auto items = [1, 2, 3, 4, 4, 5, 6];
+  assert(items.filterValues(2, 3, 4) == [2, 3, 4, 4]);
+  assert(items.filterValues([2, 3, 4]) == [2, 3, 4, 4]);
 }
+// #endregion filterValues
 
+// #region positions
+// Creates a associative array with all positions of a value in an array
+/* size_t[][T] positions(T)(T[] baseArray...) {
+  return positions(baseArray.dup);
+} */
 /// Creates a associative array with all positions of a value in an array
-size_t[][T] positions(T)(in T[] baseArray, in T[] validValues = null) {
+size_t[][T] positions(T)(T[] baseArray) {
   size_t[][T] results;
-  auto checkValues = (validValues ? baseArray.filters(validValues) : baseArray);
-  foreach (pos, v; checkValues) {
-    results[v] = v in results
-      ? results[v] ~ pos : [pos];
+  foreach (pos, v; baseArray) {
+    if (v in results) {
+      results[v] ~= pos;
+    } else {
+      results[v] = [pos];
+    }
   }
   return results;
 }
@@ -97,8 +107,8 @@ unittest {
   assert(positions([1]) == [1: [0UL]]);
   assert(positions([1, 1]) == [1: [0UL, 1UL]]);
   assert(positions([1, 2]) == [1: [0UL], 2: [1UL]]);
-  assert(positions([1, 2], [1]) == [1: [0UL]]);
 }
+// #endregion positions
 
 /// adding items into array
 T[] add(T)(in T[] baseArray, in T[] newItems...) {

@@ -15,8 +15,9 @@ version (test_uim_core) {
   }
 }
 
-STRINGAA allEndsNotWith(string[string] entries, string postfix) { // right will overright left
-  STRINGAA results;
+// #region allEndsNotWith
+string[string] allEndsNotWith(string[string] entries, string postfix) { // right will overright left
+  string[string] results;
   entries.byKeyValue
     .filter!(item => !item.key.endsWith(postfix))
     .each!(item => results[item.key] = item.value);
@@ -26,38 +27,31 @@ STRINGAA allEndsNotWith(string[string] entries, string postfix) { // right will 
 unittest {
   /// TODO Add Tests
 }
+// #endregion allEndsNotWith
 
-// #region filter
-STRINGAA filterByValues(string[string] entries, string[] values...) {
+// #region filterByValues
+/* string[string] filterByValues(string[string] entries, string[] values...) {
   return filterByValues(entries, values.dup);
 }
 
-STRINGAA filterByValues(string[string] entries, string[] someValues) {
-  STRINGAA results;
-  foreach (myValue; someValues) {
+string[string] filterByValues(string[string] entries, string[] values) {
+  string[string] results;
+  foreach (value; values) {
     entries.byKeyValue
-      .filter!(kv => kv.value == myValue)
+      .filter!(kv => kv.value == value)
       .each!(kv => results[kv.key] = entries[kv.key]);
   }
   return results;
 }
 
 unittest {
-  /*   assert(["a": "1", "b": "2"].filterByValues("1") == ["a": "1"]);
-  assert(["a": "1", "b": "2"].filterByValues("0").empty);
-  // TODO    assert(["a": "1", "b": "2", "c": "3"].filterByValues("1", "2") == ["a": "1"]);
-  assert(["a": "1", "b": "2", "c": "3"].filterByValues("0").empty); */
-}
-// #endregion filter
+  auto map = ["1": 1, "2": 2, "3": 3];
+  assert(map.filterByValues([1, 2]) == ["1": 1, "2": 2]);
+  assert(map.filterByValues(1, 2) == ["1": 1, "2": 2]);
+} */
+// #endregion filterByValues
 
-/* string toString(string[string] aa) {
-  return "%s".format(aa);
-}
-
-unittest {
-  /// Add Tests
-}
- */
+// #region aa2String
 string aa2String(string[string] atts, string sep = "=") {
   string[] strings;
   foreach (k, v; atts)
@@ -68,28 +62,16 @@ string aa2String(string[string] atts, string sep = "=") {
 unittest {
   /// Add Tests
 }
-
-string value(string[string] keyValues, string[] keys...) {
-  foreach (k; keys)
-    if (k in keyValues)
-      return keyValues[k];
-  return null;
-}
-
-unittest {
-  /// TODO Add Tests
-}
+// #endregion aa2String
 
 // #region update
-  // returns a updated map with new values
-  ref update(K : string, V:
-    string, T)(ref V[K] items, T[K] others, K[] keys...) {
+/*   // returns a updated map with new values
+  string[string] update(T)(string[string] items, T[string] others, string[] keys...) {
     return update(items, others, keys.dup);
   }
 
   // Returns a new map with updated values for existing keys
-  ref update(K : string, V:
-    string, T)(ref V[K] items, T[K] others, K[] keys = null) {
+  string[string] update(T)(string[string] items, T[string] others, string[] keys = null) {
     keys.length == 0
       ? others
       .each!((key, value) => items.update(key, value)) : keys
@@ -97,25 +79,25 @@ unittest {
 
     return items;
   }
+ */
+/*   string[string] update(T)(string[string] items, string[] keys, T value) {
+    keys.each!(key => items.update!(K, V)(key, to!string(value)));
+    return items;
+  }
 
-ref update(K:string, V:string, T)(ref V[K] items, K[] keys, T value) {
-  keys.each!(key => items.update!(K, V)(key, to!string(value)));
-  return items;
-}
-
-ref update(K:string, V:string, T)(ref V[K] items, K key, T value) if (!is(typeof(T) == string))  {
-  return items.update!(K, V)(key, to!string(value));
-}
-
-/* ref update(K:string, V:string, T:Json)(ref V[K] items, K key, T value) {
+  string[string] update(T)(string[string] items, string key, T value) if (!is(typeof(T) == string))  {
+    return items.update!(K, V)(key, to!string(value));
+  }
+ */
+/* string[string] update(T:Json)(string[string] items, string key, T value) {
   return items.update!(K, V)(key, value.toString);
 } */
 
-unittest {
+/* unittest {
     string[string] test = ["a": "A", "b": "B", "c": "C"];
     assert(test.length == 3 && test.hasAllKeys("a", "b", "c") && test["a"] == "A");
 
-/*     test.update("a", "x").update("d", "x").update("e", "x").update("f", "x");
+    test.update("a", "x").update("d", "x").update("e", "x").update("f", "x");
     assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] == "x");
 
     test = ["a": "A", "b": "B", "c": "C"]; // Reset map
@@ -132,28 +114,28 @@ unittest {
 
     test = ["a": "A", "b": "B", "c": "C"]; // Reset map
     test.update(["c": "x", "d": "x", "e": "x"], "c", "e");
-    assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] != "x" && test["c"] == "x"); */
-}
+    assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] != "x" && test["c"] == "x"); 
+} */
 // #endregion update
 
 // #region merge
-STRINGAA merge(string[string] items, string key, bool value) {
+string[string] merge(string[string] items, string key, bool value) {
   return items.merge(key, to!string(value));
 }
 
-STRINGAA merge(string[string] items, string key, long value) {
+string[string] merge(string[string] items, string key, long value) {
   return items.merge(key, to!string(value));
 }
 
-STRINGAA merge(string[string] items, string key, double value) {
+string[string] merge(string[string] items, string key, double value) {
   return items.merge(key, to!string(value));
 }
 
-STRINGAA merge(string[string] items, string key, Json value) {
+string[string] merge(string[string] items, string key, Json value) {
   return items.merge(key, value.toString);
 }
 
-STRINGAA merge(string[string] items, string key, string value = null) {
+string[string] merge(string[string] items, string key, string value = null) {
   items[key] = value;
   return items;
 }

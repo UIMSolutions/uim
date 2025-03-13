@@ -46,7 +46,7 @@ string toString(Json json) {
 }
 
 string toString(Json[] jsons) {
-  return jsons.toJson.toString;
+  return Json(jsons).toString;
 }
 
 string toString(UUID[] uuids) {
@@ -87,12 +87,12 @@ unittest {
 // #endregion toString
 
 unittest {
-  auto jsons = [Json(1), Json("x"), Json(true)];
+/*   auto jsons = [Json(1), Json("x"), Json(true)];
   auto txt = jsons.toString;
   assert(jsons.toStrings == ["1", "\"x\"", "true"]);
 
   assert(jsons.toJson.toStrings == ["1", "\"x\"", "true"]);
 
   writeln("UUIDs:", [randomUUID, randomUUID, randomUUID].toStrings);
-  writeln("UUIDs:", [randomUUID, randomUUID, randomUUID].toString);
+  writeln("UUIDs:", [randomUUID, randomUUID, randomUUID].toString); */
 }

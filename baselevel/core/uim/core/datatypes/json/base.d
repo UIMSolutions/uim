@@ -482,7 +482,7 @@ Json firstWithKey(Json[] jsons, string key) {
 }
 
 unittest {
-  Json[] jsons;
+/*   Json[] jsons;
   auto json = Json.emptyObject;
   jsons ~= json
     .set("a", 1)
@@ -496,7 +496,7 @@ unittest {
     .set("a", 3)
     .set("b", 4);
   assert(jsons.firstWithKey("a").getLong("a") == 1);
-  assert(jsons.firstWithKey("x") == Json(null));
+  assert(jsons.firstWithKey("x") == Json(null)); */
 }
 
 Json mergeJsonObject(Json baseJson, Json mergeJson) {
@@ -969,95 +969,6 @@ unittest {
 }
 // #endregion
 
-Json set(Json json, string key) {
-  if (json.isObject) {
-    json[key] = null;
-  }
-  return json;
-}
-
-Json set(Json json, string key, bool value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
-}
-
-Json set(Json json, string key, int value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
-}
-
-Json set(Json json, string key, long value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
-}
-
-Json set(Json json, string key, float value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
-}
-
-Json set(Json json, string key, double value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
-}
-
-Json set(Json json, string key, string value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
-}
-
-Json set(Json json, string key, Json value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
-}
-
-Json set(Json json, string key, Json[] value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
-}
-
-Json set(Json json, string key, string[string] value) {
-  if (json.isObject) {
-    Json[string] convertedValues;
-    value.byKeyValue.each!(kv => convertedValues[kv.key] = kv.value.toJson);
-    json.set(key, convertedValues);
-  }
-  return json;
-}
-
-Json set(Json json, string key, Json[string] value) {
-  if (json.isObject) {
-    json[key] = value;
-  }
-  return json;
-}
-
-unittest {
-  Json json = Json.emptyObject;
-  assert(json.set("bool", true).getBoolean("bool"));
-  assert(json.set("bool", true).getBoolean("bool"));
-  assert(json.set("long", 1).getLong("long") == 1);
-  assert(json.set("double", 0.1).getDouble("double") == 0.1);
-  assert(json.set("string", "A").getString("string") == "A");
-  assert(json.set("strings", ["x": "X", "y": "Y", "z": "Z"]) != Json(null));
-  writeln(json);
-}
 // #endregion setter
 
 

@@ -5,11 +5,8 @@
 *****************************************************************************************************************/
 module uim.core.containers.maps.keys.string_;
 
-@safe:
-import std.algorithm : startsWith, endsWith;
 import uim.core;
-import uim.core.containers.maps.keys;
-import uim.core.containers.maps.values;
+@safe:
 
 version (test_uim_core) {
   unittest {

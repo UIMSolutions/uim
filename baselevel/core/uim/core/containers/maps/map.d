@@ -12,43 +12,29 @@ import uim.core;
 enum SORTED = true;
 enum NOTSORTED = false;
 
-size_t[V] indexAA(V)(V[] values, size_t startPos = 0) {
-  size_t[V] results;
-  foreach (i, value; values)
-    results[value] = i + startPos;
+// #region positions
+size_t[][T] positions(T)(T[] values) {
+  size_t[][T] results;
+  foreach (i, value; values) {
+    if (!results.hasKey(value)) {
+      size_t[] positions = [i];
+      results[value] = positions;
+    }
+    else {
+      results[value] ~= i;
+    }
+  }
   return results;
 }
-
 unittest {
-  assert(["a", "b", "c"].indexAA == ["a": 0UL, "b": 1UL, "c": 2UL]);
-  assert(["a", "b", "c"].indexAA(1) == ["a": 1UL, "b": 2UL, "c": 3UL]);
+  assert(["a", "b", "c"].positions == ["a": [0UL], "b": [1UL], "c": [2UL]]);
+  assert(["a", "b", "c", "c"].positions == ["a": [0UL], "b": [1UL], "c": [2UL, 3UL]]);
 }
+// #endregion positions
 
-size_t[V] indexAAReverse(T)(T[] values, size_t startPos = 0) {
-  size_t[T] results;
-  foreach (i, value; values)
-    results[i + startPos] = value;
-  return results;
-}
 
-unittest {
-  // Add Test
-}
 
-string toJSONString(K, V)(V[K] values, bool sorted = NOTSORTED) {
-  string result = "{" ~ MapHelper.sortedKeys(values)
-    .map!(key => `"%s": %s`.format(key, values[key]))
-    .join(",") ~ "}";
-
-  return result;
-}
-
-unittest {
-  // assert(["a": 1, "b": 2].toJSONString(SORTED) == `{"a": 1,"b": 2}`);
-}
-
-string toHTML(K, V)(ref V[K] items, bool sorted = NOTSORTED) {
-
+string toHTML(T)(T[string] items, bool sorted = NOTSORTED) {
   return items.sortKeys(sorted ? "ASC" : "NONE")
     .map!(key => `%s="%s"`.format(key, items[key]))
     .join(" ");
@@ -59,25 +45,29 @@ unittest {
   // assert(["a": 1, "b": 2].toHTML(SORTED) == `a="1" b="2"`);
 }
 
-string toSqlUpdate(K, V)(V[K] items, bool sorted = NOTSORTED) {
+string toSqlUpdate(T)(T[string] items, bool sorted = NOTSORTED) {
   return items.sortKeys
     .map!(key => `%s=%s`.format(key, items[key]))
     .join(",");
 }
 
 unittest {
-  writeln(__FILE__, "/", __LINE__);
+  auto map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
+
   // assert(["a": 1, "b": 2].toSqlUpdate(SORTED) == `a=1,b=2`);
 }
 
 /// Checks if key exists and has values
-bool hasValue(K, V)(ref V[K] items, K key, V value) {
+bool hasValue(T)(T[string] items, string key, T value) {
   return (key in items)
     ? items[key] == value : false;
 }
 
 unittest {
-  writeln(__FILE__, "/", __LINE__);
+  auto map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
+
   // assert(["a": 1, "b": 2].hasValue("a", 1));
   // assert(!["a": 2, "b": 2].hasValue("a", 1));
   // assert(["a": 1, "b": 1].hasValue("a", 1));
@@ -85,429 +75,174 @@ unittest {
   // assert(["a": 1, "b": 2].hasValue("b", 2));
 }
 
-// Checks if values exist in base
-bool hasValues(K, V)(ref V[K] items, V[K] others) {
-  return others.byKeyValue
-    .all!(other => other.key in items && items[other.key] == other.value);
-}
-///
-unittest {
-  writeln(__FILE__, "/", __LINE__);
-  auto testMap = ["a": 1, "b": 2, "c": 3, "d": 4];
-  // assert(["a": 1, "b": 2].hasValues(["a": 1, "b": 2]));
-  // assert(!["a": 1, "b": 2].hasValues(["a": 1, "b": 3]));
-  // assert(!["a": 1, "b": 2].hasValues(["a": 1, "c": 2]));
-}
+// #region hasValue
+  // Checks if values exist in base
+  bool hasAllValues(T)(T[string] items, T[string] checkItems) {
+    return items.hasAllValues(checkItems.values);
+  }
+
+  bool hasAllValues(T)(T[string] items, T[] values...) {
+    return items.hasAllValues(values.dup);
+  }
+
+  bool hasAllValues(T)(T[string] items, T[] values) {
+    return values.all!(value => items.hasValue(value));
+  }
+
+  bool hasAnyValue(T)(T[string] items, T[string] checkItems) {
+    return items.hasAnyValue(checkItems.values);
+  }
+
+  bool hasAnyValue(T)(T[string] items, T[] values...) {
+    return items.hasAnyValue(values.dup);
+  }
+
+  bool hasAnyValue(T)(T[string] items, T[] values) {
+    return values.any!(value => items.hasValue(value));
+  }
+
+  bool hasValue(T)(T[string] items, T check) {
+    foreach(key, value; items) {
+      if (check == value) return true;
+    }
+    return false;
+  }
+
+  unittest {
+    auto map = ["1": 1, "2": 2, "3": 3];
+
+    assert(map.hasValue(1)); 
+    assert(!map.hasValue(5)); 
+
+    assert(map.hasAnyValue(1, 2)); 
+    assert(!map.hasAnyValue(6, 5)); 
+    assert(map.hasAnyValue(1, 5)); 
+
+    assert(map.hasAnyValue([1, 2])); 
+    assert(!map.hasAnyValue([6, 5])); 
+    assert(map.hasAnyValue([1, 5])); 
+
+    assert(!map.hasAllValues(1, 5)); 
+    assert(!map.hasAllValues(6, 5)); 
+    assert(map.hasAllValues(1, 2)); 
+
+    assert(!map.hasAllValues([1, 5])); 
+    assert(!map.hasAllValues([6, 5])); 
+    assert(map.hasAllValues([1, 2])); 
+  }
+// #endregion hasValue
 
 // #region set
-// returns a updated map with new values
-ref set(K, V, T)(ref V[K] items, K[] keys, T value) {
-  keys.each!(key => items.set(key, value));
-  return items;
-}
+  T[string] set(T)(T[string] items, T[string] newItems) {
+    newItems.each!((key, value) => items.set(key, value));
+    return items;
+  }
 
-// Returns a updated map with new values
-ref set(K, V, T)(ref V[K] items, T[K] others) {
-  others.each!((key, value) => items.set(key, value));
-  return items;
-}
+  T[string] set(T)(T[string] items, string[] keys, T value) {
+    keys.each!(key => items.set(key, value));
+    return items;
+  }
 
-// #region set(K, V, T)(ref V[K] items, K key, T value)
-  // #region set Json
-    ref set(ref Json obj, string[string] newItems) {
-      if (obj.isObject)
-        newItems.each!((key, value) => obj[key] = value);
-      return obj;
-    }
-    ref set(ref Json obj, Json[string] newItems) {
-      if (obj.isObject)
-        newItems.each!((key, value) => obj[key] = value);
-      return obj;
-    }
-    ref set(ref Json obj, string[] keys, string value) {
-      return obj.set();
-    }
-    ref set(ref Json obj, string key, string value) {
-      obj[key] = value;
-      return obj;
-    }
-    ref set(ref Json obj, string key, Json value) {
-      if (obj.isObject)
-        obj[key] = value;
-      else thro
+  T[string] set(T)(T[string] items, string key, T value) {
+    items[key] = value;
+    return items;
+  }
 
-      return obj;
-    }
-    unittest {
-      Json map = Json.emptyObject;
-      map["a"] = "A"; 
-      map["b"] = "B"; 
-      map["c"] = "C"; 
-      assert(map.length == 3);
-
-      map.set("d", Json("x"));
-      assert(map.length == 4 && map.hasKey("d"));
-
-      map.set("e", Json("x")).set("f", Json("x"));
-      assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
-
-      map = Json.emptyObject;
-      map["a"] = "A"; 
-      map["b"] = "B"; 
-      map["c"] = "C"; 
-      map.set(["d", "e", "f"], Json("x"));
-      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
-
-      map = Json.emptyObject;
-      map["a"] = "A"; 
-      map["b"] = "B"; 
-      map["c"] = "C"; 
-      map.set("d", Json("x")).set("e", Json("x")).set("f", Json("x"));
-      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
-
-      map = Json.emptyObject;
-      map["a"] = "A"; 
-      map["b"] = "B"; 
-      map["c"] = "C"; 
-      map.set(["d": Json("x"), "e": Json("x"), "f": Json("x")]);
-      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
-    }
-  // #region set Json
-
-  // #region set Json[string]
-    Json[string] set(Json[string] items, string[string] newItems) {
-      newItems.each!((key, value) => items.set(key, Json(value)));
-      return items;
-    }
-
-    Json[string] set(Json[string] items, Json[string] newItems) {
-      newItems.each!((key, value) => items.set(key, value));
-      return items;
-    }
-    Json[string] set(Json[string] items, string key, Json value) {
-      items[key] = value;
-      return items;
-    }
-    unittest {
-      Json[string] map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-      assert(map.length == 3);
-
-      map.set("d", Json("x"));
-      assert(map.length == 4 && map.hasKey("d"));
-
-      map.set("e", Json("x")).set("f", Json("x"));
-      assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
-
-      map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-      map.set(["d", "e", "f"], Json("x"));
-      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
-
-      map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-      map.set("d", Json("x")).set("e", Json("x")).set("f", Json("x"));
-      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
-
-      map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-      map.set(["d": Json("x"), "e": Json("x"), "f": Json("x")]);
-      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
-    }
-  // #region set Json[string]
-
-  // #region set string[string]
-    string[string] set(string[string] items, Json[string] newItems) {
-      newItems.each!((key, value) => items.set(key, value.toString));
-      return items;
-    }
-
-    string[string] set(string[string] items, string[string] newItems) {
-      newItems.each!((key, value) => items.set(key, value));
-      return items;
-    }
-    string[string] set(string[string] items, string key, string value) {
-      items[key] = value;
-      return items;
-    }
-    unittest {
-      string[string] map = ["a": "A", "b": "B", "c": "C"];
-      assert(map.length == 3);
-
-      map.set("d", "D");
-      assert(map.length == 4 && map.hasKey("d"));
-
-      map.set("e", "x").set("f", "x");
-      assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
-
-      map = ["a": "A", "b": "B", "c": "C"];
-      map.set(["d", "e", "f"], "x");
-      assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
-
-      map = ["a": "A", "b": "B", "c": "C"];
-      map.set("d", "x").set("e", "x").set("f", "x");
-      assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
-
-      map = ["a": "A", "b": "B", "c": "C"];
-      map.set(["d": "x", "e": "x", "f": "x"]);
-      assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
-    }
-  // #endregion set string[string]
-// #endregion set(K, V:Json, T)(ref V[K] items, K key, T value)
-
-// returns a updated map with new value
-ref set(K, V, T)(ref V[K] items, K key, T value) if (is(typeof(value) == V)) {
-  items[key] = value;
-  return items;
-}
-// #endregion set(K, V, T)(ref V[K] items, K key, T value)
-
-unittest {
-  { // test 3
-    Json[string] map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
+  unittest {
+    auto map = ["1": 1, "2": 2, "3": 3];
     assert(map.length == 3);
 
-    map.set("d", "x");
-    assert(map.length == 4 && map.hasKey("d"));
+    map.set("4", 4);
+    assert(map.length == 4 && map.hasKey("4"));
 
-    map.set("e", "x").set("f", "x");
-    assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
+    map.set("5", 5).set("6", 6);
+    assert(map.length == 6 && map.hasAllKeys("4", "5", "6"));
 
-    map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-    map.set(["d", "e", "f"], "x");
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
+    map = ["1": 1, "2": 2, "3": 3];
+    map.set(["5", "6"], 0);
+    assert(map.length == 5 && map.hasAllKeys("5", "6"));
 
-    map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-    map.set("d", "x").set("e", "x").set("f", "x");
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
-
-    map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-    map.set(["d": "x", "e": "x", "f": "x"]);
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == "x");
+    map = ["1": 1, "2": 2, "3": 3];
+    map.set(["4": 4, "5": 5, "6": 6]);
+    assert(map.length == 6 && map.hasAllKeys("4", "5", "6"));
   }
-  { // test 4
-    string[string] map = ["a": "A", "b": "B", "c": "C"];
-    assert(map.length == 3);
-
-    map.set("d", 1);
-    assert(map.length == 4 && map.hasKey("d"));
-
-    map.set("e", "x").set("f", 1.1);
-    assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
-
-    map = ["a": "A", "b": "B", "c": "C"];
-    map.set(["d", "e", "f"], 1);
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == "1");
-
-    Json json = Json.emptyObject;
-    json["d"] = 1;
-    json["e"] = "1";
-    map = ["a": "A", "b": "B", "c": "C"];
-    map.set("d", 1).set("e", 1).set("f", json);
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == `{"d":1,"e":"1"}`);
-
-    Json[string] jsonmap;
-    jsonmap.set(["d", "e", "f"], 1);
-    map = ["a": "A", "b": "B", "c": "C"];
-    map.set(["d": 1, "e": 1]).set("f", jsonmap);
-    assert(map.length == 6 && map.hasKey("d") && map["f"] == `["d":1, "e":1, "f":1]`);
-  }
-}
 // #endregion set
 
 // #region merge
-ref merge(K, V, T)(ref V[K] items, T[K] merges, K[] keys...) {
-  return merge(items, merges, keys.dup);
-}
-
-// Returns a new map with updated values for existing keys
-ref merge(K, V, T)(ref V[K] items, T[K] merges, K[] keys = null) {
-  keys.length == 0
-    ? merges
-    .each!((key, value) => items.merge(key, value)) : keys
-    .filter!(key => key in merges)
-    .each!(key => items.merge(key, merges[key]));
-
-  return items;
-}
-
-// Returns a new map with merged values for not existing keys
-ref merge(K, V)(ref V[K] items, K[] keys, V value) {
-  keys
-    .filter!(key => key !in items)
-    .each!(key => items.set(key, value));
-  return items;
-}
-
-// returns a updated map with new value
-ref merge(K : string, V:
-  Json, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == V)) {
-  return items.merge(key, Json(value));
-}
-
-// returns a updated map with new value
-ref merge(K : string, V:
-  string, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == V)) {
-  return items.merge(key, to!string(value));
-}
-
-// Returns a new map with merged values for not existing keys
-ref merge(K, V, T)(ref V[K] items, K key, T value) if (is(typeof(value) == V)) {
-  if (key !in items) {
-    items[key] = value;
+  T[string] merge(T)(T[string] items, T[string] newItems) {
+    newItems.each!((key, value) => items.merge(key, value));
+    return items;
   }
-  return items;
-}
 
-unittest {
-  string[string] test = ["a": "A", "b": "B"];
-  assert(test.length == 2);
+  T[string] merge(T)(T[string] items, string[] keys, T value) {
+    keys.each!(key => items.merge(key, value));
+    return items;
+  }
 
-  test.merge("c", "C");
-  assert(test.length == 3 && test.hasKey("c"));
+  T[string] merge(T)(T[string] items, string key, T value) {
+    items[key] = value;
+    return items;
+  }
 
-  test.merge("a", "X");
-  assert(test.length == 3);
+  unittest {
+    auto map = ["1": 1, "2": 2, "3": 3];
+    assert(map.length == 3);
 
-  test.merge("e", "x").merge("f", "x");
-  assert(test.length == 5 && test.hasAllKeys("e", "f"));
+    map.merge("4", 4);
+    assert(map.length == 4 && map.hasKey("4"));
 
-  test = ["a": "A", "b": "B"]; // Reset map
-  test.merge(["c", "d", "e"], "X");
-  assert(test.length == 5 && test.hasAllKeys("c", "d", "e"));
+    map.merge("3", 0);
+    assert(map.length == 4 && map["3"] == 3);
 
-  test.merge(["c", "d", "e"], "x").merge(["f", "g", "h"], "x");
-  assert(test.length == 8 && test.hasAllKeys("f", "g", "h"));
+    map = ["1": 1, "2": 2, "3": 3];
+    map.merge(["5", "6"], 0);
+    assert(map.length == 5 && map.hasAllKeys("5", "6"));
+    assert(map.length == 5 && map.hasAnyKey("5", "7"));
 
-  test = ["a": "A", "b": "B"]; // Reset map
-  test.merge(["c": "x", "d": "x", "e": "x"]);
-  assert(test.length == 5 && test.hasAllKeys("c", "d", "e"));
-
-  test = ["a": "A", "b": "B"]; // Reset map
-  test.merge(["c": "x", "d": "x", "e": "x"], "e");
-  writeln(test);
-  assert(test.length == 3 && test.hasAllKeys("e") && !test.hasAllKeys("c", "d"));
-
-  Json[string] test2 = ["a": Json("A"), "b": Json("B")];
-  assert(test2.length == 2);
-
-  test2.merge("c", Json("C"));
-  assert(test2.length == 3 && test2.hasKey("c"));
-
-  test2.merge("a", Json("X"));
-  assert(test2.length == 3);
-
-  test2.merge("e", Json("x")).merge("f", Json("x"));
-  assert(test2.length == 5 && test2.hasAllKeys("e", "f"));
-
-  test2 = ["a": Json("A"), "b": Json("B")]; // Reset map
-  test2.merge(["c", "d", "e"], Json("x"));
-  assert(test2.length == 5 && test2.hasAllKeys("c", "d", "e"));
-
-  test2.merge(["c", "d", "e"], Json("x")).merge(["f", "g", "h"], Json("x"));
-  assert(test2.length == 8 && test2.hasAllKeys("f", "g", "h"));
-
-  test2 = ["a": Json("A"), "b": Json("B")]; // Reset map
-  test2.merge(["c": Json("x"), "d": Json("x"), "e": Json("x")]);
-  assert(test2.length == 5 && test2.hasAllKeys("c", "d", "e"));
-
-  test2 = ["a": Json("A"), "b": Json("B")]; // Reset map
-  test2.merge(["c": Json("x"), "d": Json("x"), "e": Json("x")], "e");
-  writeln(test2);
-  assert(test2.length == 3 && test2.hasAllKeys("e") && !test2.hasAllKeys("c", "d"));
-}
+    map = ["1": 1, "2": 2, "3": 3];
+    map.merge(["4": 4, "5": 5, "6": 6]);
+    assert(map.length == 6 && map.hasAllKeys("4", "5", "6"));
+  }
 // #endregion merge
 
 // #region update
-// Returns a new map with updated values for existing keys
-ref update(K, V)(ref V[K] items, V[K] merges, K[] keys...) {
-  return update(items, merges, keys.dup);
-}
-
-// Returns a new map with updated values for existing keys
-ref update(K, V)(ref V[K] items, V[K] merges, K[] keys = null) {
-  keys.isNull
-    ? merges
-    .each!((key, value) => items.update(key, value)) : keys
-    .filter!(key => key in merges)
-    .each!(key => items.update(key, merges[key]));
-
-  return items;
-}
-
-// Returns a new map with updated values for existing keys
-ref update(K, V)(ref V[K] items, K[] keys, V value) {
-  keys
-    .each!(key => items.update(key, value));
-  return items;
-}
-
-ref update(K : string, V:
-  Json, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == V)) {
-  return items.update(key, Json(value));
-}
-
-ref update(K : string, V:
-  string, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == V)) {
-  return items.update(key, to!string(value));
-}
-
-// Returns a new map with updated values for existing keys
-ref update(K, V, T)(ref V[K] items, K key, T value) if (is(typeof(value) == V)) {
-  if (key in items) {
-    items[key] = value;
+T[string] update(T)(T[string] items, T[string] newItems) {
+    newItems.each!((key, value) => items.update(key, value));
+    return items;
   }
-  return items;
-}
 
-unittest {
-  string[string] test = ["a": "A", "b": "B", "c": "C"];
-  assert(test.length == 3 && test.hasAllKeys("a", "b", "c") && test["a"] == "A");
+  T[string] update(T)(T[string] items, string[] keys, T value) {
+    keys.each!(key => items.update(key, value));
+    return items;
+  }
 
-  test.update("a", "x").update("d", "x").update("e", "x").update("f", "x");
-  assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] == "x");
+  T[string] update(T)(T[string] items, string key, T value) {
+    items[key] = value;
+    return items;
+  }
 
-  test = ["a": "A", "b": "B", "c": "C"]; // Reset map
-  test.update(["c", "d", "e"], "x");
-  assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] != "x" && test["c"] == "x");
+  unittest {
+    auto map = ["1": 1, "2": 2, "3": 3];
+    assert(map.length == 3);
 
-  test = ["a": "A", "b": "B", "c": "C"]; // Reset map
-  test.update(["a", "b", "c"], "x").update(["d", "e", "f"], "x");
-  assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] == "x" && test["c"] == "x");
+    map.update("4", 4);
+    assert(map.length == 3 && !map.hasKey("4"));
 
-  test = ["a": "A", "b": "B", "c": "C"]; // Reset map
-  test.update(["c": "x", "d": "x", "e": "x"]);
-  assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] != "x" && test["c"] == "x");
+    map.update("1", 0).update("2", 0);
+    assert(map.length == 3 && map.hasAllKeys("1", "2", "3") && map["1"] == 0);
 
-  test = ["a": "A", "b": "B", "c": "C"]; // Reset map
-  test.update(["c": "x", "d": "x", "e": "x"], "c", "e");
-  assert(test.length == 3 && !test.hasAnyKey("d", "e", "f") && test["a"] != "x" && test["c"] == "x");
+    map = ["1": 1, "2": 2, "3": 3];
+    map.update(["1", "2"], 0);
+    assert(map.length == 3 && map.hasAllKeys("1", "2", "3") && map["1"] == 0);
 
-  Json[string] test2 = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
-  assert(test2.length == 3 && test2.hasAllKeys("a", "b", "c") && test2["a"] == "A");
-
-  test2.update("a", Json("x")).update("d", Json("x")).update("e", Json("x")).update("f", Json("x"));
-  assert(test2.length == 3 && !test2.hasAnyKey("d", "e", "f") && test2["a"] == Json("x"));
-
-  test2 = ["a": Json("A"), "b": Json("B"), "c": Json("C")]; // Reset map
-  test2.update(["c", "d", "e"], Json("x"));
-  assert(test2.length == 3 && !test2.hasAnyKey("d", "e", "f") && test2["a"] != Json("x") && test2["c"] == Json(
-      "x"));
-
-  test2 = ["a": Json("A"), "b": Json("B"), "c": Json("C")]; // Reset map
-  test2.update(["a", "b", "c"], Json("x")).update(["d", "e", "f"], Json("x"));
-  assert(test2.length == 3 && !test2.hasAnyKey("d", "e", "f") && test2["a"] == Json("x") && test2["c"] == Json(
-      "x"));
-
-  test2 = ["a": Json("A"), "b": Json("B"), "c": Json("C")]; // Reset map
-  test2.update(["c": Json("x"), "d": Json("x"), "e": Json("x")]);
-  assert(test2.length == 3 && !test2.hasAnyKey("d", "e", "f") && test2["a"] != Json("x") && test2["c"] == Json(
-      "x"));
-
-  test2 = ["a": Json("A"), "b": Json("B"), "c": Json("C")]; // Reset map
-  test2.update(["c": Json("x"), "d": Json("x"), "e": Json("x")], "c", "e");
-  assert(test2.length == 3 && !test2.hasAnyKey("d", "e", "f") && test2["a"] != Json("x") && test2["c"] == Json(
-      "x"));
-}
+    map = ["1": 1, "2": 2, "3": 3];
+    map.update(["1": 0, "2": 0, "3": 0]);
+    assert(map.length == 3 && map.hasAllKeys("1", "2", "3") && map["1"] == 0);
+  }
 // #endregion update
 
-string keyByValue(K, V)(ref V[K] items, Json searchValue) {
+// #region keyByValue
+string keyByValue(T)(T[string] items, Json searchValue) {
   foreach (key, value; items) {
     if (value == searchValue)
       return key;
@@ -515,14 +250,15 @@ string keyByValue(K, V)(ref V[K] items, Json searchValue) {
   // return Null!K;
   return Json(null);
 }
+// #endregion keyByValue
 
 // #region intersect 
-V[K] intersect(K, V)(V[K] left, V[K] right) {
+T[string] intersect(T)(T[string] left, T[string] right) {
   return left.intersect(right.keys);
 }
 
-V[K] intersect(K, V)(V[K] left, string[] right) {
-  V[K] result;
+T[string] intersect(T)(T[string] left, string[] right) {
+  T[string] result;
   right
     .filter!(key => left.hasKey(key))
     .each!(key => result[key] = left[key]);
@@ -530,13 +266,13 @@ V[K] intersect(K, V)(V[K] left, string[] right) {
   return result;
 }
 
-/*   V[K] intersect(V[K] left, Json right) {
+/*   T[string] intersect(T[string] left, Json right) {
     return right.isArray
       ? intersect(left,
         right.toArray.map!(val => val.get!K).array) : null;
   } */
 
-V[K] intersect(K, V)(V[K] left, Json right) {
+T[string] intersect(T)(T[string] left, Json right) {
   if (right.isArray) {
     return intersect(left,
       right.toArray.map!(val => val.get!V).array);
@@ -550,10 +286,10 @@ V[K] intersect(K, V)(V[K] left, Json right) {
 }
 
 unittest {
-  // TODO 
-  /* string[string] left = ["a": "A"].set("b", "B").set("c", "C");
+  auto map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
 
-  string[] keys = ["a", "x", "y"]; */
+  string[] keys = ["a", "x", "y"]; 
   // TODO
   /* // assert(left.intersect(keys).length == 1);
   // assert(left.intersect(keys)["a"] == "A");
@@ -568,12 +304,12 @@ unittest {
 
 // #region diff 
 // Computes the difference of maps
-V[K] diff(K, V)(V[K] left, V[K] right) {
+T[string] diff(T)(T[string] left, T[string] right) {
   return left.diff(right.keys);
 }
 
-V[K] diff(K, V)(V[K] left, string[] right) {
-  V[K] result;
+T[string] diff(T)(T[string] left, string[] right) {
+  T[string] result;
   right
     .filter!(key => !left.hasKey(key))
     .each!(key => result[key] = left[key]);
@@ -581,13 +317,13 @@ V[K] diff(K, V)(V[K] left, string[] right) {
   return result;
 }
 
-/*   V[K] diff(V[K] left, Json right) {
+/*   T[string] diff(T[string] left, Json right) {
     return right.isArray
       ? diff(left,
         right.toArray.map!(val => val.get!K).array) : null;
   } */
 
-V[K] diff(K, V)(V[K] left, Json right) {
+T[string] diff(T)(T[string] left, Json right) {
   if (right.isObject) {
     return diff(left,
       right.keys
@@ -597,9 +333,11 @@ V[K] diff(K, V)(V[K] left, Json right) {
 }
 
 unittest {
-  /*   string[string] left = ["a": "A"].set("b", "B").set("c", "C");
+  auto map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
+
   string[] keys = ["a", "x", "y"];
- */
+
   /* // assert(left.diff(keys).length == 2);
   // assert(left.diff(keys)["b"] == "B");
   // assert(!left.diff(keys).hasKey("b"));
@@ -611,15 +349,15 @@ unittest {
 }
 // #endregion diff 
 
-V[K] column(V, K)(V[K][] values, string key) {
+T[string] column(T)(T[string][] values, string key) {
   return values
     .filter!(value => value.hasKey(key))
     .map!(value => value[key])
     .array;
 }
 
-V[K] combine(V, K)(string[] keys, Json[] values) {
-  V[K] results;
+T[string] combine(T)(string[] keys, T[] values) {
+  T[string] results;
   size_t lastIndex = min(keys.length, values.length);
   for (size_t i = 0; i < lastIndex; i++) {
     results[keys[i]] = values[i];
@@ -627,107 +365,127 @@ V[K] combine(V, K)(string[] keys, Json[] values) {
   return results;
 }
 
-// #region unique
-/// Unique - Reduce duplicates in array
-V[K] unique(K, V)(ref V[K] items) {
-  V[K] results;
-  V[K] values;
-  items.byKeyValue.each!((item) {
-    if (!values.hasKey(item.value)) {
-      values[item.value] = item.value;
-      results[item.key] = item.value;
-    }
-  });
-  return results;
-}
-
-unittest {
-  // assert(["a": "A", "b": "B", "c": "C"].unique.length == 3);
-  // assert(["a": "A", "b": "B", "c": "C", "d": "C"].unique.length == 3);
-}
-// #endregion unique
-
 // #region createMap
-V[K] createMap(K, V)(V[K] startItems = null) {
-  V[K] map = startItems;
+T[string] createMap(T)(T[string] startItems = null) {
+  T[string] map = startItems;
   return map;
 }
 
 unittest {
-  STRINGAA testMap = createMap!(string, string);
-  // assert(testMap.isEmpty);
+  auto map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
 
-  testMap = createMap!(string, string)(["a": "A", "b": "B", "c": "C"]);
+  // testMap = createMap!(string, string)(["a": "A", "b": "B", "c": "C"]);
   // assert(!testMap.isEmpty);
 }
 // #endregion createMap
 
 // #region clear
-/* V[K] clear(ref V[K] items) {
+/* T[string] clear(T[string] items) {
   items = null;
   return items;
 } */
 
 unittest {
-  STRINGAA testMap = ["a": "A", "b": "B", "c": "C"];
-  // assert(testMap !is null);
+  auto map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
 
-  testMap.clear;
+  map.clear;
   // assert(testMap.length == 0);
 }
 // #endregion clear
 
 // #region shift
-V[K] shift(K, V)(ref V[K] items, K[] keys) {
-  V[K] result;
-  keys
-    .filter!(key => items.hasKey(key))
-    .each!(key => result[key] = items.shift(key));
-  return result;
+T[] shift(T)(T[string] items, string[] keys...) {
+  return items.shift(keys.dup);
 }
 
-V shift(K, V)(ref V[K] items, K key) {
-  V result;
-  if (key in items)
+T[] shift(T)(T[string] items, string[] keys) {
+  return keys
+    .filter!(key => items.hasKey(key))
+    .map!(key => items.shift(key))
+    .array;
+}
+
+T shift(T)(T[string] items, string key) {
+  T result;
+  if (items.hasKey(key)) {
     result = items[key];
-  items.remove(key);
+    items.remove(key);
+  }
   return result;
 }
 
 unittest {
-  STRINGAA testMap = ["a": "A", "b": "B", "c": "C"];
-  // assert(testMap.length == 3);
-  // assert(testMap.shift("b") == "B");
-  // assert(testMap.length == 2);
+  auto map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
+  assert(map.shift("1") == 1);
+  assert(map.length == 2);
 
-  auto map = testMap.shift(["a", "b", "c"]);
-  // assert(testMap.length == 0);
-  // assert(map.length == 2);
-  // assert(map["a"] == "A");
+  map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
+  assert(map.shift(["1", "2", "3"]) == [1, 2, 3]);
+  assert(map.length == 0);
+
+  map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
+  assert(map.shift("2", "1", "3") == [2, 1, 3]);
+  assert(map.length == 0);
 }
 // #endregion shift
 
-K value(K, V)(ref V[K] items, string key, K defaultValue) {
-  return key in items ? items[key] : defaultValue;
+// #region value
+T[] values(T)(T[string] items, string[] keys...) {
+  return items.values(keys.dup);
 }
 
+T[] values(T)(T[string] items, string[] keys) {
+  return keys
+    .filter!(key => items.hasKey(key))
+    .map!(key => items[key])
+    .array;
+}
+
+/* T value(T)(T[string] items, string key, T defaultValue) {
+  return items.hasKey(key) ? items[key] : defaultValue;
+} */
+
+unittest {
+  auto map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
+  // assert(map.value("1") == 1);
+  assert(map.length == 3);
+
+  map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
+  assert(map.values(["1", "2", "3"]) == [1, 2, 3]);
+  assert(map.values(["1", "2", "2", "3"]) == [1, 2, 2, 3]);
+  assert(map.length == 3);
+
+  map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
+  assert(map.values("2", "1", "1", "3") == [2, 1, 1, 3]);
+  assert(map.length == 3);
+}
+// #endregion value
+
 // #region isEmpty
-bool isEmpty(K, V)(ref V[K] items) {
+bool isEmpty(T)(T[string] items) {
   return items.length == 0;
 }
 
 unittest {
-  STRINGAA testMap = ["a": "A", "b": "B", "c": "C"];
-  // assert(!testMap.isEmpty);
+  auto map = ["1": 1, "2": 2, "3": 3];
+  assert(map.length == 3);
 
   // assert(testMap.length == 3);
 
-  testMap.clear;
+  map.clear;
   // assert(testMap.isEmpty);
   // assert(testMap.isEmpty);
   // assert(testMap.length == 0);
 
-  testMap = createMap!(string, string);
+  // map = createMap!(string, string);
   // assert(testMap.isEmpty);
   // assert(testMap.length == 0);
 

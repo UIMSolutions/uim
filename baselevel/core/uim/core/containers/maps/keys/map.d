@@ -14,11 +14,9 @@ version (test_uim_core) {
   }
 }
 
-
 // #region sortKeys
-
 // Returns the keys of a map sorted in ascending or descending order.
-pure K[] sortKeys(K, V)(ref V[K] items, SortDir dir = SortDir.ASC) {
+pure string[] sortedKeys(T)(ref T[string] items, SortDir dir = SortDir.ASC) {
   switch (dir) {
   case SortDir.ASC:
     return items.keys.sort!("a < b").array;
@@ -30,20 +28,20 @@ pure K[] sortKeys(K, V)(ref V[K] items, SortDir dir = SortDir.ASC) {
 }
 unittest {
   string[string] testMap = ["a": "A", "b": "B"];
-  assert(testMap.sortKeys == ["a", "b"]);
-  assert(testMap.sortKeys(SortDir.DESC) == ["b", "a"]);
+  assert(testMap.sortedKeys == ["a", "b"]);
+  assert(testMap.sortedKeys(SortDir.DESC) == ["b", "a"]);
 }
-// #endregion sortKeys
+// #endregion sortedKeys
 
 // #region withoutKeys
 // Returns a new map without the specified keys
-pure V[K] withoutKeys(K, V)(V[K] entries, K[] keys...) {
+pure T[string] withoutKeys(T)(T[string] entries, string[] keys...) {
   return withoutKeys(entries, keys.dup);
 }
 
 // Returns a new map without the specified keys
-pure V[K] withoutKeys(K, V)(V[K] entries, K[] keys) {
-  V[K] results = entries.dup;
+pure T[string] withoutKeys(T)(T[string] entries, string[] keys) {
+  T[string] results = entries.dup;
   keys
     .filter!(key => entries.hasKey(key))
     .each!(key => results.remove(key));
@@ -52,8 +50,8 @@ pure V[K] withoutKeys(K, V)(V[K] entries, K[] keys) {
 }
 
 // Returns a new map without the specified key
-pure V[K] withoutKey(K, V)(V[K] entries, K key) {
-  V[K] results = entries.dup;
+pure T[string] withoutKey(T)(T[string] entries, string key) {
+  T[string] results = entries.dup;
   results.remove(key);
   return results;
 }
@@ -78,13 +76,13 @@ unittest {
 
 // #region filter
 // returns a new map with only the specified keys
-pure V[K] filterKeys(K, V)(V[K] entries, K[] keys...) {
+pure T[string] filterKeys(T)(T[string] entries, string[] keys...) {
   return filterKeys(entries, keys.dup);
 }
 
 // returns a new map with only the specified keys
-pure V[K] filterKeys(K, V)(V[K] entries, K[] keys) {
-  V[K] results;
+pure T[string] filterKeys(T)(T[string] entries, string[] keys) {
+  T[string] results;
   keys
     .filter!(key => entries.hasKey(key))
     .each!(key => results[key] = entries[key]);
@@ -93,8 +91,8 @@ pure V[K] filterKeys(K, V)(V[K] entries, K[] keys) {
 }
 
 // returns a new map with only the specified keys
-pure V[K] filterKey(K, V)(V[K] entries, K key) {
-  V[K] results;
+pure T[string] filterKey(T)(T[string] entries, string key) {
+  T[string] results;
   if (entries.hasKey(key)) {
     results[key] = entries[key];
   }
@@ -121,34 +119,34 @@ unittest {
 }
 // #endregion filter
 
-// #region renameKey
+// #region renameKey(s)
 // Returns a new map with the specified key(s) renamed
-V[K] renameKeys(K, V)(ref V[K] items, K[K] mapping) {
-  mapping.each!((originalKey, newKey) {
-      items.renameKey(originalKey, newKey);
+T[string] renameKeys(T)(T[string] items, string[string] keyMapping) {
+  keyMapping.each!((fromKey, toKey) {
+      items.renameKey(fromKey, toKey);
   });
   return items;
 }
 
 // Returns a new map with the specified key(s) renamed
-V[K] renameKeys(K, V)(ref V[K] items, K[] keys, K[] others) {
-  if (keys.length <= others.length) {
-    keys.each!((i, key) => items.renameKey(key, others[i])); 
+T[string] renameKeys(T)(T[string] items, string[] fromKeys, string[] toKeys) {
+  if (fromKeys.length <= toKeys.length) {
+    fromKeys.each!((i, key) => items.renameKey(key, toKeys[i])); 
   }
   else { // keys.length > others.length)
-    others.each!((i, other) => items.renameKey(keys[i], other)); 
+    toKeys.each!((i, other) => items.renameKey(fromKeys[i], other)); 
   }
   return items;
 }
 
 // Returns a new map with the specified key(s) renamed
-V[K] renameKey(K, V)(ref V[K] items, K originalKey, K newKey) {
-  if (!items.hasKey(originalKey)) {
+T[string] renameKey(T)(T[string] items, string fromKey, string toKey) {
+  if (!items.hasKey(fromKey)) {
     return items;
   }
 
-  V value = items.shift(originalKey);
-  items[newKey] = value;
+  T value = items.shift(fromKey);
+  items[toKey] = value;
 
   return items;
 }
@@ -203,31 +201,31 @@ unittest {
   jsonMap.renameKeys(["a": "x", "b": "y"]); 
   assert(jsonMap.hasAllKeys("x", "y", "c", "d") && !jsonMap.hasAnyKey("a", "b"));
 }
-// #endregion renameKey
+// #endregion renameKey(s)
 
 // #region hasKey
   // Returns true if the map has all the specified keys
-  bool hasAllKeys(K, V)(V[K] base, K[] keys...) {
+  bool hasAllKeys(T)(T[string] base, string[] keys...) {
     return base.hasAllKeys(keys.dup);
   }
 
   // Returns true if the map has all the specified keys
-  bool hasAllKeys(K, V)(V[K] base, string[] keys) {
+  bool hasAllKeys(T)(T[string] base, string[] keys) {
     return keys.all!(key => base.hasKey(key));
   }
 
   // Returns true if the map has any of the specified keys
-  bool hasAnyKey(K, V)(V[K] base, string[] keys...) {
+  bool hasAnyKey(T)(T[string] base, string[] keys...) {
     return base.hasAnyKey(keys.dup);
   }
 
   // Returns true if the map has any of the specified keys
-  bool hasAnyKey(K, V)(V[K] base, string[] keys) {
+  bool hasAnyKey(T)(T[string] base, string[] keys) {
     return keys.any!(key => base.hasKey(key));
   }
 
   // Returns true if the map has the specified key
-  bool hasKey(K, V)(V[K] map, K key) {
+  bool hasKey(T)(T[string] map, string key) {
     return (key in map) ? true : false;
   }
 
@@ -261,17 +259,17 @@ unittest {
   }
 // #endregion hasKey
 
-// #region removeKey
-  V[K] removeKeys(K, V)(ref V[K] items, K[] keys...) {
+// #region removeKey(s)
+  T[string] removeKeys(T)(ref T[string] items, string[] keys...) {
     return removeKeys(items, keys.dup);
   }
 
-  V[K] removeKeys(K, V)(ref V[K] items, K[] keys) {
+  T[string] removeKeys(T)(ref T[string] items, string[] keys) {
     keys.each!(key => removeKey(items, key));
     return items;
   }
 
-  V[K] removeKey(K, V)(ref V[K] items, K key) {
+  T[string] removeKey(T)(ref T[string] items, string key) {
     if (hasKey(items, key)) {
       items.remove(key);
     }
@@ -324,4 +322,48 @@ unittest {
     jsonMap.removeKeys("b", "c");
     assert(jsonMap.hasAllKeys("a", "d") && !jsonMap.hasAnyKey("b", "c"));
   }
-// #endregion removeKey
+// #endregion removeKey(s)
+
+  // #region set T[string]
+    Json[string] set(T)(Json[string] items, T[string] newItems) {
+      newItems.each!((key, value) => items.set(key, Json(value)));
+      return items;
+    }
+    Json[string] set(T)(Json[string] items, T[string] newItems) {
+      newItems.each!((key, value) => items.set(key, value));
+      return items;
+    }
+    Json[string] set(T)(Json[string] items, string[] keys, T value) {
+      keys.each!(key => items.set(key, value));
+      return items;
+    }
+    Json[string] set(T)(Json[string] items, string key, T value) if (!is(Json == T)) {
+      return items.set(key, value.toJson);
+    }
+    Json[string] set(T)(Json[string] items, string key, T value) if (is(Json == T)) {
+      items[key] = value;
+      return items;
+    }
+    unittest {
+      Json[string] map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
+      assert(map.length == 3);
+
+      map.set("d", Json("x"));
+      assert(map.length == 4 && map.hasKey("d"));
+
+      map.set("e", Json("x")).set("f", Json("x"));
+      assert(map.length == 6 && map.hasAllKeys("d", "e", "f"));
+
+      map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
+      map.set(["d", "e", "f"], Json("x"));
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
+
+      map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
+      map.set("d", Json("x")).set("e", Json("x")).set("f", Json("x"));
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x"));
+
+/*       map = ["a": Json("A"), "b": Json("B"), "c": Json("C")];
+      map.set(["d": Json("x"), "e": Json("x"), "f": Json("x")]);
+      assert(map.length == 6 && map.hasKey("d") && map["f"] == Json("x")); */
+    }
+  // #region set T[string]

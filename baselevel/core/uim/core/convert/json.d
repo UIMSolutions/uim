@@ -35,11 +35,17 @@ Json toJson(T:Json)(T value) {
   return value;
 }
 unittest {
-  assert(true.toJson == Json(1));
-  assert(true.toJson.toJson == Json(1));
+  assert(true.toJson == Json(true));
+  assert(true.toJson.toJson == Json(true));
+
+  assert(false.toJson != Json(true));
+  assert(false.toJson.toJson != Json(true));
 
   assert(1.toJson == Json(1));
   assert(1.toJson.toJson == Json(1));
+
+  assert((1.1).toJson == Json(1.1));
+  assert((1.1).toJson.toJson == Json(1.1));
 
   assert("a".toJson == Json("a"));
   assert("a".toJson.toJson == Json("a"));

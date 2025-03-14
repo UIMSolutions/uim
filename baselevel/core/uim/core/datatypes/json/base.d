@@ -28,37 +28,55 @@ unittest {
 
 
 
-// #region Check json value
+// #region is
 bool isMap(Json json) {
   return json.type == Json.Type.object;
 }
 
+// #region isObject
 bool isObject(Json json) {
   return json.type == Json.Type.object;
 }
-///
+
 unittest {
   assert(parseJsonString(`{"a": "b"}`).isObject);
   assert(!parseJsonString(`["a", "b", "c"]`).isObject);
+
+  Json json = Json.emptyObject;
+  json["a"] = "A";
+  json["one"] = 1;
+  assert(json.isObject);
+}
+// #endregion isObject
+
+// #region isArray
+bool isArray(Json json) {  
+  return json == Json(null)
+    ? (json.type == Json.Type.array)
+    : false;
 }
 
-bool isArray(Json json) {
-  return (json.type == Json.Type.array);
-}
-///
 unittest {
   assert(parseJsonString(`["a", "b", "c"]`).isArray);
   assert(!parseJsonString(`{"a": "b"}`).isArray);
-}
 
+  Json json = Json.emptyArray;
+  json["a"] ~= "A";
+  json["one"] ~= 1;
+  assert(json.isArray);
+}
+// #endregion isArray
+
+// #region isBigInteger
 bool isBigInteger(Json json) {
   return (json.type == Json.Type.bigInt);
 }
-///
+
 unittest {
   assert(parseJsonString(`1000000000000000000000`).isBigInteger);
   assert(!parseJsonString(`1`).isBigInteger);
 }
+// #endregion isBigInteger
 
 // #region isBoolean
 bool isBooleanLike(Json value) {
@@ -71,6 +89,28 @@ bool isBooleanLike(Json value) {
   return value.isBoolean;
 }
 
+bool isAllBoolean(Json value, string[] keys...) {
+  return value.isAllBoolean(keys.dup); 
+}
+
+bool isAllBoolean(Json value, string[] keys) {
+  return keys.all!(key => value.isBoolean(key)); 
+}
+
+bool isAnyBoolean(Json value, string[] keys...) {
+  return value.isAnyBoolean(keys.dup); 
+}
+
+bool isAnyBoolean(Json value, string[] keys) {
+  return keys.any!(key => value.isBoolean(key)); 
+}
+
+bool isBoolean(Json value, string key) {
+  return value.hasKey(key) 
+    ? value[key].isBoolean 
+    : false;
+}
+
 bool isBoolean(Json value) {
   return (value.type == Json.Type.bool_);
 }
@@ -79,34 +119,91 @@ unittest {
   assert(parseJsonString(`true`).isBoolean);
   assert(parseJsonString(`false`).isBoolean);
   assert(!parseJsonString(`1`).isBoolean);
-}
-// #region isBoolean
+  assert(!parseJsonString("text").isBoolean);
+  assert(Json(true).isBoolean);
 
+  Json map = Json.emptyObject;
+  map["one"] = Json(1);  
+  map["alfa"] = Json("text");
+  map["t"] = Json(true);  
+  map["f"] = Json(false);
+  assert(!map.isBoolean);  
+  assert(!map.isBoolean("one"));  
+  assert(!map.isBoolean("alfa"));  
+  assert(map.isBoolean("t"));  
+  assert(map.isBoolean("f"));  
+
+  assert(map.isAnyBoolean("one", "t"));  
+  assert(map.isAnyBoolean("f", "t"));  
+  assert(!map.isAnyBoolean("one", "alfa"));  
+
+  assert(map.isAllBoolean("f", "t"));
+  assert(!map.isAllBoolean("f", "alfa"));  
+  assert(!map.isAllBoolean("one", "alfa"));  
+}
+// #endregion isBoolean
+
+// #region isFloat
 bool isFloat(Json value) {
   return (value.type == Json.Type.float_);
+}
+unittest {
+  assert(!Json(true).isFloat);  
+  assert(!Json(10).isFloat);  
+  assert(Json(1.1).isFloat);  
+  assert(!Json("text").isFloat);
+}
+// #endregion isFloat
+
+// #region isDouble
+bool isDouble(Json value, string key) {
+  return value.hasKey(key) 
+    ? value[key].isDouble 
+    : false;
 }
 
 bool isDouble(Json value) {
   return (value.type == Json.Type.float_);
 }
-///
+
 unittest {
-  assert(parseJsonString(`1.1`).isFloat);
-  assert(!parseJsonString(`1`).isFloat);
+  assert(!Json(true).isDouble);  
+  assert(!Json(10).isDouble);  
+  assert(Json(1.1).isDouble);  
+  assert(!Json("text").isDouble);
+}
+// #endregion isDouble
+
+// #region isInteger
+bool isInteger(Json value, string key) {
+  return value.hasKey(key) 
+    ? value[key].isInteger 
+    : false;
 }
 
 bool isInteger(Json value) {
   return (value.type == Json.Type.int_);
 }
 
+unittest {
+  assert(!Json(true).isInteger);  
+  assert(Json(10).isInteger);  
+  assert(!Json(1.1).isInteger);  
+  assert(!Json("text").isInteger);
+}
+// #endregion isInteger
+
+// #region isLong
 bool isLong(Json value) {
   return (value.type == Json.Type.int_);
 }
-///
 unittest {
-  assert(parseJsonString(`1`).isInteger);
-  assert(!parseJsonString(`1.1`).isInteger);
+  assert(!Json(true).isInteger);  
+  assert(Json(10).isInteger);  
+  assert(!Json(1.1).isInteger);  
+  assert(!Json("text").isInteger);
 }
+// #endregion isLong
 
 // #region isNull
 // Check if json value is null
@@ -206,6 +303,7 @@ unittest {
   assert(!parseJsonString(`1.1`).isUndefined);
 }
 
+// #region isEmpty
 bool isEmpty(Json value) {
   if (value.isNull) {
     return true;
@@ -218,11 +316,14 @@ bool isEmpty(Json value) {
   return false;
   // TODO add not null, but empty
 }
-// #endregion
+// #endregion isEmpty
 
+// #region isIntegral
 bool isIntegral(Json value) {
   return value.isLong;
 }
+// #endregion isIntegral
+// #endregion is
 
 /// Check if jsonPath exists
 bool hasPath(Json json, string path, string separator = "/") {
@@ -918,19 +1019,22 @@ string getString(Json value) {
     ? value.get!string : null;
 }
 
+// #region getArray
 Json[] getArray(Json value, string key) {
   return value.isObject && value.hasKey(key)
     ? value[key].getArray : null;
 }
 
-Json[] getArray(Json value) {
-  if (value.isNull) {
-    return null;
-  }
+Json[] getArray(Json json) {
+  return json.isArray 
+    ? json.get!(Json[])
+    : null;
+} 
 
-  return value.isArray
-    ? value.get!(Json[]) : null;
+unittest {
+
 }
+// #endregion getArray
 
 Json[string] getMap(Json value, string key) {
   return value.isObject && value.hasKey(key)

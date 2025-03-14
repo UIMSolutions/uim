@@ -5,7 +5,6 @@
 *****************************************************************************************************************/
 module uim.core.containers.maps.string_;
 
-import std.algorithm : startsWith, endsWith;
 import uim.core;
 @safe:
 
@@ -123,6 +122,10 @@ string[string] merge(string[string] items, string key, bool value) {
   return items.merge(key, to!string(value));
 }
 
+string[string] merge(string[string] items, string key, int value) {
+  return items.merge(key, to!string(value));
+}
+
 string[string] merge(string[string] items, string key, long value) {
   return items.merge(key, to!string(value));
 }
@@ -135,13 +138,27 @@ string[string] merge(string[string] items, string key, Json value) {
   return items.merge(key, value.toString);
 }
 
-string[string] merge(string[string] items, string key, string value = null) {
-  items[key] = value;
+string[string] merge(string[string] items, string key, string value) {
+  if (!items.hasKey(key)) {
+    items[key] = value;
+  }
   return items;
 }
 
 unittest {
   string[string] testmap;
-  // assert(merge(testmap, "a", "A")["a"] == "A");
-}
+  assert(testmap.merge("a", "A")["a"] == "A");
+  assert(testmap.merge("x", true)["x"] == "true");
+  assert(testmap.merge("y", 1)["y"] == "1");
+  assert(testmap.merge("z", 1.1)["z"] == "1.1");  
+  assert(!testmap.hasAnyKey("a", "x", "y", "z"));
+
+  testmap = ["0": ""];
+  assert(testmap.merge("a", "A")["a"] == "A");
+  assert(testmap.merge("x", true)["x"] == "true");
+  assert(testmap.merge("y", 1)["y"] == "1");
+  assert(testmap.merge("z", 1.1)["z"] == "1.1");  
+  assert(testmap.hasAllKeys("a", "x", "y", "z"));
+  assert(!testmap.hasAllKeys("a", "x", "-", "z"));
+ }
 // #endregion merge

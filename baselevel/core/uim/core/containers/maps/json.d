@@ -373,11 +373,13 @@ Json getJson(Json[string] values, string key, Json defaultValue = Json(null)) {
     ? values[key] : defaultValue;
 }
 
-Json[] getArray(Json[string] values, string key, Json[] defaultValue = null) {
-  auto json = getJson(values, key);
-  return !uim.core.datatypes.json.isNull(json)
-    ? json.get!(Json[]) : defaultValue;
+// #region getArray
+Json[] getArray(Json[string] map, string key, Json[] defaultValue = null) {
+  return (key in map) 
+    ? map[key].get!(Json[])
+    : defaultValue;
 }
+// #endregion getArray
 
 Json[string] getMap(Json[string] values, string key, Json[string] defaultValue = null) {
   auto json = getJson(values, key);

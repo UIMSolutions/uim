@@ -120,20 +120,14 @@ version (test_uim_core) {
     keys.each!(key => set(items, key, value));
     return items;
   }
-  string[string] set(string[string] items, string key, string value) {
+ */  
+   T[string] set(T:string)(T[string] items, string key, T value) {
     items[key] = value;
     return items;
   }
- */  // #endregion string[string] set(..., string value)
 
   unittest {
     string[string] testmap;
-    // writeln("testmap => ", testmap.set("one", 2));
-
-    Json x = Json.emptyObject;
-    x["1"] = true;
-
-    // writeln("testmap => ", testmap.set("one", x));
     assert(set(testmap, "a", "A")["a"] == "A");
     assert(set(testmap, "a", "A").set("b", "B")["b"] == "B");
 

@@ -9,6 +9,20 @@ import uim.core;
 
 @safe:
 
+// #region is
+// #region isBoolean
+  bool isAllBoolean(Json json) {
+    return json.isArray 
+      ? json.getArray.all!(item => item.isBoolean) 
+      : false;
+  }
+  unittest {
+
+  }
+// #endregion isBoolean
+
+// #endregion is
+
 // #region hasAll
 bool hasAll(T)(Json json, T[] values...) {
   return json.hasAll(values.dup);

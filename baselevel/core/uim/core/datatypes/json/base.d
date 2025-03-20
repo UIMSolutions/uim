@@ -116,7 +116,7 @@ bool isAnyBoolean(Json value) {
   if (value.isArray)
     return value.get!(Json[]).isAnyBoolean; 
 
-  return bvalue;
+  return value.isBoolean;
 }
 
 bool isAnyBoolean(Json value, string[] keys...) {

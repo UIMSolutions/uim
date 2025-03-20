@@ -22,7 +22,7 @@ unittest {
 }
 // #region toJson
 // #region value to Json
-Json toJson(T)(T value) {
+Json toJson(T)(T value) if (isScalarType!(T)) {
   return Json(value);
 }
 Json toJson(T:string)(T value) {

@@ -38,7 +38,7 @@ import uim.core;
       assert(values.isAnyBoolean);
 
       values = [Json(true), Json(1)];
-      assert(!values.isAnyBoolean);
+      assert(values.isAnyBoolean);
 
       values = [Json("X"), Json(1)];
       assert(!values.isAnyBoolean);
@@ -63,19 +63,19 @@ import uim.core;
     }
 
     unittest {
-      auto values = [Json(true), Json(false)];
+      auto values = [Json(1), Json(2)];
       assert(values.isAllInteger);
 
       values = [Json(true), Json(1)];
       assert(!values.isAllInteger);
 
-      values = [Json(true), Json(false)];
+      values = [Json(1), Json(false)];
       assert(values.isAnyInteger);
 
-      values = [Json(true), Json(1)];
+      values = [Json(true), Json("1")];
       assert(!values.isAnyInteger);
 
-      values = [Json("X"), Json(1)];
+      values = [Json("X"), Json("1")];
       assert(!values.isAnyInteger);
     }
   // #endregion isInteger

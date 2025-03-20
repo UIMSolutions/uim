@@ -25,6 +25,7 @@ unittest {
 
 // char[] BOOL(bool toogleValue) { return cast(char[])((toogleValue) ? `true`:`false`); }
 
+// #region toogle
 /// Toggle boolean value (from true to false, false to true) -> in this function it's !value
 bool toggle(bool value) {
   return !value;
@@ -41,19 +42,25 @@ unittest {
   value = true;
   assert(value.toggle.toggle == true); */
 }
+// #endregion toogle
 
+// #region translate
 /// Translates boolean to defined values
-pure T translate(T)(bool value, T ifTrue, T ifFalse) {
-  return (value) ? ifTrue : ifFalse;
+pure T translateTo(T)(bool value, T trueValue, T falseValue) {
+  return (value) ? trueValue : falseValue;
 }
 
 unittest {
-  assert(translate(true, "YES", "NO") == "YES", "Error in translate(bool, T, T)");
-  assert(translate(false, "YES", "NO") == "NO", "Error in translate(bool, T, T)");
+  assert(translateTo(true, false, true) == false, "Error in translate(bool, T, T)");
+  assert(translateTo(false, false, true) == true, "Error in translate(bool, T, T)");
 
-  assert(translate(true, 1, 2) == 1, "Error in translate(bool, T, T)");
-  assert(translate(false, 1, 2) == 2, "Error in translate(bool, T, T)");
+  assert(translateTo(true, "YES", "NO") == "YES", "Error in translate(bool, T, T)");
+  assert(translateTo(false, "YES", "NO") == "NO", "Error in translate(bool, T, T)");
+
+  assert(translateTo(true, 1, 2) == 1, "Error in translate(bool, T, T)");
+  assert(translateTo(false, 1, 2) == 2, "Error in translate(bool, T, T)");
 }
+// #endregion translateTo
 
 /// Translates boolean to defined values
 pure T fromBool(T)(bool value, T ifTrue, T ifFalse) {

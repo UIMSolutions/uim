@@ -381,6 +381,7 @@ Json[] getArray(Json[string] map, string key, Json[] defaultValue = null) {
 }
 // #endregion getArray
 
+// #region getMap
 Json[string] getMap(Json[string] values, string key, Json[string] defaultValue = null) {
   auto json = getJson(values, key);
   return !uim.core.datatypes.json.isNull(json) && uim.core.datatypes.json.isObject(json)
@@ -404,6 +405,7 @@ unittest {
     // assert(jsonMain.getMap("x")["one"].getInteger == 1);
  */
 }
+// #endregion getMap
 // #endregion Getter
 
 // #region convert

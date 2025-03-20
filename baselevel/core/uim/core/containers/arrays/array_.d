@@ -16,14 +16,14 @@ version (test_uim_core) {
 }
 
 // #region size
-size_t size(T)(T[] anArray) {
-  return anArray.length;
+size_t size(T)(T[] values) {
+  return values.length;
 }
 // #region size
 
-// #region count
-size_t[T] countDuplicates(T)(in T[] baseArray...) {
-  return countDuplicates(baseArray.dup);
+// #region duplicates
+size_t[T] duplicates(T)(in T[] values) {
+  return duplicates(baseArray.dup);
 }
 
 size_t[T] countDuplicates(T)(in T[] someValues) {

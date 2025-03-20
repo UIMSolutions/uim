@@ -83,7 +83,6 @@ bool endsWith(string text, string[] endings) {
 }
 ///
 unittest {
-  writeln("Testing endsWith()");
   assert("ABC".endsWith(["C"]));
   assert(!"".endsWith(["C"]));
   assert(!"ABC".endsWith([""]));
@@ -91,56 +90,13 @@ unittest {
 // #endregion endsWith
 
 // #region contains
-bool containsAny(string[] bases, string[] values...) {
-  return containsAny(bases, values.dup);
-}
-
-unittest {
-  writeln("Testing containsAny()");
-
-  assert(["One Two Three"].containsAny("One"));
-  assert(!["One Two Three", "Eight Seven Six"].containsAny("Five", "Four"));
-  assert(!["One Two Three"].containsAny("Five", "Four"));
-}
-
-bool containsAny(string[] bases, string[] values) {
-  return bases.any!(base => base.containsAny(values));
-}
-
-unittest {
-  assert(["One Two Three"].containsAny(["One"]));
-  assert(!["One Two Three", "Eight Seven Six"].containsAny(["Five", "Four"]));
-  assert(!["One Two Three"].containsAny(["Five", "Four"]));
-}
-
-bool containsAny(string base, string[] values...) {
-  return containsAny(base, values.dup);
-}
-
-bool containsAny(string base, string[] values) {
-  return values.any!(value => base.contains(value));
-}
-
+// #region containsAll
 bool containsAll(string[] bases, string[] values...) {
   return containsAll(bases, values.dup);
 }
 
-unittest {
-  assert(["One Two Three"].containsAll("One"));
-  assert(!["One Two Three", "Eight Seven Six"].containsAll("Five", "Four", "Six"));
-  assert(!["One Two Three"].containsAll("Five", "Four"));
-}
-
 bool containsAll(string[] bases, string[] values) {
   return bases.all!(base => base.containsAll(values));
-}
-
-unittest {
-  assert(["One Two Three"].containsAll(["One"]));
-  assert(!["One Two Three", "Eight Seven Six"].containsAll([
-      "Five", "Four", "Six"
-    ]));
-  assert(!["One Two Three"].containsAll(["Five", "Four"]));
 }
 
 bool containsAll(string base, string[] values...) {
@@ -150,26 +106,54 @@ bool containsAll(string base, string[] values...) {
 bool containsAll(string base, string[] values) {
   return values.all!(value => base.contains(value));
 }
+// #endregion containsAll
 
-unittest {
-  assert("One Two Three".contains("One"));
-  /*   assert(!"One Two Three".contains("Five", "Four", "Three"));
-  assert(!"One Two Three".contains("Five", "Four"));
- */
+// #region containsAny
+bool containsAny(string[] bases, string[] values...) {
+  return containsAny(bases, values.dup);
 }
+
+bool containsAny(string[] bases, string[] values) {
+  return bases.any!(base => base.containsAny(values));
+}
+
+bool containsAny(string base, string[] values...) {
+  return containsAny(base, values.dup);
+}
+
+bool containsAny(string base, string[] values) {
+  return values.any!(value => base.contains(value));
+}
+// #endregion containsAny
 
 bool contains(string text, string checkValue) {
   return (text.length == 0 || checkValue.length == 0 || checkValue.length > text.length)
     ? false : (text.indexOf(checkValue) >= 0);
 }
 
-/* bool hasValue(string base, string checkValue) {
-  if (base.length == 0 || checkValue.length == 0 || checkValue.length > base.length) {
-    return false;
-  }
-  return (base.indexOf(checkValue) >= 0);
-} */
-// #endregion has
+unittest {
+  assert(["One Two Three"].containsAll("One"));
+  assert(["One Two Three"].containsAll("One", "Two", "Three"));
+  assert(!["One Two Three", "Eight Seven Six"].containsAll("One", "Four", "Six"));
+  assert(!["One Two Three"].containsAll("Five", "Four"));
+
+  assert(["One Two Three"].containsAll(["One"]));
+  assert(["One Two Three"].containsAll(["One", "Two", "Three"]));
+  assert(!["One Two Three", "Eight Seven Six"].containsAll([
+      "Five", "Four", "Six"
+    ]));
+  assert(!["One Two Three"].containsAll(["Five", "Four"]));
+
+  assert(["One Two Three"].containsAny("One"));
+  assert(!["One Two Three", "Eight Seven Six"].containsAny("Five", "Four"));
+  assert(!["One Two Three"].containsAny("Five", "Four"));
+
+  assert(["One Two Three"].containsAny(["One"]));
+  assert(!["One Two Three", "Eight Seven Six"].containsAny(["Five", "Four"]));
+  assert(!["One Two Three"].containsAny(["Five", "Four"]));
+
+}
+// #endregion contains
 
 // #region remove
 pure string[] removeValues(string[] values, string[] removingValues...) {

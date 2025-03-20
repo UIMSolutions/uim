@@ -10,17 +10,75 @@ import uim.core;
 @safe:
 
 // #region is
-// #region isBoolean
-  bool isAllBoolean(Json json) {
-    return json.isArray 
-      ? json.getArray.all!(item => item.isBoolean) 
-      : false;
-  }
-  unittest {
+  // #region isBoolean
+    bool isAnyBoolean(Json[] values...) {
+      return isAnyBoolean(values.dup);
+    }
 
-  }
-// #endregion isBoolean
+    bool isAnyBoolean(Json[] values) {
+      return values.any!(value => value.isBoolean);
+    }
 
+    bool isAllBoolean(Json[] values...) {
+      return isAllBoolean(values.dup);
+    }
+
+    bool isAllBoolean(Json[] values) {
+      return values.all!(value => value.isBoolean);
+    }
+
+    unittest {
+      auto values = [Json(true), Json(false)];
+      assert(values.isAllBoolean);
+
+      values = [Json(true), Json(1)];
+      assert(!values.isAllBoolean);
+
+      values = [Json(true), Json(false)];
+      assert(values.isAnyBoolean);
+
+      values = [Json(true), Json(1)];
+      assert(!values.isAnyBoolean);
+
+      values = [Json("X"), Json(1)];
+      assert(!values.isAnyBoolean);
+    }
+  // #endregion isBoolean
+
+    // #region isInteger
+    bool isAnyInteger(Json[] values...) {
+      return isAnyInteger(values.dup);
+    }
+
+    bool isAnyInteger(Json[] values) {
+      return values.any!(value => value.isInteger);
+    }
+
+    bool isAllInteger(Json[] values...) {
+      return isAllInteger(values.dup);
+    }
+
+    bool isAllInteger(Json[] values) {
+      return values.all!(value => value.isInteger);
+    }
+
+    unittest {
+      auto values = [Json(true), Json(false)];
+      assert(values.isAllInteger);
+
+      values = [Json(true), Json(1)];
+      assert(!values.isAllInteger);
+
+      values = [Json(true), Json(false)];
+      assert(values.isAnyInteger);
+
+      values = [Json(true), Json(1)];
+      assert(!values.isAnyInteger);
+
+      values = [Json("X"), Json(1)];
+      assert(!values.isAnyInteger);
+    }
+  // #endregion isInteger
 // #endregion is
 
 // #region hasAll
@@ -84,6 +142,7 @@ unittest {
   json ~= Json(2);
   json ~= Json(3);
 
+  writeln(json.toString);
   assert(json.has(Json(1)));
   assert(!json.has(Json("1")));
 

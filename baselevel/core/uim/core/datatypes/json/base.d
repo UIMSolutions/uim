@@ -51,7 +51,7 @@ unittest {
 
 // #region isArray
 bool isArray(Json json) {  
-  return json == Json(null)
+  return json != Json(null)
     ? (json.type == Json.Type.array)
     : false;
 }
@@ -61,8 +61,8 @@ unittest {
   assert(!parseJsonString(`{"a": "b"}`).isArray);
 
   Json json = Json.emptyArray;
-  json["a"] ~= "A";
-  json["one"] ~= 1;
+  json ~= Json("A");
+  json ~= Json(1);
   assert(json.isArray);
 }
 // #endregion isArray
@@ -89,12 +89,34 @@ bool isBooleanLike(Json value) {
   return value.isBoolean;
 }
 
+bool isAllBoolean(Json[] values) {
+  return values.all!(value => value.isBoolean);
+}
+
+bool isAllBoolean(Json value) {
+  return value.isAllBoolean(value.keys);
+}
+
 bool isAllBoolean(Json value, string[] keys...) {
-  return value.isAllBoolean(keys.dup); 
+  return value.isAllBoolean(keys.dup);
 }
 
 bool isAllBoolean(Json value, string[] keys) {
   return keys.all!(key => value.isBoolean(key)); 
+}
+
+bool isAnyBoolean(Json[] values) {
+  return values.any!(value => value.isBoolean);
+}
+
+bool isAnyBoolean(Json value) {
+  if (value.isObject)
+    return value.isAnyBoolean(value.keys); 
+
+  if (value.isArray)
+    return value.get!(Json[]).isAnyBoolean; 
+
+  return bvalue;
 }
 
 bool isAnyBoolean(Json value, string[] keys...) {
@@ -116,11 +138,10 @@ bool isBoolean(Json value) {
 }
 ///
 unittest {
-  assert(parseJsonString(`true`).isBoolean);
-  assert(parseJsonString(`false`).isBoolean);
-  assert(!parseJsonString(`1`).isBoolean);
-  assert(!parseJsonString("text").isBoolean);
   assert(Json(true).isBoolean);
+  assert(!Json("text").isBoolean);
+  assert(!Json(10).isBoolean);
+  assert(!Json(1.1).isBoolean);
 
   Json map = Json.emptyObject;
   map["one"] = Json(1);  
@@ -140,13 +161,23 @@ unittest {
   assert(map.isAllBoolean("f", "t"));
   assert(!map.isAllBoolean("f", "alfa"));  
   assert(!map.isAllBoolean("one", "alfa"));  
+
+  map = Json.emptyObject;
+  map["t"] = Json(true);  
+  map["f"] = Json(false);
+  assert(map.isAllBoolean);
 }
 // #endregion isBoolean
 
 // #region isFloat
+bool isAllFloat(Json value) {
+  return (value.type == Json.Type.float_);
+}
+
 bool isFloat(Json value) {
   return (value.type == Json.Type.float_);
 }
+
 unittest {
   assert(!Json(true).isFloat);  
   assert(!Json(10).isFloat);  
@@ -167,6 +198,7 @@ bool isDouble(Json value) {
 }
 
 unittest {
+  writeln("bool isDouble(Json value)");
   assert(!Json(true).isDouble);  
   assert(!Json(10).isDouble);  
   assert(Json(1.1).isDouble);  
@@ -198,10 +230,11 @@ bool isLong(Json value) {
   return (value.type == Json.Type.int_);
 }
 unittest {
-  assert(!Json(true).isInteger);  
-  assert(Json(10).isInteger);  
-  assert(!Json(1.1).isInteger);  
-  assert(!Json("text").isInteger);
+  writeln("bool isLong(Json value)");
+  assert(!Json(true).isLong);  
+  assert(Json(10).isLong);  
+  assert(!Json(1.1).isLong);  
+  assert(!Json("text").isLong);
 }
 // #endregion isLong
 
@@ -1032,7 +1065,10 @@ Json[] getArray(Json json) {
 } 
 
 unittest {
-
+  Json json = Json.emptyArray;
+  json ~= Json(2);
+  json ~= Json("3");
+  assert(json.getArray.length == 2);
 }
 // #endregion getArray
 

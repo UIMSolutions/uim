@@ -50,9 +50,6 @@ unittest {
 // #endregion value to Json
 
 // #region array to Json
-
-
-
 Json toJson(T)(T[] values) {
   Json json = Json.emptyArray;
   values.each!(value => json ~= value.toJson);
@@ -75,6 +72,18 @@ unittest {
   assert([id, id2, id3, id4].toJson[0] == id.toJson);
 }
 // #endregion array to Json
+
+// #region map to Json
+Json toJson(T)(T[string] map) {
+  Json json = Json.emptyObject;
+  map.each!((key, value) => json[key] = value.toJson);
+  return json;
+}
+unittest {
+  string[string] map = ["A": "a", "B": "b"];
+  assert(map.toJson["A"] == Json("a"));
+}
+// #endregion
 
 // #region to Json object
 // #region UUID 

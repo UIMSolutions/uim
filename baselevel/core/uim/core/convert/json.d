@@ -66,8 +66,32 @@ Json toJson(T:UUID)(UUID[] uuids) {
   uuids.each!(uuid => result ~= uuid.toJson);
   return result;
 }
+unittest {
+  assert([true, true, false].toJson.length == 3);
+  assert([true, true, false].toJson[0].getBoolean);
+
+  auto id = randomUUID;
+  auto id2 = randomUUID;
+  auto id3 = randomUUID;
+  auto id4 = randomUUID;
+  assert([id, id2, id3, id4].toJson.length == 4);
+  assert([id, id2, id3, id4].toJson[0] == id.toJson);
+}
 // #endregion array to Json
 
+// #region map to Json
+Json toJson(T)(T[string] map) {
+  Json json = Json.emptyObject;
+  map.each!((key, value) => json[key] = value.toJson);
+  return json;
+}
+unittest {
+  string[string] map = ["A": "a", "B": "b"];
+  assert(map.toJson["A"] == Json("a"));
+}
+// #endregion
+
+// #region to Json object
 // #region UUID 
 Json toJson(string aKey, UUID uuid) {
   Json result = Json.emptyObject;
@@ -106,17 +130,10 @@ unittest {
   assert(toJson(id, 1)["id"].get!string == id.toString);
   assert(toJson(id, 1)["versionNumber"].get!size_t == 1);
 }
+// #endregion
 
-Json toJson(bool[] values) {
-  auto json = Json.emptyArray;
-  values.each!(value => json ~= value);
-  return json;
-}
 
-unittest {
-  assert([true, true, false].toJson.length == 3);
-  assert([true, true, false].toJson[0].getBoolean);
-}
+
 
 Json toJson(string[] values) {
   auto json = Json.emptyArray;

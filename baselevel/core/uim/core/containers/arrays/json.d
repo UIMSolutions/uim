@@ -14,15 +14,9 @@ version (test_uim_core) {
     writeln("-----  ", __MODULE__, "\t  -----");
   }
 }
+// to Json array
 
-
-string[] getStringArray(Json[] values) {
-  return values
-    .filter!(value => value.isString)
-    .map!(value => value.get!string)
-    .array;
+Json[] toJsonArray(T)(T[] values) {
+  return values.map!(value => value.toJson).array;
 }
 
-string[] toStringArray(Json[] values) {
-  return values.map!(value => value.to!string).array;
-}

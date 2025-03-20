@@ -38,3 +38,8 @@ unittest {
   assert(withObject.ifNull(new Test(2)).value == 1);
   assert(nullObject.ifNull(new Test(3)).value == 3);
 }
+
+// ifEqual
+// IfUnequal
+// ifLess
+// ifGreater

@@ -13,6 +13,8 @@ version (test_uim_core) {
     writeln("-----  ", __MODULE__, "\t  -----");
   }
 }
+
+
 string[] getStringArray(Json[] values) {
   return values
     .filter!(value => value.isString)

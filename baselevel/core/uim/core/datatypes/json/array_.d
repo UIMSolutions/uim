@@ -10,41 +10,6 @@ import uim.core;
 @safe:
 
 // #region is
-  // #region isBoolean
-    bool isAnyBoolean(Json[] values...) {
-      return isAnyBoolean(values.dup);
-    }
-
-    bool isAnyBoolean(Json[] values) {
-      return values.any!(value => value.isBoolean);
-    }
-
-    bool isAllBoolean(Json[] values...) {
-      return isAllBoolean(values.dup);
-    }
-
-    bool isAllBoolean(Json[] values) {
-      return values.all!(value => value.isBoolean);
-    }
-
-    unittest {
-      auto values = [Json(true), Json(false)];
-      assert(values.isAllBoolean);
-
-      values = [Json(true), Json(1)];
-      assert(!values.isAllBoolean);
-
-      values = [Json(true), Json(false)];
-      assert(values.isAnyBoolean);
-
-      values = [Json(true), Json(1)];
-      assert(values.isAnyBoolean);
-
-      values = [Json("X"), Json(1)];
-      assert(!values.isAnyBoolean);
-    }
-  // #endregion isBoolean
-
     // #region isInteger
     bool isAnyInteger(Json[] values...) {
       return isAnyInteger(values.dup);

@@ -460,11 +460,6 @@ bool isBigInteger(Json[string] items, string key) {
     ? uim.core.datatypes.json.isBigInteger(items[key]) : false;
 }
 
-bool isBoolean(Json[string] items, string key) {
-  return items.hasKey(key)
-    ? uim.core.datatypes.json.isBoolean(items[key]) : false;
-}
-
 bool isDouble(Json[string] items, string key) {
   return items.hasKey(key)
     ? uim.core.datatypes.json.isDouble(items[key]) : false;

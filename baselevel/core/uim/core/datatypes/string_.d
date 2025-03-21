@@ -433,7 +433,7 @@ string[] lower(string[] texts) {
     .array;
 }
 
-// region upper
+// #region upper
 string[] upper(string[] texts) {
   return texts
     .map!(text => text.toUpper)
@@ -445,10 +445,7 @@ string upper(string text) {
 }
 
 unittest {
-  writeln("Testing upper()");
-
   assert("a".upper == "A");
-
   assert(["a", "b", "c"].upper.equal(["A", "B", "C"]));
 }
 // #endregion upper
@@ -849,8 +846,6 @@ string camelize(string text, string delimiter = "_") {
 }
 
 unittest {
-  writeln("Testing camelize()");
-
   assert("aa".camelize == "Aa");
   assert(["aa", "bb"].camelize == ["Aa", "Bb"]);
 }
@@ -907,7 +902,7 @@ string underscore(string text) {
   return delimit(std.string.replace(text, "-", "_"), "_");
 }
 
-unittest {
+unittest { // TODO
   writeln("underscore");
   writeln(underscore("camel-cased-input-string"));
   writeln(underscore("  camel-cased-input-string  "));
@@ -1111,7 +1106,9 @@ string _caching(string inflectionType, string originalValue, string inflectedVal
 bool isBoolean(string value) {
   return ["yes", "no", "true", "false", "0", "1", "on", "off"].has(value.lower);
 }
+// #endregion longestText
 
+// #region longestText
 protected string shortestText(string[] texts) {
   if (texts.isEmpty) {
     return null;
@@ -1124,6 +1121,7 @@ protected string shortestText(string[] texts) {
   return texts.sort!("a.length < b.length")[0];
 }
 
+// #region longestText
 protected string longestText(string[] texts) {
   if (texts.isEmpty) {
     return null;
@@ -1135,11 +1133,18 @@ protected string longestText(string[] texts) {
 
   return texts.sort!("a.length > b.length")[0];
 }
+unittest {
+  // TODO
+}
+// #endregion longestText
 
 // #region replace
 string replace(string origin, string[] selects, string newTxt) {
   selects.each!(select => origin = std.string.replace(origin, select, newTxt));
   return origin;
+}
+unittest {
+  // TODO
 }
 // #endregion replace
 

@@ -475,11 +475,6 @@ bool isFloat(Json[string] items, string key) {
     ? uim.core.datatypes.json.isFloat(items[key]) : false;
 }
 
-bool isInteger(Json[string] items, string key) {
-  return items.hasKey(key)
-    ? uim.core.datatypes.json.isInteger(items[key]) : false;
-}
-
 bool isIntegral(Json[string] items, string key) {
   return items.hasKey(key)
     ? uim.core.datatypes.json.isIntegral(items[key]) : false;
@@ -505,11 +500,6 @@ bool isScalar(Json[string] items, string key) {
     ? uim.core.datatypes.json.isScalar(items[key]) : false;
 }
 
-bool isString(Json[string] items, string key) {
-  return items.hasKey(key)
-    ? uim.core.datatypes.json.isString(items[key]) : false;
-  return false;
-}
 
 bool isUndefined(Json[string] items, string key) {
   return items.hasKey(key)

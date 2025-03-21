@@ -6,7 +6,6 @@
 module uim.core.datatypes.string_;
 
 import uim.core;
-
 @safe:
 
 version (test_uim_core) {
@@ -1143,3 +1142,197 @@ string replace(string origin, string[] selects, string newTxt) {
   return origin;
 }
 // #endregion replace
+
+// #region isString
+// #region Json[]
+bool isAnyString(Json[] values...) {
+  return isAnyString(values.dup);
+}
+
+bool isAnyString(Json[] values) {
+  return values.any!(value => value.isString);
+}
+
+bool isAllString(Json[] values...) {
+  return isAllString(values.dup);
+}
+
+bool isAllString(Json[] values) {
+  return values.all!(value => value.isString);
+}
+
+unittest {
+  auto values = [Json("a"), Json("b")];
+  assert(values.isAnyString);
+  assert(values.isAllString);
+
+  values = [Json("a"), Json(3)];
+  assert(values.isAnyString);
+  assert(!values.isAllString);
+
+  values = [Json(4), Json(5)];
+  assert(!values.isAnyString);
+  assert(!values.isAllString);
+
+  assert(isAnyString(Json("a"), Json("b")));
+  assert(isAnyString([Json("a"), Json("b")]));
+
+  assert(isAnyString(Json(7), Json("b")));
+  assert(isAnyString([Json(7), Json("b")]));
+
+  assert(!isAnyString(Json(7), Json(8)));
+  assert(!isAnyString([Json(7), Json(8)]));
+
+  assert(isAllString(Json("a"), Json("b")));
+  assert(isAllString([Json("a"), Json("b")]));
+
+  assert(!isAllString(Json(7), Json("b")));
+  assert(!isAllString([Json(7), Json("b")]));
+
+  assert(!isAllString(Json(7), Json(8)));
+  assert(!isAllString([Json(7), Json(8)]));
+}
+// #endregion Json[]
+
+// #region Json[string]
+bool isAnyString(Json[string] map, string[] keys...) {
+  return map.isAnyString(keys.dup);
+}
+
+bool isAnyString(Json[string] map, string[] keys) {
+  return keys.any!(key => map.isString(key));
+}
+
+bool isAllString(Json[string] map, string[] keys...) {
+  return map.isAllString(keys.dup);
+}
+
+bool isAllString(Json[string] map, string[] keys) {
+  return keys.all!(key => map.isString(key));
+}
+
+bool isString(Json[string] map, string[] path) {
+  if (path.length == 0) {
+    return false;
+  }
+
+  if (path.length == 1) {
+    return map.isString(path[0]);
+  }
+
+  return path.length > 1 && map.hasKey(path[0]) 
+    ? map[path[0]].isString(path[1..$]) : false;
+}
+
+bool isString(Json[string] items, string key) {
+  return items.hasKey(key)
+    ? items[key].isString : false;
+}
+
+unittest {
+  Json[string] map;
+  map["a"] = Json("a");
+  map["b"] = Json("b");
+  assert(map.isAllString("a", "b"));
+  assert(map.isAllString(["a", "b"]));
+
+  assert(map.isAnyString("a", "b"));
+  assert(map.isAnyString(["a", "b"]));
+
+  map["b"] = Json(8);
+  assert(!map.isAllString("a", "b"));
+  assert(!map.isAllString(["a", "b"]));
+
+  assert(map.isAnyString("a", "b"));
+  assert(map.isAnyString(["a", "b"]));
+
+  map["a"] = Json(true);
+  assert(!map.isAllString("a", "b"));
+  assert(!map.isAllString(["a", "b"]));
+
+  assert(!map.isAnyString("a", "b"));
+  assert(!map.isAnyString(["a", "b"]));
+}
+// #endregion Json[string]
+
+// #region Json
+bool isAnyString(Json value, string[] keys...) {
+  return value.isAnyString(keys.dup);
+}
+
+bool isAnyString(Json value, string[] keys) {
+  return keys.any!(key => value.isString(key));
+}
+
+bool isAllString(Json value, string[] keys...) {
+  return value.isAllString(keys.dup);
+}
+
+bool isAllString(Json value, string[] keys) {
+  return keys.all!(key => value.isString(key));
+}
+
+bool isString(Json value, string[] path) {
+  if (path.length == 0) {
+    return false;
+  }
+
+  if (path.length == 1) {
+    return value.isString(path[0]);
+  }
+
+  return path.length > 1 && value.hasKey(path[0]) 
+    ? value[path[0]].isString(path[1..$]) : false;
+}
+
+bool isString(Json value, string key) {
+  return value.hasKey(key)
+    ? value[key].isString : false;
+}
+
+bool isString(Json value) {
+  return (value.type == Json.Type.string);
+}
+
+unittest {
+  assert(parseJsonString(`"a"`).isString);
+  assert(!parseJsonString(`1.1`).isString);
+
+  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": 1.1}], "i": {"j": "x"}}`);
+  assert(json.isString("a"));
+  assert(!json.isString("c"));
+  assert(json.isString(["i", "j"]));
+  assert(!json.isString(["e", "g"]));
+}
+
+unittest {
+  assert(!Json(true).isString);
+  assert(!Json(10).isString);
+  assert(!Json(1.1).isString);
+  assert(Json("text").isString);
+
+  Json map = Json.emptyObject;
+  map["a"] = Json("a");
+  map["b"] = Json("b");
+  assert(map.isAllString("a", "b"));
+  assert(map.isAllString(["a", "b"]));
+
+  assert(map.isAnyString("a", "b"));
+  assert(map.isAnyString(["a", "b"]));
+
+  map["b"] = Json(9);
+  assert(!map.isAllString("a", "b"));
+  assert(!map.isAllString(["a", "b"]));
+
+  assert(map.isAnyString("a", "b"));
+  assert(map.isAnyString(["a", "b"]));
+
+  map["a"] = Json(true);
+  assert(!map.isAllString("a", "b"));
+  assert(!map.isAllString(["a", "b"]));
+
+  assert(!map.isAnyString("a", "b"));
+  assert(!map.isAnyString(["a", "b"]));
+}
+// #endregion Json
+// #endregion isString

@@ -116,24 +116,6 @@ unittest {
 }
 // #endregion isDouble
 
-// #region isInteger
-bool isInteger(Json value, string key) {
-  return value.hasKey(key) 
-    ? value[key].isInteger 
-    : false;
-}
-
-bool isInteger(Json value) {
-  return (value.type == Json.Type.int_);
-}
-
-unittest {
-  assert(!Json(true).isInteger);  
-  assert(Json(10).isInteger);  
-  assert(!Json(1.1).isInteger);  
-  assert(!Json("text").isInteger);
-}
-// #endregion isInteger
 
 // #region isLong
 bool isLong(Json value) {
@@ -198,44 +180,6 @@ unittest {
 }
 // #endregion isNull
 
-// #region isString
-bool isString(Json value) {
-  return (value.type == Json.Type.string);
-}
-
-mixin(CheckJsonIs!("String"));
-
-bool isString(Json value, string[] path) {
-  if (value.isNull(path)) {
-    return false;
-  }
-
-  auto firstKey = path[0];
-  if (value.isString(firstKey)) {
-    return true;
-  }
-
-  return path.length > 1
-    ? isString(value[firstKey], path.removeFirst) : false;
-}
-
-bool isString(Json value, string key) {
-  return value.isObject && value.hasKey(key) 
-    ? value[key].isString
-    : true;
-}
-
-unittest {
-  assert(parseJsonString(`"a"`).isString);
-  assert(!parseJsonString(`1.1`).isString);
-
-  auto json = parseJsonString(`{"a": "b", "c": {"d": 1}, "e": ["f", {"g": 1.1}], "i": {"j": "x"}}`);
-  assert(json.isString("a"));
-  assert(!json.isString("c"));
-  assert(json.isString(["i", "j"]));
-  assert(!json.isString(["e", "g"]));
-}
-// #endregion isString
 
 bool isUndefined(Json value) {
   return (value.type == Json.Type.undefined);

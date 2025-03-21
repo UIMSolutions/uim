@@ -17,6 +17,7 @@ public {
   import uim.core.datatypes.datetime;
   import uim.core.datatypes.floating;
   import uim.core.datatypes.general;
+  import uim.core.datatypes.integer;
   import uim.core.datatypes.integral;
   import uim.core.datatypes.json;
   import uim.core.datatypes.string_;

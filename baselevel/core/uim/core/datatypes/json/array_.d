@@ -10,40 +10,6 @@ import uim.core;
 @safe:
 
 // #region is
-    // #region isInteger
-    bool isAnyInteger(Json[] values...) {
-      return isAnyInteger(values.dup);
-    }
-
-    bool isAnyInteger(Json[] values) {
-      return values.any!(value => value.isInteger);
-    }
-
-    bool isAllInteger(Json[] values...) {
-      return isAllInteger(values.dup);
-    }
-
-    bool isAllInteger(Json[] values) {
-      return values.all!(value => value.isInteger);
-    }
-
-    unittest {
-      auto values = [Json(1), Json(2)];
-      assert(values.isAllInteger);
-
-      values = [Json(true), Json(1)];
-      assert(!values.isAllInteger);
-
-      values = [Json(1), Json(false)];
-      assert(values.isAnyInteger);
-
-      values = [Json(true), Json("1")];
-      assert(!values.isAnyInteger);
-
-      values = [Json("X"), Json("1")];
-      assert(!values.isAnyInteger);
-    }
-  // #endregion isInteger
 // #endregion is
 
 // #region hasAll
@@ -99,7 +65,6 @@ bool has(Json json, Json value) {
 
   return json.byValue.any!(v => v == value);
 }
-// #endregion has
 
 unittest {
   auto json = Json.emptyArray;
@@ -138,3 +103,4 @@ unittest {
   assert(json.hasAll(1, 2, 3));
   assert(!json.hasAll(1, 12, 13));
 }
+// #endregion has

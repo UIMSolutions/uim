@@ -437,30 +437,43 @@ unittest {
 // #endregion hasValue
 
 // #region set
-  T[string] set(T)(T[string] items, T[string] newItems) {
+  T[string] set(T, V)(T[string] items, V[string] newItems) {
     newItems.each!((key, value) => items.set(key, value));
     return items;
   }
 
-  T[string] set(T)(T[string] items, string[] keys, T value) {
+  T[string] set(T, V)(T[string] items, string[] keys, V value) {
     keys.each!(key => items.set(key, value));
     return items;
   }
 
-  T[string] set(T)(T[string] items, string key, T value) {
+  T[string] set(T, V)(T[string] items, string key, V value) if (is(V == T)) {
     items[key] = value;
     return items;
   }
 
+  T[string] set(T : Json, V)(T[string] items, string key, V value) if (!is(V == T)) {
+    items[key] = value.toJson;
+    return items;
+  }
+
+  T[string] set(T : string, V)(T[string] items, string key, V value) if (!is(V == T)) {
+    items[key] = value.toString;
+    return items;
+  }
+
   unittest {
+    int[string] map1 = new int[string];
+    map1.set("1", 1);
+    assert(map1.length == 1 && map1.hasKey("1") && map1["1"] == 1);
+    map1.set("1", 2);
+    assert(map1.length == 1 && map1.hasKey("1") && map1["1"] == 2);
+
     auto map = ["1": 1, "2": 2, "3": 3];
     assert(map.length == 3);
-
-    map.set("4", 4);
-    assert(map.length == 4 && map.hasKey("4"));
-
-    map.set("5", 5).set("6", 6);
-    assert(map.length == 6 && map.hasAllKeys("4", "5", "6"));
+    map.set(["4": 4]);
+    assert(map.length == 4 && map.hasKey("4") && map["4"] == 4);
+    assert(map.length == 4 && map.hasAllKeys("1", "2", "3", "4"));
 
     map = ["1": 1, "2": 2, "3": 3];
     map.set(["5", "6"], 0);
@@ -744,10 +757,6 @@ unittest {
 // #endregion shift
 
 // #region value
-T[] values(T)(T[string] items, string[] keys...) {
-  return items.values(keys.dup);
-}
-
 T[] values(T)(T[string] items, string[] keys) {
   return keys
     .filter!(key => items.hasKey(key))
@@ -769,11 +778,6 @@ unittest {
   assert(map.length == 3);
   assert(map.values(["1", "2", "3"]) == [1, 2, 3]);
   assert(map.values(["1", "2", "2", "3"]) == [1, 2, 2, 3]);
-  assert(map.length == 3);
-
-  map = ["1": 1, "2": 2, "3": 3];
-  assert(map.length == 3);
-  assert(map.values("2", "1", "1", "3") == [2, 1, 1, 3]);
   assert(map.length == 3);
 }
 // #endregion value

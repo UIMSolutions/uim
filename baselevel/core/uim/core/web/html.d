@@ -14,6 +14,7 @@ version (test_uim_core) {
     writeln("-----  ", __MODULE__, "\t  -----");
   }
 }
+
 // #region startTag
 string htmlStartTag(A, B)(string name, string id, A classes, B attributes /* , bool isClosed = false */ )
     if (

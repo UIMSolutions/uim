@@ -941,29 +941,86 @@ Json[string] getMap(Json value) {
 }
 // #endregion getter
 
-// #region setter
-Json set(T)(Json json, T[string] newValues) {
+// #region set
+ref set(ref Json json, Json map) {
   if (!json.isObject) {
-    return Json(null);
+    return json;
   }
 
-  auto result = json;
-  newValues.byKeyValue.each!(kv => result[kv.key] = kv.value);
+  if (!map.isObject) {
+    return json;
+  }
 
-  return result;
+  map.byKeyValue.each!(kv => json.set(kv.key, kv.value));
+  return json;
 }
-///
+
+ref set(T)(ref Json json, T[string] values) {
+  if (!json.isObject) {
+    return json;
+  }
+
+  values.each!((key, value) => json.set(key, value));
+  return json;
+}
+
+ref set(T)(ref Json json, string[] keys, T value) {
+  if (!json.isObject) {
+    return json;
+  }
+
+  keys.each!(key => json.set(key, value));
+  return json;
+}
+
+// 
+ref set(T)(ref Json json, string key, T value) {
+  if (!json.isObject) {
+    return json;
+  }
+
+  json[key] = value;
+  return json;
+}
+
 unittest {
-  auto json = parseJsonString(`{"a": "b", "x": "y"}`);
-  assert(json.set(["a": "c"])["a"].get!string == "c");
+  auto json = Json.emptyObject;
+  json.set("a", "A");
+  json.set("b", "B").set("c", "C");
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
 
-  json = parseJsonString(`{"a": "b", "x": "y"}`);
-  assert(json.set(["a": "c", "x": "z"])["x"].get!string == "z");
-  assert(json.set(["a": "c", "x": "z"])["x"].get!string != "c");
+  json = Json.emptyObject;
+  json.set("a", Json("A"));
+  json.set("b", Json("B")).set("c", Json("C"));
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+
+  json.set(["a", "b", "c"], "x");
+  assert(json["a"] == Json("x") && json["b"] == Json("x") && json["c"] == Json("x"));
+
+  json = Json.emptyObject;
+  json.set(["a", "b", "c"], Json("x"));
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("x") && json["b"] == Json("x") && json["c"] == Json("x"));
+
+  json = Json.emptyObject;
+  json.set(["a": "A", "b": "B", "c": "C"]);
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+
+  json = Json.emptyObject;
+  json.set(["a": Json("A"), "b": Json("B"), "c": Json("C")]);
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+
+  auto newJson = Json.emptyObject;
+  newJson.set(json);
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
 }
-// #endregion
+// #endregion set
 
-// #endregion setter
 
 
 Json match(K)(Json[K] matchValues, K key, Json defaultValue = Json(null)) {

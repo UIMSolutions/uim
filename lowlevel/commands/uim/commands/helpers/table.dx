@@ -14,12 +14,12 @@ import uim.commands;
  * from 2 dimensional array data.
  */
 class DTableHelper : UIMObject { // }: Helper {
-  override bool initialize(Json[string] initData = null) {
+  override bool initialize(Json[string] initData = new Json[string]) {
     if (!super.initialize(initData)) {
       return false;
     }
     
-    configuration.mergeDefaults(MapHelper.create!(string, Json)
+    configuration.mergeDefaults(new Json[string]
       .set("headers", true)
       .set("rowSeparator", false)
       .set("headerStyle", "info"));
@@ -141,7 +141,6 @@ class DTableHelper : UIMObject { // }: Helper {
 
   // Add style tags
   protected string _addStyle(string textForSurround, string styleToAppy) {
-    // return "<" ~ style ~ ">" ~ textForSurround ~ "</" ~ style ~ ">";
-    return "";
+    return htmlDTag(style, textForSurround);
   }
 }

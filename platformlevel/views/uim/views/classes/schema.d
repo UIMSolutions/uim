@@ -14,10 +14,8 @@ version (test_uim_views) {
   }
 } 
 
-
 // Contains the schema information for Form instances.
 class DSchema : UIMObject {
-
     this() {
         super( /* this.classname */ );
     }
@@ -36,19 +34,16 @@ class DSchema : UIMObject {
         }
 
         _fieldDefaults
-            .set("type", Json(null))
-            .set("length", Json(null))
-            .set("precision", Json(null))
-            .set("default", Json(null));
+            .set(["type", "length", "precision", "default"], Json(null));
 
         return true;
     }
 
     // The fields in this schema.
-    protected Json[string] _fields;
+    protected Json[string] _fields = new Json[string];
 
     // The default values for fields.
-    protected Json[string] _fieldDefaults;
+    protected Json[string] _fieldDefaults = new Json[string];
 
     // #region fields
     // Removes a field to the schema.

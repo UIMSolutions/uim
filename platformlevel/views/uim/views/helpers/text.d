@@ -32,7 +32,7 @@ class DTextHelper : DHelper {
      * An array of hashes and their contents.
      * Used when inserting links into text.
      */
-    protected Json[string] _placeholders;
+    protected Json[string] _placeholders = new Json[string];
 
     // Call methods from String utility class
     Json __call(string methodName, Json[string] params) {

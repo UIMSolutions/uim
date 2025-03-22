@@ -40,91 +40,95 @@ class DStringContents : UIMObject {
             return false;
         }
 
-        
-
         return true;
     }
 
     // List of attributes that can be made compact.
     protected bool[string] _boolAttributes;
-    protected STRINGAA _templates;
 
-    // #region manage Templates
-    /**
-     * Registers a list of templates by name
-     *
-     * ### Example:
-     *
-     * ```
-     * mytemplater.add([
-     * "link": "<a href="{{url}}">{{title}}</a>"
-     * "button": "<button>{{text}}</button>"
-     * ]);
-     * ```
-     */
-    void set(string[string] newTemplates) {
-        newTemplates.byKeyValue.each!(item => set(item.key, item.value));
+    // #region templates
+    // Registers a list of templates by name
+    protected STRINGAA _templates;    
+    DStringContents templates(Json[string] newTemplates) {
+        newTemplates.each!((key, value) => template_(key, value.getString));
+      return this;
+    }
+    
+    DStringContents templates(string[string] newTemplates) {
+        newTemplates.each!((key, value) => template_(key, value));
+      return this;
     }
 
-    void set(string key, string newTemplate) {
-        _templates[key] = newTemplate;
+    DStringContents template_(string key, Json newTemplate) {
+        _templates.set(key, newTemplate.getString);
         // ? _compiledTemplates = newTemplates.keys;
+      return this;
     }
 
-    string get(string key) {
-        /* return _templates.hasKey(key)
-            ? _temolates[key] : null; */
-        return null;
+  DStringContents template_(string key, string newTemplate) {
+        _templates.set(key, newTemplate);
+        // ? _compiledTemplates = newTemplates.keys;
+      return this;
     }
 
-    /**
-     * Load a config file containing templates.
-     *
-     * Template files should define a `configData` variable containing
-     * all the templates to load. Loaded templates will be merged with existing
-     * templates.
-     */
-    void load(string fileName) {
-        if (fileName.isEmpty) {
-            // TODO throw new UIMException("String template filename cannot be an empty string");
+    string template_(string key) {
+        return _templates.get(key, null);
+    }
+    // #endregion templates
+
+    // Load a config file containing templates.
+    DStringContents load(string fileName) {
+        if (fileName.isEmpty || !fileName.exists) {
+            return this;
         }
 
-        /* 
-        auto myloader = new DPhpConfig();
-        auto mytemplates = myloader.read(fileName);
+        // TODO
+        /* auto mytemplates = myloader.read(fileName);
         add(mytemplates); */
+          
+      return this;
     }
 
+    // #region remove
     // Remove the named template.
-    bool removeKey(string name) {
-        _templates.removeKey(name);
-        // _compiledTemplates.remove(_compiledTemplates.indexOf(name)); 
-        return false;
+    DStringContents removeTemplates(string[] names...) {
+      removeTemplates(names.dup);
+      return this;
     }
 
-    // #endregion manage templates
+  DStringContents removeTemplates(string[] names) {
+        names.each!(name => _templates.removeKey(name));
+      return this;
+    }
+
+    DStringContents removeTemplate(string name) {
+        _templates.removeKey(name);
+        // TODO _compiledTemplates.remove(_compiledTemplates.indexOf(name)); 
+      return this;
+    }
+    // #endregion remove
+    // #endregion templates
 
     // #region compiledTemplates
     // Contains the list of compiled templates
-    protected string[] _compiledTemplates;
+    protected string[string] _compiledTemplates;
 
+    // #region compile Template
     // Compile templates into a more efficient printf() compatible format.
-    protected void _compileAllTemplates() {
-        _compileTemplates(configuration.keys);
+    protected DStringContents compileAllTemplates() {
+        compileTemplates(_templates.keys);
+      return this;
     }
 
-    protected void _compileTemplates(string[] templateNames) {
-        templateNames
+    protected DStringContents _compileTemplates(string[] names) {
+        names
             .each!(name => compileTemplate(name));
+      return this;
     }
 
-    protected void compileTemplate(string templateName) {
-        string selectedTemplate = get(templateName);
-        if (selectedTemplate.isNull) {
-            /* throw new DInvalidArgumentException(
-                "String template `%s` is not valid.".format(templateName)); */
-        }
-
+    protected DStringContents compileTemplate(string templateName) {
+      if (!hasTemplate(name)) return this;
+        string selectedTemplate = template_(templateName);
         selectedTemplate = selectedTemplate.replace("%", "%%");
 
         // TODO preg_match_all("#\{\{([\w\.]+)\}\}#", templateValue, mymatches);
@@ -132,7 +136,10 @@ class DStringContents : UIMObject {
         // TODO     templateValue.replace(mymatches[0], "%s"),
         // TODO     mymatches[1],
         // TODO ];
+
+      return this;
     }
+    // #endregion compile Template
     // #endregion compiledTemplates
 
     // Push the current templates into the template stack.
@@ -167,18 +174,18 @@ class DStringContents : UIMObject {
         }
 
         string[] replaces;
-        /* myplaceholders.each!((placeholder) {
+        myplaceholders.each!((placeholder) {
             Json replacement = templateVars.get(placeholder);
-            replaces ~= replacement.isArray
-                ? replacement.getStrings.join("") : "";
-        }); */
+            /* replaces ~= replacement.isArray
+                ? replacement.getStrings.join("") : "";*/
+        }); 
 
         // TODO return mytemplate.format(replaces); 
         return null;
     }
 
     
-
+    // #region addclassnameToList
     //  Adds a class and returns a unique list either in array or space separated
     string[] addclassnameToList(string[] classnames, string newclassname) {
         string[] newclassnames = !newclassname.isEmpty ? newclassname.split(
@@ -191,4 +198,5 @@ class DStringContents : UIMObject {
             ? classnames : uniq(chain(classnames, newclassnames)).array;
 
     }
+    // #endregion addclassnameToList
 }

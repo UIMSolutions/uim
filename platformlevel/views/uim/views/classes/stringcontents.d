@@ -111,6 +111,9 @@ class DStringContents : UIMObject {
     // #region compiledTemplates
     // Contains the list of compiled templates
     protected string[string] _compiledTemplates;
+  bool hasCompiledTemplate(string name) {
+    return _compiledTemplates.hasKey(name);
+  }
 
     // #region compile Template
     // Compile templates into a more efficient printf() compatible format.
@@ -130,7 +133,7 @@ class DStringContents : UIMObject {
         string selectedTemplate = template_(templateName);
         selectedTemplate = selectedTemplate.replace("%", "%%");
 
-        // TODO preg_match_all("#\{\{([\w\.]+)\}\}#", templateValue, mymatches);
+        // TODO preg_match_all("#\{\{([\w\.]+)\}\}#", selectedTemplate, mymatches);
         // TODO _compiledtemplates[templateName] = [
         // TODO     templateValue.replace(mymatches[0], "%s"),
         // TODO     mymatches[1],
@@ -183,7 +186,6 @@ class DStringContents : UIMObject {
         return null;
     }
 
-    
     // #region addclassnameToList
     //  Adds a class and returns a unique list either in array or space separated
     string[] addclassnameToList(string[] classnames, string newclassname) {

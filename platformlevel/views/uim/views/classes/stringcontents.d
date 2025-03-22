@@ -14,7 +14,6 @@ version (test_uim_views) {
   }
 } 
 
-
 /**
  * Provides an interface for registering and inserting
  * content into simple logic-less string templates.

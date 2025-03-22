@@ -74,7 +74,7 @@ class DArguments {
 
   // #region options
   // Get an array of all the options
-  protected Json[string] _options;
+  protected Json[string] _options = new Json[string];
 
   Json[string] options() {
     return _options.dup;

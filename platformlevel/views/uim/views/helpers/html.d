@@ -6,7 +6,6 @@
 module uim.views.helpers.html;
 
 import uim.views;
-
 @safe:
 unittest {
   writeln("-----  ", __MODULE__, "\t  -----");

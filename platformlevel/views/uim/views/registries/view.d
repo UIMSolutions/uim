@@ -6,7 +6,6 @@
 module uim.views.registries.view;
 
 import uim.views;
-
 @safe:
 
 class DViewRegistry : DObjectRegistry!DView {

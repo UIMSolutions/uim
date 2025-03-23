@@ -6,7 +6,6 @@
 module uim.views.exceptions.missingtemplate;    
 
 import uim.views;
-
 @safe:
 
 // Used when a template file cannot be found.

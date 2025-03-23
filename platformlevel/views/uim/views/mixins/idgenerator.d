@@ -6,7 +6,6 @@
 module uim.views.mixins.idgenerator;
 
 import uim.views;
-
 @safe:
 
 /**

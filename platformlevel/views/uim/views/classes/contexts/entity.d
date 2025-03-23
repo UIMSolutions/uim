@@ -6,7 +6,6 @@
 module uim.views.classes.contexts.entity;
 
 import uim.views;
-
 @safe:
 
 version (test_uim_views) {

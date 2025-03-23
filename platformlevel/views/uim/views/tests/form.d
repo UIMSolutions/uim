@@ -6,7 +6,6 @@
 module uim.views.tests.form;
 
 import uim.views;
-
 @safe:
 
 bool testForm(IForm form) {

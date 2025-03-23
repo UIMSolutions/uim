@@ -6,7 +6,6 @@
 module uim.views.exceptions.missinghelper;
 
 import uim.views;
-
 @safe:
 
 // Used when a helper cannot be found.

@@ -6,7 +6,6 @@
 module uim.views.helpers.url;
 
 import uim.views;
-
 @safe:
 
 // UrlHelper class for generating URLs.

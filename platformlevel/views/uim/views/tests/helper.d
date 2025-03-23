@@ -6,7 +6,6 @@
 module uim.views.tests.helper;
 
 import uim.views;
-
 @safe:
 
 bool testHelper(IFormHelper formHelper) {

@@ -6,7 +6,6 @@
 module uim.views.exceptions.missingview;
 
 import uim.views;
-
 @safe:
 
 // Used when a view class file cannot be found.

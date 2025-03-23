@@ -6,7 +6,6 @@
 module uim.views.mixins.stringcontents;
 
 import uim.views;
-
 @safe:
 
 /* * Adds string template functionality to any class by providing methods to

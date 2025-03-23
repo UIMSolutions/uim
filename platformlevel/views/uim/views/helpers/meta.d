@@ -1,7 +1,6 @@
 module uim.views.helpers.meta;
 
 import uim.views;
-
 @safe:
 
 version (test_uim_views) {

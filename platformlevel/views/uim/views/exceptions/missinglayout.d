@@ -6,7 +6,6 @@
 module uim.views.exceptions.missinglayout;
 
 import uim.views;
-
 @safe:
 
 // Used when a layout file cannot be found.

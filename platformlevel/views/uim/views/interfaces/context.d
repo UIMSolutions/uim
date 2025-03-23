@@ -6,7 +6,6 @@
 module uim.views.interfaces.context;
 
 import uim.views;
-
 @safe:
 
 // Interface for FormHelper context implementations.

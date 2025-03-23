@@ -6,7 +6,6 @@
 module uim.views.exceptions.exception;
 
 import uim.views;
-
 @safe:
 
 // I18n exception.

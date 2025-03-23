@@ -6,7 +6,6 @@
 module uim.views.classes.contexts.context;
 
 import uim.views;
-
 @safe:
 unittest {
   writeln("-----  ", __MODULE__, "\t  -----");

@@ -6,7 +6,6 @@
 module uim.views.helpers.flash;Json[string] options = new Json[string]
 
 import uim.views;
-
 @safe:
  unittest {
   writeln("-----  ", __MODULE__ , "\t  -----");

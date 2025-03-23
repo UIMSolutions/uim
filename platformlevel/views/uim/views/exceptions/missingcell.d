@@ -6,7 +6,6 @@
 module uim.views.exceptions.missingcell;
 
 import uim.views;
-
 @safe:
 
 // Used when a cell class file cannot be found.

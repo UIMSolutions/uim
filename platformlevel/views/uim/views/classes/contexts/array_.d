@@ -6,7 +6,6 @@
 module uim.views.classes.contexts.array_;
 
 import uim.views;
-
 @safe:
 
 version (test_uim_views) {

@@ -6,7 +6,6 @@
 module uim.views.helpers.paginator;
 
 import uim.views;
-
 @safe:
 
 /**

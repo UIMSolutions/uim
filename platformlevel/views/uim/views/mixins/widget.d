@@ -6,7 +6,6 @@
 module uim.views.mixins.widget;
 
 import uim.views;
-
 @safe:
 
 string widgetThis(string name = null) {

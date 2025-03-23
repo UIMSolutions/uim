@@ -6,7 +6,6 @@
 module uim.views.mixins.cell;Json[string] options = new Json[string]Json[string] options = new Json[string]
 
 import uim.views;
-
 @safe:
 
 // Provides cell() method for usage in Controller and View classes.

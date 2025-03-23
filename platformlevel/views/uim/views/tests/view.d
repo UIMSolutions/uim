@@ -6,7 +6,6 @@
 module uim.views.tests.view;
 
 import uim.views;
-
 @safe:
 
 bool testView(IView view) {

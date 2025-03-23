@@ -6,7 +6,6 @@
 module uim.views.exceptions.missingcelltemplate;
 
 import uim.views;
-
 @safe:
 
 // Used when a template file for a cell cannot be found.

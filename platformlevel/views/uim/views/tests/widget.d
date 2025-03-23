@@ -6,7 +6,6 @@
 module uim.views.tests.widget;
 
 import uim.views;
-
 @safe:
 
 bool testWidget(IWidget widget) {

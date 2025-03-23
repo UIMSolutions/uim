@@ -6,7 +6,6 @@
 module uim.views.interfaces.widget;
 
 import uim.views;
-
 @safe:
 
 // Interface for input widgets.

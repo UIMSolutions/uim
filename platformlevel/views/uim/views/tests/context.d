@@ -6,7 +6,6 @@
 module uim.views.tests.context;
 
 import uim.views;
-
 @safe:
 
 bool testFormContext(IFormContext context) {

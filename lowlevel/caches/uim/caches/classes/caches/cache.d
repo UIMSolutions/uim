@@ -44,14 +44,13 @@ import uim.caches;
 class DCache : UIMObject, ICache {
     mixin(CacheThis!());
 
-    /*
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
 
         // An array mapping URL schemes to fully qualified caching engine class names.
-        _dsnClassMap = [
+        /* _dsnClassMap = [
             /* "array": ArrayCacheEngine.classname,
             "apcu": ApcuCacheEngine.classname,
             "file": FileCacheEngine.classname, * /

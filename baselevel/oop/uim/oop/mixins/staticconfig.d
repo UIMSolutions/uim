@@ -46,7 +46,7 @@ mixin template TStaticConfig() {
      * Injecting a constructed adapter in:
      *
      * ```
-     * Cache.setConfig("default",  anInstance);
+     * Cache.setConfig("default", anInstance);
      * ```
      *
      * Configure multiple adapters at once:

@@ -153,7 +153,7 @@ class DSchemaLoader {
                 }
                 if (aTable.hasKey("constraints")) {
                     aTable["constraints"].byKeyValue
-                        .each!(kv => tableSchema.addConstraint(aKey,  anIndex));
+                        .each!(kv => tableSchema.addConstraint(aKey, anIndex));
                 }
                 
                 // Generate SQL for each table.

@@ -126,7 +126,7 @@ class DRedisCacheEngine : DCacheEngine {
         /* 
         auto aValue = _redis.incrBy(aKey, incOffset);
         if (aDuration > 0) {
-           _redis.expire(aKey,  aDuration);
+           _redis.expire(aKey, aDuration);
         } */
         return 0; // aValue;
     }
@@ -138,7 +138,7 @@ class DRedisCacheEngine : DCacheEngine {
 
         auto aValue = _redis.decrBy(aKey,  decValue);
         if (aDuration > 0) {
-           _redis.expire(aKey,  aDuration);
+           _redis.expire(aKey, aDuration);
         }
         return aValue;
     }

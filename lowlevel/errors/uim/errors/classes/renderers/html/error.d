@@ -44,8 +44,8 @@ class DHtmlErrorRenderer : DErrorRenderer {
         string errorMessage = "<b>%s</b> (%s)"
             .format(h(capitalize(error.label())), htmlAttributeEscape(error.code())
        );
-        toggle = this.renderToggle(errorMessage,  anId, "trace");
-        codeToggle = this.renderToggle("Code",  anId, "code");
+        toggle = this.renderToggle(errorMessage, anId, "trace");
+        codeToggle = this.renderToggle("Code", anId, "code");
 
         excerpt = null;
         if (file && line) {

@@ -454,8 +454,8 @@ class DI18nExtractCommand : DCommand {
                         "msgstr[1] \"\"\n\n";
 
                     domain != "default" && _merge 
-                        ? _store("default",  aHeader, sentence)
-                        : _store(domain,  aHeader, sentence);
+                        ? _store("default", aHeader, sentence)
+                        : _store(domain, aHeader, sentence);
                 });
             }
         }; */

@@ -97,7 +97,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * Closures templates must return a string, and accept two parameters:
      * The file and line.
      */
-  static void addEditor(string editorName,  string templateText) {
+  static void addEditor(string editorName, string templateText) {
     // getInstance().editors[editorName] = templateText;
   }
   /**

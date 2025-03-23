@@ -21,6 +21,7 @@ public {
   import uim.oop.mixins.data;
   import uim.oop.mixins.element;
   import uim.oop.mixins.fileconfig;
+  import uim.oop.mixins.keys;
   import uim.oop.mixins.mergevariables;
   import uim.oop.mixins.registry;
   import uim.oop.mixins.staticconfig;

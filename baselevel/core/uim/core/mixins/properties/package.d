@@ -7,5 +7,4 @@ module uim.core.mixins.properties;
 
 public {
   import uim.core.mixins.properties.classical;
-  import uim.core.mixins.properties.property;
 }

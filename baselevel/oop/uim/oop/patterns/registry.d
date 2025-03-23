@@ -9,6 +9,11 @@ import uim.oop;
 
 @safe:
 
+version (test_uim_oop) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 class DObjectRegistry(T : UIMObject) {
   // #region Singleton
   protected static DObjectRegistry!T _registration;

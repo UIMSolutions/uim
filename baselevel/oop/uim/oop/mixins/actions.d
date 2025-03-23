@@ -8,6 +8,12 @@ module uim.oop.mixins.actions;
 import uim.oop;
 @safe:
 
+version (test_uim_oop) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 string doAction(string returnType, string action, string plural, string singular, string valueType, string parameter) {
   return `
   {returnType} {action}{plural}({valueType}[] {parameter}...) {
@@ -64,10 +70,10 @@ string changeAction(string returnType, string action, string plural, string sing
   .replace("{parameter}", parameter);
 }
 
-template ChangeAction(string returnType, string action, string plural, string singular, string valueType, string parameter) {
-  const char[] ChangeAction = changeAction(returnType, action, plural, singular, valueType, parameter);
+template ChangeAction(string returnType, string action, string plural, string singular, string keyType, string valueType, string parameter) {
+  const char[] ChangeAction = changeAction(returnType, action, plural, singular, keyType, valueType, parameter);
 }
 
 unittest {
-  writeln(doAction("DStringContents", "remove", "Templates", "Template", "string", "names"));
+  writeln(changeAction("ITest", "set", "Entries", "Entry", "string", "Json", "map"));
 }

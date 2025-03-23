@@ -9,6 +9,12 @@ import uim.oop;
 
 @safe:
 
+version (test_uim_oop) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 bool testConfiguration(IConfiguration aConfig) {
     // in case of - writeln(__MODULE__, " in ", __LINE__);
     aConfig.data([

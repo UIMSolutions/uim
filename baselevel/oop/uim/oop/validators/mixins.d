@@ -8,6 +8,13 @@ module uim.oop.validators.mixins;
 import uim.oop;
 @safe: 
 
+version (test_uim_oop) {
+    import std.stdio;
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 string validatorThis(string name = null) {
     string fullName = name ~ "Validator";
     return objThis(fullName);

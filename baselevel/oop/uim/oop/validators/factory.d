@@ -8,5 +8,12 @@ module uim.oop.validators.factory;
 import uim.oop;
 @safe:
 
+version (test_uim_oop) {
+    import std.stdio;
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 class DValidatorFactory : DFactory!DUIMValidator {}
 auto ValidatorFactory() { return DValidatorFactory.factory; }

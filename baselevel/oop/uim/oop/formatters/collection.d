@@ -9,9 +9,9 @@ import uim.oop;
 @safe:
 
 version (test_uim_oop) {
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
 }
 
 class DFormatterCollection : DCollection!DFormatter {   

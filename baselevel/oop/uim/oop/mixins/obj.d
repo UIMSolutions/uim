@@ -7,6 +7,12 @@ module uim.oop.mixins.obj;
 
 @safe: 
 
+version (test_uim_oop) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 string objThis(string name) {
     return `
         this() {

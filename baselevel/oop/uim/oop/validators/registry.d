@@ -8,6 +8,11 @@ module uim.oop.validators.registry;
 import uim.oop;
 @safe:
 
+version (test_uim_oop) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 class DValidatorRegistry : DObjectRegistry!DUIMValidator {
 }
 auto ValidatorRegistry() { return DValidatorRegistry.registration; }

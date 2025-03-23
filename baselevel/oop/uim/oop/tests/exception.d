@@ -9,6 +9,13 @@ import uim.oop;
 
 @safe:
 
+version (test_uim_oop) {
+    import std.stdio;
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 bool testException(IException exception) {
     if (exception is null) {
         return false;

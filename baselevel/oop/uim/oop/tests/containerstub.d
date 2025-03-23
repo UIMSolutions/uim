@@ -9,6 +9,12 @@ import uim.oop;
 
 @safe:
 
+version (test_uim_oop) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 /**
  * A set of methods used for defining container services
  * in test cases.

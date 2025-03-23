@@ -4,6 +4,11 @@ import uim.oop;
 
 @safe:
 
+version (test_uim_oop) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 class DFileInfo : UIMObject {
     int getATime() {
         return 0;

@@ -8,6 +8,12 @@ module uim.oop.validators.validator;
 import uim.oop;
 @safe:
 
+version (test_uim_oop) {
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
+
 // Base class for validators
 class DUIMValidator : UIMObject, IValidator {
 /*    mixin TLocatorAware;

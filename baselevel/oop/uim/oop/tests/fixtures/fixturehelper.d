@@ -5,8 +5,14 @@
 *****************************************************************************************************************/
 module uim.oop.tests.fixtures.fixturehelper;
 
-import uim.oop;
+version (test_uim_oop) {
+    import std.stdio;
+    unittest {
+        writeln("-----  ", __MODULE__, "\t  -----");
+    }
+}
 
+import uim.oop;
 @safe:
 
 // Helper for managing fixtures.

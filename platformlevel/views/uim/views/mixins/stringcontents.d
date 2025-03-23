@@ -21,10 +21,12 @@ mixin template TStringContents() {
     // StringContents instance.
     protected DStringContents _templater = null;
 
+    // #region set
     // Sets templates to use.
     void setTemplates(string[] newTemplates) {
         templater().add(newTemplates);
     }
+    // #endregion set
     
     // Gets templates to use or a specific template.
     string[] getTemplates(string templateName = null) {

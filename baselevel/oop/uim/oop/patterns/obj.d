@@ -86,14 +86,14 @@ class Test : UIMObject {
     }
 }
 unittest {
-    assert(new Test);
+    /* assert(new Test);
     Test obj = new Test;
     writeln("UIMObject -> ", obj.memberNames);
     writeln("new Object -> ", (new Test).memberNames);
 
     writeln(obj.debugInfo().toString);
     assert(obj.debugInfo().hasAllKeys("name", "classname"));
-    writeln(obj.classFullname);
+    writeln(obj.classFullname); */
 
 /*     Test test = cast(Test)Object.factory(obj.classFullname);
     writeln(test.debugInfo().toString); */

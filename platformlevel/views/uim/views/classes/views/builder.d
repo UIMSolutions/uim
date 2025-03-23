@@ -21,7 +21,7 @@ version (test_uim_views) {
  * Once you have configured the view and established all the context
  * you can create a view instance with `build()`.
  */
-class DViewBuilder { // }: DJsonSerializable {
+class DViewBuilder : IViewBuilder { // }: DJsonSerializable {
     // The subdirectory to the template.
     protected string _templatePath = null;
 
@@ -76,8 +76,6 @@ class DViewBuilder { // }: DJsonSerializable {
         }
     // #endregion autoLayout
 
-    // The layout path to build the view with.
-    protected string _layoutPath = null;
 
     /**
      * The view class name to use.
@@ -118,23 +116,32 @@ class DViewBuilder { // }: DJsonSerializable {
             return _viewVariables.getJson(varName);
         }
 
-        // Get view variable
+        // #region set
+        // Set view variable
+        mixin(SetAction!("I"))
+
         void viewVariable(string varName, Json newData) {
             _viewVariables[varName] = newData;
         }
+        // #endregion set
     // #endregion View Variables
             
     // #region Layout
 
+    // #region layoutPath
+    // The layout path to build the view with.
+    protected string _layoutPath = null;
+
     // Sets path for layout files.
-    void setLayoutPath(string path) {
+    void layoutPath(string path) {
        _layoutPath = path;
     }
     
     // Gets path for layout files.
-    string getLayoutPath() {
+    string layoutPath() {
         return _layoutPath;
     }
+    // #endregion layoutPath
     // #endregion Layout
 
     // Saves view viewData for use inside templates.
@@ -260,10 +267,12 @@ class DViewBuilder { // }: DJsonSerializable {
         return Json(null);
     }
     
+    // #region set
     // Set view option.
     void setOption(string optionName, Json value) {
        _options.set(optionName, value);
     }
+    // #endregion set
     
     /**
      * Sets additional options for the view.

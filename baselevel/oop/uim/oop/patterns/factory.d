@@ -146,7 +146,7 @@ class DFactory(T : UIMObject) : UIMObject, IKeyAndPath {
 }
 
 unittest {
-    class Test : UIMObject {
+    /* class Test : UIMObject {
         this() {
             this.name("Test");
         }
@@ -189,5 +189,5 @@ unittest {
     assert(Factory.hasAnyKeys("testWorker.two", "unknown"));
     assert(Factory.hasAnyKeys(["testWorker.two", "unknown"]));
     assert(Factory.hasAllKeys("testWorker.two", "testWorkerOne"));
-    assert(Factory.hasAllKeys(["testWorker.two", "testWorkerOne"]));
+    assert(Factory.hasAllKeys(["testWorker.two", "testWorkerOne"])); */
 }

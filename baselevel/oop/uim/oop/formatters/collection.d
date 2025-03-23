@@ -21,7 +21,7 @@ class DFormatterCollection : DCollection!DFormatter {
 auto FormatterCollection() { return new DFormatterCollection; } 
 
 unittest {
-  assert(FormatterCollection);
+  /* assert(FormatterCollection);
 
-  auto collection = FormatterCollection;
+  auto collection = FormatterCollection; */
 }

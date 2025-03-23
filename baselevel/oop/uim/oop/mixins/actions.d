@@ -56,8 +56,13 @@ unittest {
 
 string changeAction(string returnType, string action, string plural, string singular, string keyType, string valueType, string parameter) {
   return `
-  {returnType} {action}{plural}({valuetype}[{keyType}] {parameter}) {
+  {returnType} {action}{plural}({valueType}[{keyType}] {parameter}) {
     {parameter}.each!((key, value) => {action}{singular}(key, value));
+    return this;
+  }
+
+  {returnType} {action}{plural}({keyType}[] keys, {valueType} value) {
+    keys.each!(key => {action}{singular}(key, value));
     return this;
   }
   `
@@ -76,4 +81,6 @@ template ChangeAction(string returnType, string action, string plural, string si
 
 unittest {
   writeln(changeAction("ITest", "set", "Entries", "Entry", "string", "Json", "map"));
+  writeln(changeAction("ITest", "merge", "Entries", "Entry", "string", "Json", "map"));
+  writeln(changeAction("ITest", "update", "Entries", "Entry", "string", "Json", "map"));
 }

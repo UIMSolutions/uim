@@ -6,7 +6,6 @@
 module uim.oop.tests.fixtures.truncatefixturestrategy;
 
 import uim.oop;
-
 @safe:
 
 version (test_uim_oop) {

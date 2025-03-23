@@ -6,7 +6,6 @@
 module uim.oop.interfaces.fixturestrategy;
 
 import uim.oop;
-
 @safe:
 
 // Base interface for strategies used to manage fixtures for TestCase.

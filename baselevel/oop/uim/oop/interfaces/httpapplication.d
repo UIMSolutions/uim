@@ -6,7 +6,6 @@
 module uim.oop.interfaces.httpapplication; 
 
 import uim.oop;
-
 @safe:
 
 // An interface defining the methods that the http server depend on.

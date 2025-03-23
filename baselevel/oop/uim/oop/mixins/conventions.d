@@ -6,7 +6,6 @@
 module uim.oop.mixins.conventions;
 
 import uim.oop;
-
 @safe:
 
 // Provides methods that allow other classes access to conventions based inflections.

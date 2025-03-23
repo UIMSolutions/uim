@@ -6,7 +6,6 @@
 module uim.oop.interfaces.consoleapplication;
 
 import uim.oop;
-
 @safe:
 
 // An interface defining the methods that the console runner depend on.

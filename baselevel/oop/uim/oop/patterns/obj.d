@@ -6,7 +6,6 @@
 module uim.oop.patterns.obj;
 
 import uim.oop;
-
 @safe:
 
 version (test_uim_oop) {

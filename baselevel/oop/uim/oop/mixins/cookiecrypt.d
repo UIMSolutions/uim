@@ -6,7 +6,6 @@
 module uim.oop.mixins.cookiecrypt;
 
 import uim.oop;
-
 @safe:
 
 /**

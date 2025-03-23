@@ -6,7 +6,6 @@
 module uim.oop.mixins.mergevariables;
 
 import uim.oop;
-
 @safe:
 
 // Provides features for merging object properties recursively with parent classes.

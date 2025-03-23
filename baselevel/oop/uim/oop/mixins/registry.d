@@ -1,7 +1,6 @@
 module uim.oop.mixins.registry;
 
 import uim.oop;
-
 @safe:
 
 string mixinRegistry(string single, string plural) {

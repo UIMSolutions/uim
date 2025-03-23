@@ -13,7 +13,6 @@ version (test_uim_oop) {
 }
 
 import uim.oop;
-
 @safe:
 interface IConfiguration : IObject {
   // #region default data

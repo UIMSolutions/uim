@@ -6,7 +6,6 @@
 module uim.oop.interfaces.container;
 
 import uim.oop;
-
 @safe:
 
 /**

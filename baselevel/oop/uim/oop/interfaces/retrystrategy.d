@@ -6,7 +6,6 @@
 module uim.oop.interfaces.retrystrategy;
 
 import uim.oop;
-
 @safe:
 
 /**

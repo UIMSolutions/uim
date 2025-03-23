@@ -14,7 +14,6 @@ version (test_uim_oop) {
 }
 
 import uim.oop;
-
 @safe:
 
 string formatterThis(string name = null) {

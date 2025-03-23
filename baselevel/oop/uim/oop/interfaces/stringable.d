@@ -6,7 +6,6 @@
 module uim.oop.interfaces.stringable;
 
 import uim.oop;
-
 @safe:
 
 interface IStringable {

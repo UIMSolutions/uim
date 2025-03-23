@@ -6,6 +6,5 @@
 module uim.oop.interfaces.enumeration;
 
 import uim.oop;
-
 @safe:
 interface IEnumeration {}

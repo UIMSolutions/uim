@@ -6,7 +6,6 @@
 module uim.oop.tests.testsession;
 
 import uim.oop;
-
 @safe:
 
 /*

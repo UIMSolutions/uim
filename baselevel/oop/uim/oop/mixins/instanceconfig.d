@@ -6,7 +6,6 @@
 module uim.oop.mixins.instanceconfig;
 
 import uim.oop;
-
 @safe:
 
 /**

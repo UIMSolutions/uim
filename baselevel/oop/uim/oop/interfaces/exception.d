@@ -6,7 +6,6 @@
 module uim.oop.interfaces.exception;
 
 import uim.oop;
-
 @safe:
 
 interface IException {

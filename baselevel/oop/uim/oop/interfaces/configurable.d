@@ -5,21 +5,28 @@
 *****************************************************************************************************************/
 module uim.oop.interfaces.configurable;
 
-import uim.oop;
+version (test_uim_oop) {
+  import std.stdio;
 
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
+import uim.oop;
 @safe:
 
 interface IConfigurable {
-    // Gets configuration
-    IConfiguration configuration();
-    // Sets configuration
-    void configuration(IConfiguration newConfiguration);
+  // Gets configuration
+  IConfiguration configuration();
+  // Sets configuration
+  void configuration(IConfiguration newConfiguration);
 
-    final void setConfiguration(string key, Json value) {
-        configuration.set(key, value);
-    }
+  final void setConfiguration(string key, Json value) {
+    configuration.set(key, value);
+  }
 
-    final Json getConfiguration(string key) {
-        return configuration.get(key);
-    }
+  final Json getConfiguration(string key) {
+    return configuration.get(key);
+  }
 }

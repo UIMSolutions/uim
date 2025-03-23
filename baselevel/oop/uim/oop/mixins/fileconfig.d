@@ -6,7 +6,6 @@
 module uim.oop.mixins.fileconfig;
 
 import uim.oop;
-
 @safe:
 
 // mixin template providing utility methods for file based config engines.

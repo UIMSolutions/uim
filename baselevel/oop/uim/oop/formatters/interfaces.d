@@ -13,7 +13,6 @@ version (test_uim_oop) {
 }
 
 import uim.oop;
-
 @safe:
 
 interface IFormatter : IObject {

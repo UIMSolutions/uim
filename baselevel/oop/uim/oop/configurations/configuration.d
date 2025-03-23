@@ -6,7 +6,6 @@
 module uim.oop.configurations.configuration;
 
 import uim.oop;
-
 @safe:
 
 version (test_uim_oop) {

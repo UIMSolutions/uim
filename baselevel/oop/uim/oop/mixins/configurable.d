@@ -6,7 +6,6 @@
 module uim.oop.mixins.configurable;
 
 import uim.oop;
-
 @safe:
 
 mixin template TConfigurable() {

@@ -6,7 +6,6 @@
 module uim.oop.interfaces.containerapplication;
 
 import uim.oop;
-
 @safe:
 
 // Interface for applications that configure and use a dependency injection container.

@@ -6,7 +6,6 @@
 module uim.oop.tests.containerstub;
 
 import uim.oop;
-
 @safe:
 
 version (test_uim_oop) {

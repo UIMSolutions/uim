@@ -1,7 +1,6 @@
 module uim.oop.direntries.fileinfo;
 
 import uim.oop;
-
 @safe:
 
 version (test_uim_oop) {

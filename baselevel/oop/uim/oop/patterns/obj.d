@@ -64,7 +64,7 @@ class UIMObject : IObject {
     }
 
     Json[string] debugInfo(string[] showKeys = null, string[] hideKeys = null) {
-        Json[string] info = new Json[string];
+        Json[string] info = null;
         info
             .set("name", name)
             .set("classname", this.classname)

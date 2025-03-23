@@ -5,6 +5,14 @@
 *****************************************************************************************************************/
 module uim.oop.patterns.collection;
 
+version (test_uim_oop) {
+  import std.stdio;
+  
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 import uim.oop;
 @safe:
 

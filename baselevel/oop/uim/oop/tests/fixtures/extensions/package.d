@@ -5,6 +5,14 @@
 *****************************************************************************************************************/
 module uim.oop.tests.fixtures.extensions;
 
+version (test_uim_oop) {
+  import std.stdio;
+  
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 public {
     // TODO import uim.oop.tests.fixtures.extensions.unitextension;
     // TODO import uim.oop.tests.fixtures.extensions.unitstartedsubscriber;

@@ -5,6 +5,14 @@
 *****************************************************************************************************************/
 module uim.oop.formatters;
 
+version (test_uim_oop) {
+  import std.stdio;
+  
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 public {
     import uim.oop.formatters.formatter;
 }

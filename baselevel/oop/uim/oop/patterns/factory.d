@@ -5,9 +5,6 @@
 *****************************************************************************************************************/
 module uim.oop.patterns.factory;
 
-import uim.oop;
-@safe:
-
 version (test_uim_oop) {
   import std.stdio;
   
@@ -15,6 +12,9 @@ version (test_uim_oop) {
     writeln("-----  ", __MODULE__, "\t  -----");
   }
 }
+
+import uim.oop;
+@safe:
 
 class DFactory(T : UIMObject) : UIMObject, IKeyAndPath {
     this() {

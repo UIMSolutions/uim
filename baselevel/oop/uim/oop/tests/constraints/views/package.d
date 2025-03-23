@@ -5,6 +5,14 @@
 *****************************************************************************************************************/
 module uim.oop.tests.constraints.views;
 
+version (test_uim_oop) {
+  import std.stdio;
+  
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 public {
     // TODO import uim.oop.tests.constraints.views.layoutfileequals;
     // TODO import uim.oop.tests.constraints.views.templatefileequals;

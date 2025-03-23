@@ -5,6 +5,14 @@
 *****************************************************************************************************************/
 module uim.oop.uim.utilities.exceptions;
 
+version (test_uim_oop) {
+  import std.stdio;
+  
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 public {
     import uim.oop.helpers.exceptions.xml;
 }

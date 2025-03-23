@@ -5,6 +5,14 @@
 *****************************************************************************************************************/
 module uim.oop.tests.constraints;
 
+version (test_uim_oop) {
+  import std.stdio;
+  
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 public {
     import uim.oop.tests.constraints.response; 
     import uim.oop.tests.constraints.session; 

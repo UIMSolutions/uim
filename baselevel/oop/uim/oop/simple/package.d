@@ -5,6 +5,14 @@
 *****************************************************************************************************************/
 module uim.oop.simple;
 
+version (test_uim_oop) {
+  import std.stdio;
+  
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 public {
   // import uim.oop.simple.obj;
   // import uim.oop.simple.templ;

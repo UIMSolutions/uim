@@ -7,6 +7,7 @@ module uim.oop.containers.maps;
 
 version (test_uim_oop) {
   import std.stdio;
+  
   unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
   }

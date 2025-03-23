@@ -5,6 +5,7 @@ import uim.oop;
 
 version (test_uim_oop) {
   import std.stdio;
+  
   unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
   }

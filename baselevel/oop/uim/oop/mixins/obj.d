@@ -8,6 +8,7 @@ module uim.oop.mixins.obj;
 @safe: 
 
 version (test_uim_oop) {
+    import std.stdio;
     unittest {
         writeln("-----  ", __MODULE__, "\t  -----");
     }

@@ -6,5 +6,6 @@ public {
   import uim.views.interfaces.form;
   import uim.views.interfaces.helper;
   import uim.views.interfaces.view;
+  import uim.views.interfaces.viewbuilder;
   import uim.views.interfaces.widget;
 }

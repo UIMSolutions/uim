@@ -3,12 +3,13 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.helpers.number;Json[string] options = new Json[string]Json[string] options = new Json[string]Json[string] options = new Json[string]Json[string] options = new Json[string]Json[string] options = new Json[string]Json[string] options = new Json[string]Json[string] options = new Json[string]Json[string] options = new Json[string]
+module uim.views.helpers.number;
 
 import uim.views;
+
 @safe:
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+unittest {
+  writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 /**
@@ -22,19 +23,19 @@ import uim.views;
  * @method string toReadableSize(Json mysize) See Number.toReadableSize()
  */
 class DNumberHelper : DHelper {
-    mixin(HelperThis!("Number"));
+  mixin(HelperThis!("Number"));
 
-    override IEvent[] implementedEvents() {
-        return null;
-    }
+  override IEvent[] implementedEvents() {
+    return null;
+  }
 
-    // Call methods from UIM\I18n\Number utility class
-    Json __call(string methodName, Json[string] params) {
-        // return Number.{methodName}(...params);
-        return Json(null);
-    }
-    
-    /**
+  // Call methods from UIM\I18n\Number utility class
+  Json __call(string methodName, Json[string] params) {
+    // return Number.{methodName}(...params);
+    return Json(null);
+  }
+
+  /**
      * Formats a number into the correct locale format
      *
      * Options:
@@ -48,16 +49,16 @@ class DNumberHelper : DHelper {
      * Params:
      * Json mynumber A floating point number.
      */
-    string format(Json mynumber, Json[string] options = null) {
-        // TODOD 
-        string formattedNumber; 
-        /* auto formattedNumber = Number.format(mynumber, options);
+  string format(Json mynumber, Json[string] options = null) {
+    // TODOD 
+    string formattedNumber;
+    /* auto formattedNumber = Number.format(mynumber, options);
         auto options = options.update["escape": true.toJson]; */
 
-        return options.getBoolean("escape") ? htmlAttributeEscape(formattedNumber) : formattedNumber;
-    }
-    
-    /**
+    return options.getBoolean("escape") ? htmlAttributeEscape(formattedNumber) : formattedNumber;
+  }
+
+  /**
      * Formats a number into a currency format.
      *
      * ### Options
@@ -78,20 +79,20 @@ class DNumberHelper : DHelper {
      * Params:
      * string|float mynumber Value to format.
      */
-    string currency(float value, string currencyName = null, Json[string] options = null) {
-        // return currency(Number.currency(value, currencyName, options), currencyName, options);
-        return null;
-    }
+  string currency(float value, string currencyName = null, Json[string] options = null) {
+    // return currency(Number.currency(value, currencyName, options), currencyName, options);
+    return null;
+  }
 
-    string currency(string mynumber, string currencyName = null, Json[string] options = null) {
-/*         auto formattedCurrency = Number.currency(mynumber, currencyName, options);
+  string currency(string mynumber, string currencyName = null, Json[string] options = null) {
+    /*         auto formattedCurrency = Number.currency(mynumber, currencyName, options);
         options.merge("escape", true);
         return options.hasKey("escape") ? htmlAttributeEscape(formattedCurrency) : formattedCurrency;
         */
-        return null;    
- }
-    
-    /**
+    return null;
+  }
+
+  /**
      * Formats a number into the correct locale format to show deltas (signed differences in value).
      *
      * ### Options
@@ -103,15 +104,15 @@ class DNumberHelper : DHelper {
      * - `after` - The string to place after decimal numbers, e.g. "]"
      * - `escape` - Set to false to prevent escaping
      */
-    string formatDelta(float value, Json[string] options = null) {
-        // return formatDelta(Number.formatDelta(value, options));
-        return null;
-    }
+  string formatDelta(float value, Json[string] options = null) {
+    // return formatDelta(Number.formatDelta(value, options));
+    return null;
+  }
 
-    string formatDelta(string value, Json[string] options = null) {
-/*         auto formattedNumber = Number.formatDelta(value, options);
+  string formatDelta(string value, Json[string] options = null) {
+    /*         auto formattedNumber = Number.formatDelta(value, options);
         options.merge("escape", true);
         return options.hasKey("escape") ? htmlAttributeEscape(formattedNumber) : formattedNumber; */
-        return null;    
-    }
+    return null;
+  }
 }

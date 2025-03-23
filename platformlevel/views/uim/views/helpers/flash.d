@@ -3,12 +3,13 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.views.helpers.flash;Json[string] options = new Json[string]
+module uim.views.helpers.flash;
 
 import uim.views;
+
 @safe:
- unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
+unittest {
+  writeln("-----  ", __MODULE__, "\t  -----");
 }
 
 /**
@@ -18,8 +19,8 @@ import uim.views;
  * this class to output your flash messages in your views.
  */
 class DFlashHelper : DHelper {
-    mixin(HelperThis!("Flash"));
-    /**
+  mixin(HelperThis!("Flash"));
+  /**
      * Used to render the message set in FlashComponent.set()
      *
      * In your template file: this.Flash.render("somekey");
@@ -53,23 +54,23 @@ class DFlashHelper : DHelper {
      *
      * If you have several messages stored in the Session, each message will be rendered in its own element.
      */
-    string render(string key = "flash", Json[string] options = null) {
-        // TODO 
-        /* auto mymessages = _view.getRequest().getFlash().consume(key);
+  string render(string key = "flash", Json[string] options = null) {
+    // TODO 
+    /* auto mymessages = _view.getRequest().getFlash().consume(key);
         if (mymessages.isNull) {
             return null;
         } */
 
-        string result = "";
-        /* mymessages.each!((message) {
+    string result = "";
+    /* mymessages.each!((message) {
             message = options + message;
             result ~= _view.element(message["element"], message);
-        }); */ 
-        return result;
-    }
+        }); */
+    return result;
+  }
 
-    // Event listeners.
-    override IEvent[] implementedEvents() {
-        return null;
-    }
+  // Event listeners.
+  override IEvent[] implementedEvents() {
+    return null;
+  }
 }

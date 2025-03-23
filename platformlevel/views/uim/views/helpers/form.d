@@ -4,6 +4,8 @@ import uim.views;
 @safe:
 
 version (test_uim_views) {
+  import std.stdio;
+  
   unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
   }

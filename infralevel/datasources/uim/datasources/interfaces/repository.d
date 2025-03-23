@@ -91,7 +91,7 @@ interface IDatasourceRepository : IObject {
      * returns the same entity after a successful save or false in case
      * of any error.
      * /
-    IDatasourceEntity|false save(IDatasourceEntity entity, Json[string] options = null);
+    IDatasourceEntity|false save(IDatasourceEntity entity, Json[string] options = new Json[string]);
 
     /**
      * Delete a single entity.
@@ -101,7 +101,7 @@ interface IDatasourceRepository : IObject {
      * Params:
      * \UIM\Datasource\IDatasourceEntity entity The entity to remove.
          * /
-    bool removeKey(IDatasourceEntity entity, Json[string] options = null);
+    bool removeKey(IDatasourceEntity entity, Json[string] options = new Json[string]);
 
     /**
      * This creates a new entity object.
@@ -126,7 +126,7 @@ interface IDatasourceRepository : IObject {
      * on the primary key data existing in the database when the entity
      * is saved. Until the entity is saved, it will be a detached record.
      * /
-    IDatasourceEntity newEntity(Json[string] dataForEntity, Json[string] options = null);
+    IDatasourceEntity newEntity(Json[string] dataForEntity, Json[string] options = new Json[string]);
 
     /**
      * Create a list of entities + associated entities from an array.
@@ -151,7 +151,7 @@ interface IDatasourceRepository : IObject {
      * article = this.Articles.patchEntity(article, this.request[));
      * ```
      * /
-    IDatasourceEntity patchEntity(IDatasourceEntity entity, Json[string] data, Json[string] options = null);
+    IDatasourceEntity patchEntity(IDatasourceEntity entity, Json[string] data, Json[string] options = new Json[string]);
 
     /**
      * Merges each of the elements passed in `someData` into the entities

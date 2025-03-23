@@ -19,11 +19,11 @@ unittest {
  *
  * @property \UIM\View\Helper\HtmlHelper myHtml
  * @method string excerpt(string text, string myphrase, int myradius = 100, string myending = "...") See Text.excerpt()
- * @method string highlight(string text, string[] myphrase, Json[string] options = null) See Text.highlight()
+ * @method string highlight(string text, string[] myphrase, Json[string] options = new Json[string]) See Text.highlight()
  * @method string slug(string mystring, string[] options= null) See Text.slug()
- * @method string tail(string text, int mylength = 100, Json[string] options = null) See Text.tail()
+ * @method string tail(string text, int mylength = 100, Json[string] options = new Json[string]) See Text.tail()
  * @method string toList(Json[string] mylist, string myand = null, string myseparator = ", ") See Text.toList()
- * @method string truncate(string text, int mylength = 100, Json[string] options = null) See Text.truncate()
+ * @method string truncate(string text, int mylength = 100, Json[string] options = new Json[string]) See Text.truncate()
  */
 class DTextHelper : DHelper {
     protected string[] _helpers = ["Html"];
@@ -48,7 +48,7 @@ class DTextHelper : DHelper {
      *
      * - `escape` Control HTML escaping of input. Defaults to true.
      */
-    string autoLinkUrls(string text, Json[string] options = null) {
+    string autoLinkUrls(string text, Json[string] options = new Json[string]) {
         _placeholders = null;
         options.merge("escape", true);
 
@@ -132,7 +132,7 @@ class DTextHelper : DHelper {
     }
 
     // Links email addresses
-    protected string _linkEmails(string text, Json[string] options = null) {
+    protected string _linkEmails(string text, Json[string] options = new Json[string]) {
         string myreplace = null;
         /*        foreach (myhash, mycontent; _placeholders) {
             auto myurl = mycontent["content"];
@@ -149,7 +149,7 @@ class DTextHelper : DHelper {
      * ### Options
      * - `escape` Control HTML escaping of input. Defaults to true.
      */
-    string autoLinkEmails(string text, Json[string] options = null) {
+    string autoLinkEmails(string text, Json[string] options = new Json[string]) {
         options.merge("escape", true);
         _placeholders = null;
 
@@ -173,7 +173,7 @@ class DTextHelper : DHelper {
      *
      * - `escape` Control HTML escaping of input. Defaults to true.
      */
-    string autoLink(string text, Json[string] options = null) {
+    string autoLink(string text, Json[string] options = new Json[string]) {
         /*         auto linkUrls = autoLinkUrls(text, options);
         return _autoLinkEmails(linkUrls, options.merge("escape", false)); */
         return null;

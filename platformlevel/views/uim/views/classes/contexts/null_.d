@@ -26,7 +26,7 @@ class DNullFormContext : DFormContext {
         return false;
     }
  
-    override Json val(string fieldName, Json[string] options = null) {
+    override Json val(string fieldName, Json[string] options = new Json[string]) {
         return Json(null);
     }
  

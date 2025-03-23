@@ -81,7 +81,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
 
     /*
     // Format a into a relative timestring.
-    string timeAgoInWords(DateTime /* Date  * / timeToFormat, Json[string] options = null) {
+    string timeAgoInWords(DateTime /* Date  * / timeToFormat, Json[string] options = new Json[string]) {
         auto options = _options(options, DateTime.classname);
         if (options.hasKey("timezone")) {
             time = time.setTimezone(options.get("timezone"));
@@ -163,11 +163,11 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     } */
 
     // Calculate the data needed to format a relative difference string.
-    protected Json[string] _diffData(string /* int */ futureTime, string pastTime, bool isBackwards, Json[string] options = null) {
+    protected Json[string] _diffData(string /* int */ futureTime, string pastTime, bool isBackwards, Json[string] options = new Json[string]) {
         return _diffData(to!int(futureTime), to!int(pastTime), isBackwards, options);
     }
 
-    protected Json[string] _diffData(/* string */ int futureTime, int pastTime, bool isBackwards, Json[string] options = null) {
+    protected Json[string] _diffData(/* string */ int futureTime, int pastTime, bool isBackwards, Json[string] options = new Json[string]) {
         auto diff = futureTime - pastTime; // If more than a week, then take into account the length of months
         if (diff >= 604800) {
             /* auto future = null;
@@ -283,7 +283,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     }
 
     // Format a into a relative date string.
-     /* string dateAgoInWords( /* DateTime | * / Date date, Json[string] options = null) {
+     /* string dateAgoInWords( /* DateTime | * / Date date, Json[string] options = new Json[string]) {
     options = _options(options, Date.classname);
     if (cast(DateTime) date && options.get("timezone")) {
         date = date.setTimezone(options.get("timezone"));

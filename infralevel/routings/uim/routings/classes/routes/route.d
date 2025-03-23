@@ -13,7 +13,7 @@ class DRoute : UIMObject, IRoute {
     mixin(RouteThis!());
 
     // An array of additional parameters for the Route.
-    Json[string] options = null;
+    Json[string] options = new Json[string];
 
     // Default parameters for a Route
     Json[string] _defaultValues;

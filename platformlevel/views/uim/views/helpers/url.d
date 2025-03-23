@@ -48,7 +48,7 @@ class UrlHelper : DHelper {
      *  an array of URL parameters. Using an array for URLs will allow you to leverage
      *  the reverse routing features of UIM.
      */
-  static string build(string[] myurl = null, Json[string] options = null) {
+  static string build(string[] myurl = null, Json[string] options = new Json[string]) {
     /*         options
             .merge("fullBase", false)
             .merge("escape", true);
@@ -71,7 +71,7 @@ class UrlHelper : DHelper {
      *  escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
      */
-  static string buildFromPath(string routePath, Json[string] params = null, Json[string] options = null) {
+  static string buildFromPath(string routePath, Json[string] params = null, Json[string] options = new Json[string]) {
     /*         return _build(["_path": routePath] + params, options); */
     return null;
   }
@@ -82,7 +82,7 @@ class UrlHelper : DHelper {
      * Depending on options passed provides full URL with domain name. Also calls
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
-  static string image(string path, Json[string] options = null) {
+  static string image(string path, Json[string] options = new Json[string]) {
     /*         options.merge("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.imageUrl(path, options)); */
@@ -95,7 +95,7 @@ class UrlHelper : DHelper {
      * Depending on options passed provides full URL with domain name. Also calls
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
-  static string css(string path, Json[string] options = null) {
+  static string css(string path, Json[string] options = new Json[string]) {
 /*     options.merge("theme", _view.theme());
     return htmlAttributeEscape(_assetUrlclassname.cssUrl(path, options));
  */    return null;
@@ -107,7 +107,7 @@ class UrlHelper : DHelper {
      * Depending on options passed provides full URL with domain name. Also calls
      * `Helper.assetTimestamp()` to add timestamp to local files.
      */
-  static string script(string path, Json[string] options = null) {
+  static string script(string path, Json[string] options = new Json[string]) {
     /*         auto options = options.set("theme", _view.theme());
         return htmlAttributeEscape(
             _assetUrlclassname.scriptUrl(path, options)); */
@@ -132,7 +132,7 @@ class UrlHelper : DHelper {
      *  Set to true to apply timestamps when debug is true. Set to "force" to always
      *  enable timestamping regardless of debug value.
      */
-  static string assetUrl(string path, Json[string] options = null) {
+  static string assetUrl(string path, Json[string] options = new Json[string]) {
     /* options
             .merge("theme", _view.theme()); */
 

@@ -51,12 +51,12 @@ class DEventManager : IEventManager {
         return _generalManager;
     }
 
-    IEventManager on(IEventListener eventKey, Json[string] options = null) {
+    IEventManager on(IEventListener eventKey, Json[string] options = new Json[string]) {
         _attachSubscriber(eventKey);
         return this;
     }
 
-    IEventManager on(string eventKey, /* callable | */ Json[string] options = null, /* callable callable = null */
+    IEventManager on(string eventKey, /* callable | */ Json[string] options = new Json[string], /* callable callable = null */
     ) {
         // TODO
         /* if (!aCallable && !isCallable(options)) {

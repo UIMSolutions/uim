@@ -52,7 +52,7 @@ Json debugInfo(Json debugVariable, bool showHtml = false, bool showFrom = true) 
  * will be displayed.
  * - `start` - The stack frame to start generating a trace from. Defaults to 1
  */
-void stackTrace(Json[string] options = null) {
+void stackTrace(Json[string] options = new Json[string]) {
     /* if (!configuration.hasKey("debug")) {
         return;
     } */

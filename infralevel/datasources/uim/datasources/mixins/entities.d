@@ -203,10 +203,10 @@ mixin template TEntity() {
      * Json[string]|string fieldName the name of field to set or a list of
      * fields with their respective values
     */
-  void set(string[] fieldName, Json valueToSet = null, Json[string] options = null) {
+  void set(string[] fieldName, Json valueToSet = null, Json[string] options = new Json[string]) {
   }
 
-  void set(string[] fieldName, Json valueToSet = null, Json[string] options = null) {
+  void set(string[] fieldName, Json valueToSet = null, Json[string] options = new Json[string]) {
     bool guard;
     if (fieldName.isString && !fieldName.isEmpty) {
       guard = false;

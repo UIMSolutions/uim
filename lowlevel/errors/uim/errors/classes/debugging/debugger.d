@@ -295,7 +295,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
-  static string[] trace(Json[string] options = null) {
+  static string[] trace(Json[string] options = new Json[string]) {
     // Remove the frame for Debugger.trace()
     /* backtrace = debug_backtrace();
     backtrace.shift;
@@ -317,7 +317,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      * will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
-  static string[] formatTrace(Throwable backtrace, Json[string] options = null) {
+  static string[] formatTrace(Throwable backtrace, Json[string] options = new Json[string]) {
     /* if (cast(Throwable) backtrace) {
       backtrace = backtrace.getTrace();
     }
@@ -929,7 +929,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      *  will be displayed.
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      */
-  // static  /* array| */ string formatTrace(Throwable /* array */ backtrace, Json[string] options = null) {
+  // static  /* array| */ string formatTrace(Throwable /* array */ backtrace, Json[string] options = new Json[string]) {
   /* if (cast(Throwable) backtrace) {
             backtrace = backtrace.getTrace();
         }

@@ -74,7 +74,7 @@ const string[] VALID_ATTRIBUTES = [
     return false;
   }
 
-  override Json val(string fieldName, Json[string] options = null) {
+  override Json val(string fieldName, Json[string] options = new Json[string]) {
     /* options
             .merge("default", Json(null))
             .merge("schemaDefault", true);

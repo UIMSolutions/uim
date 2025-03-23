@@ -93,7 +93,7 @@ interface IDatasourceEntity : IObject { // : ArrayAccess, JsonSerializable
   Json[string] extractOriginalChanged(string[] fieldNames);
 
   // Sets one or multiple fields to the specified value
-  void set(string[] fieldNames, Json valueToSet = null, Json[string] options = null);
+  void set(string[] fieldNames, Json valueToSet = null, Json[string] options = new Json[string]);
 
   // Returns the value of a field by name
   Json get(string fieldName);

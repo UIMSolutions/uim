@@ -10,39 +10,39 @@ public {
 static this() { // Init factories
   import uim.consoles;
 
-  InputFactory.set("file", (Json[string] options = null) @safe {
+  InputFactory.set("file", (Json[string] options = new Json[string]) @safe {
       return new DFileInput(options);
   });
 
-  InputFactory.set("rest", (Json[string] options = null) @safe {
+  InputFactory.set("rest", (Json[string] options = new Json[string]) @safe {
     return new DRestInput(options);
   });
 
-  InputFactory.set("standard", (Json[string] options = null) @safe {
+  InputFactory.set("standard", (Json[string] options = new Json[string]) @safe {
       return new DStandardInput(options);
   });
 
-  OutputFactory.set("file", (Json[string] options = null) @safe {
+  OutputFactory.set("file", (Json[string] options = new Json[string]) @safe {
       return new DFileOutput(options);
   });
 
-  OutputFactory.set("rest", (Json[string] options = null) @safe {
+  OutputFactory.set("rest", (Json[string] options = new Json[string]) @safe {
       return new DRestOutput(options);
   });
 
-  OutputFactory.set("standard", (Json[string] options = null) @safe {
+  OutputFactory.set("standard", (Json[string] options = new Json[string]) @safe {
     return new DStandardOutput(options);
   });
 
-  ErrorOutputFactory.set("file", (Json[string] options = null) @safe {
+  ErrorOutputFactory.set("file", (Json[string] options = new Json[string]) @safe {
       return new DFileErrorOutput(options);
   });
 
-  ErrorOutputFactory.set("rest", (Json[string] options = null) @safe {
+  ErrorOutputFactory.set("rest", (Json[string] options = new Json[string]) @safe {
       return new DRestErrorOutput(options);
   });
 
-  ErrorOutputFactory.set("standard", (Json[string] options = null) @safe {
+  ErrorOutputFactory.set("standard", (Json[string] options = new Json[string]) @safe {
     return new DStandardErrorOutput(options);
   });
 }

@@ -15,83 +15,83 @@ static this() { // Init factories
 
   // #region init LogFormatter factory
   // CsvLogFormatter
-  LogFormatterFactory.set(CsvLogFormatter.classname, (Json[string] options = null) @safe {
+  LogFormatterFactory.set(CsvLogFormatter.classname, (Json[string] options = new Json[string]) @safe {
     return CsvLogFormatter(options);
   });
-  LogFormatterFactory.set("csv", (Json[string] options = null) @safe {
+  LogFormatterFactory.set("csv", (Json[string] options = new Json[string]) @safe {
     return CsvLogFormatter(options);
   });
 
   // HtmlLogFormatter
-  LogFormatterFactory.set(HtmlLogFormatter.classname, (Json[string] options = null) @safe {
+  LogFormatterFactory.set(HtmlLogFormatter.classname, (Json[string] options = new Json[string]) @safe {
     return HtmlLogFormatter(options);
   });
-  LogFormatterFactory.set("html", (Json[string] options = null) @safe {
+  LogFormatterFactory.set("html", (Json[string] options = new Json[string]) @safe {
     return HtmlLogFormatter(options);
   });
 
   // JsonLogFormatter
-  LogFormatterFactory.set(JsonLogFormatter.classname, (Json[string] options = null) @safe {
+  LogFormatterFactory.set(JsonLogFormatter.classname, (Json[string] options = new Json[string]) @safe {
     return JsonLogFormatter(options);
   });
-  LogFormatterFactory.set("json", (Json[string] options = null) @safe {
+  LogFormatterFactory.set("json", (Json[string] options = new Json[string]) @safe {
     return JsonLogFormatter(options);
   });
 
   // StandardLogFormatter
-  LogFormatterFactory.set(StandardLogFormatter.classname, (Json[string] options = null) @safe {
+  LogFormatterFactory.set(StandardLogFormatter.classname, (Json[string] options = new Json[string]) @safe {
     return StandardLogFormatter(options);
   });
-  LogFormatterFactory.set("standard", (Json[string] options = null) @safe {
+  LogFormatterFactory.set("standard", (Json[string] options = new Json[string]) @safe {
     return StandardLogFormatter(options);
   });
 
   // TextLogFormatter
-  LogFormatterFactory.set(TextLogFormatter.classname, (Json[string] options = null) @safe {
+  LogFormatterFactory.set(TextLogFormatter.classname, (Json[string] options = new Json[string]) @safe {
     return TextLogFormatter(options);
   });
-  LogFormatterFactory.set("text", (Json[string] options = null) @safe {
+  LogFormatterFactory.set("text", (Json[string] options = new Json[string]) @safe {
     return TextLogFormatter(options);
   });
 
   // XmlLogFormatter
-  LogFormatterFactory.set("xml", (Json[string] options = null) @safe {
+  LogFormatterFactory.set("xml", (Json[string] options = new Json[string]) @safe {
     return XmlLogFormatter(options);
   });
-  LogFormatterFactory.set("xml", (Json[string] options = null) @safe {
+  LogFormatterFactory.set("xml", (Json[string] options = new Json[string]) @safe {
     return XmlLogFormatter(options);
   });
   // #endregion init LogFormatter factory
 
   // #region init Logger factory
-  LoggerFactory.set("console", (Json[string] options = null) @safe {
+  LoggerFactory.set("console", (Json[string] options = new Json[string]) @safe {
     return ConsoleLogger(options);
   });
-  LoggerFactory.set(ConsoleLogger.classname, (Json[string] options = null) @safe {
+  LoggerFactory.set(ConsoleLogger.classname, (Json[string] options = new Json[string]) @safe {
     return ConsoleLogger(options);
   });
 
-  LoggerFactory.set("file", (Json[string] options = null) @safe {
+  LoggerFactory.set("file", (Json[string] options = new Json[string]) @safe {
     return new DFileLogger(options);
   });
 
-  LoggerFactory.set("memory", (Json[string] options = null) @safe {
+  LoggerFactory.set("memory", (Json[string] options = new Json[string]) @safe {
     return MemoryLogger(options);
   });
 
-  LoggerFactory.set("multi", (Json[string] options = null) @safe {
+  LoggerFactory.set("multi", (Json[string] options = new Json[string]) @safe {
     return MultiLogger(options);
   });
 
-  LoggerFactory.set("null", (Json[string] options = null) @safe {
+  LoggerFactory.set("null", (Json[string] options = new Json[string]) @safe {
     return NullLogger(options);
   });
 
-  LoggerFactory.set("standard", (Json[string] options = null) @safe {
+  LoggerFactory.set("standard", (Json[string] options = new Json[string]) @safe {
     return StandardLogger(options);
   });
 
-  LoggerFactory.set("syslog", (Json[string] options = null) @safe {
+  LoggerFactory.set("syslog", (Json[string] options = new Json[string]) @safe {
     return StandardLogger(options);
   });
   // #endregion init Logger factory

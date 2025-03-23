@@ -11,5 +11,5 @@ import uim.controllers;
     IController addView(IView newView);
     IController orderViews();
 
-    IResponse response(Json[string] options = null);
+    IResponse response(Json[string] options = new Json[string]);
 } */

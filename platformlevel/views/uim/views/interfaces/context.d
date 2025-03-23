@@ -39,7 +39,7 @@ interface IFormContext {
      * - `schemaDefault`: Boolean indicating whether default value from
      *   context"s schema should be used if it"s not explicitly provided.
     */
-    Json val(string fieldPath, Json[string] options = null) ;
+    Json val(string fieldPath, Json[string] options = new Json[string]) ;
 
     /**
      * Check if a given field is "required".

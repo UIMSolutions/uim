@@ -17,7 +17,7 @@ version (test_uim_logging) {
 class DLogger : UIMObject, ILogger {
   mixin(LoggerThis!());
 
-  override bool initialize(Json[string] options = null) {
+  override bool initialize(Json[string] options = new Json[string]) {
     if (!super.initialize(options)) {
       return false;
     }

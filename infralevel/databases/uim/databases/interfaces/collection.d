@@ -32,5 +32,5 @@ interface ICollection {
      * - `forceRefresh` - Set to true to force rebuilding the cached metadata.
      *  Defaults to false.
      */
-    // TODO ITableSchema describe(string tableName, Json[string] options = null);
+    // TODO ITableSchema describe(string tableName, Json[string] options = new Json[string]);
 }

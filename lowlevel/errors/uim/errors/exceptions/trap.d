@@ -76,7 +76,7 @@ class DExceptionTrap {
     initialize;
   }
 
-  this(Json[string] options = null) {
+  this(Json[string] options = new Json[string]) {
     this();
     _configData = merge(options, _configData);
   }

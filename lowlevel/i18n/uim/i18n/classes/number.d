@@ -91,7 +91,7 @@ class DNumber {
      * - `multiply`: Multiply the input value by 100 for decimal percentages.
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
      */
-    static string toPercentage(Json value, int precision = 2, Json[string] options = null) {
+    static string toPercentage(Json value, int precision = 2, Json[string] options = new Json[string]) {
         options
             .merge("multiply", false)
             .merge("type", NumberFormatters.PERCENT);
@@ -115,7 +115,7 @@ class DNumber {
      * - `before` - The string to place before whole numbers, e.g. '["
      * - `after` - The string to place after decimal numbers, e.g. "]'
      */
-    static string format(Json floatNumber, Json[string] options = null) {
+    static string format(Json floatNumber, Json[string] options = new Json[string]) {
         auto formatter = formatter(options);
         // options.merge(["before", "after"], "");
         /* return options.getString("before") ~ formatter.format(floatNumber.getDouble) ~ options.getString("after"); */
@@ -130,7 +130,7 @@ class DNumber {
      * - `type` - The formatter type to construct, set it to `currency` if you need to parse
      *  numbers representing money.
      */
-    static float parseFloat(string value, Json[string] options = null) {
+    static float parseFloat(string value, Json[string] options = new Json[string]) {
         auto parseFormatter = formatter(options);
         /* return  /* (float) * / formatter
             .parseFormatter(value, NumberFormatters.TYPE_DOUBLE); */
@@ -149,7 +149,7 @@ class DNumber {
      * - `after` - The string to place after decimal numbers, e.g. "]'
      * Params:
      */
-    static string formatDelta(Json value, Json[string] options = null) {
+    static string formatDelta(Json value, Json[string] options = new Json[string]) {
         options.set("places", 0);
         /* auto doubleValue = number_format(
             value.getDouble, options.get("places"], ".", "");
@@ -178,7 +178,7 @@ class DNumber {
      * - `useIntlCode` - Whether to replace the currency symbol with the international
      * currency code.
      */
-    static string currency(Json value, string currencyName = null, Json[string] options = null) {
+    static string currency(Json value, string currencyName = null, Json[string] options = new Json[string]) {
         double doubleValue = value.getDouble;
         currencyName = currencyName ? currencyName : getDefaultCurrency();
         if (options.hasKey("zero") && !value) {
@@ -261,7 +261,7 @@ class DNumber {
      * Json[string] options An array with options.
      */
     static auto formatter(
-        Json[string] options = null) {
+        Json[string] options = new Json[string]) {
         string locale;
         /* locale = options.getString("locale", ini_get(
                 "intl.default_locale")); */
@@ -296,14 +296,14 @@ class DNumber {
      * Params:
      * string alocale The locale name to use for formatting the number, e.g. fr_FR
      */
-    /* static void config(string localeName, int formatterType = NumberFormatters.DECIMAL, Json[string] options = null) {
+    /* static void config(string localeName, int formatterType = NumberFormatters.DECIMAL, Json[string] options = new Json[string]) {
         _formatters[localeName][formatterType] = _setAttributes(
             new NumberFormatters(localeName, type), options);
     } */
 
     // Set formatter attributes
     /* protected static NumberFormatters _setAttributes(
-        NumberFormatters formatter, Json[string] options = null) {
+        NumberFormatters formatter, Json[string] options = new Json[string]) {
         if (options.hasKey("places")) {
             formatter.setAttribute(
                 NumberFormatters.MIN_FRACTION_DIGITS, options.get("places"]);
@@ -341,7 +341,7 @@ class DNumber {
      * Params:
      * float value An integer
      */
-    static string ordinal(float value, Json[string] options = null) {
+    static string ordinal(float value, Json[string] options = new Json[string]) {
         /* return to!string(formatter(
                 [
                     "type": NumberFormatters.ORDINAL

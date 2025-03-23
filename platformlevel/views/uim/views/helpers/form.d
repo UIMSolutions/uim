@@ -14,11 +14,11 @@ version (test_uim_views) {
  *
  * Automatic generation of HTML FORMs from given data.
  *
- * @method string text(string fieldName, Json[string] options = null) Creates input of type text.
- * @method string number(string fieldName, Json[string] options = null) Creates input of type number.
- * @method string email(string fieldName, Json[string] options = null) Creates input of type email.
- * @method string password(string fieldName, Json[string] options = null) Creates input of type password.
- * @method string search(string fieldName, Json[string] options = null) Creates input of type search.
+ * @method string text(string fieldName, Json[string] options = new Json[string]) Creates input of type text.
+ * @method string number(string fieldName, Json[string] options = new Json[string]) Creates input of type number.
+ * @method string email(string fieldName, Json[string] options = new Json[string]) Creates input of type email.
+ * @method string password(string fieldName, Json[string] options = new Json[string]) Creates input of type password.
+ * @method string search(string fieldName, Json[string] options = new Json[string]) Creates input of type search.
  * @property \UIM\View\Helper\HtmlHelper myHtml
  * @property \UIM\View\Helper\UrlHelper myUrl
  */
@@ -186,7 +186,7 @@ class FormHelper : DHelper {
      * - `valueSources` The sources that values should be read from. See FormHelper.setValueSources()
      * - `templateVars` Provide template variables for the formStart template.
      */
-  string create(Json formContext = null, Json[string] options = null) {
+  string create(Json formContext = Json(null), Json[string] options = new Json[string]) {
     /* string myappend = "";
 
         if (cast(IFormContext) formContext) {
@@ -294,7 +294,7 @@ class FormHelper : DHelper {
   }
 
   // Create the URL for a form based on the options.
-  protected string[] _formUrl(IFormContext formContext, Json[string] options = null) {
+  protected string[] _formUrl(IFormContext formContext, Json[string] options = new Json[string]) {
     /* auto request = _view.getRequest();
 
         if (options.isNull("url")) {
@@ -474,7 +474,7 @@ class FormHelper : DHelper {
      * Params:
      * string fieldName A field name, like "modelname.fieldname"
      */
-  string error(string fieldName, string[] text = null, Json[string] options = null) {
+  string error(string fieldName, string[] text = null, Json[string] options = new Json[string]) {
     /* if (fieldName.endsWith("._ids")) {
             fieldName = subString(fieldName, 0, -5);
         }
@@ -630,7 +630,7 @@ class FormHelper : DHelper {
      * array fieldNames An array of customizations for the fields that will be
      * generated. This array allows you to set custom types, labels, or other options.
      */
-  string allControls(Json[string] fieldNames = null, Json[string] options = null) {
+  string allControls(Json[string] fieldNames = null, Json[string] options = new Json[string]) {
     /* auto mycontext = _getContext();
         auto mymodelFields = mycontext.fieldNames();
         auto fieldNames = array_merge(mymodelFields, fieldNames);
@@ -653,7 +653,7 @@ class FormHelper : DHelper {
      * array fieldNames An array of the fields to generate. This array allows
      * you to set custom types, labels, or other options.
      */
-  string controls(Json[string] fieldNames, Json[string] options = null) {
+  string controls(Json[string] fieldNames, Json[string] options = new Json[string]) {
     /* string result = "";
         foreach (views, myopts; fieldNames) {
             if (myopts == false) {
@@ -673,7 +673,7 @@ class FormHelper : DHelper {
      * - `legend` Set to false to disable the legend for the generated input set. Or supply a string
      *  to customize the legend text.
      */
-  string fieldset(string fieldNames = "", Json[string] options = null) {
+  string fieldset(string fieldNames = "", Json[string] options = new Json[string]) {
     /* bool isLegend = options.getBoolean("legend", true);
         // `fieldset` Set to false to disable the fieldset. 
         auto fieldNameset = options.getBoolean("fieldset", true);
@@ -728,7 +728,7 @@ class FormHelper : DHelper {
      * of attributes for the label tag. `selected` will be added to any classes e.g. `class: "myclass"` where
      * widget is checked
      */
-  string control(string fieldName, Json[string] options = null) {
+  string control(string fieldName, Json[string] options = new Json[string]) {
     /* options
             .merge("type", Json(null))
             .merge("label", Json(null))
@@ -832,7 +832,7 @@ class FormHelper : DHelper {
   }
 
   // Generates an group template element
-  protected string _groupTemplate(Json[string] options = null) {
+  protected string _groupTemplate(Json[string] options = new Json[string]) {
     /* string groupTemplate = options.getString("options.type") ~ "FormGroup";
         if (!this.templater().get(groupTemplate)) {
             groupTemplate = "formGroup";
@@ -851,7 +851,7 @@ class FormHelper : DHelper {
      * Params:
      * Json[string] options The options for input container template
      */
-  protected string _inputContainerTemplate(Json[string] options = null) {
+  protected string _inputContainerTemplate(Json[string] options = new Json[string]) {
     /* myinputContainerTemplate = options.getString(
             "options.type") ~ "Container" ~ options.getString("errorSuffix");
         if (!this.templater().get(myinputContainerTemplate)) {
@@ -870,7 +870,7 @@ class FormHelper : DHelper {
   }
 
   // Generates an input element
-  protected string[] _getInput(string fieldName, Json[string] options = null) {
+  protected string[] _getInput(string fieldName, Json[string] options = new Json[string]) {
     auto mylabel = options.shift("options");
 
     switch (options.getString("type").lower) {
@@ -896,7 +896,7 @@ class FormHelper : DHelper {
   }
 
   // Generates input options array
-  protected Json[string] _parseOptions(string fieldName, Json[string] options = null) {
+  protected Json[string] _parseOptions(string fieldName, Json[string] options = new Json[string]) {
     auto myneedsMagicType = false;
     if (options.isEmpty("type")) {
       myneedsMagicType = true;
@@ -912,7 +912,7 @@ class FormHelper : DHelper {
      * Params:
      * string fieldName the name of the field to guess a type for
      */
-  protected string _inputType(string fieldName, Json[string] options = null) {
+  protected string _inputType(string fieldName, Json[string] options = new Json[string]) {
     auto mycontext = _getContext();
 
     if (mycontext.isPrimaryKey(fieldName)) {
@@ -946,7 +946,7 @@ class FormHelper : DHelper {
      * Selects the variable containing the options for a select field if present,
      * and sets the value to the "options" key in the options array.
      */
-  protected Json[string] _optionsOptions(string fieldName, Json[string] options = null) {
+  protected Json[string] _optionsOptions(string fieldName, Json[string] options = new Json[string]) {
     if (options.hasKey("options")) {
       return options;
     }
@@ -1030,7 +1030,7 @@ class FormHelper : DHelper {
      * Params:
      * string fieldName The name of the field to generate options for.
      */
-  protected Json[string] setRequiredAndCustomValidity(string fieldName, Json[string] options = null) {
+  protected Json[string] setRequiredAndCustomValidity(string fieldName, Json[string] options = new Json[string]) {
     /* mycontext = _getContext();
 
         if (!options.hasKey("required") && options.getString("type") != "hidden") {
@@ -1055,7 +1055,7 @@ class FormHelper : DHelper {
   }
 
   // Generate label for input
-  protected string _getLabel(string fieldName, Json[string] options = null) {
+  protected string _getLabel(string fieldName, Json[string] options = new Json[string]) {
     /* if (options.getString("type") == "hidden") {
             return null;
         }
@@ -1085,7 +1085,7 @@ class FormHelper : DHelper {
      * used instead of the generated values if present.
      */
   protected string _inputLabel(string fieldName, string labelText = null,
-    STRINGAA labelAttributes = null, Json[string] options = null) {
+    STRINGAA labelAttributes = null, Json[string] options = new Json[string]) {
     /* options
             .merge("id", Json(null))
             .merge("input", Json(null))
@@ -1132,7 +1132,7 @@ class FormHelper : DHelper {
      * Params:
      * string fieldName Name of a field, like this "modelname.fieldname"
      */
-  string[] checkbox(string fieldName, Json[string] options = null) {
+  string[] checkbox(string fieldName, Json[string] options = new Json[string]) {
     options
       .merge("hiddenField", true)
       .merge("value", 1);
@@ -1255,7 +1255,7 @@ class FormHelper : DHelper {
      * Params:
      * string fieldName Name of a field, in the form "modelname.fieldname"
      */
-  string textarea(string fieldName, Json[string] options = null) {
+  string textarea(string fieldName, Json[string] options = new Json[string]) {
     /* options = _initInputField(fieldName, options);
         options.removeKey("type");
 
@@ -1293,7 +1293,7 @@ class FormHelper : DHelper {
      * Creates file input widget.
      * Name of a field in the form "modelname.fieldname"
      */
-  string file(string fieldName, Json[string] options = null) {
+  string file(string fieldName, Json[string] options = new Json[string]) {
     options.merge("secure", true);
     /* options = _initInputField(fieldName, options);
         options.removeKey("type");
@@ -1313,7 +1313,7 @@ class FormHelper : DHelper {
      * Params:
      * string title The button"s caption. Not automatically HTML encoded
      */
-  string button(string title, Json[string] options = null) {
+  string button(string title, Json[string] options = new Json[string]) {
     options
       .set("type", "submit")
       .set("escapeTitle", true)
@@ -1351,7 +1351,7 @@ class FormHelper : DHelper {
      * - Other options is the same of button method.
      * - `confirm` - Confirm message to show. Form execution will only continue if confirmed then.
      */
-  string postButton(string caption, string[] url, Json[string] options = null) {
+  string postButton(string caption, string[] url, Json[string] options = new Json[string]) {
     string button;
     Json[string] formOptions;
     formOptions.set("url", url.toJson);
@@ -1397,7 +1397,7 @@ class FormHelper : DHelper {
      * - Other options are the same of HtmlHelper.link() method.
      * - The option `onclick` will be replaced.
      */
-  string postLink(string title, string[] myurl = null, Json[string] options = null) {
+  string postLink(string title, string[] myurl = null, Json[string] options = new Json[string]) {
     // options = options.addKeys(["block", "confirm"]);
 
     /* string requestMethod = options.hasKey("method")
@@ -1499,7 +1499,7 @@ class FormHelper : DHelper {
      * exists, AND the first character is /, image is relative to webroot,
      * OR if the first character is not /, image is relative to webroot/img.
      */
-  string submit(string caption = null, Json[string] options = null) {
+  string submit(string caption = null, Json[string] options = new Json[string]) {
     /* caption = caption.ifEmpty(`__d("uim", "Submit")`);
         options
             .merge("type", "submit")
@@ -1599,7 +1599,7 @@ class FormHelper : DHelper {
      * ];
      * ```
      */
-  string select(string fieldName, Json[string] options = null, Json[string] attributes = null) {
+  string select(string fieldName, Json[string] options = new Json[string], Json[string] attributes = null) {
     attributes
       .merge("disabled", Json(null))
       .merge("escape", true)
@@ -1708,7 +1708,7 @@ class FormHelper : DHelper {
      * - `max` The max year to appear in the select element.
      * - `min` The min year to appear in the select element.
      */
-  string year(string fieldName, Json[string] options = null) {
+  string year(string fieldName, Json[string] options = new Json[string]) {
     /* options.merge("empty", true);
         options = _initInputField(fieldName, options);
         options.removeKey("type");
@@ -1718,7 +1718,7 @@ class FormHelper : DHelper {
   }
 
   // Generate an input tag with type "month".
-  string month(string fieldName, Json[string] options = null) {
+  string month(string fieldName, Json[string] options = new Json[string]) {
     options.merge("value", Json(null));
 
     options = _initInputField(fieldName, options);
@@ -1735,7 +1735,7 @@ class FormHelper : DHelper {
      * - `value` | `default` The default value to be used by the input.
      * If set to `true` current datetime will be used.
      */
-  string dateTime(string fieldName, Json[string] options = null) {
+  string dateTime(string fieldName, Json[string] options = new Json[string]) {
     options.merge("value", Json(null));
     /* options = _initInputField(fieldName, options);
         options
@@ -1747,7 +1747,7 @@ class FormHelper : DHelper {
   }
 
   // Generate an input tag with type "time".
-  string time(string fieldName, Json[string] options = null) {
+  string time(string fieldName, Json[string] options = new Json[string]) {
     options.merge(["value": Json(null)]);
     /*  auto fieldOptions = _initInputField(fieldName, options);
         fieldOptions.set("type", "time");
@@ -1757,7 +1757,7 @@ class FormHelper : DHelper {
   }
 
   // Generate an input tag with type "date".
-  string date(string fieldName, Json[string] options = null) {
+  string date(string fieldName, Json[string] options = new Json[string]) {
     /* options.merge("value", Json(null));
         auto fieldOptions = _initInputField(fieldName, options);
         fieldOptions.set("type", "date");
@@ -1787,7 +1787,7 @@ class FormHelper : DHelper {
      * The output of this bool is a more complete set of input attributes that
      * can be passed to a form widget to generate the actual input.
      */
-  protected Json[string] _initInputField(string fieldName, Json[string] options = null) {
+  protected Json[string] _initInputField(string fieldName, Json[string] options = new Json[string]) {
     options
       .merge("fieldName", fieldName) /* .merge("secure", _view.getRequest().getAttribute("formTokenData").isNull ? false : true) */
       ;
@@ -1834,7 +1834,7 @@ class FormHelper : DHelper {
   }
 
   // Determine if a field is disabled.
-  protected bool _isDisabled(Json[string] options = null) {
+  protected bool _isDisabled(Json[string] options = new Json[string]) {
     /*         if (!options.hasKey("disabled")) {
             return false;
         }
@@ -1924,7 +1924,7 @@ class FormHelper : DHelper {
      * widgets you should use this method render the widget without the label
      * or wrapping div.
      */
-  string widget(string name, Json[string] options = null) {
+  string widget(string name, Json[string] options = new Json[string]) {
     Json mysecure = null;
     if (options.hasKey("secure")) {
       mysecure = options.shift("secure");
@@ -1996,7 +1996,7 @@ class FormHelper : DHelper {
   }
 
   // Gets a single field value from the sources available.
-  Json getSourceValue(string fieldName, Json[string] options = null) {
+  Json getSourceValue(string fieldName, Json[string] options = new Json[string]) {
     Json[string] myvalueMap;
     myvalueMap
       .set("data", "getData")

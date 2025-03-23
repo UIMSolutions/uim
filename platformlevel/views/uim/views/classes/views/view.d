@@ -398,7 +398,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
      * or `_plugin.template` to use the template element from _plugin. If the element
      * is not found in the plugin, the normal view path cascade will be searched.
      * /
-    string element(string templatefilename, Json[string] data = null, Json[string] options = null) {
+    string element(string templatefilename, Json[string] data = null, Json[string] options = new Json[string]) {
         options
             .merge("callbacks", false)
             .merge("cache", Json(null))
@@ -445,7 +445,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
      * Params:
      * callable myblock The block of code that you want to cache the output of.
      */
-    /* string cache(callable myblock, Json[string] options = null) {
+    /* string cache(callable myblock, Json[string] options = new Json[string]) {
         options
             .merge("key", "".toJson) 
             .merge("config", Json(_elementCache));
@@ -1048,7 +1048,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
     }
 
     // Generate the cache configuration options for an element.
-    protected Json[string] elementCache(string elementName, Json[string] data, Json[string] options = null) {
+    protected Json[string] elementCache(string elementName, Json[string] data, Json[string] options = new Json[string]) {
         /* if (options.hasKey("cache.key"), options.get("cache.config")) {
             /** @psalm-var array{key:string, config:string} mycache * /
             auto mycache = options.get("cache");
@@ -1086,7 +1086,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
      * Renders an element and fires the before and afterRender callbacks for it
      * and writes to the cache if a cache is used
      * /
-    protected string _renderElement(string filepath, Json[string] dataToRender, Json[string] options = null) {
+    protected string _renderElement(string filepath, Json[string] dataToRender, Json[string] options = new Json[string]) {
         /* auto mycurrent = _current;
         auto myrestore = _currentType;
        _currentType = TYPE_ELEMENT;

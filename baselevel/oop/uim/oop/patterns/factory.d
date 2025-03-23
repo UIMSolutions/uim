@@ -38,7 +38,7 @@ class DFactory(T : UIMObject) : UIMObject, IKeyAndPath {
     }
 
     protected static DFactory!T _factory;
-    protected T delegate(Json[string] options = null)[string] _workers;
+    protected T delegate(Json[string] options = new Json[string])[string] _workers;
     public static DFactory!T factory() {
         if (_factory is null) {
             _factory = new DFactory!T;
@@ -100,19 +100,19 @@ class DFactory(T : UIMObject) : UIMObject, IKeyAndPath {
         }
   // #endregion keys
 
-    void set(string workerName, T delegate(Json[string] options = null) @safe workFunc) {
+    void set(string workerName, T delegate(Json[string] options = new Json[string]) @safe workFunc) {
         _workers[workerName] = workFunc;
     }
 
-    T path(string[] path, Json[string] options = null) @safe {
+    T path(string[] path, Json[string] options = new Json[string]) @safe {
         return create(correctKey(path), options);
     }
 
-    T create(string key, Json[string] options = null) @safe {
+    T create(string key, Json[string] options = new Json[string]) @safe {
         return correctKey(key) in _workers
             ? _workers[correctKey(key)](options) : null;
     }
-    T opIndex(string key, Json[string] options = null) {
+    T opIndex(string key, Json[string] options = new Json[string]) {
         return create(key, options);
     }
 
@@ -156,13 +156,13 @@ unittest {
     class TestFactory : DFactory!Test {}
     auto Factory() { return TestFactory.factory; }
 
-    Factory.set("testWorkerOne", (Json[string] options = null) @safe {
+    Factory.set("testWorkerOne", (Json[string] options = new Json[string]) @safe {
         return new Test("one");
     });
-    Factory.set("testWorker.two", (Json[string] options = null) @safe {        
+    Factory.set("testWorker.two", (Json[string] options = new Json[string]) @safe {        
         return new Test("two");
     });
-    Factory.set("testWorker.and.three", (Json[string] options = null) @safe {        
+    Factory.set("testWorker.and.three", (Json[string] options = new Json[string]) @safe {        
         return new Test("three");
     });
 

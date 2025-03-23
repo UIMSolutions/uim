@@ -11,7 +11,7 @@ import uim.errors;
 class DException : UIMObject, IException {
   mixin(ExceptionThis!());
 
-  override bool initialize(Json[string] options = null) {
+  override bool initialize(Json[string] options = new Json[string]) {
     _attributes.set(options);
     messageTemplate("default", "");
     return true;

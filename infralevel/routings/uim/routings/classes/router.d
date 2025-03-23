@@ -560,7 +560,7 @@ class DRouter {
   }
 
   // Create a RouteBuilder for the provided path.
-  static DRouteBuilder createRouteBuilder(string path, Json[string] options = null) {
+  static DRouteBuilder createRouteBuilder(string path, Json[string] options = new Json[string]) {
     /*     Json[string] defaults = createMap!(string, Json)
       .set("routeClass", Json(defaultRouteClass()))
       .set("extensions", Json(_defaultExtensions));

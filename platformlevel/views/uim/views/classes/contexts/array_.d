@@ -132,7 +132,7 @@ class DArrayFormContext : DFormContext {
      *
      * - 
     */
-    override Json val(string fieldPath, Json[string] options = null) {
+    override Json val(string fieldPath, Json[string] options = new Json[string]) {
         options // `default`: Default value to return if no value found in data or context record.
         .merge("default", Json(null))
             .merge("schemaDefault", true);

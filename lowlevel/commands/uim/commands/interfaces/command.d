@@ -9,5 +9,5 @@ import uim.commands;
 @safe:
 
 interface ICommand : IObject {
-    bool execute(Json[string] options = null, IConsole console = null);
+    bool execute(Json[string] options = new Json[string], IConsole console = null);
 }

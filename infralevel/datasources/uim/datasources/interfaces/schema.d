@@ -82,7 +82,7 @@ interface ISchema {
      * Table options allow you to set platform specific table level options.
      * For example the engine type in MySQL.
      */
-   void setOptions(Json[string] options = null);
+   void setOptions(Json[string] options = new Json[string]);
 
    /**
      * Gets the options for a table.

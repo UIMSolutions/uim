@@ -167,7 +167,7 @@ class DViewBuilder { // }: DJsonSerializable {
     mixin(TProperty!("string", "pluginName"));
     
     // Adds a helper to use, overwriting any existing one with that name.
-    void addHelper(string helperToUse, Json[string] options = null) {
+    void addHelper(string helperToUse, Json[string] options = new Json[string]) {
         /* [myplugin, views] = pluginSplit(helperToUse);
         if (myplugin) {
             options.set("classname", helperToUse);

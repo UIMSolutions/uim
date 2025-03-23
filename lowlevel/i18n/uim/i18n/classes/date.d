@@ -244,7 +244,7 @@ class Date { // }: DChronosDate, JsonSerializable {
      *
      * NOTE: If the difference is one week or more, the lowest level of accuracy is day.
      */
-    /* string timeAgoInWords(Json[string] options = null) {
+    /* string timeAgoInWords(Json[string] options = new Json[string]) {
         return diffFormatter().dateAgoInWords(this, options);
     }
 

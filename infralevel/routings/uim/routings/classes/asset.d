@@ -30,7 +30,7 @@ class DAsset {
      * Depending on options passed provides full URL with domain name. Also calls
      * `Asset.assetTimestamp()` to add timestamp to local files.
      */
-    static string imageUrl(string path, Json[string] options = null) {
+    static string imageUrl(string path, Json[string] options = new Json[string]) {
         /* return url(path, options.merge(createMap!(string, Json)
             .set("pathPrefix", configuration.get("App.imageBaseUrl")))); */
             return null; 
@@ -42,7 +42,7 @@ class DAsset {
      * Depending on options passed provides full URL with domain name. Also calls
      * `Asset.assetTimestamp()` to add timestamp to local files.
      */
-    static string cssUrl(string path, Json[string] options = null) {
+    static string cssUrl(string path, Json[string] options = new Json[string]) {
         /* return url(path, options.merge(createMap!(string, Json)
             .set("pathPrefix", configuration.get("App.cssBaseUrl"))
             .set("ext", ".css"))); */
@@ -55,7 +55,7 @@ class DAsset {
      * Depending on options passed provides full URL with domain name. Also calls
      * `Asset.assetTimestamp()` to add timestamp to local files.
      */
-    static string scriptUrl(string path, Json[string] options = null) {
+    static string scriptUrl(string path, Json[string] options = new Json[string]) {
         /* return url(path, options.merge(createMap!(string, Json)
             .set("pathPrefix", configuration.get("App.jsBaseUrl"))
             .set("assetExtension", ".js"))); */
@@ -81,7 +81,7 @@ class DAsset {
      *  Set to true to apply timestamps when debug is true. Set to "force" to always
      *  enable timestamping regardless of debug value.
      */
-    static string url(string urlPath, Json[string] options = null) {
+    static string url(string urlPath, Json[string] options = new Json[string]) {
         /* if (preg_match("/^data:[a-z]+\/[a-z]+;/", somePath)) {
             return somePath;
         }
@@ -197,7 +197,7 @@ class DAsset {
      * ### Options:
      * - `theme` Optional theme name
      */
-    static string webroot(string fileName, Json[string] options = null) {
+    static string webroot(string fileName, Json[string] options = new Json[string]) {
         /* auto options = options.merge(["theme": Json(null)]);
         auto requestWebroot = requestWebroot();
 

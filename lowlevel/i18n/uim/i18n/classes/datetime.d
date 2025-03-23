@@ -414,7 +414,7 @@ class DDateTime : UIMObject { // Chronos, JsonSerializable
      *
      * NOTE: If the difference is one week or more, the lowest level of accuracy is day
       */
-    string timeAgoInWords(Json[string] options = null) {
+    string timeAgoInWords(Json[string] options = new Json[string]) {
         // return diffFormatter().timeAgoInWords(this, options);
         return null; 
     }
@@ -433,7 +433,7 @@ class DDateTime : UIMObject { // Chronos, JsonSerializable
     auto Json[string] listTimezones(
         string /* int * / regexFilter = null,
         string countryCode = null,
-        Json[string] options = null
+        Json[string] options = new Json[string]
     ) {
         /* if (isBoolean(options)) {
             options = [

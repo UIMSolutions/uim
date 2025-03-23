@@ -212,7 +212,7 @@ class DTimeHelper : DHelper {
      * - `title` - Defaults to the mydateTime input.
      */
   string timeAgoInWords( /* DChronosDate |  */ Json mydateTime,
-    Json[string] options = null
+    Json[string] options = new Json[string]
   ) {
     // myelement = null;
     /*     auto options = options.merge(["element", "timezone"]);

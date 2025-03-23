@@ -52,7 +52,7 @@ interface IEventManager {
     IEventManager on(
         /* IEventListener */
         string eventKey,/* callable| */
-        Json[string] options = null  // ,
+        Json[string] options = new Json[string]  // ,
         /* callable callable = null */
     
     );

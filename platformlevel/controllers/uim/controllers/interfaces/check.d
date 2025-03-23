@@ -10,5 +10,5 @@ import uim.controllers;
 @safe:
 
 interface IControllerCheck {
-    bool run(IController controller, Json[string] options = null);
+    bool run(IController controller, Json[string] options = new Json[string]);
 }

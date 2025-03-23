@@ -71,7 +71,7 @@ class DPluginLoadCommand : DCommand {
   }
 
   // Modify the plugins config file.
-  protected int modifyConfigFile(string pluginName, Json[string] options = null) {
+  protected int modifyConfigFile(string pluginName, Json[string] options = new Json[string]) {
 
     /*
         configData = @include _configFile;

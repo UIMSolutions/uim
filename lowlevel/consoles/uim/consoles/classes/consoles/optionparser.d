@@ -314,12 +314,12 @@ class DConsoleOptionParser : UIMObject, IConsoleOptionParser {
      * \UIM\Console\InputConsoleArgument|string aName The name of the argument.
      * Will also accept an instance of InputConsoleArgument.
      */
-  IConsoleOptionParser addArgument(DInputArgument argument, Json[string] options = null) {
+  IConsoleOptionParser addArgument(DInputArgument argument, Json[string] options = new Json[string]) {
     // TODO
     return this;
   }
 
-  IConsoleOptionParser addArgument(string argName, Json[string] options = null) {
+  IConsoleOptionParser addArgument(string argName, Json[string] options = new Json[string]) {
     Json[string] defaultOptions;
       defaultOptions.set("name", argName);
       defaultOptions.set("help", "");

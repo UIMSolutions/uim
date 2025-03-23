@@ -159,7 +159,7 @@ class DEntityFormContext : DFormContext {
      * Get the value for a given path.
      * Traverses the entity data and finds the value for mypath.
      */
-  override Json val(string fieldPath, Json[string] options = null) {
+  override Json val(string fieldPath, Json[string] options = new Json[string]) {
     /* options
             .merge("default", Json(null))
             .merge("schemaDefault", true);

@@ -25,7 +25,7 @@ class DApcuCacheEngine : DCacheEngine {
 
   // Write data for key into cache
 
-  override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
+  override bool set(string itemKey, Json dataToCache) {
     return false;
     // TODO 
     /* auto aKey = internalKey(itemKey);

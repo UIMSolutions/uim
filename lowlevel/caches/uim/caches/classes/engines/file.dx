@@ -67,7 +67,7 @@ class DFileCacheEngine : DCacheEngine {
     // TODO protected DSplFileObject _splFileObject;
 
     // Write data for key into cache
-    override bool set(string dataId, Json cacheData, long timeToLive = 0) {
+    override bool set(string dataId, Json cacheData) {
         /* TODO if (cacheData is null || !_init) {
             return false;
         }

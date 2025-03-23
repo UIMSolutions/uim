@@ -243,13 +243,13 @@ return true;
      * times greater than 30 days in the future. Any duration greater than 30 days
      * will be treated as real Unix time value rather than an offset from current time.
      * /
-  override bool updateKey(string itemKey, Json dataToCache, long timeToLive = 0) {
+  override bool updateKey(string itemKey, Json dataToCache) {
     return false;
     // TODO 
     // return _memory.set(internalKey(itemKey), dataToCache, duration(timeToLive));
   }
 
-  override bool merge(Json[string] items, long timeToLive = 0) {
+  override bool merge(Json[string] items) {
     Json[string] cacheData = null;
     /* items.byKeyValue
       .each!(kv => cacheData.set(internalKey(kv.key), kv.value)); * /
@@ -258,7 +258,7 @@ return true;
   }
 
   // Write many cache entries to the cache at once
-  /*  override bool updateKey(Json[string] items, long timeToLive = 0) {
+  /*  override bool updateKey(Json[string] items) {
     Json[string] cacheData = null;
     items.byKeyValue
       .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
@@ -302,7 +302,7 @@ return true;
   }
 
   // Add a key to the cache if it does not already exist.
-  /*  override bool merge(string key, Json value, long timeToLive = 0) {
+  /*  override bool merge(string key, Json value) {
     auto internKey = internalcorrectKey(key);
     return _memory.add(internKey, value, duration);
   } */

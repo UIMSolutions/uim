@@ -54,11 +54,6 @@ alias JMAP = Json[string];
   } */
 
   // returns a updated map with new values
-  /* ref set(K : string, V:
-    Json, T)(ref V[K] items, K key, T value) if (!is(typeof(value) == Json)) {
-    return items.set(key, Json(value));
-  } */
-
   // returns a updated map with new values
 
 

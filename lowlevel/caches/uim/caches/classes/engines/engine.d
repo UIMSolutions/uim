@@ -6,15 +6,14 @@ import uim.caches;
 
 // Storage engine for UIM caching
 class DCacheEngine : UIMObject, ICacheEngine {
-    mixin(CacheEngineThis!());
+  mixin(CacheEngineThis!());
 
-    /* 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-        /**
+    /**
         * The default cache configuration is overridden in most cache adapters. These are
         * the keys that are common to all adapters. If overridden, this property is not used.
         *
@@ -25,54 +24,59 @@ class DCacheEngine : UIMObject, ICacheEngine {
         *  with either another cache config or another application.
         * - `warnOnWriteFailures` Some engines, such as ApcuEngine, may raise warnings on
         *  write failures.
-        * /
-
+        */
+    /*
         if (configuration.hasKey("groups")) {
             configuration.getStringArray("groups").sort; // TODO _groupPrefix = repeat("%s_", configuration.getStringArray("groups").length);
         }
         /* if (!configuration.isNumeric("duration")) {
             // TODO configuration.set("duration", configuration.get("duration").toTime - time());
-        } * /
+        } */
 
-        configuration
-            .setDefault("duration", 3600)
-            .setDefault("groups", Json.emptyArray)
-            .setDefault("prefix", "uim_")
-            .setDefault("warnOnWriteFailures", true);
-        return true;
+    configuration
+      .setDefault("duration", 3600)
+      .setDefault("groups", Json.emptyArray)
+      .setDefault("prefix", "uim_")
+      .setDefault("warnOnWriteFailures", true);
+
+    return true;
+  }
+
+  // Group prefixes to be prepended to every key in this cache engine
+  mixin(TProperty!("string", "groupName"));
+
+  mixin(TProperty!("long", "timeToLive"));
+
+  // #region items
+  // Obtains multiple cache items by their unique keys.
+  void items(Json[string] newItems) {
+    clear();
+    updateKey(newItems.dup, timeToLive);
+  }
+
+  Json[string] items(string[] keysToUse = null) {
+    if (keysToUse.isEmpty) {
+      return items(keys);
     }
 
-    // Group prefixes to be prepended to every key in this cache engine
-    mixin(TProperty!("string", "groupName")); // #region items
-    // Obtains multiple cache items by their unique keys.
-    void items(Json[string] newItems, long timeToLive = 0) {
-        clear();
-        updateKey(newItems.dup, timeToLive);
-    }
-
-    Json[string] items(string[] keysToUse = null) {
-        if (keysToUse.isEmpty) {
-            return items(keys);
-        }
-
-        Json[string] results;
-        keysToUse
-            .each!((key) {
-                /* if (auto item = read(key)) {
+    Json[string] results;
+    keysToUse
+      .each!((key) {
+        /* if (auto item = read(key)) {
                     results.set(key, item);
-                } * /
-            });
-        return results;
-    }
+                } */
+      });
+    return results;
+  }
 
-    string[] keys() {
-        return null;
-    }
+  string[] keys() {
+    return null;
+  }
 
-    // Persists a set of key: value pairs in the cache, with an optional TTL.
-    /*        bool items(Json[string] items, long timeToLive = 0) {
-            // TODO ensureValidType(myvalues, CHECK_KEY);
-
+  // Persists a set of key: value pairs in the cache, with an optional TTL.
+  bool items(Json[string] items) {
+    // TODO ensureValidType(myvalues, CHECK_KEY);
+    /*
             Json restoreDuration = Json(null); 
             if (timeToLive != 0) {
                 restoreDuration = configuration.hasKey("duration");
@@ -85,66 +89,89 @@ class DCacheEngine : UIMObject, ICacheEngine {
                 if (restoreDuration.isNull) {
                     configuration.set("duration", restoreDuration);
                 }
-            }
-            return false;
-        } * /
-    // #region items
+            }*/
+    return false;
+  }
+  // #region items
 
-    // #region read
-    // Fetches the value for a given key from the cache.
-    Json[] read(string[] keys, Json defaultValue = Json(null)) {
-        return keys.map!(key => read(key, defaultValue)).array;
-    }
+  // #region read
+  // Fetches the value for a given key from the cache.
+  Json[] read(string[] keys, Json defaultValue = Json(null)) {
+    return keys.map!(key => read(key, defaultValue)).array;
+  }
 
-    Json read(string key, Json defaultValue = Json(null)) {
-        return Json(null);
-    }
+  Json read(string key, Json defaultValue = Json(null)) {
+    return Json(null);
+  }
 
-    // #endregion read
+  // #endregion read
 
-    // #region update
-    // Persists data in the cache, uniquely referenced by the given key with an optional expiration timeToLive time.
-    bool updateKey(Json[string] items, long timeToLive = 0) {
-        return items.byKeyValue
-            .all!(kv => updateKey(kv.key, kv.value, timeToLive));
-    }
+  // #region set
+  // Persists data in the cache, uniquely referenced by the given key with an optional expiration timeToLive time.
+  mixin(SetAction!("ICacheEngine", "Entries", "Entry", "string", "Json", "entries"));
 
-    bool updateKey(string key, Json value, long timeToLive = 0) {
-        return false;
-    }
-    // #endregion update
+  ICacheEngine setEntry(string key, Json entry) {
+    return this;
+  }
+    
+  unittest {
+    // TODO
+  }
+  // #endregion set
 
-    // Increment a number under the key and return incremented value
-    long increment(string key, int incValue = 1) {
-        return 0;
-    }
-    // Decrement a number under the key and return decremented value
-    long decrement(string key, int decValue = 1) {
-        return 0;
-    }
+  // #region merge
+  // Persists data in the cache, uniquely referenced by the given key with an optional expiration timeToLive time.
+  mixin(MergeAction!("ICacheEngine", "Entries", "Entry", "string", "Json", "entries"));
 
-    // Merge an item (key, value) to the cache if it does not already exist.
-    bool merge(string key, Json value, long timeToLive = 0) {
-        return read(key).isNull
-            ? updateKey(key, value, timeToLive) : false;
-    }
+  ICacheEngine mergeEntry(string key, Json entry) {
+    if (!hasEntry(key)) setEntry(key, entry);
+    return this;
+  }
 
-    // #region remove
-    // Delete all keys from the cache
-    bool clear() {
-        return removeKey(keys);
-    }
+  unittest {
+    // TODO
+  }
+  // #endregion merge
 
-    // Deletes multiple cache items as a list
-    mixin(RemoveAction!("ICacheEngine", "Entries", "Entry", "string", "names"));
- 
-    // Delete a key from the cache
-    ICacheEngine removeEntry(string key) {
-        return this;
-    }
-    // #endregion remove
+  // #region update
+  // Persists data in the cache, uniquely referenced by the given key with an optional expiration timeToLive time.
+  mixin(UpdateAction!("ICacheEngine", "Entries", "Entry", "string", "Json", "entries"));
 
-    /**
+  ICacheEngine updateEntry(string key, Json entry) {
+    if (hasEntry(key)) setEntry(key, entry);
+    return this;
+  }
+    
+  unittest {
+    // TODO
+  }
+  // #endregion update
+
+  // Increment a number under the key and return incremented value
+  long increment(string key, int incValue = 1) {
+    return 0;
+  }
+  // Decrement a number under the key and return decremented value
+  long decrement(string key, int decValue = 1) {
+    return 0;
+  }
+
+  // #region remove
+  // Delete all keys from the cache
+  bool clear() {
+    return removeKey(keys);
+  }
+
+  // Deletes multiple cache items as a list
+  mixin(RemoveAction!("ICacheEngine", "Entries", "Entry", "string", "names"));
+
+  // Delete a key from the cache
+  ICacheEngine removeEntry(string key) {
+    return this;
+  }
+  // #endregion remove
+
+  /**
      * Clears all values belonging to a group. Is up to the implementing engine
      * to decide whether actually delete the keys or just simulate it to achieve the same result.
      * /

@@ -79,15 +79,15 @@ template ChangeAction(string returnType, string action, string plural, string si
   const char[] ChangeAction = changeAction(returnType, action, plural, singular, keyType, valueType, parameter);
 }
 
-template SetAction(string returnType, string action, string plural, string singular, string keyType, string valueType, string parameter) {
+template SetAction(string returnType, string plural, string singular, string keyType, string valueType, string parameter) {
   const char[] SetAction = changeAction(returnType, "set", plural, singular, keyType, valueType, parameter);
 }
 
-template MergeAction(string returnType, string action, string plural, string singular, string keyType, string valueType, string parameter) {
+template MergeAction(string returnType, string plural, string singular, string keyType, string valueType, string parameter) {
   const char[] MergeAction = changeAction(returnType, "merge", plural, singular, keyType, valueType, parameter);
 }
 
-template UpdateAction(string returnType, string action, string plural, string singular, string keyType, string valueType, string parameter) {
+template UpdateAction(string returnType, string plural, string singular, string keyType, string valueType, string parameter) {
   const char[] UpdateAction = changeAction(returnType, "update", plural, singular, keyType, valueType, parameter);
 }
 

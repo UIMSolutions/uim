@@ -502,20 +502,29 @@ unittest {
 // #endregion set
 
 // #region merge
-  T[string] merge(T)(T[string] items, T[string] newItems) {
+  T[string] merge(T, V)(T[string] items, V[string] newItems) {
     newItems.each!((key, value) => items.merge(key, value));
     return items;
   }
 
-  T[string] merge(T)(T[string] items, string[] keys, T value) {
+  T[string] merge(T, V)(T[string] items, string[] keys, V value) {
     keys.each!(key => items.merge(key, value));
     return items;
   }
 
-  T[string] merge(T)(T[string] items, string key, T value) {
-    if (!items.hasKey(key)) {
-      items[key] = value;
-    }
+  T[string] merge(T : Json, V)(T[string] items, string key, V value) if (!is(V == T)) {
+    items.merge(key, value.toJson);
+    return items;
+  }
+
+  T[string] merge(T : string, V)(T[string] items, string key, V value) if (!is(V == T)) {
+    items.merge(key, value.toString);
+    return items;
+  }
+
+  T[string] merge(T, V)(T[string] items, string key, V value) if (is(V == T)) {
+    if (!items.hasKey(key)) 
+      items.set(key, value);
     return items;
   }
 
@@ -542,22 +551,32 @@ unittest {
 // #endregion merge
 
 // #region update
-T[string] update(T)(T[string] items, T[string] newItems) {
+T[string] update(T, V)(T[string] items, V[string] newItems) {
     newItems.each!((key, value) => items.update(key, value));
     return items;
   }
 
-  T[string] update(T)(T[string] items, string[] keys, T value) {
+  T[string] update(T, V)(T[string] items, string[] keys, V value) {
     keys.each!(key => items.update(key, value));
     return items;
   }
 
-  T[string] update(T)(T[string] items, string key, T value) {
-    if (items.hasKey(key)) {
-      items[key] = value;
-    }
+  T[string] update(T : Json, V)(T[string] items, string key, V value) if (!is(V == T)) {
+    items.update(key, value.toJson);
     return items;
   }
+
+  T[string] update(T : string, V)(T[string] items, string key, V value) if (!is(V == T)) {
+    items.update(key, value.toString);
+    return items;
+  }
+
+  T[string] update(T, V)(T[string] items, string key, V value) if (is(V == T)) {
+    if (items.hasKey(key)) 
+      items.set(key, value);
+    return items;
+  }
+
 
   unittest {
     auto map = ["1": 1, "2": 2, "3": 3];

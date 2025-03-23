@@ -13,16 +13,22 @@ interface ICacheEngine : IObject {
   void groupName(string name);
   string groupName();
 
-  void items(Json[string] newItems, long timeToLive = 0);
+  void items(Json[string] newItems);
   Json[string] items(string[] keys);
 
   string[] keys();
 
-  bool merge(Json[string] newItems, long timeToLive = 0);
-  bool merge(string key, Json value, long timeToLive = 0);
+  ICacheEngine setEntries(Json[string] entries);
+  ICacheEngine setEntries(string[] keys, Json entry);
+  ICacheEngine setEntry(string key, Json entry);
 
-  bool updateKey(Json[string] newItems, long timeToLive = 0);
-  bool updateKey(string key, Json value, long timeToLive = 0);
+  ICacheEngine mergeEntries(Json[string] entries);
+  ICacheEngine mergeEntries(string[] keys, Json entry);
+  ICacheEngine mergeEntry(string key, Json entry);
+
+  ICacheEngine updateEntries(Json[string] entries);
+  ICacheEngine updateEntries(string[] keys, Json entry);
+  ICacheEngine updateEntry(string key, Json entry);
 
   Json[] read(string key, Json defaultValue = null);
   Json read(string key, Json defaultValue = null);

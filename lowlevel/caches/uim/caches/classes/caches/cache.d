@@ -42,15 +42,15 @@ import uim.caches;
  * - `XcacheEngine` - Uses the Xcache extension, an alternative to APCu.
  */
 class DCache : UIMObject, ICache {
-    mixin(CacheThis!());
+  mixin(CacheThis!());
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-        // An array mapping URL schemes to fully qualified caching engine class names.
-        /* _dsnClassMap = [
+    // An array mapping URL schemes to fully qualified caching engine class names.
+    /* _dsnClassMap = [
             /* "array": ArrayCacheEngine.classname,
             "apcu": ApcuCacheEngine.classname,
             "file": FileCacheEngine.classname, * /
@@ -59,44 +59,44 @@ class DCache : UIMObject, ICache {
             "null": NullCacheEngine.classname,
             /* "redis": RedisCacheEngine.classname, * /
         ];
+        */
+    return true;
+  }
 
-        return true;
-    }
+  // An array mapping URL schemes to fully qualified caching engine class names.
+  protected static STRINGAA _dsnClassMap;
 
-    // An array mapping URL schemes to fully qualified caching engine class names.
-    protected static STRINGAA _dsnClassMap;
+  // #region enable
+  // Flag for tracking whether caching is enabled.
+  protected static bool _enabled = true;
+  // Re-enable caching.
+  static void enable() {
+    _enabled = true;
+  }
 
-    // #region enable
-    // Flag for tracking whether caching is enabled.
-    protected static bool _enabled = true;
-    // Re-enable caching.
-    static void enable() {
-        _enabled = true;
-    }
+  // Disable caching.
+  static void disable() {
+    _enabled = false;
+  }
 
-    // Disable caching.
-    static void disable() {
-        _enabled = false;
-    }
+  // Check whether caching is enabled.
+  static bool enabled() {
+    return _enabled;
+  }
+  // #endregion enable
 
-    // Check whether caching is enabled.
-    static bool enabled() {
-        return _enabled;
-    }
-    // #endregion enable
+  // Group to Config mapping
+  protected static Json _groups = null;
 
-    // Group to Config mapping
-    protected static Json _groups = null;
+  // Cache Registry used for creating and using cache adapters.
+  protected static DCacheRegistry _registry;
 
-    // Cache Registry used for creating and using cache adapters.
-    protected static DCacheRegistry _registry;
+  // Returns the Cache Registry instance used for creating and using cache adapters.
+  static DCacheRegistry getRegistry() {
+    return _registry ? _registry : new DCacheRegistry();
+  }
 
-    // Returns the Cache Registry instance used for creating and using cache adapters.
-    static DCacheRegistry getRegistry() {
-        return _registry ? _registry : new DCacheRegistry();
-    }
-
-    /**
+  /**
      * Sets the Cache Registry instance used for creating and using cache adapters.
      * Also allows for injecting of a new registry instance.
      * /
@@ -148,10 +148,10 @@ class DCache : UIMObject, ICache {
             }
             myRegistry.set(configName, myfallbackEngine);
         } */
-        /*        if (cast(DCacheEngine)configuration.get("classname")) {
+  /*        if (cast(DCacheEngine)configuration.get("classname")) {
             configData = configuration.get("classname").configuration.data;
         } */
-        /*        if (!configuration.isEmpty("groups")) {
+  /*        if (!configuration.isEmpty("groups")) {
             (cast(DArrayData)configuration.get("groups")).values.each!((groupName) {
                 _groups[groupName).concat( configName;
                 _groups.set(groupName, _groups[groupName].unique);
@@ -175,7 +175,7 @@ class DCache : UIMObject, ICache {
         return myRegistry.{configName};
     } */
 
-    /**
+  /**
      * Write data for key into cache.
      *
      * ### Usage:
@@ -197,7 +197,7 @@ class DCache : UIMObject, ICache {
         /*        if (isResource(dataToCache)) {
             return false;
         } */
-        /* auto mybackend = pool(configName);
+  /* auto mybackend = pool(configName);
         auto wasSuccessful = mybackend.set(key, dataToCache);
         if (!wasSuccessful && dataToCache != "") {
             throw new DCacheWriteException(
@@ -229,11 +229,11 @@ class DCache : UIMObject, ICache {
      * Cache.writeMany(["cached_data_1": 'data 1", "cached_data_2": 'data 2"], "long_term");
      * ```
      */
-    /* static bool writeMany(Json[data] dataToStore, string configName = "default") {
+  /* static bool writeMany(Json[data] dataToStore, string configName = "default") {
         return pool(configName).set(dataToStore);
     } */
 
-    /**
+  /**
      * Read a key from the cache.
      *
      * ### Usage:
@@ -250,11 +250,11 @@ class DCache : UIMObject, ICache {
      * Cache.read("_data", "long_term");
      * ```
      */
-    /* static Json read(string key, string configName = "default") {
+  /* static Json read(string key, string configName = "default") {
         return pool(configName).get(key);
     } */
 
-    /**
+  /**
      * Read multiple keys from the cache.
      *
      * ### Usage:
@@ -284,15 +284,15 @@ class DCache : UIMObject, ICache {
         return pool(configName).increment(key, incValue);
     } */
 
-    // Decrement a number under the key and return decremented value.
-    /* static long decrement(string itemKey, int decValue = 1, string configName = "default") {
+  // Decrement a number under the key and return decremented value.
+  /* static long decrement(string itemKey, int decValue = 1, string configName = "default") {
         if (decValue < 0) {
             throw new DInvalidArgumentException("Offset cannot be less than `0`.");
         }
         return pool(configName).decrement(itemKey, decValue);
     } */
 
-    /**
+  /**
      * Delete a key from the cache.
      *
      * ### Usage:
@@ -309,11 +309,11 @@ class DCache : UIMObject, ICache {
      * Cache.removeKey("_data", "long_term");
      * ```
      */
-    /* static bool removeKey(string key, string configName = "default") {
+  /* static bool removeKey(string key, string configName = "default") {
         return pool(configName).removeKey(key);
     } */
 
-    /**
+  /**
      * Delete many keys from the cache.
      *
      * ### Usage:
@@ -378,7 +378,7 @@ class DCache : UIMObject, ICache {
      * Params:
      * string groupName Group name or null to retrieve all group mappings
      */
-    /* static Json[string] groupConfigs(string groupName = null) {
+  /* static Json[string] groupConfigs(string groupName = null) {
         configured()
             .each!(configName => pool(configName));
 
@@ -391,7 +391,7 @@ class DCache : UIMObject, ICache {
         throw new DInvalidArgumentException("Invalid cache group `%s`.".format(groupName));
     } */
 
-    /**
+  /**
      * Provides the ability to easily do read-through caching.
      *
      * If the key is not set, the default callback is run to get the default value.
@@ -411,7 +411,7 @@ class DCache : UIMObject, ICache {
      * string aKey The cache key to read/store data at.
      * the cache key is empty.
      */
-    /* static Json remember(string aKey, IClosure callbackWhenEmpty, string configName = "default") {
+  /* static Json remember(string aKey, IClosure callbackWhenEmpty, string configName = "default") {
         auto myexisting = read(aKey, configName);
         if (myexisting) {
             return myexisting;
@@ -423,7 +423,7 @@ class DCache : UIMObject, ICache {
         return results;
     } */
 
-    /**
+  /**
      * Write data for key into a cache engine if it doesn`t exist already.
      *
      * ### Usage:

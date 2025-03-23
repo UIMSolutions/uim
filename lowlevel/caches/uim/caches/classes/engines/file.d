@@ -66,7 +66,7 @@ class DFileCacheEngine : DCacheEngine {
 
     // Write data for key into cache
     /* override */
-    bool set(string dataId, Json cacheData, long timeToLive = 0) {
+    bool set(string dataId, Json cacheData) {
         /* TODO if (cacheData is null || !_init) {
             return false;
         }

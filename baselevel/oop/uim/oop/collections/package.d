@@ -5,11 +5,10 @@
 *****************************************************************************************************************/
 module uim.oop.collections;
 
-static this() {
-    import std.stdio;
-    version (test_uim_oop) {
-        debug writeln(__MODULE__);
-    }
+version (test_uim_oop) {
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }
 
 public {

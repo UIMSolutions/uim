@@ -5,14 +5,15 @@
 *****************************************************************************************************************/
 module uim.oop.containers.maps.map;
 
-import uim.core;
-@safe:
-
 version (test_uim_oop) {
+  import std.stdio;
   unittest {
     writeln("-----  ", __MODULE__, "\t  -----");
   }
 }
+
+import uim.core;
+@safe:
 
 class DMap(T : Object) : IMap {
   this() {}

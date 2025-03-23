@@ -5,6 +5,13 @@
 *****************************************************************************************************************/
 module uim.oop.containers.lists;
 
+version (test_uim_oop) {
+  import std.stdio;
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 public {
   // import uim.oop.containers.lists.list;
 }

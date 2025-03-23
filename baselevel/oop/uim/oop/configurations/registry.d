@@ -6,7 +6,8 @@
 module uim.oop.configurations.registry;
 
 version (test_uim_oop) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
+  import std.stdio;
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
 }

@@ -5,15 +5,16 @@
 *****************************************************************************************************************/
 module uim.oop.configurations.memory;
 
+version (test_uim_oop) {
+  import std.stdio;
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 import uim.oop;
 
 @safe:
-
-version (test_uim_oop) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
 
 class DMemoryConfiguration : DConfiguration {
     // mixin(ConfigurationThis!("Memory"));

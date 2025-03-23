@@ -5,6 +5,13 @@
 *****************************************************************************************************************/
 module uim.oop.configurations.interfaces;
 
+version (test_uim_oop) {
+  import std.stdio;
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 import uim.oop;
 
 @safe:

@@ -69,14 +69,15 @@ class DCommandCollection : UIMObject { // : IteratorAggregate, Countable {
     }
     // #endregion add
 
+    // #region remove
     // Remove a command from the collection if it exists.
-    bool removeKey(string[] commandNames) {
-        return commandNames.all!(name => removeKey(name));
-    }
+    mixin(RemoveAction!("ICommand", "Commands", "Command", "string", "names"));
 
-    bool removeKey(string commandName) {
-        return _commands.remove(commandName);
+    ICommand removeKey(string commandName) {
+        _commands.remove(commandName);
+        return this;
     }
+    // #endregion remove
 
     // Check whether the command name exists in the collection.
     bool has(string commandName) {

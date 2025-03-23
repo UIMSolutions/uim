@@ -202,8 +202,8 @@ class FormHelper : DHelper {
 
         options
             .merge("type", myisCreate ? "post" : "put")
-            .merge("url", Json(null))
             .merge("encoding", configuration.get("App.encoding").lower)
+            .merge("url", Json(null))
             .merge("templates", Json(null))
             .merge("idPrefix", Json(null))
             .merge("valueSources", Json(null));

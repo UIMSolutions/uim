@@ -567,7 +567,7 @@ class DConfiguration : UIMObject, IConfiguration {
         return this;
     }
 
-    abstract IConfiguration removeKey(string[] keys);
+    abstract IConfiguration removeKeys(string[] keys);
     // #region remove - clear
 
     IConfiguration clone() {

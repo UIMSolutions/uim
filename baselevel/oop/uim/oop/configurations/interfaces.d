@@ -194,7 +194,7 @@ interface IConfiguration : IObject {
     IConfiguration removeKey(Json[string] items);
  */
   IConfiguration removeKey(string[] keys...);
-  IConfiguration removeKey(string[] keys);
+  IConfiguration removeKeys(string[] keys);
 
   IConfiguration clear();
 }

@@ -112,7 +112,7 @@ bool testConfiguration(IConfiguration aConfig) {
     void merge(string key, Json newData);
     void merge(string key, Json[string] newData);
 
-    bool removeKey(string[] keys);
+    bool removeKeys(string[] keys);
     bool removeItem(string keys);
 
     IConfiguration clear();

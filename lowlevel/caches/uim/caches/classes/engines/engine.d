@@ -136,13 +136,11 @@ class DCacheEngine : UIMObject, ICacheEngine {
     }
 
     // Deletes multiple cache items as a list
-    bool removeKey(string[] keys) {
-        return keys.all!(key => removeKey(key));
-    }
-
+    mixin(RemoveAction!("ICacheEngine", "Entries", "Entry", "string", "names"));
+ 
     // Delete a key from the cache
-    bool removeKey(string key) {
-        return false;
+    ICacheEngine removeEntry(string key) {
+        return this;
     }
     // #endregion remove
 

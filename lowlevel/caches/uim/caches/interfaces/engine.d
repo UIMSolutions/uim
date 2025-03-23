@@ -10,7 +10,7 @@ import uim.caches;
 @safe:
 
 interface ICacheEngine : IObject {
-  /* void groupName(string name);
+  void groupName(string name);
   string groupName();
 
   void items(Json[string] newItems, long timeToLive = 0);
@@ -30,9 +30,12 @@ interface ICacheEngine : IObject {
   long increment(string key, int incValue = 1);
   long decrement(string key, int decValue = 1);
 
-  bool removeKey(string[] keys);
-  bool removeKey(string key);
+  // #region remove
+  bool removeEntries(string[] keys...);
+  bool removeEntries(string[] keys);
+  bool removeEntry(string key);
+  // #endregion remove
 
   bool clear();
-  bool clearGroup(string groupName); */
+  bool clearGroup(string groupName);
 }

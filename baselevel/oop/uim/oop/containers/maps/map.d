@@ -22,7 +22,7 @@ class DMap(T : Object) : IMap {
   bool isEmpty() { return length == 0; }
   size_t length() { return _values.length; }
 
-  bool removeKey(string[] keys) {
+  bool removeKeys(string[] keys) {
     return keys.all!(key => _values.removeKey(key));
   }
   bool removeItem(string key) {

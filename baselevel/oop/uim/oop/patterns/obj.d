@@ -64,13 +64,16 @@ class UIMObject : IObject {
     }
 
     Json[string] debugInfo(string[] showKeys = null, string[] hideKeys = null) {
-        Json[string] info;
-        info.set("name", name).set("classname", this.classname);
+        Json[string] info = new Json[string];
+        info
+            .set("name", name)
+            .set("classname", this.classname)
+            .set("classFullname", this.classFullname);
         return info;
     }
 }
 
-class test : UIMObject {
+class Test : UIMObject {
     this() {
         super();
     }
@@ -82,8 +85,15 @@ class test : UIMObject {
     }
 }
 unittest {
-    assert(new UIMObject);
-    auto obj = new UIMObject;
+    assert(new Test);
+    Test obj = new Test;
     writeln("UIMObject -> ", obj.memberNames);
-    writeln("new Object -> ", (new test).memberNames);
+    writeln("new Object -> ", (new Test).memberNames);
+
+    writeln(obj.debugInfo().toString);
+    assert(obj.debugInfo().hasAllKeys("name", "classname"));
+    writeln(obj.classFullname);
+
+/*     Test test = cast(Test)Object.factory(obj.classFullname);
+    writeln(test.debugInfo().toString); */
 }

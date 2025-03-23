@@ -447,18 +447,18 @@ unittest {
     return items;
   }
 
-  T[string] set(T, V)(T[string] items, string key, V value) if (is(V == T)) {
-    items[key] = value;
-    return items;
-  }
-
   T[string] set(T : Json, V)(T[string] items, string key, V value) if (!is(V == T)) {
-    items[key] = value.toJson;
+    items.set(key, value.toJson);
     return items;
   }
 
   T[string] set(T : string, V)(T[string] items, string key, V value) if (!is(V == T)) {
-    items[key] = value.toString;
+    items.set(key, value.toString);
+    return items;
+  }
+
+  T[string] set(T, V)(T[string] items, string key, V value) if (is(V == T)) {
+    items[key] = value;
     return items;
   }
 
@@ -468,6 +468,22 @@ unittest {
     assert(map1.length == 1 && map1.hasKey("1") && map1["1"] == 1);
     map1.set("1", 2);
     assert(map1.length == 1 && map1.hasKey("1") && map1["1"] == 2);
+
+    string[string] map2 = new string[string];
+    map2.set("1", "1");
+    assert(map2.length == 1 && map2.hasKey("1") && map2["1"] == "1");
+    map2.set("1", "2");
+    assert(map2.length == 1 && map2.hasKey("1") && map2["1"] == "2");
+    map2.set("1", 3);
+    assert(map2.length == 1 && map2.hasKey("1") && map2["1"] == "3");
+
+    Json[string] map3 = new Json[string];
+    map3.set("1", Json("1"));
+    assert(map3.length == 1 && map3.hasKey("1") && map3["1"] == Json("1"));
+    map3.set("1", Json("2"));
+    assert(map3.length == 1 && map3.hasKey("1") && map3["1"] == Json("2"));
+    map3.set("1", 3);
+    assert(map3.length == 1 && map3.hasKey("1") && map3["1"] == Json(3));
 
     auto map = ["1": 1, "2": 2, "3": 3];
     assert(map.length == 3);

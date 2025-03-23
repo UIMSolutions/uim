@@ -983,6 +983,7 @@ ref set(T)(ref Json json, string key, T value) {
   return json;
 }
 
+
 unittest {
   auto json = Json.emptyObject;
   json.set("a", "A");
@@ -1021,7 +1022,171 @@ unittest {
 }
 // #endregion set
 
+// #region merge
+ref merge(ref Json json, Json map) {
+  if (!json.isObject) {
+    return json;
+  }
 
+  if (!map.isObject) {
+    return json;
+  }
+
+  map.byKeyValue.each!(kv => json.merge(kv.key, kv.value));
+  return json;
+}
+
+ref merge(T)(ref Json json, T[string] values) {
+  if (!json.isObject) {
+    return json;
+  }
+
+  values.each!((key, value) => json.merge(key, value));
+  return json;
+}
+
+ref merge(T)(ref Json json, string[] keys, T value) {
+  if (!json.isObject) {
+    return json;
+  }
+
+  keys.each!(key => json.merge(key, value));
+  return json;
+}
+
+// 
+ref merge(T)(ref Json json, string key, T value) {
+  if (!json.isObject) {
+    return json;
+  }
+
+  if (!json.hasKey(key)) 
+    json[key] = value;
+  
+  return json;
+}
+
+// TODO
+/* unittest {
+  auto json = Json.emptyObject;
+  json.merge("a", "A");
+  json.merge("b", "B").merge("c", "C");
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+
+  json = Json.emptyObject;
+  json.merge("a", Json("A"));
+  json.merge("b", Json("B")).merge("c", Json("C"));
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+
+  json.merge(["a", "b", "c"], "x");
+  assert(json["a"] == Json("x") && json["b"] == Json("x") && json["c"] == Json("x"));
+
+  json = Json.emptyObject;
+  json.merge(["a", "b", "c"], Json("x"));
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("x") && json["b"] == Json("x") && json["c"] == Json("x"));
+
+  json = Json.emptyObject;
+  json.merge(["a": "A", "b": "B", "c": "C"]);
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+
+  json = Json.emptyObject;
+  json.merge(["a": Json("A"), "b": Json("B"), "c": Json("C")]);
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+
+  auto newJson = Json.emptyObject;
+  newJson.merge(json);
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+}
+ */// #endregion merge
+
+// #region update
+ref update(ref Json json, Json map) {
+  if (!json.isObject) {
+    return json;
+  }
+
+  if (!map.isObject) {
+    return json;
+  }
+
+  map.byKeyValue.each!(kv => json.update(kv.key, kv.value));
+  return json;
+}
+
+ref update(T)(ref Json json, T[string] values) {
+  if (!json.isObject) {
+    return json;
+  }
+
+  values.each!((key, value) => json.update(key, value));
+  return json;
+}
+
+ref update(T)(ref Json json, string[] keys, T value) {
+  if (!json.isObject) {
+    return json;
+  }
+
+  keys.each!(key => json.update(key, value));
+  return json;
+}
+
+// 
+ref update(T)(ref Json json, string key, T value) {
+  if (!json.isObject) {
+    return json;
+  }
+
+  if (json.hasKey(key)) 
+    json[key] = value;
+  
+  return json;
+}
+
+// TODO
+/* unittest {
+  auto json = Json.emptyObject;
+  json.update("a", "A");
+  json.update("b", "B").update("c", "C");
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+
+  json = Json.emptyObject;
+  json.update("a", Json("A"));
+  json.update("b", Json("B")).update("c", Json("C"));
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+
+  json.update(["a", "b", "c"], "x");
+  assert(json["a"] == Json("x") && json["b"] == Json("x") && json["c"] == Json("x"));
+
+  json = Json.emptyObject;
+  json.update(["a", "b", "c"], Json("x"));
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("x") && json["b"] == Json("x") && json["c"] == Json("x"));
+
+  json = Json.emptyObject;
+  json.update(["a": "A", "b": "B", "c": "C"]);
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+
+  json = Json.emptyObject;
+  json.update(["a": Json("A"), "b": Json("B"), "c": Json("C")]);
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+
+  auto newJson = Json.emptyObject;
+  newJson.update(json);
+  assert(json.hasAllKeys("a", "b", "c"));
+  assert(json["a"] == Json("A") && json["b"] == Json("B") && json["c"] == Json("C"));
+}
+ */// #endregion update
 
 Json match(K)(Json[K] matchValues, K key, Json defaultValue = Json(null)) {
   return key in matchValues

@@ -1,6 +1,12 @@
+/****************************************************************************************************************
+* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
 module uim.core.convert.string_;
 
 import uim.core;
+@safe:
 
 version (test_uim_core) {
   unittest {
@@ -40,9 +46,15 @@ unittest {
 // #endregion toStrings
 
 // #region toString
-string toString(Json json) {
-  if (!json.isArray) return null; 
-  return json.byValue.array.toString;
+string toString(Json json, string[] keys = null) {
+  if (!json.isObject) return json.toString; 
+  
+  if (keys.length == 0) keys = json.keys;
+  Json result = Json.emptyObject;
+  keys
+    .filter!(key => json.hasKey(key))
+    .each!(key => result[key] = json[key]);
+  return result.toString; 
 }
 
 string toString(Json[] jsons) {
@@ -61,6 +73,16 @@ string toString(string[string] items) {
   Json json = Json.emptyObject;
   items.each!((key, value) => json[key] = value);
   return json.toString;
+}
+
+string toString(Json[string] items, string[] keys = null) {
+  if (keys.length == 0) keys = items.keys;
+
+  Json json = Json.emptyObject;
+  keys
+    .filter!(key => items.hasKey(key))
+    .each!(key => json[key] = items[key]);
+  return json.toString; 
 }
 
 /* string toString(T)(T value, size_t length = 0, string fillTxt = "0") {

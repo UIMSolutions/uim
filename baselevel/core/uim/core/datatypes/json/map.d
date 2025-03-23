@@ -16,15 +16,6 @@ version (test_uim_core) {
 
 // #region set
 // #region set multi
-ref set(T)(ref Json map, T[string] newItems) {
-  newItems.each!((key, value) => map.set(key, value));
-  return map;
-}
-
-ref set(T)(ref Json map, string[] keys, T value) {
-  keys.each!(key => map.set(key, value));
-  return map;
-}
 /* unittest {
   Json json = Json.emptyObject;
   json.set([

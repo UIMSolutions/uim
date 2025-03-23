@@ -5,23 +5,32 @@
 *****************************************************************************************************************/
 module uim.oop.formatters.mixins;
 
+version (test_uim_oop) {
+  import std.stdio;
+
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 import uim.oop;
-@safe: 
+
+@safe:
 
 string formatterThis(string name = null) {
-    string fullName = name ~ "Formatter";
-    return objThis(fullName);
+  string fullName = name ~ "Formatter";
+  return objThis(fullName);
 }
 
 template FormatterThis(string name = null) {
-    const char[] FormatterThis = formatterThis(name);
+  const char[] FormatterThis = formatterThis(name);
 }
 
 string formatterCalls(string name) {
-    string fullName = name ~ "Formatter";
-    return objCalls(fullName);
+  string fullName = name ~ "Formatter";
+  return objCalls(fullName);
 }
 
 template FormatterCalls(string name) {
-    const char[] FormatterCalls = formatterCalls(name);
+  const char[] FormatterCalls = formatterCalls(name);
 }

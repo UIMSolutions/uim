@@ -5,6 +5,13 @@
 **********************************************************************************************************/
 module uim.oop.enumerations.filemodes; 
 
+version (test_uim_oop) {
+  import std.stdio;
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}
+
 // Specifies how a file is manipulated on disk.
 enum FileModes : string {
 	/// The file is opened read-only.

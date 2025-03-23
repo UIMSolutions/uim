@@ -62,14 +62,14 @@ class DMemoryCacheEngine : DCacheEngine {
 
   protected string[] _compiledGroupNames;
   
-  protected Json[string] _memory;
-  /* protected DMemory _memcached;* /
+  /* protected DMemory _memcached;*/
+  protected Json[string] _entries;
 
+  // #region keys
   override string[] keys() {
-    // TODO wrong these are the internal Keys
-    return _memory.keys;
+    return _entries.keys;
   }
- */
+  // #endregion keys
   /**
      * Initialize the Cache Engine
      *
@@ -102,10 +102,10 @@ class DMemoryCacheEngine : DCacheEngine {
   /* if (!configuration.isArray("servers")) {
       configuration.set("servers", [configuration.getArray("servers")]);
     } * / 
-    if (!_memory is null) {
+    if (!_entries is null) {
       return true;
     }
-    // _memory = configuration.get("persistent"]
+    // _entries = configuration.get("persistent"]
     // TODO ? new DMemory(configuration.get("persistent"]) : new DMemory();
     
   }
@@ -113,8 +113,8 @@ class DMemoryCacheEngine : DCacheEngine {
   _setOptions();
 
   string[] serversFromConfig = configuration.get("servers");
-  if (auto servers = _memory.getServerList()) {
-    if (_memory.isPersistent()) {
+  if (auto servers = _entries.getServerList()) {
+    if (_entries.isPersistent()) {
       servers
         .filter!(server => !server.getString("host") ~ ": " ~ server.getString("port").isIn(serversFromConfig))
         .each!(server => throw new DInvalidArgumentException(
@@ -130,13 +130,13 @@ class DMemoryCacheEngine : DCacheEngine {
     .map!(server => parseServerString(server))
     .array;
 }
-if (!_memory.addServers(myservers)) {
+if (!_entries.addServers(myservers)) {
   return false;
 }
 
 if (configuration.isArray("options"]) {
   configuration.get("options"].byKeyValue
-    .each!(optValue => _memory.setOption(optValue.key, optValue.value));
+    .each!(optValue => _entries.setOption(optValue.key, optValue.value));
 }
 if (configuration.isEmpty("username"] && !configuration.isEmpty("login")) {
   throw new DInvalidArgumentException(
@@ -144,13 +144,13 @@ if (configuration.isEmpty("username"] && !configuration.isEmpty("login")) {
  );
 }
 if (configuration.hasKeys("username", "password")) {
-  if (!hasMethod(_memory, "setSaslAuthData")) {
+  if (!hasMethod(_entries, "setSaslAuthData")) {
     throw new DInvalidArgumentException(
       "Memory extension is not built with SASL support"
    );
   }
-  _memory.setOption(Memory.OPT_BINARY_PROTOCOL, true);
-  _memory.setSaslAuthData(
+  _entries.setOption(Memory.OPT_BINARY_PROTOCOL, true);
+  _entries.setSaslAuthData(
     configuration.getString("username"),
     configuration.getString("password")
  );
@@ -164,7 +164,7 @@ return true;
      * with the desired serializer engine.
      * /
   protected void _setOptions() {
-    // _memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
+    // _entries.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
 
     string myserializer = configuration.getString("serialize").lower;
     if (!_serializers.hasKey(myserializer)) {
@@ -178,7 +178,7 @@ return true;
      ); * /
   }
 
-  /* _memory.setOption(
+  /* _entries.setOption(
     Memory.OPT_SERIALIZER,
     _serializers[myserializer]
   );  */
@@ -187,10 +187,10 @@ return true;
     defined("Memory.OPT_CLIENT_MODE") &&
     defined("Memory.DYNAMIC_CLIENT_MODE")
     ) {
-    _memory.setOption(Memory.OPT_CLIENT_MODE, Memory.DYNAMIC_CLIENT_MODE);
+    _entries.setOption(Memory.OPT_CLIENT_MODE, Memory.DYNAMIC_CLIENT_MODE);
   } */
 
-  /* _memory.setOption(
+  /* _entries.setOption(
     Memory.OPT_COMPRESSION,
     configuration.getBoolean("compress")
   ); 
@@ -234,7 +234,7 @@ return true;
      * int myname The option name to read.
      */
   /* Json getOption(string myname) {
-    return _memory.get(myname);
+    return _entries.get(myname);
   } */
 
   /**
@@ -246,14 +246,14 @@ return true;
   override bool updateKey(string itemKey, Json dataToCache) {
     return false;
     // TODO 
-    // return _memory.set(internalKey(itemKey), dataToCache, duration(timeToLive));
+    // return _entries.set(internalKey(itemKey), dataToCache, duration(timeToLive));
   }
 
   override bool merge(Json[string] items) {
     Json[string] cacheData = null;
     /* items.byKeyValue
       .each!(kv => cacheData.set(internalKey(kv.key), kv.value)); * /
-    // TODOreturn _memory.merge(cacheData, duration(timeToLive));
+    // TODOreturn _entries.merge(cacheData, duration(timeToLive));
     return false;
   }
 
@@ -262,14 +262,14 @@ return true;
     Json[string] cacheData = null;
     items.byKeyValue
       .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
-    return _memory.set(cacheData); //, duration(timeToLive));
+    return _entries.set(cacheData); //, duration(timeToLive));
   } * /
 
   // Read a key from the cache
   override Json read(string key, Json defaultValue = Json(null)) {
     // string internKey = internalcorrectKey(key);
-    // TODO auto myvalue = _memory.get(internKey);
-    /* return _memory.getResultCode() == Memory.RES_NOTFOUND
+    // TODO auto myvalue = _entries.get(internKey);
+    /* return _entries.getResultCode() == Memory.RES_NOTFOUND
       ? defaultValue : myvalue; * /
     return Json(null);
   }
@@ -277,34 +277,34 @@ return true;
   // Increments the value of an integer cached key
   override long increment(string key, int incValue = 1) {
     return 1;
-    // TODO return _memory.set(internalcorrectKey(key), _memory.getLong(internalcorrectKey(key)) + incValue);
+    // TODO return _entries.set(internalcorrectKey(key), _entries.getLong(internalcorrectKey(key)) + incValue);
   }
 
   // Decrements the value of an integer cached key
   override long decrement(string key, int decValue = 1) {
     return 0;
-    // TODO return _memory.set(internalcorrectKey(key), _memory.getLong(internalcorrectKey(key)) - decValue);
+    // TODO return _entries.set(internalcorrectKey(key), _entries.getLong(internalcorrectKey(key)) - decValue);
   }
 
   // Delete a key from the cache
   override bool removeKey(string key) {
-    // return _memory.removeKey(internalcorrectKey(key));
+    // return _entries.removeKey(internalcorrectKey(key));
     return false;
   }
 
   // Delete all keys from the cache
   override bool clear() {
     string prefix = configuration.getString("prefix");
-    /*    _memory.getAllKeys()
+    /*    _entries.getAllKeys()
       .filter!(key => key.startsWith(prefix))
-      .each!(key => _memory.removeKey(key)); * /
+      .each!(key => _entries.removeKey(key)); * /
     return true;
   }
 
   // Add a key to the cache if it does not already exist.
   /*  override bool merge(string key, Json value) {
     auto internKey = internalcorrectKey(key);
-    return _memory.add(internKey, value, duration);
+    return _entries.add(internKey, value, duration);
   } */
 
   /**
@@ -318,12 +318,12 @@ return true;
     }
 
     /* 
-    auto mygroups = _memory.data(_compiledGroupNames) ? memory.data(
+    auto mygroups = _entries.data(_compiledGroupNames) ? memory.data(
       _compiledGroupNames) : null;
     if (count(mygroups) != count(configuration.get("groups"))) {
       _compiledGroupNames
         .filter!(groupName => !mygroups.hasKey(groupName))
-        .each!((groupName) { _memory.set(mygroup, 1, 0); mygroups[mygroup] = 1; }); */
+        .each!((groupName) { _entries.set(mygroup, 1, 0); mygroups[mygroup] = 1; }); */
     /* ksort(mygroups); * /
   } * /
 
@@ -337,7 +337,7 @@ return true;
   * old values will remain in storage until they expire.
   * /
   override bool clearGroup(string groupName) {
-    // TODO return  /* (bool) * / _memory.increment(configuration.getString("prefix") ~ groupName);
+    // TODO return  /* (bool) * / _entries.increment(configuration.getString("prefix") ~ groupName);
     return false;
   } */
 }

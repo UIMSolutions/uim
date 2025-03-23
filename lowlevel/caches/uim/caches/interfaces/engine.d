@@ -10,13 +10,28 @@ import uim.caches;
 @safe:
 
 interface ICacheEngine : IObject {
-  void groupName(string name);
+  // #region groupName
+  ICacheEngine groupName(string name);
   string groupName();
 
-  void items(Json[string] newItems);
-  Json[string] items(string[] keys);
+  ICacheEngine clearGroup(string groupName);
+  // #endregion groupName
 
+  // #region keys
   string[] keys();
+  // #region has
+  bool hasAllKeys(string[] keys...);
+  bool hasAllKeys(string[] keys);
+  bool hasAnyKeys(string[] keys...);
+  bool hasAnyKeys(string[] keys);
+  bool hasKey(string[] keys);
+  // #endregion has
+  // #endregion keys
+
+  // #region entries
+  ICacheEngine entries(Json[string] newItems);
+  Json[string] entries(string[] keys);
+  Json entry(string key, Json defaultValue = Json(null));
 
   ICacheEngine setEntries(Json[string] entries);
   ICacheEngine setEntries(string[] keys, Json entry);
@@ -30,18 +45,13 @@ interface ICacheEngine : IObject {
   ICacheEngine updateEntries(string[] keys, Json entry);
   ICacheEngine updateEntry(string key, Json entry);
 
-  Json[] read(string key, Json defaultValue = null);
-  Json read(string key, Json defaultValue = null);
+  ICacheEngine removeEntries(string[] keys...);
+  ICacheEngine removeEntries(string[] keys);
+  ICacheEngine removeEntry(string key);
+
+  ICacheEngine clearEntries();
+  // #endregion entries
 
   long increment(string key, int incValue = 1);
   long decrement(string key, int decValue = 1);
-
-  // #region remove
-  bool removeEntries(string[] keys...);
-  bool removeEntries(string[] keys);
-  bool removeEntry(string key);
-  // #endregion remove
-
-  bool clear();
-  bool clearGroup(string groupName);
 }

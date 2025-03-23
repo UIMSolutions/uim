@@ -17,24 +17,24 @@ import uim.caches;
  * You can configure a FileEngine cache, using Cache.config()
  */
 class DFileCacheEngine : DCacheEngine {
-    mixin(CacheEngineThis!("File"));
+  mixin(CacheEngineThis!("File"));
 
-    override bool initialize(Json[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-        configuration
-            .setDefault("duration", 3600) // `duration` Specify how long items in this cache configuration last.
-            .setDefault("groups", Json.emptyArray) // `groups` List of groups or "tags" associated to every key stored in this config.
-            .setDefault("lock", true) // `lock` Used by FileCache. Should files be locked before writing to them?
-            .setDefault("mask", std.conv.octal!"664") // `mask` The mask used for created files
-            .setDefault("dirMask", std.conv.octal!"770") // `dirMask` The mask used for created folders
-            .setDefault("path", Json(null)) // `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
-            .setDefault("prefix", "uim_") // `prefix` Prepended to all entries. 
-            .setDefault("serialize", true); // `serialize` Should cache objects be serialized first.
+    configuration
+      .setDefault("duration", 3600) // `duration` Specify how long items in this cache configuration last.
+      .setDefault("groups", Json.emptyArray) // `groups` List of groups or "tags" associated to every key stored in this config.
+      .setDefault("lock", true) // `lock` Used by FileCache. Should files be locked before writing to them?
+      .setDefault("mask", std.conv.octal!"664") // `mask` The mask used for created files
+      .setDefault("dirMask", std.conv.octal!"770") // `dirMask` The mask used for created folders
+      .setDefault("path", Json(null)) // `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
+      .setDefault("prefix", "uim_") // `prefix` Prepended to all entries. 
+      .setDefault("serialize", true); // `serialize` Should cache objects be serialized first.
 
-        /* 
+    /* 
         string path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);
         configuration.set("path", path.subString(-1) != DIRECTORY_SEPARATOR
             ? path ~ DIRECTORY_SEPARATOR
@@ -44,10 +44,16 @@ class DFileCacheEngine : DCacheEngine {
             _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
         } 
         return _active(); */
-        return true;
-    }
+    return true;
+  }
 
-/*     override long decrement(string itemKey, int decValue = 1) {
+  // #region keys
+  override string[] keys() {
+    return _entries.keys;
+  }
+  // #endregion keys
+
+  /*     override long decrement(string itemKey, int decValue = 1) {
         // TODO throw new DLogicException("Files cannot be atomically decremented.");
         return 0;
     }
@@ -58,16 +64,16 @@ class DFileCacheEngine : DCacheEngine {
         return 0;
     }
  */
-    // True unless FileEngine.__active(); fails
-    protected bool _init = true;
+  // True unless FileEngine.__active(); fails
+  protected bool _init = true;
 
-    // Instance of SplFileObject class
-    // TODO protected DSplFileObject _splFileObject;
+  // Instance of SplFileObject class
+  // TODO protected DSplFileObject _splFileObject;
 
-    // Write data for key into cache
-    /* override */
-    bool set(string dataId, Json cacheData) {
-        /* TODO if (cacheData is null || !_init) {
+  // Write data for key into cache
+  /* override */
+  bool set(string dataId, Json cacheData) {
+    /* TODO if (cacheData is null || !_init) {
             return false;
         }
 
@@ -96,10 +102,10 @@ class DFileCacheEngine : DCacheEngine {
         _File = null;
 
         return mysuccess; */
-        return false;
-    }
+    return false;
+  }
 
-    /* 
+  /* 
     // Read a key from the cache
     Json get(string dataId, Json defaultValue = Json(null)) {
         auto key = internalKey(dataId);
@@ -233,7 +239,7 @@ class DFileCacheEngine : DCacheEngine {
      * Sets the current cache key this class is managing, and creates a writable SplFileObject
      * for the cache file the key is referring to.
      */
-    /* protected bool _setKey(string key, bool createKeyIfNotExists = false) {
+  /* protected bool _setKey(string key, bool createKeyIfNotExists = false) {
         mygroups = null;
         if (_groupPrefix) {
             mygroups = vsprintf(_groupPrefix, this.groups());
@@ -275,8 +281,8 @@ class DFileCacheEngine : DCacheEngine {
         return true;
     } */
 
-    // Determine if cache directory is writable
-    /* protected bool _active() {
+  // Determine if cache directory is writable
+  /* protected bool _active() {
         mydir = new DFileInfo(configuration.get("path"]);
         mypath = mydir.getPathname();
         mysuccess = true;
@@ -293,16 +299,18 @@ class DFileCacheEngine : DCacheEngine {
         return mysuccess;
     } */
 
-    /* override */ protected string internalKey(string key) {
-        // auto newKey = super.internalcorrectKey(key);
-        /* return rawUrlEncode(newKey); */
-        return null;
-    }
+  /* override */
+  protected string internalKey(string key) {
+    // auto newKey = super.internalcorrectKey(key);
+    /* return rawUrlEncode(newKey); */
+    return null;
+  }
 
-    // Recursively deletes all files under any directory named as mygroup
-    /* override */ bool clearGroup(string groupName) {
-        // TODO
-        /* removeKey(_File);
+  // Recursively deletes all files under any directory named as mygroup
+  /* override */
+  bool clearGroup(string groupName) {
+    // TODO
+    /* removeKey(_File);
 
         string myprefix = configuration.getString("prefix");
 
@@ -338,8 +346,8 @@ class DFileCacheEngine : DCacheEngine {
                 return true;
             }
         } */
-        return false;
-    }
+    return false;
+  }
 }
 
 mixin(CacheEngineCalls!("File"));

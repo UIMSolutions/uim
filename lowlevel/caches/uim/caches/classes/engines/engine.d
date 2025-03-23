@@ -17,7 +17,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
         * The default cache configuration is overridden in most cache adapters. These are
         * the keys that are common to all adapters. If overridden, this property is not used.
         *
-        * - `duration` Specify how long items in this cache configuration last.
+        * - `duration` Specify how long entries in this cache configuration last.
         * - `groups` List of groups or "tags" associated to every key stored in this config.
         *  handy for deleting a complete group from cache.
         * - `prefix` Prefix appended to all entries. Good for when you need to share a keyspace
@@ -47,16 +47,16 @@ class DCacheEngine : UIMObject, ICacheEngine {
 
   mixin(TProperty!("long", "timeToLive"));
 
-  // #region items
-  // Obtains multiple cache items by their unique keys.
-  void items(Json[string] newItems) {
+  // #region entries
+  // Obtains multiple cache entries by their unique keys.
+  void entries(Json[string] newItems) {
     clear();
     updateKey(newItems.dup, timeToLive);
   }
 
-  Json[string] items(string[] keysToUse = null) {
+  Json[string] entries(string[] keysToUse = null) {
     if (keysToUse.isEmpty) {
-      return items(keys);
+      return entries(keys);
     }
 
     Json[string] results;
@@ -69,12 +69,12 @@ class DCacheEngine : UIMObject, ICacheEngine {
     return results;
   }
 
-  string[] keys() {
-    return null;
-  }
+  // #region keys
+  abstract string[] keys();
+  // #endregion keys
 
   // Persists a set of key: value pairs in the cache, with an optional TTL.
-  bool items(Json[string] items) {
+  bool entries(Json[string] entries) {
     // TODO ensureValidType(myvalues, CHECK_KEY);
     /*
             Json restoreDuration = Json(null); 
@@ -83,7 +83,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
                 configuration.set("duration", timeToLive);
             }
             try {
-                return items.byKeyValue
+                return entries.byKeyValue
                     .all!(kv => updateKey(aKey, myvalue));
             } finally {
                 if (restoreDuration.isNull) {
@@ -92,7 +92,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
             }*/
     return false;
   }
-  // #region items
+  // #region entries
 
   // #region read
   // Fetches the value for a given key from the cache.
@@ -162,7 +162,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
     return removeKey(keys);
   }
 
-  // Deletes multiple cache items as a list
+  // Deletes multiple cache entries as a list
   mixin(RemoveAction!("ICacheEngine", "Entries", "Entry", "string", "names"));
 
   // Delete a key from the cache

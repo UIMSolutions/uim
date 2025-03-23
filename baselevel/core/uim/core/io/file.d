@@ -8,6 +8,7 @@ module uim.core.io.file;
 import std.file;
 import uim.core;
 
+@safe:
 version (test_uim_core) {
   unittest {
     writeln("-----  ", __MODULE__, "\t  -----");

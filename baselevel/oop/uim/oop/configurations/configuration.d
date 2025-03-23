@@ -217,48 +217,20 @@ class DConfiguration : UIMObject, IConfiguration {
   // #endregion data
 
   // #region keys
-  bool hasAnyKeys(string[] keys...) {
-    return hasAnyKeys(keys.dup);
-  }
-
-  bool hasAnyKeys(string[] keys) {
-    return keys.any!(key => hasKey(key));
-  }
-
-  bool hasKeys(string[] keys...) {
-    return hasKeys(keys.dup);
-  }
-
-  bool hasKeys(string[] keys) {
-    return keys.all!(key => hasKey(key));
-  }
+  mixin(HasAction!("Keys", "Key", "string", "keys"));
 
   abstract bool hasKey(string key);
 
   abstract string[] keys();
   // #endregion keys
 
-  // #region hasValues
-  bool hasAnyValues(Json[] values...) {
-    return hasAnyValues(values.dup);
-  }
-
-  bool hasAnyValues(Json[] values) {
-    return values.any!(value => hasValue(value));
-  }
-
-  bool hasAllValues(Json[] values...) {
-    return hasAllValues(values.dup);
-  }
-
-  bool hasAllValues(Json[] values) {
-    return values.all!(value => hasValue(value));
-  }
+  // #region values
+  mixin(HasAction!("Values", "Value", "json", "values"));
 
   abstract bool hasValue(Json value);
 
   abstract Json[] values(string[] includedKeys = null);
-  // #endregion Values
+  // #endregion values
 
   // #region isEmpty
   bool isEmpty(string key) {

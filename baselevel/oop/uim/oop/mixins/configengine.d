@@ -3,21 +3,29 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.oop.configurations.engines;
+module uim.oop.mixins.configengine;
 
-version (test_uim_oop) {
-  import std.stdio;
-  
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
+import uim.oop;
+@safe: 
+
+string configEngineThis(string name = null) {
+    string fullName = name ~ "ConfigEngine";
+    return objThis(fullName);
 }
 
-public {
-  import uim.oop.configurations.engines.engine;
-  
-  import uim.oop.configurations.engines.file;
-  import uim.oop.configurations.engines.ini;
-  import uim.oop.configurations.engines.redis;
-  import uim.oop.configurations.engines.rest;
+template ConfigEngineThis(string name = null) {
+    const char[] ConfigEngineThis = configEngineThis(name);
+}
+
+string configEngineCalls(string name) {
+    string fullName = name ~ "ConfigEngine";
+    return objCalls(fullName);
+}
+
+template ConfigEngineCalls(string name) {
+    const char[] ConfigEngineCalls = configEngineCalls(name);
+}
+
+mixin template TConfigEngine() {
+
 }

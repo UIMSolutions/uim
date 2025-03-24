@@ -14,7 +14,6 @@ version (test_uim_oop) {
 }
 
 import uim.oop;
-
 @safe:
 
 // Base interface for strategies used to manage fixtures for TestCase.

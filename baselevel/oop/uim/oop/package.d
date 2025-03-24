@@ -42,3 +42,15 @@ public {
   import uim.oop.tools;
   import uim.oop.validators;
 }
+
+template Version(string name) {
+  const char[] Version = `
+version (`~name~`) {
+  import std.stdio;
+
+  unittest {
+    writeln("-----  ", __MODULE__, "\t  -----");
+  }
+}  
+`;
+}

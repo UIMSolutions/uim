@@ -5,15 +5,11 @@
 *****************************************************************************************************************/
 module uim.oop.tests.fixtures.truncatestrategys;
 
+mixin(Version!"test_uim_oop");
+
 import uim.oop;
 @safe:
 
-version (test_uim_oop) {
-    import std.stdio;
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
 // Fixture strategy that truncates all fixture ables at the end of test.
 class DTruncateStrategy : IFixtureStrategy {
     /* 

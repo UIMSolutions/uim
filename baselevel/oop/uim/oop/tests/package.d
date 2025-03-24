@@ -5,13 +5,6 @@
 *****************************************************************************************************************/
 module uim.oop.tests;
 
-version (test_uim_oop) {
-    import std.stdio;
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
-
 public { // Packages
     import uim.oop.tests.constraints;
     import uim.oop.tests.fixtures;

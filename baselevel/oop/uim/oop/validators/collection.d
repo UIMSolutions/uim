@@ -5,14 +5,11 @@
 *****************************************************************************************************************/
 module uim.oop.validators.collection;
 
+mixin(Version!"test_uim_oop");
+
 import uim.oop;
 @safe:
 
-version (test_uim_oop) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
 class DValidatorCollection : DCollection!DUIMValidator {   
 }
 auto ValidatorCollection() { return new DValidatorCollection; }

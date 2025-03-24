@@ -5,14 +5,11 @@
 *****************************************************************************************************************/
 module uim.oop.validators.registry;
 
+mixin(Version!"test_uim_oop");
+
 import uim.oop;
 @safe:
 
-version (test_uim_oop) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
 class DValidatorRegistry : DObjectRegistry!DUIMValidator {
 }
 auto ValidatorRegistry() { return DValidatorRegistry.registration; }

@@ -5,6 +5,8 @@
 *****************************************************************************************************************/
 module uim.oop.validators.interfaces;
 
+mixin(Version!"test_uim_oop");
+
 import uim.oop;
 @safe:
 

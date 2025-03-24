@@ -5,13 +5,6 @@
 *****************************************************************************************************************/
 module uim.oop.validators;
 
-version (test_uim_oop) {
-    import std.stdio;
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
-
 public {
     import uim.oop.validators.validator;
 }

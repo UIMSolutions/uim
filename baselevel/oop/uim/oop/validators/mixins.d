@@ -5,15 +5,10 @@
 *****************************************************************************************************************/
 module uim.oop.validators.mixins;
 
-import uim.oop;
-@safe: 
+mixin(Version!"test_uim_oop");
 
-version (test_uim_oop) {
-    import std.stdio;
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
+import uim.oop;
+@safe:
 
 string validatorThis(string name = null) {
     string fullName = name ~ "Validator";

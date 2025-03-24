@@ -5,14 +5,10 @@
 *****************************************************************************************************************/
 module uim.oop.tests.connectionhelper;
 
+mixin(Version!"test_uim_oop");
+
 import uim.oop;
 @safe:
-
-version (test_uim_oop) {
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
 
 /**
  * Helper for managing test connections

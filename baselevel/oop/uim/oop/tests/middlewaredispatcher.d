@@ -5,17 +5,11 @@
 *****************************************************************************************************************/
 module uim.oop.tests.middlewaredispatcher;
 
-import uim.oop;
+mixin(Version!"test_uim_oop");
 
+import uim.oop;
 @safe:
 
-version (test_uim_oop) {
-  import std.stdio;
-
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
 /**
  * Dispatches a request capturing the response for integration
  * testing purposes into the UIM\Http stack.

@@ -5,15 +5,10 @@
 *****************************************************************************************************************/
 module uim.oop.tests.fixtures.schemaloader;
 
+mixin(Version!"test_uim_oop");
+
 import uim.oop;
 @safe:
-
-version (test_uim_oop) {
-    import std.stdio;
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
 
 /*
 use InvalidArgumentException;

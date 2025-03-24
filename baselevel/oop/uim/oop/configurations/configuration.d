@@ -5,16 +5,10 @@
 *****************************************************************************************************************/
 module uim.oop.configurations.configuration;
 
+mixin(Version!"test_uim_oop");
+
 import uim.oop;
 @safe:
-
-version (test_uim_oop) {
-  import std.stdio;
-  
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
 
 private alias KeyValue = Tuple!(string, "key", Json, "value");
 
@@ -329,6 +323,9 @@ class DConfiguration : UIMObject, IConfiguration {
 
         config.set("a", "");
         assert(config.hasKey("a") && !config.hasKey("b"));
+
+        config.set(["b", "c"], "");
+        assert(config.hasKey("b") && config.hasKey("c"));
       }
     // #endregion empty
 
@@ -345,6 +342,9 @@ class DConfiguration : UIMObject, IConfiguration {
 
         config.set("a", true);
         assert(config.hasKey("a") && !config.hasKey("b"));
+
+        config.set(["b", "c"], false);
+        assert(config.hasKey("b") && config.hasKey("c"));
       }
     // #endregion boolean
 
@@ -361,6 +361,9 @@ class DConfiguration : UIMObject, IConfiguration {
 
         config.set("a", 1);
         assert(config.hasKey("a") && !config.hasKey("b"));
+
+        config.set(["b", "c"], 2);
+        assert(config.hasKey("b") && config.hasKey("c"));
       }
     // #endregion long
 
@@ -377,6 +380,9 @@ class DConfiguration : UIMObject, IConfiguration {
 
         config.set("a", 1.1);
         assert(config.hasKey("a") && !config.hasKey("b"));
+
+        config.set(["b", "c"], 2.2);
+        assert(config.hasKey("b") && config.hasKey("c"));
       }
     // #endregion double
 
@@ -393,6 +399,9 @@ class DConfiguration : UIMObject, IConfiguration {
 
         config.set("a", "text");
         assert(config.hasKey("a") && !config.hasKey("b"));
+
+        config.set(["b", "c"], "xtx");
+        assert(config.hasKey("b") && config.hasKey("c"));
       }
     // #endregion string
 
@@ -410,6 +419,9 @@ class DConfiguration : UIMObject, IConfiguration {
         Json[] values = [Json(1), Json(2), Json(3)];
         config.set("a", values);
         assert(config.hasKey("a") && !config.hasKey("b"));
+
+        config.set(["b", "c"], values);
+        assert(config.hasKey("b") && config.hasKey("c"));
       }
     // #endregion array
 
@@ -427,6 +439,9 @@ class DConfiguration : UIMObject, IConfiguration {
         Json[string] values = ["a": Json(1), "b": Json(2), "c": Json(3)];
         config.set("a", true);
         assert(config.hasKey("a") && !config.hasKey("b"));
+
+        config.set(["b", "c"], values);
+        assert(config.hasKey("b") && config.hasKey("c"));
       }
     // #endregion map
   // #endregion is
@@ -520,75 +535,56 @@ class DConfiguration : UIMObject, IConfiguration {
   // #region update
   IConfiguration update(Json[string] newItems, string[] validKeys = null) {
     validKeys.isNull
-      ? newItems.each!((key, value) => update(key, value)) : newItems.byKeyValue
+      ? newItems.each!((key, value) => updateEntry(key, value)) : newItems.byKeyValue
       .filter!(item => validKeys.has(item.key))
       .each!(item => update(item.key, item.value));
 
     return this;
   }
 
-  IConfiguration update(string[] keys, bool value) {
-    keys.each!(key => update(key, value));
-    return this;
-  }
-
-  IConfiguration update(string[] keys, long value) {
-    keys.each!(key => update(key, value));
-    return this;
-  }
-
-  IConfiguration update(string[] keys, double value) {
-    keys.each!(key => update(key, value));
-    return this;
-  }
-
-  IConfiguration update(string[] keys, string value) {
-    keys.each!(key => update(key, value));
-    return this;
-  }
-
-  IConfiguration update(string[] keys, Json value) {
-    keys.each!(key => update(key, value));
-    return this;
-  }
+  mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "bool", "values"));
+  mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "long", "values"));
+  mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "double", "values"));
+  mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "string", "values"));
+  mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "Json", "values"));
 
   IConfiguration update(string[] keys, Json[] value) {
-    keys.each!(key => update(key, value));
+    keys.each!(key => updateEntry(key, value));
     return this;
   }
 
   IConfiguration update(string[] keys, Json[string] value) {
-    keys.each!(key => update(key, value));
+    keys.each!(key => updateEntry(key, value));
     return this;
   }
 
-  IConfiguration update(string key, bool newValue) {
-    return update(key, Json(newValue));
+  IConfiguration updateEntry(string key, bool newValue) {
+    return updateEntry(key, Json(newValue));
   }
 
-  IConfiguration update(string key, long newValue) {
-    return update(key, Json(newValue));
+  IConfiguration updateEntry(string key, long newValue) {
+    return updateEntry(key, Json(newValue));
   }
 
-  IConfiguration update(string key, double newValue) {
-    return update(key, Json(newValue));
+  IConfiguration updateEntry(string key, double newValue) {
+    return updateEntry(key, Json(newValue));
   }
 
-  IConfiguration update(string key, string newValue) {
-    return update(key, Json(newValue));
+  IConfiguration updateEntry(string key, string newValue) {
+    return updateEntry(key, Json(newValue));
   }
 
-  IConfiguration update(string key, Json newValue) {
+  IConfiguration updateEntry(string key, Json newValue) {
     return hasKey(key)
       ? set(key, newValue) : this;
   }
 
-  IConfiguration update(string key, Json[] newValue) {
+  IConfiguration updateEntry(string key, Json[] newValue) {
     return hasKey(key)
       ? set(key, newValue) : this;
   }
 
-  IConfiguration update(string key, Json[string] newValue) {
+  IConfiguration updateEntry(string key, Json[string] newValue) {
     return hasKey(key)
       ? set(key, newValue) : this;
   }

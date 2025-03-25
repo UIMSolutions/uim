@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.tests.filesystem;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 // #region Entries Tests
 // #endregion Entries Tests
 

@@ -5,15 +5,11 @@
 *****************************************************************************************************************/
 module uim.jsonbases.helpers.filecollection;
 
+mixin(Version!"test_uim_jsonbases");
+
 import uim.jsonbases;
-
-unittest { 
-  version(testUimJsonbase) { 
-    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-  }
-}
-
 @safe:
+
 IFolder idFolder(IFolder aFolder, UUID anId) {
   version(testUimJsonbase) { debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); }
 

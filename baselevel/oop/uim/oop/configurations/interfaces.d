@@ -16,192 +16,375 @@ version (test_uim_oop) {
 import uim.oop;
 @safe:
 interface IConfiguration : IObject {
-  // #region default data
-  Json[string] data();
-  void data(Json[string] items);
-  // #endregion default data
+  // #region entries
+  Json[string] entries();
+  void entries(Json[string] items);
+  // #endregion entries
 
-  // #region default data
-  Json[string] defaultData();
-  IConfiguration defaultData(Json[string] items);
+  // #region defaults
+  Json[string] defaults();
+  IConfiguration defaults(Json[string] items);
+  // #region defaults
 
-  bool hasAnyDefaults(string[] keys);
-  bool hasAllDefaults(string[] keys);
-  bool hasDefault(string key);
-  Json getDefault(string key);
+  // #region has
+    // #region defaults
+      bool hasAllDefaults(string[] keys...);
+      bool hasAllDefaults(string[] keys);
 
-  IConfiguration set(string[string] values, string[] keys = null);
-  IConfiguration set(Json[string] items, string[] keys = null);
+      bool hasAnyDefaults(string[] keys...);
+      bool hasAnyDefaults(string[] keys);
 
-  // #region setDefaults
-  IConfiguration setDefaults(string[] keys, bool newValue);
-  IConfiguration setDefaults(string[] keys, long newValue);
-  IConfiguration setDefaults(string[] keys, double newValue);
-  IConfiguration setDefaults(string[] keys, string newValue);
-  IConfiguration setDefaults(string[] keys, Json newValue);
-  IConfiguration setDefaults(string[] keys, Json[] newValue);
-  IConfiguration setDefaults(string[] keys, Json[string] newValue);
-  // #endregion setDefaults
+      bool hasDefault(string key);
+    // #endregion defaults
 
-  // #region setDefault
-  IConfiguration setDefault(string key, bool newValue);
-  IConfiguration setDefault(string key, long newValue);
-  IConfiguration setDefault(string key, double newValue);
-  IConfiguration setDefault(string key, string newValue);
-  IConfiguration setDefault(string key, Json newValue);
-  IConfiguration setDefault(string key, Json[] newValue);
-  IConfiguration setDefault(string key, Json[string] newValue);
-  // #endregion setDefault
+    // #region entries
+      bool hasAllEntries(string[] keys);
+      bool hasAllEntries(string[] keys);
 
-  IConfiguration updateDefault(string[] keys, bool newValue);
-  IConfiguration updateDefault(string[] keys, long newValue);
-  IConfiguration updateDefault(string[] keys, double newValue);
-  IConfiguration updateDefault(string[] keys, string newValue);
-  IConfiguration updateDefault(string[] keys, Json newValue);
-  IConfiguration updateDefault(string[] keys, Json[] newValue);
-  IConfiguration updateDefault(string[] keys, Json[string] newValue);
+      bool hasAnyEntries(string[] keys);
+      bool hasAnyEntries(string[] keys);
 
-  IConfiguration updateDefault(string key, bool newValue);
-  IConfiguration updateDefault(string key, long newValue);
-  IConfiguration updateDefault(string key, double newValue);
-  IConfiguration updateDefault(string key, string newValue);
-  IConfiguration updateDefault(string key, Json newValue);
-  IConfiguration updateDefault(string key, Json[] newValue);
-  IConfiguration updateDefault(string key, Json[string] newValue);
-
-  IConfiguration mergeDefaults(T)(T[string] items);
-  IConfiguration mergeDefaults(T)(string[] keys, T value);
-  IConfiguration mergeDefault(T)(string key, T value);
-  IConfiguration mergeDefault(string key, Json items);
-  // #endregion default data
+      bool hasEntry(string key);
+    // #endregion entries
+  // #endregion has
 
   // #region is
-  bool isEmpty(string key);
-  bool isBoolean(string key);
-  bool isLong(string key);
-  bool isDouble(string key);
-  bool isString(string key);
-  bool isArray(string key);
-  bool isMap(string key);
+    // #region defaults
+      bool isDefaultEmpty(string key);
+      bool isDefaultBoolean(string key);
+      bool isDefaultLong(string key);
+      bool isDefaultDouble(string key);
+      bool isDefaultString(string key);
+      bool isDefaultArray(string key);
+      bool isDefaultMap(string key);
+    // #endregion defaults
+
+    // #region entries
+      bool isEmpty(string key);
+      bool isBoolean(string key);
+      bool isLong(string key);
+      bool isDouble(string key);
+      bool isString(string key);
+      bool isArray(string key);
+      bool isMap(string key);
+    // #endregion entries
   // #endregion is
 
   // #region keys
-  bool hasAnyKeys(string[] keys...);
-  bool hasAnyKeys(string[] keys);
+    // #region defaults
+      bool hasDefaultAllKeys(string[] keys...);
+      bool hasDefaultAllKeys(string[] keys);
 
-  bool hasAllKeys(string[] keys...);
-  bool hasAllKeys(string[] keys);
+      bool hasDefaultAnyKeys(string[] keys...);
+      bool hasDefaultAnyKeys(string[] keys);
 
-  bool has(string key); // Short of hasKey
-  bool hasKey(string key);
+      bool hasDefaultKey(string key);
 
-  string[] keys();
+      string[] defaultKeys();
+    // #endregion defaults
+
+    // #region entries
+      bool hasAllKeys(string[] keys...);
+      bool hasAllKeys(string[] keys);
+
+      bool hasAnyKeys(string[] keys...);
+      bool hasAnyKeys(string[] keys);
+
+      bool hasKey(string key);
+
+      string[] keys();
+    // #endregion entries
   // #endregion keys
 
   // #region values
-  bool hasAnyValues(string[] values...);
-  bool hasAnyValues(string[] values);
+    // #region defaults
+      bool hasDefaultAllValues(string[] values...);
+      bool hasDefaultAllValues(string[] values);
 
-  bool hasAllValues(string[] values...);
-  bool hasAllValues(string[] values);
+      bool hasDefaultAnyValues(string[] values...);
+      bool hasDefaultAnyValues(string[] values);
 
-  bool hasValue(string value);
-  Json[] values(string[] includedKeys = null);
+      bool hasDefaultValue(string value);
+    // #endregion defaults
+
+    // #region entries
+      bool hasAllValues(string[] values...);
+      bool hasAllValues(string[] values);
+
+      bool hasAnyValues(string[] values...);
+      bool hasAnyValues(string[] values);
+
+      bool hasValue(string value);
+
+      Json[] values(string[] includedKeys = null);
+    // #endregion entries
   // #endregion values
 
   // #region get
-  Json opIndex(string key);
-  Json get(string key, Json defaultValue = Json(null));
-  Json[string] get(string[] keys, bool compressMode = false);
+    // #region defaults
+      Json[string] getDefaults(string[] keys...);
+      Json[string] getDefaults(string[] keys);
 
-  bool getBoolean(string key, bool nullValue = false);
-  long getLong(string key, long nullValue = 0);
-  double getDouble(string key, double nullValue = 0.0);
-  string getString(string key, string nullValue = null);
-  string[] getStringArray(string key, string[] nullValue = null);
-  Json[] getArray(string key, Json[] nullValue = null);
-  Json[string] getMap(string key, Json[string] nullValue = null);
-  string[string] getStringMap(string key, string[string] nullValue = null);
+      Json getDefault(string key);
+
+      bool getDefaultBoolean(string key);
+      long getDefaultLong(string key);
+      double getDefaultDouble(string key);
+      string getDefaultString(string key);
+      string[] getDefaultStringArray(string key);
+      Json[] getDefaultArray(string key);
+      Json[string] getDefaultMap(string key);
+      string[string] getDefaultStringMap(string key);
+    // #endregion defaults
+
+    // #region entries
+      Json[string] getEntries(string[] keys...);
+      Json[string] getEntries(string[] keys);
+
+      Json opIndex(string key);
+      Json getEntry(string key);
+
+      bool getBoolean(string key);
+      long getLong(string key);
+      double getDouble(string key);
+      string getString(string key);
+      string[] getStringArray(string key);
+      Json[] getArray(string key);
+      Json[string] getMap(string key);
+      string[string] getStringMap(string key);
+    // #endregion entries
   // #endregion get
 
   Json shift(string key);
-
-  // #region set
   void opAssign(Json[string] data);
 
-  IConfiguration set(string[string] values, string[] keys = null);
-  IConfiguration set(Json[string] items, string[] keys = null);
+  //#region set
+    // #region defaults
+      IConfiguration setDefaults(bool[string] items, string[] validKeys = null);
+      IConfiguration setDefaults(string[] keys, bool value);
 
-  IConfiguration set(string[] keys, bool newValue);
-  IConfiguration set(string[] keys, long newValue);
-  IConfiguration set(string[] keys, double newValue);
-  IConfiguration set(string[] keys, string newValue);
-  IConfiguration set(string[] keys, Json newValue);
-  IConfiguration set(string[] keys, Json[] newValue);
-  IConfiguration set(string[] keys, Json[string] newValue);
+      IConfiguration setDefaults(long[string] items, string[] validKeys = null);
+      IConfiguration setDefaults(string[] keys, long value);
 
-  IConfiguration set(string key, bool newValue);
-  IConfiguration set(string key, long newValue);
-  IConfiguration set(string key, double newValue);
-  IConfiguration set(string key, string newValue);
-  IConfiguration set(string key, Json newValue);
-  IConfiguration set(string key, Json[] newValue);
-  IConfiguration set(string key, Json[string] newValue);
+      IConfiguration setDefaults(double[string] items, string[] validKeys = null);
+      IConfiguration setDefaults(string[] keys, double value);
 
-  void opIndexAssign(bool newValue, string key);
-  void opIndexAssign(long newValue, string key);
-  void opIndexAssign(double newValue, string key);
-  void opIndexAssign(string newValue, string key);
-  void opIndexAssign(Json newValue, string key);
-  void opIndexAssign(Json[] newValue, string key);
-  void opIndexAssign(Json[string] newValue, string key);
-  // #endregion set
+      IConfiguration setDefaults(string[string] items, string[] validKeys = null);
+      IConfiguration setDefaults(string[] keys, string value);
+
+      IConfiguration setDefaults(Json[string] items, string[] validKeys = null);
+      IConfiguration setDefaults(string[] keys, Json value);
+
+      IConfiguration setDefaults(Json[][string] items, string[] validKeys = null);
+      IConfiguration setDefaults(string[] keys, Json[] value);
+
+      IConfiguration setDefaults(Json[string][string] items, string[] validKeys = null);
+      IConfiguration setDefaults(string[] keys, Json[string] value);
+    // #endregion defaults
+    
+    // #region default
+      IConfiguration setDefault(string key, bool value);
+      IConfiguration setDefault(string key, long value);
+      IConfiguration setDefault(string key, double value);
+      IConfiguration setDefault(string key, string value);
+      IConfiguration setDefault(string key, Json value);
+      IConfiguration setDefault(string key, Json[] value);
+      IConfiguration setDefault(string key, Json[string] value);
+    // #endregion default
+    
+    //#region entries
+      IConfiguration setEntries(bool[string] items, string[] validKeys = null);
+      IConfiguration setEntries(string[] keys, bool value);
+
+      IConfiguration setEntries(long[string] items, string[] validKeys = null);
+      IConfiguration setEntries(string[] keys, long value);
+
+      IConfiguration setEntries(double[string] items, string[] validKeys = null);
+      IConfiguration setEntries(string[] keys, double value);
+
+      IConfiguration setEntries(string[string] items, string[] validKeys = null);
+      IConfiguration setEntries(string[] keys, string value);
+
+      IConfiguration setEntries(Json[string] items, string[] validKeys = null);
+      IConfiguration setEntries(string[] keys, Json value);
+
+      IConfiguration setEntries(Json[][string] items, string[] validKeys = null);
+      IConfiguration setEntries(string[] keys, Json[] value);
+
+      IConfiguration setEntries(Json[string][string] items, string[] validKeys = null);
+      IConfiguration setEntries(string[] keys, Json[string] value);
+    //#endregion entries
+
+    //#region entry
+      IConfiguration setEntry(string key, bool value);
+      IConfiguration setEntry(string key, long value);
+      IConfiguration setEntry(string key, double value);
+      IConfiguration setEntry(string key, string value);
+      IConfiguration setEntry(string key, Json value);
+      IConfiguration setEntry(string key, Json[] value);
+      IConfiguration setEntry(string key, Json[string] value);
+
+      void opIndexAssign(bool value, string key);
+      void opIndexAssign(long value, string key);
+      void opIndexAssign(double value, string key);
+      void opIndexAssign(string value, string key);
+      void opIndexAssign(Json value, string key);
+      void opIndexAssign(Json[] value, string key);
+      void opIndexAssign(Json[string] value, string key);
+    //#endregion entry
+  //#endregion set
 
   //#region update
-  IConfiguration update(Json[string] items, string[] validKeys = null);
+    // #region defaults
+      IConfiguration updateDefaults(bool[string] items, string[] validKeys = null);
+      IConfiguration updateDefaults(string[] keys, bool value);
 
-  IConfiguration update(string[] keys, bool newValue);
-  IConfiguration update(string[] keys, long newValue);
-  IConfiguration update(string[] keys, double newValue);
-  IConfiguration update(string[] keys, string newValue);
-  IConfiguration update(string[] keys, Json newValue);
-  IConfiguration update(string[] keys, Json[] newValue);
-  IConfiguration update(string[] keys, Json[string] newValue);
+      IConfiguration updateDefaults(long[string] items, string[] validKeys = null);
+      IConfiguration updateDefaults(string[] keys, long value);
 
-  IConfiguration update(string key, bool newValue);
-  IConfiguration update(string key, long newValue);
-  IConfiguration update(string key, double newValue);
-  IConfiguration update(string key, string newValue);
-  IConfiguration update(string key, Json newValue);
-  IConfiguration update(string key, Json[] newValue);
-  IConfiguration update(string key, Json[string] newValue);
+      IConfiguration updateDefaults(double[string] items, string[] validKeys = null);
+      IConfiguration updateDefaults(string[] keys, double value);
+
+      IConfiguration updateDefaults(string[string] items, string[] validKeys = null);
+      IConfiguration updateDefaults(string[] keys, string value);
+
+      IConfiguration updateDefaults(Json[string] items, string[] validKeys = null);
+      IConfiguration updateDefaults(string[] keys, Json value);
+
+      IConfiguration updateDefaults(Json[][string] items, string[] validKeys = null);
+      IConfiguration updateDefaults(string[] keys, Json[] value);
+
+      IConfiguration updateDefaults(Json[string][string] items, string[] validKeys = null);
+      IConfiguration updateDefaults(string[] keys, Json[string] value);
+    // #endregion defaults
+    
+    // #region default
+      IConfiguration updateDefault(string key, bool value);
+      IConfiguration updateDefault(string key, long value);
+      IConfiguration updateDefault(string key, double value);
+      IConfiguration updateDefault(string key, string value);
+      IConfiguration updateDefault(string key, Json value);
+      IConfiguration updateDefault(string key, Json[] value);
+      IConfiguration updateDefault(string key, Json[string] value);
+    // #endregion default
+
+    //#region entries
+      IConfiguration updateEntries(bool[string] items, string[] validKeys = null);
+      IConfiguration updateEntries(string[] keys, bool value);
+
+      IConfiguration updateEntries(long[string] items, string[] validKeys = null);
+      IConfiguration updateEntries(string[] keys, long value);
+
+      IConfiguration updateEntries(double[string] items, string[] validKeys = null);
+      IConfiguration updateEntries(string[] keys, double value);
+
+      IConfiguration updateEntries(string[string] items, string[] validKeys = null);
+      IConfiguration updateEntries(string[] keys, string value);
+
+      IConfiguration updateEntries(Json[string] items, string[] validKeys = null);
+      IConfiguration updateEntries(string[] keys, Json value);
+
+      IConfiguration updateEntries(Json[][string] items, string[] validKeys = null);
+      IConfiguration updateEntries(string[] keys, Json[] value);
+
+      IConfiguration updateEntries(Json[string][string] items, string[] validKeys = null);
+      IConfiguration updateEntries(string[] keys, Json[string] value);
+    //#endregion entries
+
+    //#region entry
+      IConfiguration updateEntry(string key, bool value);
+      IConfiguration updateEntry(string key, long value);
+      IConfiguration updateEntry(string key, double value);
+      IConfiguration updateEntry(string key, string value);
+      IConfiguration updateEntry(string key, Json value);
+      IConfiguration updateEntry(string key, Json[] value);
+      IConfiguration updateEntry(string key, Json[string] value);
+    //#endregion entry
   //#endregion update
 
-  //#region update
-  IConfiguration merge(Json[string] items, string[] validKeys = null);
+  //#region merge
+    // #region defaults
+      IConfiguration mergeDefaults(bool[string] items, string[] validKeys = null);
+      IConfiguration mergeDefaults(string[] keys, bool value);
 
-  IConfiguration merge(string[] keys, bool newValue);
-  IConfiguration merge(string[] keys, long newValue);
-  IConfiguration merge(string[] keys, double newValue);
-  IConfiguration merge(string[] keys, string newValue);
-  IConfiguration merge(string[] keys, Json newValue);
-  IConfiguration merge(string[] keys, Json[] newValue);
-  IConfiguration merge(string[] keys, Json[string] newValue);
+      IConfiguration mergeDefaults(long[string] items, string[] validKeys = null);
+      IConfiguration mergeDefaults(string[] keys, long value);
 
-  IConfiguration merge(string key, bool newValue);
-  IConfiguration merge(string key, long newValue);
-  IConfiguration merge(string key, double newValue);
-  IConfiguration merge(string key, string newValue);
-  IConfiguration merge(string key, Json newValue);
-  IConfiguration merge(string key, Json[] newValue);
-  IConfiguration merge(string key, Json[string] newValue);
-  //#endregion update
+      IConfiguration mergeDefaults(double[string] items, string[] validKeys = null);
+      IConfiguration mergeDefaults(string[] keys, double value);
 
-  /*     IConfiguration removeKey(Json jsonObj);
-    IConfiguration removeKey(Json[string] items);
- */
-  IConfiguration removeKey(string[] keys...);
-  IConfiguration removeKeys(string[] keys);
+      IConfiguration mergeDefaults(string[string] items, string[] validKeys = null);
+      IConfiguration mergeDefaults(string[] keys, string value);
 
-  IConfiguration clear();
+      IConfiguration mergeDefaults(Json[string] items, string[] validKeys = null);
+      IConfiguration mergeDefaults(string[] keys, Json value);
+
+      IConfiguration mergeDefaults(Json[][string] items, string[] validKeys = null);
+      IConfiguration mergeDefaults(string[] keys, Json[] value);
+
+      IConfiguration mergeDefaults(Json[string][string] items, string[] validKeys = null);
+      IConfiguration mergeDefaults(string[] keys, Json[string] value);
+    // #endregion defaults
+    
+    // #region default
+      IConfiguration mergeDefault(string key, bool value);
+      IConfiguration mergeDefault(string key, long value);
+      IConfiguration mergeDefault(string key, double value);
+      IConfiguration mergeDefault(string key, string value);
+      IConfiguration mergeDefault(string key, Json value);
+      IConfiguration mergeDefault(string key, Json[] value);
+      IConfiguration mergeDefault(string key, Json[string] value);
+    // #endregion default
+
+    // #region entries
+      IConfiguration mergeEntries(bool[string] items, string[] validKeys = null);
+      IConfiguration mergeEntries(string[] keys, bool value);
+
+      IConfiguration mergeEntries(long[string] items, string[] validKeys = null);
+      IConfiguration mergeEntries(string[] keys, long value);
+
+      IConfiguration mergeEntries(double[string] items, string[] validKeys = null);
+      IConfiguration mergeEntries(string[] keys, double value);
+
+      IConfiguration mergeEntries(string[string] items, string[] validKeys = null);
+      IConfiguration mergeEntries(string[] keys, string value);
+
+      IConfiguration mergeEntries(Json[string] items, string[] validKeys = null);
+      IConfiguration mergeEntries(string[] keys, Json value);
+
+      IConfiguration mergeEntries(Json[][string] items, string[] validKeys = null);
+      IConfiguration mergeEntries(string[] keys, Json[] value);
+
+      IConfiguration mergeEntries(Json[string][string] items, string[] validKeys = null);
+      IConfiguration mergeEntries(string[] keys, Json[string] value);
+    // #endregion entries
+
+    // #region entry
+      IConfiguration mergeEntry(string key, bool value);
+      IConfiguration mergeEntry(string key, long value);
+      IConfiguration mergeEntry(string key, double value);
+      IConfiguration mergeEntry(string key, string value);
+      IConfiguration mergeEntry(string key, Json value);
+      IConfiguration mergeEntry(string key, Json[] value);
+      IConfiguration mergeEntry(string key, Json[string] value);
+    // #endregion entry
+  // #endregion merge
+
+  // #region remove
+    // #region defaults
+      IConfiguration removeDefaults(string[] keys...);
+      IConfiguration removeDefaults(string[] keys);
+      IConfiguration removeDefault(string key);
+
+      IConfiguration clearDefaults();
+    // #endregion defaults
+
+    // #region entries
+      IConfiguration removeEntries(string[] keys...);
+      IConfiguration removeEntries(string[] keys);
+      IConfiguration removeEntry(string key);
+
+      IConfiguration clearEntries();
+    // #endregion entries
+  // #endregion remove
 }

@@ -5,7 +5,10 @@
 *****************************************************************************************************************/
 module uim.oop.mixins.properties.safe;
 
+mixin(Version!"test_uim_oop");
+
 import uim.oop;
+@safe:
 
 // Mixin for a safe getter 
 auto SPropertyGet(string dataType, string propertyName) { return "@safe @property "~dataType~" "~propertyName~"() { return _"~propertyName~"; }"; }

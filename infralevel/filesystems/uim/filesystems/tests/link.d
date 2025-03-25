@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.tests.link;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 // #region Links Tests
   void testLink_CreateLinks(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 

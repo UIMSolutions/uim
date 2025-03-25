@@ -56,8 +56,16 @@ unittest {
 
 string changeAction(string returnType, string action, string plural, string singular, string keyType, string valueType, string parameter) {
   return `
-  {returnType} {action}{criteria}({valueType}[{keyType}] {parameter}) {
-    {parameter}.each!((key, value) => {action}{singular}(key, value));
+  {returnType} {action}{criteria}({valueType}[{keyType}] {parameter}, {keyType}[] keys = null) {
+    if (keys.isNull) {
+      {parameter}.each!((key, value) => {action}{singular}(key, value));
+    }
+    else {
+      keys
+        .filter!(key => {parameter}.hasKey(key))
+        .each!(key => {action}{singular}(key, {parameter}[key]));
+    }
+
     return this;
   }
 
@@ -75,19 +83,19 @@ string changeAction(string returnType, string action, string plural, string sing
   .replace("{parameter}", parameter);
 }
 
-template ChangeAction(string returnType, string action, string plural, string singular, string keyType, string valueType, string parameter) {
+template ChangeAction(string returnType, string action, string plural, string singular, string keyType, string valueType, string parameter = "values") {
   const char[] ChangeAction = changeAction(returnType, action, plural, singular, keyType, valueType, parameter);
 }
 
-template SetAction(string returnType, string plural, string singular, string keyType, string valueType, string parameter) {
+template SetAction(string returnType, string plural, string singular, string keyType, string valueType, string parameter = "values") {
   const char[] SetAction = changeAction(returnType, "set", plural, singular, keyType, valueType, parameter);
 }
 
-template MergeAction(string returnType, string plural, string singular, string keyType, string valueType, string parameter) {
+template MergeAction(string returnType, string plural, string singular, string keyType, string valueType, string parameter = "values") {
   const char[] MergeAction = changeAction(returnType, "merge", plural, singular, keyType, valueType, parameter);
 }
 
-template UpdateAction(string returnType, string plural, string singular, string keyType, string valueType, string parameter) {
+template UpdateAction(string returnType, string plural, string singular, string keyType, string valueType, string parameter = "values") {
   const char[] UpdateAction = changeAction(returnType, "update", plural, singular, keyType, valueType, parameter);
 }
 

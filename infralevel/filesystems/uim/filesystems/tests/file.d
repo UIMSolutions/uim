@@ -5,6 +5,8 @@
 *****************************************************************************************************************/
 module uim.filesystems.tests.file;
 
+mixin(Version!"test_uim_filesystems");
+
 import uim.filesystems;
 @safe:
 

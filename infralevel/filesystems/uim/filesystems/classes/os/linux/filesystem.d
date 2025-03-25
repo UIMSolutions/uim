@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.classes.os.linux.filesystem;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 class DLinuxFilesystem : DFilesystem {
   mixin(FilesystemThis!("Linux"));
 

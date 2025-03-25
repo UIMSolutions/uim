@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.tests.folder;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 // #region Folders Tests
   void testFolder_CreateFolders(string moduleName, IFilesystem fs, string strPath, string[] arrPath) {
     version(testUimFilesystems) { 

@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.mixins.foldermanager;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 mixin template TFolderManager() {
   // #region Folders
     // #region existsFolders() 

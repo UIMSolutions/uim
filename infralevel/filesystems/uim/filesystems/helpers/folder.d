@@ -5,12 +5,7 @@
 *****************************************************************************************************************/
 module uim.filesystems.helpers.folder;
 
+mixin(Version!"test_uim_filesystems");
+
 import uim.filesystems;
-
-unittest { 
-  version(testUimFilesystems) { 
-    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-  }
-}
-
 @safe:

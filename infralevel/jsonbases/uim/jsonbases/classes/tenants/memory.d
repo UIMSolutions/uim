@@ -5,15 +5,11 @@
 *****************************************************************************************************************/
 module uim.jsonbases.classes.tenants.memory;
 
+mixin(Version!"test_uim_jsonbases");
+
 import uim.jsonbases;
-
-version(test_uim_jsonbase) { 
-  unittest {
-    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-  }
-}
-
 @safe:
+
 /// MemoryTenant manages MemoryCollections
 class DMemoryJsonTenant : DJsonTenant {
   mixin(JsonTenantThis!("Memory"));

@@ -11,24 +11,9 @@ import uim.oop;
 @safe:
 
 class DMemoryConfiguration : DConfiguration {
-  // mixin(ConfigurationThis!("Memory"));
-  this() {
-    // writeln("DMemoryConfiguration::this() - ", this.classinfo);
-    super("MemoryConfiguration");
-  }
-
-  this(Json[string] initData) {
-    // writeln("this(Json[string] initData) - DMemoryConfiguration");
-    super(initData);
-  }
-
-  this(string name, Json[string] initData = null) {
-    // writeln("this(string newName, Json[string] initData) - DMemoryConfiguration");
-    super(name, initData);
-  }
+  mixin(ConfigurationThis!("Memory"));
 
   override bool initialize(Json[string] initData = null) {
-    // writeln("DMemoryConfiguration::initialize(Json[string] initData = null) - ", this.classinfo);
     if (!super.initialize(initData)) {
       return false;
     }
@@ -36,54 +21,37 @@ class DMemoryConfiguration : DConfiguration {
     return true;
   }
 
-  // #region defaultData
-  protected Json[string] _defaultData;
-  override Json[string] defaultData() {
-    return _defaultData.dup;
+  // #region defaultEntries
+  protected Json[string] _defaultEntries;
+  override Json[string] defaultEntries() {
+    return _defaultEntries.dup;
   }
 
-  override IConfiguration defaultData(Json[string] newValue) {
-    _defaultData = newValue.dup;
+  override IConfiguration defaultEntries(Json[string] newValue) {
+    _defaultEntries = newValue.dup;
     return this;
   }
+  // #endregion defaultEntries
 
   // override bool hasDefault(string key)
   override bool hasDefault(string key) {
-    return (key in _defaultData) ? true : false;
+    return (key in _defaultEntries) ? true : false;
   }
 
   override Json getDefault(string key) {
-    return (key in _defaultData) ? _defaultData[key] : Json(null);
+    return (key in _defaultEntries) ? _defaultEntries[key] : Json(null);
   }
-
-  // #region setDefault
-  alias setDefault = DConfiguration.setDefault;
-  override IConfiguration setDefault(string key, Json newValue) {
-    _defaultData[key] = newValue;
-    return this;
-  }
-
-  override IConfiguration setDefault(string key, Json[] newValue) {
-    _defaultData[key] = newValue;
-    return this;
-  }
-
-  override IConfiguration setDefault(string key, Json[string] newValue) {
-    _defaultData[key] = newValue;
-    return this;
-  }
-  // #endregion setDefault
 
   // #region data
   // Set and get data
-  protected Json[string] _data;
+  protected Json[string] _entries;
 
   override Json[string] data() {
-    return _data.dup;
+    return _entries.dup;
   }
 
   override void data(Json[string] newData) {
-    _data = newData.dup;
+    _entries = newData.dup;
   }
   // #endregion data
 
@@ -99,7 +67,7 @@ class DMemoryConfiguration : DConfiguration {
   }
 
   override bool hasKey(string key) {
-    return (key in _data) || hasDefault(key) ? true : false;
+    return (key in _entries) || hasDefault(key) ? true : false;
   }
   // #endregion key
 
@@ -115,13 +83,13 @@ class DMemoryConfiguration : DConfiguration {
   }
 
   override bool hasValue(Json value) {
-    return _data.byKeyValue
+    return _entries.byKeyValue
       .any!(kv => kv.value == value);
   }
 
   override Json[] values(string[] includedKeys = null) {
     return includedKeys.length == 0
-      ? _data.values : includedKeys
+      ? _entries.values : includedKeys
       .filter!(key => hasKey(key))
       .map!(key => get(key))
       .array;
@@ -129,7 +97,7 @@ class DMemoryConfiguration : DConfiguration {
   // #endregion value
 
   override string[] keys() {
-    return _data.keys;
+    return _entries.keys;
   }
 
   // #region get
@@ -151,8 +119,8 @@ class DMemoryConfiguration : DConfiguration {
       return Json(null);
     }
 
-    if (key in _data) {
-      return _data[key];
+    if (key in _entries) {
+      return _entries[key];
     }
 
     return defaultValue.isNull
@@ -160,42 +128,108 @@ class DMemoryConfiguration : DConfiguration {
   }
   // #endregion get
 
-  // #region set
-  alias set = DConfiguration.set;
-  override IConfiguration set(string key, Json value) {
-    _data[key] = value;
-    return this;
-  }
+  // #region defaults
+    // #region set
+      override IConfiguration setDefault(string key, bool value) {
+        setDefault(key, value.toJson);
+        return this;
+      }
 
-  override IConfiguration set(string key, Json[] value) {
-    _data[key] = Json(value);
-    return this;
-  }
+      override IConfiguration setDefault(string key, long value) {
+        setDefault(key, value.toJson);
+        return this;
+      }
 
-  override IConfiguration set(string key, Json[string] value) {
-    _data[key] = Json(value);
-    return this;
-  }
-  // #endregion set
+      override IConfiguration setDefault(string key, double value) {
+        setDefault(key, value.toJson);
+        return this;
+      }
 
-  // #region remove
-  alias removeKey = DConfiguration.removeKey;
-  override IConfiguration removeKeys(string[] keys) {
-    keys.each!(key => _data.remove(key));
-    return this;
-  }
+      override IConfiguration setDefault(string key, string value) {
+        setDefault(key, value.toJson);
+        return this;
+      }
 
-  unittest {
-    // TODO
-    /* auto config = MemoryConfiguration;
-        config
-            .set("a", Json("A"))
-            .set("one", Json(1));
+      override IConfiguration setDefault(string key, Json[] value) {
+        setDefault(key, value.toJson);
+        return this;
+      }
 
-        assert(config.hasKey("a"));
-        assert(config.removeKey("a").hasKey("a") == false); */
-  }
-  // #endregion remove
+      override IConfiguration setDefault(string key, Json[string] value) {
+        setDefault(key, value.toJson);
+        return this;
+      }
+      
+      override IConfiguration setDefault(string key, Json value) {
+        _defaults[key] = value;
+        return this;
+      }
+    // #endregion set
+
+    // #region remove
+      override IConfiguration removeDefault(string key) {
+        _defaults.remove(key);
+        return this;
+      }
+
+      unittest {
+        // TODO
+      }
+    // #endregion remove
+  // #endregion defaults
+
+  // #region entries
+    // #region set
+      override IConfiguration setEntry(string key, bool value) {
+        setEntry(key, value.toJson);
+        return this;
+      }
+
+      override IConfiguration setEntry(string key, long value) {
+        setEntry(key, value.toJson);
+        return this;
+      }
+
+      override IConfiguration setEntry(string key, double value) {
+        setEntry(key, value.toJson);
+        return this;
+      }
+
+      override IConfiguration setEntry(string key, string value) {
+        setEntry(key, value.toJson);
+        return this;
+      }
+
+      override IConfiguration setEntry(string key, Json[] value) {
+        setEntry(key, value.toJson);
+        return this;
+      }
+
+      override IConfiguration setEntry(string key, Json[string] value) {
+        setEntry(key, value.toJson);
+        return this;
+      }
+      
+      override IConfiguration setEntry(string key, Json value) {
+        _entries[key] = value;
+        return this;
+      }
+    // #endregion set
+
+    // #region remove
+      alias removeEntry = DConfiguration.removeEntry;
+      override IConfiguration removeEntry(string key) {
+        _entries.remove(key);
+        return this;
+      }
+
+      unittest {
+        // TODO
+      }
+    // #endregion remove
+  // #endregion entries
+
+  
 
   override IConfiguration clone() {
     return MemoryConfiguration;

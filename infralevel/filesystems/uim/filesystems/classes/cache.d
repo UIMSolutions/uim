@@ -5,14 +5,10 @@
 *****************************************************************************************************************/
 module uim.filesystems.classes.cache;
 
+mixin(Version!"test_uim_filesystems");
+
 import uim.filesystems;
 @safe:
-
-unittest { 
-  version(testUimFilesystems) { 
-    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
-  }
-}
 
 class DCacheFilesystem : DFilesystem {
   this() { super(); }

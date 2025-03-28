@@ -28,7 +28,8 @@ bool testConfiguration(IConfiguration configuration) {
 
     assert(configuration.defaultString("c") == "C", configuration.name~": "~`configuration.defaultString("c") == "C"`);
 
-    assert(configuration.entry("a").to!string == "A", configuration.name);
+    assert(configuration.defaultString("c") == "C", configuration.name~": "~`configuration.defaultString("c") == "C"`);
+
     assert(configuration.entryString("a") == "A", configuration.name);
     assert(configuration.entryString("b") == "B", configuration.name);
     

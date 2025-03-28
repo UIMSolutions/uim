@@ -49,15 +49,15 @@ class UIMObject : IObject {
     return memberNames.has(name);
   }
 
-  void opIndexAssign(T)(T value, string name) {
+/*   void opIndexAssign(T)(T value, string name) {
     switch(name) {
       case "name": this.name(value.toString);
       default: break;
     }
     return;
-  }
+  } */
 
-  Json opIndex(string name) {
+  /* Json opIndex(string name) {
     switch (name) {
     case "name":
       return name.toJson;
@@ -70,7 +70,7 @@ class UIMObject : IObject {
     default:
       return Json(null);
     }
-  }
+  } */
 
   Json toJson(string[] showKeys = null, string[] hideKeys = null) {
     Json json = Json.emptyObject;

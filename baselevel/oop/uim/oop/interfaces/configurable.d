@@ -5,13 +5,10 @@
 *****************************************************************************************************************/
 module uim.oop.interfaces.configurable;
 
-version (test_uim_oop) {
-  import std.stdio;
+mixin(Version!"test_uim_oop");
 
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+import uim.oop;
+@safe:
 
 import uim.oop;
 @safe:

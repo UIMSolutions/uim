@@ -5,16 +5,11 @@
 *****************************************************************************************************************/
 module uim.oop.configurations.interfaces;
 
-version (test_uim_oop) {
-  import std.stdio;
-  
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_oop");
 
 import uim.oop;
 @safe:
+
 interface IConfiguration : IObject {
   // #region entries
   Json[string] entries();

@@ -5,14 +5,10 @@
 *****************************************************************************************************************/
 module uim.oop.mixins.obj;
 
-@safe: 
+mixin(Version!"test_uim_oop");
 
-version (test_uim_oop) {
-    import std.stdio;
-    unittest {
-        writeln("-----  ", __MODULE__, "\t  -----");
-    }
-}
+import uim.oop;
+@safe:
 
 string objThis(string name) {
     return `

@@ -8,18 +8,33 @@ module uim.oop.mixins.configuration;
 import uim.oop;
 @safe: 
 
-string configurationThis(string name = null) {
-    string fullName = name ~ "Configuration";
-    return objThis(fullName);
+string configurationThis(string name) {
+    return `
+        this() {
+            super("`~ name ~ `Configuration");
+        }
+        this(Json[string] initData) {
+            super("`~ name ~ `Configuration", initData);
+        }
+        this(string name, Json[string] initData = null) {
+            super(name, initData);
+        }
+        string[] memberNames() {
+            return [__traits(allMembers, typeof(this))];
+        }
+    `;
 }
 
-template ConfigurationThis(string name = null) {
+template ConfigurationThis(string name) {
     const char[] ConfigurationThis = configurationThis(name);
 }
 
 string configurationCalls(string name) {
-    string fullName = name ~ "Configuration";
-    return objCalls(fullName);
+    return `
+        auto `~ name ~ `Configuration() { return new D` ~ name ~ `Configuration(); }
+        auto `~ name ~ `Configuration(Json[string] initData) { return new D` ~ name ~ `Configuration(initData); }
+        auto `~ name ~ `Configuration(string name, Json[string] initData = null) { return new D` ~ name ~ `Configuration(name, initData); }
+    `;
 }
 
 template ConfigurationCalls(string name) {

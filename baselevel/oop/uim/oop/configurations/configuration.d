@@ -17,16 +17,23 @@ import uim.oop;
 } */
 
 // Configuration for handling config data = key: string / value: Json
-class DConfiguration : UIMObject, IConfiguration {
-  mixin(ConfigurationThis!());
-
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    return true;
+class DConfiguration : IConfiguration {
+  this() {
+    this.name(this.classname);
+    this.defaults(new Json[string]);
   }
+
+  this(Json[string] initData) {
+    this.defaults(initData);
+    this.name(this.classname);
+  }
+
+  this(string newName, Json[string] initData = null) {
+    this.defaults(initData);
+    this.name(newName);
+  }
+
+  mixin(TProperty!("string", "name"));
 
   // #region defaults
   abstract Json[string] defaults();
@@ -88,7 +95,9 @@ class DConfiguration : UIMObject, IConfiguration {
       abstract bool hasDefaultValue(Json value);
 
       unittest {
+        writeln("Test 1");
         auto config = MemoryConfiguration;
+        writeln("Test 1 - Ende");
         // TODO
       }
     // #endregion defaults
@@ -192,7 +201,7 @@ class DConfiguration : UIMObject, IConfiguration {
       mixin(IsAction!("Empty", "Entries", "Entry", "string"));
 
       bool isEmptyEntry(string key) {
-        return hasKey(key)
+        return hasEntry(key)
           ? entry(key).isEmpty : false;
       }
 
@@ -200,10 +209,10 @@ class DConfiguration : UIMObject, IConfiguration {
         auto config = MemoryConfiguration;
 
 /*         config.setEntry("a", "");
-        assert(config.hasKey("a") && !config.hasKey("b"));
+        assert(config.hasEntry("a") && !config.hasEntry("b"));
 
         config.setEntry(["b", "c"], "");
-        assert(config.hasKey("b") && config.hasKey("c")); */
+        assert(config.hasEntry("b") && config.hasEntry("c")); */
       }
     // #endregion empty
 
@@ -211,7 +220,7 @@ class DConfiguration : UIMObject, IConfiguration {
       mixin(IsAction!("Boolean", "Entries", "Entry", "string"));
 
       bool isBooleanEntry(string key) {
-        return hasKey(key)
+        return hasEntry(key)
           ? entry(key).isBoolean : false;
       }
 
@@ -219,10 +228,10 @@ class DConfiguration : UIMObject, IConfiguration {
         auto config = MemoryConfiguration;
 
 /*         config.set("a", true);
-        assert(config.hasKey("a") && !config.hasKey("b"));
+        assert(config.hasEntry("a") && !config.hasEntry("b"));
 
         config.set(["b", "c"], false);
-        assert(config.hasKey("b") && config.hasKey("c")); */
+        assert(config.hasEntry("b") && config.hasEntry("c")); */
       }
     // #endregion boolean
 
@@ -230,18 +239,19 @@ class DConfiguration : UIMObject, IConfiguration {
       mixin(IsAction!("Long", "Entries", "Entry", "string"));
 
       bool isLongEntry(string key) {
-        return hasKey(key)
+        return hasEntry(key)
           ? entry(key).isLong : false;
       }
 
       unittest {
+        writeln("Test 2");
         auto config = MemoryConfiguration;
 
         /* config.setEntry("a", 1);
-        assert(config.hasKey("a") && !config.hasKey("b"));
+        assert(config.hasEntry("a") && !config.hasEntry("b"));
 
         config.ssetEntryet(["b", "c"], 2);
-        assert(config.hasKey("b") && config.hasKey("c")); */
+        assert(config.hasEntry("b") && config.hasEntry("c")); */
       }
     // #endregion long
 
@@ -249,7 +259,7 @@ class DConfiguration : UIMObject, IConfiguration {
       mixin(IsAction!("Double", "Entries", "Entry", "string"));
 
       bool isDoubleEntry(string key) {
-        return hasKey(key)
+        return hasEntry(key)
           ? entry(key).isDouble : false;
       }
 
@@ -257,10 +267,10 @@ class DConfiguration : UIMObject, IConfiguration {
         auto config = MemoryConfiguration;
 
 /*         config.set("a", 1.1);
-        assert(config.hasKey("a") && !config.hasKey("b"));
+        assert(config.hasEntry("a") && !config.hasEntry("b"));
 
         config.set(["b", "c"], 2.2);
-        assert(config.hasKey("b") && config.hasKey("c")); */
+        assert(config.hasEntry("b") && config.hasEntry("c")); */
       }
     // #endregion double
 
@@ -268,7 +278,7 @@ class DConfiguration : UIMObject, IConfiguration {
       mixin(IsAction!("String", "Entries", "Entry", "string"));
 
       bool isStringEntry(string key) {
-        return hasKey(key)
+        return hasEntry(key)
           ? entry(key).isString : false;
       }
 
@@ -276,10 +286,10 @@ class DConfiguration : UIMObject, IConfiguration {
         auto config = MemoryConfiguration;
 
 /*         config.set("a", "text");
-        assert(config.hasKey("a") && !config.hasKey("b"));
+        assert(config.hasEntry("a") && !config.hasEntry("b"));
 
         config.set(["b", "c"], "xtx");
-        assert(config.hasKey("b") && config.hasKey("c")); */
+        assert(config.hasEntry("b") && config.hasEntry("c")); */
       }
     // #endregion string
 
@@ -287,7 +297,7 @@ class DConfiguration : UIMObject, IConfiguration {
       mixin(IsAction!("Array", "Entries", "Entry", "string"));
       
       bool isArrayEntry(string key) {
-        return hasKey(key)
+        return hasEntry(key)
           ? entry(key).isArray : false;
       }
 
@@ -296,10 +306,10 @@ class DConfiguration : UIMObject, IConfiguration {
 
 /*         Json[] values = [Json(1), Json(2), Json(3)];
         config.set("a", values);
-        assert(config.hasKey("a") && !config.hasKey("b"));
+        assert(config.hasEntry("a") && !config.hasEntry("b"));
 
         config.set(["b", "c"], values);
-        assert(config.hasKey("b") && config.hasKey("c")); */
+        assert(config.hasEntry("b") && config.hasEntry("c")); */
       }
     // #endregion array
 
@@ -307,7 +317,7 @@ class DConfiguration : UIMObject, IConfiguration {
       mixin(IsAction!("Map", "Entries", "Entry", "string"));
       
       bool isMapEntry(string key) {
-        return hasKey(key)
+        return hasEntry(key)
           ? entry(key).isMap : false;
       }
 
@@ -316,10 +326,10 @@ class DConfiguration : UIMObject, IConfiguration {
 
 /*         Json[string] values = ["a": Json(1), "b": Json(2), "c": Json(3)];
         config.set("a", true);
-        assert(config.hasKey("a") && !config.hasKey("b"));
+        assert(config.hasEntry("a") && !config.hasEntry("b"));
 
         config.set(["b", "c"], values);
-        assert(config.hasKey("b") && config.hasKey("c")); */
+        assert(config.hasEntry("b") && config.hasEntry("c")); */
       }
     // #endregion map
   // #endregion is
@@ -760,22 +770,75 @@ class DConfiguration : UIMObject, IConfiguration {
 
 
   // #region read
+    // #region defaults
+    mixin(ReadAction!("Json", "defaults", "default_", "string"));
+
+    bool defaultBoolean(string key) {
+      return hasDefault(key) ? default_(key).getBoolean : false;
+    }
+
+    long defaultLong(string key) {
+      return hasDefault(key) ? default_(key).getLong : 0;
+    }
+
+    double defaultDouble(string key) {
+      return hasDefault(key) ? default_(key).getDouble : 0.0;
+    }
+
+    string defaultString(string key) {
+      writeln("hasDefault(key) -> ", hasDefault(key));
+      writeln("default_(key).getString -> ", default_(key).getString);
+      return hasDefault(key) ? default_(key).getString : null;
+    }
+
+    string[] defaultStringArray(string key) {
+      return defaultArray(key)
+        .map!(item => item.getString).array;
+    }
+
+    Json[] defaultArray(string key) {
+      return hasDefault(key) && isArray(key)
+        ? default_(key).getArray : null;
+    }
+
+    Json[string] defaultMap(string key) {
+      return hasDefault(key) && isMap(key)
+        ? default_(key).getMap : null;
+    }
+
+    string[string] defaultStringMap(string key) {
+      string[string] result;
+      defaultMap(key).each!((key, value) => result[key] = value.get!string);
+      return result;
+    }
+
+    abstract Json default_(string key);
+
+    unittest {
+      auto config = MemoryConfiguration;
+      // TODO
+    }
+    // #region defaults
+
+    // #region entries
     mixin(ReadAction!("Json", "entries", "entry", "string"));
 
     bool entryBoolean(string key) {
-      return hasKey(key) ? entry(key).getBoolean : false;
+      return hasEntry(key) ? entry(key).getBoolean : false;
     }
 
     long entryLong(string key) {
-      return hasKey(key) ? entry(key).getLong : 0;
+      return hasEntry(key) ? entry(key).getLong : 0;
     }
 
     double entryDouble(string key) {
-      return hasKey(key) ? entry(key).getDouble : 0.0;
+      return hasEntry(key) ? entry(key).getDouble : 0.0;
     }
 
-    string entryString(string key, string nullValue = null) {
-      return hasKey(key) ? entry(key).getString : null;
+    string entryString(string key) {
+      writeln("hasEntry(key) ->", hasEntry(key));
+      writeln("entry(key).getString ->", entry(key).getString);
+      return hasEntry(key) ? entry(key).getString : null;
     }
 
     string[] entryStringArray(string key) {
@@ -784,12 +847,12 @@ class DConfiguration : UIMObject, IConfiguration {
     }
 
     Json[] entryArray(string key) {
-      return hasKey(key) && isArray(key)
+      return hasEntry(key) && isArray(key)
         ? entry(key).getArray : null;
     }
 
     Json[string] entryMap(string key) {
-      return hasKey(key) && isMap(key)
+      return hasEntry(key) && isMap(key)
         ? entry(key).getMap : null;
     }
 
@@ -805,14 +868,15 @@ class DConfiguration : UIMObject, IConfiguration {
       auto config = MemoryConfiguration;
       // TODO
     }
-  // #endregion get
+    // #region entries
+  // #endregion read
 
   // #region shift
     // #region defaults
       mixin(GetAction!("Json", "shift", "Defaults", "Default", "string")); 
 
       Json shiftDefault(string key) {
-        if (!hasKey(key)) {
+        if (!hasDefault(key)) {
           return Json(null);
         }
 
@@ -831,7 +895,7 @@ class DConfiguration : UIMObject, IConfiguration {
       mixin(GetAction!("Json", "shift", "Entries", "Entry", "string")); 
 
       Json shiftEntry(string key) {
-        if (!hasKey(key)) {
+        if (!hasEntry(key)) {
           return Json(null);
         }
 

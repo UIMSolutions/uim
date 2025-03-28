@@ -5,13 +5,7 @@
 *****************************************************************************************************************/
 module uim.oop.patterns.collection;
 
-version (test_uim_oop) {
-  import std.stdio;
-  
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_oop");
 
 import uim.oop;
 @safe:
@@ -125,10 +119,6 @@ class DCollection(T : UIMObject) : UIMObject, IKeyAndPath, ICollection!T {
     // #region getter
         T get(string[] path) {
             return get(path.join(_pathSeparator));
-        }
-
-        T opIndex(string key) {
-            return get(key);
         }
 
         T get(string key) {

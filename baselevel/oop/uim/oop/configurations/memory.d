@@ -13,15 +13,9 @@ import uim.oop;
 class DMemoryConfiguration : DConfiguration {
   mixin(ConfigurationThis!("Memory"));
 
-  override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    return true;
-  }
-
   // #region defaults
+    alias defaults = DConfiguration.defaults;
+    
     protected Json[string] _defaults;
     override Json[string] defaults() {
       return _defaults.dup;
@@ -60,7 +54,7 @@ class DMemoryConfiguration : DConfiguration {
 
   // #region hasEntry
     override bool hasEntry(string key) {
-      return _entries.hasKey(key);
+      return _entries.hasKey(key) ? true : hasDefault(key);
     }
   // #endregion hasEntry
 
@@ -192,6 +186,7 @@ mixin(ConfigurationCalls!("Memory"));
 
 unittest {
   auto configuration = MemoryConfiguration;
-  writeln("DMemoryConfiguration::membernames() -> ", configuration.memberNames);
+  writeln("Test1");
   testConfiguration(MemoryConfiguration);
+  writeln("Test1 Ende");
 }

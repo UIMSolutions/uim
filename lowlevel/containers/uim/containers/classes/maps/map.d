@@ -1,7 +1,13 @@
+/****************************************************************************************************************
+* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
 module uim.containers.classes.maps.map;
 
-import uim.containers;
+mixin(Version!"test_uim_containers");
 
+import uim.oop;
 @safe:
 
 class DMap(K, T:
@@ -44,4 +50,7 @@ class DMap(K, T:
     T opIndex(K key) {
         return get(key);
     }
+}
+
+unittest {
 }

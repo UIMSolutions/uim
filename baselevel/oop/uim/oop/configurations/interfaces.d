@@ -18,13 +18,13 @@ import uim.oop;
 interface IConfiguration : IObject {
   // #region entries
   Json[string] entries();
-  void entries(Json[string] items);
+  IConfiguration entries(Json[string] items);
   // #endregion entries
 
   // #region defaults
   Json[string] defaults();
   IConfiguration defaults(Json[string] items);
-  // #region defaults
+  // #endregion defaults
 
   // #region has
     // #region defaults
@@ -96,16 +96,62 @@ interface IConfiguration : IObject {
     // #endregion entries
   // #endregion keys
 
+  // #region read
+    // #region defaults
+      Json[string] defaults(string[] keys...);
+      Json[string] defaults(string[] keys);
+
+      bool defaultBoolean(string key);
+      long defaultLong(string key);
+      double defaultDouble(string key);
+      string defaultString(string key);
+      string[] defaultStringArray(string key);
+      Json[] defaultArray(string key);
+      Json[string] defaultMap(string key);
+      string[string] defaultStringMap(string key);
+
+      Json default_(string key);
+    // #endregion defaults
+
+    // #region entries
+      Json[string] entries(string[] keys...);
+      Json[string] entries(string[] keys);
+
+      Json entry(string key);
+
+      bool entryBoolean(string key);
+      long entryLong(string key);
+      double entryDouble(string key);
+      string entryString(string key);
+      string[] entryStringArray(string key);
+      Json[] entryArray(string key);
+      Json[string] entryMap(string key);
+      string[string] entryStringMap(string key);
+    // #endregion entries
+  // #endregion read
+
   // #region values
     // #region defaults
-      bool hasDefaultAllValues(string[] values...);
-      bool hasDefaultAllValues(string[] values);
+      bool hasAllDefaultValues(string[] values...);
+      bool hasAllDefaultValues(string[] values);
 
-      bool hasDefaultAnyValues(string[] values...);
-      bool hasDefaultAnyValues(string[] values);
+      bool hasAnyDefaultValues(string[] values...);
+      bool hasAnyDefaultValues(string[] values);
 
       bool hasDefaultValue(string value);
     // #endregion defaults
+
+    // #region entries
+      bool hasAllEntryValues(string[] values...);
+      bool hasAllEntryValues(string[] values);
+
+      bool hasAnyEntryValues(string[] values...);
+      bool hasAnyEntryValues(string[] values);
+
+      bool hasEntryValue(string value);
+
+      Json[] values(string[] includedKeys = null);
+    // #endregion entries
 
     // #region entries
       bool hasAllValues(string[] values...);
@@ -120,43 +166,19 @@ interface IConfiguration : IObject {
     // #endregion entries
   // #endregion values
 
-  // #region get
+  // #region shilft
     // #region defaults
-      Json[string] getDefaults(string[] keys...);
-      Json[string] getDefaults(string[] keys);
-
-      Json getDefault(string key);
-
-      bool getDefaultBoolean(string key);
-      long getDefaultLong(string key);
-      double getDefaultDouble(string key);
-      string getDefaultString(string key);
-      string[] getDefaultStringArray(string key);
-      Json[] getDefaultArray(string key);
-      Json[string] getDefaultMap(string key);
-      string[string] getDefaultStringMap(string key);
+      Json[] shiftDefaults(string[] keys...);
+      Json[] shiftDefaults(string[] keys);
+      Json shiftDefault(string key);
     // #endregion defaults
 
     // #region entries
-      Json[string] getEntries(string[] keys...);
-      Json[string] getEntries(string[] keys);
-
-      Json opIndex(string key);
-      Json getEntry(string key);
-
-      bool getBoolean(string key);
-      long getLong(string key);
-      double getDouble(string key);
-      string getString(string key);
-      string[] getStringArray(string key);
-      Json[] getArray(string key);
-      Json[string] getMap(string key);
-      string[string] getStringMap(string key);
+      Json[] shiftEntries(string[] keys...);
+      Json[] shiftEntries(string[] keys);
+      Json shiftEntry(string key);
     // #endregion entries
-  // #endregion get
-
-  Json shift(string key);
-  void opAssign(Json[string] data);
+  // #endregion shilft
 
   //#region set
     // #region defaults
@@ -216,14 +238,6 @@ interface IConfiguration : IObject {
     //#endregion entries
 
     //#region entry
-      IConfiguration setEntry(string key, bool value);
-      IConfiguration setEntry(string key, long value);
-      IConfiguration setEntry(string key, double value);
-      IConfiguration setEntry(string key, string value);
-      IConfiguration setEntry(string key, Json value);
-      IConfiguration setEntry(string key, Json[] value);
-      IConfiguration setEntry(string key, Json[string] value);
-
       void opIndexAssign(bool value, string key);
       void opIndexAssign(long value, string key);
       void opIndexAssign(double value, string key);
@@ -231,6 +245,14 @@ interface IConfiguration : IObject {
       void opIndexAssign(Json value, string key);
       void opIndexAssign(Json[] value, string key);
       void opIndexAssign(Json[string] value, string key);
+
+      IConfiguration setEntry(string key, bool value);
+      IConfiguration setEntry(string key, long value);
+      IConfiguration setEntry(string key, double value);
+      IConfiguration setEntry(string key, string value);
+      IConfiguration setEntry(string key, Json value);
+      IConfiguration setEntry(string key, Json[] value);
+      IConfiguration setEntry(string key, Json[string] value);
     //#endregion entry
   //#endregion set
 

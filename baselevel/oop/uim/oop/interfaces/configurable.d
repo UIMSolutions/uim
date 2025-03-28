@@ -22,11 +22,11 @@ interface IConfigurable {
   // Sets configuration
   void configuration(IConfiguration newConfiguration);
 
-  final void setConfiguration(string key, Json value) {
+  /* final void setConfiguration(string key, Json value) {
     configuration.set(key, value);
-  }
+  } */
 
-  final Json getConfiguration(string key) {
+  /* final Json getConfiguration(string key) {
     return configuration.get(key);
-  }
+  } */
 }

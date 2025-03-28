@@ -17,4 +17,9 @@ version (test_uim_oop) {
 }
 
 class DFormatterFactory : DFactory!DFormatter {
+  alias opIndex = UIMObject.opIndex;
+}
+
+unittest {
+  // TODO
 }

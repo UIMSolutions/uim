@@ -10,9 +10,8 @@ mixin(Version!"test_uim_oop");
 import uim.oop;
 @safe:
 
-bool testConfiguration(IConfiguration aConfig) {
-    // in case of - writeln(__MODULE__, " in ", __LINE__);
-    aConfig.data([
+bool testConfiguration(IConfiguration configuration) {
+    configuration.entries([
         "a": Json("A"),
         "b": Json("B"),
         "1": Json(1),
@@ -22,102 +21,28 @@ bool testConfiguration(IConfiguration aConfig) {
         "null": Json(null)
     ]);
 
-    aConfig.defaultData([
+    configuration.defaults([
         "a": Json("A"),
         "c": Json("C")
     ]);
 
-    assert(aConfig.defaultData.getString("c") == "C", aConfig.name~": "~`aConfig.defaultData.getString("c") == "C"`);
+    assert(configuration.defaultString("c") == "C", configuration.name~": "~`configuration.defaultString("c") == "C"`);
 
-    assert(aConfig.data["a"].to!string == "A", aConfig.name);
-    assert(aConfig.data.getString("a") == "A", aConfig.name);
-    assert(aConfig.getString("b") == "B", aConfig.name);
+    assert(configuration.entry("a").to!string == "A", configuration.name);
+    assert(configuration.entryString("a") == "A", configuration.name);
+    assert(configuration.entryString("b") == "B", configuration.name);
     
-    assert(aConfig.getString("c") == "C", aConfig.name);
-    assert(aConfig.getString("c") != "X", aConfig.name);
+    assert(configuration.entryString("c") == "C", configuration.name);
+    assert(configuration.entryString("c") != "X", configuration.name);
 
-    assert(aConfig.defaultData["a"].to!string == "A", aConfig.name);
-    assert(aConfig.defaultData.getString("c") == "C", aConfig.name);
+    assert(configuration.default_("a").to!string == "A", configuration.name);
+    assert(configuration.defaultString("c") == "C", configuration.name);
 
-    assert(aConfig.hasAnyDefaults(["a", "x"]), aConfig.name);
-    assert(!aConfig.hasAnyDefaults(["x", "y"]), aConfig.name);
+    assert(configuration.hasAnyDefaults(["a", "x"]), configuration.name);
+    assert(!configuration.hasAnyDefaults(["x", "y"]), configuration.name);
 
-    assert(aConfig.hasAllDefaults(["a", "c"]));
-    assert(!aConfig.hasAllDefaults(["a", "x"]));
-
-// TODO
-/*
-    assert(aConfig.hasDefault("a"));
-    assert(!aConfig.hasDefault("x"));
-        bool (string[] keys);
-        bool hasDefault(string key);
-
-        void setDefaults(Json[string] newData);
-        void updateDefault(string key, Json newData);
-
-        void mergeDefaults(Json[string] newData);
-        void mergeDefault(string key, Json newData);
-    // #endregion default data
-
-    // #region keys
-        string[] keys();
-
-        bool hasAnyKeys(string[] keys...);
-        bool hasAnyKeys(string[] keys);
-
-        bool hasAllKeys(string[] keys...);
-        bool hasAllKeys(string[] keys);
-
-        bool has(string key); // Short of hasKey
-        bool hasKey(string[] path); // for a path as key
-        bool hasKey(string key);
-    // #endregion keys
-
-    // #region values
-        bool hasAnyValues(string[] values...);
-        bool hasAnyValues(string[] values);
-
-        bool hasAllValues(string[] values...);
-        bool hasAllValues(string[] values);
-
-        bool hasValue(string value);
-    // #endregion values
-
-    // #region get
-        Json opIndex(string key);
-        Json get(string key, Json defaultValue = Json(null));
-        Json[string] get(string[] keys, bool compressMode = false);
-
-        int getLong(string key);
-        long getLong(string key);
-        float getDouble(string key);
-        double getDouble(string key);
-        string getString(string key);
-        string[] getStringArray(string key);
-        Json getJson(string key);
-    // #endregion get
-
-    // #region set
-        void opIndexAssign(Json data, string key);
-        void opAssign(Json[string] data);
-        void set(string[string] values, string[] keys = null);
-        void set(Json[string] newData, string[] keys = null);
-        void set(string key, Json newData);
-    // #endregion set
-
-    void updateKey(Json[string] newData, string[] validKeys = null);
-    void updateKey(string key, Json newData);
-    void updateKey(string key, Json[string] newData);
-
-    void merge(Json[string] newData, string[] validKeys = null);
-    void merge(string key, Json newData);
-    void merge(string key, Json[string] newData);
-
-    bool removeKeys(string[] keys);
-    bool removeItem(string keys);
-
-    IConfiguration clear();
-*/
+    assert(configuration.hasAllDefaults(["a", "c"]));
+    assert(!configuration.hasAllDefaults(["a", "x"]));
 
     return true;
 }

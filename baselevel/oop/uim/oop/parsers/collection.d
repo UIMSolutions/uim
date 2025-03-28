@@ -9,6 +9,7 @@ import uim.oop;
 @safe:
 
 class DParserCollection : DCollection!DParser {   
+  alias opIndex = UIMObject.opIndex;
 }
 
 auto ParserCollection() {

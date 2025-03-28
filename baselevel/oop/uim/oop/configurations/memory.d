@@ -21,145 +21,114 @@ class DMemoryConfiguration : DConfiguration {
     return true;
   }
 
-  // #region defaultEntries
-  protected Json[string] _defaultEntries;
-  override Json[string] defaultEntries() {
-    return _defaultEntries.dup;
-  }
+  // #region defaults
+    protected Json[string] _defaults;
+    override Json[string] defaults() {
+      return _defaults.dup;
+    }
 
-  override IConfiguration defaultEntries(Json[string] newValue) {
-    _defaultEntries = newValue.dup;
-    return this;
-  }
-  // #endregion defaultEntries
+    override IConfiguration defaults(Json[string] items) {
+      _defaults = items.dup;
+      return this;
+    }
+  // #endregion defaults
 
-  // override bool hasDefault(string key)
-  override bool hasDefault(string key) {
-    return (key in _defaultEntries) ? true : false;
-  }
+  // #region entries
+    alias entries = DConfiguration.entries;
+    protected Json[string] _entries;
+    override Json[string] entries() {
+      return _entries.dup;
+    }
 
-  override Json getDefault(string key) {
-    return (key in _defaultEntries) ? _defaultEntries[key] : Json(null);
-  }
+    override IConfiguration entries(Json[string] items) {
+      _entries = items.dup;
+      return this;
+    }
+  // #endregion entries
 
-  // #region data
-  // Set and get data
-  protected Json[string] _entries;
+  // #region hasDefault
+    override bool hasDefault(string key) {
+      return _defaults.hasKey(key);
+    }
+  // #endregion hasDefault
 
-  override Json[string] data() {
-    return _entries.dup;
-  }
+  // #region default_
+    override Json default_(string key) {
+      return _defaults.get(key, Json(null));
+    }
+  // #endregion default_
 
-  override void data(Json[string] newData) {
-    _entries = newData.dup;
-  }
-  // #endregion data
+  // #region hasEntry
+    override bool hasEntry(string key) {
+      return _entries.hasKey(key);
+    }
+  // #endregion hasEntry
 
-  // #region key
-  alias hasAnyKeys = DConfiguration.hasAnyKeys;
-  override bool hasAnyKeys(string[] keys) {
-    return keys.any!(key => hasKey(key));
-  }
+  // #region hasValue
+    alias hasDefaultValue = DConfiguration.hasDefaultValue;
+    override bool hasDefaultValue(Json value) {
+      return defaultValues.any!(v => v == value);
+    }
 
-  alias hasAllKeys = DConfiguration.hasAllKeys;
-  override bool hasAllKeys(string[] keys) {
-    return keys.all!(key => hasKey(key));
-  }
+    alias hasEntryValue = DConfiguration.hasEntryValue;
+    override bool hasEntryValue(Json value) {
+      return entryValues.any!(v => v == value);
+    }
 
-  override bool hasKey(string key) {
-    return (key in _entries) || hasDefault(key) ? true : false;
-  }
-  // #endregion key
+    unittest {
+      auto config = MemoryConfiguration;
 
-  // #region value
-  alias hasAnyValues = DConfiguration.hasAnyValues;
-  override bool hasAnyValues(Json[] values) {
-    return values.any!(value => hasValue(value));
-  }
+      config.setDefault("a", Json("A"));
+      config.setDefault("b", Json("B"));
+      assert(config.hasDefaultValue(Json("A")));
 
-  alias hasAllValues = DConfiguration.hasAllValues;
-  override bool hasAllValues(Json[] values) {
-    return values.all!(value => hasValue(value));
-  }
+      config.setEntry("c", Json("C"));
+      config.setEntry("d", Json("D"));      
+      assert(config.hasEntryValue(Json("D")));
 
-  override bool hasValue(Json value) {
-    return _entries.byKeyValue
-      .any!(kv => kv.value == value);
-  }
+      config.setDefault("e", Json("E"));
+      config.setEntry("f", Json("F"));      
+      assert(config.hasDefaultValue(Json("E")) && config.hasValue(Json("E")) && config.hasEntryValue(Json("F")) && config.hasValue(Json("F")));
+    }
+  // #endregion hasValue
 
-  override Json[] values(string[] includedKeys = null) {
-    return includedKeys.length == 0
-      ? _entries.values : includedKeys
-      .filter!(key => hasKey(key))
-      .map!(key => get(key))
-      .array;
-  }
-  // #endregion value
+  // #region values
+    override Json[] defaultValues(string[] keys = null)  {
+      return keys.length == 0
+        ? _defaults.values : keys
+        .filter!(key => hasDefault(key))
+        .map!(key => default_(key))
+        .array;
+    }
 
+    override Json[] entryValues(string[] keys = null) {
+      return keys.length == 0
+        ? _entries.values : keys
+        .filter!(key => hasEntry(key))
+        .map!(key => entry(key))
+        .array;
+    }
+  // #endregion values
+
+  // #region keys
   override string[] keys() {
     return _entries.keys;
   }
+  // #endregion keys
 
   // #region get
-  override Json[string] get(string[] selectKeys, bool compressMode = true) {
-    Json[string] results;
-
-    selectKeys.each!((key) {
-      Json result = get(key);
-      if (result is Json(null) && !compressMode) {
-        results[key] = result;
-      }
-    });
-
-    return results;
-  }
-
-  override Json get(string key, Json defaultValue = Json(null)) {
+  override Json entry(string key) {
     if (key.length == 0) {
       return Json(null);
     }
 
-    if (key in _entries) {
-      return _entries[key];
-    }
-
-    return defaultValue.isNull
-      ? getDefault(key) : defaultValue;
+    return _entries.get(key, default_(key));
   }
   // #endregion get
 
   // #region defaults
     // #region set
-      override IConfiguration setDefault(string key, bool value) {
-        setDefault(key, value.toJson);
-        return this;
-      }
-
-      override IConfiguration setDefault(string key, long value) {
-        setDefault(key, value.toJson);
-        return this;
-      }
-
-      override IConfiguration setDefault(string key, double value) {
-        setDefault(key, value.toJson);
-        return this;
-      }
-
-      override IConfiguration setDefault(string key, string value) {
-        setDefault(key, value.toJson);
-        return this;
-      }
-
-      override IConfiguration setDefault(string key, Json[] value) {
-        setDefault(key, value.toJson);
-        return this;
-      }
-
-      override IConfiguration setDefault(string key, Json[string] value) {
-        setDefault(key, value.toJson);
-        return this;
-      }
-      
+      alias setDefault = DConfiguration.setDefault;
       override IConfiguration setDefault(string key, Json value) {
         _defaults[key] = value;
         return this;
@@ -180,36 +149,7 @@ class DMemoryConfiguration : DConfiguration {
 
   // #region entries
     // #region set
-      override IConfiguration setEntry(string key, bool value) {
-        setEntry(key, value.toJson);
-        return this;
-      }
-
-      override IConfiguration setEntry(string key, long value) {
-        setEntry(key, value.toJson);
-        return this;
-      }
-
-      override IConfiguration setEntry(string key, double value) {
-        setEntry(key, value.toJson);
-        return this;
-      }
-
-      override IConfiguration setEntry(string key, string value) {
-        setEntry(key, value.toJson);
-        return this;
-      }
-
-      override IConfiguration setEntry(string key, Json[] value) {
-        setEntry(key, value.toJson);
-        return this;
-      }
-
-      override IConfiguration setEntry(string key, Json[string] value) {
-        setEntry(key, value.toJson);
-        return this;
-      }
-      
+      alias setEntry = DConfiguration.setEntry;
       override IConfiguration setEntry(string key, Json value) {
         _entries[key] = value;
         return this;
@@ -230,12 +170,22 @@ class DMemoryConfiguration : DConfiguration {
   // #endregion entries
 
   
-
+  // #region clone
   override IConfiguration clone() {
-    return MemoryConfiguration;
-    // TODO 
+    return MemoryConfiguration
+      .defaults(defaults())
+      .entries(entries());
   }
 
+  unittest {
+    auto config = MemoryConfiguration;
+/*     config.setDefault("a", Json("A"));
+    config.setEntry("b", Json("B"));
+    auto clonedConfig = config.clone;
+    assert(clonedConfig.hasDefault("a") && clonedConfig.hasEntry("b"));
+    assert(clonedConfig.getDefault("a") == Json("A") && clonedConfig.getEntry("b") == json("B")); */
+  }
+  // #endregion clone
 }
 
 mixin(ConfigurationCalls!("Memory"));

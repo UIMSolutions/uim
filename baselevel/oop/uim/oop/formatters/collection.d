@@ -17,6 +17,8 @@ version (test_uim_oop) {
 }
 
 class DFormatterCollection : DCollection!DFormatter {   
+  alias opIndex = UIMObject.opIndex;
+  alias opIndex = DCollection.opIndex;
 }
 auto FormatterCollection() { return new DFormatterCollection; } 
 

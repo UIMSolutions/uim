@@ -159,28 +159,28 @@ class DConfiguration : IConfiguration {
     mixin(GetMethods!("Json[string]", "MapEntries", "MapEntry", "string"));
     mixin(GetMethods!("Json", "Entries", "Entry", "string"));
 
-    bool getEntryBoolean(string key) {
+    bool getBooleanEntry(string key) {
       return hasEntry(key) ? getEntry(key).getBoolean : false;
     }
 
-    long getEntryLong(string key) {
+    long getLongEntry(string key) {
       return hasEntry(key) ? getEntry(key).getLong : 0;
     }
 
-    double entryDouble(string key) {
+    double getDoubleEntry(string key) {
       return hasEntry(key) ? getEntry(key).getDouble : 0.0;
     }
 
-    string entryString(string key) {
+    string getStringEntry(string key) {
       return hasEntry(key) ? getEntry(key).getString : null;
     }
 
-    Json[] getEntryArray(string key) {
+    Json[] getArrayEntry(string key) {
       return hasEntry(key) && getEntry(key).isArray
         ? getEntry(key).getArray : null;
     }
 
-    Json[string] getEntryMap(string key) {
+    Json[string] getMapEntry(string key) {
       return hasEntry(key) && getEntry(key).isMap
         ? getEntry(key).getMap : null;
     }

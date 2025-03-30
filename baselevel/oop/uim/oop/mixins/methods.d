@@ -39,7 +39,7 @@ template IsMethods(string plural, string singular, string keyType) {
 }
 
 unittest {
-  writeln("isMethods ->", isMethods("Empty", "Empty", "string"));
+  // writeln("isMethods ->", isMethods("Empty", "Empty", "string"));
 }
 // #endregion isMethods
 
@@ -72,7 +72,7 @@ template HasMethods(string plural, string singular, string keyType) {
 }
 
 unittest {
-  writeln("hasMethods ->", hasMethods("Entries", "Entry", "string"));
+  // writeln("hasMethods ->", hasMethods("Entries", "Entry", "string"));
 }
 // #endregion hasMethods
 
@@ -98,7 +98,7 @@ template GetMethods(string returntype, string plural, string singular, string ke
 }
 
 unittest {
-  writeln("getMethods ->", getMethods("Json", "Entries", "Entry", "string"));
+  // writeln("getMethods ->", getMethods("Json", "Entries", "Entry", "string"));
 }
 // #endregion getMethods
 
@@ -124,7 +124,7 @@ template ShiftMethods(string returntype, string plural, string singular, string 
 }
 
 unittest {
-  writeln("shiftMethods ->", shiftMethods("Json", "Entries", "Entry", "string"));
+  // writeln("shiftMethods ->", shiftMethods("Json", "Entries", "Entry", "string"));
 }
 // #endregion shiftMethods
 
@@ -156,8 +156,8 @@ template SetMethods(string returntype, string plural, string singular, string ke
 }
 
 unittest {
-  writeln("setMethods ->", changeMethods("void", "set", "Entries", "Entry", "string", "Json"));
-}
+  // writeln("setMethods ->", changeMethods("void", "set", "Entries", "Entry", "string", "Json"));
+} 
 // #endregion setMethods
 
 // #region updateMethods
@@ -166,7 +166,7 @@ template UpdateMethods(string returntype, string plural, string singular, string
 }
 
 unittest {
-  writeln("updateMethods ->", changeMethods("void", "update", "Entries", "Entry", "string", "Json"));
+  // writeln("updateMethods ->", changeMethods("void", "update","Entries", "Entry", "string", "Json"));
 }
 // #endregion updateMethods
 
@@ -176,7 +176,7 @@ template MergeMethods(string returntype, string plural, string singular, string 
 }
 
 unittest {
-  writeln("mergeMethods ->", changeMethods("void", "merge", "Entries", "Entry", "string", "Json"));
+  // writeln("mergeMethods ->", changeMethods("void", "merge", "Entries", "Entry", "string", "Json"));
 }
 // #endregion mergeMethods
 
@@ -203,6 +203,6 @@ template RemoveMethods(string returntype, string plural, string singular, string
 }
 
 unittest {
-  writeln("removeMethods ->", removeMethods("void", "Entries", "Entry", "string"));
+  // writeln("removeMethods ->", removeMethods("void", "Entries", "Entry", "string"));
 }
 // #endregion removeMethods

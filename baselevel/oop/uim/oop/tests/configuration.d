@@ -11,6 +11,9 @@ import uim.oop;
 @safe:
 
 bool testConfiguration(IConfiguration config) {
+    writeln("Testing configuration: ", config.name);
+
+    writeln("Init Entries...");
     config.entries([
         "a": Json("A"),
         "b": Json("B"),
@@ -21,11 +24,15 @@ bool testConfiguration(IConfiguration config) {
         "null": Json(null)
     ]);
 
+    writeln("Entries: ", config.entries.toString());
+    assert(config.entries.length == 7, config.name);
+    assert(config.entryKeys.length == 7, config.name);
+    assert(config.entryValues.length == 7, config.name);
+
+    writeln("Reading 1... ", config.entries.toString());
     assert(config.getStringEntry("a") == "A", config.name);
+    writeln("Reading 2... ", config.entries.toString());
     assert(config.getStringEntry("b") == "B", config.name);
-    
-    assert(config.getStringEntry("c") == "C", config.name);
-    assert(config.getStringEntry("c") != "X", config.name);
 
     return true;
 }

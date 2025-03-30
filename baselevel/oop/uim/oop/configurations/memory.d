@@ -117,7 +117,5 @@ mixin(ConfigurationCalls!("Memory"));
 
 unittest {
   auto configuration = MemoryConfiguration;
-  writeln("Test1");
-  // testConfiguration(MemoryConfiguration);
-  writeln("Test1 Ende");
+  testConfiguration(MemoryConfiguration);
 }

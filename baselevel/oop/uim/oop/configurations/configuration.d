@@ -20,306 +20,123 @@ import uim.oop;
 class DConfiguration : IConfiguration {
   this() {
     this.name(this.classname);
-    this.defaults(new Json[string]);
+    this.entries(new Json[string]);
   }
 
   this(Json[string] initData) {
-    this.defaults(initData);
+    this.entries(initData);
     this.name(this.classname);
   }
 
   this(string newName, Json[string] initData = null) {
-    this.defaults(initData);
+    this.entries(initData);
     this.name(newName);
   }
 
   mixin(TProperty!("string", "name"));
 
-  // #region defaults
-  abstract Json[string] defaults();
-  abstract IConfiguration defaults(Json[string] newData);
-  // #endregion defaults
-
   // #region entries
     abstract Json[string] entries();
-    abstract IConfiguration entries(Json[string] newData);
+    abstract IConfiguration entries(Json[string] newEntries);
  // #endregion entries
 
-  // #region has
-    // #region defaults
-      mixin(HasAction!("Defaults", "Default", "string"));
-      abstract bool hasDefault(string key);
-    // #endregion defaults
+  // #region keys
+  abstract string[] entryKeys();
+  // #endregion keys
 
-    // #region entries
-      mixin(HasAction!("Entries", "Entry", "string"));
+  // #region values
+  abstract Json[] entryValues();
+  // #endregion values
+
+  // #region has
+    mixin(HasMethods!("Entries", "Entry", "string"));
+
+    mixin(HasMethods!("EntryValues", "EntryValue", "bool"));
+    mixin(HasMethods!("EntryValues", "EntryValue", "long"));
+    mixin(HasMethods!("EntryValues", "EntryValue", "double"));
+    mixin(HasMethods!("EntryValues", "EntryValue", "string"));
+    mixin(HasMethods!("EntryValues", "EntryValue", "Json[]"));
+    mixin(HasMethods!("EntryValues", "EntryValue", "Json[string]"));
+    mixin(HasMethods!("EntryValues", "EntryValue", "Json"));
+
+    abstract bool hasEntry(string key);
       
-      abstract bool hasEntry(string key);
-    // #endregion entries
+    bool hasEntryValue(bool value) {
+      return hasEntryValue(value.toJson);
+    }
+
+    bool hasEntryValue(long value) {
+      return hasEntryValue(value.toJson);
+    }
+
+    bool hasEntryValue(double value) {
+      return hasEntryValue(value.toJson);
+    }
+
+    bool hasEntryValue(string value) {
+      return hasEntryValue(value.toJson);
+    }
+
+    bool hasEntryValue(Json[] value) {
+      return hasEntryValue(value.toJson);
+    }
+
+    bool hasEntryValue(Json[string] value) {
+      return hasEntryValue(value.toJson);
+    }
+
+    abstract bool hasEntryValue(Json value);
+      
+    unittest {
+      auto config = MemoryConfiguration;
+
+      // TODO
+    }
   // #endregion has
 
-  // #region hasValue
-    // #region defaults
-      mixin(HasAction!("DefaultValues", "DefaultValue", "bool"));
-      mixin(HasAction!("DefaultValues", "DefaultValue", "long"));
-      mixin(HasAction!("DefaultValues", "DefaultValue", "double"));
-      mixin(HasAction!("DefaultValues", "DefaultValue", "string"));
-      mixin(HasAction!("DefaultValues", "DefaultValue", "Json[]"));
-      mixin(HasAction!("DefaultValues", "DefaultValue", "Json[string]"));
-      mixin(HasAction!("DefaultValues", "DefaultValue", "Json"));
-      
-      bool hasDefaultValue(bool value) {
-        return hasDefaultValue(value.toJson);
-      }
-
-      bool hasDefaultValue(long value) {
-        return hasDefaultValue(value.toJson);
-      }
-
-      bool hasDefaultValue(double value) {
-        return hasDefaultValue(value.toJson);
-      }
-
-      bool hasDefaultValue(string value) {
-        return hasDefaultValue(value.toJson);
-      }
-
-      bool hasDefaultValue(Json[] value) {
-        return hasDefaultValue(value.toJson);
-      }
-
-      bool hasDefaultValue(Json[string] value) {
-        return hasDefaultValue(value.toJson);
-      }
-
-      abstract bool hasDefaultValue(Json value);
-
-      unittest {
-        writeln("Test 1");
-        auto config = MemoryConfiguration;
-        writeln("Test 1 - Ende");
-        // TODO
-      }
-    // #endregion defaults
-
-    // #region entries
-      mixin(HasAction!("EntryValues", "EntryValue", "bool"));
-      mixin(HasAction!("EntryValues", "EntryValue", "long"));
-      mixin(HasAction!("EntryValues", "EntryValue", "double"));
-      mixin(HasAction!("EntryValues", "EntryValue", "string"));
-      mixin(HasAction!("EntryValues", "EntryValue", "Json[]"));
-      mixin(HasAction!("EntryValues", "EntryValue", "Json[string]"));
-      mixin(HasAction!("EntryValues", "EntryValue", "Json"));
-      
-      bool hasEntryValue(bool value) {
-        return hasEntryValue(value.toJson);
-      }
-
-      bool hasEntryValue(long value) {
-        return hasEntryValue(value.toJson);
-      }
-
-      bool hasEntryValue(double value) {
-        return hasEntryValue(value.toJson);
-      }
-
-      bool hasEntryValue(string value) {
-        return hasEntryValue(value.toJson);
-      }
-
-      bool hasEntryValue(Json[] value) {
-        return hasEntryValue(value.toJson);
-      }
-
-      bool hasEntryValue(Json[string] value) {
-        return hasEntryValue(value.toJson);
-      }
-
-      abstract bool hasEntryValue(Json value);
-      
-      unittest {
-        auto config = MemoryConfiguration;
-
-        // TODO
-      }
-    // #endregion entries
-
-    // #region values
-      mixin(HasAction!("Values", "Value", "bool"));
-      mixin(HasAction!("Values", "Value", "long"));
-      mixin(HasAction!("Values", "Value", "double"));
-      mixin(HasAction!("Values", "Value", "string"));
-      mixin(HasAction!("Values", "Value", "Json[]"));
-      mixin(HasAction!("Values", "Value", "Json[string]"));
-
-      bool hasValue(bool value) {
-        return hasEntryValue(value) 
-          ? true
-          : hasDefaultValue(value);
-      }
-
-      bool hasValue(long value) {
-        return hasEntryValue(value) 
-          ? true
-          : hasDefaultValue(value);
-      }
-
-      bool hasValue(double value) {
-        return hasEntryValue(value) 
-          ? true
-          : hasDefaultValue(value);
-      }
-
-      bool hasValue(string value) {
-        return hasEntryValue(value) 
-          ? true
-          : hasDefaultValue(value);
-      }
-
-      bool hasValue(Json[] value) {
-        return hasEntryValue(value) 
-          ? true
-          : hasDefaultValue(value);
-      }
-
-      bool hasValue(Json[string] value) {
-        return hasEntryValue(value) 
-          ? true
-          : hasDefaultValue(value);
-      }
-
-      bool hasValue(Json value) {
-        return hasEntryValue(value) 
-          ? true
-          : hasDefaultValue(value);
-      }
-    // #endregion values
-  // #endregion hasValue
-
   // #region is
-    // #region empty
-      mixin(IsAction!("Empty", "Entries", "Entry", "string"));
+    mixin(IsMethods!("EmptyEntries", "EmptyEntry", "string"));
+    mixin(IsMethods!("BooleanEntries", "BooleanEntry", "string"));
+    mixin(IsMethods!("LongEntries", "LongEntry", "string")); 
+    mixin(IsMethods!("DoubleEntries", "DoubleEntry", "string"));
+    mixin(IsMethods!("StringEntries", "StringEntry", "string"));
+    mixin(IsMethods!("ArrayEntries", "ArrayEntry", "string"));
+    mixin(IsMethods!("MapEntries", "MapEntry", "string"));
 
-      bool isEmptyEntry(string key) {
-        return hasEntry(key)
-          ? entry(key).isEmpty : false;
-      }
+    bool isEmptyEntry(string key) {
+      return hasEntry(key)
+        ? getEntry(key).isEmpty : false;
+    }
 
-      unittest {
-        auto config = MemoryConfiguration;
+    bool isBooleanEntry(string key) {
+      return hasEntry(key)
+        ? getEntry(key).isBoolean : false;
+    }
 
-/*         config.setEntry("a", "");
-        assert(config.hasEntry("a") && !config.hasEntry("b"));
+    bool isLongEntry(string key) {
+      return hasEntry(key)
+        ? getEntry(key).isLong : false;
+    }
 
-        config.setEntry(["b", "c"], "");
-        assert(config.hasEntry("b") && config.hasEntry("c")); */
-      }
-    // #endregion empty
-
-    // #region boolean
-      mixin(IsAction!("Boolean", "Entries", "Entry", "string"));
-
-      bool isBooleanEntry(string key) {
-        return hasEntry(key)
-          ? entry(key).isBoolean : false;
-      }
-
-      unittest {
-        auto config = MemoryConfiguration;
-
-/*         config.set("a", true);
-        assert(config.hasEntry("a") && !config.hasEntry("b"));
-
-        config.set(["b", "c"], false);
-        assert(config.hasEntry("b") && config.hasEntry("c")); */
-      }
-    // #endregion boolean
-
-    // #region long
-      mixin(IsAction!("Long", "Entries", "Entry", "string"));
-
-      bool isLongEntry(string key) {
-        return hasEntry(key)
-          ? entry(key).isLong : false;
-      }
-
-      unittest {
-        writeln("Test 2");
-        auto config = MemoryConfiguration;
-
-        /* config.setEntry("a", 1);
-        assert(config.hasEntry("a") && !config.hasEntry("b"));
-
-        config.ssetEntryet(["b", "c"], 2);
-        assert(config.hasEntry("b") && config.hasEntry("c")); */
-      }
-    // #endregion long
-
-    // #region double
-      mixin(IsAction!("Double", "Entries", "Entry", "string"));
-
-      bool isDoubleEntry(string key) {
-        return hasEntry(key)
-          ? entry(key).isDouble : false;
-      }
-
-      unittest {
-        auto config = MemoryConfiguration;
-
-/*         config.set("a", 1.1);
-        assert(config.hasEntry("a") && !config.hasEntry("b"));
-
-        config.set(["b", "c"], 2.2);
-        assert(config.hasEntry("b") && config.hasEntry("c")); */
-      }
-    // #endregion double
-
-    // #region string
-      mixin(IsAction!("String", "Entries", "Entry", "string"));
-
-      bool isStringEntry(string key) {
-        return hasEntry(key)
-          ? entry(key).isString : false;
-      }
-
-      unittest {
-        auto config = MemoryConfiguration;
-
-/*         config.set("a", "text");
-        assert(config.hasEntry("a") && !config.hasEntry("b"));
-
-        config.set(["b", "c"], "xtx");
-        assert(config.hasEntry("b") && config.hasEntry("c")); */
-      }
-    // #endregion string
-
-    // #region array
-      mixin(IsAction!("Array", "Entries", "Entry", "string"));
+    bool isDoubleEntry(string key) {
+      return hasEntry(key)
+        ? getEntry(key).isDouble : false;
+    }
+     
+    bool isStringEntry(string key) {
+      return hasEntry(key)
+        ? getEntry(key).isString : false;
+    }
       
-      bool isArrayEntry(string key) {
-        return hasEntry(key)
-          ? entry(key).isArray : false;
-      }
+    bool isArrayEntry(string key) {
+      return hasEntry(key)
+        ? getEntry(key).isArray : false;
+    }
 
-      unittest {
-        auto config = MemoryConfiguration;
-
-/*         Json[] values = [Json(1), Json(2), Json(3)];
-        config.set("a", values);
-        assert(config.hasEntry("a") && !config.hasEntry("b"));
-
-        config.set(["b", "c"], values);
-        assert(config.hasEntry("b") && config.hasEntry("c")); */
-      }
-    // #endregion array
-
-    // #region map
-      mixin(IsAction!("Map", "Entries", "Entry", "string"));
-      
-      bool isMapEntry(string key) {
-        return hasEntry(key)
-          ? entry(key).isMap : false;
-      }
+    bool isMapEntry(string key) {
+      return hasEntry(key)
+        ? getEntry(key).isMap : false;
+    }
 
       unittest {
         auto config = MemoryConfiguration;
@@ -331,608 +148,209 @@ class DConfiguration : IConfiguration {
         config.set(["b", "c"], values);
         assert(config.hasEntry("b") && config.hasEntry("c")); */
       }
-    // #endregion map
   // #endregion is
 
+  // #region get
+    mixin(GetMethods!("bool", "BooleanEntries", "BooleanEntry", "string"));
+    mixin(GetMethods!("long", "LongEntries", "LongEntry", "string"));
+    mixin(GetMethods!("double", "DoubleEntries", "DoubleEntry", "string"));
+    mixin(GetMethods!("string", "StringEntries", "StringEntry", "string"));
+    mixin(GetMethods!("Json[]", "ArrayEntries", "ArrayEntry", "string"));
+    mixin(GetMethods!("Json[string]", "MapEntries", "MapEntry", "string"));
+    mixin(GetMethods!("Json", "Entries", "Entry", "string"));
+
+    bool getEntryBoolean(string key) {
+      return hasEntry(key) ? getEntry(key).getBoolean : false;
+    }
+
+    long getEntryLong(string key) {
+      return hasEntry(key) ? getEntry(key).getLong : 0;
+    }
+
+    double entryDouble(string key) {
+      return hasEntry(key) ? getEntry(key).getDouble : 0.0;
+    }
+
+    string entryString(string key) {
+      return hasEntry(key) ? getEntry(key).getString : null;
+    }
+
+    Json[] getEntryArray(string key) {
+      return hasEntry(key) && getEntry(key).isArray
+        ? getEntry(key).getArray : null;
+    }
+
+    Json[string] getEntryMap(string key) {
+      return hasEntry(key) && getEntry(key).isMap
+        ? getEntry(key).getMap : null;
+    }
+
+    abstract Json getEntry(string key);
+
+    unittest {
+      auto config = MemoryConfiguration;
+      // TODO
+    }
+  // #endregion get
+
+  // #region shift
+    mixin(ShiftMethods!("Json", "Entries", "Entry", "string")); 
+
+    Json shiftEntry(string key) {
+      if (!hasEntry(key)) {
+        return Json(null);
+      }
+
+      auto value = getEntry(key);
+      removeEntry(key);
+      return value;
+    }
+
+    unittest {
+      auto config = MemoryConfiguration;
+      // TODO
+    }     
+  // #endregion shift
+
   // #region set
-    // #region defaults
-      mixin(SetAction!("IConfiguration", "Defaults", "Default", "string", "bool"));
-      mixin(SetAction!("IConfiguration", "Defaults", "Default", "string", "long"));
-      mixin(SetAction!("IConfiguration", "Defaults", "Default", "string", "double"));
-      mixin(SetAction!("IConfiguration", "Defaults", "Default", "string", "string"));
-      mixin(SetAction!("IConfiguration", "Defaults", "Default", "string", "Json[string]"));
-      mixin(SetAction!("IConfiguration", "Defaults", "Default", "string", "Json[]"));
-      mixin(SetAction!("IConfiguration", "Defaults", "Default", "string", "Json"));
-    // #endregion defaults
-  
-    // #region default
-      IConfiguration setDefault(string key, bool value) {
-        return setDefault(key, value.toJson);
-      }
+    mixin(SetMethods!("IConfiguration", "Entries", "Entry", "string", "bool"));
+    mixin(SetMethods!("IConfiguration", "Entries", "Entry", "string", "long"));
+    mixin(SetMethods!("IConfiguration", "Entries", "Entry", "string", "double"));
+    mixin(SetMethods!("IConfiguration", "Entries", "Entry", "string", "string"));
+    mixin(SetMethods!("IConfiguration", "Entries", "Entry", "string", "Json[string]"));
+    mixin(SetMethods!("IConfiguration", "Entries", "Entry", "string", "Json[]"));
+    mixin(SetMethods!("IConfiguration", "Entries", "Entry", "string", "Json"));
 
-      IConfiguration setDefault(string key, long value) {
-        return setDefault(key, value.toJson);
-      }
+    IConfiguration setEntry(string key, bool value) {
+      return setEntry(key, value.toJson);
+    }
 
-      IConfiguration setDefault(string key, double value) {
-        return setDefault(key, value.toJson);
-      }
+    IConfiguration setEntry(string key, long value) {
+      return setEntry(key, value.toJson);
+    }
 
-      IConfiguration setDefault(string key, string value) {
-        return setDefault(key, value.toJson);
-      }
+    IConfiguration setEntry(string key, double value) {
+      return setEntry(key, value.toJson);
+    }
 
-      IConfiguration setDefault(string key, Json[] value) {
-        return setDefault(key, value.toJson);
-      }
+    IConfiguration setEntry(string key, string value) {
+      return setEntry(key, value.toJson);
+    }
 
-      IConfiguration setDefault(string key, Json[string] value) {
-        return setDefault(key, value.toJson);
-      }
+    IConfiguration setEntry(string key, Json[] value) {
+      return setEntry(key, value.toJson);
+    }
 
-      abstract IConfiguration setDefault(string key, Json value);
+    IConfiguration setEntry(string key, Json[string] value) {
+      return setEntry(key, value.toJson);
+    }
 
-      unittest {
-        auto config = MemoryConfiguration;
-
-/*         config.setDefault("a", true);
-        assert(config.hasDefault("a") && config.default_("a") == Json(true) && config.default_("a").getBoolean);
-
-        config.setDefault("b", 10);
-        assert(config.hasDefault("b") && config.default_("b") == Json(10) && config.default_("b").getLong == 10);
-
-        config.setDefault("c", 1.1);
-        assert(config.hasDefault("c") && config.default_("c") == Json(1.1) && config.default_("c").getDouble == 1.1);
-
-        config.setDefault("e", "text");
-        assert(config.hasDefault("e") && config.default_("e") == Json("text") && config.default_("e").getString == "text");
-
-        Json[] list = [Json(1), Json(2), Json(3)];
-        config.setDefault("f", list);
-        assert(config.hasDefault("f") && config.default_("f") == Json(list) && config.default_("f").getArray == list);
-
-        Json[string] map = ["a": Json(1), "b": Json(2), "c": Json(3)];
-        config.setDefault("g", map);
-        assert(config.hasDefault("g") && config.default_("g") == Json(map) && config.default_("g").getMap == map); */
-
-        config.setDefault("h", Json(true));
-        assert(config.hasDefault("h") && config.default_("h") == Json(true) && config.default_("h").getBoolean);
-      }
-    // #endregion default
-
-    // #region entries
-      mixin(SetAction!("IConfiguration", "Entries", "Entry", "string", "bool"));
-      mixin(SetAction!("IConfiguration", "Entries", "Entry", "string", "long"));
-      mixin(SetAction!("IConfiguration", "Entries", "Entry", "string", "double"));
-      mixin(SetAction!("IConfiguration", "Entries", "Entry", "string", "string"));
-      mixin(SetAction!("IConfiguration", "Entries", "Entry", "string", "Json[string]"));
-      mixin(SetAction!("IConfiguration", "Entries", "Entry", "string", "Json[]"));
-      mixin(SetAction!("IConfiguration", "Entries", "Entry", "string", "Json"));
-    // #endregion entries
-  
-    // #region entry
-      void opIndexAssign(bool value, string key) {
-        setEntry(key, value);
-      }
-
-      void opIndexAssign(long value, string key) {
-        setEntry(key, value);
-      }
-
-      void opIndexAssign(double value, string key) {
-        setEntry(key, value);
-      }
-
-      void opIndexAssign(string value, string key) {
-        setEntry(key, value);
-      }
-
-      void opIndexAssign(Json value, string key) {
-        setEntry(key, value);
-      }
-
-      void opIndexAssign(Json[] value, string key) {
-        setEntry(key, value);
-      }
-
-      void opIndexAssign(Json[string] value, string key) {
-        setEntry(key, value);
-      }
-
-      IConfiguration setEntry(string key, bool value) {
-        return setEntry(key, value.toJson);
-      }
-
-      IConfiguration setEntry(string key, long value) {
-        return setEntry(key, value.toJson);
-      }
-
-      IConfiguration setEntry(string key, double value) {
-        return setEntry(key, value.toJson);
-      }
-
-      IConfiguration setEntry(string key, string value) {
-        return setEntry(key, value.toJson);
-      }
-
-      IConfiguration setEntry(string key, Json[] value) {
-        return setEntry(key, value.toJson);
-      }
-
-      IConfiguration setEntry(string key, Json[string] value) {
-        return setEntry(key, value.toJson);
-      }
-
-      abstract IConfiguration setEntry(string key, Json value);
-    // #endregion entry
+    abstract IConfiguration setEntry(string key, Json value);
 
     unittest{
       auto config = MemoryConfiguration;
 
-      Json j1 = Json(true);
-      Json j2 = Json(1);
-      Json j3 = Json("a");
-      config.setDefaults(["a", "b"], j1);
-      assert(config.hasDefault("a") && config.hasDefault("b"));
-
-      Json[string] map1 = [
-        "e": j1,
-        "f": j2,
-        "g": j3
-      ];
-      config.setDefaults(map1);
-      assert(config.hasDefault("e") && config.hasDefault("f") && config.hasDefault("g"));
-      assert(config.hasDefault("a") && config.hasDefault("b") && config.hasDefault("e") && config.hasDefault("f") && config.hasDefault("g"));
-      assert(!config.hasDefault("x"));
-
-      Json[] ja1 = [Json(true)];
-      Json[] ja2 = [Json(1)];
-      Json[] ja3 = [Json("a")];
-      config.setDefaults(["aa", "bb"], ja1);
-      assert(config.hasDefault("aa") && config.hasDefault("bb"));
-
-      Json[][string] map2 = [
-        "ee": ja1,
-        "ff": ja2,
-        "gg": ja3
-      ];
-      config.setDefaults(map2);
-      assert(config.hasDefault("ee") && config.hasDefault("ff") && config.hasDefault("gg"));
-      assert(config.hasDefault("aa") && config.hasDefault("bb") && config.hasDefault("ee") && config.hasDefault("ff") && config.hasDefault("gg"));
-      assert(!config.hasDefault("x"));
-
-      Json[string] jm1 = ["x": Json(true)];
-      Json[string] jm2 = ["x": Json(1)];
-      Json[string] jm3 = ["x": Json("a")];
-      config.setDefaults(["aaa", "bbb"], ja1);
-      assert(config.hasDefault("aaa") && config.hasDefault("bbb"));
-
-      Json[string][string] map3 = [
-        "eee": jm1,
-        "fff": jm2,
-        "ggg": jm3
-      ];
-      config.setDefaults(map3);
-      assert(config.hasDefault("eee") && config.hasDefault("fff") && config.hasDefault("ggg"));
-      assert(config.hasDefault("aaa") && config.hasDefault("bbb") && config.hasDefault("eee") && config.hasDefault("fff") && config.hasDefault("ggg"));
-      assert(!config.hasDefault("x"));
-
-      config.setDefaults(["text_a", "text_b"], "text");
-      assert(config.hasDefault("text_a") && config.hasDefault("text_b"));
-
-      string[string] map4 = [
-        "text_e": "text1",
-        "text_f": "text2",
-        "text_g": "text3"
-      ];
-      config.setDefaults(map4);
-      assert(config.hasDefault("text_e") && config.hasDefault("text_f") && config.hasDefault("text_g"));
-      assert(config.hasDefault("text_a") && config.hasDefault("text_b") && config.hasDefault("text_e") && config.hasDefault("text_f") && config.hasDefault("text_g"));
-      assert(!config.hasDefault("x"));
-
-      config.setDefaults(["double_a", "double_b"], 4.4);
-      assert(config.hasDefault("double_a") && config.hasDefault("double_b"));
-
-      double[string] map5 = [
-        "double_e": 1.1,
-        "double_f": 2.2,
-        "double_g": 3.3
-      ];
-      config.setDefaults(map5);
-      assert(config.hasDefault("double_e") && config.hasDefault("double_f") && config.hasDefault("double_g"));
-      assert(config.hasDefault("double_a") && config.hasDefault("double_b") && config.hasDefault("double_e") && config.hasDefault("double_f") && config.hasDefault("double_g"));
-      assert(!config.hasDefault("x"));
-
-      config.setDefaults(["long_a", "long_b"], 4);
-      assert(config.hasDefault("long_a") && config.hasDefault("long_b"));
-
-      long[string] map6 = [
-        "long_e": 1,
-        "long_f": 2,
-        "long_g": 3
-      ];
-      config.setDefaults(map6);
-      assert(config.hasDefault("long_e") && config.hasDefault("long_f") && config.hasDefault("long_g"));
-      assert(config.hasDefault("long_a") && config.hasDefault("long_b") && config.hasDefault("long_e") && config.hasDefault("long_f") && config.hasDefault("long_g"));
-      assert(!config.hasDefault("x"));
-
-      config.setDefaults(["bool_a", "bool_b"], true);
-      assert(config.hasDefault("bool_a") && config.hasDefault("bool_b"));
-
-      bool[string] map7 = [
-        "bool_e": true,
-        "bool_f": true,
-        "bool_g": true
-      ];
-      config.setDefaults(map7);
-      assert(config.hasDefault("bool_e") && config.hasDefault("bool_f") && config.hasDefault("bool_g"));
-      assert(config.hasDefault("bool_a") && config.hasDefault("bool_b") && config.hasDefault("bool_e") && config.hasDefault("bool_f") && config.hasDefault("bool_g"));
-      assert(!config.hasDefault("x"));
+      // TODO 
     }
   // #endregion set
 
   // #region update
-    // #region defaults
-      mixin(UpdateAction!("IConfiguration", "Defaults", "Default", "string", "bool"));
-      mixin(UpdateAction!("IConfiguration", "Defaults", "Default", "string", "long"));
-      mixin(UpdateAction!("IConfiguration", "Defaults", "Default", "string", "double"));
-      mixin(UpdateAction!("IConfiguration", "Defaults", "Default", "string", "string"));
-      mixin(UpdateAction!("IConfiguration", "Defaults", "Default", "string", "Json[string]"));
-      mixin(UpdateAction!("IConfiguration", "Defaults", "Default", "string", "Json[]"));
-      mixin(UpdateAction!("IConfiguration", "Defaults", "Default", "string", "Json"));
-    // #endregion defaults
+    mixin(UpdateMethods!("IConfiguration", "Entries", "Entry", "string", "bool"));
+    mixin(UpdateMethods!("IConfiguration", "Entries", "Entry", "string", "long"));
+    mixin(UpdateMethods!("IConfiguration", "Entries", "Entry", "string", "double"));
+    mixin(UpdateMethods!("IConfiguration", "Entries", "Entry", "string", "string"));
+    mixin(UpdateMethods!("IConfiguration", "Entries", "Entry", "string", "Json[string]"));
+    mixin(UpdateMethods!("IConfiguration", "Entries", "Entry", "string", "Json[]"));
+    mixin(UpdateMethods!("IConfiguration", "Entries", "Entry", "string", "Json"));
 
-    // #region default
-      IConfiguration updateDefault(string key, bool value) {
-        return updateDefault(key, value.toJson);
-      }
+    IConfiguration updateEntry(string key, bool value) {
+      return updateEntry(key, value.toJson);
+    }
 
-      IConfiguration updateDefault(string key, long value) {
-        return updateDefault(key, value.toJson);
-      }
+    IConfiguration updateEntry(string key, long value) {
+      return updateEntry(key, value.toJson);
+    }
 
-      IConfiguration updateDefault(string key, double value) {
-        return updateDefault(key, value.toJson);
-      }
+    IConfiguration updateEntry(string key, double value) {
+      return updateEntry(key, value.toJson);
+    }
 
-      IConfiguration updateDefault(string key, string value) {
-        return updateDefault(key, value.toJson);
-      }
-      
-      IConfiguration updateDefault(string key, Json[] value) {
-        return updateDefault(key, value.toJson);
-      }
+    IConfiguration updateEntry(string key, string value) {
+      return updateEntry(key, value.toJson);
+    }
 
-      IConfiguration updateDefault(string key, Json[string] value) {
-        return updateDefault(key, value.toJson);
-      }
+    IConfiguration updateEntry(string key, Json[] value) {
+      return updateEntry(key, value.toJson);
+    }
 
-      IConfiguration updateDefault(string key, Json value) {
-        if (hasDefault(key)) {
-          setDefault(key, value);
-        }
-        return this;
-      }
+    IConfiguration updateEntry(string key, Json[string] value) {
+      return updateEntry(key, value.toJson);
+    }
 
-      unittest {
-        // TODO
-      }
-    // #endregion default
+    IConfiguration updateEntry(string key, Json value) {
+      return hasEntry(key)
+        ? setEntry(key, value)
+        : this;
+    }
 
-    // #region entries
-      mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "bool"));
-      mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "long"));
-      mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "double"));
-      mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "string"));
-      mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "Json[string]"));
-      mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "Json[]"));
-      mixin(UpdateAction!("IConfiguration", "Entries", "Entry", "string", "Json"));
+    unittest{
+      auto config = MemoryConfiguration;
 
-      unittest {
-        // TODO
-      }
-    // #endregion entries
-
-    // #region entry
-      IConfiguration updateEntry(string key, bool value) {
-        return updateEntry(key, value.toJson);
-      }
-      
-      IConfiguration updateEntry(string key, long value) {
-        return updateEntry(key, value.toJson);
-      }
-      
-      IConfiguration updateEntry(string key, double value) {
-        return updateEntry(key, value.toJson);
-      }
-      
-      IConfiguration updateEntry(string key, string value) {
-        return updateEntry(key, value.toJson);
-      }
-
-      IConfiguration updateEntry(string key, Json[] value) {
-        return updateEntry(key, value.toJson);
-      }
-
-      IConfiguration updateEntry(string key, Json[string] value) {
-        return updateEntry(key, value.toJson);
-      }
-
-      IConfiguration updateEntry(string key, Json value) {
-        if (hasEntry(key)) {
-          setEntry(key, value);
-        }
-        return this;
-      }
-
-      unittest {
-        // TODO
-      }
-    // #endregion entry
+      // TODO 
+    }
   // #endregion update
 
   // #region merge
-    // #region defaults
-      mixin(MergeAction!("IConfiguration", "Defaults", "Default", "string", "bool"));
-      mixin(MergeAction!("IConfiguration", "Defaults", "Default", "string", "long"));
-      mixin(MergeAction!("IConfiguration", "Defaults", "Default", "string", "double"));
-      mixin(MergeAction!("IConfiguration", "Defaults", "Default", "string", "string"));
-      mixin(MergeAction!("IConfiguration", "Defaults", "Default", "string", "Json[string]"));
-      mixin(MergeAction!("IConfiguration", "Defaults", "Default", "string", "Json[]"));
-      mixin(MergeAction!("IConfiguration", "Defaults", "Default", "string", "Json"));
-    // #endregion defaults
+    mixin(MergeMethods!("IConfiguration", "Entries", "Entry", "string", "bool"));
+    mixin(MergeMethods!("IConfiguration", "Entries", "Entry", "string", "long"));
+    mixin(MergeMethods!("IConfiguration", "Entries", "Entry", "string", "double"));
+    mixin(MergeMethods!("IConfiguration", "Entries", "Entry", "string", "string"));
+    mixin(MergeMethods!("IConfiguration", "Entries", "Entry", "string", "Json[string]"));
+    mixin(MergeMethods!("IConfiguration", "Entries", "Entry", "string", "Json[]"));
+    mixin(MergeMethods!("IConfiguration", "Entries", "Entry", "string", "Json"));
 
-    // #region default
-      IConfiguration mergeDefault(string key, bool value) {
-        return mergeDefault(key, value.toJson);
-      }
+    IConfiguration mergeEntry(string key, bool value) {
+      return mergeEntry(key, value.toJson);
+    }
 
-      IConfiguration mergeDefault(string key, long value) {
-        return mergeDefault(key, value.toJson);
-      }
+    IConfiguration mergeEntry(string key, long value) {
+      return mergeEntry(key, value.toJson);
+    }
 
-      IConfiguration mergeDefault(string key, double value) {
-        return mergeDefault(key, value.toJson);
-      }
+    IConfiguration mergeEntry(string key, double value) {
+      return mergeEntry(key, value.toJson);
+    }
 
-      IConfiguration mergeDefault(string key, string value) {
-        return mergeDefault(key, value.toJson);
-      }
+    IConfiguration mergeEntry(string key, string value) {
+      return mergeEntry(key, value.toJson);
+    }
 
-      IConfiguration mergeDefault(string key, Json[] value) {
-        return mergeDefault(key, value.toJson);
-      }
+    IConfiguration mergeEntry(string key, Json[] value) {
+      return mergeEntry(key, value.toJson);
+    }
 
-      IConfiguration mergeDefault(string key, Json[string] value) {
-        return mergeDefault(key, value.toJson);
-      }
+    IConfiguration mergeEntry(string key, Json[string] value) {
+      return mergeEntry(key, value.toJson);
+    }
 
-      IConfiguration mergeDefault(string key, Json value) {
-        if (!hasDefault(key)) {
-          setDefault(key, value);
-        }
-        return this;
-      }
-    // #endregion default
+    IConfiguration mergeEntry(string key, Json value) {
+      return hasEntry(key)
+        ? this
+        : setEntry(key, value);
+    }
 
-    // #region entries
-      mixin(MergeAction!("IConfiguration", "Entries", "Entry", "string", "bool"));
-      mixin(MergeAction!("IConfiguration", "Entries", "Entry", "string", "long"));
-      mixin(MergeAction!("IConfiguration", "Entries", "Entry", "string", "double"));
-      mixin(MergeAction!("IConfiguration", "Entries", "Entry", "string", "string"));
-      mixin(MergeAction!("IConfiguration", "Entries", "Entry", "string", "Json[string]"));
-      mixin(MergeAction!("IConfiguration", "Entries", "Entry", "string", "Json[]"));
-      mixin(MergeAction!("IConfiguration", "Entries", "Entry", "string", "Json"));
-    // #endregion entries
+    unittest{
+      auto config = MemoryConfiguration;
 
-    // #region entry
-      IConfiguration mergeEntry(string key, bool value) {
-        return mergeEntry(key, value.toJson);
-      }
-
-      IConfiguration mergeEntry(string key, long value) {
-        return mergeEntry(key, value.toJson);
-      }
-
-      IConfiguration mergeEntry(string key, double value) {
-        return mergeEntry(key, value.toJson);
-      }
-
-      IConfiguration mergeEntry(string key, string value) {
-        return mergeEntry(key, value.toJson);
-      }
-
-      IConfiguration mergeEntry(string key, Json[] value) {
-        return mergeEntry(key, value.toJson);
-      }
-
-      IConfiguration mergeEntry(string key, Json[string] value) {
-        return mergeEntry(key, value.toJson);
-      }
-      
-      IConfiguration mergeEntry(string key, Json value) {
-        if (!hasEntry(key)) {
-          setEntry(key, value);
-        }
-        return this;
-      }
-    // #endregion entry  
+      // TODO 
+    }
   // #endregion merge
  
-  // #region keys
-  abstract string[] keys();
-  // #endregion keys
-
-  // #region values
-  abstract Json[] defaultValues(string[] keys = null);
-  abstract Json[] entryValues(string[] keys = null);
-  // #endregion values
-
-
-  // #region read
-    // #region defaults
-    mixin(ReadAction!("Json", "defaults", "default_", "string"));
-
-    bool defaultBoolean(string key) {
-      return hasDefault(key) ? default_(key).getBoolean : false;
-    }
-
-    long defaultLong(string key) {
-      return hasDefault(key) ? default_(key).getLong : 0;
-    }
-
-    double defaultDouble(string key) {
-      return hasDefault(key) ? default_(key).getDouble : 0.0;
-    }
-
-    string defaultString(string key) {
-      writeln("hasDefault(key) -> ", hasDefault(key));
-      writeln("default_(key).getString -> ", default_(key).getString);
-      return hasDefault(key) ? default_(key).getString : null;
-    }
-
-    string[] defaultStringArray(string key) {
-      return defaultArray(key)
-        .map!(item => item.getString).array;
-    }
-
-    Json[] defaultArray(string key) {
-      return hasDefault(key) && isArray(key)
-        ? default_(key).getArray : null;
-    }
-
-    Json[string] defaultMap(string key) {
-      return hasDefault(key) && isMap(key)
-        ? default_(key).getMap : null;
-    }
-
-    string[string] defaultStringMap(string key) {
-      string[string] result;
-      defaultMap(key).each!((key, value) => result[key] = value.get!string);
-      return result;
-    }
-
-    abstract Json default_(string key);
-
-    unittest {
-      auto config = MemoryConfiguration;
-      // TODO
-    }
-    // #region defaults
-
-    // #region entries
-    mixin(ReadAction!("Json", "entries", "entry", "string"));
-
-    bool entryBoolean(string key) {
-      return hasEntry(key) ? entry(key).getBoolean : false;
-    }
-
-    long entryLong(string key) {
-      return hasEntry(key) ? entry(key).getLong : 0;
-    }
-
-    double entryDouble(string key) {
-      return hasEntry(key) ? entry(key).getDouble : 0.0;
-    }
-
-    string entryString(string key) {
-      writeln("hasEntry(key) ->", hasEntry(key));
-      writeln("entry(key).getString ->", entry(key).getString);
-      return hasEntry(key) ? entry(key).getString : null;
-    }
-
-    string[] entryStringArray(string key) {
-      return entryArray(key)
-        .map!(item => item.getString).array;
-    }
-
-    Json[] entryArray(string key) {
-      return hasEntry(key) && isArray(key)
-        ? entry(key).getArray : null;
-    }
-
-    Json[string] entryMap(string key) {
-      return hasEntry(key) && isMap(key)
-        ? entry(key).getMap : null;
-    }
-
-    string[string] entryStringMap(string key) {
-      string[string] result;
-      entryMap(key).each!((key, value) => result[key] = value.get!string);
-      return result;
-    }
-
-    abstract Json entry(string key);
-
-    unittest {
-      auto config = MemoryConfiguration;
-      // TODO
-    }
-    // #region entries
-  // #endregion read
-
-  // #region shift
-    // #region defaults
-      mixin(GetAction!("Json", "shift", "Defaults", "Default", "string")); 
-
-      Json shiftDefault(string key) {
-        if (!hasDefault(key)) {
-          return Json(null);
-        }
-
-        auto value = entry(key);
-        removeDefault(key);
-        return value;
-      }
-
-      unittest {
-        auto config = MemoryConfiguration;
-        // TODO
-      }
-    // #region defaults
-
-    // #region entries
-      mixin(GetAction!("Json", "shift", "Entries", "Entry", "string")); 
-
-      Json shiftEntry(string key) {
-        if (!hasEntry(key)) {
-          return Json(null);
-        }
-
-        auto value = entry(key);
-        removeEntry(key);
-        return value;
-      }
-
-      unittest {
-        auto config = MemoryConfiguration;
-        // TODO
-      }     
-    // #region entries
-  // #endregion shift
-
   // #region remove
-    // #region defaults
-      mixin(RemoveAction!("IConfiguration", "Defaults", "Default", "string"));
-    
-      IConfiguration clearDefaults() {
-        removeDefaults(keys);
-        return this;
-      }
-
-      abstract IConfiguration removeDefault(string key);
-
-      unittest {
-        auto config = MemoryConfiguration;
-        // TODO
-      }
-    // #endregion defaults
-
-    // #region entries
-      mixin(RemoveAction!("IConfiguration", "Entries", "Entry", "string"));
+      mixin(RemoveMethods!("IConfiguration", "Entries", "Entry", "string"));
     
       IConfiguration clearEntries() {
-        removeEntries(keys);
+        removeEntries(entryKeys);
         return this;
       }
 
@@ -942,7 +360,6 @@ class DConfiguration : IConfiguration {
         auto config = MemoryConfiguration;
         // TODO
       }
-    // #endregion entries
   // #endregion remove
 
   // #region clone

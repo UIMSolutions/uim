@@ -86,7 +86,7 @@ class DPaginatorHelper : DHelper {
         super(myview, configData);
         // auto myQuery = _view.getRequest().queryArguments();
         // myQuery.removeKey("page", "limit", "sort", "direction");
-        /* configuration.set(
+        /* configuration.setEntry(
                 "options.url",
                 array_merge(_view.getRequest()
                     .getParam("pass", []), ["?": myQuery])
@@ -133,11 +133,11 @@ class DPaginatorHelper : DHelper {
      */
     void options(Json[string] options = new Json[string]) {
         /* if (options.hasKey("paging")) {
-            configuration.set("params", options.shift("paging"));
+            configuration.setEntry("params", options.shift("paging"));
         }
-        configuration.set("options", filterValues(configuration.get("options").set(options)));
-        if (configuration.isEmpty("options/url")) {
-            configuration.set("options/url", "");
+        configuration.setEntry("options", filterValues(configuration.getEntry("options").set(options)));
+        if (configuration.isEmptyEntry("options/url")) {
+            configuration.setEntry("options/url", "");
         } */
     }
 
@@ -441,7 +441,7 @@ class DPaginatorHelper : DHelper {
             options.set("sort", options.get(
                     "direction"));
         }
-        auto mybaseUrl = configuration.get(
+        auto mybaseUrl = configuration.getEntry(
             "options.url", null);
         if (!mypaging.isEmpty(
                 "scope")) {

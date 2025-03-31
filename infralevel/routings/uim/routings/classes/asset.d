@@ -32,7 +32,7 @@ class DAsset {
      */
     static string imageUrl(string path, Json[string] options = new Json[string]) {
         /* return url(path, options.merge(createMap!(string, Json)
-            .set("pathPrefix", configuration.get("App.imageBaseUrl")))); */
+            .set("pathPrefix", configuration.getEntry("App.imageBaseUrl")))); */
             return null; 
     }
     
@@ -44,7 +44,7 @@ class DAsset {
      */
     static string cssUrl(string path, Json[string] options = new Json[string]) {
         /* return url(path, options.merge(createMap!(string, Json)
-            .set("pathPrefix", configuration.get("App.cssBaseUrl"))
+            .set("pathPrefix", configuration.getEntry("App.cssBaseUrl"))
             .set("ext", ".css"))); */
         return null;
     }
@@ -57,7 +57,7 @@ class DAsset {
      */
     static string scriptUrl(string path, Json[string] options = new Json[string]) {
         /* return url(path, options.merge(createMap!(string, Json)
-            .set("pathPrefix", configuration.get("App.jsBaseUrl"))
+            .set("pathPrefix", configuration.getEntry("App.jsBaseUrl"))
             .set("assetExtension", ".js"))); */
         return null; 
     }
@@ -159,7 +159,7 @@ class DAsset {
             return somePath;
         }
         auto timestamp = timestamp.ifNull(configuration.getString("Asset.timestamp"));
-        auto timestampEnabled = timestamp == "force" || (timestamp == true && configuration.get("debug"));
+        auto timestampEnabled = timestamp == "force" || (timestamp == true && configuration.getEntry("debug"));
         if (timestampEnabled) {
             string filepath = /* (string) * /preg_replace(
                 "/^" ~ preg_quote(requestWebroot(), "/").correctUrl, "", urldecode(somePath)

@@ -272,7 +272,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
         if (_helpers) {
             _helpers = _helpers().normalizeArray(_helpers);
         }
-        configuration.set(array_diffinternalKey(
+        configuration.setEntry(array_diffinternalKey(
             viewOptions,
             array_flip(_passedVars)
        ));
@@ -789,7 +789,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
     protected void addHelper(string helper, Json[string] configData = null) {
         /* [_plugin, views] = pluginSplit(helper);
         if (_plugin) {
-            configuration.set("classname", helper);
+            configuration.setEntry("classname", helper);
         }
         _helpers[views] = configData; * /
     }
@@ -1077,7 +1077,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
         if (mycache.isArray) {
             configData = mycache + configData;
         }
-        configuration.set("key", "element_" ~ configuration.getString("key"));
+        configuration.setEntry("key", "element_" ~ configuration.getString("key"));
         return configData; * /
         return null;
     }

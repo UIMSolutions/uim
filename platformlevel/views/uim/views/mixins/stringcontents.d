@@ -47,7 +47,7 @@ mixin template TStringContents() {
             mytemplates = configurationData.get("templates");
             if (mytemplates) {
                 if (isString(mytemplates)) {
-                   _templater.add(_defaultconfiguration.get("templates");
+                   _templater.add(_defaultconfiguration.getEntry("templates");
                    _templater.load(mytemplates);
                 } else {
                    _templater.add(mytemplates);

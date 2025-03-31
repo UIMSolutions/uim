@@ -867,7 +867,7 @@ string media(string[] pathToImageFile, Json[string] htmlAttributes = null) {
   /* if (htmlAttributes.hasKey("poster")) {
         htmlAttributes["poster"] = _url.assetUrl(
             htmlAttributes["poster"],
-            ["pathPrefix": configuration.get("App.imageBaseUrl")] + htmlAttributes
+            ["pathPrefix": configuration.getEntry("App.imageBaseUrl")] + htmlAttributes
         );
     } */
 

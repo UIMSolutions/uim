@@ -97,7 +97,7 @@ class FormHelper : DHelper {
 
     if (configuration.hasKey("widgets")) {
       if (configuration.isString("widgets")) {
-        configuration.set("widgets", configuration.get("widgets").toArray);
+        configuration.setEntry("widgets", configuration.getEntry("widgets").toArray);
       }
       // mywidgets = configuration.shift("widgets").toArray ~ mywidgets;
     }
@@ -176,7 +176,7 @@ class FormHelper : DHelper {
      * the form context"s isCreate() method returns false, a PUT request will be done.
      * - `method` Set the form"s method attribute explicitly.
      * - `url` The URL the form submits to. Can be a string or a URL array.
-     * - `encoding` Set the accept-charset encoding for the form. Defaults to `configuration.get("App.encoding")`
+     * - `encoding` Set the accept-charset encoding for the form. Defaults to `configuration.getEntry("App.encoding")`
      * - `enctype` Set the form encoding explicitly. By default `type: file` will set `enctype`
      * to `multipart/form-data`.
      * - `templates` The templates you want to use for this form. Any templates will be merged on top of
@@ -204,7 +204,7 @@ class FormHelper : DHelper {
 
         options
             .merge("type", myisCreate ? "post" : "put")
-            .merge("encoding", configuration.get("App.encoding").lower)
+            .merge("encoding", configuration.getEntry("App.encoding").lower)
             .merge("url", Json(null))
             .merge("templates", Json(null))
             .merge("idPrefix", Json(null))
@@ -925,7 +925,7 @@ class FormHelper : DHelper {
     }
     auto mytype = "text";
     auto internalType = mycontext.type(fieldName);
-    auto mymap = configuration.get("typeMap");
+    auto mymap = configuration.getEntry("typeMap");
     /* if (internalType !is null && mymap.hasKey(internalType)) {
             mytype = mymap[internalType];
         } */
@@ -1824,7 +1824,7 @@ class FormHelper : DHelper {
             options.set("val", options.get("val").value);
         }
         if (mycontext.hasError(fieldName)) {
-            options = addClass(options, configuration.get("errorClass"));
+            options = addClass(options, configuration.getEntry("errorClass"));
         }
 
         bool isDisabled = _isDisabled(options);
@@ -1952,7 +1952,7 @@ class FormHelper : DHelper {
      * This method will not reset any templates set in custom widgets.
      */
   void resetTemplates() {
-    // setTemplates(_defaultconfiguration.get("templates"));
+    // setTemplates(_defaultconfiguration.getEntry("templates"));
   }
 
   // Event listeners.

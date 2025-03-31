@@ -33,7 +33,7 @@ class DConsoleLogger : DLogger {
 
     /* if (cast(DConsoleOutput) configuration.getEntry("stream")) {
       _output = configuration.getEntry("stream");
-    } else if (configuration.isString("stream")) {
+    } else if (configuration.isStringEntry("stream")) {
       _output = new DConsoleOutput(configuration.getEntry("stream"));
     } else {
       throw new DInvalidArgumentException("`stream` not a ConsoleOutput nor string");

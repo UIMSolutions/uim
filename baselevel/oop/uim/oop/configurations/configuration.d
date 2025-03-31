@@ -95,6 +95,7 @@ class DConfiguration : IConfiguration {
   // #endregion has
 
   // #region is
+    mixin(IsMethods!("NullEntries", "NullEntry", "string"));
     mixin(IsMethods!("EmptyEntries", "EmptyEntry", "string"));
     mixin(IsMethods!("BooleanEntries", "BooleanEntry", "string"));
     mixin(IsMethods!("LongEntries", "LongEntry", "string")); 
@@ -102,6 +103,10 @@ class DConfiguration : IConfiguration {
     mixin(IsMethods!("StringEntries", "StringEntry", "string"));
     mixin(IsMethods!("ArrayEntries", "ArrayEntry", "string"));
     mixin(IsMethods!("MapEntries", "MapEntry", "string"));
+
+    bool isNullEntry(string key) {
+      return getEntry(key).isNull;
+    }
 
     bool isEmptyEntry(string key) {
       return hasEntry(key)

@@ -96,7 +96,7 @@ class FormHelper : DHelper {
     }
 
     if (configuration.hasKey("widgets")) {
-      if (configuration.isString("widgets")) {
+      if (configuration.isStringEntry("widgets")) {
         configuration.setEntry("widgets", configuration.getEntry("widgets").toArray);
       }
       // mywidgets = configuration.shift("widgets").toArray ~ mywidgets;

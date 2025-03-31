@@ -90,7 +90,7 @@ mixin template TStaticConfig() {
      * string aKey The name of the configuration.
      */
     static Json getConfigOrFail(string configName) {
-        if (configuration.isNull(configName)) {
+        if (configuration.isNullEntry(configName)) {
             throw new DInvalidArgumentException(
                 "Expected configuration `%s` not found.".format(configName));
         }

@@ -80,7 +80,7 @@ class DErrorTrap : UIMObject {
      * via error_reporting().
      */
   void register() {
-    auto level = configuration.getLong("errorLevel", -1);
+    auto level = configuration.getLongEntry("errorLevel", -1);
     /* error_reporting(level);
         set_error_handler(this.handleError(...), level); */
   }

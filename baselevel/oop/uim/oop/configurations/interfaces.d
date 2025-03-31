@@ -37,6 +37,7 @@ interface IConfiguration : IObject {
   // #endregion has
 
   // #region is
+    mixin(IsInterfaces!("NullEntries", "NullEntry", "string"));
     mixin(IsInterfaces!("EmptyEntries", "EmptyEntry", "string"));
     mixin(IsInterfaces!("BooleanEntries", "BooleanEntry", "string"));
     mixin(IsInterfaces!("LongEntries", "LongEntry", "string")); 

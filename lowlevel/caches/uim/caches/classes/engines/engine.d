@@ -218,7 +218,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
     protected long duration(
         long timeToLive = 0) {
         return timeToLive == 0
-            ? configuration.getLong(
+            ? configuration.getLongEntry(
                 "duration") : timeToLive;
     } */
 }

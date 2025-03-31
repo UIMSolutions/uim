@@ -99,7 +99,7 @@ class DMemoryCacheEngine : DCacheEngine {
     /* if (configData.hasKey("servers")) {
       configuration.setEntry("servers", configuration.getEntry("servers"], false);
     } */
-  /* if (!configuration.isArray("servers")) {
+  /* if (!configuration.isArrayEntry("servers")) {
       configuration.setEntry("servers", [configuration.getArray("servers")]);
     } * / 
     if (!_entries is null) {
@@ -134,7 +134,7 @@ if (!_entries.addServers(myservers)) {
   return false;
 }
 
-if (configuration.isArray("options"]) {
+if (configuration.isArrayEntry("options"]) {
   configuration.getEntry("options"].byKeyValue
     .each!(optValue => _entries.setOption(optValue.key, optValue.value));
 }

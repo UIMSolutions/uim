@@ -201,7 +201,7 @@ return null;
 /*     if (this.disabled) {
       return;
     } */
-/*     auto megabytes = configuration.getLong("extraFatalErrorMemory", 4);
+/*     auto megabytes = configuration.getLongEntry("extraFatalErrorMemory", 4);
     if (megabytes > 0) {
       this.increaseMemoryLimit(megabytes * 1024);
     } */

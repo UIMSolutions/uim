@@ -29,7 +29,7 @@ class UrlHelper : DHelper {
         }
 
         _assetUrlclassname = myengineClass;
-        configuration.setDefault("assetUrlclassname", Asset.classname);
+        .setEntry("assetUrlclassname", Asset.classname);
         */
     return true;
   }

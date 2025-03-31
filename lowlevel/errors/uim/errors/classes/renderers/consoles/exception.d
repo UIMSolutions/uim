@@ -30,7 +30,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
     /* this(Throwable errorToRender, IServerRequest serverRequest, Json[string] errorHandlingData) {
         _error = error;
         // TODO this.output = configuration.getEntry("stderr") ?? new DOutput("d://stderr");
-        _trace = configuration.getBoolean("trace", true);
+        _trace = configuration..getBooleanEntry("trace", true);
     } */
 
     // Render an exception into a plain text message.

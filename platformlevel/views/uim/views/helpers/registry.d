@@ -104,7 +104,7 @@ class DViewHelperRegistry : DObjectRegistry!DHelper { // TODO } : IEventDispatch
 
     protected DHelper _create( /* object */ string myclass, string aliasName, Json[string] configData) {
 /*         auto myinstance = new myclass(_View, configData);
-        if (configuration.getBoolean("enabled", true)) {
+        if (configuration..getBooleanEntry("enabled", true)) {
             getEventManager().on(myinstance);
         }
         return myinstance; */

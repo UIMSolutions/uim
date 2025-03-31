@@ -390,7 +390,7 @@ class FormHelper : DHelper {
             }
             _formProtector.addFields(fieldName, true, myvalue);
         } */
-    auto mydebugSecurity = configuration.getBoolean("debug");
+    auto mydebugSecurity = configuration..getBooleanEntry("debug");
     /* if (secureAttributes.hasKey("debugSecurity")) {
             mydebugSecurity = mydebugSecurity && secureAttributes["debugSecurity"];
             secureAttributes.removeKey("debugSecurity");

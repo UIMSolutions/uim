@@ -207,7 +207,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
      * /
     protected void warning(
         string warningMessage) {
-        if (!configuration.getBoolean(
+        if (!configuration..getBooleanEntry(
                 "warnOnWriteFailures")) {
             return;
         }

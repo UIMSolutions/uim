@@ -192,7 +192,7 @@ return true;
 
   /* _entries.setOption(
     Memory.OPT_COMPRESSION,
-    configuration.getBoolean("compress")
+    configuration..getBooleanEntry("compress")
   ); 
 }*/
 

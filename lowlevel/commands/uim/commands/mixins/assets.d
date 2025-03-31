@@ -37,7 +37,7 @@ mixin template TPluginAssets() {
                 continue;
             }
             string link = plugin.underscore;
-            auto wwwRoot = configuration.get("App.wwwRoot");
+            auto wwwRoot = configuration.getEntry("App.wwwRoot");
             string dir = wwwRoot;
             bool isNamespaced = false;
             if (link.contains("/")) {
@@ -65,8 +65,8 @@ mixin template TPluginAssets() {
             _io.hr();
 
             if (
-                configuration.hasKey("namespaced") && !isDir(configuration.get("destDir")) &&
-                !_createDirectory(configuration.get("destDir"))
+                configuration.hasKey("namespaced") && !isDir(configuration.getEntry("destDir")) &&
+                !_createDirectory(configuration.getEntry("destDir"))
                 ) {
                 continue;
             }
@@ -86,7 +86,7 @@ mixin template TPluginAssets() {
             }
             if (!copyMode) {
                 result = _createSymlink(
-                    configuration.get("srcPath"),
+                    configuration.getEntry("srcPath"),
                     dest
                 );
                 if (result) {
@@ -94,7 +94,7 @@ mixin template TPluginAssets() {
                 }
             }
             _copyDirectory(
-                configuration.get("srcPath"),
+                configuration.getEntry("srcPath"),
                 dest
             );
         }
@@ -107,7 +107,7 @@ mixin template TPluginAssets() {
      * configData - Plugin config.
      */
     protected bool _removeKey(Json[string] configData = null) {
-        /* if (configuration.hasKey("namespaced") && !isDir(configuration.get("destDir"))) {
+        /* if (configuration.hasKey("namespaced") && !isDir(configuration.getEntry("destDir"))) {
             _io.verbose(
                 configuration.getString(
                     "destDir") ~ configuration.getString("link") ~ " does not exist",

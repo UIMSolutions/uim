@@ -31,15 +31,15 @@ class DConsoleLogger : DLogger {
       ;
     // `dateFormat` UIM date() format.
 
-    /* if (cast(DConsoleOutput) configuration.get("stream")) {
-      _output = configuration.get("stream");
+    /* if (cast(DConsoleOutput) configuration.getEntry("stream")) {
+      _output = configuration.getEntry("stream");
     } else if (configuration.isString("stream")) {
-      _output = new DConsoleOutput(configuration.get("stream"));
+      _output = new DConsoleOutput(configuration.getEntry("stream"));
     } else {
       throw new DInvalidArgumentException("`stream` not a ConsoleOutput nor string");
     }
     if (configuration.hasKey("outputAs")) {
-      _output.setOutputAs(configuration.get("outputAs"));
+      _output.setOutputAs(configuration.getEntry("outputAs"));
     } */
 
     return true;

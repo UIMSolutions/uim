@@ -73,7 +73,7 @@ class DServerCommand : DCommand {
             writeln();
             writeln("<info>Welcome to UIM %s Console</info>".format("v" ~ Configure.currentVersion()));
             hr();
-            writeln("App : %s".format(configuration.get("App.dir")));
+            writeln("App : %s".format(configuration.getEntry("App.dir")));
             writeln("Path: %s".format(APP));
             writeln("DocumentRoot: %s".format(_documentRoot));
             writeln("Ini Path: %s".format(_iniPath));

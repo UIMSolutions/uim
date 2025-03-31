@@ -98,7 +98,7 @@ class DExceptionTrap {
   /* IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
     auto myRequest = serverRequest.isNull ? Router.getRequest() : serverRequest;
 
-    string classname = _configData.hasKey("exceptionRenderer") ? _configuration.get(
+    string classname = _configData.hasKey("exceptionRenderer") ? _configuration.getEntry(
       "exceptionRenderer") : chooseRenderer();
     if (isString(classname)) {
       /* if (!isSubclass_of(classname, IExceptionRenderer.classname)) {
@@ -267,7 +267,7 @@ return null;
      * \Throwable exception The exception to log
      */
   /* void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
-    shouldLog = configuration.get("log");
+    shouldLog = configuration.getEntry("log");
     if (shouldLog) {
       foreach (classname; _configData.hasKey("skipLog")) {
         if (cast(classname) exceptionToLog) {
@@ -277,7 +277,7 @@ return null;
       }
     }
     if (shouldLog) {
-      logger().logException(exceptionToLog, serverRequest, configuration.get("trace"));
+      logger().logException(exceptionToLog, serverRequest, configuration.getEntry("trace"));
     }
   } */
 

@@ -140,7 +140,7 @@ class DDebugger : UIMObject, IErrorDebugger {
           .format(editorName, known)
       );
     }
-    anInstance.configuration.set("editor", name); */
+    anInstance.configuration.setEntry("editor", name); */
   }
 
   /**
@@ -150,7 +150,7 @@ class DDebugger : UIMObject, IErrorDebugger {
      */
   static string editorUrl(string filename, int lineNumber) {
     /* auto anInstance = getInstance();
-    auto editor = anInstance.configuration.get("editor");
+    auto editor = anInstance.configuration.getEntry("editor");
     if (!anInstance.editors.hasKey(editor)) {
       throw new DInvalidArgumentException(
         "Cannot format editor URL `%s` is not a known editor."
@@ -178,7 +178,7 @@ class DDebugger : UIMObject, IErrorDebugger {
             define("ERRORS.RECOVERABLE_ERROR", 4096);
         }
         aConfig = intersectinternalKey(configuration.getArray("Debugger"), _defaultConfigData);
-        configuration.set(aConfig);
+        configuration.setEntry(aConfig);
     }
     
     // Returns a reference to the Debugger singleton object instance.
@@ -203,14 +203,14 @@ class DDebugger : UIMObject, IErrorDebugger {
      */
   static Json[string] nullInstance(string[] key = null, Json aValue = null, bool shouldMerge = true) {
     if (key.isNull) {
-      // return getInstance().configuration.get(key);
+      // return getInstance().configuration.getEntry(key);
     }
 
     /*         if (key.isArray || func_num_args() >= 2) {
             return getInstance().setConfig(key, aValue, shouldMerge);
         }
  */
-    // return getInstance().configuration.get(key);
+    // return getInstance().configuration.getEntry(key);
     return null;
   }
 
@@ -469,7 +469,7 @@ class DDebugger : UIMObject, IErrorDebugger {
   // Get the configured export formatter or infer one based on the environment.
   IErrorFormatter getExportFormatter() {
     /* auto anInstance = getInstance();
-    string formatterClassname = anInstance.configuration.get("exportFormatter");
+    string formatterClassname = anInstance.configuration.getEntry("exportFormatter");
     if (!formatterClassname) {
       /*          if (DConsoleErrorFormatter.environmentMatches()) {
                 formatterClassname = ConsoleErrorFormatter.classname;
@@ -690,8 +690,8 @@ class DDebugger : UIMObject, IErrorDebugger {
         auto debugger = getInstance();
         auto restore = null;
         if (!showHtml.isNull) {
-            restore = debugger.configuration.get("exportFormatter");
-            debugger.configuration.set("exportFormatter", showHtml == "true" ? HtmlFormatter.classname
+            restore = debugger.configuration.getEntry("exportFormatter");
+            debugger.configuration.setEntry("exportFormatter", showHtml == "true" ? HtmlFormatter.classname
                     : TextFormatter.classname);
         }
         auto contents = exportVar(debugValue, 25);
@@ -743,7 +743,7 @@ class DDebugger : UIMObject, IErrorDebugger {
         }
 
         aConfig = intersectinternalKey( /* (array) * / Configure.read("Debugger"), _defaultConfig);
-        configuration.set(aConfig);
+        configuration.setEntry(aConfig);
         e = `<pre class="uim-error">`;
         e ~= `<a href="javascript:void(0);" onclick="document.getElementById(\"{:id}-trace\")`;
         e ~= `.style.display = (document.getElementById(\"{:id}-trace\").style.display == `;
@@ -808,14 +808,14 @@ class DDebugger : UIMObject, IErrorDebugger {
   // Read or write configuration options for the Debugger instance.
   static Json configInstance(string key = null, Json valueToSet = null, bool shouldMerge = true) {
     /* if (key == null) {
-      return getInstance().configuration.get(key);
+      return getInstance().configuration.getEntry(key);
     } */
 
     /* if (key.isArray || func_num_args() >= 2) {
       return getInstance().setConfig(key, valueToSet, shouldMerge);
     } */
 
-    // return getInstance().configuration.get(key);
+    // return getInstance().configuration.getEntry(key);
     return Json(null);
   }
 
@@ -845,7 +845,7 @@ class DDebugger : UIMObject, IErrorDebugger {
             throw new DRuntimeException(
                 "Unknown editor `{name}`. Known editors are {known}");
         }
-        instance.configuration.set("editor", editorName);
+        instance.configuration.setEntry("editor", editorName);
     } */
 
   // Get a formatted URL for the active editor.
@@ -1437,7 +1437,7 @@ class DDebugger : UIMObject, IErrorDebugger {
     if (showHtml != null) {
       restore = debugger.getConfig(
         "exportFormatter");
-      debugger.configuration.set(
+      debugger.configuration.setEntry(
         "exportFormatter", showHtml ? HtmlFormatter.classname : TextFormatter
           .classname);
     }

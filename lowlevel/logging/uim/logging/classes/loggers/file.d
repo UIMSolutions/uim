@@ -59,18 +59,18 @@ class DFileLogger : DLogger {
 
     /* auto _path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
         if (!isDir(_path)) {
-            mkdir(_path, configuration.get("dirMask"), true);
+            mkdir(_path, configuration.getEntry("dirMask"), true);
         }
-        if (!configuration.isEmpty("file")) {
+        if (!configuration.isEmptyEntry("file")) {
            _fileNamename = configuration.getString("file");
             if (!_fileNamename.endsWith(".log")) {
                _fileNamename ~= ".log";
             }
         }
-        if (!configuration.isEmpty("size")) {
-            _maxFileSize = isNumeric(configuration.get("size"))
+        if (!configuration.isEmptyEntry("size")) {
+            _maxFileSize = isNumeric(configuration.getEntry("size"))
                 ? configuration.toLong("size")
-                : Text.parseFileSize(configuration.get("size"));
+                : Text.parseFileSize(configuration.getEntry("size"));
         } */
 
     return true;
@@ -137,7 +137,7 @@ class DFileLogger : DLogger {
     }
 
     string filePath = _path ~ filename;
-    Json mask = configuration.get("mask");
+    Json mask = configuration.getEntry("mask");
     /* if (!mask) {
             file_put_contents(filePath, message ~ "\n", FILE_APPEND);
 
@@ -173,7 +173,7 @@ class DFileLogger : DLogger {
             return null;
         } */
 
-    /* size_t rotate = configuration.get("rotate");
+    /* size_t rotate = configuration.getEntry("rotate");
         result = rotate == 0
             ? unlink(logFilepath) : rename(logFilepath, logFilepath ~ "." ~ time()); */
 

@@ -28,12 +28,12 @@ class DLogger : UIMObject, ILogger {
       .setDefault("formatter.classname", StandardLogFormatter.classname);
 
     if (options.hasKey("scopes")) {
-      configuration.set("scopes", options.getArray("scopes"));
+      configuration.setEntry("scopes", options.getArray("scopes"));
     }
-    configuration.set("levels", options.getArray("levels"));
+    configuration.setEntry("levels", options.getArray("levels"));
   
-    if (options.hasKey("types") && configuration.isEmpty("levels")) {
-      configuration.set("levels", options.getArray("types"));
+    if (options.hasKey("types") && configuration.isEmptyEntry("levels")) {
+      configuration.setEntry("levels", options.getArray("types"));
     }
 
     _formatter = LogFormatterFactory.create(configuration.getString("formatter.classname"));

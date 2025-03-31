@@ -85,7 +85,7 @@ class DSysLogger : DLogger {
      */
     void log(Json severityLevel, string message, Json[string] context = null) {
         if (!_isopen) {
-           /* _open(configuration.get("prefix"), configuration.get("flag"), configuration.get("facility"));
+           /* _open(configuration.getEntry("prefix"), configuration.getEntry("flag"), configuration.getEntry("facility"));
            _isopen = true; */
         }
         auto priority = LogLevels.DEBUG;

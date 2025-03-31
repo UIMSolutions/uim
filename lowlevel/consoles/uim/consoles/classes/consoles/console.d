@@ -396,12 +396,12 @@ class DConsole : UIMObject, IConsole {
                     "types": outLevels,
                     "stream": _output,
                 ]);
-            Log.configuration.set("stdout", ["engine": stdout]); */
+            Log.configuration.setEntry("stdout", ["engine": stdout]); */
     }
     /* auto stderr = new DConsoleLog(createmap!(string, Json)
             .set("types", ["emergency", "alert", "critical", "error", "warning"])
             .set("stream", _errorOutput); */
-    // Log.configuration.set("stderr", ["engine": stderr]);
+    // Log.configuration.setEntry("stderr", ["engine": stderr]);
   }
 
   /**

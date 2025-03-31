@@ -61,7 +61,7 @@ class DCacheClearGroupCommand : DCommand {
     }
 
     auto configData = commandArguments.getArgument("config");
-    if (!configData.isNull && Cache.configuration.get(configData).isNull) {
+    if (!configData.isNull && Cache.configuration.getEntry(configData).isNull) {
       console.error("Cache config '%s' not found".format(configData));
 
       return false;

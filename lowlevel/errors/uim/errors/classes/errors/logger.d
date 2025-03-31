@@ -75,7 +75,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
                 exceptionToLog.getLine()
            );
 
-        debug = configuration.get("debug");
+        debug = configuration.getEntry("debug");
  */
         /*         if (debug && cast(DException)exceptionToLog) {
             attributes = exceptionToLog.getAttributes();

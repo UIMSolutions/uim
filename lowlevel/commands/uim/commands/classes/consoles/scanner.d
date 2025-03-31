@@ -56,7 +56,7 @@ class DCommandScanner {
 
     // Scan the application for shells & commands.
     Json[string] scanApp() {
-        auto appNamespace = configuration.get("App.namespace");
+        auto appNamespace = configuration.getEntry("App.namespace");
 
         /* return _scanDir(
             App.classPath("Command")[0],

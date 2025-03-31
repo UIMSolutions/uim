@@ -61,7 +61,7 @@ class DErrorTrap : UIMObject {
 
   // Choose an error renderer based on config or the SAPI
   protected string chooseErrorRenderer() {
-    auto errorRendererData = configuration.get("errorRenderer");
+    auto errorRendererData = configuration.getEntry("errorRenderer");
     /*         if (!errorRendererData.isNull) {
             return errorRendererData;
         }
@@ -125,7 +125,7 @@ class DErrorTrap : UIMObject {
             }
         } */
 
-    auto debugData = configuration.get("debugData");
+    auto debugData = configuration.getEntry("debugData");
     auto renderer = this.renderer();
     /* try {
             // Log first incase rendering or event listeners fail
@@ -148,7 +148,7 @@ class DErrorTrap : UIMObject {
     /*         if (!configuration.hasKey("log")) {
             return;
         }
-        logger().logError(error, Router.getRequest(), configuration.get("trace")); */
+        logger().logError(error, Router.getRequest(), configuration.getEntry("trace")); */
   }
 
   // Get an instance of the renderer.

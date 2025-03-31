@@ -66,20 +66,20 @@ mixin template TStaticConfig() {
             configData = ["classname": configData];
         }
         if (configData.isArray && configData.hasKey("url")) {
-            auto parsed = parseDsn(configuration.get("url"));
+            auto parsed = parseDsn(configuration.getEntry("url"));
             configuration.removeKey("url");
             configData = parsed + configData;
         }
         if (configData.hasKey("engine") && configData.isEmpty("classname")) {
-            configuration.set("classname", configuration.get("engine"));
+            configuration.setEntry("classname", configuration.getEntry("engine"));
             configuration.removeKey("engine");
         }
-        configuration.set(aKey, configData);
+        configuration.setEntry(aKey, configData);
     }
 
     // Reads existing configuration.
     static Json getConfig(string key) {
-        return configuration.get(aKey, null);
+        return configuration.getEntry(aKey, null);
     }
 
     /**

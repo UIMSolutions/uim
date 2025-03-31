@@ -90,29 +90,29 @@ class DMemoryCacheEngine : DCacheEngine {
     }
     super.initialize(initData);
 
-    if (!configuration.isEmpty("host")) {
-      configuration.set("servers", configuration.isEmpty("port")
-        ? [configuration.get("host")] 
+    if (!configuration.isEmptyEntry("host")) {
+      configuration.setEntry("servers", configuration.isEmptyEntry("port")
+        ? [configuration.getEntry("host")] 
         : ["%s:%d".format(configuration.getString("host"), configuration.getString("port"))
         );
     }
     /* if (configData.hasKey("servers")) {
-      configuration.set("servers", configuration.get("servers"], false);
+      configuration.setEntry("servers", configuration.getEntry("servers"], false);
     } */
   /* if (!configuration.isArray("servers")) {
-      configuration.set("servers", [configuration.getArray("servers")]);
+      configuration.setEntry("servers", [configuration.getArray("servers")]);
     } * / 
     if (!_entries is null) {
       return true;
     }
-    // _entries = configuration.get("persistent"]
-    // TODO ? new DMemory(configuration.get("persistent"]) : new DMemory();
+    // _entries = configuration.getEntry("persistent"]
+    // TODO ? new DMemory(configuration.getEntry("persistent"]) : new DMemory();
     
   }
 
   _setOptions();
 
-  string[] serversFromConfig = configuration.get("servers");
+  string[] serversFromConfig = configuration.getEntry("servers");
   if (auto servers = _entries.getServerList()) {
     if (_entries.isPersistent()) {
       servers
@@ -135,10 +135,10 @@ if (!_entries.addServers(myservers)) {
 }
 
 if (configuration.isArray("options"]) {
-  configuration.get("options"].byKeyValue
+  configuration.getEntry("options"].byKeyValue
     .each!(optValue => _entries.setOption(optValue.key, optValue.value));
 }
-if (configuration.isEmpty("username"] && !configuration.isEmpty("login")) {
+if (configuration.isEmptyEntry("username"] && !configuration.isEmptyEntry("login")) {
   throw new DInvalidArgumentException(
     "Please pass " username" instead of 'login' for connecting to Memory"
  );
@@ -320,7 +320,7 @@ return true;
     /* 
     auto mygroups = _entries.data(_compiledGroupNames) ? memory.data(
       _compiledGroupNames) : null;
-    if (count(mygroups) != count(configuration.get("groups"))) {
+    if (count(mygroups) != count(configuration.getEntry("groups"))) {
       _compiledGroupNames
         .filter!(groupName => !mygroups.hasKey(groupName))
         .each!((groupName) { _entries.set(mygroup, 1, 0); mygroups[mygroup] = 1; }); */

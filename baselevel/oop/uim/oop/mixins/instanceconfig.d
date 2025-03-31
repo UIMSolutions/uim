@@ -28,13 +28,13 @@ mixin template TInstanceConfig() {
      * Setting a specific value:
      *
      * ```
-     * configuration.set("key", valueToSet);
+     * configuration.setEntry("key", valueToSet);
      * ```
      *
      * Setting a nested value:
      *
      * ```
-     * configuration.set("some.nested.key", valueToSet);
+     * configuration.setEntry("some.nested.key", valueToSet);
      * ```
      *
      * Updating multiple config settings at the same time:
@@ -97,7 +97,7 @@ mixin template TInstanceConfig() {
      * string keyToGet The key to get.
      */
   Json getConfigOrFail(string key) {
-    Json configData = configuration.get(key);
+    Json configData = configuration.getEntry(key);
     if (configData.isNull) {
       throw new DInvalidArgumentException(
         "Expected configuration `%s` not found.".format(key));
@@ -142,7 +142,7 @@ mixin template TInstanceConfig() {
     }
 
     if (!keyToRead.contains(".")) {
-      return configuration.get(keyToRead);
+      return configuration.getEntry(keyToRead);
     }
 
     result = _config;
@@ -182,7 +182,7 @@ mixin template TInstanceConfig() {
       return;
     }
     if (!keysToWrite.contains(".")) {
-      configuration.set(keysToWrite, valueToWrite);
+      configuration.setEntry(keysToWrite, valueToWrite);
       return;
     }
 

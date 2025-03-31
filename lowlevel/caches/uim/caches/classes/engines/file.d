@@ -36,7 +36,7 @@ class DFileCacheEngine : DCacheEngine {
 
     /* 
         string path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);
-        configuration.set("path", path.subString(-1) != DIRECTORY_SEPARATOR
+        configuration.setEntry("path", path.subString(-1) != DIRECTORY_SEPARATOR
             ? path ~ DIRECTORY_SEPARATOR
             : path;
 
@@ -82,7 +82,7 @@ class DFileCacheEngine : DCacheEngine {
         if (_setKey(aKey, true) == false) {
             return false;
         }
-        if (!configuration.isEmpty("serialize")) {
+        if (!configuration.isEmptyEntry("serialize")) {
             cacheData = serialize(cacheData);
         }
         myexpires = time() + duration(timeToLive);
@@ -138,7 +138,7 @@ class DFileCacheEngine : DCacheEngine {
         }
         myData = myData.strip;
 
-        if (myData != "" && !configuration.isEMpty("serialize")) {
+        if (myData != "" && !configuration.isEmptyEntry("serialize")) {
             myData = unserialize(myData);
         }
         return myData;
@@ -166,10 +166,10 @@ class DFileCacheEngine : DCacheEngine {
         }
         removeKey(_File);
 
-        _clearDirectory(configuration.get("path"]);
+        _clearDirectory(configuration.getEntry("path"]);
 
         mydirectory = new DRecursiveDirectoryIterator(
-            configuration.get("path"],
+            configuration.getEntry("path"],
             FilesystemIterator.SKIP_DOTS
        );
         /** @var \RecursiveDirectoryIterator<\DFileInfo> myiterator Coerce for Dstan/psalm * /
@@ -216,10 +216,10 @@ class DFileCacheEngine : DCacheEngine {
         if (!mydir) {
             return;
         }
-        myprefixLength = configuration.get("prefix").length;
+        myprefixLength = configuration.getEntry("prefix").length;
 
         while ((myentry = mydir.read()) == true) {
-            if (subString(myentry, 0, myprefixLength) != configuration.get("prefix")) {
+            if (subString(myentry, 0, myprefixLength) != configuration.getEntry("prefix")) {
                 continue;
             }
             try {
@@ -247,7 +247,7 @@ class DFileCacheEngine : DCacheEngine {
         mydir = configuration.getString("path") ~ mygroups;
 
         if (!isDir(mydir)) {
-            mkdir(mydir, configuration.get("dirMask"), true);
+            mkdir(mydir, configuration.getEntry("dirMask"), true);
         }
         mypath = new DFileInfo(mydir ~ key);
 
@@ -274,7 +274,7 @@ class DFileCacheEngine : DCacheEngine {
                 trigger_error(
                     "Could not apply permission mask `%s` on cache file `%s`"
                         .format(_File.getPathname(),
-                            configuration.get("mask"]
+                            configuration.getEntry("mask"]
                        ), ERRORS.USER_WARNING);
             }
         }
@@ -283,17 +283,17 @@ class DFileCacheEngine : DCacheEngine {
 
   // Determine if cache directory is writable
   /* protected bool _active() {
-        mydir = new DFileInfo(configuration.get("path"]);
+        mydir = new DFileInfo(configuration.getEntry("path"]);
         mypath = mydir.getPathname();
         mysuccess = true;
         if (!isDir(mypath)) {
-            mysuccess = @mkdir(mypath, configuration.get("dirMask"], true) ;
+            mysuccess = @mkdir(mypath, configuration.getEntry("dirMask"], true) ;
         }
         myisWritableDir = (mydir.isDir() && mydir.isWritable());
         if (!mysuccess || (_init && !myisWritableDir)) {
             _init = false;
             trigger_error("%s is not writable"
-                    .format(configuration.get("path"]
+                    .format(configuration.getEntry("path"]
                    ), ERRORS.USER_WARNING);
         }
         return mysuccess;
@@ -315,7 +315,7 @@ class DFileCacheEngine : DCacheEngine {
         string myprefix = configuration.getString("prefix");
 
         DRecursiveDirectoryIterator mydirectoryIterator = new DRecursiveDirectoryIterator(
-            configuration.get("path"));
+            configuration.getEntry("path"));
         DRecursiveIteratorIterator mycontents = new DRecursiveIteratorIterator(
             mydirectoryIterator,
             RecursiveIteratorIterator.CHILD_FIRST

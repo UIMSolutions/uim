@@ -20,10 +20,10 @@ interface IConfigurable {
   void configuration(IConfiguration newConfiguration);
 
   /* final void setConfiguration(string key, Json value) {
-    configuration.set(key, value);
+    configuration.setEntry(key, value);
   } */
 
   /* final Json getConfiguration(string key) {
-    return configuration.get(key);
+    return configuration.getEntry(key);
   } */
 }

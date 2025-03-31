@@ -38,18 +38,18 @@ mixin template TConfigurable() {
     // Set configuration entries
     /* void updateConfiguration(Json[string] newEntries) {
         if (configuration) {
-            configuration.set(newEntries);
+            configuration.setEntry(newEntries);
         }
     } */
 
     // TODO
     /* Json getConfigurationEntries(string key) {
-        return _configuration ? _configuration.get(key) : null;
+        return _configuration ? _configuration.getEntry(key) : null;
     }
 
     void setConfigurationEntries(string key, Json newEntries) {
         if (configuration) {
-            configuration.set(key, newEntries);
+            configuration.setEntry(key, newEntries);
         }
     } */
 }

@@ -378,7 +378,7 @@ mixin template TIntegrationTest() {
      * \Throwable exceptionToHandle Exception to handle.
      */
     protected void _handleError(Throwable exceptionToHandle) {
-        classname = configuration.get("Error.exceptionRenderer");
+        classname = configuration.getEntry("Error.exceptionRenderer");
         if (classname.isEmpty || !class_hasKey(classname)) {
             classname = WebExceptionRenderer.classname;
         }
@@ -818,7 +818,7 @@ mixin template TIntegrationTest() {
      * when trying to diagnose/debug unexpected failures in test cases.
      */
     void disableErrorHandlerMiddleware() {
-        configuration.set("Error.exceptionRenderer", TestExceptionRenderer.classname);
+        configuration.setEntry("Error.exceptionRenderer", TestExceptionRenderer.classname);
     }
 
     /**

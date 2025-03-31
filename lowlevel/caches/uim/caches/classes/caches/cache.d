@@ -109,14 +109,14 @@ class DCache : UIMObject, ICache {
         auto myRegistry = getRegistry();
 
         // TODO 
-        /*        if (configuration.isEmpty(configName~".classname")) {
+        /*        if (configuration.isEmptyEntry(configName~".classname")) {
             throw new DInvalidArgumentException(
                 "The `%s` cache configuration does not exist."
                 .format(configName)
            );
         } * /
 
-        auto configData = configuration.get(configName);
+        auto configData = configuration.getEntry(configName);
         // TODO 
         /*        try {
             myRegistry.load(configName, configData);
@@ -135,24 +135,24 @@ class DCache : UIMObject, ICache {
                     "`%s` cache configuration cannot fallback to it"
                     .format(configName), 0, exception);
             }
-            auto myfallbackEngine = pool(configuration.get("fallback")).clone;
+            auto myfallbackEngine = pool(configuration.getEntry("fallback")).clone;
             assert(cast(DCacheEngine)myfallbackEngine);
 
             configuration
                     .merge("groups", Json.emptyArray) 
                     .merge("prefix", "");
 
-            myfallbackEngine.configuration.set("groups", mynewConfig["groups"], false);
+            myfallbackEngine.configuration.setEntry("groups", mynewConfig["groups"], false);
             if (mynewConfig["prefix"]) {
-                myfallbackEngine.configuration.set("prefix", mynewConfig["prefix"], false);
+                myfallbackEngine.configuration.setEntry("prefix", mynewConfig["prefix"], false);
             }
             myRegistry.set(configName, myfallbackEngine);
         } */
-  /*        if (cast(DCacheEngine)configuration.get("classname")) {
-            configData = configuration.get("classname").configuration.data;
+  /*        if (cast(DCacheEngine)configuration.getEntry("classname")) {
+            configData = configuration.getEntry("classname").configuration.data;
         } */
-  /*        if (!configuration.isEmpty("groups")) {
-            (cast(DArrayData)configuration.get("groups")).values.each!((groupName) {
+  /*        if (!configuration.isEmptyEntry("groups")) {
+            (cast(DArrayData)configuration.getEntry("groups")).values.each!((groupName) {
                 _groups[groupName).concat( configName;
                 _groups.set(groupName, _groups[groupName].unique);
                 _groups[groupName].sort;

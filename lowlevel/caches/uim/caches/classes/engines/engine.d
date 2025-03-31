@@ -30,7 +30,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
             configuration.getStringArray("groups").sort; // TODO _groupPrefix = repeat("%s_", configuration.getStringArray("groups").length);
         }
         /* if (!configuration.isNumeric("duration")) {
-            // TODO configuration.set("duration", configuration.get("duration").toTime - time());
+            // TODO configuration.setEntry("duration", configuration.getEntry("duration").toTime - time());
         } */
 
     configuration
@@ -80,14 +80,14 @@ class DCacheEngine : UIMObject, ICacheEngine {
             Json restoreDuration = Json(null); 
             if (timeToLive != 0) {
                 restoreDuration = configuration.hasKey("duration");
-                configuration.set("duration", timeToLive);
+                configuration.setEntry("duration", timeToLive);
             }
             try {
                 return entries.byKeyValue
                     .all!(kv => updateKey(aKey, myvalue));
             } finally {
                 if (restoreDuration.isNull) {
-                    configuration.set("duration", restoreDuration);
+                    configuration.setEntry("duration", restoreDuration);
                 }
             }*/
     return false;

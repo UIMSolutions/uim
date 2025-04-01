@@ -46,8 +46,8 @@ class DPaginatorHelper : DHelper {
         * Templates: the templates used by this class
         */
         configuration
-            .setDefault("params", Json.emptyArray)
-            .setDefault("options", Json.emptyArray) /*             .setDefault("templates", [
+            .setEntry("params", Json.emptyArray)
+            .setEntry("options", Json.emptyArray) /*             .setEntry("templates", [
                     "nextActive": "<li class=\"next\"><a rel=\"next\" href=\"{{url}}\">{{text}}</a></li>",
                     "nextDisabled": "<li class=\"next disabled\"><a href=\" \" onclick=\"return false;\">{{text}}</a></li>",
                     "prevActive": "<li class=\" prev\"><a rel=\"prev\" href=\"{{url}}\">{{text}}</a></li>",

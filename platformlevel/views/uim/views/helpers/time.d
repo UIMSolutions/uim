@@ -25,7 +25,7 @@ class DTimeHelper : DHelper {
       return false;
     }
     configuration
-      .setDefault("outputTimezone", Json(null));
+      .setEntry("outputTimezone", Json(null));
 
     return true;
   }

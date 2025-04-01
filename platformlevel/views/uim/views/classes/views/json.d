@@ -77,9 +77,9 @@ class DJsonView : DSerializedView {
      *
      */
         configuration
-            .setDefault("serialize", Json(null))
-            .setDefault("JsonOptions", Json(null))
-            .setDefault("Jsonp", Json(null));
+            .setEntry("serialize", Json(null))
+            .setEntry("JsonOptions", Json(null))
+            .setEntry("Jsonp", Json(null));
 
         return true;
     }

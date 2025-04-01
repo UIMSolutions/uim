@@ -29,9 +29,9 @@ class DSelectBoxWidget : DWidget {
     }
 
     configuration
-      .setDefault("name", "")
-      .setDefault("empty", false)
-      .setDefault("escape", true)
+      .setEntry("name", "")
+      .setEntry("empty", false)
+      .setEntry("escape", true)
       .setDefaults(["disabled", "val"], Json(null))
       .setDefaults(["options", "templateVars"], Json.emptyArray);
 

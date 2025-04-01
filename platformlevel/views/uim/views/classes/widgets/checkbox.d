@@ -30,11 +30,11 @@ class DCheckboxWidget : DWidget {
         }
 
         configuration
-            .setDefault("name", "")
-            .setDefault("value", 1)
-            .setDefault("val", Json(null))
-            .setDefault("disabled", false)
-            .setDefault("templateVars", Json.emptyArray);
+            .setEntry("name", "")
+            .setEntry("value", 1)
+            .setEntry("val", Json(null))
+            .setEntry("disabled", false)
+            .setEntry("templateVars", Json.emptyArray);
 
         return true;
     }    

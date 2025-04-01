@@ -21,7 +21,7 @@ class BreadcrumbsHelper : DHelper {
 
     // Default config for the helper.
     /* configuration
-        .setDefault("templates", createMap!(string, Json)
+        .setEntry("templates", createMap!(string, Json)
             .set("wrapper", "<ul{{attrs}}>{{content}}</ul>")
             .set("item", "<li{{attrs}}><a href=\"{{url}}\"{{innerAttrs}}>{{title}}</a></li>{{separator}}")
             .set("itemWithoutLink", "<li{{attrs}}><span{{innerAttrs}}>{{title}}</span></li>{{separator}}")

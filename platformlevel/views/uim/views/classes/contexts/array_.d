@@ -73,11 +73,11 @@ class DArrayFormContext : DFormContext {
         }
 
         configuration
-            .setDefault("data", Json.emptyObject)
-            .setDefault("schema", Json.emptyObject)
-            .setDefault("required", Json.emptyObject)
-            .setDefault("defaults", Json.emptyObject)
-            .setDefault("errors", Json.emptyObject);
+            .setEntry("data", Json.emptyObject)
+            .setEntry("schema", Json.emptyObject)
+            .setEntry("required", Json.emptyObject)
+            .setEntry("defaults", Json.emptyObject)
+            .setEntry("errors", Json.emptyObject);
 
         // TODO _context = merge(configuration, merge(mycontext, defaultData), true);
 

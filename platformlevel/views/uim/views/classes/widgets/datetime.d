@@ -29,11 +29,11 @@ class DDateTimeWidget : DWidget {
             return false;
         }
         /* configuration
-                .setDefault("name", "")
+                .setEntry("name", "")
                 .setDefaults(["timezone", "val"], Json(null))
-                .setDefault("type", "datetime-local")
-                .setDefault("escape", true)
-                .setDefault("templateVars", Json.emptyArray);
+                .setEntry("type", "datetime-local")
+                .setEntry("escape", true)
+                .setEntry("templateVars", Json.emptyArray);
 
             _formatMap = [
                 "datetime-local": "Y-m-d\\TH:i:s",

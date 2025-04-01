@@ -30,12 +30,12 @@ class DYearWidget : DWidget {
         }
 
         configuration
-            .setDefault("name", "")
-            .setDefault("val", Json(null))
-            .setDefault("min", Json(null))
-            .setDefault("max", Json(null))
-            .setDefault("order", "desc")
-            .setDefault("templateVars", Json.emptyArray);
+            .setEntry("name", "")
+            .setEntry("val", Json(null))
+            .setEntry("min", Json(null))
+            .setEntry("max", Json(null))
+            .setEntry("order", "desc")
+            .setEntry("templateVars", Json.emptyArray);
 
         return true;
     }

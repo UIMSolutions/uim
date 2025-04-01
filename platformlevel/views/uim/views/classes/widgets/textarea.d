@@ -31,9 +31,9 @@ class DTextareaWidget : DWidget {
 
         configuration
             // .setDefaults(["val", "name"], "")
-            .setDefault("escape", true)
-            .setDefault("rows", 5)
-            .setDefault("templateVars", Json.emptyArray);
+            .setEntry("escape", true)
+            .setEntry("rows", 5)
+            .setEntry("templateVars", Json.emptyArray);
 
         return true;
     }

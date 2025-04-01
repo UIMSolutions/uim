@@ -104,7 +104,7 @@ class DMemoryConfiguration : DConfiguration {
 
   unittest {
     auto config = MemoryConfiguration;
-/*     config.setDefault("a", Json("A"));
+/*     config.setEntry("a", Json("A"));
     config.setEntry("b", Json("B"));
     auto clonedConfig = config.clone;
     assert(clonedConfig.hasDefault("a") && clonedConfig.hasEntry("b"));

@@ -23,9 +23,9 @@ class DLogger : UIMObject, ILogger {
     }
 
     configuration
-      .setDefault("levels", Json.emptyArray)
-      .setDefault("scopes", Json.emptyArray)
-      .setDefault("formatter.classname", StandardLogFormatter.classname);
+      .setEntry("levels", Json.emptyArray)
+      .setEntry("scopes", Json.emptyArray)
+      .setEntry("formatter.classname", StandardLogFormatter.classname);
 
     if (options.hasKey("scopes")) {
       configuration.setEntry("scopes", options.getArray("scopes"));

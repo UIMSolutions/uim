@@ -21,11 +21,11 @@ class DConsoleLogger : DLogger {
 
     writeln("StandardLogFormatter.classname -> ", StandardLogFormatter.classname);
     configuration
-      .setDefault("stream", "d://stderr") // `stream` the path to save logs on.
-      .setDefault("levels", Json(null)) // `levels` string or array, levels the engine is interested in
-      .setDefault("scopes", Json.emptyArray) // `scopes` string or array, scopes the engine is interested in
-      .setDefault("outputAs", Json(null)) // `outputAs` integer or ConsoleOutput.[RAW|PLAIN|COLOR]
-      /* .setDefault("formatter", createMap!(string, Json)
+      .setEntry("stream", "d://stderr") // `stream` the path to save logs on.
+      .setEntry("levels", Json(null)) // `levels` string or array, levels the engine is interested in
+      .setEntry("scopes", Json.emptyArray) // `scopes` string or array, scopes the engine is interested in
+      .setEntry("outputAs", Json(null)) // `outputAs` integer or ConsoleOutput.[RAW|PLAIN|COLOR]
+      /* .setEntry("formatter", createMap!(string, Json)
           .set("classname", StandardLogFormatter.className)
           .set("includeTags", true)) */
       ;

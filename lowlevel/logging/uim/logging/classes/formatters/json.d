@@ -24,8 +24,8 @@ class DJsonLogFormatter : DLogFormatter {
     }
 
     configuration
-      .setDefault("dateFormat", "DATE_ATOM")
-      .setDefault("appendNewline", true);
+      .setEntry("dateFormat", "DATE_ATOM")
+      .setEntry("appendNewline", true);
 
     return true;
   }

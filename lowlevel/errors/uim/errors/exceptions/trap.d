@@ -83,13 +83,13 @@ class DExceptionTrap {
 
   bool initialize(Json[string] initData = null) {
 /*     configuration
-      .setDefault("exceptionRenderer", Json(null))
-      .setDefault("logger", ErrorLogger.classname)
-      .setDefault("stderr", Json(null))
-      .setDefault("log", true)
-      .setDefault("skipLog", Json.emptyArray)
-      .setDefault("trace", false)
-      .setDefault("extraFatalErrorMemory", 4);
+      .setEntry("exceptionRenderer", Json(null))
+      .setEntry("logger", ErrorLogger.classname)
+      .setEntry("stderr", Json(null))
+      .setEntry("log", true)
+      .setEntry("skipLog", Json.emptyArray)
+      .setEntry("trace", false)
+      .setEntry("extraFatalErrorMemory", 4);
     _configData = merge(initData, defaultData); */
     return true;
   }

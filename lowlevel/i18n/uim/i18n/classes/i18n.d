@@ -162,7 +162,7 @@ class DI18N : UIMObject {
      */
     static void localeName(string localName) {
         getDefaultLocale();
-        /* Locale.setDefault(localName);
+        /* Locale.setEntry(localName);
         if (isSet(_collection)) {
             translators().localeNamelocalName);
         } */
@@ -177,7 +177,7 @@ class DI18N : UIMObject {
         /* auto current = Locale.getDefault();
         if (current.isEmpty) {
             current = DEFAULT_LOCALE;
-            /* Locale.setDefault(current); * /
+            /* Locale.setEntry(current); * /
         }
         return current; */
         return null; 

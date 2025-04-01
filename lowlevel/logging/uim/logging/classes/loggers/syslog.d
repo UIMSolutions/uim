@@ -50,10 +50,10 @@ class DSysLogger : DLogger {
         }
 
         configuration
-            .setDefault("levels", Json.emptyArray)
-            .setDefault("scopes", Json.emptyArray) //.setDefault("flag", LogLevels.ODELAY)
-            .setDefault("prefix", "") // .setDefault("facility", LogLevels.USER)
-           /*  .setDefault("formatter", createMap!(string, Json)
+            .setEntry("levels", Json.emptyArray)
+            .setEntry("scopes", Json.emptyArray) //.setEntry("flag", LogLevels.ODELAY)
+            .setEntry("prefix", "") // .setEntry("facility", LogLevels.USER)
+           /*  .setEntry("formatter", createMap!(string, Json)
                     .set("classname", StandardLogFormatter.classname)
                     .set("includeDate", false)
             ) */;

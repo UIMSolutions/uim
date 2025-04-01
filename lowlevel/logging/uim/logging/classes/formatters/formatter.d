@@ -26,9 +26,9 @@ class DLogFormatter : UIMObject, ILogFormatter {
         }
     
         configuration
-            .setDefault("dateFormat", "Y-m-d H:i:s")
-            .setDefault("includeTags", false)
-            .setDefault("includeDate", true);
+            .setEntry("dateFormat", "Y-m-d H:i:s")
+            .setEntry("includeTags", false)
+            .setEntry("includeDate", true);
     
         return true;
     }

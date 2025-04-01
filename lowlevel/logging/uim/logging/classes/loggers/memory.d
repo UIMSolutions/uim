@@ -32,8 +32,8 @@ class DMemoryLogger : DLogger {
         } 
         
         configuration
-            .setDefault("formatter.classname", StandardLogFormatter.classname)
-            .setDefault("formatter.includeDate", false);
+            .setEntry("formatter.classname", StandardLogFormatter.classname)
+            .setEntry("formatter.includeDate", false);
 
         return true;
     }

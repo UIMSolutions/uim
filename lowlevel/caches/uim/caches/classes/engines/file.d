@@ -25,14 +25,14 @@ class DFileCacheEngine : DCacheEngine {
     }
 
     configuration
-      .setDefault("duration", 3600) // `duration` Specify how long items in this cache configuration last.
-      .setDefault("groups", Json.emptyArray) // `groups` List of groups or "tags" associated to every key stored in this config.
-      .setDefault("lock", true) // `lock` Used by FileCache. Should files be locked before writing to them?
-      .setDefault("mask", std.conv.octal!"664") // `mask` The mask used for created files
-      .setDefault("dirMask", std.conv.octal!"770") // `dirMask` The mask used for created folders
-      .setDefault("path", Json(null)) // `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
-      .setDefault("prefix", "uim_") // `prefix` Prepended to all entries. 
-      .setDefault("serialize", true); // `serialize` Should cache objects be serialized first.
+      .setEntry("duration", 3600) // `duration` Specify how long items in this cache configuration last.
+      .setEntry("groups", Json.emptyArray) // `groups` List of groups or "tags" associated to every key stored in this config.
+      .setEntry("lock", true) // `lock` Used by FileCache. Should files be locked before writing to them?
+      .setEntry("mask", std.conv.octal!"664") // `mask` The mask used for created files
+      .setEntry("dirMask", std.conv.octal!"770") // `dirMask` The mask used for created folders
+      .setEntry("path", Json(null)) // `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
+      .setEntry("prefix", "uim_") // `prefix` Prepended to all entries. 
+      .setEntry("serialize", true); // `serialize` Should cache objects be serialized first.
 
     /* 
         string path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);

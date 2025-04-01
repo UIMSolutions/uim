@@ -29,7 +29,7 @@ class DErrorLogger : UIMObject, IErrorLogger {
             return false;
         }
 
-        .setEntry("trace", false); // `trace` = Should error logs include stack traces?        
+        configuration.setEntry("trace", false); // `trace` = Should error logs include stack traces?        
         return true;
     }
 

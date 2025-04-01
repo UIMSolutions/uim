@@ -41,17 +41,17 @@ class DRedisCacheEngine : DCacheEngine {
         } 
 
         configuration
-            .setDefault("database", 0)
-            .setDefault("duration", 3600)
-            .setDefault("groups", Json.emptyArray)
-            .setDefault("persistent", true)
-            .setDefault("port", 6379)
-            .setDefault("prefix", "uim_")
-            .setDefault("host", Json(null))
-            .setDefault("server", "127.0.0.1")
-            .setDefault("timeout", 0)
-            .setDefault(["password", "unix_socket"], false)
-            .setDefault("scanCount", 10);
+            .setEntry("database", 0)
+            .setEntry("duration", 3600)
+            .setEntry("groups", Json.emptyArray)
+            .setEntry("persistent", true)
+            .setEntry("port", 6379)
+            .setEntry("prefix", "uim_")
+            .setEntry("host", Json(null))
+            .setEntry("server", "127.0.0.1")
+            .setEntry("timeout", 0)
+            .setEntry(["password", "unix_socket"], false)
+            .setEntry("scanCount", 10);
 
         return true;
         // TODO return _connect();

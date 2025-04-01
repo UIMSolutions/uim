@@ -21,21 +21,21 @@ class DFileCacheEngine : DCacheEngine {
 
         configuration
             // `duration` Specify how long items in this cache configuration last.
-            .setDefault("duration", 3600)
+            .setEntry("duration", 3600)
             // `groups` List of groups or "tags" associated to every key stored in this config.
-            .setDefault("groups", Json.emptyArray)
+            .setEntry("groups", Json.emptyArray)
             // `lock` Used by FileCache. Should files be locked before writing to them?
-            .setDefault("lock", true)
+            .setEntry("lock", true)
             // `mask` The mask used for created files
             // TODO "mask": std.conv.octal!"664")
             // `dirMask` The mask used for created folders
             // TODO "dirMask": std.conv.octal!"770")
             // `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
-            .setDefault("path", Json(null))
+            .setEntry("path", Json(null))
             // `prefix` Prepended to all entries. 
-            .setDefault("prefix", "uim_")
+            .setEntry("prefix", "uim_")
             // `serialize` Should cache objects be serialized first.
-            .setDefault("serialize", true)
+            .setEntry("serialize", true)
 
         /* 
         configuration.getEntry("path"] = configuration.getEntry("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);

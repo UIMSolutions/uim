@@ -55,10 +55,10 @@ class DErrorHandlerMiddleware : UIMObject, IErrorMiddleware {
         *  Defaults to uim.errorss.ExceptionRenderer
         */
 /*         configuration
-            .setDefault("skipLog", Json.emptyArray)
-            .setDefault("log", true)
-            .setDefault("trace", false)
-            .setDefault("exceptionRenderer", ExceptionRenderer.classname); */
+            .setEntry("skipLog", Json.emptyArray)
+            .setEntry("log", true)
+            .setEntry("trace", false)
+            .setEntry("exceptionRenderer", ExceptionRenderer.classname); */
 
         return true;
     }

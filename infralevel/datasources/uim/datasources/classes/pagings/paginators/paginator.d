@@ -43,10 +43,10 @@ class DPaginator : IDatasourcePaginator {
         *  over pagination, be careful with what you permit.
         */
         configuration
-            .setDefault("page", 1)
-            .setDefault("limit", 20)
-            .setDefault("maxLimit", 100)
-            .setDefault("allowedParameters", ["limit", "sort", "page", "direction"].toJson);
+            .setEntry("page", 1)
+            .setEntry("limit", 20)
+            .setEntry("maxLimit", 100)
+            .setEntry("allowedParameters", ["limit", "sort", "page", "direction"].toJson);
 
         return true;
     }

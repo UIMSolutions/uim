@@ -44,13 +44,13 @@ class DMemoryCacheEngine : DCacheEngine {
      *  Use the \Memory.OPT_* constants as keys.
      */
     configuration
-      .setDefault("compress", false)
-      .setDefault("duration", 3600)
-      .setDefault("username", "")
+      .setEntry("compress", false)
+      .setEntry("duration", 3600)
+      .setEntry("username", "")
       .setDefaults(["host", "password", "persistent", "port"], Json(null))
-      .setDefault("prefix", "uim_")
-      .setDefault("serialize", "d")
-      .setDefault("servers", ["127.0.0.1"].toJson) // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
+      .setEntry("prefix", "uim_")
+      .setEntry("serialize", "d")
+      .setEntry("servers", ["127.0.0.1"].toJson) // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
       .setDefaults(["groups", "options"], Json.emptyArray); // `options` - Additional options for the memcached client. Should be an array of option: value.
 
     return true;

@@ -22,17 +22,17 @@ class DPostgresDriver : DDBDriver {
         }
 
         configuration
-            .setDefault("persistent", true)
-            .setDefault("host", "localhost")
-            .setDefault("username", "root")
-            .setDefault("password", "")
-            .setDefault("database", "uim")
-            .setDefault("schema", "public")
-            .setDefault("port", 5432)
-            .setDefault("encoding", "utf8")
-            .setDefault("timezone", Json(null))
-            .setDefault("flags", Json.emptyArray)
-            .setDefault("init", Json.emptyArray);
+            .setEntry("persistent", true)
+            .setEntry("host", "localhost")
+            .setEntry("username", "root")
+            .setEntry("password", "")
+            .setEntry("database", "uim")
+            .setEntry("schema", "public")
+            .setEntry("port", 5432)
+            .setEntry("encoding", "utf8")
+            .setEntry("timezone", Json(null))
+            .setEntry("flags", Json.emptyArray)
+            .setEntry("init", Json.emptyArray);
 
         // String used to start a database identifier quoting to make it safe
         startQuote("\"");
@@ -74,8 +74,8 @@ class DPostgresDriver : DDBDriver {
 /*         string connectUrl;
         connectUrl ~= configuration.getString("host") // ex. "localhost"
         configuration.getString("username", "root")
-            .setDefault("password", "")
-            .setDefault("database", "uim")
+            .setEntry("password", "")
+            .setEntry("database", "uim")
         string connectUrl = "postgresql://localhost:{port}/ddbctestdb?user={username},password={password},ssl=true";
  */        return this;
     }

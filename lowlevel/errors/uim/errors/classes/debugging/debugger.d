@@ -35,9 +35,9 @@ class DDebugger : UIMObject, IErrorDebugger {
     }
 
     configuration
-      .setDefault("outputMask", Json.emptyArray)
-      .setDefault("exportFormatter", Json(null))
-      .setDefault("editor", "vscode");
+      .setEntry("outputMask", Json.emptyArray)
+      .setEntry("exportFormatter", Json(null))
+      .setEntry("editor", "vscode");
 
     _editors = [
       "atom": "atom://core/open/file?filename={file}&line={line}",

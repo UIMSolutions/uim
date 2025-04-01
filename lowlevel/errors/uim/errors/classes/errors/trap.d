@@ -52,9 +52,9 @@ class DErrorTrap : UIMObject {
         * - `trace` - boolean - Whether or not backtraces should be included in logged errors.
         */
     configuration // TODOD "errorLevel": E_ALL,
-    .setDefault("errorRenderer", Json(null))
-      .setDefault("log", true) // TODO "logger": ErrorLogger.classname,
-      .setDefault("trace", false);
+    .setEntry("errorRenderer", Json(null))
+      .setEntry("log", true) // TODO "logger": ErrorLogger.classname,
+      .setEntry("trace", false);
 
     return true;
   }
@@ -80,7 +80,7 @@ class DErrorTrap : UIMObject {
      * via error_reporting().
      */
   void register() {
-    auto level = configuration.getLongEntry("errorLevel", -1);
+    auto level = configuration.isLongEntry("errorLevel") ? Entryconfiguration.getLongEntry("errorLevel") : -1;
     /* error_reporting(level);
         set_error_handler(this.handleError(...), level); */
   }

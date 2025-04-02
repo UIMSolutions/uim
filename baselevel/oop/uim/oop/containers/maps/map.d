@@ -5,40 +5,69 @@
 *****************************************************************************************************************/
 module uim.oop.containers.maps.map;
 
-version (test_uim_oop) {
-  import std.stdio;
-  
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_oop");
 
-import uim.core;
+import uim.oop;
 @safe:
 
-class DMap(T : Object) : IMap {
+class DMap(K, V) : IMap {
   this() {}
 
-  protected T[string] _values;
+  // #region entries
+  protected V[K] _entries;
+  V[K] entries() {
+    return _entries.dup;
+  }
+  void entries(V[K] newEntries) {
+    _entries = newEntries.dup;
+  }
+  // #endregion entries
 
   bool isEmpty() { return length == 0; }
-  size_t length() { return _values.length; }
+  size_t length() { return _entries.length; }
 
-  bool removeKeys(string[] keys) {
-    return keys.all!(key => _values.removeKey(key));
+  // #region keys
+  // Retrieve all the names of the object's own enumerable properties.
+  K[] keys() {
+    return _entries.keys.dup;
   }
-  bool removeItem(string key) {
-    return _values.removeKey(key);
+  // #endregion keys
+
+  // #region values
+  // Return all of the values of the object's own properties.
+  V[] values() {
+    return _entries.values.dup;
   }
+  // #endregion values
+
+  void opIndexAssign(T)(T value, K key) {
+    _entries[key] = value;
+  }
+
+  V opIndex(K key) {
+    return _entries[key];
+  }
+
+  // #region removeKeys
+  bool removeKeys(K[] keys...) {
+    return removeKeys(keys.dup);
+  }
+  bool removeKeys(K[] keys) {
+    return keys.all!(key => _entries.removeKey(key));
+  }
+  bool removeKey(K key) {
+    return _entries.remove(key);
+  }
+  // #endregion removeKeys
+
   void clear(this O)() { 
-    _values = null; 
+    _entries = null; 
   }
 
-  override string toString() {
-    return "%s".format(_values.byKeyValue.map!(value => value.toString).array);
-  }
+/*   override string toString() {
+    return "%s".format(_entries.byKeyValue.map!(value => value.toString).array);
+  } */
 }
 
-version(test_uim_oop) { unittest {
-  // TODO auto map = new DMapObj;
-}}
+unittest {
+}

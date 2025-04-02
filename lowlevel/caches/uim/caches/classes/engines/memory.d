@@ -53,32 +53,6 @@ class DMemoryCacheEngine : DCacheEngine {
       .setEntry("servers", ["127.0.0.1"].toJson) // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
       .setDefaults(["groups", "options"], Json.emptyArray); // `options` - Additional options for the memcached client. Should be an array of option: value.
 
-    return true;
-  }
-
-  // List of available serializer engines
-  // Memory must be compiled with Json and igbinary support to use these engines
-/*   protected int[string] _serializers;
-
-  protected string[] _compiledGroupNames;
-  
-  /* protected DMemory _memcached;*/
-  protected Json[string] _entries;
-
-  // #region keys
-  override string[] keys() {
-    return _entries.keys;
-  }
-  // #endregion keys
-  /**
-     * Initialize the Cache Engine
-     *
-     * Called automatically by the cache frontend
-     * /
-
-    if (!extension_loaded("memcached")) {
-      throw new DException("The `memcached` extension must be enabled to use MemoryEngine.");
-    }
     /* _serializers = [
       "igbinary": Memory: : SERIALIZER_IGBINARY,
       "Json": Memory: : SERIALIZER_Json,
@@ -87,13 +61,13 @@ class DMemoryCacheEngine : DCacheEngine {
   /*
     if (defined("Memory.HAVE_MSGPACK")) {
       // TODO _serializers["msgpack"] = Memory.SERIALIZER_MSGPACK;
-    }
-    super.initialize(initData);
+    }*/
+
 
     if (!configuration.isEmptyEntry("host")) {
       configuration.setEntry("servers", configuration.isEmptyEntry("port")
         ? [configuration.getEntry("host")] 
-        : ["%s:%d".format(configuration.getString("host"), configuration.getString("port"))
+        : ["%s:%d"].format(configuration.getString("host"), configuration.getString("port"))
         );
     }
     /* if (configData.hasKey("servers")) {
@@ -157,6 +131,42 @@ if (configuration.hasKeys("username", "password")) {
 }
 return true;
 }
+
+    return true;
+  }
+
+    // #region groupName
+  protected string _groupName;
+  override ICacheEngine groupName(string name) {
+    _groupName = name;
+    return this;
+  }
+  override string groupName() {
+    if (_groupName.isEmpty) {
+      _groupName = configuration.getString("prefix");
+    }
+    return _groupName;
+  }
+  override ICacheEngine clearGroup(string groupName) {
+    // TODO 
+    return this;
+  }
+  // #endregion groupName
+
+
+  // List of available serializer engines
+  // Memory must be compiled with Json and igbinary support to use these engines
+  protected int[string] _serializers;
+  protected string[] _compiledGroupNames;
+  
+  /* protected DMemory _memcached;*/
+  protected Json[string] _entries;
+
+  // #region keys
+  override string[] keys() {
+    return _entries.keys;
+  }
+  // #endregion keys
 
 /**
      * Settings the memcached instance

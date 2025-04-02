@@ -5,14 +5,13 @@
 *****************************************************************************************************************/
 module uim.oop.containers.maps;
 
-version (test_uim_oop) {
-  import std.stdio;
-  
-  unittest {
-    writeln("-----  ", __MODULE__, "\t  -----");
-  }
-}
+mixin(Version!"test_uim_oop");
+
+import uim.oop;
+@safe:
 
 public {
   import uim.oop.containers.maps.map;
+  import uim.oop.containers.maps.string_;
+  import uim.oop.containers.maps.json;
 }

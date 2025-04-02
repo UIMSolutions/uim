@@ -1,7 +1,13 @@
-module uim.caches.classes.engines.engine;
+/****************************************************************************************************************
+* Copyright: © 2018-2025 Ozan Nurettin Süel (aka UIManufaktur)                                                  *
+* License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
+* Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
+*****************************************************************************************************************/
+module uim.caches.classes.engines.file;
+
+mixin(Version!"test_uim_caches");
 
 import uim.caches;
-
 @safe:
 
 // Storage engine for UIM caching
@@ -12,213 +18,61 @@ class DCacheEngine : UIMObject, ICacheEngine {
     if (!super.initialize(initData)) {
       return false;
     }
-
-    /**
-        * The default cache configuration is overridden in most cache adapters. These are
-        * the keys that are common to all adapters. If overridden, this property is not used.
-        *
-        * - `duration` Specify how long entries in this cache configuration last.
-        * - `groups` List of groups or "tags" associated to every key stored in this config.
-        *  handy for deleting a complete group from cache.
-        * - `prefix` Prefix appended to all entries. Good for when you need to share a keyspace
-        *  with either another cache config or another application.
-        * - `warnOnWriteFailures` Some engines, such as ApcuEngine, may raise warnings on
-        *  write failures.
-        */
-    /*
-        if (configuration.hasKey("groups")) {
-            configuration.getStringArray("groups").sort; // TODO _groupPrefix = repeat("%s_", configuration.getStringArray("groups").length);
-        }
-        /* if (!configuration.isNumeric("duration")) {
-            // TODO configuration.setEntry("duration", configuration.getEntry("duration").toTime - time());
-        } */
-
-    configuration
-      .setEntry("duration", 3600)
-      .setEntry("groups", Json.emptyArray)
-      .setEntry("prefix", "uim_")
-      .setEntry("warnOnWriteFailures", true);
-
+    
     return true;
   }
+  
+  // #region timeToLive
+  long timeToLive();
+  // #region timeToLive
 
-  // Group prefixes to be prepended to every key in this cache engine
-  mixin(TProperty!("string", "groupName"));
+  // #region groupName
+  abstract ICacheEngine groupName(string name);
+  abstract string groupName();
 
-  mixin(TProperty!("long", "timeToLive"));
-
-  // #region entries
-  // Obtains multiple cache entries by their unique keys.
-  void entries(Json[string] newItems) {
-    clear();
-    updateKey(newItems.dup, timeToLive);
-  }
-
-  Json[string] entries(string[] keysToUse = null) {
-    if (keysToUse.isEmpty) {
-      return entries(keys);
-    }
-
-    Json[string] results;
-    keysToUse
-      .each!((key) {
-        /* if (auto item = read(key)) {
-                    results.set(key, item);
-                } */
-      });
-    return results;
-  }
+  abstract ICacheEngine clearGroup(string groupName);
+  // #endregion groupName
 
   // #region keys
   abstract string[] keys();
   // #endregion keys
 
-  // Persists a set of key: value pairs in the cache, with an optional TTL.
-  bool entries(Json[string] entries) {
-    // TODO ensureValidType(myvalues, CHECK_KEY);
-    /*
-            Json restoreDuration = Json(null); 
-            if (timeToLive != 0) {
-                restoreDuration = configuration.hasKey("duration");
-                configuration.setEntry("duration", timeToLive);
-            }
-            try {
-                return entries.byKeyValue
-                    .all!(kv => updateKey(aKey, myvalue));
-            } finally {
-                if (restoreDuration.isNull) {
-                    configuration.setEntry("duration", restoreDuration);
-                }
-            }*/
-    return false;
-  }
   // #region entries
+  abstract ICacheEngine entries(Json[string] newItems);
+  abstract Json[string] entries();
+  // #endregion entries
 
-  // #region read
-  // Fetches the value for a given key from the cache.
-  Json[] read(string[] keys, Json defaultValue = Json(null)) {
-    return keys.map!(key => read(key, defaultValue)).array;
-  }
-
-  Json read(string key, Json defaultValue = Json(null)) {
-    return Json(null);
-  }
-
-  // #endregion read
+  // #region has
+    mixin(HasMethods!("Entries", "Entry", "string"));
+    abstract bool hasEntry(string key);
+  // #endregion has
+  
+  // #region get
+  mixin(GetInterfaces!("Json", "Entries", "Entry", "string"));
+  abstract Json getEntry(string key);
+  // #endregion has
 
   // #region set
-  // Persists data in the cache, uniquely referenced by the given key with an optional expiration timeToLive time.
-  mixin(SetAction!("ICacheEngine", "Entries", "Entry", "string", "Json", "entries"));
-
-  ICacheEngine setEntry(string key, Json entry) {
-    return this;
-  }
-    
-  unittest {
-    // TODO
-  }
+  mixin(SetInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  abstract ICacheEngine setEntry(string key, Json value);
   // #endregion set
 
   // #region merge
-  // Persists data in the cache, uniquely referenced by the given key with an optional expiration timeToLive time.
-  mixin(MergeAction!("ICacheEngine", "Entries", "Entry", "string", "Json", "entries"));
-
-  ICacheEngine mergeEntry(string key, Json entry) {
-    if (!hasEntry(key)) setEntry(key, entry);
-    return this;
-  }
-
-  unittest {
-    // TODO
-  }
+  mixin(MergeInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  abstract ICacheEngine mergeEntry(string key, Json value);
   // #endregion merge
 
   // #region update
-  // Persists data in the cache, uniquely referenced by the given key with an optional expiration timeToLive time.
-  mixin(UpdateAction!("ICacheEngine", "Entries", "Entry", "string", "Json", "entries"));
-
-  ICacheEngine updateEntry(string key, Json entry) {
-    if (hasEntry(key)) setEntry(key, entry);
-    return this;
-  }
-    
-  unittest {
-    // TODO
-  }
+  mixin(UpdateInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  abstract ICacheEngine updateEntry(string key, Json value);
   // #endregion update
 
-  // Increment a number under the key and return incremented value
-  long increment(string key, int incValue = 1) {
-    return 0;
-  }
-  // Decrement a number under the key and return decremented value
-  long decrement(string key, int decValue = 1) {
-    return 0;
-  }
-
   // #region remove
-  // Delete all keys from the cache
-  bool clear() {
-    return removeKey(keys);
-  }
-
-  // Deletes multiple cache entries as a list
-  mixin(RemoveAction!("ICacheEngine", "Entries", "Entry", "string", "names"));
-
-  // Delete a key from the cache
-  ICacheEngine removeEntry(string key) {
-    return this;
-  }
+  mixin(RemoveInterfaces!("ICacheEngine", "Entries", "Entry", "string"));
+  abstract ICacheEngine removeEntry(string key);
+  abstract ICacheEngine clearEntries(string key);
   // #endregion remove
 
-  /**
-     * Clears all values belonging to a group. Is up to the implementing engine
-     * to decide whether actually delete the keys or just simulate it to achieve the same result.
-     * /
-    abstract bool clearGroup(string groupName);
-
-    /**
-     * Does whatever initialization for each group is required and returns the `group value` for each of them, 
-     * this is the token representing each group in the cache key
-     * /
-    string[] groups() {
-        return configuration.getStringArray(
-            "groups");
-    }
-
-    /**
-     * Generates a key for cache backend usage.
-     *
-     * If the requested key is valid, the group prefix value and engine prefix are applied.
-     * Whitespace in keys will be replaced.
-     * /
-    protected string internalKey(string key) {
-        string prefix = groupName
-            ? groups().join("_").md5 : "";
-
-        // TODO auto changedKey = key.replaceAll.regex(r"/[\s]+/", "_");
-        return configuration.getString(
-            "prefix") ~ prefix; //  ~ changedKey;
-    }
-
-    /**
-     * Cache Engines may trigger warnings if they encounter failures during operation,
-     * if option warnOnWriteFailures is set to true.
-     * /
-    protected void warning(
-        string warningMessage) {
-        if (!configuration..getBooleanEntry(
-                "warnOnWriteFailures")) {
-            return;
-        }
-        // TODO triggerWarning(warningMessage);
-    }
-
-    // Convert the various expressions of a TTL value into duration in seconds
-    protected long duration(
-        long timeToLive = 0) {
-        return timeToLive == 0
-            ? configuration.getLongEntry(
-                "duration") : timeToLive;
-    } */
+  abstract long increment(string key, int incValue = 1);
+  abstract long decrement(string key, int decValue = 1);
 }

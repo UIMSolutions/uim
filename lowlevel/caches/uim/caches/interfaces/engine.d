@@ -17,40 +17,19 @@ interface ICacheEngine : IObject {
   ICacheEngine clearGroup(string groupName);
   // #endregion groupName
 
-  // #region keys
   string[] keys();
-  // #region has
-  bool hasAllKeys(string[] keys...);
-  bool hasAllKeys(string[] keys);
-  bool hasAnyKeys(string[] keys...);
-  bool hasAnyKeys(string[] keys);
-  bool hasKey(string[] keys);
-  // #endregion has
-  // #endregion keys
 
   // #region entries
   ICacheEngine entries(Json[string] newItems);
-  Json[string] entries(string[] keys);
-  Json entry(string key, Json defaultValue = Json(null));
-
-  ICacheEngine setEntries(Json[string] entries);
-  ICacheEngine setEntries(string[] keys, Json entry);
-  ICacheEngine setEntry(string key, Json entry);
-
-  ICacheEngine mergeEntries(Json[string] entries);
-  ICacheEngine mergeEntries(string[] keys, Json entry);
-  ICacheEngine mergeEntry(string key, Json entry);
-
-  ICacheEngine updateEntries(Json[string] entries);
-  ICacheEngine updateEntries(string[] keys, Json entry);
-  ICacheEngine updateEntry(string key, Json entry);
-
-  ICacheEngine removeEntries(string[] keys...);
-  ICacheEngine removeEntries(string[] keys);
-  ICacheEngine removeEntry(string key);
-
-  ICacheEngine clearEntries();
+  Json[string] entries();
   // #endregion entries
+
+  mixin(HasInterfaces!("Entries", "Entry", "string"));
+  mixin(GetInterfaces!("Json", "Entries", "Entry", "string"));
+  mixin(SetInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  mixin(MergeInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  mixin(UpdateInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  mixin(RemoveInterfaces!("ICacheEngine", "Entries", "Entry", "string"));
 
   long increment(string key, int incValue = 1);
   long decrement(string key, int decValue = 1);

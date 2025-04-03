@@ -65,12 +65,12 @@ mixin template TStaticConfig() {
         if (isObject(configData)) {
             configData = ["classname": configData];
         }
-        if (configData.isArray && configData.hasKey("url")) {
+        if (configuration.isArray && configuration.hasKey("url")) {
             auto parsed = parseDsn(configuration.getEntry("url"));
             configuration.removeKey("url");
             configData = parsed + configData;
         }
-        if (configData.hasKey("engine") && configData.isEmpty("classname")) {
+        if (configuration.hasKey("engine") && configuration.isEmpty("classname")) {
             configuration.setEntry("classname", configuration.getEntry("engine"));
             configuration.removeKey("engine");
         }

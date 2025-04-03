@@ -53,7 +53,7 @@ class DSerializedView : DView {
                 auto (myv) {
                     return "_" ~ myv;
                 },
-                _defaultConfigData.keys
+                _defaultconfiguration.keys
            ); * /
 
             shouldSerialize = _viewVars.keys.diff(options);

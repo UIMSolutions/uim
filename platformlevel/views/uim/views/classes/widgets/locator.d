@@ -111,12 +111,12 @@ class DWidgetLocator {
   // Resolves a widget spec into an instance.
   protected IWidget _resolveWidget(Json[string] configData) {
     /* 
-        auto myclass = configData.shift();
+        auto myclass = configuration.shift();
         auto myclassname = App.classname(myclass, "View/Widget", "Widget");
         if (myclassname.isNull) {
             throw new DInvalidArgumentException("Unable to locate widget class `%s`.".format(myclass));
         } */
-    /* if (configData.length > 0) {
+    /* if (configuration.length > 0) {
             auto myreflection = new DReflectionClass(myclassname);
             auto myarguments = [_stringContents];
             foreach (myrequirement; configData) {

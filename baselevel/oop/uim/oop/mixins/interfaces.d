@@ -109,9 +109,7 @@ unittest {
 string changeInterfaces(string returntype, string action, string plural, string singular, string keyType, string valueType) {
   return `
     {returntype} {action}{plural}({valueType}[{keyType}] values);
-
-    {returntype} {action}{plural}({keyType} key, {valueType}[] values...);
-    {returntype} {action}{plural}({keyType} key, {valueType}[] v{action}es);
+    {returntype} {action}{plural}({keyType}[] keys, {valueType} value);
 
     {returntype} {action}{singular}({keyType} key, {valueType} value);
   `

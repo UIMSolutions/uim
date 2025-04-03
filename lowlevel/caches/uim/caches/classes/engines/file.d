@@ -47,6 +47,14 @@ class DFileCacheEngine : DCacheEngine {
     return true;
   }
 
+  override ICacheEngine entries(Json[string] newEntries) {
+    // TODO 
+    return this;
+  }
+  override Json[string] entries() {
+    return null;
+  }
+
   // #region keys
   override string[] keys() {
     return entries.keys;
@@ -65,11 +73,6 @@ class DFileCacheEngine : DCacheEngine {
       _groupName = configuration.getStringEntry("prefix");
     }
     return _groupName;
-  }
-
-  override ICacheEngine clearGroup(string groupName) {
-    // TODO return  / * (bool) * / _entries.increment(configuration.getStringEntry("prefix") ~ groupName);
-    return this;
   }
   // #endregion groupName
 
@@ -358,7 +361,7 @@ class DFileCacheEngine : DCacheEngine {
   /* override */
   override ICacheEngine clearGroup(string groupName) {
     string prefix = configuration.getStringEntry("prefix");
-    string path = configuration.getSTringEntry("path");
+    string path = configuration.getStringEntry("path");
 
     // TODO
     /* removeKey(_File);

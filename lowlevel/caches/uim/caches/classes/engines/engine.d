@@ -59,18 +59,31 @@ class DCacheEngine : UIMObject, ICacheEngine {
 
   // #region merge
   mixin(MergeMethods!("ICacheEngine", "Entries", "Entry", "string", "Json"));
-  abstract ICacheEngine mergeEntry(string key, Json value);
+  ICacheEngine mergeEntry(string key, Json value) {
+    if (!hasEntry(key)) {
+      setEntry(key, value);
+    }
+    return this;
+  }
   // #endregion merge
 
   // #region update
   mixin(UpdateMethods!("ICacheEngine", "Entries", "Entry", "string", "Json"));
-  abstract ICacheEngine updateEntry(string key, Json value);
+  ICacheEngine updateEntry(string key, Json value) {
+    if (hasEntry(key)) {
+      setEntry(key, value);
+    }
+    return this;
+  }
   // #endregion update
 
   // #region remove
   mixin(RemoveMethods!("ICacheEngine", "Entries", "Entry", "string"));
   abstract ICacheEngine removeEntry(string key);
-  abstract ICacheEngine clearEntries(string key);
+  ICacheEngine clearEntries() {
+    removeEntries(keys());
+    return this;
+  }
   
   /**
   * Increments the group value to simulate deletion of all keys under a group

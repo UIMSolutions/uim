@@ -65,19 +65,19 @@ mixin template TInstanceConfig() {
      * Reading a specific value:
      *
      * ```
-     * _configData.hasKey("key");
+     * _configuration.hasKey("key");
      * ```
      *
      * Reading a nested value:
      *
      * ```
-     * _configData.hasKey("some.nested.key");
+     * _configuration.hasKey("some.nested.key");
      * ```
      *
      * Reading with default value:
      *
      * ```
-     * _configData.hasKey("some-key", "default-value");
+     * _configuration.hasKey("some-key", "default-value");
      * ```
      */
   // TODO Kill code?
@@ -98,7 +98,7 @@ mixin template TInstanceConfig() {
      */
   Json getConfigOrFail(string key) {
     Json configData = configuration.getEntry(key);
-    if (configData.isNull) {
+    if (configuration.isNull) {
       throw new DInvalidArgumentException(
         "Expected configuration `%s` not found.".format(key));
     }

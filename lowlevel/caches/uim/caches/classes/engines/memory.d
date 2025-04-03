@@ -64,12 +64,13 @@ class DMemoryCacheEngine : DCacheEngine {
     }*/
 
     if (!configuration.isEmptyEntry("host")) {
+      auto host = configuration.getStringEntry("host");
       configuration.setEntry("servers", configuration.isEmptyEntry("port")
-          ? [configuration.getEntry("host")] : ["%s:%d"].format(configuration.getStringEntry("host"),
-            configuration.getStringEntry("port"))
+          ? [host] 
+          : ["%s:%s"].format(host, configuration.getStringEntry("port"))
       );
     }
-    /* if (configData.hasKey("servers")) {
+    /* if (configuration.hasKey("servers")) {
       configuration.setEntry("servers", configuration.getEntry("servers"], false);
     } */
     /* if (!configuration.isArrayEntry("servers")) {

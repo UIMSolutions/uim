@@ -190,11 +190,11 @@ class DViewBuilder : IViewBuilder { // }: DJsonSerializable {
     void addHelpers(Json[string] myhelpers) {
         /* myhelpers.byKeyValue
             .each((helperConfigData) {
-                if (isInteger(helperConfigData.key)) {
-                    auto myhelper = helperConfigData.value;
-                    helperConfigData.value = null;
+                if (isInteger(helperconfiguration.key)) {
+                    auto myhelper = helperconfiguration.value;
+                    helperconfiguration.value = null;
                 }
-                this.addHelper(myhelper, helperConfigData.value);
+                this.addHelper(myhelper, helperconfiguration.value);
             }); */
     }
     

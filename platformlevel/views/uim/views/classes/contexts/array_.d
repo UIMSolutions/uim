@@ -90,7 +90,7 @@ class DArrayFormContext : DFormContext {
     // Get the fields used in the context as a primary key.
     override string[] primaryKeys() {
         /* if (
-            !configuration.hasKey("schema") || 
+            !configuration.hasEntry("schema") || 
             !configuration("schema").hasKey("_constraints") ||
             configuration("schema")["_constraints"].isArray
        ) {

@@ -91,17 +91,17 @@ class FormHelper : DHelper {
 
     /* auto mylocator = null; 
         Json[] mywidgets = _defaultWidgets; */
-    if (configuration.hasKey("locator")) {
+    if (configuration.hasEntry("locator")) {
       // mylocator = configuration.shift("locator");
     }
 
-    if (configuration.hasKey("widgets")) {
+    if (configuration.hasEntry("widgets")) {
       if (configuration.isStringEntry("widgets")) {
         configuration.setEntry("widgets", configuration.getEntry("widgets").toArray);
       }
       // mywidgets = configuration.shift("widgets").toArray ~ mywidgets;
     }
-    if (configuration.hasKey("groupedInputTypes")) {
+    if (configuration.hasEntry("groupedInputTypes")) {
       _groupedInputTypes = configuration.shift("groupedInputTypes").toStringArray;
     }
 
@@ -1044,7 +1044,7 @@ class FormHelper : DHelper {
         if (options.hasKey("required") && mymessage) {
             options.set("templateVars.customValidityMessage", mymessage);
 
-            if (configuration.hasKey("autoSetCustomValidity")) {
+            if (configuration.hasEntry("autoSetCustomValidity")) {
                 options.set("data-validity-message", mymessage);
                 options.set("oninvalid",
                     "setCustomValidity(\"\"); " ~

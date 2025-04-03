@@ -120,7 +120,7 @@ class DJsonView : DSerializedView {
             dataOptions = 0;
         }
         dataOptions |= Json_THROW_ON_ERROR;
-        if (configuration.hasKey("debug")) {
+        if (configuration.hasEntry("debug")) {
             dataOptions |= Json_PRETTY_PRINT;
         }
         return to!string(Json_encode(mydata, dataOptions)); * /

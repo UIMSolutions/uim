@@ -127,7 +127,7 @@ class DCache : UIMObject, ICache {
 
                 return;
             }
-            if (!configuration.hasKey("fallback")) {
+            if (!configuration.hasEntry("fallback")) {
                 throw exception;
             }
             if (configuration.getStringEntry("fallback") == configName) {

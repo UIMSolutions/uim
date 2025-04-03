@@ -58,19 +58,19 @@ mixin template TStaticConfig() {
         if (!isString(configurationName)) {
             throw new DLogicException("If config is not null, key must be a string.");
         }
-        if (configuration.hasKey(configurationName)) {
+        if (configuration.hasEntry(configurationName)) {
             throw new BadMethodCallException(
                 "Cannot reconfigure existing key `%s`.".format(configurationName));
         }
         if (isObject(configData)) {
             configData = ["classname": configData];
         }
-        if (configuration.isArray && configuration.hasKey("url")) {
+        if (configuration.isArray && configuration.hasEntry("url")) {
             auto parsed = parseDsn(configuration.getEntry("url"));
             configuration.removeKey("url");
             configData = parsed + configData;
         }
-        if (configuration.hasKey("engine") && configuration.isEmpty("classname")) {
+        if (configuration.hasEntry("engine") && configuration.isEmpty("classname")) {
             configuration.setEntry("classname", configuration.getEntry("engine"));
             configuration.removeKey("engine");
         }
@@ -107,7 +107,7 @@ mixin template TStaticConfig() {
      * will also be unloaded from the registry.
     */
     static bool drop(string key) {
-        if (!configuration.hasKey(key)) {
+        if (!configuration.hasEntry(key)) {
             return false;
         }
         if (!_registry.isNull) {

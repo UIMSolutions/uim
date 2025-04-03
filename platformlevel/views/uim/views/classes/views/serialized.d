@@ -32,7 +32,7 @@ class DSerializedView : DView {
 
     // Load helpers only if serialization is disabled.
     void loadHelpers() {
-        if (!configuration.hasKey("serialize")) {
+        if (!configuration.hasEntry("serialize")) {
             // super.loadHelpers();
         }
     }

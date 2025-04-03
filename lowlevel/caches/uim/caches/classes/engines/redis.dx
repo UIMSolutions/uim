@@ -89,7 +89,7 @@ class DRedisCacheEngine : DCacheEngine {
             }
             return false;
         }
-        if (result && configuration.hasKey("password")) {
+        if (result && configuration.hasEntry("password")) {
             result = _redis.auth(configuration.getStringEntry("password"));
         }
         if (result) {

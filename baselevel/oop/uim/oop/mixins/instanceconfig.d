@@ -65,19 +65,19 @@ mixin template TInstanceConfig() {
      * Reading a specific value:
      *
      * ```
-     * _configuration.hasKey("key");
+     * _configuration.hasEntry("key");
      * ```
      *
      * Reading a nested value:
      *
      * ```
-     * _configuration.hasKey("some.nested.key");
+     * _configuration.hasEntry("some.nested.key");
      * ```
      *
      * Reading with default value:
      *
      * ```
-     * _configuration.hasKey("some-key", "default-value");
+     * _configuration.hasEntry("some-key", "default-value");
      * ```
      */
   // TODO Kill code?

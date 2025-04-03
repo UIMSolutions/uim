@@ -26,7 +26,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
         *  write failures.
         */
     /*
-        if (configuration.hasKey("groups")) {
+        if (configuration.hasEntry("groups")) {
             configuration.getStringArray("groups").sort; // TODO _groupPrefix = repeat("%s_", configuration.getStringArray("groups").length);
         }
         /* if (!configuration.isNumeric("duration")) {
@@ -80,7 +80,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
     /*
             Json restoreDuration = Json(null); 
             if (timeToLive != 0) {
-                restoreDuration = configuration.hasKey("duration");
+                restoreDuration = configuration.hasEntry("duration");
                 configuration.setEntry("duration", timeToLive);
             }
             try {

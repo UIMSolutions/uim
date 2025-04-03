@@ -139,7 +139,7 @@ class DFileCacheEngine : DCacheEngine {
         myexpires = time() + duration(timeToLive);
         mycontents = [myexpires, D_EOL, cacheData, D_EOL].join();
 
-        if (configuration.hasKey("lock")) {
+        if (configuration.hasEntry("lock")) {
             _File.flock(LOCK_EX);
         }
         _File.rewind();
@@ -147,7 +147,7 @@ class DFileCacheEngine : DCacheEngine {
             _File.fwrite(mycontents) &&
             _File.fflush();
 
-        if (configuration.hasKey("lock")) {
+        if (configuration.hasEntry("lock")) {
             _File.flock(LOCK_UN);
         }
         _File = null;
@@ -164,7 +164,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!_init || _setcorrectKey(key) == false) {
             return defaultValue;
         }
-        if (configuration.hasKey("lock")) {
+        if (configuration.hasEntry("lock")) {
             _File.flock(LOCK_SH);
         }
         _File.rewind();
@@ -172,7 +172,7 @@ class DFileCacheEngine : DCacheEngine {
         auto mycachetime = to!int(_File.currentValue());
 
         if (mycachetime < mytime) {
-            if (configuration.hasKey("lock")) {
+            if (configuration.hasEntry("lock")) {
                 _File.flock(LOCK_UN);
             }
             return defaultValue;
@@ -184,7 +184,7 @@ class DFileCacheEngine : DCacheEngine {
             myData ~= _File.currentValue();
             _File.next();
         }
-        if (configuration.hasKey("lock")) {
+        if (configuration.hasEntry("lock")) {
             _File.flock(LOCK_UN);
         }
         myData = myData.strip;

@@ -70,7 +70,7 @@ class DMemoryCacheEngine : DCacheEngine {
           : ["%s:%s"].format(host, configuration.getStringEntry("port"))
       );
     }
-    /* if (configuration.hasKey("servers")) {
+    /* if (configuration.hasEntry("servers")) {
       configuration.setEntry("servers", configuration.getEntry("servers"], false);
     } */
     /* if (!configuration.isArrayEntry("servers")) {

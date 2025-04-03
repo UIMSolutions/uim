@@ -466,7 +466,7 @@ class DPaginatorHelper : DHelper {
         }
         url.set("?", url.get("?"));
 
-        if (!configuration.hasKey("options.routePlaceholders")) {
+        if (!configuration.hasEntry("options.routePlaceholders")) {
             myplaceholders = array_flip(
                 configuration
                     .get("options.routePlaceholders"));

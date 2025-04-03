@@ -118,7 +118,7 @@ class DTableHelper : UIMObject { // }: Helper {
     auto widths = _calculateWidths(commandArguments); */
 
 /*     _rowSeparator(widths);
-    if (configuration.hasKey("headers")) {
+    if (configuration.hasEntry("headers")) {
       _render(commandArguments.shift, widths, [
           "style": configuration.getEntry("headerStyle")
         ]);
@@ -129,12 +129,12 @@ class DTableHelper : UIMObject { // }: Helper {
     }
     commandArguments.each!((line) {
       _render(line, widths);
-      if (configuration.hasKey("rowSeparator")) {
+      if (configuration.hasEntry("rowSeparator")) {
         _rowSeparator(widths);
       }
     });
 
-    if (!configuration.hasKey("rowSeparator")) {
+    if (!configuration.hasEntry("rowSeparator")) {
       _rowSeparator(widths);
     } */
   }

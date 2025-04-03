@@ -130,7 +130,7 @@ class DCache : UIMObject, ICache {
             if (!configuration.hasKey("fallback")) {
                 throw exception;
             }
-            if (configuration.getString("fallback") == configName) {
+            if (configuration.getStringEntry("fallback") == configName) {
                 throw new DInvalidArgumentException(
                     "`%s` cache configuration cannot fallback to it"
                     .format(configName), 0, exception);

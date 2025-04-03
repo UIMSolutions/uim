@@ -198,7 +198,7 @@ class DCacheEngine : UIMObject, ICacheEngine {
             ? groups().join("_").md5 : "";
 
         // TODO auto changedKey = key.replaceAll.regex(r"/[\s]+/", "_");
-        return configuration.getString(
+        return configuration.getStringEntry(
             "prefix") ~ prefix; //  ~ changedKey;
     }
 

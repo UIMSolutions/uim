@@ -95,7 +95,7 @@ class DArrayCacheEngine : DCacheEngine {
     // TODO
     /*
     configuration.getEntry("groups").each!((group) {
-      string key = configuration.getString("prefix") ~ myGroup;
+      string key = configuration.getStringEntry("prefix") ~ myGroup;
       if (!_cachedData.hasKey(key)) {
         _cachedData[aKey] = ["exp": D_INT_MAX, "val": 1];
       }

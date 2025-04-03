@@ -153,7 +153,7 @@ class DErrorTrap : UIMObject {
 
   // Get an instance of the renderer.
   IErrorRenderer renderer() {
-    /*         string classname = configuration.getString("errorRenderer", chooseErrorRenderer());
+    /*         string classname = configuration.getStringEntry("errorRenderer", chooseErrorRenderer());
 
         return new classname(_config); */
     return null; // TODO
@@ -161,7 +161,7 @@ class DErrorTrap : UIMObject {
 
   // Get an instance of the logger.
   IErrorLogger logger() {
-    /*         string classname = configuration.getString("logger", defaultconfiguration.getString(
+    /*         string classname = configuration.getStringEntry("logger", defaultconfiguration.getStringEntry(
                 "logger"));
         return new classname(_config); */
     return null; // TODO

@@ -102,7 +102,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     STRINGAA myPaths;
 
     if (configuration.hasKey("App.dir")) {
-      string appPath = stripRight(configuration.getString("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+      string appPath = stripRight(configuration.getStringEntry("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
       // Extra space is to align output
       myPaths.set("app", " " ~ appPath);
     }

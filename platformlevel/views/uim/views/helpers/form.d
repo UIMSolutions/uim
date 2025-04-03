@@ -140,7 +140,7 @@ class FormHelper : DHelper {
         mylocator = new WidgetLocator(this.templater(), _view, mywidgets);
     }
     setWidgetLocator(mylocator);
-    _idPrefix = configuration.getString("idPrefix");
+    _idPrefix = configuration.getStringEntry("idPrefix");
 } */
 
   // Get the widget locator currently used by the helper.
@@ -1536,7 +1536,7 @@ class FormHelper : DHelper {
             options.set("src", caption);
         } else if (isImage) {
             myUrl = caption[0] != "/"
-                ? _url.webroot(configuration.getString(
+                ? _url.webroot(configuration.getStringEntry(
                         "App.imageBaseUrl") ~ caption) : _url.webroot(trim(caption, "/"));
 
             myUrl = _url.assetTimestamp(myUrl);

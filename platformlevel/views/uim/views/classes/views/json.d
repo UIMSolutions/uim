@@ -98,7 +98,7 @@ class DJsonView : DSerializedView {
     // Render a Json view.
     /* override string render(string templateText = null, string /* false | null  *  layoutName = null) {
         auto result = super.render(templateText, layoutName);
-        if (string myJsonp = configuration.getString("Jsonp")) {
+        if (string myJsonp = configuration.getStringEntry("Jsonp")) {
             // TODO ?? 
             /* if (myJsonp == true) {
                 myJsonp = "callback";

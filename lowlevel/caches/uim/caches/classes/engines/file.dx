@@ -239,7 +239,7 @@ class DFileCacheEngine : DCacheEngine {
         if (_groupPrefix) {
             mygroups = vsprintf(_groupPrefix, this.groups());
         }
-        mydir = configuration.getString("path") ~ mygroups;
+        mydir = configuration.getStringEntry("path") ~ mygroups;
 
         if (!isDir(mydir)) {
             mkdir(mydir, configuration.getEntry("dirMask"), true);
@@ -288,7 +288,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!mysuccess || (_init && !myisWritableDir)) {
             _init = false;
             trigger_error("%s is not writable"
-                    .format(configuration.getString("path"), ERRORS.USER_WARNING));
+                    .format(configuration.getStringEntry("path"), ERRORS.USER_WARNING));
         }
         return mysuccess;
     } */
@@ -304,7 +304,7 @@ class DFileCacheEngine : DCacheEngine {
         // TODO
         /* removeKey(_File);
 
-        string myprefix = configuration.getString("prefix");
+        string myprefix = configuration.getStringEntry("prefix");
 
         DRecursiveDirectoryIterator mydirectoryIterator = new DRecursiveDirectoryIterator(
             configuration.getEntry("path"));

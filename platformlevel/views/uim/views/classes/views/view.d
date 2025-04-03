@@ -1077,7 +1077,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
         if (mycache.isArray) {
             configData = mycache + configData;
         }
-        configuration.setEntry("key", "element_" ~ configuration.getString("key"));
+        configuration.setEntry("key", "element_" ~ configuration.getStringEntry("key"));
         return configData; * /
         return null;
     }

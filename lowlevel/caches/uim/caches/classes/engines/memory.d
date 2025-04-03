@@ -67,7 +67,7 @@ class DMemoryCacheEngine : DCacheEngine {
     if (!configuration.isEmptyEntry("host")) {
       configuration.setEntry("servers", configuration.isEmptyEntry("port")
         ? [configuration.getEntry("host")] 
-        : ["%s:%d"].format(configuration.getString("host"), configuration.getString("port"))
+        : ["%s:%d"].format(configuration.getStringEntry("host"), configuration.getStringEntry("port"))
         );
     }
     /* if (configData.hasKey("servers")) {
@@ -125,8 +125,8 @@ if (configuration.hasKeys("username", "password")) {
   }
   _entries.setOption(Memory.OPT_BINARY_PROTOCOL, true);
   _entries.setSaslAuthData(
-    configuration.getString("username"),
-    configuration.getString("password")
+    configuration.getStringEntry("username"),
+    configuration.getStringEntry("password")
  );
 }
 return true;
@@ -143,7 +143,7 @@ return true;
   }
   override string groupName() {
     if (_groupName.isEmpty) {
-      _groupName = configuration.getString("prefix");
+      _groupName = configuration.getStringEntry("prefix");
     }
     return _groupName;
   }
@@ -176,7 +176,7 @@ return true;
   protected void _setOptions() {
     // _entries.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
 
-    string myserializer = configuration.getString("serialize").lower;
+    string myserializer = configuration.getStringEntry("serialize").lower;
     if (!_serializers.hasKey(myserializer)) {
       throw new DInvalidArgumentException(
         "`%s` is not a valid serializer engine for Memory.".format(myserializer)
@@ -304,7 +304,7 @@ return true;
 
   // Delete all keys from the cache
   override bool clear() {
-    string prefix = configuration.getString("prefix");
+    string prefix = configuration.getStringEntry("prefix");
     /*    _entries.getAllKeys()
       .filter!(key => key.startsWith(prefix))
       .each!(key => _entries.removeKey(key)); * /
@@ -324,7 +324,7 @@ return true;
   override string[] groups() {
     if (_compiledGroupNames.isEmpty) {
       _compiledGroupNames = configuration.getStringArray("groups")
-        .map!(group => configuration.getString("prefix") ~ group).array;
+        .map!(group => configuration.getStringEntry("prefix") ~ group).array;
     }
 
     /* 
@@ -347,7 +347,7 @@ return true;
   * old values will remain in storage until they expire.
   * /
   override bool clearGroup(string groupName) {
-    // TODO return  /* (bool) * / _entries.increment(configuration.getString("prefix") ~ groupName);
+    // TODO return  /* (bool) * / _entries.increment(configuration.getStringEntry("prefix") ~ groupName);
     return false;
   } */
 }

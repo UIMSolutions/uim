@@ -41,7 +41,7 @@ class DTimeHelper : DHelper {
     if (timezone) {
       return timezone;
     }
-    return configuration.getString("outputTimezone");
+    return configuration.getStringEntry("outputTimezone");
   }
 
   // Returns a DateTime object, given either a UNIX timestamp or a valid strtotime() date string.

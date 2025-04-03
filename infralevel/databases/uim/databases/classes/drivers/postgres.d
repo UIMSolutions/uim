@@ -72,8 +72,8 @@ class DPostgresDriver : DDBDriver {
         super.connect();
 
 /*         string connectUrl;
-        connectUrl ~= configuration.getString("host") // ex. "localhost"
-        configuration.getString("username", "root")
+        connectUrl ~= configuration.getStringEntry("host") // ex. "localhost"
+        configuration.getStringEntry("username", "root")
             .setEntry("password", "")
             .setEntry("database", "uim")
         string connectUrl = "postgresql://localhost:{port}/ddbctestdb?user={username},password={password},ssl=true";

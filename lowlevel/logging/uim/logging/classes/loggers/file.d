@@ -57,12 +57,12 @@ class DFileLogger : DLogger {
       /* .setEntry("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
           .classname)) *//* ; */
 
-    /* auto _path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
+    /* auto _path = configuration.getStringEntry("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
         if (!isDir(_path)) {
             mkdir(_path, configuration.getEntry("dirMask"), true);
         }
         if (!configuration.isEmptyEntry("file")) {
-           _fileNamename = configuration.getString("file");
+           _fileNamename = configuration.getStringEntry("file");
             if (!_fileNamename.endsWith(".log")) {
                _fileNamename ~= ".log";
             }

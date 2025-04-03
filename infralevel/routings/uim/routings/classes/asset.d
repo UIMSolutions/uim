@@ -158,14 +158,14 @@ class DAsset {
         /* if (somePath.contains("?")) {
             return somePath;
         }
-        auto timestamp = timestamp.ifNull(configuration.getString("Asset.timestamp"));
+        auto timestamp = timestamp.ifNull(configuration.getStringEntry("Asset.timestamp"));
         auto timestampEnabled = timestamp == "force" || (timestamp == true && configuration.getEntry("debug"));
         if (timestampEnabled) {
             string filepath = /* (string) * /preg_replace(
                 "/^" ~ preg_quote(requestWebroot(), "/").correctUrl, "", urldecode(somePath)
            );
             
-            string webrootPath = configuration.getString("App.wwwRoot") ~ filepath.replace("/", DIRECTORY_SEPARATOR);
+            string webrootPath = configuration.getStringEntry("App.wwwRoot") ~ filepath.replace("/", DIRECTORY_SEPARATOR);
             if (isFile(webrootPath)) {
                 return somePath ~ "?" ~ filemtime(webrootPath);
             }
@@ -214,7 +214,7 @@ class DAsset {
             if (DIRECTORY_SEPARATOR == "\\") {
                 file = file.replace("/", "\\");
             }
-            if (isFile(configuration.getString("App.wwwRoot") ~ theme ~ file)) {
+            if (isFile(configuration.getStringEntry("App.wwwRoot") ~ theme ~ file)) {
                 webPath = requestWebroot ~ theme ~ asset[0];
             } else {
                 themePath = Plugin.path(themeName);

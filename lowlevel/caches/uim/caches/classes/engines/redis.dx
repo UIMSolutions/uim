@@ -75,7 +75,7 @@ class DRedisCacheEngine : DCacheEngine {
                     configuration.getLongEntry("timeout")
                );
             } else {
-                persistentId = configuration.getString("port") ~ configuration.getString("timeout") ~ configuration.getString("database");
+                persistentId = configuration.getStringEntry("port") ~ configuration.getStringEntry("timeout") ~ configuration.getStringEntry("database");
                 result = _redis.pconnect(
                     configuration.getEntry("server"),
                     configuration.getLongEntry("port"),
@@ -90,7 +90,7 @@ class DRedisCacheEngine : DCacheEngine {
             return false;
         }
         if (result && configuration.hasKey("password")) {
-            result = _redis.auth(configuration.getString("password"));
+            result = _redis.auth(configuration.getStringEntry("password"));
         }
         if (result) {
             result = _redis.select(configuration.getLongEntry("database"));
@@ -166,7 +166,7 @@ class DRedisCacheEngine : DCacheEngine {
         // TODO
         /* override bool isAllDeleted = true;
         auto anIterator = null;
-        auto somePattern = configuration.getString("prefix") ~ "*";
+        auto somePattern = configuration.getStringEntry("prefix") ~ "*";
 
         while (true) {
             auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getLongEntry("scanCount"));
@@ -195,7 +195,7 @@ class DRedisCacheEngine : DCacheEngine {
 
         override bool isAllDeleted = true;
         auto anIterator = null;
-        string somePattern = configuration.getString("prefix") ~ "*";
+        string somePattern = configuration.getStringEntry("prefix") ~ "*";
         while (true) {
             auto someKeys = _redis.scan(anIterator,  somePattern, configuration.getLongEntry("scanCount"));
 
@@ -229,10 +229,10 @@ class DRedisCacheEngine : DCacheEngine {
     override string[] groups() {
         string[] result;
         configuration.getEntry("groups").each!((group) {
-            auto aValue = _redis.get(configuration.getString("prefix") ~  group);
+            auto aValue = _redis.get(configuration.getStringEntry("prefix") ~  group);
             if (!aValue) {
                 aValue = serialize(1);
-               _redis.set(configuration.getString("prefix") ~  group, aValue);
+               _redis.set(configuration.getStringEntry("prefix") ~  group, aValue);
             }
             result ~= anGroup ~ aValue;
         });
@@ -245,7 +245,7 @@ class DRedisCacheEngine : DCacheEngine {
      * old values will remain in storage until they expire.
     */
     override bool clearGroup(string groupName) {
-        return /* (bool) */_redis.incr(configuration.getString("prefix") ~  groupName);
+        return /* (bool) */_redis.incr(configuration.getStringEntry("prefix") ~  groupName);
     }
     
     /**

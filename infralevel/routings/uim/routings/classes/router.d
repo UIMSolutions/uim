@@ -407,7 +407,7 @@ class DRouter {
       _fullBaseUrl = baseUrl;
       configuration.setEntry("App.fullBaseUrl", baseUrl);
     } else {
-      baseUrl = configuration.getString("App.fullBaseUrl");
+      baseUrl = configuration.getStringEntry("App.fullBaseUrl");
 
       // If App.fullBaseUrl is empty but context is set from request through setRequest()
       if (!baseUrl && !_serverRequestContext.isEmpty("_host")) {

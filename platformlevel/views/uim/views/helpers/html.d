@@ -172,7 +172,7 @@ class DHtmlHelper : DHelper {
   string charset(string value = null) {
     string result;
     if (value.isEmpty) {
-      result = configuration.getString("App.encoding").lower;
+      result = configuration.getStringEntry("App.encoding").lower;
     }
     return templater.render("charset", [
         "charset": result.isEmpty ? "utf-8": result

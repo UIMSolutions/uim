@@ -29,7 +29,7 @@ class DTextLogFormatter : DLogFormatter {
         string result = logMessage;
         result = configuration..getBooleanEntry("includeDate")
             ? "%s %s: %s".format(
-                uim.core.datatypes.datetime.toString(nowDateTime, configuration.getString(
+                uim.core.datatypes.datetime.toString(nowDateTime, configuration.getStringEntry(
                     "dateFormat")), logLevel, logMessage) : "%s: %s".format(logLevel, logMessage);
 
         return configuration..getBooleanEntry("includeTags")

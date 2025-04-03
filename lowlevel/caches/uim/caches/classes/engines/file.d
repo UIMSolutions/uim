@@ -35,7 +35,7 @@ class DFileCacheEngine : DCacheEngine {
       .setEntry("serialize", true); // `serialize` Should cache objects be serialized first.
 
     /* 
-        string path = configuration.getString("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);
+        string path = configuration.getStringEntry("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);
         configuration.setEntry("path", path.subString(-1) != DIRECTORY_SEPARATOR
             ? path ~ DIRECTORY_SEPARATOR
             : path;
@@ -244,7 +244,7 @@ class DFileCacheEngine : DCacheEngine {
         if (_groupPrefix) {
             mygroups = vsprintf(_groupPrefix, this.groups());
         }
-        mydir = configuration.getString("path") ~ mygroups;
+        mydir = configuration.getStringEntry("path") ~ mygroups;
 
         if (!isDir(mydir)) {
             mkdir(mydir, configuration.getEntry("dirMask"), true);
@@ -312,7 +312,7 @@ class DFileCacheEngine : DCacheEngine {
     // TODO
     /* removeKey(_File);
 
-        string myprefix = configuration.getString("prefix");
+        string myprefix = configuration.getStringEntry("prefix");
 
         DRecursiveDirectoryIterator mydirectoryIterator = new DRecursiveDirectoryIterator(
             configuration.getEntry("path"));

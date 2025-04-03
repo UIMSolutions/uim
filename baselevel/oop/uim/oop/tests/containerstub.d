@@ -40,7 +40,7 @@ mixin template TContainerStub() {
      */
     protected IHttpApplication /*|IConsoleApplication */ createApp() {
         appClass = _appClass
-            ? _appClass : configuration.getString("App.namespace") ~ "\\Application";
+            ? _appClass : configuration.getStringEntry("App.namespace") ~ "\\Application";
 
         if (!class_hasKey(appClass)) {
             throw new DLogicException(

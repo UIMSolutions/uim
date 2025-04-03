@@ -36,7 +36,7 @@ class DLogger : UIMObject, ILogger {
       configuration.setEntry("levels", options.getArray("types"));
     }
 
-    _formatter = LogFormatterFactory.create(configuration.getString("formatter.classname"));
+    _formatter = LogFormatterFactory.create(configuration.getStringEntry("formatter.classname"));
 
     return true;
   }

@@ -339,15 +339,40 @@ unittest {
   assert(map.getString("a") == "A");
 }
 
-// #region getStrings
-STRINGAA getStringArray(Json[string] items, string[] keys...) {
-  if (keys.length == 0) {
-    return items.values.map!(value => value.getString);
-  }
-  return getStringArray(items, keys.dup);
+// #region getStringArray
+string[] getStringArray(Json[string] items, string[] keys...) {
+  return getStringArray(items, (keys.length == 0) ? items.keys : keys.dup);
 }
 
-STRINGAA getStringArray(Json[string] items, string[] keys) {
+string[] getStringArray(Json[string] items, string[] keys) {
+  return keys
+    .filter!(key => items.hasKey(key))
+    .map!(key => items.getString(key))
+    .array;
+}
+
+unittest {
+  Json[string] values;
+
+  Json testArray = Json.emptyArray;
+  testArray ~= "A";
+  testArray ~= "B";
+
+  values["a"] = Json("A");
+  values["b"] = "B".toJson;
+  // assert(values.getStringArray(["a"]) == ["a": "A"]);
+}
+// #endregion getStringArray
+
+// #region getStringMap
+string[string] getStringMap(Json[string] items, string[] keys...) {
+  if (keys.length == 0) {
+    return getStringMap(items, items.keys);
+  }
+  return getStringMap(items, keys.dup);
+}
+
+string[string] getStringMap(Json[string] items, string[] keys) {
   STRINGAA results;
   keys.each!(key => results[key] = items.getString(key));
   return results;
@@ -362,9 +387,9 @@ unittest {
 
   values["a"] = Json("A");
   values["b"] = "B".toJson;
-  // assert(values.getStringArray(["a"]) == ["a": "A"]);
+  // assert(values.getStringMap(["a"]) == ["a": "A"]);
 }
-// #endregion getStrings
+// #endregion getStringMap
 
 Json getJson(Json[string] values, string key, Json defaultValue = Json(null)) {
   return key in values

@@ -179,12 +179,12 @@ class DPoFile : UIMObject {
     }
     /// 
     unittest {
-        writeln("\n-- test - toJson");
+        /* writeln("\n-- test - toJson");
         auto file = new DPoFile;
         file.load("tests\\de.po");
         writeln(file.toJson);
         writeln;
-        writeln(file.toJson(null, ["messages"]));
+        writeln(file.toJson(null, ["messages"])); */
     }
 
     void save() {

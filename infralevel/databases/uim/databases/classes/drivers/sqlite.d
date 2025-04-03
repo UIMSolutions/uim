@@ -25,13 +25,13 @@ class DSqliteDriver : DDBDriver {
 
     // `mask` The mask used for created database
     configuration
-      .merge("persistent", false.toJson)
-      .merge(["username", "password"], "")
-      .merge("database", ": memory:")
-      .merge("encoding", "utf8")
-      .merge("mask", Json( /*0*/ 644))
-      .merge(["cache", "mode"], Json(null))
-      .merge(["flags", "init"], Json.emptyArray);
+      .mergeEntry("persistent", false.toJson)
+      .mergeEntry(["username", "password"], "")
+      .mergeEntry("database", ": memory:")
+      .mergeEntry("encoding", "utf8")
+      .mergeEntry("mask", Json( /*0*/ 644))
+      .mergeEntry(["cache", "mode"], Json(null))
+      .mergeEntry(["flags", "init"], Json.emptyArray);
 
     startQuote("\"");
     endQuote("\"");

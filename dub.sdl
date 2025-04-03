@@ -1,4 +1,4 @@
-name "uim-uim"
+name "uim"
 description "UIM framework for building web applications"
 homepage "https://www.sueel.de/uim"
 license "Apache-2.0"
@@ -16,6 +16,7 @@ dependency "uim-platformlevel" path="./platformlevel/"
 dependency "uim-highlevel" path="./highlevel/"
 
 sourceFiles "source/uim/all.d" 
+
 sourcePaths "."
 importPaths "."
 

@@ -19,6 +19,11 @@ interface ICacheEngine : IObject {
 
   string[] keys();
 
+  // #region timeToLive
+  long timeToLive(); 
+  ICacheEngine timeToLive(long newTimeToLive);
+  // #endregion timeToLive
+
   // #region entries
   ICacheEngine entries(Json[string] newItems);
   Json[string] entries();

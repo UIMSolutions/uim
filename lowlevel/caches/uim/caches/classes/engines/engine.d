@@ -23,7 +23,14 @@ class DCacheEngine : UIMObject, ICacheEngine {
   }
   
   // #region timeToLive
-  long timeToLive();
+  long _timeToLive = 0;
+  long timeToLive() {
+    return _timeToLive;
+  }
+  ICacheEngine timeToLive(long newTimeToLive) {
+    _timeToLive = newTimeToLive;
+    return this;
+  }
   // #region timeToLive
 
   // #region groupName

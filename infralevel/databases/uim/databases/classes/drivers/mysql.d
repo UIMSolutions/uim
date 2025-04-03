@@ -42,16 +42,16 @@ class DMysqlDriver : DDBDriver {
 
         // Base configuration settings for MySQL driver
         configuration
-            .merge("persistent", true)
-            .merge("host", "localhost")
-            .merge("username", "root")
-            .merge("password", "")
-            .merge("database", "uim")
-            .merge("port", "3306")
-            .merge("flags", Json.emptyArray)
-            .merge("encoding", "utf8mb4")
-            .merge("timezone", Json(null))
-            .merge("init", Json.emptyArray);
+            .mergeEntry("persistent", true)
+            .mergeEntry("host", "localhost")
+            .mergeEntry("username", "root")
+            .mergeEntry("password", "")
+            .mergeEntry("database", "uim")
+            .mergeEntry("port", "3306")
+            .mergeEntry("flags", Json.emptyArray)
+            .mergeEntry("encoding", "utf8mb4")
+            .mergeEntry("timezone", Json(null))
+            .mergeEntry("init", Json.emptyArray);
 
         startQuote("`");
         endQuote("`");

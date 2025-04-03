@@ -42,9 +42,9 @@ class DRadioWidget : DWidget {
 
         configuration
             .setEntry("name", "")
-            .setDefaults(["options", "templateVars"], Json.emptyArray)
-            .setDefaults(["disabled", "val", "idPrefix"], Json(null))
-            .setDefaults(["escape", "label"], true)
+            .setEntries(["options", "templateVars"], Json.emptyArray)
+            .setEntries(["disabled", "val", "idPrefix"], Json(null))
+            .setEntries(["escape", "label"], true)
             .setEntry("empty", false); 
 
         return true;

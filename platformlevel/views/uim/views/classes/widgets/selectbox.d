@@ -32,8 +32,8 @@ class DSelectBoxWidget : DWidget {
       .setEntry("name", "")
       .setEntry("empty", false)
       .setEntry("escape", true)
-      .setDefaults(["disabled", "val"], Json(null))
-      .setDefaults(["options", "templateVars"], Json.emptyArray);
+      .setEntries(["disabled", "val"], Json(null))
+      .setEntries(["options", "templateVars"], Json.emptyArray);
 
     return true;
   }

@@ -30,7 +30,7 @@ class DDateTimeWidget : DWidget {
         }
         /* configuration
                 .setEntry("name", "")
-                .setDefaults(["timezone", "val"], Json(null))
+                .setEntries(["timezone", "val"], Json(null))
                 .setEntry("type", "datetime-local")
                 .setEntry("escape", true)
                 .setEntry("templateVars", Json.emptyArray);

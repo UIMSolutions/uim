@@ -48,10 +48,10 @@ class DMultiCheckboxWidget : DWidget {
     }
 
     /* configuration
-      .setDefaults(["disabled", "val", "idPrefix"], Json(null))
+      .setEntries(["disabled", "val", "idPrefix"], Json(null))
       .setEntry("name", "")
-      .setDefaults(["escape", "label"], true)
-      .setDefaults(["options", "templateVars"], Json.emptyArray); */
+      .setEntries(["escape", "label"], true)
+      .setEntries(["options", "templateVars"], Json.emptyArray); */
 
     return true;
   }

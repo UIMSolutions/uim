@@ -47,33 +47,32 @@ class DMemoryCacheEngine : DCacheEngine {
       .setEntry("compress", false)
       .setEntry("duration", 3600)
       .setEntry("username", "")
-      .setDefaults(["host", "password", "persistent", "port"], Json(null))
+      .setEntries(["host", "password", "persistent", "port"], Json(null))
       .setEntry("prefix", "uim_")
       .setEntry("serialize", "d")
       .setEntry("servers", ["127.0.0.1"].toJson) // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
-      .setDefaults(["groups", "options"], Json.emptyArray); // `options` - Additional options for the memcached client. Should be an array of option: value.
+      .setEntries(["groups", "options"], Json.emptyArray); // `options` - Additional options for the memcached client. Should be an array of option: value.
 
     /* _serializers = [
       "igbinary": Memory: : SERIALIZER_IGBINARY,
       "Json": Memory: : SERIALIZER_Json,
       "d": Memory: : SERIALIZER_D,
     ]; */
-  /*
+    /*
     if (defined("Memory.HAVE_MSGPACK")) {
       // TODO _serializers["msgpack"] = Memory.SERIALIZER_MSGPACK;
     }*/
 
-
     if (!configuration.isEmptyEntry("host")) {
       configuration.setEntry("servers", configuration.isEmptyEntry("port")
-        ? [configuration.getEntry("host")] 
-        : ["%s:%d"].format(configuration.getStringEntry("host"), configuration.getStringEntry("port"))
-        );
+          ? [configuration.getEntry("host")] : ["%s:%d"].format(configuration.getStringEntry("host"),
+            configuration.getStringEntry("port"))
+      );
     }
     /* if (configData.hasKey("servers")) {
       configuration.setEntry("servers", configuration.getEntry("servers"], false);
     } */
-  /* if (!configuration.isArrayEntry("servers")) {
+    /* if (!configuration.isArrayEntry("servers")) {
       configuration.setEntry("servers", [configuration.getArray("servers")]);
     } * / 
     if (!_entries is null) {
@@ -130,35 +129,36 @@ if (configuration.hasKeys("username", "password")) {
  );
 }
 return true;
-}
+}*/
 
     return true;
   }
 
-    // #region groupName
+  // #region groupName
   protected string _groupName;
   override ICacheEngine groupName(string name) {
     _groupName = name;
     return this;
   }
+
   override string groupName() {
     if (_groupName.isEmpty) {
       _groupName = configuration.getStringEntry("prefix");
     }
     return _groupName;
   }
+
   override ICacheEngine clearGroup(string groupName) {
-    // TODO 
+    // TODO return  /* (bool) * / _entries.increment(configuration.getStringEntry("prefix") ~ groupName);
     return this;
   }
   // #endregion groupName
-
 
   // List of available serializer engines
   // Memory must be compiled with Json and igbinary support to use these engines
   protected int[string] _serializers;
   protected string[] _compiledGroupNames;
-  
+
   /* protected DMemory _memcached;*/
   protected Json[string] _entries;
 
@@ -168,43 +168,31 @@ return true;
   }
   // #endregion keys
 
-/**
-     * Settings the memcached instance
-     * When the Memory extension is not built
-     * with the desired serializer engine.
-     * /
-  protected void _setOptions() {
-    // _entries.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
-
-    string myserializer = configuration.getStringEntry("serialize").lower;
-    if (!_serializers.hasKey(myserializer)) {
-      throw new DInvalidArgumentException(
-        "`%s` is not a valid serializer engine for Memory.".format(myserializer)
-      );
-    }
-    /*    if (myserializer != "d" && !constant("Memory.HAVE_" ~ myserializer.upper)) {
-      throw new DInvalidArgumentException(
-        "Memory extension is not compiled with `%s` support.".format(myserializer)
-     ); * /
+  // #region has
+  override bool hasEntry(string key) {
+    return _entries.hasKey(key);
   }
+  // #endregion has
 
-  /* _entries.setOption(
-    Memory.OPT_SERIALIZER,
-    _serializers[myserializer]
-  );  */
-  // Check for Amazon ElastiCache instance
-  /* if (
-    defined("Memory.OPT_CLIENT_MODE") &&
-    defined("Memory.DYNAMIC_CLIENT_MODE")
-    ) {
-    _entries.setOption(Memory.OPT_CLIENT_MODE, Memory.DYNAMIC_CLIENT_MODE);
-  } */
+  // #region get
+  override Json getEntry(string key) {
+    return _entries.get(key, Json(null));
+  }
+  // #endregion get
 
-  /* _entries.setOption(
-    Memory.OPT_COMPRESSION,
-    configuration..getBooleanEntry("compress")
-  ); 
-}*/
+  // #region set
+  override ICacheEngine setEntry(string key, Json value) {
+    _entries[key] = value;
+    return this;
+  }
+  // #endregion set
+
+  // #region remove
+  override ICacheEngine removeEntry(string key) {
+    _entries.removeKey(key);
+    return this;
+  }
+  // #endregion remove
 
   /**
      * Parses the server address into the host/port. Handles both IPv6 and IPv4
@@ -212,7 +200,7 @@ return true;
      * Params:
      * string myserver The server address string.
      */
-  /* Json[string] parseServerString(string myserver) {
+  Json[string] parseServerString(string myserver) {
     auto mysocketTransport = "unix://";
     /* if (myserver.startsWith(mysocketTransport)) {
       return [subString(myserver, mysocketTransport.length), 0];
@@ -235,53 +223,8 @@ return true;
     }
     return [
       myhost, /* (int)  * / myport
-    ]; 
-  } */
-
-  /**
-     * Read an option value from the memcached connection.
-     * Params:
-     * int myname The option name to read.
-     */
-  /* Json getOption(string myname) {
-    return _entries.get(myname);
-  } */
-
-  /**
-     * Write data for key into cache. When using memcached as your cache engine
-     * remember that the Memory pecl extension does not support cache expiry
-     * times greater than 30 days in the future. Any duration greater than 30 days
-     * will be treated as real Unix time value rather than an offset from current time.
-     * /
-  override bool updateKey(string itemKey, Json dataToCache) {
-    return false;
-    // TODO 
-    // return _entries.set(internalKey(itemKey), dataToCache, duration(timeToLive));
-  }
-
-  override bool merge(Json[string] items) {
-    Json[string] cacheData = null;
-    /* items.byKeyValue
-      .each!(kv => cacheData.set(internalKey(kv.key), kv.value)); * /
-    // TODOreturn _entries.merge(cacheData, duration(timeToLive));
-    return false;
-  }
-
-  // Write many cache entries to the cache at once
-  /*  override bool updateKey(Json[string] items) {
-    Json[string] cacheData = null;
-    items.byKeyValue
-      .each!(kv => cacheData[internalKey(kv.key)] = kv.value);
-    return _entries.set(cacheData); //, duration(timeToLive));
-  } * /
-
-  // Read a key from the cache
-  override Json read(string key, Json defaultValue = Json(null)) {
-    // string internKey = internalcorrectKey(key);
-    // TODO auto myvalue = _entries.get(internKey);
-    /* return _entries.getResultCode() == Memory.RES_NOTFOUND
-      ? defaultValue : myvalue; * /
-    return Json(null);
+    ]; */
+    return null;
   }
 
   // Increments the value of an integer cached key
@@ -296,59 +239,42 @@ return true;
     // TODO return _entries.set(internalcorrectKey(key), _entries.getLong(internalcorrectKey(key)) - decValue);
   }
 
-  // Delete a key from the cache
-  override bool removeKey(string key) {
-    // return _entries.removeKey(internalcorrectKey(key));
-    return false;
-  }
-
   // Delete all keys from the cache
-  override bool clear() {
+  override ICacheEngine clearEntries() {
     string prefix = configuration.getStringEntry("prefix");
     /*    _entries.getAllKeys()
       .filter!(key => key.startsWith(prefix))
-      .each!(key => _entries.removeKey(key)); * /
-    return true;
+      .each!(key => _entries.removeKey(key)); */
+    return this;
   }
 
   // Add a key to the cache if it does not already exist.
-  /*  override bool merge(string key, Json value) {
-    auto internKey = internalcorrectKey(key);
-    return _entries.add(internKey, value, duration);
-  } */
-
   /**
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes the group accordingly.
      * /
   override string[] groups() {
     if (_compiledGroupNames.isEmpty) {
+      auto prefix = configuration.getStringEntry("prefix");
       _compiledGroupNames = configuration.getStringArray("groups")
-        .map!(group => configuration.getStringEntry("prefix") ~ group).array;
+        .map!(group => prefix ~ group).array;
     }
 
     /* 
-    auto mygroups = _entries.data(_compiledGroupNames) ? memory.data(
-      _compiledGroupNames) : null;
+    auto mygroups = _entries.hasKeys(_compiledGroupNames) 
+      ? memory.get(_compiledGroupNames) 
+      : null;
+
     if (count(mygroups) != count(configuration.getEntry("groups"))) {
       _compiledGroupNames
         .filter!(groupName => !mygroups.hasKey(groupName))
         .each!((groupName) { _entries.set(mygroup, 1, 0); mygroups[mygroup] = 1; }); */
-    /* ksort(mygroups); * /
-  } * /
+  /* mygroups = mygroups.sort; * /
+    } * /
 
     // auto groupValues = mygroups.values;
     string[] result; // = configuration.getArray("groups").map!((index, group) => group ~ groupValues[index].getString).array;
     return result;
-  }
-
-  /**
-  * Increments the group value to simulate deletion of all keys under a group
-  * old values will remain in storage until they expire.
-  * /
-  override bool clearGroup(string groupName) {
-    // TODO return  /* (bool) * / _entries.increment(configuration.getStringEntry("prefix") ~ groupName);
-    return false;
   } */
 }
 

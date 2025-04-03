@@ -49,21 +49,69 @@ class DFileCacheEngine : DCacheEngine {
 
   // #region keys
   override string[] keys() {
-    return _entries.keys;
+    return entries.keys;
   }
   // #endregion keys
 
-  /*     override long decrement(string itemKey, int decValue = 1) {
-        // TODO throw new DLogicException("Files cannot be atomically decremented.");
-        return 0;
-    }
+  // #region groupName
+  protected string _groupName;
+  override ICacheEngine groupName(string name) {
+    _groupName = name;
+    return this;
+  }
 
-    override long increment(string itemKey, int incValue = 1) {
-        // TODO 
-        // throw new DLogicException("Files cannot be atomically incremented.");
-        return 0;
+  override string groupName() {
+    if (_groupName.isEmpty) {
+      _groupName = configuration.getStringEntry("prefix");
     }
- */
+    return _groupName;
+  }
+
+  override ICacheEngine clearGroup(string groupName) {
+    // TODO return  / * (bool) * / _entries.increment(configuration.getStringEntry("prefix") ~ groupName);
+    return this;
+  }
+  // #endregion groupName
+
+  // #region has
+  override bool hasEntry(string key) {
+    // return _entries.hasKey(key);
+    return false;
+  }
+  // #endregion has
+
+  // #region get
+  override Json getEntry(string key) {
+    // return _entries.get(key, Json(null));
+    return Json(null);
+  }
+  // #endregion get
+
+  // #region set
+  override ICacheEngine setEntry(string key, Json value) {
+    // TODO _entries[key] = value;
+    return this;
+  }
+  // #endregion set
+
+  // #region remove
+  override ICacheEngine removeEntry(string key) {
+    // TODO _entries.removeKey(key);
+    return this;
+  }
+  // #endregion remove
+
+  override long decrement(string itemKey, int decValue = 1) {
+    // TODO throw new DLogicException("Files cannot be atomically decremented.");
+    return 0;
+  }
+
+  override long increment(string itemKey, int incValue = 1) {
+    // TODO 
+    // throw new DLogicException("Files cannot be atomically incremented.");
+    return 0;
+  }
+
   // True unless FileEngine.__active(); fails
   protected bool _init = true;
 
@@ -308,14 +356,15 @@ class DFileCacheEngine : DCacheEngine {
 
   // Recursively deletes all files under any directory named as mygroup
   /* override */
-  bool clearGroup(string groupName) {
+  override ICacheEngine clearGroup(string groupName) {
+    string prefix = configuration.getStringEntry("prefix");
+    string path = configuration.getSTringEntry("path");
+
     // TODO
     /* removeKey(_File);
 
-        string myprefix = configuration.getStringEntry("prefix");
 
-        DRecursiveDirectoryIterator mydirectoryIterator = new DRecursiveDirectoryIterator(
-            configuration.getEntry("path"));
+        DRecursiveDirectoryIterator mydirectoryIterator = new DRecursiveDirectoryIterator(            "path"));
         DRecursiveIteratorIterator mycontents = new DRecursiveIteratorIterator(
             mydirectoryIterator,
             RecursiveIteratorIterator.CHILD_FIRST
@@ -326,14 +375,16 @@ class DFileCacheEngine : DCacheEngine {
             mycontents,
             auto(DFileInfo mycurrent) use(groupName, myprefix) {
             if (!mycurrent.isFile()) {
-                return false;}
-                myhasPrefix = myprefix is null || str_starts_with(mycurrent.getBasename(), myprefix);
+                return false;
+                }
+                myhasPrefix = myprefix is null || startsWith(mycurrent.getBasename(), myprefix);
                     return myhasPrefix
                     ? mycurrent.getPathname()
                     .has(
                         DIRECTORY_SEPARATOR ~ groupName ~ DIRECTORY_SEPARATOR
-                   ) : false;}
-
+                    ) 
+                    : false;
+                  }
                );
 
                 myfiltered.each!((obj) {
@@ -346,8 +397,13 @@ class DFileCacheEngine : DCacheEngine {
                 return true;
             }
         } */
-    return false;
+    return this;
   }
 }
 
 mixin(CacheEngineCalls!("File"));
+
+unittest {
+  auto engine = new DFileCacheEngine;
+  // TODO
+}

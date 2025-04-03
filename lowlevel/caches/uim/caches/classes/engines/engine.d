@@ -3,7 +3,7 @@
 * License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.         *
 * Authors: Ozan Nurettin Süel (aka UIManufaktur)                                                                *
 *****************************************************************************************************************/
-module uim.caches.classes.engines.file;
+module uim.caches.classes.engines.engine;
 
 mixin(Version!"test_uim_caches");
 
@@ -48,29 +48,38 @@ class DCacheEngine : UIMObject, ICacheEngine {
   // #endregion has
   
   // #region get
-  mixin(GetInterfaces!("Json", "Entries", "Entry", "string"));
+  mixin(GetMethods!("Json", "Entries", "Entry", "string"));
   abstract Json getEntry(string key);
   // #endregion has
 
   // #region set
-  mixin(SetInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  mixin(SetMethods!("ICacheEngine", "Entries", "Entry", "string", "Json"));
   abstract ICacheEngine setEntry(string key, Json value);
   // #endregion set
 
   // #region merge
-  mixin(MergeInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  mixin(MergeMethods!("ICacheEngine", "Entries", "Entry", "string", "Json"));
   abstract ICacheEngine mergeEntry(string key, Json value);
   // #endregion merge
 
   // #region update
-  mixin(UpdateInterfaces!("ICacheEngine", "Entries", "Entry", "string", "Json"));
+  mixin(UpdateMethods!("ICacheEngine", "Entries", "Entry", "string", "Json"));
   abstract ICacheEngine updateEntry(string key, Json value);
   // #endregion update
 
   // #region remove
-  mixin(RemoveInterfaces!("ICacheEngine", "Entries", "Entry", "string"));
+  mixin(RemoveMethods!("ICacheEngine", "Entries", "Entry", "string"));
   abstract ICacheEngine removeEntry(string key);
   abstract ICacheEngine clearEntries(string key);
+  
+  /**
+  * Increments the group value to simulate deletion of all keys under a group
+  * old values will remain in storage until they expire.
+  */
+  bool clearGroup(string groupName) {
+    // TODO return  /* (bool) * / _entries.increment(configuration.getStringEntry("prefix") ~ groupName);
+    return false;
+  }  
   // #endregion remove
 
   abstract long increment(string key, int incValue = 1);

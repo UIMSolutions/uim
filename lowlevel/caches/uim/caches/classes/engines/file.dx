@@ -319,7 +319,7 @@ class DFileCacheEngine : DCacheEngine {
             auto(DFileInfo mycurrent) use(groupName, myprefix) {
             if (!mycurrent.isFile()) {
                 return false;}
-                myhasPrefix = myprefix is null || str_starts_with(mycurrent.getBasename(), myprefix);
+                myhasPrefix = myprefix is null || startsWith(mycurrent.getBasename(), myprefix);
                     return myhasPrefix
                     ? mycurrent.getPathname()
                     .has(

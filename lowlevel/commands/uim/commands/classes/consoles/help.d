@@ -102,15 +102,15 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     STRINGAA myPaths;
 
     if (configuration.hasKey("App.dir")) {
-      string appPath = stripRight(configuration.getStringEntry("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+      string appPath = stripRight(configuration.getStringEntry("App.dir"), dirSeparator) ~ dirSeparator;
       // Extra space is to align output
       myPaths.set("app", " " ~ appPath);
     }
     /* if (defined("ROOT")) {
-            myPaths.set("root", stripRight(ROOT, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
+            myPaths.set("root", stripRight(ROOT, dirSeparator) ~ dirSeparator);
         }
         if (defined("CORE_PATH")) {
-            myPaths.set("core", stripRight(CORE_PATH, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
+            myPaths.set("core", stripRight(CORE_PATH, dirSeparator) ~ dirSeparator);
         }
         if (!count(myPaths)) {
             return;

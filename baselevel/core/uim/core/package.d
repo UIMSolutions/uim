@@ -34,7 +34,7 @@ alias STRINGAA = string[string];
 alias INTAA = int[int];
 alias DOUBLEAA = double[double];
 
-const DIRECTORY_SEPARATOR = "\\";
+const dirSeparator = "\\";
 
 
 

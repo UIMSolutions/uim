@@ -165,7 +165,7 @@ class DAsset {
                 "/^" ~ preg_quote(requestWebroot(), "/").correctUrl, "", urldecode(somePath)
            );
             
-            string webrootPath = configuration.getStringEntry("App.wwwRoot") ~ filepath.replace("/", DIRECTORY_SEPARATOR);
+            string webrootPath = configuration.getStringEntry("App.wwwRoot") ~ filepath.replace("/", dirSeparator);
             if (isFile(webrootPath)) {
                 return somePath ~ "?" ~ filemtime(webrootPath);
             }
@@ -180,8 +180,8 @@ class DAsset {
                 removeKey(segments[0]);
                 auto pluginPath = Plugin.path(plugin)
                     ~ "webroot"
-                    ~ DIRECTORY_SEPARATOR
-                    ~ join(DIRECTORY_SEPARATOR, segments);
+                    ~ dirSeparator
+                    ~ join(dirSeparator, segments);
                 if (isFile(pluginPath)) {
                     return somePath ~ "?" ~ filemtime(pluginPath);
                 }
@@ -211,7 +211,7 @@ class DAsset {
             file = file.strip("/");
             auto theme = inflectString(themeName).correctUrl;
 
-            if (DIRECTORY_SEPARATOR == "\\") {
+            if (dirSeparator == "\\") {
                 file = file.replace("/", "\\");
             }
             if (isFile(configuration.getStringEntry("App.wwwRoot") ~ theme ~ file)) {

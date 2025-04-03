@@ -51,7 +51,7 @@ class DConsoleErrorFormatter : DErrorFormatter {
         }
         // Windows environment checks
         if (
-            DIRECTORY_SEPARATOR == "\\" &&
+            dirSeparator == "\\" &&
             !D_uname("v").lower.contains("windows 10") &&
             !strtolower((string)enviroment("SHELL")).contains("bash.exe") &&
             !(bool)enviroment("ANSICON") &&

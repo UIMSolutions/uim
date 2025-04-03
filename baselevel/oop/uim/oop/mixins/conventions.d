@@ -68,7 +68,7 @@ mixin template TConventions() {
     protected string _pluginPath(string pluginName) {
         return Plugin.isLoaded(pluginName)
             ? Plugin.path(pluginName)
-            : currentValue(App.path("plugins")) ~ pluginName ~ DIRECTORY_SEPARATOR;
+            : currentValue(App.path("plugins")) ~ pluginName ~ dirSeparator;
     }
     
     // Return plugin`s namespace

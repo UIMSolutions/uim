@@ -52,7 +52,7 @@ class DApplication : UIMObject {
         IEventManager eventManager = null,
         DControllerFactory controllerFactory = null
    ) {
-        _configDir = stripRight(configDataDir, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+        _configDir = stripRight(configDataDir, dirSeparator) ~ dirSeparator;
         _plugins = Plugin.getCollection();
        _eventManager = eventManager ? eventManager: EventManager.instance();
         _controllerFactory = controllerFactory;

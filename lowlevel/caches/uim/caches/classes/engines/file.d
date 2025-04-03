@@ -35,13 +35,13 @@ class DFileCacheEngine : DCacheEngine {
       .setEntry("serialize", true); // `serialize` Should cache objects be serialized first.
 
     /* 
-        string path = configuration.getStringEntry("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);
-        configuration.setEntry("path", path.subString(-1) != DIRECTORY_SEPARATOR
-            ? path ~ DIRECTORY_SEPARATOR
+        string path = configuration.getStringEntry("path", sys_get_temp_dir() ~ dirSeparator ~ "uim_cache" ~ dirSeparator);
+        configuration.setEntry("path", path.subString(-1) != dirSeparator
+            ? path ~ dirSeparator
             : path;
 
         if (_groupPrefix) {
-            _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
+            _groupPrefix = _groupPrefix.replace("_", dirSeparator);
         } 
         return _active(); */
     return true;
@@ -239,7 +239,7 @@ class DFileCacheEngine : DCacheEngine {
                 continue;
             }
 
-            string mypath = myrealPath ~ DIRECTORY_SEPARATOR;
+            string mypath = myrealPath ~ dirSeparator;
             if (!mycleared.has(mypath)) {
                 _clearDirectory(mypath);
                 mycleared ~= mypath;
@@ -381,7 +381,7 @@ class DFileCacheEngine : DCacheEngine {
                     return myhasPrefix
                     ? mycurrent.getPathname()
                     .has(
-                        DIRECTORY_SEPARATOR ~ groupName ~ DIRECTORY_SEPARATOR
+                        dirSeparator ~ groupName ~ dirSeparator
                     ) 
                     : false;
                   }

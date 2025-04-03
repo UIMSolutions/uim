@@ -131,7 +131,7 @@ abstract class DCell : UIMObject { // : IEventDispatcher {
             views = subString(views, 0, -4);
             if (!mybuilder.getTemplatePath()) {
                 mybuilder.setTemplatePath(
-                    TEMPLATE_FOLDER ~ DIRECTORY_SEPARATOR ~ views.replace("\\", DIRECTORY_SEPARATOR)
+                    TEMPLATE_FOLDER ~ dirSeparator ~ views.replace("\\", dirSeparator)
                );
             }
             templateName = mybuilder.getTemplate();

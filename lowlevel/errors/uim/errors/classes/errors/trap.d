@@ -116,9 +116,9 @@ class DErrorTrap : UIMObject {
     /*  auto anIgnoredPaths = configuration.getArray("Error.ignoredDeprecationPaths");
         if (errorCode == ERRORS.USER_DEPRECATED && anIgnoredPaths) {
             string relativePath = subString(fileName, ROOT.length + 1).replace(
-                DIRECTORY_SEPARATOR, "/");
+                dirSeparator, "/");
             foreach (pattern; anIgnoredPaths) {
-                string pattern = pattern.replace(DIRECTORY_SEPARATOR, "/");
+                string pattern = pattern.replace(dirSeparator, "/");
                 if (fnmatch(pattern, relativePath)) {
                     return true;
                 }

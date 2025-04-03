@@ -46,7 +46,7 @@ class DCommandScanner {
      */
     Json[string] scanCore() {
         /* return _scanDir(
-            dirname(__DIR__) ~ DIRECTORY_SEPARATOR ~ "Command" ~ DIRECTORY_SEPARATOR,
+            dirname(__DIR__) ~ dirSeparator ~ "Command" ~ dirSeparator,
             "UIM\Command\\",
             "",
             ["command_list"]

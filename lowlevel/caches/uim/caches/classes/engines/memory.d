@@ -53,85 +53,6 @@ class DMemoryCacheEngine : DCacheEngine {
       .setEntry("servers", ["127.0.0.1"].toJson) // `servers` String or array of memcached servers. If an array MemcacheEngine will use them as a pool.
       .setEntries(["groups", "options"], Json.emptyArray); // `options` - Additional options for the memcached client. Should be an array of option: value.
 
-    /* _serializers = [
-      "igbinary": Memory: : SERIALIZER_IGBINARY,
-      "Json": Memory: : SERIALIZER_Json,
-      "d": Memory: : SERIALIZER_D,
-    ]; */
-    /*
-    if (defined("Memory.HAVE_MSGPACK")) {
-      // TODO _serializers["msgpack"] = Memory.SERIALIZER_MSGPACK;
-    }*/
-
-    if (!configuration.isEmptyEntry("host")) {
-      auto host = configuration.getStringEntry("host");
-      configuration.setEntry("servers", configuration.isEmptyEntry("port")
-          ? [host] 
-          : ["%s:%s"].format(host, configuration.getStringEntry("port"))
-      );
-    }
-    /* if (configuration.hasEntry("servers")) {
-      configuration.setEntry("servers", configuration.getEntry("servers"], false);
-    } */
-    /* if (!configuration.isArrayEntry("servers")) {
-      configuration.setEntry("servers", [configuration.getArray("servers")]);
-    } * / 
-    if (!_entries is null) {
-      return true;
-    }
-    // _entries = configuration.getEntry("persistent"]
-    // TODO ? new DMemory(configuration.getEntry("persistent"]) : new DMemory();
-    
-  }
-
-  _setOptions();
-
-  string[] serversFromConfig = configuration.getEntry("servers");
-  if (auto servers = _entries.getServerList()) {
-    if (_entries.isPersistent()) {
-      servers
-        .filter!(server => !server.getString("host") ~ ": " ~ server.getString("port").isIn(serversFromConfig))
-        .each!(server => throw new DInvalidArgumentException(
-            "Invalid cache configuration. Multiple persistent cache configurations are detected" ~
-            " with different `servers` values. `servers` values for persistent cache configurations" ~
-            " must be the same when using the same persistence id."
-         ));
-      }
-    }
-    return true;
-  }
-  serversFromConfig
-    .map!(server => parseServerString(server))
-    .array;
-}
-if (!_entries.addServers(myservers)) {
-  return false;
-}
-
-if (configuration.isArrayEntry("options"]) {
-  configuration.getEntry("options"].byKeyValue
-    .each!(optValue => _entries.setOption(optValue.key, optValue.value));
-}
-if (configuration.isEmptyEntry("username"] && !configuration.isEmptyEntry("login")) {
-  throw new DInvalidArgumentException(
-    "Please pass " username" instead of 'login' for connecting to Memory"
- );
-}
-if (configuration.hasKeys("username", "password")) {
-  if (!hasMethod(_entries, "setSaslAuthData")) {
-    throw new DInvalidArgumentException(
-      "Memory extension is not built with SASL support"
-   );
-  }
-  _entries.setOption(Memory.OPT_BINARY_PROTOCOL, true);
-  _entries.setSaslAuthData(
-    configuration.getStringEntry("username"),
-    configuration.getStringEntry("password")
- );
-}
-return true;
-}*/
-
     return true;
   }
 
@@ -150,7 +71,7 @@ return true;
   }
 
   override ICacheEngine clearGroup(string groupName) {
-    // TODO return  /* (bool) * / _entries.increment(configuration.getStringEntry("prefix") ~ groupName);
+    // TODO return  /* (bool) */ _entries.increment(configuration.getStringEntry("prefix") ~ groupName);
     return this;
   }
   // #endregion groupName
@@ -160,8 +81,21 @@ return true;
   protected int[string] _serializers;
   protected string[] _compiledGroupNames;
 
-  /* protected DMemory _memcached;*/
-  protected Json[string] _entries;
+  // #region entries
+
+  protected Json[string] _entries; 
+  override Json[string] entries() {
+    if (_entries is null) {
+      _entries = new Json[string];
+    }
+    return _entries;
+  }
+
+  override ICacheEngine entries(Json[string] newEntries) {
+    _entries = newEntries;
+    return this;
+  }
+  // #endregion entries
 
   // #region keys
   override string[] keys() {
@@ -202,8 +136,7 @@ return true;
      * string myserver The server address string.
      */
   Json[string] parseServerString(string myserver) {
-    auto mysocketTransport = "unix://";
-    /* if (myserver.startsWith(mysocketTransport)) {
+    auto mysocketTransport = "unix://"; /* if (myserver.startsWith(mysocketTransport)) {
       return [subString(myserver, mysocketTransport.length), 0];
     } * /
 
@@ -230,14 +163,12 @@ return true;
 
   // Increments the value of an integer cached key
   override long increment(string key, int incValue = 1) {
-    return 1;
-    // TODO return _entries.set(internalcorrectKey(key), _entries.getLong(internalcorrectKey(key)) + incValue);
+    return 1; // TODO return _entries.set(internalcorrectKey(key), _entries.getLong(internalcorrectKey(key)) + incValue);
   }
 
   // Decrements the value of an integer cached key
   override long decrement(string key, int decValue = 1) {
-    return 0;
-    // TODO return _entries.set(internalcorrectKey(key), _entries.getLong(internalcorrectKey(key)) - decValue);
+    return 0; // TODO return _entries.set(internalcorrectKey(key), _entries.getLong(internalcorrectKey(key)) - decValue);
   }
 
   // Delete all keys from the cache
@@ -249,34 +180,45 @@ return true;
     return this;
   }
 
-  // Add a key to the cache if it does not already exist.
-  /**
-     * Returns the `group value` for each of the configured groups
-     * If the group initial value was not found, then it initializes the group accordingly.
-     * /
-  override string[] groups() {
+  // Returns the `group value` for each of the configured groups
+  string[] groups() {
     if (_compiledGroupNames.isEmpty) {
       auto prefix = configuration.getStringEntry("prefix");
-      _compiledGroupNames = configuration.getStringArray("groups")
-        .map!(group => prefix ~ group).array;
+      _compiledGroupNames = configuration.getArrayEntry("groups")
+        .map!(group => prefix ~ group.getString)
+        .array;
     }
 
     /* 
-    auto mygroups = _entries.hasKeys(_compiledGroupNames) 
+    auto mygroups = hasEntries(_compiledGroupNames) 
       ? memory.get(_compiledGroupNames) 
       : null;
 
     if (count(mygroups) != count(configuration.getEntry("groups"))) {
       _compiledGroupNames
         .filter!(groupName => !mygroups.hasKey(groupName))
-        .each!((groupName) { _entries.set(mygroup, 1, 0); mygroups[mygroup] = 1; }); */
-  /* mygroups = mygroups.sort; * /
+        .each!((groupName) { setEntry(mygroup, 1, 0); mygroups[mygroup] = 1; }); */
+      /* mygroups = mygroups.sort; * /
     } * /
 
     // auto groupValues = mygroups.values;
-    string[] result; // = configuration.getArray("groups").map!((index, group) => group ~ groupValues[index].getString).array;
+    string[] result = configuration.getStringArrayEntry("groups").map!((index, group) => group ~ groupValues[index].getString).array;
+    */
+    string[] result;
     return result;
-  } */
+  } 
 }
-
 mixin(CacheEngineCalls!("Memory"));
+
+unittest {
+  auto config = DMemoryCacheEngine;
+
+  assert(config.groupName("test").groupName() == "test");
+  assert(config.entries(Json[string]()).entries().length == 0);
+  assert(config.keys().length == 0);
+  assert(config.hasEntry("test") == false);
+  assert(config.getEntry("test") == Json(null));
+  assert(config.setEntry("test", Json(1)).getEntry("test") == Json(1));
+  assert(config.increment("test", 1) == 2);
+  assert(config.decrement("test", 1) == 1);
+}

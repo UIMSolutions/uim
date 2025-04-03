@@ -113,7 +113,7 @@ class DErrorTrap : UIMObject {
             ]);
         auto error = new DError(errorCode, errorDescription, fileName, errorTriggerLine, trace);
  */
-    /*  auto anIgnoredPaths = configuration.getArray("Error.ignoredDeprecationPaths");
+    /*  auto anIgnoredPaths = configuration.getArrayEntry("Error.ignoredDeprecationPaths");
         if (errorCode == ERRORS.USER_DEPRECATED && anIgnoredPaths) {
             string relativePath = subString(fileName, ROOT.length + 1).replace(
                 DIR_SEPARATOR, "/");

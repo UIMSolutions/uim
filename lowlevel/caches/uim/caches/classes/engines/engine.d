@@ -84,15 +84,6 @@ class DCacheEngine : UIMObject, ICacheEngine {
     removeEntries(keys());
     return this;
   }
-  
-  /**
-  * Increments the group value to simulate deletion of all keys under a group
-  * old values will remain in storage until they expire.
-  */
-  bool clearGroup(string groupName) {
-    // TODO return  /* (bool) * / _entries.increment(configuration.getStringEntry("prefix") ~ groupName);
-    return false;
-  }  
   // #endregion remove
 
   abstract long increment(string key, int incValue = 1);

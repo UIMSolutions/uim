@@ -119,7 +119,7 @@ class DPaginatorHelper : DHelper {
     // Gets the current paging parameters from the resultset for the given model
     // TODO 
     /* Json[string] params() {
-                            return configuration.getArray("params") ~ paginated().pagingData();}
+                            return configuration.getArrayEntry("params") ~ paginated().pagingData();}
 
                             // Convenience access to any of the paginator params.
                             Json param(string paramKey) {

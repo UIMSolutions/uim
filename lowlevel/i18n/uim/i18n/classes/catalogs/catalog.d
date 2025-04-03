@@ -192,7 +192,7 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
   // #region setMessage
 
   // #region updateMessages
-  mixin(UpdateAction!("IMessageCatalog", "Messages", "Message", "string", "string[]", "messages"));
+  mixin(UpdateMethods!("IMessageCatalog", "Messages", "Message", "string", "string[]"));
 
   IMessageCatalog updateMessage(string key, string[] message) {
     if (_messages.hasKey(key)) {
@@ -228,17 +228,13 @@ class DMessageCatalog : UIMObject, IMessageCatalog {
   // #endregion updateMessages
 
   // #region mergeMessages
-  IMessageCatalog mergeMessages(string[][string] messages) {
-    messages.each!((key, value) => mergeMessage(key, value));
-    return this;
-  }
-
+  mixin(MergeMethods!("IMessageCatalog", "Messages", "Message", "string", "string[]"));
   IMessageCatalog mergeMessage(string key, string[] message) {
     if (!_messages.hasKey(key))
       _messages[key] = message;
     return this;
   }
-  ///
+  
   unittest {
     auto catalog = new DMessageCatalog;
     catalog.messages([

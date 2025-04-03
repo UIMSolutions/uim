@@ -86,79 +86,8 @@ class DFileCacheEngine : DCacheEngine {
   // #region get
   override Json getEntry(string key) {
     // return _entries.get(key, Json(null));
-    return Json(null);
-  }
-  // #endregion get
 
-  // #region set
-  override ICacheEngine setEntry(string key, Json value) {
-    // TODO _entries[key] = value;
-    return this;
-  }
-  // #endregion set
-
-  // #region remove
-  override ICacheEngine removeEntry(string key) {
-    // TODO _entries.removeKey(key);
-    return this;
-  }
-  // #endregion remove
-
-  override long decrement(string itemKey, int decValue = 1) {
-    // TODO throw new DLogicException("Files cannot be atomically decremented.");
-    return 0;
-  }
-
-  override long increment(string itemKey, int incValue = 1) {
-    // TODO 
-    // throw new DLogicException("Files cannot be atomically incremented.");
-    return 0;
-  }
-
-  // True unless FileEngine.__active(); fails
-  protected bool _init = true;
-
-  // Instance of SplFileObject class
-  // TODO protected DSplFileObject _splFileObject;
-
-  // Write data for key into cache
-  /* override */
-  bool set(string dataId, Json cacheData) {
-    /* TODO if (cacheData is null || !_init) {
-            return false;
-        }
-
-        auto aKey = internalKey(dataId);
-
-        if (_setKey(aKey, true) == false) {
-            return false;
-        }
-        if (!configuration.isEmptyEntry("serialize")) {
-            cacheData = serialize(cacheData);
-        }
-        myexpires = time() + duration(timeToLive);
-        mycontents = [myexpires, D_EOL, cacheData, D_EOL].join();
-
-        if (configuration.hasEntry("lock")) {
-            _File.flock(LOCK_EX);
-        }
-        _File.rewind();
-        mysuccess = _File.ftruncate(0) &&
-            _File.fwrite(mycontents) &&
-            _File.fflush();
-
-        if (configuration.hasEntry("lock")) {
-            _File.flock(LOCK_UN);
-        }
-        _File = null;
-
-        return mysuccess; */
-    return false;
-  }
-
-  /* 
-    // Read a key from the cache
-    Json get(string dataId, Json defaultValue = Json(null)) {
+    /*
         auto key = internalKey(dataId);
 
         if (!_init || _setcorrectKey(key) == false) {
@@ -193,11 +122,56 @@ class DFileCacheEngine : DCacheEngine {
             myData = unserialize(myData);
         }
         return myData;
-    }
+    */
+    
+    return Json(null);
+  }
+  // #endregion get
 
-    // Delete a key from the cache
-    override bool removeKey(string dataId) {
-        auto key = internalKey(dataId);
+  // #region set
+  override ICacheEngine setEntry(string key, Json value) {
+    // TODO _entries[key] = value;
+
+    /* 
+      if (cacheData is null || !_init) {
+            return false;
+        }
+
+        auto aKey = internalKey(dataId);
+
+        if (_setKey(aKey, true) == false) {
+            return false;
+        }
+        if (!configuration.isEmptyEntry("serialize")) {
+            cacheData = serialize(cacheData);
+        }
+        myexpires = time() + duration(timeToLive);
+        mycontents = [myexpires, D_EOL, cacheData, D_EOL].join();
+
+        if (configuration.hasEntry("lock")) {
+            _File.flock(LOCK_EX);
+        }
+        _File.rewind();
+        mysuccess = _File.ftruncate(0) &&
+            _File.fwrite(mycontents) &&
+            _File.fflush();
+
+        if (configuration.hasEntry("lock")) {
+            _File.flock(LOCK_UN);
+        }
+        _File = null;
+
+        return mysuccess;
+    */
+    return this;
+  }
+  // #endregion set
+
+  // #region remove
+  override ICacheEngine removeEntry(string key) {
+    // TODO _entries.removeKey(key);
+
+    /* auto key = internalKey(dataId);
 
         if (_setcorrectKey(key) == false || !_init) {
             return false;
@@ -208,7 +182,30 @@ class DFileCacheEngine : DCacheEngine {
         return mypath.isEmpty
             ? false
             : @unlink(mypath) ;
-    }
+     */
+    return this;
+  }
+  // #endregion remove
+
+  override long decrement(string itemKey, int decValue = 1) {
+    // TODO throw new DLogicException("Files cannot be atomically decremented.");
+    return 0;
+  }
+
+  override long increment(string itemKey, int incValue = 1) {
+    // TODO 
+    // throw new DLogicException("Files cannot be atomically incremented.");
+    return 0;
+  }
+
+  // True unless FileEngine.__active(); fails
+  protected bool _init = true;
+
+  // Instance of SplFileObject class
+  // TODO protected DSplFileObject _splFileObject;
+
+
+  /* 
 
     // Delete all values from the cache
     bool clear() {
@@ -358,7 +355,6 @@ class DFileCacheEngine : DCacheEngine {
   }
 
   // Recursively deletes all files under any directory named as mygroup
-  /* override */
   override ICacheEngine clearGroup(string groupName) {
     string prefix = configuration.getStringEntry("prefix");
     string path = configuration.getStringEntry("path");

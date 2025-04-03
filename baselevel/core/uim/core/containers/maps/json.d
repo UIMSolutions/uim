@@ -315,8 +315,8 @@ unittest {
   assert(map.getLong("c") == 1);
 }
 
-double getDouble(Json[string] values, string key, double defaultValue = 0.0) {
-  auto json = getJson(values, key);
+double getDouble(Json[string] items, string key, double defaultValue = 0.0) {
+  auto json = items.get(key, Json(null));
   return !uim.core.datatypes.json.isNull(json)
     ? json.get!double : defaultValue;
 }
@@ -327,8 +327,8 @@ unittest {
   assert(map.getDouble("d") == 1.1);
 }
 
-string getString(Json[string] values, string key, string defaultValue = null) {
-  auto json = getJson(values, key);
+string getString(Json[string] items, string key, string defaultValue = null) {
+  auto json = items.get(key, Json(null));
   return !uim.core.datatypes.json.isNull(json)
     ? json.get!string : defaultValue;
 }
@@ -340,13 +340,16 @@ unittest {
 }
 
 // #region getStrings
-STRINGAA getStringArray(Json[string] values, string[] keys...) {
-  return getStringArray(values, keys.dup);
+STRINGAA getStringArray(Json[string] items, string[] keys...) {
+  if (keys.length == 0) {
+    return items.values.map!(value => value.getString);
+  }
+  return getStringArray(items, keys.dup);
 }
 
-STRINGAA getStringArray(Json[string] values, string[] keys) {
+STRINGAA getStringArray(Json[string] items, string[] keys) {
   STRINGAA results;
-  keys.each!(key => results[key] = values.getString(key));
+  keys.each!(key => results[key] = items.getString(key));
   return results;
 }
 

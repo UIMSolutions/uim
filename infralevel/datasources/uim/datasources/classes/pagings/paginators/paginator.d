@@ -27,7 +27,7 @@ class DPaginator : IDatasourcePaginator {
     // Hook method
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
-        configuration.data(initData);
+        configuration.setEntries(initData);
 
         /**
         * Default pagination settings.

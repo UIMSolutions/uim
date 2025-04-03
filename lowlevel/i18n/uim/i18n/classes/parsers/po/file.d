@@ -14,20 +14,20 @@ class DPoFile : UIMObject {
         super();
     }
 
-    protected Json[] messages;
+    protected Json[] _messages;
 
-    protected string projectIdVersion;
-    protected string potCreationDate;
-    protected string poRevisionDate;
-    protected string lastTranslator;
-    protected string languageTeam;
-    protected string language;
-    protected string pluralForms;
-    protected string mimeVersion;
-    protected string contentType;
-    protected string contentTransferEncoding;
-    protected string xSourceLanguage;
-    protected string xGenerator;
+    protected string _projectIdVersion;
+    protected string _potCreationDate;
+    protected string _poRevisionDate;
+    protected string _lastTranslator;
+    protected string _languageTeam;
+    protected string _language;
+    protected string _pluralForms;
+    protected string _mimeVersion;
+    protected string _contentType;
+    protected string _contentTransferEncoding;
+    protected string _xSourceLanguage;
+    protected string _xGenerator;
 
     void load(string fileName) {
         if (!fileName.exists) {
@@ -39,7 +39,7 @@ class DPoFile : UIMObject {
             .split("\n")
             .map!(line => cast(string) line).array;
 
-        messages = splitInMessageLines(content)
+        _messages = splitInMessageLines(content)
             .map!(region => regionToMessage(region))
             .array;
     }
@@ -105,40 +105,40 @@ class DPoFile : UIMObject {
             .map!(line => deleteQuotes(line)).array) {
                 line = line.replace("\\n", "");
             if (line.startsWith("Project-Id-Version:")) {
-                projectIdVersion = deleteQuotes(line.subString("Project-Id-Version:".length).strip);
+                _projectIdVersion = deleteQuotes(line.subString("Project-Id-Version:".length).strip);
             }
             if (line.startsWith("POT-Creation-Date:")) {
-                potCreationDate = deleteQuotes(line.subString("POT-Creation-Date:".length).strip);
+                _potCreationDate = deleteQuotes(line.subString("POT-Creation-Date:".length).strip);
             }
             if (line.startsWith("PO-Revision-Date:")) {
-                poRevisionDate = deleteQuotes(line.subString("PO-Revision-Date:".length).strip);
+                _poRevisionDate = deleteQuotes(line.subString("PO-Revision-Date:".length).strip);
             }
             if (line.startsWith("Last-Translator:")) {
-                lastTranslator = deleteQuotes(line.subString("Last-Translator:".length).strip);
+                _lastTranslator = deleteQuotes(line.subString("Last-Translator:".length).strip);
             }
             if (line.startsWith("Language-Team:")) {
-                languageTeam = deleteQuotes(line.subString("Language-Team:".length).strip);
+                _languageTeam = deleteQuotes(line.subString("Language-Team:".length).strip);
             }
             if (line.startsWith("Language:")) {
-                language = deleteQuotes(line.subString("Language:".length).strip);
+                _language = deleteQuotes(line.subString("Language:".length).strip);
             }
             if (line.startsWith("Plural-Forms:")) {
-                pluralForms = deleteQuotes(line.subString("Plural-Forms:".length).strip);
+                _pluralForms = deleteQuotes(line.subString("Plural-Forms:".length).strip);
             }
             if (line.startsWith("MIME-Version:")) {
-                mimeVersion = deleteQuotes(line.subString("MIME-Version:".length).strip);
+                _mimeVersion = deleteQuotes(line.subString("MIME-Version:".length).strip);
             }
             if (line.startsWith("Content-Type:")) {
-                contentType = deleteQuotes(line.subString("Content-Type:".length).strip);
+                _contentType = deleteQuotes(line.subString("Content-Type:".length).strip);
             }
             if (line.startsWith("Content-Transfer-Encoding:")) {
-                contentTransferEncoding = deleteQuotes(line.subString("Content-Transfer-Encoding:".length).strip);
+                _contentTransferEncoding = deleteQuotes(line.subString("Content-Transfer-Encoding:".length).strip);
             }
             if (line.startsWith("X-Source-Language:")) {
-                xSourceLanguage = deleteQuotes(line.subString("X-Source-Language:".length).strip);
+                _xSourceLanguage = deleteQuotes(line.subString("X-Source-Language:".length).strip);
             }
             if (line.startsWith("X-Generator:")) {
-                xGenerator = deleteQuotes(line.subString("X-Generator:".length).strip);
+                _xGenerator = deleteQuotes(line.subString("X-Generator:".length).strip);
             }
         }
     }
@@ -156,20 +156,22 @@ class DPoFile : UIMObject {
     }
 
     override Json toJson(string[] showKeys = null, string[] hideKeys = null) {
-        Json json = super.toJson
-            .set("projectIdVersion", projectIdVersion)
-            .set("potCreationDate", potCreationDate)
-            .set("poRevisionDate", poRevisionDate)
-            .set("lastTranslator", lastTranslator)
-            .set("languageTeam", languageTeam)
-            .set("language", language)
-            .set("pluralForms", pluralForms)
-            .set("mimeVersion", mimeVersion)
-            .set("contentType", contentType)
-            .set("contentTransferEncoding", contentTransferEncoding)
-            .set("xSourceLanguage", xSourceLanguage)
-            .set("xGenerator", xGenerator)
-            .set("messages", messages);
+        Json json = super.toJson(showKeys, hideKeys);
+        
+        json
+            .set("projectIdVersion", _projectIdVersion)
+            .set("potCreationDate", _potCreationDate)
+            .set("poRevisionDate", _poRevisionDate)
+            .set("lastTranslator", _lastTranslator)
+            .set("languageTeam", _languageTeam)
+            .set("language", _language)
+            .set("pluralForms", _pluralForms)
+            .set("mimeVersion", _mimeVersion)
+            .set("contentType", _contentType)
+            .set("contentTransferEncoding", _contentTransferEncoding)
+            .set("xSourceLanguage", _xSourceLanguage)
+            .set("xGenerator", _xGenerator)
+            .set("messages", _messages);
 
         if (showKeys) json = json.filterKeys(showKeys);
         if (hideKeys) json = json.removeKeys(hideKeys);

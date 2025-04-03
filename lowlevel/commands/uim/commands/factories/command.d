@@ -32,7 +32,7 @@ auto CommandFactory() { return DCommandFactory.factory; }
 
   bool initialize(Json[string] initData = null) {
     configuration(MemoryConfiguration);
-    configuration.data(initData);
+    configuration.setEntries(initData);
 
     return true;
   }

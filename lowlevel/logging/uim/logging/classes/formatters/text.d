@@ -27,12 +27,12 @@ class DTextLogFormatter : DLogFormatter {
 
     override string format(LogLevels logLevel, string logMessage, Json[string] logData = null) {
         string result = logMessage;
-        result = configuration..getBooleanEntry("includeDate")
+        result = configuration.getBooleanEntry("includeDate")
             ? "%s %s: %s".format(
                 uim.core.datatypes.datetime.toString(nowDateTime, configuration.getStringEntry(
                     "dateFormat")), logLevel, logMessage) : "%s: %s".format(logLevel, logMessage);
 
-        return configuration..getBooleanEntry("includeTags")
+        return configuration.getBooleanEntry("includeTags")
             ? "<%s>%s</%s>".format(logLevel, result, logLevel) : result;
     }
 }

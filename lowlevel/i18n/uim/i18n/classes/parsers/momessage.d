@@ -18,7 +18,7 @@ class DMoMessage {
 
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
-        configuration.data(initData);
+        configuration.setEntries(initData);
         
         return true;
     }

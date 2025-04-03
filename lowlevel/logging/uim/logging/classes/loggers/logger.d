@@ -54,12 +54,12 @@ class DLogger : UIMObject, ILogger {
 
     // Get the levels this logger is interested in.
   string[] levels() {
-    return configuration.getStringArray("levels");
+    return configuration.getArrayEntry("levels").map!(x => x.toString).array;
   }
 
   // Get the scopes this logger is interested in.
   string[] scopes() {
-    return configuration.getStringArray("scopes");
+    return configuration.getArrayEntry("scopes").map!(x => x.toString).array;
   }
 
  // Replaces placeholders in message string with logContext values.

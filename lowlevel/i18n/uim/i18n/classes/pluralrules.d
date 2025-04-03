@@ -22,7 +22,7 @@ class DPluralRules {
 
         bool initialize(Json[string] initData = null) {
                 configuration(MemoryConfiguration);
-                configuration.data(initData);
+                configuration.setEntries(initData);
 
                 _rulesMap = [
                         "af": 1,

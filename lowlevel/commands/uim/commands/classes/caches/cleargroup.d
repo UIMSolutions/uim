@@ -61,13 +61,13 @@ class DCacheClearGroupCommand : DCommand {
     }
 
     auto configData = commandArguments.getArgument("config");
-    if (!configData.isNull && Cache.configuration.getEntry(configData).isNull) {
+    if (!configuration.isNull && Cache.configuration.getEntry(configData).isNull) {
       console.error("Cache config '%s' not found".format(configData));
 
       return false;
     }
     anGroupConfigs[anGroup]
-      .filter(config => configData.isNull || configData == config)
+      .filter(config => configuration.isNull || configData == config)
       .each!((config) {
         if (!Cache.clearGroup(anGroup, config)) {
           console.error(

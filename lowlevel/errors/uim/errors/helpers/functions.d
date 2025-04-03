@@ -22,7 +22,7 @@ version (test_uim_errors) {
  * Only runs if debug mode is enabled.
  */
 Json debugInfo(Json debugVariable, bool showHtml = false, bool showFrom = true) {
-    /* if (!configuration.hasKey("debug")) {
+    /* if (!configuration.hasEntry("debug")) {
         return debugVariable;
     } */
 
@@ -53,7 +53,7 @@ Json debugInfo(Json debugVariable, bool showHtml = false, bool showFrom = true) 
  * - `start` - The stack frame to start generating a trace from. Defaults to 1
  */
 void stackTrace(Json[string] options = new Json[string]) {
-    /* if (!configuration.hasKey("debug")) {
+    /* if (!configuration.hasEntry("debug")) {
         return;
     } */
 
@@ -71,7 +71,7 @@ void stackTrace(Json[string] options = new Json[string]) {
  * It will otherwise just continue code execution and ignore this function.
  */
 void dd(Json varForDebugInfo, bool showHtml = false) {
-   /*  if (!configuration.hasKey("debug")) {
+   /*  if (!configuration.hasEntry("debug")) {
         return;
     }
 

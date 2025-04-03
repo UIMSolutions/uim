@@ -145,7 +145,7 @@ class DErrorTrap : UIMObject {
 
   // Logging helper method.
   protected void logError(IError error) {
-    /*         if (!configuration.hasKey("log")) {
+    /*         if (!configuration.hasEntry("log")) {
             return;
         }
         logger().logError(error, Router.getRequest(), configuration.getEntry("trace")); */

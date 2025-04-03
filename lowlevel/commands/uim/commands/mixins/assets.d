@@ -65,7 +65,7 @@ mixin template TPluginAssets() {
             _io.hr();
 
             if (
-                configuration.hasKey("namespaced") && !isDir(configuration.getEntry("destDir")) &&
+                configuration.hasEntry("namespaced") && !isDir(configuration.getEntry("destDir")) &&
                 !_createDirectory(configuration.getEntry("destDir"))
                 ) {
                 continue;
@@ -107,7 +107,7 @@ mixin template TPluginAssets() {
      * configData - Plugin config.
      */
     protected bool _removeKey(Json[string] configData = null) {
-        /* if (configuration.hasKey("namespaced") && !isDir(configuration.getEntry("destDir"))) {
+        /* if (configuration.hasEntry("namespaced") && !isDir(configuration.getEntry("destDir"))) {
             _io.verbose(
                 configuration.getStringEntry(
                     "destDir") ~ configuration.getStringEntry("link") ~ " does not exist",

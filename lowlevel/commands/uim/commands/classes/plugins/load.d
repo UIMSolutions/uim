@@ -75,7 +75,7 @@ class DPluginLoadCommand : DCommand {
 
     /*
         configData = @include _configFile;
-        configData = !configData.isArray ? Json.empty;
+        configData = !configuration.isArray ? Json.empty;
     }
  */
     /* configuration.setEntry(pluginName, options);

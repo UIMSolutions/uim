@@ -98,7 +98,7 @@ class DExceptionTrap {
   /* IExceptionRenderer renderer(Throwable exceptionToRender, IServerRequest serverRequest = null) {
     auto myRequest = serverRequest.isNull ? Router.getRequest() : serverRequest;
 
-    string classname = _configData.hasKey("exceptionRenderer") ? _configuration.getEntry(
+    string classname = _configuration.hasEntry("exceptionRenderer") ? _configuration.getEntry(
       "exceptionRenderer") : chooseRenderer();
     if (isString(classname)) {
       /* if (!isSubclass_of(classname, IExceptionRenderer.classname)) {
@@ -121,7 +121,7 @@ return null;
 
   // Get an instance of the logger.
   IErrorLogger logger() {
-/*     classname = _configData.hasKey("logger", _defaultConfigData["logger"]);
+/*     classname = _configuration.hasEntry("logger", _defaultConfigData["logger"]);
 
     return new classname(_config); */
     return null;
@@ -269,7 +269,7 @@ return null;
   /* void logException(Throwable exceptionToLog, IServerRequest serverRequest = null) {
     shouldLog = configuration.getEntry("log");
     if (shouldLog) {
-      foreach (classname; _configData.hasKey("skipLog")) {
+      foreach (classname; _configuration.hasEntry("skipLog")) {
         if (cast(classname) exceptionToLog) {
           shouldLog = false;
           break;

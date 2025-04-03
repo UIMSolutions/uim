@@ -37,7 +37,7 @@ class DJsonLogFormatter : DLogFormatter {
       // .set("level", to!string(logLevel))
       .set("message", logMessage);
 
-    return log.toString ~ configuration.hasKey("appendNewline") ? "\n" : "";
+    return log.toString ~ configuration.hasEntry("appendNewline") ? "\n" : "";
   }
 }
 mixin(LogFormatterCalls!("Json"));

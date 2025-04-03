@@ -29,10 +29,10 @@ class DPluginAssetsRemoveCommand : DCommand {
     plugins.byKeyValue
       .each!((pluginConfigData) {
         _io.writeln();
-        _io.writeln("For plugin: " ~ pluginConfigData.key);
+        _io.writeln("For plugin: " ~ pluginconfiguration.key);
         _io.hr();
 
-        _removeKey(pluginConfigData.value);
+        _removeKey(pluginconfiguration.value);
       });
     _io.writeln();
     _io.writeln("Done");

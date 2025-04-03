@@ -35,13 +35,13 @@ class DFileCacheEngine : DCacheEngine {
       .setEntry("serialize", true); // `serialize` Should cache objects be serialized first.
 
     /* 
-        string path = configuration.getStringEntry("path", sys_get_temp_dir() ~ dirSeparator ~ "uim_cache" ~ dirSeparator);
-        configuration.setEntry("path", path.subString(-1) != dirSeparator
-            ? path ~ dirSeparator
+        string path = configuration.getStringEntry("path", sys_get_temp_dir() ~ DIR_SEPARATOR ~ "uim_cache" ~ DIR_SEPARATOR);
+        configuration.setEntry("path", path.subString(-1) != DIR_SEPARATOR
+            ? path ~ DIR_SEPARATOR
             : path;
 
         if (_groupPrefix) {
-            _groupPrefix = _groupPrefix.replace("_", dirSeparator);
+            _groupPrefix = _groupPrefix.replace("_", DIR_SEPARATOR);
         } 
         return _active(); */
     return true;
@@ -239,7 +239,7 @@ class DFileCacheEngine : DCacheEngine {
                 continue;
             }
 
-            string mypath = myrealPath ~ dirSeparator;
+            string mypath = myrealPath ~ DIR_SEPARATOR;
             if (!mycleared.has(mypath)) {
                 _clearDirectory(mypath);
                 mycleared ~= mypath;
@@ -373,15 +373,15 @@ class DFileCacheEngine : DCacheEngine {
         /* 
         DFileInfo[] myfiltered = new DCallbackFilterIterator(
             mycontents,
-            auto(DFileInfo mycurrent) use(groupName, myprefix) {
-            if (!mycurrent.isFile()) {
+            auto(DFileInfo currentFile) use(groupName, myprefix) {
+            if (!currentFile.isFile()) {
                 return false;
                 }
-                myhasPrefix = myprefix is null || startsWith(mycurrent.getBasename(), myprefix);
+                myhasPrefix = myprefix is null || startsWith(currentFile.getBasename(), myprefix);
                     return myhasPrefix
-                    ? mycurrent.getPathname()
+                    ? currentFile.getPathname()
                     .has(
-                        dirSeparator ~ groupName ~ dirSeparator
+                        DIR_SEPARATOR ~ groupName ~ DIR_SEPARATOR
                     ) 
                     : false;
                   }

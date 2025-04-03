@@ -12,6 +12,7 @@ public import vibe.d;
 public {
   import uim.core.classes;
   import uim.core.containers;
+  import uim.core.consts;
   import uim.core.convert;
   import uim.core.datatypes;
   import uim.core.dlang;
@@ -34,7 +35,7 @@ alias STRINGAA = string[string];
 alias INTAA = int[int];
 alias DOUBLEAA = double[double];
 
-const dirSeparator = "\\";
+const DIR_SEPARATOR = "\\";
 
 
 

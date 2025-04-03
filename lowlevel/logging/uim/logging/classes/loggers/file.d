@@ -57,7 +57,7 @@ class DFileLogger : DLogger {
       /* .setEntry("formatter", createMap!(string, Json).set("classname", StandardLogFormatter
           .classname)) *//* ; */
 
-    /* auto _path = configuration.getStringEntry("path", sys_get_temp_dir() ~ dirSeparator);
+    /* auto _path = configuration.getStringEntry("path", sys_get_temp_dir() ~ DIR_SEPARATOR);
         if (!isDir(_path)) {
             mkdir(_path, configuration.getEntry("dirMask"), true);
         }

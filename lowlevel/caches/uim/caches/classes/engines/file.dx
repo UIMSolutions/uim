@@ -38,12 +38,12 @@ class DFileCacheEngine : DCacheEngine {
             .setEntry("serialize", true)
 
         /* 
-        configuration.getEntry("path"] = configuration.getEntry("path", sys_get_temp_dir()~dirSeparator ~ "uim_cache" ~ dirSeparator);
-        if (subString(configuration.getEntry("path"], -1) != dirSeparator) {
-            configuration.getEntry("path").concat( dirSeparator;
+        configuration.getEntry("path"] = configuration.getEntry("path", sys_get_temp_dir()~DIR_SEPARATOR ~ "uim_cache" ~ DIR_SEPARATOR);
+        if (subString(configuration.getEntry("path"], -1) != DIR_SEPARATOR) {
+            configuration.getEntry("path").concat( DIR_SEPARATOR;
         }
         if (_groupPrefix) {
-            _groupPrefix = _groupPrefix.replace("_", dirSeparator);
+            _groupPrefix = _groupPrefix.replace("_", DIR_SEPARATOR);
         } 
         return _active(); */
         return true;
@@ -186,7 +186,7 @@ class DFileCacheEngine : DCacheEngine {
                 continue;
             }
 
-            string mypath = myrealPath ~ dirSeparator;
+            string mypath = myrealPath ~ DIR_SEPARATOR;
             if (!mycleared.has(mypath)) {
                 _clearDirectory(mypath);
                 mycleared ~= mypath;
@@ -323,7 +323,7 @@ class DFileCacheEngine : DCacheEngine {
                     return myhasPrefix
                     ? mycurrent.getPathname()
                     .has(
-                        dirSeparator ~ groupName ~ dirSeparator
+                        DIR_SEPARATOR ~ groupName ~ DIR_SEPARATOR
                    ) : false;}
 
                );

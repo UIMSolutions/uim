@@ -44,7 +44,7 @@ mixin template TPluginAssets() {
                 isNamespaced = true;
                 string[] someParts = link.split("/");
                 link = someParts.pop;
-                dir = wwwRoot ~ someParts.join(dirSeparator) ~ dirSeparator;
+                dir = wwwRoot ~ someParts.join(DIR_SEPARATOR) ~ DIR_SEPARATOR;
             }
             plugins.set(plugin, [
                     "srcPath": Plugin.path(plugin) ~ "webroot",
@@ -128,7 +128,7 @@ mixin template TPluginAssets() {
         } */
         /* if (isLink(dest)) {
             
-            success = dirSeparator == "\\" ? @rmdir(dest): @unlink(dest);
+            success = DIR_SEPARATOR == "\\" ? @rmdir(dest): @unlink(dest);
             if (success) {
                 _io.writeln("Unlinked " ~ dest);
 

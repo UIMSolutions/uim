@@ -555,7 +555,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
 
         /* string mytitle = _blocks.get("title");
         if (mytitle.isEmpty) {
-            mytitle = _templatePath.replace(dirSeparator, "/").humanize;
+            mytitle = _templatePath.replace(DIR_SEPARATOR, "/").humanize;
             _blocks.set("title", mytitle);
         }
        _currentType = TYPE_LAYOUT; */
@@ -687,7 +687,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
                 if (!parentName) {
                     /* [_plugin, views] = _pluginSplit(views);
                     paths =  paths(_plugin);
-                    mydefaultPath = paths[0] ~ TYPE_ELEMENT ~ dirSeparator;
+                    mydefaultPath = paths[0] ~ TYPE_ELEMENT ~ DIR_SEPARATOR;
                      */ /* throw new DLogicException(
                         "You cannot extend an element which does not exist (%s).".format(mydefaultPath ~ views ~ _ext
                    )); * /
@@ -831,10 +831,10 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
         string mysubDir = "";
 
         if (_templatePath) {
-            templatePath = _templatePath ~ dirSeparator;
+            templatePath = _templatePath ~ DIR_SEPARATOR;
         }
         if (_subDir != "") {
-            mysubDir = _subDir ~ dirSeparator;
+            mysubDir = _subDir ~ DIR_SEPARATOR;
             // Check if templatePath already terminates with subDir
             if (templatePath != mysubDir && templatePath.endsWith(mysubDir)) {
                 mysubDir = "";
@@ -846,13 +846,13 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
             throw new UIMException("Template name not provided");
         }
         [_plugin, views] = _pluginSplit(views);
-        views = views.replace("/", dirSeparator); */
+        views = views.replace("/", DIR_SEPARATOR); */
 
-        /* if (!views.has(dirSeparator) && views != "" && !views.startsWith(".")) {
+        /* if (!views.has(DIR_SEPARATOR) && views != "" && !views.startsWith(".")) {
             views = templatePath ~ mysubDir ~ _inflectTemplateFileName(views);
-        } else if (views.has(dirSeparator)) {
-            if (views[0] == dirSeparator || views[1] == ": ") {
-                views = views.strip(dirSeparator);
+        } else if (views.has(DIR_SEPARATOR)) {
+            if (views[0] == DIR_SEPARATOR || views[1] == ": ") {
+                views = views.strip(DIR_SEPARATOR);
             } else if (!_plugin || _templatePath != _name) {
                 views = templatePath ~ mysubDir ~ views;
             } else {
@@ -941,10 +941,10 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
     /* protected DGenerator getLayoutPaths(string pluginName) {
         string mysubDir = "";
         if (_layoutPath) {
-            mysubDir = _layoutPath ~ dirSeparator;
+            mysubDir = _layoutPath ~ DIR_SEPARATOR;
         }
 
-        auto mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ dirSeparator ~ mysubDir);
+        auto mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ DIR_SEPARATOR ~ mysubDir);
         foreach (path;  paths(pluginName)) {
             foreach (mylayoutPath; mylayoutPaths) {
                 /* yield path ~ mylayoutPath; * /
@@ -970,7 +970,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
         auto myelementPaths = _getSubPaths(TYPE_ELEMENT);
         foreach (path;  paths(pluginName)) {
             foreach (mysubdir; myelementPaths) {
-                // yield path ~ mysubdir ~ dirSeparator;
+                // yield path ~ mysubdir ~ DIR_SEPARATOR;
             }
         }
     } */
@@ -989,7 +989,7 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
             string[] myprefixPath =_request.getParam("prefix"). split("/");
             string path = "";
             foreach (myprefixPart; myprefixPath) {
-                path ~= myprefixPart.camelize ~ dirSeparator;
+                path ~= myprefixPart.camelize ~ DIR_SEPARATOR;
                 paths.unshift(path ~ basePath);
             }
         }
@@ -1014,9 +1014,9 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
             foreach (templatePath; templatePaths) {
                 _pluginPaths ~= templatePath
                     ~ PLUGIN_TEMPLATE_FOLDER
-                    ~ dirSeparator
+                    ~ DIR_SEPARATOR
                     ~ pluginName
-                    ~ dirSeparator;
+                    ~ DIR_SEPARATOR;
             }
             _pluginPaths ~= Plugin.templatePath(pluginName);
         } */
@@ -1026,9 +1026,9 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
             if (pluginName) {
                 mythemePaths ~= mythemePath
                     ~ PLUGIN_TEMPLATE_FOLDER
-                    ~ dirSeparator
+                    ~ DIR_SEPARATOR
                     ~ pluginName
-                    ~ dirSeparator;
+                    ~ DIR_SEPARATOR;
             }
             mythemePaths ~= mythemePath;
         }

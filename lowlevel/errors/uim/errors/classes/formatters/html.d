@@ -65,7 +65,7 @@ class DHtmlErrorFormatter : DErrorFormatter {
      */
   protected string dumpHeader() {
     /* ob_start();
-        include __DIR__~ dirSeparator ~ "dumpHeader.html";
+        include __DIR__~ DIR_SEPARATOR ~ "dumpHeader.html";
 
         return to!string(ob_get_clean()); */
     return null;

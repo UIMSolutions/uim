@@ -58,14 +58,14 @@ class DServerCommand : DCommand {
             _iniPath = arguments.getString("ini_path");
         }
         // For Windows
-        if (_documentRoot.subString(-1, 1) == dirSeparator) {
+        if (_documentRoot.subString(-1, 1) == DIR_SEPARATOR) {
             _documentRoot = _documentRoot.subString(0, _documentRoot.length - 1);
         }
         /*         if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _documentRoot, m)) {
            _documentRoot = m[1] ~ "\\" ~ m[2];
         }
  * /
-        _iniPath = stripRight(_iniPath, dirSeparator);
+        _iniPath = stripRight(_iniPath, DIR_SEPARATOR);
         /* if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _iniPath, m)) {
            _iniPath = m[1] ~ "\\" ~ m[2];
         }

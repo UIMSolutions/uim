@@ -151,15 +151,15 @@ class DMessagesFileLoader : UIMObject {
         string[] searchPaths;
         /* if (_plugin && Plugin.isLoaded(_plugin)) {
             basePath = App.path("locales", _plugin)[0];
-            searchPaths = folders.map!(folder => basePath ~ folder ~ dirSeparator).array;
+            searchPaths = folders.map!(folder => basePath ~ folder ~ DIR_SEPARATOR).array;
         } */
 
         /* auto localePaths = App.path("locales");
         if (localePaths.isEmpty && defined("APP")) {
-            localePaths ~= ROOT ~ "resources" ~ dirSeparator ~ "locales" ~ dirSeparator;
+            localePaths ~= ROOT ~ "resources" ~ DIR_SEPARATOR ~ "locales" ~ DIR_SEPARATOR;
         } */
         /* foreach (localPath; localePaths) {
-            folders.each!(folder => searchPaths ~= localPath ~ folder ~ dirSeparator);
+            folders.each!(folder => searchPaths ~= localPath ~ folder ~ DIR_SEPARATOR);
         } * /
         return searchPaths;
     } */

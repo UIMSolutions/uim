@@ -42,13 +42,13 @@ class DI18nInitCommand : DCommand {
             plugin = arguments.getString("plugin").camelize;
             somePaths = [
                 Plugin.path(
-                    plugin) ~ "resources" ~ dirSeparator ~ "locales" ~ dirSeparator
+                    plugin) ~ "resources" ~ DIR_SEPARATOR ~ "locales" ~ DIR_SEPARATOR
             ];
         } */
         
-/*         string response = console.ask("What folder?", stripRight(somePaths[0], dirSeparator) ~ dirSeparator);
-        string sourceFolder = stripRight(response, dirSeparator) ~ dirSeparator;
-        string targetFolder = sourceFolder ~ myLanguage ~ dirSeparator;
+/*         string response = console.ask("What folder?", stripRight(somePaths[0], DIR_SEPARATOR) ~ DIR_SEPARATOR);
+        string sourceFolder = stripRight(response, DIR_SEPARATOR) ~ DIR_SEPARATOR;
+        string targetFolder = sourceFolder ~ myLanguage ~ DIR_SEPARATOR;
  *//*         if (!isDir(targetFolder)) {
             mkdir(targetFolder, 0770, true);
         } */

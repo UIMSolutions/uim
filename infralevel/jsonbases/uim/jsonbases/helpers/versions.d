@@ -124,14 +124,14 @@ Json lastVersion(Json[] jsons) {
 
 Json lastVersion(Json[size_t] jsons) {
   // Preconditions
-  if (jsons.isEmpty) { return Json(null); }
+  if (jsons.length == 0) { return Json(null); }
 
   // Body
   Json result = Json(null);
 
   jsons.values
     .filter!(j => "versionNumber" in j) 
-    .each!(j => result.isEmpty ? j : result); 
+    .each!(j => result.length == 0 ? j : result); 
 
   if (result.isEmpty) { return Json(null); }
 
@@ -165,7 +165,7 @@ Json oneVersion(Json[] jsons) {
 
 Json oneVersion(Json[size_t] jsons) {
   // Preconditions
-  if (jsons.isEmpty) { return Json(null); }
+  if (jsons.length == 0) { return Json(null); }
 
   // Body
   Json result = Json(null);

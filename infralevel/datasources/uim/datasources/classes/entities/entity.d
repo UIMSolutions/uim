@@ -25,7 +25,7 @@ class DDatasourceEntity : UIMObject, IDatasourceEntity {
     }
     IDatasourceEntity addHiddenFilde(string field) {
         if (_hiddenFields is null) {
-            _hiddenFields = new string[];
+            _hiddenFields = [];
         }
         _hiddenFields ~= field;
         return this;

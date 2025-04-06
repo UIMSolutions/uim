@@ -173,7 +173,7 @@ class DPoFile : UIMObject {
             .set("xGenerator", _xGenerator)
             .set("messages", _messages);
 
-        if (showKeys) json = json.selectKeys(showKeys);
+        if (showKeys) json = json.onlyKeys(showKeys);
         if (hideKeys) json = json.removeKeys(hideKeys);
         return json;
     }

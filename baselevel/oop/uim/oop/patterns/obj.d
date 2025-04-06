@@ -34,7 +34,7 @@ class UIMObject : IObject {
 
     auto config = MemoryConfiguration;
     configuration(config);
-    configuration.entries(initData);
+    configuration.entries(initData is null ? new Json[string] : initData);
 
     return true;
   }
@@ -45,8 +45,16 @@ class UIMObject : IObject {
     return [__traits(allMembers, typeof(this))];
   }
 
+  bool hasAllMembers(string[] names) {
+    return memberNames.hasAllValues(names);
+  }
+
+  bool hasAnyMembers(string[] names) {
+    return memberNames.hasAnyValues(names);
+  }
+
   bool hasMember(string name) {
-    return memberNames.has(name);
+    return memberNames.hasValue(name);
   }
 
 /*   void opIndexAssign(T)(T value, string name) {

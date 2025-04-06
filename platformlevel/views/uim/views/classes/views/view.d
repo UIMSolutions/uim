@@ -848,9 +848,9 @@ class DView : UIMObject, IView { //  }: IEventDispatcher {
         [_plugin, views] = _pluginSplit(views);
         views = views.replace("/", DIR_SEPARATOR); */
 
-        /* if (!views.has(DIR_SEPARATOR) && views != "" && !views.startsWith(".")) {
+        /* if (!views.contains(DIR_SEPARATOR) && views != "" && !views.startsWith(".")) {
             views = templatePath ~ mysubDir ~ _inflectTemplateFileName(views);
-        } else if (views.has(DIR_SEPARATOR)) {
+        } else if (views.contains(DIR_SEPARATOR)) {
             if (views[0] == DIR_SEPARATOR || views[1] == ": ") {
                 views = views.strip(DIR_SEPARATOR);
             } else if (!_plugin || _templatePath != _name) {

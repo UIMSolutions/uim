@@ -12,7 +12,6 @@ public { // uim libraries
 }
 
 public { // uim.filesystem libraries
-  import uim.orm.associations;
   import uim.orm.classes;
   import uim.orm.collections;
   import uim.orm.enumerations;

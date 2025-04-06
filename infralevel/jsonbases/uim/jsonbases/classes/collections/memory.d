@@ -251,16 +251,16 @@ class DMemoryJsonCollection : DJsonCollection {
       auto itemsId = _items[id];
       if (allVersions) {
         result = itemsId.length;
-        _items.removeKey(id);
+        _items.remove(id);
       } else {
         auto lastVers = lastVersion(itemsId);
-        itemsId.removeKey(lastVers["versionNumber"].get!size_t);
+        itemsId.remove(lastVers["versionNumber"].get!size_t);
       }
     }
     return result;
   }
 
-/*   version (test_uim_jsonbase) {
+  /*   version (test_uim_jsonbase) {
     unittest {
 
       /* auto col = MemoryJsonCollection;
@@ -274,28 +274,25 @@ class DMemoryJsonCollection : DJsonCollection {
 
     foreach (id, itemId; _items) {
       if (allVersions) {
-          itemId.byKeyValue
-            .filter!(versItem => checkVersion(versItem.value, select))
-            .each!((versItem) {
-              counter++;
-              _items[id].removeKey(versItem.key);
-            });
+        itemId.byKeyValue
+          .filter!(versItem => checkVersion(versItem.value, select))
+          .each!((versItem) { counter++; _items[id].remove(versItem.key); });
       } else {
         if (auto item = lastVersion(itemId)) {
           if (checkVersion(item, select)) {
             counter++;
-            _items[id].removeKey(item["versionNumber"].get!size_t);
+            _items[id].remove(item["versionNumber"].get!size_t);
           }
         }
       }
       if (_items[id].empty)
-        _items.removeKey(id);
+        _items.remove(id);
     }
 
     return counter;
   }
 
-/*   version (test_uim_jsonbase) {
+  /*   version (test_uim_jsonbase) {
     unittest {
       // TODO 
       /* auto col = MemoryJsonCollection;
@@ -308,48 +305,48 @@ class DMemoryJsonCollection : DJsonCollection {
     size_t counter;
 
     foreach (id, itemId; _items) {
-      if (allVersions) {
+      if (allVersions) { // remove all versions
         foreach (vNumber, item; itemId) {
           if (checkVersion(item, select)) {
             counter++;
-            _items[id].removeKey(vNumber);
+            _items[id].remove(vNumber);
           }
         }
       } else {
         if (auto item = lastVersion(itemId)) {
           if (checkVersion(item, select)) {
             counter++;
-            _items[id].removeKey(item["versionNumber"].get!size_t);
+            _items[id].remove(item["versionNumber"].get!size_t);
           }
         }
       }
+
       if (_items[id].empty)
-        _items.removeKey(id);
+        _items.remove(id);
     }
 
     return counter;
   }
 
-/*   version (test_uim_jsonbase) {
-    unittest {
+  unittest {
 
-      auto col = MemoryJsonCollection;
-      assert(test_removeMany_jselect(col));
-      assert(test_removeMany_jselect_allVersions(col));
-    }
-  } */
+    auto col = MemoryJsonCollection;
+    /* assert(test_removeMany_jselect(col));
+      assert(test_removeMany_jselect_allVersions(col)); */
+  }
 
+  // #region removeOne
   /// Remove one item or one version from collection
   alias removeOne = DJsonCollection.removeOne;
   /// Remove based on id - allVersions:true - remove all, remove lastVersion 
   override bool removeOne(UUID id, bool allVersions = false) {
     if (id in _items) {
       if (allVersions) {
-        _items.removeKey(id);
+        _items.remove(id);
         return true;
       } else {
         foreach (vNumber; _items[id].byKey) {
-          _items[id].removeKey(vNumber);
+          _items[id].remove(vNumber);
           return true;
         }
       }
@@ -357,32 +354,28 @@ class DMemoryJsonCollection : DJsonCollection {
     return false;
   }
 
-/*   version (test_uim_jsonbase) {
-    unittest {
+  unittest {
 
-      auto col = MemoryJsonCollection;
-      assert(test_removeOne_id(col));
-      assert(test_removeOne_id_allVersions(col));
-    }
-  } */
+    auto col = MemoryJsonCollection;
+    assert(test_removeOne_id(col));
+    assert(test_removeOne_id_allVersions(col));
+  }
 
   override bool removeOne(UUID id, size_t versionNumber) {
     if (auto itemsId = _items.get(id, null)) {
       if (versionNumber in itemsId) {
-        _items[id].removeKey(versionNumber);
+        _items[id].remove(versionNumber);
         return true;
       }
     }
     return false;
   }
 
-/*   version (test_uim_jsonbase) {
-    unittest {
+  unittest {
 
-      auto col = MemoryJsonCollection;
-      assert(test_removeOne_id_versionNumber(col));
-    }
-  } */
+    auto col = MemoryJsonCollection;
+    assert(test_removeOne_id_versionNumber(col));
+  }
 
   override bool removeOne(string[string] select, bool allVersions = false) {
     if (auto allItems = findMany(allVersions)) {
@@ -396,14 +389,14 @@ class DMemoryJsonCollection : DJsonCollection {
           auto id = UUID(oneItem["id"].get!string);
           auto vNumber = oneItem["versionNUmber"].get!size_t;
           auto itemsId = _items[id];
-          itemsId.removeKey(vNumber);
+          itemsId.remove(vNumber);
         }
       }
     }
     return false;
   }
 
-/*   unittest {
+  /*   unittest {
     version (uim_jsonbase) {
       auto col = MemoryJsonCollection;
       assert(test_removeOne_select(col));
@@ -424,21 +417,20 @@ class DMemoryJsonCollection : DJsonCollection {
             auto id = UUID(oneItem["id"].get!string);
             auto vNumber = oneItem["versionNUmber"].get!size_t;
             auto itemsId = _items[id];
-            itemsId.removeKey(vNumber);
+            itemsId.remove(vNumber);
           }
         }
     }
     return false;
   }
 
- /*  version (test_uim_jsonbase) {
-    unittest {
+  unittest {
 
-      auto col = MemoryJsonCollection;
-      assert(test_removeOne_jselect(col));
-      assert(test_removeOne_jselect_allVersions(col));
-    }
-  } */
+    auto col = MemoryJsonCollection;
+    assert(test_removeOne_jselect(col));
+    assert(test_removeOne_jselect_allVersions(col));
+  } 
+  // #endregion removeOne
 }
 
 mixin(JsonCollectionCalls!("Memory"));

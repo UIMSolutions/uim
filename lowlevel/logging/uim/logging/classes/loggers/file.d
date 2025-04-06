@@ -100,7 +100,7 @@ class DFileLogger : DLogger {
       return _fileName;
     } else if (logLevel == "error" || logLevel == "warning") {
       return "error.log";
-    } else if (debugTypes.has(logLevel)) {
+    } else if (debugTypes.hasValue(logLevel)) {
       return "debug.log";
     }
     return logLevel ~ ".log";

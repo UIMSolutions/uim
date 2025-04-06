@@ -154,19 +154,6 @@ unittest {
 }
 // #endregion contains
 
-// #region remove
-pure string[] removeValues(string[] values, string[] removingValues...) {
-  return removeValues(values, removingValues.dup);
-}
-
-pure string[] removeValues(string[] values, string[] removingValues) {
-  string[] results = values;
-  removingValues
-    .each!(value => results = results.removeValue(value));
-
-  return results;
-}
-
 unittest {
   writeln("Testing removeValues()");
 
@@ -175,15 +162,6 @@ unittest {
 
   assert(removeValues(["a", "b", "c"], "a", "b") == ["c"]);
   assert(removeValues(["a", "b", "c", "b"], "a", "b") == ["c"]);
-}
-
-pure string[] removeValue(string[] values, string valueToRemove) {
-  auto updatedValues = values.dup;
-  return valueToRemove.length == 0
-    ? updatedValues
-    : updatedValues
-    .filter!(value => value != valueToRemove)
-    .array;
 }
 
 unittest {

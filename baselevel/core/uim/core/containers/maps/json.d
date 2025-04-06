@@ -459,7 +459,7 @@ Json[string] toJsonMap(double[string] values, string[] excludeKeys = null) {
 Json[string] toJsonMap(string[string] items, string[] excludeKeys = null) {
   Json[string] result;
   items.byKeyValue
-    .filter!(item => !excludeKeys.has(item.key))
+    .filter!(item => !excludeKeys.hasValue(item.key))
     .each!(item => result[item.key] = Json(item.value));
   return result;
 }
@@ -602,7 +602,7 @@ Json[string] copy(Json[string] values, string[] keys = null) {
 }
 
 
-Json[string] selectKeys(Json[string] values, string[] keys) {
+Json[string] onlyKeys(Json[string] values, string[] keys) {
   if (keys.length == 0) {
     return values.dup;
   }
@@ -615,7 +615,7 @@ Json[string] selectKeys(Json[string] values, string[] keys) {
   return filteredData;
 }
 
-/* Json[string] selectKeys(Json[string] values, string[] keys, string[] excludeKeys) {
+/* Json[string] onlyKeys(Json[string] values, string[] keys, string[] excludeKeys) {
   if (keys.length == 0) {
     return values.dup;
   }
@@ -628,7 +628,7 @@ Json[string] selectKeys(Json[string] values, string[] keys) {
   return filteredData;
 }
 
-Json[string] selectKeys(Json[string] values, string[] keys, string excludeKey) {
+Json[string] onlyKeys(Json[string] values, string[] keys, string excludeKey) {
   if (keys.length == 0) {
     return values.dup;
   }

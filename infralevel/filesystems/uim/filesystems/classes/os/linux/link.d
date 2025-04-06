@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.classes.os.linux.link;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 class DLinuxLink : DLink {
   mixin(LinkThis!("Linux"));
 }

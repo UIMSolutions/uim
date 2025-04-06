@@ -5,8 +5,9 @@
 *****************************************************************************************************************/
 module uim.filesystems.exceptions.exception;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
 
 // I18n exception.

@@ -5,13 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.classes.os.linux.file;
 
+mixin(Version!"test_uim_filesystems");
+
 import uim.filesystems;
-
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
-}
-
 @safe:
+
 class DLinuxFile : DFile {
   mixin(FileThis!("Linux"));
 

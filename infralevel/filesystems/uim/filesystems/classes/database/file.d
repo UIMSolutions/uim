@@ -5,13 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.classes.database.file;
 
+mixin(Version!"test_uim_filesystems");
+
 import uim.filesystems;
-
-unittest {
-  writeln("-----  ", __MODULE__ , "\t  -----");
-}
-
 @safe:
+
 class DDatabaseFile : DFile {
   mixin(FileThis!("Database"));
 

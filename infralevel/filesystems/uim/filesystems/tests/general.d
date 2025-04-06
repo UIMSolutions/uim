@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.tests.general;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 bool testFilesystem(IFilesystem aFilesystem) {
   if (aFilesystem is null) { return false; }
 

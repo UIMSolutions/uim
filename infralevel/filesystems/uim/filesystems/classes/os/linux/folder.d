@@ -5,13 +5,10 @@
 *****************************************************************************************************************/
 module uim.filesystems.classes.os.linux.folder;
 
+mixin(Version!"test_uim_filesystems");
+
 import uim.filesystems;
-
 @safe:
-
-unittest {
-  writeln("-----  ", __MODULE__, "\t  -----");
-}
 
 class DLinuxFolder : DFolder {
   mixin(FolderThis!("Linux"));

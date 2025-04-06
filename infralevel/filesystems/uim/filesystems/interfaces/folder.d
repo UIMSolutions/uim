@@ -5,8 +5,9 @@
 *****************************************************************************************************************/
 module uim.filesystems.interfaces.folder;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
 
 interface IFolder : IFilesystemEntry, IFolderManager, IFileManager, ILinkManager {

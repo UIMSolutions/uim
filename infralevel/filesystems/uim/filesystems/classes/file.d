@@ -5,13 +5,10 @@
 *****************************************************************************************************************/
 module uim.filesystems.classes.file;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
-unittest {
-  version (testUimFilesystems) {
-    debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
-  }
-}
+import uim.filesystems;
+@safe:
 
 @safe:
 class DFile : DFilesystemEntry, IFile {

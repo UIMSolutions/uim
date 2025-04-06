@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.datasources.interfaces.fixture;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
 
 // Defines the interface that testing fixtures use.

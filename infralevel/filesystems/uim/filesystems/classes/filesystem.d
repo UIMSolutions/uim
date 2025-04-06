@@ -5,15 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.classes.filesystem;
 
+mixin(Version!"test_uim_filesystems");
+
 import uim.filesystems;
-
-unittest {
-  version (testUimFilesystems) {
-    debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
-  }
-}
-
 @safe:
+
 class DFilesystem : UIMObject, IFilesystem, IFolderManager, IFileManager, ILinkManager {
   mixin(FilesystemThis!());
 

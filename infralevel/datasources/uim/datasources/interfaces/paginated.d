@@ -1,7 +1,8 @@
 module uim.datasources.interfaces.paginated;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
 
 // This interface describes the methods for pagination instance.

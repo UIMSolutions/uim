@@ -5,15 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.classes.entry;
 
+mixin(Version!"test_uim_filesystems");
+
 import uim.filesystems;
-
-unittest {
-  version (testUimFilesystems) {
-    debug writeln("\n", __MODULE__ ~ ": " ~ __PRETTY_FUNCTION__);
-  }
-}
-
 @safe:
+
 class DFilesystemEntry : UIMObject, IFilesystemEntry {
   this() {
     super("FilesystemEntry");

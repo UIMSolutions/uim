@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.datasources.interfaces.locator;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
     // Registries for repository objects should implement this interface.
 interface IDatasourceLocator : IObject {

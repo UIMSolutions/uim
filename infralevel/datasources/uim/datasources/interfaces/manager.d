@@ -5,6 +5,8 @@
 **********************************************************************************************************/
 module uim.datasources.interfaces.manager;
 
+mixin(Version!"test_uim_datasources");
+
 import uim.datasources;
 @safe:
 

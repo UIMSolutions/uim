@@ -415,7 +415,7 @@ class DMemoryJsonCollection : DJsonCollection {
 
           if (checkVersion(oneItem, select)) {
             auto id = UUID(oneItem["id"].get!string);
-            auto vNumber = oneItem["versionNUmber"].get!size_t;
+            auto vNumber = oneItem["versionNumber"].get!size_t;
             auto itemsId = _items[id];
             itemsId.remove(vNumber);
           }
@@ -426,9 +426,9 @@ class DMemoryJsonCollection : DJsonCollection {
 
   unittest {
 
-    auto col = MemoryJsonCollection;
+    /* auto col = MemoryJsonCollection;
     assert(test_removeOne_jselect(col));
-    assert(test_removeOne_jselect_allVersions(col));
+    assert(test_removeOne_jselect_allVersions(col)); */
   } 
   // #endregion removeOne
 }

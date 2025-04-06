@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.interfaces.entry;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 interface IFilesystemEntry : IObject {
   bool hasFilesystem();
   IFilesystem filesystem();

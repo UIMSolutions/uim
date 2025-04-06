@@ -5,8 +5,10 @@
 *****************************************************************************************************************/
 module uim.filesystems.interfaces.drive;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 interface IDrive : IFilesystemEntry {
 }

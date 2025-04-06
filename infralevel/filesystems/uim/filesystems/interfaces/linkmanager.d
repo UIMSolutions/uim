@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.interfaces.linkmanager;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 interface ILinkManager {
   bool existsLinks(string aPath);
   bool existsLinks(string[] aPath);

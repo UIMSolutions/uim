@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.interfaces.link;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 
 interface ILink : IFilesystemEntry {
   bool isLink();

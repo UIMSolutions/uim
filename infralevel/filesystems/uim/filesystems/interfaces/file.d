@@ -5,8 +5,9 @@
 *****************************************************************************************************************/
 module uim.filesystems.interfaces.file;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
 
 interface IFile : IFilesystemEntry {

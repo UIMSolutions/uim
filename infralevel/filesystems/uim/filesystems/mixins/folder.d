@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.mixins.folder;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 string folderThis(string name = null) {
   string fullName = name ~ "Folder";
   return objThis(fullName) ~

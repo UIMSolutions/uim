@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.mixins.link;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 string linkThis(string name = null) {
   string fullName = name ~ "Link";
   return objThis(fullName) ~

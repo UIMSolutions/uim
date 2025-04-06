@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.interfaces.foldermanager;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 interface IFolderManager {
   IFolder folder(string aPath);
   IFolder folder(string aPath, string aFolderName);

@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.interfaces.filemanager;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 interface IFileManager {
   bool hasFiles(string aPathOrName);
   bool hasFiles(string aPath, string aFileName);

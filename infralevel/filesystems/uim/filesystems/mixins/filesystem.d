@@ -5,8 +5,9 @@
 *****************************************************************************************************************/
 module uim.filesystems.mixins.filesystem;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
 
 string filesystemThis(string name = null) {

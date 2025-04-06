@@ -5,9 +5,11 @@
 *****************************************************************************************************************/
 module uim.filesystems.mixins.filemanager;
 
-import uim.filesystems;
+mixin(Version!"test_uim_filesystems");
 
+import uim.filesystems;
 @safe:
+
 mixin template TFileManager() {
   // #region files
   // #region READ

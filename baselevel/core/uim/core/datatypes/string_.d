@@ -1104,7 +1104,7 @@ string _caching(string inflectionType, string originalValue, string inflectedVal
 }
 
 bool isBoolean(string value) {
-  return ["yes", "no", "true", "false", "0", "1", "on", "off"].has(value.lower);
+  return ["yes", "no", "true", "false", "0", "1", "on", "off"].hasValue(value.lower);
 }
 // #endregion longestText
 

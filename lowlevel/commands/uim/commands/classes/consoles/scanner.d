@@ -99,7 +99,7 @@ class DCommandScanner {
             auto file = fileInfo.getFilename();
 
             string name = to!string(preg_replace(classnamePattern, "", file)).underscore;
-            if (commandsToHide.has(name)) {
+            if (commandsToHide.hasValue(name)) {
                 continue;
             }
             

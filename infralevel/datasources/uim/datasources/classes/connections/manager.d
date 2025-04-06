@@ -62,7 +62,7 @@ class DConnectionManager : UIMObject {
      * ```
      */
     static void connectionAlias(string connectionName, string aliasName) {
-        _connectionAliases.set(aliasName, connectionName);
+        _connectionAliases[aliasName] = connectionName;
     }
 
     /**

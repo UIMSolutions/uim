@@ -1256,15 +1256,18 @@ Json removeKey(Json json, string key) {
 // #endregion remove
 
 // #region filter
-Json filterKeys(Json json, string[] keys...) {
-  return filterKeys(json, keys.dup);
+Json selectKeys(Json json, string[] keys...) {
+  return selectKeys(json, keys.dup);
 }
 
-Json filterKeys(Json json, string[] keys) {
+Json selectKeys(Json json, string[] keys) {
   return json.removeKeys(json.byKeyValue
       .map!(kv => kv.key)
-      .filter!(key => !keys.has(key)).array);
+      .filter!(key => !(key keys.hasKey(key)).array);
 
   return json;
+}
+unittest {
+  // TODO
 }
 // #endregion filter

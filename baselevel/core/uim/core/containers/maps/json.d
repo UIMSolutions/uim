@@ -602,7 +602,7 @@ Json[string] copy(Json[string] values, string[] keys = null) {
 }
 
 
-Json[string] filterKeys(Json[string] values, string[] keys) {
+Json[string] selectKeys(Json[string] values, string[] keys) {
   if (keys.length == 0) {
     return values.dup;
   }
@@ -615,7 +615,7 @@ Json[string] filterKeys(Json[string] values, string[] keys) {
   return filteredData;
 }
 
-/* Json[string] filterKeys(Json[string] values, string[] keys, string[] excludeKeys) {
+/* Json[string] selectKeys(Json[string] values, string[] keys, string[] excludeKeys) {
   if (keys.length == 0) {
     return values.dup;
   }
@@ -628,7 +628,7 @@ Json[string] filterKeys(Json[string] values, string[] keys) {
   return filteredData;
 }
 
-Json[string] filterKeys(Json[string] values, string[] keys, string excludeKey) {
+Json[string] selectKeys(Json[string] values, string[] keys, string excludeKey) {
   if (keys.length == 0) {
     return values.dup;
   }

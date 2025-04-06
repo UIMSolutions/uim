@@ -23,16 +23,16 @@ class DSqlserverDriver : DDBDriver {
         }
 
         configuration
-            .merge("host", "localhost\\SQLEXPRESS")
-            .merge("username", "")
-            .merge("password", "")
-            .merge("database", "uim")
-            .merge("port", "") // PDO.SQLSRV_ENCODING_UTF8
-            .merge("encoding", 65_001)
-            .merge(
+            .mergeEntry("host", "localhost\\SQLEXPRESS")
+            .mergeEntry("username", "")
+            .mergeEntry("password", "")
+            .mergeEntry("database", "uim")
+            .mergeEntry("port", "") // PDO.SQLSRV_ENCODING_UTF8
+            .mergeEntry("encoding", 65_001)
+            .mergeEntries(
                 ["flags", "init", "settings", "attributes"], Json.emptyArray
             )
-            .merge(
+            .mergeEntries(
                 [
                 "app", "connectionPooling", "failoverPartner", "loginTimeout",
                 "multiSubnetFailover", "encrypt", "trustServerCertificate"

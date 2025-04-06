@@ -26,12 +26,12 @@ class DSqliteDriver : DDBDriver {
     // `mask` The mask used for created database
     configuration
       .mergeEntry("persistent", false.toJson)
-      .mergeEntry(["username", "password"], "")
+      .mergeEntries(["username", "password"], "")
       .mergeEntry("database", ": memory:")
       .mergeEntry("encoding", "utf8")
       .mergeEntry("mask", Json( /*0*/ 644))
-      .mergeEntry(["cache", "mode"], Json(null))
-      .mergeEntry(["flags", "init"], Json.emptyArray);
+      .mergeEntries(["cache", "mode"], Json(null))
+      .mergeEntries(["flags", "init"], Json.emptyArray);
 
     startQuote("\"");
     endQuote("\"");

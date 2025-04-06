@@ -5,9 +5,11 @@
 **********************************************************************************************************/
 module uim.datasources.exceptions.recordnotfound;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
+
 // Exception raised when a particular record was not found
 class DRecordNotFoundException : DDatasourcesException {
 	mixin(ExceptionThis!("RecordNotFound"));

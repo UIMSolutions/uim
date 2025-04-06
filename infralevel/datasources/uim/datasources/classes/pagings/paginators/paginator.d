@@ -5,8 +5,10 @@
 **********************************************************************************************************/
 module uim.datasources.classes.pagings.paginators.paginator;
 
-@safe:
+mixin(Version!"test_uim_datasources");
+
 import uim.datasources;
+@safe:
 
 // This class is used to handle automatic model data pagination.
 class DPaginator : IDatasourcePaginator {

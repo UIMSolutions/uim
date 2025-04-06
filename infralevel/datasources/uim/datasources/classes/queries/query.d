@@ -1,7 +1,8 @@
 module uim.datasources.classes.queries.query;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
 
 class DDatasourceQuery : UIMObject, IDatasourceQuery {

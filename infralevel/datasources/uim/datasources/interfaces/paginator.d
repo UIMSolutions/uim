@@ -1,8 +1,10 @@
 module uim.datasources.interfaces.paginator;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
+
     // This interface describes the methods for paginator instance.
 interface IDatasourcePaginator : IObject {
     //  Handles pagination of data.

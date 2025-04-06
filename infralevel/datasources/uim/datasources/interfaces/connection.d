@@ -5,9 +5,11 @@
 **********************************************************************************************************/
 module uim.datasources.interfaces.connection;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
+
     // This interface defines the methods you can depend on in a connection
 interface IDatasourceConnection : IObject { // : ILoggerAware
   // Gets the driver instance.

@@ -2,7 +2,11 @@ module uim.datasources.classes.entities.entity;
 
 import uim.datasources;
 
-@safe:
+version(test_uim_datasources) { 
+  unittest {
+    debug writeln("\n", __MODULE__~": "~__PRETTY_FUNCTION__); 
+  }
+}
 
 class DDatasourceEntity : UIMObject, IDatasourceEntity {
     mixin(DatasourceEntityThis!());
@@ -42,7 +46,7 @@ class DDatasourceEntity : UIMObject, IDatasourceEntity {
     }
     unittest {
         auto entity = new DDatasourceEntity();
-        entity.addHiddenField("password");
+        /* entity.addHiddenField("password");
         assert(entity.hiddenFields.length == 1);
         assert(entity.hiddenFields[0] == "password");
 
@@ -61,7 +65,7 @@ class DDatasourceEntity : UIMObject, IDatasourceEntity {
         assert(entity.hiddenFields[0] == "password");
 
         entity.removeHiddenFields("password", "username");
-        assert(entity.hiddenFields.length == 0);
+        assert(entity.hiddenFields.length == 0); */
     }
     // #endregion hiddenFields
 

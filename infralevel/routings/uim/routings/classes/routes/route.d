@@ -12,8 +12,17 @@ unittest {
 class DRoute : UIMObject, IRoute {
     mixin(RouteThis!());
 
+  override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) { return false; }
+
+    _options = (new Json[string]);
+
+    return true;
+  }
+
+
     // An array of additional parameters for the Route.
-    Json[string] options = Json[string].init;
+    Json[string] _options;
 
     // Default parameters for a Route
     Json[string] _defaultValues;

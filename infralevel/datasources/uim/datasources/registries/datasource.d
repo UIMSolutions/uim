@@ -1,5 +1,7 @@
 module uim.datasources.registries.datasource;
 
+mixin(Version!"test_uim_datasources");
+
 import uim.datasources;
 @safe:
 

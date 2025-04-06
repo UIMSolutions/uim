@@ -1,7 +1,8 @@
 module uim.datasources.tests.paging;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
 
 bool testDatasourcePaging(IDatasourcePaging paging) {

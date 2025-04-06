@@ -1,8 +1,10 @@
 module uim.datasources.interfaces.repository;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
+
     /**
  * Describes the methods that any class representing a data storage should
  * comply with.

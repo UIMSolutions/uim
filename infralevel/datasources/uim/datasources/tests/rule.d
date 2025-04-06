@@ -1,7 +1,8 @@
 module uim.datasources.tests.rule;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
 
 bool testDatasourceRule(IDatasourceRule rule) {

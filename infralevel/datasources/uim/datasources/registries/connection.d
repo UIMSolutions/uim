@@ -1,7 +1,8 @@
 module uim.datasources.registries.connection;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
 
 // A registry object for connection instances.

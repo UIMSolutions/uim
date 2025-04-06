@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.datasources.tests.query;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
 
 bool testDatasourceQuery(IDatasourceQuery query) {

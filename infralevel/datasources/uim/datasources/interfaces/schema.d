@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.datasources.interfaces.schema;
 
-import uim.datasources;
+mixin(Version!"test_uim_datasources");
 
+import uim.datasources;
 @safe:
 
 // An interface used by TableSchema objects.
